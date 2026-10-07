@@ -44,6 +44,7 @@
 | [cap-talk-2009-2012--capability-enforcement-language-os-or-hardware](../sections/cap-talk-2009-2012--capability-enforcement-language-os-or-hardware.md) | cap-talk 2012-December | Does an ocap language stop viruses or must enforcement be at the OS/hardware? Barbour: start high (VM/language/web), refuse insecure-language code, security is dataflow and modular structure — the Endo bet. |
 | [cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e](../sections/cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e.md) | cap-talk 2012-December | Why the AppArmor/MinorFs/E POLA stack went unadopted — distro-specific OS layer plus a new language, no big-company backing; Endo demands no OS or language transition (Hardened JS on stock Node). |
 | [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | oh-my-pi pi-iso | A writable merged tree uses native copy-on-write or projection backends, falling back to Git worktrees or recursive copy, and emits Git-compatible diffs. |
+| [N-API isolation lifecycle and the unavailable-error protocol](../sections/oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle.md) | oh-my-pi `pi-natives` iso | JavaScript probes, resolves, starts, stops, and diffs `pi-iso` workspaces; `ISO_UNAVAILABLE:` separates a missing backend from failure. |
 
 ## See also
 
