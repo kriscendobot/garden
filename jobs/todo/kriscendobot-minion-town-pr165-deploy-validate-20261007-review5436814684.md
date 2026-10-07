@@ -1,10 +1,11 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684
-priority: normal
-posted_by: gardener
-posted_at: 2026-10-07T05:22:05Z
+role: fixer
+tier: mentor
+arc: minion-town-mcp-ocapn
+handler-budget-role: fixer
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-07T05:55:49Z cleared=none -->
 
 ---
 role: fixer
