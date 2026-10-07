@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 Looks like OMP ( Oh My Pi ) has been cooking; @kriscendobot ingest: - https://yeluo45.github.io/oh-my-pi-design/en/docs/01-rust-core, highlights that I see: pi-iso for filesystem isolation, pi-ast for structural edits, pi-shell for virtualized bash, pi-natvies for builtin grep et
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T15:35:52Z
