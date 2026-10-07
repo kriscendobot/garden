@@ -148,3 +148,6 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - leak canary, leak-canary testing, secret propagation test, redaction canary, carrier canary -> leak-canary-testing
 - `pi-iso`, oh-my-pi isolation PAL, `Rcopy`, copy-on-write agent workspace, ProjFS workspace, overlayfs workspace -> pi-iso
 - `pi-shell` minimizer, output minimizer, command output minimization, `artifact://`, `MinimizerConfig`, `CommandPlan` -> pi-shell-output-minimizer
+- pi-vfs, oh-my-pi VFS, virtualized bash, virtual files without host materialization, `scheme://` filesystem provider, `ShellFilesystem`, `FileSystem` provider -> pi-vfs
+- pi-builtins, oh-my-pi builtins, `BuiltinSet`, `ShellBuilderExt`, in-process shell utilities -> pi-builtins
+- pi-natives search, native grep, native glob, fuzzyFind, ripgrep N-API, grep-searcher, grep-pcre2 -> pi-native-search
