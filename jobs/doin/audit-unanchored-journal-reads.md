@@ -21,3 +21,13 @@ dispatch: automatic
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-07T15:13:10Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T15:16:36Z
