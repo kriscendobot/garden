@@ -26,3 +26,13 @@ dispatch: automatic
 Prefer the least-authority option that unblocks the canary. Build on existing Cognito and OAuth paths over a bespoke mechanism, and say why if you diverge.
 
 **Done when** a design PR is open on kriscendobot/minion.town with an `## Open questions` section for the maintainer.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T22:02:05Z
