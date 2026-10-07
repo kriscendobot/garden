@@ -91,6 +91,7 @@
 | [An agent is a module (the host global as the whole capability surface)](../sections/web--haruni-kaozkit-xs-agents--an-agent-is-a-module.md) | KaozKit (Burel, haruni.net) | A KaozKit agent is a JS module exporting `run(input)`. |
 | [The layers (SwiftPM products, providers, tools)](../sections/web--haruni-kaozkit-xs-agents--the-layers.md) | KaozKit (Burel, haruni.net) | KaozKit is one SwiftPM package vending layered products (KaozJSCore C engine + async-settle bridge, KaozJS Swift `XSEngine` with snapshots and module roots, KaozHostC host functions, KaozKit agent runtime, opt-in KaozMLX, and the `kaoz` CLI/daemon). |
 | [Introducing KaozKit (the vendor framing)](../sections/web--moddable-kaozkit--introducing-kaozkit.md) | KaozKit (Hoddie, Moddable) | Peter Hoddie (Moddable) frames KaozKit as Sébastien Burel's answer to LLM-integration stacks that are too big (Python/Node runtimes users will not tolerate installing) and too powerful (they must be sandboxed, and the interpreter itself must be trusted not to let scripts escape), which turns app developers into security experts. |
+| [oh-my-pi--crates-pi-shell-src-lib--embedded-shell-public-surface](../sections/oh-my-pi--crates-pi-shell-src-lib--embedded-shell-public-surface.md) | oh-my-pi pi-shell | The shell facade is the embedded Rust runtime seam beneath oh-my-pi agent tool execution. |
 
 ## See also
 
