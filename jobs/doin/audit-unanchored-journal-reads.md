@@ -17,3 +17,13 @@ dispatch: automatic
 4. Run the affected test suites under `scripts/jobs/test/` (note: `/tmp` is noexec on this host, so set `TMPDIR` to an exec-capable dir). `foreman-edge-kick-test` already fails one case ("the job did not complete to tada/ when the kick failed") with or without these changes; leave it alone unless it's related.
 
 **Done when:** the inventory, with each site's disposition, is in the tada report; the fixes and test are pushed to `main2`; suites pass.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T14:44:24Z
