@@ -1,0 +1,15 @@
+{
+  "author": "kriscendobot",
+  "authorization": "entries/2026/10/07/203746Z-message-gardener-a253b1.md",
+  "authorization_sha256": "8d1af4666249a1a8b694db697487a161ef41a1f715ffd7a9a152885057d50978",
+  "authorized_by": "kriskowal",
+  "base": "*",
+  "escalate_except": [],
+  "escalate_paths": [],
+  "escalate_sections": [],
+  "healing": [],
+  "repository": "kriscendobot/minion.town",
+  "schema": 2,
+  "seeded_at": "2026-10-07T22:12:36Z",
+  "status": "active"
+}
