@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 169
 build_job: build-minion-town-deploy-secret-preflight
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr169-gauntlet-viability
+current_child: kriscendobot-minion.town-pr169-gauntlet-clean
 state: running
 created_by: producer
 arc: minion-town-mcp-ocapn
