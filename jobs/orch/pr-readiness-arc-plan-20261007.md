@@ -1,4 +1,5 @@
 ---
+child-pr-readiness-verify-changes-requested-20261007-host: endolin-garden-ece02cb4
 child-pr-readiness-verify-changes-requested-20261007-reap-count: 0
 child-pr-readiness-plan-gauntlets-20261007-host: endolin-garden-ece02cb4
 child-pr-readiness-plan-gauntlets-20261007-reap-count: 0
