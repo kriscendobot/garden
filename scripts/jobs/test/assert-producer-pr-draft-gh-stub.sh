@@ -53,15 +53,16 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     */pull/216|*/pull/217) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"fix: plain","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
     # DRAFT build PRs whose phase/evidence ledger says the PR is not the
     # deliverable (#219 replays kriscendobot/minion.town#148) or now is (#220).
-    */pull/219|*/pull/220|*/pull/221)
+    */pull/219|*/pull/220|*/pull/221|*/pull/222)
       case "$url" in
         */pull/219|*/pull/221) disposition="${GARDEN_STUB_LEDGER_DISPOSITION:-non-deliverable-probe}" ;;
         *) disposition=deliverable ;;
       esac
       body="$(printf 'Feature.\n\n<!-- garden-phase-evidence-ledger:v1 -->\n## Phase and evidence ledger\n\nDisposition: %s\nSuccessor: canary-child\nPhase 1: partial | wired\nPhase 3: not-started | canary child\nAcceptance: not-started | canary child\n<!-- /garden-phase-evidence-ledger -->\n' "$disposition")"
-      jq -cn --arg url "$url" --arg body "$body" \
+      head_oid="${GARDEN_STUB_HEAD_OID:-0123456789abcdef0123456789abcdef01234567}"
+      jq -cn --arg url "$url" --arg body "$body" --arg head "$head_oid" \
         '{url: $url, isDraft: true, state: "OPEN", title: "feat: slice", body: $body,
-          author: {login: "kriscendobot"}, files: [{path: "src/x.js"}]}' ;;
+          headRefOid: $head, author: {login: "kriscendobot"}, files: [{path: "src/x.js"}]}' ;;
     *) echo "unexpected pr view: $url" >&2; exit 64 ;;
   esac
   exit 0

@@ -49,7 +49,7 @@ esac
 # returns at once on a definitive failure, so a non-PR still no-ops immediately.
 # Its log lines carry gh's stderr, which is where the non-PR wording is found.
 err="$(mktemp "${TMPDIR:-/tmp}/garden-auto-gauntlet.XXXXXX")"
-if ! pr_json="$(gh_pr_view_retry "$pr_url" --json url,isDraft,state,title,body,author,files 2>"$err")"; then
+if ! pr_json="$(gh_pr_view_retry "$pr_url" --json url,isDraft,state,title,body,author,files,headRefOid 2>"$err")"; then
   if grep -qi 'Could not resolve to a PullRequest' "$err"; then
     rm -f "$err"
     log "auto-gauntlet: $pr_url is not a pull request; no handoff"
@@ -110,7 +110,10 @@ fi
 # A gauntlet that finished `held-draft` (code passed, ledger not deliverable)
 # occupies the PR-keyed base, so post-gauntlet.sh would swallow the re-review the
 # successor's completion owes once it supplies the evidence and turns the ledger
-# `deliverable`. Re-stage under a dated base in exactly that case.
+# `deliverable`. Re-stage under a base keyed by both the date and the completing
+# head in exactly that case. The head component is load-bearing: a date alone
+# aliases a second held-draft/re-stage cycle on the same PR that day, causing
+# post-gauntlet.sh to mistake the new review for the completed earlier one.
 producer_dir="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$producer_dir"
 sync_clone "$producer_dir"
@@ -118,7 +121,10 @@ held_report="$(tada_find "$producer_dir" "$gauntlet_base" 2>/dev/null || true)"
 if [ -n "$held_report" ] \
    && grep -qx 'gauntlet-status: held-draft' "$producer_dir/$held_report" 2>/dev/null \
    && ! pr_ledger_holds_draft "$ledger_disposition"; then
-  gauntlet_base="$gauntlet_base-$(date -u +%Y%m%d)"
+  head_oid="$(printf '%s' "$pr_json" | jq -r '.headRefOid // empty')"
+  [[ "$head_oid" =~ ^[0-9a-fA-F]{12,}$ ]] \
+    || die "auto-gauntlet: $pr_url has no usable headRefOid for a held-draft re-stage"
+  gauntlet_base="$gauntlet_base-$(date -u +%Y%m%d)-${head_oid:0:12}"
   log "auto-gauntlet: $pr_url was held draft and its ledger now says '${ledger_disposition:-none}'; re-staging as '$gauntlet_base'"
 fi
 

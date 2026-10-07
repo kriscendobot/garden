@@ -102,25 +102,34 @@ grep -q "ledger says 'non-deliverable-probe'; staging the code panel anyway" "$T
   || fail 'the ledger-disposition staging decision was not logged'
 
 echo '== a held-draft gauntlet re-stages once the ledger turns deliverable =='
-seed_held() { # <pr>
-  local wt="$TR/seed-held-$1" shard
+seed_held() { # <pr> [gauntlet-base]
+  local wt="$TR/seed-held-$1-$RANDOM" shard gauntlet_base
   shard="$(date -u +%Y/%m/%d)"
+  gauntlet_base="${2:-endojs-endo-but-for-bots-pr$1-gauntlet}"
   git clone -q --branch journal2 "$TR/journal.git" "$wt"
   mkdir -p "$wt/jobs/tada/$shard"
   printf 'gauntlet-status: held-draft\nrepo: endojs/endo-but-for-bots\npr_number: %s\n# held\n' "$1" \
-    >"$wt/jobs/tada/$shard/endojs-endo-but-for-bots-pr$1-gauntlet.md"
+    >"$wt/jobs/tada/$shard/$gauntlet_base.md"
   git -C "$wt" add -A
   git -C "$wt" -c user.name=test -c user.email=test@example.invalid commit -q -m "held pr$1"
   git -C "$wt" push -q origin HEAD:journal2
 }
 seed_held 220
 run_hook canary-child "$builder" 220 2>"$TR/restage.err"
-[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr220-gauntlet-$(date -u +%Y%m%d).md" ] \
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr220-gauntlet-$(date -u +%Y%m%d)-0123456789ab.md" ] \
   || fail "deliverable ledger after a held-draft finish did not re-stage: $(cat "$TR/restage.err")"
 seed_held 221
 run_hook still-slice "$builder" 221 2>/dev/null
 [ -z "$(find "$GARDEN_PRODUCER_CLONE/jobs/gauntlet" -name 'endojs-endo-but-for-bots-pr221-gauntlet*')" ] \
   || fail 'a still-held ledger re-staged a gauntlet'
+
+echo '== a second held-draft finish on the same day gets a distinct re-stage =='
+seed_held 222
+seed_held 222 "endojs-endo-but-for-bots-pr222-gauntlet-$(date -u +%Y%m%d)-aaaaaaaaaaaa"
+GARDEN_STUB_HEAD_OID=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb \
+  run_hook second-canary-child "$builder" 222 2>"$TR/restage-second.err"
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr222-gauntlet-$(date -u +%Y%m%d)-bbbbbbbbbbbb.md" ] \
+  || fail "second same-day held-draft finish reused the earlier re-stage: $(cat "$TR/restage-second.err")"
 
 echo '== idempotent replay keeps one PR-keyed record =='
 run_hook build-x "$builder" 200
