@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 1
+worker_kind: cleric
+claimed_at: 2026-10-07T08:17:38Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-canary-probe-endolin-garden-ece02cb4-2782d6294d86
