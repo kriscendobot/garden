@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-minion-town-oauth-bonds
-priority: normal
-posted_by: producer
-posted_at: 2026-10-07T20:51:12Z
+role: designer
+tier: mentor
+arc: minion-town-ui
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-07T20:54:48Z cleared=none -->
 
 ---
 role: designer
