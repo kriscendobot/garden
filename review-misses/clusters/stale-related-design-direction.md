@@ -1,14 +1,16 @@
 ---
 slug: stale-related-design-direction
 category: process
-status: closed
-count: 1
+status: open
+count: 2
 members:
   - kriscendobot-minion.town-pr48-review-b8fd1e6b
-prs: [48]
+  - kriscendobot-minion.town-pr160-review-cb820c52
+prs: [48, 160]
 improvement_job: review-improve-stale-related-design-direction
 improved_by: 6e982cd422 scripts/jobs/gardening/related-design-state.sh, panel.sh related-design pre-pass, skills/design-dependency-walk/SKILL.md §0, roles/builder/AGENT.md, roles/jurors/integrator/AGENT.md, skills/panel-hints/SKILL.md, scripts/jobs/test/related-design-sensing-test.sh
 ---
+
 
 
 
