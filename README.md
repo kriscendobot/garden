@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T15:44:19Z_
+_As of 2026-10-07T15:49:34Z_
 
 ## Latest
 
@@ -495,6 +495,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/153](https://github.com/kriscendobot/minion.town/pull/153) ([kriscendobot/minion.town#153](https://github.com/kriscendobot/minion.town/issues/153)) is in the mergeable queue with NO gauntlet review staged (head 2ca6c15ca1fa3fc4c6be1fd03781a5322a6f7789). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #153'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `msg-scholar-ingest-oh-my-pi-rust-core-565b36348d7f` — from scholar:scholar-ingest-oh-my-pi-rust-core, reply_to `scholar-ingest-oh-my-pi-rust-core` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-565b36348d7f.md)
+
+> The first oh-my-pi Rust-core cycle landed five file-anchored sources covering `pi-iso`, the `pi-shell` facade, its output minimizer and brush-parser planner, and the `pi-ast` crate surface. Headline correction: the minimizer compresses command output and preserves originals through artifacts; it is not a privilege or destructive-command safety gate, and `pi-iso` is a workspace/diff layer rather than a process sandbox. The indexed cycle is summarized in the job's result entry, and follow-on `scholar-ingest-oh-my-pi-rust-core-2` owns `pi-vfs`, `pi-builtins`, and the first `pi-natives` files before continuing the remaining explainer and brush backlog.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr356-18b52cac40fa` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr356-18b52cac40fa.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/356](https://github.com/endojs/endo-but-for-bots/pull/356) ([endojs/endo-but-for-bots#356](https://github.com/endojs/endo-but-for-bots/issues/356)) is in the mergeable queue with NO gauntlet review staged (head 18b52cac40fad298cfd70b9ab0d0142310bf4e33). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #356'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -958,8 +962,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.5M | $192.33 _(notional, rate-card)_ | 12% of 168.0M (ok) |
-| Codex | 3.1M _(+65.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 19.5M | $192.40 _(notional, rate-card)_ | 12% of 168.0M (ok) |
+| Codex | 3.1M _(+67.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
@@ -970,11 +974,12 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-unanchored-journal-reads.md) — ---
 - [`scholar-ingest-oh-my-pi-rust-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core.md) — Ingest oh-my-pi's Rust core (pi-iso, pi-ast, pi-shell, pi-natives, pi-vfs) an...
+- [`scholar-ingest-oh-my-pi-rust-core-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core-3.md) — Continue ingesting oh-my-pi's Rust core remainder, explainer, and vendored brush
 - [`scholar-ingest-oh-my-pi-rust-core-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core-2.md) — Continue ingesting oh-my-pi's Rust core: virtual filesystem, builtins, and fi...
 
 ### tada (11384)
