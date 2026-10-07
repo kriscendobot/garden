@@ -1,0 +1,13 @@
+---
+order: serial
+children: pr-readiness-arc-classify-20261007 pr-readiness-plan-gauntlets-20261007 pr-readiness-verify-changes-requested-20261007
+on-child-failure: halt
+state: pending
+arc: garden-upkeep
+created_by: producer
+created_at: 2026-10-07T15:53:32Z
+---
+
+# orchestration pr-readiness-arc-plan-20261007
+
+3 children (serial), on-child-failure=halt.
