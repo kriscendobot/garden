@@ -30,3 +30,13 @@ Arcs are the active schema-2 slices in journal `config/arc-budgets/` (minion-tow
 Rows flagged `superseded?`: verify nothing; list them for the close-or-keep decision.
 
 **Report:** counts (returned for review / fixer planned / superseded), and the list of review-request message keys sent.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T16:42:31Z
