@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T05:30:56Z_
+_As of 2026-10-07T05:35:02Z_
 
 ## Latest
 
@@ -376,7 +376,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
-> subscription codex-endolin changed zone backoff -> ok at spend=unknown%/95% tokens=0.
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-27T01:30:12Z, latest 2026-10-07T05:32:31Z).
+> The SAME condition (`budget-zone-endolin-garden-ece02cb4-ok`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> subscription claude-endolin1 changed zone backoff -> ok at spend=259253275/271000000.
 
 - `msg-minion-town-claude-cli-production-canary-20261004-445d58a36b95` — from gardener:minion-town-claude-cli-production-canary-20261004, reply_to `minion-town-claude-cli-production-canary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-canary-20261004-445d58a36b95.md)
 
@@ -1310,15 +1314,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #71 (first seen 2026-10-06T18:20:02Z, latest 2026-10-07T05:17:55Z).
-> The SAME condition (`rolling-deploy-canary-stuck-endolin-garden-ece02cb4`) has now been observed 71 times; this is ONE
-> coalesced notice that updates in place, not 71 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-06T18:20:02Z, cleared 2026-10-07T05:32:04Z).
+> It was observed 76 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling-deploy canary endolin-garden-ece02cb4 is STUCK: it was released to 05b29b3e8fa2 549 min ago
-> but still reports deployed_sha de4f2eece5f746c23d8bac7b3634b8aecfeb7ef6. Check garden-self-deploy on endolin-garden-ece02cb4
-> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-> keeps it from advancing. The leader does not advance past an undeployed canary.
-> (leader=endolin-garden2-5bcdff64)
+> canary endolin-garden-ece02cb4 is no longer stuck (release 05b29b3e8fa29919ae5024586f91c84e34fc9a08, deployed 05b29b3e8fa29919ae5024586f91c84e34fc9a08).
 
 - `msg-oros-health-watch-20261004-193508-d945f8d88359` — from gardener:oros-health-watch-20261004-193508, reply_to `oros-health-watch-20261004-193508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-193508-d945f8d88359.md)
 
@@ -1662,7 +1662,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.8M | $1972.02 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Claude | 165.8M | $1972.26 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
 | Codex | 9.2M _(+240.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
