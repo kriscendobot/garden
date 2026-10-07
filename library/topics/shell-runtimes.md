@@ -17,6 +17,10 @@
 | [brush-parser tokenizer and parser surface](../sections/oh-my-pi--crates-vendor-brush-parser-src-lib--tokenizer-and-parser-surface.md) | oh-my-pi vendored brush-parser | Public shell AST, word, arithmetic, pattern, and test modules plus re-exported tokenizer, parser, error, and span entry points. |
 | [brush, a bash-compatible shell in Rust](../sections/oh-my-pi--crates-vendor-brush-core-readme--brush-bash-compatible-rust-shell.md) | oh-my-pi vendored brush-core | Upstream brush README: bash/POSIX compatibility, embeddable `brush_core::Shell`, known gaps; silent on oh-my-pi's local patches. |
 | [brush-core interpreter and embedding surface](../sections/oh-my-pi--crates-vendor-brush-core-src-lib--interpreter-and-embedding-surface.md) | oh-my-pi vendored brush-core | `Shell`/`ShellBuilder`, execution and spawn-observation types, and embedding-safe `ulimit` state that `pi-shell` builds on. |
+| [identity-pinned process references](../sections/oh-my-pi--crates-pi-shell-src-process--identity-pinned-process-references.md) | oh-my-pi `pi-shell` process | pidfd / start-time / handle+creation-time references so signals never hit a recycled PID. |
+| [graceful tree termination and harness protection](../sections/oh-my-pi--crates-pi-shell-src-process--graceful-tree-termination-and-harness-protection.md) | oh-my-pi `pi-shell` process | TERM wave, bounded grace, re-walk, KILL wave; the harness pid and its subtree are pruned from every sweep. |
+| [pi-shell cancel token](../sections/oh-my-pi--crates-pi-shell-src-cancel--deadline-and-abort-reason-token.md) | oh-my-pi `pi-shell` cancel | Deadline plus weakly-held abort flag with a reason; an elapsed deadline is not reported as an explicit abort. |
+| [pi-shell session and run contract](../sections/oh-my-pi--crates-pi-shell-src-shell--session-and-run-execution-contract.md) | oh-my-pi `pi-shell` shell | Serialized persistent sessions with per-run filesystems, lock-free live pids, raw-byte streaming without the minimizer, and Git location env stripping. |
 
 ## See also
 
