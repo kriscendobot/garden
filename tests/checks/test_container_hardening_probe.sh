@@ -126,6 +126,40 @@ set +e; rout="$(GARDEN_HARDENING_MARKER="$VT/unrec/hardened-verified" "$PROBE" -
   || ko "regressed host rc=$r out=$rout"
 [ ! -s "$NOTICES" ] && ok "a regression is not folded into the pending notice" || ko "regression posted a pending notice"
 
+# --- block-device check: sysfs names alone are not exposure (2026-10-07) -------
+# lsblk reads the read-only /sys/block every container sees, so it lists host
+# loop devices even when /dev has no node. Only a reachable block NODE counts.
+blkcheck() {  # blkcheck <devroot> <lsblk names...> → prints output, returns rc
+  printf '%s\n' "${@:2}" | "$PROBE" --block-devices-selftest "$1" 2>&1
+}
+DR="$VT/dev"; mkdir -p "$DR/dri"
+: > "$DR/loop0"   # a regular file named like a device is not a block node
+set +e
+bout="$(blkcheck "$DR" loop0 loop1 loop20 sda)"; brc=$?
+set -e
+[ "$brc" = 0 ] && [ "$bout" = CLEAN ] \
+  && ok "lsblk names with no /dev block node → CLEAN (the sysfs false positive)" \
+  || ko "sysfs-only names flagged: rc=$brc out=$bout"
+set +e; bout="$(blkcheck "$DR")"; brc=$?; set -e
+[ "$brc" = 0 ] && ok "empty /dev and empty lsblk → CLEAN" || ko "empty fixture rc=$brc out=$bout"
+# Positive cases need a real block node to point at (mknod needs CAP_MKNOD); use
+# one from this host's /dev when present. find -type b does not follow symlinks,
+# so a symlinked node is found ONLY through the lsblk-name path.
+real_blk="$(find /dev -maxdepth 2 -type b 2>/dev/null | head -1)"
+if [ -n "$real_blk" ]; then
+  ln -s "$real_blk" "$DR/sdz"
+  set +e; bout="$(blkcheck "$DR" loop0 sdz)"; brc=$?; set -e
+  [ "$brc" = 1 ] && echo "$bout" | grep -q "EXPOSED .*$DR/sdz" \
+    && ok "lsblk name with a reachable block node → EXPOSED" || ko "reachable node missed: rc=$brc out=$bout"
+  set +e; bout="$(blkcheck /dev)"; brc=$?; set -e
+  [ "$brc" = 1 ] && echo "$bout" | grep -qF "$real_blk" \
+    && ok "a block node in /dev is EXPOSED with no lsblk help" || ko "/dev node missed: rc=$brc out=$bout"
+else
+  echo "  SKIP: no block node on this host to exercise the EXPOSED path"
+fi
+grep -q 'exposed_block_devices /dev' "$PROBE" && ok "check 4 uses the node-based exposure test" \
+  || ko "check 4 does not route through exposed_block_devices"
+
 # --- the unit treats PENDING (3) as success, a regression (1) as failure --------
 UNIT="$PROJECT_ROOT/scripts/systemd/garden-container-hardening.service"
 grep -qE '^SuccessExitStatus=.*\b3\b' "$UNIT" && ok "unit SuccessExitStatus includes 3 (pending)" || ko "unit does not accept exit 3"

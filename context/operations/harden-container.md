@@ -72,6 +72,10 @@ It is an
 advisory unit excluded from rolling-deploy canary health, not permission to
 leave credentials exposed.
 The probe bounds real `gh` calls with timeouts.
+The block-device check fails only on a block device **node** the container could
+open (any under `/dev`, or an `lsblk`-listed device with a node). `lsblk` still
+lists the host's disks and loop devices from the read-only `/sys/block` that every
+container sees. Those names alone are expected and do not fail the check.
 
 ## Per-host recreate procedure
 

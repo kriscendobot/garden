@@ -188,6 +188,30 @@ maintainer_gh_credential_reachable() {
   return "$found"
 }
 
+# --- block-device exposure (check 4 internals) --------------------------------
+# exposed_block_devices <devroot> — echo each block device NODE under <devroot>
+# that could be opened and mounted, one per line; rc 0 iff any. The threat is a
+# reachable node, not a device name: `lsblk` reads the read-only /sys/block that
+# every Docker container sees, so it lists the host's loop/disk devices even when
+# /dev holds no node for them (the 2026-10-07 false positive that kept a hardened
+# container PENDING RECREATE). The /dev scan is the authority; an lsblk NAME is a
+# finding only when <devroot>/<name> (or <devroot>/mapper/<name>) is a block node,
+# which also catches a node deeper than the scan's depth. lsblk names are read
+# from stdin so the test seam can feed fixtures.
+exposed_block_devices() {
+  local devroot="$1" name cand
+  {
+    find "$devroot" -maxdepth 2 -type b 2>/dev/null
+    while IFS= read -r name; do
+      [ -n "$name" ] || continue
+      case "$name" in */*|.|..) continue;; esac
+      for cand in "$devroot/$name" "$devroot/mapper/$name"; do
+        [ -b "$cand" ] && printf '%s\n' "$cand"
+      done
+    done
+  } | awk 'NF && !seen[$0]++' | head -20 | grep .
+}
+
 # Test seam: run ONLY the maintainer-credential detection (no container guard, no
 # other checks) so the hardening-probe test can drive it on host fixtures. Prints
 # "REACHABLE <offenders…>" + exit 1 when a maintainer credential is reachable, or
@@ -196,6 +220,16 @@ if [ "${1:-}" = "--maintainer-cred-selftest" ]; then
   offenders="$(maintainer_gh_credential_reachable || true)"
   if [ -n "$offenders" ]; then
     printf 'REACHABLE %s\n' "$(printf '%s' "$offenders" | tr '\n' ' ')"; exit 1
+  fi
+  echo CLEAN; exit 0
+fi
+
+# Test seam: run ONLY the block-device exposure check against a fixture devroot,
+# with lsblk names on stdin. Prints "EXPOSED <nodes…>" + exit 1, or "CLEAN" + exit 0.
+if [ "${1:-}" = "--block-devices-selftest" ]; then
+  nodes="$(exposed_block_devices "${2:?devroot}" || true)"
+  if [ -n "$nodes" ]; then
+    printf 'EXPOSED %s\n' "$(printf '%s' "$nodes" | tr '\n' ' ')"; exit 1
   fi
   echo CLEAN; exit 0
 fi
@@ -301,19 +335,20 @@ else
 fi
 
 # --- 4. no host block devices exposed ----------------------------------------
-# Enumerate block device nodes two ways and require BOTH to be empty. `lsblk -nro
-# NAME` lists block devices the kernel exposes to us; the /dev scan catches any
-# node present even if lsblk is unavailable. Char devices (GPU nodes under
-# GARDEN_DEVICES) are intentionally NOT counted — they are not block devices.
-blk_nodes="$(find /dev -maxdepth 2 -type b 2>/dev/null | head -20 || true)"
+# Fail on a block device NODE we could mount (exposed_block_devices above): every
+# node under /dev, plus any lsblk-listed device that has a reachable node. lsblk
+# names alone are not a finding — they come from the read-only /sys/block that
+# every container sees. Char devices (GPU nodes under GARDEN_DEVICES) are
+# intentionally NOT counted — they are not block devices.
 lsblk_out=""
 if command -v lsblk >/dev/null 2>&1; then
-    lsblk_out="$(lsblk -nro NAME 2>/dev/null | head -20 || true)"
+    lsblk_out="$(lsblk -nro NAME 2>/dev/null || true)"
 fi
-if [ -z "$blk_nodes" ] && [ -z "$lsblk_out" ]; then
-    ok "no host block devices visible (/dev has none; lsblk empty)"
+blk_nodes="$(printf '%s\n' "$lsblk_out" | exposed_block_devices /dev || true)"
+if [ -z "$blk_nodes" ]; then
+    ok "no host block devices visible (no block node in /dev; $(printf '%s\n' "$lsblk_out" | grep -c .) lsblk name(s) from sysfs, none with a node)"
 else
-    kp "host block device(s) visible — /dev: $(echo "$blk_nodes" | tr '\n' ' ')| lsblk: $(echo "$lsblk_out" | tr '\n' ' ')"
+    kp "host block device(s) visible — $(echo "$blk_nodes" | tr '\n' ' ')"
 fi
 
 # --- 5. mounting a block device fails ----------------------------------------
