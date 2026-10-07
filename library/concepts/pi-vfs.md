@@ -17,6 +17,8 @@ kind: concept
 | [N-API virtual glob walk](../sections/oh-my-pi--crates-pi-natives-src-glob--napi-virtual-glob-walk.md) | Walks provider URL trees through `BlockingFs`. |
 | [N-API shell sessions and filesystem injection](../sections/oh-my-pi--crates-pi-natives-src-shell--napi-shell-sessions-and-filesystem-injection.md) | `ShellFilesystem` backs a whole shell session or replaces it for a single run. |
 | [ast-grep search over injected filesystems](../sections/oh-my-pi--crates-pi-natives-src-ast--ast-grep-search-over-injected-filesystems.md) | Structural search and rewrite resolve, walk, read, and write through the injected filesystem. |
+| [ShellFilesystem wire protocol](../sections/oh-my-pi--crates-pi-natives-src-shell-vfs--shellfilesystem-wire-protocol.md) | The JavaScript-side provider contract: 34 ops, positional handles, errno-as-data, host-path and read-only redirects. |
+| [ShellFilesystem routing, lifetime, and consumers](../sections/oh-my-pi--crates-pi-natives-src-shell-vfs--routing-lifetime-and-consumers.md) | Full-injection vs `nativeLocalPaths` routing, weak non-blocking lifetime, cleanup requests, and which N-API tools accept the filesystem. |
 
 ## See also
 
