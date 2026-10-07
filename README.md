@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T15:57:59Z_
+_As of 2026-10-07T16:06:35Z_
 
 ## Latest
 
@@ -274,6 +274,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr741-17e8d74cc13a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr741-17e8d74cc13a.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/741](https://github.com/endojs/endo-but-for-bots/pull/741) ([endojs/endo-but-for-bots#741](https://github.com/endojs/endo-but-for-bots/issues/741)) is in the mergeable queue with NO gauntlet review staged (head 17e8d74cc13a3672899405bc2e2e622f77c5a21a). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #741'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `msg-scholar-ingest-oh-my-pi-rust-core-3-3b5c9c4c15cc` — from scholar:scholar-ingest-oh-my-pi-rust-core-3, reply_to `scholar-ingest-oh-my-pi-rust-core-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-3-3b5c9c4c15cc.md)
+
+> oh-my-pi Rust core, cycle 3 ([kriscendobot/garden#121](https://github.com/kriscendobot/garden/issues/121)): ingested 8 sources / 11 sections into the library. These cover the `pi-natives` shell, iso, and ast N-API bindings; vendored brush-parser and brush-core (README + crate root each); and the third-party yeluo45 explainer, kept as a secondary description with a claim-by-claim divergence ledger.
+>
+> Headline: the explainer is useful for orientation only. Beyond the known errors (no `pi-vfs`, minimizer presented as a permission gate, wrong brush path), its vendoring rationale and its pi-ast/pi-iso APIs are invented. brush-parser is actually vendored to fix here-documents inside `$(...)`. Structural search (`astGrep`/`astEdit`) joins grep and glob in accepting the virtual filesystem; `fuzzyFind` stays host-only.
+>
+> The deeper pi-iso/pi-ast/pi-shell module docs and `shell/vfs.rs` are queued as `scholar-ingest-oh-my-pi-rust-core-4`. Result: journal entries/2026/10/07/160447Z-result-gardener-1327b8.md
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr344-5b5209afda55` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr344-5b5209afda55.md)
 
@@ -970,7 +978,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.5M | $194.56 _(notional, rate-card)_ | 12% of 168.0M (ok) |
+| Claude | 19.3M | $189.91 _(notional, rate-card)_ | 11% of 168.0M (ok) |
 | Codex | 3.2M _(+68.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -984,18 +992,18 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1124
+- [`scholar-ingest-oh-my-pi-rust-core-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core-4.md) — Continue ingesting oh-my-pi's Rust core: shell VFS bridge and deeper pi-iso /...
+- [`pr-readiness-plan-gauntlets-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-readiness-plan-gauntlets-20261007.md) — ---
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`improve-journal-deepen-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry.md) — ---
-- [`scholar-ingest-oh-my-pi-rust-core-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core-3.md) — Continue ingesting oh-my-pi's Rust core remainder, explainer, and vendored brush
-- [`pr-readiness-arc-classify-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-readiness-arc-classify-20261007.md) — ---
 
-### tada (11387)
+### tada (11389)
+- [`scholar-ingest-oh-my-pi-rust-core-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-3.md) — Completion report: scholar-ingest-oh-my-pi-rust-core-3
+- [`pr-readiness-arc-classify-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-arc-classify-20261007.md) — Cost
 - [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/audit-unanchored-journal-reads.md) — Job complete: audit-unanchored-journal-reads
 - [`scholar-ingest-oh-my-pi-rust-core-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-2.md) — Cost
 - [`scholar-ingest-oh-my-pi-rust-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core.md) — Cost
-- [`issue-kriscendobot-garden-121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/issue-kriscendobot-garden-121.md) — Completion report: issue-kriscendobot-garden-121
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-1.md) — Cost
-- … and 11382 more
+- … and 11384 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
