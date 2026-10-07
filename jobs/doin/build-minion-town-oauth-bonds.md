@@ -25,3 +25,13 @@ production check. A DRAFT PR for a feature build is completed by the automatic g
 (clean, panel, fix-loop, un-draft); the arc supervisors then carry it to merge under the
 delegation. If the design is not yet merged or conflicts, weave onto the live base first.
 Do not weaken a security property to make a test pass; report a gap instead.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T22:37:57Z
