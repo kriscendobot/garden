@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 arc: garden-upkeep
 handler-timeout: 7200
 dispatch: automatic
@@ -18,13 +19,5 @@ dispatch: automatic
 
 **Done when:** the inventory, with each site's disposition, is in the tada report; the fixes and test are pushed to `main2`; suites pass.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-07T14:44:24Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-07T15:13:10Z -->
