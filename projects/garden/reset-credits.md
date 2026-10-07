@@ -23,6 +23,8 @@ Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00
 
 ## Use log
 
+- 2026-10-06T18:39:51Z: claude-endolin2 AND codex-endolin windows both rolled early, at the same instant (inferred from budget/live window_start_epoch 1791311991; natural resets were 10-10 03:00Z and ~10-09 21:10Z). This matches the 10-05 reset-credit-watch recommendation to spend one credit on each. Recorded as credit use: claude-endolin2's only credit (exp 10-22) and codex-endolin's 10-22 credit (assumed earliest-expiring; the 10-29 one is presumed remaining). Dashboard 2026-10-07T21:13Z (kriskowal): claude-endolin1 89%, claude-endolin2 20%, codex-endolin 9%. claude-endolin1 has no credit and is held in token backoff (ramp 0.84) until its 10-10 03:00Z reset. (liaison muster)
+
 - ~2026-10-02T21:43Z: codex-endolin window rolled early (inferred from the 10-03 dashboard: 0%, resets in 6d 18h). No credit used (kriskowal 2026-10-03).
 
 - 2026-09-30T19:40Z: claude-endolin1 manual reset (after burning to about 93–95%).
