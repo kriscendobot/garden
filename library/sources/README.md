@@ -1172,6 +1172,11 @@ because the specs are repository READMEs.
 | [fakecloud SigV4 verification and IAM enforcement reference](web--fakecloud-reference-security.md) | https://fakecloud.dev/docs/reference/security/ | 2 | current (living vendor docs; retrieved 2026-09-28, content SHA-256 `beadb5c0`; opt-in SigV4 verification incl. presigned query auth, `test*` root bypass, `--iam` modes, enforced services, condition operators and keys) |
 | [fakecloud introspection endpoints reference](web--fakecloud-reference-introspection.md) | https://fakecloud.dev/docs/reference/introspection/ | 1 | current (living vendor docs; retrieved 2026-09-28, content SHA-256 `f5197dd2`; authoritative `/_fakecloud/*` route list (86 routes / 28 areas); no global reset route (SDK uses `POST /_reset`)) |
 | [fakecloud known limitations reference](web--fakecloud-reference-limitations.md) | https://fakecloud.dev/docs/reference/limitations/ | 1 | current (living vendor docs; retrieved 2026-09-28, content SHA-256 `8be8778e`; recorded-only SNS email/SMS, no Session Manager data plane, inert Logs anomalies, Docker-socket dependence, SigV4/IAM off by default) |
+| [`pi-iso` crate root](oh-my-pi--crates-pi-iso-src-lib.md) | can1357/oh-my-pi | crates/pi-iso/src/lib.rs | 1 | current (cross-platform copy-on-write workspace backends, Git worktree fallback, and diff contract; explicitly bounded from process sandboxing) |
+| [`pi-shell` crate root](oh-my-pi--crates-pi-shell-src-lib.md) | can1357/oh-my-pi | crates/pi-shell/src/lib.rs | 1 | current (embedded shell facade, brush integration, and pi-builtins bridge; no crate-level prose header) |
+| [`pi-shell` output minimizer](oh-my-pi--crates-pi-shell-src-minimizer.md) | can1357/oh-my-pi | crates/pi-shell/src/minimizer.rs | 1 | current (opt-in stdout/stderr compaction with original-output artifacts; corrects the third-party safety-gate claim) |
+| [`pi-shell` minimizer command planner](oh-my-pi--crates-pi-shell-src-minimizer-plan.md) | can1357/oh-my-pi | crates/pi-shell/src/minimizer/plan.rs | 1 | current (brush-AST command-shape analysis and conservative passthrough rules) |
+| [`pi-ast` crate root](oh-my-pi--crates-pi-ast-src-lib.md) | can1357/oh-my-pi | crates/pi-ast/src/lib.rs | 1 | current (language, block, operation, parse-cache, and summary surface; no crate-level prose header) |
 
 ## Web text editors
 
