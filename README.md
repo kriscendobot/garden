@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T18:15:08Z_
+_As of 2026-10-07T18:18:55Z_
 
 ## Latest
 
@@ -858,7 +858,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_reaper_journal.md)
 
-> Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/reaper/journal: attempts p95=3.000000 max=3.000000 (cap 50), classes cas=2 server-reject=0 definite-fail=0.
+> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` has CLEARED (first seen 2026-10-07T16:42:20Z, cleared 2026-10-07T18:17:12Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr253-46d4edf31714` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr253-46d4edf31714.md)
 
@@ -871,12 +875,12 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 24.5M | $226.25 _(notional, rate-card)_ | 15% of 168.0M (ok) |
-| Codex | 3.4M _(+69.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 3.5M _(+69.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 6 open notice(s); checker healthy
+worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -885,15 +889,15 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
-- [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Deliberate overrun decomposition for improve-journal-deepen-retry-expanded-wi...
+- [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 
-### tada (11410)
+### tada (11411)
+- [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-4.md) — Cost
 - [`deadmail-issue-comment-6043211843`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/deadmail-issue-comment-6043211843.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-27b560aeb4c7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-27b560aeb4c7.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-fix-3.md) — Fix round 3 for endojs/endo-but-for-bots PR #1124: all five must-fix items ap...
-- [`oros-health-watch-20261007-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-173507.md) — Cost
-- … and 11405 more
+- … and 11406 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
