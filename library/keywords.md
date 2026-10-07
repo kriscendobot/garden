@@ -154,5 +154,10 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - brush, brush-core, brush-parser, reubeno/brush, vendored brush, `crates/vendor/brush-core`, `crates/vendor/brush-parser`, `command_substitution_body_len`, here-document command substitution -> brush-shell
 - `astGrep`, `astMatch`, `astEdit`, pi-natives ast, ast-grep N-API, oh-my-pi structural search, oh-my-pi structural rewrite -> pi-ast-grep
 - oh-my-pi-design, yeluo45 explainer, oh-my-pi Rust core explainer, `MinimizerWarning`, `FsPrimitive`, `parseAst`, `crates/brush-core-vendored` -> oh-my-pi-design-explainer
+- pi-shell, oh-my-pi shell session, `pi_shell::Shell`, `terminate_tree`, `kill_tree`, `CancelToken`, `AbortReason`, pidfd process reference, harness-protected process kill, `GIT_REPO_LOCATION_ENV_VARS`, `execute_shell_streams` -> pi-shell
+- `ShellFsOp`, `ShellFsRequest`, `nativeLocalPaths`, `backingPath`, provider errno-as-data, `local` redirect, read-only redirect (EROFS) -> pi-vfs
+- pi-iso Rcopy, `git worktree add --detach` workspace, fuse-overlayfs fallback, `isoResolve` priority, `clone_candidates`, pi-iso auto order -> pi-iso
+- `SupportLang`, ast-grep expando char, pi-ast language registry, tree-sitter language list, pi-ast WASM claim, `apply_edits` overlap check, JSON multi-node pattern fallback -> pi-ast-grep
+- pi-natives loader, `loadNative`, `missingNativeExport`, `PI_NATIVE_VARIANT`, native JS fallback claim -> oh-my-pi-design-explainer
 - pi-natives shell, `executeShell`, `Shell.pids`, `liveBackgroundJobCount`, `BRIDGE_QUEUE_CHUNKS`, `FORWARD_STALL_TIMEOUT`, shell output bridge backpressure -> pi-shell-output-minimizer
 - `isoResolve`, `isoStart`, `isoDiff`, `ISO_UNAVAILABLE`, `IsoBackendKind` -> pi-iso
