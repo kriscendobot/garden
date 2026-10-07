@@ -13,6 +13,8 @@
 | [N-API shell sessions and filesystem injection](../sections/oh-my-pi--crates-pi-natives-src-shell--napi-shell-sessions-and-filesystem-injection.md) | oh-my-pi `pi-natives` shell | Persistent and one-shot brush shells reach JavaScript with streamed output, minimizer telemetry, and session- or run-scoped `pi-vfs` filesystems. |
 | [ast-grep search over injected filesystems](../sections/oh-my-pi--crates-pi-natives-src-ast--ast-grep-search-over-injected-filesystems.md) | oh-my-pi `pi-natives` ast | Structural search over host paths or `scheme://` URLs through an injected filesystem, or over in-memory source, with deterministic paging and non-fatal diagnostics. |
 | [divergence ledger against the oh-my-pi source](../sections/web--oh-my-pi-design-rust-core--divergence-ledger-against-source.md) | third-party explainer vs source | Where the explainer departs from the source: missing `pi-vfs`, minimizer-as-permission-gate, wrong brush path, invented AST and iso APIs. |
+| [ShellFilesystem wire protocol](../sections/oh-my-pi--crates-pi-natives-src-shell-vfs--shellfilesystem-wire-protocol.md) | oh-my-pi `pi-natives` shell/vfs | A JavaScript handler implements a 34-op filesystem with positional handles, errno-as-data failures, and host-path (optionally read-only) redirects. |
+| [ShellFilesystem routing, lifetime, and consumers](../sections/oh-my-pi--crates-pi-natives-src-shell-vfs--routing-lifetime-and-consumers.md) | oh-my-pi `pi-natives` shell/vfs | `nativeLocalPaths` routes only URL paths to the handler; weak, non-blocking, exactly-once-close lifetime; shell/grep/glob/ast accept it, fuzzyFind does not. |
 
 ## See also
 
