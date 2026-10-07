@@ -14,3 +14,13 @@ dispatch: automatic
 **Disposition:**
 - If this host shows the **same picture** (only the lsblk/sysfs line fails), report "hardened; sysfs false positive only". Send no notice.
 - If **anything else** fails (caps, sudo, `/dev` block nodes, mountable device, reachable maintainer credentials, SSH agent), send ONE maintainer notice with `scripts/jobs/watchdog-notice.sh`, key `container-rebuild-needed-endolin-garden-ece02cb4`. Its message: **we need to rebuild our containers with the hardened launcher** (`context/operations/harden-container.md`), naming each failing check.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T22:14:30Z
