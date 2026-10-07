@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T17:31:41Z_
+_As of 2026-10-07T17:36:11Z_
 
 ## Latest
 
@@ -854,7 +854,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.7M | $214.43 _(notional, rate-card)_ | 14% of 168.0M (ok) |
+| Claude | 22.8M | $214.88 _(notional, rate-card)_ | 14% of 168.0M (ok) |
 | Codex | 3.4M _(+69.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -866,10 +866,12 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1124
+- [`claude-on-minion-town-press-20261007-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261007-173507.md) — Press the Claude-on-minion.town arc forward
 - [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
+- [`oros-health-watch-20261007-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261007-173507.md) — ---
 
 ### tada (11404)
 - [`improve-repair-migrated-journal-clone-origin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-repair-migrated-journal-clone-origin.md) — Cost
