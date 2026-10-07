@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T20:30:23Z_
+_As of 2026-10-07T20:31:42Z_
 
 ## Latest
 
@@ -833,18 +833,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > UNREACHABLE: Oros remains offline as of 2026-10-07T14:38Z. Fresh journal2 has no active checkup; its schedule is deferred to 2026-10-11T21:00:00Z. The heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred, sysop last applied an op 2026-10-02T05:38:58Z, and heartbeat-offline derotation remains active. Deployed e036bb8e is 187 commits behind main2. I sent no duplicate op because seven reset-failed and one restore are already queued without acknowledgments. A person must check the Mac power/sleep state, Docker Desktop, and VM/container.
 
-- `msg-endojs-endo-but-for-bots-pr1416-review-37d3281c-retro-16a49c9680f3` — from gardener:endojs-endo-but-for-bots-pr1416-review-37d3281c-retro, reply_to `endojs-endo-but-for-bots-pr1416-review-37d3281c-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1416-review-37d3281c-retro-16a49c9680f3.md)
-
-> [endojs/endo-but-for-bots#1416](https://github.com/endojs/endo-but-for-bots/issues/1416) has not merged, even though you approved it with a conduct (merge) request on 2026-10-02.
->
-> - The first conductor job un-drafted the PR and rebased it onto live `llm`. It then stopped before merging because GitHub was still showing the old head commit.
-> - It re-posted the merge as `endojs-endo-but-for-bots-pr1416-conduct-20261002`. That job failed to run and was taken off the queue on 10-02 at 22:33Z. It is parked in jobs/plan/ and won't run unless someone promotes it.
-> - The PR head is now `2f8506cd`, not the `6306845e` you approved. GitHub shows no review decision, and CI has no failures.
->
-> To merge, promote the parked conduct job, or re-approve the PR at the current head.
->
-> The review-retrospective for that review is filed as not-a-miss: an approval is not review feedback.
-
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-10-07T18:22:53Z, cleared 2026-10-07T18:27:42Z).
@@ -1049,8 +1037,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.4M | $259.76 _(notional, rate-card)_ | 18% of 168.0M (ok) |
-| Codex | 3.9M _(+73.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 29.7M | $261.23 _(notional, rate-card)_ | 18% of 168.0M (ok) |
+| Codex | 3.9M _(+73.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
@@ -1062,17 +1050,17 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 (none)
 
 ### doin (3)
+- [`endojs-endo-but-for-bots-pr1416-conduct-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1416-conduct-20261002.md) — Conduct (merge) endojs/endo-but-for-bots PR #1416
 - [`improve-journal-deepen-retry-expanded-window-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1124
-- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1343
 
-### tada (11427)
+### tada (11428)
+- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1.md) — Cost
 - [`improve-bound-recursive-deadline-splits`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-bound-recursive-deadline-splits.md) — Cost
 - [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Cost
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-clean.md) — Cost
 - [`improve-journal-deepen-retry-expanded-window-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window-split.md) — orchestration improve-journal-deepen-retry-expanded-window-split — HALTED
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-6.md) — Cost
-- … and 11422 more
+- … and 11423 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1081,7 +1069,6 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
-- [`endojs-endo-but-for-bots-pr1416-conduct-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-conduct-20261002.md) — _normal_ · Conduct (merge) endojs/endo-but-for-bots PR #1416
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-lint-warnings.md) — _normal_ · ---
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
