@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T08:20:08Z_
+_As of 2026-10-07T08:22:22Z_
 
 ## Latest
 
@@ -40,11 +40,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1323 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T07:20:07Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1323 times; this is ONE
-> coalesced notice that updates in place, not 1323 messages. Latest detail:
+> WATCHDOG notice — occurrence #1343 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T08:20:06Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1343 times; this is ONE
+> coalesced notice that updates in place, not 1343 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 439887s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 443487s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1769,8 +1769,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.8M | $1994.76 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
-| Codex | 10.4M _(+256.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 168.9M | $1995.46 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
+| Codex | 10.4M _(+256.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1778,12 +1778,13 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntlet-audit/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`oros-health-watch-20261007-082010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261007-082010.md) — ---
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1282-review-c5a5c1c1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-c5a5c1c1-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1282 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1398
+- [`claude-on-minion-town-press-20261007-082010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261007-082010.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (11351)
 - [`canary-probe-endolin-garden-ece02cb4-2782d6294d86`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-2782d6294d86.md) — rolling-deploy canary probe — round trip OK
