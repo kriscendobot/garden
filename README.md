@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T19:57:13Z_
+_As of 2026-10-07T20:08:51Z_
 
 ## Latest
 
@@ -683,6 +683,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89) completion press, 11:20Z. kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684 completed at 06:13Z with orchestration-failed: true, and its serial orchestration halted. You were notified at 06:15Z. [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) IS merged (d750b09b) and deployed: the receipt matches, health checks pass, and the fail-closed auth checks pass. What is missing is the positive half: watchInbox, rate-cap, slot contention, restart/recovery, dismissal, and mailbox sender are all unverified. The cause is credentials, not code. The fleet holds only a non-root MCP credential, and root OAuth needs kriscendobot's interactive GitHub MFA. That is the same gate already parked as minion-town-claude-kriscendobot-canary-after-connect-20261006, so promoting that canary after you connect would close it. There are no dooms, absences, or stalls on the arc otherwise. Detail: [https://github.com/kriscendobot/minion.town/pull/165](https://github.com/kriscendobot/minion.town/pull/165)#issuecomment-6032132655
 
+- `msg-endojs-endo-but-for-bots-pr1124-gauntlet-panel-6-ca3052f957dc` — from gardener:endojs-endo-but-for-bots-pr1124-gauntlet-panel-6, reply_to `endojs-endo-but-for-bots-pr1124-gauntlet-panel-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1124-gauntlet-panel-6-ca3052f957dc.md)
+
+> [https://github.com/endojs/endo-but-for-bots/pull/1124](https://github.com/endojs/endo-but-for-bots/pull/1124) (OCapN formula nonce locator): panel round 6 is must-fix again. This is the 4th straight round where the decomplector flags the locator as an unwired mechanism that duplicates localGateway.provide. Decision needed: (a) wire it into networks/ocapn.js in this PR, replacing the Map locator; (b) land it unwired on purpose; or (c) remove the module or close the PR. Without a decision, further fix rounds will keep hardening an object that nothing calls. Breaker also found a real bug: the locator's local-node check rejects every host and guest identifier (it is missing the isLocalKey agent-key case).
+
 - `review-request-kriscendobot-minion-town-pr32` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-kriscendobot-minion-town-pr32.md)
 
 > Review request: kriscendobot/minion.town PR 32
@@ -1015,7 +1019,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.2M | $237.46 _(notional, rate-card)_ | 16% of 168.0M (ok) |
+| Claude | 27.7M | $247.55 _(notional, rate-card)_ | 17% of 168.0M (ok) |
 | Codex | 3.6M _(+70.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -1027,18 +1031,17 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1343
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1124
 
-### tada (11422)
+### tada (11423)
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr977-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr977-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr977-gauntlet-20261007 — HALTED
 - [`endojs-endo-but-for-bots-pr977-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr977-gauntlet-plan-20261007.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-viability.md) — Cost
-- … and 11417 more
+- … and 11418 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
