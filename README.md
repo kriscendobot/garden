@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T15:04:02Z_
+_As of 2026-10-07T15:22:15Z_
 
 ## Latest
 
@@ -372,6 +372,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr389-c7307a12a9b0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr389-c7307a12a9b0.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/389](https://github.com/endojs/endo-but-for-bots/pull/389) ([endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389)) is in the mergeable queue with NO gauntlet review staged (head c7307a12a9b0a117332370f7d6c5d8b0d2e2cb13). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #389'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal.md)
+
+> Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/cursors/journal: attempts p95=8.000000 max=8.000000 (cap 50), classes cas=10 server-reject=0 definite-fail=0.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-endo-but-for-bots-pr1-979641659a4d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-endo-but-for-bots-pr1-979641659a4d.md)
 
@@ -938,29 +942,29 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.5M | $176.48 _(notional, rate-card)_ | 10% of 168.0M (ok) |
+| Claude | 17.6M | $175.91 _(notional, rate-card)_ | 10% of 168.0M (ok) |
 | Codex | 3.0M _(+63.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.890480s/45s (/home/kris/garden2/.garden-state/accountant/journal); 4 open notice(s); checker healthy
+worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/audit-unanchored-journal-reads.md) — ---
+### todo (0)
+(none)
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1124
+- [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-unanchored-journal-reads.md) — ---
 
-### tada (11381)
+### tada (11382)
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1430-gauntlet-viability.md) — Cost
 - [`design-ocapn-tcp-for-test-extraction-revision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/design-ocapn-tcp-for-test-extraction-revision.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-0c64481407d9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-0c64481407d9.md) — rolling-deploy canary probe — round trip OK
 - [`build-ocapn-tcp-for-test-extraction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/build-ocapn-tcp-for-test-extraction.md) — Cost
-- [`oros-health-watch-20261007-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-143507.md) — Cost
-- … and 11376 more
+- … and 11377 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
