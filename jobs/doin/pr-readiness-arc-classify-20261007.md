@@ -148,3 +148,13 @@ https://github.com/kriscendobot/minion.town/pull/153 NONE
 ```
 
 **Done when** the table holds all 115 rows and is pushed. If you cannot classify all of them, emit `<<<GARDEN-ORCHESTRATION-FAILED>>>` per skills/orchestration/SKILL.md.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T15:53:54Z
