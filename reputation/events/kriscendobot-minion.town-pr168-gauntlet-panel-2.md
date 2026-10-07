@@ -2,9 +2,9 @@
 base: kriscendobot-minion.town-pr168-gauntlet-panel-2
 kind: monk
 provider: anthropic
-model: claude-opus-5-5
+model: claude-default
 thoughtfulness: medium
-work_class: gardener:m
+work_class: other:m
 target: main2
 accepted: true
 agentic_dollars: 0.645274
@@ -18,6 +18,6 @@ awarded_bid:
 bidders: 0
 source: live
 recorded_by: endolin-garden2-5bcdff64/monk-3
-recorded_at: 2026-10-07T23:08:11Z
+recorded_at: 2026-10-07T23:08:16Z
 ---
-reputation event for kriscendobot-minion.town-pr168-gauntlet-panel-2: arm anthropic/claude-opus-5-5/medium work_class gardener:m target main2 accepted true
+reputation event for kriscendobot-minion.town-pr168-gauntlet-panel-2: arm anthropic/claude-default/medium work_class other:m target main2 accepted true
