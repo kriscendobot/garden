@@ -321,17 +321,21 @@ ensure_container() {
         # steered by injected text) could become container-root and plausibly mount
         # the host filesystem, reaching the maintainer credentials the host-native
         # ferry uses (designs/sysop-attested-exec.md). Instead we keep Docker's
-        # DEFAULT reduced capability set (seccomp + AppArmor profiles still in force,
-        # no host devices) and add back only the ONE capability systemd-as-PID-1
-        # provably needs:
+        # DEFAULT reduced capability set (seccomp profile still in force, no host
+        # devices) and add back only what systemd-as-PID-1 provably needs:
         #   --cap-add SYS_ADMIN — systemd needs it to mount its API filesystems and
         #     per-service sandboxes (PrivateTmp/ProtectSystem/mount namespaces) and to
         #     set the hostname at boot. It does NOT by itself enable a host-filesystem
         #     escape: with no --device and no -v of /dev, there is no host block-device
-        #     node present to mount, and the default seccomp/AppArmor profiles stay on.
+        #     node present to mount, and the default seccomp profile stays on.
         #     (SYS_ADMIN sits in the container BOUNDING set, held by root/PID-1; a
         #     `docker exec -u <botuser>` process drops to empty EFFECTIVE caps — the
         #     acceptance probe asserts exactly this.)
+        #   --security-opt apparmor=unconfined — on AppArmor hosts, docker-default
+        #     denies every mount even with SYS_ADMIN, so systemd dies at boot with
+        #     "Failed to remount root directory as MS_SLAVE: Permission denied"
+        #     (exit 255, no output without a console). A narrower custom profile
+        #     would keep AppArmor on but must be loaded on every host.
         # cgroup v2 + --cgroupns=host + the rw cgroup mount cover the rest of systemd's
         # needs; tmpfs at /run, /run/lock, /tmp and the SIGRTMIN+3 stop signal are the
         # remaining containerized-systemd essentials. --hostname pins this instance's
@@ -347,6 +351,7 @@ ensure_container() {
             --name "$CONTAINER_NAME" \
             --hostname "$HOSTNAME_NAME" \
             --cap-add SYS_ADMIN \
+            --security-opt apparmor=unconfined \
             --cgroupns=host \
             -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
             --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
