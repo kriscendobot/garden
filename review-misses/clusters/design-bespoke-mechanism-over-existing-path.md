@@ -1,7 +1,7 @@
 ---
 slug: design-bespoke-mechanism-over-existing-path
 category: process
-status: improvement-dispatched
+status: closed
 count: 3
 members:
   - endojs-endo-but-for-bots-pr1226-review-2fc247cc
@@ -9,7 +9,9 @@ members:
   - endojs-endo-but-for-bots-pr1407-review-1d8c37a5
 prs: [1226, 1407]
 improvement_job: review-improve-design-bespoke-mechanism-over-existing-path
+improved_by: 7a88d0007c2: skills/panel-hints/probes/X-decomplector.sh, scripts/jobs/gardening/mechanism-repeat-signal.sh + panel.sh pre-passes, roles/jurors/decomplector/AGENT.md (code-panel mode, (f) binding), roles/builder+designer/AGENT.md (existing path before a new mechanism), scripts/jobs/comment-watcher.sh (bot-authored follow-up guard), test scripts/jobs/test/bespoke-mechanism-probe-test.sh
 ---
+
 
 
 
