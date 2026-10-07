@@ -1,0 +1,12 @@
+---
+kind: progress
+role: gardener
+host: endolin-garden2-5bcdff64
+at: 2026-10-07T11:22:25Z
+---
+completion-press tick 2026-10-07T11:20Z (window 05:20Z–11:20Z), arc kriscendobot/garden#89. Read-only. Used a fresh journal2 clone because the host's journal/ worktree was stale at 08:32Z.
+Roster (doin): this press only. Roster (todo): none.
+Roster (plan, all waiting for the maintainer, no new dooms): minion-town-claude-cli-production-canary-after-connection-20261004, minion-town-claude-kriscendobot-canary-after-connect-20261006, evaluate-reauth-escalation-default-after-oauth-relay-20260927, build-claude-usage-dashboard-scraper, minion-town-public-browser-caddy-gate-smoke-after-mfa-20261006, kriscendobot-minion-town-pr148-gauntlet-viability (doomed 10-03, requeue-exhausted, unchanged).
+Roster (tada in window): completion-press-051913, press-051913, press-082010; kriscendobot-minion.town-pr165-review-24dc8368 and pr165-conduct (05:26Z; minion.town#165 merged at d750b09b); the orchestration kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684 (serial/halt) and its children conduct-20261007-review5436814684 (05:52Z) and deploy-validate-20261007-review5436814684 (06:13Z, orchestration-failed: true). The orchestration halted at 06:15Z and the orchestrate watcher notified the maintainer. Also 23 minion.town PR review retros promoted from plan and completed between 07:02Z and 08:32Z (pr85/90/91/135/137/140/146/148/149/150/157/159/160/163/165). Five were classified as misses: clusters builder-pr-gauntlet-bypass ×2, prefer-endo-primitives ×2, identity-gated-authority, and stale-related-design-direction.
+Finding: the #165 deploy-validate run partly failed. The deploy succeeded, the receipt matches, health checks pass, and the fail-closed auth checks pass. The positive watchInbox, rate-cap, slot-contention, restart, dismissal, and mailbox-sender checks are unverified, because the only credential the fleet holds is a non-root MCP credential. Root OAuth needs kriscendobot's interactive GitHub MFA, which is the same gate as the parked kriscendobot-canary-after-connect job.
+Counts: ~30 arc completions, 1 completed-but-failed, 0 dooms, 0 policy-refusals, 0 absent, 0 at 3+ requeues, 0 stalled. Every job on the 05:20Z roster is accounted for. No arc work has been claimable since 08:32Z, and the fleet is alive (budget ticks continue). Messaged the maintainer once about the #165 validation gap.
