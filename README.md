@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T18:09:44Z_
+_As of 2026-10-07T18:15:08Z_
 
 ## Latest
 
@@ -870,7 +870,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 24.4M | $225.07 _(notional, rate-card)_ | 15% of 168.0M (ok) |
+| Claude | 24.5M | $226.25 _(notional, rate-card)_ | 15% of 168.0M (ok) |
 | Codex | 3.4M _(+69.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -885,7 +885,7 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
-- [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
+- [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Deliberate overrun decomposition for improve-journal-deepen-retry-expanded-wi...
 
 ### tada (11410)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-4.md) — Cost
