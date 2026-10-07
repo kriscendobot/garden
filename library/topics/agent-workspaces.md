@@ -30,6 +30,9 @@ Cloud-hosted work environments in which agents use organizational context, creat
 | [ArtifactFS, limits, and lifecycle economics](../sections/web--cloudflare-artifacts-docs--lazy-mounts-limits-and-lifecycle-economics.md) | cloudflare-workers-agent-hosting, agent-workspaces | ArtifactFS lazily hydrates large working trees on FUSE hosts; beta limits and pricing bound retained repositories. |
 | [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | oh-my-pi pi-iso | A writable merged tree uses native copy-on-write or projection backends, falling back to Git worktrees or recursive copy, and emits Git-compatible diffs. |
 | [oh-my-pi injectable virtual filesystem](../sections/oh-my-pi--crates-pi-vfs-src-lib--injectable-virtual-filesystem.md) | oh-my-pi `pi-vfs` | The embedded shell and utilities share a provider-backed filesystem whose virtual files need no host representation. |
+| [N-API isolation lifecycle and the unavailable-error protocol](../sections/oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle.md) | oh-my-pi `pi-natives` iso | JavaScript probes, resolves, starts, stops, and diffs `pi-iso` workspaces; `ISO_UNAVAILABLE:` separates a missing backend from failure. |
+| [the explainer's account of oh-my-pi's Rust core](../sections/web--oh-my-pi-design-rust-core--explainer-account-of-the-rust-core.md) | third-party explainer (secondary) | An unofficial design site's three-crate account of the Rust core; orientation only, not ground truth. |
+| [divergence ledger against the oh-my-pi source](../sections/web--oh-my-pi-design-rust-core--divergence-ledger-against-source.md) | third-party explainer vs source | Where the explainer departs from the source: missing `pi-vfs`, minimizer-as-permission-gate, wrong brush path, invented AST and iso APIs. |
 
 ## See also
 
