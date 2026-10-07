@@ -65,3 +65,13 @@ zero in tests (e.g. set the base delay to 0) so the test stays fast. Also run
 `bash -n` and shellcheck on common.sh if available.
 
 Commit explicit pathspecs; push to main2 with the garden_repo_lock CAS loop.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T18:13:55Z
