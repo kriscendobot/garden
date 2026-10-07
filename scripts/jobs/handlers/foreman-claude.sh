@@ -42,6 +42,9 @@ source "$HERE/codex-provider-common.sh"
 GARDEN_TAG="foreman-claude"
 
 digest="${1:?usage: foreman-claude.sh <digest-file>}"
+# foreman.sh runs this handler with GARDEN_PRODUCER_CLONE set to the clone its
+# tick just synced; every quota read below names it explicitly.
+meter_dir="${GARDEN_PRODUCER_CLONE:-}"
 role_brief="$GARDEN_ROOT/roles/foreman/AGENT.md"
 common_brief="$GARDEN_ROOT/roles/COMMON.md"
 : "${GARDEN_FOREMAN_PROVIDER_ORDER:=anthropic}"
@@ -174,14 +177,14 @@ foreman_provider_quota_key() { # <normalized-space-delimited-order>
   for provider in $order; do
     case "$provider" in
       anthropic)
-        quota="$(meter_quota_status 2>/dev/null || printf unknown)"
+        quota="$(meter_quota_status "" "$meter_dir" 2>/dev/null || printf unknown)"
         ;;
       openai)
-        subscription="$(budget_pool_for_provider_host openai "$GARDEN" "" 2>/dev/null || true)"
+        subscription="$(budget_pool_for_provider_host openai "$GARDEN" "$meter_dir" 2>/dev/null || true)"
         if [ -z "$subscription" ]; then
           quota=unmapped
         else
-          quota="$subscription:$(meter_quota_status "$subscription" 2>/dev/null || printf unknown)"
+          quota="$subscription:$(meter_quota_status "$subscription" "$meter_dir" 2>/dev/null || printf unknown)"
         fi
         ;;
     esac
@@ -356,14 +359,14 @@ foreman_codex_attempt() { # <openai|local> <prompt>
   local provider="$1" prompt="$2" kind model effort output json_capture rc subscription quota
   case "$provider" in openai) kind=cleric ;; local) kind=hermit ;; *) return 20 ;; esac
   if [ "$provider" = openai ] && [ "${GARDEN_TEST:-0}" != 1 ]; then
-    subscription="$(budget_pool_for_provider_host openai "$GARDEN" "" 2>/dev/null || true)"
+    subscription="$(budget_pool_for_provider_host openai "$GARDEN" "$meter_dir" 2>/dev/null || true)"
     if [ -z "$subscription" ]; then
       alert_maintainer "unknown-inference-source-openai-$GARDEN" \
         "foreman refused an unmapped OpenAI source on $GARDEN. Before enabling it, clarify the token count and target spend date."
       log "foreman openai provider refused: no recognized subscription mapping"
       return 10
     fi
-    quota="$(meter_quota_status "$subscription")"
+    quota="$(meter_quota_status "$subscription" "$meter_dir")"
     [ "$quota" != backoff ] || { log "foreman openai provider skipped: subscription $subscription is at high water"; return 10; }
   fi
   # Keep OpenAI authentication and local endpoint availability markers separate:
@@ -393,7 +396,7 @@ foreman_codex_attempt() { # <openai|local> <prompt>
 
 foreman_anthropic_attempt() { # <prompt>
   local prompt="$1" quota rc
-  quota="$(meter_quota_status)"
+  quota="$(meter_quota_status "" "$meter_dir")"
   if [ "$quota" = backoff ]; then
     log "foreman anthropic provider skipped: configured Claude quota is at its high-water mark"
     return 10

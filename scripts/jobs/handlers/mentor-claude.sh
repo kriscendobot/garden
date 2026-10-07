@@ -269,7 +269,7 @@ mentor_codex_attempt() { # <openai|local> <prompt>
 
 mentor_anthropic_attempt() { # <prompt>
   local prompt="$1" cli output rc
-  [ "$(meter_quota_status)" != backoff ] || { log "mentor anthropic provider skipped: configured Claude quota is at its high-water mark"; return 10; }
+  [ "$(meter_quota_status "" "$dir")" != backoff ] || { log "mentor anthropic provider skipped: configured Claude quota is at its high-water mark"; return 10; }
   if [ -n "${GARDEN_MENTOR_CLAUDE:-}" ]; then
     cli="$GARDEN_MENTOR_CLAUDE"
     { [ -x "$cli" ] || command -v "$cli" >/dev/null 2>&1; } \

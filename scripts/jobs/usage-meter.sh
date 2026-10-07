@@ -133,18 +133,62 @@ _calendar_anchor_epoch() {
   printf '%s\n' "$anchor"
 }
 
+# _meter_discover_journal <relpath> — the journal clone an UNANCHORED read (no
+# journal-dir argument) uses for <relpath>. GARDEN_WORKER_CLONE, then
+# GARDEN_PRODUCER_CLONE, is the caller's own synced clone and wins outright.
+# Otherwise every $GARDEN_STATE/*/journal holding <relpath> competes and the one
+# whose checked-out journal2 commit is newest is chosen; ties keep glob order.
+# Taking the first match instead let a 36h-stale accountant clone supply a
+# retired config/token-backoff-fraction pin and hold the foreman at `backoff`
+# for 90 minutes (2026-10-07). A clone whose HEAD cannot be read never wins;
+# with no candidate the read fails, which every caller already treats as
+# missing config. The commit-time read goes through the raw git binary, NOT the
+# fleet wrapper: the wrapper takes a per-clone lock and, under fleet load, blocks
+# for seconds behind each clone's in-flight sync (the whole scan cost ~30s). The
+# real-git binary is resolved ONCE here, not per clone — _garden_real_git's own
+# PATH walk forks `readlink` several times per call, and ~46 clones under
+# ~100-gardener fork pressure turned that into tens of seconds of pure fork
+# latency. A raw `git log -1` on an already-checked-out clone is a ~1ms local
+# ref read that never contends.
+_meter_discover_journal() {
+  local rel="$1" f t best="" best_t=-1 realgit entry cand wrapper
+  for f in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}"; do
+    [ -n "$f" ] && [ -r "$f/$rel" ] && { printf '%s\n' "$f"; return 0; }
+  done
+  # Resolve the non-wrapper git binary a single time. The fleet git wrapper lives
+  # at <garden>/scripts/jobs/bin/git in BOTH the deployed root and every per-job
+  # worktree, and one of those copies is first on PATH; skip any candidate whose
+  # resolved path is a wrapper, so a scan never routes through the locking layer.
+  realgit="${GARDEN_REAL_GIT:-}"
+  if [ -z "$realgit" ]; then
+    local IFS=:
+    for entry in $PATH; do
+      cand="${entry:-.}/git"
+      [ -x "$cand" ] || continue
+      case "$(readlink -f "$cand" 2>/dev/null)" in */scripts/jobs/bin/git) continue ;; esac
+      realgit="$cand"; break
+    done
+    unset IFS
+  fi
+  [ -n "$realgit" ] || realgit=git
+  for f in "$GARDEN_STATE"/*/journal; do
+    [ -r "$f/$rel" ] && [ -e "$f/.git" ] || continue
+    t="$("$realgit" -C "$f" log -1 --format=%ct HEAD 2>/dev/null)" || continue
+    [[ "$t" =~ ^[0-9]+$ ]] && [ "$t" -gt "$best_t" ] || continue
+    best="$f"; best_t="$t"
+  done
+  [ -n "$best" ] || return 1
+  printf '%s\n' "$best"
+}
+
 # subscription_reset_file <subscription> [journal-dir]
 subscription_reset_file() {
   local subscription="$1" dir="${2:-}" file
   if [ -n "$dir" ] && [ -r "$dir/budget/reset-events/$subscription.jsonl" ]; then
     printf '%s\n' "$dir/budget/reset-events/$subscription.jsonl"; return 0
   fi
-  for file in "${GARDEN_WORKER_CLONE:-}" \
-              "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
-    [ -n "$file" ] && [ -r "$file/budget/reset-events/$subscription.jsonl" ] || continue
-    printf '%s\n' "$file/budget/reset-events/$subscription.jsonl"; return 0
-  done
-  return 1
+  file="$(_meter_discover_journal "budget/reset-events/$subscription.jsonl")" || return 1
+  printf '%s\n' "$file/budget/reset-events/$subscription.jsonl"
 }
 
 # subscription_reset_fact <subscription> [journal-dir] — latest declaration or
@@ -286,19 +330,20 @@ subscription_pacing_summary() {
 }
 
 # Compatibility wrappers resolve this host's Anthropic subscription rather than
-# consulting a global reset calendar.
+# consulting a global reset calendar. Both take [now] [journal-dir]; a caller
+# holding a synced clone passes it.
 meter_week_anchor_epoch() {
-  local now="${1:-$(meter_now)}" subscription
-  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "" 2>/dev/null || true)"
+  local now="${1:-$(meter_now)}" dir="${2:-}" subscription
+  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null || true)"
   [ -n "$subscription" ] || { _calendar_anchor_epoch 5 20:00 America/Los_Angeles "$now"; return; }
-  subscription_window_start_epoch "$subscription" "" "$now" && return 0
+  subscription_window_start_epoch "$subscription" "$dir" "$now" && return 0
   case "$subscription" in anthropic:*) _calendar_anchor_epoch 5 20:00 America/Los_Angeles "$now";; *) return 1;; esac
 }
 meter_next_reset_epoch() {
-  local now="${1:-$(meter_now)}" subscription anchor day
-  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "" 2>/dev/null || true)"
+  local now="${1:-$(meter_now)}" dir="${2:-}" subscription anchor day
+  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null || true)"
   if [ -z "$subscription" ]; then anchor="$(_calendar_anchor_epoch 5 20:00 America/Los_Angeles "$now")" || return 1; day="$(TZ=America/Los_Angeles date -d "@$anchor" +%Y-%m-%d)"; TZ=America/Los_Angeles date -d "$day 20:00 7 days" +%s; return; fi
-  subscription_next_reset_epoch "$subscription" "" "$now" && return 0
+  subscription_next_reset_epoch "$subscription" "$dir" "$now" && return 0
   case "$subscription" in
     anthropic:*) anchor="$(_calendar_anchor_epoch 5 20:00 America/Los_Angeles "$now")" || return 1; day="$(TZ=America/Los_Angeles date -d "@$anchor" +%Y-%m-%d)"; TZ=America/Los_Angeles date -d "$day 20:00 7 days" +%s;;
     *) return 1;;
@@ -501,7 +546,8 @@ meter_subscription_window_total() {
 
 # budget_pool_file [journal-dir] — resolve journal config without performing a
 # fetch. Admission callers pass their freshly-synced clone; handler backstops can
-# discover one of the normal service clones. Missing config means meter-off.
+# discover one of the normal service clones (_meter_discover_journal: the
+# caller's own clone, else the freshest). Missing config means meter-off.
 budget_pool_file() {
   local dir="${1:-}" f
   if [ -n "${GARDEN_BUDGET_POOLS_FILE:-}" ]; then
@@ -512,12 +558,8 @@ budget_pool_file() {
     [ -r "$dir/config/budget-pools" ] && printf '%s\n' "$dir/config/budget-pools"
     return
   fi
-  for f in "${GARDEN_WORKER_CLONE:-}" \
-           "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
-    [ -n "$f" ] && [ -r "$f/config/budget-pools" ] || continue
-    printf '%s\n' "$f/config/budget-pools"; return
-  done
-  return 1
+  f="$(_meter_discover_journal config/budget-pools)" || return 1
+  printf '%s\n' "$f/config/budget-pools"
 }
 
 # --- the standing token-backoff ramp (designs/standing-token-backoff-ramp.md) --
@@ -1719,7 +1761,7 @@ budget_fleet_status() {
   [ "$seen" -eq 1 ] && printf 'backoff\n' || printf 'off\n'
 }
 
-# budget_hold_wrap <body> [posted_by] — wrap a job body in the plan/ budget-hold
+# budget_hold_wrap <body> [posted_by] [journal-dir] — wrap a job body in the plan/ budget-hold
 # envelope a producer writes when budget_fleet_status is `backoff` (every bounded
 # pool confirmed at high water). This is the SINGLE source of that envelope, shared
 # by post-job.sh's direct-post path and scheduler.sh's scheduled-dispatch path, so
@@ -1728,10 +1770,10 @@ budget_fleet_status() {
 # names itself (the scheduler passes `scheduler`). One timestamp is used for both
 # parked_for_budget_at and posted_at so a re-read sees a coherent instant.
 budget_hold_wrap() {
-  local body="$1" posted_by="${2:-${GARDEN_SENDER:-producer}}"
+  local body="$1" posted_by="${2:-${GARDEN_SENDER:-producer}}" dir="${3:-}"
   local reset_epoch reset_iso now
   now="$(date -u +%FT%TZ)"
-  reset_epoch="$(budget_fleet_next_reset_epoch "" 2>/dev/null || true)"
+  reset_epoch="$(budget_fleet_next_reset_epoch "$dir" 2>/dev/null || true)"
   reset_iso=""
   [[ "$reset_epoch" =~ ^[0-9]+$ ]] && reset_iso="$(date -u -d "@$reset_epoch" +%FT%TZ)"
   printf -- '---\n'

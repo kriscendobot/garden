@@ -308,7 +308,7 @@ if [ "$fleet_budget_status" = backoff ]; then
   route_budget_hold=true
   # The budget-hold envelope is the shared budget_hold_wrap (usage-meter.sh), so the
   # direct-post path and the scheduler's dispatch path cannot drift on its fields.
-  POST_BODY="$(budget_hold_wrap "$BODY" "${GARDEN_SENDER:-producer}")"
+  POST_BODY="$(budget_hold_wrap "$BODY" "${GARDEN_SENDER:-producer}" "$DIR")"
   log "all configured budget pools are at high water; routing '$base' to plan/ --budget-hold"
 elif [ "$fleet_budget_status" = unknown ]; then
   log "WARN: fleet budget state unreadable; posting '$base' to todo/ (fail-open)"

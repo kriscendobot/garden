@@ -51,7 +51,7 @@ if [ "$(budget_fleet_status "$dir" 2>/dev/null || echo unknown)" = backoff ]; th
   log "every slice is held but the pools are at high water too; no nudge"
   exit 2
 fi
-reset="${GARDEN_RESLICE_RESET_EPOCH:-$(meter_next_reset_epoch "$now" 2>/dev/null || true)}"
+reset="${GARDEN_RESLICE_RESET_EPOCH:-$(meter_next_reset_epoch "$now" "$dir" 2>/dev/null || true)}"
 if [[ "$reset" =~ ^[0-9]+$ ]] && [ $(( reset - now )) -gt "$GARDEN_RESLICE_NUDGE_RESET_WINDOW" ]; then
   log "every slice is held; reset is $(( (reset - now) / 3600 ))h away, outside the nudge window"
   exit 2

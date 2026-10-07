@@ -42,7 +42,7 @@ if [ -n "$week_start" ] && week_epoch="$(date -u -d "$week_start" +%s 2>/dev/nul
   while [ $(( week_epoch + 604800 )) -le "$now" ]; do week_epoch=$(( week_epoch + 604800 )); done
   while [ "$week_epoch" -gt "$now" ]; do week_epoch=$(( week_epoch - 604800 )); done
 else
-  week_epoch="$(meter_week_anchor_epoch "$now" 2>/dev/null || echo $(( now - 604800 )))"
+  week_epoch="$(meter_week_anchor_epoch "$now" "$dir" 2>/dev/null || echo $(( now - 604800 )))"
 fi
 week_iso="$(date -u -d "@$week_epoch" +%FT%TZ)"
 human() { jq -rn --argjson v "${1:-0}" 'def h: if . >= 1000000 then "\((. / 100000 | floor) / 10)M"
@@ -109,7 +109,7 @@ else
     printf '| %s | %s | %s |\n' "$pool" "$(meter_quota_status "$pool" "$dir" 2>/dev/null || echo unknown)" \
       "$(subscription_used_percent "$pool" "$dir" 2>/dev/null || echo '?')"
   done < "$pool_file"
-  reset="$(meter_next_reset_epoch "$now" 2>/dev/null || true)"
+  reset="$(meter_next_reset_epoch "$now" "$dir" 2>/dev/null || true)"
   [[ "$reset" =~ ^[0-9]+$ ]] && printf '\nNext subscription reset: %s (%sh away).\n' \
     "$(date -u -d "@$reset" +%FT%TZ)" "$(( (reset - now) / 3600 ))"
 fi

@@ -124,8 +124,8 @@ expected_window_start="$(subscription_window_start_epoch "$pool" "$directory" "$
 # A pending maintainer-planned reset shortens the window like any other pacing.
 reset_epoch="$(subscription_pacing_window "$pool" "$directory" "$now" 2>/dev/null | cut -f3 || true)"
 if [[ "$pool" == anthropic:* ]] && ! [[ "$expected_window_start" =~ ^[0-9]+$ ]]; then
-  expected_window_start="$(meter_week_anchor_epoch "$now" 2>/dev/null || true)"
-  reset_epoch="$(meter_next_reset_epoch "$now" 2>/dev/null || true)"
+  expected_window_start="$(meter_week_anchor_epoch "$now" "$directory" 2>/dev/null || true)"
+  reset_epoch="$(meter_next_reset_epoch "$now" "$directory" 2>/dev/null || true)"
 fi
 [[ "$expected_window_start" =~ ^[0-9]+$ ]] && [ "$window_start_epoch" = "$expected_window_start" ] \
   || fallback stale-reset-epoch

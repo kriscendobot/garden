@@ -688,7 +688,7 @@ for name in $(list_jobs "$DIR" schedules); do
     budget_status="$(budget_fleet_status "$DIR")"
     if [ "$budget_status" = backoff ]; then
       target_dir="$JOBS_PLAN"
-      job_content="$(budget_hold_wrap "$composed" scheduler)"
+      job_content="$(budget_hold_wrap "$composed" scheduler "$DIR")"
       log "all configured budget pools are at high water; routing scheduled '$base' to plan/ --budget-hold"
     else
       target_dir="$JOBS_TODO"

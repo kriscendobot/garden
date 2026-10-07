@@ -230,12 +230,14 @@ render_quota_panel() {
   local wdays; wdays=$(( win / 86400 )); [ "$wdays" -ge 1 ] || wdays=1
   window_label="Trailing ${wdays}d"
   local subscription
+  # One discovered clone (the freshest, see _meter_discover_journal) serves every
+  # read below, so the panel cannot mix two clones' views.
   panel_file="$(budget_pool_file 2>/dev/null || true)"; panel_directory="${panel_file%/config/budget-pools}"
-  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "" 2>/dev/null || true)"
-  pool_row="$(budget_pool_row "$subscription" 2>/dev/null || true)"
+  subscription="$(budget_pool_for_provider_host anthropic "$GARDEN" "$panel_directory" 2>/dev/null || true)"
+  pool_row="$(budget_pool_row "$subscription" "$panel_directory" 2>/dev/null || true)"
   if [ -n "$pool_row" ]; then
     IFS=$'\t' read -r _pool _provider _kind pool_cap _ <<<"$pool_row"
-    anchored_cutoff="$(subscription_window_start_epoch "$subscription" 2>/dev/null || true)"
+    anchored_cutoff="$(subscription_window_start_epoch "$subscription" "$panel_directory" 2>/dev/null || true)"
     if [[ "$anchored_cutoff" =~ ^[0-9]+$ ]]; then
       cutoff="$anchored_cutoff"
       window_label="Since ${subscription} reset"
@@ -263,7 +265,7 @@ render_quota_panel() {
     c_dollars_disp="unavailable"
   fi
   c_quota="${pool_cap:-${GARDEN_TOKEN_WEEKLY_QUOTA:-0}}"
-  c_status="$(meter_quota_status 2>/dev/null || echo unknown)"
+  c_status="$(meter_quota_status "" "$panel_directory" 2>/dev/null || echo unknown)"
   case "$c_quota" in
     ''|0|*[!0-9]*) c_pct="no quota set" ;;
     *)
