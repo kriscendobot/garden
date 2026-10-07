@@ -42,6 +42,8 @@ zero in tests (e.g. set the base delay to 0) so the test stays fast. Also run
 
 Commit explicit pathspecs; push to main2 with the garden_repo_lock CAS loop.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
