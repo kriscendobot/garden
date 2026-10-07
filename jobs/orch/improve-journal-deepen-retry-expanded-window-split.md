@@ -1,4 +1,5 @@
 ---
+child-improve-journal-deepen-retry-expanded-window-expanded-window-failure-notified: true
 child-improve-journal-deepen-retry-expanded-window-expanded-window-host: endolin-garden2-5bcdff64
 child-improve-journal-deepen-retry-expanded-window-expanded-window-reap-count: 0
 order: serial
