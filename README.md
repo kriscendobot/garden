@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T21:01:06Z_
+_As of 2026-10-07T21:03:04Z_
 
 ## Latest
 
@@ -493,11 +493,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-07T15:15:39Z, latest 2026-10-07T16:42:14Z).
-> The SAME condition (`journal-push-contention-_home_kris_garden2__garden_state_cursors_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` has CLEARED (first seen 2026-10-07T15:15:39Z, cleared 2026-10-07T21:01:20Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/cursors/journal: attempts p95=8.000000 max=8.000000 (cap 50), classes cas=18 server-reject=0 definite-fail=0.
+> Journal contention condition `journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` cleared on endolin-garden2-5bcdff64.
 
 - `review-request-endojs-endo-but-for-bots-pr151` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr151.md)
 
@@ -697,14 +697,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - Applied in `111713873c58`: replaced the root Vitest runner/dependency with AVA 6.4.1, migrated all 36 root test files, updated CI, and added the compatibility adapter plus direct coverage for its nested hooks, tables, conditional cases, and skips.
 >
 > Current head: `111713873c58`. CI: 1 check, successful. No requested item was declined.
-
-- `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
-
-> COALESCED message — occurrence #3 (first seen 2026-10-05T13:32:06Z, latest 2026-10-05T20:41:25Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 3 times; this is
-> ONE entry that updates in place, not 3 messages. Latest detail:
->
-> M3’s guest-endowment step, [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343), is blocked on choosing whether to land it with #1042 or after #1042 reaches `llm`. Please select the base/merge order.
 
 - `pr-readiness-arc-plan-20261007-terminal-complete` — from orchestrator:pr-readiness-arc-plan-20261007-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/pr-readiness-arc-plan-20261007-terminal-complete.md)
 
@@ -1038,21 +1030,22 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.9M | $270.01 _(notional, rate-card)_ | 18% of 168.0M (ok) |
-| Codex | 4.1M _(+76.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 29.9M | $270.34 _(notional, rate-card)_ | 18% of 168.0M (ok) |
+| Codex | 4.1M _(+77.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.088527s/45s (/home/kris/garden2/.garden-state/inbox/build-minion-town-issue58-prod-objective-probes/journal); 5 open notice(s); checker healthy
+worst fetch p95 10.088527s/45s (/home/kris/garden2/.garden-state/inbox/build-minion-town-issue58-prod-objective-probes/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-review-a6b93d7a.md) — Review directive on endojs/endo-but-for-bots PR #1381
 - [`endojs-endo-but-for-bots-pr1381-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1381
 - [`endojs-endo-but-for-bots-pr1349-textcodec-encapsulation-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1349-textcodec-encapsulation-mentat.md) — ---
 - [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-oauth-bonds.md) — Design: clarify, list, and delete OAuth bonds on minion.town
 - [`weave-kriscendobot-minion-town-pr68-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-kriscendobot-minion-town-pr68-20261007.md) — Weave kriscendobot/minion.town#68 onto the live main
+- [`endojs-endo-but-for-bots-pr1343-conduct-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-conduct-20261007.md) — ---
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1124
