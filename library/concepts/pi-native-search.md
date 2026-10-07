@@ -14,6 +14,7 @@ oh-my-pi's `pi-natives` search surface exposes Rust search and traversal machine
 | [N-API ripgrep search](../sections/oh-my-pi--crates-pi-natives-src-grep--napi-ripgrep-search.md) | Defines in-memory and filesystem search, structured results, and streaming backpressure. |
 | [N-API virtual glob walk](../sections/oh-my-pi--crates-pi-natives-src-glob--napi-virtual-glob-walk.md) | Defines provider-aware traversal and structured glob results. |
 | [N-API fuzzy path discovery](../sections/oh-my-pi--crates-pi-natives-src-fd--napi-fuzzy-path-discovery.md) | Defines bounded fuzzy path ranking and its current host-only boundary. |
+| [ast-grep search over injected filesystems](../sections/oh-my-pi--crates-pi-natives-src-ast--ast-grep-search-over-injected-filesystems.md) | Structural search joins grep and glob on the injected-filesystem side of the boundary. |
 
 ## See also
 
