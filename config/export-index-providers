@@ -1,0 +1,5 @@
+# export-index-providers — extra repos whose export index a project consults for
+# build-vs-buy (skills/build-vs-buy/SKILL.md; scripts/jobs/export-index/ensure-export-index.sh --providers).
+# Format: <consumer owner/repo> <provider owner/repo>@<ref>   (one per line; # comments)
+# endojs/endo-but-for-bots is its own provider and needs no row.
+kriscendobot/minion.town endojs/endo-but-for-bots@llm
