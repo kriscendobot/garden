@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T22:27:51Z_
+_As of 2026-10-07T22:30:42Z_
 
 ## Latest
 
@@ -18,7 +18,7 @@ Separately:
 
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 20d)
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 25d)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 26d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 36d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 36d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 34d)
@@ -879,7 +879,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.6M | $305.98 _(notional, rate-card)_ | 21% of 168.0M (ok) |
+| Claude | 34.8M | $307.78 _(notional, rate-card)_ | 21% of 168.0M (ok) |
 | Codex | 7.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 119089467 tokens/day lower bound._
@@ -888,25 +888,25 @@ _Fleet token-unlock pace: 119089467 tokens/day lower bound._
 worst fetch p95 10.088527s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #68
-- [`kriscendobot-minion.town-pr166-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #166
+- [`kriscendobot-minion.town-pr168-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #168
+- [`kriscendobot-minion.town-pr169-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #169
 - [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-oauth-bonds.md) — Design: clarify, list, and delete OAuth bonds on minion.town
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1431
 
-### doin (4)
+### doin (3)
 - [`improve-design-build-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-design-build-dispatch.md) — ---
+- [`kriscendobot-minion.town-pr166-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #166
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1343
-- [`kriscendobot-minion.town-pr167-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr167-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
-- [`endojs-endo-but-for-bots-pr1381-conduct-345438a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1381-conduct-345438a.md) — Finalize endojs/endo-but-for-bots PR #1381
 
-### tada (11466)
+### tada (11468)
+- [`kriscendobot-minion.town-pr167-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr167-gauntlet-panel-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr1381-conduct-345438a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1381-conduct-345438a.md) — Cost
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1381-review-a6b93d7a.md) — Cost
 - [`build-minion-town-deploy-secret-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/build-minion-town-deploy-secret-preflight.md) — Cost
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr168-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion.town-pr166-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr166-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion.town-pr167-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr167-gauntlet-clean.md) — Cost
-- … and 11461 more
+- … and 11463 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
