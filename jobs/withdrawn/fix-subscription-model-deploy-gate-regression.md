@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: candidate deploy gate passes fleet-wide (2b3089c/7ece247 deployed 2026-10-07); maintainer muster go-ahead
+withdrawn_by: liaison
+withdrawn_at: 2026-10-07T21:29:25Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: fixer
