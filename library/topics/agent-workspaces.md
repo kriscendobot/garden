@@ -29,6 +29,7 @@ Cloud-hosted work environments in which agents use organizational context, creat
 | [Worker-side Artifacts mutation with isomorphic-git](../sections/web--cloudflare-artifacts-docs--worker-side-mutation-with-isomorphic-git.md) | cloudflare-workers-agent-hosting, agent-workspaces, content-addressed-storage | Workers edit an ephemeral filesystem through isomorphic-git, then commit and push durable state to Artifacts. |
 | [ArtifactFS, limits, and lifecycle economics](../sections/web--cloudflare-artifacts-docs--lazy-mounts-limits-and-lifecycle-economics.md) | cloudflare-workers-agent-hosting, agent-workspaces | ArtifactFS lazily hydrates large working trees on FUSE hosts; beta limits and pricing bound retained repositories. |
 | [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | oh-my-pi pi-iso | A writable merged tree uses native copy-on-write or projection backends, falling back to Git worktrees or recursive copy, and emits Git-compatible diffs. |
+| [oh-my-pi injectable virtual filesystem](../sections/oh-my-pi--crates-pi-vfs-src-lib--injectable-virtual-filesystem.md) | oh-my-pi `pi-vfs` | The embedded shell and utilities share a provider-backed filesystem whose virtual files need no host representation. |
 
 ## See also
 
