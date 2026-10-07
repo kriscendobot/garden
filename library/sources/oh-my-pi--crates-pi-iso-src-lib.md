@@ -7,7 +7,7 @@ source_date: 2026-10-05
 source_authors: [Brit, can1357]
 ingested: 2026-10-07
 ingested_by: scholar
-section_count: 1
+section_count: 2
 status: current
 ---
 
@@ -16,3 +16,4 @@ status: current
 | Section | Topics | Status |
 |---------|--------|--------|
 | [cross-platform copy-on-write workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | sandbox-platforms, file-systems, agent-workspaces | current |
+| [pi-iso backend resolution priority and clone candidates](../sections/oh-my-pi--crates-pi-iso-src-lib--backend-resolution-priority.md) | agent-workspaces, sandbox-platforms | current |
