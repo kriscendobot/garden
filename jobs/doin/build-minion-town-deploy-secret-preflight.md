@@ -36,3 +36,13 @@ Its body, filled in with the PR URL (frontmatter `role: conductor`, `requires: a
 > - **Negative check:** in a dry-run or staging invocation, show that the preflight fails loudly when the secret is unreadable. Never remove the production secret.
 > - Recovery notes: the EADDRINUSE orphan recipe and the 89481580 crash-loop lesson are in the minion.town memory notes on this host.
 > - Report evidence: CD run URL, unit status, log lines.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T22:09:44Z
