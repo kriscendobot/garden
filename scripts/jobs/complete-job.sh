@@ -1,11 +1,13 @@
 #!/bin/bash
 # complete-job.sh — consumer primitive: finish a job, doin → tada (report).
 #
-# Usage: complete-job.sh [--orchestration-failed|--handed-off BASE] <gardener-id> <basename> <report-file>
+# Usage: complete-job.sh [--orchestration-failed|--orchestration-auth-unavailable|--handed-off BASE] <gardener-id> <basename> <report-file>
 #   Removes jobs/doin/<basename> and writes jobs/tada/<basename> from
 #   <report-file>, under the SAME reserved basename.
 #   --orchestration-failed strips the exact worker failure signal (when present)
 #   and mechanically stamps `orchestration-failed: true` in leading frontmatter.
+#   --orchestration-auth-unavailable does the same for the interactive-auth
+#   boundary signal, stamping `orchestration-auth-unavailable: true`.
 #
 # Unlike a claim, completion touches only THIS gardener's own basename, so it
 # is safe to retry on push contention: re-sync, re-apply the deterministic
@@ -19,12 +21,14 @@ source "$HERE/common.sh"
 source "$HERE/auction.sh"     # reputation.sh helpers + JOBS_BIDS (source-once guarded)
 
 orchestration_failed=false
+orchestration_auth_unavailable=false
 handed_off=""
 case "${1:-}" in
   --orchestration-failed) orchestration_failed=true; shift ;;
+  --orchestration-auth-unavailable) orchestration_auth_unavailable=true; shift ;;
   --handed-off) handed_off="${2:?--handed-off needs a successor basename}"; shift 2 ;;
 esac
-id="${1:?usage: complete-job.sh [--orchestration-failed|--handed-off BASE] <gardener-id> <basename> <report-file>}"
+id="${1:?usage: complete-job.sh [--orchestration-failed|--orchestration-auth-unavailable|--handed-off BASE] <gardener-id> <basename> <report-file>}"
 base="${2:?missing basename}"
 report="${3:?missing report-file}"
 # The completing worker's kind, inherited from the spine (gardener.sh exports it).
@@ -216,6 +220,10 @@ for attempt in $(seq 1 100); do
     # choices in the human report cannot change the child disposition.
     sed -i "/^${GARDEN_ORCHESTRATION_FAILURE_MARKER}$/d" "$DIR/$tada_rel"
     sed -i '1i---\norchestration-failed: true\n---' "$DIR/$tada_rel"
+  fi
+  if $orchestration_auth_unavailable; then
+    sed -i "/^${GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER}$/d" "$DIR/$tada_rel"
+    sed -i '1i---\norchestration-auth-unavailable: true\n---' "$DIR/$tada_rel"
   fi
   if [ -n "$handed_off" ]; then
     # A declared handoff is completion of the TRANSFER, not of the original

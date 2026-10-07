@@ -29,6 +29,9 @@
 #                `<<<GARDEN-ORCHESTRATION-FAILED>>>` as the penultimate report line,
 #                immediately before `<<<GARDEN-JOB-COMPLETE>>>`. Completion then
 #                stamps `orchestration-failed: true` into leading frontmatter.
+#                A validation child that stopped ONLY at interactive maintainer
+#                auth instead emits `<<<GARDEN-ORCHESTRATION-AUTH-UNAVAILABLE>>>`
+#                there; completion stamps `orchestration-auth-unavailable: true`.
 #                See skills/orchestration/SKILL.md.
 # It becomes work only when promote-plan.sh moves plan/<base> → todo/<base>.
 #
@@ -146,6 +149,8 @@ Usage:
                            <<<GARDEN-ORCHESTRATION-FAILED>>>
                            <<<GARDEN-JOB-COMPLETE>>>
                            in that order; completion stamps the parsed field.
+                           An auth-gated validation child uses
+                           <<<GARDEN-ORCHESTRATION-AUTH-UNAVAILABLE>>> instead.
   --split-indivisible-reason REASON
   --split-indivisible-handler-timeout SECONDS
                            paired metadata for an indivisible orchestrated child.

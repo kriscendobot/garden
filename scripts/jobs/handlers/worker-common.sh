@@ -253,6 +253,14 @@ immediately BEFORE the completion signal. The machinery verifies the successor
 exists and stamps \`handed-off: successor-base\` plus
 \`deliverable-complete: false\`. Never use this for an unposted follow-up or as a
 clean-completion claim.
+
+ORCHESTRATED AUTH-UNAVAILABLE SIGNAL: If you are an orchestrated validation child
+that completed every check available to the fleet and stopped ONLY because the
+remainder needs interactive maintainer authentication (login/MFA) you cannot
+perform, emit
+    $GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER
+immediately BEFORE the completion signal, INSTEAD of the failure signal. The
+orchestration parks the remaining validation and notifies the maintainer once.
 EOF
 )"
   local headless_note; headless_note="$(worker_headless_note)"

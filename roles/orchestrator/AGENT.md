@@ -44,7 +44,11 @@ to completion — so a follow-up is never forgotten.
   line `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately before its final
   `<<<GARDEN-JOB-COMPLETE>>>` line; completion mechanically stamps
   `orchestration-failed: true` into leading report frontmatter. Do not instruct a
-  child to free-type the parsed field into prose. **Never a silent stall** — that
+  child to free-type the parsed field into prose. A serial validation child
+  blocked only by interactive maintainer auth (login/MFA) instead emits
+  `<<<GARDEN-ORCHESTRATION-AUTH-UNAVAILABLE>>>`; the watcher parks the remainder
+  as `parked-auth-unavailable` with one maintainer action notice, resumable via
+  `post-orchestration.sh --resume-from`. **Never a silent stall** — that
   is the whole point of the watch. Board state is read from one committed Git
   tree; an unreadable or multiply-located child retries next tick rather than
   being guessed failed. The final serial prerequisite check runs again inside

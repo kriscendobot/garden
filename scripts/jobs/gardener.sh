@@ -879,6 +879,8 @@ while :; do
         draft_gate_tail_marker=""
         if report_has_orchestration_failure_marker "$report"; then
           draft_gate_tail_marker="$GARDEN_ORCHESTRATION_FAILURE_MARKER"
+        elif report_has_orchestration_auth_unavailable_marker "$report"; then
+          draft_gate_tail_marker="$GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER"
         elif draft_gate_existing_successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
           draft_gate_tail_marker="$GARDEN_HANDOFF_MARKER_PREFIX $draft_gate_existing_successor>>>"
         fi
@@ -949,6 +951,8 @@ while :; do
         stale_tail_marker=""
         if report_has_orchestration_failure_marker "$report"; then
           stale_tail_marker="$GARDEN_ORCHESTRATION_FAILURE_MARKER"
+        elif report_has_orchestration_auth_unavailable_marker "$report"; then
+          stale_tail_marker="$GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER"
         elif stale_existing_successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
           stale_tail_marker="$GARDEN_HANDOFF_MARKER_PREFIX $stale_existing_successor>>>"
         fi
@@ -1050,6 +1054,8 @@ while :; do
     completion_args=()
     if report_has_orchestration_failure_marker "$report"; then
       completion_args=(--orchestration-failed)
+    elif report_has_orchestration_auth_unavailable_marker "$report"; then
+      completion_args=(--orchestration-auth-unavailable)
     elif handoff_successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
       completion_args=(--handed-off "$handoff_successor")
     fi

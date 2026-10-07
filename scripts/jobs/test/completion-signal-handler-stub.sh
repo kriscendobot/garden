@@ -45,6 +45,8 @@ else
 fi
 [ "${GARDEN_STUB_ORCHESTRATION_FAILED:-0}" = "1" ] \
   && printf '%s\n' '<<<GARDEN-ORCHESTRATION-FAILED>>>' >> "$report"
+[ "${GARDEN_STUB_ORCHESTRATION_AUTH_UNAVAILABLE:-0}" = "1" ] \
+  && printf '%s\n' '<<<GARDEN-ORCHESTRATION-AUTH-UNAVAILABLE>>>' >> "$report"
 [ -n "${GARDEN_STUB_HANDOFF_SUCCESSOR:-}" ] \
   && printf '<<<GARDEN-JOB-HANDED-OFF: %s>>>\n' "$GARDEN_STUB_HANDOFF_SUCCESSOR" >> "$report"
 [ "${GARDEN_STUB_COMPLETION_MARKER:-0}" = "1" ] \

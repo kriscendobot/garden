@@ -78,7 +78,7 @@ seed_board() {
     mkdir -p jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors
     for d in jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
     printf '# %s\n\ndo the work for %s\n' "$base" "$base" > "jobs/todo/$base.md" )
-  for host in okhost failhost handoffhost gaphost modehost doomhost; do
+  for host in okhost failhost authhost handoffhost gaphost modehost doomhost; do
     seed_calibrated_test_pool "$seed" "$host" monk
   done
   git -C "$seed" add -A
@@ -125,6 +125,14 @@ printf '%s\n' "$GARDEN_ORCHESTRATION_FAILURE_MARKER" 'more prose' > "$r"
 report_has_orchestration_failure_marker "$r" \
   && bad "mid-report failure signal was accepted" \
   || ok "failure signal is last-line-anchored"
+printf 'deploy ok; root canary needs MFA\n%s\n' "$GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER" > "$r"
+{ report_has_orchestration_auth_unavailable_marker "$r" && ! report_has_orchestration_failure_marker "$r"; } \
+  && ok "exact final auth-unavailable signal is detected, distinct from failure" \
+  || bad "auth-unavailable signal was missed or conflated with failure"
+printf '%s\n' "$GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER" 'more prose' > "$r"
+report_has_orchestration_auth_unavailable_marker "$r" \
+  && bad "mid-report auth-unavailable signal was accepted" \
+  || ok "auth-unavailable signal is last-line-anchored"
 printf 'partial\n%s\n' '<<<GARDEN-JOB-HANDED-OFF: successor-job>>>' > "$r"
 [ "$(report_handoff_successor "$r")" = successor-job ] \
   && ok "exact final handoff signal yields its successor basename" \
@@ -167,6 +175,25 @@ TADA2A="$(fixture_tada_file "$V2A" failedchild || true)"
   && ok "gardener/complete-job translated the exact signal into parsed frontmatter" \
   || bad "failure signal was not translated cleanly ($(sed -n '1,8p' "$TADA2A" 2>/dev/null | tr '\n' '|'))"
 rm -rf "$T2A"
+
+# ============================================================================
+hr; echo "SUBTEST 2A2 — auth-unavailable signal → stamped auth frontmatter, not failure"; hr
+T2C="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2c.XXXXXX")"
+BARE2C="$(seed_board "$T2C" authchild)"
+env GARDEN="authhost" GARDEN_STATE="$T2C/state" JOURNAL_REMOTE="$BARE2C" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+    GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_ORCHESTRATION_AUTH_UNAVAILABLE=1 \
+    GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2C/gardener.log" 2>&1 || true
+V2C="$T2C/verify"; git clone -q --single-branch --branch journal2 "$BARE2C" "$V2C" 2>/dev/null
+TADA2C="$(fixture_tada_file "$V2C" authchild || true)"
+{ [ -n "$TADA2C" ] \
+  && sed -n '1,3p' "$TADA2C" | grep -qx 'orchestration-auth-unavailable: true' \
+  && ! grep -qF "$GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER" "$TADA2C" \
+  && ! tada_failed "$TADA2C"; } \
+  && ok "gardener/complete-job stamped auth-unavailable frontmatter without a failure marker" \
+  || bad "auth-unavailable signal was not translated cleanly ($(sed -n '1,8p' "$TADA2C" 2>/dev/null | tr '\n' '|'))"
+rm -rf "$T2C"
 
 # ============================================================================
 hr; echo "SUBTEST 2B: evidenced handoff signal becomes a mechanically stamped partial disposition"; hr

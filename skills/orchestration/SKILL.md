@@ -136,8 +136,10 @@ progress, and applies a failure policy rather than silently stalling.
    - **interactive authentication unavailable** is a distinct serial-child
      outcome. A validation child that completed every check available to the
      fleet but cannot cross a maintainer-owned interactive login/MFA boundary
-     stamps `orchestration-auth-unavailable: true` in leading report frontmatter
-     (and does **not** stamp `orchestration-failed`). The watcher terminalizes as
+     ends its report with `<<<GARDEN-ORCHESTRATION-AUTH-UNAVAILABLE>>>`
+     immediately before `<<<GARDEN-JOB-COMPLETE>>>` (never alongside the failure
+     signal); completion mechanically stamps `orchestration-auth-unavailable:
+     true` into leading report frontmatter. The watcher terminalizes as
      `parked-auth-unavailable`, leaves downstream validation children parked,
      and emits one coalesced maintainer action notice instead of a child-failure
      notice followed by a halt notice; the child does not send a duplicate auth

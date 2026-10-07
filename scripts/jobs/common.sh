@@ -6996,6 +6996,11 @@ reap_stale_worker_cgroup() {
 # gardener.sh reads only the sentinel: present → complete; absent → requeue.
 GARDEN_COMPLETION_MARKER='<<<GARDEN-JOB-COMPLETE>>>'
 GARDEN_ORCHESTRATION_FAILURE_MARKER='<<<GARDEN-ORCHESTRATION-FAILED>>>'
+# A completed orchestrated validation child that stopped ONLY at an interactive
+# maintainer authentication boundary (login/MFA the fleet cannot perform). Distinct
+# from the failure marker: orchestrate.sh parks the remainder and emits one action
+# notice instead of halting the campaign as a failure.
+GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER='<<<GARDEN-ORCHESTRATION-AUTH-UNAVAILABLE>>>'
 GARDEN_HANDOFF_MARKER_PREFIX='<<<GARDEN-JOB-HANDED-OFF:'
 # The safety-valve signal for the posted-follow-up completion gate
 # (assert-followup-posted.sh). A worker whose report mentions a follow-up in
@@ -7048,6 +7053,18 @@ report_has_orchestration_failure_marker() {
   [ -f "$f" ] || return 1
   last="$(awk 'NF{l=$0} END{print l}' "$f")"
   [ "$last" = "$GARDEN_ORCHESTRATION_FAILURE_MARKER" ]
+}
+
+# report_has_orchestration_auth_unavailable_marker <report-file> — 0 iff the
+# report's last non-blank line is the exact auth-unavailable marker. Same shape as
+# the failure marker: penultimate before the (already stripped) completion marker.
+# gardener.sh passes `--orchestration-auth-unavailable` to complete-job.sh, which
+# removes the signal and stamps `orchestration-auth-unavailable: true`.
+report_has_orchestration_auth_unavailable_marker() {
+  local f="${1:-}" last
+  [ -f "$f" ] || return 1
+  last="$(awk 'NF{l=$0} END{print l}' "$f")"
+  [ "$last" = "$GARDEN_ORCHESTRATION_AUTH_UNAVAILABLE_MARKER" ]
 }
 
 # report_handoff_successor <report-file>: print the successor basename iff the
