@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T23:28:21Z_
+_As of 2026-10-07T23:31:43Z_
 
 ## Latest
 
@@ -933,33 +933,32 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.4M | $350.37 _(notional, rate-card)_ | 25% of 168.0M (ok) |
+| Claude | 41.5M | $349.94 _(notional, rate-card)_ | 25% of 168.0M (ok) |
 | Codex | 8.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 119832590 tokens/day lower bound._
+_Fleet token-unlock pace: 118968076 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1431
-- [`kriscendobot-minion.town-pr168-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #168
 - [`kriscendobot-minion.town-pr167-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #167
 
 ### doin (4)
 - [`kriscendobot-minion.town-pr166-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #166
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1343
 - [`improve-comment-cooldown-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-cooldown-admission.md) — ---
-- [`kriscendobot-minion.town-pr169-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #169
+- [`kriscendobot-minion.town-pr168-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #168
 
-### tada (11492)
+### tada (11493)
+- [`kriscendobot-minion.town-pr169-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr169-gauntlet-fix-1.md) — Gauntlet fix round 1: kriscendobot/minion.town PR #169
 - [`kriscendobot-minion.town-pr168-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr168-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1431-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr169-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr169-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr68-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion-town-pr68-gauntlet-20261007.md) — gauntlet kriscendobot-minion-town-pr68-gauntlet-20261007 — HALTED
-- [`kriscendobot-minion.town-pr166-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr166-gauntlet-fix-2.md) — Cost
-- … and 11487 more
+- … and 11488 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
