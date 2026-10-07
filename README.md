@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T09:58:07Z_
+_As of 2026-10-07T10:00:22Z_
 
 ## Latest
 
@@ -1773,7 +1773,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.2M | $2002.49 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
+| Claude | 170.2M | $2002.77 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
 | Codex | 10.4M _(+256.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1785,8 +1785,8 @@ worst fetch p95 3.579158s/45s (/home/kris/garden2/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1398
 
 ### tada (11358)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1398
