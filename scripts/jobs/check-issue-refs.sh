@@ -24,6 +24,9 @@
 #     * fenced code blocks (``` and ~~~, optional leading whitespace + info string)
 #     * inline `code` spans (the same false-positive class the bulletin linkifier hit,
 #       e.g. `rebase #652`, `run the gauntlet #N`)
+#   EXEMPT (panel item label) — a known jury seat name immediately before the `#N`
+#     (`prover #3`, `(typist#2)`), the panel's per-seat finding numbering, not a ref.
+#     Seats are the directory names under roles/jurors/ (case-insensitive match).
 #   An ATX heading marker (`# ` / `## `) is not a `#N` ref (a digit must abut the `#`),
 #   and a `#RRGGBB` hex colour is dodged by the digits-only rule + the code-span exempt.
 set -euo pipefail
@@ -38,7 +41,18 @@ else
   exit 2
 fi
 
-report="$(printf '%s\n' "$body" | awk '
+# Known jury seats: panel findings are labelled `<seat> #N`, which is not a ref.
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SEATS_DIR="${GARDEN_JUROR_SEATS_DIR:-$HERE/../../roles/jurors}"
+seats=""
+if [ -d "$SEATS_DIR" ]; then
+  for d in "$SEATS_DIR"/*/; do
+    [ -d "$d" ] || continue
+    seats="$seats $(basename "$d")"
+  done
+fi
+
+report="$(printf '%s\n' "$body" | awk -v seats="$seats" '
   # Replace every match of re with a single space: drops the span from scanning
   # while preserving the token boundaries around it.
   function strip(s, re,   out) {
@@ -46,7 +60,11 @@ report="$(printf '%s\n' "$body" | awk '
     while (match(s, re)) { out = out substr(s, 1, RSTART-1) " "; s = substr(s, RSTART+RLENGTH) }
     return out s
   }
-  BEGIN { fence = 0 }
+  BEGIN {
+    fence = 0
+    n = split(tolower(seats), sl, " ")
+    for (i = 1; i <= n; i++) seat[sl[i]] = 1
+  }
   {
     line = $0
     # Fenced code block: toggle on ``` or ~~~ (optional indent + info string). The
@@ -67,6 +85,15 @@ report="$(printf '%s\n' "$body" | awk '
       tok = substr(rest, RSTART, RLENGTH)
       after = substr(rest, RSTART + RLENGTH, 1)
       hp = index(tok, "#"); dig = substr(tok, hp + 1)
+      # Panel item label: the word abutting the `#` (`prover#3`) or separated
+      # from it by spaces (`prover #3`) is a known jury seat.
+      word = substr(tok, 1, hp - 1)
+      if (word == "") {
+        pre = substr(rest, 1, RSTART - 1)
+        if (match(pre, /[A-Za-z0-9._-]+ +$/)) { word = substr(pre, RSTART); sub(/ +$/, "", word) }
+        match(rest, /[A-Za-z0-9._-]*#[0-9]+/)   # restore RSTART/RLENGTH for tok
+      }
+      if (tolower(word) in seat) { rest = substr(rest, RSTART + RLENGTH); continue }
       # Issue-shaped only: 1-6 digits abutting `#`, followed by a non-alphanumeric
       # boundary (so `#12ab`, a 7+-digit run, and `# heading` are all skipped).
       if (length(dig) <= 6 && after !~ /[A-Za-z0-9]/)
@@ -90,7 +117,7 @@ if [ -n "$report" ]; then
     echo "message REJECTED — apparently partially-qualified issue/PR reference(s):"
     printf '%s\n' "$report"
     echo "remedy: fully-qualify each as \`owner/repo#N\` or a full https://github.com/owner/repo/issues/N (or /pull/N) URL."
-    echo "(references inside code fences (\`\`\` / ~~~) or inline \`code\` spans are exempt.)"
+    echo "(references inside code fences (\`\`\` / ~~~) or inline \`code\` spans, and jury-seat item labels like \`prover #3\`, are exempt.)"
   } >&2
   exit 1
 fi

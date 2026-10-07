@@ -83,8 +83,10 @@ author-written send primitive (`message-user.sh`, `send-msg.sh`, `inbox-send.sh`
 `check-issue-refs.sh` on the body before the push and refuses to post it,
 printing each offending reference and the remedy. References inside **fenced code
 blocks** (```` ``` ````/`~~~`) and **inline `code` spans** are exempt (a
-`` `rebase #652` `` command example is vocabulary, not a reference), as is an ATX
-heading marker. Machine/relay producers that forward generated or external bodies
+`` `rebase #652` `` command example is vocabulary, not a reference), as are an ATX
+heading marker and a panel item label — a jury seat name from `roles/jurors/`
+before the number (`prover #3`, `typist#2`), the panel's per-seat finding
+numbering. Machine/relay producers that forward generated or external bodies
 bypass the gate with `GARDEN_SKIP_REF_CHECK=1`.
 
 ## Notes

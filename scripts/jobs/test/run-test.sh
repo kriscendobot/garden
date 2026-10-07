@@ -3696,6 +3696,11 @@ chk() { printf '%s\n' "$1" | "$CHK" - >/dev/null 2>&1; echo $?; }   # rc: 0 clea
 [ "$(chk 'the `rebase #652` command example')" -eq 0 ]                  && ok "bare #N inside an inline code span passes"    || bad "inline-span #N wrongly rejected"
 [ "$(chk "$(printf '# Heading 2\nbody text')")" -eq 0 ]                 && ok "an ATX heading line is not flagged"           || bad "ATX heading wrongly flagged"
 [ "$(chk 'partial owner#5 and GH-42 forms')" -eq 1 ]                    && ok "owner#N and GH-N rejected as partial"         || bad "owner#N / GH-N not rejected"
+# panel item labels (`<jury seat> #N`) are per-seat finding numbers, not refs
+[ "$(chk 'should-fix items prover #2 and (prover #3) and typist#1 remain')" -eq 0 ] && ok "jury-seat panel item labels pass"     || bad "jury-seat item label wrongly rejected"
+[ "$(chk 'Corner-Prober #12 still open')" -eq 0 ]                       && ok "hyphenated seat label passes (case-insensitive)" || bad "hyphenated seat label wrongly rejected"
+[ "$(chk 'prover #3 is done but see #5')" -eq 1 ]                       && ok "a bare #N beside a seat label is still rejected" || bad "bare #N beside a seat label not rejected"
+[ "$(chk 'tracked in acme#4 and fixer #6')" -eq 1 ]                     && ok "owner#N and non-seat word #N still rejected"  || bad "non-seat partial ref not rejected"
 # the failure report names the offending ref AND a remedy
 refrep="$(printf 'look at #652\n' | "$CHK" - 2>&1 1>/dev/null || true)"
 case "$refrep" in *'#652'*fully-qualify*) ok "rejection report names the ref and the remedy";; *) bad "report missing ref/remedy: $refrep";; esac
