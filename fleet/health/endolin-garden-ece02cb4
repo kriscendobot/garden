@@ -1,8 +1,8 @@
 host: endolin-garden-ece02cb4
-deployed_sha: 05b29b3e8fa29919ae5024586f91c84e34fc9a08
+deployed_sha: 2b3089c074e9e533605cbe0f12acc68133df8969
 roll_status: deployed
 unit_failures: 0
-unit_total: 284
+unit_total: 283
 first_bad_unit: -
 advisory_failures: 0
-at: 2026-10-07T05:29:29Z
+at: 2026-10-07T05:43:34Z
