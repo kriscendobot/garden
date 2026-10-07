@@ -7116,3 +7116,14 @@ Inspect via `git -C journal cat-file -p ea5beed57221439cef4ccc328c01872c7710abee
 
 Inspect via `git -C journal cat-file -p cadcbc778ad559722ac4618907df76186000628a` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/cadcbc778ad559722ac4618907df76186000628a`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-10-07T22:14:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 695dd94db8ac0aea9395e64857b040c8ee902c62
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'design-minion-town-oauth-bonds' handler exited rc=1
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/695dd94db8ac0aea9395e64857b040c8ee902c62
+
+Inspect via `git -C journal cat-file -p 695dd94db8ac0aea9395e64857b040c8ee902c62` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/695dd94db8ac0aea9395e64857b040c8ee902c62`) -- both work off-host after a plain `journal2` fetch.
