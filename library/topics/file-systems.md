@@ -14,6 +14,9 @@
 | [gefs/on-disk-format](../sections/papers--bernstein-gefs-good-enough-file-system-2023--on-disk-format.md) | GEFS paper | Superblocks, arena headers, allocation/deadlist logs, pivot/leaf blocks, key types, and upsert message opcodes. |
 | [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | oh-my-pi pi-iso | A writable merged tree uses native copy-on-write or projection backends, falling back to Git worktrees or recursive copy, and emits Git-compatible diffs. |
 | [N-API isolation lifecycle and the unavailable-error protocol](../sections/oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle.md) | oh-my-pi `pi-natives` iso | JavaScript probes, resolves, starts, stops, and diffs `pi-iso` workspaces; `ISO_UNAVAILABLE:` separates a missing backend from failure. |
+| [ShellFilesystem wire protocol](../sections/oh-my-pi--crates-pi-natives-src-shell-vfs--shellfilesystem-wire-protocol.md) | oh-my-pi `pi-natives` shell/vfs | A JavaScript handler implements a 34-op filesystem with positional handles, errno-as-data failures, and host-path (optionally read-only) redirects. |
+| [Rcopy fallback backend](../sections/oh-my-pi--crates-pi-iso-src-rcopy--git-worktree-or-recursive-copy-fallback.md) | oh-my-pi `pi-iso` rcopy | Detached `git worktree` replaying lower's staged/unstaged/untracked state, or an mtime-preserving recursive copy. |
+| [overlayfs with fuse-overlayfs fallback](../sections/oh-my-pi--crates-pi-iso-src-overlayfs--kernel-overlay-with-fuse-fallback.md) | oh-my-pi `pi-iso` overlayfs | Kernel overlay mount with sibling upper/work dirs; kernel refusal falls back to fuse-overlayfs, flavor remembered for teardown. |
 
 ## See also
 
