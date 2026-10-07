@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T16:44:07Z_
+_As of 2026-10-07T16:50:44Z_
 
 ## Latest
 
@@ -33,6 +33,32 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (delegation not armed)
 
 ## Messages to the maintainer
+
+- `review-request-endojs-endo-but-for-bots-pr256` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr256.md)
+
+> Review request: endojs/endo-but-for-bots PR 256
+> [https://github.com/endojs/endo-but-for-bots/pull/256](https://github.com/endojs/endo-but-for-bots/pull/256)
+> Arc: unallocated. Milestone: M7.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied in `cb85029ff9b1`: implemented the hashline splice, daemon mount/guest edit surface, 29 unit tests, and seven daemon integration tests covering the anchored-read to hashline-edit round trip and safety failures.
+> - Applied in `8ca6c8000d12`: added `EndoGuest.readTextAnchored`, so a holder of only the guest surface can perform both halves of the requested round trip.
+> - Applied without grep/glorp changes: `readTextAnchored`/`renderAnchored` provides the line attribution needed to author edits; there is no grep/glorp verb in the current tree. The bot explained this substitution rather than changing nonexistent facilities.
+>
+> Current head: `8ca6c8000d12`. CI: no checks are attached to the current head.
+
+- `review-request-endojs-endo-but-for-bots-pr1348` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr1348.md)
+
+> Review request: endojs/endo-but-for-bots PR 1348
+> [https://github.com/endojs/endo-but-for-bots/pull/1348](https://github.com/endojs/endo-but-for-bots/pull/1348)
+> Arc: unallocated. Milestone: M3.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied in `217acce23973`: added tested attenuated-command examples for `printf`, `git status`, `cat`, `grep`, `find`, and `sha256sum`, with residual authority and executor requirements documented.
+> - Applied in `217acce23973` and `808f037289a2`: renamed the lexical path slot to `relative-path`, documented that symlink-target confinement belongs to the sandbox mount boundary, and tested canonical target comparison.
+> - Applied as a design answer: separated argv grammar from a future passable pipeline-plan grammar, specifying checked stages, workspace identities, endpoints, and effects. The bot explicitly declined adding redirects/process substitution to the current buffered-text API because it cannot yet provide byte preservation, topology policy, or shared-workspace proof; those prerequisites are recorded rather than silently overclaiming confinement.
+>
+> Current head: `808f037289a2`. CI: 33 checks, all successful.
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
@@ -172,9 +198,36 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > and rolls out — say that explicitly in your completion report so its
 > priority is clear to whoever reads it next.
 
+- `review-request-endojs-endo-but-for-bots-pr670` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr670.md)
+
+> Review request: endojs/endo-but-for-bots PR 670
+> [https://github.com/endojs/endo-but-for-bots/pull/670](https://github.com/endojs/endo-but-for-bots/pull/670)
+> Arc: unallocated. Milestone: M3.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: refreshed/rebased onto the newer frozen `llm` snapshot.
+> - Applied in `9c120d7b5ed1`: added `makeMinionTownMcpOAuthConfig` and seven preset tests matching the deployed minion.town OAuth MCP metadata and request contract; recorded that the agentry/agent-tools consolidation exposes no auth surface to reuse.
+> - Scope note: the bot did not claim an interactive end-to-end token grant because the consent flow requires maintainer authentication; the published contract and request shapes were validated instead.
+>
+> Current head: `9c120d7b5ed1`. CI: 23 checks, all successful. No requested item was declined.
+
 - `watchdog-unclaimable-host-requirements-minion-town-claude-kriscendobot-connect-canary-20261006` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-minion-town-claude-kriscendobot-connect-canary-20261006.md)
 
 > Host-requirements gate: job 'minion-town-claude-kriscendobot-connect-canary-20261006' has remained unclaimed for 1204s with requires: aws. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
+- `review-request-endojs-endo-but-for-bots-pr450` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr450.md)
+
+> Review request: endojs/endo-but-for-bots PR 450
+> [https://github.com/endojs/endo-but-for-bots/pull/450](https://github.com/endojs/endo-but-for-bots/pull/450)
+> Arc: endo-ocapn-background. Milestone: M4.
+>
+> Latest CHANGES_REQUESTED checklist, all applied in `994c1a86bc2a` in `designs/presence-severance-observation.md`:
+> - Treat severance and partition as synonymous and retain reconnect-as-a-fresh-presence semantics.
+> - Move forgetting severed presences to garbage collection rather than this API.
+> - Put continuity across physical connections in the transport-layer logical-session abstraction.
+> - Use the returned promise as the cleanup-observation surface.
+>
+> Current head: `994c1a86bc2a`. CI: 5 checks, all successful. No requested item was declined.
 
 - `doomed-improve-receipt-primary-quota-cooldown-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-receipt-primary-quota-cooldown-requeue-exhausted.md)
 
@@ -235,6 +288,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Proposed round 2, if you want it: (a) seed export-index-providers (minion.town -> endojs/endo-but-for-bots@llm); (b) treat an @endo/* provider that is "blocked: not yet a dependency" as a should-fix "add the dependency" finding, not silence; (c) add a builder/purist line: an unpublished upstream is no license to vendor a copy; consume it (dev registry or git dep) or fix it upstream. Reply "dispatch" to post review-improve-prefer-endo-primitives-r2, or "hold".
 
+- `review-request-endojs-endo-but-for-bots-pr238` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr238.md)
+
+> Review request: endojs/endo-but-for-bots PR 238
+> [https://github.com/endojs/endo-but-for-bots/pull/238](https://github.com/endojs/endo-but-for-bots/pull/238)
+> Arc: unallocated. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: `660d4855f290` corrects the README to describe synchronized one-shot reveal rather than three throws.
+> - Applied: after rebase, feature commit `8a060c8fa6a3` is authored by Dan Connolly (`dckc@madmode.com`).
+> - Applied: `8c2d081051f4` replaces the ASCII capability sketch with Mermaid; the reusable Mermaid preference was also surfaced to the gardener.
+>
+> Current head: `8c2d081051f4`. CI: 25 checks, all successful. No CHANGES_REQUESTED item was declined.
+
 - `msg-scholar-ingest-oh-my-pi-rust-core-3-3b5c9c4c15cc` — from scholar:scholar-ingest-oh-my-pi-rust-core-3, reply_to `scholar-ingest-oh-my-pi-rust-core-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-3-3b5c9c4c15cc.md)
 
 > oh-my-pi Rust core, cycle 3 ([kriscendobot/garden#121](https://github.com/kriscendobot/garden/issues/121)): ingested 8 sources / 11 sections into the library. These cover the `pi-natives` shell, iso, and ast N-API bindings; vendored brush-parser and brush-core (README + crate root each); and the third-party yeluo45 explainer, kept as a secondary description with a claim-by-claim divergence ledger.
@@ -242,6 +308,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Headline: the explainer is useful for orientation only. Beyond the known errors (no `pi-vfs`, minimizer presented as a permission gate, wrong brush path), its vendoring rationale and its pi-ast/pi-iso APIs are invented. brush-parser is actually vendored to fix here-documents inside `$(...)`. Structural search (`astGrep`/`astEdit`) joins grep and glob in accepting the virtual filesystem; `fuzzyFind` stays host-only.
 >
 > The deeper pi-iso/pi-ast/pi-shell module docs and `shell/vfs.rs` are queued as `scholar-ingest-oh-my-pi-rust-core-4`. Result: journal entries/2026/10/07/160447Z-result-gardener-1327b8.md
+
+- `review-request-endojs-endo-but-for-bots-pr667` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr667.md)
+
+> Review request: endojs/endo-but-for-bots PR 667
+> [https://github.com/endojs/endo-but-for-bots/pull/667](https://github.com/endojs/endo-but-for-bots/pull/667)
+> Arc: unallocated. Milestone: M3.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: refreshed/rebased the branch; the latest conflict-resolved head is `4f9d899d509b`.
+> - Applied in `645bb68284d4`: moved the JSONL RPC bridge into the `@endo/agentry/rpc` subpath, including implementation, types, documentation, exports, and 37 tests; `@endo/genie` retains only the spawnable entry wiring.
+>
+> CI: 24 checks, all successful. No requested item was declined.
 
 - `liaison-followup-204bf211474f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-204bf211474f.md)
 
@@ -336,9 +414,34 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/cursors/journal: attempts p95=8.000000 max=8.000000 (cap 50), classes cas=18 server-reject=0 definite-fail=0.
 
+- `review-request-endojs-endo-but-for-bots-pr151` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr151.md)
+
+> Review request: endojs/endo-but-for-bots PR 151
+> [https://github.com/endojs/endo-but-for-bots/pull/151](https://github.com/endojs/endo-but-for-bots/pull/151)
+> Arc: unallocated. Milestone: M9.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: refresh the branch onto current `llm`; the refreshed current head is `97e419b9c951`.
+> - Applied: add tests. `58fdb5ab530f` extracted `formatWorkers` and added six cases in `packages/cli/test/workers-format.test.js`; `97e419b9c951` is the formatting follow-up.
+>
+> CI: 22 checks, all successful. No requested item was declined.
+
 - `liaison-followup-847507094048` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-847507094048.md)
 
 > minion-town-pr81-deploy-recover-27a6e2bf: the app needs a secret at startup, but only a hand-run script provisions it, and CD neither runs that script nor checks for the secret. The job suggests adding a pre-restart check to `deploy-app.sh` in kriscendobot/minion.town. Should we build it?
+
+- `review-request-endojs-endo-but-for-bots-pr660` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr660.md)
+
+> Review request: endojs/endo-but-for-bots PR 660
+> [https://github.com/endojs/endo-but-for-bots/pull/660](https://github.com/endojs/endo-but-for-bots/pull/660)
+> Arc: unallocated. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: the review withdrew approval pending answers; erights then answered all three scope questions in the thread.
+> - Applied in `403b27892cd3`: repointed the two in-repo `Checker` importers directly to `@endo/common/ident-checker.js`, added the matching deprecation tag and changeset, as directed for this PR.
+> - Applied as disposition: the `@endo/init` and `@endo/spaces-util` edges were explicitly directed to separate PRs and were not folded into this branch.
+>
+> Current head: `403b27892cd3`. CI: 25 checks, all successful. No in-scope request was declined.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr264-8d141d7bb8ce` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr264-8d141d7bb8ce.md)
 
@@ -386,9 +489,31 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/832](https://github.com/endojs/endo-but-for-bots/pull/832) ([endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/issues/832)) is in the mergeable queue with NO gauntlet review staged (head 675d412bce5933ca701bdc59650f3374f3cb7907). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #832'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `review-request-endojs-endo-but-for-bots-pr313` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr313.md)
+
+> Review request: endojs/endo-but-for-bots PR 313
+> [https://github.com/endojs/endo-but-for-bots/pull/313](https://github.com/endojs/endo-but-for-bots/pull/313)
+> Arc: unallocated. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied in `ceea5f188590`: added `M.or` and `M.and` cases where compound branches produce multi-leaf outline explanations, covering split records and array alternatives in `packages/patterns/test/explain-mismatch.test.js`.
+>
+> Current head: `ceea5f188590`. CI: 25 checks successful and `test (24.x, ubuntu-latest)` failed. The requested test coverage is present; the failing current CI state is called out for triage.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr237-1c4f9a729cb2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr237-1c4f9a729cb2.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/237](https://github.com/endojs/endo-but-for-bots/pull/237) ([endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/issues/237)) is in the mergeable queue with NO gauntlet review staged (head 1c4f9a729cb2e36bf7d9744844963f9418d36523). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #237'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `review-request-endojs-endo-but-for-bots-pr96` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr96.md)
+
+> Review request: endojs/endo-but-for-bots PR 96
+> [https://github.com/endojs/endo-but-for-bots/pull/96](https://github.com/endojs/endo-but-for-bots/pull/96)
+> Arc: unallocated. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: differentiate the upward-search names. `428b76d7f8dc` renamed `walkUpwards` to `walkToCompartmentRoot`; after the maintainer follow-up, `845dd3f7439e` renamed the public `search` to `searchCompartmentDescriptor` across `packages/compartment-mapper/src/search.js`, exports, types, tests, and the cache commentary.
+>
+> Current head: `ee41a8a298a4`. CI: 15 checks, all successful. No requested item was declined.
 
 - `stale-panel-head-kriscendobot-agoric-sdk-pr10-5c8c53ef-d4beb292` — from gardener:fix-gauntlet-audit-restages-finished-prs-20261006, reply_to `fix-gauntlet-audit-restages-finished-prs-20261006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-agoric-sdk-pr10-5c8c53ef-d4beb292.md)
 
@@ -485,6 +610,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/238](https://github.com/endojs/endo-but-for-bots/pull/238) ([endojs/endo-but-for-bots#238](https://github.com/endojs/endo-but-for-bots/issues/238)) is in the mergeable queue with NO gauntlet review staged (head 8c2d081051f433da0ebd3f8b9a89f3ed6fa885f3). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #238'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `review-request-kriscendobot-minion-town-pr32` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-kriscendobot-minion-town-pr32.md)
+
+> Review request: kriscendobot/minion.town PR 32
+> [https://github.com/kriscendobot/minion.town/pull/32](https://github.com/kriscendobot/minion.town/pull/32)
+> Arc: minion-town-mcp-ocapn. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied in `111713873c58`: replaced the root Vitest runner/dependency with AVA 6.4.1, migrated all 36 root test files, updated CI, and added the compatibility adapter plus direct coverage for its nested hooks, tables, conditional cases, and skips.
+>
+> Current head: `111713873c58`. CI: 1 check, successful. No requested item was declined.
+
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
 > COALESCED message — occurrence #3 (first seen 2026-10-05T13:32:06Z, latest 2026-10-05T20:41:25Z).
@@ -496,6 +632,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr329-a9624e71c75d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr329-a9624e71c75d.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/329](https://github.com/endojs/endo-but-for-bots/pull/329) ([endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/issues/329)) is in the mergeable queue with NO gauntlet review staged (head a9624e71c75dd2267a35417ef54fbfaa6fc93c8c). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #329'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `review-request-endojs-endo-but-for-bots-pr237` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr237.md)
+
+> Review request: endojs/endo-but-for-bots PR 237
+> [https://github.com/endojs/endo-but-for-bots/pull/237](https://github.com/endojs/endo-but-for-bots/pull/237)
+> Arc: unallocated. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist (all preserved in the current re-land commit `4b53d23d74aa`, file `designs/lal-jessie-blocky.md`):
+> - Applied: add a `define(source, slots, options?)` language option.
+> - Applied: verify the Jessie packages are unpublished, identify the Chat-package integration, and specify a new vendored `@endo/jessie-blockly` package with a later ejection path.
+> - Applied: specify the custom-block versus variable-block bake-off and retain the Phase 4+ system-prompt tuning decision.
+>
+> Current head: `1c4f9a729cb2`. CI: 5 checks, all successful. No requested item was declined.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr186-3ffb8a8f0cae` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr186-3ffb8a8f0cae.md)
 
@@ -512,6 +661,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `liaison-followup-f43c049012d8` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-f43c049012d8.md)
 
 > kriscendobot-minion-town-pr130-conduct-prod-validate-20260928-resume: [kriscendobot/minion.town#130](https://github.com/kriscendobot/minion.town/issues/130) ([https://github.com/kriscendobot/minion.town/pull/130](https://github.com/kriscendobot/minion.town/pull/130)) needs your decision. Should it be woven onto `main` at `7e87a44`, or closed as superseded? If it lands later, the job asks that CD and production be re-validated: guest API, landing page rendered in a real browser, guest-locator section still hidden, no `deploy-endo-federation.sh enable`. It also asks that the result be posted on [https://github.com/kriscendobot/minion.town/pull/117](https://github.com/kriscendobot/minion.town/pull/117).
+
+- `review-request-endojs-endo-but-for-bots-pr138` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr138.md)
+
+> Review request: endojs/endo-but-for-bots PR 138
+> [https://github.com/endojs/endo-but-for-bots/pull/138](https://github.com/endojs/endo-but-for-bots/pull/138)
+> Arc: endo-ocapn-background. Milestone: M4.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: skip the `@nets` migration because it is not widely deployed. `babf96d2498a` rewrote `designs/ocapn-daemon-integration.md` to replace `@nets` with `@transports` in one cutover, removing coexistence, fallback, shim, and deprecation-window language.
+>
+> Current head: `cb800c2ef45c`. CI: 5 checks, all successful. No requested item was declined.
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c` — from gardener:endojs-endo-but-for-bots-pr695-5e067785-retro, reply_to `endojs-endo-but-for-bots-pr695-5e067785-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c.md)
 
@@ -585,6 +745,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/469](https://github.com/endojs/endo-but-for-bots/pull/469) ([endojs/endo-but-for-bots#469](https://github.com/endojs/endo-but-for-bots/issues/469)) is in the mergeable queue with NO gauntlet review staged (head 596b4c1185d2e3255d5ce4350eb41fb5c2ede386). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #469'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `review-request-endojs-endo-but-for-bots-pr216` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr216.md)
+
+> Review request: endojs/endo-but-for-bots PR 216
+> [https://github.com/endojs/endo-but-for-bots/pull/216](https://github.com/endojs/endo-but-for-bots/pull/216)
+> Arc: moonshots. Milestone: M11.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: refreshed and pinned the PR to frozen base `llm-a54c3ad`; the rebased current head is `3964a6f62930`.
+> - Applied: complete inspector console grouping. `bac4cf4949ed` added `group`, `groupCollapsed`, and `groupEnd` through `packages/tui/src/inspector.js`, interfaces, implementations, types, design text, and tests; the later fixups are included at the current head.
+>
+> CI: 26 checks, all successful. No requested item was declined.
+
 - `watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr32-111713873c58` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr32-111713873c58.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/32](https://github.com/kriscendobot/minion.town/pull/32) ([kriscendobot/minion.town#32](https://github.com/kriscendobot/minion.town/issues/32)) is in the mergeable queue with NO gauntlet review staged (head 111713873c58bee2cdff02577997361a9f50e49d). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #32'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -617,6 +789,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
 > - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
 
+- `review-request-endojs-endo-but-for-bots-pr1281` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr1281.md)
+
+> Review request: endojs/endo-but-for-bots PR 1281
+> [https://github.com/endojs/endo-but-for-bots/pull/1281](https://github.com/endojs/endo-but-for-bots/pull/1281)
+> Arc: unallocated. Milestone: M2.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: absorbed the style fixup into the base feature commit, preserving the final tree as a one-commit PR.
+> - Applied subsequent maintainer follow-up: rebased onto frozen base `master-aaf9ea4`; current one-commit head `ee335ddf6de0` preserves the same patch.
+>
+> CI: 14 checks, all successful. No requested item was declined.
+
 - `endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet endojs-endo-but-for-bots-pr1398-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -634,13 +818,47 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684 HALTED: child kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
 
+- `review-request-endojs-endo-but-for-bots-pr264` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr264.md)
+
+> Review request: endojs/endo-but-for-bots PR 264
+> [https://github.com/endojs/endo-but-for-bots/pull/264](https://github.com/endojs/endo-but-for-bots/pull/264)
+> Arc: unallocated. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied (non-code request; no commit to this design branch): posted the requested gap-finding builder and opened draft probe [https://github.com/endojs/endo-but-for-bots/pull/1131](https://github.com/endojs/endo-but-for-bots/pull/1131) stacked on this design.
+> - Applied: the probe returned a structured gap report to the design thread, including the missing dependency implementation, absent map-leg attribute source, unnamed gather site, and unresolved schema questions. The design branch therefore remains at head `8d141d7bb8ce` as expected for this action-only request.
+>
+> CI: 5 checks, all successful.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-808f037289a2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-808f037289a2.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1348](https://github.com/endojs/endo-but-for-bots/pull/1348) ([endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/issues/1348)) is in the mergeable queue with NO gauntlet review staged (head 808f037289a2788e2bd81fb0bdac9aa793bca9ce). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1348'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `review-request-endojs-endo-but-for-bots-pr281` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr281.md)
+
+> Review request: endojs/endo-but-for-bots PR 281
+> [https://github.com/endojs/endo-but-for-bots/pull/281](https://github.com/endojs/endo-but-for-bots/pull/281)
+> Arc: moonshots. Milestone: M11.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied: refreshed the branch by rebasing it onto the then-current `llm` tip and resolving the `designs/README.md` conflict while preserving the four-file/two-commit feature delta. The resulting current head is `75115559bda5`.
+>
+> CI: 28 checks, all successful. No requested item was declined.
+
 - `msg-scholar-ingest-oh-my-pi-rust-core-2-b6d0f6b4499d` — from scholar:scholar-ingest-oh-my-pi-rust-core-2, reply_to `scholar-ingest-oh-my-pi-rust-core-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-2-b6d0f6b4499d.md)
 
 > Ingested five source-anchored sections covering oh-my-pi's injectable `pi-vfs`, feature-gated `pi-builtins`, and the first three `pi-natives` search surfaces. The key boundary is now explicit: virtual shell files never need a host representation; native grep and glob honor that provider filesystem, while `fuzzyFind` is currently host-path-only. The remaining native bindings, deeper module docs, divergence-marked explainer, and vendored brush documentation are queued in `scholar-ingest-oh-my-pi-rust-core-3`; see the cycle's result entry for anchors and integrity evidence.
+
+- `review-request-endojs-endo-but-for-bots-pr832` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr832.md)
+
+> Review request: endojs/endo-but-for-bots PR 832
+> [https://github.com/endojs/endo-but-for-bots/pull/832](https://github.com/endojs/endo-but-for-bots/pull/832)
+> Arc: endo-ocapn-background. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied in the current re-land beginning at `f53b347d4b35`: `ReadableBlob.lines` now takes an options bag with optional `start`, `end`, and `buffer`, defines inclusive bounds, handles negative indices, clamping and reversed ranges, and expands the verification matrix in `designs/readableblob-lines.md`.
+>
+> Current head: `675d412bce59`. CI: 5 checks, all successful. No requested item was declined. Later gauntlet feedback identified four maintainer-facing interface questions, already listed in the PR thread.
 
 - `minion-town-shell-to-js-20261004-part3-gauntlet-review-budget-reached` — from gauntlet:minion-town-shell-to-js-20261004-part3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-shell-to-js-20261004-part3-gauntlet-review-budget-reached.md)
 
@@ -661,6 +879,32 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr179-2e3f4d030dab` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr179-2e3f4d030dab.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/179](https://github.com/endojs/endo-but-for-bots/pull/179) ([endojs/endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/issues/179)) is in the mergeable queue with NO gauntlet review staged (head 2e3f4d030dab0831dc328c1300623d464cb10312). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #179'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `review-request-endojs-endo-but-for-bots-pr594` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr594.md)
+
+> Review request: endojs/endo-but-for-bots PR 594
+> [https://github.com/endojs/endo-but-for-bots/pull/594](https://github.com/endojs/endo-but-for-bots/pull/594)
+> Arc: garden-upkeep. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied in current commit `27d11be73643`: replaced the shell driver with `scripts/eslint-repo.mjs` and pointed `yarn lint:eslint` to it.
+> - Applied: the JavaScript driver launches bounded ESLint child-process buckets, retaining process isolation from the typescript-eslint program cache; plain Node was chosen instead of zx or the in-process API, with benchmark evidence in the PR thread.
+>
+> Current head: `27d11be73643`. CI: 8 checks successful; failures currently include browser-tests, lint, build, cover, test-hermes, test-xs, test-ocapn-python, viable-release, check-action-pins, and copilot setup checks. The requested JavaScript conversion itself is present.
+
+- `review-request-endojs-endo-but-for-bots-pr186` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr186.md)
+
+> Review request: endojs/endo-but-for-bots PR 186
+> [https://github.com/endojs/endo-but-for-bots/pull/186](https://github.com/endojs/endo-but-for-bots/pull/186)
+> Arc: unallocated. Milestone: -.
+>
+> Latest CHANGES_REQUESTED checklist:
+> - Applied in `59e90c85d07b`: replaced the design narrative with state documentation in `packages/eventual-send/README.md`, rebased to `actual/master`, removed bots-repo issue references, and closed the superseded design issue as directed.
+> - Applied in `59e90c85d07b`: renamed `install-delegate.js`/`make-delegate.js` to `install.js`/`make.js` and replaced the old install name with `installOrAdoptOne`/`installOrAdoptAll`.
+> - Applied in `59e90c85d07b`: made the delegate operations peer symbol-named properties on `Promise`, had `make.js` return the bank, and exported lexical ponyfill thunks from `src/no-shim.js`, with regression tests.
+> - Applied follow-ups: formatting in `b1bd5be0db2d` and the `Bank.delegate` type correction in `3ffb8a8f0cae`.
+>
+> Current head: `3ffb8a8f0cae`. CI: 26 checks, all successful. No requested item was declined.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr887-d8e75061384a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr887-d8e75061384a.md)
 
@@ -693,7 +937,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.9M | $199.72 _(notional, rate-card)_ | 12% of 168.0M (ok) |
+| Claude | 20.9M | $199.77 _(notional, rate-card)_ | 12% of 168.0M (ok) |
 | Codex | 3.3M _(+69.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
