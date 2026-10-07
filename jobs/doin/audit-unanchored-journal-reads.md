@@ -18,6 +18,7 @@ dispatch: automatic
 
 **Done when:** the inventory, with each site's disposition, is in the tada report; the fixes and test are pushed to `main2`; suites pass.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
