@@ -1,0 +1,20 @@
+---
+gate: deferred
+priority: normal
+role: fixer
+arc: unallocated
+posted_by: fixer
+posted_at: 2026-10-07T16:51:43Z
+---
+
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+Address the outstanding CHANGES_REQUESTED review on https://github.com/endojs/endo-but-for-bots/pull/266.
+
+Unaddressed request from review https://github.com/endojs/endo-but-for-bots/pull/266#pullrequestreview-5085531865:
+- Remove the design coupling to Lal and move the interface boundary to Agentry.
+
+Evidence: the review was submitted against the current head `964cc634b818`; there are no later commits or bot replies. Update the endopen design raft and its index coherently. Preserve the row classification: arc unallocated, milestone -.
