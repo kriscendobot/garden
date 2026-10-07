@@ -27,7 +27,12 @@
 #             orchestration completes when every child is terminal.
 #
 # CHILD STATE is read purely from the board (child_state below):
-#   done        — jobs/tada/<child> exists (and carries no failure marker).
+#   done        — jobs/tada/<child> exists (and carries no failure or auth marker).
+#   auth-unavailable — jobs/tada/<child> declares
+#                 `orchestration-auth-unavailable: true`: the child completed all
+#                 validation possible without interactive maintainer credentials.
+#                 A serial run parks its remainder and asks for that credential;
+#                 this is not a deployment failure.
 #   active      — jobs/todo or jobs/doin holds it (claimed / queued, in flight),
 #                 unless its deterministic liveness bounds say it has stalled.
 #   progressing — in flight AND its requeue count rose above the recorded baseline,
@@ -183,8 +188,8 @@ child_board_view() {  # <child> -> "<location> <snapshot>"
 # terminal marker), re-sync the clone and re-read: a child completing in a fresh
 # attempt can already have its tada committed while an earlier claim's timing still
 # reads as a stall, and the tick's single top sync can observe the board a beat
-# before the doin→tada completion lands. Returns 0 iff a fresh read shows the child
-# in jobs/tada WITHOUT a gated-failure marker (a genuine success); 1 otherwise. Reuses
+# before the doin→tada completion lands. Returns 0 iff a fresh read shows a genuine
+# success, 2 for the distinct auth-unavailable terminal outcome, and 1 otherwise. Reuses
 # the gone-recheck budget (attempts/sleep) since it is the same "re-sync before an
 # irreversible verdict" guard. Only paid on the rare inferred-failure path.
 child_completed_on_resync() {  # <child>
@@ -196,6 +201,7 @@ child_completed_on_resync() {  # <child>
     [ "$loc" = tada ] || continue
     jf="$(mktemp "${TMPDIR:-/tmp}/orch-recheck.XXXXXX")"
     if ! child_snapshot_file "$snapshot" tada "$c" "$jf"; then rm -f "$jf"; continue; fi
+    if tada_auth_unavailable "$jf"; then rm -f "$jf"; return 2; fi
     rc=0; tada_failed "$jf" || rc=1
     rm -f "$jf"
     [ "$rc" -eq 1 ] && return 0   # tada present, no gated-failure declaration → success
@@ -213,6 +219,22 @@ child_snapshot_file() {  # <snapshot> <location> <child> <destination>
     *) return 1 ;;
   esac
   git -C "$DIR" show "$snapshot:$path" > "$destination" 2>/dev/null
+}
+
+# Did a completed child explicitly stop at an authentication boundary that only a
+# maintainer can cross? Keep this marker narrower than tada_failed: unavailable
+# interactive auth is a parked validation outcome, not evidence that the deploy or
+# the child failed. Prefer leading frontmatter; accept the same token on a
+# dedicated verdict line for hand-authored/legacy reports. Prose that merely
+# discusses the token does not count.
+tada_auth_unavailable() {  # <report>
+  local f="${1:-}" declared
+  [ -f "$f" ] || return 1
+  declared="$(plan_field "$f" orchestration-auth-unavailable)"
+  [[ "${declared,,}" =~ ^(true|yes)$ ]] && return 0
+  grep -qiE \
+    '^[[:space:]]*([-+*][[:space:]]+)?(\*\*|__)?`?orchestration-auth-unavailable:[[:space:]]*(true|yes)`?(\*\*|__)?[[:space:]]*$' \
+    "$f" 2>/dev/null
 }
 
 set_orch_field() {  # <base> <field> <value>; CAS-retried, leading frontmatter only
@@ -354,8 +376,8 @@ child_failure_detail() {  # <child> <orch-record>
   rm -f "$jf"
 }
 
-child_state() {  # <child-base> <orch-record> → done|active|progressing|parked|failed|retry
-  local c="$1" orch="$2" jf view location snapshot n prev detail
+child_state() {  # <child-base> <orch-record> → done|auth-unavailable|active|progressing|parked|failed|retry
+  local c="$1" orch="$2" jf view location snapshot n prev detail fresh_rc
   view="$(child_board_view "$c")"; read -r location snapshot <<<"$view"
   case "$location" in retry) printf 'retry\n'; return 0;; gone) printf 'failed\n'; return 0;; esac
   jf="$(mktemp "${TMPDIR:-/tmp}/orch-child.XXXXXX")"
@@ -363,9 +385,12 @@ child_state() {  # <child-base> <orch-record> → done|active|progressing|parked
     rm -f "$jf"; printf 'retry\n'; return 0
   fi
   if [ "$location" = tada ]; then
-    # A tada report can carry the "completed but declined its gated outcome"
-    # marker (tada_failed, common.sh) — shared with the unblock watcher.
-    if tada_failed "$jf"; then
+    # Auth-unavailable takes precedence if a transitional producer stamped both
+    # markers: this outcome parks validation without calling a successful deploy a
+    # failure. New producers must stamp only orchestration-auth-unavailable.
+    if tada_auth_unavailable "$jf" && [ "$(orch_order "$orch")" = serial ]; then
+      printf 'auth-unavailable\n'
+    elif tada_failed "$jf"; then
       printf 'failed\n'
     else
       printf 'done\n'
@@ -398,7 +423,12 @@ child_state() {  # <child-base> <orch-record> → done|active|progressing|parked
       if [ "$n" -gt "$GARDEN_ORCH_STALL_REQUEUE_LIMIT" ] 2>/dev/null; then
         # Re-check tada before trusting the requeue-streak verdict: the child may have
         # completed on the very cycle that tipped it past the limit.
-        if child_completed_on_resync "$c"; then printf 'done\n'; else printf 'failed\n'; fi
+        fresh_rc=0; child_completed_on_resync "$c" || fresh_rc=$?
+        case "$fresh_rc" in
+          0) printf 'done\n';;
+          2) [ "$(orch_order "$orch")" = serial ] && printf 'auth-unavailable\n' || printf 'done\n';;
+          *) printf 'failed\n';;
+        esac
         rm -f "$jf"; return 0
       fi
     fi
@@ -410,7 +440,12 @@ child_state() {  # <child-base> <orch-record> → done|active|progressing|parked
       # The completion record is the authority over an in-flight timing reading:
       # re-sync and re-check tada before declaring the child failed (a fresh attempt
       # may have completed while an earlier claim's timestamp still reads as a stall).
-      if child_completed_on_resync "$c"; then printf 'done\n'; else printf 'failed\n'; fi
+      fresh_rc=0; child_completed_on_resync "$c" || fresh_rc=$?
+      case "$fresh_rc" in
+        0) printf 'done\n';;
+        2) [ "$(orch_order "$orch")" = serial ] && printf 'auth-unavailable\n' || printf 'done\n';;
+        *) printf 'failed\n';;
+      esac
       rm -f "$jf"; return 0
     fi
     printf 'active\n'; rm -f "$jf"; return 0
@@ -599,7 +634,8 @@ child_clean_tada_now() {  # <child>
   [ "$loc" = tada ] || return 1
   jf="$(mktemp "${TMPDIR:-/tmp}/orch-final.XXXXXX")"
   if ! child_snapshot_file "$snapshot" tada "$c" "$jf"; then rm -f "$jf"; return 1; fi
-  rc=1; tada_failed "$jf" || rc=0
+  rc=1
+  if ! tada_auth_unavailable "$jf" && ! tada_failed "$jf"; then rc=0; fi
   rm -f "$jf"
   return "$rc"
 }
@@ -725,6 +761,49 @@ finish_budget_exhausted() {  # <base> <snapshot> <position> <done-count> <child>
   rm -f "$sf"
 }
 
+# Finish a serial campaign at an interactive-auth boundary. The completed child
+# remains in tada as evidence of every check it could perform; downstream
+# validation remains parked under this campaign's ownership. Emit ONE action
+# notice (not a child-failure page followed by a terminal-halt page), keyed to
+# this terminal condition so retries/coalescing cannot multiply it.
+finish_auth_unavailable() {  # <base> <child-index> <done-count> <auth-child> <children...>
+  local base="$1" child_index="$2" done_count="$3" auth_child="$4"; shift 4
+  local kids=("$@") parked=() k sf
+  local total="${#kids[@]}"
+  for ((k=child_index+1; k<total; k++)); do
+    [ "$(child_state "${kids[$k]}" "$DIR/$JOBS_ORCH/$base.md")" = parked ] \
+      && parked+=("${kids[$k]}")
+  done
+  sf="$(mktemp "${TMPDIR:-/tmp}/orch-auth-unavailable.XXXXXX")"
+  {
+    printf 'orchestration-status: parked-auth-unavailable\n'
+    printf 'auth-unavailable-child: %s\n' "$auth_child"
+    printf 'campaign-parked-children: %s\n' "${parked[*]}"
+    printf '# orchestration %s — validation parked for authentication\n\n' "$base"
+    printf 'Child %d/%d **%s** completed the checks available to the fleet, but declared interactive authentication unavailable.\n' \
+      "$((child_index+1))" "$total" "$auth_child"
+    printf '%d/%d earlier child(ren) completed successfully.\n' "$done_count" "$total"
+    printf '%d downstream validation child(ren) remain parked under their held orchestrated gate: %s\n\n' \
+      "${#parked[@]}" "${parked[*]:-none}"
+    printf 'This is an authentication-gated validation hold, not a failed deployment.\n'
+  } > "$sf"
+  if finish_orch "$base" "$sf"; then
+    {
+      printf 'child: %s\n' "$auth_child"
+      printf 'action-required: provide-interactive-authentication-and-resume-validation\n'
+      printf 'campaign-parked-children: %s\n\n' "${parked[*]}"
+      printf 'Orchestration %s parked validation because child %s requires interactive maintainer authentication unavailable to the fleet. ' \
+        "$base" "$auth_child"
+      printf 'Provide an approved authenticated session without sending bearer material over the bus, then resume or repost the remaining validation. '
+      printf 'Deployment is not reported failed; parked remainder: %s\n' "${parked[*]:-none}"
+    } | orch_notice "$base-auth-unavailable" "$base" orchestration-auth-unavailable parked-auth-unavailable
+    log "orchestration '$base': AUTH UNAVAILABLE at child '$auth_child'; ${#parked[@]} downstream validation child(ren) remain parked"
+  else
+    log "orchestration '$base': auth-unavailable finish failed; retrying next tick"
+  fi
+  rm -f "$sf"
+}
+
 # --- serial and parallel advancement ----------------------------------------
 advance_serial() {  # <base> <policy> <child>...
   local base="$1" policy="$2"; shift 2
@@ -750,6 +829,9 @@ advance_serial() {  # <base> <policy> <child>...
           set_orch_reap_baseline "$base" "$c" || true
           log "orchestration '$base': child $((i+1))/$total '$c' requeued but PROGRESSING (advanced a worktree HEAD); baseline advanced, still in flight"
         fi
+        return 0;;
+      auth-unavailable)
+        finish_auth_unavailable "$base" "$i" "$done_count" "$c" "${kids[@]}"
         return 0;;
       retry)
         log "orchestration '$base': child $((i+1))/$total '$c' board snapshot unreadable/inconsistent; retrying next tick"

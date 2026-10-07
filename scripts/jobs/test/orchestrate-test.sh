@@ -41,6 +41,8 @@
 #                   successful or continued-failure predecessor outcome.
 #  12. NOTICES      - fresh active state is silent; child failure/timeout and
 #                   every terminal completion emit deterministic structured fields.
+#  17b. AUTH PARK    - an auth-unavailable child parks downstream validation and
+#                   emits one maintainer action notice, not failure+halt notices.
 #  25. TADA AUTHORITY — an inferred in-flight stall re-checks jobs/tada/ before
 #                   declaring a child failed; a completion seen on re-sync wins.
 #  26. FALSE STALL  — a queued (unclaimed) child is NEVER "stalled in flight" from
@@ -195,6 +197,22 @@ complete_failed_child() {  # complete_failed_child <base>
   printf '%s\n' '---' 'orchestration-failed: true' '---' "# $1 completed without its gated outcome" > "$wt/jobs/tada/2026/01/01/$1.md"
   git -C "$wt" add "jobs/tada/2026/01/01/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) gated-failure"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
+# Simulate a validation child that exhausted every non-interactive check but cannot
+# cross a maintainer-owned authentication boundary.
+complete_auth_unavailable_child() {  # complete_auth_unavailable_child <base>
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
+  git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
+  mkdir -p "$wt/jobs/tada/2026/01/01"
+  printf '%s\n' '---' 'orchestration-auth-unavailable: true' '---' \
+    "# $1 parked at interactive authentication" > "$wt/jobs/tada/2026/01/01/$1.md"
+  git -C "$wt" add "jobs/tada/2026/01/01/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) auth-unavailable"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
@@ -862,6 +880,42 @@ grep -q 'vanished from the board' "$(tada_report orch-decl)" 2>/dev/null && decl
 [ "$decl_ok" -eq 1 ] \
   && ok "completed gated-failure child halted with its true disposition and left the remainder parked" \
   || bad "gated tada was misreported or destructive (plan=$(board jobs/plan))"
+
+# ============================================================================
+hr; echo "SUBTEST 17b — AUTH PARK: interactive auth holds validation without deployment failure"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth auth-deploy >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth auth-root-canary >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth auth-rate-cap >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-auth \
+  auth-deploy auth-root-canary auth-rate-cap >/dev/null
+tick
+complete_child auth-deploy
+tick
+complete_auth_unavailable_child auth-root-canary
+tick
+auth_ok=1
+r="$(tada_report orch-auth)"
+grep -qx 'orchestration-status: parked-auth-unavailable' "$r" 2>/dev/null || auth_ok=0
+grep -qx 'auth-unavailable-child: auth-root-canary' "$r" 2>/dev/null || auth_ok=0
+grep -qx 'campaign-parked-children: auth-rate-cap' "$r" 2>/dev/null || auth_ok=0
+in_dir jobs/plan auth-rate-cap || auth_ok=0
+in_dir jobs/todo auth-rate-cap && auth_ok=0
+board jobs/tada >/dev/null
+auth_notice="$V/inbox/maintainer/unread/orch-auth-auth-unavailable.md"
+{ grep -qx 'orchestration-event: orchestration-auth-unavailable' "$auth_notice" \
+  && grep -qx 'orchestration-status: parked-auth-unavailable' "$auth_notice" \
+  && grep -qx 'action-required: provide-interactive-authentication-and-resume-validation' "$auth_notice"; } 2>/dev/null \
+  || auth_ok=0
+[ -e "$V/inbox/maintainer/unread/orch-auth-child-auth-root-canary-failed.md" ] && auth_ok=0
+[ -e "$V/inbox/maintainer/unread/orch-auth-halted.md" ] && auth_ok=0
+[ "$(find "$V/inbox/maintainer/unread" -maxdepth 1 -type f -name 'orch-auth-*.md' | wc -l)" -eq 1 ] || auth_ok=0
+"$JOBS/post-orchestration.sh" --serial --resume-from orch-auth \
+  orch-auth-resume auth-rate-cap >/dev/null || auth_ok=0
+board jobs/plan >/dev/null
+grep -qx 'orchestrated_by: orch-auth-resume' "$V/jobs/plan/auth-rate-cap.md" 2>/dev/null || auth_ok=0
+[ "$auth_ok" -eq 1 ] \
+  && ok "auth-unavailable parked resumable validation and emitted one action notice without failure/halt" \
+  || bad "auth-unavailable outcome was misclassified (plan=$(board jobs/plan), report=$(tr '\n' '|' < "$r" 2>/dev/null))"
 
 # ============================================================================
 hr; echo "SUBTEST 18 — SNAPSHOT: completed child survives a half-applied checkout read"; hr

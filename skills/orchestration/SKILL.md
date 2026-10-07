@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-09-28
+updated: 2026-10-07
 author: gardener, builder
 ---
 
@@ -133,6 +133,19 @@ progress, and applies a failure policy rather than silently stalling.
      `orchestration-failed: true`). A vanished/stalled child has no completion
      evidence and cannot satisfy the serial promotion precondition; the chain
      remains safely parked for recovery. Never infer completion from absence.
+   - **interactive authentication unavailable** is a distinct serial-child
+     outcome. A validation child that completed every check available to the
+     fleet but cannot cross a maintainer-owned interactive login/MFA boundary
+     stamps `orchestration-auth-unavailable: true` in leading report frontmatter
+     (and does **not** stamp `orchestration-failed`). The watcher terminalizes as
+     `parked-auth-unavailable`, leaves downstream validation children parked,
+     and emits one coalesced maintainer action notice instead of a child-failure
+     notice followed by a halt notice; the child does not send a duplicate auth
+     notice itself. After authentication is provided, start a
+     new serial campaign over the reported `campaign-parked-children` with
+     `post-orchestration.sh --resume-from <parked-campaign> ...`. This outcome is
+     serial-only: parallel work has already admitted every child and therefore
+     has no remaining validation to park.
    - **child failure emission** is mechanical. A child that genuinely finishes
      but does not achieve its gated outcome ends its report with these exact two
      lines, in this order:

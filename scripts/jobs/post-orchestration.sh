@@ -37,8 +37,9 @@
 #   --on-child-failure halt|continue   policy on a child failure (default halt).
 #   --budget-tokens N           positive billable-token cap (serial only).
 #   --resume-from CAMPAIGN      adopt that terminal campaign's parked remainder. The
-#                                campaign may be a budget terminal (budget-exhausted /
-#                                budget-meter-incomplete, remainder in
+#                                campaign may be a budget/auth terminal
+#                                (budget-exhausted / budget-meter-incomplete /
+#                                parked-auth-unavailable, remainder in
 #                                campaign-parked-children) OR a serial HALT (halted /
 #                                halted-superseded, remainder in halt-parked-remainder);
 #                                the orchestrate watcher resumes a halt whose blamed
@@ -229,13 +230,14 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     terminal_path="$(tada_find "$DIR" "$resume_from" || true)"
     [ -n "$terminal_path" ] || die "--resume-from campaign '$resume_from' has no terminal tada report"
     terminal="$DIR/$terminal_path"
-    # Resumable terminals: a budget stop (parked remainder in campaign-parked-children)
-    # OR a serial HALT (parked remainder in halt-parked-remainder). A halt can be
+    # Resumable terminals: a budget/auth stop (parked remainder in
+    # campaign-parked-children) OR a serial HALT (parked remainder in
+    # halt-parked-remainder). A halt can be
     # resumed when the campaign should continue past a failure that turned out false
     # or transient — the orchestrate watcher's resume_recovered_halts drives this.
     resume_status="$(sed -n 's/^orchestration-status:[[:space:]]*//p' "$terminal" | head -1)"
     case "$resume_status" in
-      budget-exhausted|budget-meter-incomplete)
+      budget-exhausted|budget-meter-incomplete|parked-auth-unavailable)
         read -ra resume_children <<<"$(sed -n 's/^campaign-parked-children:[[:space:]]*//p' "$terminal" | head -1)";;
       halted|halted-superseded|halted-resumed)
         read -ra resume_children <<<"$(sed -n 's/^halt-parked-remainder:[[:space:]]*//p' "$terminal" | head -1)";;
