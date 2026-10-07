@@ -34,6 +34,7 @@ export GARDEN_STATE="$TR/state" GARDEN_CONTENTION_DIR="$TR/state/journal-content
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
 export GARDEN_FETCH_RETRIES=1
+export GARDEN_JOURNAL_DEEPEN_RETRY_BASE=0
 
 # The journal remote (stands in for GitHub) and a writer that advances it.
 RB="$TR/journal.git"; W="$TR/writer"
@@ -121,6 +122,84 @@ if [ "$rc" -eq 0 ] && [ "$(git -C "$CL" rev-parse --is-shallow-repository)" = fa
   ok "sync_clone unshallowed the seeded clone"
 else
   bad "deepen: rc=$rc shallow=$(git -C "$CL" rev-parse --is-shallow-repository) stderr=$(tr '\n' ' ' < "$TR/deepen.err")"
+fi
+
+hr; echo "CASE — a transient deepen lock failure is retried and succeeds"; hr
+DEEPEN_RETRY="$TR/c-deepen-retry"
+git clone -q --depth=2 --single-branch --branch journal2 "file://$RB" "$DEEPEN_RETRY"
+: > "$TR/deepen-retry.calls"
+rc=0
+(
+  export GARDEN_JOURNAL_DEEPEN_ATTEMPTS=3
+  _journal_root_seed_fetch() {
+    local dir="$1" error_file; shift
+    [ "${1:-}" = --stderr-file ] || return 2
+    error_file="$2"; shift 2
+    printf 'x\n' >> "$TR/deepen-retry.calls"
+    if [ "$(wc -l < "$TR/deepen-retry.calls")" -eq 1 ]; then
+      printf "fatal: Unable to create '%s/.git/shallow.lock': File exists.\n" "$dir" > "$error_file"
+      return 1
+    fi
+    git -C "$dir" fetch -q --unshallow origin journal2 2>"$error_file"
+  }
+  journal_deepen_from_root "$DEEPEN_RETRY"
+) >/dev/null 2>"$TR/deepen-retry.err" || rc=$?
+if [ "$rc" -eq 0 ] && [ "$(wc -l < "$TR/deepen-retry.calls")" -eq 2 ] \
+   && [ "$(git -C "$DEEPEN_RETRY" rev-parse --is-shallow-repository)" = false ]; then
+  ok "transient lock contention retried once and completed the clone"
+else
+  bad "transient deepen: rc=$rc calls=$(wc -l < "$TR/deepen-retry.calls") stderr=$(tr '\n' ' ' < "$TR/deepen-retry.err")"
+fi
+
+hr; echo "CASE — persistent deepen lock failure is bounded and keeps a usable clone"; hr
+DEEPEN_LOCKED="$TR/c-deepen-locked"
+git clone -q --depth=2 --single-branch --branch journal2 "file://$RB" "$DEEPEN_LOCKED"
+locked_head="$(git -C "$DEEPEN_LOCKED" rev-parse HEAD)"
+: > "$TR/deepen-locked.calls"
+rc=0
+(
+  export GARDEN_JOURNAL_DEEPEN_ATTEMPTS=3
+  _journal_root_seed_fetch() {
+    local error_file; shift
+    [ "${1:-}" = --stderr-file ] || return 2
+    error_file="$2"
+    printf 'x\n' >> "$TR/deepen-locked.calls"
+    printf " \nfatal: Unable to create '.git/packed-refs.lock': File exists.  \n\n" > "$error_file"
+    return 1
+  }
+  journal_deepen_from_root "$DEEPEN_LOCKED"
+) >/dev/null 2>"$TR/deepen-locked.err" || rc=$?
+if [ "$rc" -eq 1 ] && [ "$(wc -l < "$TR/deepen-locked.calls")" -eq 3 ] \
+   && grep -Fq "it stays shallow until a later sync: fatal: Unable to create '.git/packed-refs.lock': File exists." "$TR/deepen-locked.err" \
+   && [ "$(git -C "$DEEPEN_LOCKED" rev-parse --is-shallow-repository)" = true ] \
+   && [ "$(git -C "$DEEPEN_LOCKED" rev-parse HEAD)" = "$locked_head" ]; then
+  ok "persistent lock contention stopped after 3 attempts and reported the trimmed diagnostic"
+else
+  bad "persistent deepen: rc=$rc calls=$(wc -l < "$TR/deepen-locked.calls") shallow=$(git -C "$DEEPEN_LOCKED" rev-parse --is-shallow-repository) stderr=$(tr '\n' ' ' < "$TR/deepen-locked.err")"
+fi
+
+hr; echo "CASE — a non-transient deepen failure is not retried"; hr
+DEEPEN_FATAL="$TR/c-deepen-fatal"
+git clone -q --depth=2 --single-branch --branch journal2 "file://$RB" "$DEEPEN_FATAL"
+: > "$TR/deepen-fatal.calls"
+rc=0
+(
+  export GARDEN_JOURNAL_DEEPEN_ATTEMPTS=3
+  _journal_root_seed_fetch() {
+    local error_file; shift
+    [ "${1:-}" = --stderr-file ] || return 2
+    error_file="$2"
+    printf 'x\n' >> "$TR/deepen-fatal.calls"
+    printf 'fatal: repository is corrupt\n' > "$error_file"
+    return 1
+  }
+  journal_deepen_from_root "$DEEPEN_FATAL"
+) >/dev/null 2>"$TR/deepen-fatal.err" || rc=$?
+if [ "$rc" -eq 1 ] && [ "$(wc -l < "$TR/deepen-fatal.calls")" -eq 1 ] \
+   && grep -Fq 'it stays shallow until a later sync: fatal: repository is corrupt' "$TR/deepen-fatal.err"; then
+  ok "non-transient failure used the existing fallback after one attempt"
+else
+  bad "non-transient deepen: rc=$rc calls=$(wc -l < "$TR/deepen-fatal.calls") stderr=$(tr '\n' ' ' < "$TR/deepen-fatal.err")"
 fi
 
 hr; echo "CASE — a stale clone whose capped fetch fails is re-seeded, then syncs"; hr

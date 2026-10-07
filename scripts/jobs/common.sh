@@ -642,6 +642,8 @@ export GARDEN
 : "${GARDEN_JOURNAL_SEED_FROM_ROOT:=1}"   # 0 disables the local seed (network-only clones)
 : "${GARDEN_JOURNAL_SEED_DEPTH:=50}"      # shallow depth of a seeded clone
 : "${GARDEN_JOURNAL_SEED_TIMEOUT:=120}"   # wall-clock cap on the local seed fetch
+: "${GARDEN_JOURNAL_DEEPEN_ATTEMPTS:=3}"  # bounded local attempts when a Git lock contends
+: "${GARDEN_JOURNAL_DEEPEN_RETRY_BASE:=100}" # full-jitter retry base, in milliseconds
 # A tmp_pack_* older than any bounded git transfer can run is a killed fetch's
 # leftover, never a live transfer's in-progress pack.
 : "${GARDEN_TMP_PACK_STALE_SECS:=$(( GARDEN_CLONE_TIMEOUT + GARDEN_FETCH_KILL_AFTER + 60 ))}"
@@ -5014,7 +5016,7 @@ _sweep_tmp_packs() {
   return 0
 }
 
-# _journal_root_seed_fetch <dir> <extra fetch flags...> — fetch the root repo's
+# _journal_root_seed_fetch <dir> [--stderr-file <file>] <extra fetch flags...> — fetch the root repo's
 # refs/remotes/origin/$JOURNAL_BRANCH from local disk into <dir>'s scratch ref
 # refs/garden-seed/$JOURNAL_BRANCH, bounded by GARDEN_JOURNAL_SEED_TIMEOUT. Only the
 # root's REMOTE-tracking ref is a source: it holds exactly what GitHub served, while
@@ -5026,14 +5028,27 @@ _sweep_tmp_packs() {
 # JOURNAL_REMOTE) must never be filled with the production journal's history.
 _journal_root_seed_fetch() {
   local dir="$1"; shift
-  local tmpref="refs/garden-seed/$JOURNAL_BRANCH" seed="" t0 root_url clone_url
+  local error_file="" tmpref="refs/garden-seed/$JOURNAL_BRANCH" seed="" t0 root_url clone_url
+  if [ "${1:-}" = --stderr-file ]; then
+    [ "$#" -ge 2 ] || return 2
+    error_file="$2"; shift 2
+    : > "$error_file" || return 1
+  fi
   [ "$GARDEN_JOURNAL_SEED_FROM_ROOT" = 1 ] || return 1
   [ -d "$GARDEN_ROOT/.git" ] && [ -d "$dir/.git" ] || return 1
   root_url="$(git config --file "$GARDEN_ROOT/.git/config" --get remote.origin.url 2>/dev/null)" || return 1
   clone_url="$(git -C "$dir" config --get remote.origin.url 2>/dev/null)" || return 1
   [ "$(_canonical_journal_clone_url "$root_url" 2>/dev/null)" = "$(_canonical_journal_clone_url "$clone_url" 2>/dev/null)" ] || return 1
   t0="$(date +%s)"
-  if ! timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_JOURNAL_SEED_TIMEOUT" \
+  if [ -n "$error_file" ]; then
+    timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_JOURNAL_SEED_TIMEOUT" \
+      git -C "$dir" fetch -q --no-tags "$@" "file://$GARDEN_ROOT/.git" \
+        "+refs/remotes/origin/$JOURNAL_BRANCH:$tmpref" >/dev/null 2>"$error_file" || {
+      _sweep_tmp_packs "$dir" "$t0"
+      git -C "$dir" update-ref -d "$tmpref" >/dev/null 2>&1 || true
+      return 1
+    }
+  elif ! timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_JOURNAL_SEED_TIMEOUT" \
        git -C "$dir" fetch -q --no-tags "$@" "file://$GARDEN_ROOT/.git" \
          "+refs/remotes/origin/$JOURNAL_BRANCH:$tmpref" >/dev/null 2>&1; then
     _sweep_tmp_packs "$dir" "$t0"
@@ -5044,6 +5059,19 @@ _journal_root_seed_fetch() {
   git -C "$dir" update-ref -d "$tmpref" >/dev/null 2>&1 || true
   [ -n "$seed" ] || return 1
   printf '%s\n' "$seed"
+}
+
+_journal_deepen_stderr_is_transient() { # <stderr-file>
+  grep -Eiq '(index|shallow|packed-refs)\.lock|[.]lock.*(already )?exists|unable to create .*\.lock|cannot lock ref' "$1" 2>/dev/null
+}
+
+_journal_deepen_retry_pause() { # <failed-attempt>
+  local attempt="$1" base="$GARDEN_JOURNAL_DEEPEN_RETRY_BASE" window ms
+  [[ "$base" =~ ^[0-9]+$ ]] || base=100
+  [ "$base" -gt 0 ] || return 0
+  window=$(( base * attempt ))
+  ms=$(( RANDOM % (window + 1) ))
+  sleep "$(printf '%d.%03d' "$((ms / 1000))" "$((ms % 1000))")"
 }
 
 # journal_seed_from_root <dir> — advance <dir>'s refs/remotes/origin/$JOURNAL_BRANCH
@@ -5081,13 +5109,28 @@ journal_seed_from_root() {
 # on a complete clone and, on failure, leaves the clone usable and shallow until a
 # later tick. rc 0 when the clone is complete afterwards.
 journal_deepen_from_root() {
-  local dir="$1"
+  local dir="$1" attempt=1 attempts="$GARDEN_JOURNAL_DEEPEN_ATTEMPTS" error_file diagnostic=""
   [ "$(git -C "$dir" rev-parse --is-shallow-repository 2>/dev/null)" = true ] || return 0
-  if _journal_root_seed_fetch "$dir" --unshallow >/dev/null; then
-    log "completed shallow journal clone $dir from local root repo"
-    return 0
-  fi
-  log "WARN: could not complete shallow journal clone $dir from local root repo; it stays shallow until a later sync"
+  [[ "$attempts" =~ ^[1-9][0-9]*$ ]] || attempts=3
+  error_file="$(mktemp "$dir/.git/garden-deepen-error.XXXXXX")" || {
+    log "WARN: could not complete shallow journal clone $dir from local root repo; it stays shallow until a later sync"
+    return 1
+  }
+  while :; do
+    if _journal_root_seed_fetch "$dir" --stderr-file "$error_file" --unshallow >/dev/null; then
+      rm -f "$error_file"
+      log "completed shallow journal clone $dir from local root repo"
+      return 0
+    fi
+    diagnostic="$(awk 'NF { sub(/^[[:space:]]+/, ""); sub(/[[:space:]]+$/, ""); last=$0 } END { print last }' "$error_file" 2>/dev/null)"
+    if [ "$attempt" -ge "$attempts" ] || ! _journal_deepen_stderr_is_transient "$error_file"; then
+      break
+    fi
+    _journal_deepen_retry_pause "$attempt"
+    attempt=$((attempt+1))
+  done
+  rm -f "$error_file"
+  log "WARN: could not complete shallow journal clone $dir from local root repo; it stays shallow until a later sync${diagnostic:+: $diagnostic}"
   return 1
 }
 
