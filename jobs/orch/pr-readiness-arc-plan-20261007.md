@@ -1,4 +1,5 @@
 ---
+child-pr-readiness-arc-classify-20261007-host: endolin-garden2-5bcdff64
 child-pr-readiness-arc-classify-20261007-reap-count: 0
 order: serial
 children: pr-readiness-arc-classify-20261007 pr-readiness-plan-gauntlets-20261007 pr-readiness-verify-changes-requested-20261007
