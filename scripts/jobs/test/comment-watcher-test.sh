@@ -2299,6 +2299,55 @@ fi
   && ok "rc 75 without a primary-quota signature opens no shared cooldown" \
   || bad "rc 75 without a primary-quota signature opened a cooldown"
 
+# A source can pass the watcher's head-of-tick check, then lose gh-api admission
+# after a sibling opens a transient latch. The synthetic admission diagnostic says
+# "API rate limit" regardless of the latch kind; it must not promote the sibling's
+# 300s transient window to a 3600s primary-quota latch (2026-10-07 22:50:52, when a
+# Pages network latch was promoted this way). Treat it as quiet collateral failure,
+# discard partial output, and leave the existing latch untouched.
+RATE_TRANSIENT_SOURCE="$TR/rate-transient-admission-source.sh"
+cat > "$RATE_TRANSIENT_SOURCE" <<'EOF'
+#!/bin/bash
+source "$CW_JOBS/common.sh"
+start_api_cooldown 'pages:kriscendobot/garden:net'
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-10-07T22:50:52Z pr-comment 4030011 678 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/678#issuecomment-4030011 \
+  'Please rebase.'
+echo 'gh api repos/x/y/issues/comments admission refused: host-shared gh-api cooldown live (300s left, tag pages:kriscendobot/garden:net; API rate limit already exceeded for user); not issued' >&2
+exit 75
+EOF
+chmod +x "$RATE_TRANSIENT_SOURCE"
+RATE_TRANSIENT_STATE="$TR/state-rate-transient"
+RATE_TRANSIENT_ERR="$TR/rate-transient.err"
+transient_before="$(date +%s)"
+set +e
+env GARDEN_STATE="$RATE_TRANSIENT_STATE" GARDEN_API_COOLDOWN_DIR="$RATE_TRANSIENT_STATE/gh-api-cooldown" \
+    GARDEN_API_COOLDOWN_SECS=300 GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$RATE_TRANSIENT_SOURCE" \
+    CW_JOBS="$JOBS" GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$RATE_TRANSIENT_ERR"
+rate_transient_rc=$?
+set -e
+transient_marker="$RATE_TRANSIENT_STATE/gh-api-cooldown/marker"
+transient_expiry="$(sed -n 1p "$transient_marker" 2>/dev/null || echo 0)"
+[ "$rate_transient_rc" -eq 0 ] \
+  && ok "transient-owner admission refusal is a clean collateral skip" \
+  || bad "transient-owner admission refusal exited $rate_transient_rc (want 0)"
+[ "$transient_expiry" -ge $(( transient_before + 295 )) ] \
+  && [ "$transient_expiry" -lt $(( transient_before + 600 )) ] \
+  && [ "$(sed -n 2p "$transient_marker")" = 'pages:kriscendobot/garden:net' ] \
+  && [ "$(sed -n 3p "$transient_marker")" = transient ] \
+  && ok "transient-owner admission refusal does not promote the latch to primary quota" \
+  || bad "transient latch was replaced or promoted ($(tr '\n' ' ' < "$transient_marker" 2>/dev/null))"
+[ "$(grep -Ec 'admission refused|primary quota exhaustion|source:' "$RATE_TRANSIENT_ERR" || true)" -eq 0 ] \
+  && ok "transient-owner collateral refusal stays quiet under the owner's warning" \
+  || bad "transient-owner collateral refusal emitted stderr ($(cat "$RATE_TRANSIENT_ERR"))"
+[ -z "$(cursor_seen "$RATE_TRANSIENT_STATE" "$BARE_RATE")" ] \
+  && ok "transient-owner collateral refusal freezes the cursor below partial output" \
+  || bad "transient-owner collateral refusal advanced the cursor"
+
 # rc 75 carrying the real primary-quota stderr (comment-source-gh.sh's gh_api_retry
 # WARN) must open the host-shared REST cooldown for the full quota window HERE —
 # not leave a sibling (comment-latency-watch) to discover it later — and skip the

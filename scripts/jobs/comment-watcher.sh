@@ -1860,6 +1860,18 @@ if [ "$src_rc" -ne 0 ]; then
   # this to a clean service exit. This branch must remain before every success path
   # below; rc 75 must never sort/process SRC or slide last_seen.
   if is_nonattributable_rc "$src_rc"; then
+    # The source may have passed this watcher's head-of-tick cooldown check, then
+    # lost admission after a sibling opened a short transient latch. gh_api_retry's
+    # synthetic refusal deliberately contains "API rate limit" for downstream
+    # transient classification, but it is not evidence that the transient latch
+    # became primary-quota exhaustion. Check the latch itself before its diagnostic:
+    # collateral rc 75 freezes the cursor and stays quiet under the owner's warning.
+    # Let a primary latch fall through so the source that opened it can still be
+    # adopted below and surface the episode's single primary-quota warning.
+    if api_cooldown_active rest && ! api_primary_quota_cooldown_active rest; then
+      comment_heartbeat_outcome=cooldown
+      exit 0
+    fi
     sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
     # A primary-quota refusal cannot clear until the hourly quota resets, so open
     # the host-shared cooldown for the quota window HERE rather than leaving every
