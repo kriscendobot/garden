@@ -77,3 +77,13 @@ script change. Then close the cluster:
   scripts/jobs/review-miss-record.sh cluster-status design-bespoke-mechanism-over-existing-path closed --improved-by "<commits/files>"
 
 Garden repo work: land on main2 directly per CLAUDE.md conventions.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T06:31:44Z
