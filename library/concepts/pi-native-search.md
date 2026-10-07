@@ -15,6 +15,7 @@ oh-my-pi's `pi-natives` search surface exposes Rust search and traversal machine
 | [N-API virtual glob walk](../sections/oh-my-pi--crates-pi-natives-src-glob--napi-virtual-glob-walk.md) | Defines provider-aware traversal and structured glob results. |
 | [N-API fuzzy path discovery](../sections/oh-my-pi--crates-pi-natives-src-fd--napi-fuzzy-path-discovery.md) | Defines bounded fuzzy path ranking and its current host-only boundary. |
 | [ast-grep search over injected filesystems](../sections/oh-my-pi--crates-pi-natives-src-ast--ast-grep-search-over-injected-filesystems.md) | Structural search joins grep and glob on the injected-filesystem side of the boundary. |
+| [ShellFilesystem routing, lifetime, and consumers](../sections/oh-my-pi--crates-pi-natives-src-shell-vfs--routing-lifetime-and-consumers.md) | Confirms from source that grep, glob, and ast take `ShellFilesystem` while `fuzzyFind` stays host-path-only. |
 
 ## See also
 
