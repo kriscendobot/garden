@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1398
 build_job: ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-fix-1
 kind: feature
-stage: panel
+stage: fix
 iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1398-gauntlet-panel-6
+current_child: endojs-endo-but-for-bots-pr1398-gauntlet-fix-6
 state: running
 created_by: producer
 arc: unallocated
