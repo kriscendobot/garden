@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7248 (530 parent indexes + 6718 children).
+Total section files: 7259 (530 parent indexes + 6729 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8849,6 +8849,11 @@ Total section files: 7248 (530 parent indexes + 6718 children).
 
 - [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md)
 
+### oh-my-pi--crates-pi-natives-src-ast
+
+- [oh-my-pi--crates-pi-natives-src-ast--ast-grep-search-over-injected-filesystems](oh-my-pi--crates-pi-natives-src-ast--ast-grep-search-over-injected-filesystems.md)
+- [oh-my-pi--crates-pi-natives-src-ast--staged-dry-run-structural-rewrite](oh-my-pi--crates-pi-natives-src-ast--staged-dry-run-structural-rewrite.md)
+
 ### oh-my-pi--crates-pi-natives-src-fd
 
 - [oh-my-pi--crates-pi-natives-src-fd--napi-fuzzy-path-discovery](oh-my-pi--crates-pi-natives-src-fd--napi-fuzzy-path-discovery.md)
@@ -8860,6 +8865,15 @@ Total section files: 7248 (530 parent indexes + 6718 children).
 ### oh-my-pi--crates-pi-natives-src-grep
 
 - [oh-my-pi--crates-pi-natives-src-grep--napi-ripgrep-search](oh-my-pi--crates-pi-natives-src-grep--napi-ripgrep-search.md)
+
+### oh-my-pi--crates-pi-natives-src-iso
+
+- [oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle](oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle.md)
+
+### oh-my-pi--crates-pi-natives-src-shell
+
+- [oh-my-pi--crates-pi-natives-src-shell--bounded-output-bridge-and-drain](oh-my-pi--crates-pi-natives-src-shell--bounded-output-bridge-and-drain.md)
+- [oh-my-pi--crates-pi-natives-src-shell--napi-shell-sessions-and-filesystem-injection](oh-my-pi--crates-pi-natives-src-shell--napi-shell-sessions-and-filesystem-injection.md)
 
 ### oh-my-pi--crates-pi-shell-src-lib
 
@@ -8876,6 +8890,22 @@ Total section files: 7248 (530 parent indexes + 6718 children).
 ### oh-my-pi--crates-pi-vfs-src-lib
 
 - [oh-my-pi--crates-pi-vfs-src-lib--injectable-virtual-filesystem](oh-my-pi--crates-pi-vfs-src-lib--injectable-virtual-filesystem.md)
+
+### oh-my-pi--crates-vendor-brush-core-readme
+
+- [oh-my-pi--crates-vendor-brush-core-readme--brush-bash-compatible-rust-shell](oh-my-pi--crates-vendor-brush-core-readme--brush-bash-compatible-rust-shell.md)
+
+### oh-my-pi--crates-vendor-brush-core-src-lib
+
+- [oh-my-pi--crates-vendor-brush-core-src-lib--interpreter-and-embedding-surface](oh-my-pi--crates-vendor-brush-core-src-lib--interpreter-and-embedding-surface.md)
+
+### oh-my-pi--crates-vendor-brush-parser-readme
+
+- [oh-my-pi--crates-vendor-brush-parser-readme--vendored-parser-with-heredoc-fix](oh-my-pi--crates-vendor-brush-parser-readme--vendored-parser-with-heredoc-fix.md)
+
+### oh-my-pi--crates-vendor-brush-parser-src-lib
+
+- [oh-my-pi--crates-vendor-brush-parser-src-lib--tokenizer-and-parser-surface](oh-my-pi--crates-vendor-brush-parser-src-lib--tokenizer-and-parser-surface.md)
 
 ### opensandbox--docs-architecture-index
 
@@ -10231,6 +10261,11 @@ Total section files: 7248 (530 parent indexes + 6718 children).
 ### web--nextjs-turbopack-config
 
 - [web--nextjs-turbopack-config--module-resolution-aliases-and-extensions](web--nextjs-turbopack-config--module-resolution-aliases-and-extensions.md)
+
+### web--oh-my-pi-design-rust-core
+
+- [web--oh-my-pi-design-rust-core--divergence-ledger-against-source](web--oh-my-pi-design-rust-core--divergence-ledger-against-source.md)
+- [web--oh-my-pi-design-rust-core--explainer-account-of-the-rust-core](web--oh-my-pi-design-rust-core--explainer-account-of-the-rust-core.md)
 
 ### web--openai-symphony-codex-orchestration
 
