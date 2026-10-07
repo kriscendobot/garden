@@ -21,6 +21,8 @@ The discipline of curating and maintaining the optimal set of tokens available t
 | [memory stream and retrieval](../sections/talks--chinta-generative-agents-2024--memory-stream-and-retrieval.md) | llm-agent-frameworks, context-engineering | Recency, model-scored importance, and embedding relevance select a bounded working set from an accumulating memory stream. |
 | [reflection and memory integration](../sections/talks--chinta-generative-agents-2024--reflection-and-memory-integration.md) | llm-agent-frameworks, context-engineering | Reflection turns retrieved records into evidence-linked abstractions that can themselves be retrieved later. |
 | [Proposed-change fold and epoch boundaries](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | change-propagation, collaborative-workspace-sharing, context-engineering | The single merge/revert fold that derives proposed changes, change statuses, and a compaction checkpoint's carried-forward pins and epoch. |
+| [oh-my-pi--crates-pi-shell-src-minimizer--opt-in-command-output-minimization](../sections/oh-my-pi--crates-pi-shell-src-minimizer--opt-in-command-output-minimization.md) | oh-my-pi minimizer | Tool-output compaction reduces context while an artifact reference retains access to the original capture. |
+| [oh-my-pi--crates-pi-shell-src-minimizer-plan--parser-based-rewrite-safety](../sections/oh-my-pi--crates-pi-shell-src-minimizer-plan--parser-based-rewrite-safety.md) | oh-my-pi minimizer planner | Command-shape analysis prevents context reduction from corrupting output consumed by another process. |
 
 ## See also
 
