@@ -1268,6 +1268,9 @@ board_has "$BARE_YA" "$SLUG-pr60-conduct" && bad "the directive was swallowed �
 [ "$(todo_glob "$BARE_YA" "^$SLUG-pr60-review-")" -eq 1 ] && ok "the approval+directive routed as exactly one whole-review job" || bad "directive not routed as a review job (todo=$(todo_count "$BARE_YA"))"
 YABODY="$(review_job_body "$BARE_YA" 60)"
 printf '%s' "$YABODY" | grep -qi 'APPROVAL bundled with asks' && ok "review job still notes the finalize-after step (approval handling is additive, not lost)" || bad "review job missing the finalize-after note"
+printf '%s' "$YABODY" | grep -q 'FOLLOW-UP GUARD' && printf '%s' "$YABODY" | grep -q -- '--awaiting-maintainer' \
+  && ok "review job parks bot-authored follow-ups that re-open a design decision (the #1371 -> #1407 path)" \
+  || bad "review job missing the bot-authored follow-up guard"
 [ "$(cursor_seen "$TR/state-ya" "$BARE_YA")" = 2026-08-31T23:03:36Z ] && ok "cursor advanced past the actioned approval+directive" || bad "cursor not advanced"
 
 hr; echo "YB — APPROVED body with a bare imperative verb ('Rebase.') → review job with the verb as PRIMARY (not swallowed)"; hr
