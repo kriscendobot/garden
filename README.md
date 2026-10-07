@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T21:04:58Z_
+_As of 2026-10-07T21:07:21Z_
 
 ## Latest
 
@@ -218,10 +218,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
-- `watchdog-unclaimable-host-requirements-minion-town-claude-kriscendobot-connect-canary-20261006` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-minion-town-claude-kriscendobot-connect-canary-20261006.md)
-
-> Host-requirements gate: job 'minion-town-claude-kriscendobot-connect-canary-20261006' has remained unclaimed for 1204s with requires: aws. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `review-request-endojs-endo-but-for-bots-pr450` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr450.md)
 
@@ -556,16 +552,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1089](https://github.com/endojs/endo-but-for-bots/pull/1089) ([endojs/endo-but-for-bots#1089](https://github.com/endojs/endo-but-for-bots/issues/1089)) is in the mergeable queue with NO gauntlet review staged (head cb6f2aa6eab8fff29d1563ef2c8f390863c53723). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1089'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `msg-minion-town-claude-kriscendobot-connect-canary-20261006-fb78c2ba6da9` — from gardener:minion-town-claude-kriscendobot-connect-canary-20261006, reply_to `minion-town-claude-kriscendobot-connect-canary-20261006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-kriscendobot-connect-canary-20261006-fb78c2ba6da9.md)
-
-> Blocked on two human-only steps for [https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89) items 4–5 (the kriscendobot connect + production canary). (a) `claude setup-token` uses an interactive claude.ai OAuth flow: you open a browser, approve, and paste a code back. (b) Signing in to minion.town as kriscendobot goes through GitHub's web login, which needs kriscendobot's password and MFA. This host has no browser session for either, and the skill forbids converting the `gh` API token into one.
->
-> ONE question: will you, signed in as kriscendobot, open https://minion.town/account/claude, paste in a token from `claude setup-token` run against kriscendobot's Claude subscription, and then reply "connected"? Don't send the token over the bus. Once you reply, a gardener will run the SSM preflight and the four redacted canary observations against subject 79b9090e-20a1-70d2-94c7-717257e2be34.
-
-- `msg-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-63f2e790c428` — from gardener:kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684, reply_to `kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-63f2e790c428.md)
-
-> Correction after the production metadata check: kriscendobot’s Claude subscription credential is already present and active. The remaining blocker is obtaining a root MCP OAuth session as kriscendobot. A disposable Playwright run reaches GitHub’s rendered sign-in page and requires kriscendobot password/MFA; the fleet’s gh API credential cannot be converted into that browser session. If you can provide an authenticated browser checkpoint on this host or another approved root-auth channel without sending bearer material over the bus, please reply with the method.
-
 - `msg-scholar-ingest-oh-my-pi-rust-core-565b36348d7f` — from scholar:scholar-ingest-oh-my-pi-rust-core, reply_to `scholar-ingest-oh-my-pi-rust-core` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-565b36348d7f.md)
 
 > The first oh-my-pi Rust-core cycle landed five file-anchored sources covering `pi-iso`, the `pi-shell` facade, its output minimizer and brush-parser planner, and the `pi-ast` crate surface. Headline correction: the minimizer compresses command output and preserves originals through artifacts; it is not a privilege or destructive-command safety gate, and `pi-iso` is a workspace/diff layer rather than a process sandbox. The indexed cycle is summarized in the job's result entry, and follow-on `scholar-ingest-oh-my-pi-rust-core-2` owns `pi-vfs`, `pi-builtins`, and the first `pi-natives` files before continuing the remaining explainer and brush backlog.
@@ -607,23 +593,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
-- `kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-failed` — from orchestrator:kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-failed.md)
-
-> orchestration-event: orchestration-child-failure
-> orchestration: kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684
-> orchestration-status: running
-> child: kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684
-> failure-kind: gated-outcome-unsatisfied
-> order: serial
-> on-child-failure: halt
-> detail: completed but declared its gated outcome unsatisfied
->
-> Orchestration kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684 observed child kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684: completed but declared its gated outcome unsatisfied.
-
-- `msg-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-967a150ea10a` — from gardener:kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684, reply_to `kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-967a150ea10a.md)
-
-> Production deployment of [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) succeeded, but the only fleet MCP credential is the non-root minion-mcp-test-cc principal; its live tools/list has no Claude tools, and the production responder index is absent. To run the required root watchInbox canary, please connect kriscendobot’s Claude subscription while signed in as kriscendobot at https://minion.town/account/claude, then reply "connected". Do not send any token over the bus.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr756-54be58f74472` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr756-54be58f74472.md)
 
@@ -678,10 +647,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - Taste: async wrapper, naming, bare Error.
 >
 > Which layers can land first: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) lands first, as soon as [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land. [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) follows after the retcon and weave. [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) have no code blockers, but they wait on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) (L5, already un-drafted). No layer needs a redesign, and none needs another full panel; a scoped re-panel of only the post-panel deltas would be optional. No PR was touched and no gauntlet was staged.
-
-- `msg-claude-on-minion-town-completion-press-20261007-112006-552089783381` — from gardener:claude-on-minion-town-completion-press-20261007-112006, reply_to `claude-on-minion-town-completion-press-20261007-112006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261007-112006-552089783381.md)
-
-> Arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89) completion press, 11:20Z. kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684 completed at 06:13Z with orchestration-failed: true, and its serial orchestration halted. You were notified at 06:15Z. [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) IS merged (d750b09b) and deployed: the receipt matches, health checks pass, and the fail-closed auth checks pass. What is missing is the positive half: watchInbox, rate-cap, slot contention, restart/recovery, dismissal, and mailbox sender are all unverified. The cause is credentials, not code. The fleet holds only a non-root MCP credential, and root OAuth needs kriscendobot's interactive GitHub MFA. That is the same gate already parked as minion-town-claude-kriscendobot-canary-after-connect-20261006, so promoting that canary after you connect would close it. There are no dooms, absences, or stalls on the arc otherwise. Detail: [https://github.com/kriscendobot/minion.town/pull/165](https://github.com/kriscendobot/minion.town/pull/165)#issuecomment-6032132655
 
 - `msg-endojs-endo-but-for-bots-pr1124-gauntlet-panel-6-ca3052f957dc` — from gardener:endojs-endo-but-for-bots-pr1124-gauntlet-panel-6, reply_to `endojs-endo-but-for-bots-pr1124-gauntlet-panel-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1124-gauntlet-panel-6-ca3052f957dc.md)
 
@@ -894,19 +859,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet endojs-endo-but-for-bots-pr1398-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
-- `kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted` — from orchestrator:kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684
-> orchestration-status: halted
-> child: kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684
-> failure-kind: gated-outcome-unsatisfied
-> children-completed: 1
-> children-total: 2
-> halt-parked-remainder: 
->
-> Orchestration kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684 HALTED: child kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
-
 - `review-request-endojs-endo-but-for-bots-pr264` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr264.md)
 
 > Review request: endojs/endo-but-for-bots PR 264
@@ -1030,18 +982,20 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.8M | $268.50 _(notional, rate-card)_ | 18% of 168.0M (ok) |
-| Codex | 4.1M _(+77.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 29.9M | $270.71 _(notional, rate-card)_ | 18% of 168.0M (ok) |
+| Codex | 4.1M _(+78.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.088527s/45s (/home/kris/garden2/.garden-state/inbox/build-minion-town-issue58-prod-objective-probes/journal); 4 open notice(s); checker healthy
+worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-review-a6b93d7a.md) — Review directive on endojs/endo-but-for-bots PR #1381
+- [`kriscendobot-minion.town-pr166-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #166
 - [`endojs-endo-but-for-bots-pr1381-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1381
+- [`design-minion-town-kriscendobot-root-principal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-kriscendobot-root-principal.md) — ---
 - [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-oauth-bonds.md) — Design: clarify, list, and delete OAuth bonds on minion.town
 - [`weave-kriscendobot-minion-town-pr68-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-kriscendobot-minion-town-pr68-20261007.md) — Weave kriscendobot/minion.town#68 onto the live main
 - [`endojs-endo-but-for-bots-pr1343-conduct-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-conduct-20261007.md) — ---
