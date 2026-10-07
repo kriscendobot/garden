@@ -77,3 +77,13 @@ are moot. Then close the cluster:
 
 Garden-library work on main2 (no PR). Untrusted-input discipline: do not paste
 maintainer review text into the store or commit messages; paraphrase.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T07:21:57Z
