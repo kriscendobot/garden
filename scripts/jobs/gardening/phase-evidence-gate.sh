@@ -11,9 +11,12 @@ usage: phase-evidence-gate.sh <author|panel> <worktree>
        [--repo <owner/name> --pr <number>] [--draft <yes|no>]
        [--evidence-file <file>]
 
-Exit 0: clear (or an author-time non-deliverable probe that is still draft)
+Exit 0: clear (or an author-time draft probe / orchestrated slice)
 Exit 10: relevant ordered design; the integrator must compare the ledger to it
 Exit 20: blocked; the artifact cannot become review-ready
+Exit 30: panel-time probe or orchestrated slice with a well-formed ledger; the
+         panel reviews the code and its disposition stands, but the PR must not
+         be un-drafted while the ledger says it is not the deliverable
 Exit 3: body or governing design could not be read
 EOF
 }
@@ -232,10 +235,21 @@ field_value() { # field_value <name>
 }
 
 disposition="$(field_value Disposition | tr '[:upper:]' '[:lower:]' | tr -d '`' | xargs 2>/dev/null)"
+# deliverable: the PR claims the design's full sequence and acceptance bar.
+# non-deliverable-probe: an exploratory slice; draft forever (gap-revealing).
+# orchestrated-slice: real code for some phases of a design whose remaining
+#   phases a named successor job or orchestration owns. It is reviewed like any
+#   build (the gauntlet runs), but it stays draft until the successor supplies
+#   the evidence and the ledger turns `deliverable` (builder-pr-gauntlet-bypass,
+#   kriscendobot/minion.town#148).
 case "$disposition" in
-  deliverable|non-deliverable-probe) ;;
+  deliverable|non-deliverable-probe|orchestrated-slice) ;;
   *) echo "invalid-disposition" >> "$findings" ;;
 esac
+held_disposition=0
+case "$disposition" in non-deliverable-probe|orchestrated-slice) held_disposition=1 ;; esac
+open_phases="$temporary_directory/open-phases"
+: > "$open_phases"
 
 ledger_designs="$temporary_directory/ledger-designs"
 grep -Eo '([[:alnum:]_.-]+/)*designs/[[:alnum:]_./-]+\.md|(^|[[:space:]`(])DESIGN[[:alnum:]_.-]*\.md' "$ledger" 2>/dev/null \
@@ -257,12 +271,13 @@ while IFS= read -r id; do
   status="$(printf '%s' "$record" | cut -d'|' -f2 | tr '[:upper:]' '[:lower:]' | xargs)"
   evidence="$(printf '%s' "$record" | cut -d'|' -f3-)"
   [ -n "$(printf '%s' "$evidence" | xargs)" ] || echo "missing-phase-evidence:$id" >> "$findings"
-  if [ "$disposition" = deliverable ]; then
-    case "$status" in
-      satisfied|superseded|not-applicable) ;;
-      *) echo "open-phase:$id:$status" >> "$findings" ;;
-    esac
-  fi
+  case "$status" in
+    satisfied|superseded|not-applicable) ;;
+    *)
+      echo "$id:$status" >> "$open_phases"
+      [ "$disposition" != deliverable ] || echo "open-phase:$id:$status" >> "$findings"
+      ;;
+  esac
 done < "$phase_ids"
 
 acceptance_record="$(sed -nE 's/^[[:space:]]*[Aa]cceptance:[[:space:]]*([^|]+)\|[[:space:]]*(.+)$/\1|\2/p' "$ledger" | head -1)"
@@ -287,7 +302,7 @@ if printf '%s\n' "$body_flat" | grep -Eiq \
   '(^|[. ;])(unmerged|unlanded)([. ;]|$)|steps?[^.]{0,160}(not attempted|deferred|out of scope)|((prerequisite|stop[ -]?gate)[^.]{0,120}(open|unresolved|unmerged|unlanded))|((default|currently|still|until)[^.]{0,120}(unavailable|fail[s]?[ -]?closed))|((unavailable|fail[s]?[ -]?closed)[^.]{0,120}(default|production seam|until))|acceptance evidence[^.]{0,120}(absent|missing|deferred|not run)'; then
   body_declares_open=1
 fi
-if [ "$disposition" != non-deliverable-probe ] && [ "$body_declares_open" -eq 1 ]; then
+if [ "$held_disposition" -eq 0 ] && [ "$body_declares_open" -eq 1 ]; then
   echo "body-declares-open-prerequisite-or-evidence" >> "$findings"
 fi
 
@@ -297,8 +312,20 @@ if [ "$disposition" = non-deliverable-probe ]; then
   if [ "$draft" != yes ]; then
     echo "probe-not-draft" >> "$findings"
   fi
-  if [ "$mode" = panel ]; then
-    echo "probe-must-remain-draft" >> "$findings"
+fi
+successor=""
+if [ "$disposition" = orchestrated-slice ]; then
+  # The successor is the durable owner of the remaining phases: a job base or an
+  # orchestration base (or a PR/issue reference). One token, no prose, so a
+  # sensor can resolve it and the maintainer can find it.
+  successor="$(field_value Successor | tr -d '`' | xargs 2>/dev/null)"
+  if [ -z "$successor" ]; then
+    echo "missing-successor" >> "$findings"
+  elif ! printf '%s' "$successor" | grep -Eq '^[A-Za-z0-9][A-Za-z0-9._/#:-]*$'; then
+    echo "invalid-successor" >> "$findings"
+  fi
+  if [ "$draft" != yes ]; then
+    echo "slice-not-draft" >> "$findings"
   fi
 fi
 
@@ -318,11 +345,32 @@ if [ -s "$findings" ]; then
   exit 20
 fi
 
-if [ "$disposition" = non-deliverable-probe ]; then
-  summary="phase-evidence-verdict=probe disposition=non-deliverable-probe draft=yes designs=[$design_list] phases=[$phase_list]"
+open_list="$(paste -sd, "$open_phases")"
+if [ "$held_disposition" -eq 1 ]; then
+  if [ "$mode" = author ]; then
+    verdict=probe
+    [ "$disposition" = non-deliverable-probe ] || verdict=slice
+    summary="phase-evidence-verdict=$verdict disposition=$disposition draft=yes designs=[$design_list] phases=[$phase_list] open=[$open_list]${successor:+ successor=$successor}"
+    printf '%s\n' "$summary"
+    [ -z "$evidence_file" ] || printf '%s\n' "$summary" > "$evidence_file"
+    exit 0
+  fi
+  # Panel time. A fixer cannot close a production phase another job owns, so an
+  # open phase here must not become a must-fix finding: six rounds on #148 ended
+  # must-fix on exactly that. Report the open phases once, let the seats judge the
+  # code, and withhold only the un-draft (the gauntlet driver re-reads the ledger
+  # before its un-draft stage).
+  summary="phase-evidence-verdict=hold-draft disposition=$disposition designs=[$design_list] phases=[$phase_list] open=[$open_list]${successor:+ successor=$successor} undraft=withheld"
   printf '%s\n' "$summary"
-  [ -z "$evidence_file" ] || printf '%s\n' "$summary" > "$evidence_file"
-  exit 0
+  if [ -n "$evidence_file" ]; then
+    {
+      echo "$summary"
+      echo "The ledger says this PR is not the design's deliverable: open phases [$open_list]${successor:+ are owned by $successor}."
+      echo "Review the code in the diff on its merits. Do not request changes for the open phases; a fixer cannot close them, and the PR stays draft until the ledger turns deliverable."
+      echo "Do request changes if the ledger misstates which phases this diff covers, or if a phase it claims is unsupported by the diff."
+    } > "$evidence_file"
+  fi
+  exit 30
 fi
 
 summary="phase-evidence-verdict=attention disposition=deliverable designs=[$design_list] phases=[$phase_list] acceptance=satisfied"

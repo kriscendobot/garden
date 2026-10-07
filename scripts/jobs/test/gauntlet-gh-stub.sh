@@ -30,8 +30,13 @@ case "${1:-} ${2:-}" in
     else
       is_draft=false
     fi
-    printf '{"headRefOid":"%s","isDraft":%s,"statusCheckRollup":[{"status":"COMPLETED","conclusion":"SUCCESS"}]}\n' \
-      "$head_oid" "$is_draft"
+    # GAUNTLET_GH_BODY_FILE supplies the PR body (the phase/evidence ledger the
+    # driver reads after a passing panel); absent, the body is empty.
+    body_text=""
+    [ ! -s "${GAUNTLET_GH_BODY_FILE:-/nonexistent}" ] || body_text="$(cat "$GAUNTLET_GH_BODY_FILE")"
+    jq -cn --arg head "$head_oid" --argjson draft "$is_draft" --arg body "$body_text" \
+      '{headRefOid: $head, isDraft: $draft, body: $body,
+        statusCheckRollup: [{status: "COMPLETED", conclusion: "SUCCESS"}]}'
     ;;
   "pr comment")
     [ ! -e "${GAUNTLET_GH_FAIL_WRITES_FILE:-/nonexistent}" ] || exit 1

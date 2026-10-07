@@ -45,6 +45,7 @@
 #     | clean     | still-pending | re-post <g>-clean (bounded by max_resumes)      |
 #     | clean     | ci-billing-blocked | park (resumable; maintainer alerted)       |
 #     | panel-k   | pass          | undraft (feature) / done (probe never un-drafts)|
+#     |           |               | / held-draft (ledger says probe or slice)       |
 #     | panel-k   | must-fix      | fix-k                                           |
 #     | fix-k     | done          | panel-(k+1); if k+1 > max_iterations → REVIEW   |
 #     | fix-k     | still-pending | re-post <g>-fix-k (bounded by max_resumes)      |
@@ -329,6 +330,8 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
   case "$terminal_state" in
     review-budget-reached)
       next="awaiting maintainer merge/undraft or re-run decision";;
+    held-draft)
+      next="code panel passed; un-draft withheld by the phase ledger ($reason)";;
     halted)
       next="maintainer action required; halt reason: $reason";;
     parked-ci-billing)
@@ -705,6 +708,39 @@ finish_review_budget_reached() {  # <base> <reason>
   printf 'INFO: Gauntlet %s review budget reached: %s\n' "$base" "$reason" \
     | gauntlet_notify "$base-review-budget-reached"
   log "gauntlet '$base': review budget reached — $reason"
+  rm -f "$sf" "$pending"
+}
+
+# A passing panel on a PR whose phase/evidence ledger says it is not the
+# deliverable (`non-deliverable-probe`, or an `orchestrated-slice` whose later
+# phases a successor owns). The code was reviewed; only the un-draft is withheld.
+# The terminal status is `held-draft` so auto-gauntlet-handoff.sh can re-stage a
+# fresh run once the successor turns the ledger `deliverable`
+# (review-miss cluster builder-pr-gauntlet-bypass, kriscendobot/minion.town#148).
+finish_held_draft() {  # <base> <disposition> <successor-or-empty>
+  local base="$1" disposition="$2" successor="$3" sf rec pending key value reason short
+  short="ledger disposition $disposition"
+  [ -z "$successor" ] || short="$short; remaining phases owned by $successor"
+  reason="Panel round passed on the code. The PR's phase/evidence ledger says $short, so the PR stays DRAFT: no stage un-drafts it until the ledger says deliverable, after which a new gauntlet run reviews the completing head."
+  sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-held.XXXXXX")"
+  rec="$DIR/$JOBS_GAUNTLET/$base.md"
+  {
+    printf 'gauntlet-status: held-draft\n'
+    for key in repo pr_number panel_head; do
+      value="$(plan_field "$rec" "$key" 2>/dev/null || true)"
+      [ -n "$value" ] && printf '%s: %s\n' "$key" "$value"
+    done
+    printf 'ledger_disposition: %s\n' "$disposition"
+    [ -z "$successor" ] || printf 'ledger_successor: %s\n' "$successor"
+    printf '# gauntlet %s — code passed, held draft\n\n' "$base"
+    printf '%s\n' "$reason"
+  } > "$sf"
+  pending="$(gauntlet_terminal_receipt "$base" held-draft "$short" "$rec")"
+  finish_gauntlet "$base" "$sf" "$pending" \
+    || log "gauntlet '$base': held-draft finish failed; retrying next tick"
+  printf 'INFO: Gauntlet %s passed the code panel but is held draft: %s\n' "$base" "$reason" \
+    | gauntlet_notify "$base-held-draft"
+  log "gauntlet '$base': held draft — $short"
   rm -f "$sf" "$pending"
 }
 
@@ -1379,11 +1415,21 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
           # Stamp the head this verdict covers. The undraft stage never pushes, so
           # a later head means someone pushed after the panel, which voids the pass
           # for head-bound consumers (the minion.town screener's gate 2).
-          if passed_meta="$(gh_pr_view_retry "$(plan_field "$f" pr_number)" -R "$(plan_field "$f" repo)" --json headRefOid 2>/dev/null)"; then
+          passed_meta=""
+          if passed_meta="$(gh_pr_view_retry "$(plan_field "$f" pr_number)" -R "$(plan_field "$f" repo)" --json headRefOid,body 2>/dev/null)"; then
             passed_head="$(printf '%s' "$passed_meta" | jq -r '.headRefOid // empty' 2>/dev/null || true)"
             [[ "$passed_head" =~ ^[0-9a-f]{40}$ ]] && set_gauntlet_fields "$base" "panel_head=$passed_head" || true
+          elif [ "$kind" != probe ]; then
+            # The un-draft decision reads the live ledger; never guess past an
+            # unreadable body. Leave the completed panel child and retry next tick.
+            log "gauntlet '$base': PR body unreadable after a passing panel; deferring the un-draft decision"
+            continue
           fi
-          if [ "$kind" = probe ]; then
+          ledger_disposition="$(printf '%s' "$passed_meta" | jq -r '.body // ""' 2>/dev/null | pr_body_ledger_field Disposition)" || ledger_disposition=""
+          if [ "$kind" != probe ] && pr_ledger_holds_draft "$ledger_disposition"; then
+            finish_held_draft "$base" "$ledger_disposition" \
+              "$(printf '%s' "$passed_meta" | jq -r '.body // ""' 2>/dev/null | pr_body_ledger_field Successor)"
+          elif [ "$kind" = probe ]; then
             finish_done "$base" "panel round $iter passed; kind=probe, so the PR stays DRAFT by design (never un-drafted)."
           else
             advance_stage "$base" "$f" undraft "$iter" "$base-undraft"

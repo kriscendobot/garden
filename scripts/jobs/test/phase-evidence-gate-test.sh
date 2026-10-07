@@ -97,9 +97,62 @@ run_gate author "$TR/probe.md"
   && ok "authoring allows an explicitly non-deliverable draft probe" \
   || bad "draft probe should be allowed (rc=$RC, $OUT)"
 run_gate panel "$TR/probe.md"
-[ "$RC" -eq 20 ] && printf '%s\n' "$OUT" | grep -q 'probe-must-remain-draft' \
-  && ok "panel blocks a probe from review-ready disposition" \
-  || bad "panel should preserve probe draft status (rc=$RC, $OUT)"
+# A probe that reaches the panel is held draft (exit 30), not blocked: a fixer
+# cannot close a phase another job owns (builder-pr-gauntlet-bypass, #148).
+[ "$RC" -eq 30 ] && printf '%s\n' "$OUT" | grep -q 'verdict=hold-draft' \
+  && printf '%s\n' "$OUT" | grep -q 'undraft=withheld' \
+  && ! printf '%s\n' "$OUT" | grep -q 'probe-must-remain-draft' \
+  && ok "panel holds a probe draft without a must-fix finding" \
+  || bad "panel should hold the probe draft (rc=$RC, $OUT)"
+printf '%s\n' "$OUT" | grep -q 'open=\[1:open,3:deferred\]' \
+  && ok "panel reports the probe's open phases once" \
+  || bad "open-phase status missing from the hold verdict: $OUT"
+
+echo "== orchestrated slice: real code for some phases; a named successor owns the rest =="
+cat > "$TR/slice.md" <<'EOF'
+This lands the provider for `designs/production.md`; the canary is a later child.
+
+<!-- garden-phase-evidence-ledger:v1 -->
+## Phase and evidence ledger
+
+Design: `designs/production.md`
+Disposition: orchestrated-slice
+Successor: production-canary-orchestration
+Phase 1: satisfied | provider landed in this diff
+Phase 2: partial | wiring present; production seam off until the canary
+Phase 3: not-started | owned by production-canary-orchestration
+Acceptance: not-started | the canary child records the production observation
+<!-- /garden-phase-evidence-ledger -->
+EOF
+run_gate author "$TR/slice.md"
+[ "$RC" -eq 0 ] && printf '%s\n' "$OUT" | grep -q 'verdict=slice' \
+  && printf '%s\n' "$OUT" | grep -q 'successor=production-canary-orchestration' \
+  && ok "authoring accepts a draft orchestrated slice that names its successor" \
+  || bad "orchestrated slice should clear authoring (rc=$RC, $OUT)"
+run_gate panel "$TR/slice.md"
+[ "$RC" -eq 30 ] && printf '%s\n' "$OUT" | grep -q 'open=\[2:partial,3:not-started\]' \
+  && grep -q 'Do not request changes for the open phases' "$TR/evidence" \
+  && ok "panel reviews the slice's code and withholds only the un-draft" \
+  || bad "panel should hold the slice draft (rc=$RC, $OUT)"
+run_gate author "$TR/slice.md" no
+[ "$RC" -eq 20 ] && printf '%s\n' "$OUT" | grep -q 'slice-not-draft' \
+  && ok "a slice may never be opened ready (design-acceptance protection kept)" \
+  || bad "non-draft slice should block (rc=$RC, $OUT)"
+sed '/^Successor:/d' "$TR/slice.md" > "$TR/slice-no-successor.md"
+run_gate author "$TR/slice-no-successor.md"
+[ "$RC" -eq 20 ] && printf '%s\n' "$OUT" | grep -q 'missing-successor' \
+  && ok "a slice without a named successor is refused" \
+  || bad "slice without successor should block (rc=$RC, $OUT)"
+sed 's/^Successor:.*/Successor: the canary child, later/' "$TR/slice.md" > "$TR/slice-prose-successor.md"
+run_gate author "$TR/slice-prose-successor.md"
+[ "$RC" -eq 20 ] && printf '%s\n' "$OUT" | grep -q 'invalid-successor' \
+  && ok "a prose successor (not a resolvable base) is refused" \
+  || bad "prose successor should block (rc=$RC, $OUT)"
+sed '/^Phase 3:/d' "$TR/slice.md" > "$TR/slice-missing-phase.md"
+run_gate panel "$TR/slice-missing-phase.md"
+[ "$RC" -eq 20 ] && printf '%s\n' "$OUT" | grep -q 'missing-phase:3' \
+  && ok "a slice ledger must still account for every phase (fixable, so it blocks)" \
+  || bad "slice missing a phase row should block (rc=$RC, $OUT)"
 
 cat > "$TR/deliverable.md" <<'EOF'
 This delivers `designs/production.md` end to end.
@@ -212,6 +265,104 @@ grep -q 'integrator-saw-phase-evidence=1' "$SEAT_LOG" 2>/dev/null \
 grep -q 'phase/evidence pre-pass = BLOCKED' "$PANEL_ERR" \
   && ok "panel audit trail records the deterministic block" \
   || bad "panel block audit line missing"
+
+echo "== re-litigation: kriscendobot/minion.town#148 ledger replayed through panel mode =="
+# #148 shape: an ordered six-phase design; the build delivered phases 1-2 in part,
+# canary phases 3-6 belonged to a later sibling child, and the ledger said
+# non-deliverable-probe. Before this fix the panel gate emitted
+# probe-must-remain-draft every round and six fix rounds could not clear it.
+cat > "$WT/designs/claude-cli.md" <<'DESIGN'
+# Claude CLI production
+
+## Production sequence and stop gates
+
+1. Provider backend.
+2. Credential store and confinement probe.
+3. Canary: single subject.
+4. Canary: child guests.
+5. Canary: quota exhaustion.
+6. Canary: production enablement.
+
+## Acceptance evidence
+
+- Live canary receipts for phases 3 through 6.
+DESIGN
+git -C "$WT" add -A
+git -C "$WT" commit -qm 'design: claude cli sequence'
+cat > "$TR/pr148-shape.md" <<'EOF'
+Runs confined inference through the Claude CLI backend (`designs/claude-cli.md`).
+
+<!-- garden-phase-evidence-ledger:v1 -->
+## Phase and evidence ledger
+
+Design: `designs/claude-cli.md` (the fixture tree also carries `designs/production.md`)
+Disposition: non-deliverable-probe
+Probe-reason: the canary phases belong to the sibling canary child
+Phase 1: partial | provider seams wired; no live credential
+Phase 2: partial | probe exercised against a test daemon
+Phase 3: not-started | canary child
+Phase 4: not-started | canary child
+Phase 5: not-started | canary child
+Phase 6: not-started | canary child
+Acceptance: not-started | canary child
+<!-- /garden-phase-evidence-ledger -->
+EOF
+run_gate panel "$TR/pr148-shape.md"
+[ "$RC" -eq 30 ] && printf '%s\n' "$OUT" | grep -q 'open=\[1:partial,2:partial,3:not-started,4:not-started,5:not-started,6:not-started\]' \
+  && ! printf '%s\n' "$OUT" | grep -q 'probe-must-remain-draft' \
+  && ok "#148 ledger: panel mode reports open phases once and holds draft (no perpetual must-fix)" \
+  || bad "#148 replay should hold draft, not block (rc=$RC, $OUT)"
+sed 's/^Disposition: non-deliverable-probe$/Disposition: orchestrated-slice/; s/^Probe-reason:.*/Successor: minion-town-claude-cli-production-20261003/' \
+  "$TR/pr148-shape.md" > "$TR/pr148-slice.md"
+run_gate author "$TR/pr148-slice.md"
+[ "$RC" -eq 0 ] && printf '%s\n' "$OUT" | grep -q 'verdict=slice' \
+  && ok "#148 as it should have been labeled (orchestrated-slice) clears authoring" \
+  || bad "#148 slice relabel should clear authoring (rc=$RC, $OUT)"
+
+echo "== panel integration: a held probe/slice keeps the seats' pass, binds no must-fix =="
+for shape in pr148-shape pr148-slice; do
+  : > "$SEAT_LOG"
+  GARDEN_PHASE_EVIDENCE_BODY_FILE="$TR/$shape.md" \
+  GARDEN_PHASE_SEAT_LOG="$SEAT_LOG" \
+  GARDEN_PANEL_SINGLE_ROUND=1 \
+  GARDEN_CODE_SEATS=assessor \
+  GARDEN_PANEL_CONCURRENCY=2 \
+  GARDEN_PANEL_SEAT="$SEAT_STUB" \
+  GARDEN_PANEL_DECIDE="$DECIDE_STUB" \
+  GARDEN_PANEL_RELATED_DESIGN=: \
+  GARDEN_PANEL_APPELLATE=: \
+  GARDEN_PANEL_RECORD=: \
+  GARDEN_PANEL_RUNDIR="$TR/panel-run-$shape" \
+    bash "$PANEL" "$WT" 148 "$BASE" > "$PANEL_OUT" 2> "$PANEL_ERR"
+  panel_rc=$?
+  { [ "$panel_rc" -eq 0 ] && tail -1 "$PANEL_OUT" | grep -q -- ' pass$' \
+      && grep -q 'phase/evidence pre-pass = HOLD-DRAFT' "$PANEL_ERR" \
+      && grep -q 'withholds the un-draft' "$PANEL_ERR"; } \
+    && ok "$shape: approving seats yield pass; the hold is logged, not bound to must-fix" \
+    || bad "$shape: panel should pass with a hold (rc=$panel_rc, out=$(cat "$PANEL_OUT"), err=$(grep -i 'phase' "$PANEL_ERR"))"
+  grep -q 'integrator-saw-phase-evidence=1' "$SEAT_LOG" 2>/dev/null \
+    && ok "$shape: the integrator still receives the open-phase evidence" \
+    || bad "$shape: integrator was not handed the hold evidence"
+done
+
+echo "== panel loop mode: a passing held slice is never un-drafted =="
+# The un-draft hook is `false`: calling it would fail the panel non-zero.
+GARDEN_PHASE_EVIDENCE_BODY_FILE="$TR/pr148-slice.md" \
+GARDEN_PHASE_SEAT_LOG="$SEAT_LOG" \
+GARDEN_CODE_SEATS=assessor \
+GARDEN_PANEL_CONCURRENCY=2 \
+GARDEN_PANEL_SEAT="$SEAT_STUB" \
+GARDEN_PANEL_DECIDE="$DECIDE_STUB" \
+GARDEN_PANEL_RELATED_DESIGN=: \
+GARDEN_PANEL_APPELLATE=: \
+GARDEN_PANEL_RECORD=: \
+GARDEN_PANEL_UNDRAFT=false \
+GARDEN_PANEL_RUNDIR="$TR/panel-run-loop" \
+  bash "$PANEL" "$WT" 148 "$BASE" > "$PANEL_OUT" 2> "$PANEL_ERR"
+panel_rc=$?
+{ [ "$panel_rc" -eq 0 ] && grep -q 'withholds the un-draft, so the PR stays draft' "$PANEL_OUT"; } \
+  && ok "loop-mode pass on a held slice exits without calling the un-draft hook" \
+  || bad "loop-mode held slice (rc=$panel_rc, out=$(cat "$PANEL_OUT"), err=$(tail -3 "$PANEL_ERR"))"
 
 echo "== stale local base: a bare --base resolves to the fresher origin/<base> (#1370) =="
 # A per-job worktree whose LOCAL base branch lags origin/<base>. The base's own

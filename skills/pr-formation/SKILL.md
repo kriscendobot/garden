@@ -102,17 +102,43 @@ the observations the design requires. Do not cite only lint, typecheck, or unit
 tests when the design says those are prerequisites rather than production
 evidence.
 
-A deliberate exploratory slice uses `Disposition: non-deliverable-probe`, may
-use `open`, `blocked`, or `deferred` phase statuses, and adds `Probe-reason:`.
-That PR remains draft and does not enter the gauntlet. "Draft" alone is not the
-label: ordinary feature builds also start draft and are intended to become
-review-ready after a panel.
+Two dispositions say "this PR is not the deliverable." Both keep the PR draft,
+may use any non-satisfied phase status (`open`, `partial`, `deferred`,
+`not-started`, …), and still list every phase with its evidence:
+
+- `Disposition: orchestrated-slice` plus `Successor: <base>`. Use it for a
+  `build` job that implements real code for some phases while a named successor
+  job or orchestration owns the rest (typically the canary child of the same
+  orchestration). `Successor:` is one token, the successor's job or
+  orchestration base, so a sensor and the maintainer can find it. The slice
+  **enters the gauntlet like any build**: the panel reviews the code, fix rounds
+  address real code findings, and the open phases bind nothing. Only the
+  un-draft is withheld. When the successor supplies the evidence, it updates the
+  ledger to `deliverable` and its completion re-stages a fresh gauntlet, whose
+  passing panel un-drafts the PR.
+- `Disposition: non-deliverable-probe` plus `Probe-reason:`. Reserve it for a
+  true exploratory slice: a `probe #N` job ([gap-revealing-build](../gap-revealing-build/SKILL.md)) whose
+  deliverable is a gap report. A probe job is panel-exempt. If a probe-labeled
+  PR from a non-probe job reaches the panel anyway, it is treated like a slice:
+  reviewed, held draft.
+
+"Draft" alone is not the label: ordinary feature builds also start draft and are
+intended to become review-ready after a panel. A design's later phases belonging
+to another job is never a reason to skip the panel.
 
 `scripts/jobs/gardening/phase-evidence-gate.sh` validates this ledger at PR-open
-time and again at the panel boundary. At panel time it also rejects a probe,
-missing ledger, missing phase, open prerequisite, body/ledger contradiction, or
-absent acceptance evidence. The integrator then compares the claimed evidence
-with the design's actual sequence and acceptance section.
+time and again at the panel boundary. At either point it blocks a missing
+ledger, missing phase or evidence, a `deliverable` with an open prerequisite, a
+body/ledger contradiction, absent acceptance evidence, a slice without a
+resolvable `Successor:`, or a probe or slice that is not draft. At panel time a
+well-formed probe or slice returns `hold-draft` (exit 30): the open phases are
+reported once to the integrator, the seats' code verdict stands, and
+`gauntlet.sh` re-reads the live ledger after a passing panel and finishes the run
+`held-draft` instead of un-drafting. The integrator compares the claimed evidence
+with the design's actual sequence and acceptance section. Grounding: review-miss
+cluster `builder-pr-gauntlet-bypass` (`kriscendobot/minion.town#148`: labeled a
+probe to dodge the gate, no panel ran, and a later requested gauntlet could not
+pass six rounds).
 
 ### Branch naming (head and base)
 

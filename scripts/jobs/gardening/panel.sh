@@ -1011,9 +1011,11 @@ run_mechanism_repeat_prepass() {
 PHASE_EVIDENCE_CHECK="${GARDEN_PANEL_PHASE_EVIDENCE_CHECK:-$HERE/phase-evidence-gate.sh}"
 PHASE_EVIDENCE_FILE="$GARDEN_PANEL_RUNDIR/phase-evidence.md"
 PHASE_EVIDENCE_BLOCKED=0
+PHASE_EVIDENCE_HOLD_DRAFT=0
 run_phase_evidence_prepass() {
   : > "$PHASE_EVIDENCE_FILE"
   PHASE_EVIDENCE_BLOCKED=0
+  PHASE_EVIDENCE_HOLD_DRAFT=0
   unset GARDEN_PANEL_PHASE_EVIDENCE
   [ "$PHASE_EVIDENCE_CHECK" != ":" ] || return 0
   [ -e "$PHASE_EVIDENCE_CHECK" ] || return 0
@@ -1040,6 +1042,15 @@ run_phase_evidence_prepass() {
       PHASE_EVIDENCE_BLOCKED=1
       case " $seats " in *" integrator "*) ;; *) seats="$seats integrator" ;; esac
       echo "panel #$pr: phase/evidence pre-pass = BLOCKED; forcing the integrator and binding disposition to must-fix." >&2
+      ;;
+    30)
+      # A probe or orchestrated slice with a well-formed ledger. Its open phases
+      # belong to another job, so they bind nothing: the seats' code verdict
+      # stands and only the un-draft is withheld (builder-pr-gauntlet-bypass).
+      export GARDEN_PANEL_PHASE_EVIDENCE="$PHASE_EVIDENCE_FILE"
+      PHASE_EVIDENCE_HOLD_DRAFT=1
+      case " $seats " in *" integrator "*) ;; *) seats="$seats integrator" ;; esac
+      echo "panel #$pr: phase/evidence pre-pass = HOLD-DRAFT ($(head -1 "$PHASE_EVIDENCE_FILE" 2>/dev/null)); the code disposition stands, un-draft withheld." >&2
       ;;
     3)
       echo "panel #$pr: phase/evidence pre-pass could not resolve the PR body or governing design (surfaced, not fatal); see phase-evidence.log." >&2
@@ -1257,6 +1268,9 @@ while :; do
       *)        PANEL_DISPOSITION="decider-error"
                 fail "disposition (decider returned neither 'must-fix' nor 'pass' twice)" ;;
     esac
+    if [ "$PHASE_EVIDENCE_HOLD_DRAFT" -eq 1 ] && [ "$disposition" = pass ]; then
+      echo "panel #$pr: code passed; the phase ledger withholds the un-draft (the gauntlet driver holds the PR draft)." >&2
+    fi
     echo "panel #$pr: $panel_kind single-round — $disposition"
     exit 0
   fi
@@ -1274,6 +1288,11 @@ while :; do
         PANEL_APPELLATE_RAN=1
         PANEL_APPELLATE_COUNT="$(grep -cE '^[[:space:]]*([-*]|[0-9]+[.)])[[:space:]]' \
           "$GARDEN_PANEL_RUNDIR/appellate.md" 2>/dev/null || echo 0)"
+      fi
+      if [ "$PHASE_EVIDENCE_HOLD_DRAFT" -eq 1 ]; then
+        PANEL_DISPOSITION="passed-held-draft"
+        echo "panel #$pr: $panel_kind PASSED after $round round(s); the phase ledger withholds the un-draft, so the PR stays draft."
+        exit 0
       fi
       PANEL_DISPOSITION="passed"
       undraft

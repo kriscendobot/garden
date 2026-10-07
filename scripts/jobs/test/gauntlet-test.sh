@@ -81,6 +81,7 @@ export GAUNTLET_GH_READS_LOG="$TR/pr-comment-reads"
 export GAUNTLET_GH_FAIL_VIEWS_FILE="$TR/fail-pr-views"
 export GAUNTLET_GH_HEAD_FILE="$TR/pr-head"
 export GAUNTLET_GH_DRAFT_FILE="$TR/pr-draft"
+export GAUNTLET_GH_BODY_FILE="$TR/pr-body"
 # The host-shared gh-api cooldown latch otherwise defaults under the deployed garden
 # root; keep it in the throwaway tree so a live host cooldown cannot leak in.
 export GARDEN_API_COOLDOWN_DIR="$TR/gh-api-cooldown"
@@ -146,14 +147,17 @@ handler_budget_role() { todo_body "$1" | sed -n 's/^handler-budget-role:[[:space
 # Simulate a gardener COMPLETING a stage with a stage-result MARKER: remove it from
 # todo/doin and write a tada report ending in the deterministic marker line.
 complete_stage() {  # complete_stage <base> <marker-body>  (e.g. "clean=done")
-  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  # Reports live in date shards (tada_find ignores a flat jobs/tada/<base>.md).
+  local wt shard; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  shard="$(date -u +%Y/%m/%d)"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
+  mkdir -p "$wt/jobs/tada/$shard"
   { printf '# %s complete\n\nstage work done.\n\n' "$1"
     [ "$2" != panel=must-fix ] || printf 'must-fix items (2):\n- fixture item one\n- fixture item two\n\n'
-    printf '<!-- gauntlet-stage-result: %s -->\n' "$2"; } > "$wt/jobs/tada/$1.md"
-  git -C "$wt" add "jobs/tada/$1.md"
+    printf '<!-- gauntlet-stage-result: %s -->\n' "$2"; } > "$wt/jobs/tada/$shard/$1.md"
+  git -C "$wt" add "jobs/tada/$shard/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) $2"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
@@ -175,12 +179,14 @@ complete_stage_sharded() {  # complete_stage_sharded <base> <marker-body>
 }
 # A stage that finishes WITHOUT a parseable marker (fail-closed → halt).
 complete_stage_nomarker() {  # complete_stage_nomarker <base>
-  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  local wt shard; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  shard="$(date -u +%Y/%m/%d)"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
-  printf '# %s finished\n\nno marker here.\n' "$1" > "$wt/jobs/tada/$1.md"
-  git -C "$wt" add "jobs/tada/$1.md"
+  mkdir -p "$wt/jobs/tada/$shard"
+  printf '# %s finished\n\nno marker here.\n' "$1" > "$wt/jobs/tada/$shard/$1.md"
+  git -C "$wt" add "jobs/tada/$shard/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) no-marker"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
@@ -730,6 +736,69 @@ rm -f "$GAUNTLET_GH_DRAFT_FILE"
     && printf '%s' "$(tada_body g19)" | grep -Fq 'could not prove both panel-head equality and isDraft=false'; } \
   && ok "isDraft=true halted the gauntlet instead of accepting undraft=done" \
   || bad "still-draft undraft was not rejected: [$(tada_body g19)]"
+
+# ============================================================================
+hr; echo "SUBTEST 18 - HELD DRAFT: a passing panel on a slice/probe ledger never un-drafts"; hr
+# Grounding: kriscendobot/minion.town#148 (review-miss cluster
+# builder-pr-gauntlet-bypass). A build that delivers phases 1-2 of an ordered
+# design whose canary phases 3-6 belong to a successor child is reviewed by the
+# panel, and its code verdict stands, but no stage un-drafts it.
+cat > "$GAUNTLET_GH_BODY_FILE" <<'BODY'
+Runs confined inference through the CLI backend.
+
+<!-- garden-phase-evidence-ledger:v1 -->
+## Phase and evidence ledger
+
+Design: `designs/claude-on-minion-town.md`
+Disposition: orchestrated-slice
+Successor: minion-town-claude-cli-production-20261003
+Phase 1: partial | provider seams wired; no live credential
+Phase 2: partial | probe runs against a test daemon
+Phase 3: not-started | canary child owns it
+Acceptance: not-started | canary child owns it
+<!-- /garden-phase-evidence-ledger -->
+BODY
+post_gauntlet g20 https://github.com/testowner/testrepo/pull/20
+tick; complete_stage g20-clean clean=done
+tick; complete_stage g20-panel-1 panel=pass
+tick
+{ ! in_dir jobs/todo g20-undraft && in_dir jobs/tada g20 && ! in_dir jobs/gauntlet g20 \
+    && printf '%s' "$(tada_body g20)" | grep -qx 'gauntlet-status: held-draft' \
+    && printf '%s' "$(tada_body g20)" | grep -qx 'ledger_successor: minion-town-claude-cli-production-20261003'; } \
+  && ok "orchestrated-slice ledger: panel pass finishes held-draft, naming the successor, with no undraft stage" \
+  || bad "held-draft: todo=[$(board jobs/todo)] tada body=[$(tada_body g20)]"
+[ "$(terminal_comment_count g20 held-draft)" = 1 ] \
+  && ok "held-draft leaves one PR-visible terminal status" \
+  || bad "held-draft: terminal comment count=$(terminal_comment_count g20 held-draft)"
+board inbox/maintainer/unread >/dev/null
+grep -rqF 'g20' "$V/inbox/maintainer/unread" 2>/dev/null \
+  && ok "held-draft is surfaced once to the maintainer inbox" \
+  || bad "held-draft: no maintainer notice"
+
+sed -i 's/^Disposition: orchestrated-slice$/Disposition: non-deliverable-probe/' "$GAUNTLET_GH_BODY_FILE"
+post_gauntlet g21 https://github.com/testowner/testrepo/pull/21
+tick; complete_stage g21-clean clean=done
+tick; complete_stage g21-panel-1 panel=pass
+tick
+{ ! in_dir jobs/todo g21-undraft && printf '%s' "$(tada_body g21)" | grep -qx 'gauntlet-status: held-draft'; } \
+  && ok "historical #148 ledger (non-deliverable-probe on a feature gauntlet): pass is held draft, not un-drafted" \
+  || bad "probe-ledger hold: todo=[$(board jobs/todo)] tada body=[$(tada_body g21)]"
+
+sed -i 's/^Disposition: non-deliverable-probe$/Disposition: deliverable/' "$GAUNTLET_GH_BODY_FILE"
+post_gauntlet g22 https://github.com/testowner/testrepo/pull/22
+tick; complete_stage g22-clean clean=done
+tick; complete_stage g22-panel-1 panel=pass
+touch "$GAUNTLET_GH_FAIL_VIEWS_FILE"
+tick   # the body is unreadable: the un-draft decision is deferred, not guessed
+rm -f "$GAUNTLET_GH_FAIL_VIEWS_FILE"
+{ ! in_dir jobs/todo g22-undraft && in_dir jobs/gauntlet g22; } \
+  && ok "unreadable PR body after a pass defers the un-draft decision" \
+  || bad "unreadable body: todo=[$(board jobs/todo)] gauntlet=[$(board jobs/gauntlet)]"
+tick   # readable again, ledger deliverable → the ordinary undraft stage
+in_dir jobs/todo g22-undraft \
+  && ok "deliverable ledger: panel pass advances to the ordinary undraft stage" \
+  || bad "deliverable: todo=[$(board jobs/todo)]"
+rm -f "$GAUNTLET_GH_BODY_FILE"
 
 # ============================================================================
 hr

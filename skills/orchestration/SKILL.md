@@ -51,6 +51,17 @@ progress, and applies a failure policy rather than silently stalling.
 
 1. **Decompose** the multi-part work into ordered child sub-jobs. Each child is a
    normal, independently-claimable job — its body is the work a gardener does.
+   **Splitting one ordered design across children.** When a build child
+   implements some phases of a design whose later phases (canaries, production
+   enablement) belong to a later child, say so in the build child's body: name
+   the successor child's base and tell it to label its PR ledger
+   `Disposition: orchestrated-slice` with `Successor: <that base>`
+   ([pr-formation](../pr-formation/SKILL.md) § Phase and evidence ledger). The
+   build's PR still gets its gauntlet, held draft. Tell the successor child to
+   turn the ledger `deliverable` once its evidence lands; its completion then
+   re-stages the gauntlet that un-drafts. Never write "the build stays draft with
+   no gauntlet" into a build child (`kriscendobot/minion.town#148`, review-miss
+   cluster `builder-pr-gauntlet-bypass`).
 2. **Park the children** (in run order):
    `post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body-file]`.
    **Name a recurring-action child with a disambiguator.** A child that is a

@@ -10637,6 +10637,39 @@ is_probe_job() {
   grep -qiE '(^|[^[:alnum:]_-])probe[[:space:]]+(#[0-9]+|https?://github\.com/[^[:space:]]+/pull/[0-9]+|[[:alnum:]_.-]+/[[:alnum:]_.-]+#[0-9]+|the[[:space:]]+design)' "$jobfile"
 }
 
+# pr_body_ledger_field <field>  (PR body on stdin)
+# Print one field of the PR body's phase/evidence ledger (skills/pr-formation §
+# Phase and evidence ledger), lowercased and trimmed for `Disposition`, verbatim
+# (trimmed, backticks dropped) otherwise. Prints nothing when the body has no
+# well-formed ledger block or the field is absent. Deterministic, NO LLM.
+pr_body_ledger_field() {
+  local field="$1"
+  awk -v wanted="$field" '
+    $0 == "<!-- garden-phase-evidence-ledger:v1 -->" { inside=1; next }
+    $0 == "<!-- /garden-phase-evidence-ledger -->" { exit }
+    inside {
+      split($0, parts, ":")
+      if (tolower(parts[1]) == tolower(wanted)) {
+        sub(/^[^:]*:[[:space:]]*/, "")
+        gsub(/`/, "")
+        sub(/[[:space:]]+$/, "")
+        if (tolower(wanted) == "disposition") print tolower($0); else print
+        exit
+      }
+    }
+  ' | tr -d '\r'
+}
+
+# pr_ledger_holds_draft <disposition>
+# rc 0 iff the phase/evidence ledger disposition says the PR is NOT the design's
+# deliverable, so no gauntlet stage may un-draft it: a gap-revealing
+# `non-deliverable-probe`, or an `orchestrated-slice` whose remaining phases a
+# named successor owns (review-miss cluster builder-pr-gauntlet-bypass).
+pr_ledger_holds_draft() {
+  case "${1:-}" in non-deliverable-probe|orchestrated-slice) return 0 ;; esac
+  return 1
+}
+
 # active_gauntlets_for_pr <clone-dir> <repo> <pr-number> [exclude-base]
 # Echo the basename of every NON-TERMINAL gauntlet record (state not done/halted)
 # covering <repo>#<pr-number>, other than <exclude-base>, one per line; rc 0 iff

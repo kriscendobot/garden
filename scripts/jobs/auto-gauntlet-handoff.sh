@@ -95,6 +95,33 @@ pr_number="$(printf '%s' "$ref" | cut -f2)"
 slug="${repo%/*}-${repo#*/}"
 gauntlet_base="${slug}-pr${pr_number}-gauntlet"
 
+# A phase/evidence ledger that says the PR is not the deliverable
+# (`non-deliverable-probe` or `orchestrated-slice`) does NOT exempt a producer's
+# PR from review: only a true probe job (is_probe_job, above) is panel-exempt.
+# kriscendobot/minion.town#148 was a build whose ledger said non-deliverable-probe
+# and reached the maintainer with no panel (review-miss cluster
+# builder-pr-gauntlet-bypass). Stage the code panel; gauntlet.sh re-reads the
+# ledger after a passing panel and withholds the un-draft.
+ledger_disposition="$(printf '%s' "$pr_json" | jq -r '.body // ""' | pr_body_ledger_field Disposition || true)"
+if pr_ledger_holds_draft "$ledger_disposition"; then
+  log "auto-gauntlet: $pr_url ledger says '$ledger_disposition'; staging the code panel anyway (the driver withholds the un-draft)"
+fi
+
+# A gauntlet that finished `held-draft` (code passed, ledger not deliverable)
+# occupies the PR-keyed base, so post-gauntlet.sh would swallow the re-review the
+# successor's completion owes once it supplies the evidence and turns the ledger
+# `deliverable`. Re-stage under a dated base in exactly that case.
+producer_dir="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+ensure_clone "$producer_dir"
+sync_clone "$producer_dir"
+held_report="$(tada_find "$producer_dir" "$gauntlet_base" 2>/dev/null || true)"
+if [ -n "$held_report" ] \
+   && grep -qx 'gauntlet-status: held-draft' "$producer_dir/$held_report" 2>/dev/null \
+   && ! pr_ledger_holds_draft "$ledger_disposition"; then
+  gauntlet_base="$gauntlet_base-$(date -u +%Y%m%d)"
+  log "auto-gauntlet: $pr_url was held draft and its ledger now says '${ledger_disposition:-none}'; re-staging as '$gauntlet_base'"
+fi
+
 # The PR-keyed base makes repeated producer completions converge on one record.
 # post-gauntlet.sh supplies the journal-side active/completed idempotence.
 "$HERE/post-gauntlet.sh" --build-job "$base" "${arc_args[@]}" "$gauntlet_base" "$pr_url"
