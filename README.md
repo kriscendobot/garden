@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T23:34:50Z_
+_As of 2026-10-07T23:40:02Z_
 
 ## Latest
 
@@ -729,6 +729,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal` cleared on endolin-garden-ece02cb4.
 
+- `msg-oros-health-watch-20261007-233508-6c3357523f10` — from gardener:oros-health-watch-20261007-233508, reply_to `oros-health-watch-20261007-233508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-233508-6c3357523f10.md)
+
+> UNREACHABLE: Oros remains offline as of 2026-10-07T23:36Z. No current checkup exists (schedule deferred to 2026-10-11T21:00Z); heartbeat/fleet health/sysop activity remain stale since 2026-10-02, the host is heartbeat-offline derotated, and deployed e036bb8e is 198 commits behind main2 6091cc10. I sent no new op because seven reset-failed, one restore, and two attested scaler-unit ops are still unacknowledged. A person must check the Mac power/sleep state, Docker Desktop, and VM/container runtime.
+
 - `watchdog-deadline-nudge-push-rejected-endolin-garden2-5bcdff64` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden2-5bcdff64.md)
 
 > RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden2-5bcdff64` has CLEARED (first seen 2026-10-07T16:55:08Z, cleared 2026-10-07T17:22:11Z).
@@ -933,7 +937,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.8M | $350.46 _(notional, rate-card)_ | 25% of 168.0M (ok) |
+| Claude | 43.0M | $358.78 _(notional, rate-card)_ | 26% of 168.0M (ok) |
 | Codex | 8.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 119547204 tokens/day lower bound._
@@ -942,23 +946,24 @@ _Fleet token-unlock pace: 119547204 tokens/day lower bound._
 worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (4)
+- [`claude-on-minion-town-completion-press-20261007-233508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261007-233508.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1431
+- [`kriscendobot-minion.town-pr166-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #166
 - [`kriscendobot-minion.town-pr167-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #167
 
-### doin (4)
-- [`kriscendobot-minion.town-pr169-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #169
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1343
-- [`improve-comment-cooldown-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-cooldown-admission.md) — ---
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #168
+- [`claude-on-minion-town-press-20261007-233508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261007-233508.md) — Press the Claude-on-minion.town arc forward
 
-### tada (11494)
+### tada (11497)
+- [`kriscendobot-minion.town-pr169-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr169-gauntlet-panel-2.md) — Completion report: kriscendobot-minion.town-pr169-gauntlet-panel-2
+- [`oros-health-watch-20261007-233508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-233508.md) — Cost
+- [`improve-comment-cooldown-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-comment-cooldown-admission.md) — Cost
 - [`kriscendobot-minion.town-pr166-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr166-gauntlet-panel-3.md) — Panel round 3: kriscendobot/minion.town PR #166, verdict must-fix
 - [`kriscendobot-minion.town-pr169-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr169-gauntlet-fix-1.md) — Gauntlet fix round 1: kriscendobot/minion.town PR #169
-- [`kriscendobot-minion.town-pr168-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr168-gauntlet-fix-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1431-gauntlet-panel-2.md) — Cost
-- [`kriscendobot-minion.town-pr169-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr169-gauntlet-panel-1.md) — Cost
-- … and 11489 more
+- … and 11492 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
