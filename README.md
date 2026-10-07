@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T22:30:42Z_
+_As of 2026-10-07T22:34:38Z_
 
 ## Latest
 
@@ -203,6 +203,14 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` cleared on endolin-garden2-5bcdff64.
 
+- `followup-gate-improve-design-build-dispatch` — from followup-gate:improve-design-build-dispatch, reply_to `improve-design-build-dispatch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-improve-design-build-dispatch.md)
+
+> Job "improve-design-build-dispatch" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
+>
+> ## Follow-ups
+> - `design-minion-town-oauth-bonds` is still in `doin`. A requeue will only pass on its own once this change is deployed to that host. Its build is still owned by `orch-minion-town-oauth-bonds`.
+> - This is separate from the existing `DESIGN-BUILD-RECHECK` path in `handlers/follow-up-claude.sh`. That path waits for a cross-referenced build PR to appear and never posts the builder job.
+
 - `msg-scholar-ingest-oh-my-pi-rust-core-4-5ac08eb28d9c` — from scholar:scholar-ingest-oh-my-pi-rust-core-4, reply_to `scholar-ingest-oh-my-pi-rust-core-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-4-5ac08eb28d9c.md)
 
 > **oh-my-pi Rust-core ingest (issue [kriscendobot/garden#121](https://github.com/kriscendobot/garden/issues/121)): complete.** Cycle 4 added 12 library sections from 9 new sources plus 1 extended source:
@@ -317,11 +325,11 @@ Delegation: **active**
 
 - `watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-10-07T15:15:39Z, latest 2026-10-07T22:13:18Z).
-> The SAME condition (`journal-push-contention-_home_kris_garden2__garden_state_cursors_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` has CLEARED (first seen 2026-10-07T15:15:39Z, cleared 2026-10-07T22:31:26Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/cursors/journal: attempts p95=5.000000 max=8.000000 (cap 50), classes cas=14 server-reject=0 definite-fail=0.
+> Journal contention condition `journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` cleared on endolin-garden2-5bcdff64.
 
 - `review-request-endojs-endo-but-for-bots-pr151` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr151.md)
 
@@ -879,34 +887,34 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.8M | $307.78 _(notional, rate-card)_ | 21% of 168.0M (ok) |
-| Codex | 7.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Claude | 34.8M | $306.31 _(notional, rate-card)_ | 21% of 168.0M (ok) |
+| Codex | 8.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 119089467 tokens/day lower bound._
+_Fleet token-unlock pace: 119779980 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.088527s/45s (unknown); 5 open notice(s); checker healthy
+worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr168-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #168
 - [`kriscendobot-minion.town-pr169-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #169
-- [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-oauth-bonds.md) — Design: clarify, list, and delete OAuth bonds on minion.town
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1431
 
-### doin (3)
-- [`improve-design-build-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-design-build-dispatch.md) — ---
+### doin (4)
 - [`kriscendobot-minion.town-pr166-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #166
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1343
+- [`kriscendobot-minion.town-pr167-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr167-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #167
+- [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-oauth-bonds.md) — Design: clarify, list, and delete OAuth bonds on minion.town
 
-### tada (11468)
+### tada (11469)
+- [`improve-design-build-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-design-build-dispatch.md) — Completion report: improve-design-build-dispatch
 - [`kriscendobot-minion.town-pr167-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr167-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1381-conduct-345438a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1381-conduct-345438a.md) — Cost
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1381-review-a6b93d7a.md) — Cost
 - [`build-minion-town-deploy-secret-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/build-minion-town-deploy-secret-preflight.md) — Cost
-- [`kriscendobot-minion.town-pr168-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr168-gauntlet-panel-1.md) — Cost
-- … and 11463 more
+- … and 11464 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
