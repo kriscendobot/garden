@@ -412,10 +412,14 @@ fi
 snapshot
 if grep -Fqx 'handler-timeout: 2' "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md" \
    && grep -Fqx "split-indivisible-reason: 'one atomic build: partitioning is impossible # indivisible'" \
-      "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md"; then
-  ok "post-plan atomically stamps the indivisible reason and enlarged timeout"
+      "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md" \
+   && grep -Fqx 'split-lineage-root: leaf' "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md" \
+   && grep -Fqx 'split-lineage-parent: leaf-split' "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md" \
+   && grep -Fqx 'split-lineage-depth: 1' "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md" \
+   && grep -Fqx 'split-lineage-max-depth: 1' "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md"; then
+  ok "post-plan atomically stamps the indivisible reason, enlarged timeout, and bounded lineage"
 else
-  bad "post-plan did not stamp both indivisible child fields"
+  bad "post-plan did not stamp the indivisible child fields and bounded lineage"
 fi
 "$JOBS/post-orchestration.sh" leaf-split leaf-expanded-window -- \
   "$TEMPORARY_ROOT/leaf-orchestration.md" >/dev/null
@@ -440,10 +444,13 @@ if "$JOBS/promote-plan.sh" leaf-expanded-window >/dev/null 2>&1; then
   snapshot
   promoted_leaf="$TEMPORARY_ROOT/verify/jobs/todo/leaf-expanded-window.md"
   if grep -Fqx "split-indivisible-reason: 'one atomic build: partitioning is impossible # indivisible'" \
-    "$promoted_leaf"; then
-    ok "plan-to-todo promotion preserves an indivisible child's reason as a quoted scalar"
+    "$promoted_leaf" \
+    && grep -Fqx 'split-lineage-root: leaf' "$promoted_leaf" \
+    && grep -Fqx 'split-lineage-depth: 1' "$promoted_leaf" \
+    && grep -Fqx 'split-lineage-max-depth: 1' "$promoted_leaf"; then
+    ok "plan-to-todo promotion preserves an indivisible child's reason and bounded lineage"
   else
-    bad "plan-to-todo promotion dropped or malformed the indivisible child's reason"
+    bad "plan-to-todo promotion dropped or malformed the indivisible child's reason or lineage"
   fi
   if "$JOBS/assert-overrun-split-posted.sh" leaf \
     "$TEMPORARY_ROOT/leaf-job.md" "$TEMPORARY_ROOT/leaf-report"; then
@@ -454,6 +461,57 @@ if "$JOBS/promote-plan.sh" leaf-expanded-window >/dev/null 2>&1; then
 else
   bad "could not promote the expanded-window child for the regression check"
 fi
+
+# The enlarged indivisible child then hits its own wall. This is the terminal
+# point of the split lineage: park the SAME child with its original work intact,
+# rather than recursively creating leaf-expanded-window-split and a second
+# `-expanded-window` successor.
+edit_board 'cat >> jobs/todo/leaf-expanded-window.md <<EOF
+
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
+
+---
+claim:
+  host: retry-host
+  gardener: 1
+  claimed_at: 2026-09-17T13:00:02Z
+EOF
+mv jobs/todo/leaf-expanded-window.md jobs/doin/leaf-expanded-window.md
+printf "worktree_dir: /nonexistent/leaf-expanded-window\n" > work/leaf-expanded-window'
+run_reaper "$((RESET_EPOCH + 3))"
+EXPANDED_PLAN="$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md"
+if [ -f "$EXPANDED_PLAN" ] \
+   && grep -Fqx 'doom_signature: expanded-window-overrun' "$EXPANDED_PLAN" \
+   && grep -Fqx 'failure_classification: deterministic' "$EXPANDED_PLAN" \
+   && grep -Fqx 'split-lineage-root: leaf' "$EXPANDED_PLAN" \
+   && grep -Fqx 'split-lineage-depth: 1' "$EXPANDED_PLAN" \
+   && grep -Fqx 'split-lineage-max-depth: 1' "$EXPANDED_PLAN" \
+   && grep -Fqx 'run the atomic build' "$EXPANDED_PLAN" \
+   && [ ! -e "$TEMPORARY_ROOT/verify/jobs/todo/leaf-expanded-window.md" ] \
+   && [ ! -e "$TEMPORARY_ROOT/verify/jobs/todo/leaf-expanded-window-expanded-window.md" ] \
+   && [ ! -e "$TEMPORARY_ROOT/verify/jobs/orch/leaf-expanded-window-split.md" ]; then
+  ok "second wall hit parks the bounded expanded successor and preserves the original work body"
+else
+  bad "second wall hit recursively split, lost its lineage/body, or failed to park"
+fi
+if grep -Fq "SPLIT LIMIT: 'leaf-expanded-window'" "$TEMPORARY_ROOT/reaper.log" \
+   && ! grep -Fq "SPLIT ROUTE: 'leaf-expanded-window'" "$TEMPORARY_ROOT/reaper.log"; then
+  ok "expanded-window overrun emits the bounded terminal disposition instead of another split route"
+else
+  bad "expanded-window overrun did not take the bounded terminal disposition"
+fi
+EXPANDED_NOTICE="$TEMPORARY_ROOT/verify/inbox/maintainer/unread/doomed-leaf-expanded-window-expanded-window-overrun.md"
+if [ -f "$EXPANDED_NOTICE" ] \
+   && grep -Fqx 'doom_signature: expanded-window-overrun' "$EXPANDED_NOTICE" \
+   && grep -Fqx 'notice_count: 1' "$EXPANDED_NOTICE" \
+   && grep -Fq 'REMEDY: inspect why the atomic work cannot finish' "$EXPANDED_NOTICE" \
+   && grep -Fqx 'run the atomic build' "$EXPANDED_NOTICE"; then
+  ok "expanded-window overrun posts one keyed actionable notice with the preserved work"
+else
+  bad "expanded-window overrun notice was missing, unkeyed, unactionable, or lost the work body"
+fi
+
 sed -i 's/split_source_handler_timeout: 1/split_source_handler_timeout: 2/' "$TEMPORARY_ROOT/leaf-job.md"
 if "$JOBS/assert-overrun-split-posted.sh" leaf \
   "$TEMPORARY_ROOT/leaf-job.md" "$TEMPORARY_ROOT/leaf-report" >/dev/null 2>&1; then

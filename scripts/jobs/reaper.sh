@@ -47,7 +47,10 @@
 #      deadline overrun is stronger: the same base is re-posted immediately with
 #      `role: orchestrator`, whose only task is to turn the work into parked children
 #      under the existing orchestration substrate (or one explicitly larger-timeout
-#      child when the leaf is genuinely indivisible). Gauntlet stages do not spend
+#      child when the leaf is genuinely indivisible). That expanded leaf is the
+#      bounded end of the lineage: if it overruns too, it is held with one keyed,
+#      actionable notice rather than recursively minting `-expanded-window` splits.
+#      Gauntlet stages do not spend
 #      this generic retry/split budget at all: the first non-productive failure is
 #      PARKED in jobs/plan/ for the gauntlet driver's own `max_stage_retries` policy.
 #      In every held case, rather
@@ -1179,6 +1182,23 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       exec_model="$(plan_field "$f" model)"
       exec_budget_role="$(plan_field "$f" handler-budget-role)"
       exec_timeout="$(plan_field "$f" handler-timeout)"
+      exec_split_reason="$(plan_field "$f" split-indivisible-reason)"
+      exec_split_root="$(plan_field "$f" split-lineage-root)"
+      exec_split_parent="$(plan_field "$f" split-lineage-parent)"
+      exec_split_depth="$(plan_field "$f" split-lineage-depth)"
+      exec_split_max_depth="$(plan_field "$f" split-lineage-max-depth)"
+      # DUAL-READ: children posted before lineage fields were introduced still
+      # carry split-indivisible-reason, which is sufficient proof that this is the
+      # one sanctioned expanded leaf. Treat it as depth 1/max 1 so rollout cannot
+      # create one more recursive orchestration from an old child.
+      if [ -n "$exec_split_reason" ]; then
+        [ -n "$exec_split_root" ] || exec_split_root="${spine%-expanded-window}"
+        [ -n "$exec_split_parent" ] || exec_split_parent="${exec_split_root}-split"
+        # The producer's contract fixes both values at one. Do not let stale or
+        # hand-authored numeric metadata widen this safety bound.
+        exec_split_depth=1
+        exec_split_max_depth=1
+      fi
       # Whether this doomed job is a gauntlet STAGE (carries a `gauntlet:` header naming
       # its driver record). Captured BEFORE git rm removes the doin file, and gated with
       # the transient flag below so the flush loop can DEFER a self-healable stage doom
@@ -1192,6 +1212,13 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # markers, along with every other per-cycle hint, so neither a parked body nor
       # the split-orchestrator re-post can inherit a stale failure cycle.
       body="$(printf '%s\n' "$body" | strip_cycle_markers)"
+      if [ "$sig" = deadline-overrun ] && [ -z "$gauntlet_base" ] \
+         && [ -n "$exec_split_reason" ] \
+         && [ "$exec_split_depth" -ge "$exec_split_max_depth" ]; then
+        sig="expanded-window-overrun"
+        split_eligible=0
+        split_reason=""
+      fi
       if [ "$is_retro" -eq 1 ] && [ -z "$gauntlet_base" ] \
          && { [ "$sig" = requeue-exhausted ] || [ "$sig" = elapsed-constancy ]; }; then
         # RETRO TELEMETRY DROP. This `*-retro` spine is the review-retrospective double
@@ -1259,6 +1286,12 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         [ -n "$exec_model" ] && printf 'model: %s\n' "$exec_model"
         [ -n "$exec_budget_role" ] && printf 'handler-budget-role: %s\n' "$exec_budget_role"
         [ -n "$exec_timeout" ] && printf 'handler-timeout: %s\n' "$exec_timeout"
+        [ -n "$exec_split_reason" ] && printf 'split-indivisible-reason: %s\n' \
+          "$(yaml_single_quote_scalar "$exec_split_reason")"
+        [ -n "$exec_split_root" ] && printf 'split-lineage-root: %s\n' "$exec_split_root"
+        [ -n "$exec_split_parent" ] && printf 'split-lineage-parent: %s\n' "$exec_split_parent"
+        [ -n "$exec_split_depth" ] && printf 'split-lineage-depth: %s\n' "$exec_split_depth"
+        [ -n "$exec_split_max_depth" ] && printf 'split-lineage-max-depth: %s\n' "$exec_split_max_depth"
         printf 'token-budget: %s\n' "$token_budget"
         [ -n "$token_epoch" ] && printf 'token-budget-epoch: %s\n' "$token_epoch"
         if [ "$sig" = over-token-budget ]; then
@@ -1288,6 +1321,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
             # the stage instead of halting on `unknown`.
             printf 'failure_classification: transient\n'
           elif [ "$sig" = policy-refusal ] || [ "$sig" = deadline-overrun ] \
+            || [ "$sig" = expanded-window-overrun ] \
             || [ "$sig" = elapsed-constancy ]; then
             printf 'failure_classification: deterministic\n'
           else
@@ -1457,6 +1491,9 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         elif [ "${DOOM_SPLIT_ELIGIBLE[$i]}" -eq 1 ]; then
           decision_name=mark-split-eligible
           decision_reason="retry suppressed; ordinary job requires deliberate split-or-surface disposition: ${DOOM_SPLIT_REASON[$i]}"
+        elif [ "${DOOM_SIG[$i]}" = expanded-window-overrun ]; then
+          decision_name=park-expanded-window-overrun
+          decision_reason="bounded indivisible split lineage exhausted; recursive expanded-window successor suppressed"
         fi
         record_decision --loop reaper --input-json "$decision_input_json" \
           --decision "$decision_name" \
@@ -1588,6 +1625,17 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           printf 'The work is preserved at jobs/plan/%s; it stays HELD until a human promotes it\n' "$pbase"
           printf '(promote-plan.sh %s) or removes it.\n' "$pbase"
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
+                 "$pbase" "${DOOM_BODY[$i]}"
+        )"
+        surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+      elif [ "$psig" = expanded-window-overrun ]; then
+        log "SPLIT LIMIT: '$pbase' is an indivisible expanded-window successor and overran its enlarged ${pbudget}s budget; parked in plan/ (held), recursive split suppressed"
+        pbody="$(
+          printf 'INDIVISIBLE expanded-window job PARKED in jobs/plan/ (held, gate=go-ahead) after overrunning its enlarged %ss handler window on %s.\n' "$pbudget" "$GARDEN"
+          printf 'This job already consumed the one allowed indivisible split expansion, so the reaper did not mint another split orchestrator or another `-expanded-window` child.\n'
+          printf 'REMEDY: inspect why the atomic work cannot finish within its claim-safe window; refactor the work into genuinely separable stages, or revise the execution strategy before promoting it.\n'
+          printf 'The original work is preserved at jobs/plan/%s. The keyed notice `%s+expanded-window-overrun` is amended on any repeat instead of duplicated.\n' "$pbase" "$pbase"
+          printf 'Original expanded job base: %s\n\n--- preserved expanded job body ---\n%s\n' \
                  "$pbase" "${DOOM_BODY[$i]}"
         )"
         surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true

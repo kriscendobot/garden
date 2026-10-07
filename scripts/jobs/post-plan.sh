@@ -59,7 +59,8 @@
 #   --split-indivisible-handler-timeout SECONDS
 #                            paired metadata for an indivisible --orchestrated
 #                            child. The timeout becomes its handler-timeout and
-#                            must fit within the claim-safe maximum.
+#                            must fit within the claim-safe maximum. The producer
+#                            also stamps the one-expansion split-lineage bound.
 #   --budget-hold            a go-ahead plan held specifically for quota refresh;
 #                            the budget-refresh watcher may promote this subset.
 #   --budget-resets-at ISO   optional parseable provider reset for --budget-hold.
@@ -156,6 +157,7 @@ Usage:
                            paired metadata for an indivisible orchestrated child.
                            REASON must be concrete and one line; SECONDS becomes
                            handler-timeout and must fit within the claim-safe max.
+                           The child is stamped as depth 1 of a max-depth-1 lineage.
   --priority LEVEL         urgent|high|normal|low (default normal).
   --roadmap ITEM           optional roadmap item this serves.
   --arc ARC                the arc this plan draws from (stamped `arc:`).
@@ -368,6 +370,14 @@ compose() {
     printf 'handler-timeout: %s\n' "$split_indivisible_handler_timeout"
     printf 'split-indivisible-reason: %s\n' \
       "$(yaml_single_quote_scalar "$split_indivisible_reason")"
+    # This is the sole expansion allowed for a leaf that the split orchestrator
+    # found genuinely indivisible.  Keep the bound in structured metadata so the
+    # reaper can distinguish its next wall hit from an unsplit ordinary job even
+    # if names are changed or the orchestration record has already completed.
+    printf 'split-lineage-root: %s\n' "${orchestrated_by%-split}"
+    printf 'split-lineage-parent: %s\n' "$orchestrated_by"
+    printf 'split-lineage-depth: 1\n'
+    printf 'split-lineage-max-depth: 1\n'
   fi
   [ -n "$not_before" ] && printf 'not_before: %s\n' "$not_before"
   printf 'priority: %s\n' "$priority"

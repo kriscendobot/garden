@@ -279,6 +279,10 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   token_budget="$(plan_field "$src" token-budget)"
   budget_epoch="$(plan_field "$src" token-budget-epoch)"
   split_indivisible_reason="$(plan_field "$src" split-indivisible-reason)"
+  split_lineage_root="$(plan_field "$src" split-lineage-root)"
+  split_lineage_parent="$(plan_field "$src" split-lineage-parent)"
+  split_lineage_depth="$(plan_field "$src" split-lineage-depth)"
+  split_lineage_max_depth="$(plan_field "$src" split-lineage-max-depth)"
 
   if [ "$gate" = orchestrated ] && [[ "$base" == *-shepherd-* ]] \
      && [ "$role" != shepherd ]; then
@@ -306,7 +310,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   cleared="$(cycle_marker_summary "$src")"
   mkdir -p "$DIR/$JOBS_TODO"
   {
-    if [ -n "$role$tier$model$arc$ratchet_arc$budget_role$htimeout$token_budget$budget_epoch$split_indivisible_reason" ]; then
+    if [ -n "$role$tier$model$arc$ratchet_arc$budget_role$htimeout$token_budget$budget_epoch$split_indivisible_reason$split_lineage_root$split_lineage_parent$split_lineage_depth$split_lineage_max_depth" ]; then
       printf -- '---\n'
       [ -n "$role" ]     && printf 'role: %s\n' "$role"
       [ -n "$tier" ]     && printf 'tier: %s\n' "$tier"
@@ -319,6 +323,10 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
       [ -n "$budget_epoch" ] && printf 'token-budget-epoch: %s\n' "$budget_epoch"
       [ -n "$split_indivisible_reason" ] && printf 'split-indivisible-reason: %s\n' \
         "$(yaml_single_quote_scalar "$split_indivisible_reason")"
+      [ -n "$split_lineage_root" ] && printf 'split-lineage-root: %s\n' "$split_lineage_root"
+      [ -n "$split_lineage_parent" ] && printf 'split-lineage-parent: %s\n' "$split_lineage_parent"
+      [ -n "$split_lineage_depth" ] && printf 'split-lineage-depth: %s\n' "$split_lineage_depth"
+      [ -n "$split_lineage_max_depth" ] && printf 'split-lineage-max-depth: %s\n' "$split_lineage_max_depth"
       printf -- '---\n'
     fi
     # `at=` stays the LAST timestamp-shaped field consumers key on (orchestrate.sh
