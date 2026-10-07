@@ -32,3 +32,13 @@ Arcs are the active schema-2 slices in journal `config/arc-budgets/` (minion-tow
 For rows flagged `superseded?`, plan nothing and leave the notice; list them in your report for a close-or-keep decision.
 
 **Report:** per-arc counts of plans parked, the superseded list, and any PR skipped and why. The five APPROVED PRs are in this set too; note them, since an approved PR may only need a conduct (merge) rather than a gauntlet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T16:05:25Z
