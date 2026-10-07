@@ -1,4 +1,5 @@
 ---
+child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-failure-notified: true
 child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-host: endolin-garden-ece02cb4
 child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-reap-count: 0
 child-kriscendobot-minion-town-pr165-conduct-20261007-review5436814684-reap-count: 0
