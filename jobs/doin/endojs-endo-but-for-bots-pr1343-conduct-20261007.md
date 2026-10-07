@@ -12,3 +12,13 @@ Maintainer decision (kriskowal, liaison muster 2026-10-07; milestone M3, guest-e
 **Precondition, check first:** #1343 must not depend on #1042. Confirm that its diff builds and its tests pass on its own base without anything introduced by #1042 (introducedNames / guest retention). If it does depend on #1042, **stop without merging**. Report the dependency to the maintainer (#1042 is being closed, so #1343 would need its own decoupled path).
 
 **If independent:** run the normal conduct (CI green, effective maintainer approval, merge). Post no #1042 weave.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T22:08:15Z
