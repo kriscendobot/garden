@@ -1,14 +1,16 @@
 ---
 slug: design-bespoke-mechanism-over-existing-path
 category: process
-status: open
+status: improvement-dispatched
 count: 3
 members:
   - endojs-endo-but-for-bots-pr1226-review-2fc247cc
   - endojs-endo-but-for-bots-pr1226-review-179ff5ab
   - endojs-endo-but-for-bots-pr1407-review-1d8c37a5
 prs: [1226, 1407]
+improvement_job: review-improve-design-bespoke-mechanism-over-existing-path
 ---
+
 
 
 
@@ -39,3 +41,16 @@ whether the cited surface already suffices. The trigger remains repeated
 must-fix findings on one mechanism across panel rounds. Dispatch
 review-improve-design-bespoke-mechanism-over-existing-path when a miss from a
 second PR joins this cluster.
+
+**Threshold rationale:** **Threshold rationale (2026-10-07, retro of endojs-endo-but-for-bots-pr1407-review-1d8c37a5):**
+Dispatched. The floor is met: count=3 across two distinct PRs (#1226, #1407),
+and the prior rationale pre-committed to dispatch when a second PR joined. The
+third member is the sharpest: a build re-introduced the per-guest socket the
+maintainer had already rejected on #1226 for the same design, and six
+code-panel rounds hardened it, because the decomplector's minimum-viable-
+abstraction lens is seated only on the design panel. Improvement job
+review-improve-design-bespoke-mechanism-over-existing-path carries prevention
+(builder/designer briefs, follow-up-build guard) and sensing (code-panel
+decomplector probe + seat amendment + repeat-finding signal), with the
+re-litigation test. The held sibling cluster vestigial-mechanism-unquestioned
+is named as related evidence but left open.
