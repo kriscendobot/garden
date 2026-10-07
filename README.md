@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T14:39:22Z_
+_As of 2026-10-07T14:42:00Z_
 
 ## Latest
 
@@ -25,7 +25,7 @@ These items still need you:
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 35d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 35d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 36d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 38d)
+- [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 41d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Screened by proxy (minion.town)
@@ -1813,7 +1813,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.2M | $166.49 _(notional, rate-card)_ | 10% of 168.0M (ok) |
+| Claude | 17.2M | $167.53 _(notional, rate-card)_ | 10% of 168.0M (ok) |
 | Codex | 4.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 111631335 tokens/day lower bound._
@@ -1825,17 +1825,16 @@ worst fetch p95 4.890480s/45s (/home/kris/garden2/.garden-state/accountant/journ
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-ocapn-tcp-for-test-extraction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-tcp-for-test-extraction.md) — ---
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1124
 
-### tada (11377)
+### tada (11378)
+- [`build-ocapn-tcp-for-test-extraction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/build-ocapn-tcp-for-test-extraction.md) — Cost
 - [`oros-health-watch-20261007-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-143507.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-viability.md) — Cost
 - [`claude-on-minion-town-press-20261007-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-press-20261007-143507.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1124-weave-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-weave-20261007.md) — Cost
-- [`endojs-endo-but-for-bots-pr1398-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1398-gauntlet — review budget reached
-- … and 11372 more
+- … and 11373 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
