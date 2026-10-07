@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: fixed on main2 by c3f1b02 (receipt-watcher latches GitHub primary quota for the full window); maintainer muster go-ahead
+withdrawn_by: liaison
+withdrawn_at: 2026-10-07T21:29:31Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: minion
