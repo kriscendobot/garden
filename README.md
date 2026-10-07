@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T17:12:08Z_
+_As of 2026-10-07T17:22:53Z_
 
 ## Latest
 
@@ -670,6 +670,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The review-retrospective for that review is filed as not-a-miss: an approval is not review feedback.
 
+- `watchdog-deadline-nudge-push-rejected-endolin-garden2-5bcdff64` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden2-5bcdff64.md)
+
+> RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden2-5bcdff64` has CLEARED (first seen 2026-10-07T16:55:08Z, cleared 2026-10-07T17:22:11Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> deadline-nudge on endolin-garden2-5bcdff64 pushed to journal2 again; the push rejection has cleared.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/469](https://github.com/endojs/endo-but-for-bots/pull/469) ([endojs/endo-but-for-bots#469](https://github.com/endojs/endo-but-for-bots/issues/469)) is in the mergeable queue with NO gauntlet review staged (head 596b4c1185d2e3255d5ce4350eb41fb5c2ede386). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #469'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -846,8 +854,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.8M | $213.62 _(notional, rate-card)_ | 14% of 168.0M (ok) |
-| Codex | 3.4M _(+69.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 22.8M | $215.76 _(notional, rate-card)_ | 14% of 168.0M (ok) |
+| Codex | 3.4M _(+69.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
@@ -858,19 +866,20 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1124
+- [`improve-repair-migrated-journal-clone-origin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-repair-migrated-journal-clone-origin.md) — ---
 - [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 - [`improve-deadline-nudge-ambiguous-push`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-ambiguous-push.md) — ---
 
-### tada (11401)
+### tada (11402)
+- [`claude-on-minion-town-completion-press-20261007-172010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-completion-press-20261007-172010.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-0b0324fd9841`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-0b0324fd9841.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-3.md) — Cost
 - [`pr-readiness-arc-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-arc-plan-20261007.md) — orchestration pr-readiness-arc-plan-20261007 — complete
 - [`pr-readiness-verify-changes-requested-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-verify-changes-requested-20261007.md) — Cost
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-fix-2.md) — Cost
-- … and 11396 more
+- … and 11397 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
