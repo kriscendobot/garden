@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T18:41:46Z_
+_As of 2026-10-07T19:04:14Z_
 
 ## Latest
 
@@ -24,7 +24,7 @@ These items still need you:
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 34d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 35d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 35d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 36d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 37d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 41d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -402,6 +402,67 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet HALTED: stage 'endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+
+- `doomed-endojs-endo-but-for-bots-pr1430-gauntlet-clean-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1430-gauntlet-clean-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden2-5bcdff64.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr1430-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr1430-gauntlet-clean) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr1430-gauntlet-clean
+>
+> --- original job body ---
+> ---
+> role: gardener
+> arc: endo-ocapn-background
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> gauntlet: endojs-endo-but-for-bots-pr1430-gauntlet
+> gauntlet_stage: clean
+> gauntlet_iteration: 0
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/1430](https://github.com/endojs/endo-but-for-bots/pull/1430)
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
+>
+> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1430-gauntlet). Do ONLY the clean stage, then STOP.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Idempotence first. `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1430 --json isDraft,state,statusCheckRollup`. If the
+>    PR is already the right shape (coverage already pushed, CI GREEN at the current
+>    head), this stage is a NO-OP: skip to the marker with clean=done.
+> 2. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1430-gauntlet-clean <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1430 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 3. In that checkout: run the coverage pass on the touched packages
+>    (skills/coverage-driven-testing) and remove any dead code the change orphaned.
+> 4. If you changed anything, push follow-ups to the PR head with
+>    `scripts/jobs/gardening/safe-push-pr-head.sh`.
+> 5. Watch CI to a terminal state, BOUNDED so this handler is never killed mid-wait:
+>    `GARDEN_CI_DEADLINE_SECS=3600 \
+>      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1430 --no-merge`
+>    - rc 0 (GREEN): success.
+>    - rc 4 (still PENDING at the deadline): CI is not terminal — report still-pending
+>      so the driver re-posts this stage on a fresh budget (do NOT emit clean=done).
+>    - rc 3 (RED): this stage FAILS. Begin your report with a line
+>      `orchestration-failed: true` and describe the failing checks; do NOT emit any
+>      clean=done marker (the driver halts the gauntlet and surfaces it).
+>    - rc 5 (BILLING-BLOCKED): GitHub Actions refused to START the jobs because of the
+>      account's payment/spending limit. The script already alerted the maintainer. Do
+>      NOT rerun, push, or message anyone, and do NOT write `orchestration-failed`:
+>      emit the ci-billing-blocked marker and the driver parks the gauntlet.
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
+>   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
+>   <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
 
 - `watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal.md)
 
@@ -911,8 +972,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 24.5M | $226.75 _(notional, rate-card)_ | 15% of 168.0M (ok) |
-| Codex | 3.5M _(+70.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 24.5M | $226.87 _(notional, rate-card)_ | 15% of 168.0M (ok) |
+| Codex | 3.6M _(+70.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
@@ -923,9 +984,8 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1124
-- [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 
 ### tada (11412)
@@ -952,6 +1012,7 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`improve-receipt-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-receipt-primary-quota-cooldown.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
+- [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
