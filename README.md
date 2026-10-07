@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T10:38:46Z_
+_As of 2026-10-07T10:41:42Z_
 
 ## Latest
 
@@ -360,11 +360,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-06T03:53:39Z, latest 2026-10-07T10:36:45Z).
-> The SAME condition (`journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97` has CLEARED (first seen 2026-10-06T03:53:39Z, cleared 2026-10-07T10:40:41Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify-kriscendobot-vattr97: p95=1.887480s max=37.700340s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97` cleared on endolin-garden2-5bcdff64.
 
 - `msg-kriscendobot-minion.town-pr146-review-64a01f1e-retro-40202fed3594` — from gardener:kriscendobot-minion.town-pr146-review-64a01f1e-retro, reply_to `kriscendobot-minion.town-pr146-review-64a01f1e-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr146-review-64a01f1e-retro-40202fed3594.md)
 
@@ -1783,7 +1783,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.579158s/45s (/home/kris/garden2/.garden-state/inbox-list/journal); 6 open notice(s); checker healthy
+worst fetch p95 3.579158s/45s (/home/kris/garden2/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
