@@ -1184,3 +1184,13 @@ because the specs are repository READMEs.
 |--------|-----|----------|--------|
 | [David Bushell — "Fine, I'll build my own text editor!"](web--dbushell-text-editor.md) | https://dbushell.com/2026/09/01/text-editor/ | 5 | current (blog post, 2026-09-01; retrieved 2026-09-30, content SHA-256 `3ab555a0`; hands-on comparison of `<canvas>` / `contenteditable="plaintext-only"` / `<textarea>` editor substrates against Monaco, plus highlighting and UTF-16 pitfalls) |
 | [Secret Seal: leak-resistant browser requests](web--secret-seal.md) | https://jasvir.github.io/secretseal/ | 4 | current (Jasvir Nagra, 2026-09-01; retrieved 2026-10-06, content SHA-256 `def69ed7510d`; HTTP request-carrier leakage, fragment and Performance Timeline exposure, opaque-handle redemption, safe request representations, and leak-canary testing) |
+
+## oh-my-pi Rust core
+
+| Source | Repo | Date | Authors | Sections | Status |
+|--------|------|------|---------|----------|--------|
+| [`pi-vfs` public surface](oh-my-pi--crates-pi-vfs-src-lib.md) | can1357/oh-my-pi | 2026-09-25 | can1357 | 1 | current (file commit `8b984d7a`; injectable async/blocking filesystem and URL providers) |
+| [`pi-builtins` public surface](oh-my-pi--crates-pi-builtins-src-lib.md) | can1357/oh-my-pi | 2026-10-06 | Brit, can1357, Mike Ruangutai | 1 | current (file commit `0f62f9ab`; feature-gated builtins and utilities) |
+| [`pi-natives` grep binding](oh-my-pi--crates-pi-natives-src-grep.md) | can1357/oh-my-pi | 2026-10-06 | can1357, roboomp, Brit, zamo, radkawar | 1 | current (file commit `04fcdf69`; ripgrep and PCRE2 over N-API) |
+| [`pi-natives` glob binding](oh-my-pi--crates-pi-natives-src-glob.md) | can1357/oh-my-pi | 2026-10-04 | can1357, roboomp | 1 | current (file commit `b9f9b1b2`; provider-aware pi-walker glob over N-API) |
+| [`pi-natives` fuzzy-find binding](oh-my-pi--crates-pi-natives-src-fd.md) | can1357/oh-my-pi | 2026-10-05 | can1357, Muhammad Mustaqeem, HvC, Brit | 1 | current (file commit `4aff5453`; bounded host-path fuzzy ranking over N-API) |
