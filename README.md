@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T20:22:48Z_
+_As of 2026-10-07T20:24:48Z_
 
 ## Latest
 
@@ -1049,8 +1049,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.7M | $247.04 _(notional, rate-card)_ | 17% of 168.0M (ok) |
-| Codex | 3.7M _(+70.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 27.8M | $247.32 _(notional, rate-card)_ | 17% of 168.0M (ok) |
+| Codex | 3.7M _(+71.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
@@ -1061,9 +1061,10 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1124
-- [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
+- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1343
+- [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Deliberate overrun decomposition for improve-journal-deepen-retry-expanded-wi...
 - [`improve-bound-recursive-deadline-splits`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-bound-recursive-deadline-splits.md) — ---
 
 ### tada (11425)
