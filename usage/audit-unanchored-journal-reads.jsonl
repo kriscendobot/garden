@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-10-07T14:56:26Z","base":"audit-unanchored-journal-reads","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":704,"role":"fixer","arc":"garden-upkeep","provider":"anthropic"}
