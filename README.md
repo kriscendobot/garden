@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T18:01:17Z_
+_As of 2026-10-07T18:05:16Z_
 
 ## Latest
 
@@ -400,8 +400,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-latency-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-kriscendobot-garden.md)
 
-> Comment acknowledgment latency anomaly for kriscendobot/garden:
-> [https://github.com/kriscendobot/garden/issues/121](https://github.com/kriscendobot/garden/issues/121)#issuecomment-6043211843 (latency=1721s; heartbeat=full-poll)
+> RECOVERED — the watchdog condition `comment-ack-latency-kriscendobot-garden` has CLEARED (first seen 2026-10-07T18:00:07Z, cleared 2026-10-07T18:04:42Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `review-request-endojs-endo-but-for-bots-pr660` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr660.md)
 
@@ -875,19 +878,18 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
-- [`deadmail-issue-comment-6043211843`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-6043211843.md) — Issue follow-up — fold a late comment into the issue work
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1124
 
-### tada (11408)
+### tada (11409)
+- [`deadmail-issue-comment-6043211843`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/deadmail-issue-comment-6043211843.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-27b560aeb4c7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-27b560aeb4c7.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-fix-3.md) — Fix round 3 for endojs/endo-but-for-bots PR #1124: all five must-fix items ap...
 - [`oros-health-watch-20261007-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-173507.md) — Cost
 - [`claude-on-minion-town-press-20261007-173507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-press-20261007-173507.md) — Panel-head freshness
-- [`improve-repair-migrated-journal-clone-origin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-repair-migrated-journal-clone-origin.md) — Cost
-- … and 11403 more
+- … and 11404 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
