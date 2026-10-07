@@ -13,6 +13,7 @@
 | [gefs/crash-safety-commit-protocol-and-concurrency](../sections/papers--bernstein-gefs-good-enough-file-system-2023--crash-safety-commit-protocol-and-concurrency.md) | GEFS paper | Barrier-phased commit, arena header/footer two-phase commit, arena allocation, seven procs, epoch-based reclamation for lock-free reads. |
 | [gefs/on-disk-format](../sections/papers--bernstein-gefs-good-enough-file-system-2023--on-disk-format.md) | GEFS paper | Superblocks, arena headers, allocation/deadlist logs, pivot/leaf blocks, key types, and upsert message opcodes. |
 | [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | oh-my-pi pi-iso | A writable merged tree uses native copy-on-write or projection backends, falling back to Git worktrees or recursive copy, and emits Git-compatible diffs. |
+| [N-API isolation lifecycle and the unavailable-error protocol](../sections/oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle.md) | oh-my-pi `pi-natives` iso | JavaScript probes, resolves, starts, stops, and diffs `pi-iso` workspaces; `ISO_UNAVAILABLE:` separates a missing backend from failure. |
 
 ## See also
 
