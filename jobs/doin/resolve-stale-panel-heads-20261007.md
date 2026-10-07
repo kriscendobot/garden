@@ -14,3 +14,13 @@ dispatch: automatic
   - agoric-sdk#10 is on the kriscendobot fork. Do not touch upstream agoric/agoric-sdk.
 
 Then archive each PR's `stale-panel-head-*.md` maintainer notice.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T22:01:57Z
