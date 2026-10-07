@@ -42,7 +42,7 @@
 #         NO checkable disposition and either prescribes fleet work or could not
 #         be durably escalated — block completion (leave in doin for retry).
 #
-# The four accepted dispositions:
+# The five accepted dispositions:
 #   1. HANDOFF   — the report ends with <<<GARDEN-JOB-HANDED-OFF: successor>>> AND
 #      that successor is durably posted on the board (handoff_successor_posted,
 #      the SAME existence check complete-job.sh --handed-off enforces; a pending
@@ -67,7 +67,11 @@
 #      complete-job.sh verify and record the same successor. Pre-existing and
 #      ambiguous candidates never pass.
 #
-# A fifth, gate-authored disposition: AUTO-ESCALATION. When none of the above
+# 5. DESIGN-BUILD HANDOFF: the report carries the marker design-build-handoff.sh
+#      writes after it dispatched a designer's named build, and the successor it
+#      names is durably posted (design_build_handoff_verified).
+#
+# A sixth, gate-authored disposition: AUTO-ESCALATION. When none of the above
 # hold and the section prescribes no board-postable fleet work
 # (followups_prescribe_fleet_work), the gate itself sends the section to the
 # maintainer inbox (coalesced, reply_to=<base>) and passes only after a fresh
@@ -207,6 +211,15 @@ if ! ensure_clone "$DIR" 2>/dev/null; then
   exit 0
 fi
 sync_or_fail_open
+
+# DESIGN-BUILD HANDOFF: design-build-handoff.sh ran just before this gate and
+# dispatched the build a designer's follow-ups name (an orchestration child or
+# existing build it found, or a build it posted to todo/ or parked on the design
+# gauntlet). Accept its marker once this fresh board read shows the successor.
+if design_build_handoff_verified "$DIR" "$report"; then
+  log "gate: '$base' build follow-up is owned by verified design-build successor '$(report_design_build_handoff_successor "$report")'; not blocking"
+  exit 0
+fi
 
 # A downstream job may accurately repeat that its named predecessor gauntlet
 # exhausted the review budget and left a human merge/review decision. gauntlet.sh

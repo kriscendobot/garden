@@ -7603,6 +7603,42 @@ maintainer_message_from() {
   return 1
 }
 
+# The design-to-build handoff record (design-build-handoff.sh). A completed
+# designer job whose `## Follow-ups` names its build gets that build dispatched by
+# the script, not by report prose: it finds the build already owned (the next
+# child of the design's orchestration, or an existing build job), or posts it
+# (todo/ when the design's gauntlet already completed, else a `gate: blocked`
+# plan whose `blocked_on:` is that gauntlet, the typed recheck unblock.sh
+# promotes). It then appends ONE line to the report:
+#   <!-- garden-design-build-handoff: successor=<base> state=<state> pr=<url> -->
+# Distinct from the HANDED-OFF marker on purpose: the design deliverable IS
+# complete, so complete-job.sh must not stamp `deliverable-complete: false`.
+GARDEN_DESIGN_BUILD_HANDOFF_MARKER_PREFIX='<!-- garden-design-build-handoff:'
+
+# report_design_build_handoff_successor <report-file> — print the successor
+# named by the report's LAST design-build handoff marker line. rc 1 if none.
+report_design_build_handoff_successor() {
+  local f="${1:-}" line successor
+  [ -f "$f" ] || return 1
+  line="$(grep -E '^<!-- garden-design-build-handoff: successor=[^ ]+ state=[^ ]+ pr=[^ ]+ -->$' "$f" | tail -1)"
+  [ -n "$line" ] || return 1
+  successor="${line#*successor=}"
+  successor="${successor%% *}"
+  case "$successor" in -*|*/*|.*|'') return 1 ;; esac
+  printf '%s\n' "$successor"
+}
+
+# design_build_handoff_verified <clone-dir> <report-file> — 0 iff the report
+# carries a design-build handoff marker whose successor is durably posted
+# (handoff_successor_posted, the same existence check every handoff uses). Shared
+# by the completion gate and the async follow-up sweep so neither re-litigates a
+# build the script already dispatched. The caller sync_clone's <clone-dir>.
+design_build_handoff_verified() {
+  local dir="$1" report="$2" successor
+  successor="$(report_design_build_handoff_successor "$report")" || return 1
+  handoff_successor_posted "$dir" "$successor"
+}
+
 # Marker the reaper stamps into a requeued job body to count requeue cycles. It
 # is an HTML comment so it is invisible in rendered Markdown, and it survives both
 # the claim-block strip (it lives in the body, above the trailing claim block) and

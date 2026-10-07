@@ -995,6 +995,15 @@ while :; do
     fi
   fi
 
+  # DESIGN-TO-BUILD HANDOFF. A designer whose follow-ups name its build gets that
+  # build dispatched here, not left to report prose: the script finds it owned
+  # (orchestration child, existing job) or posts it (todo/ once the design
+  # gauntlet passed, else parked blocked_on that gauntlet), then marks the report
+  # so the gate below accepts it. Always rc 0; without a marker the gate decides.
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    "$HERE/design-build-handoff.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1 || true
+  fi
+
   # GATE the completion on POSTED follow-ups, not described ones. INDEPENDENTLY of
   # everything above: if the report carries a substantive `## Follow-ups` section
   # with no checkable disposition (a verified handoff, a maintainer-inbox message,
