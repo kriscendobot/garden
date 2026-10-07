@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T13:19:44Z_
+_As of 2026-10-07T13:30:24Z_
 
 ## Latest
 
@@ -40,11 +40,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1425 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T12:29:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1425 times; this is ONE
-> coalesced notice that updates in place, not 1425 messages. Latest detail:
+> WATCHDOG notice — occurrence #1445 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T13:29:03Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1445 times; this is ONE
+> coalesced notice that updates in place, not 1445 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 458426s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 462026s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1797,7 +1797,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.8M | $2036.12 _(notional, rate-card)_ | 109% of 160.0M (backoff) |
+| Claude | 174.8M | $2036.19 _(notional, rate-card)_ | 109% of 160.0M (backoff) |
 | Codex | 10.8M _(+272.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
