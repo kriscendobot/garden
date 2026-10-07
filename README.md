@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T12:43:07Z_
+_As of 2026-10-07T12:54:42Z_
 
 ## Latest
 
@@ -1797,8 +1797,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.8M | $2035.15 _(notional, rate-card)_ | 109% of 160.0M (backoff) |
-| Codex | 10.7M _(+272.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 174.9M | $2037.38 _(notional, rate-card)_ | 109% of 160.0M (backoff) |
+| Codex | 10.8M _(+272.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1809,8 +1809,9 @@ worst fetch p95 3.079671s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1398
+- [`improve-panel-item-reference-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-panel-item-reference-gate.md) — ---
 - [`improve-auth-gated-orchestration-parking`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-auth-gated-orchestration-parking.md) — ---
 
 ### tada (11368)
