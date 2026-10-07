@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T15:55:09Z_
+_As of 2026-10-07T15:57:59Z_
 
 ## Latest
 
@@ -970,7 +970,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.7M | $198.52 _(notional, rate-card)_ | 12% of 168.0M (ok) |
+| Claude | 19.5M | $194.56 _(notional, rate-card)_ | 12% of 168.0M (ok) |
 | Codex | 3.2M _(+68.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -982,21 +982,20 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
-- [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-unanchored-journal-reads.md) — ---
 - [`improve-journal-deepen-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry.md) — ---
 - [`scholar-ingest-oh-my-pi-rust-core-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core-3.md) — Continue ingesting oh-my-pi's Rust core remainder, explainer, and vendored brush
 - [`pr-readiness-arc-classify-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-readiness-arc-classify-20261007.md) — ---
 
-### tada (11386)
+### tada (11387)
+- [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/audit-unanchored-journal-reads.md) — Job complete: audit-unanchored-journal-reads
 - [`scholar-ingest-oh-my-pi-rust-core-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-2.md) — Cost
 - [`scholar-ingest-oh-my-pi-rust-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core.md) — Cost
 - [`issue-kriscendobot-garden-121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/issue-kriscendobot-garden-121.md) — Completion report: issue-kriscendobot-garden-121
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Cost
-- … and 11381 more
+- … and 11382 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
