@@ -23,6 +23,8 @@ Programming-language design concerns the semantic models and surface mechanisms 
 | [vendored brush-parser and its here-document fix](../sections/oh-my-pi--crates-vendor-brush-parser-readme--vendored-parser-with-heredoc-fix.md) | oh-my-pi vendored brush-parser | brush-parser 0.4.0 is vendored to delimit `$(...)` here-document bodies correctly; local changes and removal condition are listed. |
 | [brush-parser tokenizer and parser surface](../sections/oh-my-pi--crates-vendor-brush-parser-src-lib--tokenizer-and-parser-surface.md) | oh-my-pi vendored brush-parser | Public shell AST, word, arithmetic, pattern, and test modules plus re-exported tokenizer, parser, error, and span entry points. |
 | [brush-core interpreter and embedding surface](../sections/oh-my-pi--crates-vendor-brush-core-src-lib--interpreter-and-embedding-surface.md) | oh-my-pi vendored brush-core | `Shell`/`ShellBuilder`, execution and spawn-observation types, and embedding-safe `ulimit` state that `pi-shell` builds on. |
+| [pi-ast statically linked language registry](../sections/oh-my-pi--crates-pi-ast-src-language-mod--statically-linked-language-registry.md) | oh-my-pi `pi-ast` language | 57 tree-sitter languages compiled in (no WASM), metavariable expando characters, HTML injection, and path/alias inference. |
+| [pi-ast shared operations](../sections/oh-my-pi--crates-pi-ast-src-ops--shared-pattern-compile-and-edit-application.md) | oh-my-pi `pi-ast` ops | Explicit `lang` wins; JSON multi-node patterns retry in a wrapper; identical edits collapse, overlaps fail, rules re-parse in sequence. |
 
 ## See also
 
