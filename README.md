@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T07:36:09Z_
+_As of 2026-10-07T07:39:28Z_
 
 ## Latest
 
@@ -1514,6 +1514,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
+- `followup-gate-review-improve-builder-pr-gauntlet-bypass` — from followup-gate:review-improve-builder-pr-gauntlet-bypass, reply_to `review-improve-builder-pr-gauntlet-bypass` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-builder-pr-gauntlet-bypass.md)
+
+> Job "review-improve-builder-pr-gauntlet-bypass" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
+>
+> ## Follow-ups
+> - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
+> - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1016-4dc235600b87` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1016-4dc235600b87.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1016](https://github.com/endojs/endo-but-for-bots/pull/1016) ([endojs/endo-but-for-bots#1016](https://github.com/endojs/endo-but-for-bots/issues/1016)) is in the mergeable queue with NO gauntlet review staged (head 4dc235600b87a0a0a05e7e81ad7415bfb0b48f91). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1016'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1749,7 +1757,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.9M | $1998.77 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
+| Claude | 168.7M | $1993.05 _(notional, rate-card)_ | 105% of 160.0M (backoff) |
 | Codex | 10.0M _(+248.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1761,18 +1769,16 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 ### todo (0)
 (none)
 
-### doin (3)
-- [`kriscendobot-minion.town-pr150-review-e74f63c4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr150-review-e74f63c4-retro.md) — Retrospective on kriscendobot/minion.town PR #150 (primary: kriscendobot-mini...
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1398
-- [`review-improve-builder-pr-gauntlet-bypass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-builder-pr-gauntlet-bypass.md) — review-improve-builder-pr-gauntlet-bypass
 
-### tada (11335)
+### tada (11337)
+- [`kriscendobot-minion.town-pr150-review-e74f63c4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr150-review-e74f63c4-retro.md) — Cost
+- [`review-improve-builder-pr-gauntlet-bypass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/review-improve-builder-pr-gauntlet-bypass.md) — Completion report: review-improve-builder-pr-gauntlet-bypass
 - [`kriscendobot-minion.town-pr150-review-d432a6d0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr150-review-d432a6d0-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr149-5162bbc9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr149-5162bbc9-retro.md) — Cost
-- [`kriscendobot-minion.town-pr148-review-cde1226a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr148-review-cde1226a-retro.md) — Retrospective on kriscendobot/minion.town#148 (review 5400780741): miss recor...
-- [`canary-probe-endolin-garden-ece02cb4-7a88d0007c2c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-7a88d0007c2c.md) — rolling-deploy canary probe — round trip OK
-- … and 11330 more
+- … and 11332 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
