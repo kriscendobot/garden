@@ -45,6 +45,9 @@
 | [cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e](../sections/cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e.md) | cap-talk 2012-December | Why the AppArmor/MinorFs/E POLA stack went unadopted — distro-specific OS layer plus a new language, no big-company backing; Endo demands no OS or language transition (Hardened JS on stock Node). |
 | [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | oh-my-pi pi-iso | A writable merged tree uses native copy-on-write or projection backends, falling back to Git worktrees or recursive copy, and emits Git-compatible diffs. |
 | [N-API isolation lifecycle and the unavailable-error protocol](../sections/oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle.md) | oh-my-pi `pi-natives` iso | JavaScript probes, resolves, starts, stops, and diffs `pi-iso` workspaces; `ISO_UNAVAILABLE:` separates a missing backend from failure. |
+| [overlayfs with fuse-overlayfs fallback](../sections/oh-my-pi--crates-pi-iso-src-overlayfs--kernel-overlay-with-fuse-fallback.md) | oh-my-pi `pi-iso` overlayfs | Kernel overlay mount with sibling upper/work dirs; kernel refusal falls back to fuse-overlayfs, flavor remembered for teardown. |
+| [pi-iso backend resolution priority](../sections/oh-my-pi--crates-pi-iso-src-lib--backend-resolution-priority.md) | oh-my-pi `pi-iso` | Preferred-then-per-OS automatic order with Rcopy last; candidates are a host-level probe, so start-time rejection still needs retry. |
+| [identity-pinned process references](../sections/oh-my-pi--crates-pi-shell-src-process--identity-pinned-process-references.md) | oh-my-pi `pi-shell` process | pidfd / start-time / handle+creation-time references so signals never hit a recycled PID. |
 
 ## See also
 
