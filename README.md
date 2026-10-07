@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T22:42:16Z_
+_As of 2026-10-07T22:45:12Z_
 
 ## Latest
 
@@ -857,6 +857,14 @@ Delegation: **active**
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/887](https://github.com/endojs/endo-but-for-bots/pull/887) ([endojs/endo-but-for-bots#887](https://github.com/endojs/endo-but-for-bots/issues/887)) is in the mergeable queue with NO gauntlet review staged (head d8e75061384af8b41e5bdb66afdbe7269c3561df). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #887'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `stale-panel-head-kriscendobot-minion.town-pr168-de8fffd9-792bb4bb` — from gardener:build-minion-town-oauth-bonds, reply_to `build-minion-town-oauth-bonds` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr168-de8fffd9-792bb4bb.md)
+
+> Stale panel coverage for completed job `build-minion-town-oauth-bonds`: [https://github.com/kriscendobot/minion.town/pull/168](https://github.com/kriscendobot/minion.town/pull/168) moved from panel-reviewed head `de8fffd9a8e125a168cdc26469d246b10e108a29` to presented head `792bb4bb819c59ea756348cbf42fd45cc8e43af2`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `msg-oros-health-watch-20261007-173507-6f9ce29e582f` — from gardener:oros-health-watch-20261007-173507, reply_to `oros-health-watch-20261007-173507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-173507-6f9ce29e582f.md)
 
 > Oros is still unreachable. Its budget heartbeat last sampled at 2026-10-02T05:08:36Z, fleet health last reported at 2026-10-02T03:13:48Z, and its sysop last applied an operation at 2026-10-02T05:38:58Z. It remains derotated and deployed at e036bb8e, now 191 commits behind main2. There is no active health checkup because that schedule is deferred to 2026-10-11T21:00:00Z. I sent no additional operation: seven reset-failed, one restore, and two attested unit operations are already queued without acknowledgments. A person must wake/check the Mac, Docker Desktop, and the VM/container runtime.
@@ -887,7 +895,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.4M | $310.35 _(notional, rate-card)_ | 21% of 168.0M (ok) |
+| Claude | 36.1M | $316.12 _(notional, rate-card)_ | 22% of 168.0M (ok) |
 | Codex | 8.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 119779980 tokens/day lower bound._
@@ -902,19 +910,18 @@ worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1431
 - [`kriscendobot-minion.town-pr166-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #166
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr168-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #168
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1343
-- [`build-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-oauth-bonds.md) — Build: OAuth bond clarification, listing, and deletion on minion.town
 
-### tada (11472)
+### tada (11473)
+- [`build-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/build-minion-town-oauth-bonds.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr167-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr167-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr166-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr166-gauntlet-fix-1.md) — Gauntlet fix round 1: kriscendobot/minion.town PR #166
 - [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/design-minion-town-oauth-bonds.md) — Cost
 - [`improve-design-build-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-design-build-dispatch.md) — Completion report: improve-design-build-dispatch
-- [`kriscendobot-minion.town-pr167-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr167-gauntlet-panel-1.md) — Cost
-- … and 11467 more
+- … and 11468 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
