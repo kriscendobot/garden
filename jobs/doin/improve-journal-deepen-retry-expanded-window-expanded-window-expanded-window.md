@@ -43,3 +43,13 @@ and ShellCheck on `scripts/jobs/common.sh` if ShellCheck is available.
 
 Commit explicit pathspecs and push to `main2` with the required
 `garden_repo_lock` fetch/rebase/push CAS loop.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T20:29:16Z
