@@ -36,3 +36,13 @@ On failure the workflow must fail red and open or update a single tracking issue
 kriscendobot/minion.town (deduped), naming the failing check. Output a machine-readable
 summary (JSON) per run. Keep it a thin script under `deploy/` or `scripts/` plus the workflow.
 Do NOT edit the issue-58 checklist; the arc supervisor does that.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T20:53:16Z
