@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7243 (530 parent indexes + 6713 children).
+Total section files: 7248 (530 parent indexes + 6718 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8841,9 +8841,25 @@ Total section files: 7243 (530 parent indexes + 6713 children).
 
 - [oh-my-pi--crates-pi-ast-src-lib--multi-language-source-analysis-surface](oh-my-pi--crates-pi-ast-src-lib--multi-language-source-analysis-surface.md)
 
+### oh-my-pi--crates-pi-builtins-src-lib
+
+- [oh-my-pi--crates-pi-builtins-src-lib--feature-gated-shell-builtins](oh-my-pi--crates-pi-builtins-src-lib--feature-gated-shell-builtins.md)
+
 ### oh-my-pi--crates-pi-iso-src-lib
 
 - [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md)
+
+### oh-my-pi--crates-pi-natives-src-fd
+
+- [oh-my-pi--crates-pi-natives-src-fd--napi-fuzzy-path-discovery](oh-my-pi--crates-pi-natives-src-fd--napi-fuzzy-path-discovery.md)
+
+### oh-my-pi--crates-pi-natives-src-glob
+
+- [oh-my-pi--crates-pi-natives-src-glob--napi-virtual-glob-walk](oh-my-pi--crates-pi-natives-src-glob--napi-virtual-glob-walk.md)
+
+### oh-my-pi--crates-pi-natives-src-grep
+
+- [oh-my-pi--crates-pi-natives-src-grep--napi-ripgrep-search](oh-my-pi--crates-pi-natives-src-grep--napi-ripgrep-search.md)
 
 ### oh-my-pi--crates-pi-shell-src-lib
 
@@ -8856,6 +8872,10 @@ Total section files: 7243 (530 parent indexes + 6713 children).
 ### oh-my-pi--crates-pi-shell-src-minimizer-plan
 
 - [oh-my-pi--crates-pi-shell-src-minimizer-plan--parser-based-rewrite-safety](oh-my-pi--crates-pi-shell-src-minimizer-plan--parser-based-rewrite-safety.md)
+
+### oh-my-pi--crates-pi-vfs-src-lib
+
+- [oh-my-pi--crates-pi-vfs-src-lib--injectable-virtual-filesystem](oh-my-pi--crates-pi-vfs-src-lib--injectable-virtual-filesystem.md)
 
 ### opensandbox--docs-architecture-index
 
