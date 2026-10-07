@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T22:41:05Z_
+_As of 2026-10-07T22:42:16Z_
 
 ## Latest
 
@@ -887,7 +887,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.7M | $305.18 _(notional, rate-card)_ | 21% of 168.0M (ok) |
+| Claude | 35.4M | $310.35 _(notional, rate-card)_ | 21% of 168.0M (ok) |
 | Codex | 8.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 119779980 tokens/day lower bound._
@@ -896,9 +896,11 @@ _Fleet token-unlock pace: 119779980 tokens/day lower bound._
 worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (4)
+- [`kriscendobot-minion.town-pr167-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #167
 - [`kriscendobot-minion.town-pr169-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #169
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1431
+- [`kriscendobot-minion.town-pr166-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #166
 
 ### doin (4)
 - [`kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #68
