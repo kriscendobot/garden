@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7238 (530 parent indexes + 6708 children).
+Total section files: 7243 (530 parent indexes + 6713 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8836,6 +8836,26 @@ Total section files: 7238 (530 parent indexes + 6708 children).
 - [ocapn--readme--overview-and-what-is-this](ocapn--readme--overview-and-what-is-this.md)
 - [ocapn--readme--plan](ocapn--readme--plan.md)
 - [ocapn--readme--what-do-i-get](ocapn--readme--what-do-i-get.md)
+
+### oh-my-pi--crates-pi-ast-src-lib
+
+- [oh-my-pi--crates-pi-ast-src-lib--multi-language-source-analysis-surface](oh-my-pi--crates-pi-ast-src-lib--multi-language-source-analysis-surface.md)
+
+### oh-my-pi--crates-pi-iso-src-lib
+
+- [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md)
+
+### oh-my-pi--crates-pi-shell-src-lib
+
+- [oh-my-pi--crates-pi-shell-src-lib--embedded-shell-public-surface](oh-my-pi--crates-pi-shell-src-lib--embedded-shell-public-surface.md)
+
+### oh-my-pi--crates-pi-shell-src-minimizer
+
+- [oh-my-pi--crates-pi-shell-src-minimizer--opt-in-command-output-minimization](oh-my-pi--crates-pi-shell-src-minimizer--opt-in-command-output-minimization.md)
+
+### oh-my-pi--crates-pi-shell-src-minimizer-plan
+
+- [oh-my-pi--crates-pi-shell-src-minimizer-plan--parser-based-rewrite-safety](oh-my-pi--crates-pi-shell-src-minimizer-plan--parser-based-rewrite-safety.md)
 
 ### opensandbox--docs-architecture-index
 
