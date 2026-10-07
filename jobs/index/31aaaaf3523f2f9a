@@ -1,2 +1,2 @@
-base: improve-followup-gate-auto-escalation
+base: improve-design-build-dispatch
 identity: mentor:scripts/jobs/assert-followup-posted.sh
