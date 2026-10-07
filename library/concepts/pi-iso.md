@@ -13,6 +13,7 @@ topics: [sandbox-platforms, file-systems, agent-workspaces]
 | Section | One-line summary |
 |---|---|
 | [cross-platform copy-on-write workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | Native workspace backends, Git fallback, diff contract, and the process-sandbox boundary. |
+| [N-API isolation lifecycle and the unavailable-error protocol](../sections/oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle.md) | JavaScript-facing probe/resolve/start/stop/diff and the `ISO_UNAVAILABLE:` fallback signal. |
 
 ## See also
 
