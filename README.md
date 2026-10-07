@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T18:07:31Z_
+_As of 2026-10-07T18:09:44Z_
 
 ## Latest
 
@@ -464,6 +464,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Current head: `ceea5f188590`. CI: 25 checks successful and `test (24.x, ubuntu-latest)` failed. The requested test coverage is present; the failing current CI state is called out for triage.
 
+- `watchdog-handler-budget-overrun-improve-journal-deepen-retry-expanded-window` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-improve-journal-deepen-retry-expanded-window.md)
+
+> gardener job 'improve-journal-deepen-retry-expanded-window' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=5404s, handler-budget=5400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `review-request-endojs-endo-but-for-bots-pr96` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr96.md)
 
 > Review request: endojs/endo-but-for-bots PR 96
@@ -866,7 +870,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 24.4M | $224.20 _(notional, rate-card)_ | 15% of 168.0M (ok) |
+| Claude | 24.4M | $225.07 _(notional, rate-card)_ | 15% of 168.0M (ok) |
 | Codex | 3.4M _(+69.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -878,7 +882,8 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 
