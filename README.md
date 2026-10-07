@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T11:39:37Z_
+_As of 2026-10-07T11:53:13Z_
 
 ## Latest
 
@@ -1793,8 +1793,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.2M | $2024.96 _(notional, rate-card)_ | 108% of 160.0M (backoff) |
-| Codex | 10.4M _(+256.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 173.2M | $2025.84 _(notional, rate-card)_ | 108% of 160.0M (backoff) |
+| Codex | 10.6M _(+256.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1805,8 +1805,10 @@ worst fetch p95 3.009958s/45s (/home/kris/garden2/.garden-state/dependabotany-pr
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1398-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1398
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1398
+- [`improve-auth-gated-orchestration-parking`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-auth-gated-orchestration-parking.md) — ---
 
 ### tada (11364)
 - [`oros-health-watch-20261007-113507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-113507.md) — Cost
