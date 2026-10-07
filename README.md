@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T17:05:06Z_
+_As of 2026-10-07T17:09:51Z_
 
 ## Latest
 
@@ -569,6 +569,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > M3’s guest-endowment step, [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343), is blocked on choosing whether to land it with #1042 or after #1042 reaches `llm`. Please select the base/merge order.
 
+- `pr-readiness-arc-plan-20261007-terminal-complete` — from orchestrator:pr-readiness-arc-plan-20261007-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/pr-readiness-arc-plan-20261007-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: pr-readiness-arc-plan-20261007
+> orchestration-status: complete
+> order: serial
+> children-total: 3
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration pr-readiness-arc-plan-20261007 complete (serial): all 3 children reached tada without a machine-readable failure declaration.
+
 - `review-request-endojs-endo-but-for-bots-pr237` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr237.md)
 
 > Review request: endojs/endo-but-for-bots PR 237
@@ -833,7 +846,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.7M | $206.03 _(notional, rate-card)_ | 13% of 168.0M (ok) |
+| Claude | 22.7M | $213.20 _(notional, rate-card)_ | 14% of 168.0M (ok) |
 | Codex | 3.4M _(+69.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -845,19 +858,18 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 - [`improve-deadline-nudge-ambiguous-push`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-ambiguous-push.md) — ---
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1124
 
-### tada (11398)
+### tada (11401)
+- [`canary-probe-endolin-garden-ece02cb4-0b0324fd9841`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-0b0324fd9841.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-3.md) — Cost
+- [`pr-readiness-arc-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-arc-plan-20261007.md) — orchestration pr-readiness-arc-plan-20261007 — complete
 - [`pr-readiness-verify-changes-requested-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-verify-changes-requested-20261007.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-fix-2.md) — Cost
-- [`pr-readiness-plan-gauntlets-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-plan-gauntlets-20261007.md) — Cost
-- [`improve-journal-deepen-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry.md) — Cost
-- [`improve-rolling-deploy-sigterm-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-rolling-deploy-sigterm-retry.md) — Cost
-- … and 11393 more
+- … and 11396 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
