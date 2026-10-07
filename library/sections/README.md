@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7259 (530 parent indexes + 6729 children).
+Total section files: 7271 (530 parent indexes + 6741 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8837,9 +8837,17 @@ Total section files: 7259 (530 parent indexes + 6729 children).
 - [ocapn--readme--plan](ocapn--readme--plan.md)
 - [ocapn--readme--what-do-i-get](ocapn--readme--what-do-i-get.md)
 
+### oh-my-pi--crates-pi-ast-src-language-mod
+
+- [oh-my-pi--crates-pi-ast-src-language-mod--statically-linked-language-registry](oh-my-pi--crates-pi-ast-src-language-mod--statically-linked-language-registry.md)
+
 ### oh-my-pi--crates-pi-ast-src-lib
 
 - [oh-my-pi--crates-pi-ast-src-lib--multi-language-source-analysis-surface](oh-my-pi--crates-pi-ast-src-lib--multi-language-source-analysis-surface.md)
+
+### oh-my-pi--crates-pi-ast-src-ops
+
+- [oh-my-pi--crates-pi-ast-src-ops--shared-pattern-compile-and-edit-application](oh-my-pi--crates-pi-ast-src-ops--shared-pattern-compile-and-edit-application.md)
 
 ### oh-my-pi--crates-pi-builtins-src-lib
 
@@ -8847,7 +8855,16 @@ Total section files: 7259 (530 parent indexes + 6729 children).
 
 ### oh-my-pi--crates-pi-iso-src-lib
 
+- [oh-my-pi--crates-pi-iso-src-lib--backend-resolution-priority](oh-my-pi--crates-pi-iso-src-lib--backend-resolution-priority.md)
 - [oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces](oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md)
+
+### oh-my-pi--crates-pi-iso-src-overlayfs
+
+- [oh-my-pi--crates-pi-iso-src-overlayfs--kernel-overlay-with-fuse-fallback](oh-my-pi--crates-pi-iso-src-overlayfs--kernel-overlay-with-fuse-fallback.md)
+
+### oh-my-pi--crates-pi-iso-src-rcopy
+
+- [oh-my-pi--crates-pi-iso-src-rcopy--git-worktree-or-recursive-copy-fallback](oh-my-pi--crates-pi-iso-src-rcopy--git-worktree-or-recursive-copy-fallback.md)
 
 ### oh-my-pi--crates-pi-natives-src-ast
 
@@ -8875,6 +8892,15 @@ Total section files: 7259 (530 parent indexes + 6729 children).
 - [oh-my-pi--crates-pi-natives-src-shell--bounded-output-bridge-and-drain](oh-my-pi--crates-pi-natives-src-shell--bounded-output-bridge-and-drain.md)
 - [oh-my-pi--crates-pi-natives-src-shell--napi-shell-sessions-and-filesystem-injection](oh-my-pi--crates-pi-natives-src-shell--napi-shell-sessions-and-filesystem-injection.md)
 
+### oh-my-pi--crates-pi-natives-src-shell-vfs
+
+- [oh-my-pi--crates-pi-natives-src-shell-vfs--routing-lifetime-and-consumers](oh-my-pi--crates-pi-natives-src-shell-vfs--routing-lifetime-and-consumers.md)
+- [oh-my-pi--crates-pi-natives-src-shell-vfs--shellfilesystem-wire-protocol](oh-my-pi--crates-pi-natives-src-shell-vfs--shellfilesystem-wire-protocol.md)
+
+### oh-my-pi--crates-pi-shell-src-cancel
+
+- [oh-my-pi--crates-pi-shell-src-cancel--deadline-and-abort-reason-token](oh-my-pi--crates-pi-shell-src-cancel--deadline-and-abort-reason-token.md)
+
 ### oh-my-pi--crates-pi-shell-src-lib
 
 - [oh-my-pi--crates-pi-shell-src-lib--embedded-shell-public-surface](oh-my-pi--crates-pi-shell-src-lib--embedded-shell-public-surface.md)
@@ -8886,6 +8912,15 @@ Total section files: 7259 (530 parent indexes + 6729 children).
 ### oh-my-pi--crates-pi-shell-src-minimizer-plan
 
 - [oh-my-pi--crates-pi-shell-src-minimizer-plan--parser-based-rewrite-safety](oh-my-pi--crates-pi-shell-src-minimizer-plan--parser-based-rewrite-safety.md)
+
+### oh-my-pi--crates-pi-shell-src-process
+
+- [oh-my-pi--crates-pi-shell-src-process--graceful-tree-termination-and-harness-protection](oh-my-pi--crates-pi-shell-src-process--graceful-tree-termination-and-harness-protection.md)
+- [oh-my-pi--crates-pi-shell-src-process--identity-pinned-process-references](oh-my-pi--crates-pi-shell-src-process--identity-pinned-process-references.md)
+
+### oh-my-pi--crates-pi-shell-src-shell
+
+- [oh-my-pi--crates-pi-shell-src-shell--session-and-run-execution-contract](oh-my-pi--crates-pi-shell-src-shell--session-and-run-execution-contract.md)
 
 ### oh-my-pi--crates-pi-vfs-src-lib
 
@@ -8906,6 +8941,10 @@ Total section files: 7259 (530 parent indexes + 6729 children).
 ### oh-my-pi--crates-vendor-brush-parser-src-lib
 
 - [oh-my-pi--crates-vendor-brush-parser-src-lib--tokenizer-and-parser-surface](oh-my-pi--crates-vendor-brush-parser-src-lib--tokenizer-and-parser-surface.md)
+
+### oh-my-pi--packages-natives-native-loader-state
+
+- [oh-my-pi--packages-natives-native-loader-state--native-loader-candidates-and-no-js-fallback](oh-my-pi--packages-natives-native-loader-state--native-loader-candidates-and-no-js-fallback.md)
 
 ### opensandbox--docs-architecture-index
 
