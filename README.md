@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T22:12:29Z_
+_As of 2026-10-07T22:24:47Z_
 
 ## Latest
 
@@ -30,7 +30,9 @@ Separately:
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Screened by proxy (minion.town)
 
-(delegation not armed)
+Delegation: **active**
+
+(no screening activity in the last 24 h)
 
 ## Messages to the maintainer
 
@@ -121,10 +123,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration improve-journal-deepen-retry-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
 
-- `minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached` — from gauntlet:minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet minion-town-shell-to-js-20261004-part2-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
-
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=2 queue=8 quota=ok fleet-envelope=4 target=2
@@ -204,10 +202,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` cleared on endolin-garden2-5bcdff64.
-
-- `minion-town-shell-to-js-20261004-part1-gauntlet-review-budget-reached` — from gauntlet:minion-town-shell-to-js-20261004-part1-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-shell-to-js-20261004-part1-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet minion-town-shell-to-js-20261004-part1-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `msg-scholar-ingest-oh-my-pi-rust-core-4-5ac08eb28d9c` — from scholar:scholar-ingest-oh-my-pi-rust-core-4, reply_to `scholar-ingest-oh-my-pi-rust-core-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-4-5ac08eb28d9c.md)
 
@@ -323,11 +317,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal.md)
 
-> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` has CLEARED (first seen 2026-10-07T15:15:39Z, cleared 2026-10-07T21:01:20Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-07T15:15:39Z, latest 2026-10-07T22:13:18Z).
+> The SAME condition (`journal-push-contention-_home_kris_garden2__garden_state_cursors_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` cleared on endolin-garden2-5bcdff64.
+> Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/cursors/journal: attempts p95=5.000000 max=8.000000 (cap 50), classes cas=14 server-reject=0 definite-fail=0.
 
 - `review-request-endojs-endo-but-for-bots-pr151` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr151.md)
 
@@ -450,6 +444,31 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > comment-provenance INSTRUMENTATION GAP on host endolin-garden-ece02cb4: a fleet `gh` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the host and garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its `gh` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post.
 
+- `review-request-endojs-endo-but-for-bots-pr1426` — from gardener:compose-review-requests-budget-reached-20261007, reply_to `compose-review-requests-budget-reached-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr1426.md)
+
+> Review request: endojs/endo-but-for-bots PR 1426 (gauntlet reached its review budget twice)
+> [https://github.com/endojs/endo-but-for-bots/pull/1426](https://github.com/endojs/endo-but-for-bots/pull/1426)
+> Arc: unallocated (Familiar release; design `familiar-localhttp-protocol`). Draft.
+>
+> What it does: Chat now renders the security warnings the Familiar already sent over `familiar:security-warnings`, with a dismissible banner that survives body replacement.
+> It also fixes a delivery race: the Familiar sent the warnings once, often before the page listened, so it now re-sends on every Chat page load and never to a `localhttp:` weblet in the same window.
+>
+> CI: head `159ea0ff3c`, 25 passed, 8 skipped, 0 failed. Base `llm-395c485`. +1175/-40, 14 files.
+>
+> Why it didn't converge: two gauntlets, 12 panel/fix rounds (build-familiar-localhttp-protocol-gauntlet ended 10-05; endojs-endo-but-for-bots-pr1426-gauntlet, re-staged after the coverage audit, ended 10-06). In the second gauntlet the blocking set moved each round: engine-realist in round 2 (the macOS `activate` handler re-sent stale warnings instead of re-checking), scribe in round 3 (a process gap), 7 seats in round 5, 3 in round 6. It was narrowing, but each round still turned up something new, and several asks were about process (summary comments, PR description length) rather than code.
+>
+> Last panel round (round 6, head `998d699115`): 3 request changes (spec-keeper, archivist, pruner), 8 comment-only, 22 approve. Fix round 6 says it addressed them in `159ea0ff3c`; no panel has checked the result:
+> - spec-keeper: a real bug. `isChatPageUrl` compared encoded paths, but Node writes `~` as `%7E` and Chromium doesn't, so on a path like `PROGRA~1` the warning was never sent. `pageIdentity` in packages/familiar/src/security-warnings.js now decodes before comparing, with a test for both spellings.
+> - archivist: the dismissal and `mount()` contract moved from the module comment into the `SecurityWarningBanner` JSDoc (packages/chat/security-warning-banner.js).
+> - pruner: PR description too long. Fix 6 didn't rewrite it, but the body is now 283 words (the seat's limit was 300).
+> - migrator (suggestion): `@endo/familiar` bumped from patch to minor, since the PR adds exports.
+>
+> Still open: spec-keeper's optional type check on `callback` in `preload.mjs`.
+>
+> Look at first: packages/familiar/src/security-warnings.js (the Chat-page URL match decides whether a warning is ever shown, and round 6 found a real miss there), then the electron-main.js send-on-load and `activate` path that rounds 2 and 5 kept returning to.
+>
+> No GitHub review was requested and nothing was approved.
+
 - `msg-ebfb-sturdyref-stack-panel-summary-20261004-e7be3fe398d1` — from gardener:ebfb-sturdyref-stack-panel-summary-20261004, reply_to `ebfb-sturdyref-stack-panel-summary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ebfb-sturdyref-stack-panel-summary-20261004-e7be3fe398d1.md)
 
 > SturdyRef stack, layers 3/4/6/7 (endojs/endo-but-for-bots [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) → [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) → [[endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) L5] → [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) → [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)): open panel objections, for a merge decision.
@@ -496,6 +515,34 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Current head: `111713873c58`. CI: 1 check, successful. No requested item was declined.
 
+- `review-request-endojs-endo-but-for-bots-pr1398` — from gardener:compose-review-requests-budget-reached-20261007, reply_to `compose-review-requests-budget-reached-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr1398.md)
+
+> Review request: endojs/endo-but-for-bots PR 1398 (gauntlet reached its review budget)
+> [https://github.com/endojs/endo-but-for-bots/pull/1398](https://github.com/endojs/endo-but-for-bots/pull/1398)
+> Arc: endo-ocapn-background (SturdyRef stack, layer 8 of 9; layer 5 is [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394)). Draft.
+>
+> What it does: adds `makeFormulaSturdyRefKit` (packages/daemon/src/formula-sturdyref.js) so the daemon can mint a SturdyRef for a formula without incarnating it; nothing calls it until layer 9.
+> It also hardens `getFormulaForId`: after seeding, a memory miss now rejects instead of reading a persisted record back, so a lookup that races collection can't revive a collected formula (the git-remote state writer gets the same guard).
+>
+> CI: head `afc5c25c1f`, 25 passed, 8 skipped, 0 failed. Base is the frozen layer-7 snapshot `build/sturdyref-ocapn-enliven-0e0b333`. +320/-13, 9 files, 3 commits (fix, feat, `chore: Update yarn.lock`).
+>
+> Why it didn't converge: 6 panel rounds, each with 5 to 7 request-changes seats, and the set changed every round (packager/archivist/breaker in round 2, prover/purist/decomplector in round 3, integrator/saboteur/wire-watcher in round 4, and so on). The only seat that kept coming back was prover (tests), in rounds 3 to 6. Round 5 questioned whether the collection-tombstone module was needed at all; it was deleted.
+>
+> Last panel round (round 6, head `87c7516d`): 6 request changes (breaker, changeset-auditor, integrator, packager, prover, releaser), 14 comment-only, 14 approve. Fix round 6 says it addressed all of these, but no panel has checked the result:
+> - prover: the collected-formula test didn't trigger the race, and nothing covered seeding or restart. Fix 6 added three daemon-level tests (collected id rejects without leaking the number; a record written back to disk is still refused; a pre-restart formula resolves after restart). It added no test for a lookup that arrives during seeding; it argues nothing outside the daemon can call it then and covers it with a comment.
+> - integrator: history added, reworked, then deleted collection-tombstones.js. Fix 6 rewrote the branch into the three commits listed above.
+> - packager / changeset-auditor / releaser: changeset scope and bump. Now `.changeset/daemon-collected-formula-lookup.md`, `patch`, user-visible fix only, one sentence per line.
+> - breaker (should-fix): `persistGitRemoteState` could still revive a collected formula. Fixed by dropping the captured-formula fallback.
+> - types: `DaemonCoreExternal` now lists `sturdyRefForFormula` and `formulaIdOf`.
+>
+> Still open after fix 6:
+> - breaker (comment-only): formulation writes the record before setting `formulaForId`, so a lookup in that window now rejects. Fix 6 found no caller that can know the id that early.
+> - prover (should-fix): no test mints a SturdyRef through the real daemon core; deferred to layer 9, its first consumer.
+>
+> Look at first: the `getFormulaForId` change and the `formulaGraphSeeded` gate in packages/daemon/src/manager.js. It changes behavior for every caller that looks up an id the daemon no longer holds (it now rejects), and `patch` depends on that path being unreachable from package exports. Then decide whether the fix commit should land with the layer-8 feature or go separately.
+>
+> No GitHub review was requested and nothing was approved.
+
 - `pr-readiness-arc-plan-20261007-terminal-complete` — from orchestrator:pr-readiness-arc-plan-20261007-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/pr-readiness-arc-plan-20261007-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -535,6 +582,46 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Current head: `1c4f9a729cb2`. CI: 5 checks, all successful. No requested item was declined.
 
+- `review-request-kriscendobot-minion-town-pr151` — from gardener:compose-review-requests-budget-reached-20261007, reply_to `compose-review-requests-budget-reached-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-kriscendobot-minion-town-pr151.md)
+
+> Review request: kriscendobot/minion.town JavaScript-only deploy migration stack (gauntlets reached their review budgets)
+> Review in order, starting from the bottom:
+> 1. [https://github.com/kriscendobot/minion.town/pull/151](https://github.com/kriscendobot/minion.town/pull/151) chore: begin JavaScript-only script migration (draft, +1448/-363)
+> 2. [https://github.com/kriscendobot/minion.town/pull/152](https://github.com/kriscendobot/minion.town/pull/152) chore: convert provisioning deploy scripts to JavaScript (draft, +3351/-1476)
+> 3. [https://github.com/kriscendobot/minion.town/pull/153](https://github.com/kriscendobot/minion.town/pull/153) chore: convert CD deploy scripts to JavaScript (2b). Not part of this request: its gauntlet passed panel round 1 and it is already un-drafted, but it sits between [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/issues/152) and [kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/issues/154).
+> 4. [https://github.com/kriscendobot/minion.town/pull/154](https://github.com/kriscendobot/minion.town/pull/154) chore: finish JavaScript-only deploy migration (draft, +3035/-1577)
+> Arc: garden-upkeep.
+>
+> What it does: replaces the deploy/provisioning shell scripts (and their python3/zip dependencies) with Node JavaScript, adds a JS-only gate, and converts the remote root programs to templated scripts with tests.
+> The end state is that deploy tooling is JavaScript only, apart from a few named scripts that still use python3 (deploy-siwe-thunk.sh, deploy-oauth2-proxy.sh, common.sh).
+>
+> CI: all four heads green (3/3 checks each): [kriscendobot/minion.town#151](https://github.com/kriscendobot/minion.town/issues/151) `b3cacfeff3`, [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/issues/152) `d58c74c6d9`, [kriscendobot/minion.town#153](https://github.com/kriscendobot/minion.town/issues/153) `2ca6c15ca1`, [kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/issues/154) `69b78b94ac`.
+> Stack hygiene: the frozen bases are stale. [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/issues/152) is based on a snapshot 20 commits behind [kriscendobot/minion.town#151](https://github.com/kriscendobot/minion.town/issues/151)'s head, and [kriscendobot/minion.town#153](https://github.com/kriscendobot/minion.town/issues/153) is 6 behind [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/issues/152)'s head. The bottom base `main-a378bb3` is 59 commits behind main. Expect a restack/weave before merge.
+>
+> Why it didn't converge: each PR ran 6 panel/fix rounds (all ended 10-04). Round 6 was down to 3 request-changes seats on each PR, and each round's blockers were closed, but each new round found a fresh set, mostly real security or correctness edges in the converted scripts. Fix round 6 says it addressed every round-6 must-fix below; no panel has checked the result.
+>
+> [kriscendobot/minion.town#151](https://github.com/kriscendobot/minion.town/issues/151), round 6 (3 request changes, 6 comment-only, 22 approve):
+> - Converted scripts exited 0 without running `main()` when invoked through a symlink, so the fail-closed preflight, the `inspect-image.js` CI gate and the Caddy installer could silently pass. Fixed in all seven entry points, with a symlink test.
+> - The `replace` to `replaceAll` fix in tools/vendor-endo-claude.js had no test. Now an exported helper with a two-occurrence test.
+> - A commit pointed deploy-npm-registry.sh at a renamed file. History rewritten so the rename lands with its callers.
+> - Not done: the integrator's optional regroup of the 12 review-round fix commits into one per conversion. Comment-only items left: property tests, the `df --output` parse, an operator note about moved entry points, a c8 report.
+>
+> [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/issues/152), round 6 (3 request changes):
+> - breaker: `collectZipEntries` (deploy/aws/scripts/lib/zip.js) silently dropped symlinked files from Lambda zips. Now follows links like `zip -r`, and a broken link or a loop throws.
+> - integrator: the PR description overclaimed "no python3 or zip". Narrowed.
+> - scribe: a missing fix-loop summary comment (the third time on this PR). Posted; scribe's proposed change to skills/pr-creation-flow was not made.
+> - Still open, security-relevant: `preservedPoolFields` in deploy-pre-token-gen.js omits `UserPoolAddOns` (advanced security) and the SMS/email message fields, so each run resets them. The old shell script had the same gap; it needs its own fix.
+>
+> [kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/issues/154), round 6 (3 request changes, 11 comment-only, 17 approve):
+> - wire-watcher: the Node tarball was extracted into /usr/local as root without a hash check (pre-existing in the .sh). Now `resolveNodeTarball` reads SHASUMS256.txt and the remote programs run `sha256sum -c` first. deploy-app.js turned out to have the same gap and was fixed too.
+> - saboteur: malformed `ENDO_CLAUDE_*` unit lines were silently dropped. Now they fail the deploy.
+> - breaker: the root-script builders didn't validate agent and snapshot names. Now validated, with hostile-input and `bash -n` tests.
+> - Not done: a PR-body note that JS `quote(agent)` closes a real injection hole in the old script; the reaper "always exits 0" test check; module comments lost in conversion; property tests for `sha256File` and `quote()`; a slow regex in remote-template.js; one standard way to fill in remote programs.
+>
+> Look at first: the code that runs as root on hosts, because that is where every round found something. Start with the remote-program builders and quoting in [kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/issues/154) (remote-template.js, provision-guest-reminders.js, the `.remote.txt` templates), then the run-directly guard and inspect-image gate in [kriscendobot/minion.town#151](https://github.com/kriscendobot/minion.town/issues/151). Then decide whether the `UserPoolAddOns` reset should block [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/issues/152) or go to a follow-up.
+>
+> No GitHub review was requested and nothing was approved.
+
 - `watchdog-handler-budget-overrun-improve-journal-deepen-retry` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-improve-journal-deepen-retry.md)
 
 > gardener job 'improve-journal-deepen-retry' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2405s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -562,10 +649,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > halt-parked-remainder: 
 >
 > Orchestration improve-journal-deepen-retry-expanded-window-split HALTED: child improve-journal-deepen-retry-expanded-window-expanded-window stalled in flight for 7272s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 0/1 done before halt; parked remainder: none
-
-- `build-familiar-localhttp-protocol-gauntlet-review-budget-reached` — from gauntlet:build-familiar-localhttp-protocol-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-familiar-localhttp-protocol-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet build-familiar-localhttp-protocol-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr334-30c43c645a9e` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr334-30c43c645a9e.md)
 
@@ -611,6 +694,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/469](https://github.com/endojs/endo-but-for-bots/pull/469) ([endojs/endo-but-for-bots#469](https://github.com/endojs/endo-but-for-bots/issues/469)) is in the mergeable queue with NO gauntlet review staged (head 596b4c1185d2e3255d5ce4350eb41fb5c2ede386). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #469'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
+
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=0 quota=ok fleet-envelope=4 target=1
 
 - `review-request-endojs-endo-but-for-bots-pr216` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr216.md)
 
@@ -661,10 +748,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > CI: 14 checks, all successful. No requested item was declined.
 
-- `endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet endojs-endo-but-for-bots-pr1398-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
-
 - `review-request-endojs-endo-but-for-bots-pr264` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr264.md)
 
 > Review request: endojs/endo-but-for-bots PR 264
@@ -706,10 +789,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - Applied in the current re-land beginning at `f53b347d4b35`: `ReadableBlob.lines` now takes an options bag with optional `start`, `end`, and `buffer`, defines inclusive bounds, handles negative indices, clamping and reversed ranges, and expands the verification matrix in `designs/readableblob-lines.md`.
 >
 > Current head: `675d412bce59`. CI: 5 checks, all successful. No requested item was declined. Later gauntlet feedback identified four maintainer-facing interface questions, already listed in the PR thread.
-
-- `minion-town-shell-to-js-20261004-part3-gauntlet-review-budget-reached` — from gauntlet:minion-town-shell-to-js-20261004-part3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-shell-to-js-20261004-part3-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet minion-town-shell-to-js-20261004-part3-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr1-8d6b46c914ed` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr1-8d6b46c914ed.md)
 
@@ -800,37 +879,36 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $291.78 _(notional, rate-card)_ | 19% of 168.0M (ok) |
-| Codex | 7.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 34.3M | $304.02 _(notional, rate-card)_ | 20% of 168.0M (ok) |
+| Codex | 7.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 119213047 tokens/day lower bound._
+_Fleet token-unlock pace: 119089467 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 10.088527s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (5)
-- [`kriscendobot-minion.town-pr166-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #166
-- [`verify-container-hardening-endolin-garden-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-container-hardening-endolin-garden-20261007.md) — ---
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1431
-- [`kriscendobot-minion.town-pr167-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #167
-- [`kriscendobot-minion-town-pr68-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-20261007-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #68
+- [`kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #68
+- [`kriscendobot-minion.town-pr166-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #166
+- [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-oauth-bonds.md) — Design: clarify, list, and delete OAuth bonds on minion.town
+- [`kriscendobot-minion.town-pr167-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1431
 
-### doin (6)
+### doin (5)
+- [`improve-design-build-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-design-build-dispatch.md) — ---
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1381-review-a6b93d7a.md) — Review directive on endojs/endo-but-for-bots PR #1381
-- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1343
-- [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-oauth-bonds.md) — Design: clarify, list, and delete OAuth bonds on minion.town
-- [`widen-minion-town-delegation-supervised-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/widen-minion-town-delegation-supervised-carry.md) — Widen the minion.town delegation to supervised carry (no escalations)
+- [`kriscendobot-minion.town-pr168-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #168
+- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1343
 - [`build-minion-town-deploy-secret-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-deploy-secret-preflight.md) — ---
-- [`compose-review-requests-budget-reached-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/compose-review-requests-budget-reached-20261007.md) — ---
 
-### tada (11449)
-- [`endojs-endo-but-for-bots-pr1343-conduct-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-conduct-20261007.md) — Cost
-- [`fix-hardening-probe-sysfs-block-false-positive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/fix-hardening-probe-sysfs-block-false-positive.md) — Cost
-- [`endojs-endo-but-for-bots-pr1381-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1381-conduct.md) — Cost
-- [`design-minion-town-kriscendobot-root-principal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/design-minion-town-kriscendobot-root-principal.md) — Cost
-- [`resolve-stale-panel-heads-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/resolve-stale-panel-heads-20261007.md) — Cost
-- … and 11444 more
+### tada (11463)
+- [`kriscendobot-minion.town-pr166-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr166-gauntlet-panel-1.md) — Cost
+- [`kriscendobot-minion.town-pr167-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr167-gauntlet-clean.md) — Cost
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1431-gauntlet-clean.md) — Cost
+- [`kriscendobot-minion-town-pr68-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion-town-pr68-gauntlet-20261007-clean.md) — Cost
+- [`kriscendobot-minion.town-pr168-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr168-gauntlet-clean.md) — Cost
+- … and 11458 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -965,6 +1043,7 @@ worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
+- [`kriscendobot-minion.town-pr169-conduct-prod-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr169-conduct-prod-validate.md) — awaiting `kriscendobot-minion.town-pr169-gauntlet` · ---
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`book-hyperlink-references-after-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-after-copyedit-20261004.md) — awaiting `https://github.com/kriscendobot/garden-book/pull/8` · Follow-up: make every reference in Better Code and Gardens an actual hyperlink
