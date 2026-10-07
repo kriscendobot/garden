@@ -14,6 +14,8 @@ The unofficial site `yeluo45.github.io/oh-my-pi-design` describes oh-my-pi's arc
 |---|---|
 | [the explainer's account of oh-my-pi's Rust core](../sections/web--oh-my-pi-design-rust-core--explainer-account-of-the-rust-core.md) | What the page claims, summarized for orientation. |
 | [divergence ledger against the oh-my-pi source](../sections/web--oh-my-pi-design-rust-core--divergence-ledger-against-source.md) | Claim-by-claim corrections against `main` at `53f253fb`. |
+| [statically linked language registry](../sections/oh-my-pi--crates-pi-ast-src-language-mod--statically-linked-language-registry.md) | Resolves the "50+ languages, per-language WASM" claim: 57 languages, native tree-sitter crates, no WASM. |
+| [native loader candidates, no JS fallback](../sections/oh-my-pi--packages-natives-native-loader-state--native-loader-candidates-and-no-js-fallback.md) | Resolves the deferred ledger row: the loader has no JavaScript fallback; it throws when no addon loads. |
 
 ## See also
 
