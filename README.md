@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T16:39:04Z_
+_As of 2026-10-07T16:40:16Z_
 
 ## Latest
 
@@ -701,19 +701,18 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (4)
-- [`pr-readiness-plan-gauntlets-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-readiness-plan-gauntlets-20261007.md) — ---
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1124
 
-### tada (11395)
+### tada (11396)
+- [`pr-readiness-plan-gauntlets-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-plan-gauntlets-20261007.md) — Cost
 - [`improve-journal-deepen-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry.md) — Cost
 - [`improve-rolling-deploy-sigterm-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-rolling-deploy-sigterm-retry.md) — Cost
 - [`scholar-ingest-oh-my-pi-rust-core-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-4.md) — scholar-ingest-oh-my-pi-rust-core-4: completion report
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-2.md) — Cost
-- [`fu-qwen-model-watch-20260728-180502-1-20261007-162009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/fu-qwen-model-watch-20260728-180502-1-20261007-162009.md) — Cost
-- … and 11390 more
+- … and 11391 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
