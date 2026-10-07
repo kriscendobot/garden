@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T08:30:22Z_
+_As of 2026-10-07T08:34:52Z_
 
 ## Latest
 
@@ -1773,7 +1773,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.8M | $1994.94 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
+| Claude | 168.8M | $1995.13 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
 | Codex | 10.4M _(+256.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1785,17 +1785,16 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-minion.town-pr165-review-24dc8368-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-review-24dc8368-retro.md) — Retrospective on kriscendobot/minion.town PR #165 (primary: kriscendobot-mini...
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1398
 
-### tada (11354)
+### tada (11355)
+- [`kriscendobot-minion.town-pr165-review-24dc8368-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr165-review-24dc8368-retro.md) — Cost
 - [`oros-health-watch-20261007-082010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-082010.md) — Cost
 - [`endojs-endo-but-for-bots-pr1282-review-c5a5c1c1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1282-review-c5a5c1c1-retro.md) — Cost
 - [`claude-on-minion-town-press-20261007-082010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-press-20261007-082010.md) — Press tick 2026-10-07 08:2xZ: issue 89 updated; the arc is now blocked on one...
 - [`canary-probe-endolin-garden-ece02cb4-2782d6294d86`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-2782d6294d86.md) — rolling-deploy canary probe — round trip OK
-- [`kriscendobot-minion.town-pr163-review-b54cabfc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr163-review-b54cabfc-retro.md) — Cost
-- … and 11349 more
+- … and 11350 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
