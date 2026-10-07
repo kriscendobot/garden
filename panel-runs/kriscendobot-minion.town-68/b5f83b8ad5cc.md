@@ -1,0 +1,46 @@
+---
+kind: panel-run
+repo: kriscendobot/minion.town
+pr: 68
+panel_kind: code
+base_ref: d750b09b30e9bb6ff00dd13e52e56f2acfdf9b23
+rounds: 1
+disposition: must-fix
+exit_code: 0
+reviewed_head: 550f4f018a03df69cc7169904d54c5240d07960e
+must_fix_total: 20
+appellate_ran: false
+appellate_proposals: 0
+epoch:
+run_id: b5f83b8ad5cc
+recorded_by: endolin-garden2-5bcdff64
+---
+
+# Panel run — kriscendobot/minion.town #68 (code)
+
+Terminal disposition: **must-fix** after **1** round(s).
+
+## Round 1 — head `550f4f01`
+
+seat verdicts (33): archivist=comment assessor=comment benchmarker=pass breaker=must-fix changeset-auditor=comment corner-prober=comment coverage-auditor=comment curator=must-fix duality-auditor=pass engine-realist=comment fast-checker=comment gateway=comment integrator=comment locksmith=pass migrator=comment orthographer=pass packager=comment procurer=pass prover=pass pruner=pass purist=must-fix reexport-auditor=pass releaser=comment saboteur=pass scribe=comment spec-keeper=pass stylist=comment surfacer=comment thesaurus=pass transplanter=pass typist=comment warden=pass wire-watcher=pass
+must-fix items (20):
+- breaker: **should-fix: the worker's rejection reason reaches the MCP error untruncated.** `resolveNamedContent` (`src/endo/gue...
+- breaker: **Attack:** the guest evaluates `Far('x', { toJSON() { throw Error('A'.repeat(5e7)) } })` in its `MAIN`/`@main` worke...
+- breaker: **Result:** the shared Node process holds the message and echoes it back in the MCP result.
+- breaker: **Fix:** truncate `reason` the same way `issue.message` is truncated. Add a test that throws a long-message error thr...
+- breaker: [proposed-rule: every path that echoes guest-controlled text into a tool error goes through one shared truncation hel...
+- breaker: **should-fix: `path` and `contentType` have no length bound, and the base64 error echoes `path`.** `ContentFiles` bou...
+- breaker: **Attack:** send one entry `{ path: "p".repeat(3e7), contentType: "x", bytes: "!!" }`. It fits under `MAX_CONTENT_VAL...
+- breaker: Any `publish.publish` path-validation error that quotes the path behaves the same way.
+- breaker: **Sibling divergence:** the direct-input `publish` tool's paths are effectively capped by the 2 MB `express.json()` l...
+- breaker: **Fix:** add `.max(...)` to `path` and `contentType` in `ContentFiles` (and ideally in the sibling schemas too, so th...
+- breaker: [proposed-rule: every string field of a schema that parses socket-delivered (not express-bounded) input carries its o...
+- breaker: **comment-only: no time bound on the worker evaluation.** A `toJSON` that loops forever leaves `facet.evaluate` pendi...
+- breaker: **comment-only (mitigated): `resolveGuestMainWorker`.** It returns `@main` only when `has` resolves to exactly `true`...
+- breaker: **comment-only (mitigated): the "exactly one of text/bytes" rule.** It holds because a `.strict()` union rejects both...
+- breaker: **comment-only: the mock AS lets the `/token` request override the granted scope.** In `dev/mock-authorization-server...
+- curator: New MCP tool `publishNamedContent`, with `contentValue`, `powers` and `confirmPublicBuiltIn` (`src/endo/guest-tools.t...
+- curator: New exported function `resolveGuestMainWorker` (`src/endo/guest-control.ts:59`).
+- curator: New exported function `utf8ByteLengthWithin` (`guest-tools.ts:179`). It is exported only for tests.
+- curator: New required member `mainWorkerName()` on the exported `GuestFacet` interface (`guest-control.ts:209`).
+- curator: The `dev/mock-as.ts` → `dev/mock-authorization-server.ts` rename also changes the `dev:as` script in `package.json`.
