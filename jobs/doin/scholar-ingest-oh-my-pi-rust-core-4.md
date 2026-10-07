@@ -27,3 +27,13 @@ Optional if budget remains: verify the explainer's unverified "native loader fal
 Known divergences to preserve (already recorded in the ledger): the explainer omits `pi-vfs`; it mischaracterizes the output minimizer as a permission gate (the escalation check lives in `packages/coding-agent/examples/hooks/permission-gate.ts`); its vendored-brush path (`crates/brush-core-vendored/`) and rationale are wrong (actual: `crates/vendor/`, vendored for a here-document fix); `pi-shell` has no `ResourceLimits`/`setrlimit` (brush-core's `rlimits` is embedded-safe `ulimit` state).
 
 If budget is reached, post another follow-on preserving the issue note verbatim. Otherwise this should close the issue-121 Rust-core ingest; say so in the result and the maintainer digest.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T16:04:56Z
