@@ -28,15 +28,36 @@ decision, and CI. Check whether the designs named in the arc now exist or have c
 Edit the issue body to correct any box or evidence line that is now wrong. Keep the
 architecture text and the item specs unchanged; only statuses and evidence links move.
 
-## 2. Point the maintainers at the reviews that unblock the most
+## 2. Carry the minion.town pull requests; point the maintainer only at endo
 
-Human review is this garden's scarce input, roughly 50x to 190x machine cost at the
-median (`designs/omega-task-rank-and-foreman-retirement.md` § 0). So identify the
-**smallest set of reviews that unblocks the most arc work**, usually one or two, and say
-what each one unblocks in a single clause.
+**Standing order (maintainer, 2026-10-07; authorization record: journal
+`entries/2026/10/07/203746Z-message-gardener-a253b1.md`).** Review is inverted. The
+maintainer will not review individual `kriscendobot/minion.town` pull requests; he will
+review minion.town as a whole once this arc's objectives (and issue 58's) are satisfied and
+validated automatically in production. **You carry this arc's minion.town PRs through
+review yourself**, with authority "everything, no escalations" for that repository: run the
+gauntlet, fix, weave and restack, shepherd CI, and let the proxy screen merge once
+`scripts/jobs/minion-town-screening.sh status` prints `active` (job
+`widen-minion-town-delegation-supervised-carry` arms it; while it is not active, carry PRs
+to green and un-drafted but do not merge by hand; never resume a `paused` delegation, the
+heal fixer owns that). Post each verb as a board job with a deterministic basename; recurring
+verbs on one target take a `-YYYYMMDD` suffix. Gap-revealing probes stay draft. Close a PR
+that is superseded or already landed, with a one-line reason naming what superseded it. The
+sibling supervisor `minion-town-arc-press` does the same for issue 58; do not duplicate its
+jobs, check the board first.
+
+**The maintainer still reviews every `endojs/endo-but-for-bots` change** that this arc
+necessitates. For those, identify the **smallest set of reviews that unblocks the most arc
+work**, usually one or two, and say what each unblocks in a single clause. Human review is
+the garden's scarce input (roughly 50x to 190x machine cost at the median,
+`designs/omega-task-rank-and-foreman-retirement.md` § 0), so spend it only on endo.
+
+For each objective that has landed, confirm a deterministic production validation exists and
+runs; where one is missing, post the build job. An objective with no automatic validation
+is not done.
 
 **Comment discipline.** Post a comment on the issue ONLY when the recommendation or the
-state has actually changed since your last press comment: a new review ask, a review
+state has actually changed since your last press comment: a new endo review ask, a review
 answered, a PR merged or un-drafted, a design landed, a blocker cleared, or a new blocker.
 When nothing has changed, post nothing and complete with a one-line "no change since
 <timestamp>; still waiting on <the specific review>". A three-hourly comment restating an
