@@ -28,3 +28,13 @@ handler-timeout: 14339
 5. Put a verification section in the PR body: the repro before and after, the engines and versions tested, and the CI links.
 
 **Done when:** #1349 holds the consolidated change with green CI, including the new browser test, and the PR body carries the evidence. Then report back so the liaison can request your review and stage the boatman ferry. Don't merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T21:04:13Z
