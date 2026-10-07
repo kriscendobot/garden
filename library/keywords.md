@@ -146,3 +146,5 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - HTTP request carrier, request carrier leakage, secret in URL, credential in URL, sensitive request data, request logging leakage -> request-carrier-leakage
 - fragment credential, URL fragment secret, hash-fragment bearer, fragment-held key, fragment-held credential, Navigation Timing secret, Performance Timeline secret -> fragment-held-credential
 - leak canary, leak-canary testing, secret propagation test, redaction canary, carrier canary -> leak-canary-testing
+- `pi-iso`, oh-my-pi isolation PAL, `Rcopy`, copy-on-write agent workspace, ProjFS workspace, overlayfs workspace -> pi-iso
+- `pi-shell` minimizer, output minimizer, command output minimization, `artifact://`, `MinimizerConfig`, `CommandPlan` -> pi-shell-output-minimizer
