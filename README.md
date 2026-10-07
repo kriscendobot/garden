@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T11:00:59Z_
+_As of 2026-10-07T11:22:10Z_
 
 ## Latest
 
@@ -1781,19 +1781,20 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.2M | $2023.36 _(notional, rate-card)_ | 108% of 160.0M (backoff) |
+| Claude | 173.2M | $2025.44 _(notional, rate-card)_ | 108% of 160.0M (backoff) |
 | Codex | 10.4M _(+256.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.579158s/45s (/home/kris/garden2/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
+worst fetch p95 3.009958s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`claude-on-minion-town-completion-press-20261007-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261007-112006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1398
 
 ### tada (11361)
