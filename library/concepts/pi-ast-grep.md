@@ -14,6 +14,8 @@ oh-my-pi's `pi-natives` `ast` module exposes ast-grep structural search and rewr
 |---|---|
 | [ast-grep search over injected filesystems](../sections/oh-my-pi--crates-pi-natives-src-ast--ast-grep-search-over-injected-filesystems.md) | Search options, candidate discovery through the injected filesystem, ordering, paging, diagnostics. |
 | [staged, dry-run-by-default structural rewrite](../sections/oh-my-pi--crates-pi-natives-src-ast--staged-dry-run-structural-rewrite.md) | Rewrite defaults, mixed-language rules, edit dedupe, staging, and its non-transactional flush. |
+| [statically linked language registry](../sections/oh-my-pi--crates-pi-ast-src-language-mod--statically-linked-language-registry.md) | The 57 compiled-in tree-sitter languages (no WASM), expando metavariables, HTML injection, inference and aliases. |
+| [shared operations](../sections/oh-my-pi--crates-pi-ast-src-ops--shared-pattern-compile-and-edit-application.md) | Language resolution, JSON multi-node pattern fallback, and the overlap/dedup edit-application rules behind `astEdit`. |
 
 ## See also
 
