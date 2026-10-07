@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T14:37:50Z_
+_As of 2026-10-07T14:39:22Z_
 
 ## Latest
 
@@ -1350,6 +1350,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/883](https://github.com/endojs/endo-but-for-bots/pull/883) ([endojs/endo-but-for-bots#883](https://github.com/endojs/endo-but-for-bots/issues/883)) is in the mergeable queue with NO gauntlet review staged (head 7f6a9a2008e3bfbde4aea0d73f4a072524876c95). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #883'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `msg-oros-health-watch-20261007-143507-64f89ffdee6d` — from gardener:oros-health-watch-20261007-143507, reply_to `oros-health-watch-20261007-143507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-143507-64f89ffdee6d.md)
+
+> UNREACHABLE: Oros remains offline as of 2026-10-07T14:38Z. Fresh journal2 has no active checkup; its schedule is deferred to 2026-10-11T21:00:00Z. The heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred, sysop last applied an op 2026-10-02T05:38:58Z, and heartbeat-offline derotation remains active. Deployed e036bb8e is 187 commits behind main2. I sent no duplicate op because seven reset-failed and one restore are already queued without acknowledgments. A person must check the Mac power/sleep state, Docker Desktop, and VM/container.
+
 - `msg-endojs-endo-but-for-bots-pr1416-review-37d3281c-retro-16a49c9680f3` — from gardener:endojs-endo-but-for-bots-pr1416-review-37d3281c-retro, reply_to `endojs-endo-but-for-bots-pr1416-review-37d3281c-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1416-review-37d3281c-retro-16a49c9680f3.md)
 
 > [endojs/endo-but-for-bots#1416](https://github.com/endojs/endo-but-for-bots/issues/1416) has not merged, even though you approved it with a conduct (merge) request on 2026-10-02.
@@ -1809,7 +1813,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.2M | $166.21 _(notional, rate-card)_ | 10% of 168.0M (ok) |
+| Claude | 17.2M | $166.49 _(notional, rate-card)_ | 10% of 168.0M (ok) |
 | Codex | 4.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 111631335 tokens/day lower bound._
@@ -1823,15 +1827,15 @@ worst fetch p95 4.890480s/45s (/home/kris/garden2/.garden-state/accountant/journ
 
 ### doin (2)
 - [`build-ocapn-tcp-for-test-extraction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ocapn-tcp-for-test-extraction.md) — ---
-- [`oros-health-watch-20261007-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261007-143507.md) — ---
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1124
 
-### tada (11376)
+### tada (11377)
+- [`oros-health-watch-20261007-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-143507.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-viability.md) — Cost
 - [`claude-on-minion-town-press-20261007-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-press-20261007-143507.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1124-weave-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-weave-20261007.md) — Cost
 - [`endojs-endo-but-for-bots-pr1398-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1398-gauntlet — review budget reached
-- [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-fix-6.md) — Fix round 6: endojs/endo-but-for-bots PR #1398
-- … and 11371 more
+- … and 11372 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
