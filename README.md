@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T19:04:14Z_
+_As of 2026-10-07T19:06:18Z_
 
 ## Latest
 
@@ -884,6 +884,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Ingested five source-anchored sections covering oh-my-pi's injectable `pi-vfs`, feature-gated `pi-builtins`, and the first three `pi-natives` search surfaces. The key boundary is now explicit: virtual shell files never need a host representation; native grep and glob honor that provider filesystem, while `fuzzyFind` is currently host-path-only. The remaining native bindings, deeper module docs, divergence-marked explainer, and vendored brush documentation are queued in `scholar-ingest-oh-my-pi-rust-core-3`; see the cycle's result entry for anchors and integrity evidence.
 
+- `endojs-endo-but-for-bots-pr1430-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1430-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1430-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1430-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1430-gauntlet-clean' (clean) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
+
 - `review-request-endojs-endo-but-for-bots-pr832` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr832.md)
 
 > Review request: endojs/endo-but-for-bots PR 832
@@ -988,13 +992,13 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1124
 - [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 
-### tada (11412)
+### tada (11413)
+- [`endojs-endo-but-for-bots-pr1430-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1430-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1430-gauntlet — HALTED
 - [`improve-journal-deepen-retry-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-split.md) — orchestration improve-journal-deepen-retry-split — complete
 - [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-4.md) — Cost
 - [`deadmail-issue-comment-6043211843`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/deadmail-issue-comment-6043211843.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-27b560aeb4c7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-27b560aeb4c7.md) — rolling-deploy canary probe — round trip OK
-- … and 11407 more
+- … and 11408 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
