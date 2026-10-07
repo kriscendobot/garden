@@ -20,13 +20,13 @@ discipline).
 
 Authorization record: journal `entries/2026/10/07/203746Z-message-gardener-a253b1.md`.
 Review is inverted. The maintainer will NOT review individual `kriscendobot/minion.town`
-pull requests. He will review minion.town as a whole once the objectives in issue 58 (and
+pull requests. They will review minion.town as a whole once the objectives in issue 58 (and
 the sibling arc, https://github.com/kriscendobot/garden/issues/89) are satisfied and
 validated automatically in production, and will give corrections then. **You carry the
 pull requests through review yourself**, as needed to make progress on the objectives.
 Authority is "everything, no escalations" for `kriscendobot/minion.town`: workflow, deploy,
 and CD-doc changes are yours to carry too. The maintainer still reviews EVERY change to
-`endojs/endo-but-for-bots` that minion.town work necessitates: for those, point him at the
+`endojs/endo-but-for-bots` that minion.town work necessitates: for those, point the maintainer at the
 one or two reviews that unblock the most, as the claude-on-minion-town press does.
 
 Not authorized: any other repository, upstream `agoric/agoric-sdk`, the ferry, any
