@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684
-priority: normal
-posted_by: gardener
-posted_at: 2026-10-07T05:21:52Z
+role: conductor
+tier: mentor
+arc: minion-town-mcp-ocapn
+handler-budget-role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-07T05:52:06Z cleared=none -->
 
 ---
 role: conductor
