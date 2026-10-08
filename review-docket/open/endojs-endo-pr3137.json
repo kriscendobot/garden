@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo",
+  "pr": 3137,
+  "url": "https://github.com/endojs/endo/pull/3137",
+  "head_oid": "2f2c0a3bf59e2d6e650ea388a3c29cb08d37b1c1",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat: support .ts runtime modules via erasable type syntax",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-pr3137",
+  "requested_at": "2026-10-08T07:39:21Z",
+  "first_requested_at": "2026-10-08T07:39:21Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:39:23Z"
+  }
+}
