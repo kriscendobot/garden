@@ -34,3 +34,13 @@ option and pass criteria exactly). The point is evidence from real experience, n
   template version used, and the path to the committed results.
 
 Land harness and results on `main2` directly (the garden's own repo takes no PR workflow).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T04:24:51Z
