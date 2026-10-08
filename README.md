@@ -1,23 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-08T06:09:50Z_
+_As of 2026-10-08T06:10:53Z_
 
 ## Latest
 
-Most of the recent movement was gauntlet rounds on minion.town:
+No board transitions resolved since the last bulletin. In the gap, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and passed validation, and gauntlet panel and fix rounds continue on minion.town [#94](https://github.com/kriscendobot/minion.town/pull/94), [#122](https://github.com/kriscendobot/minion.town/pull/122), [#169](https://github.com/kriscendobot/minion.town/pull/169) and [#170](https://github.com/kriscendobot/minion.town/pull/170). Three orchestrations halted and need you:
 
-- **New and claimed rounds.** Fix round 2 on [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) finished, and panel round 3 is now posted. Panel round 2 on [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) and fix round 4 on [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) were claimed.
-- **Completed checks.** The viability check on [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) completed. The proxy merged [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) and validated its deploy.
-- **[endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343).** Fix round 6 finished and needs your decision on follow-ups before un-drafting. The integrator seat wants two things: fold the caller migration into the breaking commit so every commit builds, and squash the review commits into the commits they revise. Several seats also suggest a separate issue to move `provideHost` onto `endowments`.
+- **Review docket:** `review-docket-20261008` finished 2 of 3 steps. Its last step, which moves the review requests onto the new docket and messages you its link, failed its retries and is waiting in plan for your go-ahead.
+- **OAuth bonds:** `orch-minion-town-oauth-bonds` stopped because its build reported its required outcome as not met.
+- **Jev triage trial:** `orch-jev-triage-foreman` is blocked until you provide `TYPESAFE_API_KEY`.
 
-What needs your attention:
+Milestone M2 is still waiting on your merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has new commits that no panel has reviewed. Three other decisions are pending:
 
-- **Review docket stalled.** The `review-docket-20261008` orchestration halted at its last child, `review-docket-consolidate-20261008`. That child is held in plan until you promote it. Until then, the 26 review requests the proxy auto-cleared are not on the docket yet.
-- **Halted orchestrations.** Two others stopped because a child reported its gated outcome as unsatisfied:
-  - `orch-minion-town-oauth-bonds` stopped at its build step.
-  - `orch-jev-triage-foreman` is blocked on a missing `TYPESAFE_API_KEY`.
-- **Oros offline.** Oros has now been offline since 2 October and still needs someone to check the Mac in person.
-- **ocap.site.** The domain transfer window opens around 19:55Z on 9 October. Until then, DNSSEC stays broken because the registrar has not published the DS record.
+- **ocap.site DNSSEC:** the domain can transfer to Route53 after about 2026-10-09 19:55Z. Until then, or until the registrar publishes the DS record, DNSSEC stays broken.
+- **minion.town ERTP credits:** you need to choose between building the ERTP credits Phase 1 now and keeping ERTP deferred.
+- **Oros:** the host has been offline since 10-02 and needs someone to check it in person.
+
+The oh-my-pi Rust-core ingest finished all four cycles.
 
 ## Parked for maintainer feedback
 
@@ -82,16 +81,6 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration improve-journal-deepen-retry-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
-
-- `gauntlet-followups-endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6` — from gardener:endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6, reply_to `endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/gauntlet-followups-endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6.md)
-
-> Gauntlet stage "endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6" ("endojs-endo-but-for-bots-pr1343-gauntlet-20261007", stage "fix") completed and reported additional follow-ups that require maintainer disposition. The deterministic gauntlet driver owns only the next-panel transition; this escalation was forwarded before the child completed.
->
-> ## Follow-ups
-> - Several seats suggested a separate issue to move `provideHost` onto `endowments` (ordinary keys only).
-> - The integrator seat suggested two things before un-drafting:
->   - Fold the caller migration from `16de8967d` into the breaking `aa1aaa9cc` commit, so every commit builds on its own.
->   - Squash the review follow-up commits into the commits they revise.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -542,7 +531,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.9M | $644.64 _(notional, rate-card)_ | 52% of 168.0M (ok) |
+| Claude | 87.6M | $650.04 _(notional, rate-card)_ | 52% of 168.0M (ok) |
 | Codex | 11.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121536515 tokens/day lower bound._
