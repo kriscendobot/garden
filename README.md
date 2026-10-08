@@ -1,10 +1,18 @@
 # Garden bulletin
 
-_As of 2026-10-08T19:09:56Z_
+_As of 2026-10-08T19:22:14Z_
 
 ## Latest
 
-The ci.minion.town landing moved forward: the land step for [minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) finished its panel-head freshness check, and the merge step left the plan queue and is now in progress. That was the only board movement since the last bulletin. Oros (`oros-studio-garden-ce242c49`) is back online after six days and is heartbeating and claiming work again. However, as the rolling-deploy canary it is stuck at `2e8aedf` and has not deployed `c185ee5f`, which holds back the leader's own deploy. A restart of `garden-self-deploy` is queued for Oros but has not been acknowledged yet. If the queue does not drain, someone needs to check the sysop on that machine. The GitHub Actions billing block on the kriscendobot account came up again today and is still holding minion.town CI. The Claude subscription for this window has reached its full quota and is running in backoff.
+Little moved on the board: two new jobs were posted. One is a fresh [minion.town](https://github.com/kriscendobot/minion.town) arc press. The other is `minion-town-ci-runner-deploy-verify-50aa690`, which will verify the ci.minion.town deploy once [minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) merges; that merge job is already in progress.
+
+The bigger news is Oros. It is heartbeating again and has rejoined the canary rotation. But its rolling deploy to `c185ee5f` has been stuck at `2e8aedf` for over an hour. A sysop restart of `garden-self-deploy.timer` is queued but hasn't been acknowledged. Until Oros advances, the leader won't deploy itself, so if the sysop doesn't resume, someone needs to check `garden-sysop` and `garden-self-deploy` on the Mac.
+
+Three things are waiting on the maintainer:
+
+- **Review docket stalled.** The review-docket orchestration halted at 2 of 3 steps. Its last step, `review-docket-consolidate-20261008`, is held in the plan queue and needs a promote or a split. That is why the consolidated docket message hasn't gone out.
+- **Claude quota exhausted.** Claude spend is at 100% of the `claude-endolin2` window until the 10-10 03:00Z reset.
+- **GitHub Actions still blocked.** Billing for the kriscendobot account is still refusing to start jobs (most recently on [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153)), so minion.town CI is waiting on the billing fix or on ci.minion.town.
 
 ## Maintainer review docket
 
@@ -523,6 +531,10 @@ Delegation: **active**
 
 > Ingested five source-anchored sections covering oh-my-pi's injectable `pi-vfs`, feature-gated `pi-builtins`, and the first three `pi-natives` search surfaces. The key boundary is now explicit: virtual shell files never need a host representation; native grep and glob honor that provider filesystem, while `fuzzyFind` is currently host-path-only. The remaining native bindings, deeper module docs, divergence-marked explainer, and vendored brush documentation are queued in `scholar-ingest-oh-my-pi-rust-core-3`; see the cycle's result entry for anchors and integrity evidence.
 
+- `msg-design-endo-formula-identifier-indirection-070bee4caccf` — from gardener:design-endo-formula-identifier-indirection, reply_to `design-endo-formula-identifier-indirection` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-design-endo-formula-identifier-indirection-070bee4caccf.md)
+
+> Draft design PR: [https://github.com/endojs/endo-but-for-bots/pull/1433](https://github.com/endojs/endo-but-for-bots/pull/1433) — please read “Direction, analogy, and speculation” first, especially the verified ocap-kernel limits that motivate the stateful per-share registry.
+
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr1-8d6b46c914ed` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr1-8d6b46c914ed.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/moddable/pull/1](https://github.com/kriscendobot/moddable/pull/1) ([kriscendobot/moddable#1](https://github.com/kriscendobot/moddable/issues/1)) is in the mergeable queue with NO gauntlet review staged (head 8d6b46c914edc4e523c58053410e35332e40186c). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -581,17 +593,19 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.3M | $1190.14 _(notional, rate-card)_ | 100% of 168.0M (backoff) |
-| Codex | 15.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Claude | 168.8M | $1193.73 _(notional, rate-card)_ | 100% of 168.0M (backoff) |
+| Codex | 15.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123119366 tokens/day lower bound._
+_Fleet token-unlock pace: 123153846 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (3)
+- [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261008-192023.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
+- [`minion-town-ci-runner-deploy-verify-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-ci-runner-deploy-verify-50aa690.md) — ---
 
 ### doin (4)
 - [`minion-town-pr145-ci-runner-merge-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr145-ci-runner-merge-20261008.md) — Land ci.minion.town (kriscendobot/minion.town#145), part 2: merge
