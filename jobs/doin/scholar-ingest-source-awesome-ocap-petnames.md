@@ -52,3 +52,13 @@ never over GitHub comments).
    Do not post anything on GitHub.
 3. Post the usual maintainer-facing ingest digest (`message-user.sh`), kept to the high-level
    summary and the library paths.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T20:16:39Z
