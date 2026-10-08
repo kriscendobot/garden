@@ -1,10 +1,9 @@
 ---
-gate: deferred
-priority: normal
+role: fixer
+tier: mentor
 arc: endo-ocapn-background
-posted_by: producer
-posted_at: 2026-10-07T21:30:07Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-08T09:29:44Z cleared=none -->
 
 ---
 role: fixer
