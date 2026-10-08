@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/dapp-agoric-basics",
+  "pr": 68,
+  "url": "https://github.com/Agoric/dapp-agoric-basics/pull/68",
+  "head_oid": "91a5bca1cfcfb037614e17370727412868714ccf",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "chore: port sell contract to .ts",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-dapp-agoric-basics-pr68",
+  "requested_at": "2026-10-08T07:35:51Z",
+  "first_requested_at": "2026-10-08T07:35:51Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:35:54Z"
+  }
+}
