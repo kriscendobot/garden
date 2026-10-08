@@ -221,6 +221,31 @@ child_snapshot_file() {  # <snapshot> <location> <child> <destination>
   git -C "$DIR" show "$snapshot:$path" > "$destination" 2>/dev/null
 }
 
+# A serial child may need code produced by an earlier child to be live on the
+# leader, not merely committed. The child declares `deployed_predecessor` and
+# either pins `deployed_predecessor_sha` or relies on a `landed-sha` field in the
+# predecessor's tada report. Keep deployment polling here, outside agent claims.
+deployed_predecessor_ready() { # <parked-child>; 0 ready/no gate, 1 hold
+  local child="$1" predecessor required report leader deployed
+  local plan="$DIR/$JOBS_PLAN/$child.md"
+  predecessor="$(plan_field "$plan" deployed_predecessor)"
+  [ -n "$predecessor" ] || return 0
+  required="$(plan_field "$plan" deployed_predecessor_sha)"
+  report="$(tada_find "$DIR" "$predecessor" || true)"
+  [ -n "$required" ] || [ -z "$report" ] || required="$(plan_field "$DIR/$report" landed-sha)"
+  if ! [[ "$required" =~ ^[0-9a-fA-F]{7,40}$ ]]; then
+    log "orchestration: holding '$child' — deployed predecessor '$predecessor' has no valid landed-sha"
+    return 1
+  fi
+  leader="$(head -1 "$DIR/${GARDEN_LEADER_MARKER_PATH:-leader}" 2>/dev/null | tr -d '[:space:]')"
+  [ -n "$leader" ] || { log "orchestration: holding '$child' — fleet leader is unknown"; return 1; }
+  deployed="$(head -1 "$DIR/$GARDEN_FLEET_DEPLOYED_PATH/$leader" 2>/dev/null | tr -d '[:space:]')"
+  case "${deployed,,}" in
+    "${required,,}"*) return 0 ;;
+    *) log "orchestration: holding '$child' — predecessor '$predecessor' requires leader '$leader' deployed at ${required:0:12} (currently ${deployed:0:12})"; return 1 ;;
+  esac
+}
+
 # Did a completed child explicitly stop at an authentication boundary that only a
 # maintainer can cross? Keep this marker narrower than tada_failed: unavailable
 # interactive auth is a parked validation outcome, not evidence that the deploy or
@@ -845,6 +870,7 @@ advance_serial() {  # <base> <policy> <child>...
         if [ "$(plan_gate "$DIR/$JOBS_PLAN/$c.md")" = blocked ]; then
           return 0
         fi
+        deployed_predecessor_ready "$c" || return 0
         # DEFENSE-IN-DEPTH serial gate: a serial run must have AT MOST ONE child in
         # flight. The ordered loop above already returns at the first active child, but
         # if an earlier sibling were momentarily MISCLASSIFIED as terminal (a live child

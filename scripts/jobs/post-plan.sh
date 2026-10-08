@@ -146,6 +146,10 @@ Usage:
   --not-before ISO-UTC     earliest foreman promotion instant; stored canonically.
   --blocked-on ARTIFACT    the blocker (PR URL or job basename); required with --blocked.
   --orchestrated-by ORCH   the owning orchestration base; required with --orchestrated.
+  --deployed-predecessor CHILD
+                           hold until CHILD's landed SHA is deployed on the leader.
+  --deployed-predecessor-sha SHA
+                           explicit required SHA (otherwise CHILD's landed-sha field).
                            A failed child ends its report with the exact lines
                            <<<GARDEN-ORCHESTRATION-FAILED>>>
                            <<<GARDEN-JOB-COMPLETE>>>
@@ -174,6 +178,8 @@ priority="normal"
 roadmap=""
 blocked_on=""
 orchestrated_by=""
+deployed_predecessor=""
+deployed_predecessor_sha=""
 split_indivisible_reason=""
 split_indivisible_handler_timeout=""
 maintainer_question=""
@@ -199,6 +205,8 @@ while [ $# -gt 0 ]; do
     --question) maintainer_question="${2:?--question needs a value}"; shift 2;;
     --asked-at) asked_at="${2:?--asked-at needs a URL}"; shift 2;;
     --orchestrated-by) orchestrated_by="${2:?--orchestrated-by needs a value}"; shift 2;;
+    --deployed-predecessor) deployed_predecessor="${2:?--deployed-predecessor needs a value}"; shift 2;;
+    --deployed-predecessor-sha) deployed_predecessor_sha="${2:?--deployed-predecessor-sha needs a value}"; shift 2;;
     --split-indivisible-reason) split_indivisible_reason="${2:?--split-indivisible-reason needs a value}"; shift 2;;
     --split-indivisible-handler-timeout) split_indivisible_handler_timeout="${2:?--split-indivisible-handler-timeout needs seconds}"; shift 2;;
     --priority)   priority="${2:?--priority needs a value}"; shift 2;;
@@ -247,6 +255,15 @@ if [ "$gate" = "orchestrated" ] && [ -z "$orchestrated_by" ]; then
 fi
 if [ "$gate" != "orchestrated" ] && [ -n "$orchestrated_by" ]; then
   die "--orchestrated-by is only valid with --orchestrated"
+fi
+if [ -n "$deployed_predecessor" ] && [ "$gate" != orchestrated ]; then
+  die "--deployed-predecessor is only valid with --orchestrated"
+fi
+if [ -n "$deployed_predecessor_sha" ] && [ -z "$deployed_predecessor" ]; then
+  die "--deployed-predecessor-sha requires --deployed-predecessor"
+fi
+if [ -n "$deployed_predecessor_sha" ] && ! [[ "$deployed_predecessor_sha" =~ ^[0-9a-fA-F]{7,40}$ ]]; then
+  die "--deployed-predecessor-sha must be a 7-40 digit hexadecimal SHA"
 fi
 # Indivisible split evidence is one atomic pair on the parked child. Requiring
 # the producer options here prevents a reason in prose from drifting away from
@@ -366,6 +383,8 @@ compose() {
   fi
   [ -n "$blocked_on" ] && printf 'blocked_on: %s\n' "$blocked_on"
   [ -n "$orchestrated_by" ] && printf 'orchestrated_by: %s\n' "$orchestrated_by"
+  [ -n "$deployed_predecessor" ] && printf 'deployed_predecessor: %s\n' "$deployed_predecessor"
+  [ -n "$deployed_predecessor_sha" ] && printf 'deployed_predecessor_sha: %s\n' "$deployed_predecessor_sha"
   if [ -n "$split_indivisible_reason" ]; then
     printf 'handler-timeout: %s\n' "$split_indivisible_handler_timeout"
     printf 'split-indivisible-reason: %s\n' \

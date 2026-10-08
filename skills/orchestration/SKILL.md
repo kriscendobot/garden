@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-10-07
+updated: 2026-10-08
 author: gardener, builder
 ---
 
@@ -43,6 +43,12 @@ progress, and applies a failure policy rather than silently stalling.
   ---
   <human description of the multi-part work>
   ```
+
+  A serial child that needs a predecessor's garden code deployed is parked with
+  `post-plan.sh --deployed-predecessor <child>`. Its predecessor tada report
+  declares `landed-sha: <git-sha>`; `--deployed-predecessor-sha <git-sha>` may
+  pin it explicitly. The watcher keeps the child parked until
+  `fleet/deployed/<leader>` reports that SHA.
 
   `jobs/orch/` sits alongside `todo/doin/tada` but **outside** the claim lifecycle
   (like `plan/` and `index/`): never claimed, never reaped.
