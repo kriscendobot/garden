@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10196,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10196",
+  "head_oid": "3f40574d6aa2f2637e374a393e445e70f24895ba",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump axios from 1.6.8 to 1.7.7 in /a3p-integration/proposals/s:stake-bld",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10196",
+  "requested_at": "2026-10-08T07:25:33Z",
+  "first_requested_at": "2026-10-08T07:25:33Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:25:37Z"
+  }
+}
