@@ -41,3 +41,13 @@ dispatch: automatic
 - tests, an operator page under `context/operations/`, and inventory updates in CLAUDE.md and README if a role or skill is added
 
 `/tmp` is noexec on these hosts, so tests need an exec-capable `TMPDIR`. Deploys roll through the canary. **Don't touch maintainer inbox contents yet;** child 3 does the migration.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T04:29:06Z
