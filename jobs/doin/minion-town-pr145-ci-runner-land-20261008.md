@@ -36,3 +36,13 @@ Done: #145 is ready for review on a current frozen base, with CI green on `ci.mi
 <!-- garden-annotation: key=cc627e8c389f by=producer at=2026-10-08T18:30:07Z fields=priority=high -->
 
 Maintainer 2026-10-08: high priority, billing block stops all minion.town shepherds.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T18:33:52Z
