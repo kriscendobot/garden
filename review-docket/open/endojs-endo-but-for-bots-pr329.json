@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 329,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/329",
+  "head_oid": "a9624e71c75dd2267a35417ef54fbfaa6fc93c8c",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "docs: introduce spackle, the polyfill+ponyfill race pattern",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr329",
+  "requested_at": "2026-10-08T07:41:05Z",
+  "first_requested_at": "2026-10-08T07:41:05Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:41:32Z"
+  }
+}
