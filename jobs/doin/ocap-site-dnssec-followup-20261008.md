@@ -30,3 +30,13 @@ been registered recently... must wait 60 days after registration."
    a fresh registrar authorization code are needed from the maintainer
    each time, so just report status and let the liaison/maintainer decide
    next steps.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-08T01:21:38Z
