@@ -66,3 +66,13 @@ match the existing `docs/` pages and `docs/house-style/`.
 Open the PR as a DRAFT; the automatic gauntlet (clean, panel, fix-loop, un-draft) follows. The
 maintainer reviews every change to Endo, so finish by sending the PR link to the maintainer
 inbox with one sentence naming what to check first (the Endo-behavior section).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T20:07:18Z
