@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 101,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/101",
+  "head_oid": "f1d411788f1d5c1fc3edb5c03798229ee1b0526f",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(chat): voice input via Web Speech API",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr101",
+  "requested_at": "2026-10-08T07:39:31Z",
+  "first_requested_at": "2026-10-08T07:39:31Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:39:33Z"
+  }
+}
