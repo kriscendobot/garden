@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 990,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/990",
+  "head_oid": "8340019845db656361a4260aefcb3582cb58b2ca",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(slots): separate OCapN operation lanes (get / index / untag)",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr990",
+  "requested_at": "2026-10-08T07:43:24Z",
+  "first_requested_at": "2026-10-08T07:43:24Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-08T07:43:35Z"
+  }
+}
