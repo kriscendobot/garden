@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T01:12:15Z_
+_As of 2026-10-08T01:17:54Z_
 
 ## Latest
 
@@ -965,7 +965,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.4M | $418.70 _(notional, rate-card)_ | 31% of 168.0M (ok) |
+| Claude | 53.1M | $422.95 _(notional, rate-card)_ | 32% of 168.0M (ok) |
 | Codex | 8.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 119904871 tokens/day lower bound._
@@ -977,20 +977,20 @@ worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 ### todo (3)
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1431
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
-- [`kriscendobot-minion.town-pr169-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #169
+- [`kriscendobot-minion.town-pr168-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #168
 
 ### doin (3)
 - [`kriscendobot-minion.town-pr166-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #166
+- [`kriscendobot-minion.town-pr169-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #169
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1343
-- [`kriscendobot-minion.town-pr168-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #168
 
-### tada (11533)
+### tada (11534)
+- [`kriscendobot-minion.town-pr168-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr168-gauntlet-fix-4.md) — Cost
 - [`kriscendobot-minion.town-pr167-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr167-gauntlet.md) — gauntlet kriscendobot-minion.town-pr167-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr169-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-fix-4.md) — Cost
 - [`kriscendobot-minion.town-pr167-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr167-gauntlet-fix-6.md) — Cost
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr94-gauntlet-20261008-clean.md) — Clean stage report: kriscendobot/minion.town PR #94
-- [`kriscendobot-minion.town-pr169-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-panel-4.md) — Panel round 4: kriscendobot/minion.town PR #169: must-fix
-- … and 11528 more
+- … and 11529 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
