@@ -1,8 +1,8 @@
-once: 2026-10-08T01:11:28Z
-job_basename_prefix: ocap-site-dnssec-followup-20261008
----
 ---
 role: gardener
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # One-week follow-up: ocap.site DNSSEC / domain transfer
