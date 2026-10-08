@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo",
+  "pr": 2673,
+  "url": "https://github.com/endojs/endo/pull/2673",
+  "head_oid": "5c6c9b5b4263ec4a96ba826b8ac60532bf0ed104",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(non-trapping-shim): opt-in shim of the non-trapping integrity trait",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-pr2673",
+  "requested_at": "2026-10-08T07:37:15Z",
+  "first_requested_at": "2026-10-08T07:37:15Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:37:17Z"
+  }
+}
