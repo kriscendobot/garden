@@ -35,3 +35,8 @@ content — drop it from the ferried set per the standing "drop bot
 bookkeeping" discipline (skills/pr-handoff/SKILL.md), same as any other
 internal-process artifact. Everything else in the PR is substantive `main/`
 documentation content.
+
+---
+ferry_claim:
+  host: kmkmbp2026
+  claimed_at: 2026-10-08T20:57:31Z
