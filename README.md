@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T03:59:33Z_
+_As of 2026-10-08T04:01:33Z_
 
 ## Latest
 
-Little moved since the last bulletin. The `improve-retry-deploy-unit-restart` garden fix completed. A shepherd claimed [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) to fix its red CI, and FIX round 2 of that PR's gauntlet is also running. The proxy screened [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) at `43a1387`. Two standing items still need you. Oros is still offline and 198 commits behind `main2`, and only someone with physical access to the Mac can bring it back. The ocap.site transfer into Route53 should become possible after 2026-10-09 19:55Z; until then, DNSSEC stays broken unless Key-Systems publishes the DS record.
+The proxy screened a new head (`e0b95d1`) of [kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) and posted a delegated-merge conduct job for it, replacing the earlier screening at `43a1387`. That is the only board change since the last bulletin. The maintainer still has two open decisions: whether to post the ERTP Phase 1 build for the minion.town credits charge, and whether to start the ocap.site transfer after 2026-10-09 19:55Z or ask the registrar to publish the DS record. The Oros host is still offline and needs a person to check it.
 
 ## Parked for maintainer feedback
 
@@ -24,6 +24,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 Delegation: **active**
 
+- 2026-10-08T04:00:07Z [#143](https://github.com/kriscendobot/minion.town/pull/143) `e0b95d10de8` screened
 - 2026-10-08T03:50:52Z [#143](https://github.com/kriscendobot/minion.town/pull/143) `43a1387084e` screened
 
 ## Messages to the maintainer
@@ -397,7 +398,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.6M | $499.26 _(notional, rate-card)_ | 39% of 168.0M (ok) |
+| Claude | 65.8M | $501.09 _(notional, rate-card)_ | 39% of 168.0M (ok) |
 | Codex | 9.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120980186 tokens/day lower bound._
@@ -406,11 +407,12 @@ _Fleet token-unlock pace: 120980186 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #169
 - [`kriscendobot-minion.town-pr168-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #168
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #122
 - [`kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #130
+- [`screen-minion-town-pr143-e0b95d1-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr143-e0b95d1-conduct.md) — Screened delegated merge: kriscendobot/minion.town#143 at e0b95d10de8df4349d7...
 
 ### doin (5)
 - [`fix-garden-daemon-reload-timer-starvation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-garden-daemon-reload-timer-starvation.md) — fix: daemon-reload storm starves never-fired monotonic timers (garden-proxy, ...
