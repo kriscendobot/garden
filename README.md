@@ -1,15 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-08T08:51:42Z_
+_As of 2026-10-08T08:55:14Z_
 
 ## Latest
 
-The gauntlet for [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) halted at its clean stage: the clean report declared its gated outcome failed, so the stage was not retried. A weave is now in progress to rebase that PR onto a base that contains [endo-but-for-bots#468](https://github.com/endojs/endo-but-for-bots/pull/468). The Claude-on-minion.town press is also running. Of the waiting items, these need your attention:
+Little moved on the board this interval. A gardener claimed `improve-gauntlet-quota-aware-terminal-receipt`, and this hour's Claude-on-minion.town press job went from doin back to todo, so it is waiting for another claim. The [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) weave is still in progress after its gauntlet halted.
 
-- **Review docket stalled at its last step.** The `review-docket-20261008` orchestration halted because `review-docket-consolidate-20261008` was doomed. It is parked in plan until you promote it. That is the step meant to move the 26 auto-cleared review requests onto the new docket and send you its URL.
-- **GitHub Actions billing.** Actions won't start jobs for the kriscendobot account because of a billing failure. This is blocking [minion.town#166](https://github.com/kriscendobot/minion.town/issues/166), and no push can fix it.
-- **ocap.site domain transfer.** The domain becomes eligible for transfer around 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published, either after the transfer or by Key-Systems publishing it. Which route to take is your decision.
-- **Oros host.** Oros has been offline since 2026-10-02 and is waiting on a person to check the Mac, Docker Desktop and the VM/container runtime.
+Four items need the maintainer:
+
+- **Review docket stalled.** The `review-docket-20261008` orchestration halted at its last step. The consolidation child job failed twice and the reaper parked it in plan, so it waits for your go-ahead. The 26 review requests that the proxy auto-clear archived have not yet been moved into the docket.
+- **GitHub Actions blocked by billing.** GitHub Actions will not start jobs on the `kriscendobot` account because of a payment or spending-limit problem, most recently on [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/issues/166). No code change can fix this; the billing settings for `kriscendobot` must be updated.
+- **Oros host offline.** The Oros host has been offline since 2026-10-02 and needs someone to physically check the Mac and its Docker setup.
+- **ocap.site transfer window.** ocap.site can be transferred from about 2026-10-09 19:55Z, and its DNSSEC chain stays broken until that transfer happens or the current registrar publishes the DS record.
 
 ## Maintainer review docket
 
@@ -101,10 +103,6 @@ Delegation: **active**
 > Headline: the explainer is useful for orientation only. Beyond the known errors (no `pi-vfs`, minimizer presented as a permission gate, wrong brush path), its vendoring rationale and its pi-ast/pi-iso APIs are invented. brush-parser is actually vendored to fix here-documents inside `$(...)`. Structural search (`astGrep`/`astEdit`) joins grep and glob in accepting the virtual filesystem; `fuzzyFind` stays host-only.
 >
 > The deeper pi-iso/pi-ast/pi-shell module docs and `shell/vfs.rs` are queued as `scholar-ingest-oh-my-pi-rust-core-4`. Result: journal entries/2026/10/07/160447Z-result-gardener-1327b8.md
-
-- `endojs-endo-but-for-bots-pr586-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr586-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr586-gauntlet-20261007-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr586-gauntlet-20261007 HALTED: stage 'endojs-endo-but-for-bots-pr586-gauntlet-20261007-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal.md)
 
@@ -551,7 +549,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.0M | $866.10 _(notional, rate-card)_ | 71% of 168.0M (ok) |
+| Claude | 120.3M | $867.60 _(notional, rate-card)_ | 72% of 168.0M (ok) |
 | Codex | 12.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122136362 tokens/day lower bound._
@@ -560,11 +558,12 @@ _Fleet token-unlock pace: 122136362 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #258
+- [`claude-on-minion-town-press-20261008-083508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-083508.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (2)
-- [`claude-on-minion-town-press-20261008-083508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261008-083508.md) — Press the Claude-on-minion.town arc forward
+- [`improve-gauntlet-quota-aware-terminal-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-quota-aware-terminal-receipt.md) — ---
 - [`endojs-endo-but-for-bots-pr586-weave-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-weave-20261008.md) — Weave endojs/endo-but-for-bots PR #586 onto a base that contains #468
 
 ### tada (11691)
