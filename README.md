@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T02:14:48Z_
+_As of 2026-10-08T02:17:22Z_
 
 ## Latest
 
@@ -983,7 +983,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.1M | $462.61 _(notional, rate-card)_ | 36% of 168.0M (ok) |
+| Claude | 60.1M | $462.64 _(notional, rate-card)_ | 36% of 168.0M (ok) |
 | Codex | 8.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121433963 tokens/day lower bound._
@@ -996,8 +996,9 @@ worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1431
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1343
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #168
+- [`kriscendobot-minion.town-pr169-conduct-prod-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-conduct-prod-validate.md) — ---
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr166-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #166
 
@@ -1141,7 +1142,6 @@ worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
-- [`kriscendobot-minion.town-pr169-conduct-prod-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr169-conduct-prod-validate.md) — awaiting `kriscendobot-minion.town-pr169-gauntlet` · ---
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`book-hyperlink-references-after-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-after-copyedit-20261004.md) — awaiting `https://github.com/kriscendobot/garden-book/pull/8` · Follow-up: make every reference in Better Code and Gardens an actual hyperlink
