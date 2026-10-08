@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1349,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1349",
+  "head_oid": "32be2c61d3b8bab6fc455cb572b83a1c9d058096",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr1349",
+  "requested_at": "2026-10-08T07:44:34Z",
+  "first_requested_at": "2026-10-08T07:44:34Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:44:37Z"
+  }
+}
