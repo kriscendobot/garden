@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: review-docket-20261008
-priority: normal
+role: fixer
+tier: mentor
 arc: garden-upkeep
-posted_by: producer
-posted_at: 2026-10-08T04:17:24Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-08T05:21:39Z cleared=none -->
 
 ---
 role: fixer
