@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11095,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11095",
+  "head_oid": "fe70521e9be3eac85cc885f0f29791609afe7f2d",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "chore: remove redundant words in comment",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11095",
+  "requested_at": "2026-10-08T07:29:20Z",
+  "first_requested_at": "2026-10-08T07:29:20Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:29:23Z"
+  }
+}
