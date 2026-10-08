@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10205,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10205",
+  "head_oid": "97b11053991062902534ded20b584ca20c08c01e",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump braces from 3.0.2 to 3.0.3 in /a3p-integration/proposals/s:stake-bld",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10205",
+  "requested_at": "2026-10-08T07:26:25Z",
+  "first_requested_at": "2026-10-08T07:26:25Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:27:32Z"
+  }
+}
