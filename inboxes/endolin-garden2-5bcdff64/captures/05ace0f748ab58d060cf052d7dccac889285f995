@@ -1,0 +1,20 @@
+elapsed-constancy exit0-wedge-suspect: review-docket-consolidate-20261008
+
+gardener-1 on endolin-garden2-5bcdff64: job review-docket-consolidate-20261008 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 41,52s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>05:44:35 [cleric/1] resuming codex session 01a119f6-6d9b-7f62-8da3-ed5149083699 for job 'review-docket-consolidate-20261008' that STOPPED without completing; continue framing
+<6>05:44:35 [cleric/1] job 'review-docket-consolidate-20261008' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>05:44:35 [cleric/1] job 'review-docket-consolidate-20261008' attaching minion.town MCP (stdio bridge as minion-town)
+<6>05:44:49 [cleric/1] job 'review-docket-consolidate-20261008' ended its turn without the completion signal; nudging codex session 01a119f6-6d9b-7f62-8da3-ed5149083699 to verify and complete (nudge 1/1)
