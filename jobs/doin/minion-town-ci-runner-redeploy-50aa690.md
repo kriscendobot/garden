@@ -20,6 +20,8 @@ Task (do not change the code; any defect found becomes a separate fix job):
 5. With an identity that can read the variables and runners APIs, confirm CI_RUNS_ON is unset or self-hosted. Wait at least 10 minutes after the restart, then confirm that no orphaned or offline `ci-minion-town-*` registrations remain after the prune sweep.
 Report to the maintainer (scripts/jobs/message-user.sh): in sync or redeployed, the selftest run URL, and any open operator item.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
