@@ -42,6 +42,7 @@ dispatch: automatic
 <!-- garden-plain-retry-not-before: 2026-10-08T05:43:45Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=41,52 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
