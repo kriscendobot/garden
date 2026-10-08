@@ -1,6 +1,6 @@
 ---
 created: 2026-09-30
-updated: 2026-09-30
+updated: 2026-10-08
 author: gardener
 ---
 
@@ -55,14 +55,17 @@ the $50 line that needs maintainer approval.
 - **Rotate the credential.** Run
   `printf '{"token":"%s"}' "$NEW" | ./provision-ci-runner.sh --seed-token-stdin`.
   The Lambda reads the secret per mint, so no redeploy is needed. The seed
-  today is the kriscendobot `gh` OAuth token, which is broad. Replacing it with
-  a fine-grained PAT (Administration: write on minion.town only) is a
-  maintainer act.
+  is the kriscendobot `gh` OAuth token, which is broad. The maintainer decided
+  to keep it (2026-10-08): a fine-grained PAT expires, and renewing it would
+  need human intervention.
 - **Scale up.** For a bigger instance, stop the host, run
   `modify-instance-attribute --instance-type`, and start it again. For
   parallel jobs, add a second host; the provisioner handles one host today.
-- **Fall back to hosted runners.** Set the minion.town repo variable
-  `CI_RUNS_ON` to `"ubuntu-latest"`.
+- **Switch between hosted and self-hosted.** Use the repo variable
+  `CI_RUNS_ON`: `"ubuntu-latest"` means hosted, and leaving it unset means
+  self-hosted. The procedure, including when to switch and how to schedule the
+  switch back after the monthly billing reset, is the skill
+  [minion-town-ci-runner-switch](../../skills/minion-town-ci-runner-switch/SKILL.md).
 - **Tear down.** Set the fallback variable, then run `./teardown-ci-runner.sh`.
   Add `PURGE_SECRET=1` to also delete the credential.
 
