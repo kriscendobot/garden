@@ -19,10 +19,39 @@
 # Expects common.sh already sourced by the caller (for log / unit_ctl /
 # GARDEN_ROOT / GARDEN_STATE / fleet_draining).
 
+: "${GARDEN_DEPLOY_RESTART_ATTEMPTS:=3}"
+: "${GARDEN_DEPLOY_RESTART_RETRY_DELAY:=2}"
+
 # List the currently-active instances of a unit (glob) pattern, one unit per line.
 # `list-units` (without --all) reports active units; the first field is the unit.
 _restart_active_units() {
   unit_ctl list-units "$1" --no-legend 2>/dev/null | awk '{print $1}'
+}
+
+# Restart one unit, retrying transient systemd job races after a short delay.
+# This helper runs in a background subshell for each unit, so the delay for one
+# failed unit does not hold up successful siblings or serialize the fleet wave.
+_restart_unit_with_retry() {
+  local unit="${1:?unit}" attempts="$GARDEN_DEPLOY_RESTART_ATTEMPTS"
+  local delay="$GARDEN_DEPLOY_RESTART_RETRY_DELAY" attempt=1
+
+  case "$attempts" in ''|*[!0-9]*|0) attempts=3 ;; esac
+  case "$delay" in ''|*[!0-9]*) delay=2 ;; esac
+
+  while ! unit_ctl restart "$unit" >/dev/null 2>&1; do
+    if [ "$attempt" -ge "$attempts" ]; then
+      log "WARN: restart of $unit failed after $attempt attempt(s)"
+      return 1
+    fi
+    log "WARN: restart of $unit failed (attempt $attempt/$attempts); retrying in ${delay}s"
+    sleep "$delay"
+    attempt=$((attempt+1))
+  done
+
+  if [ "$attempt" -gt 1 ]; then
+    log "restart: $unit recovered on attempt $attempt/$attempts"
+  fi
+  return 0
 }
 
 # restart_long_running_fleet <old_sha> <new_sha> [<gardener-busy-gate:1|0>]
@@ -134,17 +163,17 @@ restart_long_running_fleet() {
   # Each unit keeps its own `unit_ctl restart` invocation so per-unit accounting
   # and failure isolation are preserved (one bad unit does not abort the wave).
   if [ "${#to_restart[@]}" -gt 0 ]; then
-    local -a pids=() ulist=()
+    local -a pids=()
     for unit in "${to_restart[@]}"; do
-      unit_ctl restart "$unit" >/dev/null 2>&1 &
-      pids+=("$!"); ulist+=("$unit")
+      _restart_unit_with_retry "$unit" &
+      pids+=("$!")
     done
     local i
     for i in "${!pids[@]}"; do
       if wait "${pids[$i]}"; then
         restarted=$((restarted+1))
       else
-        log "WARN: restart of ${ulist[$i]} failed"; failed=$((failed+1))
+        failed=$((failed+1))
       fi
     done
   fi

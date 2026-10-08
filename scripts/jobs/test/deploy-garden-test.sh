@@ -661,18 +661,37 @@ done
 grep -q "restart complete: restarted=6 " <<<"$OUT" && ok "restart count = 6 (5 gardeners + bulletin)" || bad "restart count wrong: $(grep 'restart complete' <<<"$OUT")"
 
 # ============================================================================
-hr; echo "RESTART FAILURE ISOLATION — one failing unit is counted, the rest restart"; hr
-# A single unit whose restart fails must NOT abort the wave: the others still
-# restart and the failure is accounted (failed=1), not fatal to the deploy.
+hr; echo "TRANSIENT RESTART RETRY — one racing unit recovers without holding siblings"; hr
+setup_fixture
+printf '%s\n' garden-monk@1.service garden-monk@2.service \
+             garden-monk@3.service > "$TR/armed"
+origin_commit scripts/jobs/worker-lib.sh "echo newretry" "fix: worker-lib retry"
+run_deploy GARDEN_MOCK_FAIL_UNIT=garden-monk@2.service \
+  GARDEN_MOCK_FAIL_RESTART_COUNT=1 GARDEN_DEPLOY_RESTART_RETRY_DELAY=0
+[ "$RC" -eq 0 ] && ok "deploy succeeds when a unit restart recovers on retry" || bad "exit $RC: $OUT"
+[ "$(grep -cF 'restart garden-monk@2.service' "$TR/log")" -eq 2 ] \
+  && ok "the transiently failing unit is retried once" || bad "restart retry count wrong: $(cat "$TR/log")"
+grep -q "restart: garden-monk@2.service recovered on attempt 2/3" <<<"$OUT" \
+  && ok "recovery attempt is logged" || bad "restart recovery not logged: $OUT"
+grep -q "restart complete: restarted=3 deferred(mid-job)=0 failed=0 " <<<"$OUT" \
+  && ok "accounting counts recovered unit as restarted" || bad "accounting wrong: $(grep 'restart complete' <<<"$OUT")"
+
+# ============================================================================
+hr; echo "RESTART FAILURE ISOLATION — one persistently failing unit is counted after retries"; hr
+# A single unit whose restart keeps failing must NOT abort the wave: the others
+# still restart and only the final exhausted result is counted as failed.
 setup_fixture
 printf '%s\n' garden-monk@1.service garden-monk@2.service \
              garden-monk@3.service > "$TR/armed"
 origin_commit scripts/jobs/worker-lib.sh "echo newiso" "fix: worker-lib iso"
-run_deploy GARDEN_MOCK_FAIL_UNIT=garden-monk@2.service
+run_deploy GARDEN_MOCK_FAIL_UNIT=garden-monk@2.service GARDEN_DEPLOY_RESTART_RETRY_DELAY=0
 [ "$RC" -eq 0 ] && ok "deploy still succeeds despite one failed unit restart" || bad "exit $RC: $OUT"
 grep -qF "restart garden-monk@1.service" "$TR/log" && grep -qF "restart garden-monk@3.service" "$TR/log" \
   && ok "the non-failing gardeners still restarted" || bad "a sibling restart was skipped after the failure"
-grep -q "WARN: restart of garden-monk@2.service failed" <<<"$OUT" && ok "the failed unit is logged as a WARN" || bad "failed unit not logged"
+[ "$(grep -cF 'restart garden-monk@2.service' "$TR/log")" -eq 3 ] \
+  && ok "the persistently failing unit stops after the bounded attempt count" || bad "restart attempt count wrong: $(cat "$TR/log")"
+grep -q "WARN: restart of garden-monk@2.service failed after 3 attempt(s)" <<<"$OUT" \
+  && ok "the final failed unit is logged as a WARN" || bad "final failed unit not logged"
 grep -q "restart complete: restarted=2 deferred(mid-job)=0 failed=1 " <<<"$OUT" && ok "accounting: restarted=2 failed=1" || bad "accounting wrong: $(grep 'restart complete' <<<"$OUT")"
 
 # ============================================================================

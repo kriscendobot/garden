@@ -16,10 +16,24 @@ unit_arg() { for a in "$@"; do case "$a" in --*) ;; *) printf '%s' "$a"; return;
 # Optional failure injection: GARDEN_MOCK_FAIL_UNIT names a unit whose
 # restart/start the mock reports as failed (exit 1), so tests can exercise the
 # restart path's per-unit failure isolation. The call is still logged above.
+# GARDEN_MOCK_FAIL_RESTART_COUNT makes only the first N matching calls fail;
+# without it, every matching call fails. The tally persists across calls in
+# GARDEN_MOCK_FAIL_RESTART_STATE (or a state-file-derived default).
 if [ -n "${GARDEN_MOCK_FAIL_UNIT:-}" ]; then
   case "$cmd" in
     restart|start)
-      for a in "$@"; do [ "$a" = "$GARDEN_MOCK_FAIL_UNIT" ] && exit 1; done ;;
+      for a in "$@"; do
+        if [ "$a" = "$GARDEN_MOCK_FAIL_UNIT" ]; then
+          if [ -n "${GARDEN_MOCK_FAIL_RESTART_COUNT:-}" ]; then
+            cnt_file="${GARDEN_MOCK_FAIL_RESTART_STATE:-$STATE.restart-fail}"
+            n=0; [ -f "$cnt_file" ] && n="$(cat "$cnt_file")"
+            n=$((n + 1)); echo "$n" > "$cnt_file"
+            [ "$n" -le "$GARDEN_MOCK_FAIL_RESTART_COUNT" ] && exit 1
+          else
+            exit 1
+          fi
+        fi
+      done ;;
   esac
 fi
 
