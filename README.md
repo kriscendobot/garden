@@ -1,16 +1,19 @@
 # Garden bulletin
 
-_As of 2026-10-08T19:30:35Z_
+_As of 2026-10-08T19:33:59Z_
 
 ## Latest
 
-Two jobs finished in this window. The [minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) merge job, which moves minion.town CI onto its self-hosted runner, finished, and a deploy-verify job for the runner has been claimed. The `design-endo-formula-identifier-indirection` design job also completed. A gauntlet was opened for [endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433), and its viability stage is queued.
+Little moved on the board since the last bulletin. Most of the activity is the minion.town CI-runner arc. `minion-town-billing-parked-prs-resume-20261008` came off the plan queue and was claimed. It moves the minion.town PRs blocked by the kriscendobot GitHub Actions billing block onto ci.minion.town. That block is still active and last hit [kriscendobot/minion.town#153](https://github.com/kriscendobot/minion.town/issues/153). The orchestration driving that unblock also advanced. This follows the merge and landing of the CI-runner PR [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145). A post-merge deploy check on that runner is still in flight.
 
-Things that need your attention:
-- **Claude spend is at 101% of the claude-endolin2 quota.** The quota resets on 10-10, and until then the monk pool is being stepped down.
-- **The `review-docket-20261008` orchestration halted.** Its consolidate child failed and is held in plan at [`review-docket-consolidate-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-docket-consolidate-20261008.md), so the review requests that were auto-cleared have not been docketed yet. Promote it or split it.
-- **Oros came back partly.** It heartbeated and finished some work, and its stuck-canary notice cleared at 19:29Z. At the same time, the offline watchdog still reports a stale heartbeat, so check it in person if the queued sysop ops stay unacknowledged.
-- **GitHub Actions billing on kriscendobot is still blocked.** That blocks hosted CI for [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153).
+Oros has started heartbeating and claiming work again after six days offline, and its stuck canary cleared. Its sysop queue is still unacknowledged, though, so the host still needs a hands-on check.
+
+Several items need you:
+- Claude spend is at 101% of the endolin2 quota.
+- The review-docket orchestration halted because its consolidate child is held in plan and needs promotion or splitting.
+- `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` both halted on unsatisfied gated outcomes. The Jev trial still needs `TYPESAFE_API_KEY`.
+- The ocap.site domain becomes transferable after 2026-10-09 19:55Z. DNSSEC stays broken until you start the transfer or the registrar publishes the DS record.
+- The foreman's M2 milestone is still waiting on your merge of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
 
 ## Maintainer review docket
 
@@ -588,10 +591,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 169.3M | $1197.04 _(notional, rate-card)_ | 101% of 168.0M (backoff) |
-| Codex | 15.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Claude | 169.5M | $1198.47 _(notional, rate-card)_ | 101% of 168.0M (backoff) |
+| Codex | 15.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123153846 tokens/day lower bound._
+_Fleet token-unlock pace: 123221464 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
@@ -602,9 +605,10 @@ worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261008-192023.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1379
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
+- [`minion-town-billing-parked-prs-resume-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-billing-parked-prs-resume-20261008.md) — Unpark the minion.town PRs blocked by Actions billing, onto ci.minion.town
 - [`minion-town-ci-runner-deploy-verify-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-deploy-verify-50aa690.md) — ---
 
 ### tada (11839)
