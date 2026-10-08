@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7276 (530 parent indexes + 6746 children).
+Total section files: 7281 (530 parent indexes + 6751 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -1402,6 +1402,10 @@ Total section files: 7276 (530 parent indexes + 6746 children).
 - [danfinlay-quickjs--native-ses--harden-c-deep-freeze](danfinlay-quickjs--native-ses--harden-c-deep-freeze.md)
 - [danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics](danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics.md)
 - [danfinlay-quickjs--native-ses--xs-transferable-strategies](danfinlay-quickjs--native-ses--xs-transferable-strategies.md)
+
+### dcms-dev--frantz-petname-software-reply-2000
+
+- [dcms-dev--frantz-petname-software-reply-2000--contemporary-product-corroboration](dcms-dev--frantz-petname-software-reply-2000--contemporary-product-corroboration.md)
 
 ### dcms-dev--pet-names-true-names-nicknames-2000
 
@@ -9068,6 +9072,10 @@ Total section files: 7276 (530 parent indexes + 6746 children).
   - [See also](papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix--see-also.md)
   - [Translation block (paper idiom → contemporary surface)](papers--close-acls-dont-2009--web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix--translation-block-paper-idiom-contemporary-surface.md)
 
+### papers--close-petname-tool-2005
+
+- [papers--close-petname-tool-2005--trusted-relationship-ui-over-ssl](papers--close-petname-tool-2005--trusted-relationship-ui-over-ssl.md)
+
 ### papers--corsi-simple-long-memory-model-realized-volatility-2009
 
 - [papers--corsi-simple-long-memory-model-realized-volatility-2009--har-rv-model-as-restricted-ar](papers--corsi-simple-long-memory-model-realized-volatility-2009--har-rv-model-as-restricted-ar.md)
@@ -9169,6 +9177,11 @@ Total section files: 7276 (530 parent indexes + 6746 children).
 ### papers--herbold-large-scale-chatgpt-essays
 
 - [papers--herbold-large-scale-chatgpt-essays--rigid-essay-scaffolding-and-linguistic-variation](papers--herbold-large-scale-chatgpt-essays--rigid-essay-scaffolding-and-linguistic-variation.md)
+
+### papers--lemmer-webber-petnames-humane-naming-2022
+
+- [papers--lemmer-webber-petnames-humane-naming-2022--contact-list-and-browser-interfaces](papers--lemmer-webber-petnames-humane-naming-2022--contact-list-and-browser-interfaces.md)
+- [papers--lemmer-webber-petnames-humane-naming-2022--name-kinds-and-layered-system](papers--lemmer-webber-petnames-humane-naming-2022--name-kinds-and-layered-system.md)
 
 ### papers--liang-gpt-detector-bias
 
@@ -10399,6 +10412,10 @@ Total section files: 7276 (530 parent indexes + 6746 children).
 ### web--turnitin-ai-writing-report
 
 - [web--turnitin-ai-writing-report--detector-limits-and-human-review](web--turnitin-ai-writing-report--detector-limits-and-human-review.md)
+
+### web--walnut-petnames-forgery
+
+- [web--walnut-petnames-forgery--insider-forgery-and-user-chosen-names](web--walnut-petnames-forgery--insider-forgery-and-user-chosen-names.md)
 
 ### web--willison-muse-spark-1-1
 
