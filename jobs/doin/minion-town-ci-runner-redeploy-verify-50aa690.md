@@ -60,3 +60,13 @@ maintainer with the run URL and open operator item, then end with:
 
 `<<<GARDEN-ORCHESTRATION-FAILED>>>`
 `<<<GARDEN-JOB-COMPLETE>>>`
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T21:46:23Z
