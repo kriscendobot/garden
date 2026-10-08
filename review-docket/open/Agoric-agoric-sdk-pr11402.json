@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11402,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11402",
+  "head_oid": "79703ccc8cde9405c4240b31248c2b9c2f0d2ab2",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Jorge/8863 refactor test tooling",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11402",
+  "requested_at": "2026-10-08T07:31:31Z",
+  "first_requested_at": "2026-10-08T07:31:31Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:31:34Z"
+  }
+}
