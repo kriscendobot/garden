@@ -175,10 +175,12 @@ LATEST = {}
 
 
 def latest_main_deploy():
+    # A `[skip deploy]` push leaves production on the previous deploy, so a skipped
+    # run is not a baseline verdict; the newest run that was not skipped is.
     if 'run' not in LATEST:
         runs = gh('run', 'list', '-R', REPOSITORY, '--workflow', 'deploy.yml', '--branch', LIVE_BASE,
-                  '--limit', '1', '--json', 'databaseId,status,conclusion,headSha,url,createdAt,updatedAt')
-        LATEST['run'] = runs[0] if runs else None
+                  '--limit', '20', '--json', 'databaseId,status,conclusion,headSha,url,createdAt,updatedAt')
+        LATEST['run'] = next((run for run in runs or [] if run.get('conclusion') != 'skipped'), None)
     return LATEST['run']
 
 
