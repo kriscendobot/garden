@@ -75,3 +75,13 @@ branch, open a PR on `kriscendobot/garden` marked `<!-- garden-design-open-quest
 (a `message` entry/inbox post per `roles/COMMON.md`), with one sentence on what to look at
 first. Do not wait for the maintainer's answer to finish: the orchestration proceeds to the
 trial, which uses only already-authorized data classes.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-08T04:12:14Z
