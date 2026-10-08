@@ -3,7 +3,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 JOBS="$ROOT/scripts/jobs"
 TEST_ROOT="$(mktemp -d "$ROOT/.review-docket-test.XXXXXX")"
-trap 'rm -rf "$TEST_ROOT"' EXIT
+trap '[ -n "${KEEP:-}" ] || rm -rf "$TEST_ROOT"' EXIT
 fail() { echo "review-docket-test: FAIL: $*" >&2; exit 1; }
 JOURNAL="$TEST_ROOT/journal"; mkdir -p "$JOURNAL/config/arc-budgets" "$JOURNAL/maintainers" "$JOURNAL/jobs/plan" "$JOURNAL/pr-deps"
 printf 'kriskowal\n' > "$JOURNAL/maintainers/allowlist"
@@ -20,7 +20,8 @@ sed "s#META_FILE#$META#" > "$STUB" <<'EOF'
 cat META_FILE
 EOF
 chmod +x "$STUB"
-run() { GARDEN_REVIEW_DOCKET_CLONE="$JOURNAL" GARDEN_REVIEW_DOCKET_NO_PUSH=1 GARDEN_REVIEW_DOCKET_METADATA="$STUB" GARDEN_REVIEW_DOCKET_NOW=2026-10-08T12:00:00Z "$JOBS/review-docket.sh" "$@"; }
+export GARDEN_REVIEW_DOCKET_CURSOR="$TEST_ROOT/reconcile-cursor"
+run() { GARDEN_REVIEW_DOCKET_CLONE="$JOURNAL" GARDEN_REVIEW_DOCKET_NO_PUSH=1 GARDEN_REVIEW_DOCKET_METADATA="${METADATA_HANDLER:-$STUB}" GARDEN_REVIEW_DOCKET_NOW=2026-10-08T12:00:00Z "$JOBS/review-docket.sh" "$@"; }
 request() {
   local file="$1" arc="$2" milestone="$3" source_id="$4" summary="$5" unblocks="${6:-[]}" ask="${7:-approve}"
   jq -cn --arg arc "$arc" --arg milestone "$milestone" --arg source "$source_id" --arg summary "$summary" --arg ask "$ask" --argjson unblocks "$unblocks" '{schema:1,arc:$arc,milestone:$milestone,source:$source,summary:$summary,ask:$ask,unblocks:$unblocks}' > "$file"
@@ -87,6 +88,46 @@ request "$TEST_ROOT/r8" beta M4 s8 'closed terminal'
 run upsert https://github.com/example/repo/pull/8 "$TEST_ROOT/r8"
 run retire-terminal https://github.com/example/repo/pull/8 CLOSED 2026-10-08T17:00:00Z
 [ ! -f "$JOURNAL/review-docket/open/example-repo-pr8.json" ] || fail 'closed PR did not retire'
+
+# A bare reconcile is a bounded batch that resumes after its host-local cursor
+# and wraps; per-request timeouts and the run budget skip rather than fail.
+for pr in 21 22 23; do
+  request "$TEST_ROOT/r$pr" beta M6 "s$pr" "batch $pr"
+  run upsert "https://github.com/example/repo/pull/$pr" "$TEST_ROOT/r$pr"
+done
+open_before="$(ls "$JOURNAL/review-docket/open")"
+COUNTER="$TEST_ROOT/fetches"; : > "$COUNTER"
+SLOW="$TEST_ROOT/slow-metadata"
+cat > "$SLOW" <<EOF
+#!/bin/bash
+echo "\$1" >> "$COUNTER"
+case "\$1" in *"/pull/\${SLOW_PR:-none}") sleep 30;; esac
+cat "$META"
+EOF
+chmod +x "$SLOW"
+batch() { METADATA_HANDLER="$SLOW" GARDEN_REVIEW_DOCKET_RECONCILE_BATCH=2 run reconcile "$@"; }
+rm -f "$GARDEN_REVIEW_DOCKET_CURSOR"
+batch
+[ "$(wc -l < "$COUNTER")" = 2 ] || fail 'reconcile batch did not cap metadata requests'
+first_cursor="$(cat "$GARDEN_REVIEW_DOCKET_CURSOR")"
+[ "$first_cursor" = "$(ls "$JOURNAL/review-docket/open" | sed 's/\.json$//' | LC_ALL=C sort | sed -n 2p)" ] \
+  || fail "cursor did not record the last visited record ($first_cursor)"
+: > "$COUNTER"; batch
+[ "$(sed -n 1p "$COUNTER")" = "$(jq -r .url "$JOURNAL/review-docket/open/$(ls "$JOURNAL/review-docket/open" | sed 's/\.json$//' | LC_ALL=C sort | sed -n 3p).json")" ] \
+  || fail 'reconcile did not resume after its cursor'
+[ "$(ls "$JOURNAL/review-docket/open")" = "$open_before" ] || fail 'bounded reconcile changed the open set'
+: > "$COUNTER"; rm -f "$GARDEN_REVIEW_DOCKET_CURSOR"
+start="$(date +%s)"
+SLOW_PR="$(jq -r .pr "$JOURNAL/review-docket/open/$(ls "$JOURNAL/review-docket/open" | LC_ALL=C sort | sed -n 1p)")" \
+  GARDEN_REVIEW_DOCKET_METADATA_TIMEOUT=1 batch || fail 'a slow metadata request failed the whole reconcile'
+[ $(( $(date +%s) - start )) -lt 20 ] || fail 'per-request metadata timeout was not enforced'
+[ "$(wc -l < "$COUNTER")" = 2 ] || fail 'a timed-out request stopped the rest of the batch'
+: > "$COUNTER"; rm -f "$GARDEN_REVIEW_DOCKET_CURSOR"
+GARDEN_REVIEW_DOCKET_RECONCILE_BUDGET=0 batch || fail 'an exhausted budget failed the reconcile'
+[ ! -s "$COUNTER" ] && [ ! -f "$GARDEN_REVIEW_DOCKET_CURSOR" ] || fail 'an exhausted budget still fetched or advanced the cursor'
+: > "$COUNTER"; batch https://github.com/example/repo/pull/23
+[ "$(cat "$COUNTER")" = https://github.com/example/repo/pull/23 ] || fail 'targeted reconcile did not fetch exactly its PR'
+[ ! -f "$GARDEN_REVIEW_DOCKET_CURSOR" ] || fail 'targeted reconcile moved the periodic cursor'
 
 # Two producers sharing the production clone serialize their whole local
 # transaction, then converge through the journal CAS without losing either row.

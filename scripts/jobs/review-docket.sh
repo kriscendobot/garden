@@ -6,11 +6,19 @@
 #   review-docket.sh retire-review <PR-URL> <author> <state> <submitted-at> [review-id]
 #   review-docket.sh retire-terminal <PR-URL> <MERGED|CLOSED> [completed-at]
 #   review-docket.sh reenter <PR-URL> <source-id>
-#   review-docket.sh reconcile
+#   review-docket.sh reconcile [PR-URL...]
 #   review-docket.sh render
 #
 # All mutations, the root view, and its daily archive land in one journal CAS.
 # Producers must use this command rather than writing review-docket/open directly.
+#
+# A bare `reconcile` is the periodic recovery sweep. It is bounded: it visits at
+# most GARDEN_REVIEW_DOCKET_RECONCILE_BATCH open records per run, starting after
+# a host-local resumable cursor (wrapping around), gives each GitHub metadata
+# request GARDEN_REVIEW_DOCKET_METADATA_TIMEOUT seconds, and stops fetching once
+# GARDEN_REVIEW_DOCKET_RECONCILE_BUDGET seconds have elapsed since startup, so a
+# slow or large docket advances over several ticks instead of failing whole.
+# `reconcile <PR-URL>...` reconciles exactly those records and ignores the cursor.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
@@ -21,6 +29,19 @@ command -v jq >/dev/null 2>&1 || die "review-docket.sh needs jq"
 : "${GARDEN_REVIEW_DOCKET_METADATA:=$HERE/handlers/review-docket-pr-gh.sh}"
 : "${GARDEN_REVIEW_DOCKET_ATTEMPTS:=50}"
 : "${GARDEN_REVIEW_DOCKET_NOW:=$(date -u +%FT%TZ)}"
+: "${GARDEN_REVIEW_DOCKET_RECONCILE_BATCH:=25}"
+: "${GARDEN_REVIEW_DOCKET_RECONCILE_BUDGET:=600}"
+: "${GARDEN_REVIEW_DOCKET_METADATA_TIMEOUT:=45}"
+: "${GARDEN_REVIEW_DOCKET_CURSOR:=$GARDEN_STATE/review-docket/reconcile-cursor}"
+RECONCILE_DEADLINE=$(( $(date +%s) + GARDEN_REVIEW_DOCKET_RECONCILE_BUDGET ))
+RECONCILE_CACHE=""
+RECONCILE_LAST=""
+DOCKET_LOCKED=0
+cleanup() {
+  [ -z "$RECONCILE_CACHE" ] || rm -rf "$RECONCILE_CACHE"
+  [ "$DOCKET_LOCKED" -eq 0 ] || garden_repo_unlock "$DIR"
+}
+trap cleanup EXIT
 
 operation="${1:-}"; shift || true
 case "$operation" in upsert|retire-review|retire-terminal|reenter|reconcile|render) :;;
@@ -42,6 +63,54 @@ valid_iso() { iso_epoch "$1" >/dev/null; }
 
 metadata() { # authoritative GitHub metadata; JSON or nonzero, never guessed
   "$GARDEN_REVIEW_DOCKET_METADATA" "$1"
+}
+
+# Reconcile metadata is memoized per run, failures included, so a CAS retry
+# re-applies against what was already fetched instead of re-paying the network.
+reconcile_metadata() { # <url> <slug>; JSON or nonzero
+  local url="$1" slug="$2" remaining limit rc=0
+  if [ -z "$RECONCILE_CACHE" ]; then
+    RECONCILE_CACHE="$(mktemp -d "${TMPDIR:-/tmp}/review-docket-reconcile.XXXXXX")"
+  fi
+  if [ -f "$RECONCILE_CACHE/$slug.json" ]; then cat "$RECONCILE_CACHE/$slug.json"; return 0; fi
+  [ ! -f "$RECONCILE_CACHE/$slug.failed" ] || return 1
+  remaining=$(( RECONCILE_DEADLINE - $(date +%s) ))
+  [ "$remaining" -gt 0 ] || return 124
+  limit="$GARDEN_REVIEW_DOCKET_METADATA_TIMEOUT"
+  [ "$remaining" -ge "$limit" ] || limit="$remaining"
+  timeout --kill-after=5 "${limit}s" "$GARDEN_REVIEW_DOCKET_METADATA" "$url" \
+    > "$RECONCILE_CACHE/$slug.tmp" 2>/dev/null || rc=$?
+  if [ "$rc" -ne 0 ]; then
+    rm -f "$RECONCILE_CACHE/$slug.tmp"; : > "$RECONCILE_CACHE/$slug.failed"
+    [ "$rc" -ne 124 ] || log "metadata for $url timed out after ${limit}s; leaving its docket entry for a later sweep"
+    return 1
+  fi
+  mv "$RECONCILE_CACHE/$slug.tmp" "$RECONCILE_CACHE/$slug.json"
+  cat "$RECONCILE_CACHE/$slug.json"
+}
+
+reconcile_targets() { # <root>; open-record paths for this run, one per line
+  local root="$1" url repo number cursor
+  if [ "${#ARGS[@]}" -gt 0 ]; then
+    for url in "${ARGS[@]}"; do
+      IFS=$'\t' read -r repo number < <(parse_url "$url")
+      printf '%s\n' "$root/review-docket/open/$(slug_for "$repo" "$number").json"
+    done
+    return 0
+  fi
+  cursor="$(cat "$GARDEN_REVIEW_DOCKET_CURSOR" 2>/dev/null || true)"
+  find "$root/review-docket/open" -maxdepth 1 -type f -name '*.json' -printf '%f\n' 2>/dev/null \
+    | sed 's/\.json$//' | LC_ALL=C sort \
+    | awk -v c="$cursor" '{ if (c != "" && $0 <= c) wrapped[++w]=$0; else print } END { for (i=1;i<=w;i++) print wrapped[i] }' \
+    | head -n "$GARDEN_REVIEW_DOCKET_RECONCILE_BATCH" \
+    | sed "s#^#$root/review-docket/open/#; s#\$#.json#"
+}
+
+save_reconcile_cursor() {
+  [ "$operation" = reconcile ] && [ "${#ARGS[@]}" -eq 0 ] && [ -n "$RECONCILE_LAST" ] || return 0
+  mkdir -p "$(dirname "$GARDEN_REVIEW_DOCKET_CURSOR")"
+  printf '%s\n' "$RECONCILE_LAST" > "$GARDEN_REVIEW_DOCKET_CURSOR.tmp"
+  mv "$GARDEN_REVIEW_DOCKET_CURSOR.tmp" "$GARDEN_REVIEW_DOCKET_CURSOR"
 }
 
 valid_metadata() {
@@ -233,7 +302,7 @@ retire_file() { # <root> <open-file> <evidence-json>
 }
 
 apply_operation() { # <root>; rc 2 means no mutation
-  local root="$1" url repo number slug open meta prior normalized same author author_lc state at review_id req_epoch event_epoch
+  local root="$1" url repo number slug open meta prior normalized same author author_lc state at review_id req_epoch event_epoch rc
   mkdir -p "$root/review-docket/open" "$root/review-docket/retired"
   case "$operation" in
     upsert)
@@ -292,10 +361,16 @@ apply_operation() { # <root>; rc 2 means no mutation
       retire_file "$root" "$open" "$(jq -cn --arg repo "$repo" --arg at "$at" --arg state "$state" '{kind:"terminal",repo:$repo,at:$at,state:$state}')"
       ;;
     reconcile)
-      changed=0
-      for open in "$root"/review-docket/open/*.json; do
-        [ -f "$open" ] || continue; url="$(jq -r .url "$open")"
-        meta="$(metadata "$url" 2>/dev/null)" || continue
+      changed=0; RECONCILE_LAST=""
+      while IFS= read -r open; do
+        [ -f "$open" ] || continue; url="$(jq -r .url "$open")"; slug="$(basename "$open" .json)"
+        rc=0; meta="$(reconcile_metadata "$url" "$slug")" || rc=$?
+        if [ "$rc" -eq 124 ]; then
+          log "reconcile budget (${GARDEN_REVIEW_DOCKET_RECONCILE_BUDGET}s) spent; the next run resumes from the cursor"
+          break
+        fi
+        RECONCILE_LAST="$slug"
+        [ "$rc" -eq 0 ] || continue
         valid_metadata "$meta" || { log "invalid metadata for $url; leaving its docket entry visible"; continue; }
         state="$(jq -r '.state // "UNKNOWN"' <<<"$meta")"
         if [ "$state" = MERGED ] || [ "$state" = CLOSED ]; then
@@ -319,7 +394,7 @@ apply_operation() { # <root>; rc 2 means no mutation
         fi
         updated="$(jq --argjson metadata "$meta" '.head_oid=$metadata.head_oid | .ci=$metadata.ci' "$open")"
         if ! cmp -s "$open" <(printf '%s\n' "$updated"); then printf '%s\n' "$updated" > "$open"; changed=1; fi
-      done
+      done < <(reconcile_targets "$root")
       [ "$changed" -eq 1 ] || return 2
       ;;
     render) : ;;
@@ -330,7 +405,7 @@ apply_operation() { # <root>; rc 2 means no mutation
 ARGS=("$@")
 DIR="$GARDEN_REVIEW_DOCKET_CLONE"
 if [ "${GARDEN_REVIEW_DOCKET_NO_PUSH:-0}" = 1 ]; then
-  mkdir -p "$DIR"; apply_operation "$DIR" || [ "$?" -eq 2 ]; exit 0
+  mkdir -p "$DIR"; apply_operation "$DIR" || [ "$?" -eq 2 ]; save_reconcile_cursor; exit 0
 fi
 # A journal CAS can legitimately span more than the repository-wide 10-second
 # soft-skip default. Queue producers must wait for the preceding clerk
@@ -347,17 +422,17 @@ flock -w "$GARDEN_REPO_LOCK_WAIT" "$transaction_fd" \
   || die "timed out waiting for the review-docket transaction lock"
 ensure_clone "$DIR"
 garden_repo_lock "$DIR" exclusive || die "could not lock the shared review-docket journal clone"
-trap 'garden_repo_unlock "$DIR"' EXIT
+DOCKET_LOCKED=1
 for attempt in $(seq 1 "$GARDEN_REVIEW_DOCKET_ATTEMPTS"); do
   sync_clone "$DIR"
   rc=0; apply_operation "$DIR" || rc=$?
-  [ "$rc" -eq 2 ] && { log "$operation is an idempotent no-op"; exit 0; }
+  [ "$rc" -eq 2 ] && { log "$operation is an idempotent no-op"; save_reconcile_cursor; exit 0; }
   [ "$rc" -eq 0 ] || exit "$rc"
   git -C "$DIR" add -A review-docket PRIORITIES.md priorities-archive
   [ ! -f "$DIR/README.md" ] || git -C "$DIR" add README.md
   rc=0; commit_and_push "$DIR" "review-docket: $operation" || rc=$?
-  [ "$rc" -eq 0 ] && { log "$operation committed with regenerated PRIORITIES.md"; exit 0; }
-  [ "$rc" -eq 2 ] && exit 0
+  [ "$rc" -eq 0 ] && { log "$operation committed with regenerated PRIORITIES.md"; save_reconcile_cursor; exit 0; }
+  [ "$rc" -eq 2 ] && { save_reconcile_cursor; exit 0; }
   backoff "$attempt"
 done
 die "review docket $operation could not win the journal CAS"

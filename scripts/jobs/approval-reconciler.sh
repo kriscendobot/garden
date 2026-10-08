@@ -655,7 +655,7 @@ while IFS=$'\t' read -r pr author head updated _title; do
     continue
   fi
   approved=$((approved+1))
-  "$HERE/review-docket.sh" reconcile \
+  "$HERE/review-docket.sh" reconcile "https://github.com/$repo/pull/$pr" \
     || log "WARN: could not reconcile the docket after detecting approval on $repo#$pr; the docket timer will retry"
 
   # Gate 6 (API): the event watcher's EXACT eligibility probe decides conductor vs
