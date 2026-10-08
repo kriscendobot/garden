@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo",
+  "pr": 2797,
+  "url": "https://github.com/endojs/endo/pull/2797",
+  "head_oid": "0064388beffb120d93733d27579c3490e6033712",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix(pass-style): avoid symbol-named methods",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-pr2797",
+  "requested_at": "2026-10-08T07:37:44Z",
+  "first_requested_at": "2026-10-08T07:37:44Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:38:02Z"
+  }
+}
