@@ -1,10 +1,8 @@
 ---
-gate: deferred
-priority: normal
+tier: mentor
 arc: moonshots
-posted_by: producer
-posted_at: 2026-10-07T16:34:39Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-08T12:34:16Z cleared=none -->
 
 ---
 tier: mentor
