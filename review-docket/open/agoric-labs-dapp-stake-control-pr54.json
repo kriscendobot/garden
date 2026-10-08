@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "agoric-labs/dapp-stake-control",
+  "pr": 54,
+  "url": "https://github.com/agoric-labs/dapp-stake-control/pull/54",
+  "head_oid": "3ca265609134ca3a9bebd37dc7b97feeec658d94",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "chore: log boardId of instance in coreEval",
+  "unblocks": [],
+  "source": "native-review-request-agoric-labs-dapp-stake-control-pr54",
+  "requested_at": "2026-10-08T07:36:20Z",
+  "first_requested_at": "2026-10-08T07:36:20Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:36:24Z"
+  }
+}
