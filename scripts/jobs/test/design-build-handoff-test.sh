@@ -54,10 +54,10 @@ board_has() {  # <relpath>
 board_cat() {  # <relpath>
   board_has "$1" && cat "$TR/look/$1"
 }
-gauntlet_put() {  # <design-base> <pr-number>
-  printf -- '---\npr: https://github.com/kriscendobot/minion.town/pull/%s\nrepo: kriscendobot/minion.town\npr_number: %s\nbuild_job: %s\nkind: feature\nstate: running\n---\n' \
-    "$2" "$2" "$1" >"$TR/g.md"
-  board_file "jobs/gauntlet/kriscendobot-minion.town-pr$2-gauntlet.md" "$TR/g.md"
+gauntlet_put() {  # <design-base> <pr-number> [kind] [state] [gauntlet-base]
+  printf -- '---\npr: https://github.com/kriscendobot/minion.town/pull/%s\nrepo: kriscendobot/minion.town\npr_number: %s\nbuild_job: %s\nkind: %s\nstate: %s\n---\n' \
+    "$2" "$2" "$1" "${3:-feature}" "${4:-running}" >"$TR/g.md"
+  board_file "jobs/gauntlet/${5:-kriscendobot-minion.town-pr$2-gauntlet}.md" "$TR/g.md"
 }
 gauntlet_tada_put() {  # <pr-number> <status> [extra-line]
   { printf 'gauntlet-status: %s\n' "$2"; [ -z "${3:-}" ] || printf '%s\n' "$3"
@@ -203,5 +203,51 @@ if gate design-l "$TR/jl.md" "$TR/rl.md"; then
   fail 'gate accepted a design-build marker whose successor is not on the board'
 fi
 echo '   forged marker blocked'
+
+echo '== (i) the #173 replay: a live gauntlet staged first with no build_job is recognized =='
+designer_job "$TR/jm.md"
+design_report "$TR/rm.md" 173
+gauntlet_put '' 173
+reset_clone
+cp "$TR/rm.md" "$TR/rm-raw.md"
+if gate design-pre "$TR/jm.md" "$TR/rm-raw.md"; then
+  fail 'precondition: the gate should block the raw #173 report'
+fi
+reset_clone
+"$HANDOFF" design-pre "$TR/jm.md" "$TR/rm.md"
+grep -q 'successor=build-pre state=recheck:kriscendobot-minion.town-pr173-gauntlet ' "$TR/rm.md" \
+  || fail "no recheck marker for a pre-staged gauntlet: $(tail -2 "$TR/rm.md")"
+board_cat jobs/plan/build-pre.md | grep -qx 'blocked_on: kriscendobot-minion.town-pr173-gauntlet' \
+  || fail 'pre-staged gauntlet build is not blocked_on the gauntlet'
+reset_clone
+gate design-pre "$TR/jm.md" "$TR/rm.md" || fail 'gate blocked a pre-staged design-build recheck'
+echo '   pre-staged gauntlet recognized; gate passes'
+
+echo '== (j) a pre-staged gauntlet under another base name is recognized and blocked on =='
+designer_job "$TR/jn.md"
+design_report "$TR/rn.md" 174
+gauntlet_put '' 174 feature running kriscendobot-minion.town-pr174-gauntlet-20261008-abcdef012345
+reset_clone
+"$HANDOFF" design-alt "$TR/jn.md" "$TR/rn.md"
+grep -q 'successor=build-alt state=recheck:kriscendobot-minion.town-pr174-gauntlet-20261008-abcdef012345 ' "$TR/rn.md" \
+  || fail "alternate-base gauntlet not recognized: $(tail -2 "$TR/rn.md")"
+echo '   alternate base recognized'
+
+echo '== (k) an unowned probe or terminal gauntlet is not taken as the design PR =='
+designer_job "$TR/jp.md"
+design_report "$TR/rp.md" 175
+gauntlet_put '' 175 probe running
+reset_clone
+"$HANDOFF" design-probe "$TR/jp.md" "$TR/rp.md"
+[ "$(marker_count "$TR/rp.md")" -eq 0 ] || fail 'an unowned probe gauntlet got a marker'
+designer_job "$TR/jq.md"
+design_report "$TR/rq.md" 176
+gauntlet_put '' 176 feature halted
+reset_clone
+"$HANDOFF" design-halt2 "$TR/jq.md" "$TR/rq.md"
+[ "$(marker_count "$TR/rq.md")" -eq 0 ] || fail 'an unowned halted gauntlet got a marker'
+board_has jobs/plan/build-probe.md && fail 'unowned probe gauntlet posted a build'
+board_has jobs/plan/build-halt2.md && fail 'unowned halted gauntlet posted a build'
+echo '   no dispatch'
 
 echo 'PASS: design-build-handoff'

@@ -18,8 +18,10 @@
 #   - the job wears the designer role;
 #   - its `## Follow-ups` section names a build (`build`, `builder`, `builds`);
 #   - the report's FIRST PR citation (the same artifact auto-gauntlet-handoff.sh
-#     chose) is the design PR: its PR-keyed gauntlet is either live with
-#     `build_job: <job-base>` (just staged by this job) or already in tada/.
+#     chose) is the design PR: a gauntlet record for that PR is live with
+#     `build_job: <job-base>` (just staged by this job) or with an empty
+#     build_job (staged first by another producer, not a probe), or the
+#     PR-keyed gauntlet is already in tada/.
 #
 # Then, in order, it resolves the build successor:
 #   1. orchestrated: an orchestration lists <job-base> as a child and the next
@@ -93,12 +95,35 @@ if ! fresh_board; then
   exit 0
 fi
 
-# Recognize the design PR through the gauntlet this job's completion staged.
+# Recognize the design PR through its gauntlet. Normally this job's completion
+# staged it (`build_job: <job-base>`). A gauntlet another producer staged first
+# (the coverage audit, a `run the gauntlet`) carries an empty build_job, and
+# auto-gauntlet-handoff.sh coalesces into it rather than re-stamping it. Accept
+# that one too while it is live and not a probe: the PR is this report's own
+# artifact, and no other job claims it. kriscendobot/minion.town#173's gauntlet
+# was staged by design-pr-gauntlet-coverage-audit before its designer completed,
+# so this script declined and the follow-up gate blocked the completion at
+# 2026-10-08T19:57:11Z. A gauntlet naming a different build_job stays foreign.
+gauntlet_matches() {  # <record>
+  local owner
+  owner="$(plan_field "$1" build_job)"
+  [ "$owner" = "$base" ] && return 0
+  [ -z "$owner" ] || return 1
+  [ "$(gauntlet_kind "$1")" = feature ] || return 1
+  case "$(gauntlet_state "$1")" in done|halted) return 1 ;; esac
+}
 prereq=""
 gauntlet_rec="$DIR/$JOBS_GAUNTLET/$gauntlet_base.md"
-if [ -f "$gauntlet_rec" ]; then
-  [ "$(plan_field "$gauntlet_rec" build_job)" = "$base" ] || exit 0
+live=""
+for g in "$gauntlet_base" $(active_gauntlets_for_pr "$DIR" "$repo" "$pr_number" "$gauntlet_base" || true); do
+  [ -f "$DIR/$JOBS_GAUNTLET/$g.md" ] || continue
+  gauntlet_matches "$DIR/$JOBS_GAUNTLET/$g.md" && { live="$g"; break; }
+done
+if [ -n "$live" ]; then
+  gauntlet_base="$live"
   prereq=pending
+elif [ -f "$gauntlet_rec" ]; then
+  exit 0
 elif tada_rel="$(tada_find "$DIR" "$gauntlet_base" 2>/dev/null)"; then
   if [ "$(plan_field "$DIR/$tada_rel" gauntlet-status)" != complete ] \
      || tada_failed "$DIR/$tada_rel"; then
