@@ -1,0 +1,2 @@
+base: improve-retry-deploy-unit-restart
+identity: mentor:scripts/jobs/deploy-restart.sh
