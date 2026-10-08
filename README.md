@@ -1,25 +1,19 @@
 # Garden bulletin
 
-_As of 2026-10-08T10:53:40Z_
+_As of 2026-10-08T11:10:51Z_
 
 ## Latest
 
-No new job-board transitions resolved since the last bulletin; the movement is in the proxy lane and in the maintainer inbox.
+The only board change since the last bulletin is that panel round 1 of the gauntlet for [endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) has been claimed. It is running alongside the panel stages for [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) (round 3) and [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) (round 1), plus a fresh minion.town arc press. Earlier in the window, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was checked and is working.
 
-**Merged and deployed.** The proxy merged [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143). Its deploy succeeded and the watchdog validated it. The proxy also screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
+Four items need the maintainer:
 
-**Gauntlets in progress.** Clean stages are queued for [endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) and [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425). [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) is in fix round 2.
+- **Review docket halted.** The `review-docket-20261008` orchestration stopped because its consolidate child was abandoned after its retry failed. That child is parked in plan and needs your go-ahead (or a split into smaller jobs). Until then, the 26 archived review requests are not on the docket.
+- **GitHub Actions billing is failing for `kriscendobot`.** Actions is refusing to start jobs because of the account's payment or spending limit. This blocks CI on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and anything else on that account until billing is fixed.
+- **Oros is still offline.** It has been down since 10-02 and is now about 206 commits behind. A person needs to check the Mac.
+- **ocap.site transfer window opens soon.** The domain can transfer into Route53 from about 2026-10-09 19:55Z. DNSSEC stays broken until the transfer completes or the current registrar publishes the DS record.
 
-**Three orchestrations halted:**
-- **Review docket.** `review-docket-20261008` stopped at 2 of 3 steps. Its last step was meant to consolidate the 26 review requests the proxy auto-archived and send you the docket URL. That step was doomed and is held in plan, so the consolidation and the "review-docket-live" message have not happened. Promote it or split it.
-- **minion.town OAuth bonds.** `orch-minion-town-oauth-bonds` halted because its build declared its gated outcome unsatisfied.
-- **Jev triage/foreman trial.** The trial is blocked until a `TYPESAFE_API_KEY` is provisioned.
-
-**Needs a human:**
-- **Oros host.** It has been offline since 10-02, with ten sysop ops unacknowledged; someone needs to check the Mac, Docker Desktop and the VM.
-- **Actions billing.** GitHub Actions will not start jobs for the kriscendobot account because of a billing block. This stalls [minion.town#166](https://github.com/kriscendobot/minion.town/issues/166).
-- **ocap.site transfer.** Transfer to Route53 becomes possible after 2026-10-09 19:55Z. The DNSSEC DS record is still not published at the registrar.
-- **ERTP credits decision.** The minion.town arc needs a yes or no on the ERTP Phase 1 credits build.
+Two other orchestrations also halted. `orch-minion-town-oauth-bonds` stopped because its build child reported its required outcome as not met. The Jev triage trial is blocked because `TYPESAFE_API_KEY` was never provided.
 
 ## Maintainer review docket
 
@@ -561,7 +555,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.1M | $891.86 _(notional, rate-card)_ | 74% of 168.0M (ok) |
+| Claude | 124.1M | $892.15 _(notional, rate-card)_ | 74% of 168.0M (ok) |
 | Codex | 13.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122176792 tokens/day lower bound._
@@ -570,10 +564,11 @@ _Fleet token-unlock pace: 122176792 tokens/day lower bound._
 worst fetch p95 4.204496s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1394
+### todo (0)
+(none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1394
 - [`minion-town-arc-press-20261008-095009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261008-095009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #258
 - [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1425
