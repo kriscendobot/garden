@@ -2018,9 +2018,9 @@ EOF
     && ok "primary-quota degrade emits a RATE LIMITED log" \
     || bad "primary-quota degrade did not log RATE LIMITED ($(cat "$RATE_SOURCE_ERR"))"
 
-  # Let two early surfaces succeed, then exhaust quota on PR #1's review-id map.
-  # The source must not request that PR's reviews, PR #2, repo-wide inline comments,
-  # or the repo-gone probe after the quota signature has been recorded.
+  # Let two early surfaces succeed, then make the admission-locked rate_limit
+  # probe report primary exhaustion. The source must preserve that diagnostic and
+  # stop before PR #1's canary, PR #2, repo-wide inline comments, or repo-gone.
   : > "$RATE_CALLS"
   set +e
   env PATH="$GHRATE:$PATH" RATE_CALLS="$RATE_CALLS" RATE_LATE=1 GARDEN_GH_API_ATTEMPTS=4 \
@@ -2031,11 +2031,11 @@ EOF
   rate_late_rc=$?
   set -e
   rate_late_calls="$(wc -l < "$RATE_CALLS")"
-  if [ "$rate_late_rc" -eq 75 ] && [ "$(grep -c '/pulls/[0-9]*/' "$RATE_CALLS" || true)" -eq 1 ] \
+  if [ "$rate_late_rc" -eq 75 ] && [ "$(grep -c '/pulls/[0-9]*/' "$RATE_CALLS" || true)" -eq 0 ] \
       && ! grep -qE '/reviews|/pulls/comments|/pulls/2/' "$RATE_CALLS"; then
-    ok "quota discovered inside the PR walk stops after the lone canary request"
+    ok "quota discovered by the rate_limit probe stops before the canary request"
   else
-    bad "late quota did not short-circuit at the canary (rc=$rate_late_rc calls=$rate_late_calls): $(cat "$RATE_CALLS")"
+    bad "probe quota did not short-circuit before the canary (rc=$rate_late_rc calls=$rate_late_calls): $(cat "$RATE_CALLS")"
   fi
 
   # QUOTA FANOUT — eight active PRs at concurrency 8 under one group admission.
@@ -2054,7 +2054,11 @@ EOF
 if [ "${1:-}" = auth ]; then printf 'test-token\n'; exit 0; fi
 args="$*"
 case "$args" in
-  *rate_limit*) printf '%s\t%s\n' "${QF_REMAINING:?}" "$(( $(date +%s) + 120 ))"; exit 0 ;;
+  *rate_limit*)
+    if [ "${QF_PROBE_REFUSE:-0}" = 1 ]; then
+      echo "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" >&2; exit 1
+    fi
+    printf '%s\t%s\n' "${QF_REMAINING:?}" "$(( $(date +%s) + 120 ))"; exit 0 ;;
   *"/issues/comments"*) printf '[]\n'; exit 0 ;;
   *"/pulls?state=open"*)
     printf '['
@@ -2078,11 +2082,12 @@ fi
 printf '[]\n'
 EOF
   chmod +x "$GHQF/gh"
-  qf_run() { # qf_run <tag> <remaining> <refuse>
+  qf_run() { # qf_run <tag> <remaining> <worker-refuse> [probe-refuse]
     : >"$QF_CALLS"; echo 0 >"$QF_ACTIVE"; echo 0 >"$QF_MAX"
     set +e
     env PATH="$GHQF:$PATH" QF_CALLS="$QF_CALLS" QF_LOCK="$QF_LOCK" \
       QF_ACTIVE="$QF_ACTIVE" QF_MAX="$QF_MAX" QF_REMAINING="$2" QF_REFUSE="$3" \
+      QF_PROBE_REFUSE="${4:-0}" \
       GARDEN_COMMENT_REVIEW_CONCURRENCY=8 GARDEN_COMMENT_REVIEW_QUOTA_RESERVE=100 \
       GARDEN_GH_API_ATTEMPTS=1 GARDEN_API_COOLDOWN_SECS=300 \
       GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-qf-$1" \
@@ -2097,6 +2102,12 @@ EOF
     && grep -q primary-quota "$TR/state-qf-stale/gh-api-cooldown/marker" 2>/dev/null \
     && ok "a quota refusal bounds the eight-worker burst to one refused request, then latches" \
     || bad "quota refusal burst not bounded (rc=$qf_rc calls=$(wc -l < "$QF_CALLS")): $(cat "$QF_CALLS") $(cat "$TR/qf-stale.err")"
+  qf_run probe-refused 4000 0 1
+  [ "$qf_rc" -eq 75 ] && [ ! -s "$QF_CALLS" ] \
+    && grep -q primary-quota "$TR/state-qf-probe-refused/gh-api-cooldown/marker" 2>/dev/null \
+    && grep -q 'API rate limit exceeded for user ID 279080640' "$TR/qf-probe-refused.err" \
+    && ok "a primary-quota refusal from the rate_limit probe is preserved, latched, and stops before the canary" \
+    || bad "probe quota refusal was discarded or admitted a canary (rc=$qf_rc calls=$(wc -l < "$QF_CALLS")): $(cat "$QF_CALLS") $(cat "$TR/qf-probe-refused.err")"
   qf_run low 40 0
   qf_expiry="$(awk '{print $1; exit}' "$TR/state-qf-low/gh-api-cooldown/marker" 2>/dev/null || echo 0)"
   [ "$qf_rc" -eq 75 ] && [ ! -s "$QF_CALLS" ] \

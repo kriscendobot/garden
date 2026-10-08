@@ -488,27 +488,50 @@ review_quota_guard_trip() {   # review_quota_guard_trip <reason>
   : >"$review_tmp/primary-quota"
 }
 if [ -z "$fetch_primary_quota" ] && [ ! -e "$review_tmp/primary-quota" ] && [ -n "$open_prs" ]; then
-  review_rl="$(timeout 20 gh api rate_limit --jq '[.resources.core.remaining, .resources.core.reset] | @tsv' 2>/dev/null || true)"
-  review_rl_remaining="${review_rl%%$'\t'*}"
-  review_rl_reset="${review_rl#*$'\t'}"
-  case "$review_rl_remaining" in
-    ''|*[!0-9]*) log "review-metadata fanout: REST quota unknown (rate_limit probe gave no count); canary-first ramp only" ;;
-    *)
-      case "$review_rl_reset" in
-        ''|*[!0-9]*) ;;
-        *) review_quota_reset_secs=$(( review_rl_reset - $(date +%s) ))
-           [ "$review_quota_reset_secs" -ge 1 ] || review_quota_reset_secs="" ;;
-      esac
-      review_pr_budget=$(( (review_rl_remaining - GARDEN_COMMENT_REVIEW_QUOTA_RESERVE) / review_pr_cost ))
-      if [ "$review_pr_budget" -le 0 ]; then
-        review_pr_budget=0
-        review_quota_guard_trip "REST remaining $review_rl_remaining <= reserve $GARDEN_COMMENT_REVIEW_QUOTA_RESERVE; issuing no review-metadata request"
-      elif [ "$review_pr_budget" -lt "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
-        log "review-metadata fanout: REST remaining $review_rl_remaining; concurrency $GARDEN_COMMENT_REVIEW_CONCURRENCY clamped to $review_pr_budget"
-        GARDEN_COMMENT_REVIEW_CONCURRENCY="$review_pr_budget"
-      fi
-      ;;
-  esac
+  review_rl_err="$review_tmp/rate-limit.err"
+  review_rl_rc=0
+  if review_rl="$(timeout 20 gh api rate_limit --jq '[.resources.core.remaining, .resources.core.reset] | @tsv' 2>"$review_rl_err")"; then
+    :
+  else
+    review_rl_rc=$?
+  fi
+  # Keep the probe diagnostic inside the group admission critical section. A
+  # failed `rate_limit` call can itself be the authoritative primary-quota
+  # refusal; discarding its stderr used to turn that fact into "unknown quota"
+  # and release the canary request into an already-exhausted bucket
+  # (2026-10-08T08:55:04Z). Classify it before the first worker is admitted so
+  # the cursor freezes and the host latch is published while this lock is held.
+  if [ "$review_rl_rc" -ne 0 ]; then
+    if is_gh_primary_rate_limit_text "$(cat "$review_rl_err" 2>/dev/null || true)"; then
+      note_fetch_failure "rate_limit (review-metadata quota probe)" "$review_rl_err"
+      review_quota_guard_trip "rate_limit probe hit GitHub primary quota; issuing no review-metadata request"
+    else
+      { printf 'review-metadata fanout: REST quota unknown (rate_limit probe failed rc=%s); canary-first ramp only\n' "$review_rl_rc"
+        cat "$review_rl_err" 2>/dev/null || true; } >&2
+    fi
+  fi
+  if [ "$review_rl_rc" -eq 0 ]; then
+    review_rl_remaining="${review_rl%%$'\t'*}"
+    review_rl_reset="${review_rl#*$'\t'}"
+    case "$review_rl_remaining" in
+      ''|*[!0-9]*) log "review-metadata fanout: REST quota unknown (rate_limit probe gave no count); canary-first ramp only" ;;
+      *)
+        case "$review_rl_reset" in
+          ''|*[!0-9]*) ;;
+          *) review_quota_reset_secs=$(( review_rl_reset - $(date +%s) ))
+             [ "$review_quota_reset_secs" -ge 1 ] || review_quota_reset_secs="" ;;
+        esac
+        review_pr_budget=$(( (review_rl_remaining - GARDEN_COMMENT_REVIEW_QUOTA_RESERVE) / review_pr_cost ))
+        if [ "$review_pr_budget" -le 0 ]; then
+          review_pr_budget=0
+          review_quota_guard_trip "REST remaining $review_rl_remaining <= reserve $GARDEN_COMMENT_REVIEW_QUOTA_RESERVE; issuing no review-metadata request"
+        elif [ "$review_pr_budget" -lt "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
+          log "review-metadata fanout: REST remaining $review_rl_remaining; concurrency $GARDEN_COMMENT_REVIEW_CONCURRENCY clamped to $review_pr_budget"
+          GARDEN_COMMENT_REVIEW_CONCURRENCY="$review_pr_budget"
+        fi
+        ;;
+    esac
+  fi
 fi
 
 scanned=0; total=0
@@ -562,7 +585,7 @@ if [ -e "$review_tmp/primary-quota" ]; then
   review_quota_marker="$(_api_cooldown_marker_for all)"
   if [ -n "$review_admit_fd" ]; then
     _api_cooldown_record_locked "$review_quota_marker" "$review_quota_secs" \
-      "gh-api:repos/$repo/pulls-review-metadata:primary-quota" || true
+      "gh-api:repos/$repo/pulls-review-metadata:primary-quota" primary-quota || true
     _api_cooldown_claim_warning_locked "$review_quota_marker" >/dev/null 2>&1 || true
   elif [ -n "$review_group_admitted" ]; then
     start_api_cooldown "gh-api:repos/$repo/pulls-review-metadata:primary-quota" \
