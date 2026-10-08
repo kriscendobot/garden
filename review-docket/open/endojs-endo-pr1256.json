@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo",
+  "pr": 1256,
+  "url": "https://github.com/endojs/endo/pull/1256",
+  "head_oid": "2b92db74c66993d7d8da9dae8b989da792309e04",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix(bundle-source): assert that the entrypoint exists at all",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-pr1256",
+  "requested_at": "2026-10-08T07:36:55Z",
+  "first_requested_at": "2026-10-08T07:36:55Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:36:58Z"
+  }
+}
