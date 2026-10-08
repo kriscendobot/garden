@@ -1,7 +1,3 @@
-cadence: 3h
-last_dispatched: 2026-10-08T00:20:14Z
-job_basename_prefix: minion-town-arc-press
----
 ---
 role: gardener
 tier: mentor
