@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 281,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/281",
+  "head_oid": "75115559bda5254bc8da9e9bbd3ab622c820ca8f",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(rust-endo): ephemeral GC roots for suspended-worker snapshots",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr281",
+  "requested_at": "2026-10-08T07:40:56Z",
+  "first_requested_at": "2026-10-08T07:40:56Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:40:58Z"
+  }
+}
