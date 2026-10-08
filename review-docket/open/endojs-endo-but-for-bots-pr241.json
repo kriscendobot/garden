@@ -4,17 +4,17 @@
   "pr": 241,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/241",
   "head_oid": "e277aabf00034c38cbc42e1800439a4f872115d1",
-  "ask": "approve",
+  "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution)",
+  "summary": "Panel reviewed 7c041155, but the presented head is e277aabf0003",
   "unblocks": [],
-  "source": "native-review-request-endojs-endo-but-for-bots-pr241",
-  "requested_at": "2026-10-08T07:40:46Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr241-7c041155-e277aabf",
+  "requested_at": "2026-10-08T16:50:59Z",
   "first_requested_at": "2026-10-08T07:40:46Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-08T16:22:13Z"
+    "observed_at": "2026-10-08T16:51:02Z"
   }
 }
