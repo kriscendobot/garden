@@ -1,16 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T19:46:37Z_
+_As of 2026-10-08T19:49:30Z_
 
 ## Latest
 
-Little moved on the board: the only new transition is a gauntlet record staged for [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173), whose red-CI shepherd is still in flight. The bigger news is in the fleet. Oros is back after being offline since 10-02. It is heartbeating and claiming work again, and its stuck canary cleared at 19:29Z. However, its sysop stalled behind a queued restore, so someone may still need to check garden-sysop and garden-self-deploy on the Mac. Claude spend on the leader sits at 101% of its window cap, and the backoff ramp has throttled monks there to 1. Three things are still waiting on you:
+Little moved since the last bulletin. The only new board activity is a pre-spend viability stage posted for [kriscendobot/minion.town#173](https://github.com/kriscendobot/minion.town/pull/173), whose gauntlet record was updated while a shepherd works on its red CI.
 
-- **Review-docket consolidation:** the `review-docket-20261008` orchestration halted with its consolidate step parked in plan. It needs a promote or a split.
-- **kriscendobot Actions billing:** the block is still refusing CI starts (latest: [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153)), and a job is moving the parked PRs onto ci.minion.town.
-- **ocap.site DS record:** the record is still missing at the registrar. The transfer window opens around 10-09 19:55Z.
+Three standing items still need maintainer attention:
+
+- **Claude spend:** the leader's Claude spend is past its subscription cap and running on backoff.
+- **GitHub Actions billing:** Actions is still refusing to start jobs for the `kriscendobot` account. The latest occurrence was on [kriscendobot/minion.town#153](https://github.com/kriscendobot/minion.town/issues/153) at 16:02Z. A job in progress is moving the parked minion.town PRs onto ci.minion.town, but only a billing fix clears the block.
+- **Oros:** the host is heartbeating and claiming work again. Its stuck-canary watchdog cleared at 19:29Z, but the host-offline watchdog fired again at the same minute, so its rejoin is not yet confirmed.
 
 ## Maintainer review docket
 
@@ -588,18 +588,19 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.1M | $1202.33 _(notional, rate-card)_ | 101% of 168.0M (backoff) |
-| Codex | 15.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
+| Claude | 170.3M | $1203.74 _(notional, rate-card)_ | 101% of 168.0M (backoff) |
+| Codex | 15.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123221464 tokens/day lower bound._
+_Fleet token-unlock pace: 123274026 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1433
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261008-192023.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`kriscendobot-minion.town-pr173-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #173
 - [`endojs-endo-but-for-bots-pr71-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr71-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #71
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 
