@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1289,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1289",
+  "head_oid": "858996f8cd67d91cae8ce30ff620d259c5f5d0b3",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "test(marshal): compare passables with byte arrays",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr1289",
+  "requested_at": "2026-10-08T07:44:12Z",
+  "first_requested_at": "2026-10-08T07:44:12Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:44:15Z"
+  }
+}
