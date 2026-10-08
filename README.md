@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T00:44:45Z_
+_As of 2026-10-08T00:49:31Z_
 
 ## Latest
 
@@ -961,33 +961,33 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.5M | $400.19 _(notional, rate-card)_ | 29% of 168.0M (ok) |
-| Codex | 8.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 49.4M | $399.32 _(notional, rate-card)_ | 29% of 168.0M (ok) |
+| Codex | 8.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 120271881 tokens/day lower bound._
+_Fleet token-unlock pace: 120267009 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (4)
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1431
 - [`kriscendobot-minion.town-pr167-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #167
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr94-gauntlet-20261008-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #94
-- [`kriscendobot-minion.town-pr166-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #166
 - [`kriscendobot-minion.town-pr168-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #168
 
 ### doin (3)
 - [`kriscendobot-minion.town-pr169-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #169
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1431-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1431
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1343
+- [`kriscendobot-minion.town-pr166-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #166
 
-### tada (11524)
+### tada (11525)
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1431-gauntlet-fix-3.md) — Cost
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr94-gauntlet-20261008-viability.md) — Cost
 - [`kriscendobot-minion.town-pr167-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr167-gauntlet-fix-5.md) — Cost
 - [`weave-kriscendobot-minion-town-pr94-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/weave-kriscendobot-minion-town-pr94-20261008.md) — Cost
 - [`kriscendobot-minion.town-pr122-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-shepherd.md) — Cost
-- [`minion-town-arc-press-20261008-002014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-arc-press-20261008-002014.md) — Cost
-- … and 11519 more
+- … and 11520 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
