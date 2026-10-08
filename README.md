@@ -1,10 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-08T04:01:33Z_
+_As of 2026-10-08T04:05:35Z_
 
 ## Latest
 
-The proxy screened a new head (`e0b95d1`) of [kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) and posted a delegated-merge conduct job for it, replacing the earlier screening at `43a1387`. That is the only board change since the last bulletin. The maintainer still has two open decisions: whether to post the ERTP Phase 1 build for the minion.town credits charge, and whether to start the ocap.site transfer after 2026-10-09 19:55Z or ask the registrar to publish the DS record. The Oros host is still offline and needs a person to check it.
+The shepherd job for [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) completed, and the PR has moved on to its second gauntlet fix round. The proxy re-screened [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) at its new head `e0b95d1`, and a worker has claimed the delegated merge for it. Four items need your decision:
+
+- **ocap.site DNSSEC:** the 60-day transfer lock lifts around 2026-10-09 19:55Z. The DS record is still unpublished at Key-Systems, so DNSSEC stays broken until you either start the Route53 transfer or ask the registrar to publish the DS record.
+- **Milestone M2:** still blocked only on merging [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+- **minion.town ERTP charge:** the arc is waiting on whether to build the Phase 1 ERTP credits charge now or keep ERTP deferred.
+- **SturdyRef stack:** the panel summary for it is still waiting on a merge-order decision.
+
+The `orch-minion-town-oauth-bonds` orchestration halted because its build child declared its gated outcome unsatisfied. Oros has been offline since 2026-10-02 and needs someone to physically check the Mac and Docker.
 
 ## Parked for maintainer feedback
 
@@ -398,36 +405,35 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.8M | $501.09 _(notional, rate-card)_ | 39% of 168.0M (ok) |
-| Codex | 9.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 66.1M | $503.09 _(notional, rate-card)_ | 39% of 168.0M (ok) |
+| Codex | 9.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 120980186 tokens/day lower bound._
+_Fleet token-unlock pace: 121164938 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #169
 - [`kriscendobot-minion.town-pr168-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #168
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #122
 - [`kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #130
-- [`screen-minion-town-pr143-e0b95d1-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr143-e0b95d1-conduct.md) — Screened delegated merge: kriscendobot/minion.town#143 at e0b95d10de8df4349d7...
 
 ### doin (5)
 - [`fix-garden-daemon-reload-timer-starvation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-garden-daemon-reload-timer-starvation.md) — fix: daemon-reload storm starves never-fired monotonic timers (garden-proxy, ...
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1343
-- [`kriscendobot-minion.town-pr94-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1431-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1431
+- [`screen-minion-town-pr143-e0b95d1-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr143-e0b95d1-conduct.md) — Screened delegated merge: kriscendobot/minion.town#143 at e0b95d10de8df4349d7...
 
-### tada (11569)
+### tada (11570)
+- [`kriscendobot-minion.town-pr94-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr94-shepherd.md) — Cost
 - [`improve-retry-deploy-unit-restart`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-retry-deploy-unit-restart.md) — Cost
 - [`minion-town-arc-press-20261008-033511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-arc-press-20261008-033511.md) — Cost
 - [`screen-minion-town-pr143-43a1387-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/screen-minion-town-pr143-43a1387-conduct.md) — Cost
 - [`kriscendobot-minion-town-pr37-screen-7e50eb2a-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion-town-pr37-screen-7e50eb2a-gauntlet.md) — gauntlet kriscendobot-minion-town-pr37-screen-7e50eb2a-gauntlet — HALTED
-- [`weave-kriscendobot-minion-town-pr122-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/weave-kriscendobot-minion-town-pr122-20261008.md) — Cost
-- … and 11564 more
+- … and 11565 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
