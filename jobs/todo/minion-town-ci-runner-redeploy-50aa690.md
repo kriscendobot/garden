@@ -1,4 +1,28 @@
 ---
+role: orchestrator
+split_eligible: true
+split_reason: deadline-overrun
+split_source_role: ordinary
+split_source_handler_timeout: 2400
+split_orchestration: minion-town-ci-runner-redeploy-50aa690-split
+reposted_by: reaper:endolin-garden2-5bcdff64
+reposted_at: 2026-10-08T21:33:48Z
+---
+
+# Deliberate overrun decomposition for `minion-town-ci-runner-redeploy-50aa690`
+
+This ordinary job hit its applied 2400s handler wall once without productive progress. That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.
+
+Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:
+
+- **Divisible:** create at least two self-contained child jobs, park every child with `post-plan.sh --orchestrated --orchestrated-by minion-town-ci-runner-redeploy-50aa690-split`, then record `minion-town-ci-runner-redeploy-50aa690-split` with `post-orchestration.sh`.
+- **Indivisible:** choose a concrete reason and a timeout strictly greater than 2400 and no greater than 14339; park exactly one child with `post-plan.sh --orchestrated --orchestrated-by minion-town-ci-runner-redeploy-50aa690-split --split-indivisible-reason REASON --split-indivisible-handler-timeout SECONDS minion-town-ci-runner-redeploy-50aa690-expanded-window BODY-FILE` so both child fields land atomically. Record the same reason as `split-indivisible-reason:` and the same timeout as `split-indivisible-handler-timeout:` in the orchestration description, then record the single-child orchestration. Do not hand-author the child fields; a generic "too large" assertion is not a reason.
+- In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: minion-town-ci-runner-redeploy-50aa690-split>>>` immediately before the completion signal so completion verifies the successor.
+- Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.
+
+## Original job specification
+
+---
 requires: aws
 tier: mentor
 fallback-tier: minion
@@ -19,15 +43,3 @@ Task (do not change the code; any defect found becomes a separate fix job):
 4. Dispatch `.github/workflows/ci-runner-selftest.yml` on main with fail=true (`gh workflow run ci-runner-selftest.yml -R kriscendobot/minion.town --ref main -f fail=true`). Confirm that verify finds none of the planted residue (/tmp/.X11-unix probe, systemd-private decoy, named volume, cron, /run/lock), that the `fail` job is red, and that the job log's Runner name now carries the minter's timestamp stamp.
 5. With an identity that can read the variables and runners APIs, confirm CI_RUNS_ON is unset or self-hosted. Wait at least 10 minutes after the restart, then confirm that no orphaned or offline `ci-minion-town-*` registrations remain after the prune sweep.
 Report to the maintainer (scripts/jobs/message-user.sh): in sync or redeployed, the selftest run URL, and any open operator item.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-08T20:49:02Z
