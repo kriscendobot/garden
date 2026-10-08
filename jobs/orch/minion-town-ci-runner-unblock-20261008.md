@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-pr145-ci-runner-land-20261008 minion-town-pr145-ci-runner-merge-20261008 minion-town-billing-parked-prs-resume-20261008
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-08T18:29:54Z
 ---
