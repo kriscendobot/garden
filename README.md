@@ -1,12 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T08:39:27Z_
+_As of 2026-10-08T08:41:57Z_
 
 ## Latest
 
-Little moved this interval: the hourly Oros health watch finished and found the host still unreachable. Its heartbeat and sysop have been silent since 2026-10-02 and ten queued ops are unacknowledged, so someone needs to check the Mac, Docker Desktop and the VM runtime. Panel round 1 of the [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) gauntlet is still running. Three items wait on maintainer decisions. The review-docket orchestration halted on its final consolidate step, and the job is held in plan awaiting promotion. The ocap.site registrar transfer window opens around 2026-10-09 19:55Z, and the DS record is still unpublished. The kriscendobot GitHub Actions billing block still stops CI from starting on minion.town PRs.
+No board transitions resolved since the last bulletin, so most of the news is in the maintainer inbox.
+
+On minion.town, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, and its deploy and watchdog checks validated. The proxy also screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
+
+Three orchestrations halted:
+- **`review-docket-20261008`:** its consolidation child was doomed after a retry and is held in `plan/` waiting for a human promote. The review requests that the proxy's auto-clear archived are still not on the docket.
+- **`orch-minion-town-oauth-bonds`:** its build child declared its gated outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** its trial is blocked because `TYPESAFE_API_KEY` is missing. The maintainer needs to provide that key.
+
+GitHub Actions is refusing to start jobs on the kriscendobot account because of an account billing failure, most recently on [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/issues/166). Pushes can't fix this; it needs a Billing & plans fix and then reruns.
+
+Oros has been offline since 2026-10-02 and is now about 206 commits behind. Someone needs to check the Mac, Docker Desktop and the VM/container runtime in person.
+
+Decisions waiting on the maintainer:
+- **ocap.site:** the domain becomes transferable around 2026-10-09 19:55Z. DNSSEC stays broken until the transfer completes or the registrar publishes the DS record.
+- **minion.town arc:** whether to build the ERTP credits charge now or keep it deferred.
+- **Milestone M2:** it still needs merge authority on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
 
 ## Maintainer review docket
 
@@ -544,7 +558,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 119.3M | $861.00 _(notional, rate-card)_ | 71% of 168.0M (ok) |
+| Claude | 119.4M | $862.01 _(notional, rate-card)_ | 71% of 168.0M (ok) |
 | Codex | 12.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121913181 tokens/day lower bound._
