@@ -6224,6 +6224,82 @@ gh_api_retry() {
   done
 }
 
+# gh_read_retry <rest|graphql> <label> <gh-args…> — the read-only gh-CLI
+# sibling of gh_api_retry. Some high-level gh reads (`pr list`, `pr view`, and
+# `run list`) do not pass through `gh api`, but they consume the same REST or
+# GraphQL quotas. Admit every attempt under the host-wide quota lock, latch a
+# primary-quota refusal before releasing it, and use the same bounded transient
+# retry policy. Callers supply the bucket because the high-level command does not
+# expose it in argv. This interface is for reads only; never route a mutation
+# through its automatic retry.
+gh_read_retry() {
+  local need="$1" label="$2"; shift 2
+  local attempt=1 out rc errf stderr gh_bin admit=0 lockfd latch marker pq emit=1
+  case "$need" in
+    rest) latch=all ;;
+    graphql) latch=graphql ;;
+    *) log "ERROR: gh read $label has invalid quota scope '$need'"; return 64 ;;
+  esac
+  gh_bin="${GARDEN_GH:-gh}"
+  if [ -z "${_GARDEN_GH_API_ADMITTED:-}" ] && [ "$(_api_cooldown_secs)" -gt 0 ]; then admit=1; fi
+  errf="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/gh_read_retry.$$")"
+  while :; do
+    lockfd=""
+    if [ "$admit" -eq 1 ]; then
+      if ! _gh_api_admit "$need" "$label"; then
+        printf '%s\n' "$_GH_API_ADMIT_REFUSAL" >&2
+        rm -f "$errf"
+        return "${GARDEN_TRANSIENT_RC:-75}"
+      fi
+      lockfd="$_GH_API_ADMIT_FD"
+    fi
+    if out="$(if [ -n "$lockfd" ]; then exec {lockfd}>&-; fi
+              _GARDEN_GH_API_ADMITTED=1 "$gh_bin" "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
+    stderr=""
+    [ "$rc" -eq 0 ] || stderr="$(cat "$errf" 2>/dev/null || true)"
+    if [ "$rc" -ne 0 ] && is_gh_primary_rate_limit_text "$stderr"; then
+      pq="$(api_primary_quota_secs)"
+      marker="$(_api_cooldown_marker_for "$latch")"
+      if [ -n "$lockfd" ]; then
+        _api_cooldown_record_locked "$marker" "$pq" "gh-api:$label:primary-quota" primary-quota || true
+        _api_cooldown_claim_warning_locked "$marker" || emit=0
+      elif [ "$admit" -eq 1 ]; then
+        start_api_cooldown "gh-api:$label:primary-quota" "$pq" "$latch" || true
+        (
+          flock 9
+          _api_cooldown_claim_warning_locked "$marker"
+        ) 9>"$GARDEN_API_COOLDOWN_LOCK" || emit=0
+      fi
+    fi
+    if [ -n "$lockfd" ]; then exec {lockfd}>&-; fi
+    if [ "$rc" -eq 0 ]; then
+      rm -f "$errf"
+      printf '%s' "$out"
+      return 0
+    fi
+    if is_gh_primary_rate_limit_text "$stderr"; then
+      if [ "$emit" -eq 1 ]; then
+        log "WARN: gh read $label RATE LIMITED by GitHub primary quota (rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      fi
+      rm -f "$errf"
+      return "${GARDEN_TRANSIENT_RC:-75}"
+    fi
+    if ! _gh_api_stderr_is_transient "$stderr"; then
+      log "WARN: gh read $label failed (definitive, rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
+    if [ "$attempt" -ge "$GARDEN_GH_API_ATTEMPTS" ]; then
+      log "WARN: gh read $label failed after $attempt transient attempt(s) (rc=$rc): ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
+    log "gh read $label transient blip (rc=$rc); retry $((attempt+1))/$GARDEN_GH_API_ATTEMPTS after backoff: ${stderr:-<no stderr>}"
+    backoff "$attempt"
+    attempt=$((attempt+1))
+  done
+}
+
 # classify_fetch_failure <git-stderr> [<owner/repo>]
 #
 # Print one stable verdict for a failed git fetch:

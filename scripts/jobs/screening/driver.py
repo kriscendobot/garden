@@ -27,10 +27,25 @@ NOW = now()
 HEARTBEAT = Path(os.environ.get('GARDEN_SCREEN_HEARTBEAT', '/nonexistent'))
 URL = f'https://github.com/{REPOSITORY}'
 actions, notes = [], []
+GITHUB_READ = os.environ.get('GARDEN_SCREEN_GITHUB_READ',
+                             str(Path(__file__).with_name('github-read.sh')))
+
+
+class DeferredTick(Exception):
+    """The host-wide GitHub quota is exhausted; retry on a later timer tick."""
 
 
 def gh(*arguments, raw=False):
-    output = subprocess.check_output([os.environ.get('GARDEN_GH', 'gh'), *map(str, arguments)], text=True)
+    result = subprocess.run([GITHUB_READ, *map(str, arguments)], text=True,
+                            capture_output=True)
+    if result.returncode == int(os.environ.get('GARDEN_TRANSIENT_RC', '75')):
+        raise DeferredTick()
+    if result.returncode:
+        if result.stderr:
+            print(result.stderr, end='', file=sys.stderr)
+        raise subprocess.CalledProcessError(result.returncode, result.args,
+                                            output=result.stdout, stderr=result.stderr)
+    output = result.stdout
     return output if raw else json.loads(output)
 
 
@@ -430,4 +445,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except DeferredTick:
+        sys.exit(int(os.environ.get('GARDEN_TRANSIENT_RC', '75')))

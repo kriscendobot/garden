@@ -21,7 +21,7 @@
 # that commit lands, and each is idempotent across ticks.
 #
 # Test seams: GARDEN_SCREEN_CLONE, GARDEN_SCREEN_HEARTBEAT, GARDEN_GH,
-# GARDEN_SCREEN_POST_JOB, GARDEN_SCREEN_POST_GAUNTLET.
+# GARDEN_SCREEN_GITHUB_READ, GARDEN_SCREEN_POST_JOB, GARDEN_SCREEN_POST_GAUNTLET.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
@@ -38,7 +38,21 @@ out="$(mktemp)"; trap 'rm -f "$out"' EXIT
 
 for attempt in $(seq 1 20); do
   sync_clone "$journal"
-  if ! python3 "$HERE/screening/driver.py" "$journal" > "$out"; then
+  rc=0
+  python3 "$HERE/screening/driver.py" "$journal" > "$out" || rc=$?
+  if [ "$rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
+    # driver.py may have prepared validation records before a later GitHub read
+    # met the quota latch. Discard the whole tentative tick: a deferred tick has
+    # no journal effect and will recompute from fresh inputs after cooldown.
+    git -C "$journal" reset --hard -q HEAD
+    git -C "$journal" clean -qfd -- \
+      config/delegations/minion-town-pr-screening \
+      screenings/kriscendobot-minion.town \
+      inbox/maintainer/unread
+    clone_unlock "$journal"
+    exit 0
+  fi
+  if [ "$rc" -ne 0 ]; then
     clone_unlock "$journal"
     die "screener tick failed (GitHub read or journal parse); no state written"
   fi

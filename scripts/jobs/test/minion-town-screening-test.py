@@ -43,6 +43,10 @@ root = Path(os.environ['SCREEN_FIXTURE'])
 c = json.loads((root / 'configuration').read_text())
 a = sys.argv[1:]
 with (root / 'gh-calls').open('a') as log: log.write(' '.join(a) + '\\n')
+if c.get('gh_failure'):
+    print(c['gh_failure'], file=sys.stderr); sys.exit(1)
+if c.get('gh_malformed'):
+    print('{not-json'); sys.exit()
 def out(value): print(json.dumps(value)); sys.exit()
 if a[:2] == ['pr', 'list']: out(c['pulls'])
 if a[:2] == ['pr', 'view']: out(c['views'][a[2]])
@@ -215,6 +219,37 @@ class Screening(unittest.TestCase):
         self.assertIn('role: conductor', body)
         self.tick()
         self.assertEqual(self.posts(), [f'post-job {base}'])
+
+    def test_live_quota_cooldown_quietly_defers_without_a_github_call(self):
+        marker = self.root / '.garden-state/gh-api-cooldown/marker'
+        marker.parent.mkdir(parents=True)
+        marker.write_text(f'{int(datetime.datetime.now().timestamp()) + 3600}\n'
+                          'gh-api:test:primary-quota\nprimary-quota\n')
+        before = self.git('rev-parse', 'HEAD').stdout
+        result = self.tick()
+        self.assertEqual(result.stderr, '')
+        self.assertFalse((self.directory / 'gh-calls').exists())
+        self.assertEqual(self.git('rev-parse', 'HEAD').stdout, before)
+        self.assertFalse(self.attested())
+
+    def test_primary_quota_exhaustion_latches_and_quietly_defers(self):
+        self.configuration['gh_failure'] = 'API rate limit exceeded for user ID 123.'
+        before = self.git('rev-parse', 'HEAD').stdout
+        result = self.tick()
+        self.assertEqual(result.stderr, '')
+        self.assertEqual((self.directory / 'gh-calls').read_text().splitlines(), [
+            'pr list -R kriscendobot/minion.town --state open --limit 1000 --json '
+            'number,state,isDraft,baseRefName,headRefName,author,headRefOid,reviewDecision,statusCheckRollup,body'])
+        self.assertEqual(self.git('rev-parse', 'HEAD').stdout, before)
+        marker = self.root / '.garden-state/gh-api-cooldown/marker-graphql'
+        self.assertIn('primary-quota', marker.read_text())
+        self.assertFalse(self.attested())
+
+    def test_malformed_github_response_remains_fatal(self):
+        self.configuration['gh_malformed'] = True
+        result = self.tick(expected=1)
+        self.assertIn('screener tick failed', result.stderr)
+        self.assertFalse(self.attested())
 
     def test_finished_conductor_is_retried_then_stalls_to_the_maintainer(self):
         base = f'screen-minion-town-pr17-{HEAD[:7]}-conduct'
