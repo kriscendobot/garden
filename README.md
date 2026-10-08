@@ -1,20 +1,18 @@
 # Garden bulletin
 
-_As of 2026-10-08T07:54:14Z_
+_As of 2026-10-08T07:57:00Z_
 
 ## Latest
 
-The board activity was all minion.town gauntlet work. Panel round 2 on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and panel round 5 on [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) both finished, and each now has a fix round queued: round 2 for #166 and round 5 for #170. Panel round 4 on [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) has been claimed. Earlier, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and deployed cleanly.
+Little moved on the board itself: the halted terminal records for the [endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) and [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) gauntlets were cleared. Gauntlet rounds continue on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171). The proxy merged and deployed [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) cleanly at 04:05Z.
 
-Items that need the maintainer:
-- **Review-docket consolidation is stopped.** Its child job `review-docket-consolidate-20261008` used up its retries and is parked in plan. It needs a promote or a split before the consolidated review docket and its message can go out.
-- **Two other orchestrations halted:**
-  - `orch-minion-town-oauth-bonds` halted because its build reported that its required outcome was not met.
-  - The Jev triage/foreman trial is blocked until someone provides `TYPESAFE_API_KEY`.
-- **Milestone M2 is blocked on merges.** It is waiting on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). Both are clean and need maintainer merge authority.
-- **ocap.site DNS security is still broken.** The registrar has not published the DS record, so the DNSSEC chain is broken. The domain can be transferred to Route53 starting around 2026-10-09 19:55Z.
-- **Oros needs a person to check it.** The host has been offline since 10-02 and is now 206 commits behind. Someone needs to check its power and its Docker runtime.
-- **ERTP decision for minion.town.** The arc is waiting on a yes or no: build the Phase 1 ERTP credits now, or keep the charge stubbed at `0n`.
+A maintainer should notice these items:
+- **Review docket:** the `review-docket-20261008` orchestration halted at 2/3. Its consolidation child is held in plan and needs `promote-plan.sh review-docket-consolidate-20261008` or a split. Until then, the review requests that the auto-clear archived are not yet folded into the docket.
+- **Oauth-bonds and Jev trial:** `orch-minion-town-oauth-bonds` halted with an unsatisfied build. The Jev triage trial is blocked until a `TYPESAFE_API_KEY` is provisioned.
+- **Comment watchers:** on the leader, the watchers for all 12 sources have been held in a shared cooldown latch for about 30 minutes. They are not posting acknowledgments while it holds.
+- **Oros:** the host is still offline (since 10-02) and needs someone to check it in person.
+- **ocap.site:** the domain can be transferred after 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished, so the next step is your call: start the transfer or ask the registrar to add the DS record.
+- **Arc decision:** the minion.town arc is waiting on your choice to build the ERTP credits charge or keep it deferred.
 
 ## Maintainer review docket
 
@@ -228,11 +226,24 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-08T05:55:52Z, cleared 2026-10-08T06:00:50Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-08T05:55:52Z, latest 2026-10-08T07:55:28Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden2-5bcdff64 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 12 source(s); they post no acknowledgments while it holds.
+> - kriscendobot/cosgov: watcher ticking but cooldown for 1852s (since 2026-10-08T07:24:36Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 1843s (since 2026-10-08T07:24:45Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 1856s (since 2026-10-08T07:24:32Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 1849s (since 2026-10-08T07:24:39Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1881s (since 2026-10-08T07:24:07Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1872s (since 2026-10-08T07:24:16Z)
+> - kriscendobot/list: watcher ticking but cooldown for 1896s (since 2026-10-08T07:23:52Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1884s (since 2026-10-08T07:24:04Z)
+> watcher ticking but cooldown for 1808s (since 2026-10-08T07:25:20Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 1875s (since 2026-10-08T07:24:13Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 1819s (since 2026-10-08T07:25:09Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1894s (since 2026-10-08T07:23:54Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 1849s (since 2026-10-08T07:24:39Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -542,7 +553,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.2M | $815.26 _(notional, rate-card)_ | 67% of 168.0M (ok) |
+| Claude | 113.1M | $821.78 _(notional, rate-card)_ | 67% of 168.0M (ok) |
 | Codex | 12.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121651473 tokens/day lower bound._
