@@ -1,12 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T14:40:54Z_
+_As of 2026-10-08T14:43:32Z_
 
 ## Latest
 
-Two gauntlets moved forward. [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) finished its first panel review, and its first fix round has been claimed. [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) finished panel round 6 and now has fix round 6 posted. That is a long review loop, and a maintainer may want to watch whether it converges. The scheduled Claude-on-minion.town press also completed. The latest Oros health watch (14:38Z) reports the Oros host still unreachable: it has been offline since 2026-10-02, and its deployed build is 210 commits behind `main2`. Someone still needs to check the Mac's power and sleep state, Docker Desktop and the container runtime in person.
+No board transitions came through since the last bulletin. Three gauntlets are running: [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) is queued for its sixth fix round, [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) is in fix round 1, and [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) is in panel round 5. On minion.town, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was validated overnight.
+
+What needs you:
+
+- **Review docket stalled.** The `review-docket-20261008` orchestration halted at 2/3 because its consolidation child was doomed. That child is now held in plan, and you need to promote or split it before the 26 review requests that were archived by mistake get moved onto the docket.
+- **More halted orchestrations:**
+  - `orch-minion-town-oauth-bonds` halted because its build declared its gated outcome unsatisfied.
+  - `orch-jev-triage-foreman` is blocked until you provide `TYPESAFE_API_KEY`.
+- **GitHub Actions billing.** Actions won't start jobs for the kriscendobot account because of a payment or spending-limit block, first seen on [minion.town#166](https://github.com/kriscendobot/minion.town/issues/166). No push can fix this.
+- **Oros is still offline.** It has been down since 2026-10-02 and is now 210 commits behind. Someone needs to check the Mac physically.
+- **Decisions waiting:**
+  - ocap.site can be transferred into Route53 after about 19:55Z on 2026-10-09; until then its DNSSEC DS record stays unpublished.
+  - Whether to build the ERTP credits Phase 1 now or keep it deferred.
+  - Milestone M2 is waiting on your merge of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+
+Claude spend is at 87% of quota, close to the 90% burn ceiling.
 
 ## Maintainer review docket
 
@@ -560,7 +573,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 146.1M | $1041.39 _(notional, rate-card)_ | 87% of 168.0M (ok) |
+| Claude | 146.2M | $1041.89 _(notional, rate-card)_ | 87% of 168.0M (ok) |
 | Codex | 13.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122966862 tokens/day lower bound._
