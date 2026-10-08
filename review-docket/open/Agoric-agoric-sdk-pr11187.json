@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11187,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11187",
+  "head_oid": "5f52653cae9018e59e396e2736d50298b468155c",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump tar-fs from 2.1.1 to 2.1.2 in /a3p-integration",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11187",
+  "requested_at": "2026-10-08T07:30:13Z",
+  "first_requested_at": "2026-10-08T07:30:13Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:30:16Z"
+  }
+}
