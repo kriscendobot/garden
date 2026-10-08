@@ -1,10 +1,20 @@
 # Garden bulletin
 
-_As of 2026-10-08T18:48:06Z_
+_As of 2026-10-08T18:51:53Z_
 
 ## Latest
 
-The only board movement was an edit to the parked merge step for [minion.town#145](https://github.com/kriscendobot/minion.town/pull/145), the ci.minion.town runner; the job that lands it, by weaving, fixing and un-drafting, is still in progress. Oros is the main news: after six days offline it is heartbeating again. Its stuck canary cleared at 18:35Z and the offline watchdog cleared at 18:38Z, so it should rejoin the deploy rotation on its own. The Claude subscription for this host has reached its 168M-token cap and is now in backoff, which will slow work until the 10-10 reset.
+The board barely moved this cycle. One designer job was claimed, [`design-endo-formula-identifier-indirection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-formula-identifier-indirection.md), which adds a level of indirection so formula identifiers can be rotated. One was posted, [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-ocap-site-crawler-leak-rotation.md), which treats a crawler on an ocap.site page as a sign the link leaked and rotates it.
+
+The bigger news is the fleet itself. Oros was offline from October 2 and is heartbeating again, and its watchdog conditions cleared at about 18:35–18:38Z. The rolling deploy no longer reports its canary as stuck, and the watchdog says Oros will rejoin the canary rotation on its own. Earlier today the sysop's queue on Oros stopped advancing, so if the self-deploy timer stalls again, someone still has to check the Mac.
+
+Claude spend has reached 100% of the claude-endolin2 cap before its October 10 reset. The backoff ramp is throttling the monk pool, so expect slower throughput until then.
+
+The [review-docket orchestration](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-halted.md) halted on its last step. That step consolidates the existing review requests and replaces the old priorities documents, and it is now [parked awaiting your go-ahead](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-docket-consolidate-20261008.md).
+
+Still in flight:
+- Landing [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) (ci.minion.town). This matters because the kriscendobot Actions billing block is still refusing to start jobs.
+- Gauntlet stages for [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79).
 
 ## Maintainer review docket
 
@@ -270,10 +280,6 @@ Delegation: **active**
 >
 > Orchestration orch-minion-town-oauth-bonds observed child build-minion-town-oauth-bonds: completed but declared its gated outcome unsatisfied.
 
-- `endojs-endo-but-for-bots-pr71-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr71-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr71-gauntlet-20261007-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr71-gauntlet-20261007 HALTED: stage 'endojs-endo-but-for-bots-pr71-gauntlet-20261007-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
-
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #10 (first seen 2026-10-03T06:41:10Z, latest 2026-10-03T12:38:09Z).
@@ -354,7 +360,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
-> budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=256412 cap=180000000 pace-bias=0.404735 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=4 backoff=0.6662(ramp) target=4
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-08T17:50:19Z, latest 2026-10-08T18:50:22Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-4`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
+>
+> budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=397554 cap=180000000 pace-bias=0.414073 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=4 backoff=0.6692(ramp) target=4
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr334-30c43c645a9e` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr334-30c43c645a9e.md)
 
@@ -577,22 +587,23 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.2M | $1183.00 _(notional, rate-card)_ | 100% of 168.0M (backoff) |
-| Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
+| Claude | 167.5M | $1184.91 _(notional, rate-card)_ | 100% of 168.0M (backoff) |
+| Codex | 14.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123000435 tokens/day lower bound._
+_Fleet token-unlock pace: 123056927 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1379
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 - [`minion-town-pr145-ci-runner-land-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr145-ci-runner-land-20261008.md) — Land ci.minion.town (kriscendobot/minion.town#145), part 1: weave, fix, undraft
+- [`design-endo-formula-identifier-indirection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-formula-identifier-indirection.md) — Design: a level of indirection so formula identifiers can be rotated
 
 ### tada (11836)
 - [`endojs-endo-but-for-bots-pr71-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr71-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr71-gauntlet-20261007 — HALTED
