@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by posted gauntlet kriscendobot-minion.town-pr94-gauntlet-20261008 after PR #94 was woven onto main-d750b09.
+withdrawn_by: weaver
+withdrawn_at: 2026-10-08T00:34:54Z
+withdrawn_from_gate: deferred
+---
+
+---
 gate: deferred
 priority: normal
 arc: minion-town-mcp-ocapn
