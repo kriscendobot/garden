@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T02:31:23Z_
+_As of 2026-10-08T02:33:53Z_
 
 ## Latest
 
@@ -757,6 +757,14 @@ Delegation: **active**
 
 > UNREACHABLE: Oros remains offline as of 2026-10-07T14:38Z. Fresh journal2 has no active checkup; its schedule is deferred to 2026-10-11T21:00:00Z. The heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred, sysop last applied an op 2026-10-02T05:38:58Z, and heartbeat-offline derotation remains active. Deployed e036bb8e is 187 commits behind main2. I sent no duplicate op because seven reset-failed and one restore are already queued without acknowledgments. A person must check the Mac power/sleep state, Docker Desktop, and VM/container.
 
+- `stale-panel-head-kriscendobot-minion.town-pr169-6ac8c2a1-d3f982ca` — from gardener:kriscendobot-minion.town-pr169-conduct-prod-validate, reply_to `kriscendobot-minion.town-pr169-conduct-prod-validate` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr169-6ac8c2a1-d3f982ca.md)
+
+> Stale panel coverage for completed job `kriscendobot-minion.town-pr169-conduct-prod-validate`: [https://github.com/kriscendobot/minion.town/pull/169](https://github.com/kriscendobot/minion.town/pull/169) moved from panel-reviewed head `6ac8c2a1693b525133f2cea35673f7290def01c3` to presented head `d3f982ca22cb778c0d556029ab40781b7cd5e297`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-10-07T18:22:53Z, cleared 2026-10-07T18:27:42Z).
@@ -989,31 +997,31 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.3M | $463.19 _(notional, rate-card)_ | 36% of 168.0M (ok) |
-| Codex | 8.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 60.3M | $464.37 _(notional, rate-card)_ | 36% of 168.0M (ok) |
+| Codex | 9.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 120421020 tokens/day lower bound._
+_Fleet token-unlock pace: 120458209 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1431
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #168
-- [`kriscendobot-minion.town-pr169-conduct-prod-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-conduct-prod-validate.md) — ---
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1343
 - [`kriscendobot-minion.town-pr166-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #166
 
-### tada (11551)
+### tada (11552)
+- [`kriscendobot-minion.town-pr169-conduct-prod-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-conduct-prod-validate.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr94-gauntlet-20261008-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr169-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet.md) — gauntlet kriscendobot-minion.town-pr169-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr169-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-fix-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-4.md) — Cost
-- [`kriscendobot-minion.town-pr168-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr168-gauntlet-fix-5.md) — Gauntlet fix round 5: kriscendobot/minion.town PR #168
-- … and 11546 more
+- … and 11547 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
