@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7271 (530 parent indexes + 6741 children).
+Total section files: 7276 (530 parent indexes + 6746 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -308,6 +308,10 @@ Total section files: 7271 (530 parent indexes + 6741 children).
 - [atproto--specs-sync--mechanisms-and-repository-revisions](atproto--specs-sync--mechanisms-and-repository-revisions.md)
 - [atproto--specs-sync--message-validation-checklist](atproto--specs-sync--message-validation-checklist.md)
 - [atproto--specs-sync--record-level-synchronization](atproto--specs-sync--record-level-synchronization.md)
+
+### awesome-ocap--wiki-petnames
+
+- [awesome-ocap--wiki-petnames--overview](awesome-ocap--wiki-petnames--overview.md)
 
 ### blick--readme
 
@@ -1398,6 +1402,10 @@ Total section files: 7271 (530 parent indexes + 6741 children).
 - [danfinlay-quickjs--native-ses--harden-c-deep-freeze](danfinlay-quickjs--native-ses--harden-c-deep-freeze.md)
 - [danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics](danfinlay-quickjs--native-ses--lockdown-freeze-intrinsics.md)
 - [danfinlay-quickjs--native-ses--xs-transferable-strategies](danfinlay-quickjs--native-ses--xs-transferable-strategies.md)
+
+### dcms-dev--pet-names-true-names-nicknames-2000
+
+- [dcms-dev--pet-names-true-names-nicknames-2000--public-antecedent-and-attribution](dcms-dev--pet-names-true-names-nicknames-2000--public-antecedent-and-attribution.md)
 
 ### deno--runtime-fundamentals-configuration-md
 
@@ -9494,6 +9502,10 @@ Total section files: 7271 (530 parent indexes + 6741 children).
 - [papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority](papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority.md)
 - [papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application](papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md)
 
+### papers--stiegler-petname-systems-2005
+
+- [papers--stiegler-petname-systems-2005--definition-attribution-and-limitations](papers--stiegler-petname-systems-2005--definition-attribution-and-limitations.md)
+
 ### papers--stiegler-polaris-cacm-2006
 
 - [papers--stiegler-polaris-cacm-2006--closing-the-gui-hole-shatter-proofing-windows](papers--stiegler-polaris-cacm-2006--closing-the-gui-hole-shatter-proofing-windows.md)
@@ -10290,6 +10302,10 @@ Total section files: 7271 (530 parent indexes + 6741 children).
 - [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md)
 - [web--miller-grant-matcher-puzzle--when-it-works](web--miller-grant-matcher-puzzle--when-it-works.md)
 
+### web--miller-petname-markup-language
+
+- [web--miller-petname-markup-language--history-name-kinds-and-layering](web--miller-petname-markup-language--history-name-kinds-and-layering.md)
+
 ### web--moddable-kaozkit
 
 - [web--moddable-kaozkit--agents-on-ice](web--moddable-kaozkit--agents-on-ice.md)
@@ -10425,6 +10441,10 @@ Total section files: 7271 (530 parent indexes + 6741 children).
 ### yarn-berry--workspaces
 
 - [yarn-berry--workspaces--workspace-protocol-and-publish-rewrite](yarn-berry--workspaces--workspace-protocol-and-publish-rewrite.md)
+
+### zooko--distributed-secure-human-readable-2001
+
+- [zooko--distributed-secure-human-readable-2001--claim-and-scope](zooko--distributed-secure-human-readable-2001--claim-and-scope.md)
 
 ## Historical ingest log (preserved for chronological context)
 
