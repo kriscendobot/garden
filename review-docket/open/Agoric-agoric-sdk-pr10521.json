@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10521,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10521",
+  "head_oid": "62eda3ad7063de101e975236789b8a2a25017298",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump cross-spawn from 7.0.3 to 7.0.6 in /multichain-testing",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10521",
+  "requested_at": "2026-10-08T07:27:45Z",
+  "first_requested_at": "2026-10-08T07:27:45Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:27:47Z"
+  }
+}
