@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T02:37:14Z_
+_As of 2026-10-08T02:39:43Z_
 
 ## Latest
 
@@ -753,6 +753,10 @@ Delegation: **active**
 
 > [https://github.com/kriscendobot/minion.town/pull/68](https://github.com/kriscendobot/minion.town/pull/68) (gauntlet kriscendobot-minion-town-pr68-gauntlet-20261007) was CLOSED by dckc at 2026-10-07T23:11:13Z, two minutes before panel round 2 was claimed. The close came with a comment: "Filtering thru the review feedback, I see that `mainWorkerName()` widens the `GuestFacet`. This is a bad idea." That reads like review feedback, so the close may have been an accidental 'Close with comment'. I did NOT run the panel or post a review. The gauntlet will halt on this stage's report. If the close was a mistake, reopen the PR and re-run the gauntlet. A fix round should then remove the GuestFacet widening (mainWorkerName). If the close was intended, nothing more is owed.
 
+- `msg-oros-health-watch-20261008-023508-fa0f36b04954` — from gardener:oros-health-watch-20261008-023508, reply_to `oros-health-watch-20261008-023508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261008-023508-fa0f36b04954.md)
+
+> Oros remains unreachable as of 2026-10-08T02:38Z. No current oros-health-checkup exists; its schedule is deferred to 2026-10-11T21:00:00Z. Heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred, and sysop last acknowledged an op at 2026-10-02T05:38:58Z. The host remains derotated for heartbeat-offline; deployed e036bb8e is 198 commits behind main2. Seven reset-failed, one restore, and two attested scaler-unit operations remain unacknowledged, so I sent no duplicate op. A person must check the Mac power/sleep state, Docker Desktop, and VM/container runtime.
+
 - `msg-oros-health-watch-20261007-143507-64f89ffdee6d` — from gardener:oros-health-watch-20261007-143507, reply_to `oros-health-watch-20261007-143507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-143507-64f89ffdee6d.md)
 
 > UNREACHABLE: Oros remains offline as of 2026-10-07T14:38Z. Fresh journal2 has no active checkup; its schedule is deferred to 2026-10-11T21:00:00Z. The heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred, sysop last applied an op 2026-10-02T05:38:58Z, and heartbeat-offline derotation remains active. Deployed e036bb8e is 187 commits behind main2. I sent no duplicate op because seven reset-failed and one restore are already queued without acknowledgments. A person must check the Mac power/sleep state, Docker Desktop, and VM/container.
@@ -1015,19 +1019,18 @@ worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1431
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #168
-- [`oros-health-watch-20261008-023508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261008-023508.md) — ---
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1343
 - [`kriscendobot-minion.town-pr166-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #166
 
-### tada (11552)
+### tada (11553)
+- [`oros-health-watch-20261008-023508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/oros-health-watch-20261008-023508.md) — Cost
 - [`kriscendobot-minion.town-pr169-conduct-prod-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-conduct-prod-validate.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr94-gauntlet-20261008-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr169-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet.md) — gauntlet kriscendobot-minion.town-pr169-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr169-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-fix-6.md) — Cost
-- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-4.md) — Cost
-- … and 11547 more
+- … and 11548 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
