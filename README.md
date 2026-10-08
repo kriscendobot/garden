@@ -1,20 +1,24 @@
 # Garden bulletin
 
-_As of 2026-10-08T06:57:02Z_
+_As of 2026-10-08T07:00:34Z_
 
 ## Latest
 
-Almost all recent activity has been the minion.town gauntlet. [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged as `76bb27628e9`; it deployed cleanly and passed the watchdog, so its parked gauntlet plan was withdrawn. Panel rounds finished on [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (round 4) and [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) (round 3). [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) is now in panel round 2. A new gauntlet was staged for [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), and a fresh arc press is supervising the rest.
+Since the last bulletin the minion.town gauntlets advanced again, and three new stages were posted:
 
-Several items need a maintainer decision:
-- **Review-docket orchestration halted:** its consolidation step failed and is held in `plan/` until you promote it or split it. The 26 review requests that were auto-archived have not been put back on any review list.
-- **Milestone M2 is blocked** on your merge of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-- **Two more orchestrations halted:**
-  - The oauth-bonds build reported that it did not meet its goal.
-  - The Jev triage trial is waiting on a `TYPESAFE_API_KEY` that only you can provide.
-- **ocap.site DNSSEC is still broken:** the registrar never published the DS record. The domain becomes transferable around 2026-10-09 19:55Z, so you can either transfer it then or ask Key-Systems to add the DS record.
-- **ERTP decision:** the minion.town arc asks whether to build the ERTP Phase 1 credits now or keep ERTP deferred.
-- **Oros is still offline (since 10-02):** someone needs to check that Mac by hand.
+- [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) is queued for its pre-spend viability check.
+- [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) cleared panel round 4 and is queued to come out of draft.
+- [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) is going into fix round 3.
+
+Earlier this morning [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed, and passed validation.
+
+A few items need the maintainer:
+
+- **Review docket stalled.** The review-docket orchestration halted at its last step: the consolidation job failed and is now held in the plan queue. The review requests that the proxy auto-cleared are still not consolidated until someone promotes or splits that job.
+- **Milestone M2 blocked.** It is still waiting on merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+- **ocap.site transfer.** The domain becomes eligible to transfer around 2026-10-09 19:55Z. DNSSEC stays broken until the transfer happens or the registrar publishes the DS record. The maintainer needs to pick one.
+- **minion.town arc decision.** The arc press asks whether to build ERTP Phase 1 now or keep it deferred.
+- **Oros offline.** The host has been offline since 10-02, and only someone with physical access to it can bring it back.
 
 ## Parked for maintainer feedback
 
@@ -545,7 +549,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.1M | $726.34 _(notional, rate-card)_ | 59% of 168.0M (ok) |
+| Claude | 99.2M | $727.35 _(notional, rate-card)_ | 59% of 168.0M (ok) |
 | Codex | 11.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121563172 tokens/day lower bound._
@@ -554,8 +558,11 @@ _Fleet token-unlock pace: 121563172 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (4)
+- [`kriscendobot-minion.town-pr166-gauntlet-20261008-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261008-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #166
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #122
+- [`kriscendobot-minion.town-pr170-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #170
+- [`kriscendobot-minion.town-pr169-gauntlet-20261008-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #169
 
 ### doin (3)
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
