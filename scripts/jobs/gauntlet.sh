@@ -262,6 +262,7 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
   local base="$1" terminal_state="$2" reason="$3" repo="$4" prnum="$5" iter="$6"
   local marker comments meta head ci pending bad total
   local panel_tada="" must_fix_count="" must_fix_part="" next body gh_bin rc=0
+  local comment_err write_rc quota_secs
 
   if [ -z "$repo" ] || [ -z "$prnum" ]; then
     log "WARN: gauntlet '$base': cannot post terminal PR status (missing repo/pr_number)"
@@ -287,7 +288,12 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
 
   head="unknown (GitHub metadata unreadable)"
   ci="unknown"
-  if meta="$(gh_pr_view_retry "$prnum" -R "$repo" --json headRefOid,statusCheckRollup)"; then
+  # The comment list and post are REST operations, so a spent GraphQL bucket must
+  # not suppress the receipt itself. It does, however, make this optional metadata
+  # read known-doomed: leave the fields unknown and preserve the REST delivery path.
+  if api_cooldown_active graphql; then
+    :
+  elif meta="$(gh_pr_view_retry "$prnum" -R "$repo" --json headRefOid,statusCheckRollup)"; then
     head="$(printf '%s' "$meta" | jq -r '.headRefOid // empty' 2>/dev/null || true)"
     [ -n "$head" ] || head="unknown (not reported)"
     total="$(printf '%s' "$meta" | jq -r '[.statusCheckRollup[]?] | length' 2>/dev/null || echo unknown)"
@@ -352,13 +358,22 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
   # Machine-authored (no LLM in this process): GARDEN_NO_LLM renders the footer as
   # `model automatic` instead of tripping the comment-provenance gap alert on every
   # post and every quota-cooled retry (comment-provenance.sh § AUTOMATIC).
-  if ! GARDEN_NO_LLM=1 "$gh_bin" pr comment "$prnum" -R "$repo" --body-file "$body" >/dev/null 2>&1; then
-    log "WARN: gauntlet '$base': terminal PR status comment failed (non-fatal; state=$terminal_state; will retry)"
-    rc=1
-  else
+  comment_err="$(mktemp "${TMPDIR:-/tmp}/gauntlet-terminal-comment-error.XXXXXX")"
+  if GARDEN_NO_LLM=1 "$gh_bin" pr comment "$prnum" -R "$repo" --body-file "$body" \
+       >/dev/null 2>"$comment_err"; then
     log "gauntlet '$base': posted terminal PR status ($terminal_state)"
+  else
+    write_rc=$?
+    if is_gh_primary_rate_limit_text "$(cat "$comment_err" 2>/dev/null || true)"; then
+      quota_secs="$(api_primary_quota_secs)"
+      if start_api_cooldown "gauntlet:$base:terminal-comment:primary-quota" "$quota_secs"; then
+        log "WARN: gauntlet '$base': terminal PR status comment hit GitHub primary REST quota exhaustion (rc=$write_rc); cooling REST gh-api callers for ${quota_secs}s"
+      fi
+    fi
+    log "WARN: gauntlet '$base': terminal PR status comment failed (non-fatal; rc=$write_rc; state=$terminal_state; will retry)"
+    rc=1
   fi
-  rm -f "$body"
+  rm -f "$body" "$comment_err"
   return "$rc"
 }
 

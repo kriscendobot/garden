@@ -19,6 +19,7 @@ case "${1:-} ${2:-}" in
     ;;
   "pr view")
     pr="${3:-0}"
+    [ -z "${GAUNTLET_GH_VIEWS_LOG:-}" ] || printf '%s\n' "$*" >> "$GAUNTLET_GH_VIEWS_LOG"
     [ ! -e "${GAUNTLET_GH_FAIL_VIEWS_FILE:-/nonexistent}" ] || exit 1
     if [ -s "${GAUNTLET_GH_HEAD_FILE:-/nonexistent}" ]; then
       head_oid="$(cat "$GAUNTLET_GH_HEAD_FILE")"
@@ -39,7 +40,10 @@ case "${1:-} ${2:-}" in
         statusCheckRollup: [{status: "COMPLETED", conclusion: "SUCCESS"}]}'
     ;;
   "pr comment")
-    [ ! -e "${GAUNTLET_GH_FAIL_WRITES_FILE:-/nonexistent}" ] || exit 1
+    if [ -e "${GAUNTLET_GH_FAIL_WRITES_FILE:-/nonexistent}" ]; then
+      cat "$GAUNTLET_GH_FAIL_WRITES_FILE" >&2
+      exit 1
+    fi
     body=""
     while [ "$#" -gt 0 ]; do
       case "$1" in

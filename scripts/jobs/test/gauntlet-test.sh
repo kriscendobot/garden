@@ -27,9 +27,14 @@
 #                    pending receipt with the finish; retries post it once, clear it.
 #  15. COOLDOWN   — terminal receipts finishing under a live gh-api cooldown defer
 #                    into pending records WITHOUT a gh read or a per-gauntlet WARN.
-#  16. STALE UNDRAFT HEAD: an undraft=done report cannot complete a head other
+#  16. GRAPHQL COOLDOWN — a GraphQL-only latch skips optional PR metadata while
+#                    retaining the terminal receipt's REST read and comment post.
+#  17. WRITE QUOTA — a primary REST quota failure on the comment post opens the
+#                    shared REST cooldown before the pending receipt is persisted.
+#  18. STALE UNDRAFT HEAD: an undraft=done report cannot complete a head other
 #                    than the exact head recorded for the passing panel.
-#  17. STILL-DRAFT UNDRAFT: an undraft=done report requires live isDraft=false.
+#  19. STILL-DRAFT UNDRAFT: an undraft=done report requires live isDraft=false.
+#  20. HELD DRAFT: a passing panel honors a non-deliverable phase ledger.
 #
 # Usage: gauntlet-test.sh
 
@@ -78,6 +83,7 @@ export GAUNTLET_GH_COMMENTS="$TR/pr-comments"
 export GAUNTLET_GH_FAIL_WRITES_FILE="$TR/fail-comment-writes"
 export GAUNTLET_GH_FAIL_READS_FILE="$TR/fail-comment-reads"
 export GAUNTLET_GH_READS_LOG="$TR/pr-comment-reads"
+export GAUNTLET_GH_VIEWS_LOG="$TR/pr-views"
 export GAUNTLET_GH_FAIL_VIEWS_FILE="$TR/fail-pr-views"
 export GAUNTLET_GH_HEAD_FILE="$TR/pr-head"
 export GAUNTLET_GH_DRAFT_FILE="$TR/pr-draft"
@@ -707,7 +713,51 @@ tick   # cooldown over → both delivered once and cleared
   || bad "cooldown: counts=$(terminal_comment_count g16 halted)/$(terminal_comment_count g17 halted) pending=[$(board jobs/gauntlet-terminal-pending)]"
 
 # ============================================================================
-hr; echo "SUBTEST 16 - STALE UNDRAFT HEAD: a done claim cannot complete a different head"; hr
+hr; echo "SUBTEST 16 - GRAPHQL COOLDOWN: optional metadata defers, REST receipt still posts"; hr
+post_gauntlet --max-stage-retries 0 g23 https://github.com/testowner/testrepo/pull/23
+tick   # post g23-clean
+fail_stage g23-clean
+printf '%s\ngraphql-primary-quota test\nprimary-quota\n' \
+  "$(( $(date +%s) + 600 ))" > "$GARDEN_API_COOLDOWN_DIR/marker-graphql"
+: > "$GAUNTLET_GH_READS_LOG"
+: > "$GAUNTLET_GH_VIEWS_LOG"
+tick   # halt: REST marker read/post proceed, GraphQL metadata read is skipped
+g23_comment="$(terminal_comment_body g23 halted)"
+{ in_dir jobs/tada g23 \
+    && [ "$(terminal_comment_count g23 halted)" = 1 ] \
+    && [ -s "$GAUNTLET_GH_READS_LOG" ] \
+    && [ ! -s "$GAUNTLET_GH_VIEWS_LOG" ] \
+    && printf '%s' "$g23_comment" | grep -Fq 'head `unknown (GitHub metadata unreadable)`'; } \
+  && ok "GraphQL latch skipped metadata but retained REST comment dedupe and delivery" \
+  || bad "graphql-cooldown: reads=[$(cat "$GAUNTLET_GH_READS_LOG")] views=[$(cat "$GAUNTLET_GH_VIEWS_LOG")] comment=[$g23_comment]"
+rm -f "$GARDEN_API_COOLDOWN_DIR/marker-graphql"
+
+# ============================================================================
+hr; echo "SUBTEST 17 - WRITE QUOTA: primary REST exhaustion opens cooldown before receipt persists"; hr
+post_gauntlet --max-stage-retries 0 g24 https://github.com/testowner/testrepo/pull/24
+tick   # post g24-clean
+fail_stage g24-clean
+printf '%s\n' 'gh: API rate limit exceeded for user ID 1 (HTTP 403)' > "$GAUNTLET_GH_FAIL_WRITES_FILE"
+tick   # halt: comment mutation fails with a primary REST quota refusal
+rm -f "$GAUNTLET_GH_FAIL_WRITES_FILE"
+{ in_dir jobs/tada g24 \
+    && in_dir jobs/gauntlet-terminal-pending g24--halted \
+    && grep -q 'gauntlet:g24:terminal-comment:primary-quota' "$GARDEN_API_COOLDOWN_DIR/marker" \
+    && grep -q 'primary-quota' "$GARDEN_API_COOLDOWN_DIR/marker"; } \
+  && ok "primary REST comment failure opened the shared cooldown and persisted the pending receipt" \
+  || bad "write-quota: pending=[$(board jobs/gauntlet-terminal-pending)] marker=[$(cat "$GARDEN_API_COOLDOWN_DIR/marker" 2>/dev/null)]"
+grep -q "terminal PR status comment hit GitHub primary REST quota exhaustion" "$TR/tick.log" \
+  && ok "primary REST comment failure was captured and classified" \
+  || bad "write-quota: missing classified warning: [$(grep WARN "$TR/tick.log")]"
+rm -f "$GARDEN_API_COOLDOWN_DIR/marker" "$GARDEN_API_COOLDOWN_DIR/marker.warned"
+tick   # retry succeeds after the fixture cooldown is cleared
+{ [ "$(terminal_comment_count g24 halted)" = 1 ] \
+    && ! in_dir jobs/gauntlet-terminal-pending g24--halted; } \
+  && ok "quota-deferred terminal receipt later posts once and clears" \
+  || bad "write-quota retry: count=$(terminal_comment_count g24 halted) pending=[$(board jobs/gauntlet-terminal-pending)]"
+
+# ============================================================================
+hr; echo "SUBTEST 18 - STALE UNDRAFT HEAD: a done claim cannot complete a different head"; hr
 post_gauntlet g18 https://github.com/testowner/testrepo/pull/18
 tick; complete_stage g18-clean clean=done
 tick; complete_stage g18-panel-1 panel=pass
@@ -723,7 +773,7 @@ rm -f "$GAUNTLET_GH_HEAD_FILE"
   || bad "stale-head undraft was not rejected: [$(tada_body g18)]"
 
 # ============================================================================
-hr; echo "SUBTEST 17 - STILL-DRAFT UNDRAFT: done requires live isDraft=false"; hr
+hr; echo "SUBTEST 19 - STILL-DRAFT UNDRAFT: done requires live isDraft=false"; hr
 post_gauntlet g19 https://github.com/testowner/testrepo/pull/19
 tick; complete_stage g19-clean clean=done
 tick; complete_stage g19-panel-1 panel=pass
@@ -739,7 +789,7 @@ rm -f "$GAUNTLET_GH_DRAFT_FILE"
   || bad "still-draft undraft was not rejected: [$(tada_body g19)]"
 
 # ============================================================================
-hr; echo "SUBTEST 18 - HELD DRAFT: a passing panel on a slice/probe ledger never un-drafts"; hr
+hr; echo "SUBTEST 20 - HELD DRAFT: a passing panel on a slice/probe ledger never un-drafts"; hr
 # Grounding: kriscendobot/minion.town#148 (review-miss cluster
 # builder-pr-gauntlet-bypass). A build that delivers phases 1-2 of an ordered
 # design whose canary phases 3-6 belong to a successor child is reviewed by the
