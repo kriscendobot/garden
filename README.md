@@ -1,21 +1,10 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T23:44:07Z_
+_As of 2026-10-08T23:51:47Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin: the only change is an update to the round-5 fix job on [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171), which is still running. Several items in the inbox need a maintainer decision:
-
-- **Review docket stalled.** The orchestration that moves pending reviews onto the new review docket halted. Its final consolidation child failed twice and is held in `plan/` until you promote it, split it, or remove it.
-- **OAuth bonds halted.** `orch-minion-town-oauth-bonds` also halted after its build child reported its required outcome as unmet.
-- **Jev trial blocked.** The Jev triage/foreman trial can't run until `TYPESAFE_API_KEY` is provisioned.
-- **ERTP credits.** The minion.town arc needs a yes or no on whether to build the ERTP credits Phase 1 now, or treat the primary phase as done apart from the charge.
-- **ocap.site DNSSEC.** The DS record is still unpublished. Transfer into Route53 becomes possible after about 2026-10-09 19:55Z.
-- **Stale review on #1403.** The earlier panel review of [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) doesn't cover its current head. It needs either a new gauntlet run or an explicit review decision.
-
-On the positive side, ci.minion.town passed its redeploy check with no open operator items, and the oros host is back online after about two hours offline. Claude spend is at 109% of quota and in backoff, so expect slower throughput.
+Little moved since the last bulletin. The scheduler posted a new round of Claude-on-minion.town arc jobs: a forward press, a completion press and an oros health watch. The 20:35Z press and health watch are still unclaimed in todo, so the arc's presses are stacking up rather than being worked. Several items in the inbox need a maintainer decision. The review-docket consolidation failed twice and is held in plan, which halted the review-docket orchestration until someone promotes or splits it. The Jev triage trial is still blocked because `TYPESAFE_API_KEY` is missing. ocap.site can be transferred to Route53 Domains from about 2026-10-09 19:55Z, and its DNSSEC chain stays broken until that transfer happens or the current registrar publishes the DS record.
 
 ## Maintainer review docket
 
@@ -67,6 +56,10 @@ Delegation: **active**
 > ## Follow-ups
 > - `design-minion-town-oauth-bonds` is still in `doin`. A requeue will only pass on its own once this change is deployed to that host. Its build is still owned by `orch-minion-town-oauth-bonds`.
 > - This is separate from the existing `DESIGN-BUILD-RECHECK` path in `handlers/follow-up-claude.sh`. That path waits for a cross-referenced build PR to appear and never posts the builder job.
+
+- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1.md)
+
+> Host-requirements gate: job 'canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1' has remained unclaimed for 1202s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d` — from gardener:minion-town-ci-runner-redeploy-verify-50aa690, reply_to `minion-town-ci-runner-redeploy-verify-50aa690` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d.md)
 
@@ -350,17 +343,20 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 182.8M | $1287.78 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
+| Claude | 183.1M | $1289.63 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 125896423 tokens/day lower bound._
+_Fleet token-unlock pace: 125933464 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (16)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
+- [`claude-on-minion-town-completion-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261008-235012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`claude-on-minion-town-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-235012.md) — Press the Claude-on-minion.town arc forward
+- [`oros-health-watch-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-235012.md) — ---
 - [`kriscendobot-minion.town-pr170-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #170
 - [`screen-minion-town-pr169-2552040-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr169-2552040-conduct.md) — Screened delegated merge: kriscendobot/minion.town#169 at 2552040f2b936f83eb2...
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
