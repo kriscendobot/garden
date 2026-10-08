@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/minion.town",
+  "pr": 59,
+  "url": "https://github.com/kriscendobot/minion.town/pull/59",
+  "head_oid": "460b697e0e6ce22f06b6b38b375bc3ba087056d3",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "deploy(daemon): document live WebSocket and pluribus TCP listeners",
+  "unblocks": [],
+  "source": "native-review-request-kriscendobot-minion.town-pr59",
+  "requested_at": "2026-10-08T07:45:35Z",
+  "first_requested_at": "2026-10-08T07:45:35Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:45:38Z"
+  }
+}
