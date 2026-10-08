@@ -32,3 +32,13 @@ Evidence from the predecessor: green current-head rollups on #166, #169, #170,
 https://github.com/kriscendobot/minion.town/actions/runs/37833023533. The frozen
 base is `main-50aa690`; stacked #171 uses `feat/prod-objectives-probe-f432a51`
 and #153 uses `chore/javascript-only-scripts-part-2a-dcb041b`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-08T22:30:37Z
