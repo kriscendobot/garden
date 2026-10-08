@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: review-docket-20261008
-priority: normal
+role: designer
+tier: mentor
 arc: garden-upkeep
-posted_by: producer
-posted_at: 2026-10-08T04:17:00Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-08T04:19:43Z cleared=none -->
 
 ---
 role: designer
