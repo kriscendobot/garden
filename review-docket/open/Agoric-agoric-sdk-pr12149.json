@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 12149,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/12149",
+  "head_oid": "f5808c24b7a72732c5dd75d64451f57075c205ff",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "restrict `.ts` runtime imports from dependencies",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr12149",
+  "requested_at": "2026-10-08T07:34:58Z",
+  "first_requested_at": "2026-10-08T07:34:58Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-08T07:35:01Z"
+  }
+}
