@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11413,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11413",
+  "head_oid": "e8f8991b4a971501b4a18d66e80aac57dfaf70dd",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump github.com/opencontainers/runc from 1.2.0-rc.2 to 1.2.0-rc.3 in /golang/cosmos",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11413",
+  "requested_at": "2026-10-08T07:31:39Z",
+  "first_requested_at": "2026-10-08T07:31:39Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:31:42Z"
+  }
+}
