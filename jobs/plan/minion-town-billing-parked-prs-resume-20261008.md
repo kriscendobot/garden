@@ -1,7 +1,7 @@
 ---
 gate: orchestrated
 orchestrated_by: minion-town-ci-runner-unblock-20261008
-priority: normal
+priority: high
 posted_by: producer
 posted_at: 2026-10-08T18:29:44Z
 ---
@@ -25,3 +25,7 @@ PRs on a frozen `main-<sha>` base that predates #145 still run the old hosted-ru
 - Let the proxy screen #122 and #169 again so they can merge under the delegation.
 
 The single runner handles one job at a time. The arm64 harness takes about 13.5 of its 20 minutes, and the host's CPU throttles after about 20 full CI runs a day. So run these one by one, not all at once. If throughput becomes the bottleneck, say so; scaling up costs money and needs maintainer approval above $50/month.
+
+<!-- garden-annotation: key=cc627e8c389f by=producer at=2026-10-08T18:30:23Z fields=priority=high -->
+
+Maintainer 2026-10-08: high priority, billing block stops all minion.town shepherds.
