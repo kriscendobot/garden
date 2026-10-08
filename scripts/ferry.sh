@@ -127,7 +127,7 @@ resolve_remote() {
 sync_clone() {
   if [ ! -e "$CLONE/.git" ]; then
     mkdir -p "$FERRY_STATE"
-    git clone --quiet --branch "$BRANCH" "$REMOTE" "$CLONE" \
+    git clone --quiet --single-branch --branch "$BRANCH" "$REMOTE" "$CLONE" \
       || die "could not clone journal '$REMOTE' ($BRANCH) into $CLONE"
     return 0
   fi
