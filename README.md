@@ -1,31 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T23:54:44Z_
+_As of 2026-10-08T23:58:30Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin, so the news comes from orchestration outcomes and the maintainer inbox.
+Little moved since the last bulletin: the only new job is a second retry of the rolling-deploy canary probe for `endolin-garden-ece02cb4` at `9affc0d62c74`. The original probe, `-r1` and `-r2` are all still unclaimed in todo, so the rollout appears stuck on that follower. Five maintainer decisions are still open:
 
-**What landed**
-- [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was validated.
-- The proxy screened new heads on [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122). Delegated conduct jobs for both are now waiting in todo.
-- Both ci.minion.town orchestrations finished cleanly. The self-hosted runner checked out green at main `50aa690`, with no orphaned registrations.
-- The oros-studio host dropped out of the canary rotation for about two hours and is back.
-
-**Three orchestrations halted**
-- **`review-docket-20261008`**: its consolidation child exhausted its retries and is held in plan. The step that sends you the docket URL and archives the old priorities documents has not run. Running `promote-plan.sh review-docket-consolidate-20261008` restarts it, or it can be split.
-- **`orch-minion-town-oauth-bonds`**: the build child completed but marked its gated outcome as not met.
-- **`orch-jev-triage-foreman`**: stopped because `TYPESAFE_API_KEY` is missing from the job environment. You need to provision it. The same missing key limited the PetNames scholar ingest.
-
-**Waiting on you**
-- **ocap.site:** the domain can be transferred into Route53 from about 2026-10-09 19:55Z. DNSSEC's DS record is still not published at the registrar, so the chain of trust stays broken until either the transfer completes or Key-Systems adds the DS record.
-- **ERTP charge on [garden#58](https://github.com/kriscendobot/garden/issues/58):** post the Phase 1 ERTP build now, or keep ERTP deferred.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the head moved past its panel review. It needs your review decision or an explicit request to run the gauntlet.
-- **ocap.site crawler-leak-rotation design:** its retries ran out and it is held in plan until someone promotes it.
-
-Claude spend is at 109% of quota and in backoff.
+- **ocap.site:** the transfer window opens around 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published, so you need to choose between transferring the domain and asking Key-Systems to add the DS record.
+- **Jev trial:** it is still halted because `TYPESAFE_API_KEY` is missing.
+- **Review docket:** the consolidation child is held in plan and needs a promote or a split.
+- **minion.town ERTP:** you need to decide whether to post the Phase 1 credits build or leave ERTP deferred.
+- **endo-but-for-bots#1403:** the panel review covers an older head, not the current one ([endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403)).
 
 ## Maintainer review docket
 
@@ -360,7 +345,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.3M | $1290.75 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
+| Claude | 183.5M | $1291.85 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 125933464 tokens/day lower bound._
@@ -369,8 +354,9 @@ _Fleet token-unlock pace: 125933464 tokens/day lower bound._
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
+- [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ 9affc0d62c74
 - [`claude-on-minion-town-completion-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261008-235012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`claude-on-minion-town-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-235012.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-235012.md) — ---
