@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T10:43:09Z_
+_As of 2026-10-08T10:44:33Z_
 
 ## Latest
 
@@ -490,6 +490,10 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration improve-journal-deepen-retry-expanded-window-expanded-window-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_1_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monks/1/journal: p95=1.805787s max=32.067097s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-3.md)
 
