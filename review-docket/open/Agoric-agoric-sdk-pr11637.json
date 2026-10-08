@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11637,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11637",
+  "head_oid": "3cd4d65917bb772ab1475ef8ab2cce67d514d9b1",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump form-data from 4.0.2 to 4.0.4 in /a3p-integration/proposals/f:fast-usdc-cctp",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11637",
+  "requested_at": "2026-10-08T07:33:52Z",
+  "first_requested_at": "2026-10-08T07:33:52Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:33:54Z"
+  }
+}
