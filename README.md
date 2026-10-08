@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T02:36:24Z_
+_As of 2026-10-08T02:37:14Z_
 
 ## Latest
 
@@ -800,6 +800,10 @@ Delegation: **active**
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=0 quota=ok fleet-envelope=4 target=1
+
+- `watchdog-triager-clone-corrupt-kriscendobot-minion.town` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-clone-corrupt-kriscendobot-minion.town.md)
+
+> triager: bare clone path /home/kris/garden2/worktrees/kriscendobot-minion.town.git for kriscendobot-minion.town exists but is not a git repo; needs manual reconciliation (not clobbering). kriscendobot-minion.town is not being triaged until it is restored.
 
 - `review-request-endojs-endo-but-for-bots-pr216` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr216.md)
 
