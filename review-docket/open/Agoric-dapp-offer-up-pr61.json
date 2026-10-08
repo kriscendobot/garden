@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/dapp-offer-up",
+  "pr": 61,
+  "url": "https://github.com/Agoric/dapp-offer-up/pull/61",
+  "head_oid": "ad36e36bdc98cab24054d209eca2c433cca497fd",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix: use limited publishBrandInfo power, not all of chainStorage",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-dapp-offer-up-pr61",
+  "requested_at": "2026-10-08T07:36:00Z",
+  "first_requested_at": "2026-10-08T07:36:00Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:36:03Z"
+  }
+}
