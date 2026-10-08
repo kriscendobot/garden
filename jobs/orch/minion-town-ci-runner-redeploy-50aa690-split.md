@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-ci-runner-lambda-sync-50aa690 minion-town-ci-runner-host-sync-50aa690 minion-town-ci-runner-redeploy-verify-50aa690
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-08T21:36:35Z
 ---
