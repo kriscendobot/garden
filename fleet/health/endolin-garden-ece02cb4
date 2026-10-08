@@ -5,7 +5,7 @@ unit_failures: 0
 unit_total: 285
 first_bad_unit: -
 advisory_failures: 0
-at: 2026-10-08T21:37:28Z
-deferred_reason: long-job cleric 1 7510s
-deferred_target: c0314eb05d5828ca5a34027e94cc94e4e65eb718
-deferred_at_epoch: 1791495360
+at: 2026-10-08T21:52:38Z
+deferred_reason: long-job cleric 1 8415s
+deferred_target: fc6b5e12b72c8d42ca412a4b842583df97859c49
+deferred_at_epoch: 1791496260
