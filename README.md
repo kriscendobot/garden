@@ -1,20 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T18:06:08Z_
+_As of 2026-10-08T18:08:56Z_
 
 ## Latest
 
-Gauntlet work on endo-but-for-bots kept moving. [endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/pull/71) passed its viability check and is now in the clean stage. [endo-but-for-bots#250](https://github.com/endojs/endo-but-for-bots/pull/250) finished fix round 2 and went back to panel for round 3. [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79) started its first panel round, and [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) is still in fix round 3. The Claude-on-minion.town completion press also finished.
+No board transitions resolved since the last bulletin. Four endo-but-for-bots gauntlets are still in flight: fix round 3 on [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379), panel rounds on [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79) and [endo-but-for-bots#250](https://github.com/endojs/endo-but-for-bots/pull/250), and the clean stage on [endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/pull/71), which passed viability. Before that, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and was validated.
 
-What needs your attention:
+Oros has a heartbeat again since 17:23Z after six days offline. The rolling deploy still lists it as a stuck canary at `2e8aedf`, and the leader will not advance past it until garden-self-deploy on Oros moves.
 
-- **Claude quota:** endolin2 has used 98% of this window's Claude quota, well past the 90% burn line, and the reset isn't until 2026-10-10 03:00Z.
-- **Oros:** its heartbeat came back at 17:23Z after six days offline. However, the rolling deploy reports its canary stuck on an old SHA, and the leader won't advance past it. Check `garden-self-deploy` on that host.
-- **Review docket:** the review-docket orchestration halted after its consolidation child was parked in plan. The 26 auto-cleared review requests are still waiting on your go-ahead (`promote-plan.sh review-docket-consolidate-20261008`).
-- **Actions billing:** GitHub Actions is still refusing to start jobs on the kriscendobot account because of a billing block. The latest example is [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153).
-- **ocap.site:** the domain becomes transferable around 2026-10-09 19:55Z. DNSSEC stays broken until you either start the transfer or get the registrar to publish the DS record.
+Several things need the maintainer:
+
+- **Claude quota:** spend on the claude-endolin2 subscription is at 98% of its cap until the 10-10 reset.
+- **GitHub Actions billing:** Actions will not start jobs for kriscendobot until billing is fixed. The latest affected run is on [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153).
+- **Review docket:** the review-docket orchestration halted at 2 of 3 children. The consolidation step is parked in plan and waits for a promote or a split.
+- **Halted orchestrations:** `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` both halted. The Jev trial needs a `TYPESAFE_API_KEY`.
+- **ocap.site:** the domain becomes transferable after 2026-10-09 19:55Z. That transfer, or a support request asking the registrar to publish the DS record, is the only way to fix the broken DNSSEC chain.
 
 ## Maintainer review docket
 
@@ -579,7 +579,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 164.7M | $1164.73 _(notional, rate-card)_ | 98% of 168.0M (ok) |
+| Claude | 164.8M | $1165.29 _(notional, rate-card)_ | 98% of 168.0M (ok) |
 | Codex | 14.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 123377481 tokens/day lower bound._
