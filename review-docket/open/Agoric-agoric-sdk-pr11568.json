@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11568,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11568",
+  "head_oid": "8584c0948d02d7fbfa3e8c0807b240741f629878",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat: import / export kernel DB should support compressed artifacts",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11568",
+  "requested_at": "2026-10-08T07:33:16Z",
+  "first_requested_at": "2026-10-08T07:33:16Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:33:19Z"
+  }
+}
