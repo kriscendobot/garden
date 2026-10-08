@@ -2,7 +2,7 @@
 order: serial
 children: design-review-docket build-review-docket review-docket-consolidate-20261008
 on-child-failure: halt
-state: pending
+state: running
 arc: garden-upkeep
 created_by: producer
 created_at: 2026-10-08T04:17:35Z
