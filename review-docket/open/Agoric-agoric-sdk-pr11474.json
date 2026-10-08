@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11474,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11474",
+  "head_oid": "3dafdd815e196422f4b1e7ee88191892a898f41c",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump brace-expansion from 1.1.11 to 1.1.12 in /a3p-integration/proposals/f:fast-usdc-cctp",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11474",
+  "requested_at": "2026-10-08T07:32:34Z",
+  "first_requested_at": "2026-10-08T07:32:34Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:32:37Z"
+  }
+}
