@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11794,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11794",
+  "head_oid": "7078c6e90399f0b162f7729234aaed84cc5d11cb",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump sha.js from 2.4.11 to 2.4.12 in /multichain-testing",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11794",
+  "requested_at": "2026-10-08T07:34:22Z",
+  "first_requested_at": "2026-10-08T07:34:22Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-08T07:34:25Z"
+  }
+}
