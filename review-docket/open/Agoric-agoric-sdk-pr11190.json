@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11190,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11190",
+  "head_oid": "52272c83f0af391901d08cbff93728655bd5b24c",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump axios from 1.8.1 to 1.8.4 in /a3p-integration/proposals/g:gtm-fast-usdc",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11190",
+  "requested_at": "2026-10-08T07:30:22Z",
+  "first_requested_at": "2026-10-08T07:30:22Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:30:32Z"
+  }
+}
