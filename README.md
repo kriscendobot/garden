@@ -1,14 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-08T05:55:14Z_
+_As of 2026-10-08T06:03:17Z_
 
 ## Latest
 
-[minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished its fourth panel round and moved on to fix round 4. A gardener claimed fix round 1 for [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) right after its first panel, and work started on `improve-deployed-child-gate`. Earlier, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed successfully and passed the watchdog check.
+The [review-docket-20261008](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/review-docket-20261008.md) orchestration halted at 2 of 3. Its final child, `review-docket-consolidate-20261008`, was supposed to fold the 26 review requests the proxy auto-cleared into the new docket. It exhausted its retry and is now held in the plan queue. The docket stays incomplete until someone promotes or splits that child. Two other jobs finished: `build-minion-town-claude-arc-prod-validation` and `improve-deployed-child-gate`.
 
-The main item for the maintainer is that `review-docket-consolidate-20261008` has stalled. This is the step of your review-docket directive that moves the 26 auto-cleared review requests onto the new docket. Its one backoff retry also failed, so the reaper parked it in the plan queue. It stays held until you promote it or it is split into smaller jobs, which means the review-docket message you asked for has not been sent yet.
+The minion.town gauntlets kept moving:
 
-The oros host is still offline. It has had no heartbeat since 2026-10-02 and is about 206 commits behind, and someone needs to check the Mac in person.
+- [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) finished fix round 1 and is queued for panel round 2.
+- [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) entered its pre-spend viability check.
+- [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) fix round 2 has been claimed.
+- [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, and its deploy was validated after the proxy screened it.
+
+**Waiting on the maintainer:**
+
+- **Milestone M2:** blocked on merge authority for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+- **ocap.site:** the domain can be transferred from about 2026-10-09 19:55Z. DNSSEC stays broken until either the transfer completes or the registrar publishes the DS record.
+- **Oros host:** still offline since 10-02. Someone needs to check it in person.
+- **ERTP:** the minion.town arc needs a yes or no on whether to build the Phase 1 credits work now.
+- **Jev triage trial:** halted because `TYPESAFE_API_KEY` is missing.
 
 ## Parked for maintainer feedback
 
@@ -198,6 +209,19 @@ Delegation: **active**
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1089](https://github.com/endojs/endo-but-for-bots/pull/1089) ([endojs/endo-but-for-bots#1089](https://github.com/endojs/endo-but-for-bots/issues/1089)) is in the mergeable queue with NO gauntlet review staged (head cb6f2aa6eab8fff29d1563ef2c8f390863c53723). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1089'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `review-docket-20261008-child-review-docket-consolidate-20261008-failed` — from orchestrator:review-docket-20261008-child-review-docket-consolidate-20261008-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-child-review-docket-consolidate-20261008-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: review-docket-20261008
+> orchestration-status: running
+> child: review-docket-consolidate-20261008
+> failure-kind: doomed
+> order: serial
+> on-child-failure: halt
+> detail: doomed and held in plan
+>
+> Orchestration review-docket-20261008 observed child review-docket-consolidate-20261008: doomed and held in plan.
+
 - `msg-scholar-ingest-oh-my-pi-rust-core-565b36348d7f` — from scholar:scholar-ingest-oh-my-pi-rust-core, reply_to `scholar-ingest-oh-my-pi-rust-core` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-565b36348d7f.md)
 
 > The first oh-my-pi Rust-core cycle landed five file-anchored sources covering `pi-iso`, the `pi-shell` facade, its output minimizer and brush-parser planner, and the `pi-ast` crate surface. Headline correction: the minimizer compresses command output and preserves originals through artifacts; it is not a privilege or destructive-command safety gate, and `pi-iso` is a workspace/diff layer rather than a process sandbox. The indexed cycle is summarized in the job's result entry, and follow-on `scholar-ingest-oh-my-pi-rust-core-2` owns `pi-vfs`, `pi-builtins`, and the first `pi-natives` files before continuing the remaining explainer and brush backlog.
@@ -205,6 +229,14 @@ Delegation: **active**
 - `msg-oros-health-watch-20261008-053508-5ba684012bb7` — from gardener:oros-health-watch-20261008-053508, reply_to `oros-health-watch-20261008-053508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261008-053508-5ba684012bb7.md)
 
 > Oros remains unreachable as of 2026-10-08T05:37Z. No current health-checkup exists because its schedule is intentionally deferred to 2026-10-11T21:00Z. The heartbeat and fleet-health records are stale since 2026-10-02, the host remains heartbeat-offline derotated, its deployed SHA is 206 commits behind main2, and its last sysop record/ack was 2026-10-02T05:38:58Z. I sent no further op because seven reset-failed, one restore, and two attested scaler-unit operations are already unacknowledged. A person must check the Mac power/sleep state, Docker Desktop, and the VM/container runtime.
+
+- `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
+
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-08T05:55:52Z, cleared 2026-10-08T06:00:50Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr756-54be58f74472` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr756-54be58f74472.md)
 
@@ -393,6 +425,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal` cleared on endolin-garden-ece02cb4.
 
+- `review-docket-20261008-halted` — from orchestrator:review-docket-20261008-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: review-docket-20261008
+> orchestration-status: halted
+> child: review-docket-consolidate-20261008
+> failure-kind: doomed
+> children-completed: 2
+> children-total: 3
+> halt-parked-remainder: 
+>
+> Orchestration review-docket-20261008 HALTED: child review-docket-consolidate-20261008 doomed and held in plan (serial, on-child-failure=halt). 2/3 done before halt; parked remainder: none
+
 - `orch-jev-triage-foreman-halted` — from orchestrator:orch-jev-triage-foreman-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-jev-triage-foreman-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -489,33 +534,32 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.6M | $639.07 _(notional, rate-card)_ | 51% of 168.0M (ok) |
-| Codex | 11.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 86.2M | $642.92 _(notional, rate-card)_ | 51% of 168.0M (ok) |
+| Codex | 11.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 121780918 tokens/day lower bound._
+_Fleet token-unlock pace: 121269385 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.087084s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (3)
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #122
-- [`kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #169
+- [`kriscendobot-minion.town-pr170-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #170
+- [`kriscendobot-minion.town-pr171-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr171-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #171
 
-### doin (5)
-- [`kriscendobot-minion.town-pr170-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr170-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #170
+### doin (3)
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
-- [`build-minion-town-claude-arc-prod-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-arc-prod-validation.md) — Automatic production validation for Claude-on-minion.town arc items 1 and 5
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1343
-- [`improve-deployed-child-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deployed-child-gate.md) — ---
+- [`kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #169
 
-### tada (11610)
+### tada (11614)
+- [`kriscendobot-minion.town-pr170-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-fix-1.md) — Cost
+- [`build-minion-town-claude-arc-prod-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/build-minion-town-claude-arc-prod-validation.md) — Cost
+- [`improve-deployed-child-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-deployed-child-gate.md) — Cost
+- [`review-docket-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/review-docket-20261008.md) — orchestration review-docket-20261008 — HALTED
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-4.md) — Cost
-- [`claude-on-minion-town-completion-press-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/claude-on-minion-town-completion-press-20261008-053508.md) — Panel-head freshness
-- [`kriscendobot-minion.town-pr170-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-panel-1.md) — Cost
-- [`claude-on-minion-town-press-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/claude-on-minion-town-press-20261008-053508.md) — Press tick, 2026-10-08 05:3xZ: claude-on-minion-town-press
-- [`oros-health-watch-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/oros-health-watch-20261008-053508.md) — Cost
-- … and 11605 more
+- … and 11609 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
