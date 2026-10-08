@@ -1,10 +1,8 @@
 ---
-gate: deferred
-priority: normal
+tier: mentor
 arc: unallocated
-posted_by: producer
-posted_at: 2026-10-07T16:09:49Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-08T15:59:17Z cleared=none -->
 
 ---
 tier: mentor
