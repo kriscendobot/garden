@@ -17,3 +17,13 @@ Idempotency-check, fetch, preclassify, and ingest the remaining real primary sou
 - The 2026 DCF *Containing AI Agents: The Endo Familiar Demo* and the Endo daemon changelog range linked by the wiki, if primary-source review shows they add petname behavior not already represented by the Endo source corpus.
 
 Also inspect the two issue links only as issue/discussion evidence, not as authoritative definitions, and record a reason if they are not library-worthy primary sources. Preserve the derived-from-not-the-original framing for Miller's public texts. The prior cycle's Jev gate was unavailable because `TYPESAFE_API_KEY` was absent; run it again and record the disposition.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T20:39:21Z
