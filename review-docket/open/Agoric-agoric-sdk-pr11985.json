@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11985,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11985",
+  "head_oid": "433d93ebd27974763b961f3a0bbf5599be6de4a8",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump tar-fs from 2.1.1 to 2.1.4",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11985",
+  "requested_at": "2026-10-08T07:34:32Z",
+  "first_requested_at": "2026-10-08T07:34:32Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-08T07:34:34Z"
+  }
+}
