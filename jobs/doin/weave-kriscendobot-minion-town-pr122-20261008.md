@@ -17,3 +17,13 @@ gauntlet un-drafts it. Do NOT merge by hand: the proxy's minion.town screening d
 (active) merges eligible PRs and validates the merge in production.
 Posted by the minion.town arc supervisor (kriscendobot/garden#58), standing order
 journal entries/2026/10/07/203746Z-message-gardener-a253b1.md.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T03:42:18Z
