@@ -1,27 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T21:53:21Z_
+_As of 2026-10-08T22:00:36Z_
 
 ## Latest
 
-No new board transitions since the last bulletin. Three orchestrations have halted and each needs a maintainer decision:
+The ci.minion.town runner redeploy orchestration finished cleanly at minion.town `main` `50aa690`. All three of its children completed. The verify child found the Lambda and the host files already in sync, so it redeployed nothing, and its self-test passed with no leftover residue and a single online runner registration.
 
-- **`review-docket-20261008`** stopped at 2/3. Its consolidation child exhausted its retry and is held in plan until you promote it. That child migrates the old review-priorities documents and the archived review requests onto the new docket, so the docket is live but not yet consolidated.
-- **`orch-jev-triage-foreman`** stopped because `TYPESAFE_API_KEY` is missing from the job environment. The same missing key also limited the scholar's PetNames ingest.
-- **`orch-minion-town-oauth-bonds`** stopped because its build child declared its gated outcome unsatisfied.
+Two gauntlet stages were claimed: CLEAN on [endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433) and PANEL round 1 on [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79). The oros-studio host dropped out of the canary rotation for about an hour and has recovered on its own.
 
-Elsewhere, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and passed validation. The proxy also screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
+Three orchestrations have halted and need you:
 
-Decisions waiting in the inbox:
+- **`review-docket-20261008`:** its consolidation child failed both tries, and the reaper is holding it in plan. Promote it or split it.
+- **`orch-minion-town-oauth-bonds`:** the build child reported that it did not meet its required outcome.
+- **`orch-jev-triage-foreman`:** the trial is blocked because `TYPESAFE_API_KEY` is not provisioned. The scholar's PetNames ingest also ran without Jev for the same reason.
 
-- **ocap.site:** the domain becomes transferable after about 2026-10-09 19:55Z, and DNSSEC stays broken until a DS record is published. You can either start the transfer then or ask Key-Systems to add the DS.
-- **minion.town arc:** whether to build the ERTP Phase 1 credits charge now or keep it deferred.
-- **SturdyRef stack:** a merge-order summary for [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397). #1392 can land once [#774](https://github.com/endojs/endo-but-for-bots/pull/774) and [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) land. #1393 needs a retcon and a weave first.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its panel review no longer covers the current head.
+Other decisions in the inbox:
 
-The oros-studio host went offline briefly and has recovered. Claude spend is over quota, so the fleet is in backoff.
+- **ocap.site:** the domain can be transferred from about 2026-10-09 19:55Z. DNSSEC is still broken because the registrar has not published the DS record. You can start the transfer then, or ask the registrar to add the DS record.
+- **ERTP:** whether to build Phase 1 of the ERTP credits now, or keep ERTP deferred and treat the minion.town primary phase as complete apart from the charge.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the panel review does not cover the current head.
 
 ## Maintainer review docket
 
@@ -71,6 +68,10 @@ Delegation: **active**
 > ## Follow-ups
 > - `design-minion-town-oauth-bonds` is still in `doin`. A requeue will only pass on its own once this change is deployed to that host. Its build is still owned by `orch-minion-town-oauth-bonds`.
 > - This is separate from the existing `DESIGN-BUILD-RECHECK` path in `handlers/follow-up-claude.sh`. That path waits for a cross-referenced build PR to appear and never posts the builder job.
+
+- `msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d` — from gardener:minion-town-ci-runner-redeploy-verify-50aa690, reply_to `minion-town-ci-runner-redeploy-verify-50aa690` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d.md)
+
+> ci.minion.town validation succeeded at kriscendobot/minion.town main 50aa690f87bab73cadc83eaeb39806b60913f054. Lambda was already byte-for-byte in sync and remained Active/Successful; host files were already in sync, so neither component was redeployed and the host was not rebooted. Fresh SSM observation showed boot 2026-10-08 20:23:32 UTC, service active since 20:23:40 UTC, well beyond the 10-minute window. Selftest: https://github.com/kriscendobot/minion.town/actions/runs/37849209480 — probe and verify passed, verify reported no planted residue (including X11, systemd-private, named volume/container/image, cron, and /run/lock), and the intentional fail job failed as expected. Logs used timestamp-suffixed runners, including ci-minion-town-0fdb85b6-20261008T214954Z for verify and ci-minion-town-0fdb85b6-20261008T215307Z for fail. CI_RUNS_ON is unset, selecting self-hosted. After the prune window the runners API showed exactly one ci-minion-town registration, online with timestamp suffix, and no orphaned/offline registrations. Open operator items: none.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -169,6 +170,19 @@ Delegation: **active**
 - `msg-scholar-ingest-source-awesome-ocap-petnames-remainder-1380ef14b3c4` — from scholar:scholar-ingest-source-awesome-ocap-petnames-remainder, reply_to `scholar-ingest-source-awesome-ocap-petnames-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-source-awesome-ocap-petnames-remainder-1380ef14b3c4.md)
 
 > Finished the PetNames reference walk: ingested the 2022 Spritely paper, Tyler Close's 2005 browser paper, Bill Frantz's 2000 reply, and the recovered Walnut section as five library sections. The DCF demo and Endo 2.0.0–2.3.0 changelog add no petname behavior beyond the existing Endo source corpus; the two linked issues are unanswered discussion stubs rather than authoritative sources. Jev remained unavailable because `TYPESAFE_API_KEY` is absent, and every ingested source records that caveat. Full result: `entries/2026/10/08/204736Z-result-scholar-626da7.md`.
+
+- `minion-town-ci-runner-redeploy-50aa690-split-terminal-complete` — from orchestrator:minion-town-ci-runner-redeploy-50aa690-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-redeploy-50aa690-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: minion-town-ci-runner-redeploy-50aa690-split
+> orchestration-status: complete
+> order: serial
+> children-total: 3
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration minion-town-ci-runner-redeploy-50aa690-split complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
@@ -355,7 +369,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.8M | $1254.17 _(notional, rate-card)_ | 106% of 168.0M (backoff) |
+| Claude | 178.1M | $1256.42 _(notional, rate-card)_ | 106% of 168.0M (backoff) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 126292453 tokens/day lower bound._
@@ -364,28 +378,27 @@ _Fleet token-unlock pace: 126292453 tokens/day lower bound._
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (7)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
 - [`kriscendobot-minion.town-pr173-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #173
 - [`endojs-endo-but-for-bots-pr1379-post-panel-r5-verdict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-post-panel-r5-verdict.md) — Post the gauntlet panel round-5 verdict on endojs/endo-but-for-bots#1379
 - [`endojs-endo-but-for-bots-pr1434-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1434-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1434
-- [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #94
 - [`claude-on-minion-town-press-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-203525.md) — Press the Claude-on-minion.town arc forward
-- [`endojs-endo-but-for-bots-pr1433-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1433
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 - [`minion-town-billing-parked-prs-resume-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-billing-parked-prs-resume-20261008.md) — Unpark the minion.town PRs blocked by Actions billing, onto ci.minion.town
-- [`minion-town-ci-runner-redeploy-verify-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-redeploy-verify-50aa690.md) — Validate the redeployed ci.minion.town self-hosted runner
+- [`endojs-endo-but-for-bots-pr1433-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1433
 
-### tada (11856)
+### tada (11858)
+- [`minion-town-ci-runner-redeploy-50aa690-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-ci-runner-redeploy-50aa690-split.md) — orchestration minion-town-ci-runner-redeploy-50aa690-split — complete
+- [`minion-town-ci-runner-redeploy-verify-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-ci-runner-redeploy-verify-50aa690.md) — Cost
 - [`minion-town-ci-runner-host-sync-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-ci-runner-host-sync-50aa690.md) — Cost
 - [`kriscendobot-minion.town-pr173-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr173-gauntlet-viability.md) — Cost
 - [`minion-town-ci-runner-lambda-sync-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-ci-runner-lambda-sync-50aa690.md) — Cost
-- [`minion-town-ci-runner-redeploy-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-ci-runner-redeploy-50aa690.md) — Cost
-- [`improve-comment-watcher-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-comment-watcher-quota-admission.md) — Cost
-- … and 11851 more
+- … and 11853 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -459,4 +472,4 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 3 monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 4 monks
