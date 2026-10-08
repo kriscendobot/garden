@@ -1,17 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-08T14:49:23Z_
+_As of 2026-10-08T14:51:38Z_
 
 ## Latest
 
-Little moved on the board. Panel round 5 for [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) completed with a **must-fix** verdict. Fix round 6 on [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) has been claimed and is running alongside fix round 1 on [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379).
+Little moved on the board since the last bulletin. The only change is that [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) came back from panel round 5 with must-fix findings, so its fix round 5 is now posted. Fix rounds on [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) (round 6) and [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (round 1) are still in progress.
 
-The items that need the maintainer are elsewhere:
+Several things are waiting on the maintainer:
 
-- **Review docket is stalled.** The `review-docket-20261008` orchestration halted at 2 of 3 children. Its consolidation step, `review-docket-consolidate-20261008`, used up its retries and is held in plan until someone promotes it. As a result, the 26 review requests that were auto-cleared are not yet on the docket.
-- **GitHub Actions billing.** Actions billing for the `kriscendobot` account is refusing to start CI jobs, most recently on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166). No push can clear this until the billing is fixed.
-- **Oros is still offline.** It has been down since 10-02, and every op queued for it is still unacknowledged. Someone needs to check the machine in person.
-- **Claude spend is at 87% of quota.** That is close to the 90% ceiling.
+- **Review docket stalled.** The review-docket orchestration halted at 2/3: its consolidation child used up its retries and is held in plan. Until someone promotes or splits it, nothing moves the existing review requests onto the new docket.
+- **Oauth-bonds build halted.** The minion.town oauth-bonds orchestration stopped because its build child reported its required result as unmet.
+- **GitHub Actions billing.** Billing is blocking Actions on the kriscendobot account, which leaves [minion.town#166](https://github.com/kriscendobot/minion.town/issues/166) stuck. Pushing code can't fix this; someone has to fix the account's Billing & plans settings.
+- **Oros host offline.** Oros has been offline since 2026-10-02 and is now 210 commits behind main2. Someone needs to check the Mac, Docker Desktop and the VM/container runtime in person.
+- **ocap.site transfer.** The domain becomes transferable after about 2026-10-09 19:55Z. DNSSEC stays broken until either the transfer completes or the registrar publishes the DS record.
+- **Milestone M2.** M2 is still blocked on merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+
+Claude spend is at 87% of quota.
 
 ## Maintainer review docket
 
@@ -565,7 +569,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 146.4M | $1043.12 _(notional, rate-card)_ | 87% of 168.0M (ok) |
+| Claude | 146.5M | $1044.71 _(notional, rate-card)_ | 87% of 168.0M (ok) |
 | Codex | 13.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 123159521 tokens/day lower bound._
@@ -574,8 +578,8 @@ _Fleet token-unlock pace: 123159521 tokens/day lower bound._
 worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1425
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr258-gauntlet-20261007-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #258
