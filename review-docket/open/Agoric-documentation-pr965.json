@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/documentation",
+  "pr": 965,
+  "url": "https://github.com/Agoric/documentation/pull/965",
+  "head_oid": "10284bb0604265ada554c4efdb4c88714d8cdfc7",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build: update dependencies to match dapp-offer-up (agoric-upgrade-13)",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-documentation-pr965",
+  "requested_at": "2026-10-08T07:36:10Z",
+  "first_requested_at": "2026-10-08T07:36:10Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:36:13Z"
+  }
+}
