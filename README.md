@@ -1,20 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T21:51:39Z_
+_As of 2026-10-08T21:53:21Z_
 
 ## Latest
 
-The ci.minion.town runner redeploy at `50aa690` was split into host-sync, Lambda-sync and redeploy stages; all three completed, and a verification job is now running. [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173) passed its gauntlet viability check and moved to the clean stage. A viability check for [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) was posted after its proxy screen. Panel round 1 for [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79) went back to todo without finishing.
+No new board transitions since the last bulletin. Three orchestrations have halted and each needs a maintainer decision:
 
-The oros-studio host was offline from 20:53Z to 21:47Z and is now back in the canary rotation. Leader-host Claude spend is at 106% of quota, so the fleet is in backoff.
+- **`review-docket-20261008`** stopped at 2/3. Its consolidation child exhausted its retry and is held in plan until you promote it. That child migrates the old review-priorities documents and the archived review requests onto the new docket, so the docket is live but not yet consolidated.
+- **`orch-jev-triage-foreman`** stopped because `TYPESAFE_API_KEY` is missing from the job environment. The same missing key also limited the scholar's PetNames ingest.
+- **`orch-minion-town-oauth-bonds`** stopped because its build child declared its gated outcome unsatisfied.
 
-These items need the maintainer:
-- **ocap.site transfer:** the transfer window opens around 2026-10-09 19:55Z, and the DS record still isn't published. Decide whether to transfer the domain or ask the registrar to add the DS.
-- **Review docket:** the orchestration halted because its consolidation child is held in plan. It needs a promote or a split.
-- **Jev triage trial:** it can't run until `TYPESAFE_API_KEY` is provided.
-- **ERTP credits:** the minion.town arc asks whether to build the Phase 1 credits charge now or keep ERTP deferred.
+Elsewhere, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and passed validation. The proxy also screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
+
+Decisions waiting in the inbox:
+
+- **ocap.site:** the domain becomes transferable after about 2026-10-09 19:55Z, and DNSSEC stays broken until a DS record is published. You can either start the transfer then or ask Key-Systems to add the DS.
+- **minion.town arc:** whether to build the ERTP Phase 1 credits charge now or keep it deferred.
+- **SturdyRef stack:** a merge-order summary for [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397). #1392 can land once [#774](https://github.com/endojs/endo-but-for-bots/pull/774) and [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) land. #1393 needs a retcon and a weave first.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its panel review no longer covers the current head.
+
+The oros-studio host went offline briefly and has recovered. Claude spend is over quota, so the fleet is in backoff.
 
 ## Maintainer review docket
 
@@ -348,7 +353,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.8M | $1253.80 _(notional, rate-card)_ | 106% of 168.0M (backoff) |
+| Claude | 177.8M | $1254.17 _(notional, rate-card)_ | 106% of 168.0M (backoff) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 126292453 tokens/day lower bound._
