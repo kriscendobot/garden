@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: kriscendobot/minion.town#143 merged 2026-10-08T04:05:39Z via the proxy screen; parked gauntlet is moot
+withdrawn_by: minion-town-arc-press-20261008-065008
+withdrawn_at: 2026-10-08T06:55:34Z
+withdrawn_from_gate: deferred
+---
+
+---
 gate: deferred
 priority: normal
 arc: minion-town-ui
