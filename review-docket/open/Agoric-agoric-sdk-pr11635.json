@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11635,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11635",
+  "head_oid": "8cc485ed4c6a126d6d3efa5fd9fdfaf530a6efd3",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump form-data from 2.5.2 to 2.5.5",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11635",
+  "requested_at": "2026-10-08T07:33:42Z",
+  "first_requested_at": "2026-10-08T07:33:42Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:33:45Z"
+  }
+}
