@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1348,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1348",
+  "head_oid": "808f037289a2788e2bd81fb0bdac9aa793bca9ce",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(agentry,agent-tools)!: integrate explicit workspace capability tools",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr1348",
+  "requested_at": "2026-10-08T07:44:23Z",
+  "first_requested_at": "2026-10-08T07:44:23Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:44:26Z"
+  }
+}
