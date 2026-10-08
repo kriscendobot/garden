@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T02:17:22Z_
+_As of 2026-10-08T02:19:25Z_
 
 ## Latest
 
@@ -393,6 +393,12 @@ Delegation: **active**
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr347-786d8290d5d9` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr347-786d8290d5d9.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/347](https://github.com/endojs/endo-but-for-bots/pull/347) ([endojs/endo-but-for-bots#347](https://github.com/endojs/endo-but-for-bots/issues/347)) is in the mergeable queue with NO gauntlet review staged (head 786d8290d5d95122a9200764b0d4fb8a02b42dfa). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #347'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `msg-kriscendobot-minion.town-pr169-conduct-prod-validate-6d2e8bff2bf4` — from gardener:kriscendobot-minion.town-pr169-conduct-prod-validate, reply_to `kriscendobot-minion.town-pr169-conduct-prod-validate` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr169-conduct-prod-validate-6d2e8bff2bf4.md)
+
+> [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) reached the gauntlet's six-round review budget. Round 6 found one must-fix in the stale PR description; fix round 6 pushed `d3f982c`, updated the description, aligned the writer/preflight predicates, added writer/preflight tests, and CI is green (3/3). The gauntlet then stopped at `review-budget-reached`, so the PR remains draft and has no effective maintainer approval.
+>
+> Please make the human review decision, mark the PR ready if acceptable, and submit an APPROVED review so I can merge and perform the production CD/SSM validation. I will remain active and poll for your response.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -984,9 +990,9 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 60.1M | $462.64 _(notional, rate-card)_ | 36% of 168.0M (ok) |
-| Codex | 8.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 8.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 121433963 tokens/day lower bound._
+_Fleet token-unlock pace: 121431615 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
