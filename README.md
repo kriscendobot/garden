@@ -1,23 +1,10 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T20:00:59Z_
+_As of 2026-10-08T20:08:55Z_
 
 ## Latest
 
-Little changed on the board since the last bulletin. The only new post is `minion-town-ci-runner-redeploy-50aa690`, which redeploys the minion.town CI runner. Its deploy-verify sibling is already in progress, and `minion-town-billing-parked-prs-resume-20261008` is moving the PRs blocked by Actions billing onto ci.minion.town. Earlier today [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was validated.
-
-Oros came back online and began claiming and completing work. Its canary-stuck watchdog has cleared, but the rolling-deploy offline watchdog still fires, and a self-deploy restart op sits unacknowledged in its sysop queue. Someone may still need to check the Mac/VM.
-
-Three things need the maintainer:
-
-- **Review docket consolidation:** `review-docket-consolidate-20261008` is held in `plan/`, so the review-docket consolidation remains unfinished. Promote it or split it.
-- **Claude spend:** spend is over its quota cap ahead of the 10-10 reset.
-- **Open decisions:**
-  - Whether to start the ocap.site transfer after 2026-10-09 19:55Z, or ask the registrar to publish DS.
-  - Whether to build ERTP Phase 1 for the minion.town credits charge.
-  - The `TYPESAFE_API_KEY` needed to rerun the halted Jev triage trial.
+The board barely moved this cycle. The only transition is a gardener claiming `write-endo-docs-article-petnames-zookos-triangle`, an article on petnames and Zooko's triangle for docs.endojs.org. Oros is half back: it started heartbeating and completing work again around 17:30Z, and its stuck canary cleared at 19:29Z. However, the offline watchdog fired again at the same time, so the host still looks flaky and a person should check it. Claude spend is at 102% of the claude-endolin2 quota, with that window resetting 2026-10-10T03:00Z. The `kriscendobot` Actions billing block is still in effect: [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153) is the latest PR affected, and [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173) is still being shepherded on red CI.
 
 ## Maintainer review docket
 
@@ -65,6 +52,16 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal` cleared on endolin-garden2-5bcdff64.
 
+- `msg-minion-town-ci-runner-deploy-verify-50aa690-295210c7d00e` — from gardener:minion-town-ci-runner-deploy-verify-50aa690, reply_to `minion-town-ci-runner-deploy-verify-50aa690` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-ci-runner-deploy-verify-50aa690-295210c7d00e.md)
+
+> ci.minion.town deploy-verify for minion.town main @ 50aa690: **drifted, redeploy handed off**.
+>
+> - **Drift:** the live runner still runs the pre-merge minter, and per the fix-5/6 reports the old controller too. Runner names are `ci-minion-town-0fdb85b6`, with no minter timestamp stamp; the merged index.mjs always appends `-YYYYMMDDTHHMMSSZ`.
+> - **Could not redeploy here:** oros-studio has no AWS CLI or credentials, and its PAT gets a 403 on the Actions variables and runners APIs. Steps 1–3 (SSM diff, Lambda update, secret-exists check) are posted as `minion-town-ci-runner-redeploy-50aa690` with `requires: aws`. The order is Lambda first, then the host, then a reboot, then the selftest and the prune check.
+> - **Baseline selftest on the old code:** https://github.com/kriscendobot/minion.town/actions/runs/37833162084. probe and verify were green and no residue was found, including cron, the X11 probe, the systemd-private decoy, the named volume and /run/lock. The deliberate `fail` job was red.
+> - **CI routing:** test.yml runs on main land on `self-hosted,ci-minion-town`, so CI_RUNS_ON is effectively self-hosted.
+> - **Open:** I could not check the secret's existence or the orphaned registrations from this host; the successor owns both.
+
 - `improve-journal-deepen-retry-split-terminal-complete` — from orchestrator:improve-journal-deepen-retry-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-journal-deepen-retry-split-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -84,7 +81,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=2 queue=8 quota=ok fleet-envelope=4 target=2
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-06T06:35:18Z, latest 2026-10-08T20:05:29Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=2 queue=3 quota=ok fleet-envelope=4 target=2
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
@@ -163,7 +164,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
 
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=2 queue=8 quota=ok fleet-envelope=4 target=2
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-07T22:06:38Z, latest 2026-10-08T20:05:56Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-2`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=2 queue=3 quota=ok fleet-envelope=4 target=2
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -600,28 +605,28 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.8M | $1206.66 _(notional, rate-card)_ | 102% of 168.0M (backoff) |
-| Codex | 15.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
+| Claude | 171.3M | $1210.11 _(notional, rate-card)_ | 102% of 168.0M (backoff) |
+| Codex | 16.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123274026 tokens/day lower bound._
+_Fleet token-unlock pace: 123318762 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1433
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261008-192023.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr173-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #173
 - [`endojs-endo-but-for-bots-pr71-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr71-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #71
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
-- [`write-endo-docs-article-petnames-zookos-triangle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/write-endo-docs-article-petnames-zookos-triangle.md) — Write an article on petnames and Zooko's triangle for docs.endojs.org
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1379
 - [`improve-deadline-nudge-cas-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadline-nudge-cas-exhaustion.md) — ---
 - [`minion-town-ci-runner-redeploy-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-ci-runner-redeploy-50aa690.md) — ---
 
-### doin (4)
+### doin (5)
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
+- [`write-endo-docs-article-petnames-zookos-triangle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/write-endo-docs-article-petnames-zookos-triangle.md) — Write an article on petnames and Zooko's triangle for docs.endojs.org
 - [`minion-town-billing-parked-prs-resume-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-billing-parked-prs-resume-20261008.md) — Unpark the minion.town PRs blocked by Actions billing, onto ci.minion.town
 - [`kriscendobot-minion.town-pr173-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr173-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #173
 - [`minion-town-ci-runner-deploy-verify-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-deploy-verify-50aa690.md) — ---
