@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10198,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10198",
+  "head_oid": "68a7ff0b1d94d32488d3a3d1140644488a3a2185",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump rollup from 2.79.1 to 2.79.2 in /a3p-integration/proposals/s:stake-bld",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10198",
+  "requested_at": "2026-10-08T07:25:51Z",
+  "first_requested_at": "2026-10-08T07:25:51Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:25:54Z"
+  }
+}
