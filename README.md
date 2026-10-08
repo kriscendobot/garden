@@ -1,14 +1,24 @@
 # Garden bulletin
 
-_As of 2026-10-08T21:13:21Z_
+_As of 2026-10-08T21:25:30Z_
 
 ## Latest
 
-Only one job moved since the last bulletin: `improve-deadline-nudge-cas-exhaustion` finished and landed in tada. Three things still wait on the maintainer:
+[endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433) passed its pre-spend viability check and moved on to the gauntlet's clean stage. `improve-design-build-prestaged-gauntlet` also completed. Gardeners claimed panel round 1 for [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79), the viability check for [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173), and `improve-comment-watcher-quota-admission`.
 
-- **Review docket:** its final consolidation step (`review-docket-consolidate-20261008`) used up its retries and is held in the plan queue. Nothing moves until someone promotes or splits it.
-- **ocap.site:** the domain can be transferred into Route53 Domains from about 2026-10-09T19:55Z. DNSSEC stays broken until that transfer happens or the current registrar publishes the DS record.
-- **Claude spend:** it is at 105% of the backoff quota.
+`design-minion-town-ocap-site-crawler-leak-rotation` used up its retries and is now held in the plan queue until someone promotes it or splits it into smaller jobs.
+
+Three orchestrations have halted, and each needs a maintainer decision:
+
+- **`review-docket-20261008`:** its final consolidation step was doomed and is held in plan. The review requests archived by the proxy auto-clear have not yet been moved onto the docket.
+- **`orch-minion-town-oauth-bonds`:** the build step finished but reported that its required outcome was not met.
+- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is not provisioned.
+
+Other open decisions in the inbox:
+
+- **ERTP credits:** whether to post the Phase 1 build or keep ERTP deferred.
+- **ocap.site transfer:** the 60-day transfer window opens about 2026-10-09 19:55Z. The DS record is still unpublished, so DNSSEC remains broken.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its panel review covers an older head, so the current head needs a review decision.
 
 ## Maintainer review docket
 
@@ -58,6 +68,10 @@ Delegation: **active**
 > ## Follow-ups
 > - `design-minion-town-oauth-bonds` is still in `doin`. A requeue will only pass on its own once this change is deployed to that host. Its build is still owned by `orch-minion-town-oauth-bonds`.
 > - This is separate from the existing `DESIGN-BUILD-RECHECK` path in `handlers/follow-up-claude.sh`. That path waits for a cross-referenced build PR to appear and never posts the builder job.
+
+- `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
+
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=4 queue=1 quota=ok fleet-envelope=4 target=1
 
 - `orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed` — from orchestrator:orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed.md)
 
@@ -243,45 +257,120 @@ Delegation: **active**
 > - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
 > - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
 
+- `doomed-design-minion-town-ocap-site-crawler-leak-rotation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-design-minion-town-ocap-site-crawler-leak-rotation-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden2-5bcdff64.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/design-minion-town-ocap-site-crawler-leak-rotation; it stays HELD until a human promotes it
+> (promote-plan.sh design-minion-town-ocap-site-crawler-leak-rotation) or removes it, so nothing is lost.
+> Original job base: design-minion-town-ocap-site-crawler-leak-rotation
+>
+> --- original job body ---
+> ---
+> role: designer
+> arc: minion-town-ui
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
+>
+> Repo: https://github.com/kriscendobot/minion.town. Budget: the `minion-town-ui` arc.
+>
+> ## Maintainer's idea (2026-10-08)
+>
+> A clip is served at `<hash>.ocap.site` and the URL is a bearer capability. If a crawler bot
+> fetches a clip page, that is evidence the link reached the open internet (pasted somewhere
+> public, indexed, scraped). That should be detected and the clip's link **rotated
+> automatically**. There is not yet a mechanism for rotating a formula identifier; a sibling
+> design job on `endojs/endo-but-for-bots`, `design-endo-formula-identifier-indirection`,
+> designs that layer. This design must not assume it exists; it must state the interface it
+> needs from it and what to do until it lands.
+>
+> Read first: `designs/ocap-site-clip-isolation.md`, `designs/clip-formula-id-origin-and-content-gc.md`,
+> the gateway request path, and the live edge (Caddy) configuration and logs.
+>
+> ## Sift: direction versus speculation
+>
+> Open the design with a short section that separates (a) what is established direction from
+> (b) what is speculation or unknown. In particular:
+>
+> - **Direction:** a crawler hit is a leak signal; leak response is automatic rotation of the
+>   link; detection must be deterministic code, not an LLM.
+> - **Speculation to treat as a question, with evidence before any claim:** that a crawler can
+>   be told reliably from a legitimate visitor at all. A user-agent string is forgeable and many
+>   scrapers send browser UAs; link previews (chat apps, mail scanners, unfurlers) fetch URLs
+>   for legitimate recipients and would cause false rotations; a malicious actor can trigger
+>   rotation on purpose (a denial of service on a clip owner). Measure what real traffic to
+>   the live edge looks like before proposing thresholds. Do not invent a crawler
+>   taxonomy from memory.
+>
+> ## What the design must settle
+>
+> 1. **Signals**, ranked by reliability and cost: declared bot user agents against published
+>    lists, `robots.txt` fetches (a clip origin's own `robots.txt` as a tripwire), reverse-DNS
+>    verified search-engine ranges, request-shape heuristics, first-fetch-from-unexpected
+>    geography, honeypot paths. Say which are cheap, which false-positive on link unfurlers,
+>    and which an attacker can spoof.
+> 2. **Where it lives:** at the Caddy edge, in the gateway, or from log analysis after the fact;
+>    what is logged, retention, and privacy (no raw IP retention beyond what the decision
+>    needs).
+> 3. **Response ladder**, not a single trigger: observe, alert the clip owner, rotate. Define
+>    thresholds, a grace window for known unfurlers, per-clip rate limits so a hostile actor
+>    cannot force churn, and the owner's ability to pin a clip as public so it is never rotated.
+> 4. **Rotation semantics for a user:** what the old link does after rotation (gone, or a
+>    tombstone page that says it was rotated), how the owner learns the new link, and what
+>    happens to anything that embedded the old link.
+> 5. **Dependency on formula-identifier rotation:** state the minimal interface required
+>    (`rotate(clip) -> newLocator`, old locator revoked) and a degraded mode for before it
+>    exists (for example, republish the clip under a fresh content hash and retire the old
+>    origin) with its costs.
+> 6. **Acceptance and production check:** tests an automatic production canary can run,
+>    including a synthetic crawler hitting a canary clip and the rotation being observed.
+>
+> Include mermaid flows (no ASCII art) and an `## Ownership map` (edge, gateway, daemon, owner).
+> Open the design as a DRAFT PR on `kriscendobot/minion.town`. Under the maintainer's
+> 2026-10-07 standing order (journal `entries/2026/10/07/203746Z-message-gardener-a253b1.md`),
+> the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
+> design's `## Open questions`.
+
 
 ## Spend & quota
 _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 175.7M | $1239.95 _(notional, rate-card)_ | 105% of 168.0M (backoff) |
-| Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Claude | 176.4M | $1244.57 _(notional, rate-card)_ | 105% of 168.0M (backoff) |
+| Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 128849933 tokens/day lower bound._
+_Fleet token-unlock pace: 128898864 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.434577s/45s (/home/kris/garden2/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
+worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (6)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
 - [`endojs-endo-but-for-bots-pr1379-post-panel-r5-verdict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-post-panel-r5-verdict.md) — Post the gauntlet panel round-5 verdict on endojs/endo-but-for-bots#1379
-- [`improve-comment-watcher-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-comment-watcher-quota-admission.md) — ---
 - [`endojs-endo-but-for-bots-pr1434-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1434-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1434
-- [`kriscendobot-minion.town-pr173-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #173
-- [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 - [`claude-on-minion-town-press-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-203525.md) — Press the Claude-on-minion.town arc forward
+- [`endojs-endo-but-for-bots-pr1433-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1433
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 
 ### doin (5)
-- [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1433
-- [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
+- [`improve-comment-watcher-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-quota-admission.md) — ---
+- [`kriscendobot-minion.town-pr173-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr173-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #173
+- [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 - [`minion-town-billing-parked-prs-resume-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-billing-parked-prs-resume-20261008.md) — Unpark the minion.town PRs blocked by Actions billing, onto ci.minion.town
 - [`minion-town-ci-runner-redeploy-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-redeploy-50aa690.md) — ---
-- [`improve-design-build-prestaged-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-design-build-prestaged-gauntlet.md) — ---
 
-### tada (11849)
+### tada (11851)
+- [`improve-design-build-prestaged-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-design-build-prestaged-gauntlet.md) — Cost
+- [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Cost
 - [`improve-deadline-nudge-cas-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-deadline-nudge-cas-exhaustion.md) — Cost
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-arc-press-20261008-192023.md) — Tick report: minion.town arc press, 2026-10-08 ~20:35Z
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5.md) — Cost
-- [`scholar-ingest-source-awesome-ocap-petnames-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/scholar-ingest-source-awesome-ocap-petnames-remainder.md) — Cost
-- [`endojs-endo-but-for-bots-pr71-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr71-shepherd.md) — Manual gauntlet handoff
-- … and 11844 more
+- … and 11846 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -298,6 +387,7 @@ worst fetch p95 4.434577s/45s (/home/kris/garden2/.garden-state/inbox-list/journ
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
+- [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-minion-town-ocap-site-crawler-leak-rotation.md) — _normal_ · Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
