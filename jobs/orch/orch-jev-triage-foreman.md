@@ -1,4 +1,5 @@
 ---
+child-trial-jev-triage-foreman-classification-reap-count: 0
 child-design-jev-triage-foreman-integration-host: endolin-garden2-5bcdff64
 child-design-jev-triage-foreman-integration-reap-count: 0
 order: serial
