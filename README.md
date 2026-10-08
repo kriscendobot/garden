@@ -1,18 +1,23 @@
 # Garden bulletin
 
-_As of 2026-10-08T07:57:00Z_
+_As of 2026-10-08T08:10:15Z_
 
 ## Latest
 
-Little moved on the board itself: the halted terminal records for the [endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170) and [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) gauntlets were cleared. Gauntlet rounds continue on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171). The proxy merged and deployed [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) cleanly at 04:05Z.
+Most of the fleet's work since the last bulletin was on minion.town. Gauntlet and shepherd rounds finished for [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169), [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171). The proxy screened and conducted [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) and #169. [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and was validated.
 
-A maintainer should notice these items:
-- **Review docket:** the `review-docket-20261008` orchestration halted at 2/3. Its consolidation child is held in plan and needs `promote-plan.sh review-docket-consolidate-20261008` or a split. Until then, the review requests that the auto-clear archived are not yet folded into the docket.
-- **Oauth-bonds and Jev trial:** `orch-minion-town-oauth-bonds` halted with an unsatisfied build. The Jev triage trial is blocked until a `TYPESAFE_API_KEY` is provisioned.
-- **Comment watchers:** on the leader, the watchers for all 12 sources have been held in a shared cooldown latch for about 30 minutes. They are not posting acknowledgments while it holds.
-- **Oros:** the host is still offline (since 10-02) and needs someone to check it in person.
-- **ocap.site:** the domain can be transferred after 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished, so the next step is your call: start the transfer or ask the registrar to add the DS record.
-- **Arc decision:** the minion.town arc is waiting on your choice to build the ERTP credits charge or keep it deferred.
+**Billing block on GitHub Actions.** Actions has stopped starting jobs for the `kriscendobot` account because of a billing problem. The #171 gauntlet is parked as `PARKED-CI-BILLING`, and #166's checks could not start. Pushing code will not fix this. Someone needs to fix Billing & plans, then rerun the failed runs and resume the parked gauntlets.
+
+**Halted orchestrations:**
+- **`review-docket-20261008`:** stopped at child 3/3. `review-docket-consolidate-20261008` used up its retries and is held in `plan/`. That child is the one that moves the 26 auto-cleared review requests onto the new docket and sends you its URL. Promote it or split it.
+- **`orch-minion-town-oauth-bonds`:** its build child declared its gated outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** the trial needs a maintainer-provisioned `TYPESAFE_API_KEY`.
+
+**Other decisions waiting on you:**
+- **ocap.site DNSSEC:** the domain can be transferred into Route53 after about 2026-10-09 19:55Z. Until then the DS record stays unpublished, and the domain resolves as insecure. You can either start the transfer or ask the registrar to publish the DS record.
+- **ERTP:** whether to post the Phase 1 build now or keep it deferred ([garden#58](https://github.com/kriscendobot/garden/issues/58)).
+
+The oros host is still offline (since 10-02). It needs someone to check it physically.
 
 ## Maintainer review docket
 
@@ -21,6 +26,8 @@ A maintainer should notice these items:
 
 Delegation: **active**
 
+- 2026-10-08T07:59:27Z [#169](https://github.com/kriscendobot/minion.town/pull/169) `2ab54e5252a` screened
+- 2026-10-08T07:59:27Z [#122](https://github.com/kriscendobot/minion.town/pull/122) `30df78718a4` screened
 - 2026-10-08T04:05:39Z [#143](https://github.com/kriscendobot/minion.town/pull/143) merged `76bb27628e9`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/37725824969), watchdog ok — validated
 - 2026-10-08T04:00:07Z [#143](https://github.com/kriscendobot/minion.town/pull/143) `e0b95d10de8` screened
 - 2026-10-08T03:50:52Z [#143](https://github.com/kriscendobot/minion.town/pull/143) `43a1387084e` screened
@@ -226,24 +233,11 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-08T05:55:52Z, latest 2026-10-08T07:55:28Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-08T05:55:52Z, cleared 2026-10-08T08:01:04Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden2-5bcdff64 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 12 source(s); they post no acknowledgments while it holds.
-> - kriscendobot/cosgov: watcher ticking but cooldown for 1852s (since 2026-10-08T07:24:36Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 1843s (since 2026-10-08T07:24:45Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 1856s (since 2026-10-08T07:24:32Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 1849s (since 2026-10-08T07:24:39Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1881s (since 2026-10-08T07:24:07Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1872s (since 2026-10-08T07:24:16Z)
-> - kriscendobot/list: watcher ticking but cooldown for 1896s (since 2026-10-08T07:23:52Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 1884s (since 2026-10-08T07:24:04Z)
-> watcher ticking but cooldown for 1808s (since 2026-10-08T07:25:20Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 1875s (since 2026-10-08T07:24:13Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 1819s (since 2026-10-08T07:25:09Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1894s (since 2026-10-08T07:23:54Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 1849s (since 2026-10-08T07:24:39Z)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -474,6 +468,10 @@ Delegation: **active**
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=0 quota=ok fleet-envelope=4 target=1
 
+- `watchdog-actions-billing-blocked-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-actions-billing-blocked-kriscendobot.md)
+
+> GitHub Actions is refusing to START jobs for the 'kriscendobot' account: "recent account payments have failed or your spending limit needs to be increased". Latest: [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/issues/166) (head 39adda4c8e2; checks: test, Claude harness (amd64), Claude harness (arm64)). This is an ACCOUNT BILLING block, not a code failure: no push can fix it, so I am not treating it as CI red. Fix Billing & plans for 'kriscendobot', then rerun the failed runs (gh run rerun <id> --failed) and resume whatever parked on it (a gauntlet: scripts/jobs/gauntlet.sh --resume-from-stage <g> <clean|fix> [--iteration N]).
+
 - `improve-journal-deepen-retry-expanded-window-expanded-window-split-terminal-complete` — from orchestrator:improve-journal-deepen-retry-expanded-window-expanded-window-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-journal-deepen-retry-expanded-window-expanded-window-split-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -553,29 +551,28 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.1M | $821.78 _(notional, rate-card)_ | 67% of 168.0M (ok) |
-| Codex | 12.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 114.2M | $828.61 _(notional, rate-card)_ | 68% of 168.0M (ok) |
+| Codex | 12.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 121651473 tokens/day lower bound._
+_Fleet token-unlock pace: 122101174 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`kriscendobot-minion.town-pr170-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #170
-- [`kriscendobot-minion.town-pr166-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #166
+### todo (0)
+(none)
 
-### doin (1)
-- [`kriscendobot-minion.town-pr171-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr171-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #171
+### doin (0)
+(none)
 
-### tada (11656)
-- [`kriscendobot-minion.town-pr166-gauntlet-20261008-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr166-gauntlet-20261008-panel-2.md) — Completion report: panel round 2 for kriscendobot/minion.town PR 166
-- [`kriscendobot-minion.town-pr170-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-panel-5.md) — Cost
-- [`kriscendobot-minion.town-pr166-gauntlet-20261008-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr166-gauntlet-20261008-fix-1.md) — Cost
-- [`kriscendobot-minion.town-pr171-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr171-gauntlet-fix-3.md) — Cost
-- [`endojs-endo-but-for-bots-pr170-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr170-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr170-gauntlet-20261007 — HALTED
-- … and 11651 more
+### tada (11670)
+- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-viability.md) — Cost
+- [`kriscendobot-minion.town-pr171-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr171-gauntlet.md) — gauntlet kriscendobot-minion.town-pr171-gauntlet — PARKED-CI-BILLING
+- [`kriscendobot-minion.town-pr171-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr171-shepherd.md) — Cost
+- [`kriscendobot-minion.town-pr171-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr171-gauntlet-fix-4.md) — Cost
+- [`kriscendobot-minion.town-pr169-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-shepherd.md) — Cost
+- … and 11665 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
