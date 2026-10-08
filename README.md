@@ -1,17 +1,16 @@
 # Garden bulletin
 
-_As of 2026-10-08T11:36:50Z_
+_As of 2026-10-08T11:39:40Z_
 
 ## Latest
 
-[endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), SturdyRef layer 5, finished its gauntlet and is no longer a draft. That clears the way for [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), which were waiting on it. [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) cleared panel round 1, and its first fix round is now queued. [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) has been claimed for fix round 3. The [endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) gauntlet halted because the PR targets a floating base; it needs "pin the merge base #166" before it can run again.
+Little moved since the last bulletin. The only completion was the hourly `oros-health-watch` check, which found Oros still unreachable at 11:37Z. Its heartbeat and sysop have been silent since 2026-10-02, it is now 210 commits behind `main2`, and ten operations are still unacknowledged. A person needs to check the Mac's power and sleep state, Docker Desktop, and the VM runtime.
 
-Several items are waiting on you:
-- **Review docket:** the `review-docket-20261008` orchestration halted at its last step, consolidating the review requests and archiving the old priority documents. That job is parked until you promote it, so the 26 review requests the proxy auto-clear archived still aren't on the docket.
-- **M2 milestone:** still blocked on your merge of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-- **GitHub Actions billing:** Actions is refusing to start jobs on the kriscendobot account because of a billing problem (first hit on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166)).
-- **Oros host:** it has been offline since 10-02 and someone has to check it in person.
-- **ocap.site:** the domain transfer window opens around 2026-10-09 19:55Z, and the DS record is still not published.
+Three earlier items still need maintainer action:
+
+- **Review docket:** the `review-docket-20261008` orchestration halted at its final step. Its consolidation child, `review-docket-consolidate-20261008`, used up its retries and is held in the plan queue. It will not move until someone promotes it or splits it, so the review requests auto-cleared by the 03:50Z proxy sweep are still not on a docket.
+- **GitHub Actions billing:** Actions is refusing to start jobs on the `kriscendobot` account because of a payment or spending-limit block. The latest case is on [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/issues/166).
+- **ocap.site transfer:** the domain becomes eligible for transfer around 2026-10-09T19:55Z. Its DNSSEC DS record is still unpublished at the registrar.
 
 ## Maintainer review docket
 
@@ -240,10 +239,6 @@ Delegation: **active**
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
 > budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): subscription claude-endolin2 spend=105555468 cap=168000000 pace-bias=0 window-start=2026-10-06T18:39Z(observed) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 backoff=0.7298(ramp) target=1
-
-- `endojs-endo-but-for-bots-pr166-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr166-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr166-gauntlet-20261007-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr166-gauntlet-20261007 HALTED: PR [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/issues/166) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #166') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr756-54be58f74472` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr756-54be58f74472.md)
 
@@ -511,6 +506,10 @@ Delegation: **active**
 > - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
 > - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
 
+- `msg-oros-health-watch-20261008-113508-6303c89baa9e` — from gardener:oros-health-watch-20261008-113508, reply_to `oros-health-watch-20261008-113508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261008-113508-6303c89baa9e.md)
+
+> Oros remains unreachable as of 2026-10-08T11:37Z. No current oros-health-checkup exists because its schedule is intentionally deferred to 2026-10-11T21:00:00Z. Heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred and deployed e036bb8e (now 210 commits behind main2), and the last sysop ack was 2026-10-02T05:38:58Z. The host remains derotated for heartbeat-offline. I sent no additional op because seven reset-failed, one restore, and two attested scaler-unit operations are already queued without acknowledgments. A person must check the Mac power/sleep state, Docker Desktop, and the VM/container runtime.
+
 - `msg-scholar-ingest-oh-my-pi-rust-core-2-b6d0f6b4499d` — from scholar:scholar-ingest-oh-my-pi-rust-core-2, reply_to `scholar-ingest-oh-my-pi-rust-core-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-2-b6d0f6b4499d.md)
 
 > Ingested five source-anchored sections covering oh-my-pi's injectable `pi-vfs`, feature-gated `pi-builtins`, and the first three `pi-natives` search surfaces. The key boundary is now explicit: virtual shell files never need a host representation; native grep and glob honor that provider filesystem, while `fuzzyFind` is currently host-path-only. The remaining native bindings, deeper module docs, divergence-marked explainer, and vendored brush documentation are queued in `scholar-ingest-oh-my-pi-rust-core-3`; see the cycle's result entry for anchors and integrity evidence.
@@ -557,7 +556,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 127.8M | $917.12 _(notional, rate-card)_ | 76% of 168.0M (ok) |
+| Claude | 128.0M | $919.35 _(notional, rate-card)_ | 76% of 168.0M (ok) |
 | Codex | 13.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122500432 tokens/day lower bound._
@@ -571,17 +570,16 @@ worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
 - [`claude-on-minion-town-press-20261008-113508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-113508.md) — Press the Claude-on-minion.town arc forward
 - [`claude-on-minion-town-completion-press-20261008-113508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261008-113508.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr258-gauntlet-20261007-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #258
-- [`oros-health-watch-20261008-113508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261008-113508.md) — ---
 
-### tada (11717)
+### tada (11718)
+- [`oros-health-watch-20261008-113508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/oros-health-watch-20261008-113508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1394-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr1394-gauntlet-20261007 — complete
 - [`endojs-endo-but-for-bots-pr166-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr166-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr166-gauntlet-20261007 — HALTED
 - [`endojs-endo-but-for-bots-pr166-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr166-gauntlet-plan-20261007.md) — Cost
 - [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-undraft.md) — Cost
-- [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1.md) — Cost
-- … and 11712 more
+- … and 11713 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
