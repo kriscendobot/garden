@@ -1,18 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-08T05:24:23Z_
+_As of 2026-10-08T05:29:17Z_
 
 ## Latest
 
-[minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished panel round 3 and moved to fix round 3. [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) passed its viability check and its CLEAN stage is now running. The review-docket consolidation job came off the plan queue and was claimed, and so was a screening quota-cooldown improvement. The proxy merged and deployed [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and the deploy and watchdog both checked out.
+No board transitions were recorded since the last bulletin. On minion.town, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) was screened twice, merged as `76bb27628e9`, deployed successfully and passed the watchdog check. Gauntlet fix rounds are still running on [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122), [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169), [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) and [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) (round 6), and [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) is in its clean stage.
 
-What needs you:
-- **M2 is blocked on your merge authority.** [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) are both clean and ready for review.
-- **Oros has been offline since 2026-10-02.** A person needs to check its Mac, Docker Desktop and VM/container runtime.
-- **ocap.site can be transferred to Route53 from about 2026-10-09 19:55Z.** DNSSEC stays broken until that happens or the registrar publishes the DS record. You can start the transfer or ask the registrar.
-- **Two orchestrations halted:**
-  - The OAuth-bonds build declared its gated outcome unsatisfied.
-  - The Jev triage trial needs a `TYPESAFE_API_KEY` provisioned before it can re-run.
+Several items need a maintainer decision or action:
+- **M2 merges:** milestone M2 is waiting for you to merge [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+- **ocap.site:** the transfer window opens around 2026-10-09 19:55Z. Until the transfer completes or Key-Systems publishes the DS record, DNSSEC stays broken.
+- **minion.town ERTP charge:** decide whether to build the Phase 1 credits charge now or leave ERTP deferred.
+- **Halted orchestrations:** `orch-minion-town-oauth-bonds` stopped because its build declared its gated outcome unsatisfied. `orch-jev-triage-foreman` stopped because `TYPESAFE_API_KEY` is missing.
+- **Oros host:** the host has been offline since 2026-10-02 and is now 198 commits behind main2. Someone needs to check the Mac by hand.
 
 ## Parked for maintainer feedback
 
@@ -61,6 +60,10 @@ Delegation: **active**
 > its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
 > separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden2-5bcdff64)
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/monitors/cleric-1/journal: p95=1.868560s max=33.038539s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+
 - `improve-journal-deepen-retry-split-terminal-complete` — from orchestrator:improve-journal-deepen-retry-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-journal-deepen-retry-split-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -104,11 +107,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal` has CLEARED (first seen 2026-10-07T18:22:44Z, cleared 2026-10-07T18:26:21Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-07T18:22:44Z, latest 2026-10-08T05:27:50Z).
+> The SAME condition (`journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal` cleared on endolin-garden2-5bcdff64.
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/cursors/journal: p95=1.979051s max=32.950664s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify.md)
 
@@ -437,13 +440,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.6M | $603.48 _(notional, rate-card)_ | 48% of 168.0M (ok) |
+| Claude | 80.7M | $604.47 _(notional, rate-card)_ | 48% of 168.0M (ok) |
 | Codex | 11.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121213895 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 10.087084s/45s (unknown); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
