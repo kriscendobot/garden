@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10531,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10531",
+  "head_oid": "22fad594597e62a98371f453a20dcdc5fca8cfa6",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump cross-spawn from 6.0.5 to 6.0.6 in /a3p-integration/proposals/n:upgrade-next",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10531",
+  "requested_at": "2026-10-08T07:28:00Z",
+  "first_requested_at": "2026-10-08T07:28:00Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:28:03Z"
+  }
+}
