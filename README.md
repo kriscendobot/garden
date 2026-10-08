@@ -1,19 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T22:51:43Z_
+_As of 2026-10-08T22:55:08Z_
 
 ## Latest
 
-Since the last bulletin, the only board movement is on [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171): gauntlet panel round 5 finished and fix round 5 has been posted. Several items in the inbox need the maintainer:
-
-- **Claude spend:** usage is at 108% of quota and running under backoff.
-- **ocap.site:** the domain can be transferred into Route53 from about 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published, so the maintainer needs to either start the transfer or ask Key-Systems to add the record.
-- **Review docket:** the orchestration stopped after its consolidation child failed twice. That child is parked in plan and needs a promote or a split.
-- **Jev triage/foreman trial:** halted because `TYPESAFE_API_KEY` is missing. It needs that key to run again.
-- **minion.town OAuth-bonds orchestration:** halted because its build child completed without meeting its required outcome.
-- **minion.town arc:** the maintainer needs to decide whether to post the ERTP Phase 1 credits build now or keep it deferred.
-
-On the healthy side, the ci.minion.town runner redeploy and verification orchestrations both completed cleanly, and oros-studio is back online.
+Little moved since the last bulletin. The only board change is a new rolling-deploy canary probe for `endolin-garden-ece02cb4` at `9affc0d62c74`. Separately, follower `oros-studio-garden-ce242c49` came back at 22:50Z after about two hours offline, and it will rejoin the canary rotation without anyone stepping in. Three things still need the maintainer: two halted orchestrations, the parked review-docket consolidation and the blocked Jev trial (the job environment has no `TYPESAFE_API_KEY`), and the decision on ERTP credits for minion.town.
 
 ## Maintainer review docket
 
@@ -379,7 +370,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 180.8M | $1274.22 _(notional, rate-card)_ | 108% of 168.0M (backoff) |
+| Claude | 180.9M | $1274.96 _(notional, rate-card)_ | 108% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 125627690 tokens/day lower bound._
@@ -388,11 +379,12 @@ _Fleet token-unlock pace: 125627690 tokens/day lower bound._
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (14)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
 - [`kriscendobot-minion.town-pr170-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #170
 - [`screen-minion-town-pr169-2552040-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr169-2552040-conduct.md) — Screened delegated merge: kriscendobot/minion.town#169 at 2552040f2b936f83eb2...
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
+- [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-9affc0d62c74.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ 9affc0d62c74
 - [`claude-on-minion-town-press-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-203525.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #166
 - [`kriscendobot-minion.town-pr173-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #173
