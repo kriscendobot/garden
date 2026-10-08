@@ -1,24 +1,31 @@
 # Garden bulletin
 
-_As of 2026-10-08T13:20:32Z_
+_As of 2026-10-08T13:24:36Z_
 
 ## Latest
 
-The gauntlet for [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) finished panel round 3, and fix round 3 is now posted. A fixer claimed fix round 1 for [kriscendobot/endo-but-for-bots#1](https://github.com/kriscendobot/endo-but-for-bots/pull/1) after its first panel returned must-fix findings. Another minion.town arc press also completed.
+No jobs moved on the board since the last bulletin, but three orchestrations have halted and need a maintainer decision:
 
-What needs you:
+- **Review docket stalled at the last step.** The `review-docket-20261008` orchestration got through 2 of 3 children. The final child, `review-docket-consolidate-20261008`, failed and was retried with no result. It moves the requests that the proxy auto-clear archived onto the docket, then archives the old priorities documents. It is now held in the plan queue until someone promotes it.
+- **minion.town OAuth bonds halted.** The `build-minion-town-oauth-bonds` child completed but reported that its required outcome was not met.
+- **Jev triage/foreman trial halted.** It is waiting on a `TYPESAFE_API_KEY` that the maintainer must provide.
 
-- **Actions billing:** GitHub Actions won't start jobs on the `kriscendobot` account because of a billing or spending-limit failure. [minion.town#166](https://github.com/kriscendobot/minion.town/issues/166) is stuck on it. Pushing code can't fix it; the account billing has to be fixed first.
-- **Halted orchestrations:**
-  - `review-docket-20261008` halted on its consolidation child. That child migrates the 26 auto-cleared review requests onto the new docket, and it is now parked waiting for your go-ahead.
-  - `orch-minion-town-oauth-bonds` halted after its build reported its gated outcome unsatisfied.
-  - The Jev triage/foreman trial is blocked until you provide `TYPESAFE_API_KEY`.
-- **Watcher gaps:** the triager's bare clone for `kriscendobot-endo-but-for-bots` is corrupt, so that repo isn't being triaged. The `kriscendobot/ocapn` comment watcher failed its self-test and is probably blind.
-- **Oros:** the host has been offline since 10-02, and a person has to check the Mac in person.
-- **Decisions waiting on you:**
-  - ocap.site can transfer to Route53 after about 2026-10-09 19:55Z. Until then, the registrar is still not publishing the DNSSEC DS record.
-  - Post the ERTP Phase 1 build now, or keep ERTP deferred?
-  - Milestone M2 is waiting on your merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+Other items that need attention:
+
+- **GitHub Actions billing.** Actions is refusing to start jobs on the kriscendobot account because of a billing block, seen most recently on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166). A push cannot fix this; it has to be resolved in the account's billing settings.
+- **Oros host.** Oros has been offline since 2026-10-02 and is now 210 commits behind. Someone needs to check the Mac in person.
+- **ocap.site transfer.** The domain can be transferred to Route53 from about 19:55Z on 2026-10-09. DNSSEC stays broken until either that transfer completes or the current registrar (Key-Systems) publishes the DS record.
+- **ERTP decision.** The minion.town arc is waiting on a yes/no: build ERTP Phase 1 now, or keep it deferred.
+- **Milestone M2.** It is still waiting on the maintainer to merge [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+
+Progress elsewhere:
+
+- [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was validated.
+- The proxy screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
+- Review (gauntlet) rounds are underway on [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) (fix 5), [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) (fix 3), [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (viability) and [kriscendobot/endo-but-for-bots#1](https://github.com/kriscendobot/endo-but-for-bots/pull/1) (fix 1).
+- The oh-my-pi Rust-core ingest is complete.
+
+Claude spend has reached 84% of the weekly quota, two days before the reset.
 
 ## Maintainer review docket
 
@@ -47,11 +54,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1882 (first seen 2026-10-02T05:41:06Z, latest 2026-10-08T12:20:11Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1882 times; this is ONE
-> coalesced notice that updates in place, not 1882 messages. Latest detail:
+> WATCHDOG notice — occurrence #1903 (first seen 2026-10-02T05:41:06Z, latest 2026-10-08T13:23:07Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1903 times; this is ONE
+> coalesced notice that updates in place, not 1903 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 544288s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 548071s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -78,10 +85,6 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration improve-journal-deepen-retry-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
-
-- `watchdog-triager-clone-corrupt-kriscendobot-endo-but-for-bots` — from watchdog:triager/kriscendobot-endo-but-for-bots, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-clone-corrupt-kriscendobot-endo-but-for-bots.md)
-
-> triager: bare clone path /home/kris/garden2/worktrees/kriscendobot-endo-but-for-bots.git for kriscendobot-endo-but-for-bots exists but is not a git repo; needs manual reconciliation (not clobbering). kriscendobot-endo-but-for-bots is not being triaged until it is restored.
 
 - `msg-oros-health-watch-20261008-083508-bb06d94176d4` — from gardener:oros-health-watch-20261008-083508, reply_to `oros-health-watch-20261008-083508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261008-083508-bb06d94176d4.md)
 
@@ -572,7 +575,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 140.3M | $1002.07 _(notional, rate-card)_ | 84% of 168.0M (ok) |
+| Claude | 140.5M | $1003.19 _(notional, rate-card)_ | 84% of 168.0M (ok) |
 | Codex | 13.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122554790 tokens/day lower bound._
