@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: designer
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-08T21:23:53Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-10-08T21:23:53Z
+---
+
+---
 role: designer
 arc: minion-town-ui
 tier: mentor
@@ -65,17 +86,3 @@ Open the design as a DRAFT PR on `kriscendobot/minion.town`. Under the maintaine
 2026-10-07 standing order (journal `entries/2026/10/07/203746Z-message-gardener-a253b1.md`),
 the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 design's `## Open questions`.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-08T20:23:54Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-08T20:40:07Z
