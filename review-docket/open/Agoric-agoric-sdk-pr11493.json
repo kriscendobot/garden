@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11493,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11493",
+  "head_oid": "4fa8784204c66c5dab2ce24c260fa11e58e00dcc",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Fix Typos in Comments and Documentation",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11493",
+  "requested_at": "2026-10-08T07:32:44Z",
+  "first_requested_at": "2026-10-08T07:32:44Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:32:47Z"
+  }
+}
