@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T18:45:46Z_
+_As of 2026-10-08T18:48:06Z_
 
 ## Latest
 
-The only board movement since the last bulletin: the [endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/pull/71) gauntlet halted. Its first fix round reported that it had failed or declined the required outcome, so the gauntlet did not retry it. The PR now needs your decision before any more work happens on it. On the fleet side, Oros is reachable again after being offline since 10-02. Its heartbeat came back at 18:38Z, and its stuck canary deploy cleared at 18:35Z, so it rejoins the deploy rotation.
-
-Three things still need you:
-
-- **Claude spend:** the claude-endolin2 subscription is at 99% of its quota until the 10-10 03:00Z reset.
-- **GitHub Actions billing:** the kriscendobot account is still blocked from starting Actions jobs, which stops CI on [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153).
-- **Review docket:** the `review-docket-20261008` orchestration stopped before its last step, which moves the old review requests onto the docket. That job, `review-docket-consolidate-20261008`, is held in `plan/` until you promote or split it.
+The only board movement was an edit to the parked merge step for [minion.town#145](https://github.com/kriscendobot/minion.town/pull/145), the ci.minion.town runner; the job that lands it, by weaving, fixing and un-drafting, is still in progress. Oros is the main news: after six days offline it is heartbeating again. Its stuck canary cleared at 18:35Z and the offline watchdog cleared at 18:38Z, so it should rejoin the deploy rotation on its own. The Claude subscription for this host has reached its 168M-token cap and is now in backoff, which will slow work until the 10-10 reset.
 
 ## Maintainer review docket
 
@@ -583,10 +577,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.0M | $1181.51 _(notional, rate-card)_ | 99% of 168.0M (backoff) |
+| Claude | 167.2M | $1183.00 _(notional, rate-card)_ | 100% of 168.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 122998205 tokens/day lower bound._
+_Fleet token-unlock pace: 123000435 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
