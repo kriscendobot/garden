@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11290,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11290",
+  "head_oid": "aaf0020663ce9fa00cd6d6028fc28fff460f5d23",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump golang.org/x/net from 0.33.0 to 0.38.0 in /golang/cosmos",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11290",
+  "requested_at": "2026-10-08T07:31:05Z",
+  "first_requested_at": "2026-10-08T07:31:05Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:31:09Z"
+  }
+}
