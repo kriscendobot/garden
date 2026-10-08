@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/endo-but-for-bots",
+  "pr": 1,
+  "url": "https://github.com/kriscendobot/endo-but-for-bots/pull/1",
+  "head_oid": "6c1a08eb733289571d2b1faef20cec4d60de2b49",
+  "ask": "decide",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
+  "unblocks": [],
+  "source": "readiness-audit-kriscendobot-endo-but-for-bots-pr1-6c1a08eb7332",
+  "requested_at": "2026-10-08T14:30:35Z",
+  "first_requested_at": "2026-10-08T14:30:35Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-08T14:30:38Z"
+  }
+}
