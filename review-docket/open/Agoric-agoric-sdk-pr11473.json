@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11473,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11473",
+  "head_oid": "3515fca53cb4cee317fccc179e91697643d9fc51",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump brace-expansion from 1.1.11 to 1.1.12 in /a3p-integration",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11473",
+  "requested_at": "2026-10-08T07:32:05Z",
+  "first_requested_at": "2026-10-08T07:32:05Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:32:28Z"
+  }
+}
