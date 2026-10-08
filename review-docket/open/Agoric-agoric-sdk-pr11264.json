@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11264,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11264",
+  "head_oid": "d626ad5d00af53b1c75cfa32742e75534e0d3a6b",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump golang.org/x/crypto from 0.31.0 to 0.35.0 in /golang/cosmos",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11264",
+  "requested_at": "2026-10-08T07:30:46Z",
+  "first_requested_at": "2026-10-08T07:30:46Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:30:48Z"
+  }
+}
