@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-ci-runner-unblock-20261008
-priority: high
-posted_by: producer
-posted_at: 2026-10-08T18:29:16Z
+role: fixer
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-10-08T18:33:32Z cleared=none -->
 
 ---
 role: fixer
