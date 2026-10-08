@@ -2,6 +2,7 @@
 Description=Garden proxy timer
 
 [Timer]
+OnBootSec=5m
 OnActiveSec=5m
 OnUnitActiveSec=5m
 

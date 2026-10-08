@@ -39,6 +39,24 @@ rm -rf "$TR"; mkdir -p "$TR"
 
 # ============================================================================
 hr; echo "STATIC — render + systemd-analyze verify the garden @-timers"; hr
+
+# Every relative interval timer needs a fixed first-run anchor. Without one,
+# daemon-reload re-arms OnActiveSec and can postpone the first service run forever;
+# OnUnitActiveSec cannot help until that service has run once.
+unanchored=()
+for timer in "$SYSD"/*.timer; do
+  if grep -q '^OnActiveSec=' "$timer" \
+    && grep -q '^OnUnitActiveSec=' "$timer" \
+    && ! grep -Eq '^On(BootSec|Calendar)=' "$timer"; then
+    unanchored+=("$(basename "$timer")")
+  fi
+done
+if [ "${#unanchored[@]}" -eq 0 ]; then
+  ok "all OnActiveSec+OnUnitActiveSec timers have a reload-stable first-run anchor"
+else
+  bad "relative interval timers lack OnBootSec/OnCalendar: ${unanchored[*]}"
+fi
+
 if ! command -v systemd-analyze >/dev/null 2>&1; then
   skip "systemd-analyze not present; skipping static verify"
 else

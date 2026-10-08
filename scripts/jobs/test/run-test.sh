@@ -202,6 +202,17 @@ export GARDEN_MOCK_STATE="$TR/armed-g" GARDEN_MOCK_LOG="$TR/unitlog-g" GARDEN_UN
 armed3=$(grep -c '^garden-monk@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
 has4=$(grep -c '^garden-monk@4\.service$' "$GARDEN_MOCK_STATE" || true)
 { [ "$armed3" -eq 3 ] && [ "$has4" -eq 0 ]; } && ok "host count 3 → gardener@{1,2,3} armed" || bad "scale-up (armed @1-3=$armed3, @4=$has4)"
+grep -q '^systemctl --user daemon-reload' "$GARDEN_MOCK_LOG" \
+  && bad "gardener-scaler tick issued daemon-reload despite changing no unit files" \
+  || ok "gardener-scaler tick changed pool state without daemon-reload"
+grep -Eq '^systemctl --user (enable|disable).*--no-reload' "$GARDEN_MOCK_LOG" \
+  && ok "gardener-scaler suppresses systemctl's implicit reload on enablement changes" \
+  || bad "gardener-scaler enablement changes omitted --no-reload"
+: > "$GARDEN_MOCK_LOG"
+"$JOBS/gardener-scaler.sh" >/dev/null 2>&1
+grep -Eq '^systemctl --user (enable|disable|daemon-reload)' "$GARDEN_MOCK_LOG" \
+  && bad "steady-state gardener-scaler tick rewrote unit enablement or reloaded" \
+  || ok "steady-state gardener-scaler tick left unit enablement unchanged"
 "$JOBS/set-monks.sh" 1 testhost >/dev/null
 "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
 armed_after=$(grep -c '^garden-monk@1\.service$' "$GARDEN_MOCK_STATE" || true)
@@ -392,11 +403,14 @@ push_change "repos/kriscendobot-endo" "watch" "watch: kriscendobot-endo"
 "$JOBS/repo-watcher.sh" >/dev/null 2>&1
 grep -qxF "garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
   && ok "watch → armed garden-triager@kriscendobot-endo.timer" || bad "triager not armed on watch"
+grep -q '^systemctl --user daemon-reload' "$GARDEN_MOCK_LOG" \
+  && bad "no-drift repo-watcher tick issued daemon-reload" \
+  || ok "no-drift repo-watcher tick skipped daemon-reload"
 push_change "repos/kriscendobot-endo" "@DELETE" "unwatch: kriscendobot-endo"
 "$JOBS/repo-watcher.sh" >/dev/null 2>&1
 grep -qxF "garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
   && bad "triager still armed after unwatch" || ok "unwatch → disarmed triager unit"
-grep -qxF "systemctl --user disable --now garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_LOG" \
+grep -qxF "systemctl --user disable --now garden-triager@kriscendobot-endo.timer --no-reload" "$GARDEN_MOCK_LOG" \
   && ok "unwatch issued disable --now for the triager timer" \
   || bad "unwatch did not issue disable --now for the triager timer"
 
@@ -455,6 +469,17 @@ rwerr2="$TR/rw-selfheal2.err"
 grep -q 'self-heal template drift' "$rwerr2" \
   && bad "self-heal install re-ran on the no-drift tick" \
   || ok "no-drift tick did not re-run install (templates already present)"
+reload_count="$(grep -c '^systemctl --user daemon-reload' "$GARDEN_MOCK_LOG" || true)"
+[ "$reload_count" -eq 1 ] \
+  && ok "template self-heal reloaded once; following no-drift tick did not reload" \
+  || bad "template self-heal/no-drift ticks issued $reload_count daemon-reloads (expected 1)"
+# Re-rendering identical files is also a no-drift operation. install-units must
+# compare content rather than reload merely because the install command ran.
+"$JOBS/install-units.sh" install >/dev/null 2>&1
+reload_count="$(grep -c '^systemctl --user daemon-reload' "$GARDEN_MOCK_LOG" || true)"
+[ "$reload_count" -eq 1 ] \
+  && ok "idempotent install-units render skipped daemon-reload" \
+  || bad "idempotent install-units render issued another daemon-reload"
 
 # --- template STILL absent after the self-heal install -----------------------
 # If the source template is genuinely gone from scripts/systemd/, the install
@@ -521,7 +546,7 @@ grep -q 'WARN: could not arm garden-triager@kriscendobot-endo after 3 attempt' "
 grep -q 'WARN: could not arm .*systemctl rc=1:.*XDG_RUNTIME_DIR' "$rwerr5" \
   && ok "persistent-failure WARN carries the systemctl rc and stderr" \
   || bad "persistent-failure WARN omitted the rc/stderr detail"
-[ "$(grep -c '^systemctl --user enable --now garden-triager@kriscendobot-endo.timer' "$GARDEN_MOCK_LOG")" -ge 3 ] \
+[ "$(grep -c '^systemctl --user enable --now garden-triager@kriscendobot-endo.timer --no-reload' "$GARDEN_MOCK_LOG")" -ge 3 ] \
   && ok "arm retried the bounded number of attempts" \
   || bad "arm did not retry the expected number of attempts"
 # clean up the repo file so it does not leak into later subtests

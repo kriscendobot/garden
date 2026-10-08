@@ -2,6 +2,7 @@
 Description=Garden repo-watcher timer
 
 [Timer]
+OnBootSec=1m
 OnActiveSec=1m
 OnUnitActiveSec=1m
 

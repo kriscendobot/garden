@@ -2,6 +2,7 @@
 Description=Garden watchman timer
 
 [Timer]
+OnBootSec=2m
 OnActiveSec=2m
 OnUnitActiveSec=2m
 

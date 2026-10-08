@@ -2,6 +2,7 @@
 Description=Garden gardener-scaler timer
 
 [Timer]
+OnBootSec=1m
 OnActiveSec=1m
 OnUnitActiveSec=1m
 

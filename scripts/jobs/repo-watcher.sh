@@ -187,7 +187,7 @@ arm_timer() {
     # 2>&1 >/dev/null: capture the arm's stderr into $err, discard its stdout.
     # `&& return 0` keeps this off set -e's radar on failure AND leaves $? as the
     # failed systemctl's rc (an `if …; then` would reset $? to the if's own 0).
-    err="$(unit_ctl enable --now "$unit" 2>&1 >/dev/null)" && return 0
+    err="$(unit_ctl enable --now "$unit" --no-reload 2>&1 >/dev/null)" && return 0
     rc=$?
     if [ "$attempt" -ge "$ARM_RETRIES" ]; then
       log "WARN: could not arm $prefix@$slug after $attempt attempt(s): systemctl rc=$rc: ${err:-<no stderr>}"
@@ -246,7 +246,7 @@ reconcile_set() {
   for slug in "${!have[@]}"; do
     if [ -z "${want[$slug]:-}" ]; then
       log "unwatch: disarming $prefix@$slug.timer"
-      unit_ctl disable --now "$prefix@$slug.timer" || log "WARN: could not disarm $prefix@$slug"
+      unit_ctl disable --now "$prefix@$slug.timer" --no-reload || log "WARN: could not disarm $prefix@$slug"
     fi
   done
   if [ "$can_arm" -eq 1 ]; then
@@ -256,14 +256,10 @@ reconcile_set() {
   fi
 }
 
-# Reload the user manager before arming so the latest @.timer / @.service template
-# bodies are loaded. Arming a template instance (`enable --now @<slug>.timer`)
-# against a not-yet-loaded service template leaves the timer active but unable to
-# resolve its trigger target — it never fires, and a `.timer` restart alone does
-# NOT fix it (only a daemon-reload loads the service template). Reloading here,
-# before every reconcile, closes that arming race durably. Cheap and idempotent;
-# the test's mock-systemctl treats daemon-reload as a no-op.
-unit_ctl daemon-reload 2>/dev/null || log "WARN: daemon-reload failed (continuing to reconcile)"
+# Missing templates are rendered by ensure_template_installed above. That install
+# reloads the user manager when and only when a rendered unit changed. Do not
+# reload on an ordinary reconcile tick: repeated reloads can keep a never-fired
+# OnActiveSec timer from reaching its first deadline.
 
 # repos/ → commit triager (laxer bar); comment-repos/ → comment watcher (stricter
 # monitoring-safety bar, widened only after journal-recorded maintainer auth) AND

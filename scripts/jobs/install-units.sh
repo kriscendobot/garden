@@ -22,6 +22,36 @@ systemd_user_env
 
 SRC="$GARDEN_ROOT/scripts/systemd"
 DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
+UNITS_CHANGED=0
+
+# Replace a rendered unit only when its content changed. Besides avoiding needless
+# writes, this gives daemon-reload an exact predicate: systemd is reloaded only
+# after a unit was added, changed, or removed.
+render_unit_file() {
+  local destination="${1:?render_unit_file: destination required}" temporary
+  shift
+  temporary="$(mktemp "$DEST/.garden-unit.XXXXXX")"
+  "$@" > "$temporary"
+  chmod 0644 "$temporary"
+  if [ -e "$destination" ] && cmp -s "$temporary" "$destination"; then
+    rm -f "$temporary"
+  else
+    mv -f "$temporary" "$destination"
+    UNITS_CHANGED=1
+  fi
+}
+
+reload_units_if_changed() {
+  if [ "$UNITS_CHANGED" -eq 1 ]; then
+    unit_ctl daemon-reload
+  else
+    log "unit files unchanged; skipped daemon-reload"
+  fi
+}
+
+unit_is_enabled() {
+  [ "$(unit_ctl is-enabled "${1:?unit_is_enabled: unit required}" 2>/dev/null || true)" = enabled ]
+}
 
 # --- enable-set policy -------------------------------------------------------
 #
@@ -131,7 +161,9 @@ is_excluded() {
 disable_paused() {
   local u
   for u in "${PAUSED_UNITS[@]}"; do
-    unit_ctl disable "$u" 2>/dev/null || true
+    if unit_is_enabled "$u"; then
+      unit_ctl disable "$u" --no-reload 2>/dev/null || true
+    fi
     unit_ctl_bounded stop --no-block "$u" 2>/dev/null || true
   done
   [ "${#PAUSED_UNITS[@]}" -gt 0 ] \
@@ -175,7 +207,8 @@ intended_units() {
 
 # Self-reconciling retirement. Enumerate the garden-* unit files actually
 # installed in $DEST and stop+disable+rm any whose source no longer exists under
-# $SRC, then daemon-reload. This is the deterministic replacement for a
+# $SRC. The caller reloads only when this removal or a render changed a file. This
+# is the deterministic replacement for a
 # hand-maintained by-name retired list: DELETING a unit from scripts/systemd/ is
 # now sufficient to retire it. A stale-enabled unit on an already-deployed host
 # (the garden-deploy-sync crash loop, 2026-06-27) is removed automatically on the
@@ -199,8 +232,9 @@ prune_retired() {
   # Belt-and-suspenders: names that must stay dead regardless of $SRC.
   for u in "${RETIRED_UNITS[@]}"; do
     if [ -e "$DEST/$u" ] || [ "$(unit_ctl is-enabled "$u" 2>/dev/null || true)" = enabled ]; then
-      unit_ctl disable --now "$u" 2>/dev/null || true
+      unit_ctl disable --now "$u" --no-reload 2>/dev/null || true
       rm -f "$DEST/$u"
+      UNITS_CHANGED=1
       pruned+=("$u")
     fi
   done
@@ -212,11 +246,11 @@ prune_retired() {
     is_excluded "$b" && continue
     [ -e "$SRC/$b" ] && continue                # still has a source → keep
     case " ${pruned[*]} " in *" $b "*) continue;; esac   # already pruned above
-    unit_ctl disable --now "$b" 2>/dev/null || true
+    unit_ctl disable --now "$b" --no-reload 2>/dev/null || true
     rm -f "$DEST/$b"
+    UNITS_CHANGED=1
     pruned+=("$b")
   done
-  unit_ctl daemon-reload
   if [ "${#pruned[@]}" -gt 0 ]; then
     log "pruned ${#pruned[@]} retired unit(s) (no source in $SRC): ${pruned[*]}"
   fi
@@ -235,8 +269,8 @@ render_worker_units() {
   [ -e "$tmpl" ] || { log "WARN: worker template $tmpl missing; no worker units rendered"; return 0; }
   for kind in $(worker_kinds); do
     unit_base="$(worker_kind_field "$kind" unit)"   # garden-monk@ / garden-cleric@
-    sed -e "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" -e "s#@WORKER_KIND@#$kind#g" \
-      "$tmpl" > "$DEST/${unit_base}.service"
+    render_unit_file "$DEST/${unit_base}.service" \
+      sed -e "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" -e "s#@WORKER_KIND@#$kind#g" "$tmpl"
   done
 }
 
@@ -249,14 +283,15 @@ render() {
   # this glob (its `.in` suffix); it is rendered per-kind by render_worker_units.
   for f in "$SRC"/garden-*.service "$SRC"/garden-*.timer; do
     [ -e "$f" ] || continue
-    sed "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" "$f" > "$DEST/$(basename "$f")"
+    render_unit_file "$DEST/$(basename "$f")" \
+      sed "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" "$f"
   done
   # Render the per-kind worker instance units from the single worker template.
   render_worker_units
-  # Retire any installed unit whose source we just stopped shipping, then reload
-  # (prune_retired does its own daemon-reload, so the rendered files and the
-  # removals both take effect in one reload).
+  # Retire any installed unit whose source we just stopped shipping, then load
+  # additions, content changes, and removals in one conditional reload.
   prune_retired
+  reload_units_if_changed
   # Actively disarm deliberately-paused units: rendering re-ships their source
   # (kept installed so re-arming is a plain `enable`), so an install must also
   # stop+disable them or an already-armed pause silently survives the render.
@@ -292,14 +327,16 @@ reconcile_ollama_unit() {
   local n="${1:?reconcile_ollama_unit: count required}" unit=garden-ollama.service
   if [ "$n" -gt 0 ]; then
     local erc=0 src=0
-    unit_ctl enable "$unit" || erc=$?
+    if ! unit_is_enabled "$unit"; then
+      unit_ctl enable "$unit" --no-reload || erc=$?
+    fi
     [ "$erc" -eq 0 ] || scale_skip_note "enable" "$unit" "$erc"
     unit_ctl_bounded start --no-block "$unit" || src=$?
     [ "$src" -eq 0 ] || scale_skip_note "start --no-block" "$unit" "$src"
     log "hermits=$n>0 → garden-ollama enabled (local inference endpoint up)"
   else
     local drc=0 src=0
-    unit_ctl disable "$unit" || drc=$?
+    unit_ctl disable "$unit" --no-reload || drc=$?
     [ "$drc" -eq 0 ] || scale_skip_note "disable" "$unit" "$drc"
     unit_ctl_bounded stop --no-block "$unit" || src=$?
     [ "$src" -eq 0 ] || scale_skip_note "stop --no-block" "$unit" "$src"
@@ -335,9 +372,12 @@ scale() {
   fi
   local unit_base; unit_base="$(worker_kind_field "$kind" unit)"   # garden-monk@ / garden-cleric@ / garden-hermit@
   # Enable + start each intended worker, split into the cheap synchronous file op
-  # and the slow start job so neither blocks the reconcile loop. `enable` just
-  # writes the persistent symlink — it does NOT wait on the unit's start job — so it
-  # is unbounded. `start --no-block` enqueues the start job and returns as soon as
+  # and the slow start job so neither blocks the reconcile loop. `enable
+  # --no-reload` writes the persistent symlink without systemctl's implicit
+  # daemon-reload. Repeating that reload for every already-enabled worker on every
+  # scaler tick starved timers that had not fired yet. The explicit start below
+  # loads the service now, and a fresh manager observes the symlink on boot.
+  # `start --no-block` enqueues the start job and returns as soon as
   # it is queued rather than blocking until the gardener's `claude -p` drains; over
   # a ~100-unit pool on one busy user manager, blocking `--now` reliably took >5s
   # and every tick SIGKILLed the lot, so the pool never converged. Non-blocking, the
@@ -347,7 +387,9 @@ scale() {
   # convergence is only observed on a later tick).
   for i in $(seq 1 "$n"); do
     local u="${unit_base}$i.service" erc=0 rc=0
-    unit_ctl enable "$u" || erc=$?
+    if ! unit_is_enabled "$u"; then
+      unit_ctl enable "$u" --no-reload || erc=$?
+    fi
     [ "$erc" -eq 0 ] || scale_skip_note "enable" "$u" "$erc"
     unit_ctl_bounded start --no-block "$u" || rc=$?
     [ "$rc" -eq 0 ] || scale_skip_note "start --no-block" "$u" "$rc"
@@ -377,7 +419,9 @@ scale() {
           # backstop; a hung stop is skipped so the loop keeps draining the rest —
           # no single unit stalls the whole pass.
           local drc=0 src=0
-          unit_ctl disable "$unit" || drc=$?
+          if unit_is_enabled "$unit"; then
+            unit_ctl disable "$unit" --no-reload || drc=$?
+          fi
           [ "$drc" -eq 0 ] || scale_skip_note "disable" "$unit" "$drc"
           unit_ctl_bounded stop --no-block "$unit" || src=$?
           [ "$src" -eq 0 ] || scale_skip_note "stop --no-block" "$unit" "$src"
@@ -464,11 +508,13 @@ enable_services() {
   local u
   # Self-reconciling retirement: stop+disable+rm any installed garden-* unit whose
   # source no longer ships under $SRC (plus the explicit RETIRED_UNITS list), then
-  # daemon-reload so systemd forgets it entirely. This is what keeps a stale-enabled
-  # retiree from being re-triggered (a stale garden-deploy-sync.timer kept firing
+  # reload if a file was removed so systemd forgets it entirely. This is what
+  # keeps a stale-enabled retiree from being re-triggered (a stale
+  # garden-deploy-sync.timer kept firing
   # its missing deploy-sync.sh into an rc-127 crash loop, 2026-06-27) — and it needs
   # no by-name list: deleting a unit from scripts/systemd/ is sufficient to retire it.
   prune_retired
+  reload_units_if_changed
   # Actively disarm deliberately-paused units BEFORE enabling the intended set, so
   # a pause is durable across this reconcile even for a unit already armed before it
   # was paused (merely omitting it from intended_units does not disable it).
@@ -484,11 +530,13 @@ enable_services() {
   # set -e silently skipped every alphabetically-later unit. Enablement is the
   # persistent state drift-verify keys on, so failure keys on the `enable`; a hung
   # `start` only WARNs (the unit stays enabled and a later tick retries its start).
+  # `--no-reload` is intentional here too: render already conditionally reloads
+  # changed unit bodies, while explicit start loads newly enabled units immediately.
   # Failures are collected and WARN'd; a later reconcile retries them.
   local enabled=() failed_units=()
   while read -r u; do
     [ -n "$u" ] || continue
-    if unit_ctl enable "$u"; then
+    if unit_is_enabled "$u" || unit_ctl enable "$u" --no-reload; then
       unit_ctl_bounded start --no-block "$u" \
         || log "WARN: 'start --no-block $u' timed out/failed (rc=$?); its start is enqueued-or-retried, unit stays enabled"
       enabled+=("$u")

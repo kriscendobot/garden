@@ -2,6 +2,7 @@
 Description=Garden GitHub-wide mention-watcher timer
 
 [Timer]
+OnBootSec=90s
 OnActiveSec=90s
 OnUnitActiveSec=90s
 

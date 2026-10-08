@@ -70,21 +70,22 @@ has_call() { grep -qE "$1" "$LOG"; }
 hr; echo "install (render) actively disarms the paused unit(s)"; hr
 : > "$LOG"
 bash "$INSTALL" install >/dev/null 2>&1 || true
-has_call '^disable garden-ironhorse-fuzz\.timer$'      && ok "install disables ironhorse timer"   || bad "install did NOT disable ironhorse timer"
+has_call '^disable garden-ironhorse-fuzz\.timer --no-reload$'      && ok "install disables ironhorse timer"   || bad "install did NOT disable ironhorse timer"
 has_call '^stop --no-block garden-ironhorse-fuzz\.timer$' && ok "install stops ironhorse timer"    || bad "install did NOT stop ironhorse timer"
-has_call '^disable garden-ironhorse-fuzz\.service$'    && ok "install disables ironhorse service" || bad "install did NOT disable ironhorse service"
+has_call '^disable garden-ironhorse-fuzz\.service --no-reload$'    && ok "install disables ironhorse service" || bad "install did NOT disable ironhorse service"
 # The maintainer-armed-by-hand class must NEVER be force-disabled.
 has_call '^disable garden-mention-watcher\.'           && bad "install force-disabled mention-watcher (must not)" || ok "install leaves mention-watcher alone"
 
 # ============================================================================
 hr; echo "enable-services (reconcile) disarms paused AND enables intended"; hr
 : > "$LOG"
-bash "$INSTALL" enable-services >/dev/null 2>&1 || true
-has_call '^disable garden-ironhorse-fuzz\.timer$'   && ok "reconcile disables ironhorse timer"          || bad "reconcile did NOT disable ironhorse timer"
+ISENABLED_garden_foreman_timer=disabled \
+  bash "$INSTALL" enable-services >/dev/null 2>&1 || true
+has_call '^disable garden-ironhorse-fuzz\.timer --no-reload$'   && ok "reconcile disables ironhorse timer"          || bad "reconcile did NOT disable ironhorse timer"
 has_call '^enable garden-ironhorse-fuzz\.'          && bad "reconcile ENABLED an ironhorse unit (paused must stay off)" || ok "reconcile never enables a paused unit"
 # A representative intended standing unit is still enabled — disarming paused
 # units did not break the normal enable set.
-has_call '^enable garden-foreman\.timer$'           && ok "reconcile still enables an intended unit (foreman)" || bad "reconcile did NOT enable garden-foreman.timer"
+has_call '^enable garden-foreman\.timer --no-reload$'           && ok "reconcile still enables an intended unit (foreman)" || bad "reconcile did NOT enable garden-foreman.timer"
 has_call '^disable garden-mention-watcher\.'        && bad "reconcile force-disabled mention-watcher (must not)" || ok "reconcile leaves mention-watcher alone"
 
 # ============================================================================
