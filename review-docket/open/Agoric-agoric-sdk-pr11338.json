@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11338,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11338",
+  "head_oid": "ded3084ec7060b71305fbf6abcd8eb5290274bc8",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix: prepare for symbol flip",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11338",
+  "requested_at": "2026-10-08T07:31:14Z",
+  "first_requested_at": "2026-10-08T07:31:14Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:31:17Z"
+  }
+}
