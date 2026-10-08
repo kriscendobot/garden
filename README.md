@@ -1,17 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T04:55:09Z_
+_As of 2026-10-08T04:56:46Z_
 
 ## Latest
 
-Recent movement is in the gauntlets. Panel round 1 on [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) finished, and fix round 1 is now running. The fix-1 round on [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) completed. Panel round 6 was claimed for [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343).
-
-The proxy merged, deployed and validated [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143). After its review job finished, [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) is now parked for you. Milestone M2 is waiting on your merge of it and of [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-
-Three items need your attention:
-- **ocap.site:** the domain can be transferred into Route53 from about 2026-10-09T19:55Z. Its DNSSEC chain stays broken until the DS record is published, either through that transfer or by the registrar.
-- **Oros:** the host has been offline since 2026-10-02 and needs someone to check the Mac in person.
-- **Two orchestrations halted:** `orch-minion-town-oauth-bonds` stopped because its build child did not meet its gated outcome. `orch-jev-triage-foreman` stopped because `TYPESAFE_API_KEY` is missing.
+Little moved since the last bulletin. The gauntlet for [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished its first fix round and posted panel round 2. Separately, the proxy screened [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), merged it, and deployed it, with the watchdog check passing. Milestone M2 is still waiting for you to merge [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381); both are clean and ready for review. Two dates matter: ocap.site can be transferred into Route53 from about 2026-10-09 19:55Z, and its DNSSEC chain stays broken until the transfer completes or the registrar publishes the DS record. The Oros host has been offline since 2026-10-02 and someone needs to check it in person.
 
 ## Parked for maintainer feedback
 
@@ -436,7 +429,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.3M | $552.74 _(notional, rate-card)_ | 44% of 168.0M (ok) |
+| Claude | 74.3M | $560.70 _(notional, rate-card)_ | 44% of 168.0M (ok) |
 | Codex | 10.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120992055 tokens/day lower bound._
@@ -445,8 +438,8 @@ _Fleet token-unlock pace: 120992055 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #122
 
 ### doin (5)
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
