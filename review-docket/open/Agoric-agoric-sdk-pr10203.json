@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10203,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10203",
+  "head_oid": "081a538257d713496dce2a01acada86df3d0478e",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump tar from 6.2.0 to 6.2.1 in /a3p-integration/proposals/s:stake-bld",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10203",
+  "requested_at": "2026-10-08T07:25:59Z",
+  "first_requested_at": "2026-10-08T07:25:59Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:26:01Z"
+  }
+}
