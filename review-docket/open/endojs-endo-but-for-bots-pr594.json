@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 594,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/594",
+  "head_oid": "27d11be73643826d24b042004b49ed77bfe4b013",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "chore(lint): lint per package to avoid the typescript-eslint project-service ceiling",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr594",
+  "requested_at": "2026-10-08T07:42:11Z",
+  "first_requested_at": "2026-10-08T07:42:11Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-08T07:42:13Z"
+  }
+}
