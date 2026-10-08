@@ -37,11 +37,11 @@ dispatch: automatic
 3. Regenerate the root priorities/docket document and check that its ordering follows `config/apportionment`/`config/foreman-mandate` and what each item unblocks.
 4. **Send ONE maintainer message** (`send-msg.sh maintainer`, key `review-docket-live`) with the **full GitHub URL** of the root document on journal2 (`https://github.com/kriscendobot/garden/blob/journal2/<path>`). Include counts per arc, the top 5 reviews and what each unblocks, and the archive index URL.
 
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=41 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-08T05:43:45Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=41,52 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
