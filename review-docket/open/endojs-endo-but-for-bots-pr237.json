@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 237,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/237",
+  "head_oid": "1c4f9a729cb2e36bf7d9744844963f9418d36523",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "design: lal define-jessie tool with Blockly rendering",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr237",
+  "requested_at": "2026-10-08T07:40:37Z",
+  "first_requested_at": "2026-10-08T07:40:37Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:40:39Z"
+  }
+}
