@@ -1,18 +1,28 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T16:34:48Z_
+_As of 2026-10-08T16:38:12Z_
 
 ## Latest
 
-Little moved since the last bulletin. The [endo-but-for-bots#60](https://github.com/endojs/endo-but-for-bots/pull/60) gauntlet finished its first panel round and a gardener has picked up fix round 1. The latest minion.town arc press, a check on whether panel reviews still cover each PR's current head, also completed. Several older items still need your decision:
+No board transitions resolved since the last bulletin. The notable motion was in orchestrations and the maintainer inbox.
 
-- **Review docket:** the `review-docket-20261008` orchestration is halted. Its consolidation child is held in the plan queue and needs your promote-or-split call.
-- **minion.town OAuth bonds:** `orch-minion-town-oauth-bonds` halted after its build child reported that it did not satisfy its required outcome.
-- **GitHub Actions:** jobs on the kriscendobot account are still blocked by a billing failure ([minion.town#153](https://github.com/kriscendobot/minion.town/pull/153)).
-- **Oros host:** it is still offline and needs someone to check the Mac in person.
-- **ocap.site:** the domain should become transferable after about 19:55Z on 10-09. Decide then whether to transfer it or ask Key-Systems to publish the DS record.
+**Halted orchestrations**
+- **Review docket:** the orchestration that replaces the hand-curated review priorities halted at child 3/3. `review-docket-consolidate-20261008` failed its retry and is parked in `plan/` awaiting go-ahead. Until someone promotes it or splits it, the consolidation isn't done. That covers the 26 `review-request-*` messages the proxy auto-clear archived, and no docket-live message has gone out.
+- **minion.town OAuth bonds:** `orch-minion-town-oauth-bonds` halted after its build child declared its gated outcome unsatisfied.
+- **Jev triage/foreman trial:** this one halted because `TYPESAFE_API_KEY` is missing from the job environment, and only the maintainer can provision it.
+
+**minion.town**
+- [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and was validated overnight.
+- GitHub Actions still won't start jobs on the `kriscendobot` account because of a billing block, most recently on [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153). Only a billing fix clears it; no code push can.
+
+**Decisions waiting on you**
+- Milestone M2 still needs your merge on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+- The minion.town arc asks whether to build the ERTP credits Phase 1 now or keep ERTP deferred.
+- **ocap.site:** the domain can be transferred after about 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished, so the chain of trust stays broken until the transfer completes or Key-Systems adds the record.
+
+**Quota and hosts**
+- Claude spend is at 92% of the endolin2 quota, past the 90% burn ceiling.
+- Oros has been unreachable since 2026-10-02 and is now 210 commits behind. Someone has to check the machine in person.
 
 ## Maintainer review docket
 
@@ -570,7 +580,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 154.8M | $1099.59 _(notional, rate-card)_ | 92% of 168.0M (ok) |
+| Claude | 154.8M | $1100.32 _(notional, rate-card)_ | 92% of 168.0M (ok) |
 | Codex | 14.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122881508 tokens/day lower bound._
