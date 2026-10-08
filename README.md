@@ -1,14 +1,18 @@
 # Garden bulletin
 
-_As of 2026-10-08T05:49:14Z_
+_As of 2026-10-08T05:55:14Z_
 
 ## Latest
 
-[minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) finished its first panel round, and fix round 1 is now on the board. [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) entered panel round 4. The Claude-on-minion.town completion press closed and flagged that #122's earlier panel review covers an older head, not the current one. That notice was raised before round 4 began. The review-docket consolidation job was also claimed, and one gardener logged an error entry. Earlier in the night, the proxy merged [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and its deploy and watchdog validated cleanly. Three decisions still need the maintainer. First, the oros host has been unreachable since 10-02, and someone has to check the Mac in person. Second, choose whether to transfer ocap.site after 10-09 19:55Z or ask Key-Systems to publish the DS record, since DNSSEC is still broken. Third, the minion.town ERTP-credits question is still open.
+[minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished its fourth panel round and moved on to fix round 4. A gardener claimed fix round 1 for [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) right after its first panel, and work started on `improve-deployed-child-gate`. Earlier, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed successfully and passed the watchdog check.
+
+The main item for the maintainer is that `review-docket-consolidate-20261008` has stalled. This is the step of your review-docket directive that moves the 26 auto-cleared review requests onto the new docket. Its one backoff retry also failed, so the reaper parked it in the plan queue. It stays held until you promote it or it is split into smaller jobs, which means the review-docket message you asked for has not been sent yet.
+
+The oros host is still offline. It has had no heartbeat since 2026-10-02 and is about 206 commits behind, and someone needs to check the Mac in person.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 56m)
+- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 1h)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 20d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 26d)
@@ -304,14 +308,6 @@ Delegation: **active**
 >
 > Orchestration improve-journal-deepen-retry-expanded-window-split observed child improve-journal-deepen-retry-expanded-window-expanded-window: stalled in flight for 7272s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1).
 
-- `stale-panel-head-kriscendobot-minion.town-pr122-83af6e17-d582a386` — from gardener:claude-on-minion-town-completion-press-20261008-053508, reply_to `claude-on-minion-town-completion-press-20261008-053508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr122-83af6e17-d582a386.md)
-
-> Stale panel coverage for completed job `claude-on-minion-town-completion-press-20261008-053508`: [https://github.com/kriscendobot/minion.town/pull/122](https://github.com/kriscendobot/minion.town/pull/122) moved from panel-reviewed head `83af6e17b0e4d5b1b9702d00af4eb449469c3f7d` to presented head `d582a386bae3088e99efcdc55b57749cc29a37ee`.
->
-> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
->
-> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
 - `improve-journal-deepen-retry-expanded-window-split-halted` — from orchestrator:improve-journal-deepen-retry-expanded-window-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-journal-deepen-retry-expanded-window-split-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -336,6 +332,54 @@ Delegation: **active**
 - `msg-oros-health-watch-20261008-023508-fa0f36b04954` — from gardener:oros-health-watch-20261008-023508, reply_to `oros-health-watch-20261008-023508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261008-023508-fa0f36b04954.md)
 
 > Oros remains unreachable as of 2026-10-08T02:38Z. No current oros-health-checkup exists; its schedule is deferred to 2026-10-11T21:00:00Z. Heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred, and sysop last acknowledged an op at 2026-10-02T05:38:58Z. The host remains derotated for heartbeat-offline; deployed e036bb8e is 198 commits behind main2. Seven reset-failed, one restore, and two attested scaler-unit operations remain unacknowledged, so I sent no duplicate op. A person must check the Mac power/sleep state, Docker Desktop, and VM/container runtime.
+
+- `doomed-review-docket-consolidate-20261008-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-review-docket-consolidate-20261008-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden2-5bcdff64.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/review-docket-consolidate-20261008; it stays HELD until a human promotes it
+> (promote-plan.sh review-docket-consolidate-20261008) or removes it, so nothing is lost.
+> Original job base: review-docket-consolidate-20261008
+>
+> --- original job body ---
+> ---
+> role: fixer
+> tier: mentor
+> arc: garden-upkeep
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-08T05:21:39Z cleared=none -->
+>
+> ---
+> role: fixer
+> tier: mentor
+> fallback-tier: minion
+> arc: garden-upkeep
+> dispatch: automatic
+> ---
+> **Role: fixer.** Child 3/3 of orchestration `review-docket-20261008`: **migrate everything onto the review docket and tell the maintainer.** Wait until child 2's build is DEPLOYED on the leader: check the leader's `fleet/deployed/<leader>` sha contains it. If it isn't deployed yet, exit for retry without changing anything.
+>
+> **Maintainer directive (kriskowal, liaison session 2026-10-08), verbatim:**
+> > I think we instead need a more sophisticated system for surfacing the review inbox. I think this means having automation that either intercepts review requests or a dedicated inbox to which review requests get dispatched, such that receiving a review automatically drops the review from the review board, and also that each additional review request triggers recreation of a summary document of all review requests prioritized according to the garden's priorities and milestones, such that reviews unblock the foreman. We can reuse the priorities designated for the accountant. It may be that this shared document between this "secretary" (or more thematic role name) and the accountant should be more prominent, at the root of the journal. Please post a job to organize this effort and consolidate the existing review requests accordingly. Send the maintainer a message with the resulting review priorities document URL. This should replace all prior review priorities documents in the journal. Prior documents should be consolidated and archived. We can create a document priorities archive indexed by date, for future reference.
+>
+> **Why now:** at 2026-10-08T03:50Z the proxy's PR-comment auto-clear (`scripts/jobs/proxy.sh` § 1c; directive kriskowal 2026-07-11) archived 49 maintainer messages in journal commit `b3c8be85227`, including **26 `review-request-*` messages** a muster had just produced, and minion.town#169's request. A review request is not a dismissable PR notice. Today a request lives as one inbox message among hundreds, and nothing reorders it as priorities change or retires it when the review happens.
+>
+> **Existing artifacts to supersede and consolidate:**
+> - journal `projects/garden/review-priorities.md` (hand-curated; last edit 2026-10-06)
+> - journal `pr-review-sequence.md` (journal root)
+> - journal `reports/maintainer-priorities-2026-09-28.md`
+> - the accountant's priorities: `config/apportionment` and `config/foreman-mandate` (arcs, ranks, milestones; designs/accountant-arc-apportionment.md). **Reuse these as the ordering source.** Don't invent a second priority scheme.
+> - the `review-request-*` messages (in `inbox/maintainer/read/` since `b3c8be85227`)
+> - `stale-panel-head-*` and `*-review-budget-reached` notices
+> - the readiness audit (`scripts/jobs/design-pr-gauntlet-coverage-audit.sh`)
+>
+> **Steps:**
+> 1. **Consolidate the existing review requests** into the docket through its intake. This includes every `review-request-*` that `b3c8be85227` (and later auto-clears) moved to `inbox/maintainer/read/`, plus live `stale-panel-head-*` and `*-review-budget-reached` items, and minion.town#169's request.
+>    - Re-verify each PR's live state first. Don't docket a PR that merged, closed, or already has the maintainer's review on its current head.
+>    - Make sure each entry ends up in exactly one place: archive any maintainer-inbox copy that the docket now owns.
+> 2. **Fold in** `projects/garden/review-priorities.md`, `pr-review-sequence.md` and `reports/maintainer-priorities-2026-09-28.md`: carry forward any still-live ordering intent or notes.
+>    - Then **archive** each into the date-indexed priorities archive (dated by its last edit), and replace the original path with a one-line pointer to the new root document, or remove it per the design.
+> 3. Regenerate the root priorities/docket document and check that its ordering follows `config/apportionment`/`config/foreman-mandate` and what each item unblocks.
+> 4. **Send ONE maintainer message** (`send-msg.sh maintainer`, key `review-docket-live`) with the **full GitHub URL** of the root document on journal2 (`https://github.com/kriscendobot/garden/blob/journal2/<path>`). Include counts per arc, the top 5 reviews and what each unblocks, and the archive index URL.
 
 - `msg-oros-health-watch-20261007-143507-64f89ffdee6d` — from gardener:oros-health-watch-20261007-143507, reply_to `oros-health-watch-20261007-143507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-143507-64f89ffdee6d.md)
 
@@ -445,7 +489,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.8M | $633.24 _(notional, rate-card)_ | 50% of 168.0M (ok) |
+| Claude | 85.6M | $639.07 _(notional, rate-card)_ | 51% of 168.0M (ok) |
 | Codex | 11.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121780918 tokens/day lower bound._
@@ -455,27 +499,28 @@ worst fetch p95 10.087084s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
-- [`kriscendobot-minion.town-pr170-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #170
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #122
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #169
 
 ### doin (5)
-- [`review-docket-consolidate-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-docket-consolidate-20261008.md) — ---
+- [`kriscendobot-minion.town-pr170-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr170-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #170
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
-- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #122
 - [`build-minion-town-claude-arc-prod-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-arc-prod-validation.md) — Automatic production validation for Claude-on-minion.town arc items 1 and 5
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1343
+- [`improve-deployed-child-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deployed-child-gate.md) — ---
 
-### tada (11609)
+### tada (11610)
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-4.md) — Cost
 - [`claude-on-minion-town-completion-press-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/claude-on-minion-town-completion-press-20261008-053508.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr170-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-panel-1.md) — Cost
 - [`claude-on-minion-town-press-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/claude-on-minion-town-press-20261008-053508.md) — Press tick, 2026-10-08 05:3xZ: claude-on-minion-town-press
 - [`oros-health-watch-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/oros-health-watch-20261008-053508.md) — Cost
-- [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-3.md) — Cost
-- … and 11604 more
+- … and 11605 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _low_ · ---
+- [`review-docket-consolidate-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-docket-consolidate-20261008.md) — _normal_ · ---
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/revive-hermit-lane-qwen3.8-20261001.md) — _normal_ · Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
