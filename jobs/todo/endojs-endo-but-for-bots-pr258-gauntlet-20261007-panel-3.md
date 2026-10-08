@@ -1,26 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: endojs-endo-but-for-bots-pr258-gauntlet-20261007
-role: gardener
-tier: mentor
-handler-budget-role: panel
-handler-timeout: 10800
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 0
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-10-08T11:13:52Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-10-08T11:13:52Z
----
-
----
 role: gardener
 arc: endo-ocapn-background
 handler-budget-role: panel
@@ -29,9 +7,6 @@ gauntlet: endojs-endo-but-for-bots-pr258-gauntlet-20261007
 gauntlet_stage: panel
 gauntlet_iteration: 3
 pr: https://github.com/endojs/endo-but-for-bots/pull/258
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #258
