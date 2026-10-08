@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "ocapn/ocapn",
+  "pr": 277,
+  "url": "https://github.com/ocapn/ocapn/pull/277",
+  "head_oid": "054a40016da0c587e867be542bf5fcff64d78fb9",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Add op:flush for promise shortening",
+  "unblocks": [],
+  "source": "native-review-request-ocapn-ocapn-pr277",
+  "requested_at": "2026-10-08T07:46:23Z",
+  "first_requested_at": "2026-10-08T07:46:23Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:46:25Z"
+  }
+}
