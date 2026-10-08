@@ -1,26 +1,29 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T16:26:48Z_
+_As of 2026-10-08T16:29:24Z_
 
 ## Latest
 
-No new board transitions were recorded since the last bulletin. Overnight, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed, and passed validation. The proxy screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
+Nothing moved on the board since the last bulletin, so the news is in the halts and blockers that need the maintainer.
 
-Gauntlets are still in progress: fix round 2 on [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379), panel round 1 on [endo-but-for-bots#60](https://github.com/endojs/endo-but-for-bots/pull/60), and the clean stage for [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) is queued.
+**Halted orchestrations**
+- **Review docket.** The `review-docket-20261008` orchestration halted at 2/3. Its consolidation child (`review-docket-consolidate-20261008`) hit its retry limit and is held in plan awaiting go-ahead. The 26 review requests archived by the proxy auto-clear stay unconsolidated until it is promoted or split.
+- **minion.town OAuth bonds.** `orch-minion-town-oauth-bonds` halted because its build child declared its outcome unsatisfied.
+- **Jev triage/foreman trial.** It halted because `TYPESAFE_API_KEY` is missing from the job environment. It needs a key from the maintainer before it can re-run.
 
-Three orchestrations halted and need you to decide what happens next:
-- **Review docket:** the `review-docket-20261008` consolidation step failed after two of its three stages finished. It is parked in plan and won't run until promoted. That means the old review-priorities documents and the 26 auto-cleared review requests have not been moved onto the docket yet.
-- **minion.town OAuth bonds:** `orch-minion-town-oauth-bonds` stopped because its build reported that its required outcome was not met.
-- **Jev triage trial:** the trial is blocked until someone provides a `TYPESAFE_API_KEY`.
+**Merged and in progress**
+- **minion.town.** [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, and its deploy was validated.
+- **Gauntlets.** In progress: fix round 2 on [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and the first panel round on [endo-but-for-bots#60](https://github.com/endojs/endo-but-for-bots/pull/60). [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) is queued for its clean stage. The [endo-but-for-bots#155](https://github.com/endojs/endo-but-for-bots/pull/155) gauntlet halted.
 
-Other items needing your attention:
-- **Milestone M2** is still waiting on merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-- **ocap.site domain:** the transfer becomes possible after about 2026-10-09 19:55Z. The DNSSEC DS record is still unpublished, so the domain currently resolves without DNSSEC protection.
-- **kriscendobot's GitHub Actions** are still blocked by a billing problem, which stalls checks on [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153).
-- **Oros** has been offline since 2026-10-02. Someone has to physically check the Mac and Docker.
-- **Claude quota:** spend stands at 92%, above the 90% burn ceiling.
+**Standing problems**
+- **Oros host.** It has been offline since 10-02 and is now 210 commits behind. Someone has to check the Mac, Docker Desktop and the VM/container runtime in person.
+- **GitHub Actions billing.** Actions still won't start jobs for the kriscendobot account (latest: [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153)).
+- **Claude quota.** Usage is at 92%, past the 90% burn ceiling.
+
+**Decisions waiting**
+- **ocap.site.** The transfer to Route53 Domains becomes possible after 2026-10-09 19:55Z. The DNSSEC DS record is still missing at the registrar, so the domain's DNSSEC chain is broken until the transfer completes or the registrar adds the record.
+- **minion.town ERTP charge.** The arc needs a yes or no on building the ERTP credits charge now. The publish capability works, but its charge still goes through a stub.
+- **Milestone M2.** It is still blocked on merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
 
 ## Maintainer review docket
 
@@ -578,7 +581,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 154.2M | $1095.36 _(notional, rate-card)_ | 92% of 168.0M (ok) |
+| Claude | 154.3M | $1096.64 _(notional, rate-card)_ | 92% of 168.0M (ok) |
 | Codex | 14.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122730799 tokens/day lower bound._
