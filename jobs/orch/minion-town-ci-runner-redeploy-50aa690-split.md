@@ -1,4 +1,5 @@
 ---
+child-minion-town-ci-runner-lambda-sync-50aa690-reap-count: 0
 order: serial
 children: minion-town-ci-runner-lambda-sync-50aa690 minion-town-ci-runner-host-sync-50aa690 minion-town-ci-runner-redeploy-verify-50aa690
 on-child-failure: halt
