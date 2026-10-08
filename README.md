@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T15:49:36Z_
+_As of 2026-10-08T16:09:39Z_
 
 ## Latest
 
@@ -22,7 +20,7 @@ Claude spend is close to the 90% burn line.
 
 ## Maintainer review docket
 
-110 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+111 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -479,7 +477,11 @@ Delegation: **active**
 
 - `watchdog-actions-billing-blocked-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-actions-billing-blocked-kriscendobot.md)
 
-> GitHub Actions is refusing to START jobs for the 'kriscendobot' account: "recent account payments have failed or your spending limit needs to be increased". Latest: [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/issues/166) (head 39adda4c8e2; checks: test, Claude harness (amd64), Claude harness (arm64)). This is an ACCOUNT BILLING block, not a code failure: no push can fix it, so I am not treating it as CI red. Fix Billing & plans for 'kriscendobot', then rerun the failed runs (gh run rerun <id> --failed) and resume whatever parked on it (a gauntlet: scripts/jobs/gauntlet.sh --resume-from-stage <g> <clean|fix> [--iteration N]).
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-30T12:47:06Z, latest 2026-10-08T16:02:12Z).
+> The SAME condition (`actions-billing-blocked-kriscendobot`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
+>
+> GitHub Actions is refusing to START jobs for the 'kriscendobot' account: "recent account payments have failed or your spending limit needs to be increased". Latest: [kriscendobot/minion.town#153](https://github.com/kriscendobot/minion.town/issues/153) (head 904a903e125; checks: test, Claude harness (amd64), Claude harness (arm64)). This is an ACCOUNT BILLING block, not a code failure: no push can fix it, so I am not treating it as CI red. Fix Billing & plans for 'kriscendobot', then rerun the failed runs (gh run rerun <id> --failed) and resume whatever parked on it (a gauntlet: scripts/jobs/gauntlet.sh --resume-from-stage <g> <clean|fix> [--iteration N]).
 
 - `improve-journal-deepen-retry-expanded-window-expanded-window-split-terminal-complete` — from orchestrator:improve-journal-deepen-retry-expanded-window-expanded-window-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-journal-deepen-retry-expanded-window-expanded-window-split-terminal-complete.md)
 
@@ -572,10 +574,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.2M | $1068.86 _(notional, rate-card)_ | 89% of 168.0M (ok) |
-| Codex | 14.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 152.1M | $1081.29 _(notional, rate-card)_ | 91% of 168.0M (ok) |
+| Codex | 14.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123477252 tokens/day lower bound._
+_Fleet token-unlock pace: 122583406 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
@@ -585,15 +587,15 @@ worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1379
+- [`endojs-endo-but-for-bots-pr60-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr60-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #60
 
-### tada (11775)
-- [`endojs-endo-but-for-bots-pr1427-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1427-gauntlet-20261007-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-fix-6.md) — Cost
-- [`endojs-endo-but-for-bots-pr1427-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1427-gauntlet-20261007-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-6.md) — Cost
-- [`endojs-endo-but-for-bots-pr1427-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1427-gauntlet-plan-20261007.md) — Cost
-- … and 11770 more
+### tada (11793)
+- [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-2.md) — Cost
+- [`kriscendobot-minion.town-pr153-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr153-shepherd.md) — Cost
+- [`kriscendobot-minion.town-pr153-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr153-gauntlet-20261007.md) — gauntlet kriscendobot-minion.town-pr153-gauntlet-20261007 — PARKED-CI-BILLING
+- [`endojs-endo-but-for-bots-pr129-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr129-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr129-gauntlet-20261007 — HALTED
+- [`kriscendobot-minion.town-pr153-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr153-gauntlet-20261007-clean.md) — Cost
+- … and 11788 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -641,11 +643,8 @@ worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr60-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr60-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr71-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr71-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr79-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr79-gauntlet-plan-20261007.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-pr101-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr101-gauntlet-plan-20261007.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-pr129-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr129-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr155-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr155-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr182-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr182-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr241-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr241-gauntlet-plan-20261007.md) — _normal_ · ---
@@ -690,7 +689,6 @@ worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
 - [`kriscendobot-endo-pr2-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-endo-pr2-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-finbot-pr7-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-finbot-pr7-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr37-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-gauntlet-plan-20261007.md) — _normal_ · ---
-- [`kriscendobot-minion.town-pr153-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr153-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr179-address-review-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr179-address-review-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr249-address-review-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr249-address-review-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr266-address-review-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr266-address-review-20261007.md) — _normal_ · ---
