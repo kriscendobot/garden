@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T03:09:55Z_
+_As of 2026-10-08T03:12:13Z_
 
 ## Latest
 
@@ -74,11 +74,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1681 (first seen 2026-10-02T05:41:06Z, latest 2026-10-08T02:08:06Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1681 times; this is ONE
-> coalesced notice that updates in place, not 1681 messages. Latest detail:
+> WATCHDOG notice — occurrence #1702 (first seen 2026-10-02T05:41:06Z, latest 2026-10-08T03:11:09Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1702 times; this is ONE
+> coalesced notice that updates in place, not 1702 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 507569s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 511346s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1005,7 +1005,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.3M | $477.41 _(notional, rate-card)_ | 37% of 168.0M (ok) |
+| Claude | 62.3M | $478.36 _(notional, rate-card)_ | 37% of 168.0M (ok) |
 | Codex | 9.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120820383 tokens/day lower bound._
@@ -1014,9 +1014,10 @@ _Fleet token-unlock pace: 120820383 tokens/day lower bound._
 worst fetch p95 4.010549s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (3)
 - [`claude-on-minion-town-press-20261008-023508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-023508.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1431
 
 ### doin (3)
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #168
