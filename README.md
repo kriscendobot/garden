@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T07:12:41Z_
+_As of 2026-10-08T07:15:32Z_
 
 ## Latest
 
-Little moved on the board: the round-5 fix stage for [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122)'s gauntlet finished, and the round-2 fix for [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) was picked up. It joins the fix rounds already in progress on [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) and [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170). Earlier, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy checked out. Four things need the maintainer. The review-docket orchestration stopped at its last step: the consolidation job ran out of retries and is held in the plan queue until someone approves it, so the 26 review requests that were cleared by mistake still aren't on the docket. The ocap.site domain can be transferred from about 2026-10-09 19:55Z. Until the transfer happens or Key-Systems publishes the DS record, DNSSEC stays broken. Oros is still offline and needs someone to check it in person. Milestone M2 is waiting on the maintainer to merge [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+Little moved on the board: [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished fix round 5, and its gauntlet posted panel round 6. Fix rounds are still running on [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94), [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171). Three things in the inbox need the maintainer. First, the review-docket orchestration halted at its third child (consolidating existing review requests into the docket). That child is parked in plan and waits for a promote or a split. Second, ocap.site becomes eligible for transfer around 2026-10-09 19:55Z, and DNSSEC stays broken until the DS record is published. Third, Oros has been offline since 2026-10-02 and needs someone to physically check the Mac.
 
 ## Parked for maintainer feedback
 
@@ -535,7 +535,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.0M | $734.45 _(notional, rate-card)_ | 59% of 168.0M (ok) |
+| Claude | 100.1M | $736.16 _(notional, rate-card)_ | 60% of 168.0M (ok) |
 | Codex | 11.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121997660 tokens/day lower bound._
@@ -544,8 +544,9 @@ _Fleet token-unlock pace: 121997660 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (3)
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261008-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #166
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #122
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #169
 
 ### doin (3)
