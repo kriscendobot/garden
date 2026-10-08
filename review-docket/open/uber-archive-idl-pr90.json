@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "uber-archive/idl",
+  "pr": 90,
+  "url": "https://github.com/uber-archive/idl/pull/90",
+  "head_oid": "744588e3990a0c5f8a3c6883acecc9114df8315b",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Fix various lint errors",
+  "unblocks": [],
+  "source": "native-review-request-uber-archive-idl-pr90",
+  "requested_at": "2026-10-08T07:47:43Z",
+  "first_requested_at": "2026-10-08T07:47:43Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:47:45Z"
+  }
+}
