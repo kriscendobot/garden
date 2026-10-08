@@ -36,3 +36,13 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: undraft=done -->
   <!-- gauntlet-stage-result: undraft=head-mismatch -->
   <!-- gauntlet-stage-result: undraft=metadata-unreadable -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-08T18:11:16Z
