@@ -1,0 +1,64 @@
+<6>19:00:58 [monk/1] job 'design-minion-town-ocap-site-crawler-leak-rotation' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>19:01:15 [monk/1] job 'design-minion-town-ocap-site-crawler-leak-rotation' call ceiling: tier=mentor max-budget-usd=20.00 (scaled by fresh seven-day headroom when available)
+<4>19:01:15 [monk/1] WARN minion-mcp: token preflight failed; job 'design-minion-town-ocap-site-crawler-leak-rotation' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+garden repo lock: cleared dead-holder metadata pid=2728677 after acquiring /Users/dom/garden/.garden-state/repo-locks/f835c9e858cdec6897c303af0fea6df460c702b1e33c9b064071a595a74e07d0/repo.lock
+<6>19:21:32 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 1); re-syncing
+<6>19:26:36 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 2); re-syncing
+<6>19:30:40 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 3); re-syncing
+<6>19:31:37 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 4); re-syncing
+<6>19:34:41 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 5); re-syncing
+<6>19:36:17 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 6); re-syncing
+<6>19:38:08 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 7); re-syncing
+<6>19:39:09 [post-gauntlet] journal fetch in /Users/dom/garden/.garden-state/producer/journal timed out (>45s, rc=124) on attempt 1
+<6>19:40:29 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 8); re-syncing
+<6>19:41:41 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 9); re-syncing
+<6>19:42:57 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 10); re-syncing
+<6>19:46:54 [post-gauntlet] post-gauntlet of 'kriscendobot-minion.town-pr173-gauntlet' lost a push race (attempt 11); re-syncing
+<6>19:47:37 [post-gauntlet] gauntlet 'kriscendobot-minion.town-pr173-gauntlet' already recorded; nothing to do
+<6>19:47:37 [auto-gauntlet-handoff] auto-gauntlet: 'design-minion-town-ocap-site-crawler-leak-rotation' recorded design gauntlet 'kriscendobot-minion.town-pr173-gauntlet' for https://github.com/kriscendobot/minion.town/pull/173
+panel-head-freshness: unreviewed target=kriscendobot/minion.town#173 disposition=manual-gauntlet-not-triggered
+<6>19:57:11 [assert-followup-posted] gate: BLOCK — 'design-minion-town-ocap-site-crawler-leak-rotation' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+## Report: design-minion-town-ocap-site-crawler-leak-rotation
+
+I wrote the design and opened it as **draft PR [kriscendobot/minion.town#173](https://github.com/kriscendobot/minion.town/pull/173)**. It adds one file, `designs/ocap-site-crawler-leak-rotation.md` (slug `ocap-site-crawler-leak-rotation`), on branch `design/ocap-site-crawler-leak-rotation`. The PR's base is the frozen snapshot `main-76bb276` of `main`. I left it as a draft so the completion machinery can stage the design panel. The `ensure-pr.sh` call was killed by the 300s timeout, but the PR exists: it is a draft, carries the job marker, and contains only the design file.
+
+**What I found before writing**
+- **There is no traffic to measure.** The `*.ocap.site` Caddy block has no `log` directive, so no access log exists, and the gateway logs only faults. This host has no AWS credential, so I could not read the box's journals. The design therefore ships detection with rotation turned off, behind a 14-day measurement gate. Its thresholds are marked provisional and will be replaced by a measurement report.
+- **The job's suggested fallback rests on a wrong assumption.** It proposed republishing under a fresh content hash, but the clip label is `base32(directoryFormulaId)`, not a content hash. The same id is also the clip's OCapN `endo:` locator wherever the powers plane is armed, so a leaked URL leaks the `back` locator too.
+- **Live probe on 2026-10-08:** `/robots.txt` on a clip returns `404`, and no `X-Robots-Tag` header is set. The wildcard DNS-01 certificate means Certificate Transparency logs don't disclose labels.
+
+**What the design settles**
+- **Signals, ranked:**
+  - Rotate tier: a search-engine crawler verified by forward-confirmed reverse DNS or the engine's published IP ranges.
+  - Rotate tier once the measurement gate passes: a fetch of the gateway's own `robots.txt`, which acts as a tripwire, and a fetch of a honeypot path named only in that file.
+  - Observe or alert only: a declared bot user agent, matched against the pinned `monperrus/crawler-user-agents` list.
+  - Observe only: request-shape heuristics.
+  - Rejected: geography.
+- **Where it lives:** the gateway only senses, and records keyed digests, never a label in clear or a raw IP. A `clip-leak-warden` in `minion-mcp` decides, and the `@sites` registry carries out the rotation. Caddy access logging stays off, because it would write bearer URLs to disk.
+- **Response ladder:** observe, then alert, then rotate. There is a 10-minute grace window after publish so link previews don't trigger it. Unfurlers never escalate past observe. Each clip gets at most one automatic rotation per 24 hours, and a global breaker stops at 20 per hour. The owner holds a facet to pin a clip as public.
+- **What users see after rotation:** the old link returns a `410` page that does not name the new link. Its powers endpoints and open WebSockets are closed. The owner gets the new link through `list` and alerts. The isolation headers already stop other sites from framing or embedding a clip.
+- **Dependency on the Endo work:** the design states the minimal `rotate()` interface it needs from `design-endo-formula-identifier-indirection`. Until that exists, a fallback copies the clip into a fresh directory. Its costs are spelled out: a finder who already holds `back` keeps it, and the fallback refuses to run if the daemon's OCapN locator is ever exposed publicly.
+- The design also has an ownership map, CI tests, and a production canary that plays a synthetic crawler and checks that the link rotates.
+- All three mermaid diagrams parse (`mermaid.parse`: flowchart, state and sequence OK).
+
+**Open questions in the design:**
+1. How should owners be alerted before the mailbox (#37) lands?
+2. Should clips that already exist get the new controls?
+3. How long should the `410` page last?
+4. Should rotation be opt-in, by pinning clips public by default?
+
+## Follow-ups
+- **Build:** `build-ocap-site-crawler-leak-rotation`, the units in the design's § 9:
+  1. Gateway sensor.
+  2. Warden in observe and alert modes.
+  3. The 14-day measurement report.
+  4. Fallback rotation and the canary.
+  5. Switch to the Endo rotation layer.
+
+  Unit 4 is gated on unit 3, and unit 5 on `design-endo-formula-identifier-indirection`.
+- **To be filed:**
+  - Wrap `back` in a revocable caretaker at publish time.
+  - Replace the registry's owner-identity checks on `list` and `unregister` with held capabilities.
+- I could not read my inbox: its journal clone timed out, so any message sent to this job was not seen.
