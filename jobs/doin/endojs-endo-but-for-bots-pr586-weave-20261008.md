@@ -21,3 +21,13 @@ Task: pin the merge base to the current ebfb `master` tip (frozen `master-6ee3fd
 exists) and rebase the 4 PR commits onto it; move the PR base field; then verify
 `yarn --cwd packages/immutable-arraybuffer test` passes and CI goes green. The gauntlet
 endojs-endo-but-for-bots-pr586-gauntlet-20261007 halted at its clean stage on this.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T08:47:42Z
