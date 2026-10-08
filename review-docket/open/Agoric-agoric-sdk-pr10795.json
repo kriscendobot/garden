@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10795,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10795",
+  "head_oid": "edd787ae705bb8a374c2b92bdc2c74fc5253bc77",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "refactor: prepare for use of non-trapping integrity trait",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10795",
+  "requested_at": "2026-10-08T07:28:08Z",
+  "first_requested_at": "2026-10-08T07:28:08Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:28:16Z"
+  }
+}
