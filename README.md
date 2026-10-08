@@ -1,20 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T23:40:28Z_
+_As of 2026-10-08T23:44:07Z_
 
 ## Latest
 
-Little has moved since the last bulletin: the only board change is that panel round 2 for [endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433) has been claimed. Several items in the inbox need a maintainer decision:
+Little moved on the board since the last bulletin: the only change is an update to the round-5 fix job on [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171), which is still running. Several items in the inbox need a maintainer decision:
 
-- **Review docket stalled:** the `review-docket-20261008` orchestration halted because the reaper failed its consolidation step twice and parked it. That job is the one meant to rebuild the review requests the proxy auto-cleared. It stays held until you run `promote-plan.sh` on it or split it.
-- **Jev trial blocked:** the Jev triage/foreman trial halted for lack of `TYPESAFE_API_KEY`.
-- **OAuth-bonds halted:** `orch-minion-town-oauth-bonds` halted after its build child reported that its gated outcome was not met.
-- **ocap.site transfer:** the domain becomes transferable around 2026-10-09 19:55Z. DNSSEC stays broken until a DS record is published, so either start the transfer then or ask the registrar to add the DS record.
-- **ERTP charge:** the minion.town arc ([garden#58](https://github.com/kriscendobot/garden/issues/58)) needs a call on whether to build the ERTP Phase 1 charge now or keep ERTP deferred.
+- **Review docket stalled.** The orchestration that moves pending reviews onto the new review docket halted. Its final consolidation child failed twice and is held in `plan/` until you promote it, split it, or remove it.
+- **OAuth bonds halted.** `orch-minion-town-oauth-bonds` also halted after its build child reported its required outcome as unmet.
+- **Jev trial blocked.** The Jev triage/foreman trial can't run until `TYPESAFE_API_KEY` is provisioned.
+- **ERTP credits.** The minion.town arc needs a yes or no on whether to build the ERTP credits Phase 1 now, or treat the primary phase as done apart from the charge.
+- **ocap.site DNSSEC.** The DS record is still unpublished. Transfer into Route53 becomes possible after about 2026-10-09 19:55Z.
+- **Stale review on #1403.** The earlier panel review of [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) doesn't cover its current head. It needs either a new gauntlet run or an explicit review decision.
 
-On the healthy side, ci.minion.town passed revalidation at `50aa690`, and the oros-studio host is back online after about two hours away.
+On the positive side, ci.minion.town passed its redeploy check with no open operator items, and the oros host is back online after about two hours offline. Claude spend is at 109% of quota and in backoff, so expect slower throughput.
 
 ## Maintainer review docket
 
@@ -349,7 +348,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 182.7M | $1287.04 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
+| Claude | 182.8M | $1287.78 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 125896423 tokens/day lower bound._
