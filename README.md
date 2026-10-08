@@ -1,18 +1,20 @@
 # Garden bulletin
 
-_As of 2026-10-08T08:16:46Z_
+_As of 2026-10-08T08:24:57Z_
 
 ## Latest
 
-The gauntlet batch from the 10-07 plan queue started moving. The gauntlet for [endo-but-for-bots#242](https://github.com/endojs/endo-but-for-bots/pull/242) halted at once because the PR targets a floating base; it needs a "pin the merge base #242" before it can run again. [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) passed its viability stage, and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) now has a gauntlet record. [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) cleared its clean stage and is now in panel round 1, the only job in flight.
+The [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) gauntlet passed its clean stage and is waiting for panel round 1. The [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) gauntlet **halted**. The plan jobs for [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) and [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) finished, and both now have pre-spend viability stages on the board. [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) finished panel round 1 and has a fix round queued. The proxy merged and deployed [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and the deploy was validated.
 
-Three things need you:
+Things that need you:
 
-- **Review-docket orchestration halted (2 of 3 children done).** Its consolidation child is held in plan after its retry also failed. It stays there until you promote or split it. That leaves the 26 auto-cleared review requests unconsolidated.
-- **GitHub Actions billing block on the kriscendobot account.** Actions refuses to start jobs for kriscendobot (seen on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166)). A push can't fix this; the billing has to be fixed first.
-- **Oros still offline.** It has been unreachable since 10-02 and is now about 206 commits behind; someone has to check it in person.
-
-Also, the ocap.site domain can transfer to Route53 after about 19:55Z on 10-09. That transfer is the cleanest way to get its DNSSEC DS record published.
+- **Review docket stalled.** The `review-docket-20261008` orchestration halted because its consolidation child was doomed. That job is held in plan and needs a promote or a split. Until then, the 26 auto-cleared review requests are not on the docket. A bounded reconcile job is in progress.
+- **Actions billing block.** GitHub Actions is refusing to start jobs for the `kriscendobot` account because of a billing problem, not a code failure ([minion.town#166](https://github.com/kriscendobot/minion.town/issues/166)).
+- **Oros still offline.** The host has been down since 10-02 and needs someone to check it in person.
+- **ocap.site transfer.** The domain becomes transferable after 2026-10-09 19:55Z. DNSSEC stays broken until either the transfer completes or the registrar publishes the DS record.
+- **Open decisions:**
+  - Whether to build ERTP credits now or keep them deferred.
+  - A `TYPESAFE_API_KEY` is needed before the halted Jev triage trial can re-run.
 
 ## Maintainer review docket
 
@@ -455,10 +457,6 @@ Delegation: **active**
 
 > UNREACHABLE: Oros remains offline as of 2026-10-07T23:36Z. No current checkup exists (schedule deferred to 2026-10-11T21:00Z); heartbeat/fleet health/sysop activity remain stale since 2026-10-02, the host is heartbeat-offline derotated, and deployed e036bb8e is 198 commits behind main2 6091cc10. I sent no new op because seven reset-failed, one restore, and two attested scaler-unit ops are still unacknowledged. A person must check the Mac power/sleep state, Docker Desktop, and VM/container runtime.
 
-- `endojs-endo-but-for-bots-pr242-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr242-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr242-gauntlet-20261007-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr242-gauntlet-20261007 HALTED: PR [endojs/endo-but-for-bots#242](https://github.com/endojs/endo-but-for-bots/issues/242) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #242') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/469](https://github.com/endojs/endo-but-for-bots/pull/469) ([endojs/endo-but-for-bots#469](https://github.com/endojs/endo-but-for-bots/issues/469)) is in the mergeable queue with NO gauntlet review staged (head 596b4c1185d2e3255d5ce4350eb41fb5c2ede386). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #469'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -550,28 +548,31 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.2M | $834.54 _(notional, rate-card)_ | 69% of 168.0M (ok) |
-| Codex | 12.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 116.9M | $846.83 _(notional, rate-card)_ | 70% of 168.0M (ok) |
+| Codex | 12.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 121901462 tokens/day lower bound._
+_Fleet token-unlock pace: 121969242 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (4)
+- [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #258
+- [`endojs-endo-but-for-bots-pr472-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr472-gauntlet-20261007-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #472
+- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #94
+- [`endojs-endo-but-for-bots-pr586-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr586-gauntlet-20261007-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #586
 
 ### doin (1)
-- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
+- [`improve-bounded-review-docket-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-bounded-review-docket-reconcile.md) — ---
 
-### tada (11676)
-- [`endojs-endo-but-for-bots-pr242-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr242-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr242-gauntlet-20261007 — HALTED
-- [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr258-gauntlet-20261007-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr258-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr258-gauntlet-plan-20261007.md) — Cost
-- [`endojs-endo-but-for-bots-pr288-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr288-gauntlet-plan-20261007.md) — Cost
-- [`endojs-endo-but-for-bots-pr242-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr242-gauntlet-plan-20261007.md) — Cost
-- … and 11671 more
+### tada (11681)
+- [`endojs-endo-but-for-bots-pr586-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr586-gauntlet-plan-20261007.md) — Cost
+- [`endojs-endo-but-for-bots-pr472-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr472-gauntlet-plan-20261007.md) — Cost
+- [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr258-gauntlet-20261007-clean.md) — Cost
+- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr288-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr288-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr288-gauntlet-20261007 — HALTED
+- … and 11676 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -653,12 +654,10 @@ worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr359-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr359-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr360-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr360-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr389-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr389-gauntlet-plan-20261007.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-pr472-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr472-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr508-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr508-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr546-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr546-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr554-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr554-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr555-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr555-gauntlet-plan-20261007.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-pr586-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr586-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr730-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr730-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr741-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr741-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr762-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr762-gauntlet-plan-20261007.md) — _normal_ · ---
