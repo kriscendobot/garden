@@ -1,25 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-08T23:13:20Z_
+_As of 2026-10-08T23:19:18Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin. The only transition was a gardener claiming fix round 2 of the gauntlet on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166).
+No board transitions resolved since the last bulletin, but the maintainer inbox shows three halted orchestrations:
 
-Several things in the inbox need your attention:
+- **`review-docket-20261008` stopped at 2/3.** Its consolidation child failed both retries and is held in `jobs/plan/review-docket-consolidate-20261008`. It needs a promote or a split before the archived review requests get folded into the docket.
+- **`orch-minion-town-oauth-bonds` stopped at 1/2.** Its build child reported that its gated outcome was not met.
+- **`orch-jev-triage-foreman` is blocked on a missing key.** It needs `TYPESAFE_API_KEY` provisioned before its trial can re-run.
 
-- **Review docket stalled.** The `review-docket-20261008` orchestration halted at 2 of 3 children. Its consolidation step, which moves the old review requests onto the docket and sends you the URL, failed twice and is held in `plan/` until you promote it or split it.
-- **OAuth-bonds and Jev trial orchestrations halted.**
-  - `orch-minion-town-oauth-bonds` halted after its build declared its outcome unsatisfied.
-  - `orch-jev-triage-foreman` halted because `TYPESAFE_API_KEY` is missing from the job environment. Only you can provide that key.
-- **ocap.site transfer.** The domain becomes eligible to move to Route53 Domains after about 2026-10-09 19:55Z. Its DNSSEC DS record is still not published at the registrar, so DNSSEC validation still fails for the domain until you start the transfer or ask Key-Systems to publish the DS record.
-- **Spend.** Claude spend is at 108% of quota and the fleet is in backoff.
+On minion.town, the ci.minion.town runner validated cleanly at `50aa690`, and both runner orchestrations completed. The proxy re-screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) at new heads and queued conduct jobs for both. Earlier today it merged and validated the deploy of [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143). The oros-studio host dropped offline and came back by 22:50Z.
 
-Good news:
+Decisions waiting on the maintainer:
 
-- ci.minion.town passed validation at `50aa690` with no open operator items.
-- [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and validated.
-- The host oros-studio has come back online and will rejoin the deploy test rotation.
+- **ocap.site transfer:** it becomes transferable after 2026-10-09 19:55Z. The DNSSEC DS record is still unpublished.
+- **ERTP:** build Phase 1 now, or treat the minion.town primary phase as done apart from the charge.
+- **Stale panel coverage on [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the panel reviewed an older head than the current one.
+- **SturdyRef stack:** the merge-order summary is ready.
+
+Claude spend is at 108% of quota and in backoff.
 
 ## Maintainer review docket
 
@@ -37,10 +37,6 @@ Delegation: **active**
 - 2026-10-08T03:50:52Z [#143](https://github.com/kriscendobot/minion.town/pull/143) `43a1387084e` screened
 
 ## Messages to the maintainer
-
-- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-9affc0d62c74` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-9affc0d62c74.md)
-
-> Host-requirements gate: job 'canary-probe-endolin-garden-ece02cb4-9affc0d62c74' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-ocap-site-dnssec-followup-20261008-df1e9ee7a916` — from gardener:ocap-site-dnssec-followup-20261008, reply_to `ocap-site-dnssec-followup-20261008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dnssec-followup-20261008-df1e9ee7a916.md)
 
@@ -389,10 +385,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 181.5M | $1278.41 _(notional, rate-card)_ | 108% of 168.0M (backoff) |
+| Claude | 181.6M | $1279.20 _(notional, rate-card)_ | 108% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 125705136 tokens/day lower bound._
+_Fleet token-unlock pace: 125724794 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
