@@ -1,21 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-08T09:39:22Z_
+_As of 2026-10-08T09:48:01Z_
 
 ## Latest
 
-The gauntlet pipeline advanced on three endo-but-for-bots PRs. [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) finished its round-2 panel, and a gardener has claimed fix round 2. [endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) and [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) were promoted from plan, passed their pre-spend viability checks, and now have CLEAN stages waiting on the board.
+No new job-board transitions resolved since the last bulletin; the movement is in the proxy lane and in the maintainer inbox.
 
-Several items need the maintainer's attention:
+**Merged and deployed.** The proxy merged [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143). Its deploy succeeded and the watchdog validated it. The proxy also screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
 
-- **Review docket stalled:** the `review-docket-20261008` orchestration halted at its third child. That child would consolidate review requests and archive the old priorities documents, and it is parked in plan until someone promotes it or splits it.
-- **Milestone M2 blocked:** M2 still needs the maintainer to merge [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-- **GitHub Actions billing:** Actions won't start jobs on the kriscendobot account because of a billing block (latest hit: [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/issues/166)). No code push can fix this.
-- **Oros offline:** the Oros host has been offline since 2026-10-02 and needs someone to check the machine in person.
-- **Halted orchestrations:** `orch-minion-town-oauth-bonds` halted because its build declared its gated outcome unsatisfied. The Jev triage trial halted because `TYPESAFE_API_KEY` is missing.
-- **Decisions waiting:**
-  - ocap.site DNSSEC: the DS record is still unpublished. Transfer into Route53 becomes possible after 2026-10-09 19:55Z, or the registrar could be asked to add the DS.
-  - ERTP: whether to build the Phase 1 credits charge for minion.town now or keep ERTP deferred.
+**Gauntlets in progress.** Clean stages are queued for [endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) and [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425). [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) is in fix round 2.
+
+**Three orchestrations halted:**
+- **Review docket.** `review-docket-20261008` stopped at 2 of 3 steps. Its last step was meant to consolidate the 26 review requests the proxy auto-archived and send you the docket URL. That step was doomed and is held in plan, so the consolidation and the "review-docket-live" message have not happened. Promote it or split it.
+- **minion.town OAuth bonds.** `orch-minion-town-oauth-bonds` halted because its build declared its gated outcome unsatisfied.
+- **Jev triage/foreman trial.** The trial is blocked until a `TYPESAFE_API_KEY` is provisioned.
+
+**Needs a human:**
+- **Oros host.** It has been offline since 10-02, with ten sysop ops unacknowledged; someone needs to check the Mac, Docker Desktop and the VM.
+- **Actions billing.** GitHub Actions will not start jobs for the kriscendobot account because of a billing block. This stalls [minion.town#166](https://github.com/kriscendobot/minion.town/issues/166).
+- **ocap.site transfer.** Transfer to Route53 becomes possible after 2026-10-09 19:55Z. The DNSSEC DS record is still not published at the registrar.
+- **ERTP credits decision.** The minion.town arc needs a yes or no on the ERTP Phase 1 credits build.
 
 ## Maintainer review docket
 
@@ -553,13 +557,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.8M | $890.11 _(notional, rate-card)_ | 74% of 168.0M (ok) |
-| Codex | 13.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 123.9M | $891.26 _(notional, rate-card)_ | 74% of 168.0M (ok) |
+| Codex | 13.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122090831 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 4.204496s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
