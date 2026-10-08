@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 12081,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/12081",
+  "head_oid": "6cc9bf6ab52417f300bcc997154e8bd2b5342c48",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "ci (deployment): Ymax planner deployment testing",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr12081",
+  "requested_at": "2026-10-08T07:34:49Z",
+  "first_requested_at": "2026-10-08T07:34:49Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:34:52Z"
+  }
+}
