@@ -1,11 +1,9 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion.town-pr169-gauntlet
-priority: normal
+role: conductor
+tier: mentor
 arc: minion-town-mcp-ocapn
-posted_by: producer
-posted_at: 2026-10-07T22:22:00Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-08T02:16:07Z cleared=none -->
 
 ---
 role: conductor
