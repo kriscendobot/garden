@@ -1,25 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T19:33:59Z_
+_As of 2026-10-08T19:40:06Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin. Most of the activity is the minion.town CI-runner arc. `minion-town-billing-parked-prs-resume-20261008` came off the plan queue and was claimed. It moves the minion.town PRs blocked by the kriscendobot GitHub Actions billing block onto ci.minion.town. That block is still active and last hit [kriscendobot/minion.town#153](https://github.com/kriscendobot/minion.town/issues/153). The orchestration driving that unblock also advanced. This follows the merge and landing of the CI-runner PR [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145). A post-merge deploy check on that runner is still in flight.
+Little moved on the board this cycle. The halted gauntlet on [endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/pull/71) closed out and was converted into an auto-posted shepherd job for its red CI. A shepherd also claimed [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173) to fix its red CI.
 
-Oros has started heartbeating and claiming work again after six days offline, and its stuck canary cleared. Its sysop queue is still unacknowledged, though, so the host still needs a hands-on check.
-
-Several items need you:
-- Claude spend is at 101% of the endolin2 quota.
-- The review-docket orchestration halted because its consolidate child is held in plan and needs promotion or splitting.
-- `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` both halted on unsatisfied gated outcomes. The Jev trial still needs `TYPESAFE_API_KEY`.
-- The ocap.site domain becomes transferable after 2026-10-09 19:55Z. DNSSEC stays broken until you start the transfer or the registrar publishes the DS record.
-- The foreman's M2 milestone is still waiting on your merge of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+Things to notice:
+- **Claude quota:** the subscription is at 101% of quota, with backoff active.
+- **Oros:** the host is heartbeating and claiming work again. Its stuck-canary watchdog cleared at 19:29Z, but the host-offline notice is still flapping and its sysop queue hasn't been acknowledged. If it doesn't drain, someone needs to check the Mac.
+- **Review docket:** the `review-docket-20261008` orchestration halted after 2 of 3 children. Its consolidation step is held in plan, waiting for you to promote or split it. Until that happens, the review requests archived by the proxy's auto-clear stay out of the docket.
+- **Orchestrations:** `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` both halted. The Jev trial needs a `TYPESAFE_API_KEY` provisioned.
+- **CI billing:** the kriscendobot Actions billing block is still in place, and a job is moving the parked minion.town PRs onto ci.minion.town.
 
 ## Maintainer review docket
 
-115 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+114 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -593,7 +589,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 169.5M | $1198.47 _(notional, rate-card)_ | 101% of 168.0M (backoff) |
+| Claude | 169.8M | $1200.39 _(notional, rate-card)_ | 101% of 168.0M (backoff) |
 | Codex | 15.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 123221464 tokens/day lower bound._
@@ -602,15 +598,17 @@ _Fleet token-unlock pace: 123221464 tokens/day lower bound._
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1433
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261008-192023.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`endojs-endo-but-for-bots-pr71-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr71-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #71
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1379
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
 - [`minion-town-billing-parked-prs-resume-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-billing-parked-prs-resume-20261008.md) — Unpark the minion.town PRs blocked by Actions billing, onto ci.minion.town
+- [`kriscendobot-minion.town-pr173-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr173-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #173
 - [`minion-town-ci-runner-deploy-verify-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-deploy-verify-50aa690.md) — ---
 
 ### tada (11839)
