@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11432,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11432",
+  "head_oid": "fc6bea452704f738c852dab0397c4d9951e9ba72",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "ci: bump golangci-lint-action to v8",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11432",
+  "requested_at": "2026-10-08T07:31:48Z",
+  "first_requested_at": "2026-10-08T07:31:48Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:31:51Z"
+  }
+}
