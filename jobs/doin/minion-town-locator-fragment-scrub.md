@@ -29,3 +29,13 @@ minion.town shares capability locators whose formula identifier rides in the URL
 ## Done
 
 A draft PR with the bootstrap capture and scrub, the storage (encrypted or a written decision), the leak-canary tests, CI green, and a PR body that states the residual exposure (same-origin JS, extensions, capture before the scrub runs).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T04:49:45Z
