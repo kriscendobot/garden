@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11625,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11625",
+  "head_oid": "01c34cd6cc68380eee274c8b64fad18f84387107",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump golang.org/x/oauth2 from 0.23.0 to 0.27.0 in /golang/cosmos",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11625",
+  "requested_at": "2026-10-08T07:33:34Z",
+  "first_requested_at": "2026-10-08T07:33:34Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:33:36Z"
+  }
+}
