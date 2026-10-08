@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "ocapn/ocapn",
+  "pr": 190,
+  "url": "https://github.com/ocapn/ocapn/pull/190",
+  "head_oid": "5555c6a772df50221edd19b804da6b1d4d01d00a",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Unix domain socket netlayer",
+  "unblocks": [],
+  "source": "native-review-request-ocapn-ocapn-pr190",
+  "requested_at": "2026-10-08T07:46:12Z",
+  "first_requested_at": "2026-10-08T07:46:12Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:46:14Z"
+  }
+}
