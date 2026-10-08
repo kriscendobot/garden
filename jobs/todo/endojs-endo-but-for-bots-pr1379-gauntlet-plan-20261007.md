@@ -1,10 +1,9 @@
 ---
-gate: deferred
-priority: normal
+role: fixer
+tier: mentor
 arc: moonshots
-posted_by: producer
-posted_at: 2026-10-07T21:29:53Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-08T13:03:53Z cleared=none -->
 
 ---
 role: fixer
