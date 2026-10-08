@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-ci-runner-redeploy-50aa690-split
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-10-08T21:35:54Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-08T21:36:50Z cleared=none -->
 
 ---
 requires: aws
