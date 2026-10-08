@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T03:40:04Z_
+_As of 2026-10-08T03:43:27Z_
 
 ## Latest
 
@@ -1030,21 +1030,24 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.7M | $478.79 _(notional, rate-card)_ | 37% of 168.0M (ok) |
+| Claude | 64.4M | $492.99 _(notional, rate-card)_ | 38% of 168.0M (ok) |
 | Codex | 9.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120527139 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.010549s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
+worst fetch p95 10.087084s/45s (/home/kris/garden2/.garden-state/inbox/minion-town-arc-press-20261008-033511/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (3)
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #168
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1431
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #122
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`minion-town-arc-press-20261008-033511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261008-033511.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`weave-kriscendobot-minion-town-pr122-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-kriscendobot-minion-town-pr122-20261008.md) — weave kriscendobot/minion.town#122 onto current main
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1343
 
 ### tada (11562)
