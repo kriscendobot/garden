@@ -28,3 +28,13 @@ The single runner handles one job at a time. The arm64 harness takes about 13.5 
 <!-- garden-annotation: key=cc627e8c389f by=producer at=2026-10-08T18:30:23Z fields=priority=high -->
 
 Maintainer 2026-10-08: high priority, billing block stops all minion.town shepherds.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T19:31:43Z
