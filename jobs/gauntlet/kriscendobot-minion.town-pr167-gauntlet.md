@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 167
 build_job: design-minion-town-kriscendobot-root-principal
 kind: feature
-stage: fix
-iteration: 4
+stage: panel
+iteration: 5
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr167-gauntlet-fix-4
+current_child: kriscendobot-minion.town-pr167-gauntlet-panel-5
 state: running
 created_by: producer
 arc: minion-town-mcp-ocapn
