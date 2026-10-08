@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 438,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/438",
+  "head_oid": "3e66100374c7733ba6825e4df6b14679c230fc6e",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "chore(types): switch lint:types to tsgo for the dev loop",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr438",
+  "requested_at": "2026-10-08T07:42:00Z",
+  "first_requested_at": "2026-10-08T07:42:00Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-08T07:42:04Z"
+  }
+}
