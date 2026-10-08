@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T01:24:15Z_
+_As of 2026-10-08T01:27:17Z_
 
 ## Latest
 
@@ -975,32 +975,31 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.2M | $436.09 _(notional, rate-card)_ | 33% of 168.0M (ok) |
+| Claude | 55.3M | $436.92 _(notional, rate-card)_ | 33% of 168.0M (ok) |
 | Codex | 8.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 120462482 tokens/day lower bound._
+_Fleet token-unlock pace: 120109996 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (2)
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #168
-- [`kriscendobot-minion.town-pr166-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #166
-- [`kriscendobot-minion.town-pr169-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #169
+- [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #94
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1431-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1431
-- [`kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1343
+- [`kriscendobot-minion.town-pr166-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #166
+- [`kriscendobot-minion.town-pr169-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #169
 
-### tada (11537)
+### tada (11539)
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1431-gauntlet-panel-4.md) — Cost
+- [`kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1.md) — Cost
 - [`ocap-site-dnssec-followup-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/ocap-site-dnssec-followup-20261008.md) — Cost
 - [`kriscendobot-minion.town-pr169-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr166-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr166-gauntlet-panel-5.md) — Gauntlet panel round 5: kriscendobot/minion.town PR #166
-- [`kriscendobot-minion.town-pr168-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr168-gauntlet-fix-4.md) — Cost
-- [`kriscendobot-minion.town-pr167-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr167-gauntlet.md) — gauntlet kriscendobot-minion.town-pr167-gauntlet — review budget reached
-- … and 11532 more
+- … and 11534 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
