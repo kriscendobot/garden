@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-08T08:55:14Z_
+_As of 2026-10-08T08:56:32Z_
 
 ## Latest
 
-Little moved on the board this interval. A gardener claimed `improve-gauntlet-quota-aware-terminal-receipt`, and this hour's Claude-on-minion.town press job went from doin back to todo, so it is waiting for another claim. The [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) weave is still in progress after its gauntlet halted.
+Little moved since the last bulletin: the only transition is the PANEL round 1 claim for [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258)'s gauntlet. Earlier, [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586)'s gauntlet halted, and a weave onto a base containing #468 is now in flight. On minion.town, [#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy validated clean.
 
-Four items need the maintainer:
+Four things need the maintainer:
 
-- **Review docket stalled.** The `review-docket-20261008` orchestration halted at its last step. The consolidation child job failed twice and the reaper parked it in plan, so it waits for your go-ahead. The 26 review requests that the proxy auto-clear archived have not yet been moved into the docket.
-- **GitHub Actions blocked by billing.** GitHub Actions will not start jobs on the `kriscendobot` account because of a payment or spending-limit problem, most recently on [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/issues/166). No code change can fix this; the billing settings for `kriscendobot` must be updated.
-- **Oros host offline.** The Oros host has been offline since 2026-10-02 and needs someone to physically check the Mac and its Docker setup.
-- **ocap.site transfer window.** ocap.site can be transferred from about 2026-10-09 19:55Z, and its DNSSEC chain stays broken until that transfer happens or the current registrar publishes the DS record.
+- **Review docket stalled.** The `review-docket-20261008` orchestration halted at 2/3. Its consolidation child exhausted its retry and is held in the plan queue until someone promotes it, so the 26 auto-cleared review requests have not been migrated yet.
+- **Actions billing blocked.** GitHub Actions is refusing to start jobs on the kriscendobot account (latest: [minion.town#166](https://github.com/kriscendobot/minion.town/issues/166)). No push can fix this; it's a billing fix.
+- **Oros offline.** Oros has been unreachable since 10-02 and still needs a person to check the Mac.
+- **ocap.site transfer.** The domain's transfer window opens around 2026-10-09 19:55Z. DNSSEC stays broken until either the transfer completes or the registrar publishes the DS record. Which route to take is your decision.
 
 ## Maintainer review docket
 
@@ -549,7 +549,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.3M | $867.60 _(notional, rate-card)_ | 72% of 168.0M (ok) |
+| Claude | 120.4M | $868.53 _(notional, rate-card)_ | 72% of 168.0M (ok) |
 | Codex | 12.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122136362 tokens/day lower bound._
@@ -558,12 +558,12 @@ _Fleet token-unlock pace: 122136362 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #258
+### todo (1)
 - [`claude-on-minion-town-press-20261008-083508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-083508.md) — Press the Claude-on-minion.town arc forward
 
-### doin (2)
+### doin (3)
 - [`improve-gauntlet-quota-aware-terminal-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-quota-aware-terminal-receipt.md) — ---
+- [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #258
 - [`endojs-endo-but-for-bots-pr586-weave-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-weave-20261008.md) — Weave endojs/endo-but-for-bots PR #586 onto a base that contains #468
 
 ### tada (11691)
