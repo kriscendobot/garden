@@ -37,7 +37,7 @@ Environment=GARDEN_WORKER_KIND=@WORKER_KIND@
 # own handler deadline here: a 600s cap on the never-returning loop would fell the
 # whole worker mid-job every 600s (rc=124 → normalized clean → Type=exec treats it as
 # success and does NOT restart), tearing the pool down. The KillMode=mixed /
-# TimeoutStopSec=2700 block below is this unit's stop bound.
+# TimeoutStopSec=14700 block below is this unit's stop bound.
 Environment=SELF_HEAL_HANDLER_TIMEOUT=0
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-@WORKER_KIND@ --work-id %i -- @GARDEN_ROOT@/scripts/jobs/gardener.sh %i
 # long-running loop; keep it up if it dies, but back off
@@ -54,13 +54,14 @@ RestartSec=5
 # "stop after the current job" request and exits cleanly at its next between-claims
 # point, so the running job finishes instead of being abandoned. TimeoutStopSec must
 # then be long enough for systemd to WAIT for that finish rather than escalating to a
-# cgroup-wide SIGKILL: size it ≥ GARDEN_HANDLER_TIMEOUT (2400) +
-# GARDEN_HANDLER_KILL_AFTER (60) plus slack (gardener.sh § handler-timeout knobs).
-# If those knobs are raised, raise this in lock-step. On expiry, mixed still
-# SIGKILLs the whole cgroup as the hard backstop, so a genuinely wedged handler
-# cannot hold the stop open past this bound.
+# cgroup-wide SIGKILL. A job header may raise the handler wall as high as the
+# single-claim ceiling (14339s at the shipped 14400s claim TTL), so cover that wall,
+# its 60s SIGTERM-to-SIGKILL grace, and a conservative five-minute scheduling/reap
+# margin. Keep test_worker_stop_timeout.sh in lock-step with the shipped gardener
+# bounds. On expiry, mixed still SIGKILLs the whole cgroup as the hard backstop, so
+# a genuinely wedged handler cannot hold the stop open past this bound.
 KillMode=mixed
-TimeoutStopSec=2700
+TimeoutStopSec=14700
 # Per-worker memory confinement. Without a Memory* / OOMPolicy key a memory spike in
 # one handler pressures the WHOLE host and the kernel OOM killer picks an arbitrary
 # victim across every process — it once caught gardener-8 (self-restarts, tolerable),
