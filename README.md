@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-10-08T04:30:10Z_
+_As of 2026-10-08T04:33:45Z_
 
 ## Latest
 
-The Jev triage/foreman orchestration has halted. Its trial child, `trial-jev-triage-foreman-classification`, completed but reported its gated outcome as unsatisfied because `TYPESAFE_API_KEY` is missing from the job environment. The serial run stopped at 1 of 3, leaving `integrate-jev-triage-foreman` parked; a re-run needs the maintainer to provision that key. Elsewhere, the review-docket orchestration moved forward: `build-review-docket` was promoted off the plan queue and claimed now that its design job has finished. The proxy screened [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) twice and merged it at `76bb27628e9`, and its deploy and watchdog validated cleanly. Oros is still offline, so the rolling deploy keeps skipping it until someone checks the Mac by hand. The ocap.site domain becomes eligible for transfer after 2026-10-09 19:55Z, but DNSSEC stays broken until that transfer happens or the registrar adds the DS record.
+On minion.town, [kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and passed validation. The gauntlet for [kriscendobot/minion.town#168](https://github.com/kriscendobot/minion.town/pull/168) used its whole review budget: all six panel/fix rounds ran and CI is green, but the panel never converged, so it now needs a human merge/review decision. [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) passed its clean stage and has panel round 1 queued. Panel round 1 for [kriscendobot/minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) has been claimed. Two new jobs are on the board: `minion-town-locator-fragment-scrub` and `ferry-sync-clone-single-branch`.
+
+**Waiting on you:**
+- **ocap.site:** DNSSEC is still broken because the registrar never published the DS record. Transfer into Route53 should become possible after about 2026-10-09 19:55Z. Your call: start the transfer then, or ask Key-Systems to add the DS record.
+- **Oros:** the host has been offline since 10-02 and someone needs to check it in person.
+- **Jev triage trial:** the trial job stopped because `TYPESAFE_API_KEY` is not provisioned, which halted the orchestration.
+- **OAuth-bonds build:** `orch-minion-town-oauth-bonds` halted because its build child completed without meeting its required outcome.
 
 ## Parked for maintainer feedback
 
@@ -164,6 +170,10 @@ Delegation: **active**
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr509-af58944875b5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr509-af58944875b5.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/509](https://github.com/endojs/endo-but-for-bots/pull/509) ([endojs/endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/issues/509)) is in the mergeable queue with NO gauntlet review staged (head af58944875b5e64e500fbbbacde98dfc77b3fea4). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #509'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `kriscendobot-minion.town-pr168-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr168-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr168-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet kriscendobot-minion.town-pr168-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr347-786d8290d5d9` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr347-786d8290d5d9.md)
 
@@ -429,33 +439,34 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.5M | $522.64 _(notional, rate-card)_ | 41% of 168.0M (ok) |
-| Codex | 9.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 69.3M | $527.74 _(notional, rate-card)_ | 41% of 168.0M (ok) |
+| Codex | 10.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 120824787 tokens/day lower bound._
+_Fleet token-unlock pace: 120783197 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`kriscendobot-minion.town-pr169-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #169
-- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #122
+### todo (3)
+- [`kriscendobot-minion.town-pr169-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #169
+- [`minion-town-locator-fragment-scrub`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-locator-fragment-scrub.md) — minion.town: capture locator fragments early, scrub them from the URL and his...
+- [`ferry-sync-clone-single-branch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ferry-sync-clone-single-branch.md) — Repo
 
 ### doin (5)
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`improve-worker-stop-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-worker-stop-timeout.md) — ---
 - [`build-review-docket`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-review-docket.md) — ---
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1343
-- [`kriscendobot-minion.town-pr168-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #168
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #122
 
-### tada (11582)
+### tada (11585)
+- [`kriscendobot-minion.town-pr168-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr168-gauntlet.md) — gauntlet kriscendobot-minion.town-pr168-gauntlet — review budget reached
+- [`kriscendobot-minion.town-pr169-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-20261008-clean.md) — Cost
+- [`kriscendobot-minion.town-pr168-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr168-gauntlet-fix-6.md) — Gauntlet fix round 6 for kriscendobot/minion.town PR #168: done, CI green
 - [`orch-jev-triage-foreman`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/orch-jev-triage-foreman.md) — orchestration orch-jev-triage-foreman — HALTED
 - [`trial-jev-triage-foreman-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/trial-jev-triage-foreman-classification.md) — Cost
-- [`design-review-docket`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/design-review-docket.md) — Cost
-- [`kriscendobot-minion.town-pr169-gauntlet-20261008-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-20261008-viability.md) — Cost
-- [`kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet.md) — gauntlet kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet - not viable
-- … and 11577 more
+- … and 11580 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
