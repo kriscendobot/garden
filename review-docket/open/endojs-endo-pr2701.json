@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo",
+  "pr": 2701,
+  "url": "https://github.com/endojs/endo/pull/2701",
+  "head_oid": "08e4fc0c2ff191de7d2a07d7496013bb117afd95",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix(pass-style): fix #2700 ignore more safe async_hook extra properties",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-pr2701",
+  "requested_at": "2026-10-08T07:37:35Z",
+  "first_requested_at": "2026-10-08T07:37:35Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:37:38Z"
+  }
+}
