@@ -1,4 +1,5 @@
 ---
+child-design-jev-triage-foreman-integration-reap-count: 0
 order: serial
 children: design-jev-triage-foreman-integration trial-jev-triage-foreman-classification integrate-jev-triage-foreman
 on-child-failure: halt
