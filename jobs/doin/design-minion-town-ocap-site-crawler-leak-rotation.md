@@ -69,6 +69,7 @@ design's `## Open questions`.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-08T20:23:54Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
