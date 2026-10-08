@@ -3,18 +3,18 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 182,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/182",
-  "head_oid": "008798641d251683397889979fb2ccc7d4d3e4d9",
-  "ask": "approve",
+  "head_oid": "78b65e63b5f11cf2d97a637b7d67fc540a386dc9",
+  "ask": "decide",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947)",
+  "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
   "unblocks": [],
-  "source": "native-review-request-endojs-endo-but-for-bots-pr182",
-  "requested_at": "2026-10-08T07:40:07Z",
+  "source": "readiness-audit-endojs-endo-but-for-bots-pr182-78b65e63b5f1",
+  "requested_at": "2026-10-08T17:48:53Z",
   "first_requested_at": "2026-10-08T07:40:07Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
-    "state": "red",
-    "observed_at": "2026-10-08T17:43:05Z"
+    "state": "pending",
+    "observed_at": "2026-10-08T17:48:56Z"
   }
 }
