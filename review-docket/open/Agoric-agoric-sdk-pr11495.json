@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11495,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11495",
+  "head_oid": "73d26b4a01264fb8b8db2655fb9b427bba358bbe",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix: update broken example link for ENDO_DELIVERY_BREAKPOINTS in docs",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11495",
+  "requested_at": "2026-10-08T07:32:52Z",
+  "first_requested_at": "2026-10-08T07:32:52Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:33:09Z"
+  }
+}
