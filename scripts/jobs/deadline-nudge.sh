@@ -30,6 +30,8 @@ export GARDEN_TAG="deadline-nudge"
 DIR="${GARDEN_DEADLINE_NUDGE_CLONE:-$GARDEN_STATE/deadline-nudge/journal}"
 # Host-local count of consecutive ticks whose push failed ambiguously.
 AMBIGUOUS_STREAK="${GARDEN_DEADLINE_NUDGE_AMBIGUOUS_STREAK:-$GARDEN_STATE/deadline-nudge/ambiguous-push-streak}"
+# Host-local count of consecutive ticks that exhausted their retries on lost races.
+CONTENTION_STREAK="${GARDEN_DEADLINE_NUDGE_CONTENTION_STREAK:-$GARDEN_STATE/deadline-nudge/cas-contention-streak}"
 # Host-local, reconstructible record of the current tick's stage and, on a
 # failing exit, its command and breadcrumbs. The tick subshell writes it; the
 # parent reads it into the final WARN (see tick_stage / tick_fault_summary).
@@ -432,6 +434,39 @@ push_ambiguous_clear() {
   return 0
 }
 
+# push_contended: every push attempt this tick lost a classified CAS race. That
+# is the journal being busy, not a fault: the push path demonstrably works and
+# the courtesy timer already retries on its next tick. So reset the private clone
+# to its synced tip (the next tick re-syncs and recomputes every still-due
+# warning) and defer cleanly with rc 0. The log is edge-suppressed: only the
+# first exhausted tick of a streak says so, later ones stay quiet, and the next
+# successful push logs the clear. Exiting non-zero here turned one busy minute
+# into three warnings (the stage ERROR, the EXIT-trap ERROR, and the tick WARN)
+# on 2026-10-08T19:26:26Z.
+push_contended() {
+  local streak=0
+  [ ! -r "$CONTENTION_STREAK" ] || streak="$(head -1 "$CONTENTION_STREAK" 2>/dev/null || true)"
+  [[ "$streak" =~ ^[0-9]+$ ]] || streak=0
+  streak=$((streak + 1))
+  { mkdir -p "${CONTENTION_STREAK%/*}" && printf '%s\n' "$streak" > "$CONTENTION_STREAK"; } 2>/dev/null || true
+  [ "$streak" -gt 1 ] \
+    || log "deadline-nudge push stage lost every race ($GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS attempt(s)) to concurrent journal pushes; deferring to next timer tick (further contended ticks are not logged until a push lands)"
+  clone_lock "$DIR"
+  git -C "$DIR" reset -q --hard "origin/$JOURNAL_BRANCH" 2>/dev/null || true
+  git -C "$DIR" clean -qfd inbox 2>/dev/null || true
+  clone_unlock "$DIR"
+  return 0
+}
+
+push_contended_clear() {
+  local streak
+  [ -r "$CONTENTION_STREAK" ] || return 0
+  streak="$(head -1 "$CONTENTION_STREAK" 2>/dev/null || true)"
+  rm -f "$CONTENTION_STREAK" 2>/dev/null || true
+  log "deadline-nudge push contention cleared after ${streak:-?} deferred tick(s)"
+  return 0
+}
+
 deadline_nudge_tick() {
   local now attempt rc stage_rc
   for value in "$GARDEN_DEADLINE_NUDGE_INTERVAL" "$GARDEN_DEADLINE_NUDGE_FRACTION" \
@@ -515,6 +550,7 @@ deadline_nudge_tick() {
           "deadline-nudge on $GARDEN pushed to $JOURNAL_BRANCH again; the push rejection has cleared." \
           && log "deadline-nudge push rejection cleared"
         push_ambiguous_clear
+        push_contended_clear
         return 0 ;;
       2) return 0 ;;
     esac
@@ -539,9 +575,7 @@ deadline_nudge_tick() {
     log "deadline-nudge push stage lost a race (attempt $attempt/$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS); recomputing claims"
     [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" ] || backoff "$attempt"
   done
-  log "ERROR: deadline-nudge push stage exhausted after $GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS attempt(s); deferring to next timer tick"
-  tick_fault_detail "push stage exhausted after $GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS attempt(s) (last commit_and_push rc=$rc)"
-  return 1
+  push_contended
 }
 
 # Failure diagnostics for the tick subshell. A bare "tick failed (rc=1)" names

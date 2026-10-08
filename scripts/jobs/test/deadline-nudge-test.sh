@@ -608,6 +608,63 @@ else
   bad 'shared push classifier widened the race class past the expected-value mismatch'
 fi
 
+# Continuous CAS contention: every push attempt loses a classified ref-lock race.
+# That is a busy journal, not a fault, and the courtesy timer already retries:
+# the tick must defer cleanly (no ERROR, no tick WARN, no fault rc), reset its
+# clone, log the deferral only on the first contended tick of a streak, raise no
+# alert, and log the clear once a push lands (2026-10-08T19:26:26Z).
+cas_stub="$TEST_ROOT/cas-push-stub.sh"
+cas_count="$TEST_ROOT/cas.count"
+cat > "$cas_stub" <<'STUB'
+#!/bin/bash
+printf 'x\n' >> "$GARDEN_NUDGE_CAS_COUNT"
+printf '%s\n' " ! [remote rejected]       HEAD -> journal2 (cannot lock ref 'refs/heads/journal2': is at 1111111111111111111111111111111111111111 but expected 2222222222222222222222222222222222222222)" \
+  "error: failed to push some refs to 'origin'" >&2
+exit 1
+STUB
+chmod +x "$cas_stub"
+add_claim_at_tip contended 300
+run_cas() {
+  run_nudge contended-scan env GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=3 \
+    GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=1 \
+    GARDEN_NUDGE_CAS_COUNT="$cas_count" GARDEN_PUSH_CMD="$cas_stub" > "$1" 2>&1
+}
+run_cas "$TEST_ROOT/contended.out"
+cas_rc=$?
+cas_clone="$STATE/contended-scan/journal"
+if [ "$cas_rc" -eq 0 ] && [ -z "$(nudge_paths contended)" ] \
+  && [ "$(wc -l < "$cas_count")" -eq 3 ] \
+  && grep -q 'push stage lost a race (attempt 3/3)' "$TEST_ROOT/contended.out" \
+  && grep -q 'lost every race (3 attempt(s))' "$TEST_ROOT/contended.out" \
+  && ! grep -qE 'ERROR|WARN|exhausted|failed locally|repair alert' "$TEST_ROOT/contended.out" \
+  && [ "$(cat "$STATE/deadline-nudge/cas-contention-streak" 2>/dev/null)" = 1 ] \
+  && [ "$(git -C "$cas_clone" rev-parse HEAD)" = "$(git -C "$cas_clone" rev-parse "origin/$BRANCH")" ] \
+  && [ -z "$(git -C "$cas_clone" status --porcelain)" ]; then
+  ok 'exhausted lost-race retries defer cleanly with no warning and a reset clone'
+else
+  bad 'exhausted lost-race retries warned, failed the tick, or left staged state'
+  sed 's/^/    /' "$TEST_ROOT/contended.out" | tail -8
+fi
+run_cas "$TEST_ROOT/contended-2.out"
+if [ "$(wc -l < "$cas_count")" -eq 6 ] \
+  && ! grep -q 'lost every race' "$TEST_ROOT/contended-2.out" \
+  && ! grep -qE 'ERROR|WARN|exhausted|failed locally' "$TEST_ROOT/contended-2.out" \
+  && [ "$(cat "$STATE/deadline-nudge/cas-contention-streak" 2>/dev/null)" = 2 ]; then
+  ok 'continued CAS contention stays edge-suppressed on later ticks'
+else
+  bad 'continued CAS contention re-logged the deferral or warned'
+  sed 's/^/    /' "$TEST_ROOT/contended-2.out" | tail -5
+fi
+run_nudge contended-scan > "$TEST_ROOT/contended-clear.out" 2>&1
+if [ -n "$(nudge_paths contended)" ] \
+  && [ ! -e "$STATE/deadline-nudge/cas-contention-streak" ] \
+  && grep -q 'push contention cleared after 2 deferred tick(s)' "$TEST_ROOT/contended-clear.out"; then
+  ok 'the next successful push delivers the warning and clears the contention streak'
+else
+  bad 'recovery after contention did not deliver the warning or clear the streak'
+  sed 's/^/    /' "$TEST_ROOT/contended-clear.out" | tail -5
+fi
+
 run_nudge invalid env GARDEN_DEADLINE_NUDGE_INTERVAL=oops > "$TEST_ROOT/invalid.out" 2>&1
 [ "$?" -eq 0 ] && grep -q 'disabling this tick' "$TEST_ROOT/invalid.out" && ok 'invalid timing knob disables one tick cleanly' || bad 'invalid timing knob did not fail open'
 set +e
