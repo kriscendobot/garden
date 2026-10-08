@@ -55,3 +55,13 @@ the ordinary gauntlet).
   (`post-job.sh`/`claim-job.sh`/`gardener.sh` refusing `role: boatman`), or
   anything else in the dedicated-ferry-dispatch design — this is a narrow
   clone-flag fix.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-08T04:44:18Z
