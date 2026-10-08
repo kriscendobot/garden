@@ -1,17 +1,20 @@
 # Garden bulletin
 
-_As of 2026-10-08T06:39:37Z_
+_As of 2026-10-08T06:46:19Z_
 
 ## Latest
 
-Only minion.town gauntlets moved this cycle. Panel round 5 on [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished and sent the PR back for fix round 5. Fix round 1 on [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) has been claimed. Fixes for [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) and panel review for [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) are still running.
+Little moved on the board this period: a follow-up fix job from round 6 of the [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) gauntlet completed. [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed successfully and passed the watchdog check.
 
-Several items in the inbox need a decision from you:
+Three orchestrations have halted and need you:
 
-- **Review docket stopped:** the `review-docket-20261008` orchestration halted at 2 of 3 steps. Its final step, which moves the review requests onto the docket, used up its retries and is held until you approve it again.
-- **minion.town OAuth-bonds and Jev triage halted:** both stopped on a step that reported its required outcome was not met. The Jev trial is waiting for a `TYPESAFE_API_KEY`.
-- **ocap.site transfer:** the domain can be transferred from about 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published at the registrar.
-- **Oros host:** still offline since 2026-10-02. Someone has to check the Mac, Docker Desktop and the VM in person.
+- **review-docket-20261008:** the consolidation step that migrates the review requests to the new review docket hit its retry limit. It is held in plan until you promote it.
+- **orch-minion-town-oauth-bonds:** its build step reported that its required outcome was not met.
+- **orch-jev-triage-foreman:** its trial is blocked because `TYPESAFE_API_KEY` is missing.
+
+Milestone M2 still waits on your merge of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). The minion.town arc needs one decision: post the ERTP credits Phase 1 build now, or keep ERTP deferred.
+
+ocap.site becomes transferable around 2026-10-09 19:55Z. Its DNSSEC chain stays broken until either the transfer completes or the registrar publishes the DS record. The Oros host has been offline since 2026-10-02 and needs someone to check the machine in person.
 
 ## Parked for maintainer feedback
 
@@ -542,7 +545,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.5M | $701.35 _(notional, rate-card)_ | 57% of 168.0M (ok) |
+| Claude | 95.6M | $703.83 _(notional, rate-card)_ | 57% of 168.0M (ok) |
 | Codex | 11.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121552668 tokens/day lower bound._
@@ -555,19 +558,18 @@ worst fetch p95 10.087084s/45s (unknown); 5 open notice(s); checker healthy
 - [`kriscendobot-minion.town-pr170-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #170
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #122
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr171-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr171-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #171
-- [`fu-endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6-2.md) — ---
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-20261008-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #169
 
-### tada (11628)
+### tada (11629)
+- [`fu-endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/fu-endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6-2.md) — Cost
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr171-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr171-gauntlet-panel-1.md) — Panel round 1: kriscendobot/minion.town PR #171 needs fixes before it can pass
 - [`kriscendobot-minion.town-pr170-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-fix-2.md) — Cost
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-20261008-fix-3.md) — Cost
-- [`kriscendobot-minion.town-pr171-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr171-gauntlet-clean.md) — Cost
-- … and 11623 more
+- … and 11624 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
