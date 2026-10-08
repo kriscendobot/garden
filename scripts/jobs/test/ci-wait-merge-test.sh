@@ -81,6 +81,7 @@ bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 rm -rf "$TR"; mkdir -p "$TR"
 export STUBDIR="$TR" GARDEN_GH="$TR/gh"
 export GARDEN_REBASE_PR="$TR/rebase-pr"
+export GARDEN_CI_DOCKET_REQUEST=/bin/true
 export GARDEN_NO_MAINTAINER_ALERT=1
 export GARDEN_CI_POLL_SECS=0 GARDEN_CI_POLL_MAX_SECS=0 GARDEN_CI_DEADLINE_SECS=5
 printf 'kriskowal\n' > "$TR/maintainers"

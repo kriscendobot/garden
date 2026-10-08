@@ -636,10 +636,11 @@ contention_section() {
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h monks maint m mf rt frm repo link now board parked plan spend contention screened
+  local watch hosts_block h monks maint m mf rt frm repo link now board parked docket_count plan spend contention screened
   board=$(render_board)
   plan=$(render_plan_queue)
-  parked=$(parked_section)
+  docket_count="$(find "$DIR/review-docket/open" -maxdepth 1 -type f -name '*.json' 2>/dev/null | wc -l)"
+  parked="${docket_count} open · [ordered priorities and review docket](${GARDEN_BLOB_BASE}/PRIORITIES.md)"
   # Per-provider spend & quota (deterministic; NO claude/codex in the render path;
   # each cell degrades to "unavailable"/"no quota set"/"n/a" — never a fake number).
   spend=$(render_quota_panel 2>/dev/null || printf '(spend panel unavailable)\n')
@@ -698,7 +699,7 @@ compute_dashboard() {
 
 _As of ${now}_
 
-## Parked for maintainer feedback
+## Maintainer review docket
 
 ${parked}
 ## Screened by proxy (minion.town)

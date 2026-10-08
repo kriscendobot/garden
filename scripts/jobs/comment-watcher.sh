@@ -2072,6 +2072,26 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
     slide "$created"; continue
   fi
 
+  # An allowlisted formal review satisfies the review obligation regardless of
+  # its state or whether its body dispatches follow-up work. The clerk applies
+  # the narrow maintainers/allowlist gate itself; invoke it for every review so
+  # that gate cannot accidentally depend on this watcher's broader sender-trust
+  # classification. Failure freezes this event below the cursor.
+  if [ "$surface" = pr-review-body ]; then
+    review_state=COMMENTED
+    case "$body" in
+      *'[CHANGES_REQUESTED]'*) review_state=CHANGES_REQUESTED ;;
+      *'[APPROVED]'*) review_state=APPROVED ;;
+    esac
+    if ! "$HERE/review-docket.sh" retire-review "https://github.com/$repo/pull/$pr" \
+         "$author" "$review_state" "$created" "$cid"; then
+      [ -n "$fail_floor" ] || fail_floor="$created"
+      failed=$((failed+1))
+      log "REVIEW-DOCKET RETIRE LOST for $repo#$pr review $cid; cursor frozen below $created"
+      continue
+    fi
+  fi
+
   # --- dedup: an inline review-comment SUBSUMED by its review's `review` job -----
   # The source marks a pr-review-comment as *subsumed* when its parent review is ALSO
   # surfaced this poll as an inline-bearing pr-review-body — which mints ONE keyed

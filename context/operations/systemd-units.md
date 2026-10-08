@@ -1,7 +1,7 @@
 ---
 created: 2026-09-28
-updated: 2026-09-28
-author: gardener
+updated: 2026-10-08
+author: builder, gardener
 ---
 
 # Garden systemd units
@@ -31,6 +31,8 @@ systemd `%i` value described in the detailed entry.
 | `garden-dependabot-watcher@` | 90 seconds after boot, then 5 minutes | leader | Post botanist work for new Dependabot PRs. |
 | `garden-approval-reconciler@` | 2 minutes after boot, then 15 minutes | leader | Recover missed approved-PR finalization work. |
 | `garden-receipt-watcher@` | 90 seconds after boot, then 5 minutes | leader | Generate receipts for terminal garden-worked PRs. |
+| `garden-review-queue` | long-running, 2-minute polls | leader | Import native GitHub review requests into the review docket. |
+| `garden-review-docket-reconcile` | every 5 minutes at `:02` | leader | Retire satisfied requests and refresh docket metadata. |
 | `garden-repo-watcher` | 1 minute after the prior run | host | Reconcile all per-repository watcher instances. |
 | `garden-mention-watcher` | 90 seconds after the prior run | leader | Watch trusted GitHub-wide bot mentions; manually armed. |
 | `garden-issue-inbox` | 45 seconds after boot, then 2 minutes | leader | Route garden-repository issues into jobs or the maintainer inbox. |
@@ -280,6 +282,15 @@ separating owner from repository. `repo-watcher.sh` arms `garden-triager@` from
   180-second source timeout, and 300-second generation timeout; state is the
   per-repo `$GARDEN_STATE/receipt-watcher/journal-%i` clone and journal receipt
   cursors/archive/comments.
+- **`garden-review-queue.service`:** leader-only long-running poller. Runs
+  `scripts/jobs/review-queue-daemon.sh`, which polls GitHub every two minutes and
+  imports ADD events through the clerk intake. Requested-reviewer REMOVE events
+  never retire a docket record. State is `$GARDEN_STATE/review-queue/`.
+- **`garden-review-docket-reconcile.timer`,
+  `garden-review-docket-reconcile.service`:** leader-only; every five minutes at
+  `:02`, with up to 30 seconds of jitter. Runs
+  `scripts/jobs/review-docket-reconcile.sh` to refresh heads and CI and to retire
+  records only on allowlisted review or merged/closed evidence.
 
 Each service is a bounded oneshot and uses `KillMode=mixed`. Inspect a concrete
 timer and service together. To stop one repository durably, mask both concrete

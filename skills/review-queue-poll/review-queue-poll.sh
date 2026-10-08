@@ -75,12 +75,12 @@ if os.path.exists(archived_path):
     except Exception:
         archived_cache = {}
 ARCHIVED_TTL_SECONDS = 24 * 60 * 60
-now = datetime.datetime.utcnow()
+now = datetime.datetime.now(datetime.timezone.utc)
 def archived_for(repo):
     entry = archived_cache.get(repo)
     if entry and entry.get('fetchedAt'):
         try:
-            fetched = datetime.datetime.strptime(entry['fetchedAt'], '%Y-%m-%dT%H:%M:%SZ')
+            fetched = datetime.datetime.strptime(entry['fetchedAt'], '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=datetime.timezone.utc)
             if (now - fetched).total_seconds() < ARCHIVED_TTL_SECONDS:
                 return bool(entry.get('isArchived', False))
         except Exception:
@@ -140,7 +140,7 @@ prev_keys = {key(r): r for r in prev}
 cur_keys  = {key(r): r for r in canon}
 added   = [cur_keys[k] for k in cur_keys if k not in prev_keys]
 removed = [prev_keys[k] for k in prev_keys if k not in cur_keys]
-ts = datetime.datetime.utcnow().strftime('%H:%M:%S')
+ts = datetime.datetime.now(datetime.timezone.utc).strftime('%H:%M:%S')
 if added or removed:
     for r in added:
         title = r['title'].replace("'", "\\'")
@@ -169,6 +169,35 @@ with open(atmp, 'w') as f:
 os.replace(atmp, archived_path)
 PY
 
+    # ADD imports the native GitHub request into the durable clerk queue. REMOVE
+    # is only a wake signal; positive review or terminal evidence retires it.
+    if [ -f "$STATE/current.json" ]; then
+      previous="$STATE/prev.json"
+      if [ -f "$previous" ]; then previous_json="$(cat "$previous")"; else previous_json='[]'; fi
+      jq -c --argjson previous "$previous_json" '
+        .[] as $row
+        | select(($previous | any(.repo==$row.repo and .number==$row.number)) | not)
+        | $row
+      ' "$STATE/current.json" |
+      while IFS= read -r row; do
+        url="$(jq -r .url <<<"$row")"
+        repo="$(jq -r .repo <<<"$row")"
+        number="$(jq -r .number <<<"$row")"
+        title="$(jq -r .title <<<"$row")"
+        docket="${GARDEN_REVIEW_QUEUE_DOCKET:-$(cd "$(dirname "$0")/../.." && pwd)/scripts/jobs/review-docket-request.sh}"
+        if ! "$docket" --url "$url" --ask approve \
+          --source "native-review-request-${repo//\//-}-pr$number" --summary "$title" \
+        ; then
+          echo "[$(date -u +%H:%M:%S)] docket intake failed for $repo#$number; retaining it as an ADD for retry" >&2
+          retry="$STATE/current.json.retry.$$"
+          jq --arg repo "$repo" --argjson number "$number" \
+            '[.[] | select(.repo != $repo or .number != $number)]' \
+            "$STATE/current.json" > "$retry"
+          mv "$retry" "$STATE/current.json"
+        fi
+      done
+    fi
+
   else
     echo "[$(date -u +%H:%M:%S)] gh search failed:" >&2
     head -c 500 "$TMP_ERR" >&2
@@ -184,5 +213,6 @@ PY
   fi
 
   rm -f "$TMP_OUT" "$TMP_ERR"
+  [ "${GARDEN_REVIEW_QUEUE_ONESHOT:-0}" = 1 ] && break
   sleep "$CADENCE"
 done

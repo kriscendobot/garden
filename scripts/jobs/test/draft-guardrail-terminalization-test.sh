@@ -38,6 +38,7 @@ git -C "$TR/seed" push -q origin HEAD:journal2
 
 : > "$TR/handler-calls.log"
 : > "$TR/gh-calls.log"
+: > "$TR/docket.log"
 report='Ready PR: https://github.com/endojs/endo-but-for-bots/pull/201
 
 Implementation complete.'
@@ -48,6 +49,8 @@ env GARDEN=draft-terminal-test GARDEN_STATE="$TR/state" \
   GARDEN_PRODUCER_CLONE="$TR/state/producer/journal" \
   GARDEN_GH="$HERE/assert-producer-pr-draft-gh-stub.sh" \
   GARDEN_GH_CALL_LOG="$TR/gh-calls.log" \
+  GARDEN_GARDENER_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh" \
+  GARDEN_DOCKET_SPY_LOG="$TR/docket.log" \
   GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_REPORT="$report" \
   GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
   GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
@@ -60,11 +63,9 @@ tada="$(find "$TR/verify/jobs/tada" -type f -name readyjob.md -print -quit)"
 [ ! -e "$TR/verify/jobs/todo/readyjob.md" ] || fail 'guarded completed job was requeued'
 [ "$(wc -l < "$TR/handler-calls.log")" -eq 1 ] || fail 'handler ran more than once'
 
-msg="$TR/verify/inbox/maintainer/unread/manual-gauntlet-handoff-endojs-endo-but-for-bots-pr201.md"
-[ -f "$msg" ] || fail 'durable manual-gauntlet maintainer action was not recorded'
-grep -q 'reply_to: readyjob' "$msg" || fail 'maintainer action is not attributed to the completed job'
-grep -q 'did not re-draft the PR and did not stage a gauntlet' "$msg" \
-  || fail 'maintainer action does not preserve the non-mutating contract'
+grep -q -- '--ask decide' "$TR/docket.log" || fail 'manual-gauntlet decision was not sent to the docket'
+grep -q 'manual-gauntlet-handoff-endojs-endo-but-for-bots-pr201' "$TR/docket.log" \
+  || fail 'docket request lacks stable per-PR identity'
 grep -q '## Manual gauntlet handoff' "$tada" \
   || fail 'completion report does not record the terminal handoff'
 grep -q 'terminalized it' "$TR/gardener.log" || fail 'terminalization was not logged'
@@ -87,6 +88,8 @@ env GARDEN=draft-terminal-test GARDEN_STATE="$TR/state2" \
   GARDEN_PRODUCER_CLONE="$TR/state2/producer/journal" \
   GARDEN_GH="$HERE/assert-producer-pr-draft-gh-stub.sh" \
   GARDEN_GH_CALL_LOG="$TR/gh-calls.log" \
+  GARDEN_GARDENER_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh" \
+  GARDEN_DOCKET_SPY_LOG="$TR/docket.log" \
   GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_REPORT="$report" \
   GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
   GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
@@ -96,7 +99,7 @@ rm -rf "$TR/verify"
 git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
 [ -n "$(find "$TR/verify/jobs/tada" -type f -name readyjob-two.md -print -quit)" ] \
   || fail 'second producer job did not terminalize in tada'
-[ "$(find "$TR/verify/inbox/maintainer/unread" -name 'manual-gauntlet-handoff-*.md' | wc -l)" -eq 1 ] \
-  || fail 'two jobs naming one PR created more than one manual-gauntlet action'
+[ "$(wc -l < "$TR/docket.log")" -eq 2 ] \
+  || fail 'each producer did not converge through the same stable docket identity'
 
 echo 'PASS: conclusive draft guardrail hits terminalize completed jobs with one durable per-PR manual-gauntlet action, no PR mutation, and no repeated handler run'

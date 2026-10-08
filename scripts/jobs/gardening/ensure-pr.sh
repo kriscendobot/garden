@@ -296,6 +296,19 @@ discover() {
 # url_for <number> — the PR's URL, derived without another query.
 url_for() { printf 'https://github.com/%s/pull/%s\n' "$repo" "$1"; }
 
+maybe_docket_open_questions() { # <pr-number>
+  local number="$1" text="$body_text" own=1 candidate
+  [ -z "$text" ] && [ -n "$body_file" ] && [ -f "$body_file" ] && text="$(cat "$body_file")"
+  case "$text" in *'<!-- garden-design-open-questions -->'*) :;; *) return 0;; esac
+  for candidate in "$GARDEN_PRODUCTION_JOURNAL_REPO" $GARDEN_PRODUCTION_JOURNAL_REPO_ALIASES; do
+    [ "$repo" = "$candidate" ] && own=0
+  done
+  [ "$own" -eq 0 ] || return 0
+  "$HERE/../review-docket-request.sh" --url "$(url_for "$number")" --ask decide \
+    --source "$base-design-open-questions" \
+    --summary "Answer the design's open questions before its dependent build proceeds"
+}
+
 # report_ambiguous <numbers...> — the never-guess exit. Every candidate goes to
 # stdout (the caller's list to resolve); the explanation goes to stderr.
 report_ambiguous() {
@@ -312,6 +325,7 @@ EOF
 # --- 1. the recorded fast path (no GitHub query at all) ----------------------
 if pr="$(recorded_pr)"; then
   log "work/$base already records $repo#$pr"
+  maybe_docket_open_questions "$pr"
   printf '%s\n' "$pr"
   exit 0
 fi
@@ -330,6 +344,7 @@ case "${#candidates[@]}" in
   1) pr="${candidates[0]}"
      log "job '$base' already has $repo#$pr open; creating nothing"
      record_pr "$pr" "$(url_for "$pr")"
+     maybe_docket_open_questions "$pr"
      printf '%s\n' "$pr"
      exit 0 ;;
   0) : ;;
@@ -484,5 +499,6 @@ fi
 draft_note="ready-for-review"; [ "$draft" -eq 1 ] && draft_note=draft
 log "opened $repo#$pr ($draft_note) for job '$base' (head $head, base $base_branch)"
 record_pr "$pr" "$(url_for "$pr")"
+maybe_docket_open_questions "$pr"
 printf '%s\n' "$pr"
 exit 0

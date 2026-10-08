@@ -1,0 +1,10 @@
+[Unit]
+Description=Garden maintainer review docket reconcile timer
+
+[Timer]
+OnCalendar=*:02/5
+Persistent=true
+RandomizedDelaySec=30s
+
+[Install]
+WantedBy=timers.target

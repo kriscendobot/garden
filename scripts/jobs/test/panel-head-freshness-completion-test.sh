@@ -41,6 +41,7 @@ git -C "$TR/seed" push -q origin HEAD:journal2
 
 : >"$TR/handler-calls.log"
 : >"$TR/gh-calls.log"
+: >"$TR/docket.log"
 report='Updated draft PR: https://github.com/endojs/endo-but-for-bots/pull/301'
 
 env GARDEN=panel-fresh-terminal-test GARDEN_STATE="$TR/state" \
@@ -49,6 +50,8 @@ env GARDEN=panel-fresh-terminal-test GARDEN_STATE="$TR/state" \
   GARDEN_PRODUCER_CLONE="$TR/state/producer/journal" \
   GARDEN_GH="$HERE/panel-head-freshness-completion-gh-stub.sh" \
   GARDEN_GH_CALL_LOG="$TR/gh-calls.log" \
+  GARDEN_GARDENER_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh" \
+  GARDEN_DOCKET_SPY_LOG="$TR/docket.log" \
   GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_REPORT="$report" \
   GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
   GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
@@ -59,10 +62,9 @@ stale_tada="$(find "$TR/verify/jobs/tada" -type f -name stalejob.md -print -quit
 [ -n "$stale_tada" ] || fail 'stale producer did not terminalize'
 [ ! -e "$TR/verify/jobs/doin/stalejob.md" ] || fail 'stale producer remained in doin'
 [ "$(wc -l <"$TR/handler-calls.log")" -eq 1 ] || fail 'producer handler reran'
-message="$TR/verify/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr301-aaaaaaaa-bbbbbbbb.md"
-[ -f "$message" ] || fail 'deduplicated stale-review action was not recorded'
-grep -q 'Disposition: \*\*review required\*\*' "$message" || fail 'maintainer action lacks explicit disposition'
-grep -q 'No gauntlet was staged' "$message" || fail 'manual-trigger policy is not explicit'
+grep -q -- '--ask re-review' "$TR/docket.log" || fail 'stale review was not sent to the docket'
+grep -q 'stale-panel-head-endojs-endo-but-for-bots-pr301-aaaaaaaa-bbbbbbbb' "$TR/docket.log" \
+  || fail 'docket request lacks stable stale-head identity'
 grep -q '## Panel-head freshness' "$stale_tada" || fail 'tada report lacks freshness disposition'
 [ ! -e "$TR/verify/jobs/gauntlet/endojs-endo-but-for-bots-pr301-gauntlet.md" ] || fail 'freshness gate silently staged a gauntlet'
 ! grep -qE 'pr (ready|merge|edit|close|reopen)' "$TR/gh-calls.log" || fail 'freshness gate mutated the PR'

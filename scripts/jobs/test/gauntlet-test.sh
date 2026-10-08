@@ -96,6 +96,9 @@ mkdir -p "$GAUNTLET_GH_COMMENTS" "$GARDEN_API_COOLDOWN_DIR" "$GARDEN_CCUSAGE_LOG
 # ticks hermetic and network-free. The gate's own behaviour is proven in
 # assert-pinned-base-test.sh and the halt path in gauntlet-pin-gate-test.sh.
 export GARDEN_ASSERT_PINNED_BASE=/bin/true
+export GARDEN_GAUNTLET_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh"
+export GARDEN_DOCKET_SPY_LOG="$TR/review-docket-calls.log"
+: > "$GARDEN_DOCKET_SPY_LOG"
 export GARDEN_POST_ATTEMPTS=50
 export GARDEN_CLAIM_TTL=14400 GARDEN_HANDLER_KILL_AFTER=60
 # Keep the CI-blocking-stage budget line deterministic (not required by the test, but
@@ -366,11 +369,9 @@ g3_summary="$(tada_body g3)"
 printf '%s' "$g3_summary" | grep -qi 'changes pushed and CI green' \
   && ok "review-budget summary records the final fix's usable CI-green outcome" \
   || bad "nonconverge: summary does not record the CI-green final fix"
-board inbox/maintainer/unread >/dev/null
-{ grep -rqi 'INFO:.*review budget reached' "$V/inbox/maintainer/unread" 2>/dev/null \
-    && ! grep -rqi 'HALTED' "$V/inbox/maintainer/unread" 2>/dev/null; } \
-  && ok "review exhaustion surfaced as a quiet INFO human-decision notice" \
-  || bad "nonconverge: no quiet review-budget notice (inbox: $(ls "$V/inbox/maintainer/unread" 2>/dev/null))"
+grep -q -- '--ask re-review' "$GARDEN_DOCKET_SPY_LOG" \
+  && ok "review exhaustion entered the maintainer review docket" \
+  || bad "nonconverge: no review-docket request: [$(cat "$GARDEN_DOCKET_SPY_LOG")]"
 g3_comment="$(terminal_comment_body g3 review-budget-reached)"
 { [ "$(terminal_comment_count g3 review-budget-reached)" = 1 ] \
     && printf '%s' "$g3_comment" | grep -Fq '**Gauntlet terminal — review-budget-reached**' \

@@ -695,6 +695,11 @@ if [ "$ratchet_delegated_merge" -eq 1 ]; then
 elif [ "$dependabot_approval_bypass" -eq 1 ]; then
   echo "approval-bypass repo=$repo pr=$pr author=$GARDEN_DEPENDABOT_LOGIN mode=dependabot-auto-merge"
 elif ! "$HERE/../handlers/pr-maintainer-approval-gh.sh" "$repo" "$pr"; then
+  "${GARDEN_CI_DOCKET_REQUEST:-$HERE/../review-docket-request.sh}" --url "https://github.com/$repo/pull/$pr" \
+    --ask approve --source "${repo//\//-}-pr$pr-conductor" \
+    --summary "Green conductor is waiting for maintainer approval" \
+    --unblocks-json "[{\"kind\":\"job\",\"ref\":\"${GARDEN_JOB_BASE:-${repo//\//-}-pr$pr-conduct}\",\"summary\":\"allows the conductor to merge this PR\"}]" \
+    || echo "review-docket intake failed for $repo#$pr; merge remains blocked" >&2
   echo "merge blocked: no maintainer approval repo=$repo pr=$pr"
   exit 1
 fi

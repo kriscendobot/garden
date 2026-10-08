@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden maintainer review docket reconciler
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/review-docket-reconcile.sh
+TimeoutStartSec=900

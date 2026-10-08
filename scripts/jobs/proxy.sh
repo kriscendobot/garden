@@ -322,6 +322,12 @@ clear_pr_comment_messages() {
     local moved=()
     declare -A counts=()
     while IFS= read -r f; do
+      # Review obligations are queue records, never disposable PR notices. Keep
+      # legacy producer messages visible until the migration child has imported
+      # them, and protect any accidentally-routed future request as well.
+      case "$(basename "$f")" in
+        review-request-*|manual-gauntlet-handoff-*|stale-panel-head-*|*-review-budget-reached*) continue ;;
+      esac
       # blocked_on messages belong to park_blocked_jobs — never double-handle.
       blocked="$(sed -n 's/^blocked_on:[[:space:]]*//p' "$f" | head -1)"
       [ -n "$blocked" ] && continue

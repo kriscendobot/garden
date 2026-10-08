@@ -1,14 +1,14 @@
 ---
 created: 2026-05-12
-updated: 2026-06-24
-author: gardener, liaison
+updated: 2026-10-08
+author: builder, gardener, liaison
 ---
 
 # Skill: review-queue-poll
 
 Poll the GitHub search API for the set of open pull requests on which `kriskowal` is a requested reviewer, persist the canonical set atomically, and emit one log line per add/remove since the previous tick.
 
-In v2 this is a **producer**: a [watchman](../job-board/SKILL.md)/triager-style poll unit that watches kriskowal's pending-review set (trusted GitHub state, not arbitrary repo bodies — safe to poll by construction) and surfaces motion. When a new PR enters the queue, the producer posts a `review-queue` job to the board (or appends to the pending-reviews bulletin section); a gardener or the liaison reacts. This skill is the operational contract the sibling poll script `review-queue-poll.sh` implements; the LLM side reads the script's outputs, it does not call the search itself.
+In v2 this is a **producer**: a leader-only poll unit that watches kriskowal's pending-review set (trusted GitHub state, not arbitrary repo bodies — safe to poll by construction) and surfaces motion. An ADD calls `scripts/jobs/review-docket-request.sh`; a REMOVE is only a wake signal and never retirement evidence. This skill is the operational contract the sibling poll script `review-queue-poll.sh` implements.
 
 ## Inputs
 
@@ -51,19 +51,13 @@ Inside `state_dir`, atomic via `*.tmp` + `mv`:
 
 ## Procedure (consumer reaction)
 
-A consumer (a gardener claiming a posted `review-queue` job, or the liaison reacting in-session) reads the producer's outputs:
+A deterministic consumer reads the producer's outputs:
 
 1. `tail -200 $GARDEN_STATE/review-queue.log` and find lines newer than the prior cycle's close. Note the ADD/REMOVE set as the cycle's delta.
 2. Read `$GARDEN_STATE/review-queue/current.json` (the source of truth for what is currently pending).
-3. Sort the set per the priority rule the consuming role carries. With today's data, every item is tier (3) (fresh request); draft items group at the bottom.
-4. Rewrite the *Pending kriskowal reviews* section of the pending-reviews bulletin between the section's delimiters. Each item is one line:
-
-   ```
-   - [<repo>#<n>](<url>) <title> — <author>, requested <relative-time>[, draft]
-   ```
-
-   Trim the title to ~60 chars if needed; the URL is the canonical link.
-5. Commit the bulletin change and record a short summary of the deltas. (When the producer posts a job rather than the consumer rendering in-session, the posting itself carries the delta and the gardening completion records the outcome per [job-board](../job-board/SKILL.md).)
+3. On each ADD, upsert the PR with `ask: approve`, `arc: unallocated`, and the PR title as the initial summary. The clerk refreshes trusted head and CI metadata itself.
+4. On REMOVE, do not retire. The review event watcher, approval reconciler, receipt watcher, or periodic docket reconciler must supply positive review/terminal evidence.
+5. The clerk transaction regenerates `PRIORITIES.md`; the bulletin links that single ordered view.
 
 ## Monitoring safety
 

@@ -102,9 +102,9 @@ record_count() {  # record_count <gauntlet-base>
   rm -rf "$clone"
   printf '%s\n' "$n"
 }
-# Count alert-log lines whose key names a given PR (via the pr<N> slug).
+# Count docket calls whose source names a given PR (via the pr<N> slug).
 alert_count() {  # alert_count <pr-token e.g. pr47>
-  grep -c "minion.town-$1-" "$GARDEN_AUDIT_ALERT_LOG" 2>/dev/null || true
+  grep -c "minion.town-$1-" "$GARDEN_DOCKET_SPY_LOG" 2>/dev/null || true
 }
 
 # --- stubs (committed, not under noexec /tmp) --------------------------------------
@@ -114,6 +114,9 @@ export GARDEN_GH="$HERE/design-pr-audit-gh-stub.sh"
 export GARDEN_ALERT_CMD="$HERE/design-pr-audit-alert-spy.sh"
 export GARDEN_AUDIT_ALERT_LOG="$TR/alert-calls.log"
 : >"$GARDEN_AUDIT_ALERT_LOG"
+export GARDEN_DPGCA_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh"
+export GARDEN_DOCKET_SPY_LOG="$TR/review-docket-calls.log"
+: > "$GARDEN_DOCKET_SPY_LOG"
 # Gauntlet-post spy — proves the historical snapshot is inert and records the
 # bounded post-arm staging calls without mutating the fixture journal.
 export GARDEN_DPGCA_GAUNTLET_POST="$HERE/design-pr-audit-gauntlet-spy.sh"

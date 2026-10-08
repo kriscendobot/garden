@@ -95,6 +95,21 @@ pr_number="$(printf '%s' "$ref" | cut -f2)"
 slug="${repo%/*}-${repo#*/}"
 gauntlet_base="${slug}-pr${pr_number}-gauntlet"
 
+# A prior completed panel plus a moved head is not a never-reviewed draft. Its
+# owner is the completion freshness disposition below the worker spine, which
+# enters a re-review request in the docket. Do not race that decision by staging
+# a brand-new gauntlet first.
+freshness_rc=0
+"$HERE/assert-panel-head-fresh.sh" pr "$repo" "$pr_number" >/dev/null 2>&1 || freshness_rc=$?
+case "$freshness_rc" in
+  0) ;;
+  10)
+    log "auto-gauntlet: $pr_url moved after a completed panel; deferring to the review-docket freshness disposition"
+    exit 0
+    ;;
+  *) die "auto-gauntlet: could not establish panel-head freshness for $pr_url (rc=$freshness_rc)" ;;
+esac
+
 # A phase/evidence ledger that says the PR is not the deliverable
 # (`non-deliverable-probe` or `orchestrated-slice`) does NOT exempt a producer's
 # PR from review: only a true probe job (is_probe_job, above) is panel-exempt.

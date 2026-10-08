@@ -423,6 +423,15 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
     printf '  # rank arc remaining/cap status: summary. Draw only from an arc marked ok.\n'
     awk -F'\t' '{ printf "  %s %s %s/%s %s: %s\n", $1, $2, $5, $3, $6, $7 }' <<<"$arc_headroom"
   fi
+  # Queue records are producer-trusted, but native GitHub imports may carry an
+  # untrusted title as their summary. Feed only identifiers and explicit blocker
+  # references into the LLM digest; never PR titles or prose summaries.
+  if find "$DIR/review-docket/open" -maxdepth 1 -type f -name '*.json' -print -quit 2>/dev/null | grep -q .; then
+    printf 'maintainer_review_blockers: |\n'
+    jq -r '"  " + .url + " arc=" + .arc + " milestone=" + .milestone
+      + (if (.unblocks|length)>0 then " blocks=" + ([.unblocks[]|.kind+":"+.ref]|join(",")) else " blocks=(none)" end)' \
+      "$DIR"/review-docket/open/*.json | sort
+  fi
 } > "$digest"
 
 # Capture the handler's stderr and rc EXPLICITLY. The old `2>/dev/null || true`

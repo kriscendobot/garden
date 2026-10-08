@@ -80,6 +80,7 @@ export GARDEN_TAG="design-pr-gauntlet-coverage-audit"
 : "${GARDEN_DPGCA_DEDUP_DIR:=$GARDEN_STATE/pr-gauntlet-readiness}"
 : "${GARDEN_DPGCA_ARM_EPOCH_FILE:=$GARDEN_DPGCA_DEDUP_DIR/new-pr-arm-epoch}"
 : "${GARDEN_DPGCA_GAUNTLET_POST:=$HERE/post-gauntlet.sh}"
+: "${GARDEN_DPGCA_DOCKET_REQUEST:=$HERE/review-docket-request.sh}"
 : "${GARDEN_DPGCA_MAX_NEW_PR_STAGES:=2}"
 : "${GARDEN_DPGCA_POST_TIMEOUT_SECS:=180}"
 # Bound each repo's PR-source enumeration so a hung gh/git can never outlive the tick.
@@ -329,11 +330,13 @@ while IFS= read -r repo; do
       continue
     fi
 
-    alert_maintainer "pr-gauntlet-readiness-${slug}-pr${number}-${head_oid:0:12}" \
-      "Readiness audit: bot-authored OPEN NON-DRAFT PR $pr_url ($repo#$number) is in the mergeable queue with NO gauntlet review staged (head $head_oid). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #$number'; otherwise no action is needed. This audit never re-drafts a PR."
+    "$GARDEN_DPGCA_DOCKET_REQUEST" --url "$pr_url" --ask decide \
+      --source "readiness-audit-${slug}-pr${number}-${head_oid:0:12}" \
+      --summary "Choose whether to run the gauntlet or review this uncovered ready PR directly" \
+      || { log "audit: review-docket intake failed for $pr_url; leaving it eligible for retry"; continue; }
     printf '%s\n' "$head_oid" > "$marker" 2>/dev/null || true
     alerted=$((alerted + 1))
-    log "audit: ALERTED maintainer about uncovered non-draft PR $pr_url (head $head_oid); no gauntlet staged, PR untouched"
+    log "audit: DOCKETED uncovered non-draft PR $pr_url (head $head_oid); no gauntlet staged, PR untouched"
   done <<<"$src"
 done < <(repos_list)
 

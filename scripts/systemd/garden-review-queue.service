@@ -1,0 +1,13 @@
+[Unit]
+Description=Garden native GitHub review-request intake
+
+[Service]
+Type=simple
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/review-queue-daemon.sh
+Restart=always
+RestartSec=30s
+
+[Install]
+WantedBy=default.target

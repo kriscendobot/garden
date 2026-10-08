@@ -86,6 +86,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 export GARDEN_TAG="gauntlet"
+: "${GARDEN_GAUNTLET_DOCKET_REQUEST:=$HERE/review-docket-request.sh}"
 
 require_tools git
 
@@ -688,7 +689,7 @@ park_ci_billing() {  # <base> <stage> <iteration> <child>
 # that useful terminal outcome as a non-failure and hand the remaining judgement
 # to a human; downstream gates therefore see an ordinary completed tada report.
 finish_review_budget_reached() {  # <base> <reason>
-  local base="$1" reason="$2" sf rec pending key value
+  local base="$1" reason="$2" sf rec pending key value repo pr_url arc milestone
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-review-budget.XXXXXX")"
   rec="$DIR/$JOBS_GAUNTLET/$base.md"
   {
@@ -702,11 +703,21 @@ finish_review_budget_reached() {  # <base> <reason>
     printf '# gauntlet %s — review budget reached\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
+  repo="$(plan_field "$rec" repo 2>/dev/null || true)"
+  value="$(plan_field "$rec" pr_number 2>/dev/null || true)"
+  arc="$(job_arc "$rec")"; [ -n "$arc" ] || arc=unallocated
+  milestone="$(plan_field "$rec" milestone 2>/dev/null || true)"; [ -n "$milestone" ] || milestone=-
+  if [ -n "$repo" ] && [ -n "$value" ]; then
+    pr_url="https://github.com/$repo/pull/$value"
+    "$GARDEN_GAUNTLET_DOCKET_REQUEST" --url "$pr_url" --ask re-review \
+      --source "$base-review-budget-reached" \
+      --arc "$arc" --milestone "$milestone" \
+      --summary "Automated review rounds were exhausted after a green fix: $reason" \
+      || { log "gauntlet '$base': review-docket intake failed; retaining active gauntlet for retry"; rm -f "$sf"; return 1; }
+  fi
   pending="$(gauntlet_terminal_receipt "$base" review-budget-reached "$reason" "$rec")"
   finish_gauntlet "$base" "$sf" "$pending" \
     || log "gauntlet '$base': review-budget finish failed; retrying next tick"
-  printf 'INFO: Gauntlet %s review budget reached: %s\n' "$base" "$reason" \
-    | gauntlet_notify "$base-review-budget-reached"
   log "gauntlet '$base': review budget reached — $reason"
   rm -f "$sf" "$pending"
 }

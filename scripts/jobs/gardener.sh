@@ -78,6 +78,7 @@ CLONE="$GARDEN_WORKER_CLONE"
 
 : "${GARDEN_IDLE_SLEEP:=5}"
 : "${GARDEN_ONESHOT:=0}"
+: "${GARDEN_GARDENER_DOCKET_REQUEST:=$HERE/review-docket-request.sh}"
 DEFAULT_JOB_HANDLER="$HERE/$(worker_kind_field "$KIND" handler)"
 : "${GARDEN_JOB_HANDLER:=$DEFAULT_JOB_HANDLER}"
 # --- pre-claim health gate applicability (common.sh § pre-claim worker health gate)
@@ -830,6 +831,25 @@ while :; do
     fi
   fi
 
+  # A substantive fixer owns the next request after maintainer feedback. Once its
+  # pushed head is green, recreate the retired generation with inherited
+  # arc/milestone/unblock evidence. The clerk itself enforces green CI and exact
+  # head metadata; a failure leaves this completion retryable.
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ] \
+     && [ "$(plan_role "$jobfile" 2>/dev/null || true)" = fixer ]; then
+    fixer_pr="$(extract_pr_refs_from_text "$report" | head -1 || true)"
+    if [ -n "$fixer_pr" ]; then
+      set +e
+      "${GARDEN_GARDENER_DOCKET_CORE:-$HERE/review-docket.sh}" reenter "$fixer_pr" "$base-fixer-complete" >>"$capture" 2>&1
+      fixer_docket_rc=$?
+      set -e
+      if [ "$fixer_docket_rc" -ne 0 ]; then
+        hrc=$fixer_docket_rc
+        log "fixer review-docket re-entry FAILED for '$base' (rc=$hrc); leaving in doin for retry"
+      fi
+    fi
+  fi
+
   # COMPLETION-TIME DRAFT GUARDRAIL. Automatic handoff expects a producer artifact
   # to still be draft. What
   # a completion still may NOT do is silently slip a *ready* (non-draft) PR into the
@@ -865,10 +885,12 @@ while :; do
         printf 'Maintainer action: if this PR should enter review, issue `run the gauntlet` for %s. Otherwise no action is required.\n' "$draft_gate_pr"
       } > "$draft_gate_notice"
       set +e
-      GARDEN_MSG_COALESCE=0 \
-        GARDEN_MSG_ID="manual-gauntlet-handoff-${draft_gate_slug}-pr${draft_gate_number}" \
-        GARDEN_SENDER="gardener:$base" \
-        "$HERE/message-user.sh" "$base" "$draft_gate_notice" >>"$capture" 2>&1
+      "$GARDEN_GARDENER_DOCKET_REQUEST" --url "$draft_gate_pr" --ask decide \
+        --source "manual-gauntlet-handoff-${draft_gate_slug}-pr${draft_gate_number}" \
+        --arc "$(v="$(job_arc "$jobfile")"; printf '%s' "${v:-unallocated}")" \
+        --milestone "$(v="$(plan_field "$jobfile" milestone 2>/dev/null || true)"; printf '%s' "${v:--}")" \
+        --summary "Choose whether to run the gauntlet or review this uncovered ready PR directly" \
+        >>"$capture" 2>&1
       draft_gate_notice_rc=$?
       set -e
       rm -f "$draft_gate_notice"
@@ -890,10 +912,10 @@ while :; do
         fi
         {
           printf '\n## Manual gauntlet handoff\n\n'
-          printf 'The completion guard found %s ready without gauntlet coverage. A deduplicated maintainer action was recorded; the PR was not re-drafted and no gauntlet was staged.\n' "$draft_gate_pr"
+          printf 'The completion guard found %s ready without gauntlet coverage. A deduplicated review-docket decision was recorded; the PR was not re-drafted and no gauntlet was staged.\n' "$draft_gate_pr"
           [ -z "$draft_gate_tail_marker" ] || printf '%s\n' "$draft_gate_tail_marker"
         } >> "$report"
-        log "producer-PR draft GUARDRAIL handed '$base' off to the maintainer and terminalized it: $draft_gate_pr is non-draft without gauntlet coverage; PR left untouched"
+        log "producer-PR draft GUARDRAIL docketed '$base' and terminalized it: $draft_gate_pr is non-draft without gauntlet coverage; PR left untouched"
       else
         hrc=$draft_gate_notice_rc
         log "producer-PR draft GUARDRAIL could not record the manual-gauntlet handoff for '$base' (rc=$hrc); leaving in doin for retry"
@@ -940,10 +962,12 @@ while :; do
         printf 'No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.\n'
       } >"$stale_notice"
       set +e
-      GARDEN_MSG_COALESCE=1 \
-        GARDEN_MSG_ID="stale-panel-head-${stale_slug}-pr${stale_number}-${reviewed_head:0:8}-${presented_head:0:8}" \
-        GARDEN_SENDER="gardener:$base" \
-        "$HERE/message-user.sh" "$base" "$stale_notice" >>"$capture" 2>&1
+      "$GARDEN_GARDENER_DOCKET_REQUEST" --url "$stale_pr" --ask re-review \
+        --source "stale-panel-head-${stale_slug}-pr${stale_number}-${reviewed_head:0:8}-${presented_head:0:8}" \
+        --arc "$(v="$(job_arc "$jobfile")"; printf '%s' "${v:-unallocated}")" \
+        --milestone "$(v="$(plan_field "$jobfile" milestone 2>/dev/null || true)"; printf '%s' "${v:--}")" \
+        --summary "Panel reviewed ${reviewed_head:0:12}, but the presented head is ${presented_head:0:12}" \
+        >>"$capture" 2>&1
       stale_notice_rc=$?
       set -e
       rm -f "$stale_notice"
@@ -962,7 +986,7 @@ while :; do
         fi
         {
           printf '\n## Panel-head freshness\n\n'
-          printf 'Disposition: **review required**. The last completed panel reviewed `%s`; this job presented `%s`. The old panel verdict does not cover the current head. No gauntlet was staged; the maintainer received a deduplicated stale-review action.\n' \
+          printf 'Disposition: **review required**. The last completed panel reviewed `%s`; this job presented `%s`. The old panel verdict does not cover the current head. No gauntlet was staged; the maintainer review docket received a deduplicated re-review action.\n' \
             "$reviewed_head" "$presented_head"
           [ -z "$stale_tail_marker" ] || printf '%s\n' "$stale_tail_marker"
         } >>"$report"

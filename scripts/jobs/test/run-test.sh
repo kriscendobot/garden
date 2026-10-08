@@ -1006,25 +1006,23 @@ grep -qF '`rebase #650`' "$BV/README.md" \
   && ok "bare #N with an unresolvable repo stays plain text (no mislink)" || bad "unresolvable bare #N was linked"
 rm -rf "$BV"
 
-# (6) restructured layout: `## Latest` LEADS, a deterministic parked-for-maintainer
-#     section lists the review-requested PRs with hyperlinks, `## Recent progress`
-#     is gone, and the gh query was throttled (fetched once across all the ticks).
+# (6) restructured layout: `## Latest` LEADS, the bulletin links the single
+#     generated docket rather than maintaining a second fuzzy-ranked queue, and
+#     `## Recent progress` is gone.
 rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
 README="$BV/README.md"
 lp=$(grep -n '^## Latest$' "$README" | head -1 | cut -d: -f1)
-pk=$(grep -n '^## Parked for maintainer feedback$' "$README" | head -1 | cut -d: -f1)
+pk=$(grep -n '^## Maintainer review docket$' "$README" | head -1 | cut -d: -f1)
 bd=$(grep -n '^## Board$' "$README" | head -1 | cut -d: -f1)
 { [ -n "$lp" ] && [ -n "$pk" ] && [ -n "$bd" ] && [ "$lp" -lt "$pk" ] && [ "$pk" -lt "$bd" ]; } \
-  && ok "layout leads with ## Latest, then Parked, then Board" || bad "section order wrong (Latest=$lp Parked=$pk Board=$bd)"
+  && ok "layout leads with ## Latest, then review docket, then Board" || bad "section order wrong (Latest=$lp Docket=$pk Board=$bd)"
 ! grep -q '^## Recent progress' "$README" \
   && ok "## Recent progress removed" || bad "## Recent progress still present"
-{ grep -qF '[endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513)' "$README" \
-  && grep -qF '[kriskowal/garden#474](https://github.com/kriskowal/garden/pull/474)' "$README" \
-  && grep -qE 'waiting [0-9]+[dhms]\)$' "$README"; } \
-  && ok "parked section lists review-requested PRs as hyperlinks with a waiting age" || bad "parked PRs not rendered with links/age"
+grep -qE '\[ordered priorities and review docket\]\(.*/PRIORITIES.md\)' "$README" \
+  && ok "bulletin links the generated priorities/review docket" || bad "review docket link missing"
 pn=$(grep -c . "$PCALLS" || true)
-[ "$pn" -eq 1 ] \
-  && ok "parked gh query throttled: fetched once across all ticks (not per-tick)" || bad "parked query not throttled (calls=$pn)"
+[ "$pn" -eq 0 ] \
+  && ok "bulletin performs no competing GitHub review-request query" || bad "legacy parked query still ran (calls=$pn)"
 rm -rf "$BV"
 
 # (7) PUSH-GATE: with NOTHING pushed to journal2 since the last bulletin, a tick
@@ -2051,6 +2049,7 @@ pc_sh="$(printf 'from_host: pxhost\nfrom: gardener:self-heal-fix-xyz\nsent_at: 2
 pc_fin="$(printf 'from_host: pxhost\nfrom: gardener:finbot-progress-7\nsent_at: 2026-07-11T00:04:00Z\n---\nfinbot progress: 3 of 10 steps done.')"
 pc_gh="$(printf 'from_host: pxhost\nfrom: gardener:notice2\nsent_at: 2026-07-11T00:05:00Z\n---\nReminder about garden#33 — still open.')"
 pc_rm="$(printf 'from_host: pxhost\nfrom: gardener:notice3\nsent_at: 2026-07-11T00:06:00Z\n---\nSee README item #2 for the checklist.')"
+pc_review="$(printf 'from_host: pxhost\nfrom: gardener:fixer\nsent_at: 2026-07-11T00:07:00Z\n---\nReview https://github.com/kriskowal/garden/pull/88.')"
 push_change "inbox/maintainer/unread/px-pc-url.md"  "$pc_url"  "seed PR-URL completion report"
 push_change "inbox/maintainer/unread/px-pc-prn.md"  "$pc_prn"  "seed 'PR #5' notice"
 push_change "inbox/maintainer/unread/px-pc-shep.md" "$pc_shep" "seed shepherd-*-pr58-* report"
@@ -2058,6 +2057,7 @@ push_change "inbox/maintainer/unread/px-pc-sh.md"   "$pc_sh"   "seed self-heal (
 push_change "inbox/maintainer/unread/px-pc-fin.md"  "$pc_fin"  "seed finbot-progress (non-PR)"
 push_change "inbox/maintainer/unread/px-pc-gh.md"   "$pc_gh"   "seed garden#33-only (non-PR)"
 push_change "inbox/maintainer/unread/px-pc-rm.md"   "$pc_rm"   "seed README #2 (non-PR)"
+push_change "inbox/maintainer/unread/review-request-kriskowal-garden-pr88.md" "$pc_review" "seed legacy review request"
 # a LIVE gating question that references a PR — must be PRESERVED for the handler
 push_change "inbox/px-live-pr/unread/.gitkeep" "" "live doer px-live-pr"
 # full PR URL (a fully-qualified ref check-issue-refs accepts, and a strong PR signal)
@@ -2084,6 +2084,8 @@ for m in px-pc-sh px-pc-fin px-pc-gh px-pc-rm; do
   [ -e "$PC/inbox/maintainer/unread/$m.md" ] && pc_keep=$((pc_keep+1))
 done
 [ "$pc_keep" -eq 4 ] && ok "self-heal + finbot-progress + garden#33 + README #2 PRESERVED (guardrail 2)" || bad "non-PR message wrongly cleared (kept=$pc_keep)"
+[ -e "$PC/inbox/maintainer/unread/review-request-kriskowal-garden-pr88.md" ] \
+  && ok "legacy review-request message PRESERVED for docket migration" || bad "review request was auto-cleared"
 # (d) a deduplicated tally line is logged (auditable) and nothing re-posted
 { grep -qE 'cleared [0-9]+ PR-comment messages' "$PCLOG" \
   && grep -q 'kriskowal/garden#42×1' "$PCLOG" \

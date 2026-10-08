@@ -204,7 +204,14 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     exit 0
   fi
   materialize "$DIR" "$norm" "$auth" "$msg" "$carried"
-  git -C "$DIR" add -A config/apportionment config/arc-budgets config/foreman-mandate
+  # PRIORITIES.md is the shared accountant + clerk view. Render it inside this
+  # same journal transaction so a re-slice and the resulting docket order can
+  # never disagree at an accepted commit.
+  GARDEN_REVIEW_DOCKET_CLONE="$DIR" GARDEN_REVIEW_DOCKET_NO_PUSH=1 \
+    "$HERE/review-docket.sh" render
+  git -C "$DIR" add -A config/apportionment config/arc-budgets config/foreman-mandate \
+    PRIORITIES.md priorities-archive
+  [ ! -f "$DIR/README.md" ] || git -C "$DIR" add README.md
   summary="$(jq -r '[.slate[] | "\(.arc)=\(.token_cap)"] + ["unallocated=\(.unallocated_tokens)"] | join(" ")' \
     "$DIR/config/apportionment")"
   rc=0; commit_and_push "$DIR" "apportion(week $ws_iso)${carried:+ carried forward} total=$(jq -r .total_tokens "$DIR/config/apportionment") $summary" || rc=$?

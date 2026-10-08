@@ -398,6 +398,8 @@ while IFS=$'\t' read -r num st done_at; do
   # Only PRs completed strictly after the cursor.
   [ -n "$done_at" ] || continue
   if ! [ "$done_at" \> "$cursor" ]; then continue; fi
+  "$HERE/review-docket.sh" retire-terminal "https://github.com/$repo/pull/$num" "${st^^}" "$done_at" \
+    || log "WARN: could not retire the docket entry for terminal $repo#$num; the docket timer will retry"
   if ! garden_worked_pr "$num"; then
     log "#$num ($st) completed but the garden did not work it (no index/panel/gauntlet record) — skip"
     [ "$done_at" \> "$newcur" ] && newcur="$done_at"
