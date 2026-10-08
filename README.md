@@ -1,16 +1,24 @@
 # Garden bulletin
 
-_As of 2026-10-08T04:33:45Z_
+_As of 2026-10-08T04:36:00Z_
 
 ## Latest
 
-On minion.town, [kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and passed validation. The gauntlet for [kriscendobot/minion.town#168](https://github.com/kriscendobot/minion.town/pull/168) used its whole review budget: all six panel/fix rounds ran and CI is green, but the panel never converged, so it now needs a human merge/review decision. [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) passed its clean stage and has panel round 1 queued. Panel round 1 for [kriscendobot/minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) has been claimed. Two new jobs are on the board: `minion-town-locator-fragment-scrub` and `ferry-sync-clone-single-branch`.
+No job-board transitions since the last bulletin, but the minion.town proxy merged [kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) (`76bb27628e9`), and its deploy and watchdog checks passed. In the same repo, the [kriscendobot/minion.town#168](https://github.com/kriscendobot/minion.town/pull/168) gauntlet ended at its review budget after fix round 6 with CI green. Gauntlet rounds are still running on [kriscendobot/minion.town#94](https://github.com/kriscendobot/minion.town/pull/94), [kriscendobot/minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) and [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169), plus fix round 5 on [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343).
 
-**Waiting on you:**
-- **ocap.site:** DNSSEC is still broken because the registrar never published the DS record. Transfer into Route53 should become possible after about 2026-10-09 19:55Z. Your call: start the transfer then, or ask Key-Systems to add the DS record.
-- **Oros:** the host has been offline since 10-02 and someone needs to check it in person.
-- **Jev triage trial:** the trial job stopped because `TYPESAFE_API_KEY` is not provisioned, which halted the orchestration.
-- **OAuth-bonds build:** `orch-minion-town-oauth-bonds` halted because its build child completed without meeting its required outcome.
+Decisions waiting on the maintainer:
+
+- **ocap.site:** the domain can be transferred from about 2026-10-09 19:55Z. Its DNSSEC chain stays broken until the transfer completes or Key-Systems publishes the DS record.
+- **Milestone M2:** blocked on merges of [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+- **minion.town arc:** decide whether to build ERTP credits Phase 1 now or keep it deferred.
+- **[endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the head has moved past its last panel review, so it needs a new review.
+
+Two orchestrations halted and need attention:
+
+- `orch-minion-town-oauth-bonds` halted because its build declared its outcome unsatisfied.
+- `orch-jev-triage-foreman` halted because `TYPESAFE_API_KEY` is not provisioned.
+
+The oros host has been offline since 2026-10-02 and is now 198 commits behind. Someone has to check the Mac and Docker in person.
 
 ## Parked for maintainer feedback
 
@@ -170,10 +178,6 @@ Delegation: **active**
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr509-af58944875b5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr509-af58944875b5.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/509](https://github.com/endojs/endo-but-for-bots/pull/509) ([endojs/endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/issues/509)) is in the mergeable queue with NO gauntlet review staged (head af58944875b5e64e500fbbbacde98dfc77b3fea4). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #509'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `kriscendobot-minion.town-pr168-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr168-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr168-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet kriscendobot-minion.town-pr168-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr347-786d8290d5d9` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr347-786d8290d5d9.md)
 
@@ -439,7 +443,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.3M | $527.74 _(notional, rate-card)_ | 41% of 168.0M (ok) |
+| Claude | 70.1M | $532.54 _(notional, rate-card)_ | 42% of 168.0M (ok) |
 | Codex | 10.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120783197 tokens/day lower bound._
