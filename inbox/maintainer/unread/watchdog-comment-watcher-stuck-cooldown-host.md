@@ -1,13 +1,14 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:comment-latency-watch
-sent_at: 2026-10-08T05:55:52Z
+sent_at: 2026-10-08T06:00:50Z
 watchdog_key: comment-watcher-stuck-cooldown-host
 notice_count: 1
 first_seen: 2026-10-08T05:55:52Z
-last_seen: 2026-10-08T05:55:52Z
+last_seen: 2026-10-08T06:00:50Z
+recovered: true
 ---
-Comment watchers on endolin-garden2-5bcdff64 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 4 source(s); they post no acknowledgments while it holds.
-- kriscendobot/cosgov: watcher ticking but cooldown for 3618s (since 2026-10-08T04:55:33Z)
-- kriscendobot/finbot: watcher ticking but cooldown for 3667s (since 2026-10-08T04:54:44Z)
-- kriscendobot/ymax-e2e: watcher ticking but cooldown for 3632s (since 2026-10-08T04:55:19Z)
-- endojs/endo-but-for-bots: watcher ticking but cooldown for 3666s (since 2026-10-08T04:54:45Z)
+RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-08T05:55:52Z, cleared 2026-10-08T06:00:50Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Comment acknowledgment condition cleared.
