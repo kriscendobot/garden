@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "ocapn/ocapn",
+  "pr": 282,
+  "url": "https://github.com/ocapn/ocapn/pull/282",
+  "head_oid": "9ee6bb20e25fdd358b2c408fe76d38e4dd151d34",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Support listening for promise shortening without result",
+  "unblocks": [],
+  "source": "native-review-request-ocapn-ocapn-pr282",
+  "requested_at": "2026-10-08T07:46:43Z",
+  "first_requested_at": "2026-10-08T07:46:43Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:46:46Z"
+  }
+}
