@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/minion.town",
+  "pr": 45,
+  "url": "https://github.com/kriscendobot/minion.town/pull/45",
+  "head_oid": "95e908c164f5d2c3c17f6a67e989f09424d3ab4a",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(billing): add provider-neutral resource ledger",
+  "unblocks": [],
+  "source": "native-review-request-kriscendobot-minion.town-pr45",
+  "requested_at": "2026-10-08T07:45:15Z",
+  "first_requested_at": "2026-10-08T07:45:15Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:45:26Z"
+  }
+}
