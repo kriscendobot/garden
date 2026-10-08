@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11108,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11108",
+  "head_oid": "bae9e4faebe2506d7776b9b17c7f4b113ef3825c",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump @babel/helpers from 7.23.9 to 7.26.10",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11108",
+  "requested_at": "2026-10-08T07:29:36Z",
+  "first_requested_at": "2026-10-08T07:29:36Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:29:39Z"
+  }
+}
