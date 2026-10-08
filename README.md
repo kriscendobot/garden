@@ -1,24 +1,15 @@
 # Garden bulletin
 
-_As of 2026-10-08T18:36:23Z_
+_As of 2026-10-08T18:39:20Z_
 
 ## Latest
 
-Work this cycle went to two gauntlets and the minion.town CI move.
+The board barely moved since the last bulletin. The only change is an update to the `minion-town-ci-runner-unblock-20261008` orchestration, which is landing ci.minion.town in [minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) (weave, fix, undraft are in progress). The Oros host is back after six days offline. Its heartbeat resumed at 18:38Z, and its stuck c185ee5f canary roll cleared at 18:35Z, so it should rejoin the deploy rotation. The queued sysop ops may still need checking. Two things need attention. Claude spend on claude-endolin2 is at 99% of quota and backed off until the 2026-10-10 03:00Z reset. GitHub Actions billing for kriscendobot is still blocking CI starts, most recently on [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153). Several items still wait on maintainer decisions:
 
-- **[endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379):** finished its fourth panel round, and fix round 4 is now on the board.
-- **[endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/pull/71):** cleared clean and its first panel, and is now in fix round 1.
-- **[minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) (ci.minion.town):** a new orchestration (`minion-town-ci-runner-unblock-20261008`) runs the weave, fix and undraft job, which a worker has claimed. Behind it are a parked merge step and a parked resume of the PRs that stalled on billing. This is how the garden is getting around the `kriscendobot` Actions billing block, which is still refusing jobs. The latest refusal was on [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153).
-
-**Oros:** after six days offline, it came back long enough to heartbeat and complete work. Its c185ee5f deploy then got stuck at 2e8aedf. The watchdog reported that clear at 18:35Z, but the same sample also shows Oros offline again. A queued restart of its self-deploy timer has not been acknowledged.
-
-**Spend:** Claude spend is at 99% of the claude-endolin2 quota until the 10-10 reset.
-
-**Waiting on you:**
-- **Review docket consolidation:** the orchestration halted when its consolidation child failed. That job is held in plan until you promote it.
-- **Jev triage trial:** it needs a `TYPESAFE_API_KEY`.
-- **OAuth-bonds build:** it halted with its gated outcome unmet.
-- **ocap.site:** it becomes transferable after 2026-10-09 19:55Z, and its DS record is still unpublished.
+* **Halted orchestrations:** review-docket, oauth-bonds and jev-triage. jev-triage needs a `TYPESAFE_API_KEY`.
+* **ocap.site:** the domain transfer becomes possible after 2026-10-09 19:55Z.
+* **ERTP:** whether to build ERTP credits now or keep it deferred.
+* **M2:** [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) are clean and waiting for a merge.
 
 ## Maintainer review docket
 
@@ -47,16 +38,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1965 (first seen 2026-10-02T05:41:06Z, latest 2026-10-08T18:35:11Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1965 times; this is ONE
-> coalesced notice that updates in place, not 1965 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-02T05:41:06Z, cleared 2026-10-08T18:38:04Z).
+> It was observed 1965 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1965s (offline threshold 1800s; sampled_at_epoch=1791482538).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden2-5bcdff64)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal.md)
 
@@ -592,7 +578,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 166.7M | $1178.31 _(notional, rate-card)_ | 99% of 168.0M (backoff) |
+| Claude | 166.7M | $1178.80 _(notional, rate-card)_ | 99% of 168.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122998205 tokens/day lower bound._
