@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-ci-runner-unblock-20261008
-priority: high
-posted_by: producer
-posted_at: 2026-10-08T18:29:31Z
+role: conductor
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-10-08T19:08:41Z cleared=none -->
 
 ---
 role: conductor
