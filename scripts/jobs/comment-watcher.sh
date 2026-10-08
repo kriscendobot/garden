@@ -440,17 +440,19 @@ source_path_healthy() {  # source_path_healthy <repo>
   # 2026-09-30 21:37). It also defeated the 404 fall-through to surface 2, since the
   # error object already matched. Gating each print on gh's exit status fixes both.
   local probe='
-    repo="$1"
-    r="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null)" \
+    common="$1"
+    repo="$2"
+    source "$common"
+    r="$(gh_api_retry "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null)" \
       && case "$r" in *"{"*) printf "%s" "$r"; exit 0;; esac
-    r="$(gh api "repos/$repo/pulls/comments?per_page=1&sort=created&direction=desc" 2>/dev/null)" \
+    r="$(gh_api_retry "repos/$repo/pulls/comments?per_page=1&sort=created&direction=desc" 2>/dev/null)" \
       && printf "%s" "$r"
     exit 0
   '
   if command -v timeout >/dev/null 2>&1; then
-    raw="$(timeout --signal=TERM --kill-after=5s 10s bash -c "$probe" _ "$repo" 2>/dev/null || true)"
+    raw="$(timeout --signal=TERM --kill-after=5s 10s bash -c "$probe" _ "$HERE/common.sh" "$repo" 2>/dev/null || true)"
   else
-    raw="$(bash -c "$probe" _ "$repo" 2>/dev/null || true)"
+    raw="$(bash -c "$probe" _ "$HERE/common.sh" "$repo" 2>/dev/null || true)"
   fi
   # An Issues-off fork with no inline review comments either yields `[]` here →
   # inconclusive. That gap is benign: jq-blindness is a HOST-WIDE condition, so any

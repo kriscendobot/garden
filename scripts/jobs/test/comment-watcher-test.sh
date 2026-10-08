@@ -746,7 +746,9 @@ done
 # stub) against a gh stub on PATH. `gh api` prints an HTTP error's JSON body to
 # STDOUT while exiting non-zero; the probe used to accept that `{"message":…}` as a
 # fetched comment, so a rate-limit 403 read as BLIND (kriscendobot/vattr97,
-# 2026-09-30) and an Issues-off 404 never fell through to pulls/comments.
+# 2026-09-30) and an Issues-off 404 never fell through to pulls/comments. The
+# probe must also use gh_api_retry's shared admission: after the first surface
+# discovers primary exhaustion, the second surface must be suppressed by its latch.
 hr; echo "JP — real self-test probe: gh error bodies are inconclusive, 404 falls through"; hr
 if ! command -v jq >/dev/null 2>&1; then
   echo "  SKIP: no jq on host"
@@ -760,13 +762,13 @@ emit() {
     ok)        printf '[{"id":4242,"body":"x"}]\n'; exit 0;;
     empty)     printf '[]\n'; exit 0;;
     ratelimit) printf '{\n\t"message": "API rate limit exceeded for user ID 1.",\n\t"status": "403"\n}\n'
-               echo "gh: API rate limit exceeded (HTTP 403)" >&2; exit 1;;
+               echo "gh: API rate limit exceeded for user ID 1 (HTTP 403)" >&2; exit 1;;
     404)       printf '{"message":"Not Found","status":"404"}\n'; echo "gh: Not Found (HTTP 404)" >&2; exit 1;;
   esac
 }
 case "\$*" in
-  *"/issues/comments"*) emit $2;;
-  *"/pulls/comments"*)  emit $3;;
+  *"/issues/comments"*) printf 'issues\n' >> "$d/calls"; emit $2;;
+  *"/pulls/comments"*)  printf 'pulls\n' >> "$d/calls"; emit $3;;
 esac
 printf '[]\n'; exit 0
 EOF
@@ -778,9 +780,15 @@ EOF
     PATH="$d:$PATH" run_silent "$TR/state-probe-$1" "$bare" "" "$acap"
     [ -s "$alog" ] && echo blind || echo quiet
   }
-  [ "$(run_probe rl ratelimit ratelimit)" = quiet ] \
+  GARDEN_API_COOLDOWN_SECS=3600 \
+    GARDEN_API_COOLDOWN_DIR="$TR/state-probe-rl/gh-api-cooldown" \
+    run_probe rl ratelimit ratelimit > "$TR/probe-rl.out"
+  [ "$(cat "$TR/probe-rl.out")" = quiet ] \
     && ok "rate-limit 403 error bodies are inconclusive, not BLIND" \
     || bad "a rate-limit 403 error body paged blindness (vattr97 regression)"
+  [ "$(cat "$TR/gh-probe-rl/calls")" = issues ] \
+    && ok "primary exhaustion on the first self-test read latches before a second probe request" \
+    || bad "primary exhaustion allowed further self-test requests ($(tr '\n' ' ' < "$TR/gh-probe-rl/calls"))"
   [ "$(run_probe ok ok empty)" = quiet ] && ok "a real issue comment passes the self-test" \
     || bad "healthy issues/comments fixture paged blindness"
   [ "$(run_probe ff 404 ok)" = quiet ] && ok "Issues-off 404 falls through to pulls/comments and passes" \
