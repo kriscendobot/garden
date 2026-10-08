@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo",
+  "pr": 2675,
+  "url": "https://github.com/endojs/endo/pull/2675",
+  "head_oid": "d750a575a62c5e38097ed2211eb45e3a894959c4",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(ses,pass-style): use non-trapping integrity trait for safety",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-pr2675",
+  "requested_at": "2026-10-08T07:37:26Z",
+  "first_requested_at": "2026-10-08T07:37:26Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:37:28Z"
+  }
+}
