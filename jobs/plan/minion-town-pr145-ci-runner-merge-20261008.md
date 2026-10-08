@@ -23,3 +23,7 @@ Maintainer item that does not block this merge: the runner's credential `minion/
 <!-- garden-annotation: key=cc627e8c389f by=producer at=2026-10-08T18:30:15Z fields=priority=high -->
 
 Maintainer 2026-10-08: high priority, billing block stops all minion.town shepherds.
+
+<!-- garden-annotation: key=86a06321ed26 by=producer at=2026-10-08T18:46:47Z -->
+
+Maintainer 2026-10-08: keep the broad OAuth token on purpose (a PAT expires and would need human renewal). Do NOT restate token rotation as an open item.
