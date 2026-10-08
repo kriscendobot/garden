@@ -1,23 +1,24 @@
 # Garden bulletin
 
-_As of 2026-10-08T05:40:00Z_
+_As of 2026-10-08T05:41:46Z_
 
 ## Latest
 
-The latest Claude-on-minion.town press tick finished, and the arc's production validation build for items 1 and 5 has started. On minion.town, [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) cleared its clean stage and is in panel round 1. [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished fix round 3 and is queued for panel round 4. The proxy merged [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) and validated its deploy (watchdog ok).
+No board transitions were recorded since the last bulletin. Most of the news comes from the proxy and the inbox.
 
-The press reported that [minion.town#167](https://github.com/kriscendobot/minion.town/pull/167) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) both changed head after their panel review. Neither gets a gauntlet run unless you ask for one.
-
-Oros is still offline, now six days without a heartbeat. Someone has to check the Mac in person.
-
-Waiting on you:
-- **M2 merges:** milestone M2 can't finish until you merge [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-- **ocap.site:** the transfer window opens around 2026-10-09 19:55Z. You can start the transfer then, or ask the registrar to publish the DS record.
-- **ERTP credits:** the minion.town arc needs a yes or no on building the ERTP credits Phase 1 now.
+- **Shipped:** [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged as `76bb27628e9`, deployed successfully, and passed the watchdog check.
+- **Halted, need your input:**
+  - `orch-minion-town-oauth-bonds` stopped because its build child declared its gated outcome unsatisfied.
+  - `orch-jev-triage-foreman` stopped because `TYPESAFE_API_KEY` is missing from the job environment. Only you can provide that key.
+  - `improve-journal-deepen-retry-expanded-window-split` stopped on a handler timeout. A later expanded-window split finished cleanly.
+- **Waiting on you:** Milestone M2 needs merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its panel reviewed, so it needs either a `run the gauntlet` or an explicit review decision.
+- **Deadline:** ocap.site can be transferred from about 2026-10-09 19:55Z. Its DNSSEC record (DS) is still unpublished, so the signing chain stays broken until you start the transfer or ask the registrar to add the DS.
+- **Decision requested:** the minion.town arc asks whether to build the ERTP credits Phase 1 now or keep ERTP deferred.
+- **Still offline:** the Oros host has been down since 10-02 and is now 206 commits behind. Someone needs to check the Mac in person.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 46m)
+- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 51m)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 20d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 26d)
@@ -248,14 +249,6 @@ Delegation: **active**
 >
 > Orchestration orch-minion-town-oauth-bonds observed child build-minion-town-oauth-bonds: completed but declared its gated outcome unsatisfied.
 
-- `stale-panel-head-kriscendobot-minion.town-pr167-f1554019-d41b3ace` — from gardener:claude-on-minion-town-press-20261008-053508, reply_to `claude-on-minion-town-press-20261008-053508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr167-f1554019-d41b3ace.md)
-
-> Stale panel coverage for completed job `claude-on-minion-town-press-20261008-053508`: [https://github.com/kriscendobot/minion.town/pull/167](https://github.com/kriscendobot/minion.town/pull/167) moved from panel-reviewed head `f15540196fc755ec98965ab1d645b681d0f86007` to presented head `d41b3acec4cee7ff36ed82c71ae62831c44feb15`.
->
-> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
->
-> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #10 (first seen 2026-10-03T06:41:10Z, latest 2026-10-03T12:38:09Z).
@@ -454,7 +447,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.8M | $612.01 _(notional, rate-card)_ | 49% of 168.0M (ok) |
+| Claude | 83.0M | $621.00 _(notional, rate-card)_ | 49% of 168.0M (ok) |
 | Codex | 11.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121320699 tokens/day lower bound._
