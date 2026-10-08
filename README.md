@@ -1,18 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-08T04:51:35Z_
+_As of 2026-10-08T04:55:09Z_
 
 ## Latest
 
-[endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) finished fix round 5 of its gauntlet, and panel round 6 is now queued. The panel-head freshness review for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) completed. On minion.town, [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) passed panel round 1 and is now in fix round 1. The proxy screened, merged and deployed [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and the watchdog reported the deploy healthy. A gardener also claimed the locator-fragment scrub job for minion.town.
+Recent movement is in the gauntlets. Panel round 1 on [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) finished, and fix round 1 is now running. The fix-1 round on [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) completed. Panel round 6 was claimed for [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343).
 
-Three things need you:
-- **Milestone M2:** it is still blocked until you merge [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). Both are clean and ready.
-- **ocap.site:** the domain can transfer into Route53 from about 2026-10-09 19:55Z. Until then, or until Key-Systems publishes the DS record, DNSSEC stays broken. You need to decide which route to take.
-- **Oros:** the oros host is still offline. Its heartbeat has been stale since 2026-10-02, and someone needs to check the Mac in person.
+The proxy merged, deployed and validated [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143). After its review job finished, [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) is now parked for you. Milestone M2 is waiting on your merge of it and of [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+
+Three items need your attention:
+- **ocap.site:** the domain can be transferred into Route53 from about 2026-10-09T19:55Z. Its DNSSEC chain stays broken until the DS record is published, either through that transfer or by the registrar.
+- **Oros:** the host has been offline since 2026-10-02 and needs someone to check the Mac in person.
+- **Two orchestrations halted:** `orch-minion-town-oauth-bonds` stopped because its build child did not meet its gated outcome. `orch-jev-triage-foreman` stopped because `TYPESAFE_API_KEY` is missing.
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 4m)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 20d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 26d)
@@ -22,9 +25,8 @@ Three things need you:
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 36d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 36d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 37d)
-- [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 41d)
 
-_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -434,7 +436,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.3M | $546.13 _(notional, rate-card)_ | 43% of 168.0M (ok) |
+| Claude | 73.3M | $552.74 _(notional, rate-card)_ | 44% of 168.0M (ok) |
 | Codex | 10.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120992055 tokens/day lower bound._
@@ -443,23 +445,23 @@ _Fleet token-unlock pace: 120992055 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1343
+### todo (0)
+(none)
 
 ### doin (5)
-- [`kriscendobot-minion.town-pr169-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #169
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`build-review-docket`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-review-docket.md) — ---
+- [`kriscendobot-minion.town-pr169-gauntlet-20261008-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-20261008-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #169
 - [`minion-town-locator-fragment-scrub`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-locator-fragment-scrub.md) — minion.town: capture locator fragments early, scrub them from the URL and his...
-- [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #122
+- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1343
 
-### tada (11590)
+### tada (11592)
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-1.md) — Cost
+- [`kriscendobot-minion.town-pr169-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-20261008-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-review-a794b43f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1349-review-a794b43f.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5.md) — Cost
 - [`ferry-sync-clone-single-branch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/ferry-sync-clone-single-branch.md) — Cost
-- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-1.md) — Cost
-- [`improve-worker-stop-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-worker-stop-timeout.md) — Cost
-- … and 11585 more
+- … and 11587 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
