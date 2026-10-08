@@ -5,16 +5,16 @@
   "url": "https://github.com/endojs/endo-but-for-bots/pull/586",
   "head_oid": "0b9ddf59047e519e07ee9fb29e5dd2dbc63be998",
   "ask": "decide",
-  "arc": "endo-ocapn-background",
+  "arc": "unallocated",
   "milestone": "-",
   "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
   "unblocks": [],
-  "source": "manual-gauntlet-handoff-endojs-endo-but-for-bots-pr586",
-  "requested_at": "2026-10-08T09:13:05Z",
+  "source": "readiness-audit-endojs-endo-but-for-bots-pr586-0b9ddf59047e",
+  "requested_at": "2026-10-08T10:00:40Z",
   "first_requested_at": "2026-10-08T09:13:05Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-08T09:13:08Z"
+    "observed_at": "2026-10-08T10:00:43Z"
   }
 }
