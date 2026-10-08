@@ -1,18 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-08T23:32:03Z_
+_As of 2026-10-08T23:33:07Z_
 
 ## Latest
 
-Not much moved since the last bulletin. Fix round 1 of the gauntlet for [endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433) finished, and panel round 2 is now posted. A retry of the rolling-deploy canary probe for endolin-garden-ece02cb4 at `9affc0d62c74` is also posted.
+The board recorded no transitions since the last bulletin. The proxy is working through minion.town: [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy passed validation, and [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) were re-screened and queued for delegated merge. Both ci.minion.town orchestrations finished cleanly, and a separate check confirmed the self-hosted runner is healthy at main `50aa690` with no open operator items.
 
-These inbox items need the maintainer:
-- **ocap.site domain transfer:** the transfer becomes possible after about 2026-10-09T19:55Z. Until then the DS record is still missing at the registrar, so DNSSEC stays broken.
-- **Halted orchestrations:**
-  - `review-docket-20261008`: its consolidation child is parked in the plan queue.
-  - `orch-jev-triage-foreman`: halted because `TYPESAFE_API_KEY` is missing.
-  - `orch-minion-town-oauth-bonds`: the build child reported that its required outcome was not met.
-- **ERTP decision:** the minion.town arc is waiting on whether to build the ERTP credit charge now or keep deferring it.
+Three orchestrations halted and need you:
+- **review-docket-20261008:** its consolidation child ran out of retries and is held in `jobs/plan/`. The review docket is not yet consolidated until someone promotes or splits that child.
+- **orch-minion-town-oauth-bonds:** the build child reported that it did not meet its required outcome.
+- **orch-jev-triage-foreman:** stopped because `TYPESAFE_API_KEY` is not provisioned. The same missing key also limited the scholar's PetNames ingest.
+
+Other decisions waiting on you:
+- **ocap.site:** the zone is signed, but the registrar still hasn't published the DS record, so DNSSEC stays broken. Transfer into Route53 Domains becomes possible after 2026-10-09 19:55Z. You can start the transfer then, or ask Key-Systems to add the DS record now.
+- **ERTP credits:** build Phase 1 now, or keep ERTP deferred? This is the last open box in the minion.town primary phase.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its head has moved past the head the panel reviewed. It needs a fresh gauntlet run or an explicit review decision.
+
+The oros-studio host is back in the canary rotation. Claude spend is at 109% of quota and backoff is in effect.
 
 ## Maintainer review docket
 
@@ -347,10 +351,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 182.2M | $1283.70 _(notional, rate-card)_ | 108% of 168.0M (backoff) |
+| Claude | 182.3M | $1284.06 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 125878065 tokens/day lower bound._
+_Fleet token-unlock pace: 125883705 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
