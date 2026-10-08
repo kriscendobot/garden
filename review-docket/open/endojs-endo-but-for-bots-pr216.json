@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 216,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/216",
+  "head_oid": "3964a6f62930c640047186fca2c8a8d3c2110984",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct)",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr216",
+  "requested_at": "2026-10-08T07:40:27Z",
+  "first_requested_at": "2026-10-08T07:40:27Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:40:29Z"
+  }
+}
