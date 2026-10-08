@@ -1,4 +1,5 @@
 ---
+child-minion-town-pr145-ci-runner-merge-20261008-host: endolin-garden2-5bcdff64
 child-minion-town-pr145-ci-runner-merge-20261008-reap-count: 0
 child-minion-town-pr145-ci-runner-land-20261008-host: endolin-garden2-5bcdff64
 child-minion-town-pr145-ci-runner-land-20261008-reap-count: 0
