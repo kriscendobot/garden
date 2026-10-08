@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T03:33:56Z_
+_As of 2026-10-08T03:36:37Z_
 
 ## Latest
 
@@ -446,6 +446,19 @@ Delegation: **active**
 
 > gardener job 'improve-journal-deepen-retry-expanded-window' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=5404s, handler-budget=5400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `msg-claude-on-minion-town-press-20261008-023508-984af6341154` — from gardener:claude-on-minion-town-press-20261008-023508, reply_to `claude-on-minion-town-press-20261008-023508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261008-023508-984af6341154.md)
+
+> **Decision needed — the (root canary principal design).** [https://github.com/kriscendobot/minion.town/pull/167](https://github.com/kriscendobot/minion.town/pull/167)
+>
+> Its gauntlet hit the 6-round review budget at 01:56Z (CI green, all panel must-fix items addressed). Four open questions in `designs/root-canary-principal.md` § Open questions block the build, and only you can answer them:
+>
+> 1. Is a full-root MCP credential acceptable for the canary? If so, use kriscendobot's production root (the default) or a dedicated canary root account with its own Claude seat?
+> 2. Who holds kriscendobot's GitHub password and MFA for the one-time sign-in and each re-mint? (Answering this alone unblocks the spike.)
+> 3. Should the mint script run on a garden host or on your own machine?
+> 4. Which principals may assume `minion-root-canary-reader`: the leader, endolin-garden2, or every host? And should the fleet's broad AWS admin read access be narrowed in the same change?
+>
+> Answering these unblocks item 6's `watchInbox`/restart canary and item 4's kriscendobot inference canary ([https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89)). Short answers inline on the PR are fine. PR 167 stays draft until then.
+
 - `review-request-endojs-endo-but-for-bots-pr96` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr96.md)
 
 > Review request: endojs/endo-but-for-bots PR 96
@@ -850,6 +863,14 @@ Delegation: **active**
 
 > budget-level changed endolin-garden2-5bcdff64 monk workers 4 -> 3 (target 3): subscription claude-endolin2 spend=19404911 cap=168000000 pace-bias=0.162939 window-start=2026-10-06T18:39Z(observed) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 backoff=0.6302(ramp) target=3
 
+- `stale-panel-head-endojs-endo-but-for-bots-pr1403-6be2a3cb-7cc7cc3f` — from gardener:claude-on-minion-town-press-20261008-023508, reply_to `claude-on-minion-town-press-20261008-023508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1403-6be2a3cb-7cc7cc3f.md)
+
+> Stale panel coverage for completed job `claude-on-minion-town-press-20261008-023508`: [https://github.com/endojs/endo-but-for-bots/pull/1403](https://github.com/endojs/endo-but-for-bots/pull/1403) moved from panel-reviewed head `6be2a3cbdb78cf3512c01bc74fc2c6c83ba190ea` to presented head `7cc7cc3fe7b6eb17c37326c2ed4d0f754b52c7b0`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `followup-gate-review-improve-builder-pr-gauntlet-bypass` — from followup-gate:review-improve-builder-pr-gauntlet-bypass, reply_to `review-improve-builder-pr-gauntlet-bypass` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-builder-pr-gauntlet-bypass.md)
 
 > Job "review-improve-builder-pr-gauntlet-bypass" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -1009,7 +1030,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.3M | $478.89 _(notional, rate-card)_ | 37% of 168.0M (ok) |
+| Claude | 62.6M | $477.94 _(notional, rate-card)_ | 37% of 168.0M (ok) |
 | Codex | 9.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120527139 tokens/day lower bound._
@@ -1018,22 +1039,23 @@ _Fleet token-unlock pace: 120527139 tokens/day lower bound._
 worst fetch p95 4.010549s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (3)
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #168
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1431
+- [`minion-town-arc-press-20261008-033511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261008-033511.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1343
 
 ### doin (3)
-- [`claude-on-minion-town-press-20261008-023508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261008-023508.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
-- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1343
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr122-gauntlet-20261008-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #122
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1431-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1431
 
-### tada (11558)
+### tada (11560)
+- [`claude-on-minion-town-press-20261008-023508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/claude-on-minion-town-press-20261008-023508.md) — Panel-head freshness
+- [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1431-gauntlet-fix-5.md) — Fix round 5 for endojs/endo-but-for-bots PR #1431: fix pushed, CI green
 - [`kriscendobot-minion.town-pr166-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr166-gauntlet.md) — gauntlet kriscendobot-minion.town-pr166-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr166-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr166-gauntlet-fix-6.md) — Cost
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1431-gauntlet-panel-5.md) — Cost
-- [`kriscendobot-minion.town-pr166-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr166-gauntlet-panel-6.md) — Cost
-- … and 11553 more
+- … and 11555 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
