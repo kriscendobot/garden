@@ -1,18 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-08T05:34:51Z_
+_As of 2026-10-08T05:37:17Z_
 
 ## Latest
 
-Little moved on the board this cycle. The [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) gauntlet passed its viability and clean stages and now has panel round 1 queued. The `review-docket-consolidate-20261008` job went from doin back to todo, so it was requeued rather than finished. Earlier, the proxy merged [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and its deploy validated cleanly. Three items in the inbox need a person:
-
-- **Oros:** the host has been offline since 2026-10-02. Someone needs to check the Mac, Docker Desktop and the VM, and its queued sysop ops are still unacknowledged.
-- **ocap.site:** the domain becomes eligible for transfer after 2026-10-09 19:55Z. Its DNSSEC chain stays broken until either the transfer completes or the registrar publishes the DS record.
-- **Halted orchestrations:** `orch-minion-town-oauth-bonds` stopped because its build declared its gated outcome unsatisfied. The Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`.
+Little moved since the last bulletin. Fix round 3 of the gauntlet for [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) completed. The fleet picked up the next Claude-on-minion.town arc press and another Oros health watch, and queued a completion press to check whether the arc's jobs are finishing. Earlier tonight, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and passed validation through the proxy screener. Three things need a person: Oros has been offline since 2026-10-02 and someone has to check the Mac, Docker Desktop and the container runtime in person; the ocap.site DNS security (DNSSEC) chain stays broken until the domain transfer window opens around 2026-10-09 19:55Z or the registrar publishes the DS record; and the Jev triage trial needs a `TYPESAFE_API_KEY` before it can run again.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 40m)
+- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 46m)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 20d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 26d)
@@ -437,7 +433,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.3M | $608.94 _(notional, rate-card)_ | 48% of 168.0M (ok) |
+| Claude | 81.5M | $609.85 _(notional, rate-card)_ | 49% of 168.0M (ok) |
 | Codex | 11.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121320699 tokens/day lower bound._
@@ -446,23 +442,25 @@ _Fleet token-unlock pace: 121320699 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`review-docket-consolidate-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-docket-consolidate-20261008.md) — ---
 - [`kriscendobot-minion.town-pr170-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #170
+- [`claude-on-minion-town-completion-press-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261008-053508.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #169
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1343
-- [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #122
+- [`oros-health-watch-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261008-053508.md) — ---
+- [`claude-on-minion-town-press-20261008-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261008-053508.md) — Press the Claude-on-minion.town arc forward
 
-### tada (11604)
+### tada (11605)
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-3.md) — Cost
 - [`improve-screening-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-screening-quota-cooldown.md) — Cost
 - [`kriscendobot-minion.town-pr170-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-3.md) — Cost
 - [`build-review-docket`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/build-review-docket.md) — Cost
-- [`kriscendobot-minion.town-pr170-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-viability.md) — Cost
-- … and 11599 more
+- … and 11600 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
