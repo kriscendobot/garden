@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/playground",
+  "pr": 14,
+  "url": "https://github.com/endojs/playground/pull/14",
+  "head_oid": "2f753ebf618e320122342e57c494bfb16a28bed9",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat: rock-paper-scissors",
+  "unblocks": [],
+  "source": "native-review-request-endojs-playground-pr14",
+  "requested_at": "2026-10-08T07:44:45Z",
+  "first_requested_at": "2026-10-08T07:44:45Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:44:47Z"
+  }
+}
