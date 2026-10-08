@@ -1,7 +1,7 @@
 ---
 gate: orchestrated
 orchestrated_by: minion-town-ci-runner-unblock-20261008
-priority: normal
+priority: high
 posted_by: producer
 posted_at: 2026-10-08T18:29:16Z
 ---
@@ -33,3 +33,7 @@ PR: https://github.com/kriscendobot/minion.town/pull/145 (head `ci-minion-town-r
 Out of scope: moving `deploy.yml` (CD) to the self-hosted runner. That stays a maintainer decision. Do not attach the runner to any public repository.
 
 Done: #145 is ready for review on a current frozen base, with CI green on `ci.minion.town`.
+
+<!-- garden-annotation: key=cc627e8c389f by=producer at=2026-10-08T18:30:07Z fields=priority=high -->
+
+Maintainer 2026-10-08: high priority, billing block stops all minion.town shepherds.
