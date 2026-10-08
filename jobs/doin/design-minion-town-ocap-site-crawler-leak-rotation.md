@@ -66,6 +66,7 @@ Open the design as a DRAFT PR on `kriscendobot/minion.town`. Under the maintaine
 the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 design's `## Open questions`.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
