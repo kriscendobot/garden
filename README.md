@@ -1,10 +1,30 @@
 # Garden bulletin
 
-_As of 2026-10-08T19:00:52Z_
+_As of 2026-10-08T19:02:58Z_
 
 ## Latest
 
-The only board movement was on [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79): its gauntlet's round-1 panel stage left `tada` and went back into `todo` to run again. In the inbox, Oros is back. Its heartbeat has resumed, it has rejoined the canary rotation, and its stuck c185ee5f roll has cleared. The `review-docket-20261008` orchestration is halted at 2 of 3 children. Its consolidation step is held in the plan queue until someone promotes or splits it, so the 26 review requests that the proxy auto-clear archived still aren't on the docket. Claude spend for this window has reached its 168M cap and the fleet is backing off. Two items need a maintainer decision. First, ocap.site can transfer to Route53 after about 2026-10-09 19:55Z, which would fix its unpublished DS record; the alternative is asking Key-Systems to publish the DS. Second, a gardener asks whether to build the ERTP credits Phase 1 now or keep it deferred.
+No jobs moved on the board since the last bulletin. The fleet is held up mainly by deploy and quota problems.
+
+**Oros rolling deploy is stuck.** Oros came back at 18:38Z after six days offline: its heartbeat resumed and it is claiming work again. Its rolling-deploy canary is stuck, though. It was released to `c185ee5f` but still reports `2e8aedf`. A queued restart of `garden-self-deploy` has not been acknowledged, and the leader will not advance until that canary deploys.
+
+**Claude subscription is at its cap.** It shows 100% of quota in backoff, and the monk pools are throttled down to match.
+
+**Three orchestrations halted:**
+- **Review docket (`review-docket-20261008`).** It stopped at its consolidation child, which the reaper parked in the plan queue. That child is the step that moves the review requests onto the new root docket. It needs a promote or a split.
+- **`orch-minion-town-oauth-bonds`.** It halted because its build child reported its required outcome as not met.
+- **Jev triage trial.** It is blocked because `TYPESAFE_API_KEY` is missing from the job environment, and only the maintainer can provide it.
+
+**Decisions waiting on the maintainer:**
+- **Milestone M2** is blocked only on merge authority for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). Both are clean and ready.
+- **ocap.site** can transfer into Route53 after about 19:55Z on 10-09. Until then its DNSSEC chain stays broken.
+- **minion.town arc:** post the ERTP-credits Phase 1 build, or keep it deferred.
+- **SturdyRef stack:** the panel summary recommends merging [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) and [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) as they are. [endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) needs a retcon first.
+- **Stale review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has new commits since its last panel review, so it needs either a new review run or an explicit decision.
+
+**Infrastructure:**
+- GitHub Actions is still refusing to start jobs for the kriscendobot account because of a billing block (latest on [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153)).
+- The comment watcher for kriscendobot/ocapn failed its self-test and is likely missing every new comment there.
 
 ## Maintainer review docket
 
@@ -541,11 +561,15 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T17:47:04Z, cleared 2026-10-08T18:35:16Z).
-> It was observed 16 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #17 (first seen 2026-10-08T17:47:04Z, latest 2026-10-08T19:02:04Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 17 times; this is ONE
+> coalesced notice that updates in place, not 17 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release c185ee5f97bc0e7923791130f5f9cbd1867e9942, deployed 2e8aedf5363a19f701f4fafa8fd6170bd2240138).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to c185ee5f97bc 21 min ago
+> but still reports deployed_sha 2e8aedf5363a19f701f4fafa8fd6170bd2240138. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden2-5bcdff64)
 
 - `msg-oros-health-watch-20261008-173523-2a290cec55d9` — from gardener:oros-health-watch-20261008-173523, reply_to `oros-health-watch-20261008-173523` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261008-173523-2a290cec55d9.md)
 
@@ -577,10 +601,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.9M | $1187.74 _(notional, rate-card)_ | 100% of 168.0M (backoff) |
-| Codex | 14.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 168.0M | $1188.22 _(notional, rate-card)_ | 100% of 168.0M (backoff) |
+| Codex | 15.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123056927 tokens/day lower bound._
+_Fleet token-unlock pace: 123061699 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
