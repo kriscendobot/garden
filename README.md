@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T10:04:38Z_
+_As of 2026-10-08T10:09:45Z_
 
 ## Latest
 
@@ -576,13 +574,13 @@ worst fetch p95 4.204496s/45s (/home/kris/garden2/.garden-state/dependabotany-pr
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #258
 
-### tada (11708)
+### tada (11709)
+- [`canary-probe-endolin-garden-ece02cb4-c185ee5f97bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/canary-probe-endolin-garden-ece02cb4-c185ee5f97bc.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-clean.md) — Cost
 - [`improve-comment-source-quota-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-comment-source-quota-probe.md) — Cost
 - [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr258-gauntlet-20261007-fix-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-viability.md) — Cost
-- … and 11703 more
+- … and 11704 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
