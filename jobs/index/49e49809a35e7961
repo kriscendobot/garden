@@ -1,2 +1,2 @@
-base: improve-comment-source-quota-fanout
+base: improve-comment-source-quota-probe
 identity: mentor:scripts/jobs/handlers/comment-source-gh.sh
