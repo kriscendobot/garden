@@ -1,26 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: endojs-endo-but-for-bots-pr60-gauntlet-20261007
-role: gardener
-tier: mentor
-handler-budget-role: panel
-handler-timeout: 10800
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 0
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-10-08T16:13:54Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-10-08T16:13:54Z
----
-
----
 role: gardener
 arc: unallocated
 handler-budget-role: panel
@@ -29,9 +7,6 @@ gauntlet: endojs-endo-but-for-bots-pr60-gauntlet-20261007
 gauntlet_stage: panel
 gauntlet_iteration: 1
 pr: https://github.com/endojs/endo-but-for-bots/pull/60
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #60
