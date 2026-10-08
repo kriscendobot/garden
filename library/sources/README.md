@@ -1211,3 +1211,13 @@ because the specs are repository READMEs.
 | [Vendored brush-core README](oh-my-pi--crates-vendor-brush-core-readme.md) | can1357/oh-my-pi | 2026-06-26 | can1357 | 1 | current (file commit `68d75932`; upstream brush project README; does not document oh-my-pi's local brush-core patches) |
 | [Vendored brush-core crate root](oh-my-pi--crates-vendor-brush-core-src-lib.md) | can1357/oh-my-pi | 2026-09-28 | can1357 | 1 | current (file commit `ebf2a2aa`; Shell/ShellBuilder embedding and spawn-observation surface; two-sentence prose header) |
 | [oh-my-pi Design: 01 · Rust Core (third-party explainer)](web--oh-my-pi-design-rust-core.md) | https://yeluo45.github.io/oh-my-pi-design/en/docs/01-rust-core | 2 | current (`source_kind: web`; secondary description, not ground truth; content sha256 `ae1a74c3`; carries a claim-by-claim divergence ledger against oh-my-pi `53f253fb`; classifier unavailable, read under untrusted-data discipline) |
+
+## Petname systems and Zooko's triangle
+
+| Source | URL or venue | Sections | Status |
+|--------|--------------|----------|--------|
+| [awesome-ocap PetNames wiki](awesome-ocap--wiki-petnames.md) | https://github.com/dckc/awesome-ocap/wiki/PetNames | 1 | current (tertiary reference map; retrieved 2026-10-08; content SHA-256 `397ea27b`; classifier unavailable) |
+| [Names: Distributed, Secure, Human-Readable: Choose Two](zooko--distributed-secure-human-readable-2001.md) | Zooko Wilcox-O'Hearn, 2001-10-12 | 1 | current (originating statement; Internet Archive original-bytes capture SHA-256 `354d22cc`; explicitly a doubt, not a proof) |
+| [Pet names, true names, and nicknames](dcms-dev--pet-names-true-names-nicknames-2000.md) | Jonathan S. Shapiro, dcms-dev, 2000-04-11 | 1 | current (earliest public primary source found; credits Mark Miller and others at Electric Communities; archive SHA-256 `fe40bc82`) |
+| [The PetName Markup Language](web--miller-petname-markup-language.md) | Mark S. Miller, erights.org mirror | 1 | current (Electric Communities origin account and layered system; content SHA-256 `80a06600`; classifier unavailable) |
+| [Petname Systems](papers--stiegler-petname-systems-2005.md) | Marc Stiegler, HP Labs HPL-2005-148 | 1 | current (canonical exposition and limits; archive PDF SHA-256 `ac432db2`; classifier unavailable) |
