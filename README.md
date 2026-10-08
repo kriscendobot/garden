@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T22:55:08Z_
+_As of 2026-10-08T22:57:20Z_
 
 ## Latest
 
-Little moved since the last bulletin. The only board change is a new rolling-deploy canary probe for `endolin-garden-ece02cb4` at `9affc0d62c74`. Separately, follower `oros-studio-garden-ce242c49` came back at 22:50Z after about two hours offline, and it will rejoin the canary rotation without anyone stepping in. Three things still need the maintainer: two halted orchestrations, the parked review-docket consolidation and the blocked Jev trial (the job environment has no `TYPESAFE_API_KEY`), and the decision on ERTP credits for minion.town.
+Little moved on the board: the CLEAN stage of [endo-but-for-bots#1434](https://github.com/endojs/endo-but-for-bots/pull/1434)'s gauntlet finished, and no new jobs were claimed or posted. Several items are still waiting on the maintainer. The review-docket consolidation stalled in plan, so the `review-docket-20261008` orchestration is halted. The Jev triage/foreman trial is halted until `TYPESAFE_API_KEY` is provisioned. `orch-minion-town-oauth-bonds` halted after its build child declared its gated outcome unsatisfied. Two decisions are also pending: whether to start the ERTP Phase 1 build for the minion.town credits charge, and whether to start the ocap.site domain transfer (eligible from about 2026-10-09 19:55Z) or ask the registrar to publish the missing DNSSEC DS record. Claude spend is still above quota (108%, backoff).
 
 ## Maintainer review docket
 
@@ -370,7 +370,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 180.9M | $1274.96 _(notional, rate-card)_ | 108% of 168.0M (backoff) |
+| Claude | 181.0M | $1275.33 _(notional, rate-card)_ | 108% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 125627690 tokens/day lower bound._
@@ -395,16 +395,16 @@ worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/jour
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #153
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1434-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1434-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1434
+### doin (0)
+(none)
 
-### tada (11868)
+### tada (11869)
+- [`endojs-endo-but-for-bots-pr1434-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1434-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr171-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr171-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr79-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr79-gauntlet-20261007 — HALTED
 - [`kriscendobot-minion.town-pr170-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Completion report: PR #79 panel round 1 (endojs/endo-but-for-bots)
-- [`minion-town-arc-press-20261008-223509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-arc-press-20261008-223509.md) — Cost
-- … and 11863 more
+- … and 11864 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
