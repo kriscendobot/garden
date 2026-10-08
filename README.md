@@ -1,28 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-08T16:38:12Z_
+_As of 2026-10-08T16:46:09Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin. The notable motion was in orchestrations and the maintainer inbox.
+The gauntlet for [endo-but-for-bots#60](https://github.com/endojs/endo-but-for-bots/pull/60) **halted** after its first fix round. The fixes were pushed, but CI went red on one check the report calls unrelated, and the gauntlet declined to retry. The PR needs a maintainer decision before it can move again. The clean stage of [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)'s gauntlet completed, and fix round 2 for [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) is now the only job in flight.
 
-**Halted orchestrations**
-- **Review docket:** the orchestration that replaces the hand-curated review priorities halted at child 3/3. `review-docket-consolidate-20261008` failed its retry and is parked in `plan/` awaiting go-ahead. Until someone promotes it or splits it, the consolidation isn't done. That covers the 26 `review-request-*` messages the proxy auto-clear archived, and no docket-live message has gone out.
-- **minion.town OAuth bonds:** `orch-minion-town-oauth-bonds` halted after its build child declared its gated outcome unsatisfied.
-- **Jev triage/foreman trial:** this one halted because `TYPESAFE_API_KEY` is missing from the job environment, and only the maintainer can provision it.
+Claude spend has reached 92% of the claude-endolin2 quota, which is past the 90% burn line, and the scaler has already cut monk workers back to one. The review-docket orchestration also halted with 2 of 3 children done. Its consolidation child is parked in plan awaiting go-ahead, so the 26 auto-cleared review requests are still not on the docket.
 
-**minion.town**
-- [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, deployed and was validated overnight.
-- GitHub Actions still won't start jobs on the `kriscendobot` account because of a billing block, most recently on [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153). Only a billing fix clears it; no code push can.
-
-**Decisions waiting on you**
-- Milestone M2 still needs your merge on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-- The minion.town arc asks whether to build the ERTP credits Phase 1 now or keep ERTP deferred.
-- **ocap.site:** the domain can be transferred after about 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished, so the chain of trust stays broken until the transfer completes or Key-Systems adds the record.
-
-**Quota and hosts**
-- Claude spend is at 92% of the endolin2 quota, past the 90% burn ceiling.
-- Oros has been unreachable since 2026-10-02 and is now 210 commits behind. Someone has to check the machine in person.
+Still open:
+- **Oros:** the host has been offline since 10-02, its deployed code is now 210 commits behind, and someone has to check it physically.
+- **GitHub Actions billing:** the account block on kriscendobot is still holding back minion.town CI.
+- **ocap.site transfer:** the 60-day lock ends around 2026-10-09 19:55Z, and both the transfer and the DS-record decision are yours.
 
 ## Maintainer review docket
 
@@ -169,6 +158,10 @@ Delegation: **active**
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=2 queue=8 quota=ok fleet-envelope=4 target=2
+
+- `endojs-endo-but-for-bots-pr60-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr60-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr60-gauntlet-20261007-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr60-gauntlet-20261007 HALTED: stage 'endojs-endo-but-for-bots-pr60-gauntlet-20261007-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -580,29 +573,28 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 154.8M | $1100.32 _(notional, rate-card)_ | 92% of 168.0M (ok) |
+| Claude | 155.0M | $1100.53 _(notional, rate-card)_ | 92% of 168.0M (ok) |
 | Codex | 14.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 122881508 tokens/day lower bound._
+_Fleet token-unlock pace: 122569022 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr182-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr182-gauntlet-20261007-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #182
+### todo (0)
+(none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1379
-- [`endojs-endo-but-for-bots-pr60-gauntlet-20261007-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr60-gauntlet-20261007-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #60
 
-### tada (11799)
+### tada (11802)
+- [`endojs-endo-but-for-bots-pr182-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr182-gauntlet-20261007-clean.md) — Cost
+- [`endojs-endo-but-for-bots-pr60-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr60-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr60-gauntlet-20261007 — HALTED
+- [`endojs-endo-but-for-bots-pr60-gauntlet-20261007-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr60-gauntlet-20261007-fix-1.md) — PR #60 gauntlet, fix round 1: fixes pushed, CI red on one unrelated check
 - [`minion-town-arc-press-20261008-162008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-arc-press-20261008-162008.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr60-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr60-gauntlet-20261007-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr182-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr182-gauntlet-20261007-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr155-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr155-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr155-gauntlet-20261007 — HALTED
-- [`endojs-endo-but-for-bots-pr182-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr182-gauntlet-plan-20261007.md) — Cost
-- … and 11794 more
+- … and 11797 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
