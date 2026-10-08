@@ -1,24 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-08T21:25:30Z_
+_As of 2026-10-08T21:34:59Z_
 
 ## Latest
 
-[endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433) passed its pre-spend viability check and moved on to the gauntlet's clean stage. `improve-design-build-prestaged-gauntlet` also completed. Gardeners claimed panel round 1 for [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79), the viability check for [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173), and `improve-comment-watcher-quota-admission`.
+Little moved on the board since the last bulletin: `improve-comment-watcher-quota-admission` completed, which adds quota-aware admission to the comment watcher, and `minion-town-ci-runner-redeploy-50aa690` is still running. Several items are waiting on the maintainer:
 
-`design-minion-town-ocap-site-crawler-leak-rotation` used up its retries and is now held in the plan queue until someone promotes it or splits it into smaller jobs.
-
-Three orchestrations have halted, and each needs a maintainer decision:
-
-- **`review-docket-20261008`:** its final consolidation step was doomed and is held in plan. The review requests archived by the proxy auto-clear have not yet been moved onto the docket.
-- **`orch-minion-town-oauth-bonds`:** the build step finished but reported that its required outcome was not met.
-- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is not provisioned.
-
-Other open decisions in the inbox:
-
-- **ERTP credits:** whether to post the Phase 1 build or keep ERTP deferred.
-- **ocap.site transfer:** the 60-day transfer window opens about 2026-10-09 19:55Z. The DS record is still unpublished, so DNSSEC remains broken.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its panel review covers an older head, so the current head needs a review decision.
+- **Claude spend is at 105% of quota** and in backoff.
+- **The review-docket orchestration has halted.** `review-docket-consolidate-20261008` was doomed and is held in plan, so the existing review requests have not been moved onto the docket yet. It needs a promote or a split.
+- **Two more orchestrations have halted.** `orch-minion-town-oauth-bonds` stopped when its build child reported its gated outcome as unsatisfied. `orch-jev-triage-foreman` is blocked because `TYPESAFE_API_KEY` is missing.
+- **The minion.town arc needs a call on ERTP.** Either post the Phase 1 ERTP credits build now, or keep it deferred and treat the primary phase as done apart from the charge.
+- **The ocap.site domain transfer can start soon.** It should become possible after about 2026-10-09 19:55Z. Until it completes, or the registrar publishes the DS record, DNSSEC stays broken.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has stale panel coverage.** Its current head was never reviewed by the panel.
 
 ## Maintainer review docket
 
@@ -340,10 +333,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 176.4M | $1244.57 _(notional, rate-card)_ | 105% of 168.0M (backoff) |
-| Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Claude | 176.7M | $1246.76 _(notional, rate-card)_ | 105% of 168.0M (backoff) |
+| Codex | 18.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 128898864 tokens/day lower bound._
+_Fleet token-unlock pace: 128944410 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
@@ -357,20 +350,19 @@ worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/jour
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1433
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 
-### doin (5)
-- [`improve-comment-watcher-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-quota-admission.md) — ---
+### doin (4)
 - [`kriscendobot-minion.town-pr173-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr173-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #173
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 - [`minion-town-billing-parked-prs-resume-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-billing-parked-prs-resume-20261008.md) — Unpark the minion.town PRs blocked by Actions billing, onto ci.minion.town
-- [`minion-town-ci-runner-redeploy-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-redeploy-50aa690.md) — ---
+- [`minion-town-ci-runner-redeploy-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-redeploy-50aa690.md) — Deliberate overrun decomposition for minion-town-ci-runner-redeploy-50aa690
 
-### tada (11851)
+### tada (11852)
+- [`improve-comment-watcher-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-comment-watcher-quota-admission.md) — Cost
 - [`improve-design-build-prestaged-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-design-build-prestaged-gauntlet.md) — Cost
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Cost
 - [`improve-deadline-nudge-cas-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-deadline-nudge-cas-exhaustion.md) — Cost
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-arc-press-20261008-192023.md) — Tick report: minion.town arc press, 2026-10-08 ~20:35Z
-- [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5.md) — Cost
-- … and 11846 more
+- … and 11847 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
