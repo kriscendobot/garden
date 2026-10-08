@@ -77,6 +77,7 @@ This schedule is STANDING for the life of the arc; do not retire it.
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 `kriscendobot/garden` issue 58. No upstream `agoric/agoric-sdk` interaction.
 
+<!-- garden-provider-quota-backoff: type=usage reset-at=2026-10-08T11:10:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
