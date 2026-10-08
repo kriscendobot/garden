@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T01:19:28Z_
+_As of 2026-10-08T01:24:15Z_
 
 ## Latest
 
@@ -61,6 +61,16 @@ Delegation: **active**
 > - Applied as a design answer: separated argv grammar from a future passable pipeline-plan grammar, specifying checked stages, workspace identities, endpoints, and effects. The bot explicitly declined adding redirects/process substitution to the current buffered-text API because it cannot yet provide byte preservation, topology policy, or shared-workspace proof; those prerequisites are recorded rather than silently overclaiming confinement.
 >
 > Current head: `808f037289a2`. CI: 33 checks, all successful.
+
+- `msg-ocap-site-dnssec-followup-20261008-df1e9ee7a916` — from gardener:ocap-site-dnssec-followup-20261008, reply_to `ocap-site-dnssec-followup-20261008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dnssec-followup-20261008-df1e9ee7a916.md)
+
+> ocap.site DNSSEC / transfer follow-up (2026-10-08 01:22Z)
+>
+> - Transfer eligibility: still UNTRANSFERABLE per `route53domains check-domain-transferability` ("registered recently... wait 60 days").
+> - RDAP: registered 2026-08-10T19:55:35Z at Key-Systems LLC, status active. The 60-day window ends ~2026-10-09T19:55Z, so transfer into Route53 Domains should become possible from Friday 2026-10-09 evening UTC (registrar-side locks permitting). It will need a fresh auth code from Key-Systems plus your contact details; I did not attempt it.
+> - DNSSEC: Route53 zone Z048672026UQWLGHNEQE0 still SIGNING, but the DS record is STILL UNPUBLISHED at the registrar: RDAP shows delegationSigned=false and there is no DS for ocap.site in the .site zone. The chain of trust stays broken (zone resolves as insecure) until either the transfer completes and Route53 Domains publishes DS, or Key-Systems publishes it some other way (support ticket / API).
+>
+> Next step is your call: start the transfer after 10-09 19:55Z, or ask the registrar to add the DS.
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
@@ -965,7 +975,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.6M | $426.71 _(notional, rate-card)_ | 32% of 168.0M (ok) |
+| Claude | 55.2M | $436.09 _(notional, rate-card)_ | 33% of 168.0M (ok) |
 | Codex | 8.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120462482 tokens/day lower bound._
@@ -975,22 +985,22 @@ worst fetch p95 10.088527s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1431-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1431
-- [`kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr168-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr168-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #168
+- [`kriscendobot-minion.town-pr166-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #166
+- [`kriscendobot-minion.town-pr169-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #169
 
 ### doin (3)
-- [`kriscendobot-minion.town-pr166-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #166
-- [`kriscendobot-minion.town-pr169-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr169-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #169
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1431-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1431
+- [`kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1343
 
-### tada (11534)
+### tada (11537)
+- [`ocap-site-dnssec-followup-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/ocap-site-dnssec-followup-20261008.md) — Cost
+- [`kriscendobot-minion.town-pr169-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-panel-5.md) — Cost
+- [`kriscendobot-minion.town-pr166-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr166-gauntlet-panel-5.md) — Gauntlet panel round 5: kriscendobot/minion.town PR #166
 - [`kriscendobot-minion.town-pr168-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr168-gauntlet-fix-4.md) — Cost
 - [`kriscendobot-minion.town-pr167-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr167-gauntlet.md) — gauntlet kriscendobot-minion.town-pr167-gauntlet — review budget reached
-- [`kriscendobot-minion.town-pr169-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-fix-4.md) — Cost
-- [`kriscendobot-minion.town-pr167-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr167-gauntlet-fix-6.md) — Cost
-- [`kriscendobot-minion.town-pr94-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr94-gauntlet-20261008-clean.md) — Clean stage report: kriscendobot/minion.town PR #94
-- … and 11529 more
+- … and 11532 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
