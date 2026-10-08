@@ -1,19 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-08T11:10:51Z_
+_As of 2026-10-08T11:12:03Z_
 
 ## Latest
 
-The only board change since the last bulletin is that panel round 1 of the gauntlet for [endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) has been claimed. It is running alongside the panel stages for [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) (round 3) and [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) (round 1), plus a fresh minion.town arc press. Earlier in the window, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was checked and is working.
+Little moved since the last bulletin: the only board transition is panel round 1 of the gauntlet for [endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), which finished. That PR is layer 5 of the SturdyRef stack, and layers [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) are waiting on it. Panels for [#258](https://github.com/endojs/endo-but-for-bots/pull/258) (round 3) and [#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) (round 1) are still running.
 
-Four items need the maintainer:
+The maintainer should note four standing items:
 
-- **Review docket halted.** The `review-docket-20261008` orchestration stopped because its consolidate child was abandoned after its retry failed. That child is parked in plan and needs your go-ahead (or a split into smaller jobs). Until then, the 26 archived review requests are not on the docket.
-- **GitHub Actions billing is failing for `kriscendobot`.** Actions is refusing to start jobs because of the account's payment or spending limit. This blocks CI on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and anything else on that account until billing is fixed.
-- **Oros is still offline.** It has been down since 10-02 and is now about 206 commits behind. A person needs to check the Mac.
-- **ocap.site transfer window opens soon.** The domain can transfer into Route53 from about 2026-10-09 19:55Z. DNSSEC stays broken until the transfer completes or the current registrar publishes the DS record.
-
-Two other orchestrations also halted. `orch-minion-town-oauth-bonds` stopped because its build child reported its required outcome as not met. The Jev triage trial is blocked because `TYPESAFE_API_KEY` was never provided.
+- **Review docket stalled.** The `review-docket-20261008` orchestration halted at its last step. Its consolidation child was doomed and is now held in plan, so the 26 review requests that the proxy auto-clear archived have not yet been moved onto the docket. Promoting or splitting `review-docket-consolidate-20261008` will unstick it.
+- **GitHub Actions billing.** Actions is still refusing to start jobs for the `kriscendobot` account because of the billing block, latest on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166).
+- **Oros still offline.** Oros has been offline since 2026-10-02, and only someone with hands on the Mac can fix it.
+- **ocap.site DNSSEC.** The domain becomes eligible to transfer around 2026-10-09T19:55Z. Its DNSSEC chain of trust stays broken until either the transfer completes or the registrar publishes the DS record.
 
 ## Maintainer review docket
 
@@ -555,7 +553,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.1M | $892.15 _(notional, rate-card)_ | 74% of 168.0M (ok) |
+| Claude | 124.2M | $892.38 _(notional, rate-card)_ | 74% of 168.0M (ok) |
 | Codex | 13.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 122176792 tokens/day lower bound._
@@ -567,19 +565,18 @@ worst fetch p95 4.204496s/45s (/home/kris/garden2/.garden-state/dependabotany-pr
 ### todo (0)
 (none)
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1394
+### doin (3)
 - [`minion-town-arc-press-20261008-095009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261008-095009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #258
 - [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1425
 
-### tada (11709)
+### tada (11710)
+- [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-c185ee5f97bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/canary-probe-endolin-garden-ece02cb4-c185ee5f97bc.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-clean.md) — Cost
 - [`improve-comment-source-quota-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-comment-source-quota-probe.md) — Cost
 - [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr258-gauntlet-20261007-fix-2.md) — Cost
-- … and 11704 more
+- … and 11705 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
