@@ -1,4 +1,5 @@
 ---
+child-minion-town-pr145-ci-runner-land-20261008-reap-count: 0
 order: serial
 children: minion-town-pr145-ci-runner-land-20261008 minion-town-pr145-ci-runner-merge-20261008 minion-town-billing-parked-prs-resume-20261008
 on-child-failure: halt
