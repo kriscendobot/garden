@@ -1,25 +1,23 @@
 # Garden bulletin
 
-_As of 2026-10-08T06:03:17Z_
+_As of 2026-10-08T06:04:11Z_
 
 ## Latest
 
-The [review-docket-20261008](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/review-docket-20261008.md) orchestration halted at 2 of 3. Its final child, `review-docket-consolidate-20261008`, was supposed to fold the 26 review requests the proxy auto-cleared into the new docket. It exhausted its retry and is now held in the plan queue. The docket stays incomplete until someone promotes or splits that child. Two other jobs finished: `build-minion-town-claude-arc-prod-validation` and `improve-deployed-child-gate`.
+No board transitions resolved since the last bulletin. The proxy merged and deployed [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) at 04:05Z, and the watchdog validated the deploy. Gauntlet fix and panel rounds are still running on [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94), [#169](https://github.com/kriscendobot/minion.town/pull/169), [#122](https://github.com/kriscendobot/minion.town/pull/122) and [#170](https://github.com/kriscendobot/minion.town/pull/170). [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) is on its sixth and final budgeted fix round.
 
-The minion.town gauntlets kept moving:
+**Halted work needing your decision:**
+- **Review docket:** the orchestration that replaces the old review-priorities documents halted at its last step. That step consolidates the 26 review requests the proxy auto-cleared and sends you the docket URL. The reaper parked it as `review-docket-consolidate-20261008` in plan; promote or split it.
+- **`orch-minion-town-oauth-bonds`:** halted because its build declared its gated outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** halted because `TYPESAFE_API_KEY` isn't in the job environment. It needs you to provision the key.
 
-- [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) finished fix round 1 and is queued for panel round 2.
-- [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) entered its pre-spend viability check.
-- [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) fix round 2 has been claimed.
-- [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, and its deploy was validated after the proxy screened it.
+**Other decisions waiting on you:**
+- **Milestone M2:** blocked only on your merge of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+- **Stale panel review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) moved past its panel-reviewed head and needs a review decision or `run the gauntlet`.
+- **minion.town arc:** choose between posting the ERTP credits Phase 1 build and keeping ERTP deferred.
+- **ocap.site:** DNSSEC is still broken because the registrar hasn't published the DS record. The domain becomes transferable from about 2026-10-09 19:55Z.
 
-**Waiting on the maintainer:**
-
-- **Milestone M2:** blocked on merge authority for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-- **ocap.site:** the domain can be transferred from about 2026-10-09 19:55Z. DNSSEC stays broken until either the transfer completes or the registrar publishes the DS record.
-- **Oros host:** still offline since 10-02. Someone needs to check it in person.
-- **ERTP:** the minion.town arc needs a yes or no on whether to build the Phase 1 credits work now.
-- **Jev triage trial:** halted because `TYPESAFE_API_KEY` is missing.
+The oros host has now been offline for six days and is more than 200 commits behind `main2`. Someone has to check the Mac in person. The oh-my-pi Rust-core library ingest finished in four cycles.
 
 ## Parked for maintainer feedback
 
@@ -534,10 +532,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.2M | $642.92 _(notional, rate-card)_ | 51% of 168.0M (ok) |
-| Codex | 11.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 86.3M | $643.43 _(notional, rate-card)_ | 51% of 168.0M (ok) |
+| Codex | 11.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 121269385 tokens/day lower bound._
+_Fleet token-unlock pace: 121536515 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.087084s/45s (unknown); 5 open notice(s); checker healthy
