@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10321,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10321",
+  "head_oid": "926c95558d91600dc1ea5ed27166018b38c9435d",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump http-proxy-middleware from 2.0.6 to 2.0.7",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10321",
+  "requested_at": "2026-10-08T07:27:37Z",
+  "first_requested_at": "2026-10-08T07:27:37Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:27:40Z"
+  }
+}
