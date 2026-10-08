@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-jev-triage-foreman
-priority: normal
-posted_by: producer
-posted_at: 2026-10-08T04:09:21Z
+role: designer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-08T04:11:54Z cleared=none -->
 
 ---
 role: designer
