@@ -17,3 +17,13 @@ dispatch: automatic
 On promotion, first verify the PR is still OPEN. If it merged or closed, complete as a no-op. Otherwise run
 `scripts/jobs/post-gauntlet.sh --arc endo-ocapn-background endojs-endo-but-for-bots-pr1425-gauntlet-20261007 https://github.com/endojs/endo-but-for-bots/pull/1425`
 and complete. The gauntlet driver takes it from there.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-08T09:30:22Z
