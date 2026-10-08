@@ -14,8 +14,8 @@ stage: fix
 iteration: 1
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-1
+state: running
 resumed_at: 2026-10-08T22:32:44Z
 resumed_from_stage: fix
 ---
