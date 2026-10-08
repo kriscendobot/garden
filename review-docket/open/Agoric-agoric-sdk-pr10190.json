@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10190,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10190",
+  "head_oid": "678bd1a8b26c571263976681e0f8a70465775047",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump anylogger from 0.21.0 to 1.0.11",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10190",
+  "requested_at": "2026-10-08T07:25:23Z",
+  "first_requested_at": "2026-10-08T07:25:23Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:25:26Z"
+  }
+}
