@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 819,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/819",
+  "head_oid": "67d0b75a01ea983de49277b971a1b1928ae0c0cd",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(daemon): durable map and set stores with CLI commands",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr819",
+  "requested_at": "2026-10-08T07:43:03Z",
+  "first_requested_at": "2026-10-08T07:43:03Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:43:06Z"
+  }
+}
