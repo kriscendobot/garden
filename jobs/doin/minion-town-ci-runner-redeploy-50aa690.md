@@ -19,3 +19,13 @@ Task (do not change the code; any defect found becomes a separate fix job):
 4. Dispatch `.github/workflows/ci-runner-selftest.yml` on main with fail=true (`gh workflow run ci-runner-selftest.yml -R kriscendobot/minion.town --ref main -f fail=true`). Confirm that verify finds none of the planted residue (/tmp/.X11-unix probe, systemd-private decoy, named volume, cron, /run/lock), that the `fail` job is red, and that the job log's Runner name now carries the minter's timestamp stamp.
 5. With an identity that can read the variables and runners APIs, confirm CI_RUNS_ON is unset or self-hosted. Wait at least 10 minutes after the restart, then confirm that no orphaned or offline `ci-minion-town-*` registrations remain after the prune sweep.
 Report to the maintainer (scripts/jobs/message-user.sh): in sync or redeployed, the selftest run URL, and any open operator item.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T20:49:02Z
