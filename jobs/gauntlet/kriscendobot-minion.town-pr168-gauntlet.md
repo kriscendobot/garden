@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 168
 build_job: design-minion-town-oauth-bonds
 kind: feature
-stage: panel
+stage: fix
 iteration: 5
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr168-gauntlet-panel-5
+current_child: kriscendobot-minion.town-pr168-gauntlet-fix-5
 state: running
 created_by: producer
 arc: minion-town-ui
