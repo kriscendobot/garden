@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10197,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10197",
+  "head_oid": "dd3c737fb0e25ed3964a830c0a1867e1ec052af4",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump micromatch from 4.0.5 to 4.0.8 in /a3p-integration/proposals/s:stake-bld",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10197",
+  "requested_at": "2026-10-08T07:25:42Z",
+  "first_requested_at": "2026-10-08T07:25:42Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:25:46Z"
+  }
+}
