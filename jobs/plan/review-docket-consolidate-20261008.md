@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-08T05:53:55Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-10-08T05:53:55Z
+---
+
+---
 role: fixer
 tier: mentor
 arc: garden-upkeep
@@ -36,19 +57,3 @@ dispatch: automatic
    - Then **archive** each into the date-indexed priorities archive (dated by its last edit), and replace the original path with a one-line pointer to the new root document, or remove it per the design.
 3. Regenerate the root priorities/docket document and check that its ordering follows `config/apportionment`/`config/foreman-mandate` and what each item unblocks.
 4. **Send ONE maintainer message** (`send-msg.sh maintainer`, key `review-docket-live`) with the **full GitHub URL** of the root document on journal2 (`https://github.com/kriscendobot/garden/blob/journal2/<path>`). Include counts per arc, the top 5 reviews and what each unblocks, and the archive index URL.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-08T05:43:45Z -->
-
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=41,52 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-08T05:44:27Z
