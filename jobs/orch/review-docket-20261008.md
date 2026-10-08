@@ -1,4 +1,5 @@
 ---
+child-review-docket-consolidate-20261008-failure-notified: true
 child-review-docket-consolidate-20261008-host: endolin-garden2-5bcdff64
 child-review-docket-consolidate-20261008-reap-count: 0
 child-build-review-docket-host: endolin-garden2-5bcdff64
