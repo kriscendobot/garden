@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11738,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11738",
+  "head_oid": "ab9535039a2934b3cbe5e80635d1c22b5a706beb",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump tmp from 0.2.3 to 0.2.4 in /multichain-testing",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11738",
+  "requested_at": "2026-10-08T07:34:13Z",
+  "first_requested_at": "2026-10-08T07:34:13Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:34:16Z"
+  }
+}
