@@ -43,3 +43,13 @@ dispatch: automatic
 7. **Foreman link.** How a review the docket marks as unblocking feeds back into the foreman, and whether review state should affect arc headroom.
 
 Follow the designer's open-questions rule: if real maintainer decisions remain, land via the open-questions PR per roles/designer/AGENT.md; otherwise land it bare on main2. **Do not build.** Child 2 builds from your design.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T04:20:06Z
