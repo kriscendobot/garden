@@ -1,23 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T19:40:06Z_
+_As of 2026-10-08T19:46:37Z_
 
 ## Latest
 
-Little moved on the board this cycle. The halted gauntlet on [endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/pull/71) closed out and was converted into an auto-posted shepherd job for its red CI. A shepherd also claimed [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173) to fix its red CI.
+Little moved on the board: the only new transition is a gauntlet record staged for [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173), whose red-CI shepherd is still in flight. The bigger news is in the fleet. Oros is back after being offline since 10-02. It is heartbeating and claiming work again, and its stuck canary cleared at 19:29Z. However, its sysop stalled behind a queued restore, so someone may still need to check garden-sysop and garden-self-deploy on the Mac. Claude spend on the leader sits at 101% of its window cap, and the backoff ramp has throttled monks there to 1. Three things are still waiting on you:
 
-Things to notice:
-- **Claude quota:** the subscription is at 101% of quota, with backoff active.
-- **Oros:** the host is heartbeating and claiming work again. Its stuck-canary watchdog cleared at 19:29Z, but the host-offline notice is still flapping and its sysop queue hasn't been acknowledged. If it doesn't drain, someone needs to check the Mac.
-- **Review docket:** the `review-docket-20261008` orchestration halted after 2 of 3 children. Its consolidation step is held in plan, waiting for you to promote or split it. Until that happens, the review requests archived by the proxy's auto-clear stay out of the docket.
-- **Orchestrations:** `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` both halted. The Jev trial needs a `TYPESAFE_API_KEY` provisioned.
-- **CI billing:** the kriscendobot Actions billing block is still in place, and a job is moving the parked minion.town PRs onto ci.minion.town.
+- **Review-docket consolidation:** the `review-docket-20261008` orchestration halted with its consolidate step parked in plan. It needs a promote or a split.
+- **kriscendobot Actions billing:** the block is still refusing CI starts (latest: [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153)), and a job is moving the parked PRs onto ci.minion.town.
+- **ocap.site DS record:** the record is still missing at the registrar. The transfer window opens around 10-09 19:55Z.
 
 ## Maintainer review docket
 
-114 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+115 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -591,7 +586,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 169.8M | $1200.39 _(notional, rate-card)_ | 101% of 168.0M (backoff) |
+| Claude | 170.1M | $1202.33 _(notional, rate-card)_ | 101% of 168.0M (backoff) |
 | Codex | 15.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 123221464 tokens/day lower bound._
