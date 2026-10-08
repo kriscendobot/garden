@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1281,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1281",
+  "head_oid": "ee335ddf6de050bf5ea5036f9325cf7d364f6763",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix(ses): silence lockdown intrinsics report for the WHATWG URL family",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr1281",
+  "requested_at": "2026-10-08T07:43:52Z",
+  "first_requested_at": "2026-10-08T07:43:52Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:44:05Z"
+  }
+}
