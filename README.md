@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-08T21:10:03Z_
+_As of 2026-10-08T21:13:21Z_
 
 ## Latest
 
-Little moved since the last bulletin: the fleet claimed two jobs and finished none. The two claims were the pre-spend viability stage for [endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433) and `improve-design-build-prestaged-gauntlet`. Three orchestrations have halted and are waiting on the maintainer:
+Only one job moved since the last bulletin: `improve-deadline-nudge-cas-exhaustion` finished and landed in tada. Three things still wait on the maintainer:
 
-- **`review-docket-20261008`:** its final consolidation child ran out of retries and is held in plan. It needs a promote or a split before the review docket is migrated and announced.
-- **`orch-jev-triage-foreman`:** stopped because `TYPESAFE_API_KEY` is not provisioned. The same missing key also limited the PetNames scholar ingest.
-- **`orch-minion-town-oauth-bonds`:** stopped after its build child reported its gated outcome unsatisfied.
-
-Two decisions are also open. The minion.town arc asks whether to build the ERTP credits Phase 1 now or keep the charge stubbed. The ocap.site DNSSEC chain is still broken, and the domain becomes transferable around 2026-10-09 19:55Z. Host `oros-studio` went briefly offline and recovered on its own.
+- **Review docket:** its final consolidation step (`review-docket-consolidate-20261008`) used up its retries and is held in the plan queue. Nothing moves until someone promotes or splits it.
+- **ocap.site:** the domain can be transferred into Route53 Domains from about 2026-10-09T19:55Z. DNSSEC stays broken until that transfer happens or the current registrar publishes the DS record.
+- **Claude spend:** it is at 105% of the backoff quota.
 
 ## Maintainer review docket
 
@@ -251,7 +249,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 175.6M | $1239.60 _(notional, rate-card)_ | 105% of 168.0M (backoff) |
+| Claude | 175.7M | $1239.95 _(notional, rate-card)_ | 105% of 168.0M (backoff) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128849933 tokens/day lower bound._
@@ -270,21 +268,20 @@ worst fetch p95 4.434577s/45s (/home/kris/garden2/.garden-state/inbox-list/journ
 - [`claude-on-minion-town-press-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-203525.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1433
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
 - [`minion-town-billing-parked-prs-resume-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-billing-parked-prs-resume-20261008.md) — Unpark the minion.town PRs blocked by Actions billing, onto ci.minion.town
-- [`improve-deadline-nudge-cas-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-cas-exhaustion.md) — ---
 - [`minion-town-ci-runner-redeploy-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-redeploy-50aa690.md) — ---
 - [`improve-design-build-prestaged-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-design-build-prestaged-gauntlet.md) — ---
 
-### tada (11848)
+### tada (11849)
+- [`improve-deadline-nudge-cas-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-deadline-nudge-cas-exhaustion.md) — Cost
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-arc-press-20261008-192023.md) — Tick report: minion.town arc press, 2026-10-08 ~20:35Z
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5.md) — Cost
 - [`scholar-ingest-source-awesome-ocap-petnames-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/scholar-ingest-source-awesome-ocap-petnames-remainder.md) — Cost
 - [`endojs-endo-but-for-bots-pr71-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr71-shepherd.md) — Manual gauntlet handoff
-- [`scholar-ingest-source-awesome-ocap-petnames`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/scholar-ingest-source-awesome-ocap-petnames.md) — Cost
-- … and 11843 more
+- … and 11844 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
