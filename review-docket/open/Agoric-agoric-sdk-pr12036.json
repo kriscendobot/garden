@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 12036,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/12036",
+  "head_oid": "2d6409103ca19fc43ffade8003dc366f627e3b7f",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "build(deps): bump axios from 1.10.0 to 1.12.2 in /a3p-integration",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr12036",
+  "requested_at": "2026-10-08T07:34:40Z",
+  "first_requested_at": "2026-10-08T07:34:40Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:34:43Z"
+  }
+}
