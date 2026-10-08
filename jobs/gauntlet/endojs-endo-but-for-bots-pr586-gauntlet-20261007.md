@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr586-gauntlet-20261007-viability
+state: running
 created_by: producer
 arc: endo-ocapn-background
 created_at: 2026-10-08T08:22:20Z
