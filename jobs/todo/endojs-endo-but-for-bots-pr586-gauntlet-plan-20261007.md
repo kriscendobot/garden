@@ -1,10 +1,8 @@
 ---
-gate: deferred
-priority: normal
+tier: mentor
 arc: endo-ocapn-background
-posted_by: producer
-posted_at: 2026-10-07T16:26:10Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-08T08:21:08Z cleared=none -->
 
 ---
 tier: mentor
