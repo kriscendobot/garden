@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 11091,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/11091",
+  "head_oid": "39ed9f128ef559529a63c8490189402e202197d4",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "chore(SwingSet): Remove URL from kernel compartment endowments",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr11091",
+  "requested_at": "2026-10-08T07:29:06Z",
+  "first_requested_at": "2026-10-08T07:29:06Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:29:15Z"
+  }
+}
