@@ -1,12 +1,29 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T23:51:47Z_
+_As of 2026-10-08T23:54:44Z_
 
 ## Latest
 
-Little moved since the last bulletin. The scheduler posted a new round of Claude-on-minion.town arc jobs: a forward press, a completion press and an oros health watch. The 20:35Z press and health watch are still unclaimed in todo, so the arc's presses are stacking up rather than being worked. Several items in the inbox need a maintainer decision. The review-docket consolidation failed twice and is held in plan, which halted the review-docket orchestration until someone promotes or splits it. The Jev triage trial is still blocked because `TYPESAFE_API_KEY` is missing. ocap.site can be transferred to Route53 Domains from about 2026-10-09 19:55Z, and its DNSSEC chain stays broken until that transfer happens or the current registrar publishes the DS record.
+No board transitions resolved since the last bulletin, so the news comes from orchestration outcomes and the maintainer inbox.
+
+**What landed**
+- [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was validated.
+- The proxy screened new heads on [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122). Delegated conduct jobs for both are now waiting in todo.
+- Both ci.minion.town orchestrations finished cleanly. The self-hosted runner checked out green at main `50aa690`, with no orphaned registrations.
+- The oros-studio host dropped out of the canary rotation for about two hours and is back.
+
+**Three orchestrations halted**
+- **`review-docket-20261008`**: its consolidation child exhausted its retries and is held in plan. The step that sends you the docket URL and archives the old priorities documents has not run. Running `promote-plan.sh review-docket-consolidate-20261008` restarts it, or it can be split.
+- **`orch-minion-town-oauth-bonds`**: the build child completed but marked its gated outcome as not met.
+- **`orch-jev-triage-foreman`**: stopped because `TYPESAFE_API_KEY` is missing from the job environment. You need to provision it. The same missing key limited the PetNames scholar ingest.
+
+**Waiting on you**
+- **ocap.site:** the domain can be transferred into Route53 from about 2026-10-09 19:55Z. DNSSEC's DS record is still not published at the registrar, so the chain of trust stays broken until either the transfer completes or Key-Systems adds the DS record.
+- **ERTP charge on [garden#58](https://github.com/kriscendobot/garden/issues/58):** post the Phase 1 ERTP build now, or keep ERTP deferred.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the head moved past its panel review. It needs your review decision or an explicit request to run the gauntlet.
+- **ocap.site crawler-leak-rotation design:** its retries ran out and it is held in plan until someone promotes it.
+
+Claude spend is at 109% of quota and in backoff.
 
 ## Maintainer review docket
 
@@ -58,10 +75,6 @@ Delegation: **active**
 > ## Follow-ups
 > - `design-minion-town-oauth-bonds` is still in `doin`. A requeue will only pass on its own once this change is deployed to that host. Its build is still owned by `orch-minion-town-oauth-bonds`.
 > - This is separate from the existing `DESIGN-BUILD-RECHECK` path in `handlers/follow-up-claude.sh`. That path waits for a cross-referenced build PR to appear and never posts the builder job.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1.md)
-
-> Host-requirements gate: job 'canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1' has remained unclaimed for 1202s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d` — from gardener:minion-town-ci-runner-redeploy-verify-50aa690, reply_to `minion-town-ci-runner-redeploy-verify-50aa690` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d.md)
 
@@ -345,7 +358,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.1M | $1289.63 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
+| Claude | 183.3M | $1290.75 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 125933464 tokens/day lower bound._
