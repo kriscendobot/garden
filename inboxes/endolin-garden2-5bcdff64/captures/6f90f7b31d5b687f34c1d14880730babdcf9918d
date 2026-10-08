@@ -1,0 +1,20 @@
+<6>20:40:28 [cleric/2] requeued job 'design-minion-town-ocap-site-crawler-leak-rotation' has no local codex sidecar on endolin-garden2-5bcdff64; prior session and worktree were lost — starting fresh with lost-state framing
+<6>20:40:28 [cleric/2] job 'design-minion-town-ocap-site-crawler-leak-rotation' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>20:40:28 [cleric/2] job 'design-minion-town-ocap-site-crawler-leak-rotation' attaching minion.town MCP (stdio bridge as minion-town)
+garden repo lock: cleared dead-holder metadata pid=1555292 after acquiring /home/kris/garden2/.garden-state/repo-locks/ac85ba95fbb42e9be818cf658bfd9d703e2f94a54b9ee921c25d08d4b66917f1/repo.lock
+<6>21:14:37 [post-gauntlet] gauntlet 'kriscendobot-minion.town-pr173-gauntlet' already recorded; nothing to do
+<6>21:14:37 [auto-gauntlet-handoff] auto-gauntlet: 'design-minion-town-ocap-site-crawler-leak-rotation' recorded gauntlet 'kriscendobot-minion.town-pr173-gauntlet' for https://github.com/kriscendobot/minion.town/pull/173
+panel-head-freshness: unreviewed target=kriscendobot/minion.town#173 disposition=manual-gauntlet-not-triggered
+<6>21:14:49 [assert-followup-posted] gate: BLOCK — 'design-minion-town-ocap-site-crawler-leak-rotation' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Completed draft PR [kriscendobot/minion.town#173](https://github.com/kriscendobot/minion.town/pull/173) at `49e9b5e`.
+
+- Settled deterministic signals, privacy-preserving placement, response thresholds, abuse limits, public pinning, tombstones, owner notification, durable rotation, degraded mode, ownership, and production-canary acceptance.
+- Incorporated Endo’s proposed `FormulaReferenceControl` interface and documented its live-authority limitation.
+- Prettier, typecheck, whitespace, and all three Mermaid parses passed. All PR checks are green.
+- Five external research sources proceeded unclassified because `TYPESAFE_API_KEY` was unavailable; no classifier tokens were used.
+
+## Follow-ups
+
+Build job: `build-ocap-site-crawler-leak-rotation`, after arc-supervisor review. The missing budget-request helper was reported to the liaison with the intended 30M request.
