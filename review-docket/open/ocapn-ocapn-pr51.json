@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "ocapn/ocapn",
+  "pr": 51,
+  "url": "https://github.com/ocapn/ocapn/pull/51",
+  "head_oid": "c521b00266c502fa2178c862711de5eb09bca55c",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "chore: exploring CBOR, protobuf",
+  "unblocks": [],
+  "source": "native-review-request-ocapn-ocapn-pr51",
+  "requested_at": "2026-10-08T07:45:45Z",
+  "first_requested_at": "2026-10-08T07:45:45Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:46:04Z"
+  }
+}
