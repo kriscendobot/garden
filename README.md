@@ -1,17 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T04:13:39Z_
+_As of 2026-10-08T04:16:40Z_
 
 ## Latest
 
-Little moved on the board. Fix round 6 of the gauntlet for [endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/pull/1431) finished. `design-jev-triage-foreman-integration` was promoted from the plan queue and claimed, which moves the `orch-jev-triage-foreman` orchestration forward. The proxy screened and merged [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and its deploy succeeded.
-
-These still need the maintainer:
-- **Milestone M2:** blocked until [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) are merged.
-- **Transfer of ocap.site into Route53:** the domain becomes transferable after about 2026-10-09 19:55Z. DNSSEC stays broken until the transfer completes or the registrar publishes the DS record.
-- **Oros host:** still offline since 2026-10-02. Someone has to check the Mac, Docker Desktop and the VM/container runtime in person.
-- **ERTP credits:** a decision is needed on whether to build the Phase 1 credits charge for the minion.town arc now or keep ERTP deferred.
-- **Halted orchestration:** `orch-minion-town-oauth-bonds` stopped because its build child reported that its gated outcome was not met.
+The gauntlet for [endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/pull/1431) finished after fix round 6 because it used up its review budget, not because the panel was satisfied, so the PR needs a maintainer decision rather than another automated round. The proxy merged [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) (`76bb27628e9`). Its deploy [succeeded](https://github.com/kriscendobot/minion.town/actions/runs/37725824969) and the watchdog is clean. Otherwise the Jev triage/foreman orchestration only updated its progress record while its design job is still running.
 
 ## Parked for maintainer feedback
 
@@ -31,7 +24,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 Delegation: **active**
 
-- 2026-10-08T04:05:39Z [#143](https://github.com/kriscendobot/minion.town/pull/143) merged `76bb27628e9`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/37725824969)
+- 2026-10-08T04:05:39Z [#143](https://github.com/kriscendobot/minion.town/pull/143) merged `76bb27628e9`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/37725824969), watchdog ok — validated
 - 2026-10-08T04:00:07Z [#143](https://github.com/kriscendobot/minion.town/pull/143) `e0b95d10de8` screened
 - 2026-10-08T03:50:52Z [#143](https://github.com/kriscendobot/minion.town/pull/143) `43a1387084e` screened
 
@@ -406,7 +399,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.0M | $510.18 _(notional, rate-card)_ | 40% of 168.0M (ok) |
+| Claude | 67.3M | $514.62 _(notional, rate-card)_ | 40% of 168.0M (ok) |
 | Codex | 9.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121164938 tokens/day lower bound._
@@ -426,13 +419,13 @@ worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1343
 - [`design-jev-triage-foreman-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-jev-triage-foreman-integration.md) — Design: Jev in the triage and foreman workflows, with an amortized prompt tem...
 
-### tada (11573)
+### tada (11574)
+- [`endojs-endo-but-for-bots-pr1431-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1431-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1431-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1431-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1431-gauntlet-fix-6.md) — Cost
 - [`fix-garden-daemon-reload-timer-starvation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/fix-garden-daemon-reload-timer-starvation.md) — Cost
 - [`screen-minion-town-pr143-e0b95d1-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/screen-minion-town-pr143-e0b95d1-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr94-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr94-shepherd.md) — Cost
-- [`improve-retry-deploy-unit-restart`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/improve-retry-deploy-unit-restart.md) — Cost
-- … and 11568 more
+- … and 11569 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
