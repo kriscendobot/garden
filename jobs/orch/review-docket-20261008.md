@@ -1,4 +1,5 @@
 ---
+child-design-review-docket-reap-count: 0
 order: serial
 children: design-review-docket build-review-docket review-docket-consolidate-20261008
 on-child-failure: halt
