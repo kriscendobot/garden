@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo",
+  "pr": 2952,
+  "url": "https://github.com/endojs/endo/pull/2952",
+  "head_oid": "e257d89f209ca40550c88d69266bbd4831aa8c54",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix(ses): fix #2951 stronger sniffing for v8",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-pr2952",
+  "requested_at": "2026-10-08T07:38:10Z",
+  "first_requested_at": "2026-10-08T07:38:10Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-08T07:38:42Z"
+  }
+}
