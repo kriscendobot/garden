@@ -1,16 +1,16 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:rolling-deploy
-sent_at: 2026-10-08T02:08:06Z
+sent_at: 2026-10-08T03:11:09Z
 watchdog_key: rolling-deploy-host-offline-oros-studio-garden-ce242c49
-notice_count: 1681
+notice_count: 1702
 first_seen: 2026-10-02T05:41:06Z
-last_seen: 2026-10-08T02:08:06Z
+last_seen: 2026-10-08T03:11:09Z
 ---
-WATCHDOG notice — occurrence #1681 (first seen 2026-10-02T05:41:06Z, latest 2026-10-08T02:08:06Z).
-The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1681 times; this is ONE
-coalesced notice that updates in place, not 1681 messages. Latest detail:
+WATCHDOG notice — occurrence #1702 (first seen 2026-10-02T05:41:06Z, latest 2026-10-08T03:11:09Z).
+The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1702 times; this is ONE
+coalesced notice that updates in place, not 1702 messages. Latest detail:
 
-Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 507569s (offline threshold 1800s; sampled_at_epoch=1790917716).
+Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 511346s (offline threshold 1800s; sampled_at_epoch=1790917716).
 The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 no release token, deploy budget, failed-canary count, or halt. Restore the host and
