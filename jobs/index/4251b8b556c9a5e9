@@ -1,2 +1,2 @@
-base: improve-deadline-nudge-ambiguous-push
+base: improve-deadline-nudge-cas-exhaustion
 identity: mentor:scripts/jobs/deadline-nudge.sh
