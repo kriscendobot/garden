@@ -16,5 +16,10 @@
   "ci": {
     "state": "green",
     "observed_at": "2026-10-08T19:07:05Z"
+  },
+  "retirement": {
+    "kind": "terminal",
+    "at": "2026-10-08T19:14:51Z",
+    "state": "MERGED"
   }
 }
