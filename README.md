@@ -1,18 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T17:16:36Z_
+_As of 2026-10-08T17:19:33Z_
 
 ## Latest
 
-Gauntlet work moved forward on three endo-but-for-bots PRs. [endo-but-for-bots#250](https://github.com/endojs/endo-but-for-bots/pull/250) finished panel round 1 and is now in fix round 1. The parked gauntlet plans for [endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/pull/71) and [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79) were promoted and completed. #79 has cleared its pre-spend viability check, although its pinned base carries a wide entrained commit delta, so its diff scope deserves a look. #71's viability stage is now queued.
-
-Several items need a maintainer decision:
-
-- **Claude quota:** the subscription is at 95% of its weekly quota, above the 90% burn line.
-- **Review docket:** the `review-docket-20261008` orchestration halted. Its consolidation child exhausted its retries and is held in plan until you promote it, so the 26 cleared review requests are not on the docket yet.
-- **Billing block:** GitHub Actions is still refusing to start jobs for the kriscendobot account (latest on [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153)).
-- **ocap.site DNSSEC:** the domain becomes eligible for transfer around 2026-10-09 19:55Z, and the DS record is still unpublished.
-- **Oros:** the host is still offline. A person needs to check the Mac, Docker Desktop and the VM.
+Little moved this interval. The gauntlet for [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79) passed its pre-spend viability check and posted its clean stage to the board. One item waits on you: the review-docket orchestration has halted at 2 of 3 children. Its consolidation child, `review-docket-consolidate-20261008`, used up its retries and is held in plan. It won't run until someone promotes it or splits it into smaller jobs.
 
 ## Maintainer review docket
 
@@ -365,10 +357,6 @@ Delegation: **active**
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/334](https://github.com/endojs/endo-but-for-bots/pull/334) ([endojs/endo-but-for-bots#334](https://github.com/endojs/endo-but-for-bots/issues/334)) is in the mergeable queue with NO gauntlet review staged (head 30c43c645a9ed5295e62063579dc7082a6222ea6). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #334'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `endojs-endo-but-for-bots-pr79-gauntlet-20261007-entrained-delta` — from gauntlet:endojs-endo-but-for-bots-pr79-gauntlet-20261007-entrained-delta, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr79-gauntlet-20261007-entrained-delta.md)
-
-> INFO: gauntlet endojs-endo-but-for-bots-pr79-gauntlet-20261007: PR [endojs/endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/issues/79) carries a WIDE entrained commit delta on its pinned base — possible moving-branch rebase; review the diff scope (skills/rebase-hygiene-audit). Proceeding with the gauntlet.
-
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
@@ -574,17 +562,18 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 159.5M | $1129.43 _(notional, rate-card)_ | 95% of 168.0M (ok) |
-| Codex | 14.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 159.7M | $1131.43 _(notional, rate-card)_ | 95% of 168.0M (ok) |
+| Codex | 14.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 122848149 tokens/day lower bound._
+_Fleet token-unlock pace: 123013448 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 5.544244s/45s (/home/kris/garden2/.garden-state/regenerate-sections-index/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr71-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr71-gauntlet-20261007-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #71
+- [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #79
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1379
