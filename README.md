@@ -1,16 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T17:45:23Z_
+_As of 2026-10-08T17:51:26Z_
 
 ## Latest
 
-Oros (`oros-studio-garden-ce242c49`) is back online: its heartbeat resumed at 17:23Z after six days dark. It should rejoin the canary rotation by itself, but it is still about 210 commits behind `main2`, and the sysop ops queued while it was down have not been acknowledged yet. On the board, the gauntlet for [endo-but-for-bots#250](https://github.com/endojs/endo-but-for-bots/pull/250) came back from panel round 2 with must-fix findings, so fix round 2 is now queued. [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79) passed viability and clean and is waiting for its first panel. [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)'s halted gauntlet became a shepherd job for red CI, which a gardener has claimed. The halted-gauntlet records for [endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endo-but-for-bots#251](https://github.com/endojs/endo-but-for-bots/pull/251) and [endo-but-for-bots#60](https://github.com/endojs/endo-but-for-bots/pull/60) were cleared from the pending queue. Three things need the maintainer. Claude spend is at 96% of the claude-endolin2 quota, past the 90% burn line. GitHub Actions on the kriscendobot account is still blocked by billing, last seen at 16:02Z on [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153). The review-docket orchestration is halted because its consolidation step is held in `plan/` until someone promotes or splits it. Because that step never ran, the 26 review requests that the proxy auto-clear archived are still not on the docket.
+No board transitions came through since the last bulletin. The news is in the inbox:
+
+- **Oros may be back.** Oros' heartbeat resumed at 17:23Z after six days offline. But it is now a stuck rolling-deploy canary: it was released to `c185ee5f97bc` and still reports `2e8aedf`. The leader won't advance past it, so `garden-self-deploy` on Oros needs a look.
+- **Review docket halted.** The `review-docket-20261008` orchestration halted at 2/3. Its consolidation child, `review-docket-consolidate-20261008`, exhausted its retries and is held in plan until someone promotes it. Until then, the 26 review requests archived by the proxy auto-clear aren't on the docket.
+- **Two more orchestrations halted:**
+  - `orch-minion-town-oauth-bonds`: the build child declared its gated outcome unsatisfied.
+  - `orch-jev-triage-foreman`: it is blocked on a missing `TYPESAFE_API_KEY` that only the maintainer can provision.
+- **Claude quota is at 97%** of the endolin2 subscription, past the 90% burn line.
+- **GitHub Actions billing.** It is still refusing to start jobs for the kriscendobot account (latest: [minion.town#153](https://github.com/kriscendobot/minion.town/issues/153)).
+- **minion.town.** [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was validated. The proxy screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
+- **Gauntlets.** Work continues on [endo-but-for-bots#250](https://github.com/endojs/endo-but-for-bots/pull/250) (panel round 2 found must-fixes; fix round 2 is queued), [endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/pull/79), [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and [endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/pull/71). A shepherd is on red CI for [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182).
+- **ocap.site.** The domain becomes transferable around 2026-10-09 19:55Z. Until then its DNSSEC chain stays broken, because the registrar hasn't published the DS record. Whether to transfer or ask the registrar is the maintainer's call.
 
 ## Maintainer review docket
 
-112 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+113 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -350,6 +359,10 @@ Delegation: **active**
 >
 > Orchestration improve-journal-deepen-retry-expanded-window-split HALTED: child improve-journal-deepen-retry-expanded-window-expanded-window stalled in flight for 7272s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 0/1 done before halt; parked remainder: none
 
+- `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
+
+> budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=256412 cap=180000000 pace-bias=0.404735 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=4 backoff=0.6662(ramp) target=4
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr334-30c43c645a9e` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr334-30c43c645a9e.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/334](https://github.com/endojs/endo-but-for-bots/pull/334) ([endojs/endo-but-for-bots#334](https://github.com/endojs/endo-but-for-bots/issues/334)) is in the mergeable queue with NO gauntlet review staged (head 30c43c645a9ed5295e62063579dc7082a6222ea6). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #334'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -533,6 +546,14 @@ Delegation: **active**
 
 > Oros remains unreachable as of 2026-10-07T20:36Z: heartbeat and fleet health are stale since 2026-10-02, sysop has not acknowledged anything since 2026-10-02T05:38:58Z, the host remains heartbeat-offline derotated, and no current health-checkup exists because its schedule is deferred to 2026-10-11T21:00Z. Deployed e036bb8e is now 193 commits behind origin/main2. I sent no duplicate op: seven reset-failed, one restore, and two attested garden-gardener-scaler unit requests are already unacknowledged. A person must check the Mac power/sleep state, Docker Desktop, and the VM/container runtime.
 
+- `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
+
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to c185ee5f97bc 21 min ago
+> but still reports deployed_sha 2e8aedf5363a19f701f4fafa8fd6170bd2240138. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden2-5bcdff64)
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr887-d8e75061384a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr887-d8e75061384a.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/887](https://github.com/endojs/endo-but-for-bots/pull/887) ([endojs/endo-but-for-bots#887](https://github.com/endojs/endo-but-for-bots/issues/887)) is in the mergeable queue with NO gauntlet review staged (head d8e75061384af8b41e5bdb66afdbe7269c3561df). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #887'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -559,10 +580,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 162.1M | $1147.36 _(notional, rate-card)_ | 96% of 168.0M (ok) |
-| Codex | 14.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 162.5M | $1150.06 _(notional, rate-card)_ | 97% of 168.0M (ok) |
+| Codex | 14.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123043296 tokens/day lower bound._
+_Fleet token-unlock pace: 123211288 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.544244s/45s (/home/kris/garden2/.garden-state/regenerate-sections-index/journal); 4 open notice(s); checker healthy
