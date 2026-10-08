@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 730,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/730",
+  "head_oid": "89cb42200d945611d25ff6db4435b7a5fbf9f314",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "design(registry): Endor/XS registry transport power",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr730",
+  "requested_at": "2026-10-08T07:42:42Z",
+  "first_requested_at": "2026-10-08T07:42:42Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:42:45Z"
+  }
+}
