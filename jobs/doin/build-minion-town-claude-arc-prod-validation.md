@@ -33,3 +33,13 @@ merged, stack on its head branch `feat/prod-objectives-probe` and say so in the 
   kriscendobot/minion.town through ensure-pr.sh. The gauntlet follows automatically.
 
 Do not edit the arc issue body. The press updates it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T05:38:56Z
