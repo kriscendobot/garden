@@ -40,3 +40,9 @@ documentation content.
 ferry_claim:
   host: kmkmbp2026
   claimed_at: 2026-10-08T20:57:31Z
+
+---
+ferry_done:
+  completed_at: 2026-10-08T21:01:43Z
+  exit: 0
+  log: /Users/kris/garden/.garden-ferry/logs/igoricbot-documentation-pr1.20261008T205734Z.log
