@@ -1,11 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: review-docket-20261008
-priority: normal
+role: builder
+tier: mentor
 arc: garden-upkeep
-posted_by: producer
-posted_at: 2026-10-08T04:17:12Z
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-08T04:28:37Z cleared=none -->
 
 ---
 role: builder
