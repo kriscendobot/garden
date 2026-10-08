@@ -11,3 +11,13 @@ Task: check that the deployed runner matches the merged code, and redeploy any p
 4. Dispatch .github/workflows/ci-runner-selftest.yml against main. Confirm that the verify job finds none of the planted residue (/tmp/.X11-unix probe, the systemd-private decoy, the named volume, cron and /run/lock) and that the red-result job is actually red.
 5. Confirm that test.yml runs land on the ci-minion-town label, which needs the CI_RUNS_ON repo variable set. Also confirm that no orphaned ci-minion-town-* registrations are left after the 10-minute prune sweep.
 Report the result to the maintainer: in sync or redeployed, the selftest run URL, and any open operator item. Do not change the code itself. Any defect you find becomes a separate fix job.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-08T19:24:52Z
