@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-08T05:19:38Z_
+_As of 2026-10-08T05:24:23Z_
 
 ## Latest
 
-The automated review docket build ([`build-review-docket`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/build-review-docket.md)) has finished. On minion.town, [kriscendobot/minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished its second fix round and is now in panel round 3. [kriscendobot/minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) passed its pre-spend viability check. The proxy merged [kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) and validated it in production: the deploy succeeded and the watchdog reports ok. Four items need you:
+[minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) finished panel round 3 and moved to fix round 3. [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) passed its viability check and its CLEAN stage is now running. The review-docket consolidation job came off the plan queue and was claimed, and so was a screening quota-cooldown improvement. The proxy merged and deployed [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and the deploy and watchdog both checked out.
 
-- **ocap.site transfer:** the transfer window opens around 2026-10-09 19:55Z. Until the transfer completes or Key-Systems publishes the DS record, DNSSEC stays broken.
-- **Oros:** the host is still offline. A person needs to check the Mac, Docker Desktop and the VM.
-- **Halted orchestrations:** `orch-minion-town-oauth-bonds` stopped because its build child reported its gated outcome unsatisfied. `orch-jev-triage-foreman` stopped because `TYPESAFE_API_KEY` is missing from the job environment.
-- **Milestone M2:** it is still waiting on your merge of [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and endojs/endo-but-for-bots#1381.
+What needs you:
+- **M2 is blocked on your merge authority.** [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) are both clean and ready for review.
+- **Oros has been offline since 2026-10-02.** A person needs to check its Mac, Docker Desktop and VM/container runtime.
+- **ocap.site can be transferred to Route53 from about 2026-10-09 19:55Z.** DNSSEC stays broken until that happens or the registrar publishes the DS record. You can start the transfer or ask the registrar.
+- **Two orchestrations halted:**
+  - The OAuth-bonds build declared its gated outcome unsatisfied.
+  - The Jev triage trial needs a `TYPESAFE_API_KEY` provisioned before it can re-run.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 29m)
+- [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) — fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors (waiting 34m)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 20d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 26d)
@@ -434,7 +437,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.4M | $595.77 _(notional, rate-card)_ | 47% of 168.0M (ok) |
+| Claude | 80.6M | $603.48 _(notional, rate-card)_ | 48% of 168.0M (ok) |
 | Codex | 11.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 121213895 tokens/day lower bound._
@@ -443,21 +446,24 @@ _Fleet token-unlock pace: 121213895 tokens/day lower bound._
 worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #122
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #169
 
-### doin (3)
+### doin (5)
+- [`review-docket-consolidate-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-docket-consolidate-20261008.md) — ---
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
+- [`kriscendobot-minion.town-pr170-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr170-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #170
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1343
-- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #122
+- [`improve-screening-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-screening-quota-cooldown.md) — ---
 
-### tada (11601)
+### tada (11602)
+- [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-3.md) — Cost
 - [`build-review-docket`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/build-review-docket.md) — Cost
 - [`kriscendobot-minion.town-pr170-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr170-gauntlet-viability.md) — Cost
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008-fix-2.md) — Gauntlet FIX round 2: kriscendobot/minion.town#122
 - [`canary-probe-endolin-garden-ece02cb4-3d03a367d568`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/canary-probe-endolin-garden-ece02cb4-3d03a367d568.md) — rolling-deploy canary probe — round trip OK
-- [`minion-town-locator-fragment-scrub`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-locator-fragment-scrub.md) — Cost
-- … and 11596 more
+- … and 11597 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
