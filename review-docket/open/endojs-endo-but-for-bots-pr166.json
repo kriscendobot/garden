@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 166,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/166",
+  "head_oid": "d6ea530ef0bb7b3be972351e597846fa6c9a32cd",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot)",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr166",
+  "requested_at": "2026-10-08T07:39:40Z",
+  "first_requested_at": "2026-10-08T07:39:40Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:39:50Z"
+  }
+}
