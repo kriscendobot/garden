@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 171
 build_job: build-minion-town-claude-arc-prod-validation
 kind: feature
-stage: panel
+stage: fix
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr171-gauntlet-panel-4
+current_child: kriscendobot-minion.town-pr171-gauntlet-fix-4
 state: running
 created_by: producer
 created_at: 2026-10-08T05:57:38Z
