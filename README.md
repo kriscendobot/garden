@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-08T10:50:16Z_
+_As of 2026-10-08T10:53:40Z_
 
 ## Latest
 
@@ -570,13 +570,13 @@ _Fleet token-unlock pace: 122176792 tokens/day lower bound._
 worst fetch p95 4.204496s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1394-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1394
-- [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1425
 
-### doin (2)
+### doin (3)
 - [`minion-town-arc-press-20261008-095009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261008-095009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #258
+- [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1425
 
 ### tada (11709)
 - [`canary-probe-endolin-garden-ece02cb4-c185ee5f97bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/canary-probe-endolin-garden-ece02cb4-c185ee5f97bc.md) — rolling-deploy canary probe — round trip OK
