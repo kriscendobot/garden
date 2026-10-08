@@ -66,3 +66,13 @@ sorts every claim below into one of three bins, with the evidence for each:
 Include mermaid diagrams (no ASCII art) and an `## Ownership map`. Open the design as a
 DRAFT PR on `endojs/endo-but-for-bots`. The maintainer reviews every Endo change, so end the
 job by sending the PR link to the maintainer inbox with one sentence on what to read first.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T18:50:58Z
