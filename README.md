@@ -1,22 +1,16 @@
 # Garden bulletin
 
-_As of 2026-10-08T21:04:06Z_
+_As of 2026-10-08T21:10:03Z_
 
 ## Latest
 
-Round 5 of the panel on [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) finished, and the gauntlet has posted fix round 5 and a job to post the round-5 verdict. The scholar finished the PetNames reference walk and ingested five library sections; Jev was unavailable, and every source records that caveat. A minion.town arc-press tick finished, a gardener claimed the ci.minion.town runner redeploy, `improve-comment-watcher-quota-admission` is new on the board, and the `igoricbot-documentation-pr1` ferry moved to done.
+Little moved since the last bulletin: the fleet claimed two jobs and finished none. The two claims were the pre-spend viability stage for [endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433) and `improve-design-build-prestaged-gauntlet`. Three orchestrations have halted and are waiting on the maintainer:
 
-Three orchestrations have halted and need you:
-- **`review-docket-20261008`:** stopped at 2/3. Its consolidation child ran out of retries and is held in plan. It needs `promote-plan.sh review-docket-consolidate-20261008` or a split, and until then the review-request messages that the proxy auto-clear archived are still not on the docket.
-- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` isn't in the job environment.
-- **`orch-minion-town-oauth-bonds`:** halted after its build child reported its gated outcome unsatisfied.
+- **`review-docket-20261008`:** its final consolidation child ran out of retries and is held in plan. It needs a promote or a split before the review docket is migrated and announced.
+- **`orch-jev-triage-foreman`:** stopped because `TYPESAFE_API_KEY` is not provisioned. The same missing key also limited the PetNames scholar ingest.
+- **`orch-minion-town-oauth-bonds`:** stopped after its build child reported its gated outcome unsatisfied.
 
-Other things to decide or note:
-- **ocap.site:** the 60-day transfer lock lifts around 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published, so you need to choose between transferring the domain and asking Key-Systems to add the DS.
-- **minion.town arc:** the ERTP-credits Phase 1 build is waiting on your go or defer.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the current head has no panel review.
-- **Quota:** Claude spend is at 104% of quota, and the backoff is in effect.
-- **oros-studio host:** it was briefly offline but has recovered.
+Two decisions are also open. The minion.town arc asks whether to build the ERTP credits Phase 1 now or keep the charge stubbed. The ocap.site DNSSEC chain is still broken, and the domain becomes transferable around 2026-10-09 19:55Z. Host `oros-studio` went briefly offline and recovered on its own.
 
 ## Maintainer review docket
 
@@ -257,32 +251,32 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 175.3M | $1237.39 _(notional, rate-card)_ | 104% of 168.0M (backoff) |
+| Claude | 175.6M | $1239.60 _(notional, rate-card)_ | 105% of 168.0M (backoff) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 128825314 tokens/day lower bound._
+_Fleet token-unlock pace: 128849933 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.434577s/45s (/home/kris/garden2/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (8)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
 - [`endojs-endo-but-for-bots-pr1379-post-panel-r5-verdict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-post-panel-r5-verdict.md) — Post the gauntlet panel round-5 verdict on endojs/endo-but-for-bots#1379
 - [`improve-comment-watcher-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-comment-watcher-quota-admission.md) — ---
-- [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1433
 - [`endojs-endo-but-for-bots-pr1434-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1434-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1434
 - [`kriscendobot-minion.town-pr173-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #173
 - [`endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr79-gauntlet-20261007-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #79
 - [`claude-on-minion-town-press-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-203525.md) — Press the Claude-on-minion.town arc forward
-- [`improve-design-build-prestaged-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-design-build-prestaged-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 
-### doin (4)
+### doin (6)
+- [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1433
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
 - [`minion-town-billing-parked-prs-resume-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-billing-parked-prs-resume-20261008.md) — Unpark the minion.town PRs blocked by Actions billing, onto ci.minion.town
 - [`improve-deadline-nudge-cas-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-cas-exhaustion.md) — ---
 - [`minion-town-ci-runner-redeploy-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-redeploy-50aa690.md) — ---
+- [`improve-design-build-prestaged-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-design-build-prestaged-gauntlet.md) — ---
 
 ### tada (11848)
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/minion-town-arc-press-20261008-192023.md) — Tick report: minion.town arc press, 2026-10-08 ~20:35Z
