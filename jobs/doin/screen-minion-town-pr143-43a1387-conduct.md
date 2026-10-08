@@ -19,3 +19,13 @@ approval is required; do not request one.
    fall back to an ordinary merge, never queue --auto, never ask for approval.
 
 PR: https://github.com/kriscendobot/minion.town/pull/143
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T03:51:31Z
