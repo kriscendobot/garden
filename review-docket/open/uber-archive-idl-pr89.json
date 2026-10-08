@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "uber-archive/idl",
+  "pr": 89,
+  "url": "https://github.com/uber-archive/idl/pull/89",
+  "head_oid": "06cc6d742b41ef8116dad9bd1f7aa1b7efcdf219",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Prevent fetch calls on IDL files",
+  "unblocks": [],
+  "source": "native-review-request-uber-archive-idl-pr89",
+  "requested_at": "2026-10-08T07:46:55Z",
+  "first_requested_at": "2026-10-08T07:46:55Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-08T07:47:35Z"
+  }
+}
