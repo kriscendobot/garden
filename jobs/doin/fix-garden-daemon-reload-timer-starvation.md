@@ -26,3 +26,13 @@ Fix both halves:
    anchor, or have install-units start the service once on (re)install. Audit
    scripts/systemd/*.timer for timers anchored only by OnActiveSec+OnUnitActiveSec.
 Add a regression test where the repo has a harness for it, and land on main2 directly (no PR).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-08T03:55:22Z
