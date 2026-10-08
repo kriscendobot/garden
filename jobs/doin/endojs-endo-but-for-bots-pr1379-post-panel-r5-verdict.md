@@ -43,3 +43,13 @@ Job `endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5` ran the panel on
 
 <!-- garden-panel-verdict: round=5 disposition=must-fix head=2c43a058c065a2a18b6e579e079d122cc2cd9666 -->
 ----- END REVIEW BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-08T22:20:18Z
