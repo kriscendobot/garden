@@ -1,22 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T22:11:25Z_
+_As of 2026-10-08T22:14:54Z_
 
 ## Latest
 
-Two gauntlets advanced. [endo-but-for-bots#1434](https://github.com/endojs/endo-but-for-bots/pull/1434) passed its viability check and now has a clean stage on the board. [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173) finished cleaning and is queued for its first panel round.
+No board transitions came through since the last bulletin, so this one is mostly about the maintainer inbox.
 
-Several items in the inbox need a decision:
+**Three orchestrations halted:**
+- `review-docket-20261008`: the final consolidate step failed twice and is now held in `plan/`. It needs `promote-plan.sh review-docket-consolidate-20261008` or a split. Until then, the old review-request messages and the earlier priorities documents have not been folded into the docket.
+- `orch-minion-town-oauth-bonds`: the build child finished but reported that its gated outcome was not met.
+- `orch-jev-triage-foreman`: stopped because `TYPESAFE_API_KEY` is missing from the job environment. The key needs to be provisioned before it can re-run; the scholar's PetNames ingest hit the same missing key.
 
-- **Review docket stalled at the last step:** the `review-docket-20261008` orchestration halted. Its final consolidate-and-notify child exhausted its retries and is held in plan until someone promotes or splits it, so the new review docket exists but has not yet absorbed the review requests that were auto-cleared.
-- **OAuth bonds build:** `orch-minion-town-oauth-bonds` halted because its build child said its gated outcome was not met.
-- **Jev triage trial:** it is blocked until a maintainer provides `TYPESAFE_API_KEY`.
-- **ci.minion.town:** a check at `50aa690` found the runner healthy, with no redeploy needed and no orphaned runners.
-- **ocap.site DNSSEC:** the DS record is still not published at the registrar. A transfer into Route53 becomes possible after 2026-10-09 19:55Z, so it is your call whether to start the transfer or ask Key-Systems to publish the DS.
-- **minion.town arc:** a pending question asks whether to build the ERTP credits Phase 1 now or keep it deferred.
-- **Host recovered:** `oros-studio-garden-ce242c49` dropped offline for about an hour and has rejoined.
+**Good news on minion.town:** the ci.minion.town runner redeploy completed cleanly and validated with no open operator items. [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy validated. Host `oros-studio` dropped offline for about an hour and has recovered.
+
+**Waiting on your decision:**
+- **ocap.site:** the domain can be transferred after 2026-10-09 19:55Z. DNSSEC stays broken until either the transfer completes or the current registrar (Key-Systems) publishes the DS record.
+- **ERTP:** build the Phase 1 credits toy now, or keep ERTP deferred ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)).
+- **SturdyRef stack:** the merge-order summary recommends landing [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) first, once the layers beneath it land, and retconning [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393).
+- **Stale panel review:** [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has new commits that its last panel review didn't cover.
+
+The ocap.site crawler-leak rotation design job was also parked after retries ran out. Claude spend is over quota and in backoff.
 
 ## Maintainer review docket
 
@@ -367,7 +370,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 178.7M | $1260.21 _(notional, rate-card)_ | 106% of 168.0M (backoff) |
+| Claude | 178.9M | $1261.36 _(notional, rate-card)_ | 106% of 168.0M (backoff) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 125432599 tokens/day lower bound._
