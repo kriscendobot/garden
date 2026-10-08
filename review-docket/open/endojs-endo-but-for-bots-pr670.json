@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 670,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/670",
+  "head_oid": "9c120d7b5ed1bf7306877dbf43199e436cd1de35",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat(lal): subscription OAuth flow and encrypted auth store (M3)",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr670",
+  "requested_at": "2026-10-08T07:42:21Z",
+  "first_requested_at": "2026-10-08T07:42:21Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:42:23Z"
+  }
+}
