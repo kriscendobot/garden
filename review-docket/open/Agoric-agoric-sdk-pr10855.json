@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "Agoric/agoric-sdk",
+  "pr": 10855,
+  "url": "https://github.com/Agoric/agoric-sdk/pull/10855",
+  "head_oid": "bbbe787a744df7485f573e44145e599375ee20c4",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "feat: Classify trigger in contextualized slog sender",
+  "unblocks": [],
+  "source": "native-review-request-Agoric-agoric-sdk-pr10855",
+  "requested_at": "2026-10-08T07:28:22Z",
+  "first_requested_at": "2026-10-08T07:28:22Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:28:31Z"
+  }
+}
