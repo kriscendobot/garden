@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-08T04:27:30Z_
+_As of 2026-10-08T04:30:10Z_
 
 ## Latest
 
-[minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged. Its deploy succeeded, and the proxy validated it with a clean watchdog. On the board, the design jobs `design-jev-triage-foreman-integration` and `design-review-docket` finished. The companion `trial-jev-triage-foreman-classification` also completed but is blocked: the job environment has no `TYPESAFE_API_KEY`, and the maintainer must provision it before the trial can re-run. The minion.town gauntlets kept moving. The screen gauntlet for [minion.town#130](https://github.com/kriscendobot/minion.town/pull/130) was judged not viable. [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) passed its clean stage and is queued for panel round 1. [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) passed viability and is queued for clean. [minion.town#168](https://github.com/kriscendobot/minion.town/pull/168) is now in fix round 6, and `improve-worker-stop-timeout` was claimed. Several items still need the maintainer. The ocap.site domain becomes transferable after about 2026-10-09 19:55Z, and its DNSSEC DS record is still unpublished. The Oros host has now been offline for six days and needs someone to check it in person. The minion.town arc is waiting for a decision on whether to build the ERTP credits charge now or keep deferring it. Milestone M2 still needs merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
+The Jev triage/foreman orchestration has halted. Its trial child, `trial-jev-triage-foreman-classification`, completed but reported its gated outcome as unsatisfied because `TYPESAFE_API_KEY` is missing from the job environment. The serial run stopped at 1 of 3, leaving `integrate-jev-triage-foreman` parked; a re-run needs the maintainer to provision that key. Elsewhere, the review-docket orchestration moved forward: `build-review-docket` was promoted off the plan queue and claimed now that its design job has finished. The proxy screened [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) twice and merged it at `76bb27628e9`, and its deploy and watchdog validated cleanly. Oros is still offline, so the rolling deploy keeps skipping it until someone checks the Mac by hand. The ocap.site domain becomes eligible for transfer after 2026-10-09 19:55Z, but DNSSEC stays broken until that transfer happens or the registrar adds the DS record.
 
 ## Parked for maintainer feedback
 
@@ -173,6 +173,19 @@ Delegation: **active**
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
 
+- `orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed` — from orchestrator:orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: orch-jev-triage-foreman
+> orchestration-status: running
+> child: trial-jev-triage-foreman-classification
+> failure-kind: gated-outcome-unsatisfied
+> order: serial
+> on-child-failure: halt
+> detail: completed but declared its gated outcome unsatisfied
+>
+> Orchestration orch-jev-triage-foreman observed child trial-jev-triage-foreman-classification: completed but declared its gated outcome unsatisfied.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1089-cb6f2aa6eab8` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1089-cb6f2aa6eab8.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1089](https://github.com/endojs/endo-but-for-bots/pull/1089) ([endojs/endo-but-for-bots#1089](https://github.com/endojs/endo-but-for-bots/issues/1089)) is in the mergeable queue with NO gauntlet review staged (head cb6f2aa6eab8fff29d1563ef2c8f390863c53723). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1089'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -320,6 +333,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal` cleared on endolin-garden-ece02cb4.
 
+- `orch-jev-triage-foreman-halted` — from orchestrator:orch-jev-triage-foreman-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-jev-triage-foreman-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: orch-jev-triage-foreman
+> orchestration-status: halted
+> child: trial-jev-triage-foreman-classification
+> failure-kind: gated-outcome-unsatisfied
+> children-completed: 1
+> children-total: 3
+> halt-parked-remainder: integrate-jev-triage-foreman
+>
+> Orchestration orch-jev-triage-foreman HALTED: child trial-jev-triage-foreman-classification completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: integrate-jev-triage-foreman
+
 - `msg-oros-health-watch-20261007-233508-6c3357523f10` — from gardener:oros-health-watch-20261007-233508, reply_to `oros-health-watch-20261007-233508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-233508-6c3357523f10.md)
 
 > UNREACHABLE: Oros remains offline as of 2026-10-07T23:36Z. No current checkup exists (schedule deferred to 2026-10-11T21:00Z); heartbeat/fleet health/sysop activity remain stale since 2026-10-02, the host is heartbeat-offline derotated, and deployed e036bb8e is 198 commits behind main2 6091cc10. I sent no new op because seven reset-failed, one restore, and two attested scaler-unit ops are still unacknowledged. A person must check the Mac power/sleep state, Docker Desktop, and VM/container runtime.
@@ -403,7 +429,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.2M | $520.74 _(notional, rate-card)_ | 41% of 168.0M (ok) |
+| Claude | 68.5M | $522.64 _(notional, rate-card)_ | 41% of 168.0M (ok) |
 | Codex | 9.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 120824787 tokens/day lower bound._
@@ -416,19 +442,20 @@ worst fetch p95 10.087084s/45s (unknown); 4 open notice(s); checker healthy
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr169-gauntlet-20261008-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #169
 - [`kriscendobot-minion.town-pr122-gauntlet-20261008-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr122-gauntlet-20261008-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #122
 
-### doin (4)
+### doin (5)
 - [`kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr94-gauntlet-20261008-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`improve-worker-stop-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-worker-stop-timeout.md) — ---
+- [`build-review-docket`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-review-docket.md) — ---
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1343
 - [`kriscendobot-minion.town-pr168-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr168-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #168
 
-### tada (11581)
+### tada (11582)
+- [`orch-jev-triage-foreman`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/orch-jev-triage-foreman.md) — orchestration orch-jev-triage-foreman — HALTED
 - [`trial-jev-triage-foreman-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/trial-jev-triage-foreman-classification.md) — Cost
 - [`design-review-docket`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/design-review-docket.md) — Cost
 - [`kriscendobot-minion.town-pr169-gauntlet-20261008-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion.town-pr169-gauntlet-20261008-viability.md) — Cost
 - [`kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet.md) — gauntlet kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet - not viable
-- [`kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-minion-town-pr130-screen-d24effe2-gauntlet-viability.md) — Cost
-- … and 11576 more
+- … and 11577 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
