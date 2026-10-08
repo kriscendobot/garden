@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/minion.town",
+  "pr": 32,
+  "url": "https://github.com/kriscendobot/minion.town/pull/32",
+  "head_oid": "111713873c58bee2cdff02577997361a9f50e49d",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "fix(deploy): enforce and verify Endo daemon startup contract",
+  "unblocks": [],
+  "source": "native-review-request-kriscendobot-minion.town-pr32",
+  "requested_at": "2026-10-08T07:44:55Z",
+  "first_requested_at": "2026-10-08T07:44:55Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-08T07:44:57Z"
+  }
+}
