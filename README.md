@@ -1,22 +1,17 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-08T12:31:10Z_
+_As of 2026-10-08T12:36:23Z_
 
 ## Latest
 
-Gauntlets for [endo-but-for-bots#1016](https://github.com/endojs/endo-but-for-bots/pull/1016) and [endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) both completed as HALTED, and the plan job for [endo-but-for-bots#996](https://github.com/endojs/endo-but-for-bots/pull/996) finished. [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) finished panel round 4 and is now queued for fix round 4. [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) is in panel round 2.
+Little moved on the board. The gauntlet for [endo-but-for-bots#996](https://github.com/endojs/endo-but-for-bots/pull/996) finished as HALTED, as the one for [endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) did just before it. The deferred gauntlet plan for [kriscendobot/endo-but-for-bots#1](https://github.com/kriscendobot/endo-but-for-bots/pull/1) was promoted and finished, and its gauntlet record is now live. The panel for [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) is in round 2, and fix round 4 for [endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/pull/258) is queued.
 
-These need your attention:
-
-- **Review docket is stuck:** The review-docket orchestration halted at 2/3 because its consolidation child failed and is held in plan. The 26 review requests archived by the proxy auto-clear are still not on any docket until someone promotes or splits `review-docket-consolidate-20261008`.
-- **Oros is still offline:** It has had no heartbeat since 10-02, and only someone who can physically reach the Mac can fix it.
-- **GitHub Actions is blocked by billing:** Actions won't start jobs on the `kriscendobot` account, which is blocking CI for [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166).
-- **M2 is waiting on your merges:** [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) are ready.
-- **Two decisions are pending:**
-  - **ocap.site transfer:** The domain becomes transferable around 2026-10-09 19:55Z. Until it moves, or the registrar publishes the DS record, DNSSEC stays broken.
-  - **minion.town ERTP credits:** Either build the Phase 1 charge now or keep ERTP deferred.
+Several items need a maintainer decision:
+- **Review docket:** the orchestration halted at its last step. The consolidation job (`review-docket-consolidate-20261008`) is parked in plan after its retry ran out. Until someone promotes or splits it, the old review-request messages are not migrated, and no "review-docket-live" message has gone out.
+- **Actions billing:** GitHub Actions is refusing to start jobs on the `kriscendobot` account because of a billing problem. CI on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) is stuck until billing is fixed.
+- **ocap.site:** the domain transfer window opens around 2026-10-09 19:55Z. DNSSEC stays broken until the transfer completes or the registrar (Key-Systems) publishes the DS record.
+- **Oros:** the host has still been offline since 10-02, so someone has to check it in person.
+- **Merges:** [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) still need maintainer merge authority before milestone M2 can complete.
 
 ## Maintainer review docket
 
@@ -566,10 +561,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.7M | $964.79 _(notional, rate-card)_ | 80% of 168.0M (ok) |
-| Codex | 13.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Claude | 135.1M | $967.36 _(notional, rate-card)_ | 80% of 168.0M (ok) |
+| Codex | 13.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 122773433 tokens/day lower bound._
+_Fleet token-unlock pace: 123183169 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
@@ -581,13 +576,13 @@ worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1425-gauntlet-20261007-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1425
 
-### tada (11734)
+### tada (11736)
+- [`kriscendobot-endo-but-for-bots-pr1-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/kriscendobot-endo-but-for-bots-pr1-gauntlet-plan-20261007.md) — Cost
+- [`endojs-endo-but-for-bots-pr996-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr996-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr996-gauntlet-20261007 — HALTED
 - [`endojs-endo-but-for-bots-pr996-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr996-gauntlet-plan-20261007.md) — Cost
 - [`endojs-endo-but-for-bots-pr1038-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1038-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr1038-gauntlet-20261007 — HALTED
 - [`endojs-endo-but-for-bots-pr1038-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1038-gauntlet-plan-20261007.md) — Cost
-- [`endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr258-gauntlet-20261007-panel-4.md) — Panel round 4: endojs/endo-but-for-bots PR #258 (gauntlet endojs-endo-but-for...
-- [`endojs-endo-but-for-bots-pr1016-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/08/endojs-endo-but-for-bots-pr1016-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr1016-gauntlet-20261007 — HALTED
-- … and 11729 more
+- … and 11731 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -684,7 +679,6 @@ worst fetch p95 10.090887s/45s (unknown); 4 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1355-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1355-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1381-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1381-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1427-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1427-gauntlet-plan-20261007.md) — _normal_ · ---
-- [`kriscendobot-endo-but-for-bots-pr1-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-endo-but-for-bots-pr1-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-moddable-pr2-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-moddable-pr2-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-vattr97-pr1-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-vattr97-pr1-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-endo-pr2-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-endo-pr2-gauntlet-plan-20261007.md) — _normal_ · ---
