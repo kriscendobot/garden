@@ -1,27 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-08T19:58:14Z_
+_As of 2026-10-08T20:00:59Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin. The visible changes come from the maintainer inbox and the proxy. [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged, and the proxy validated its deploy. The proxy also screened [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122).
+Little changed on the board since the last bulletin. The only new post is `minion-town-ci-runner-redeploy-50aa690`, which redeploys the minion.town CI runner. Its deploy-verify sibling is already in progress, and `minion-town-billing-parked-prs-resume-20261008` is moving the PRs blocked by Actions billing onto ci.minion.town. Earlier today [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and its deploy was validated.
 
-Three orchestrations halted:
+Oros came back online and began claiming and completing work. Its canary-stuck watchdog has cleared, but the rolling-deploy offline watchdog still fires, and a self-deploy restart op sits unacknowledged in its sysop queue. Someone may still need to check the Mac/VM.
 
-- **`review-docket-20261008`:** 2 of 3 children finished. The final consolidation child exhausted its retries and is held in `jobs/plan/`. The review docket's migration and the maintainer's "review-docket-live" message won't happen until someone promotes or splits that child.
-- **`orch-minion-town-oauth-bonds`:** its build child declared its gated outcome unsatisfied.
-- **`orch-jev-triage-foreman`:** its trial child is blocked on a missing `TYPESAFE_API_KEY`, which the maintainer must provision.
+Three things need the maintainer:
 
-Oros came back for a while and claimed work at about 17:30Z. Its c185ee5f roll then stalled, and the rolling-deploy watchdog says it is offline again as of 19:29Z.
-
-Claude spend is at 102% of the claude-endolin2 quota, and the window resets 2026-10-10T03:00Z. The kriscendobot GitHub Actions billing block is still active ([minion.town#153](https://github.com/kriscendobot/minion.town/issues/153)), so jobs are moving minion.town PRs to ci.minion.town.
-
-Open decisions:
-
-- **ERTP credits:** whether to post the Phase 1 build now or keep ERTP deferred.
-- **ocap.site:** its registrar transfer becomes possible after 2026-10-09T19:55Z. Its DNSSEC DS record is still unpublished, so the chain of trust stays broken until the transfer completes or the registrar publishes it.
-- **Milestone M2:** blocked until the maintainer merges [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381).
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its current head is newer than the last panel review, so it needs a maintainer review decision or an explicit `run the gauntlet` request.
+- **Review docket consolidation:** `review-docket-consolidate-20261008` is held in `plan/`, so the review-docket consolidation remains unfinished. Promote it or split it.
+- **Claude spend:** spend is over its quota cap ahead of the 10-10 reset.
+- **Open decisions:**
+  - Whether to start the ocap.site transfer after 2026-10-09 19:55Z, or ask the registrar to publish DS.
+  - Whether to build ERTP Phase 1 for the minion.town credits charge.
+  - The `TYPESAFE_API_KEY` needed to rerun the halted Jev triage trial.
 
 ## Maintainer review docket
 
@@ -604,7 +598,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.7M | $1206.16 _(notional, rate-card)_ | 102% of 168.0M (backoff) |
+| Claude | 170.8M | $1206.66 _(notional, rate-card)_ | 102% of 168.0M (backoff) |
 | Codex | 15.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 123274026 tokens/day lower bound._
@@ -613,7 +607,7 @@ _Fleet token-unlock pace: 123274026 tokens/day lower bound._
 worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (9)
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1433
 - [`minion-town-arc-press-20261008-192023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261008-192023.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr173-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #173
@@ -622,6 +616,7 @@ worst fetch p95 3.877911s/45s (unknown); 4 open notice(s); checker healthy
 - [`write-endo-docs-article-petnames-zookos-triangle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/write-endo-docs-article-petnames-zookos-triangle.md) — Write an article on petnames and Zooko's triangle for docs.endojs.org
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1379
 - [`improve-deadline-nudge-cas-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadline-nudge-cas-exhaustion.md) — ---
+- [`minion-town-ci-runner-redeploy-50aa690`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-ci-runner-redeploy-50aa690.md) — ---
 
 ### doin (4)
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
