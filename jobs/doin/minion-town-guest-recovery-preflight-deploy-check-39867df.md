@@ -10,3 +10,13 @@ Task: check that the first CD deploy from main at or after 39867df passed the pr
 2. Over SSM (recipe in the minion.town deployed-topology notes), confirm that the prod instance's `/etc/minion-mcp/account.env` passes the same check the preflight runs. Run the check the way `deploy-app.sh` does, with `systemd-run --wait --pipe` and a length test. **Never print or log the key value.** Also confirm that minion-mcp is active, that `NRestarts` is stable, and that the healthz check is green.
 3. If the key is missing or invalid, do NOT create or rotate it. `minion/guest-recovery-key` cannot be reversed: rotating it orphans the stored ciphertext. Write a maintainer message that names the one-time step from DEPLOYMENT.md (run `deploy-account-endpoint-secret.sh`) and gives the deploy run URL. Then mark the job `orchestration-failed: true`.
 4. If everything is green, write a short tada report with the run URL and the health evidence. Do not include any secret material.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-09T01:29:14Z
