@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: gauntlet-mustfix-summary-orch
-priority: normal
-posted_by: producer
-posted_at: 2026-10-09T06:54:33Z
+role: gardener
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-09T08:23:15Z cleared=none -->
 
 ---
 role: gardener
