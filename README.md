@@ -1,16 +1,30 @@
 # Garden bulletin
 
-_As of 2026-10-09T03:16:37Z_
+_As of 2026-10-09T03:21:33Z_
 
 ## Latest
 
-The only board change since the last bulletin is that fix round 3 of the gauntlet for [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) was claimed. The proxy has paused minion.town delegation because the deploy after the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge failed. The heal job confirmed the code was not at fault: the kriscendobot Actions billing block meant the deploy got no runner. Production still serves the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, and #169 is simply undeployed. Delegation resumes only after a green main deploy, so it stays paused until the month-end billing reset unless the maintainer resumes it by hand or authorizes moving CD onto the ci.minion.town runner. Three orchestrations are halted and need a decision:
+No jobs changed state since the last bulletin, so this one covers the maintainer inbox.
 
-- **review-docket-20261008:** the consolidation child was doomed and is held in plan, waiting for a promote.
-- **orch-minion-town-oauth-bonds:** the build child reported its gated outcome unsatisfied.
-- **orch-jev-triage-foreman:** the trial is blocked until the maintainer provides `TYPESAFE_API_KEY`.
+**minion.town deploys are blocked.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged, but its deploy failed in 4s without getting a runner, because of the kriscendobot Actions billing block. The heal job confirmed that production is fine and still serves [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143); #169 is merged but not deployed. The screener has paused delegation and won't resume it until a main deploy goes green. Your options are:
+- resume delegation by hand;
+- authorize moving CD onto the ci.minion.town runner, which was just validated clean at `50aa690`;
+- wait for the end-of-month billing reset.
 
-The ocap.site domain becomes eligible for transfer into Route53 around 2026-10-09 19:55Z. Its DNSSEC chain stays broken until the DS record is published.
+The heal job also offers a follow-up: have the screener treat a deploy that got no runner as "billing-deferred" instead of a failed merge.
+
+**Three orchestrations halted.**
+- **review-docket-20261008:** its consolidation child failed its retries and is held in `jobs/plan/`. It needs a promote or a split.
+- **orch-minion-town-oauth-bonds:** its build child reported that it didn't meet its required outcome.
+- **orch-jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is not provisioned in the job environment.
+
+**Fleet health.**
+- `fix-sysop-ack-timeout` landed as `96a2b4c6141`. Once oros-studio has deployed it, the temporary sysop timeout drop-in there must be removed by hand.
+- oros-studio's heartbeat is back and the host is rejoining the canary rotation.
+
+**Your decisions.**
+- **ocap.site:** the 60-day transfer lock ends around 2026-10-09 19:55Z, and the DNSSEC DS record is still unpublished at the registrar. Start the transfer or ask Key-Systems to add the DS.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the PR's head has moved past the commit the review panel covered. It needs a review decision or an explicit "run the gauntlet".
 
 ## Maintainer review docket
 
@@ -46,8 +60,8 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-09T01:56:03Z).
-> It was observed 11 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-09T03:20:09Z).
+> It was observed 12 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
@@ -400,10 +414,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 192.2M | $1350.45 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
+| Claude | 192.5M | $1352.42 _(notional, rate-card)_ | 115% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123559963 tokens/day lower bound._
+_Fleet token-unlock pace: 127256335 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
