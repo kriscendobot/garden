@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T16:05:23Z_
+_As of 2026-10-09T16:09:13Z_
 
 ## Latest
 
@@ -143,6 +141,10 @@ Delegation: **active**
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
 > subscription claude-endolin2 changed zone ok -> backoff at spend=207858888/168000000.
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261009-155007` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261009-155007.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261009-155007' has remained unclaimed for 902s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal.md)
 
