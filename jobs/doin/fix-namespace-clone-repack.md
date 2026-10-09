@@ -27,3 +27,13 @@ The manual fix was to delete tmp_* files older than 1 day, then run `nice ionice
 3. Raise an alert (watchdog-notice) when any namespace clone exceeds the threshold.
 
 Related: the existing memory/notes on the 45 s clone livelock (reclone_clone without --depth 1).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T00:27:35Z
