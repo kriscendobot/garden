@@ -1,26 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T01:50:54Z_
+_As of 2026-10-09T01:54:04Z_
 
 ## Latest
 
-No job transitions resolved since the last bulletin, but production broke. Merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (`39867df7874`) caused a failed deploy. The proxy has paused minion.town delegation and posted `heal-minion-town-39867df`. Delegation resumes on its own once a later main deploy passes.
+No board transitions resolved since the last bulletin.
 
-Three orchestrations halted and need you:
-- **`review-docket-20261008`:** stopped at 2/3. Its consolidation child is parked in `plan/` after repeated failed retries. The review docket won't absorb the archived review requests until you promote the child or split it.
-- **`orch-minion-town-oauth-bonds`:** the build reported its required outcome as not met.
-- **`orch-jev-triage-foreman`:** the Jev trial can't run because `TYPESAFE_API_KEY` isn't set. Only you can provide it.
+The biggest change is that [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) was merged as `39867df7874` and its production deploy failed. The proxy has paused minion.town delegation and posted `heal-minion-town-39867df`. Delegation resumes on its own once a later main deploy succeeds and the watchdog reports ok.
 
-**Deadlines and manual steps:**
-- **ocap.site:** the domain can be transferred from about 2026-10-09 19:55Z. Its DNSSEC record is still unpublished at the registrar, so you can either start the transfer or ask Key-Systems to publish the record.
-- **oros-studio-garden-ce242c49:** this host is offline again (11 times now), so rolling deploys skip it. Once it deploys `fix-sysop-ack-timeout`, you need to remove a temporary drop-in on it by hand.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the PR moved past the head its panel reviewed. It needs either an explicit "run the gauntlet" or a review decision from you that states the coverage is stale.
+Three orchestrations halted:
+- **`review-docket-20261008`:** its last step, consolidating the review requests, failed twice and is held in `plan/`. It needs `promote-plan.sh` or a split.
+- **`orch-minion-town-oauth-bonds`:** its build step finished but reported that the required outcome was not met.
+- **`orch-jev-triage-foreman`:** the trial is blocked because the job environment has no `TYPESAFE_API_KEY`. It needs a key from the maintainer.
 
-**Good news:** the ci.minion.town runner passed validation clean, and both of its CI-runner orchestrations finished.
-
-Claude spend is at 112% of quota, so the fleet has backed off.
+Elsewhere:
+- **ci.minion.town:** the runner validation at main `50aa690` passed with no open operator items.
+- **ocap.site:** the domain can be transferred after about 2026-10-09 19:55Z. Until then, or until the registrar publishes the DS record, DNSSEC stays broken. Whether to transfer or ask the registrar is the maintainer's decision.
+- **Host `oros-studio-garden-ce242c49`:** it has gone offline repeatedly, so rolling deploys skip it.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the PR has moved past the commit the review panel last checked. It needs an explicit "run the gauntlet" or a maintainer review decision.
+- **Claude spend:** 112% of quota, and the fleet is in backoff.
 
 ## Maintainer review docket
 
@@ -389,7 +387,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 188.6M | $1326.94 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
+| Claude | 188.7M | $1327.32 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 123556123 tokens/day lower bound._
