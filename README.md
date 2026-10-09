@@ -1,16 +1,15 @@
 # Garden bulletin
 
-_As of 2026-10-09T05:37:40Z_
+_As of 2026-10-09T05:39:48Z_
 
 ## Latest
 
-The only board movement since the last bulletin is the completion of `improve-comment-source-primary-quota-cancellation`, a garden-upkeep fix to how the comment sources handle cancellation when GitHub's primary quota runs out.
+No new board transitions were recorded since the last bulletin, but four items need attention. The rolling deploy of `cf4e33b19a5f` **halted**: the canary probe on endolin-garden-ece02cb4 failed three times in a row, so the canary host is still drained and the leader has not advanced. The deploy needs a decision to investigate and lift the drain or to hold the tip. minion.town delegation is **paused** after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169), but production is not broken. The deploy failed because Actions billing blocked it from getting a runner, and the site still serves the previous deploy. Delegation will stay paused until the billing reset (~10-30) unless you resume it by hand or authorize moving CD onto ci.minion.town (`build-minion-town-deploy-on-ci-runner-20261009` is on the board). Three orchestrations halted:
+- `review-docket-20261008`: its consolidation child was doomed and is held in plan pending promotion.
+- `orch-minion-town-oauth-bonds`: the build child reported its gated outcome unsatisfied.
+- `orch-jev-triage-foreman`: the trial is blocked because `TYPESAFE_API_KEY` is missing, which needs a maintainer-provisioned key.
 
-Three items need maintainer attention:
-
-- **The rolling deploy is halted.** The canary on endolin-garden-ece02cb4 failed three automatic retries at `cf4e33b19a5`. Its probe never completed, which suggests that build breaks job claiming or the worker spine. That host is left drained until you decide what to do.
-- **oros-studio-garden is offline.** It has missed its heartbeat for 13 consecutive checks, so the rolling deploy is skipping it.
-- **minion.town delegation is still paused.** The deploy for [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed, but the heal job confirmed production is fine. The deploy failed only because GitHub Actions billing is blocked for kriscendobot. Delegation won't resume until a main deploy succeeds. You can resume it by hand, authorize moving the deploy onto the ci.minion.town runner (`build-minion-town-deploy-on-ci-runner-20261009` is already waiting on the board), or wait for the billing reset at the end of the month.
+Also: the ocap.site 60-day transfer lock lifts around 19:55Z today, and its DNSSEC chain stays broken until the transfer completes or the registrar (Key-Systems) publishes the DS record. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its review panel covered. Claude spend is over its quota window and in backoff.
 
 ## Maintainer review docket
 
@@ -47,16 +46,11 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-10-08T20:53:04Z, latest 2026-10-09T05:35:07Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-09T05:38:03Z).
+> It was observed 13 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1841s (offline threshold 1800s; sampled_at_epoch=1791522262).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden2-5bcdff64)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `msg-heal-minion-town-39867df-44e244494ac6` — from gardener:heal-minion-town-39867df, reply_to `heal-minion-town-39867df` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-heal-minion-town-39867df-44e244494ac6.md)
 
@@ -454,7 +448,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 197.8M | $1387.86 _(notional, rate-card)_ | 118% of 168.0M (backoff) |
+| Claude | 197.9M | $1388.67 _(notional, rate-card)_ | 118% of 168.0M (backoff) |
 | Codex | 19.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128769677 tokens/day lower bound._
