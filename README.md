@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T17:51:11Z_
+_As of 2026-10-09T18:04:45Z_
 
 ## Latest
 
@@ -199,6 +197,16 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (139s old; sampled_at_epoch=1791505966)); it is PRESENT again and its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden2-5bcdff64)
+
+- `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
+
+> Comment watchers on endolin-garden2-5bcdff64 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 6 source(s); they post no acknowledgments while it holds.
+> - kriscendobot/ocapn: watcher ticking but cooldown for 3606s (since 2026-10-09T17:02:48Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 3596s (since 2026-10-09T17:02:58Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3603s (since 2026-10-09T17:02:51Z)
+> - kriscendobot/list: watcher ticking but cooldown for 3590s (since 2026-10-09T17:03:04Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 3626s (since 2026-10-09T17:02:28Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 3614s (since 2026-10-09T17:02:40Z)
 
 - `20261009T111207Z-dff0cb` — from triager:kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261009T111207Z-dff0cb.md)
 
@@ -559,7 +567,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 209.0M | $1463.33 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 129321116 tokens/day lower bound._
+_Fleet token-unlock pace: 123214031 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 4 open notice(s); checker healthy
