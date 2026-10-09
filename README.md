@@ -1,20 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T00:14:47Z_
+_As of 2026-10-09T00:21:19Z_
 
 ## Latest
 
-No jobs moved on the board since the last bulletin. Three orchestrations have halted and each needs a maintainer decision:
+The only new board activity since the last bulletin is a posted fix job, [`fix-sysop-ack-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-sysop-ack-timeout.md). The sysop applies host ops, but its ack/record write can't finish within its time limit, so a sender can't tell a completed op from one that never arrived.
 
-- **review-docket-20261008:** this is the review-docket consolidation effort. Its final consolidation step failed twice and is now parked in `plan/` until you promote or split it.
-- **orch-minion-town-oauth-bonds:** the build reported that it did not meet its goal.
-- **orch-jev-triage-foreman:** this cannot proceed until you provide `TYPESAFE_API_KEY`.
+Waiting on you:
+- **oros-studio-garden-ce242c49 is offline.** Its heartbeat has been stale for over 30 minutes and the watchdog has fired six times. The rolling deploy is skipping it, and worker-derotate has zeroed its worker caps until it comes back.
+- **Three orchestrations have halted:**
+  - `review-docket-20261008`: its consolidation child was doomed and is held in `plan/`. Promote it to finish moving the review requests onto the docket.
+  - `orch-minion-town-oauth-bonds`: the build declared its gated outcome unsatisfied.
+  - `orch-jev-triage-foreman`: blocked because `TYPESAFE_API_KEY` is missing, which only you can provide.
+- **ocap.site:** transfer into Route53 should become possible from about 2026-10-09 19:55Z. DNSSEC stays broken until either the transfer completes or the registrar publishes the DS record.
+- **Open decisions:**
+  - Whether to start the ERTP Phase 1 build for the minion.town credits charge, or keep it deferred.
+  - [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past its panel-reviewed head and needs either a review or an explicit *run the gauntlet*.
 
-On the minion.town side, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and deployed cleanly. [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) passed screening at their new heads, and their merge jobs are queued. The ci.minion.town runner checked out fully at main `50aa690`, with no open operator items.
-
-Several items are waiting on you. The ocap.site transfer window opens around 2026-10-09 19:55Z, and the DNSSEC DS record is still unpublished, so you need to choose between transferring the domain and asking the registrar to add the DS record. You also need to decide whether to build the ERTP credits charge now or keep deferring it. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review does not cover. The oros-studio host has been offline for about three hours, so rolling deploys are skipping it. Claude spend is at 110% of quota and in backoff.
+Claude spend is at 110% of quota and backing off.
 
 ## Maintainer review docket
 
@@ -105,6 +108,11 @@ Delegation: **active**
 > detail: doomed and held in plan
 >
 > Orchestration review-docket-20261008 observed child review-docket-consolidate-20261008: doomed and held in plan.
+
+- `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
+
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 2758s (offline threshold 1800s; sampled_at_epoch=1791502447).
+> worker-derotate zeroed its config/worker-leveling caps (were 4 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden2-5bcdff64)
 
 - `orch-minion-town-oauth-bonds-halted` — from orchestrator:orch-minion-town-oauth-bonds-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-minion-town-oauth-bonds-halted.md)
 
@@ -354,16 +362,16 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 184.2M | $1297.09 _(notional, rate-card)_ | 110% of 168.0M (backoff) |
+| Claude | 184.4M | $1298.24 _(notional, rate-card)_ | 110% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123139751 tokens/day lower bound._
+_Fleet token-unlock pace: 123180916 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (19)
+### todo (20)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
 - [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ 9affc0d62c74
 - [`fix-namespace-clone-repack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-namespace-clone-repack.md) — Fix: per-namespace journal clones (.garden-state/<ns>/journal) are never repa...
@@ -371,6 +379,7 @@ worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/jour
 - [`claude-on-minion-town-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-235012.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-235012.md) — ---
 - [`kriscendobot-minion.town-pr170-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #170
+- [`fix-sysop-ack-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-sysop-ack-timeout.md) — Fix: sysop applies ops but its ack/record write can't finish within SELF_HEAL...
 - [`screen-minion-town-pr169-2552040-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr169-2552040-conduct.md) — Screened delegated merge: kriscendobot/minion.town#169 at 2552040f2b936f83eb2...
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
 - [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-9affc0d62c74.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ 9affc0d62c74
