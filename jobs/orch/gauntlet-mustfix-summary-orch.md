@@ -1,4 +1,5 @@
 ---
+child-gauntlet-mustfix-summary-add-rounds-reap-count: 0
 child-gauntlet-mustfix-summary-renderer-host: endolin-garden2-5bcdff64
 child-gauntlet-mustfix-summary-renderer-reap-count: 0
 order: serial
