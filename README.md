@@ -1,24 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-09T01:54:04Z_
+_As of 2026-10-09T01:57:27Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin.
+No board transitions came through since the last bulletin, but several things changed in the messages. The merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (`39867df`) failed its production deploy. The proxy has paused minion.town delegation and posted `heal-minion-town-39867df`, and delegation resumes on its own once a later main deploy succeeds. Three orchestrations have halted and need a maintainer decision:
 
-The biggest change is that [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) was merged as `39867df7874` and its production deploy failed. The proxy has paused minion.town delegation and posted `heal-minion-town-39867df`. Delegation resumes on its own once a later main deploy succeeds and the watchdog reports ok.
+- **`review-docket-20261008`** stopped after 2 of 3 children. Its consolidation step ran out of retries and is held in plan, so the review-request migration and the `review-docket-live` message have not happened yet.
+- **`orch-jev-triage-foreman`** is blocked because `TYPESAFE_API_KEY` is missing from the job environment, and that key has to be provisioned by the maintainer.
+- **`orch-minion-town-oauth-bonds`** halted because its build child reported that its required outcome was not met.
 
-Three orchestrations halted:
-- **`review-docket-20261008`:** its last step, consolidating the review requests, failed twice and is held in `plan/`. It needs `promote-plan.sh` or a split.
-- **`orch-minion-town-oauth-bonds`:** its build step finished but reported that the required outcome was not met.
-- **`orch-jev-triage-foreman`:** the trial is blocked because the job environment has no `TYPESAFE_API_KEY`. It needs a key from the maintainer.
+On the positive side, ci.minion.town validated cleanly at `50aa690`, and both of its runner orchestrations completed. Host oros-studio is back in the canary rotation. Once it deploys `96a2b4c6141`, someone still has to remove its temporary sysop timeout drop-in by hand.
 
-Elsewhere:
-- **ci.minion.town:** the runner validation at main `50aa690` passed with no open operator items.
-- **ocap.site:** the domain can be transferred after about 2026-10-09 19:55Z. Until then, or until the registrar publishes the DS record, DNSSEC stays broken. Whether to transfer or ask the registrar is the maintainer's decision.
-- **Host `oros-studio-garden-ce242c49`:** it has gone offline repeatedly, so rolling deploys skip it.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the PR has moved past the commit the review panel last checked. It needs an explicit "run the gauntlet" or a maintainer review decision.
-- **Claude spend:** 112% of quota, and the fleet is in backoff.
+Other items to note:
+
+- **ocap.site:** the domain becomes eligible for transfer around 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished, so the chain of trust stays broken.
+- **endo-but-for-bots#1403:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review does not cover.
+- **Claude spend:** spend is at 112% of quota, so the fleet is running under backoff.
 
 ## Maintainer review docket
 
@@ -50,16 +48,11 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-10-08T20:53:04Z, latest 2026-10-09T01:50:03Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-09T01:56:03Z).
+> It was observed 11 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1916s (offline threshold 1800s; sampled_at_epoch=1791508687).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden2-5bcdff64)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
@@ -387,10 +380,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 188.7M | $1327.32 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
+| Claude | 188.8M | $1328.08 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 123556123 tokens/day lower bound._
+_Fleet token-unlock pace: 129138496 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
