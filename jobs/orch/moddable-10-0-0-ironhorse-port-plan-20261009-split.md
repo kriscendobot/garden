@@ -2,7 +2,7 @@
 order: serial
 children: moddable-10-0-0-xs-source-inventory-20261009 moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-09T22:46:37Z
 ---
