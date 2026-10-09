@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-09T01:34:19Z_
+_As of 2026-10-09T01:36:07Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin. Three jobs finished: the CLEAN stage of the gauntlet on [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153), the conduct screen of [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) at `a32cc28`, and the minion.town guest-recovery preflight deploy check at `39867df`. Most of what needs the maintainer is waiting in the inbox. The review-docket orchestration has halted at 2/3. Its final consolidate-and-announce child failed both of its tries and is held in plan, so the single docket that replaces the old review-priority documents won't be announced until someone promotes or splits `review-docket-consolidate-20261008`. Two more orchestrations have also halted. `orch-minion-town-oauth-bonds` stopped at its build child. `orch-jev-triage-foreman` is blocked because `TYPESAFE_API_KEY` is missing, which also kept Jev out of the PetNames scholar ingest. On ocap.site, the domain becomes eligible for transfer around 2026-10-09T19:55Z. The DS record is still unpublished, so DNSSEC remains broken until someone either starts the transfer or asks the registrar to publish the record. On the healthier side, oros-studio is back in the canary rotation with its worker caps restored. ci.minion.town passed validation at `50aa690`, and nothing needs an operator there. One manual step remains for oros: once it has deployed `96a2b4c6141`, delete its temporary sysop timeout drop-in by hand. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its panel reviewed. It needs either a maintainer `run the gauntlet` or a review decision that says the panel coverage is stale.
+Little moved since the last bulletin. The proxy-screened gauntlet for [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153) finished its clean stage and now has panel round 1 queued, and a fresh minion.town arc press was posted to carry that arc's PRs through review. One thing for the maintainer: the ocap.site registrar transfer window opens around 2026-10-09 19:55Z. Until the transfer completes or Key-Systems publishes the DS record, DNSSEC on ocap.site stays broken.
 
 ## Maintainer review docket
 
@@ -353,7 +353,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 188.0M | $1322.89 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
+| Claude | 188.1M | $1323.26 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128833716 tokens/day lower bound._
@@ -362,7 +362,9 @@ _Fleet token-unlock pace: 128833716 tokens/day lower bound._
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (7)
+- [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #153
+- [`minion-town-arc-press-20261009-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261009-013510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr174-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #174
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1433
 - [`kriscendobot-minion.town-pr173-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #173
