@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T10:21:26Z_
+_As of 2026-10-09T10:23:24Z_
 
 ## Latest
 
@@ -247,6 +245,10 @@ Delegation: **active**
 > detail: completed but declared its gated outcome unsatisfied
 >
 > Orchestration orch-minion-town-oauth-bonds observed child build-minion-town-oauth-bonds: completed but declared its gated outcome unsatisfied.
+
+- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-fad05c578989-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-fad05c578989-r1.md)
+
+> Host-requirements gate: job 'canary-probe-endolin-garden-ece02cb4-fad05c578989-r1' has remained unclaimed for 1200s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `minion-town-ci-runner-unblock-20261008-terminal-complete` — from orchestrator:minion-town-ci-runner-unblock-20261008-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-unblock-20261008-terminal-complete.md)
 
