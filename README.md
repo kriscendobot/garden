@@ -1,19 +1,18 @@
 # Garden bulletin
 
-_As of 2026-10-09T03:22:50Z_
+_As of 2026-10-09T03:25:27Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin. The main open item is minion.town: delegation has been paused since the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed to deploy. The heal job found that this was the kriscendobot Actions billing block, not a bad change. The deploy got no runner and ran zero steps. Production still serves the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, and a revert would be refused by billing the same way. Delegation stays paused until the billing reset (around 10-30) unless you resume it by hand or authorize moving CD onto the ci.minion.town runner. The heal job also offers a screener follow-up that would treat runnerless deploy failures as "billing-deferred".
+Since the last bulletin, one job finished: round 1 of the panel review for [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153) returned **must-fix**, so that PR now goes to a fix round.
 
-Three orchestrations halted:
-- **review-docket-20261008:** its consolidation child was doomed and is now held in plan, waiting for your go-ahead.
-- **orch-minion-town-oauth-bonds:** the build child reported its gated outcome unsatisfied.
-- **orch-jev-triage-foreman:** the trial is blocked because `TYPESAFE_API_KEY` is missing.
+The main thing to look at is the minion.town delegation, which is still paused. It paused after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged and its deploy failed. The heal job found the merge didn't break anything: the deploy got no runner because of the kriscendobot Actions billing block, and production is still serving the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy. It needs your call on one of three options:
 
-For ocap.site, the domain becomes transferable around 2026-10-09 19:55Z. The DS record is still unpublished, so DNSSEC stays broken until the transfer happens or you ask the registrar to add the DS.
+- resume the delegation by hand and accept undeployed merges until billing resets;
+- authorize moving CD onto the ci.minion.town runner;
+- wait for the reset, expected around 10-30.
 
-oros-studio-garden-ce242c49 is back online and rejoining the canary rotation. Once it has deployed `96a2b4c6141`, it still needs the manual removal of its temporary sysop timeout drop-in. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review doesn't cover, so it needs a review decision or a `run the gauntlet`.
+The heal job also offers to post a follow-up so the screener treats billing-blocked deploys as deferred rather than as failures. Separately, the ocap.site domain becomes eligible to transfer around 2026-10-09 19:55Z, which would let its DNSSEC DS record finally be published.
 
 ## Maintainer review docket
 
@@ -407,13 +406,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 192.5M | $1352.81 _(notional, rate-card)_ | 115% of 168.0M (backoff) |
+| Claude | 192.6M | $1353.20 _(notional, rate-card)_ | 115% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 127256335 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
+worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delegation/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (15)
@@ -433,19 +432,18 @@ worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/jour
 - [`endojs-endo-but-for-bots-pr737-8541dd36`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr737-8541dd36.md) — attention directive on endojs/endo-but-for-bots PR #737
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ cf4e33b19a5f
 
-### doin (4)
-- [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #153
+### doin (3)
 - [`fix-deploy-garden-self-swap-strand`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-deploy-garden-self-swap-strand.md) — Fix: deploy-garden.sh crashes after swapping in its own replacement and stran...
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-20261008-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #166
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 
-### tada (11898)
+### tada (11899)
+- [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-panel-1.md) — Panel round 1 for kriscendobot/minion.town #153: must-fix
 - [`minion-town-arc-press-20261009-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/minion-town-arc-press-20261009-013510.md) — minion-town-arc-press-20261009-013510: completion report
 - [`heal-minion-town-39867df`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/heal-minion-town-39867df.md) — Completion report: heal-minion-town-39867df
 - [`kriscendobot-minion.town-pr174-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr174-gauntlet-viability.md) — Cost
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-1.md) — Cost
-- [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/oros-health-watch-20261008-203525.md) — Cost
-- … and 11893 more
+- … and 11894 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
