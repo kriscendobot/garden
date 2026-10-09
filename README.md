@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T20:51:32Z_
+_As of 2026-10-09T20:55:08Z_
 
 ## Latest
 
@@ -116,6 +114,36 @@ Delegation: **active**
 > ## Follow-ups
 > - `design-minion-town-oauth-bonds` is still in `doin`. A requeue will only pass on its own once this change is deployed to that host. Its build is still owned by `orch-minion-town-oauth-bonds`.
 > - This is separate from the existing `DESIGN-BUILD-RECHECK` path in `handlers/follow-up-claude.sh`. That path waits for a cross-referenced build PR to appear and never posts the builder job.
+
+- `doomed-weave-minion-town-pr93-20261009-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-minion-town-pr93-20261009-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden2-5bcdff64.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/weave-minion-town-pr93-20261009; it stays HELD until a human promotes it
+> (promote-plan.sh weave-minion-town-pr93-20261009) or removes it, so nothing is lost.
+> Original job base: weave-minion-town-pr93-20261009
+>
+> --- original job body ---
+> ---
+> role: weaver
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+>
+> # weave kriscendobot/minion.town #93
+>
+> Posted by the minion.town arc supervisor (minion-town-arc-press-20261009-142016) under the
+> inverted-review standing order (journal `entries/2026/10/07/203746Z-message-gardener-a253b1.md`).
+>
+> [https://github.com/kriscendobot/minion.town/pull/93](https://github.com/kriscendobot/minion.town/pull/93) (clip content-store GC, audit-by-default) is
+> the authoritative GC strand for the [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58) objective "garbage collector recovers
+> storage from unreachable CAS entries" (design merged as #89). It is a draft based on `main` and
+> has been CONFLICTING since 2026-09-12. Weave it: snapshot the current `main` tip to a frozen
+> `main-<short-sha>`, rebase the head onto it resolving conflicts, force-push, and move the PR base
+> (skills/frozen-base-branch). Keep it draft. Report whether the rebased head builds and tests
+> green; the supervisor stages the gauntlet next tick.
 
 - `stale-panel-head-kriscendobot-minion.town-pr166-4353d0bf-1f84e580` — from gardener:claude-on-minion-town-completion-press-20261009-182008, reply_to `claude-on-minion-town-completion-press-20261009-182008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr166-4353d0bf-1f84e580.md)
 
@@ -596,25 +624,22 @@ worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 
 ## Board
 ### todo (2)
-- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #94
+- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #94
 - [`minion-town-arc-press-20261009-203514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261009-203514.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (7)
-- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #94
-- [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #153
+### doin (4)
+- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #94
 - [`moddable-10-0-0-ironhorse-port-plan-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-port-plan-20261009.md) — Moddable SDK 10.0.0: what ports to IronHorse?
-- [`weave-minion-town-pr93-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-minion-town-pr93-20261009.md) — weave kriscendobot/minion.town #93
-- [`kriscendobot-minion.town-pr173-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr173-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #173
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #174
 
-### tada (12000)
+### tada (12001)
+- [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-fix-2.md) — Cost
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet fix round 2: kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr173-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr173-gauntlet-panel-5.md) — Cost
 - [`weave-minion-town-pr130-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/weave-minion-town-pr130-20261009.md) — Cost
-- [`oros-health-watch-20261009-185008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/oros-health-watch-20261009-185008.md) — Cost
-- … and 11995 more
+- … and 11996 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -633,7 +658,9 @@ worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-minion-town-ocap-site-crawler-leak-rotation.md) — _normal_ · Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
+- [`weave-minion-town-pr93-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-minion-town-pr93-20261009.md) — _normal_ · weave kriscendobot/minion.town #93
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
+- [`kriscendobot-minion.town-pr173-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr173-gauntlet-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #173
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
