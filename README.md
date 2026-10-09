@@ -1,22 +1,24 @@
 # Garden bulletin
 
-_As of 2026-10-09T07:35:49Z_
+_As of 2026-10-09T07:40:01Z_
 
 ## Latest
 
-No board transitions were recorded since the last bulletin. Most of the movement is on minion.town. Delegation there has been paused since the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge, when the deploy run reported a failure. The heal job found that production was never broken: the deploy never got a runner because of the kriscendobot Actions billing block, and minion.town still serves the earlier deploy. A job to move deploys onto the ci.minion.town runner (`build-minion-town-deploy-on-ci-runner-20261009`) is now waiting on the board. Moving production deploys onto that host is still your decision. Gauntlet fix and panel rounds keep cycling on [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94), [#153](https://github.com/kriscendobot/minion.town/pull/153), [#166](https://github.com/kriscendobot/minion.town/pull/166), [#171](https://github.com/kriscendobot/minion.town/pull/171) (now on fix round 5), [#173](https://github.com/kriscendobot/minion.town/pull/173) and [#174](https://github.com/kriscendobot/minion.town/pull/174), plus [endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433).
+No job-board transitions were recorded since the last bulletin, so the news is in the maintainer inbox.
 
-Three orchestrations halted and need you:
-- **review-docket-20261008:** its last step, merging the old review lists into the new docket, failed twice and is now held in the plan queue until you promote it.
-- **orch-minion-town-oauth-bonds:** the build step finished without meeting its goal.
-- **orch-jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is missing.
+**minion.town delegation is paused.** The merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) tripped the screener because deploy.yml failed. The heal job found that production is fine: GitHub refused the run under the kriscendobot Actions billing block, so the job got no runner and ran zero steps. #169 is just undeployed. The delegation resumes only after a green main deploy. A `build-minion-town-deploy-on-ci-runner-20261009` job is already queued to move CD onto ci.minion.town; the heal note says that move puts the production deploy role on that host and is your decision. ci.minion.town itself checked out clean at main `50aa690`.
 
-Also worth noting:
-- **Spend:** Claude spend is at 121% of quota.
-- **ocap.site:** the domain becomes eligible for transfer around 19:55Z today. DNSSEC stays broken until the transfer completes or the current registrar (Key-Systems) publishes the DS record.
-- **Manual step on oros-studio:** a temporary sysop timeout setting has to be removed by hand once that host is running the sysop fix.
-- **Stale review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past its last panel review and needs your review decision.
-- **Fleet health:** the oros-studio host is back online and its deploy check has cleared, and the journal fetch and push slowdowns have all recovered.
+**Three orchestrations halted:**
+- **review-docket:** the consolidation step was doomed and is parked until you run `promote-plan.sh review-docket-consolidate-20261008`.
+- **Jev triage/foreman trial:** blocked because `TYPESAFE_API_KEY` isn't provisioned.
+- **minion.town OAuth-bonds:** stopped because its build child reported its gated outcome as unsatisfied.
+
+**Other items:**
+- `fix-sysop-ack-timeout` landed as `96a2b4c6141`. Once oros has deployed it, someone has to remove a temporary systemd drop-in there by hand.
+- The oros host is back after being offline for about 10 hours.
+- ocap.site can be transferred into Route53 after about 19:55Z today. Until then its DNSSEC chain stays broken, because the DS record still isn't published.
+- [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past its panel-reviewed head, so the current head needs an explicit gauntlet run or a review decision.
+- Claude spend on this host is at 121% of quota, in backoff.
 
 ## Maintainer review docket
 
@@ -135,7 +137,11 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal.md)
 
-> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/bulletin/journal: p95=1.915710s max=45.001159s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-09T05:59:29Z, cleared 2026-10-09T07:38:14Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -471,13 +477,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 203.4M | $1424.77 _(notional, rate-card)_ | 121% of 168.0M (backoff) |
+| Claude | 203.5M | $1425.58 _(notional, rate-card)_ | 121% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 129220525 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 5 open notice(s); checker healthy
+worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
