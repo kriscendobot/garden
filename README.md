@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T22:31:37Z_
+_As of 2026-10-09T22:35:19Z_
 
 ## Latest
 
@@ -31,8 +29,6 @@ Delegation: **active**
 - 2026-10-09T09:56:49Z [#122](https://github.com/kriscendobot/minion.town/pull/122) `a60151524cb` screened
 - 2026-10-09T08:46:29Z [#122](https://github.com/kriscendobot/minion.town/pull/122) `4299bc0c417` screened
 - 2026-10-09T01:10:53Z [#169](https://github.com/kriscendobot/minion.town/pull/169) merged `39867df7874`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/37868510874) — failed
-- 2026-10-08T22:33:54Z [#169](https://github.com/kriscendobot/minion.town/pull/169) `2552040f2b9` screened
-- 2026-10-08T22:33:54Z [#122](https://github.com/kriscendobot/minion.town/pull/122) `a32cc28d296` screened
 
 ## Messages to the maintainer
 
@@ -587,7 +583,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 209.0M | $1463.33 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 129778152 tokens/day lower bound._
+_Fleet token-unlock pace: 130084732 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
