@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T19:54:02Z_
+_As of 2026-10-09T19:56:39Z_
 
 ## Latest
 
@@ -93,6 +93,14 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` cleared on endolin-garden2-5bcdff64.
+
+- `stale-panel-head-kriscendobot-minion.town-pr174-f7dfa808-3e088a18` — from gardener:minion-town-arc-press-20261009-142016, reply_to `minion-town-arc-press-20261009-142016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr174-f7dfa808-3e088a18.md)
+
+> Stale panel coverage for completed job `minion-town-arc-press-20261009-142016`: [https://github.com/kriscendobot/minion.town/pull/174](https://github.com/kriscendobot/minion.town/pull/174) moved from panel-reviewed head `f7dfa8088039c61689a162d51d5601942d967e11` to presented head `3e088a1837ef793d0a345a1e498f939482df8e6e`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
 - `followup-gate-improve-design-build-dispatch` — from followup-gate:improve-design-build-dispatch, reply_to `improve-design-build-dispatch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-improve-design-build-dispatch.md)
 
@@ -588,18 +596,17 @@ worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`kriscendobot-minion.town-pr173-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #173
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #174
-- [`minion-town-arc-press-20261009-142016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261009-142016.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (11990)
+### tada (11991)
+- [`minion-town-arc-press-20261009-142016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/minion-town-arc-press-20261009-142016.md) — minion.town arc supervisor tick, 2026-10-09 ~19:50Z
 - [`claude-on-minion-town-completion-press-20261009-182008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-completion-press-20261009-182008.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr1433-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1433
 - [`minion-town-arc-press-20261009-173508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/minion-town-arc-press-20261009-173508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr1433-gauntlet-panel-3.md) — Cost
-- [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-fix-1.md) — Cost
-- … and 11985 more
+- … and 11986 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
