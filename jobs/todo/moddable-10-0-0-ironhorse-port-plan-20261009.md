@@ -20,15 +20,4 @@ Release items that look engine-relevant (verify each against the actual commits;
 
 Deliverable: a design/plan (per designer role) that (1) classifies each item as already-conformant, needs-port, not-applicable, or Temporal/host-excluded, with evidence from the IronHorse code and test262 expectations; (2) lists the resulting port work as sized, ordered child jobs, with the recommended orchestration shape (skills/orchestration); (3) flags any item that changes the oracle xst version or the ratchet baseline. Do not start the ports; post the plan and park children per the standing multi-part pattern.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-09T20:04:00Z
+<!-- garden-reaped: 0 -->
