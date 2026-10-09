@@ -249,6 +249,7 @@ grep -q 'is_main_host' "$JOBS/watchman.sh" \
 hr; echo "EVERY-HOST — gardeners and local-infra are NOT gated"; hr
 for u in garden-monk@ garden-gardener-scaler garden-upgrade-monitor \
          garden-clone-keeper garden-journal-worktree-keeper garden-state-clone-keeper \
+         garden-namespace-clone-maintenance \
          garden-worktree-sweeper garden-sysop garden-repo-watcher garden-unblock; do
   f="$SRC/$u.service"; [ -e "$f" ] || { ok "$u.service absent (nothing to gate)"; continue; }
   # Match an EXECUTABLE ExecCondition directive, not a mere comment mention: the

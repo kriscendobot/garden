@@ -5386,7 +5386,23 @@ leader_host() {
     if [ "$age" -ge 0 ] && [ "$age" -lt "$GARDEN_LEADER_TTL" ]; then
       head -1 "$cache" 2>/dev/null | tr -d '[:space:]'; return 0
     fi
+    # Single-flight refresh: ~100 leader-gated units evaluate this as their
+    # ExecCondition, and on 2026-10-08 a fragmented leader clone made each
+    # refresh's git read take 57 s, so every expiry stacked ~100 concurrent reads
+    # (load 20-45). Exactly one caller refreshes; the rest answer from the stale
+    # cache at once (a TTL-or-so-old leader verdict is fine for a timer tick).
+    {
+      if flock -n 8; then _leader_refresh "$dir" "$cache"
+      else head -1 "$cache" 2>/dev/null | tr -d '[:space:]'; fi
+    } 8>>"$cache.refresh.lock"
+    return 0
   fi
+  _leader_refresh "$dir" "$cache"
+}
+
+# _leader_refresh <clone> <cache> — the fetching half of leader_host (steps 3-4).
+_leader_refresh() {
+  local dir="$1" cache="$2" val=""
   # Contain ensure_clone in a SUBSHELL: on an unresolvable journal remote it
   # reaches journal_remote's die() → `exit 1`, and a bare `|| true` cannot catch
   # an exit from a same-shell function — leader_host would kill its caller, so

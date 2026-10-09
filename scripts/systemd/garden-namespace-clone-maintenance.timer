@@ -1,0 +1,13 @@
+[Unit]
+Description=Garden namespace-clone-maintenance timer
+
+[Timer]
+# Absolute wall-clock schedule (see garden-state-clone-keeper.timer for why not a
+# relative OnUnitActiveSec). Every 2h at :37, off the other keepers' anchors; the
+# script adds its own random jitter (GARDEN_NS_CLONE_JITTER) so hosts sharing a
+# filesystem do not repack in the same minute.
+OnCalendar=00/2:37
+Persistent=true
+
+[Install]
+WantedBy=timers.target

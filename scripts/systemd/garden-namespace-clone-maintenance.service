@@ -1,0 +1,16 @@
+[Unit]
+Description=Garden namespace-clone-maintenance (prune tmp_pack files and repack the per-namespace $GARDEN_STATE/<ns>/journal clones)
+
+[Service]
+Type=oneshot
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# A first repack of a badly-fragmented clone (thousands of packs) runs well past
+# self-heal's 600s handler default; TimeoutStartSec is this unit's bound.
+Environment=SELF_HEAL_HANDLER_TIMEOUT=0
+# Every host: each host can only maintain its own $GARDEN_STATE, so this is NOT
+# leader-gated (and must not be — the leader gate's own read is what slows down).
+Nice=19
+IOSchedulingClass=idle
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-namespace-clone-maintenance -- @GARDEN_ROOT@/scripts/jobs/namespace-clone-maintenance.sh
+TimeoutStartSec=3600
