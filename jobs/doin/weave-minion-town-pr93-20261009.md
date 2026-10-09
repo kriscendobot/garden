@@ -17,3 +17,13 @@ has been CONFLICTING since 2026-09-12. Weave it: snapshot the current `main` tip
 `main-<short-sha>`, rebase the head onto it resolving conflicts, force-push, and move the PR base
 (skills/frozen-base-branch). Keep it draft. Report whether the rebased head builds and tests
 green; the supervisor stages the gauntlet next tick.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T20:22:06Z
