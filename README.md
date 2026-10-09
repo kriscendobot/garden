@@ -1,30 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-09T04:38:32Z_
+_As of 2026-10-09T04:42:20Z_
 
 ## Latest
 
-No job-board transitions were recorded since the last bulletin. The open items below come from the maintainer inbox.
-
-**The minion.town delegation is paused.** The screener paused it after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed its deploy. The heal job found that production is not broken. The failure comes from the kriscendobot Actions billing block, which leaves `deploy.yml` with no runner. Production still serves the previous deploy, and #169 is simply undeployed. Delegation resumes only after a green main deploy. You have three options:
-- resume it by hand and accept undeployed merges;
-- authorize moving CD onto ci.minion.town;
-- wait for the billing reset, expected around 10-30.
-
-The heal job also offers a follow-up: have the screener treat a deploy run with no runner and zero steps as "billing-deferred" instead of a failed merge. ci.minion.town itself passed revalidation with no open operator items.
-
-**The garden's rolling deploy is halted.** The canary on endolin-garden-ece02cb4 at `cf4e33b19a5f` failed three probe retries. The canary is still drained, and the leader did not advance. `fix-deploy-garden-self-swap-strand` is in progress and may be related.
-
-**Three orchestrations halted:**
-- **`review-docket-20261008`:** its consolidate child was doomed and is held in plan awaiting your go-ahead.
-- **`orch-minion-town-oauth-bonds`:** its build child completed but declared its gated outcome unsatisfied.
-- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is not provisioned.
-
-**Smaller items:**
-- `fix-sysop-ack-timeout` landed as `96a2b4c6141`. Once oros has deployed it, someone must remove the temporary drop-in there by hand.
-- The ocap.site registrar transfer window opens around 2026-10-09 19:55Z. Its DS record is still unpublished, so you need to choose between transferring and asking the registrar to publish DS.
-- [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its panel reviewed. It needs your review, or a `run the gauntlet` request to put the current head through the panel again.
-- Claude spend is above quota, and the fleet is in backoff.
+The only board change since the last bulletin is a new job, [`build-minion-town-deploy-on-ci-runner-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-deploy-on-ci-runner-20261009.md). It moves minion.town's deploy workflow (deploy.yml) onto the self-hosted ci.minion.town runner. This responds to the failed deploy after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged. The heal job found that production was not broken: the kriscendobot Actions billing block left the deploy with no runner. Because no main deploy can succeed until that block clears (expected around 10-30), proxy delegation for minion.town stays paused. Moving the production deploy role onto that host was flagged as the maintainer's call, so confirm the job is authorized before it lands. Separately, the rolling deploy of `cf4e33b` is halted: its canary probe on endolin-garden-ece02cb4 failed all three retries. That host is still drained and needs a maintainer decision. The ocap.site registrar transfer window opens around 19:55Z today if you want to fix the unpublished DNSSEC DS record that way.
 
 ## Maintainer review docket
 
@@ -451,7 +431,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 195.8M | $1374.65 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
+| Claude | 195.9M | $1375.07 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128107225 tokens/day lower bound._
@@ -460,7 +440,8 @@ _Fleet token-unlock pace: 128107225 tokens/day lower bound._
 worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
+- [`build-minion-town-deploy-on-ci-runner-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-deploy-on-ci-runner-20261009.md) — Move minion.town CD (deploy.yml) onto the ci.minion.town runner during the bi...
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
 - [`oros-health-watch-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-030509.md) — ---
 - [`gauntlet-early-termination-unaddressed-must-fix-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-early-termination-unaddressed-must-fix-summary.md) — Gauntlet early termination: summarize the unaddressed must-fix requests for a...
