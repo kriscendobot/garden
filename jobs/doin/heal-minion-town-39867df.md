@@ -14,3 +14,13 @@ Restore production by the cheapest correct route: a forward-fix PR or a revert P
 Open it with scripts/jobs/gardening/ensure-pr.sh and stage the ordinary gauntlet; the
 proxy screens and merges a marked heal PR even while the delegation is paused. Never
 push to main directly and never force-revert main.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T02:25:45Z
