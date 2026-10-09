@@ -1,2 +1,2 @@
-base: improve-comment-source-quota-probe
+base: improve-comment-source-primary-quota-cancellation
 identity: mentor:scripts/jobs/handlers/comment-source-gh.sh
