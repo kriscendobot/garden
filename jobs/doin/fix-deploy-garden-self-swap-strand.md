@@ -25,3 +25,13 @@ bash reads a script lazily from its file descriptor. The deploy swaps `scripts/j
 4. Add a regression test that swaps deploy-garden.sh mid-run.
 
 Evidence: the systemd journal on oros-studio for 2026-10-02 05:31–05:39Z; .garden-state/deploy/deployed-sha and .garden-state/draining (source: operator, set_at 2026-10-02T05:38:33Z).
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T00:40:57Z
