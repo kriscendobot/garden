@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-10-09T05:42:03Z","base":"kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1","host":"oros-studio-garden-ce242c49","outcome":"requeue","elapsed_s":1725,"role":"gardener","provider":"anthropic"}
