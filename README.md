@@ -1,26 +1,33 @@
 # Garden bulletin
 
-_As of 2026-10-09T02:56:29Z_
+_As of 2026-10-09T02:57:50Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin. The minion.town arc press was claimed, and the panel round 1 for [endo-but-for-bots#1434](https://github.com/endojs/endo-but-for-bots/pull/1434) went from claimed back to the todo queue to be claimed again.
+No board transitions came through since the last bulletin; the news is in the maintainer inbox.
 
-**minion.town delegation is paused, but production is not broken.** The screener blamed the deploy failure after merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) on the merge. The heal job found the real cause: the kriscendobot Actions billing block. The deploy job got no runner and failed in 4s, while CI passed on ci.minion.town and production still serves [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143). The delegation resumes only after a green main deploy, so you have three choices:
-- resume it by hand;
+**minion.town delegation is paused.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged as `39867df7874`, but its deploy failed. The heal job found that production is not broken. The kriscendobot Actions billing block left the deploy job with no runner, so it ran zero steps and failed in 4 seconds. Production is still serving the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, and #169 is merged but not deployed. The screener only resumes after a green main deploy, so you need to pick one of three options:
+
+- resume the delegation by hand and accept undeployed merges;
 - authorize moving CD onto the ci.minion.town runner;
-- wait for the ~10-30 billing reset.
+- wait for the billing reset (~10-30).
 
-The heal report also offers a screener follow-up that would treat a no-runner deploy as billing-deferred, not as a merge failure.
+The heal job also offers to teach the screener to treat zero-step, no-runner runs as "billing-deferred".
 
 **Three orchestrations halted:**
-- **`orch-minion-town-oauth-bonds`:** its build child declared its outcome unsatisfied.
-- **`orch-jev-triage-foreman`:** halted because `TYPESAFE_API_KEY` is missing. Only you can provision it.
-- **`review-docket-20261008`:** its consolidation child was doomed and is held in plan, waiting for you to promote or split it.
 
-**Other items:**
-- **ocap.site:** the transfer window opens around 19:55Z today. DNSSEC stays broken until the domain is transferred or the registrar publishes the DS record.
-- **oros-studio host:** it is back online, and after it deploys `96a2b4c6141` one temporary sysop drop-in still has to be removed by hand there.
+- `review-docket-20261008` stopped at 2/3. Its consolidate child failed its retry and is parked in plan waiting for your go-ahead.
+- `orch-jev-triage-foreman` is blocked because `TYPESAFE_API_KEY` is not in the job environment.
+- `orch-minion-town-oauth-bonds` stopped because its build child reported its gated outcome unsatisfied.
+
+The ocap.site crawler-leak design also hit its retry limit and is parked.
+
+**Your other decisions:**
+
+- **ocap.site domain transfer:** it becomes eligible around 2026-10-09 19:55Z. DNSSEC stays broken until a DS record is published, either after the transfer or by the registrar (Key-Systems).
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its panel review covers an older head. Either ask to run the gauntlet again or review it with the stale coverage in mind.
+
+**Housekeeping:** both ci.minion.town runner orchestrations completed cleanly, and the selftest passed. oros-studio is back in rotation. The sysop ack-timeout fix landed as `96a2b4c6141`. Once that commit has deployed on oros, its temporary drop-in has to be removed by hand there.
 
 ## Maintainer review docket
 
@@ -281,6 +288,10 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=1 quota=backoff fleet-envelope=4 target=1
 
+- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md)
+
+> Host-requirements gate: job 'canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `stale-panel-head-endojs-endo-but-for-bots-pr1403-6be2a3cb-7cc7cc3f` — from gardener:claude-on-minion-town-press-20261008-203525, reply_to `claude-on-minion-town-press-20261008-203525` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1403-6be2a3cb-7cc7cc3f.md)
 
 > COALESCED message — occurrence #2 (first seen 2026-10-08T03:35:42Z, latest 2026-10-09T01:21:25Z).
@@ -390,7 +401,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 191.2M | $1344.25 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
+| Claude | 191.3M | $1344.63 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 126984911 tokens/day lower bound._
