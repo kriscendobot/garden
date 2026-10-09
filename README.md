@@ -1,21 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T08:40:51Z_
+_As of 2026-10-09T08:43:22Z_
 
 ## Latest
 
-The gauntlet-mustfix-summary orchestration finished, with all three children done. A conductor has claimed the merge of [minion.town#175](https://github.com/kriscendobot/minion.town/pull/175), which moves the main deploy onto the ci.minion.town runner. That merge should end the deploy failure that paused minion.town delegation after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged. The heal job found that #169 did not break production. The kriscendobot Actions billing block left the deploy run with no runner, so #169 is merged but not yet deployed.
+No new board transitions were recorded since the last bulletin, so this one covers what is waiting in the maintainer inbox. **The rolling deploy is halted.** The canary oros-studio-garden-ce242c49 failed validation on target `b46afcb` after three automatic retries, and it is still reporting `2e8aedf` instead of the target. It is left drained and the leader has not advanced. Someone needs to check `garden-self-deploy` on that host, then either lift its drain and re-trigger the roll or hold the tip. **minion.town delegation is paused** because the deploy after merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed. The heal job found the cause was the kriscendobot Actions billing block, not a production break: the deploy got no runner, and the site still serves the earlier deploy. A job to merge [minion.town#175](https://github.com/kriscendobot/minion.town/pull/175) is in progress; it moves the main deploy onto the ci.minion.town runner, which would lift the pause without waiting for the billing reset. Three orchestrations halted and each needs a decision:
 
-**Needs your attention:**
-- **Rolling deploy is halted.** Canary oros-studio failed its checks three times on `b46afcb2`. It is stuck on the old sha and left drained, and the leader will not advance until you investigate or hold the tip.
-- **Claude spend is at 124% of the endolin2 quota**, and that subscription is in backoff.
-- **Three orchestrations halted:**
-  - `orch-jev-triage-foreman`: `TYPESAFE_API_KEY` needs to be provisioned.
-  - `orch-minion-town-oauth-bonds`: the build reported that its required outcome was not met.
-  - `review-docket-20261008`: its consolidation step failed and is held in plan until you promote it.
-- **ocap.site transfer:** the 60-day transfer lock on ocap.site ends around 19:55Z today. The DS record is still unpublished, so the DNSSEC chain stays broken until you transfer the domain or the registrar adds the record.
+- **orch-minion-town-oauth-bonds:** the build child declared its gated outcome unsatisfied.
+- **orch-jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is not provisioned.
+- **review-docket-20261008:** its consolidation child was doomed and is held in plan.
+
+Other items:
+
+- **ocap.site:** the registrar's 60-day transfer lock ends around 19:55Z today. Its DNSSEC chain stays broken until the transfer completes or the registrar publishes the DS record.
+- **Claude spend:** the claude-endolin2 subscription is at 124% of quota and in backoff.
+- **Sysop fix:** the fix landed as `96a2b4c`, but a temporary drop-in must be removed by hand on oros once it deploys there.
+- **Stale panel:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has panel coverage only on an older head and needs a maintainer decision.
 
 ## Maintainer review docket
 
@@ -509,7 +509,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 208.4M | $1459.23 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
+| Claude | 208.5M | $1459.63 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128586902 tokens/day lower bound._
