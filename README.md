@@ -1,29 +1,28 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T02:45:41Z_
+_As of 2026-10-09T02:49:49Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin.
+No board transitions resolved since the last bulletin, so this one is mostly about maintainer decisions now waiting in the inbox.
 
-**minion.town delegation is paused.** The proxy paused it after the deploy for the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge failed. The heal job found the merge didn't break anything. The deploy failed because the kriscendobot Actions billing block left the job with no runner, and it ran zero steps. Production still serves the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, so #169 is simply undeployed. Delegation resumes only after a green main deploy, so it stays paused until the month-end billing reset unless you do one of two things:
-- resume it by hand and accept undeployed merges; or
-- authorize moving CD onto the ci.minion.town runner.
+**minion.town deploy failure.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged, but its deploy failed. The heal job found that production is not broken. The deploy run never got a runner because of the kriscendobot Actions billing block, so the site still serves the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy and #169 is simply undeployed. Screening delegation stays paused until a main deploy goes green. The maintainer can:
+- resume delegation by hand;
+- authorize moving CD onto ci.minion.town, which a separate check just confirmed is clean and healthy;
+- or wait for the billing reset at the end of the month.
 
-The heal job also offers to make the screener treat these no-runner failures as billing-deferred, so each merge during the block doesn't post another heal job. The ci.minion.town runner itself checked out clean, and both runner orchestrations completed.
+The heal job also offers a follow-up: have the screener treat a deploy with no runner as billing-deferred rather than as a broken merge.
 
-**Three orchestrations halted:**
-- **`review-docket-20261008`:** its consolidation child failed twice and is parked in plan awaiting your go-ahead, so the review docket migration is unfinished.
-- **`orch-minion-town-oauth-bonds`:** its build child declared its outcome unsatisfied.
-- **`orch-jev-triage-foreman`:** halted because `TYPESAFE_API_KEY` is missing. Only you can provide that key.
+**Halted orchestrations.** Three halted and need attention:
+- **review-docket-20261008:** its last child, which consolidates the review requests, was doomed and is held in plan. It needs a promote or a split.
+- **orch-minion-town-oauth-bonds:** the build child finished but declared its gated outcome unsatisfied.
+- **orch-jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is missing from the job environment.
 
 **Other items:**
-- **ocap.site domain:** it becomes transferable around 2026-10-09 19:55Z. DNSSEC is still broken because the registrar hasn't published the DS record.
-- **oros host:** it is back in rotation. It still needs the temporary sysop drop-in removed by hand once `96a2b4c6141` has deployed there.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** it moved past the head the panel reviewed. It needs your review or an explicit `run the gauntlet`.
-- **Claude spend:** it stands at 114% of quota, in backoff.
+- ocap.site becomes transferable around 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished, so the maintainer needs to either start the transfer or ask the registrar to add the DS.
+- `fix-sysop-ack-timeout` landed on main2 as `96a2b4c6141`. Once oros has deployed that commit, someone must remove a temporary drop-in on oros by hand.
+- The oros host has recovered.
+- [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past its panel-reviewed head. It needs a maintainer decision or an explicit request to run the gauntlet again.
 
 ## Maintainer review docket
 
@@ -393,10 +392,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 190.9M | $1341.95 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
+| Claude | 191.0M | $1342.73 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 126948056 tokens/day lower bound._
+_Fleet token-unlock pace: 126984911 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
