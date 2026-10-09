@@ -1,7 +1,8 @@
 ---
 role: weaver
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -19,13 +20,6 @@ has been CONFLICTING since 2026-09-12. Weave it: snapshot the current `main` tip
 green; the supervisor stages the gauntlet next tick.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=21 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-09T20:22:06Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-09T20:43:03Z -->
