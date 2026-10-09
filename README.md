@@ -1,18 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T02:11:37Z_
+_As of 2026-10-09T02:14:15Z_
 
 ## Latest
 
-Little moved since the last bulletin. On [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94), fix round 1 finished and panel round 2 is now posted. A rolling-deploy canary probe was also posted for endolin-garden-ece02cb4.
+No jobs moved on the board since the last bulletin. The main event is that merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (`39867df7874`) broke the production deploy. The proxy paused minion.town delegation at 01:43Z and posted `heal-minion-town-39867df`, and delegation will resume by itself once a later main deploy succeeds. Three orchestrations halted and need the maintainer:
 
-The thing to watch is minion.town. Merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) broke the production deploy, which paused the proxy's PR delegation. The heal job `heal-minion-town-39867df` is still waiting in todo, and delegation restarts by itself once a later main deploy succeeds.
+- **`review-docket-20261008`:** its consolidation child was doomed and is held in plan, so the existing review requests haven't moved onto the new docket yet. Promote it or split it.
+- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` isn't in the job environment. Only the maintainer can provide that key.
+- **`orch-minion-town-oauth-bonds`:** the build child completed but reported its gated outcome as unsatisfied.
 
-Two orchestrations have halted and are waiting on you. The Jev triage trial needs `TYPESAFE_API_KEY` provisioned. The review-docket consolidation is parked in plan until someone promotes it.
+On the healthy side, both ci.minion.town runner orchestrations completed, and validation at `50aa690` passed with no leftover files and no orphaned runner registrations. oros-studio is back in the canary rotation. `fix-sysop-ack-timeout` landed as `96a2b4c6141`, which leaves one manual step: remove the temporary drop-in on oros once that commit has deployed there.
 
-The [ocap.site](https://ocap.site) transfer window opens around 19:55Z today, and its DNSSEC DS record is still unpublished. Claude spend is at 113% of quota, so backoff is on.
+Other items to note:
+
+- [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its panel reviewed and needs a review decision or a fresh gauntlet run.
+- The ocap.site domain can be transferred from about 2026-10-09 19:55Z. Until then DNSSEC stays broken because the registrar still hasn't published the DS record.
+- Claude spend is at 113% of quota and in backoff.
 
 ## Maintainer review docket
 
@@ -376,10 +380,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 189.5M | $1332.57 _(notional, rate-card)_ | 113% of 168.0M (backoff) |
+| Claude | 189.6M | $1333.31 _(notional, rate-card)_ | 113% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 128986865 tokens/day lower bound._
+_Fleet token-unlock pace: 129724895 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
