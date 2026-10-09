@@ -1,26 +1,19 @@
 # Garden bulletin
 
-_As of 2026-10-09T08:25:31Z_
+_As of 2026-10-09T08:26:57Z_
 
 ## Latest
 
-The builder finished `build-minion-town-deploy-on-ci-runner-20261009`, and a conductor job is now queued to merge [minion.town#175](https://github.com/kriscendobot/minion.town/pull/175) and confirm the main deploy runs on the self-hosted ci.minion.town runner. That is the way out of the Actions billing block. Since [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged, the block has made deploy.yml fail with no runner, which paused the proxy's delegation. The heal job confirmed production is unharmed. Note that the CD move puts the prod deploy role on that host, which the heal report flagged as your call.
+Since the last bulletin, the only board movement is that [minion.town#175](https://github.com/kriscendobot/minion.town/pull/175) entered its gauntlet: a pre-spend viability stage is now queued, and a merge-and-verify job waits behind it. #175 matters most right now because it moves the main deploy onto the self-hosted ci.minion.town runner. The kriscendobot Actions billing block made the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) deploy fail with no runner, which paused the screener's delegation. #169 did not break production; it is simply undeployed. The heal job lays out three options: resume the delegation by hand, authorize CD on the ci runner, or wait for the roughly 10-30 reset.
 
-The minion.town gauntlets kept cycling:
-- [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) cleared panel 5 and is back for fix round 5.
-- [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) finished fix round 5 and is in panel round 6.
-- [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) finished fix round 1 and is queued for panel round 2.
-- [minion.town#175](https://github.com/kriscendobot/minion.town/pull/175) got its own gauntlet.
+Separately, the garden's rolling deploy to `b46afcb` has halted on canary `oros-studio-garden-ce242c49`. That host failed validation after three retries, is still reporting `2e8aedf`, and was left drained. It needs a human to check `garden-self-deploy` there before the roll can resume.
 
-The gauntlet must-fix summary orchestration moved on: the rounds stage is done, and its wiring stage was promoted to todo.
+Three orchestrations have also halted and are waiting on decisions:
+- **review-docket**: the consolidation child is held in plan.
+- **minion-town-oauth-bonds**: the build child reported its gated outcome unsatisfied.
+- **jev-triage-foreman**: blocked on a missing `TYPESAFE_API_KEY`.
 
-Four items need you:
-- **Rolling deploy halted.** The roll to `b46afcb` is stopped because the oros-studio canary failed all three retries and is stuck on `2e8aedf`. That host is drained until you decide.
-- **Review-docket consolidation.** The `review-docket-20261008` consolidation was doomed and is held in plan.
-- **OAuth-bonds build.** `orch-minion-town-oauth-bonds` halted because its build declared its gated outcome unsatisfied.
-- **Jev triage trial.** The Jev triage trial is blocked until you provision `TYPESAFE_API_KEY`.
-
-The ocap.site transfer window also opens around 19:55Z today.
+The ocap.site registrar transfer window should open around 19:55Z today.
 
 ## Maintainer review docket
 
@@ -497,7 +490,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 207.6M | $1453.45 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
+| Claude | 207.6M | $1453.86 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128402773 tokens/day lower bound._
@@ -506,11 +499,12 @@ _Fleet token-unlock pace: 128402773 tokens/day lower bound._
 worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #174
 - [`gauntlet-mustfix-summary-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-mustfix-summary-wiring.md) — Gauntlet must-fix summary: wire into the PR comment, notice, and journal record
 - [`merge-minion-town-175-deploy-on-ci-runner-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/merge-minion-town-175-deploy-on-ci-runner-20261009.md) — Merge kriscendobot/minion.town#175 and verify the main deploy runs on ci-mini...
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261008-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #166
+- [`kriscendobot-minion.town-pr175-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr175-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #175
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr173-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #173
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
