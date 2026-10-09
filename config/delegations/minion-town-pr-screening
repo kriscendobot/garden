@@ -7,9 +7,14 @@
   "escalate_except": [],
   "escalate_paths": [],
   "escalate_sections": [],
-  "healing": [],
+  "healing": [
+    "39867df7874c01db702e4b1299f417523fdcaf24"
+  ],
+  "paused_at": "2026-10-09T01:43:05Z",
+  "paused_by": "proxy:screen",
+  "paused_reason": "#169 merge 39867df7874: deploy.yml failure",
   "repository": "kriscendobot/minion.town",
   "schema": 2,
   "seeded_at": "2026-10-07T22:12:36Z",
-  "status": "active"
+  "status": "paused"
 }
