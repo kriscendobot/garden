@@ -24,6 +24,7 @@ green; the supervisor stages the gauntlet next tick.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-09T20:43:03Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
