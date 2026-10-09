@@ -1,18 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T01:45:30Z_
+_As of 2026-10-09T01:50:54Z_
 
 ## Latest
 
-[minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged as `39867df7874`, and the production deploy that followed [failed](https://github.com/kriscendobot/minion.town/actions/runs/37868510874). The proxy has paused minion.town delegation and posted `heal-minion-town-39867df`. Delegation resumes by itself once a later main deploy succeeds and the watchdog reports ok. The board also gained attention directives on [endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/pull/541) and [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737). The latency watch flagged comments on both PRs as taking about 52 minutes to be acknowledged. A review directive on [endo-but-for-bots#1389](https://github.com/endojs/endo-but-for-bots/pull/1389) was posted too. Host oros-studio-garden-ce242c49 is back with fresh heartbeats and full worker caps, and its health watch has completed. Three orchestrations are halted and waiting on the maintainer:
+No job transitions resolved since the last bulletin, but production broke. Merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (`39867df7874`) caused a failed deploy. The proxy has paused minion.town delegation and posted `heal-minion-town-39867df`. Delegation resumes on its own once a later main deploy passes.
 
-- **`review-docket-20261008`:** its consolidation child is held in plan and needs `promote-plan.sh review-docket-consolidate-20261008` or a split.
-- **`orch-jev-triage-foreman`:** blocked until `TYPESAFE_API_KEY` is provisioned.
-- **`orch-minion-town-oauth-bonds`:** its build child declared its gated outcome unsatisfied.
+Three orchestrations halted and need you:
+- **`review-docket-20261008`:** stopped at 2/3. Its consolidation child is parked in `plan/` after repeated failed retries. The review docket won't absorb the archived review requests until you promote the child or split it.
+- **`orch-minion-town-oauth-bonds`:** the build reported its required outcome as not met.
+- **`orch-jev-triage-foreman`:** the Jev trial can't run because `TYPESAFE_API_KEY` isn't set. Only you can provide it.
 
-The ocap.site transfer window into Route 53 opens around 19:55Z today. DNSSEC stays broken until the transfer completes or Key-Systems publishes the DS record. Claude spend is at 112% of quota, so the fleet is in backoff.
+**Deadlines and manual steps:**
+- **ocap.site:** the domain can be transferred from about 2026-10-09 19:55Z. Its DNSSEC record is still unpublished at the registrar, so you can either start the transfer or ask Key-Systems to publish the record.
+- **oros-studio-garden-ce242c49:** this host is offline again (11 times now), so rolling deploys skip it. Once it deploys `fix-sysop-ack-timeout`, you need to remove a temporary drop-in on it by hand.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the PR moved past the head its panel reviewed. It needs either an explicit "run the gauntlet" or a review decision from you that states the coverage is stale.
+
+**Good news:** the ci.minion.town runner passed validation clean, and both of its CI-runner orchestrations finished.
+
+Claude spend is at 112% of quota, so the fleet has backed off.
 
 ## Maintainer review docket
 
@@ -44,11 +50,16 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-09T00:35:03Z).
-> It was observed 10 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #11 (first seen 2026-10-08T20:53:04Z, latest 2026-10-09T01:50:03Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1916s (offline threshold 1800s; sampled_at_epoch=1791508687).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden2-5bcdff64)
 
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
@@ -64,9 +75,11 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 
 - `watchdog-comment-ack-latency-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-endojs-endo-but-for-bots.md)
 
-> Comment acknowledgment latency anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/737](https://github.com/endojs/endo-but-for-bots/pull/737)#issuecomment-6071968239 (latency=3155s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/541](https://github.com/endojs/endo-but-for-bots/pull/541)#issuecomment-6071982067 (latency=3101s; heartbeat=full-poll)
+> RECOVERED — the watchdog condition `comment-ack-latency-endojs-endo-but-for-bots` has CLEARED (first seen 2026-10-09T01:42:46Z, cleared 2026-10-09T01:47:09Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d` — from gardener:minion-town-ci-runner-redeploy-verify-50aa690, reply_to `minion-town-ci-runner-redeploy-verify-50aa690` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d.md)
 
@@ -374,10 +387,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 188.4M | $1325.45 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
+| Claude | 188.6M | $1326.94 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 128833716 tokens/day lower bound._
+_Fleet token-unlock pace: 123556123 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
