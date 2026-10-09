@@ -1,26 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T06:10:12Z_
+_As of 2026-10-09T06:15:23Z_
 
 ## Latest
 
-Since the last bulletin, little has moved on the board. The [minion.town#152](https://github.com/kriscendobot/minion.town/pull/152) weave finished, and the endolin-garden-ece02cb4 canary probes at `cf4e33b19a5f` completed their round trips, so the earlier canary-failure page has cleared. Two jobs were posted: a shepherd for red CI on [minion.town#151](https://github.com/kriscendobot/minion.town/pull/151), and a new Claude-on-minion.town completion press.
+The gauntlet for [endo-but-for-bots#1434](https://github.com/endojs/endo-but-for-bots/pull/1434) has halted. Its first panel stage failed three times with a panel error, which means the review seats or decider broke down; the panel never reached a verdict, so it needs a re-run or an investigation, not a code fix. The review job for [endo-but-for-bots#1389](https://github.com/endojs/endo-but-for-bots/pull/1389) also finished.
 
-The biggest item for the maintainer is that minion.town delegation is still paused. The deploy of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed, but the heal job found that the cause is the kriscendobot Actions billing block, not a broken merge. Production still serves the previous deploy, and #169 has simply not been deployed. Delegation will stay paused until the billing reset (around 10-30) unless the maintainer resumes it by hand or authorizes moving CD onto the ci.minion.town runner. A `build-minion-town-deploy-on-ci-runner-20261009` job for that move is now on the board.
+The minion.town delegation is still paused. The deploy of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed only because of the Actions billing block, and production is unaffected. A job to move CD onto the ci.minion.town runner (`build-minion-town-deploy-on-ci-runner-20261009`) is now on the board, so check that it has the authorization the heal report asked you for.
 
-Other items that need a decision:
-- **Claude spend:** it is at 118% of the leader's quota.
-- **Halted orchestrations:** three have stopped.
-  - The review-docket consolidation child is parked in `plan/` after its retries ran out. It needs to be promoted or split.
-  - `orch-minion-town-oauth-bonds` halted after its build declared its outcome unsatisfied.
-  - The Jev triage trial is blocked because `TYPESAFE_API_KEY` is missing.
-- **ocap.site:** it becomes eligible for transfer to Route53 after about 19:55Z today. Its DNSSEC DS record is still unpublished.
+Three orchestrations are halted and waiting on you:
+- **`review-docket-20261008`:** the consolidation child is held in `plan/`.
+- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is missing.
+- **`orch-minion-town-oauth-bonds`:** the build child declared its outcome unsatisfied.
+
+The 60-day transfer lock on ocap.site ends around 19:55Z today. After that you can start the transfer or ask Key-Systems to publish the DS record.
 
 ## Maintainer review docket
 
-116 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+117 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39867df7874: deploy.yml failure
@@ -157,6 +154,10 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 > detail: completed but declared its gated outcome unsatisfied
 >
 > Orchestration orch-jev-triage-foreman observed child trial-jev-triage-foreman-classification: completed but declared its gated outcome unsatisfied.
+
+- `endojs-endo-but-for-bots-pr1434-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1434-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1434-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1434-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1434-gauntlet-panel-1' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: panel stage reported panel-error (seat/decider error or interruption — a sensor failure, not a review verdict)
 
 - `msg-fix-sysop-ack-timeout-1a94daae1257` — from gardener:fix-sysop-ack-timeout, reply_to `fix-sysop-ack-timeout` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fix-sysop-ack-timeout-1a94daae1257.md)
 
@@ -455,7 +456,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 199.0M | $1395.51 _(notional, rate-card)_ | 118% of 168.0M (backoff) |
+| Claude | 199.2M | $1397.14 _(notional, rate-card)_ | 119% of 168.0M (backoff) |
 | Codex | 19.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128833157 tokens/day lower bound._
@@ -484,18 +485,16 @@ worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delega
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ cf4e33b19a5f
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1389-review-a7ef9c88.md) — Review directive on endojs/endo-but-for-bots PR #1389
-- [`endojs-endo-but-for-bots-pr1434-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1434-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1434
+### doin (1)
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 
-### tada (11910)
+### tada (11913)
+- [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr1389-review-a7ef9c88.md) — Cost
+- [`endojs-endo-but-for-bots-pr1434-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr1434-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1434-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1434-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr1434-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr152-weave-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr152-weave-20261009.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r3.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2.md) — rolling-deploy canary probe — round trip OK
-- … and 11905 more
+- … and 11908 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
