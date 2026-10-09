@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T21:40:26Z_
+_As of 2026-10-09T21:44:28Z_
 
 ## Latest
 
@@ -581,14 +581,14 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 209.0M | $1463.33 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 129854402 tokens/day lower bound._
+_Fleet token-unlock pace: 129765465 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #94
 
 ### doin (5)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #94
