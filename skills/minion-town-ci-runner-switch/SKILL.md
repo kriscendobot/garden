@@ -93,7 +93,11 @@ old hard-coded `runs-on`; weave it onto a base that includes #145.
    then dispatch *ci-runner selftest*
    (`gh workflow run ci-runner-selftest.yml -R kriscendobot/minion.town`) or
    rerun a recent run.
-2. **If a hosted job starts and passes,** leave it there and report.
+2. **If a hosted job starts and passes,** leave it there and report. The same
+   flip has moved CD back to hosted too (see Notes). Confirm the next `main`
+   deploy run (`gh run list -R kriscendobot/minion.town -w deploy.yml -L 1`)
+   lands on a hosted runner and succeeds, or dispatch one with
+   `gh workflow run deploy.yml -R kriscendobot/minion.town`.
 3. **If it is still billing-refused,** the reset has not happened yet. Flip back
    (`gh variable delete CI_RUNS_ON …`), rerun anything the probe failed, and
    re-schedule this direction for a day later. Do not leave CI pointed at a
@@ -104,10 +108,15 @@ Tearing it down needs the maintainer.
 
 ## Notes
 
-- **CD is separate.** `deploy.yml` always runs hosted, so during a block
-  production deploys stay blocked whichever way `CI_RUNS_ON` points. Moving CD
-  onto the runner would put the production deploy role on that host, and that
-  is the maintainer's call.
+- **CD follows the same switch.** `deploy.yml` reads `CI_RUNS_ON` with the
+  same self-hosted default as `test.yml` (kriscendobot/minion.town#175), so one
+  flip moves CI **and** the production deploy together. The maintainer
+  authorized running the deploy role on `ci.minion.town` during the 2026-10
+  billing block (kriscendobot/garden#58, comment 6073808637). The CD OIDC trust
+  (`sub` = `repo:kriscendobot/minion.town:ref:refs/heads/main`) does not depend
+  on the runner. A self-hosted deploy installs the AWS CLI into `$RUNNER_TEMP`
+  when it is missing, and needs Docker for the ARM64 emulator step. A base
+  older than #175 still hard-codes `ubuntu-latest` for CD.
 - **The runner's GitHub credential stays broad on purpose.** It is the bot's
   gh OAuth token. The maintainer declined to narrow it to a fine-grained PAT
   (2026-10-08), because a PAT expires and would need human intervention to
