@@ -16,3 +16,13 @@ Parent: gauntlet-early-termination-unaddressed-must-fix-summary (maintainer requ
 
 ## This slice
 Add the smallest resume form that both raises max_iterations and resumes, e.g. gauntlet.sh --resume-from-stage <g> <stage> --add-rounds N. Test it, and document it in the gauntlet usage header, the operator docs, and the pr-creation-flow skill's gauntlet section.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T08:02:57Z
