@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T17:21:12Z_
+_As of 2026-10-09T17:24:15Z_
 
 ## Latest
 
@@ -563,24 +563,25 @@ _Fleet token-unlock pace: 129354022 tokens/day lower bound._
 worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #94
-- [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1433
+- [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #153
 - [`weave-minion-town-pr130-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-minion-town-pr130-20261009.md) — weave kriscendobot/minion.town#130
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #174
+- [`kriscendobot-minion.town-pr173-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #173
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`minion-town-arc-press-20261009-142016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261009-142016.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### doin (1)
-- [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
+- [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1433
 
-### tada (11985)
+### tada (11986)
+- [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr173-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr173-gauntlet-fix-4.md) — Cost
 - [`oros-health-watch-20261009-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/oros-health-watch-20261009-155007.md) — Cost
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-1.md) — Cost
 - [`claude-on-minion-town-press-20261009-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-press-20261009-155007.md) — Panel-head freshness
-- [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-clean.md) — Cost
-- … and 11980 more
+- … and 11981 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
