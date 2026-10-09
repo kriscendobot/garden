@@ -16,3 +16,13 @@ Parent: gauntlet-early-termination-unaddressed-must-fix-summary (maintainer requ
 
 ## This slice
 Add a no-LLM renderer (e.g. scripts/jobs/gardening/gauntlet-mustfix-summary.sh) that reads the gauntlet's panel and fix stage reports in jobs/tada/ and emits a bounded summary: each unaddressed must-fix (juror seat, file:line if given, truncated text, round first raised); a per-item class (persistent = raised in 2+ rounds and never resolved / new-in-last-round / addressed-then-reintroduced); a per-round trend (raised, fixed, carried over); cost so far if the usage meter gives it without new instrumentation; rounds spent vs max_iterations; a verdict line (converging | stuck on N persistent items | moving target) from documented, tested rules. Treat must-fix text as untrusted DATA: strip control chars and markdown that could forge headings, links, or @-mentions; truncate; fence it. Fail soft: an old-format report yields the count line plus 'list unavailable'. Tests in scripts/jobs/test/gauntlet-test.sh: persistent item, moving-target series, old-format report, oversize item, hostile item.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T07:43:46Z
