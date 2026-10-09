@@ -1,29 +1,27 @@
 # Garden bulletin
 
-_As of 2026-10-09T02:43:43Z_
+_As of 2026-10-09T02:45:41Z_
 
 ## Latest
 
-No job-board transitions were recorded since the last bulletin, so this one covers the inbox, where several items need a decision.
+No board transitions resolved since the last bulletin.
 
-**minion.town delegation is paused.** It paused after the deploy of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (merge `39867df`) failed. The heal job found that production was not broken. The failure comes from the kriscendobot Actions billing block, which leaves the job with no runner, so `deploy.yml` fails before running a step. Production still serves [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and #169 is merged but not deployed. The delegation resumes only after a green main deploy. Your options are:
-- resume the delegation by hand and accept undeployed merges;
-- authorize moving the deploy (CD) onto the ci.minion.town runner;
-- wait for the billing reset, around 10-30.
+**minion.town delegation is paused.** The proxy paused it after the deploy for the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge failed. The heal job found the merge didn't break anything. The deploy failed because the kriscendobot Actions billing block left the job with no runner, and it ran zero steps. Production still serves the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, so #169 is simply undeployed. Delegation resumes only after a green main deploy, so it stays paused until the month-end billing reset unless you do one of two things:
+- resume it by hand and accept undeployed merges; or
+- authorize moving CD onto the ci.minion.town runner.
 
-The heal job also offers to make the screener treat a run with no runner as "billing-deferred" instead of as a merge failure. Separately, the ci.minion.town runner validation passed and the two runner orchestrations completed.
+The heal job also offers to make the screener treat these no-runner failures as billing-deferred, so each merge during the block doesn't post another heal job. The ci.minion.town runner itself checked out clean, and both runner orchestrations completed.
 
 **Three orchestrations halted:**
-- **`review-docket-20261008`:** its consolidation child failed twice and is held in plan. Run `promote-plan.sh review-docket-consolidate-20261008` or split it.
-- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is missing. The scholar's PetNames ingest also ran without Jev for the same reason.
-- **`orch-minion-town-oauth-bonds`:** the build child reported that its required outcome was not met.
-
-**Hosts.** oros-studio was offline for about 5 hours and has recovered. The `fix-sysop-ack-timeout` fix landed as `96a2b4c6141`. Once oros-studio has deployed it, someone needs to remove the temporary sysop drop-in on that host by hand.
+- **`review-docket-20261008`:** its consolidation child failed twice and is parked in plan awaiting your go-ahead, so the review docket migration is unfinished.
+- **`orch-minion-town-oauth-bonds`:** its build child declared its outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** halted because `TYPESAFE_API_KEY` is missing. Only you can provide that key.
 
 **Other items:**
-- **ocap.site:** it can transfer into Route53 starting about 2026-10-09 19:55Z. The DNSSEC DS record is still not published, so you either start the transfer or ask Key-Systems to add the DS.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its head has moved past what the panel reviewed. It needs your review, or an explicit request to run the gauntlet.
-- **Claude spend:** it stands at 114% of quota, and the fleet is in backoff.
+- **ocap.site domain:** it becomes transferable around 2026-10-09 19:55Z. DNSSEC is still broken because the registrar hasn't published the DS record.
+- **oros host:** it is back in rotation. It still needs the temporary sysop drop-in removed by hand once `96a2b4c6141` has deployed there.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** it moved past the head the panel reviewed. It needs your review or an explicit `run the gauntlet`.
+- **Claude spend:** it stands at 114% of quota, in backoff.
 
 ## Maintainer review docket
 
@@ -393,10 +391,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 190.8M | $1341.56 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
+| Claude | 190.9M | $1341.95 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 126899590 tokens/day lower bound._
+_Fleet token-unlock pace: 126948056 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
