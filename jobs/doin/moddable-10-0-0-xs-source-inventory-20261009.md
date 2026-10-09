@@ -19,6 +19,8 @@ Items to cover: immutable ArrayBuffer; Math.round subnormals; charAt/charCodeAt 
 
 The completion report is the durable research artifact for the successor jobs. Use a compact table with one row per item and include stable commit URLs, test paths/names, and concise behavioral expectations. State uncertainties rather than guessing.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
