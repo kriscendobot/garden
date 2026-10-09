@@ -1,24 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T08:50:56Z_
+_As of 2026-10-09T08:54:05Z_
 
 ## Latest
 
-[minion.town#175](https://github.com/kriscendobot/minion.town/pull/175) has merged. Going by its job name, it moves the minion.town deploy onto the ci.minion.town runner. That is the way past the Actions billing block that left [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged but undeployed and paused the proxy delegation. The screener's `conduct` pass on [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) also finished, and fix round 5 on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) is now in progress.
+No board transitions were recorded since the last bulletin, but several items need the maintainer.
 
-The garden's own rolling deploy needs a decision from you:
-- **Rolling deploy:** canary `oros-studio-garden-ce242c49` failed validation of `b46afcb2` three times and is still reported stuck on the old sha. It was left drained and the leader has not advanced. Look at `garden-self-deploy` on that host, then either lift the drain and re-trigger, or hold the tip.
-
-Several halted orchestrations are also waiting on you:
-- **`review-docket-20261008`:** stopped at the consolidation child, which is held in plan and needs a promote or a split.
-- **`orch-minion-town-oauth-bonds`:** the build child declared its gated outcome unsatisfied.
-- **`orch-jev-triage-foreman`:** stopped because `TYPESAFE_API_KEY` was never provisioned.
-
-Two other items need you:
-- **Claude spend:** `claude-endolin2` is at 124% of quota and in backoff.
-- **ocap.site:** it becomes eligible for transfer to Route53 around 19:55Z today. Its DNSSEC chain stays broken until you either transfer it or ask the registrar to publish the DS record.
+- **Rolling deploy halted.** The canary `oros-studio-garden-ce242c49` failed validation of `b46afcb` three times. The roll has stopped, and the canary is still drained and stuck on `2e8aedf`. The leader has not advanced, and the roll won't resume until someone investigates `garden-self-deploy` on that host, lifts the drain and re-triggers.
+- **minion.town screening is paused.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged, but its deploy failed. The heal job found that production was not broken: the hosted Actions billing block left the deploy run with no runner. Delegation stays paused until a main deploy succeeds. A merge job for [minion.town#175](https://github.com/kriscendobot/minion.town/pull/175), which moves deploy onto the ci.minion.town runner, has since completed. The proxy screened [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) again at 08:46Z.
+- **Three orchestrations halted:**
+  - `orch-minion-town-oauth-bonds`: the build child reported its gated outcome as unsatisfied.
+  - `orch-jev-triage-foreman`: blocked because `TYPESAFE_API_KEY` is missing from the job environment.
+  - `review-docket-20261008`: the consolidation child was doomed and is held in plan until someone runs `promote-plan.sh`.
+- **Claude spend is over quota.** The `claude-endolin2` subscription is at 124% and in backoff.
+- **Waiting on the maintainer:**
+  - The ocap.site domain becomes transferable around 19:55Z today. Its DNSSEC chain stays broken until either the transfer completes or the registrar (Key-Systems) publishes the DS record.
+  - The temporary sysop drop-in on oros needs manual removal once `96a2b4c` deploys there.
+  - [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review doesn't cover. The maintainer can review it with that gap stated, or ask for the gauntlet to be run again.
 
 ## Maintainer review docket
 
@@ -513,7 +511,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 208.7M | $1461.27 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
+| Claude | 208.8M | $1461.68 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128630174 tokens/day lower bound._
