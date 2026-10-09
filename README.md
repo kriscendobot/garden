@@ -1,19 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-09T07:00:11Z_
+_As of 2026-10-09T07:03:53Z_
 
 ## Latest
 
-The [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) job finished, and so did the shepherd for [minion.town#151](https://github.com/kriscendobot/minion.town/pull/151). A fleet worker picked up fix round 1 for [minion.town#173](https://github.com/kriscendobot/minion.town/pull/173). The gauntlet early-termination job also finished and became a new three-part orchestration for a must-fix summary: the deterministic renderer is queued, and the add-rounds and wiring stages are parked behind it. Both canary probes for endolin-garden-ece02cb4 passed, so the rolling deploy is moving again after last night's canary and oros heartbeat alarms cleared.
+Little moved on the board since the last bulletin: the only transition was the completion of the `minion-town-arc-press-20261009-045012` press.
 
-The biggest open issue is that minion.town delegation is still paused. The deploy after merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed only because of the kriscendobot Actions billing block, and production is unaffected. The `build-minion-town-deploy-on-ci-runner-20261009` job is now queued to move CD onto ci.minion.town. The heal report said that move is your call, because it puts the production deploy role on that host. Confirm or withdraw that job before it is claimed.
+**minion.town delegation is paused.** The deploy for the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed, and the proxy paused delegation in response. The heal job found that #169 did not break production. The deploy failed because the kriscendobot GitHub Actions billing block left the job without a runner. The site is still serving the earlier deploy, and #169 is simply undeployed. Delegation stays paused until a main deploy succeeds. The maintainer can resume it by hand, authorize moving the deploy onto the ci.minion.town runner (`build-minion-town-deploy-on-ci-runner-20261009` is already queued), or wait for the month-end billing reset.
 
-Three orchestrations are halted and waiting for you:
-- **review-docket:** the consolidation step is doomed and held in plan.
-- **minion-town-oauth-bonds:** the build reported that it did not meet its required outcome.
-- **jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is missing from the job environment.
+**Three orchestrations halted and need a decision:**
+- **`review-docket-20261008`:** its consolidation step failed and is parked in plan, waiting for a promote or a split.
+- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` has not been provided.
+- **`orch-minion-town-oauth-bonds`:** its build step reported that its required outcome was not met.
 
-The ocap.site transfer window opens around 19:55Z today if you want to move the domain to Route53 and fix the missing DS record. On oros, delete the temporary sysop drop-in by hand once that host has deployed `96a2b4c6141`.
+**Other items:**
+- **ocap.site:** the domain becomes eligible for transfer after about 19:55Z today. Its DNSSEC chain stays broken until the transfer completes or the registrar publishes the DS record.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the PR's head has moved since its last panel review, so that review no longer covers it.
+- **Claude spend:** at 120% of quota, with the fleet in backoff.
 
 ## Maintainer review docket
 
@@ -468,10 +471,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 201.7M | $1413.82 _(notional, rate-card)_ | 120% of 168.0M (backoff) |
-| Codex | 19.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 201.9M | $1414.63 _(notional, rate-card)_ | 120% of 168.0M (backoff) |
+| Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 129015041 tokens/day lower bound._
+_Fleet token-unlock pace: 129063033 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
@@ -489,18 +492,17 @@ worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-pr
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-minion.town-pr173-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr173-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #173
 - [`kriscendobot-minion.town-pr174-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #174
-- [`minion-town-arc-press-20261009-045012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261009-045012.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (11923)
+### tada (11924)
+- [`minion-town-arc-press-20261009-045012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/minion-town-arc-press-20261009-045012.md) — Cost
 - [`oros-health-watch-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/oros-health-watch-20261009-030509.md) — Cost
 - [`claude-on-minion-town-press-20261009-062029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-press-20261009-062029.md) — Panel-head freshness
 - [`gauntlet-early-termination-unaddressed-must-fix-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/gauntlet-early-termination-unaddressed-must-fix-summary.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr737-8541dd36`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr737-8541dd36.md) — Cost
-- … and 11918 more
+- … and 11919 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
