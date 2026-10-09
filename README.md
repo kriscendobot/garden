@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T19:59:55Z_
+_As of 2026-10-09T20:06:14Z_
 
 ## Latest
 
@@ -579,18 +577,17 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 209.0M | $1463.33 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 129564779 tokens/day lower bound._
+_Fleet token-unlock pace: 129536552 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (11)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #94
 - [`resume-minion-town-pr166-pr171-gauntlets-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr166-pr171-gauntlets-20261009.md) — Resume the review-budget-reached gauntlets on minion.town #166 and #171
 - [`resume-minion-town-pr170-gauntlet-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr170-gauntlet-20261009.md) — Resume the review-budget-reached gauntlet on minion.town #170
 - [`claude-on-minion-town-press-20261009-185008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-185008.md) — Press the Claude-on-minion.town arc forward
-- [`moddable-10-0-0-ironhorse-port-plan-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-port-plan-20261009.md) — Moddable SDK 10.0.0: what ports to IronHorse?
 - [`weave-minion-town-pr93-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-minion-town-pr93-20261009.md) — weave kriscendobot/minion.town #93
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #153
@@ -599,7 +596,8 @@ worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`kriscendobot-minion.town-pr173-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #173
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 
-### doin (1)
+### doin (2)
+- [`moddable-10-0-0-ironhorse-port-plan-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-port-plan-20261009.md) — Moddable SDK 10.0.0: what ports to IronHorse?
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #174
 
 ### tada (11991)
