@@ -246,6 +246,40 @@ finish_gauntlet() {  # <base> <summary-file> [pending-receipt-file]
 
 # Surface a halt to the maintainer inbox (best-effort; a notify failure must never
 # wedge the tick). Body on stdin. Mirrors orchestrate.sh's orch_notify.
+# The bounded, deterministic UNADDRESSED must-fix summary for an early termination
+# (gardening/gauntlet-mustfix-summary.sh), shared by the PR receipt, the maintainer
+# notice, and the terminal journal report. Fail-soft: a renderer failure or an
+# unparseable report yields no output, never a non-zero return, so it can never
+# wedge a tick or drop the terminal state. Capped in lines; an odd fence count from
+# the cut is closed so the block cannot swallow the markdown after it.
+gauntlet_mustfix_block() {  # <base> <iteration> [max-iterations]
+  local out
+  [[ "${2:-}" =~ ^[0-9]+$ ]] && [ "$2" -gt 0 ] || return 0
+  out="$("$HERE/gardening/gauntlet-mustfix-summary.sh" "$DIR" "$1" "$2" ${3:+"$3"} 2>/dev/null \
+    | head -n "${GARDEN_MUSTFIX_BLOCK_MAX_LINES:-40}" || true)"
+  [ -n "$out" ] || return 0
+  printf '%s\n' "$out"
+  [ $(( $(printf '%s\n' "$out" | grep -c '^```') % 2 )) -eq 0 ] || printf '```\n'
+  return 0
+}
+
+# The exact resume command for an early termination, and what budget it adds.
+gauntlet_resume_hint() {  # <base> <terminal-state> <stage> <iteration> <max-iterations>
+  local base="$1" state="$2" stage="${3:-panel}" iter="$4" maxit="$5" n=2
+  if [ "$state" = review-budget-reached ]; then
+    printf 'To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage %s panel --add-rounds %s\n' "$base" "$n"
+  else
+    printf 'To resume: scripts/jobs/gauntlet.sh --resume-from-stage %s %s%s --add-rounds %s\n' \
+      "$base" "$stage" "${iter:+ --iteration $iter}" "$n"
+  fi
+  if [[ "$maxit" =~ ^[0-9]+$ ]]; then
+    printf -- '--add-rounds %s grants %s more panel/fix round(s): max_iterations %s -> %s (N is yours to choose).\n' \
+      "$n" "$n" "$maxit" "$((maxit + n))"
+  else
+    printf -- '--add-rounds N raises max_iterations by N (N more panel/fix rounds).\n'
+  fi
+}
+
 gauntlet_notify() {  # <subject> ; body on stdin
   local subject="$1"
   # Subject is a stable (base, condition) key — the episode — so a halt re-surfaced
@@ -364,9 +398,12 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
     # Early termination owes the maintainer the UNADDRESSED must-fix list, so the
     # add-budget-and-resume decision can be made from the receipt. Deterministic and
     # fail-soft: no output (or an old-format report) never blocks the receipt.
-    if [ "$terminal_state" != held-draft ] && [[ "$iter" =~ ^[0-9]+$ ]] && [ "$iter" -gt 0 ]; then
-      mustfix_summary="$("$HERE/gardening/gauntlet-mustfix-summary.sh" "$DIR" "$base" "$iter" 2>/dev/null || true)"
-      if [ -n "$mustfix_summary" ]; then printf '\n%s\n' "$mustfix_summary"; fi
+    # Collapsed under the same marker, so the one-line receipt stays the headline.
+    if [ "$terminal_state" != held-draft ]; then
+      mustfix_summary="$(gauntlet_mustfix_block "$base" "$iter")"
+      if [ -n "$mustfix_summary" ]; then
+        printf '\n<details><summary>Unaddressed must-fix summary</summary>\n\n%s\n\n</details>\n' "$mustfix_summary"
+      fi
     fi
   } > "$body"
   gh_bin="${GARDEN_GH:-gh}"
@@ -666,7 +703,7 @@ finish_not_viable() {  # <base> <result> <viability-report>
 }
 
 halt_gauntlet() {  # <base> <reason> [halted|parked-ci-billing]
-  local base="$1" reason="$2" status="${3:-halted}" sf rec key pending
+  local base="$1" reason="$2" status="${3:-halted}" sf rec key pending mf mf_iter mf_max
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-halt.XXXXXX")"
   # Keep the machine-owned record metadata in the terminal report. Besides making
   # a halt independently auditable, this is the durable source from which the
@@ -694,9 +731,17 @@ halt_gauntlet() {  # <base> <reason> [halted|parked-ci-billing]
     printf '# gauntlet %s — %s\n\n' "$base" "${status^^}"
     printf '%s\n' "$reason"
   } > "$sf"
+  mf_iter="$(plan_field "$rec" iteration 2>/dev/null || true)"
+  mf_max="$(plan_field "$rec" max_iterations 2>/dev/null || true)"
+  mf="$(gauntlet_mustfix_block "$base" "$mf_iter" "$mf_max")"
+  [ -z "$mf" ] || printf '\n## Unaddressed must-fix\n\n%s\n' "$mf" >> "$sf"
   pending="$(gauntlet_terminal_receipt "$base" "$status" "$reason" "$rec")"
   finish_gauntlet "$base" "$sf" "$pending" || log "gauntlet '$base': $status finish failed; retrying next tick"
-  printf 'Gauntlet %s %s: %s\n' "$base" "${status^^}" "$reason" | gauntlet_notify "$base-$status"
+  { printf 'Gauntlet %s %s: %s\n' "$base" "${status^^}" "$reason"
+    [ -z "$mf" ] || printf '\n%s\n' "$mf"
+    printf '\n'
+    gauntlet_resume_hint "$base" "$status" "$(plan_field "$rec" stage 2>/dev/null || true)" "$mf_iter" "$mf_max"
+  } | gauntlet_notify "$base-$status"
   log "gauntlet '$base': ${status^^} — $reason"
   rm -f "$sf" "$pending"
 }
@@ -719,7 +764,7 @@ park_ci_billing() {  # <base> <stage> <iteration> <child>
 # that useful terminal outcome as a non-failure and hand the remaining judgement
 # to a human; downstream gates therefore see an ordinary completed tada report.
 finish_review_budget_reached() {  # <base> <reason>
-  local base="$1" reason="$2" sf rec pending key value repo pr_url arc milestone
+  local base="$1" reason="$2" sf rec pending key value repo pr_url arc milestone mf mf_iter mf_max
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-review-budget.XXXXXX")"
   rec="$DIR/$JOBS_GAUNTLET/$base.md"
   {
@@ -735,6 +780,10 @@ finish_review_budget_reached() {  # <base> <reason>
     printf '# gauntlet %s — review budget reached\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
+  mf_iter="$(plan_field "$rec" iteration 2>/dev/null || true)"
+  mf_max="$(plan_field "$rec" max_iterations 2>/dev/null || true)"
+  mf="$(gauntlet_mustfix_block "$base" "$mf_iter" "$mf_max")"
+  [ -z "$mf" ] || printf '\n## Unaddressed must-fix\n\n%s\n' "$mf" >> "$sf"
   repo="$(plan_field "$rec" repo 2>/dev/null || true)"
   value="$(plan_field "$rec" pr_number 2>/dev/null || true)"
   arc="$(job_arc "$rec")"; [ -n "$arc" ] || arc=unallocated
@@ -750,6 +799,11 @@ finish_review_budget_reached() {  # <base> <reason>
   pending="$(gauntlet_terminal_receipt "$base" review-budget-reached "$reason" "$rec")"
   finish_gauntlet "$base" "$sf" "$pending" \
     || log "gauntlet '$base': review-budget finish failed; retrying next tick"
+  { printf 'Gauntlet %s REVIEW-BUDGET-REACHED: %s\n' "$base" "$reason"
+    [ -z "$mf" ] || printf '\n%s\n' "$mf"
+    printf '\n'
+    gauntlet_resume_hint "$base" review-budget-reached panel "$mf_iter" "$mf_max"
+  } | gauntlet_notify "$base-review-budget-reached"
   log "gauntlet '$base': review budget reached — $reason"
   rm -f "$sf" "$pending"
 }

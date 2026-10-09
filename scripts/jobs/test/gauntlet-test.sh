@@ -395,6 +395,23 @@ g3_comment="$(terminal_comment_body g3 review-budget-reached)"
     && printf '%s' "$g3_comment" | grep -Fq '[persistent, since r1] fixture item one'; } \
   && ok "review-budget terminal status carries the unaddressed must-fix summary" \
   || bad "nonconverge: terminal comment lacks the must-fix summary: [$g3_comment]"
+{ printf '%s' "$g3_comment" | grep -Fq '<details><summary>Unaddressed must-fix summary</summary>' \
+    && printf '%s' "$g3_comment" | grep -Fq '</details>' \
+    && [ "$(printf '%s\n' "$g3_comment" | grep -c '^```')" -eq 2 ]; } \
+  && ok "must-fix summary is a collapsed, fence-balanced <details> block under the receipt" \
+  || bad "nonconverge: summary not collapsed/balanced: [$g3_comment]"
+printf '%s' "$g3_summary" | grep -Fq '## Unaddressed must-fix' \
+  && printf '%s' "$g3_summary" | grep -Fq 'fixture item one' \
+  && ok "review-budget terminal journal report records the unaddressed must-fix summary" \
+  || bad "nonconverge: terminal report lacks the summary: [$g3_summary]"
+board inbox/maintainer/unread >/dev/null
+g3_note="$(grep -rl 'g3' "$V/inbox/maintainer/unread" 2>/dev/null | xargs cat 2>/dev/null)"
+{ printf '%s' "$g3_note" | grep -Fq 'REVIEW-BUDGET-REACHED' \
+    && printf '%s' "$g3_note" | grep -Fq 'fixture item one' \
+    && printf '%s' "$g3_note" | grep -Fq -- '--resume-from-stage g3 panel --add-rounds 2' \
+    && printf '%s' "$g3_note" | grep -Fq 'more panel/fix round(s): max_iterations'; } \
+  && ok "review-budget notice carries the summary, the exact resume command, and the budget it adds" \
+  || bad "nonconverge: maintainer notice incomplete: [$g3_note]"
 [ "$(terminal_comment_nollm g3 review-budget-reached)" = 1 ] \
   && ok "terminal status posts as machine-authored (GARDEN_NO_LLM=1), not a provenance gap" \
   || bad "nonconverge: terminal PR comment posted without GARDEN_NO_LLM=1 (provenance-gap alert)"
@@ -423,6 +440,9 @@ board inbox/maintainer/unread >/dev/null
 grep -rqi 'HALTED' "$V/inbox/maintainer/unread" 2>/dev/null \
   && ok "stage failure surfaced to the maintainer inbox" \
   || bad "stagefail: no maintainer note"
+grep -rqF -- '--resume-from-stage g4' "$V/inbox/maintainer/unread" 2>/dev/null \
+  && ok "halt notice carries the exact resume command" \
+  || bad "stagefail: halt notice lacks a resume command"
 g4_comment="$(terminal_comment_body g4 halted)"
 { [ "$(terminal_comment_count g4 halted)" = 1 ] \
     && printf '%s' "$g4_comment" | grep -Fq '**Gauntlet terminal — halted**' \
