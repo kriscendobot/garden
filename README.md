@@ -1,17 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-09T05:24:33Z_
+_As of 2026-10-09T05:27:06Z_
 
 ## Latest
 
-Little moved on the board: the [endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/pull/541) directive job completed, and a gardener claimed `improve-comment-source-primary-quota-cancellation`.
+The only board move since the last bulletin is a gardener claiming fix round 2 of the gauntlet for [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94).
 
-Four things need the maintainer's attention:
+Several items are waiting on you:
 
-- **Rolling deploy is halted.** The canary endolin-garden-ece02cb4 failed its probe three times at `cf4e33b19a5`. It is still drained, and the leader has not advanced. The tip needs investigating before it is either lifted and re-triggered or held.
-- **minion.town delegation is paused.** The deploy of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed, but production is unharmed. The cause is the Actions billing block: the job got no runner and ran zero steps. Delegation stays paused until a main deploy succeeds. A `build-minion-town-deploy-on-ci-runner-20261009` job is now queued to move CD onto ci.minion.town, and moving the production deploy role onto that host is the maintainer's call.
-- **Two orchestrations are halted.** `review-docket-20261008` stopped because its consolidation child was doomed and is parked in plan, waiting for a go-ahead. `orch-jev-triage-foreman` stopped because `TYPESAFE_API_KEY` was never provisioned.
-- **The ocap.site transfer window opens today.** The domain becomes eligible for transfer around 2026-10-09T19:55Z. The DNSSEC DS record is still unpublished, so the next step needs a decision: start the transfer, or ask the registrar to add the DS record.
+- **Rolling deploy halted.** It is stopped on a failed canary for `cf4e33b19a5f`. `endolin-garden-ece02cb4` failed its probe three times and is still drained, and the leader did not advance.
+- **minion.town delegation paused.** It stopped when [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged and its deploy failed. The heal job found that production is fine: the deploy failed only because of the Actions billing block, so #169 is merged but not yet deployed. Delegation stays paused until you resume it by hand, approve moving deployment onto ci.minion.town (`build-minion-town-deploy-on-ci-runner-20261009` is already posted), or the billing block resets.
+- **ocap.site transfer.** The ocap.site domain becomes transferable after about 19:55Z today. You need to decide whether to start the transfer or ask the registrar to publish the DS record.
+- **Halted orchestrations:**
+  - The Jev triage trial needs `TYPESAFE_API_KEY` provisioned.
+  - The oauth-bonds build ended with its required outcome not met.
+  - The review-docket consolidation step is held in plan and needs splitting or promoting.
+- **Quota.** Claude spend is above quota, and the fleet is backing off.
 
 ## Maintainer review docket
 
@@ -446,7 +450,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 197.4M | $1385.42 _(notional, rate-card)_ | 118% of 168.0M (backoff) |
+| Claude | 197.5M | $1385.83 _(notional, rate-card)_ | 118% of 168.0M (backoff) |
 | Codex | 18.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128214743 tokens/day lower bound._
@@ -455,7 +459,7 @@ _Fleet token-unlock pace: 128214743 tokens/day lower bound._
 worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (17)
 - [`build-minion-town-deploy-on-ci-runner-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-deploy-on-ci-runner-20261009.md) — Move minion.town CD (deploy.yml) onto the ci.minion.town runner during the bi...
 - [`oros-health-watch-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-030509.md) — ---
 - [`gauntlet-early-termination-unaddressed-must-fix-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-early-termination-unaddressed-must-fix-summary.md) — Gauntlet early termination: summarize the unaddressed must-fix requests for a...
@@ -471,13 +475,13 @@ worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delega
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #94
 - [`minion-town-arc-press-20261009-045012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261009-045012.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr171-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr171-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #171
-- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr737-8541dd36`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr737-8541dd36.md) — attention directive on endojs/endo-but-for-bots PR #737
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ cf4e33b19a5f
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1389-review-a7ef9c88.md) — Review directive on endojs/endo-but-for-bots PR #1389
 - [`improve-comment-source-primary-quota-cancellation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-source-primary-quota-cancellation.md) — ---
+- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
 
 ### tada (11906)
