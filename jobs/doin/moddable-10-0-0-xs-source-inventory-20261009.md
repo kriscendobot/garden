@@ -42,3 +42,13 @@ Verify the engine-relevant claims in the Moddable SDK 10.0.0 prerelease notes ag
 Items to cover: immutable ArrayBuffer; Math.round subnormals; charAt/charCodeAt 32-bit position truncation; setFromHex bounds-vs-odd-length order; revoked Proxy IsCallable; TypedArray set/fill/constructor/species ordering and detached checks; String repeat/replace/search edge cases; Symbol.for no-arg; Array.from ToLength and iterator-callable order; Reflect.apply/construct argument-read order; Object.prototype.toString Symbol.toStringTag through a handler; Array.fromAsync non-object next; ArrayBuffer resize rejection order; Set methods size over 2^31-1; Atomics.wait leak/deadlock; Math.irandom integer math; SyntaxError for functions over 65535 scope slots; switch labelled break/continue stack leak; and the String.prototype.replace capture-group memory-safety fix.
 
 The completion report is the durable research artifact for the successor jobs. Use a compact table with one row per item and include stable commit URLs, test paths/names, and concise behavioral expectations. State uncertainties rather than guessing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T23:59:25Z
