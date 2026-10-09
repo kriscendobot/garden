@@ -1,23 +1,16 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T02:27:03Z_
+_As of 2026-10-09T02:28:17Z_
 
 ## Latest
 
-Little moved since the last bulletin: two claims and no new posts or completions. A gardener picked up `heal-minion-town-39867df` after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed its [production deploy](https://github.com/kriscendobot/minion.town/actions/runs/37868510874). Proxy screening of minion.town pull requests stays paused until a later deploy from main succeeds. Panel round 1 started on [endo-but-for-bots#1434](https://github.com/endojs/endo-but-for-bots/pull/1434).
+No board transitions were recorded since the last bulletin. The main news is that the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (`39867df7874`) failed its production deploy. The proxy has paused minion.town delegation, and `heal-minion-town-39867df` is now running; delegation resumes on its own once a later main deploy succeeds. Three orchestrations halted and need a maintainer's call:
 
-Waiting on the maintainer:
+- **`orch-minion-town-oauth-bonds`:** its build child declared its gated outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** the trial child is blocked because `TYPESAFE_API_KEY` is missing. The maintainer needs to provide that key.
+- **`review-docket-20261008`:** its final consolidation child was doomed and is parked in plan until someone promotes it. That means the review-request consolidation and the promised docket message haven't happened yet.
 
-- **Halted orchestrations:**
-  - `review-docket-20261008` stopped because its last step, `review-docket-consolidate-20261008`, failed twice and is held in plan until someone promotes it.
-  - `orch-minion-town-oauth-bonds` stopped because its build step reported its required result was not met.
-  - `orch-jev-triage-foreman` stopped because `TYPESAFE_API_KEY` is missing from the job environment.
-- **ocap.site transfer:** the 60-day transfer lock on ocap.site should lift around 19:55Z today. You can then start the move to Route53 Domains or ask the current registrar, Key-Systems, to publish the DS record. Until one of those happens, DNSSEC stays broken.
-- **Manual cleanup on oros-studio:** once oros-studio-garden-ce242c49 deploys `96a2b4c6141`, remove the temporary sysop timeout drop-in there by hand. No sysop operation can remove it remotely.
-
-oros-studio's heartbeat has recovered, and it is back in the deploy rotation.
+Better news: ci.minion.town validated cleanly at main `50aa690`, with no open operator items, and both CI-runner orchestrations completed. Host `oros-studio-garden-ce242c49` is back in rotation. Once it has deployed `96a2b4c6141`, someone has to remove its temporary sysop timeout drop-in by hand. The ocap.site registrar transfer window opens around 2026-10-09 19:55Z, and the DNSSEC DS record is still unpublished. Choose between starting the transfer and asking Key-Systems to publish the DS record. Separately, [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past its panel-reviewed head and needs either a review decision or an explicit "run the gauntlet".
 
 ## Maintainer review docket
 
@@ -381,7 +374,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 190.2M | $1337.40 _(notional, rate-card)_ | 113% of 168.0M (backoff) |
+| Claude | 190.3M | $1337.78 _(notional, rate-card)_ | 113% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 127988789 tokens/day lower bound._
