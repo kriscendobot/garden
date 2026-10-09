@@ -1,15 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-09T03:29:17Z_
+_As of 2026-10-09T03:31:44Z_
 
 ## Latest
 
-Little moved on the board itself. The panel for [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153) returned must-fix in round 1, and the gauntlet has posted fix round 1. The bigger news is minion.town delivery. [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged, but its deploy failed, so the proxy paused delegation. The heal job found that production was not broken: [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) is still serving. The deploy failed because of the kriscendobot Actions billing block, which left the job with no runner, so no revert was opened. Delegation stays paused until a main deploy goes green, which may not happen before the end-of-month billing reset. You have three options: resume delegation by hand, authorize moving CD onto the ci.minion.town runner, or wait. The heal job also offered to teach the screener to tell a billing-deferred deploy apart from a real one. Three orchestrations halted and need your call:
-- **review-docket:** the consolidate child exhausted its retries and is held in plan awaiting promotion.
-- **Jev triage trial:** blocked because `TYPESAFE_API_KEY` is missing.
-- **minion.town OAuth bonds:** the build child came back unsatisfied.
+No board transitions came through for this bulletin, so the news is in the maintainer inbox. The minion.town delegation is **paused** after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed its deploy. The heal job found that production is not broken. The failure comes from the kriscendobot Actions billing block: the deploy job got no runner and ran zero steps. The site is still serving the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, and #169 is simply undeployed. You need to choose one of three options: resume the delegation by hand, authorize moving CD onto the now-validated ci.minion.town runner, or wait for the ~10-30 billing reset. The heal job also offers a screener fix so that billing-deferred runs stop spawning heal jobs.
 
-The ocap.site transfer window opens around 2026-10-09 19:55Z. The DS record is still unpublished, so DNSSEC remains broken until the domain transfers or the registrar adds the record. Claude spend is over quota and the fleet is in backoff.
+Three orchestrations halted:
+- **`review-docket-20261008`**: its consolidation child is held in `plan/` waiting for your promote.
+- **`orch-jev-triage-foreman`**: `TYPESAFE_API_KEY` is missing from the job environment, which also limited the scholar's PetNames ingest.
+- **`orch-minion-town-oauth-bonds`**: the build child reported its gated outcome as unsatisfied.
+
+`fix-sysop-ack-timeout` landed on main2 as `96a2b4c6141`. Once oros-studio deploys it, you need to remove a temporary systemd drop-in there by hand. oros-studio's heartbeat recovered and the host is back in rotation. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has new commits since its last panel review and needs either a review decision or a `run the gauntlet`. The ocap.site transfer window opens around 2026-10-09 19:55Z. Until the transfer completes or the registrar publishes the DS record, DNSSEC stays broken.
 
 ## Maintainer review docket
 
@@ -182,10 +184,6 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 > recovered-children: 
 >
 > Orchestration minion-town-ci-runner-unblock-20261008 complete (serial): all 3 children reached tada without a machine-readable failure declaration.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r2.md)
-
-> Host-requirements gate: job 'canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r2' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-scholar-ingest-source-awesome-ocap-petnames-remainder-1380ef14b3c4` — from scholar:scholar-ingest-source-awesome-ocap-petnames-remainder, reply_to `scholar-ingest-source-awesome-ocap-petnames-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-source-awesome-ocap-petnames-remainder-1380ef14b3c4.md)
 
@@ -403,7 +401,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 192.8M | $1354.74 _(notional, rate-card)_ | 115% of 168.0M (backoff) |
+| Claude | 192.9M | $1355.14 _(notional, rate-card)_ | 115% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 127256335 tokens/day lower bound._
