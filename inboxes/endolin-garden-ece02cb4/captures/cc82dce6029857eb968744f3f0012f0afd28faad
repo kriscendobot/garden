@@ -1,0 +1,20 @@
+<6>20:33:00 [monk/1] job 'kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>20:33:00 [monk/1] job 'kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4' call ceiling: tier=mentor max-budget-usd=0.50 (scaled by fresh seven-day headroom when available)
+<6>20:33:00 [monk/1] job 'kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4' attaching minion.town MCP (stdio bridge)
+
+--- handler report (partial) ---
+I didn't finish this round. The fixes are pushed, but CI hadn't reached a result when I had to stop, so I'm reporting this stage as still pending.
+
+**Fixes:** a previous claimant of this job had already pushed commit `fadb17b`, "style(security): spell out authorizationHeader and discoveryDocument; ASCII arrow in test error", to the PR head (`security/token-client-auth-and-secret-umask`). It covers both of the round-4 panel's must-fix items, which were the stylist's renames:
+- `auth` → `authorizationHeader` in `deploy/aws/lambda/github-oidc-thunk/index.js:68–70`
+- `doc` → `discoveryDocument` in `deploy/thunks/siwe/test/oidc-face.test.js:42–48`
+
+It also fixes the typist's should-fix item: the `→` in the `postJson` error message at line 227 of the same test file is now `->`.
+
+I checked the isolated checkout: HEAD and `origin` are both at `fadb17b`, and the working tree is clean. I had nothing new to push, so I didn't run `safe-push-pr-head.sh`.
+
+**CI:** I started `ci-wait-merge.sh kriscendobot/minion.town 94 --no-merge` with a 3600s deadline. It was still running when it hit the tool's 600s foreground limit, and my run budget ran out before CI finished.
+
+**Follow-up:** the driver should re-post this stage to watch CI to a result on head `fadb17b`. The panel's comment-only items are open and none of them blocks this round: sharing the in-flight refresh promise, an `@returns` on `refreshGitHubCredentials`, and rejecting non-string `client_secret` values.
+
+<!-- gauntlet-stage-result: fix=still-pending -->
