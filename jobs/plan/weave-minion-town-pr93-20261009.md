@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: weaver
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-09T20:53:06Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-10-09T20:53:06Z
+---
+
+---
 role: weaver
 tier: minion
 model-burned: mentor
@@ -18,19 +39,3 @@ has been CONFLICTING since 2026-09-12. Weave it: snapshot the current `main` tip
 `main-<short-sha>`, rebase the head onto it resolving conflicts, force-push, and move the PR base
 (skills/frozen-base-branch). Keep it draft. Report whether the rebased head builds and tests
 green; the supervisor stages the gauntlet next tick.
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=21 -->
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-09T20:43:03Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-09T20:46:15Z
