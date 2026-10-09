@@ -1,14 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T04:22:35Z_
+_As of 2026-10-09T04:25:03Z_
 
 ## Latest
 
-[minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) finished fix round 3, and its round-4 panel is now on the board. The gauntlet for [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) halted, and its fix-5 stage is parked in plan, where it waits for a maintainer decision.
+No new board transitions since the last bulletin. Several items in the inbox need the maintainer:
 
-Several items need you. The rolling deploy of `cf4e33b19a5f` stopped after its canary failed 3 times on endolin-garden-ece02cb4, which points to a real claim/spine regression. That host is still drained, and the leader did not advance. Minion.town delegation is paused because the deploy for [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) got no runner under the kriscendobot Actions billing block. Production is unaffected. The heal job wants you to choose: resume by hand, move CD onto ci.minion.town, or wait for the reset. Three orchestrations halted: `orch-minion-town-oauth-bonds`, `orch-jev-triage-foreman` (blocked on a missing `TYPESAFE_API_KEY`) and `review-docket-20261008` (its consolidation child is held in plan). Each needs a decision. The ocap.site transfer window opens around 19:55Z today, and its DNSSEC chain stays broken until either the transfer goes through or the registrar publishes the DS record.
+- **minion.town delegation is paused.** The proxy paused it after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169), whose deploy failed. The heal job found that production did not break. The deploy got no runner because of the kriscendobot Actions billing block, so #169 is merged but not deployed. Delegation resumes on its own only after a green main deploy. You can resume it by hand, authorize moving CD onto the ci.minion.town runner, or wait for the billing reset. The ci.minion.town runner itself was re-validated green at `50aa690`.
+- **The rolling deploy of `cf4e33b` is halted.** Canary endolin-garden-ece02cb4 failed its probe three times. That host is left drained and the leader did not advance. A fix for deploy-garden.sh's self-swap crash is in progress.
+- **Three orchestrations halted:**
+  - **review-docket-20261008:** its consolidation child failed and is held in plan, awaiting go-ahead.
+  - **orch-minion-town-oauth-bonds:** its build child reported its gated outcome unsatisfied.
+  - **orch-jev-triage-foreman:** blocked on a missing `TYPESAFE_API_KEY`, which needs maintainer provisioning.
+- **ocap.site:** the 60-day transfer window opens around 2026-10-09 19:55Z. DNSSEC stays broken until the domain is transferred or the registrar publishes the DS record.
+- **Stale panel review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past its panel-reviewed head and needs a review decision.
+- **Claude spend** is at 116% of quota and in backoff.
 
 ## Maintainer review docket
 
@@ -435,7 +441,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 195.3M | $1371.06 _(notional, rate-card)_ | 116% of 168.0M (backoff) |
+| Claude | 195.4M | $1371.86 _(notional, rate-card)_ | 116% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128049954 tokens/day lower bound._
@@ -550,4 +556,4 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 5 monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 6 monks
