@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T11:15:19Z_
+_As of 2026-10-09T11:18:14Z_
 
 ## Latest
 
@@ -261,60 +261,6 @@ Delegation: **active**
 >
 > Orchestration orch-minion-town-oauth-bonds observed child build-minion-town-oauth-bonds: completed but declared its gated outcome unsatisfied.
 
-- `doomed-kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1-requeue-exhausted.md)
-
-> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden2-5bcdff64.
-> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion-town-pr153-screen-0f485240-gauntlet exclusively owns retry through max_stage_retries.
-> The work is preserved at jobs/plan/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1
->
-> --- original job body ---
-> ---
-> role: gardener
-> handler-budget-role: shepherd
-> handler-timeout: 7200
-> gauntlet: kriscendobot-minion-town-pr153-screen-0f485240-gauntlet
-> gauntlet_stage: fix
-> gauntlet_iteration: 1
-> pr: [https://github.com/kriscendobot/minion.town/pull/153](https://github.com/kriscendobot/minion.town/pull/153)
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
->
-> You are ONE stage of a staged gauntlet (kriscendobot-minion-town-pr153-screen-0f485240-gauntlet). Apply the panel's must-fix items ONCE,
-> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
->
-> Garden script names below are repo-relative. Resolve them against THIS claiming
-> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
-> posting host's garden root.
->
-> 1. Get an ISOLATED project checkout of the PR head:
->    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
->    Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/153 --json headRepositoryOwner,headRefName`;
->    do not pass the base repo when the PR head belongs to a fork.
-> 2. Read the LATEST panel verdict on [https://github.com/kriscendobot/minion.town/pull/153](https://github.com/kriscendobot/minion.town/pull/153) (the request-changes `gh pr review` the
->    panel-1 stage just posted) for its must-fix items. Apply them.
-> 3. Push the fix as review-feedback follow-up commits to the PR head with
->    `scripts/jobs/gardening/safe-push-pr-head.sh`.
-> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
->    `GARDEN_CI_DEADLINE_SECS=3600 \
->      scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 153 --no-merge`
->    - rc 0 (GREEN): success.
->    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
->    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
->    - rc 5 (BILLING-BLOCKED): Actions refused to start the jobs (account payment/
->      spending limit); the maintainer is already alerted. Do NOT rerun, push more, or
->      write `orchestration-failed`: emit the ci-billing-blocked marker (the driver parks).
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
->   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
->   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
-
 - `minion-town-ci-runner-unblock-20261008-terminal-complete` — from orchestrator:minion-town-ci-runner-unblock-20261008-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-unblock-20261008-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -360,10 +306,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=3558506 cap=180000000 pace-bias=0.423764 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=4 backoff=0.6781(ramp) target=4
-
-- `kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-halted` — from gauntlet:kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion-town-pr153-screen-0f485240-gauntlet HALTED: stage 'kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1' (fix) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
 
 - `doomed-review-docket-consolidate-20261008-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-review-docket-consolidate-20261008-requeue-exhausted.md)
 
@@ -602,7 +544,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 209.0M | $1463.33 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 128509932 tokens/day lower bound._
+_Fleet token-unlock pace: 128549243 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
