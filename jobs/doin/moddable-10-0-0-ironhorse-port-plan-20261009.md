@@ -22,6 +22,8 @@ Deliverable: a design/plan (per designer role) that (1) classifies each item as 
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
