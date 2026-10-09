@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1389,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1389",
+  "head_oid": "2f4eabe5fc63312e494970a8748b8ff11ac1e2e4",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "design(sturdyref): layer-1 SturdyRef shim contract (handler + enliven)",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr1389",
+  "requested_at": "2026-10-09T06:13:25Z",
+  "first_requested_at": "2026-10-09T06:13:25Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-09T06:13:28Z"
+  }
+}
