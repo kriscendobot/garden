@@ -1,22 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T00:06:37Z_
+_As of 2026-10-09T00:10:36Z_
 
 ## Latest
 
-Little moved since the last bulletin. A gardener claimed fix round 5 of the gauntlet on [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379). The gauntlet for [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) advanced to panel round 3. A new job, `fix-deploy-garden-self-swap-strand`, was posted: `deploy-garden.sh` crashes after it swaps in its own replacement, which leaves the deploy stranded. That job matters because the rolling deploy is already short a peer. Host oros-studio-garden-ce242c49 has been offline since 20:53Z, the watchdog has flagged it 6 times, and the rolling deploy is skipping it until its heartbeat returns.
+The only board change since the last bulletin is a new post, [`fix-namespace-clone-repack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-namespace-clone-repack.md). It fixes the per-namespace journal clones under `.garden-state/<ns>/journal`, which are never repacked. Those clones have wedged hosts before.
 
-Several items still need a maintainer decision:
+Several things are waiting on the maintainer:
 
-- **Halted orchestrations:**
-  - `review-docket-20261008` stopped because its consolidation child was parked after its retries ran out.
-  - `orch-minion-town-oauth-bonds` stopped because its build child reported its required outcome as not met.
-  - `orch-jev-triage-foreman` is blocked because `TYPESAFE_API_KEY` is missing.
-- **ocap.site:** the domain can be transferred into Route53 from about 2026-10-09 19:55Z. Until that happens, or the registrar publishes the DS record some other way, DNSSEC stays broken.
-- **ERTP charge:** the minion.town arc needs a yes or no on building the ERTP credits charge (Phase 1) now.
-- **Stale panel review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has new commits since its panel review. It needs another review before it can be accepted.
+- **ocap.site transfer:** the 60-day lock ends around 2026-10-09T19:55Z, so a transfer into Route53 Domains can start after that. Until then, or until Key-Systems publishes the DS record, DNSSEC stays broken.
+- **oros-studio host offline:** `oros-studio-garden-ce242c49` has been offline since about 20:53Z (six watchdog hits). Rolling deploy is skipping it, and its pinned `oros-health-watch` jobs can't be claimed.
+- **Three halted orchestrations:**
+  - `review-docket-20261008`: the consolidation child exhausted its retries and is held in `plan/` until you promote it.
+  - `orch-minion-town-oauth-bonds`: the build child reported its gated outcome as not met.
+  - `orch-jev-triage-foreman`: blocked because `TYPESAFE_API_KEY` is missing.
+- **ERTP credits:** the minion.town arc needs a yes or no on building the Phase 1 credits charge now.
+- **Stale panel review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its panel reviewed, so it needs a fresh decision.
+- **Claude spend:** at 110% of quota, so the fleet is in backoff.
 
 ## Maintainer review docket
 
@@ -81,6 +81,10 @@ Delegation: **active**
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=4 queue=1 quota=ok fleet-envelope=4 target=1
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261008-235012` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261008-235012.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261008-235012' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed` — from orchestrator:orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed.md)
 
@@ -356,7 +360,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.8M | $1294.44 _(notional, rate-card)_ | 109% of 168.0M (backoff) |
+| Claude | 184.1M | $1295.97 _(notional, rate-card)_ | 110% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 123139751 tokens/day lower bound._
@@ -365,9 +369,10 @@ _Fleet token-unlock pace: 123139751 tokens/day lower bound._
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
 - [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ 9affc0d62c74
+- [`fix-namespace-clone-repack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-namespace-clone-repack.md) — Fix: per-namespace journal clones (.garden-state/<ns>/journal) are never repa...
 - [`claude-on-minion-town-completion-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261008-235012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`claude-on-minion-town-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-235012.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-235012.md) — ---
