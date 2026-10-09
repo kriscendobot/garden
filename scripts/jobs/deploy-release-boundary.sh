@@ -2,12 +2,13 @@
 # deploy-release-boundary.sh — establish a COHERENT-RELEASE BOUNDARY across the
 # multi-file tree swap, closing the cross-file window the per-file rename leaves open.
 #
-# SOURCE this; do not execute it. It provides three functions used by the
+# SOURCE this; do not execute it. It provides the functions used by the
 # deliberate deploy (deploy-garden.sh):
 #   freeze_timers            stop every active garden-*.timer so no timer-driven
 #                            oneshot execs mid-swap and sources a mismatched
 #                            common/helper version. Records the frozen set.
 #   thaw_timers              restart the frozen timers onto the now-coherent release.
+#   load_persisted_frozen_timers  reload the frozen set a crashed deploy left on disk.
 #   verify_coherent_release  confirm the restarted fleet + thawed timers are active,
 #                            and the deployed sha is the new one — i.e. every unit
 #                            runs from ONE release.
@@ -66,6 +67,34 @@
 FROZEN_TIMERS=()
 THAWED_TIMERS=()
 
+# The frozen set is ALSO persisted to disk, written BEFORE the first stop and removed
+# once thaw_timers has run. Process memory alone lost it on 2026-10-02 (oros-studio):
+# bash died mid-deploy without running the EXIT trap, and the host sat with all 139
+# timers stopped for 6.5 days because nothing knew what to restart.
+# deploy-strand-recover.sh reads this file to finish the thaw after such a crash.
+: "${GARDEN_DEPLOY_FROZEN_TIMERS_FILE:=$GARDEN_DEPLOY_STATE/frozen-timers}"
+
+_persist_frozen_timers() {
+  local tmp
+  mkdir -p "$(dirname "$GARDEN_DEPLOY_FROZEN_TIMERS_FILE")" 2>/dev/null || true
+  tmp="$GARDEN_DEPLOY_FROZEN_TIMERS_FILE.tmp.$$"
+  printf '%s\n' "${FROZEN_TIMERS[@]}" > "$tmp" 2>/dev/null \
+    && mv -f "$tmp" "$GARDEN_DEPLOY_FROZEN_TIMERS_FILE" 2>/dev/null \
+    || { rm -f "$tmp" 2>/dev/null; log "release-boundary: WARN could not persist the frozen-timer set to $GARDEN_DEPLOY_FROZEN_TIMERS_FILE"; }
+}
+
+# load_persisted_frozen_timers — refill FROZEN_TIMERS from the on-disk record a
+# crashed deploy left behind. Returns 1 when there is no record.
+load_persisted_frozen_timers() {
+  [ -f "$GARDEN_DEPLOY_FROZEN_TIMERS_FILE" ] || return 1
+  FROZEN_TIMERS=()
+  local unit
+  while read -r unit; do
+    [ -n "$unit" ] && FROZEN_TIMERS+=("$unit")
+  done < "$GARDEN_DEPLOY_FROZEN_TIMERS_FILE"
+  return 0
+}
+
 # List the currently-active garden-*.timer instances, one per line (bare unit name).
 # `list-units` (without --all) reports active units; the first field is the unit.
 _active_garden_timers() {
@@ -88,12 +117,22 @@ freeze_timers() {
     [ -n "$unit" ] || continue
     FROZEN_TIMERS+=("$unit")
   done < <(_active_garden_timers)
+  # A crashed earlier deploy may have left timers stopped. They are no longer active,
+  # so the list above misses them; adopt them here so this deploy's thaw restarts them.
+  local prior
+  if [ -f "$GARDEN_DEPLOY_FROZEN_TIMERS_FILE" ]; then
+    while read -r prior; do
+      [ -n "$prior" ] || continue
+      case " ${FROZEN_TIMERS[*]} " in *" $prior "*) ;; *) FROZEN_TIMERS+=("$prior") ;; esac
+    done < "$GARDEN_DEPLOY_FROZEN_TIMERS_FILE"
+  fi
 
   if [ "${#FROZEN_TIMERS[@]}" -eq 0 ]; then
     log "release-boundary: no active garden timers to freeze (boundary trivially established)"
     return 0
   fi
 
+  _persist_frozen_timers
   local failed=0 stopped=0
   for unit in "${FROZEN_TIMERS[@]}"; do
     if unit_ctl_bounded stop "$unit" >/dev/null 2>&1; then
@@ -120,6 +159,7 @@ freeze_timers() {
 thaw_timers() {
   local unit started=0 failed=0
   if [ "${#FROZEN_TIMERS[@]}" -eq 0 ]; then
+    rm -f "$GARDEN_DEPLOY_FROZEN_TIMERS_FILE" 2>/dev/null || true
     return 0
   fi
   THAWED_TIMERS=("${FROZEN_TIMERS[@]}")
@@ -135,6 +175,9 @@ thaw_timers() {
       failed=$((failed+1))
     fi
   done
+  # Every frozen timer has had its start attempted; a straggler is retried by a later
+  # reconcile tick, not by strand recovery, so the on-disk record is done.
+  rm -f "$GARDEN_DEPLOY_FROZEN_TIMERS_FILE" 2>/dev/null || true
   log "release-boundary: thawed timers onto the new release: started=$started failed=$failed"
   [ "$failed" -eq 0 ]
 }

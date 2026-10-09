@@ -87,7 +87,16 @@
 # State: the deployed sha is recorded in $GARDEN_DEPLOYED_SHA_MARKER (host
 # standing state, not committed to the dev branch). The upgrade monitor compares
 # origin/$GARDEN_MAIN_BRANCH against it.
-
+#
+# The whole body sits in one { ... } group that ends in an explicit exit. bash reads
+# a script lazily from its file descriptor, and step 3 replaces this very file. On
+# 2026-10-02 (oros-studio) the next read after the swap failed with "error reading
+# input file", bash died without running the EXIT trap, and the host stayed drained
+# with every timer stopped for 6.5 days. A compound command is parsed in full before
+# it runs, so nothing is read from the file after execution starts. The sourced
+# helpers are read whole by `source`, so they need no such wrapper. Keep the closing
+# brace on the last line.
+{
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
@@ -187,7 +196,20 @@ thaw_timers_if_frozen() {
   log "timers thawed (deploy aborted after the release boundary was engaged)"
 }
 
-deploy_exit_cleanup() { cleanup_candidate_gate_root; thaw_timers_if_frozen; lift_drain_if_we_engaged; }
+# write_in_progress_record [<old-sha>] — tell deploy-strand-recover.sh that a deploy
+# is live (this pid) and whether it owns the drain. Best-effort.
+write_in_progress_record() {
+  mkdir -p "$(dirname "$GARDEN_DEPLOY_IN_PROGRESS_RECORD")" 2>/dev/null || true
+  printf 'pid: %s\nwe_drained: %s\nold_sha: %s\ntarget: %s\nstarted_at: %s\n' \
+    "$$" "$we_drained" "${1:-}" "${candidate_sha:-}" "$(date -u +%FT%TZ)" \
+    > "$GARDEN_DEPLOY_IN_PROGRESS_RECORD.tmp.$$" 2>/dev/null \
+    && mv -f "$GARDEN_DEPLOY_IN_PROGRESS_RECORD.tmp.$$" "$GARDEN_DEPLOY_IN_PROGRESS_RECORD" 2>/dev/null \
+    || rm -f "$GARDEN_DEPLOY_IN_PROGRESS_RECORD.tmp.$$" 2>/dev/null || true
+}
+
+clear_in_progress_record() { rm -f "$GARDEN_DEPLOY_IN_PROGRESS_RECORD" 2>/dev/null || true; }
+
+deploy_exit_cleanup() { cleanup_candidate_gate_root; thaw_timers_if_frozen; lift_drain_if_we_engaged; clear_in_progress_record; }
 
 report_candidate_gate_failure() { # <candidate-sha> <failed-suite-with-diagnostic>...
   local candidate="$1"; shift
@@ -692,10 +714,13 @@ fi
 
 if fleet_draining; then
   log "fleet already draining (operator-engaged); proceeding to quiesce without lifting on abort"
+  write_in_progress_record
 else
-  "$HERE/drain-fleet.sh" on "deploy-garden: deliberate deploy in progress" >/dev/null 2>&1 \
-    || die "could not engage the draining marker"
+  # Record before engaging, so a crash right after the drain lands is recoverable.
   we_drained=1
+  write_in_progress_record
+  "$HERE/drain-fleet.sh" on "$GARDEN_DEPLOY_DRAIN_REASON" >/dev/null 2>&1 \
+    || { we_drained=0; die "could not engage the draining marker"; }
   log "drain engaged; waiting for the fleet to quiesce (timeout ${GARDEN_DEPLOY_DRAIN_TIMEOUT}s)"
 fi
 
@@ -735,6 +760,7 @@ done
 garden_repo_lock "$GARDEN_ROOT" exclusive || { log "repository lock unavailable; aborting deploy"; lift_drain_if_we_engaged; exit 1; }
 old_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet HEAD || true)"
 [ -n "$old_sha" ] || { log "FATAL: cannot resolve HEAD in $GARDEN_ROOT"; lift_drain_if_we_engaged; exit 1; }
+write_in_progress_record "$old_sha"
 up_sha="$candidate_sha"
 
 if [ "$up_sha" = "$old_sha" ]; then
@@ -877,3 +903,5 @@ if [ "$GARDEN_DEPLOY_NO_BROADCAST" != "1" ]; then
 fi
 
 log "deploy complete: root now at $new_sha"
+exit 0
+}

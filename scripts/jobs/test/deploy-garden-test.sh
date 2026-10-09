@@ -767,6 +767,127 @@ draining && bad "drain left engaged after a strict boundary abort" || ok "drain 
 grep -q restart "$TR/log" && bad "restarted despite a strict abort" || ok "no fleet restart on a strict abort"
 
 # ============================================================================
+hr; echo "SELF-SWAP — the running deploy never reads its own file after the swap"; hr
+# 2026-10-02 (oros-studio): the swap replaced deploy-garden.sh under the running
+# bash, the next read failed ("error reading input file"), and bash died before the
+# thaw and the drain lift. Run the deploy from a copy of scripts/jobs whose
+# install-units.sh (called right after the swap) rewrites deploy-garden.sh IN PLACE
+# with `exit 42` lines. A script that still reads its file after that point hits
+# them; the brace-wrapped script has already parsed everything.
+# The copy's bin/git wrapper differs from any garden bin/git on PATH, so it would
+# take that one for the real git and deadlock on its own repository lock. Hand the
+# copy a real git binary directly.
+LIVE_REAL_GIT=""
+for _d in ${PATH//:/ }; do
+  case "$_d" in */scripts/jobs/bin) continue ;; esac
+  [ -x "$_d/git" ] && { LIVE_REAL_GIT="$_d/git"; break; }
+done
+make_live_jobs() {  # make_live_jobs <install-units-body>
+  rm -rf "$TR/live"; cp -a "$JOBS" "$TR/live"
+  printf '#!/bin/bash\n%s\n' "$1" > "$TR/live/install-units.sh"
+  chmod +x "$TR/live/install-units.sh"
+}
+setup_fixture
+printf '%s\n' garden-monk@1.service garden-reaper.timer garden-scheduler.timer > "$TR/armed"
+make_live_jobs 'f="$(dirname "$0")/deploy-garden.sh"
+[ -e "$f.swapped" ] && exit 0
+n=$(( $(wc -c < "$f") / 8 + 64 ))
+for _ in $(seq "$n"); do echo "exit 42"; done > "$f.new"; cat "$f.new" > "$f"; : > "$f.swapped"'
+origin_commit scripts/jobs/worker-lib.sh "echo selfswap" "fix: worker-lib self-swap"
+target="$(origin_head)"
+DEPLOY_SAVED="$DEPLOY"; DEPLOY="$TR/live/deploy-garden.sh"
+run_deploy GARDEN_REAL_GIT="$LIVE_REAL_GIT"
+DEPLOY="$DEPLOY_SAVED"
+[ -e "$TR/live/deploy-garden.sh.swapped" ] && ok "the running script was rewritten mid-deploy" || bad "fixture never rewrote the script: $OUT"
+[ "$RC" -eq 0 ] && ok "exit 0 although the script file changed under the running deploy" || bad "exit $RC after the self-swap: $OUT"
+grep -q "deploy complete: root now at $target" <<<"$OUT" && ok "the deploy ran to completion after the self-swap" || bad "deploy did not complete after the self-swap: $OUT"
+draining && bad "drain still engaged after the self-swap deploy" || ok "drain lifted after the self-swap deploy"
+log_has "start garden-reaper.timer" && ok "frozen timers thawed after the self-swap" || bad "timers not thawed after the self-swap"
+[ ! -e "$TR/state/deploy/frozen-timers" ] && ok "frozen-timer record removed on success" || bad "frozen-timer record left behind on success"
+[ ! -e "$TR/state/deploy/in-progress" ] && ok "in-progress record removed on success" || bad "in-progress record left behind on success"
+
+# ============================================================================
+hr; echo "STRAND RECOVERY — a deploy killed after the swap is finished by deploy-strand-recover.sh"; hr
+# SIGKILL the deploy from install-units.sh (right after the swap): no EXIT trap runs,
+# exactly like the 2026-10-02 death. The frozen set and the in-progress record are on
+# disk, so the recovery thaws the timers, lifts the deploy's drain and restarts the fleet.
+run_recover() {  # run_recover [extra env...]
+  set +e
+  ROUT="$(env GARDEN_ROOT="$TR/root" GARDEN_STATE="$TR/state" GARDEN_MAIN_BRANCH=main2 \
+             GARDEN_TEST=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_DEPLOY_NO_HEALTH_PUBLISH=1 \
+             GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh" \
+             GARDEN_MOCK_STATE="$TR/armed" GARDEN_MOCK_LOG="$TR/log" \
+             XDG_CONFIG_HOME="$TR/config" \
+             "$@" bash "$JOBS/deploy-strand-recover.sh" 2>&1)"
+  RRC=$?
+  set -e
+}
+setup_fixture
+printf '%s\n' garden-monk@1.service garden-reaper.timer garden-scheduler.timer > "$TR/armed"
+make_live_jobs 'kill -9 "$PPID"; exit 0'
+origin_commit scripts/jobs/worker-lib.sh "echo killed" "fix: worker-lib killed"
+target="$(origin_head)"
+DEPLOY_SAVED="$DEPLOY"; DEPLOY="$TR/live/deploy-garden.sh"
+run_deploy GARDEN_REAL_GIT="$LIVE_REAL_GIT"
+DEPLOY="$DEPLOY_SAVED"
+[ "$RC" -eq 137 ] && ok "the deploy died by SIGKILL after the swap" || bad "expected rc 137 from the killed deploy, got $RC: $OUT"
+[ "$(root_head)" = "$target" ] && ok "the swap landed before the kill" || bad "root not advanced before the kill"
+draining && ok "the killed deploy left the host drained (the strand)" || bad "no drain left behind; the fixture did not strand the host"
+grep -qx garden-reaper.timer "$TR/state/deploy/frozen-timers" 2>/dev/null \
+  && ok "the frozen-timer set survived the crash on disk" || bad "frozen-timer set not persisted: $(cat "$TR/state/deploy/frozen-timers" 2>&1)"
+[ -e "$TR/state/deploy/in-progress" ] && ok "the in-progress record survived the crash" || bad "in-progress record missing after the crash"
+: > "$TR/log"
+run_recover
+[ "$RRC" -eq 0 ] && ok "recovery exits 0" || bad "recovery exit $RRC: $ROUT"
+grep -q "STRANDED deploy detected" <<<"$ROUT" && ok "recovery detected the stranded deploy" || bad "strand not detected: $ROUT"
+log_has "start garden-reaper.timer" && log_has "start garden-scheduler.timer" \
+  && ok "recovery thawed the persisted frozen timers" || bad "recovery did not thaw the timers: $(cat "$TR/log")"
+draining && bad "recovery left the deploy's drain engaged" || ok "recovery lifted the deploy's drain"
+log_has "restart garden-monk@1.service" && ok "recovery restarted the fleet onto the new code" || bad "recovery did not restart the fleet: $(cat "$TR/log")"
+[ ! -e "$TR/state/deploy/in-progress" ] && [ ! -e "$TR/state/deploy/frozen-timers" ] \
+  && ok "recovery cleared the in-progress and frozen-timer records" || bad "recovery left its records behind"
+: > "$TR/log"
+run_recover
+[ -z "$ROUT" ] && [ ! -s "$TR/log" ] && ok "a second recovery is a silent no-op" || bad "second recovery was not a no-op: $ROUT"
+
+# A deploy that is still alive is left alone.
+setup_fixture
+printf '%s\n' garden-reaper.timer > "$TR/armed"
+mkdir -p "$TR/state/deploy"
+printf 'pid: 4242\nwe_drained: 1\nold_sha: x\ntarget: y\n' > "$TR/state/deploy/in-progress"
+printf 'garden-reaper.timer\n' > "$TR/state/deploy/frozen-timers"
+printf 'reason: deploy-garden: deliberate deploy in progress\n' > "$TR/state/draining"
+printf '#!/bin/bash\necho 4242\n' > "$TR/fake-pgrep"; chmod +x "$TR/fake-pgrep"
+run_recover GARDEN_DEPLOY_STRAND_PGREP="$TR/fake-pgrep"
+[ -e "$TR/state/deploy/in-progress" ] && draining && ! log_has "start garden-reaper.timer" \
+  && ok "a live deploy is not interfered with" || bad "recovery touched a live deploy: $ROUT"
+
+# An operator drain set after the crash is kept; the timers still thaw.
+printf '#!/bin/bash\n' > "$TR/fake-pgrep"
+printf 'source: operator\nreason: maintenance\n' > "$TR/state/draining"
+run_recover GARDEN_DEPLOY_STRAND_PGREP="$TR/fake-pgrep"
+log_has "start garden-reaper.timer" && ok "a dead deploy's timers thaw under an operator drain" || bad "timers not thawed: $ROUT"
+draining && ok "an operator drain is never lifted by recovery" || bad "recovery lifted an operator drain"
+
+# Legacy strand (pre-record deploy): deploy reason on the marker, no live deploy,
+# older than the grace. Recovery re-enables the intended units and lifts the drain.
+setup_fixture
+make_live_jobs 'echo "install-units $*" >> "$(dirname "$0")/../install-units.calls"'
+rm -f "$TR/install-units.calls"
+mkdir -p "$TR/state"
+printf 'source: operator\nreason: deploy-garden: deliberate deploy in progress\n' > "$TR/state/draining"
+touch -d '2 hours ago' "$TR/state/draining"
+set +e
+ROUT="$(env GARDEN_ROOT="$TR/root" GARDEN_STATE="$TR/state" GARDEN_MAIN_BRANCH=main2 \
+           GARDEN_TEST=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_DEPLOY_NO_HEALTH_PUBLISH=1 \
+           GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh" GARDEN_MOCK_STATE="$TR/armed" GARDEN_MOCK_LOG="$TR/log" \
+           GARDEN_DEPLOY_STRAND_PGREP="$TR/fake-pgrep" XDG_CONFIG_HOME="$TR/config" \
+           GARDEN_REAL_GIT="$LIVE_REAL_GIT" bash "$TR/live/deploy-strand-recover.sh" 2>&1)"; set -e
+grep -q "install-units enable-services" "$TR/install-units.calls" 2>/dev/null \
+  && ok "legacy strand: enable-services restarts the intended timers" || bad "legacy strand did not re-enable units: $ROUT"
+draining && bad "legacy strand: deploy drain not lifted" || ok "legacy strand: deploy drain lifted"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]

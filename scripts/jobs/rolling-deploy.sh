@@ -55,6 +55,11 @@
 #   GARDEN_ROLL_DEFER_CEILING / GARDEN_ROLL_DEFER_FRESH / GARDEN_ROLL_QUIESCE_AFTER
 #                               deferring-canary ceiling, freshness, quiesce delay (common.sh)
 
+# The body sits in one { ... } group that ends in an explicit exit: the deploy this
+# script runs replaces this file, and bash reads a script lazily, so the code after the
+# deploy returns must already be parsed (see deploy-garden.sh's header). Keep the
+# closing brace on the last line.
+{
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
@@ -74,6 +79,7 @@ fleet_draining && { log "leader is draining; skipping this roll tick"; exit 0; }
 DIR="${GARDEN_ROLLING_CLONE:-$GARDEN_STATE/rolling-deploy/journal}"
 STATE="${GARDEN_ROLLING_STATE:-$GARDEN_STATE/rolling-deploy}"
 DEPLOY_CMD="${GARDEN_ROLLING_DEPLOY_CMD:-$HERE/deploy-garden.sh}"
+STRAND_RECOVER_CMD="${GARDEN_DEPLOY_STRAND_RECOVER_CMD:-$HERE/deploy-strand-recover.sh}"
 POST_JOB="${GARDEN_ROLLING_POST_JOB:-$HERE/post-job.sh}"
 DRAIN_OP="${GARDEN_ROLLING_DRAIN_OP:-$HERE/send-host-op.sh}"
 mkdir -p "$STATE" 2>/dev/null || true
@@ -118,7 +124,12 @@ is_ancestor() {  # is_ancestor <a> <b> → rc0 iff a is an ancestor-or-equal of 
 
 # The leader's own (last-wave or solo) deploy, pinned to the validated target.
 leader_deploy() {  # leader_deploy <target>
-  GARDEN_DEPLOY_TARGET="$1" "$DEPLOY_CMD"
+  local rc=0
+  GARDEN_DEPLOY_TARGET="$1" "$DEPLOY_CMD" || rc=$?
+  # A deploy that died without its own cleanup leaves the host drained with timers
+  # frozen; finish that here, while this process is still alive to do it.
+  [ "$rc" -eq 0 ] || "$STRAND_RECOVER_CMD" || true
+  return "$rc"
 }
 
 # --- rejected-candidate backoff ----------------------------------------------
@@ -844,3 +855,4 @@ unarchive; this roll never reverses archival. (leader=$GARDEN, offline=$offline_
   log "HOLDING leader: no PRESENT, undrained canary available for ${target:0:12} (offline=$offline_count); restore a heartbeat or lift a drain"
 fi
 exit 0
+}

@@ -214,3 +214,27 @@ The August 2 failure mode in which a normal, self-engaged 600-second timeout
 left its own drain behind is **not current behavior**: `lift_drain_if_we_engaged`
 now clears that marker. The diagnostic still matters for a killed deploy and for
 an aborted deploy that inherited an operator pre-drain.
+
+### A deploy that died mid-run
+
+A deploy that dies between freezing the timers and thawing them leaves the host
+drained with every garden timer stopped, so nothing on the host runs again on its
+own (2026-10-02, oros-studio, 6.5 days). The deploy now keeps two host-local
+records under `$GARDEN_STATE/deploy/`: `in-progress` (its pid, whether it engaged
+the drain, the old and target shas) and `frozen-timers` (the timers it stopped).
+`scripts/jobs/deploy-strand-recover.sh` reads them when the pid is no longer a
+running deploy-garden.sh. It reconciles units and restarts the fleet if the swap
+landed, thaws the recorded timers, lifts the drain only if the deploy engaged it,
+and alerts the maintainer. `self-deploy.sh` runs it every tick and right after a
+failed deploy, and `rolling-deploy.sh` runs it after a failed leader deploy. If
+the host is already stranded with every timer stopped, nothing calls it, so run it
+by hand:
+
+```sh
+scripts/jobs/deploy-strand-recover.sh
+```
+
+With no `in-progress` record (a deploy from before these records existed), it acts
+only when the draining marker carries deploy-garden's reason, is more than an hour
+old, and no deploy-garden.sh process is running. In that case `enable-services`
+restarts the intended timers.

@@ -528,6 +528,14 @@ export GARDEN
 # Host-local record deploy-garden.sh writes when it DEFERS (and removes at the start of
 # every run), so self-deploy can tell a deferral from a landed or failed deploy.
 : "${GARDEN_DEPLOY_DEFER_RECORD:=$GARDEN_DEPLOY_STATE/deferred}"
+# Host-local record deploy-garden.sh writes before it engages the drain and removes
+# when it exits through its own cleanup: pid, whether it engaged the drain, and the
+# old/target shas. A record whose pid is gone means the deploy died without cleaning
+# up; deploy-strand-recover.sh finishes the thaw and lifts the drain.
+: "${GARDEN_DEPLOY_IN_PROGRESS_RECORD:=$GARDEN_DEPLOY_STATE/in-progress}"
+# The reason deploy-garden.sh writes into the draining marker. Strand recovery
+# matches on it, so keep the two in sync through this variable.
+GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 
 # Fleet draining marker. If present, this host's workers finish their in-flight
 # claims but take no new ones — a graceful, mundane pause, not a kill. The marker

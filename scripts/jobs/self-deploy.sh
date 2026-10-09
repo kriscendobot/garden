@@ -49,6 +49,11 @@
 #                                   ancestor-or-equal of b (default: git in $GARDEN_ROOT)
 #   GARDEN_SELF_DEPLOY_NOW          fixed epoch seconds (default: date +%s)
 
+# The body sits in one { ... } group that ends in an explicit exit: the deploy this
+# script runs replaces this file, and bash reads a script lazily, so the code after the
+# deploy returns must already be parsed (see deploy-garden.sh's header). Keep the
+# closing brace on the last line.
+{
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
@@ -60,7 +65,12 @@ require_tools git
 DIR="${GARDEN_SELF_DEPLOY_CLONE:-$GARDEN_STATE/self-deploy/journal}"
 STATE="${GARDEN_SELF_DEPLOY_STATE:-$GARDEN_STATE/self-deploy}"
 DEPLOY_CMD="${GARDEN_SELF_DEPLOY_DEPLOY_CMD:-$HERE/deploy-garden.sh}"
+STRAND_RECOVER_CMD="${GARDEN_DEPLOY_STRAND_RECOVER_CMD:-$HERE/deploy-strand-recover.sh}"
 mkdir -p "$STATE" 2>/dev/null || true
+
+# A deploy that died mid-run leaves this host drained with its timers frozen, and a
+# drained host never deploys again. Finish that deploy first (silent no-op otherwise).
+"$STRAND_RECOVER_CMD" || true
 
 now_s() { if [ -n "${GARDEN_SELF_DEPLOY_NOW:-}" ]; then printf '%s\n' "$GARDEN_SELF_DEPLOY_NOW"; else date +%s; fi; }
 sd() { printf '%s\n' "${1:0:12}"; }
@@ -104,8 +114,11 @@ is_ancestor() {  # is_ancestor <a> <b> → rc0 iff a is an ancestor-or-equal of 
 do_deploy() {  # do_deploy <mode> <pinned-sha>
   log "self-deploy ($1): advancing this host to ${2:0:12} via deploy-garden.sh (host-local upgrade-ready for ${target:0:12} + $1 gate)"
   rm -f "$GARDEN_DEPLOY_DEFER_RECORD" 2>/dev/null || true
-  GARDEN_DEPLOY_TARGET="$2" GARDEN_DEPLOY_DEFER_RECORD="$GARDEN_DEPLOY_DEFER_RECORD" "$DEPLOY_CMD" \
-    || log "WARN: deploy-garden.sh returned non-zero (it manages its own drain/quiesce/abort)"
+  if ! GARDEN_DEPLOY_TARGET="$2" GARDEN_DEPLOY_DEFER_RECORD="$GARDEN_DEPLOY_DEFER_RECORD" "$DEPLOY_CMD"; then
+    log "WARN: deploy-garden.sh returned non-zero (it manages its own drain/quiesce/abort)"
+    # Unless it died before its cleanup ran: then finish the thaw and drain lift.
+    "$STRAND_RECOVER_CMD" || true
+  fi
 }
 
 # publish_deferral <released-sha> — deploy-garden.sh DEFERRED behind a long in-flight
@@ -251,3 +264,4 @@ fi
 printf '%s\n' "$now" > "$bo_file"
 do_deploy "leaderless-headless" "$target"
 exit 0
+}
