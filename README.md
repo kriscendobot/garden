@@ -1,23 +1,15 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T04:55:53Z_
+_As of 2026-10-09T04:59:15Z_
 
 ## Latest
 
-Little moved since the last bulletin: the only board transition was the `claude-on-minion-town-press-20261009-030509` supervision pass completing, and nothing is currently in progress. Several items still need a decision:
+No job-board transitions resolved since the last bulletin, so the news is in the inbox. The rolling deploy is **halted**: canary `endolin-garden-ece02cb4` failed its probe at `cf4e33b19a5f` on all three automatic retries. That host is left drained and the leader has not advanced, so it needs a decision to investigate, lift and re-trigger, or hold the tip. minion.town delegation is still **paused** after the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge's deploy.yml failure. The heal job found no production break: the deploy got no runner because of the kriscendobot Actions billing block, and minion.town is still serving the previous deploy. The heal job offered three options: resume by hand, move CD onto ci.minion.town, or wait for the ~10-30 billing reset. A `build-minion-town-deploy-on-ci-runner-20261009` job is now on the board, and it corresponds to the ci.minion.town option. Three orchestrations halted:
+- `review-docket-20261008`: its consolidation child exhausted its retries and is held in plan awaiting go-ahead.
+- `orch-jev-triage-foreman`: the trial lacks `TYPESAFE_API_KEY`, which the maintainer must provision.
+- `orch-minion-town-oauth-bonds`: the build child declared its outcome unsatisfied.
 
-- **minion.town deploys are paused.** Delegation stopped after the deploy of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed. The heal job found this was the kriscendobot Actions billing block, not a broken merge: the job got no runner and ran zero steps. Production still serves the earlier deploy. A job to move CD onto the ci.minion.town runner (`build-minion-town-deploy-on-ci-runner-20261009`) is waiting in todo. Putting the prod deploy role on that host is the maintainer's call. Otherwise delegation stays paused until the billing reset around 10-30.
-- **The rolling deploy is halted.** The canary on endolin-garden-ece02cb4 at `cf4e33b19a5` failed three retries. That host is left drained, and the leader did not advance. `fix-deploy-garden-self-swap-strand` is queued alongside it.
-- **Three orchestrations halted:**
-  - `review-docket-20261008`: its consolidation child is parked in plan and needs a promote or a split.
-  - `orch-minion-town-oauth-bonds`: the build child declared its gated outcome unsatisfied.
-  - `orch-jev-triage-foreman`: blocked on a missing `TYPESAFE_API_KEY`.
-- **Other items:**
-  - [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past its panel-reviewed head and needs a fresh review decision.
-  - The ocap.site domain becomes transferable after about 19:55Z today. That transfer is the path to publishing its DNSSEC DS record.
-  - Claude spend is at 117% of quota and in backoff.
+Also time-sensitive: the ocap.site registrar transfer window opens around 2026-10-09 19:55Z, and the DS record is still unpublished, so DNSSEC stays broken until you start the transfer or ask Key-Systems to add the DS record. Host `oros-studio-garden-ce242c49` is back in rotation. Claude spend on the leader is in backoff above its quota.
 
 ## Maintainer review docket
 
@@ -444,7 +436,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 196.5M | $1379.03 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
+| Claude | 196.6M | $1379.83 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128157484 tokens/day lower bound._
