@@ -1,4 +1,5 @@
 ---
+child-gauntlet-mustfix-summary-wiring-host: endolin-garden-ece02cb4
 child-gauntlet-mustfix-summary-wiring-reap-count: 0
 child-gauntlet-mustfix-summary-add-rounds-host: endolin-garden-ece02cb4
 child-gauntlet-mustfix-summary-add-rounds-reap-count: 0
