@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T19:34:26Z_
+_As of 2026-10-09T19:46:53Z_
 
 ## Latest
 
@@ -575,9 +575,10 @@ _Fleet token-unlock pace: 129407095 tokens/day lower bound._
 worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #94
 - [`resume-minion-town-pr166-pr171-gauntlets-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr166-pr171-gauntlets-20261009.md) — Resume the review-budget-reached gauntlets on minion.town #166 and #171
+- [`resume-minion-town-pr170-gauntlet-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr170-gauntlet-20261009.md) — Resume the review-budget-reached gauntlet on minion.town #170
 - [`claude-on-minion-town-press-20261009-185008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-185008.md) — Press the Claude-on-minion.town arc forward
 - [`moddable-10-0-0-ironhorse-port-plan-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-port-plan-20261009.md) — Moddable SDK 10.0.0: what ports to IronHorse?
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #153
