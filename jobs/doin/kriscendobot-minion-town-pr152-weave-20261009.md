@@ -16,3 +16,13 @@ Task:
 1. Weave #152 (and its own base, #151, if needed) onto the current `main` tip, using frozen-base-branch. Carry into 2a these changes: the allowlist entries from `54c4e09`; the parts of `31d053e` that cover `deploy-account-endpoint-secret.js`, `deploy-billing-secrets.js`, and the new `lib/caddy-environment-sync.js`; and their tests.
 2. Then weave #153 onto a fresh frozen snapshot of the new 2a head, removing what moved into 2a. #153 should keep only the `deploy-caddy.js` part of the Caddy-sync fix.
 3. Keep #152's and #153's own fix commits; do not drop any other work.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-09T05:48:22Z
