@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T23:22:13Z_
+_As of 2026-10-09T23:24:00Z_
 
 ## Latest
 
@@ -589,7 +589,8 @@ _Fleet token-unlock pace: 126726306 tokens/day lower bound._
 worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
+- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #94
 - [`claude-on-minion-town-press-20261009-215009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-215009.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr173-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #173
