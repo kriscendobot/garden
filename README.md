@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T11:26:56Z_
+_As of 2026-10-09T11:30:21Z_
 
 ## Latest
 
@@ -558,17 +558,16 @@ worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-pr
 - [`kriscendobot-minion.town-pr173-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #173
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 
-### doin (2)
-- [`kriscendobot-minion.town-pr174-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #174
+### doin (1)
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-20261008-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #166
 
-### tada (11961)
+### tada (11962)
+- [`kriscendobot-minion.town-pr174-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr174-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet.md) — gauntlet kriscendobot-minion-town-pr153-screen-0f485240-gauntlet — HALTED
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-3.md) — Cost
 - [`screen-minion-town-pr122-a601515-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/screen-minion-town-pr122-a601515-conduct.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-fad05c578989-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-fad05c578989-r3.md) — rolling-deploy canary probe — round trip OK
-- [`claude-on-minion-town-press-20261009-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-press-20261009-093509.md) — Cost
-- … and 11956 more
+- … and 11957 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
