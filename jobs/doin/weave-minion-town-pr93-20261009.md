@@ -18,6 +18,7 @@ has been CONFLICTING since 2026-09-12. Weave it: snapshot the current `main` tip
 (skills/frozen-base-branch). Keep it draft. Report whether the rebased head builds and tests
 green; the supervisor stages the gauntlet next tick.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=21 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
