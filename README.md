@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T23:34:40Z_
+_As of 2026-10-09T23:41:05Z_
 
 ## Latest
 
@@ -566,6 +566,32 @@ Delegation: **active**
 >
 > canary oros-studio-garden-ce242c49 is no longer stuck (release fad05c57898961deea273986ef299ad6b32eecbd, deployed 2e8aedf5363a19f701f4fafa8fd6170bd2240138).
 
+- `moddable-10-0-0-ironhorse-port-plan-20261009-split-child-moddable-10-0-0-xs-source-inventory-20261009-failed` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-child-moddable-10-0-0-xs-source-inventory-20261009-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-child-moddable-10-0-0-xs-source-inventory-20261009-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split
+> orchestration-status: running
+> child: moddable-10-0-0-xs-source-inventory-20261009
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1)
+>
+> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split observed child moddable-10-0-0-xs-source-inventory-20261009: stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1).
+
+- `moddable-10-0-0-ironhorse-port-plan-20261009-split-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split
+> orchestration-status: halted
+> child: moddable-10-0-0-xs-source-inventory-20261009
+> failure-kind: handler-timeout
+> children-completed: 0
+> children-total: 3
+> halt-parked-remainder: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
+>
+> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split HALTED: child moddable-10-0-0-xs-source-inventory-20261009 stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
+
 - `watchdog-journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_reaper_journal.md)
 
 > RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` has CLEARED (first seen 2026-10-09T05:59:34Z, cleared 2026-10-09T06:48:17Z).
@@ -589,23 +615,23 @@ _Fleet token-unlock pace: 126720904 tokens/day lower bound._
 worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (3)
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #94
-- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #94
 - [`claude-on-minion-town-press-20261009-215009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-215009.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr173-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #173
 
-### doin (2)
+### doin (3)
 - [`moddable-10-0-0-xs-source-inventory-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-xs-source-inventory-20261009.md) — Moddable SDK 10.0.0 source and oracle inventory
+- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 
-### tada (12014)
+### tada (12015)
+- [`moddable-10-0-0-ironhorse-port-plan-20261009-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/moddable-10-0-0-ironhorse-port-plan-20261009-split.md) — orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split — HALTED
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-4.md) — Gauntlet FIX round 4: kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr173-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr173-gauntlet-panel-6.md) — Cost
 - [`moddable-10-0-0-ironhorse-port-plan-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/moddable-10-0-0-ironhorse-port-plan-20261009.md) — Cost
 - [`oros-health-watch-20261009-215009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/oros-health-watch-20261009-215009.md) — Cost
-- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-4.md) — Cost
-- … and 12009 more
+- … and 12010 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
