@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T17:47:55Z_
+_As of 2026-10-09T17:51:11Z_
 
 ## Latest
 
@@ -563,9 +563,8 @@ _Fleet token-unlock pace: 129321116 tokens/day lower bound._
 worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (7)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #94
-- [`minion-town-arc-press-20261009-173508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261009-173508.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1433
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #153
 - [`weave-minion-town-pr130-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-minion-town-pr130-20261009.md) — weave kriscendobot/minion.town#130
@@ -573,7 +572,8 @@ worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`minion-town-arc-press-20261009-142016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261009-142016.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (1)
+### doin (2)
+- [`minion-town-arc-press-20261009-173508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261009-173508.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #174
 
 ### tada (11987)
