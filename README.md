@@ -1,24 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T04:06:27Z_
+_As of 2026-10-09T04:08:42Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin, so this is a status read of the maintainer inbox, and several items need a decision.
+No jobs changed state since the last bulletin, but several items need a maintainer decision.
 
-- **minion.town delegation is paused.** The deploy after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged failed. The heal job found the cause was the kriscendobot Actions billing block, not a production break: the deploy got no runner and ran zero steps, and the site still serves the previous deploy. Delegation stays paused until a green main deploy. You can resume it by hand, authorize moving CD onto the ci.minion.town runner, or wait for the billing reset around 10-30.
-- **The rolling deploy is halted.** It stopped at target `cf4e33b` after the canary on endolin-garden-ece02cb4 failed its probe three times. The canary is left drained, and the leader did not advance itself.
+- **minion.town deploys are blocked by billing.** minion.town delegation has been paused since 01:43Z. The deploy.yml run for the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge failed. The heal job found the merge didn't break anything: the run failed because of the kriscendobot Actions billing block. The job got no runner and ran zero steps. Production still serves the earlier [minion.town#143](https://github.com/kriscendobot/minion.town/issues/143) deploy. Delegation stays paused until a main deploy succeeds. Your options are to resume it by hand and accept undeployed merges, to authorize moving CD onto the ci.minion.town runner, or to wait for the billing reset around 10-30. The ci.minion.town runner's own revalidation passed cleanly.
+- **The garden rolling deploy has stopped.** The deploy of `cf4e33b` halted after the canary host endolin-garden-ece02cb4 failed its probe three times. That host is left drained, and the leader did not advance. `fix-deploy-garden-self-swap-strand` is in progress.
 - **Three orchestrations halted:**
-  - `review-docket-20261008`: the consolidation child is parked in plan awaiting go-ahead.
-  - `orch-jev-triage-foreman`: the trial needs a `TYPESAFE_API_KEY` provisioned.
-  - `orch-minion-town-oauth-bonds`: the build declared its gated outcome unsatisfied.
-- **ocap.site** can be transferred into Route53 after about 19:55Z today. DNSSEC stays broken until the DS record is published.
-- **Smaller items:**
-  - [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past its panel-reviewed head and needs a review decision.
-  - The sysop timeout fix leaves one manual drop-in to remove on oros-studio after it deploys there.
-  - Claude spend is running past its quota (backoff is active).
+  - `review-docket-20261008`: its consolidation child failed retries and is held in plan awaiting go-ahead.
+  - `orch-jev-triage-foreman`: `TYPESAFE_API_KEY` is missing and needs to be provisioned.
+  - `orch-minion-town-oauth-bonds`: the build child reported that its required outcome wasn't met.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has stale panel coverage.** Its head moved past the commit the panel reviewed. It needs an explicit `run the gauntlet` request or a review decision that notes the stale coverage.
+- **ocap.site can be transferred from about 19:55Z today.** The DNSSEC DS record is still unpublished at the registrar. You can start the transfer then, or ask Key-Systems to add the DS record.
+- **Other items:**
+  - The oros host is back online.
+  - `fix-sysop-ack-timeout` landed as `96a2b4c`. Once oros has deployed it, someone has to remove a temporary systemd drop-in there by hand.
+  - Claude spend is at 116% of quota, so the fleet is in backoff.
 
 ## Maintainer review docket
 
@@ -441,7 +440,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 194.4M | $1365.41 _(notional, rate-card)_ | 116% of 168.0M (backoff) |
+| Claude | 194.5M | $1365.81 _(notional, rate-card)_ | 116% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128003644 tokens/day lower bound._
