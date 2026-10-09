@@ -1,33 +1,28 @@
 # Garden bulletin
 
-_As of 2026-10-09T02:57:50Z_
+_As of 2026-10-09T03:01:50Z_
 
 ## Latest
 
-No board transitions came through since the last bulletin; the news is in the maintainer inbox.
+No jobs were posted, claimed or completed since the last bulletin. The open items are decisions for the maintainer.
 
-**minion.town delegation is paused.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged as `39867df7874`, but its deploy failed. The heal job found that production is not broken. The kriscendobot Actions billing block left the deploy job with no runner, so it ran zero steps and failed in 4 seconds. Production is still serving the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, and #169 is merged but not deployed. The screener only resumes after a green main deploy, so you need to pick one of three options:
+**minion.town delegation is paused.** The screener paused it after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed its deploy. The heal job found that production is fine: the deploy run got no runner because of the kriscendobot Actions billing block. The site still serves the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, and #169 is merged but not deployed. The delegation stays paused until a main deploy succeeds. There are three options:
+- resume the delegation by hand and accept undeployed merges until billing resets;
+- authorize moving CD onto the ci.minion.town runner, which was just re-validated clean;
+- wait for the billing reset, expected around 10-30.
 
-- resume the delegation by hand and accept undeployed merges;
-- authorize moving CD onto the ci.minion.town runner;
-- wait for the billing reset (~10-30).
-
-The heal job also offers to teach the screener to treat zero-step, no-runner runs as "billing-deferred".
+The heal job also offers to post a fix so the screener treats a "no runner, zero steps" deploy as billing-deferred, not as a broken merge.
 
 **Three orchestrations halted:**
+- **review-docket-20261008:** its consolidation child failed twice and is held in plan. It needs to be promoted or split.
+- **orch-jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is missing. Only the maintainer can provision that key.
+- **orch-minion-town-oauth-bonds:** its build child reported that its gated outcome was not met.
 
-- `review-docket-20261008` stopped at 2/3. Its consolidate child failed its retry and is parked in plan waiting for your go-ahead.
-- `orch-jev-triage-foreman` is blocked because `TYPESAFE_API_KEY` is not in the job environment.
-- `orch-minion-town-oauth-bonds` stopped because its build child reported its gated outcome unsatisfied.
-
-The ocap.site crawler-leak design also hit its retry limit and is parked.
-
-**Your other decisions:**
-
-- **ocap.site domain transfer:** it becomes eligible around 2026-10-09 19:55Z. DNSSEC stays broken until a DS record is published, either after the transfer or by the registrar (Key-Systems).
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its panel review covers an older head. Either ask to run the gauntlet again or review it with the stale coverage in mind.
-
-**Housekeeping:** both ci.minion.town runner orchestrations completed cleanly, and the selftest passed. oros-studio is back in rotation. The sysop ack-timeout fix landed as `96a2b4c6141`. Once that commit has deployed on oros, its temporary drop-in has to be removed by hand there.
+**Other items:**
+- **ocap.site transfer:** the domain becomes transferable around 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished, so the maintainer needs to either start the transfer or ask the registrar to add the DS.
+- **oros-studio host:** it is back in rotation. Once it deploys `96a2b4c6141`, a temporary sysop drop-in has to be removed there by hand.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the panel review doesn't cover its current head. It needs a review decision or a new gauntlet run.
+- **Spend:** Claude spend is at 114% of quota.
 
 ## Maintainer review docket
 
@@ -46,6 +41,10 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 - 2026-10-08T03:50:52Z [#143](https://github.com/kriscendobot/minion.town/pull/143) `43a1387084e` screened
 
 ## Messages to the maintainer
+
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/leader/journal: p95=1.732948s max=40.805574s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
 
 - `msg-ocap-site-dnssec-followup-20261008-df1e9ee7a916` — from gardener:ocap-site-dnssec-followup-20261008, reply_to `ocap-site-dnssec-followup-20261008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dnssec-followup-20261008-df1e9ee7a916.md)
 
@@ -202,6 +201,10 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 >
 > Orchestration minion-town-ci-runner-redeploy-50aa690-split complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/monks/1/journal: p95=1.720255s max=39.637352s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-10-08T17:50:19Z, latest 2026-10-08T21:50:28Z).
@@ -287,10 +290,6 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=1 quota=backoff fleet-envelope=4 target=1
-
-- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md)
-
-> Host-requirements gate: job 'canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr1403-6be2a3cb-7cc7cc3f` — from gardener:claude-on-minion-town-press-20261008-203525, reply_to `claude-on-minion-town-press-20261008-203525` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1403-6be2a3cb-7cc7cc3f.md)
 
@@ -401,13 +400,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 191.3M | $1344.63 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
+| Claude | 191.5M | $1345.79 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 126984911 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
+worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (13)
