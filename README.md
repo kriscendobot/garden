@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T22:35:19Z_
+_As of 2026-10-09T22:39:36Z_
 
 ## Latest
 
@@ -597,18 +595,17 @@ worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 - [`claude-on-minion-town-press-20261009-215009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-215009.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261009-215009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-215009.md) — ---
 
-### doin (3)
+### doin (2)
 - [`moddable-10-0-0-ironhorse-port-plan-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-port-plan-20261009.md) — Moddable SDK 10.0.0: what ports to IronHorse?
-- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 
-### tada (12009)
+### tada (12010)
+- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Cost
 - [`kriscendobot-minion.town-pr174-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr174-gauntlet.md) — gauntlet kriscendobot-minion.town-pr174-gauntlet — HALTED
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-3.md) — Cost
 - [`kriscendobot-minion.town-pr173-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr173-gauntlet-fix-5.md) — Cost
-- [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet.md) — gauntlet kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet — complete
-- … and 12004 more
+- … and 12005 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
