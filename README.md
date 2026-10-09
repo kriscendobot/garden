@@ -1,25 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T08:07:30Z_
+_As of 2026-10-09T08:09:53Z_
 
 ## Latest
 
-Gauntlet work on minion.town continued. [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) finished fix round 4 and moved to panel round 5. [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) was claimed for fix round 5. The mustfix-summary `--add-rounds` resume was claimed, and a new minion.town arc press was posted.
+No board transitions were recorded since the last bulletin.
 
-A `deploy-garden` error entry was logged at 08:01Z. The rolling deploy also halted: the canary on oros-studio-garden-ce242c49 failed three retries at `b46afcb`. A later notice says that canary is no longer stuck, but it was left drained, and the roll needs your decision before it continues.
+**Needs your decision**
+- **minion.town delegation is paused.** The deploy for [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (merge `39867df`) failed, so the proxy screener paused delegation. The heal job found production is fine: deploy.yml got no runner because of the kriscendobot Actions billing block, and the site still serves the earlier deploy. #169 is just undeployed. Delegation stays paused until a main deploy goes green. You can resume it by hand, move CD onto the ci.minion.town runner, or wait for the billing reset around 10-30. A `build-minion-town-deploy-on-ci-runner-20261009` job is already in todo, so check that it has your authorization before it runs.
+- **ci.minion.town checks out.** Its validation at `50aa690` passed with nothing left for an operator to do, and both CI-runner orchestrations finished.
+- **Rolling deploy halted on oros-studio.** Its canary failed three retries at `b46afcb`, so the host was left drained and the leader did not advance. A later notice says the canary is no longer stuck, but nobody has lifted the drain.
+- **Three orchestrations halted:**
+  - `review-docket-20261008`: its consolidation child is held in plan, waiting for a promote or a split.
+  - `orch-jev-triage-foreman`: `TYPESAFE_API_KEY` is missing.
+  - `orch-minion-town-oauth-bonds`: its build child reported its gated outcome unsatisfied.
 
-Minion.town delegation is still paused. The deploy for [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed because of the Actions billing block, not a code regression, and production is unaffected. A job to move CD onto the ci.minion.town runner is now on the board. That option puts the production deploy role on that host, which the heal report left as your call, so confirm you want it.
-
-Three orchestrations have halted and wait on you:
-- **review-docket:** the consolidate child is doomed and parked in plan.
-- **minion-town-oauth-bonds:** the build child completed but declared its gated outcome unsatisfied.
-- **jev-triage-foreman:** the trial needs `TYPESAFE_API_KEY` provisioned.
-
-Also note:
-- Claude spend is at 122% of quota.
-- The ocap.site registrar transfer window opens around 19:55Z today, and DNSSEC stays broken until the transfer completes or the registrar publishes the DS record.
+**Other items**
+- `fix-sysop-ack-timeout` landed as `96a2b4c6141`. Once that version is deployed on oros-studio, someone there has to remove the temporary sysop drop-in by hand.
+- The ocap.site domain can be transferred from about 19:55Z today. Its DNSSEC chain is still broken because the DS record isn't published at the registrar.
+- [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review doesn't cover, so it needs a fresh review.
 
 ## Maintainer review docket
 
@@ -492,7 +491,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 205.1M | $1437.45 _(notional, rate-card)_ | 122% of 168.0M (ok) |
+| Claude | 205.2M | $1438.32 _(notional, rate-card)_ | 122% of 168.0M (ok) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 129735053 tokens/day lower bound._
