@@ -1,30 +1,19 @@
 # Garden bulletin
 
-_As of 2026-10-09T03:21:33Z_
+_As of 2026-10-09T03:22:50Z_
 
 ## Latest
 
-No jobs changed state since the last bulletin, so this one covers the maintainer inbox.
+No board transitions resolved since the last bulletin. The main open item is minion.town: delegation has been paused since the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed to deploy. The heal job found that this was the kriscendobot Actions billing block, not a bad change. The deploy got no runner and ran zero steps. Production still serves the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, and a revert would be refused by billing the same way. Delegation stays paused until the billing reset (around 10-30) unless you resume it by hand or authorize moving CD onto the ci.minion.town runner. The heal job also offers a screener follow-up that would treat runnerless deploy failures as "billing-deferred".
 
-**minion.town deploys are blocked.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged, but its deploy failed in 4s without getting a runner, because of the kriscendobot Actions billing block. The heal job confirmed that production is fine and still serves [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143); #169 is merged but not deployed. The screener has paused delegation and won't resume it until a main deploy goes green. Your options are:
-- resume delegation by hand;
-- authorize moving CD onto the ci.minion.town runner, which was just validated clean at `50aa690`;
-- wait for the end-of-month billing reset.
+Three orchestrations halted:
+- **review-docket-20261008:** its consolidation child was doomed and is now held in plan, waiting for your go-ahead.
+- **orch-minion-town-oauth-bonds:** the build child reported its gated outcome unsatisfied.
+- **orch-jev-triage-foreman:** the trial is blocked because `TYPESAFE_API_KEY` is missing.
 
-The heal job also offers a follow-up: have the screener treat a deploy that got no runner as "billing-deferred" instead of a failed merge.
+For ocap.site, the domain becomes transferable around 2026-10-09 19:55Z. The DS record is still unpublished, so DNSSEC stays broken until the transfer happens or you ask the registrar to add the DS.
 
-**Three orchestrations halted.**
-- **review-docket-20261008:** its consolidation child failed its retries and is held in `jobs/plan/`. It needs a promote or a split.
-- **orch-minion-town-oauth-bonds:** its build child reported that it didn't meet its required outcome.
-- **orch-jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is not provisioned in the job environment.
-
-**Fleet health.**
-- `fix-sysop-ack-timeout` landed as `96a2b4c6141`. Once oros-studio has deployed it, the temporary sysop timeout drop-in there must be removed by hand.
-- oros-studio's heartbeat is back and the host is rejoining the canary rotation.
-
-**Your decisions.**
-- **ocap.site:** the 60-day transfer lock ends around 2026-10-09 19:55Z, and the DNSSEC DS record is still unpublished at the registrar. Start the transfer or ask Key-Systems to add the DS.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the PR's head has moved past the commit the review panel covered. It needs a review decision or an explicit "run the gauntlet".
+oros-studio-garden-ce242c49 is back online and rejoining the canary rotation. Once it has deployed `96a2b4c6141`, it still needs the manual removal of its temporary sysop timeout drop-in. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review doesn't cover, so it needs a review decision or a `run the gauntlet`.
 
 ## Maintainer review docket
 
@@ -71,6 +60,10 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 > heal-minion-town-39867df: [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) did NOT break minion.town production; no heal PR opened.
 > The deploy.yml failure (https://github.com/kriscendobot/minion.town/actions/runs/37868510874) is the kriscendobot Actions billing block (since 2026-10-08 07:59Z, expected to clear ~10-30): the job got no runner, ran zero steps, and failed in 4s. A --failed rerun (job 113641657561) failed the same way. CI's test job for the same SHA passed on the self-hosted ci.minion.town runner, but deploy.yml always runs on GitHub-hosted runners (skills/minion-town-ci-runner-switch § Notes). Production still serves the [kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/issues/143) deploy (https://minion.town/ returns 200). [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) is simply undeployed. A revert PR's merge would be billing-refused in exactly the same way, so it would only throw away valid work.
 > Consequence: the screener paused the delegation, and it auto-resumes only after a green main deploy, so it stays paused until the billing reset or until you act. Your options: (a) resume the delegation by hand and accept undeployed merges until the reset; (b) authorize moving CD onto the ci.minion.town runner (puts the prod deploy role on that host, which is your call per the skill); (c) wait for the reset. I also recommend a garden follow-up: have the screener treat a deploy run with no runner and zero steps as "billing-deferred" rather than a merge failure, so each merge during a block doesn't post another heal job. Say so and I'll post it.
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261009-030509` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261009-030509.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261009-030509' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
@@ -414,7 +407,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 192.5M | $1352.42 _(notional, rate-card)_ | 115% of 168.0M (backoff) |
+| Claude | 192.5M | $1352.81 _(notional, rate-card)_ | 115% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 127256335 tokens/day lower bound._
