@@ -1,4 +1,28 @@
 ---
+role: orchestrator
+split_eligible: true
+split_reason: deadline-overrun
+split_source_role: designer
+split_source_handler_timeout: 2400
+split_orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split
+reposted_by: reaper:endolin-garden2-5bcdff64
+reposted_at: 2026-10-09T22:43:05Z
+---
+
+# Deliberate overrun decomposition for `moddable-10-0-0-ironhorse-port-plan-20261009`
+
+This ordinary job hit its applied 2400s handler wall once without productive progress. That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.
+
+Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:
+
+- **Divisible:** create at least two self-contained child jobs, park every child with `post-plan.sh --orchestrated --orchestrated-by moddable-10-0-0-ironhorse-port-plan-20261009-split`, then record `moddable-10-0-0-ironhorse-port-plan-20261009-split` with `post-orchestration.sh`.
+- **Indivisible:** choose a concrete reason and a timeout strictly greater than 2400 and no greater than 14339; park exactly one child with `post-plan.sh --orchestrated --orchestrated-by moddable-10-0-0-ironhorse-port-plan-20261009-split --split-indivisible-reason REASON --split-indivisible-handler-timeout SECONDS moddable-10-0-0-ironhorse-port-plan-20261009-expanded-window BODY-FILE` so both child fields land atomically. Record the same reason as `split-indivisible-reason:` and the same timeout as `split-indivisible-handler-timeout:` in the orchestration description, then record the single-child orchestration. Do not hand-author the child fields; a generic "too large" assertion is not a reason.
+- In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: moddable-10-0-0-ironhorse-port-plan-20261009-split>>>` immediately before the completion signal so completion verifies the successor.
+- Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.
+
+## Original job specification
+
+---
 role: designer
 tier: mentor
 fallback-tier: minion
@@ -19,17 +43,3 @@ Release items that look engine-relevant (verify each against the actual commits;
 - Out of scope unless shown otherwise: ECMA-419 / device / Piu / board / TypeScript typing / xsdb changes.
 
 Deliverable: a design/plan (per designer role) that (1) classifies each item as already-conformant, needs-port, not-applicable, or Temporal/host-excluded, with evidence from the IronHorse code and test262 expectations; (2) lists the resulting port work as sized, ordered child jobs, with the recommended orchestration shape (skills/orchestration); (3) flags any item that changes the oracle xst version or the ratchet baseline. Do not start the ports; post the plan and park children per the standing multi-part pattern.
-
-<!-- garden-reaped: 0 -->
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-09T21:38:37Z
