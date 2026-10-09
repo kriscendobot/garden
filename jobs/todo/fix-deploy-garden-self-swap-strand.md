@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Fix: deploy-garden.sh crashes after swapping in its own replacement and strands the host drained with timers frozen
@@ -26,12 +27,5 @@ bash reads a script lazily from its file descriptor. The deploy swaps `scripts/j
 
 Evidence: the systemd journal on oros-studio for 2026-10-02 05:31–05:39Z; .garden-state/deploy/deployed-sha and .garden-state/draining (source: operator, set_at 2026-10-02T05:38:33Z).
 
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-09T00:40:57Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-09T04:53:30Z -->
