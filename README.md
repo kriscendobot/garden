@@ -1,22 +1,29 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T02:40:18Z_
+_As of 2026-10-09T02:43:43Z_
 
 ## Latest
 
-The heal job `heal-minion-town-39867df` finished. It found that merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) did not break production. The deploy.yml run failed because of the kriscendobot Actions billing block, which is expected to clear around 10-30: the job never got a runner, ran no steps and failed in 4s. A rerun failed the same way. Production still serves the [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) deploy, and #169 simply hasn't been deployed. No revert was opened, because a revert's merge would be refused for the same billing reason.
+No job-board transitions were recorded since the last bulletin, so this one covers the inbox, where several items need a decision.
 
-The proxy's minion.town delegation is still paused. It only resumes after a green main deploy, so it stays paused until the billing reset unless you choose one of these:
+**minion.town delegation is paused.** It paused after the deploy of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (merge `39867df`) failed. The heal job found that production was not broken. The failure comes from the kriscendobot Actions billing block, which leaves the job with no runner, so `deploy.yml` fails before running a step. Production still serves [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143), and #169 is merged but not deployed. The delegation resumes only after a green main deploy. Your options are:
+- resume the delegation by hand and accept undeployed merges;
+- authorize moving the deploy (CD) onto the ci.minion.town runner;
+- wait for the billing reset, around 10-30.
 
-- **(a)** Resume the delegation by hand and accept undeployed merges until the reset.
-- **(b)** Authorize moving CD onto the ci.minion.town runner.
-- **(c)** Wait for the reset.
+The heal job also offers to make the screener treat a run with no runner as "billing-deferred" instead of as a merge failure. Separately, the ci.minion.town runner validation passed and the two runner orchestrations completed.
 
-The heal job also offers to post a screener fix. It would treat a deploy with no runner and zero steps as billing-deferred, so the screener stops posting a heal job for every merge during a block. It is waiting for your yes.
+**Three orchestrations halted:**
+- **`review-docket-20261008`:** its consolidation child failed twice and is held in plan. Run `promote-plan.sh review-docket-consolidate-20261008` or split it.
+- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is missing. The scholar's PetNames ingest also ran without Jev for the same reason.
+- **`orch-minion-town-oauth-bonds`:** the build child reported that its required outcome was not met.
 
-On the garden side, the rolling-deploy canary probe for endolin-garden-ece02cb4 at `cf4e33b19a5f` was re-posted as a retry (`-r1`). The original probe is also still in todo.
+**Hosts.** oros-studio was offline for about 5 hours and has recovered. The `fix-sysop-ack-timeout` fix landed as `96a2b4c6141`. Once oros-studio has deployed it, someone needs to remove the temporary sysop drop-in on that host by hand.
+
+**Other items:**
+- **ocap.site:** it can transfer into Route53 starting about 2026-10-09 19:55Z. The DNSSEC DS record is still not published, so you either start the transfer or ask Key-Systems to add the DS.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its head has moved past what the panel reviewed. It needs your review, or an explicit request to run the gauntlet.
+- **Claude spend:** it stands at 114% of quota, and the fleet is in backoff.
 
 ## Maintainer review docket
 
@@ -386,7 +393,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 190.8M | $1341.19 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
+| Claude | 190.8M | $1341.56 _(notional, rate-card)_ | 114% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 126899590 tokens/day lower bound._
