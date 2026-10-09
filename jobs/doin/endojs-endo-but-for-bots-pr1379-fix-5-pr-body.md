@@ -84,3 +84,13 @@ Acceptance: partial | Covers the transcript side of § Verification's host-handl
 
 
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T01:08:16Z
