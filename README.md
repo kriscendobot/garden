@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T09:50:19Z_
+_As of 2026-10-09T09:53:48Z_
 
 ## Latest
 
@@ -489,9 +489,9 @@ Delegation: **active**
 > the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 > design's `## Open questions`.
 
-- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-fad05c578989` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden-ece02cb4-fad05c578989.md)
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261009-093509` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261009-093509.md)
 
-> Host-requirements gate: job 'canary-probe-endolin-garden-ece02cb4-fad05c578989' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+> Host-requirements gate: job 'oros-health-watch-20261009-093509' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
