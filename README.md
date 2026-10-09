@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T11:11:38Z_
+_As of 2026-10-09T11:15:19Z_
 
 ## Latest
 
@@ -197,6 +197,29 @@ Delegation: **active**
 >
 > heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (139s old; sampled_at_epoch=1791505966)); it is PRESENT again and its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden2-5bcdff64)
 
+- `20261009T111207Z-dff0cb` — from triager:kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261009T111207Z-dff0cb.md)
+
+> kind: error
+>
+> # triage circuit-breaker OPENED for `kriscendobot-minion.town`
+>
+> The triage handler (`/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh`) FAILED 5 consecutive times on the SAME change
+> and hit the threshold (`GARDEN_TRIAGE_FAIL_THRESHOLD=5`).
+>
+> - Repo slug: `kriscendobot-minion.town`  (watched ref `main`)
+> - Failing range: `c5a0ae6367460b8f038d7c873289493126115f9d` → `c9a073cc04434094112d64a18ce8ae8006763a14`
+>
+> Because the transition is deterministic (same old→new SHAs, same diff), retrying
+> cannot help — it only crash-loops the `garden-triager@kriscendobot-minion.town` unit and fills the
+> journal. The breaker is now OPEN: this sha will NOT be re-triaged until a NEW
+> change appears on `kriscendobot-minion.town:main`, which clears the breaker automatically.
+>
+> Investigate the handler failure (reproduce by hand:
+> `/home/kris/garden2/scripts/jobs/handlers/triager-claude.sh kriscendobot-minion.town c5a0ae6367460b8f038d7c873289493126115f9d c9a073cc04434094112d64a18ce8ae8006763a14 <bare>`), or, if this repo should not be watched
+> at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
+> constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
+> worth confirming `kriscendobot-minion.town` belongs in the set.
+
 - `orch-minion-town-oauth-bonds-halted` — from orchestrator:orch-minion-town-oauth-bonds-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-minion-town-oauth-bonds-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -237,6 +260,60 @@ Delegation: **active**
 > detail: completed but declared its gated outcome unsatisfied
 >
 > Orchestration orch-minion-town-oauth-bonds observed child build-minion-town-oauth-bonds: completed but declared its gated outcome unsatisfied.
+
+- `doomed-kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden2-5bcdff64.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion-town-pr153-screen-0f485240-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1) or removes it, so nothing is lost.
+> Original job base: kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1
+>
+> --- original job body ---
+> ---
+> role: gardener
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> gauntlet: kriscendobot-minion-town-pr153-screen-0f485240-gauntlet
+> gauntlet_stage: fix
+> gauntlet_iteration: 1
+> pr: [https://github.com/kriscendobot/minion.town/pull/153](https://github.com/kriscendobot/minion.town/pull/153)
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
+>
+> You are ONE stage of a staged gauntlet (kriscendobot-minion-town-pr153-screen-0f485240-gauntlet). Apply the panel's must-fix items ONCE,
+> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/153 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 2. Read the LATEST panel verdict on [https://github.com/kriscendobot/minion.town/pull/153](https://github.com/kriscendobot/minion.town/pull/153) (the request-changes `gh pr review` the
+>    panel-1 stage just posted) for its must-fix items. Apply them.
+> 3. Push the fix as review-feedback follow-up commits to the PR head with
+>    `scripts/jobs/gardening/safe-push-pr-head.sh`.
+> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
+>    `GARDEN_CI_DEADLINE_SECS=3600 \
+>      scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 153 --no-merge`
+>    - rc 0 (GREEN): success.
+>    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
+>    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
+>    - rc 5 (BILLING-BLOCKED): Actions refused to start the jobs (account payment/
+>      spending limit); the maintainer is already alerted. Do NOT rerun, push more, or
+>      write `orchestration-failed`: emit the ci-billing-blocked marker (the driver parks).
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
+>   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
+>   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
 
 - `minion-town-ci-runner-unblock-20261008-terminal-complete` — from orchestrator:minion-town-ci-runner-unblock-20261008-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-unblock-20261008-terminal-complete.md)
 
@@ -283,6 +360,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=3558506 cap=180000000 pace-bias=0.423764 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=4 backoff=0.6781(ramp) target=4
+
+- `kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-halted` — from gauntlet:kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-halted.md)
+
+> Gauntlet kriscendobot-minion-town-pr153-screen-0f485240-gauntlet HALTED: stage 'kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1' (fix) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
 
 - `doomed-review-docket-consolidate-20261008-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-review-docket-consolidate-20261008-requeue-exhausted.md)
 
@@ -535,17 +616,16 @@ worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-pr
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261008-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #166
 
-### doin (2)
+### doin (1)
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #174
-- [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
 
-### tada (11960)
+### tada (11961)
+- [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet.md) — gauntlet kriscendobot-minion-town-pr153-screen-0f485240-gauntlet — HALTED
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-3.md) — Cost
 - [`screen-minion-town-pr122-a601515-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/screen-minion-town-pr122-a601515-conduct.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-fad05c578989-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-fad05c578989-r3.md) — rolling-deploy canary probe — round trip OK
 - [`claude-on-minion-town-press-20261009-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-press-20261009-093509.md) — Cost
-- [`oros-health-watch-20261009-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/oros-health-watch-20261009-093509.md) — Cost
-- … and 11955 more
+- … and 11956 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -583,6 +663,7 @@ worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-pr
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
+- [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 
 ### awaiting maintainer decision (answer at the linked question)
