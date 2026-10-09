@@ -19,3 +19,13 @@ from your per-job worktree on main2 (the deployed root may predate `--add-rounds
     scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr170-gauntlet panel --add-rounds 2
 
 Report the command's output. Do nothing else: the gauntlet driver runs the panels and fixes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T20:19:13Z
