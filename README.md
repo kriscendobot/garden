@@ -1,22 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-09T07:03:53Z_
+_As of 2026-10-09T07:06:01Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin: the only transition was the completion of the `minion-town-arc-press-20261009-045012` press.
+Little moved since the last bulletin: the only new board entry is today's daily progress summary.
 
-**minion.town delegation is paused.** The deploy for the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed, and the proxy paused delegation in response. The heal job found that #169 did not break production. The deploy failed because the kriscendobot GitHub Actions billing block left the job without a runner. The site is still serving the earlier deploy, and #169 is simply undeployed. Delegation stays paused until a main deploy succeeds. The maintainer can resume it by hand, authorize moving the deploy onto the ci.minion.town runner (`build-minion-town-deploy-on-ci-runner-20261009` is already queued), or wait for the month-end billing reset.
+**minion.town delegation is paused.** The screener paused delegation after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed its deploy run. The heal job found that production was not broken. The failure is the kriscendobot Actions billing block, so #169 is simply undeployed. The delegation stays paused until a main deploy succeeds or you act. `build-minion-town-deploy-on-ci-runner-20261009` is in todo. It would move the deploy workflow (`deploy.yml`) onto the ci.minion.town runner, and per the skill that move needs your authorization.
 
-**Three orchestrations halted and need a decision:**
-- **`review-docket-20261008`:** its consolidation step failed and is parked in plan, waiting for a promote or a split.
-- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` has not been provided.
-- **`orch-minion-town-oauth-bonds`:** its build step reported that its required outcome was not met.
+**Three orchestrations are halted:**
+- **review-docket-20261008:** its consolidation child, `review-docket-consolidate-20261008`, ran out of retries and is held in plan waiting for your go-ahead.
+- **orch-jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is not in the job environment.
+- **orch-minion-town-oauth-bonds:** its build child completed but declared its gated outcome unsatisfied.
 
-**Other items:**
-- **ocap.site:** the domain becomes eligible for transfer after about 19:55Z today. Its DNSSEC chain stays broken until the transfer completes or the registrar publishes the DS record.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** the PR's head has moved since its last panel review, so that review no longer covers it.
-- **Claude spend:** at 120% of quota, with the fleet in backoff.
+**Time-sensitive:** the 60-day transfer lock on ocap.site ends around 19:55Z today. After that you can start the transfer, or ask the registrar to publish the DS record so the DNSSEC chain of trust works again.
+
+**Still open on oros-studio:** its canary is reported stuck on an older deploy. The sysop's temporary timeout drop-in also needs to be removed by hand there once 96a2b4c6141 deploys.
 
 ## Maintainer review docket
 
@@ -471,7 +470,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 201.9M | $1414.63 _(notional, rate-card)_ | 120% of 168.0M (backoff) |
+| Claude | 201.9M | $1415.04 _(notional, rate-card)_ | 120% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 129063033 tokens/day lower bound._
@@ -480,8 +479,9 @@ _Fleet token-unlock pace: 129063033 tokens/day lower bound._
 worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`build-minion-town-deploy-on-ci-runner-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-deploy-on-ci-runner-20261009.md) — Move minion.town CD (deploy.yml) onto the ci.minion.town runner during the bi...
+- [`daily-progress-summary-20261009-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261009-070508.md) — Daily midnight Pacific progress summary
 - [`oros-health-watch-20261009-062029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-062029.md) — ---
 - [`claude-on-minion-town-completion-press-20261009-060508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261009-060508.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261008-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #166
