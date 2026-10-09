@@ -19,3 +19,13 @@ Repo: kriscendobot/garden, branch main2 (direct push, no PR).
 3. Batch sysop-log writes per tick (one commit for N records), or use a sparse or lighter clone for these appends.
 4. Leader side: do not re-send an identical set-workers while an unacked identical one is still pending, or let the sysop collapse duplicate idempotent ops.
 5. When fixed, remove the temporary drop-in on oros-studio.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T00:43:27Z
