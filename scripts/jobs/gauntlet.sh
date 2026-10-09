@@ -262,7 +262,7 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
   local base="$1" terminal_state="$2" reason="$3" repo="$4" prnum="$5" iter="$6"
   local marker comments meta head ci pending bad total
   local panel_tada="" must_fix_count="" must_fix_part="" next body gh_bin rc=0
-  local comment_err write_rc quota_secs
+  local comment_err write_rc quota_secs mustfix_summary=""
 
   if [ -z "$repo" ] || [ -z "$prnum" ]; then
     log "WARN: gauntlet '$base': cannot post terminal PR status (missing repo/pr_number)"
@@ -353,6 +353,13 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
     printf '%s\n' "$marker"
     printf '**Gauntlet terminal — %s** · rounds run: %s · head `%s` · CI: %s%s · next: %s\n' \
       "$terminal_state" "$iter" "$head" "$ci" "$must_fix_part" "$next"
+    # Early termination owes the maintainer the UNADDRESSED must-fix list, so the
+    # add-budget-and-resume decision can be made from the receipt. Deterministic and
+    # fail-soft: no output (or an old-format report) never blocks the receipt.
+    if [ "$terminal_state" != held-draft ] && [[ "$iter" =~ ^[0-9]+$ ]] && [ "$iter" -gt 0 ]; then
+      mustfix_summary="$("$HERE/gardening/gauntlet-mustfix-summary.sh" "$DIR" "$base" "$iter" 2>/dev/null || true)"
+      if [ -n "$mustfix_summary" ]; then printf '\n%s\n' "$mustfix_summary"; fi
+    fi
   } > "$body"
   gh_bin="${GARDEN_GH:-gh}"
   # Machine-authored (no LLM in this process): GARDEN_NO_LLM renders the footer as

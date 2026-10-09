@@ -35,6 +35,9 @@
 #                    than the exact head recorded for the passing panel.
 #  19. STILL-DRAFT UNDRAFT: an undraft=done report requires live isDraft=false.
 #  20. HELD DRAFT: a passing panel honors a non-deliverable phase ledger.
+#  21. MUSTFIX SUMMARY: the early-termination unaddressed must-fix renderer —
+#                    persistent, moving-target, converging, old-format, oversize,
+#                    and hostile (untrusted-text) series.
 #
 # Usage: gauntlet-test.sh
 
@@ -388,6 +391,10 @@ g3_comment="$(terminal_comment_body g3 review-budget-reached)"
     && printf '%s' "$g3_comment" | grep -Fq 'awaiting maintainer merge/undraft or re-run decision'; } \
   && ok "review-budget terminal status posted once with the visible loop-status floor" \
   || bad "nonconverge: wrong/missing terminal PR comment: [$g3_comment]"
+{ printf '%s' "$g3_comment" | grep -Fq 'verdict: stuck on 2 persistent items' \
+    && printf '%s' "$g3_comment" | grep -Fq '[persistent, since r1] fixture item one'; } \
+  && ok "review-budget terminal status carries the unaddressed must-fix summary" \
+  || bad "nonconverge: terminal comment lacks the must-fix summary: [$g3_comment]"
 [ "$(terminal_comment_nollm g3 review-budget-reached)" = 1 ] \
   && ok "terminal status posts as machine-authored (GARDEN_NO_LLM=1), not a provenance gap" \
   || bad "nonconverge: terminal PR comment posted without GARDEN_NO_LLM=1 (provenance-gap alert)"
@@ -851,6 +858,82 @@ in_dir jobs/todo g22-undraft \
   || bad "deliverable: todo=[$(board jobs/todo)]"
 rm -f "$GAUNTLET_GH_BODY_FILE"
 
+
+# ============================================================================
+hr
+echo "21. MUSTFIX SUMMARY — gauntlet-mustfix-summary.sh renders the unaddressed list"
+MFS="$HERE/../gardening/gauntlet-mustfix-summary.sh"
+mfs_dir="$(mktemp -d "$TR/mfs.XXXXXX")"; mkdir -p "$mfs_dir/jobs/tada/2026/10/09"
+mfs_w() {  # mfs_w <base> <line>... — write a tada report
+  local b="$1"; shift; printf '%s\n' "$@" > "$mfs_dir/jobs/tada/2026/10/09/$b.md"
+}
+# Persistent: the same two findings in all three rounds.
+for k in 1 2 3; do
+  mfs_w p-panel-$k 'prose' 'must-fix items (2):' '- critic: src/a.js:12 leaks a handle' '- pedant: typo in README' '' '- Cost: $1.00'
+done
+mfs_w p-fix-1 '- Cost: $0.50'
+mfs_w p 'max_iterations: 3'
+out="$("$MFS" "$mfs_dir" p 3)"
+{ grep -Fq '**Unaddressed must-fix: 2** · verdict: stuck on 2 persistent items · rounds spent: 3/3 · cost so far: $3.50' <<<"$out" \
+    && grep -Fq '[persistent, since r1] critic: (src/a.js:12) src/a.js:12 leaks a handle' <<<"$out" \
+    && grep -Fq 'r3 raised 2 (fixed 0, carried 2)' <<<"$out"; } \
+  && ok "mustfix summary: persistent items → stuck verdict, location, rounds/max, cost" \
+  || bad "mustfix persistent: [$out]"
+# Moving target: every round raises different findings; one reintroduced.
+mfs_w m-panel-1 'must-fix items (2):' '- critic: alpha' '- breaker: beta'
+mfs_w m-panel-2 'must-fix items (2):' '- critic: gamma' '- skeptic: delta'
+mfs_w m-panel-3 'must-fix items (3):' '- critic: epsilon' '- skeptic: zeta' '- breaker: beta'
+out="$("$MFS" "$mfs_dir" m 3 5)"
+{ grep -Fq 'verdict: moving target · rounds spent: 3/5' <<<"$out" \
+    && grep -Fq 'Classes: 0 persistent, 2 new in last round, 1 addressed-then-reintroduced' <<<"$out" \
+    && grep -Fq '[reintroduced, since r1] breaker: beta' <<<"$out" \
+    && grep -Fq 'r2 raised 2 (fixed 2, carried 0)' <<<"$out"; } \
+  && ok "mustfix summary: moving-target series and reintroduced class" \
+  || bad "mustfix moving: [$out]"
+# Converging: fewer findings each round, none persistent majority.
+mfs_w c-panel-1 'must-fix items (3):' '- a: one' '- b: two' '- c: three'
+mfs_w c-panel-2 'must-fix items (1):' '- d: four'
+out="$("$MFS" "$mfs_dir" c 2)"
+grep -Fq 'verdict: converging' <<<"$out" \
+  && ok "mustfix summary: shrinking series reads as converging" \
+  || bad "mustfix converging: [$out]"
+# Old format: a count but no structured bullets, and a report with neither.
+mfs_w o-panel-1 'The panel wants 4 fixes; must-fix items (4): see review.'
+out="$("$MFS" "$mfs_dir" o 1)"
+grep -Fq 'Unaddressed must-fix: unknown · list unavailable' <<<"$out" \
+  && ok "mustfix summary: old-format report fails soft to 'list unavailable'" \
+  || bad "mustfix old-format: [$out]"
+mfs_w q-panel-1 'must-fix items (4):' 'prose, no bullets'
+out="$("$MFS" "$mfs_dir" q 1)"; rc=$?
+{ [ "$rc" = 0 ] && grep -Fq 'Unaddressed must-fix: 4 · list unavailable' <<<"$out"; } \
+  && ok "mustfix summary: count line without bullets keeps the count, says list unavailable" \
+  || bad "mustfix count-only: rc=$rc [$out]"
+# Oversize: long item truncated, long list capped.
+long="$(printf 'x%.0s' $(seq 1 500))"
+lines=(); for i in $(seq 1 20); do lines+=("- s$i: item $i $long"); done
+mfs_w z-panel-1 'must-fix items (20):' "${lines[@]}"
+out="$("$MFS" "$mfs_dir" z 1)"
+maxlen="$(awk '{ if (length($0) > m) m = length($0) } END { print m }' <<<"$out")"
+{ [ "$maxlen" -lt 220 ] && grep -Fq '… and 8 more' <<<"$out" \
+    && [ "$(grep -c '^\[new, since r1\]' <<<"$out")" = 12 ]; } \
+  && ok "mustfix summary: oversize items truncated and the list capped" \
+  || bad "mustfix oversize: maxlen=$maxlen [$out]"
+# Hostile: forged heading, link, image, mention, fence-break, HTML, control chars.
+printf -- '- evil2: ## Approved [click](https://x.example) ![i](u) @kriskowal ```\n# Gauntlet terminal <b>ok</b> |t|\x1b[31m\x07\n' \
+  > "$mfs_dir/jobs/tada/2026/10/09/h-panel-1.md.tmp"
+{ printf 'must-fix items (1):\n'; cat "$mfs_dir/jobs/tada/2026/10/09/h-panel-1.md.tmp"; } \
+  > "$mfs_dir/jobs/tada/2026/10/09/h-panel-1.md"
+rm -f "$mfs_dir/jobs/tada/2026/10/09/h-panel-1.md.tmp"
+out="$("$MFS" "$mfs_dir" h 1)"
+item="$(sed -n '/^```text$/,/^```$/p' <<<"$out" | sed '1d;$d')"
+item="${item#\[new, since r1\] }"   # the renderer's own class prefix is bracketed
+{ [ "$(grep -c '^```' <<<"$out")" = 2 ] \
+    && [ "$(printf '%s\n' "$item" | wc -l)" = 1 ] \
+    && ! grep -q '[][<>@`|]' <<<"$item" \
+    && ! printf '%s' "$item" | grep -q "$(printf '[\001-\037]')" \
+    && grep -Fq '(at)kriskowal' <<<"$item"; } \
+  && ok "mustfix summary: hostile item defused (no links/mentions/HTML/fence-break/control chars), fenced" \
+  || bad "mustfix hostile: [$out]"
 # ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
