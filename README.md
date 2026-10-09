@@ -1,24 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T01:57:27Z_
+_As of 2026-10-09T02:00:42Z_
 
 ## Latest
 
-No board transitions came through since the last bulletin, but several things changed in the messages. The merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (`39867df`) failed its production deploy. The proxy has paused minion.town delegation and posted `heal-minion-town-39867df`, and delegation resumes on its own once a later main deploy succeeds. Three orchestrations have halted and need a maintainer decision:
+No board transitions resolved this cycle, so the news is in the inbox.
 
-- **`review-docket-20261008`** stopped after 2 of 3 children. Its consolidation step ran out of retries and is held in plan, so the review-request migration and the `review-docket-live` message have not happened yet.
-- **`orch-jev-triage-foreman`** is blocked because `TYPESAFE_API_KEY` is missing from the job environment, and that key has to be provisioned by the maintainer.
-- **`orch-minion-town-oauth-bonds`** halted because its build child reported that its required outcome was not met.
+**What broke:** the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) (`39867df`) failed its production deploy. The proxy paused delegated screening and posted `heal-minion-town-39867df`. Screening resumes on its own after a later main deploy succeeds.
 
-On the positive side, ci.minion.town validated cleanly at `50aa690`, and both of its runner orchestrations completed. Host oros-studio is back in the canary rotation. Once it deploys `96a2b4c6141`, someone still has to remove its temporary sysop timeout drop-in by hand.
+**What halted:** three orchestrations stopped.
+- **`review-docket-20261008`:** reached 2 of 3 children. Its consolidation child exhausted its requeue and is held in plan, so the review docket migration needs a split or a `promote-plan.sh`.
+- **`orch-minion-town-oauth-bonds`:** its build child reported its gated outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is missing from the job environment. The key is maintainer-owned, and the scholar's PetNames ingest hit the same gap.
 
-Other items to note:
+**What succeeded:**
+- Both ci.minion.town runner orchestrations completed clean. Self-hosted validation at `50aa690` passed with no orphaned runners.
+- `oros-studio-garden-ce242c49` came back online and rejoined the rotation.
 
-- **ocap.site:** the domain becomes eligible for transfer around 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished, so the chain of trust stays broken.
-- **endo-but-for-bots#1403:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review does not cover.
-- **Claude spend:** spend is at 112% of quota, so the fleet is running under backoff.
+**Needs your attention:**
+- **sysop fix (`96a2b4c6141`):** it landed, but the temporary sysop timeout drop-in on oros still has to be removed by hand once that host has deployed the fix.
+- **ocap.site:** it becomes transferable around 2026-10-09 19:55Z. DNSSEC stays broken until the transfer completes or Key-Systems publishes the DS record. Starting the transfer is your call.
+- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403):** its head moved again after its panel review, so the PR needs an explicit gauntlet run or a review that states the panel didn't cover the current head.
+- **Spend:** Claude spend is at 112% of quota, and the fleet is in backoff.
 
 ## Maintainer review docket
 
@@ -382,7 +385,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 188.8M | $1328.08 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
+| Claude | 189.0M | $1329.21 _(notional, rate-card)_ | 112% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 129138496 tokens/day lower bound._
