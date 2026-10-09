@@ -1,21 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-09T07:13:13Z_
+_As of 2026-10-09T07:14:51Z_
 
 ## Latest
 
-Little moved since the last bulletin: the only new board entry is today's daily progress summary.
+No job-board transitions resolved since the last bulletin, so the news is in the maintainer inbox.
 
-**minion.town delegation is paused.** The screener paused delegation after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed its deploy run. The heal job found that production was not broken. The failure is the kriscendobot Actions billing block, so #169 is simply undeployed. The delegation stays paused until a main deploy succeeds or you act. `build-minion-town-deploy-on-ci-runner-20261009` is in todo. It would move the deploy workflow (`deploy.yml`) onto the ci.minion.town runner, and per the skill that move needs your authorization.
+The minion.town delegation is paused because the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) produced a red deploy. The heal job found that production was not broken. The kriscendobot Actions billing block left `deploy.yml` with no runner, so #169 is merged but not deployed, and the site still serves the #143 deploy. The screener will stay paused until a main deploy succeeds. A `build-minion-town-deploy-on-ci-runner-20261009` job is now queued to move CD onto ci.minion.town. That runner passed its validation selftest, and both of its runner orchestrations completed. Moving CD onto it puts the production deploy role on that host, and the skill reserves that decision for you.
 
-**Three orchestrations are halted:**
-- **review-docket-20261008:** its consolidation child, `review-docket-consolidate-20261008`, ran out of retries and is held in plan waiting for your go-ahead.
-- **orch-jev-triage-foreman:** blocked because `TYPESAFE_API_KEY` is not in the job environment.
-- **orch-minion-town-oauth-bonds:** its build child completed but declared its gated outcome unsatisfied.
+Three orchestrations halted:
+- **`review-docket-20261008`:** its consolidation child was doomed and is parked in `plan/` awaiting go-ahead.
+- **`orch-jev-triage-foreman`:** halted because `TYPESAFE_API_KEY` is missing and needs you to provision it.
+- **`orch-minion-town-oauth-bonds`:** halted because its build declared the gated outcome unsatisfied.
 
-**Time-sensitive:** the 60-day transfer lock on ocap.site ends around 19:55Z today. After that you can start the transfer, or ask the registrar to publish the DS record so the DNSSEC chain of trust works again.
+The ocap.site crawler-leak design also exhausted its retries and is held in `plan/`.
 
-**Still open on oros-studio:** its canary is reported stuck on an older deploy. The sysop's temporary timeout drop-in also needs to be removed by hand there once 96a2b4c6141 deploys.
+Other items:
+- [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a stale panel head and needs a review decision or an explicit gauntlet.
+- ocap.site becomes eligible for transfer around 19:55Z today. DNSSEC stays broken until the DS record is published, so you need to start the transfer or ask Key-Systems to add the DS.
+- The `fix-sysop-ack-timeout` fix landed. Once oros has deployed it, the temporary sysop timeout file there has to be removed by hand.
+- Oros's canary and heartbeat alerts have cleared.
 
 ## Maintainer review docket
 
@@ -52,16 +56,11 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #15 (first seen 2026-10-08T20:53:04Z, latest 2026-10-09T07:11:08Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 15 times; this is ONE
-> coalesced notice that updates in place, not 15 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-09T07:14:03Z).
+> It was observed 15 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1893s (offline threshold 1800s; sampled_at_epoch=1791527970).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden2-5bcdff64)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `msg-heal-minion-town-39867df-44e244494ac6` — from gardener:heal-minion-town-39867df, reply_to `heal-minion-town-39867df` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-heal-minion-town-39867df-44e244494ac6.md)
 
