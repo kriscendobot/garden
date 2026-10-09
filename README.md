@@ -1,22 +1,30 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T04:37:12Z_
+_As of 2026-10-09T04:38:32Z_
 
 ## Latest
 
-Only one job changed state since the last bulletin: a gardener claimed the Claude-on-minion.town arc press (`claude-on-minion-town-press-20261009-030509`). Several items need a maintainer decision:
+No job-board transitions were recorded since the last bulletin. The open items below come from the maintainer inbox.
 
-- **Garden deploy is halted.** The rolling deploy of `cf4e33b19a5` stopped after its canary failed three times on `endolin-garden-ece02cb4`. The probe never completed, which suggests a real regression in claiming jobs. That host is still drained, and the leader has not advanced.
-- **minion.town delegation is paused.** The deploy after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged failed, but the heal job found that kriscendobot's GitHub Actions billing block caused it, not the code. Production is unharmed and #169 is simply undeployed. Delegation stays paused until the billing reset (around 10-30) unless you resume it by hand or authorize moving deploys onto the ci.minion.town runner.
-- **Three orchestrations halted:**
-  - `orch-minion-town-oauth-bonds`: its build step reported its required outcome as unmet.
-  - `orch-jev-triage-foreman`: blocked because `TYPESAFE_API_KEY` is missing.
-  - `review-docket-20261008`: its final consolidation step is parked in the plan queue and needs promoting or splitting.
-- **Stale review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its review panel covered.
-- **ocap.site:** the domain can be transferred from about 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published, either after the transfer or by the current registrar.
-- **Manual cleanup on oros:** once `oros-studio-garden-ce242c49` has deployed `96a2b4c6141`, remove the temporary sysop drop-in there by hand.
+**The minion.town delegation is paused.** The screener paused it after the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed its deploy. The heal job found that production is not broken. The failure comes from the kriscendobot Actions billing block, which leaves `deploy.yml` with no runner. Production still serves the previous deploy, and #169 is simply undeployed. Delegation resumes only after a green main deploy. You have three options:
+- resume it by hand and accept undeployed merges;
+- authorize moving CD onto ci.minion.town;
+- wait for the billing reset, expected around 10-30.
+
+The heal job also offers a follow-up: have the screener treat a deploy run with no runner and zero steps as "billing-deferred" instead of a failed merge. ci.minion.town itself passed revalidation with no open operator items.
+
+**The garden's rolling deploy is halted.** The canary on endolin-garden-ece02cb4 at `cf4e33b19a5f` failed three probe retries. The canary is still drained, and the leader did not advance. `fix-deploy-garden-self-swap-strand` is in progress and may be related.
+
+**Three orchestrations halted:**
+- **`review-docket-20261008`:** its consolidate child was doomed and is held in plan awaiting your go-ahead.
+- **`orch-minion-town-oauth-bonds`:** its build child completed but declared its gated outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is not provisioned.
+
+**Smaller items:**
+- `fix-sysop-ack-timeout` landed as `96a2b4c6141`. Once oros has deployed it, someone must remove the temporary drop-in there by hand.
+- The ocap.site registrar transfer window opens around 2026-10-09 19:55Z. Its DS record is still unpublished, so you need to choose between transferring and asking the registrar to publish DS.
+- [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its panel reviewed. It needs your review, or a `run the gauntlet` request to put the current head through the panel again.
+- Claude spend is above quota, and the fleet is in backoff.
 
 ## Maintainer review docket
 
@@ -443,7 +451,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 195.7M | $1374.25 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
+| Claude | 195.8M | $1374.65 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128107225 tokens/day lower bound._
