@@ -13,7 +13,7 @@ arc:
 stage: fix
 iteration: 5
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-5
 state: running
 resumed_at: 2026-10-08T22:32:44Z
