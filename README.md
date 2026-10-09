@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T18:43:23Z_
+_As of 2026-10-09T18:46:00Z_
 
 ## Latest
 
@@ -157,6 +157,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=9 quota=backoff fleet-envelope=4 target=1
+
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_pages_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_pages_watcher_verify.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/pages-watcher/verify: p95=2.001950s max=36.909166s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
 
 - `orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed` — from orchestrator:orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed.md)
 
@@ -564,7 +568,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 129411397 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 4 open notice(s); checker healthy
+worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
