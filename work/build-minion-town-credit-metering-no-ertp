@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-10-09T01:14:52Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-minion-town-credit-metering-no-ertp
-pr_number: 174
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/174
-pr_head: build/credit-metering-no-ertp
