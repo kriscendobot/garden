@@ -24,3 +24,13 @@ deployed root may predate `--add-rounds`):
     scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr171-gauntlet panel --add-rounds 2
 
 Report each command's output. Do nothing else: the gauntlet driver runs the panels and fixes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T20:17:55Z
