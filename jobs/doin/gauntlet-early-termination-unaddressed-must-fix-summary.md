@@ -67,3 +67,13 @@ moving-target one.
 Land on `main2` directly (the garden's own repo takes no PR workflow). Post a journal message
 summarizing the change and one worked example rendered from a real past halt, for instance
 `endojs-endo-but-for-bots-pr995-gauntlet`, so the maintainer can judge the summary's usefulness.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T06:52:26Z
