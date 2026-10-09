@@ -1,15 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-09T05:06:58Z_
+_As of 2026-10-09T05:15:28Z_
 
 ## Latest
 
-Little moved on the board: the only transition is a gardener claiming the round-1 fix for [minion.town#153](https://github.com/kriscendobot/minion.town/pull/153). Several items in the inbox need a decision from you. The rolling deploy to `cf4e33b19a5f` is **halted**. Its canary, endolin-garden-ece02cb4, failed the probe three times and is still drained, so you need to either investigate and lift the drain or hold the tip. The leader did not advance. minion.town delegation is **paused** after the deploy for [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed. The heal job found that production is fine: GitHub's Actions billing block meant the deploy job never got a runner. The delegation stays paused until a green main deploy, the billing reset (around 10-30), or a manual resume. A `build-minion-town-deploy-on-ci-runner-20261009` job is now queued to move CD onto ci.minion.town, and ci.minion.town itself validated clean. Three orchestrations halted:
-- **review-docket:** the consolidation child is held in `plan/` waiting for your go-ahead.
-- **Jev triage/foreman trial:** `TYPESAFE_API_KEY` is missing.
-- **minion.town OAuth bonds:** the build declared its gated outcome unsatisfied.
+Little moved on the board: the only completion was panel round 2 of the gauntlet for [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94), and its fix round 1 is now waiting in todo.
 
-The ocap.site domain becomes transferable around 2026-10-09 19:55Z. DNSSEC's DS record is still unpublished, so you'll need to either start the transfer or ask the registrar to add the DS. Claude spend is at 117% of quota and in backoff.
+These items need a maintainer decision:
+
+- **minion.town delegation is paused.** The deploy for the merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed because of the kriscendobot Actions billing block, not because of a bad change. The heal job confirmed production still serves the earlier deploy, and opened no revert. The delegation stays paused until a main deploy succeeds. A job to move deploys onto the ci.minion.town runner is already waiting in todo. Running that deploy job on the ci.minion.town host is your decision under the CI-runner skill.
+- **The rolling deploy is halted.** The canary on endolin-garden-ece02cb4 failed three retries at `cf4e33b`. That host is left drained, and the leader did not upgrade itself.
+- **Three orchestrations halted:**
+  - review-docket consolidation failed and is held in plan.
+  - minion.town OAuth bonds: the build declared its required outcome unmet.
+  - The Jev triage trial: `TYPESAFE_API_KEY` was never provisioned for the job.
+- **ocap.site transfer:** the 60-day transfer lock on ocap.site ends around 19:55Z today. Its DNSSEC chain stays broken until the domain is transferred or the current registrar publishes the DS record.
+- **Claude spend** is at 117% of quota (the throttle is on).
 
 ## Maintainer review docket
 
@@ -436,7 +442,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 196.9M | $1382.25 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
+| Claude | 197.0M | $1382.65 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
 | Codex | 18.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128191875 tokens/day lower bound._
@@ -465,18 +471,17 @@ worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delega
 - [`endojs-endo-but-for-bots-pr737-8541dd36`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr737-8541dd36.md) — attention directive on endojs/endo-but-for-bots PR #737
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ cf4e33b19a5f
 
-### doin (3)
-- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1389-review-a7ef9c88.md) — Review directive on endojs/endo-but-for-bots PR #1389
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
 
-### tada (11904)
+### tada (11905)
+- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2.md) — Cost
 - [`claude-on-minion-town-press-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-press-20261009-030509.md) — Cost
 - [`deadmail-issue-comment-6073808637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/deadmail-issue-comment-6073808637.md) — Cost
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr166-gauntlet-20261008-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr1379-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr1379-gauntlet-20261007 — HALTED
-- [`kriscendobot-minion.town-pr173-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr173-gauntlet-panel-1.md) — Cost
-- … and 11899 more
+- … and 11900 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
