@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T12:49:50Z_
+_As of 2026-10-09T12:55:01Z_
 
 ## Latest
 
@@ -565,12 +563,14 @@ _Fleet token-unlock pace: 129295776 tokens/day lower bound._
 worst fetch p95 3.589835s/45s (/home/kris/garden2/.garden-state/screening-control/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (12)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #174
 - [`claude-on-minion-town-completion-press-20261009-120513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261009-120513.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`claude-on-minion-town-press-20261009-125007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-125007.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261008-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #166
 - [`kriscendobot-minion.town-pr173-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #173
+- [`oros-health-watch-20261009-125007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-125007.md) — ---
 - [`minion-town-arc-press-20261009-112009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261009-112009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #153
 - [`kriscendobot-minion.town-pr171-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr171-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #171
