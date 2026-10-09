@@ -1,24 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T00:10:36Z_
+_As of 2026-10-09T00:14:47Z_
 
 ## Latest
 
-The only board change since the last bulletin is a new post, [`fix-namespace-clone-repack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-namespace-clone-repack.md). It fixes the per-namespace journal clones under `.garden-state/<ns>/journal`, which are never repacked. Those clones have wedged hosts before.
+No jobs moved on the board since the last bulletin. Three orchestrations have halted and each needs a maintainer decision:
 
-Several things are waiting on the maintainer:
+- **review-docket-20261008:** this is the review-docket consolidation effort. Its final consolidation step failed twice and is now parked in `plan/` until you promote or split it.
+- **orch-minion-town-oauth-bonds:** the build reported that it did not meet its goal.
+- **orch-jev-triage-foreman:** this cannot proceed until you provide `TYPESAFE_API_KEY`.
 
-- **ocap.site transfer:** the 60-day lock ends around 2026-10-09T19:55Z, so a transfer into Route53 Domains can start after that. Until then, or until Key-Systems publishes the DS record, DNSSEC stays broken.
-- **oros-studio host offline:** `oros-studio-garden-ce242c49` has been offline since about 20:53Z (six watchdog hits). Rolling deploy is skipping it, and its pinned `oros-health-watch` jobs can't be claimed.
-- **Three halted orchestrations:**
-  - `review-docket-20261008`: the consolidation child exhausted its retries and is held in `plan/` until you promote it.
-  - `orch-minion-town-oauth-bonds`: the build child reported its gated outcome as not met.
-  - `orch-jev-triage-foreman`: blocked because `TYPESAFE_API_KEY` is missing.
-- **ERTP credits:** the minion.town arc needs a yes or no on building the Phase 1 credits charge now.
-- **Stale panel review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its panel reviewed, so it needs a fresh decision.
-- **Claude spend:** at 110% of quota, so the fleet is in backoff.
+On the minion.town side, [minion.town#143](https://github.com/kriscendobot/minion.town/pull/143) merged and deployed cleanly. [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) and [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) passed screening at their new heads, and their merge jobs are queued. The ci.minion.town runner checked out fully at main `50aa690`, with no open operator items.
+
+Several items are waiting on you. The ocap.site transfer window opens around 2026-10-09 19:55Z, and the DNSSEC DS record is still unpublished, so you need to choose between transferring the domain and asking the registrar to add the DS record. You also need to decide whether to build the ERTP credits charge now or keep deferring it. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review does not cover. The oros-studio host has been offline for about three hours, so rolling deploys are skipping it. Claude spend is at 110% of quota and in backoff.
 
 ## Maintainer review docket
 
@@ -83,10 +77,6 @@ Delegation: **active**
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=4 queue=1 quota=ok fleet-envelope=4 target=1
-
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261008-235012` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261008-235012.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261008-235012' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed` — from orchestrator:orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed.md)
 
@@ -362,7 +352,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 184.1M | $1295.97 _(notional, rate-card)_ | 110% of 168.0M (backoff) |
+| Claude | 184.2M | $1297.09 _(notional, rate-card)_ | 110% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 123139751 tokens/day lower bound._
