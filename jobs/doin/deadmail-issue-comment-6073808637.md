@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-607380863
 @kriscendobot Use `ci.minion.town` for deploys until the billing reset. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T04:31:57Z
