@@ -29,3 +29,13 @@ The only unchecked primary-phase box on the minion.town arc (kriscendobot/garden
 - **Design doc:** add a note to `designs/ertp-credits.md` that the ledger is the interim backend until ERTP v2 lands.
 
 Open a DRAFT PR; the gauntlet follows. When it merges, tick the arc box on kriscendobot/garden#58 and say that ERTP itself stays deferred pending the v2 design.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-09T01:14:52Z
