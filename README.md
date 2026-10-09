@@ -1,23 +1,26 @@
 # Garden bulletin
 
-_As of 2026-10-09T04:08:42Z_
+_As of 2026-10-09T04:11:35Z_
 
 ## Latest
 
-No jobs changed state since the last bulletin, but several items need a maintainer decision.
+No board transitions were recorded since the last bulletin, so the news is in the maintainer inbox.
 
-- **minion.town deploys are blocked by billing.** minion.town delegation has been paused since 01:43Z. The deploy.yml run for the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge failed. The heal job found the merge didn't break anything: the run failed because of the kriscendobot Actions billing block. The job got no runner and ran zero steps. Production still serves the earlier [minion.town#143](https://github.com/kriscendobot/minion.town/issues/143) deploy. Delegation stays paused until a main deploy succeeds. Your options are to resume it by hand and accept undeployed merges, to authorize moving CD onto the ci.minion.town runner, or to wait for the billing reset around 10-30. The ci.minion.town runner's own revalidation passed cleanly.
-- **The garden rolling deploy has stopped.** The deploy of `cf4e33b` halted after the canary host endolin-garden-ece02cb4 failed its probe three times. That host is left drained, and the leader did not advance. `fix-deploy-garden-self-swap-strand` is in progress.
-- **Three orchestrations halted:**
-  - `review-docket-20261008`: its consolidation child failed retries and is held in plan awaiting go-ahead.
-  - `orch-jev-triage-foreman`: `TYPESAFE_API_KEY` is missing and needs to be provisioned.
-  - `orch-minion-town-oauth-bonds`: the build child reported that its required outcome wasn't met.
-- **[endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has stale panel coverage.** Its head moved past the commit the panel reviewed. It needs an explicit `run the gauntlet` request or a review decision that notes the stale coverage.
-- **ocap.site can be transferred from about 19:55Z today.** The DNSSEC DS record is still unpublished at the registrar. You can start the transfer then, or ask Key-Systems to add the DS record.
-- **Other items:**
-  - The oros host is back online.
-  - `fix-sysop-ack-timeout` landed as `96a2b4c`. Once oros has deployed it, someone has to remove a temporary systemd drop-in there by hand.
-  - Claude spend is at 116% of quota, so the fleet is in backoff.
+**Waiting on you**
+- **Rolling deploy halted.** The canary host `endolin-garden-ece02cb4` failed three probe retries at `cf4e33b19a5f`. The canary is left drained and the leader has not advanced. You need to investigate, then either lift the drain and re-trigger, or hold the tip.
+- **minion.town delegation paused.** The merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed its deploy. The heal job found the cause is the kriscendobot Actions billing block, not a production break, so no revert was opened. Delegation stays paused until you do one of three things:
+  - resume it by hand;
+  - authorize moving CD onto `ci.minion.town` (that runner was separately re-verified healthy);
+  - wait for the billing reset, expected around 10-30.
+- **Review docket orchestration halted.** It finished 2 of 3 steps. Its last step, `review-docket-consolidate-20261008`, failed twice and is held in plan. It needs splitting or a promote.
+- **OAuth-bonds build halted.** The `orch-minion-town-oauth-bonds` orchestration stopped because its build step reported that its required outcome was not met.
+- **Jev triage trial blocked.** It needs `TYPESAFE_API_KEY` provisioned. Its integrate step is parked behind it.
+- **ocap.site transfer.** The domain becomes transferable after about 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published. You decide whether to start the transfer or ask the registrar to add the DS.
+- **Stale panel review.** The last panel review of [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) covers an older head, not the current one. Its re-review needs your explicit "run the gauntlet".
+
+**Done, with one manual step:** `fix-sysop-ack-timeout` landed as `96a2b4c6141`. Once that commit deploys on `oros-studio-garden-ce242c49`, the temporary drop-in there must be removed by hand.
+
+Claude spend is at 116% of quota and running on backoff.
 
 ## Maintainer review docket
 
@@ -440,7 +443,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 194.5M | $1365.81 _(notional, rate-card)_ | 116% of 168.0M (backoff) |
+| Claude | 194.6M | $1366.61 _(notional, rate-card)_ | 116% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128003644 tokens/day lower bound._
@@ -555,4 +558,4 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 4 monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 5 monks
