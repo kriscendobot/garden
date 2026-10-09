@@ -29,3 +29,13 @@ Evidence: the systemd journal on oros-studio for 2026-10-02 05:31–05:39Z; .gar
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-09T04:53:30Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-09T06:18:08Z
