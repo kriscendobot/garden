@@ -1,0 +1,20 @@
+{
+  "base": "main",
+  "ci": [
+    "https://github.com/kriscendobot/minion.town/actions/runs/37907328879/job/113743839343",
+    "https://github.com/kriscendobot/minion.town/actions/runs/37907328879/job/113743839710",
+    "https://github.com/kriscendobot/minion.town/actions/runs/37907328879/job/113743839919"
+  ],
+  "deploy_run": 37905948034,
+  "deploy_url": "https://github.com/kriscendobot/minion.town/actions/runs/37905948034",
+  "gauntlet": "jobs/tada/2026/10/08/kriscendobot-minion.town-pr122-gauntlet-20261008.md",
+  "head": "a60151524cb1e59fa52677673c982eec8f7a1d45",
+  "heal": null,
+  "heartbeat_at": "2026-10-09T09:54:01Z",
+  "panel_head": "30df78718a4a67901f1e8d35d854b5456e4164ca",
+  "panel_match": "rebase",
+  "pull_request": 122,
+  "repository": "kriscendobot/minion.town",
+  "schema": 2,
+  "screened_at": "2026-10-09T09:56:49Z"
+}
