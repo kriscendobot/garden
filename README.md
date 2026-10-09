@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T18:59:30Z_
+_As of 2026-10-09T19:02:55Z_
 
 ## Latest
 
@@ -328,6 +328,16 @@ Delegation: **active**
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=3558506 cap=180000000 pace-bias=0.423764 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=4 backoff=0.6781(ramp) target=4
 
+- `msg-claude-on-minion-town-completion-press-20261009-182008-d5f099a2b621` — from gardener:claude-on-minion-town-completion-press-20261009-182008, reply_to `claude-on-minion-town-completion-press-20261009-182008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261009-182008-d5f099a2b621.md)
+
+> completion press (claude-on-minion.town arc [https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89)): two arc jobs are claimable in todo but nothing is claiming them.
+>
+> 1. resume-minion-town-pr166-pr171-gauntlets-20261009: unclaimed since 18:15Z. It is pinned `requires: host=endolin-garden-ece02cb4`, and that host's only monk pool (claude-endolin1) has been declining claims at budget high-water since 17:32Z. The watchdog notice at 18:32Z said it is unclaimable; this is the reason. It blocks the production probes [https://github.com/kriscendobot/minion.town/pull/166](https://github.com/kriscendobot/minion.town/pull/166) and [https://github.com/kriscendobot/minion.town/pull/171](https://github.com/kriscendobot/minion.town/pull/171), which are stuck at review-budget-reached; 171 is the pinned-Claude-harness validation for the arc. To unblock it, raise endolin1's pool ceiling, or re-pin the job to a host whose gauntlet journal clone works. (It was pinned away from oros because the gauntlet clone reset times out there.) Minor: the job body has a second frontmatter block, so `role:` sits outside the first block.
+>
+> 2. minion-town-arc-press-20261009-142016: unclaimed for 4h35m. The later dispatch, 173508, was claimed and completed ahead of it, so it is effectively superseded and is just occupying todo. It is your call whether to withdraw it; I have not touched it.
+>
+> Nothing doomed, no refusals, and 5 arc jobs completed cleanly this window.
+
 - `doomed-review-docket-consolidate-20261008-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-review-docket-consolidate-20261008-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden2-5bcdff64.
@@ -561,7 +571,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 209.0M | $1463.33 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 129411397 tokens/day lower bound._
+_Fleet token-unlock pace: 129411468 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
