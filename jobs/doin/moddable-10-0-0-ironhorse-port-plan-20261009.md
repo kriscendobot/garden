@@ -43,3 +43,13 @@ Release items that look engine-relevant (verify each against the actual commits;
 - Out of scope unless shown otherwise: ECMA-419 / device / Piu / board / TypeScript typing / xsdb changes.
 
 Deliverable: a design/plan (per designer role) that (1) classifies each item as already-conformant, needs-port, not-applicable, or Temporal/host-excluded, with evidence from the IronHorse code and test262 expectations; (2) lists the resulting port work as sized, ordered child jobs, with the recommended orchestration shape (skills/orchestration); (3) flags any item that changes the oracle xst version or the ratchet baseline. Do not start the ports; post the plan and park children per the standing multi-part pattern.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-09T22:44:16Z
