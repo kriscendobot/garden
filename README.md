@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T09:53:48Z_
+_As of 2026-10-09T10:00:04Z_
 
 ## Latest
 
@@ -27,6 +25,7 @@ No board transitions were recorded since the last bulletin, but several items ne
 
 Delegation: **active**
 
+- 2026-10-09T09:56:49Z [#122](https://github.com/kriscendobot/minion.town/pull/122) `a60151524cb` screened
 - 2026-10-09T08:46:29Z [#122](https://github.com/kriscendobot/minion.town/pull/122) `4299bc0c417` screened
 - 2026-10-09T01:10:53Z [#169](https://github.com/kriscendobot/minion.town/pull/169) merged `39867df7874`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/37868510874) — failed
 - 2026-10-08T22:33:54Z [#169](https://github.com/kriscendobot/minion.town/pull/169) `2552040f2b9` screened
@@ -491,10 +490,6 @@ Delegation: **active**
 > the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 > design's `## Open questions`.
 
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261009-093509` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261009-093509.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261009-093509' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #26 (first seen 2026-10-09T06:59:03Z, latest 2026-10-09T09:17:09Z).
@@ -530,11 +525,13 @@ _Fleet token-unlock pace: 128600182 tokens/day lower bound._
 worst fetch p95 5.623910s/45s (/home/kris/garden2/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (12)
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`oros-health-watch-20261009-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-093509.md) — ---
+- [`canary-probe-endolin-garden-ece02cb4-fad05c578989-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-fad05c578989-r1.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ fad05c578989
 - [`claude-on-minion-town-press-20261009-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-093509.md) — Press the Claude-on-minion.town arc forward
+- [`screen-minion-town-pr122-a601515-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr122-a601515-conduct.md) — Screened delegated merge: kriscendobot/minion.town#122 at a60151524cb1e59fa52...
 - [`canary-probe-endolin-garden-ece02cb4-fad05c578989`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-fad05c578989.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ fad05c578989
 - [`kriscendobot-minion.town-pr171-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr171-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #171
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1433
