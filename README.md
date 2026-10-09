@@ -1,18 +1,18 @@
 # Garden bulletin
 
-_As of 2026-10-09T00:46:36Z_
+_As of 2026-10-09T00:52:59Z_
 
 ## Latest
 
-The gauntlets kept cycling on two PRs. [endo-but-for-bots#1433](https://github.com/endojs/endo-but-for-bots/pull/1433) finished panel round 2 and is queued for fix round 2. [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) finished panel round 6 and has moved to fix round 6, so it is not converging. Gardeners claimed panel round 3 for [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and the `fix-sysop-ack-timeout` repair. The oros-studio host is back online and has its worker caps restored. Several items in the inbox need a maintainer decision:
+**fix-sysop-ack-timeout** has completed and landed on `main2` as `96a2b4c6141`. The sysop now spools and acks right after it applies an op, and budget-level no longer re-sends a duplicate unacked `set-workers`. One manual step remains: after oros-studio-garden-ce242c49 deploys that commit, someone at that host must remove the temporary `zz-liaison-temp-timeout.conf` sysop drop-in, because no sysop op can do it remotely. Oros itself came back after a roughly four-hour heartbeat outage, and its watchdogs cleared at 00:35Z. On the board, round 6 of the fix stage for [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) was claimed. A new job was posted to replace the PR body of [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) as a handoff from its fix-5 round.
 
-- **Review docket stalled at 2 of 3 steps.** The reaper doomed the consolidation step, which is held in plan. Until someone promotes or splits it, the 26 auto-cleared review requests are not on the docket and the "docket live" message has not been sent.
-- **minion.town OAuth-bonds orchestration halted.** Its build step reported that its required outcome was not met.
-- **Jev triage trial blocked.** `TYPESAFE_API_KEY` is missing from the job environment.
-- **ERTP charge decision.** The minion.town arc needs a yes or no: build ERTP Phase 1 now, or keep it deferred.
-- **ocap.site transfer.** The domain becomes transferable around 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published.
+Three orchestrations have halted and need a maintainer decision:
 
-Claude spend is at 111% of quota, and the fleet is backing off.
+- **Review docket:** the consolidation step is held in plan after its retries ran out, so the promised docket-live message has not been sent.
+- **Jev triage/foreman trial:** it is blocked because `TYPESAFE_API_KEY` is not available to the job.
+- **minion.town OAuth bonds:** the build declared its gated outcome unsatisfied.
+
+Two decisions also have deadlines or open choices. The ocap.site registrar transfer window opens around 19:55Z today, and DNSSEC stays broken until either the transfer happens or the current registrar publishes the DS record. Separately, a gardener asks whether to build the ERTP credits Phase 1 now or treat the minion.town primary phase as complete apart from the charge. Claude spend is at 111% of quota and is in backoff.
 
 ## Maintainer review docket
 
@@ -85,6 +85,12 @@ Delegation: **active**
 > detail: completed but declared its gated outcome unsatisfied
 >
 > Orchestration orch-jev-triage-foreman observed child trial-jev-triage-foreman-classification: completed but declared its gated outcome unsatisfied.
+
+- `msg-fix-sysop-ack-timeout-1a94daae1257` — from gardener:fix-sysop-ack-timeout, reply_to `fix-sysop-ack-timeout` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fix-sysop-ack-timeout-1a94daae1257.md)
+
+> fix-sysop-ack-timeout landed on main2 as 96a2b4c6141 (the sysop spools and marks seen right after apply, writes records in one batch per tick, bounds restore's steps; budget-level skips re-sending a duplicate unacked set-workers). Remaining manual step, which can't be done from endolin: once oros-studio-garden-ce242c49 has deployed 96a2b4c6141, remove the temporary drop-in there:
+>   rm ~/.config/systemd/user/garden-sysop.service.d/zz-liaison-temp-timeout.conf && systemctl --user daemon-reload
+> The sysop vocabulary has no op that can remove it remotely.
 
 - `review-docket-20261008-child-review-docket-consolidate-20261008-failed` — from orchestrator:review-docket-20261008-child-review-docket-consolidate-20261008-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-child-review-docket-consolidate-20261008-failed.md)
 
@@ -355,10 +361,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 185.8M | $1307.26 _(notional, rate-card)_ | 111% of 168.0M (backoff) |
+| Claude | 186.2M | $1309.87 _(notional, rate-card)_ | 111% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 127575301 tokens/day lower bound._
+_Fleet token-unlock pace: 127769381 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
@@ -366,7 +372,7 @@ worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/jour
 ## Board
 ### todo (11)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
-- [`kriscendobot-minion.town-pr170-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr170-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #170
+- [`endojs-endo-but-for-bots-pr1379-fix-5-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-fix-5-pr-body.md) — Replace the PR body of endojs/endo-but-for-bots#1379 (handoff from fix-5)
 - [`screen-minion-town-pr169-2552040-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr169-2552040-conduct.md) — Screened delegated merge: kriscendobot/minion.town#169 at 2552040f2b936f83eb2...
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
 - [`claude-on-minion-town-press-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-203525.md) — Press the Claude-on-minion.town arc forward
@@ -378,19 +384,19 @@ worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/jour
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #153
 
 ### doin (5)
-- [`fix-sysop-ack-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-sysop-ack-timeout.md) — Fix: sysop applies ops but its ack/record write can't finish within SELF_HEAL...
+- [`kriscendobot-minion.town-pr170-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr170-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #170
 - [`fix-deploy-garden-self-swap-strand`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-deploy-garden-self-swap-strand.md) — Fix: deploy-garden.sh crashes after swapping in its own replacement and stran...
 - [`kriscendobot-minion.town-pr171-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr171-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #171
 - [`kriscendobot-minion.town-pr166-gauntlet-20261008-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-20261008-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #166
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 
-### tada (11881)
+### tada (11882)
+- [`fix-sysop-ack-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/fix-sysop-ack-timeout.md) — Cost
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr1433-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr170-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr170-gauntlet-panel-6.md) — Cost
 - [`oros-health-watch-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/oros-health-watch-20261008-235012.md) — Cost
 - [`claude-on-minion-town-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-press-20261008-235012.md) — Cost
-- [`claude-on-minion-town-completion-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-completion-press-20261008-235012.md) — Cost
-- … and 11876 more
+- … and 11877 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
