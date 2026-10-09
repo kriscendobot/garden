@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-10-09T07:10:30Z","base":"kriscendobot-minion.town-pr174-gauntlet-clean","host":"oros-studio-garden-ce242c49","outcome":"requeue","elapsed_s":916,"role":"gardener","arc":"minion-town-mcp-ocapn","provider":"anthropic"}
