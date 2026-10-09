@@ -1,23 +1,20 @@
 # Garden bulletin
 
-_As of 2026-10-09T04:34:36Z_
+_As of 2026-10-09T04:37:12Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin. The only change is that a gardener claimed the late issue-comment follow-up (`deadmail-issue-comment-6073808637`).
+Only one job changed state since the last bulletin: a gardener claimed the Claude-on-minion.town arc press (`claude-on-minion-town-press-20261009-030509`). Several items need a maintainer decision:
 
-Several standing items need a maintainer decision:
-
-- **Rolling deploy halted.** The deploy of `cf4e33b19a5f` stopped after the canary on endolin-garden-ece02cb4 failed its probe three times in a row. That host is still drained and the leader has not advanced. Someone has to investigate, then either lift the drain and re-trigger or hold the tip.
-- **minion.town delegation still paused.** The pause started after the deploy for [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed. The heal job found that production is fine: the failure was the kriscendobot Actions billing block, not a bad merge. The delegation stays paused until one of three things happens:
-  - someone resumes it by hand,
-  - continuous deployment (CD) is authorized to move onto the ci.minion.town runner,
-  - the billing reset arrives, around Oct 30.
+- **Garden deploy is halted.** The rolling deploy of `cf4e33b19a5` stopped after its canary failed three times on `endolin-garden-ece02cb4`. The probe never completed, which suggests a real regression in claiming jobs. That host is still drained, and the leader has not advanced.
+- **minion.town delegation is paused.** The deploy after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged failed, but the heal job found that kriscendobot's GitHub Actions billing block caused it, not the code. Production is unharmed and #169 is simply undeployed. Delegation stays paused until the billing reset (around 10-30) unless you resume it by hand or authorize moving deploys onto the ci.minion.town runner.
 - **Three orchestrations halted:**
-  - The review-docket consolidation child is parked in plan and needs a promote or a split.
-  - The Jev triage trial is blocked on the missing `TYPESAFE_API_KEY`.
-  - `orch-minion-town-oauth-bonds` stopped after its build declared its outcome unsatisfied.
-- **ocap.site:** it becomes eligible for transfer around 19:55Z today, which would let its DNSSEC chain of trust be completed.
+  - `orch-minion-town-oauth-bonds`: its build step reported its required outcome as unmet.
+  - `orch-jev-triage-foreman`: blocked because `TYPESAFE_API_KEY` is missing.
+  - `review-docket-20261008`: its final consolidation step is parked in the plan queue and needs promoting or splitting.
+- **Stale review:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has moved past the head its review panel covered.
+- **ocap.site:** the domain can be transferred from about 2026-10-09 19:55Z. DNSSEC stays broken until the DS record is published, either after the transfer or by the current registrar.
+- **Manual cleanup on oros:** once `oros-studio-garden-ce242c49` has deployed `96a2b4c6141`, remove the temporary sysop drop-in there by hand.
 
 ## Maintainer review docket
 
@@ -444,7 +441,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 195.7M | $1373.86 _(notional, rate-card)_ | 116% of 168.0M (backoff) |
+| Claude | 195.7M | $1374.25 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128107225 tokens/day lower bound._
@@ -453,8 +450,7 @@ _Fleet token-unlock pace: 128107225 tokens/day lower bound._
 worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (19)
-- [`claude-on-minion-town-press-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-030509.md) — Press the Claude-on-minion.town arc forward
+### todo (18)
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
 - [`oros-health-watch-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-030509.md) — ---
 - [`gauntlet-early-termination-unaddressed-must-fix-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-early-termination-unaddressed-must-fix-summary.md) — Gauntlet early termination: summarize the unaddressed must-fix requests for a...
@@ -474,7 +470,8 @@ worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delega
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ cf4e33b19a5f
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
 
-### doin (2)
+### doin (3)
+- [`claude-on-minion-town-press-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261009-030509.md) — Press the Claude-on-minion.town arc forward
 - [`deadmail-issue-comment-6073808637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-6073808637.md) — Issue follow-up — fold a late comment into the issue work
 - [`fix-deploy-garden-self-swap-strand`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-deploy-garden-self-swap-strand.md) — Fix: deploy-garden.sh crashes after swapping in its own replacement and stran...
 
