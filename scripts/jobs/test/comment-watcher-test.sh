@@ -2055,7 +2055,7 @@ EOF
   # (c) the probe's headroom pays for 3 PRs: exactly 3 are polled, concurrency
   #     never exceeds 3, and the unpolled remainder freezes the cursor.
   GHQF="$TR/gh-quota-fanout"; mkdir -p "$GHQF"
-  QF_CALLS="$TR/qf.calls"; QF_LOCK="$TR/qf-counter"
+  QF_CALLS="$TR/qf.calls"; QF_REFUSALS="$TR/qf.refusals"; QF_LOCK="$TR/qf-counter"
   QF_ACTIVE="$TR/qf.active"; QF_MAX="$TR/qf.max"
   cat > "$GHQF/gh" <<'EOF'
 #!/bin/bash
@@ -2085,16 +2085,18 @@ lock; a=$(( $(cat "$QF_ACTIVE") + 1 )); echo "$a" >"$QF_ACTIVE"
 sleep 0.1
 lock; echo $(( $(cat "$QF_ACTIVE") - 1 )) >"$QF_ACTIVE"; unlock
 if [ "${QF_REFUSE:-0}" = 1 ]; then
+  printf 'refused\n' >> "${QF_REFUSALS:?}"
   echo "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" >&2; exit 1
 fi
 printf '[]\n'
 EOF
   chmod +x "$GHQF/gh"
   qf_run() { # qf_run <tag> <remaining> <worker-refuse> [probe-refuse]
-    : >"$QF_CALLS"; echo 0 >"$QF_ACTIVE"; echo 0 >"$QF_MAX"
+    : >"$QF_CALLS"; : >"$QF_REFUSALS"; echo 0 >"$QF_ACTIVE"; echo 0 >"$QF_MAX"
     set +e
     env PATH="$GHQF:$PATH" QF_CALLS="$QF_CALLS" QF_LOCK="$QF_LOCK" \
-      QF_ACTIVE="$QF_ACTIVE" QF_MAX="$QF_MAX" QF_REMAINING="$2" QF_REFUSE="$3" \
+      QF_ACTIVE="$QF_ACTIVE" QF_MAX="$QF_MAX" QF_REFUSALS="$QF_REFUSALS" \
+      QF_REMAINING="$2" QF_REFUSE="$3" \
       QF_PROBE_REFUSE="${4:-0}" \
       GARDEN_COMMENT_REVIEW_CONCURRENCY=8 GARDEN_COMMENT_REVIEW_QUOTA_RESERVE=100 \
       GARDEN_GH_API_ATTEMPTS=1 GARDEN_API_COOLDOWN_SECS=300 \
@@ -2107,9 +2109,10 @@ EOF
   }
   qf_run stale 4000 1
   [ "$qf_rc" -eq 75 ] && [ "$(wc -l < "$QF_CALLS")" -eq 1 ] \
+    && [ "$(wc -l < "$QF_REFUSALS")" -eq 1 ] \
     && grep -q primary-quota "$TR/state-qf-stale/gh-api-cooldown/marker" 2>/dev/null \
-    && ok "a quota refusal bounds the eight-worker burst to one refused request, then latches" \
-    || bad "quota refusal burst not bounded (rc=$qf_rc calls=$(wc -l < "$QF_CALLS")): $(cat "$QF_CALLS") $(cat "$TR/qf-stale.err")"
+    && ok "the synchronous canary permits exactly one refused request, then latches before peers launch" \
+    || bad "quota refusal burst not bounded (rc=$qf_rc calls=$(wc -l < "$QF_CALLS") refusals=$(wc -l < "$QF_REFUSALS")): $(cat "$QF_CALLS") $(cat "$TR/qf-stale.err")"
   qf_run probe-refused 4000 0 1
   [ "$qf_rc" -eq 75 ] && [ ! -s "$QF_CALLS" ] \
     && grep -q primary-quota "$TR/state-qf-probe-refused/gh-api-cooldown/marker" 2>/dev/null \

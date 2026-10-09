@@ -385,8 +385,14 @@ fetch_pr_review_metadata() { # fetch_pr_review_metadata <sequence> <pr-number>
   fi
   if [ -s "$prefix.comments.err" ] && is_gh_primary_rate_limit_text "$(cat "$prefix.comments.err")"; then
     : >"$review_tmp/primary-quota"
-    return 0
+    : >"$review_tmp/cancel-workers"
+    return "${GARDEN_TRANSIENT_RC:-75}"
   fi
+
+  # Another worker in this bounded group may have learned that the shared quota
+  # is exhausted while this request was in flight. Do not start this PR's second
+  # metadata request after that evidence exists.
+  [ ! -e "$review_tmp/cancel-workers" ] || return "${GARDEN_TRANSIENT_RC:-75}"
 
   raw="$prefix.reviews.json"
   if gh_api_retry --paginate "repos/$repo/pulls/$n/reviews?per_page=100" >"$raw" 2>"$prefix.reviews.err"; then
@@ -408,8 +414,11 @@ fetch_pr_review_metadata() { # fetch_pr_review_metadata <sequence> <pr-number>
   fi
   if [ -s "$prefix.reviews.err" ] && is_gh_primary_rate_limit_text "$(cat "$prefix.reviews.err")"; then
     : >"$review_tmp/primary-quota"
-    return 0
+    : >"$review_tmp/cancel-workers"
+    return "${GARDEN_TRANSIENT_RC:-75}"
   fi
+
+  [ ! -e "$review_tmp/cancel-workers" ] || return "${GARDEN_TRANSIENT_RC:-75}"
 
   # On an Issues-disabled fork, preserve the PR-conversation surface in the same
   # bounded worker. This is a third call only in that explicit degraded mode.
@@ -424,16 +433,32 @@ fetch_pr_review_metadata() { # fetch_pr_review_metadata <sequence> <pr-number>
     fi
     if [ -s "$prefix.issue-comments.err" ] && is_gh_primary_rate_limit_text "$(cat "$prefix.issue-comments.err")"; then
       : >"$review_tmp/primary-quota"
+      : >"$review_tmp/cancel-workers"
+      return "${GARDEN_TRANSIENT_RC:-75}"
     fi
   fi
   return 0
 }
 
 review_pids=()
+cancel_review_workers() {
+  local pid
+  # These workers are speculative metadata reads. Once one reports primary-quota
+  # evidence, stop every later worker instead of waiting for the rest of the batch
+  # to walk into the same exhausted bucket.
+  for pid in "${review_pids[@]}"; do kill "$pid" 2>/dev/null || true; done
+  for pid in "${review_pids[@]}"; do wait "$pid" 2>/dev/null || true; done
+  review_pids=()
+}
 wait_oldest_review_worker() {
-  local pid="${review_pids[0]}"
-  wait "$pid" || true
+  local pid="${review_pids[0]}" rc=0
+  wait "$pid" || rc=$?
   review_pids=("${review_pids[@]:1}")
+  if [ -e "$review_tmp/cancel-workers" ]; then
+    cancel_review_workers
+    return "${GARDEN_TRANSIENT_RC:-75}"
+  fi
+  return "$rc"
 }
 
 # gh_api_retry normally single-flights each request under the host cooldown lock.
@@ -470,10 +495,11 @@ fi
 #      reserve can pay for (2 calls per PR, 3 in issues-disabled mode). A walk
 #      that would need more PRs than that stops admitting, freezes the cursor, and
 #      opens the cooldown instead of spending the quota down to a refusal.
-#   2. The FIRST worker always runs alone (a canary). Peers start only after it
-#      returns without a primary-quota refusal, so a quota the probe could not see
-#      (unknown remaining, or spent by another host since the probe) costs one
-#      refused request, not a whole concurrent batch.
+#   2. The FIRST PR runs synchronously in the parent as a canary. The parent
+#      classifies its result before it can start any peers, so a quota the probe
+#      could not see (unknown remaining, or spent by another host since the probe)
+#      costs one refused request, not a whole concurrent batch. Primary-quota
+#      evidence found later cancels the rest of that bounded batch.
 : "${GARDEN_COMMENT_REVIEW_QUOTA_RESERVE:=100}"
 case "$GARDEN_COMMENT_REVIEW_QUOTA_RESERVE" in
   ''|*[!0-9]*) GARDEN_COMMENT_REVIEW_QUOTA_RESERVE=100 ;;
@@ -548,19 +574,40 @@ while IFS=$'\t' read -r n updated; do
     break
   fi
   scanned=$((scanned+1))
-  if [ -n "$review_group_admitted" ]; then
+  if [ "$scanned" -eq 1 ]; then
+    # Run the canary in the parent, not as a background job. Its return status and
+    # primary-quota marker are therefore classified before the loop can launch a
+    # single peer. The former background+wait shape depended on a child side effect
+    # for control flow and released eight peers in the 2026-10-09T00:39:30Z tick.
+    review_canary_rc=0
+    if [ -n "$review_group_admitted" ]; then
+      _GARDEN_GH_API_ADMITTED=1 fetch_pr_review_metadata "$scanned" "$n" || review_canary_rc=$?
+    else
+      fetch_pr_review_metadata "$scanned" "$n" || review_canary_rc=$?
+    fi
+    if [ "$review_canary_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ] \
+        || [ -e "$review_tmp/primary-quota" ]; then
+      review_quota_guard_trip "synchronous canary found GitHub primary quota; issuing no later review-metadata request"
+      break
+    fi
+  elif [ -n "$review_group_admitted" ]; then
     _GARDEN_GH_API_ADMITTED=1 fetch_pr_review_metadata "$scanned" "$n" &
+    review_pids+=("$!")
   else
     fetch_pr_review_metadata "$scanned" "$n" &
+    review_pids+=("$!")
   fi
-  review_pids+=("$!")
-  # Canary: the first worker runs alone, so an exhausted quota is learned from one
-  # refused request before any peer is launched.
-  if [ "$scanned" -eq 1 ] || [ "${#review_pids[@]}" -ge "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
-    wait_oldest_review_worker
+  if [ "${#review_pids[@]}" -ge "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
+    review_wait_rc=0
+    wait_oldest_review_worker || review_wait_rc=$?
+    [ "$review_wait_rc" -ne "${GARDEN_TRANSIENT_RC:-75}" ] || break
   fi
 done <<< "$open_prs"
-while [ "${#review_pids[@]}" -gt 0 ]; do wait_oldest_review_worker; done
+while [ "${#review_pids[@]}" -gt 0 ]; do
+  review_wait_rc=0
+  wait_oldest_review_worker || review_wait_rc=$?
+  [ "$review_wait_rc" -ne "${GARDEN_TRANSIENT_RC:-75}" ] || break
+done
 
 # Harvest in source-list order for deterministic fixtures and diagnostics. A
 # worker's failure makes the whole tick nonzero at the tail, preserving the
