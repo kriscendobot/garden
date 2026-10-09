@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1433
 build_job: design-endo-formula-identifier-indirection
 kind: feature
-stage: fix
-iteration: 3
+stage: panel
+iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1433-gauntlet-fix-3
+current_child: endojs-endo-but-for-bots-pr1433-gauntlet-panel-4
 state: running
 created_by: producer
 created_at: 2026-10-08T19:25:40Z
