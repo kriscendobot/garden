@@ -1,12 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T05:57:25Z_
+_As of 2026-10-09T06:00:49Z_
 
 ## Latest
 
-The only board change since the last bulletin is a new rolling-deploy canary probe for endolin-garden-ece02cb4 at `b46afcb258a8`; it joins three probes still queued at `cf4e33b19a5f`, even though that host's earlier canary-failed page has cleared. The minion.town delegation is still paused after the deploy of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed. That failure came from the Actions billing block, not from a production break. It needs a maintainer decision: resume the delegation by hand, authorize moving CD onto ci.minion.town, or wait for the billing reset. A `build-minion-town-deploy-on-ci-runner-20261009` job is already queued.
+The board barely moved since the last bulletin: the only change is progress on the round-2 fix stage for [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94). The main thing to watch is the minion.town delegation, which is paused. The screener paused it after the deploy of merged [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed. The heal job found that the merge did not break production. The deploy failed because the kriscendobot Actions billing block left it with no runner. Production still serves the earlier deploy, and #169 has simply not been deployed yet. The delegation will stay paused until a main deploy succeeds. That means waiting for the billing reset (expected around 10-30), resuming the delegation by hand, or authorizing a move of the production deploy onto the ci.minion.town runner. A build job for that move is already on the board.
+
+Three orchestrations have halted and need a decision from you:
+- **Review docket:** the consolidation step was retried until it ran out of attempts and is now parked.
+- **Jev triage:** the trial is blocked until `TYPESAFE_API_KEY` is provisioned.
+- **minion.town OAuth bonds:** the build step finished but reported its required outcome as not met.
+
+Two other items are waiting on you:
+- The ocap.site domain becomes eligible for transfer around 19:55Z today. The registrar still hasn't published the DS record, so the DNSSEC chain of trust remains broken until the transfer completes or the registrar adds it.
+- Oros still needs a manual removal of a temporary sysop drop-in once it has deployed `96a2b4c6141`.
 
 ## Maintainer review docket
 
@@ -122,6 +129,10 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/bulletin/journal: p95=1.915710s max=45.001159s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -431,19 +442,23 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 > the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 > design's `## Open questions`.
 
+- `watchdog-journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_reaper_journal.md)
+
+> Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/reaper/journal: attempts p95=3.000000 max=3.000000 (cap 50), classes cas=2 server-reject=0 definite-fail=0.
+
 
 ## Spend & quota
 _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 198.3M | $1391.09 _(notional, rate-card)_ | 118% of 168.0M (backoff) |
+| Claude | 198.5M | $1392.28 _(notional, rate-card)_ | 118% of 168.0M (backoff) |
 | Codex | 19.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128798952 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
+worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delegation/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (18)
@@ -473,11 +488,11 @@ worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delega
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 
 ### tada (11907)
-- [`improve-comment-source-primary-quota-cancellation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/improve-comment-source-primary-quota-cancellation.md) — Cost
-- [`endojs-endo-but-for-bots-pr541-8712f0b1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/endojs-endo-but-for-bots-pr541-8712f0b1.md) — Cost
-- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2.md) — Cost
-- [`claude-on-minion-town-press-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-press-20261009-030509.md) — Cost
-- [`deadmail-issue-comment-6073808637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/deadmail-issue-comment-6073808637.md) — Cost
+- [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r1.md) — rolling-deploy canary probe — round trip OK
+- [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r2.md) — rolling-deploy canary probe — round trip OK
+- [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-9affc0d62c74-r3.md) — rolling-deploy canary probe — round trip OK
+- [`canary-probe-endolin-garden-ece02cb4-9affc0d62c74`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/canary-probe-endolin-garden-ece02cb4-9affc0d62c74.md) — rolling-deploy canary probe — round trip OK
+- [`claude-on-minion-town-completion-press-20261008-235012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-completion-press-20261008-235012.md) — Cost
 - … and 11902 more
 
 ## Plan queue (parked — not claimable until promoted)
