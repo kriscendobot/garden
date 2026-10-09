@@ -1,15 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-09T04:59:15Z_
+_As of 2026-10-09T05:01:03Z_
 
 ## Latest
 
-No job-board transitions resolved since the last bulletin, so the news is in the inbox. The rolling deploy is **halted**: canary `endolin-garden-ece02cb4` failed its probe at `cf4e33b19a5f` on all three automatic retries. That host is left drained and the leader has not advanced, so it needs a decision to investigate, lift and re-trigger, or hold the tip. minion.town delegation is still **paused** after the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge's deploy.yml failure. The heal job found no production break: the deploy got no runner because of the kriscendobot Actions billing block, and minion.town is still serving the previous deploy. The heal job offered three options: resume by hand, move CD onto ci.minion.town, or wait for the ~10-30 billing reset. A `build-minion-town-deploy-on-ci-runner-20261009` job is now on the board, and it corresponds to the ci.minion.town option. Three orchestrations halted:
-- `review-docket-20261008`: its consolidation child exhausted its retries and is held in plan awaiting go-ahead.
-- `orch-jev-triage-foreman`: the trial lacks `TYPESAFE_API_KEY`, which the maintainer must provision.
-- `orch-minion-town-oauth-bonds`: the build child declared its outcome unsatisfied.
-
-Also time-sensitive: the ocap.site registrar transfer window opens around 2026-10-09 19:55Z, and the DS record is still unpublished, so DNSSEC stays broken until you start the transfer or ask Key-Systems to add the DS record. Host `oros-studio-garden-ce242c49` is back in rotation. Claude spend on the leader is in backoff above its quota.
+Little moved on the board: a gardener claimed panel round 2 of the gauntlet for [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94). Three items need the maintainer. First, minion.town delegation is still paused. The merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) did not break production; its deploy failed only because the kriscendobot Actions billing block left it with no runner. Delegation stays paused until you resume it by hand, authorize moving CD onto the ci.minion.town runner (a `build-minion-town-deploy-on-ci-runner-20261009` job is already on the board), or wait for the billing reset at the end of the month. Second, the rolling deploy is halted: the canary on `endolin-garden-ece02cb4` failed its probe three times at `cf4e33b19a5f`, so that host is drained and the leader has not advanced. Third, three orchestrations halted and need a decision: the review docket's consolidation step is held in plan, the Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`, and the minion.town OAuth-bonds build reported its gated outcome as unsatisfied.
 
 ## Maintainer review docket
 
@@ -436,7 +431,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 196.6M | $1379.83 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
+| Claude | 196.6M | $1380.23 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128157484 tokens/day lower bound._
@@ -445,9 +440,8 @@ _Fleet token-unlock pace: 128157484 tokens/day lower bound._
 worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (21)
+### todo (20)
 - [`build-minion-town-deploy-on-ci-runner-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-deploy-on-ci-runner-20261009.md) — Move minion.town CD (deploy.yml) onto the ci.minion.town runner during the bi...
-- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
 - [`oros-health-watch-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-030509.md) — ---
 - [`gauntlet-early-termination-unaddressed-must-fix-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-early-termination-unaddressed-must-fix-summary.md) — Gauntlet early termination: summarize the unaddressed must-fix requests for a...
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ cf4e33b19a5f
@@ -468,8 +462,8 @@ worst fetch p95 4.333252s/45s (/home/kris/garden2/.garden-state/screening-delega
 - [`canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden-ece02cb4-cf4e33b19a5f-r1.md) — rolling-deploy canary probe for endolin-garden-ece02cb4 @ cf4e33b19a5f
 - [`kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-0f485240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #153
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
 
 ### tada (11904)
 - [`claude-on-minion-town-press-20261009-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/claude-on-minion-town-press-20261009-030509.md) — Cost
