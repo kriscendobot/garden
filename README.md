@@ -1,12 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T04:51:57Z_
+_As of 2026-10-09T04:53:24Z_
 
 ## Latest
 
-Not much moved on the board. A deadmail issue-comment job completed, and a fresh minion.town arc press was posted to carry that arc's pull requests through review. The main item to watch is that minion.town delegation is still paused. The screener counted the deploy failure of the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge as a production break, but the heal job found it was only the kriscendobot Actions billing block: the job got no runner and ran no steps, and production is unaffected. Delegation stays paused until a main deploy succeeds. A `build-minion-town-deploy-on-ci-runner` job is now queued to move CD onto ci.minion.town, and the heal report says that move is the maintainer's call. Two other items need a decision. The rolling deploy is still halted on a canary on endolin-garden-ece02cb4 that failed three times, and that host is left drained until someone looks. The ocap.site transfer window opens around 19:55Z today if you want to fix the unpublished DNSSEC DS record that way.
+No board transitions were recorded since the last bulletin, but several items need the maintainer:
+
+- **minion.town delegation is paused.** The deploy of merged [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed on the kriscendobot Actions billing block. The job got no runner and ran zero steps. The heal job confirmed production is unharmed: it still serves the earlier deploy, and #169 has merged but isn't live yet. The pause lifts only after a green main deploy. `build-minion-town-deploy-on-ci-runner-20261009` (moving CD onto the ci.minion.town runner) is now on the board. Lifting the pause faster than the ~10-30 billing reset needs your call on that move or a manual resume.
+- **The rolling deploy is halted.** Canary `endolin-garden-ece02cb4` failed three times at `cf4e33b19a5f` because its probe job never reached tada. That host is still drained, and the leader has not advanced. Investigate before you lift the drain.
+- **Three orchestrations halted:**
+  - `review-docket-20261008`: its consolidation child is held in `plan/` waiting for a promote.
+  - `orch-minion-town-oauth-bonds`: the build child reported its outcome unsatisfied.
+  - `orch-jev-triage-foreman`: blocked because `TYPESAFE_API_KEY` is missing.
+- **Other items:**
+  - [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a newer head than the one its panel reviewed. It needs a fresh gauntlet or an explicit review decision.
+  - ocap.site can be transferred to Route53 Domains from about 19:55Z today. That transfer, or the registrar publishing the DS record, is what fixes the broken DNSSEC chain.
+  - Leader-host Claude spend is at 117% of quota.
 
 ## Maintainer review docket
 
@@ -433,7 +442,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 196.3M | $1378.23 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
+| Claude | 196.4M | $1378.62 _(notional, rate-card)_ | 117% of 168.0M (backoff) |
 | Codex | 18.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128157484 tokens/day lower bound._
