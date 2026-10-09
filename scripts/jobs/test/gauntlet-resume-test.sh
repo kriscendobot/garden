@@ -103,6 +103,27 @@ cat >"$SEED/jobs/tada/2026/01/01/g-billing-fix-3.md" <<'EOF'
 Fix pushed; ci-wait-merge.sh exited 5 (CI BILLING-BLOCKED).
 <!-- gauntlet-stage-result: fix=ci-billing-blocked -->
 EOF
+cat >"$SEED/jobs/tada/2026/01/01/g-budget.md" <<'EOF'
+gauntlet-status: review-budget-reached
+pr: https://github.com/testowner/testrepo/pull/44
+repo: testowner/testrepo
+pr_number: 44
+build_job: build-44
+kind: feature
+stage: fix
+iteration: 3
+max_iterations: 3
+resumes: 1
+max_resumes: 6
+stage_retries: 0
+max_stage_retries: 2
+created_by: test
+created_at: 2026-01-01T00:00:00Z
+arc: 
+# gauntlet g-budget — review budget reached
+
+Applied 3 panel/fix round(s).
+EOF
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m seed
 git -C "$SEED" remote add origin "$BARE"
@@ -212,6 +233,39 @@ if "$JOBS/gauntlet.sh" --resume-from-stage g-billing fix --iteration 3 >"$TR/bil
   fi
 else
   bad "billing-parked gauntlet refused to resume: $(cat "$TR/billing-resume.log")"
+fi
+
+# --add-rounds: a review-budget-reached report needs more budget to resume, and
+# --add-rounds raises max_iterations while resuming at the next panel round.
+if "$JOBS/gauntlet.sh" --resume-from-stage g-budget panel >"$TR/budget-noadd.log" 2>&1; then
+  bad "review-budget-reached resumed without --add-rounds"
+else
+  ok "review-budget-reached refuses to resume without --add-rounds"
+fi
+if "$JOBS/gauntlet.sh" --resume-from-stage g-budget panel --add-rounds 0 >"$TR/budget-zero.log" 2>&1; then
+  bad "--add-rounds 0 was accepted"
+else
+  ok "--add-rounds rejects a non-positive count"
+fi
+if "$JOBS/gauntlet.sh" --resume-from-stage g-budget panel --add-rounds 2 >"$TR/budget-resume.log" 2>&1; then
+  git -C "$VERIFY" pull -q
+  brec="$VERIFY/jobs/gauntlet/g-budget.md"
+  if [ -f "$brec" ] && grep -qx 'max_iterations: 5' "$brec" \
+    && grep -qx 'iteration: 4' "$brec" && grep -qx 'added_rounds: 2' "$brec" \
+    && [ -f "$VERIFY/jobs/todo/g-budget-panel-4.md" ] \
+    && ! find "$VERIFY/jobs/tada" -name 'g-budget.md' | grep -q .; then
+    ok "--add-rounds 2 raises max_iterations 3->5 and resumes at panel round 4"
+  else
+    bad "--add-rounds resume record/todo wrong: $(cat "$brec" 2>/dev/null)"
+  fi
+else
+  bad "--add-rounds resume of review-budget-reached failed: $(cat "$TR/budget-resume.log")"
+fi
+if "$JOBS/gauntlet.sh" --resume-from-stage g-resume fix --iteration 2 --add-rounds 1 >/dev/null 2>&1 \
+  && git -C "$VERIFY" pull -q && grep -qx 'max_iterations: 6' "$VERIFY/jobs/gauntlet/g-resume.md"; then
+  ok "an already-active resume is idempotent and not re-budgeted"
+else
+  bad "repeat --add-rounds on an active record changed it or failed"
 fi
 
 echo

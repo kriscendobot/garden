@@ -113,11 +113,15 @@ bounds, stage, iteration, and provenance. After correcting the halt's cause, res
 at an explicit stage with:
 
 ```
-scripts/jobs/gauntlet.sh --resume-from-stage <g> <viability|clean|panel|fix|undraft> [--iteration N]
+scripts/jobs/gauntlet.sh --resume-from-stage <g> <viability|clean|panel|fix|undraft> [--iteration N] [--add-rounds N]
 ```
 
 Stage names are case-insensitive. `panel` and `fix` use the halt's recorded
-iteration unless `--iteration` selects another positive round. The primitive first
+iteration unless `--iteration` selects another positive round. `--add-rounds N`
+raises the resumed record's `max_iterations` by N, granting N more panel/fix rounds
+when the gauntlet ended with must-fix items still unaddressed. It is required to
+resume a `review-budget-reached` report (which retains the same record metadata),
+and there a `panel` resume defaults to the round after the last fix. The primitive first
 CAS-swaps the halted report for a `resume-pending` active record. It then CAS-swaps
 any stale todo/plan/tada artifact for the selected child with a fresh todo job while
 moving the record to `running`; it refuses to steal a child already in `doin/`.

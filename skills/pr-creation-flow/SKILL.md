@@ -331,6 +331,12 @@ handoff, replying on inline review threads, posting top-level PR comments) per
   it derivable, and the maintainer's next decision (or the halt reason). The same
   terminal event is still recorded in `jobs/tada/` and surfaced to the maintainer
   inbox; the PR comment is the reviewer-visible receipt.
+- **Granting more rounds.** If the maintainer decides the unaddressed must-fix
+  items deserve more budget, resume with
+  `scripts/jobs/gauntlet.sh --resume-from-stage <g> panel --add-rounds N`. It
+  raises `max_iterations` by N and re-opens the gauntlet at the next panel round;
+  a `review-budget-reached` report can only be resumed this way. Add
+  `--iteration K` to pick the round explicitly, or resume at `fix` instead.
 
 ## Output
 

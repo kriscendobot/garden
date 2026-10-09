@@ -381,7 +381,10 @@ common commands. See `CLAUDE.md` under "Monitoring safety constraint" and
   panel, fix-loop, and un-draft stages by posting/promoting their role jobs.
   Defaults include 10800-second panel timeout, 3600-second CI deadline, and
   Anthropic panel provider. State is `$GARDEN_STATE/gauntlet/journal` and journal
-  gauntlet records plus job lanes.
+  gauntlet records plus job lanes. To resume a halted, billing-parked, or
+  `review-budget-reached` gauntlet with more review rounds, run
+  `scripts/jobs/gauntlet.sh --resume-from-stage <g> panel --add-rounds N`
+  (raises `max_iterations` by N; see `designs/staged-gauntlet.md`).
 - **`garden-follow-up.timer`, `garden-follow-up.service`:** leader-only at
   `:08/10`; runs `scripts/jobs/follow-up.sh`. It skips under drain, converts
   structured `follow-up:` report fields into jobs, schedules, or maintainer
