@@ -1,18 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-09T00:52:59Z_
+_As of 2026-10-09T00:56:37Z_
 
 ## Latest
 
-**fix-sysop-ack-timeout** has completed and landed on `main2` as `96a2b4c6141`. The sysop now spools and acks right after it applies an op, and budget-level no longer re-sends a duplicate unacked `set-workers`. One manual step remains: after oros-studio-garden-ce242c49 deploys that commit, someone at that host must remove the temporary `zz-liaison-temp-timeout.conf` sysop drop-in, because no sysop op can do it remotely. Oros itself came back after a roughly four-hour heartbeat outage, and its watchdogs cleared at 00:35Z. On the board, round 6 of the fix stage for [minion.town#170](https://github.com/kriscendobot/minion.town/pull/170) was claimed. A new job was posted to replace the PR body of [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) as a handoff from its fix-5 round.
+The only change since the last bulletin is a new minion.town build job, `build-minion-town-credit-metering-no-ertp`, which adds publish metering for Minion Town Credits without using ERTP. Several items in the inbox still need a maintainer decision:
 
-Three orchestrations have halted and need a maintainer decision:
-
-- **Review docket:** the consolidation step is held in plan after its retries ran out, so the promised docket-live message has not been sent.
-- **Jev triage/foreman trial:** it is blocked because `TYPESAFE_API_KEY` is not available to the job.
-- **minion.town OAuth bonds:** the build declared its gated outcome unsatisfied.
-
-Two decisions also have deadlines or open choices. The ocap.site registrar transfer window opens around 19:55Z today, and DNSSEC stays broken until either the transfer happens or the current registrar publishes the DS record. Separately, a gardener asks whether to build the ERTP credits Phase 1 now or treat the minion.town primary phase as complete apart from the charge. Claude spend is at 111% of quota and is in backoff.
+- **ocap.site transfer:** the domain becomes eligible to move into Route53 after about 2026-10-09 19:55Z. Its DNSSEC DS record is still unpublished at the registrar, so you need to either start the transfer or ask Key-Systems to add the DS record.
+- **Halted orchestrations:** the `review-docket-20261008` consolidation and `orch-minion-town-oauth-bonds` are both halted. The Jev triage trial is blocked until someone provisions `TYPESAFE_API_KEY`.
+- **oros-studio host:** it is back in rotation. Once it has deployed `96a2b4c6141`, remove its temporary sysop timeout drop-in by hand.
 
 ## Maintainer review docket
 
@@ -52,10 +48,6 @@ Delegation: **active**
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
 > The Jev triage/foreman trial is blocked because TYPESAFE_API_KEY is absent from the job environment. Please provision the maintainer-owned key for a re-run; per the trial specification I have not searched for or configured a credential.
-
-- `msg-minion-town-arc-press-20261008-002014-648b2208af99` — from gardener:minion-town-arc-press-20261008-002014, reply_to `minion-town-arc-press-20261008-002014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261008-002014-648b2208af99.md)
-
-> minion.town arc ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)): one decision is needed. The only unchecked primary-phase box is the publish capability's charge to an ERTP account for Minion Town Credits. The publish half is live; the charge still goes through a `0n` stub. `designs/ertp-credits.md` § 7–8 puts the Phase 1 toy (ERTP mechanics with tests, no daemon needed) in a private, non-exported layer of `@endo/gateway` in endojs/endo-but-for-bots, which you review. The July plan deferred all of ERTP. Should I post the Phase 1 build now (an endo-but-for-bots PR for your review, followed by a minion.town wiring PR that replaces the `0n` stub), or keep ERTP deferred and treat the primary phase as complete apart from the charge?
 
 - `followup-gate-improve-design-build-dispatch` — from followup-gate:improve-design-build-dispatch, reply_to `improve-design-build-dispatch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-improve-design-build-dispatch.md)
 
@@ -361,7 +353,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 186.2M | $1309.87 _(notional, rate-card)_ | 111% of 168.0M (backoff) |
+| Claude | 186.4M | $1312.47 _(notional, rate-card)_ | 111% of 168.0M (backoff) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 127769381 tokens/day lower bound._
@@ -370,12 +362,13 @@ _Fleet token-unlock pace: 127769381 tokens/day lower bound._
 worst fetch p95 6.018907s/45s (/home/kris/garden2/.garden-state/transcripts/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`oros-health-watch-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261008-203525.md) — ---
 - [`endojs-endo-but-for-bots-pr1379-fix-5-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1379-fix-5-pr-body.md) — Replace the PR body of endojs/endo-but-for-bots#1379 (handoff from fix-5)
 - [`screen-minion-town-pr169-2552040-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr169-2552040-conduct.md) — Screened delegated merge: kriscendobot/minion.town#169 at 2552040f2b936f83eb2...
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
 - [`claude-on-minion-town-press-20261008-203525`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261008-203525.md) — Press the Claude-on-minion.town arc forward
+- [`build-minion-town-credit-metering-no-ertp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-credit-metering-no-ertp.md) — minion.town: build publish metering for Minion Town Credits without ERTP
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1433
 - [`kriscendobot-minion.town-pr173-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #173
 - [`endojs-endo-but-for-bots-pr1434-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1434-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1434
