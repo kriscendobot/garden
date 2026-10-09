@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-09T19:10:27Z_
+_As of 2026-10-09T19:13:37Z_
 
 ## Latest
 
@@ -320,6 +320,10 @@ Delegation: **active**
 >
 > Orchestration minion-town-ci-runner-redeploy-50aa690-split complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261009-185008` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261009-185008.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261009-185008' has remained unclaimed for 1198s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal` has CLEARED (first seen 2026-10-09T02:59:30Z, cleared 2026-10-09T07:09:14Z).
@@ -585,11 +589,12 @@ _Fleet token-unlock pace: 129406100 tokens/day lower bound._
 worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #94
 - [`resume-minion-town-pr166-pr171-gauntlets-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr166-pr171-gauntlets-20261009.md) — Resume the review-budget-reached gauntlets on minion.town #166 and #171
 - [`claude-on-minion-town-press-20261009-185008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261009-185008.md) — Press the Claude-on-minion.town arc forward
 - [`moddable-10-0-0-ironhorse-port-plan-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-port-plan-20261009.md) — Moddable SDK 10.0.0: what ports to IronHorse?
+- [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #153
 - [`oros-health-watch-20261009-185008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261009-185008.md) — ---
 - [`weave-minion-town-pr130-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-minion-town-pr130-20261009.md) — weave kriscendobot/minion.town#130
