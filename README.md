@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-09T14:38:24Z_
+_As of 2026-10-09T14:45:05Z_
 
 ## Latest
 
@@ -567,7 +565,7 @@ worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ## Board
 ### todo (7)
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #153
-- [`kriscendobot-minion.town-pr173-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #173
+- [`kriscendobot-minion.town-pr173-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr173-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #173
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1433
 - [`weave-minion-town-pr130-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-minion-town-pr130-20261009.md) — weave kriscendobot/minion.town#130
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #174
@@ -575,15 +573,15 @@ worst fetch p95 2.882700s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`minion-town-arc-press-20261009-142016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261009-142016.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### doin (1)
-- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #94
+- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #94
 
-### tada (11977)
+### tada (11979)
+- [`kriscendobot-minion.town-pr173-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr173-gauntlet-panel-4.md) — Cost
+- [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-3.md) — Gauntlet fix round 3: kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr171-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr171-gauntlet.md) — gauntlet kriscendobot-minion.town-pr171-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr171-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr171-gauntlet-fix-6.md) — PR #171 fix round 6: partial fix pushed, CI green
 - [`kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion-town-pr153-screen-d55b01d0-gauntlet-viability.md) — Cost
-- [`kriscendobot-minion.town-pr173-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/kriscendobot-minion.town-pr173-gauntlet-fix-3.md) — Cost
-- [`minion-town-arc-press-20261009-112009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/09/minion-town-arc-press-20261009-112009.md) — Cost
-- … and 11972 more
+- … and 11974 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
