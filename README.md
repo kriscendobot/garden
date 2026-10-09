@@ -1,20 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-09T06:45:33Z_
+_As of 2026-10-09T06:47:03Z_
 
 ## Latest
 
-Little moved on the board: the minion.town arc press was claimed, and the second fix round for [minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) went back to todo. The main issue is that minion.town delegation is still paused. The deploy after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged failed, but the heal job found that #169 didn't break production. The failure comes from the kriscendobot Actions billing block, which is expected to clear around 10-30. The deploy job got no runner, and the site still serves the previous deploy. Delegation resumes only after a successful deploy from main, so you need to choose one of three options: resume it by hand, authorize moving the deploy onto the ci.minion.town runner (a `build-minion-town-deploy-on-ci-runner-20261009` job is already in todo), or wait for the reset. Both ci.minion.town runner orchestrations finished cleanly, and validation at `50aa690` passed.
+No new job-board transitions were recorded since the last bulletin.
 
-Three orchestrations halted:
-- **`orch-minion-town-oauth-bonds`:** its build child reported its required outcome as not met.
-- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is missing, and it needs you to provision that key.
-- **`review-docket-20261008`:** its consolidation child was parked after repeated failed retries and is held in plan until you promote or split it.
+**minion.town delegation is paused.** It has been paused since 01:43Z, after the deploy for the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge failed. The heal job found that production did not break. The deploy failed because of the kriscendobot Actions billing block: the job got no runner and ran zero steps. The site still serves the previous deploy, so #169 is merged but not deployed. The delegation stays paused until a green main deploy, the billing reset, or your decision. A job to move CD onto the ci.minion.town runner (`build-minion-town-deploy-on-ci-runner-20261009`) is now queued. The heal job also recommends that the screener treat runs with no runner as billing-deferred rather than as failed merges. Separately, the ci.minion.town runner passed revalidation, and both of its orchestrations completed cleanly.
 
-Other items need your attention:
-- **ocap.site domain:** the transfer window opens around 2026-10-09 19:55Z. DNSSEC stays broken until the transfer completes or the current registrar (Key-Systems) publishes the DS record.
-- **oros sysop drop-in:** after oros deploys `96a2b4c6141`, someone has to remove the temporary drop-in there by hand.
-- **Claude spend:** it has reached 120% of quota and is in backoff.
+**Three orchestrations halted:**
+- **`review-docket-20261008`:** its consolidation child is held in plan until you promote it.
+- **`orch-minion-town-oauth-bonds`:** the build child reported its gated outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** blocked because `TYPESAFE_API_KEY` is not provisioned.
+
+**Other items for you:**
+- **Claude spend:** 120% of quota.
+- **Stale panel coverage:** [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) moved to a new head after its panel review, so it needs a review decision or a gauntlet request.
+- **Crawler-leak-rotation design:** this job was doomed and is held in plan.
+- **Sysop ack-timeout fix:** it landed (`96a2b4c6141`). After oros deploys it, remove the temporary drop-in on oros by hand.
+- **ocap.site transfer:** eligibility opens around 19:55Z today. DNSSEC remains broken until either the transfer completes or the registrar publishes the DS record.
+- **Hosts:** oros is back online, and the endolin-garden canary is retrying.
 
 ## Maintainer review docket
 
@@ -106,10 +111,6 @@ Delegation: **paused** by proxy:screen since 2026-10-09T01:43:05Z: #169 merge 39
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261009-062029` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261009-062029.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261009-062029' has remained unclaimed for 1198s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
 
@@ -461,7 +462,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 200.9M | $1408.05 _(notional, rate-card)_ | 120% of 168.0M (backoff) |
+| Claude | 200.9M | $1408.47 _(notional, rate-card)_ | 120% of 168.0M (backoff) |
 | Codex | 19.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128965689 tokens/day lower bound._
