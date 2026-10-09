@@ -253,6 +253,20 @@ if [ "$mv" -eq 1 ];then
  report_unfreeze budget-level-monk-preflight "budget-level: fleet monk allocation recovered on $GARDEN; eligible calibrated, physically-backed pools are allocatable and leveling has resumed."
 else report_freeze budget-level-monk-preflight "$bad" "fleet monk allocation frozen: $bad. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.";fi
 
+# pending_identical_set_workers <host> <kind> <count>: rc0 iff an identical
+# set-workers op to <host> is already on the bus with no sysop-log record yet. The
+# leveler re-derives `cur` from the journal every tick, so without this guard a slow
+# follower sysop receives one identical op per tick (fix-sysop-ack-timeout).
+pending_identical_set_workers(){
+ local h="$1" kind="$2" count="$3" f m
+ for f in "$DIR/msgs/host/$h"/*.md;do
+  [ -e "$f" ]||continue;m="${f##*/}";m="${m%.md}"
+  [ -e "$DIR/sysop-log/$h/$m.md" ]&&continue
+  grep -qx 'op: set-workers' "$f"&&grep -qx "kind: $kind" "$f"&&grep -qx "count: $count" "$f"&&return 0
+ done
+ return 1
+}
+
 apply_target(){ # pool host kind current target reason signal-value limit provenance sensor
  local pool="$1" h="$2" kind="$3" cur="$4" target="$5" reason="$6"
  local signal_value="$7" limit="$8" provenance="$9" sensor="${10}"
@@ -268,6 +282,7 @@ apply_target(){ # pool host kind current target reason signal-value limit proven
   if /bin/bash "$GARDEN_BUDGET_LEVEL_SET_WORKERS" "$kind" "$next"; then operation_status=0; else operation_status=$?; fi
  else
   operation=send-host-set-workers
+  if pending_identical_set_workers "$h" "$kind" "$next";then log "budget-level: identical set-workers $kind=$next to $h still unacked; not re-sending";return;fi
   if /bin/bash "$GARDEN_BUDGET_LEVEL_SEND_HOST_OP" "$h" op=set-workers kind="$kind" count="$next" reason="$reason"; then operation_status=0; else operation_status=$?; fi
  fi
  if decision_input_json="$(jq -cn --arg pool "$pool" --arg host "$h" \

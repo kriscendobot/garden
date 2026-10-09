@@ -90,6 +90,9 @@ export GARDEN_TAG="sysop"
 : "${GARDEN_SYSOP_DEADMAIL:=$HERE/deadmail.sh}"
 : "${GARDEN_SYSOP_ACK_SEND:=$HERE/send-msg.sh}"              # ack to host/<from_host>
 : "${GARDEN_SYSOP_ACK_INBOX:=$HERE/inbox-send.sh}"          # ack to a live job doer (reply_to: job/<base>)
+: "${GARDEN_SYSOP_PENDING:=$GARDEN_STATE/sysop/pending}"      # host-local record/ack spool (survives a killed tick)
+: "${GARDEN_SYSOP_RESTORE_STEP_TIMEOUT:=150}"              # per-step wall budget for restore's reaper/deadmail
+: "${GARDEN_SYSOP_RESTORE_REAP_ATTEMPTS:=3}"               # restore's reaper push budget (the leader's reaper owns the fleet)
 : "${GARDEN_MAINTAINERS_ALLOWLIST:=}"                      # override maintainer allowlist file (else journal)
 : "${GARDEN_SYSOP_INSTALLED_UNIT_DIR:=${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user}"
 : "${GARDEN_SYSOP_MAIN_HEAD_CMD:=}"                        # test seam: echoes origin main2 HEAD for the deploy to_sha guard
@@ -226,6 +229,58 @@ send_ack() {  # send_ack <from_host> <reply_to> <msgid> <op> <outcome> <detail>
       || log "WARN: ack to 'host/$fh' failed (audit record still written)"
   fi
   rm -f "$bf" 2>/dev/null || true
+}
+
+# --- the record/ack spool (fix-sysop-ack-timeout) ------------------------------
+# A completed op is marked seen and spooled LOCALLY the moment it is applied, so a
+# handler timeout can never drop (and so re-run) a completed op. flush_pending then
+# lands every spooled record in ONE journal commit (one sync per CAS attempt, not one
+# per op) and sends the acks; a spool entry is removed only once its ack is sent, so a
+# tick killed mid-flush resumes the flush at the start of the next tick.
+spool_result() {  # spool_result <msgid> <op> <from_host> <reply_to> <outcome> <detail>
+  local f="$GARDEN_SYSOP_PENDING/$1.rec"
+  mkdir -p "$GARDEN_SYSOP_PENDING"
+  {
+    printf 'op: %s\n'        "$2"
+    printf 'from_host: %s\n' "$3"
+    printf 'host: %s\n'      "$GARDEN"
+    printf 'outcome: %s\n'   "$5"
+    printf 'msgid: %s\n'     "$1"
+    printf 'detail: %s\n'    "$6"
+    printf 'at: %s\n'        "$(date -u +%FT%TZ)"
+  } > "$f.tmp"
+  printf '%s\n' "$4" > "$GARDEN_SYSOP_PENDING/$1.reply"
+  mv -f "$f.tmp" "$f"
+}
+
+flush_pending() {
+  local DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+  local recs=() f m attempt rc n
+  for f in "$GARDEN_SYSOP_PENDING"/*.rec; do [ -e "$f" ] && recs+=("$f"); done
+  [ "${#recs[@]}" -gt 0 ] || return 0
+  ensure_clone "$DIR"
+  for attempt in $(seq 1 25); do
+    sync_clone "$DIR"
+    mkdir -p "$DIR/sysop-log/$GARDEN"
+    n=0
+    for f in "${recs[@]}"; do
+      m="$(basename "$f" .rec)"
+      [ -f "$DIR/sysop-log/$GARDEN/$m.md" ] && continue   # already recorded (idempotent)
+      cp "$f" "$DIR/sysop-log/$GARDEN/$m.md"
+      git -C "$DIR" add "sysop-log/$GARDEN/$m.md"; n=$((n+1))
+    done
+    [ "$n" -eq 0 ] && break
+    rc=0; commit_and_push "$DIR" "sysop-log($GARDEN) $n record(s)" || rc=$?
+    { [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; } && break
+    backoff "$attempt"
+    [ "$attempt" -eq 25 ] && log "WARN: could not record ${#recs[@]} spooled sysop-log record(s) after retries (acking anyway; op idempotency protects replay)"
+  done
+  for f in "${recs[@]}"; do
+    m="$(basename "$f" .rec)"
+    send_ack "$(sed -n 's/^from_host: //p' "$f" | head -1)" "$(head -1 "$GARDEN_SYSOP_PENDING/$m.reply" 2>/dev/null)" \
+      "$m" "$(sed -n 's/^op: //p' "$f" | head -1)" "$(sed -n 's/^outcome: //p' "$f" | head -1)" "$(sed -n 's/^detail: //p' "$f" | head -1)"
+    rm -f "$f" "$GARDEN_SYSOP_PENDING/$m.reply"
+  done
 }
 
 mark_seen() {  # mark_seen <id-line>
@@ -508,8 +563,13 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
       # liaison-judgement half (doom triage / redispatch) stays with a human.
       local rc=0 steps=()
       unit_ctl reset-failed 'garden-*' >/dev/null 2>&1 && steps+=(reset-failed) || rc=1
-      "$GARDEN_SYSOP_REAPER"   >/dev/null 2>&1 && steps+=(reaper)   || rc=1
-      "$GARDEN_SYSOP_DEADMAIL" >/dev/null 2>&1 && steps+=(deadmail) || rc=1
+      # Each recovery one-shot runs under its own wall budget so a slow step (a
+      # follower's reaper losing push races) cannot outlive the handler timeout and
+      # head-of-line block the queue. The reaper's fleet requeue is the leader's
+      # standing job; here it gets only a small push budget and yields on contention.
+      local t="$GARDEN_SYSOP_RESTORE_STEP_TIMEOUT"
+      GARDEN_REAP_PUSH_ATTEMPTS="$GARDEN_SYSOP_RESTORE_REAP_ATTEMPTS" timeout "$t" "$GARDEN_SYSOP_REAPER" >/dev/null 2>&1 && steps+=(reaper)   || rc=1
+      timeout "$t" "$GARDEN_SYSOP_DEADMAIL" >/dev/null 2>&1 && steps+=(deadmail) || rc=1
       if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="restore: ${steps[*]}"; else OUTCOME="failed"; DETAIL="restore partial: ran ${steps[*]:-none}"; fi
       ;;
     unit)
@@ -698,6 +758,8 @@ poll_local_model
 # Likewise advance an in-flight root-repo maintenance run (designs/sysop-repo-maintenance.md);
 # polling never waits for gc — it only reads the host-local terminal result.
 poll_root_maintenance
+# Land any records/acks a previous (killed) tick spooled but did not finish sending.
+flush_pending
 
 d="$CLONE/msgs/host/$GARDEN"
 if [ ! -d "$d" ]; then
@@ -714,7 +776,7 @@ for path in "$d"/*.md; do
   # Exactly-once: skip if the out-of-journal cursor already surfaced it, OR the
   # committed sysop-log belt already recorded it (survives a wiped seen-marker).
   grep -qxF "$idline" "$GARDEN_SYSOP_SEEN" && continue
-  if [ -f "$CLONE/sysop-log/$GARDEN/$msgid.md" ]; then mark_seen "$idline"; continue; fi
+  if [ -f "$CLONE/sysop-log/$GARDEN/$msgid.md" ] || [ -f "$GARDEN_SYSOP_PENDING/$msgid.rec" ]; then mark_seen "$idline"; continue; fi
 
   MSGFILE="$d/$f"
   # Acks are addressed back to the issuing host so an operator can observe them;
@@ -742,9 +804,11 @@ for path in "$d"/*.md; do
   # For accepted-in-progress this writes a NON-terminal record + in-progress ack; the
   # poll step updates it to a terminal outcome once the pull finishes. All other
   # outcomes are terminal here (write_sysop_log will not overwrite an existing record).
-  write_sysop_log "$msgid" "${op:-<none>}" "$from_host" "$OUTCOME" "$DETAIL" || true
-  send_ack "$from_host" "$reply_to" "$msgid" "${op:-<none>}" "$OUTCOME" "$DETAIL"
+  # Spool + mark seen IMMEDIATELY after the apply; the journal record and ack are
+  # flushed in one batch after the loop (and resumed next tick if this one is killed).
+  spool_result "$msgid" "${op:-<none>}" "$from_host" "$reply_to" "$OUTCOME" "$DETAIL"
   mark_seen "$idline"
 done
+flush_pending
 
 log "sysop tick complete on $GARDEN (applied $acted; refused/failed $refused)"

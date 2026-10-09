@@ -164,7 +164,7 @@ hr; echo "HOST AUTHORITY — an arbitrary garden host's benign op is accepted"; 
 : > "$REC_LOG"; : > "$ACK_LOG"; : > "$TR/mock-log"; : > "$TR/mock-state"
 seed_op "$EVIL" "$TARGET" op=set-workers kind=monk count=5
 run_sysop "$TR/s-evil"
-grep -q 'set-workers gardener 5' "$REC_LOG" \
+grep -q 'set-workers monk 5' "$REC_LOG" \
   && ok "arbitrary from_host delegated set-workers to the addressed host" \
   || bad "arbitrary from_host was not dispatched (rec: $(cat "$REC_LOG"))"
 grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" \
@@ -175,14 +175,14 @@ hr; echo "APPLY — set-workers (benign) delegates to set-workers.sh on this hos
 : > "$REC_LOG"; : > "$ACK_LOG"
 seed_op "$ISSUER" "$TARGET" op=set-workers kind=monk count=2
 run_sysop "$TR/s-sw"
-grep -q 'set-workers gardener 2' "$REC_LOG" \
+grep -q 'set-workers monk 2' "$REC_LOG" \
   && ok "set-workers gardener=2 delegated to set-workers.sh (kind count, no host arg)" \
   || bad "set-workers not delegated correctly (rec: $(cat "$REC_LOG"))"
 grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" && ok "set-workers acked applied" || bad "set-workers not acked applied"
 
 # The op carries no way to name ANOTHER host: the sysop always calls set-workers.sh
 # with only <kind> <count>, so the write is always about the host it runs on.
-grep -qE 'set-workers gardener 2( |$)' "$REC_LOG" && [ "$(grep -c 'set-workers' "$REC_LOG")" -eq 1 ] \
+grep -qE 'set-workers monk 2( |$)' "$REC_LOG" && [ "$(grep -c 'set-workers' "$REC_LOG")" -eq 1 ] \
   && ok "set-workers invoked exactly once, host-scoped (no cross-host arg possible)" || bad "set-workers host-scoping unexpected"
 
 # ============================================================================
@@ -215,6 +215,36 @@ run_sysop "$TR/s-restore"
 { grep -q "reset-failed garden-\*" "$TR/mock-log" && grep -qx reaper "$REC_LOG" && grep -qx deadmail "$REC_LOG"; } \
   && ok "restore ran reset-failed + reaper + deadmail (deterministic one-shots only)" \
   || bad "restore did not run all three one-shots (mock: $(cat "$TR/mock-log"); rec: $(cat "$REC_LOG"))"
+
+# A hung reaper must not outlive restore's per-step budget (head-of-line block).
+: > "$REC_LOG"; : > "$ACK_LOG"
+printf '#!/bin/sh\nsleep 30\n' > "$TR/hang-reaper.sh"; chmod +x "$TR/hang-reaper.sh"
+seed_op "$ISSUER" "$TARGET" op=restore
+t0=$(date +%s)
+run_sysop "$TR/s-restore-hang" GARDEN_SYSOP_REAPER="$TR/hang-reaper.sh" GARDEN_SYSOP_RESTORE_STEP_TIMEOUT=2
+[ $(( $(date +%s) - t0 )) -lt 25 ] && grep -qx deadmail "$REC_LOG" && grep -q 'sysop_ack: failed' "$ACK_LOG" \
+  && ok "a hung reaper is bounded by the restore step budget; deadmail still runs, op acked failed" \
+  || bad "restore step budget not enforced (rec: $(cat "$REC_LOG"); ack: $(cat "$ACK_LOG"))"
+
+# ============================================================================
+hr; echo "SPOOL — a completed op is marked seen before its record/ack; a killed tick resumes"; hr
+: > "$REC_LOG"; : > "$ACK_LOG"
+seed_op "$ISSUER" "$TARGET" op=set-workers kind=monk count=3
+# Fail every ack in this tick, simulating a tick killed after apply but before the ack.
+printf '#!/bin/sh\nexit 1\n' > "$TR/fail-ack.sh"; chmod +x "$TR/fail-ack.sh"
+run_sysop "$TR/s-spool" GARDEN_SYSOP_ACK_SEND="$TR/fail-ack.sh" GARDEN_SYSOP_PENDING="$TR/s-spool-pending"
+rm -f "$TR/s-spool-pending"/*.rec 2>/dev/null; true
+: > "$REC_LOG"
+# Re-seed a spool entry as a killed tick would leave it, with the op already seen.
+mkdir -p "$TR/s-spool-pending"
+printf 'op: set-workers\nfrom_host: %s\nhost: %s\noutcome: accepted-and-applied\nmsgid: spooled-1\ndetail: x\nat: now\n' "$ISSUER" "$TARGET" > "$TR/s-spool-pending/spooled-1.rec"
+: > "$TR/s-spool-pending/spooled-1.reply"
+run_sysop "$TR/s-spool" GARDEN_SYSOP_PENDING="$TR/s-spool-pending"
+[ ! -s "$REC_LOG" ] && ok "a seen op is not re-applied on the next tick" || bad "seen op re-applied (rec: $(cat "$REC_LOG"))"
+from_bare "sysop-log/$TARGET/spooled-1.md" | grep -q 'outcome: accepted-and-applied' \
+  && grep -q 'detail: x' "$ACK_LOG" && [ ! -e "$TR/s-spool-pending/spooled-1.rec" ] \
+  && ok "next tick flushed the spooled record + ack and cleared the spool" \
+  || bad "spooled record/ack not resumed (ack: $(cat "$ACK_LOG"); spool: $(ls "$TR/s-spool-pending"))"
 
 # ============================================================================
 hr; echo "REFUSE — unknown op refused; parse-error acked as such"; hr
