@@ -1,25 +1,23 @@
 # Garden bulletin
 
-_As of 2026-10-10T05:45:12Z_
+_As of 2026-10-10T05:49:04Z_
 
 ## Latest
 
-Board motion this cycle was light: the only transition was the gauntlet for [endo-but-for-bots#1435](https://github.com/endojs/endo-but-for-bots/pull/1435) advancing from clean to a queued panel round 1. The most recent completions were gauntlet stages for #1435, [endo-but-for-bots#1427](https://github.com/endojs/endo-but-for-bots/pull/1427) and minion.town [#166](https://github.com/kriscendobot/minion.town/pull/166) and [#174](https://github.com/kriscendobot/minion.town/pull/174).
+Two hosts need attention. The leader's rolling deploy is holding, and the Moddable port plan keeps timing out.
 
-**Needs your decision:**
-- **Gauntlet review budgets:** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 panel/fix rounds without converging and is left for a human decision. The notice offers `--add-rounds 2` to continue. [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) stopped the same way after 2 of 2 rounds. For both, the unaddressed must-fix list is unavailable because the panel report has no structured list.
-- **Stale panel coverage:** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) have new heads that the earlier panel never saw. No gauntlet was staged for them. They need an explicit `run the gauntlet` or a review decision.
-- **minion.town screening is paused:** the deploy of [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) failed because of the Actions billing block, not a code defect, so no heal PR was opened. Delegation stays paused until you resume it, authorize moving CD to the `ci.minion.town` runner, or wait for the billing reset.
+**Fleet.** `oros-studio-garden-ce242c49` went unreachable around 02:50Z. Its heartbeat resumed at 04:59Z, but it is still the stuck canary for target `44bfcbe6dbf4`. It reports `fad05c57` as deployed after about 20 minutes, and the canary has failed three retries, so the leader will not advance. `endolin-garden2-5bcdff64` has been offline for about 1.5 hours (heartbeat stale 5685s), leaving no other canary available. The leader's journal worktree was also stale for about 2 hours (139 commits behind) with no self-heal. The sysop ack-timeout fix landed on main2 as `96a2b4c6141`. Once `oros-studio-garden-ce242c49` deploys it, someone must remove the temporary `zz-liaison-temp-timeout.conf` drop-in by hand.
 
-**Fleet health:**
-- **Hosts offline:** `endolin-garden2-5bcdff64` is offline, with a heartbeat about 5,700s stale. `oros-studio-garden-ce242c49` went quiet around 02:50Z; its heartbeat has since resumed, but it still needs a person to check the machine. The oros canary is also stuck: it was released to a new sha but still reports `fad05c57`.
-- **Rolling deploy:** it is holding the leader because no follower can serve as a canary.
-- **Journal worktree:** the journal worktree on `endolin-garden-ece02cb4` has been about 2h stale and is 139 commits behind.
-- **Over-budget job:** the Moddable 10.0.0 IronHorse port-plan synthesis overran its 2,400s handler budget, so that orchestration halted and needs a smaller split.
-- **Halted orchestrations:** the review-docket consolidation, the Jev triage trial (`TYPESAFE_API_KEY` is absent) and the oauth-bonds build were all halted or failed.
-- **Other open items:** Claude quota on `endolin-garden-ece02cb4` is back in backoff after spend passed its cap, and the minion.town triager breaker is open after 5 failures on `c5a0ae6`→`c9a073c`. The ocap.site DNSSEC follow-up still needs the DS record published at the registrar.
+**Stalled orchestrations.** The Moddable 10.0.0 IronHorse port-plan split halted again. Its audit, source-inventory and synthesis children each exceeded the 2400s handler budget. The work needs claim-sized stages. Two other orchestrations halted. In `orch-minion-town-oauth-bonds` the build child declared its gated outcome unsatisfied. `orch-jev-triage-foreman` halted because `TYPESAFE_API_KEY` is missing. In `review-docket-20261008` the consolidate child was doomed and is held in plan. By contrast, the CI-runner redeploy/unblock, `gauntlet-mustfix-summary-orch`, and Moddable XS source inventory orchestrations completed cleanly. The `ci.minion.town` redeploy verified clean.
 
-Cleared since the last bulletin: [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) merged and deployed with the watchdog ok. The CI-runner redeploy verification and the `gauntlet-mustfix-summary-orch` orchestration also completed.
+**minion.town.**
+- Screening is paused after [#169](https://github.com/kriscendobot/minion.town/pull/169). The deploy failure was the Actions billing block, not a code defect. It stays paused until the billing reset or a manual resume, or until the maintainer authorizes moving CD onto the self-hosted runner.
+- The gauntlets for [#174](https://github.com/kriscendobot/minion.town/pull/174) and [#171](https://github.com/kriscendobot/minion.town/pull/171) both hit their review budgets and now need a human decision. #174 used 6/6 rounds and #171 used 2/2.
+- [#174](https://github.com/kriscendobot/minion.town/pull/174), [#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) have heads newer than their last panel, so they need review or an explicit `run the gauntlet`.
+- [#122](https://github.com/kriscendobot/minion.town/pull/122) merged and its deploy validated.
+- The triager circuit breaker opened for `kriscendobot-minion.town`. Its handler failed five times on the same range, and the repo's watch status is questioned in the notice.
+
+**Budget.** The `claude-endolin1` and `claude-endolin2` subscriptions each swung into backoff and back during this window.
 
 ## Maintainer review docket
 
@@ -330,13 +328,13 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-09T07:56:09Z, latest 2026-10-09T11:38:08Z).
-> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-09T07:56:09Z, latest 2026-10-10T05:47:09Z).
+> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > Rolling deploy HALTED on a failed canary.
 > canary host: oros-studio-garden-ce242c49
-> target sha:  fad05c57898961deea273986ef299ad6b32eecbd
+> target sha:  44bfcbe6dbf478b6e65b4efdb120f7e8606b1b32
 > failing signal: retries exhausted after re-validation kept failing
 > This canary was RETRIED 3 time(s) automatically and kept
 > failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
@@ -346,7 +344,7 @@ Delegation: **active**
 > broken tip that fails a canary never reaches the leader. The canary was left DRAINED
 > (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
 > performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden2-5bcdff64)
+> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `followup-gate-review-improve-design-bespoke-mechanism-over-existing-path` — from followup-gate:review-improve-design-bespoke-mechanism-over-existing-path, reply_to `review-improve-design-bespoke-mechanism-over-existing-path` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-design-bespoke-mechanism-over-existing-path.md)
 
@@ -764,10 +762,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.6M | $103.87 _(notional, rate-card)_ | 8% of 271.0M (ok) |
+| Claude | 20.8M | $105.13 _(notional, rate-card)_ | 8% of 271.0M (ok) |
 | Codex | 221.2k _(+8.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 100947266 tokens/day lower bound._
+_Fleet token-unlock pace: 101211021 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 19.434824s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-garden-book); 4 open notice(s); checker healthy
