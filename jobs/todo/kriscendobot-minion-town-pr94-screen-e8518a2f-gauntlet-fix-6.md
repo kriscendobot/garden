@@ -1,26 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet
-role: gardener
-tier: mentor
-handler-budget-role: shepherd
-handler-timeout: 7200
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 0
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-10-10T03:13:06Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-10-10T03:13:06Z
----
-
----
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
@@ -28,9 +6,6 @@ gauntlet: kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet
 gauntlet_stage: fix
 gauntlet_iteration: 6
 pr: https://github.com/kriscendobot/minion.town/pull/94
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #94
