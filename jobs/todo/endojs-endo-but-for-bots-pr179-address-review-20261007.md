@@ -19,13 +19,5 @@ Unaddressed requests from review https://github.com/endojs/endo-but-for-bots/pul
 
 Evidence: the reviewed commit is still the current head `2e3f4d030dab`; the current diff contains only the four production files and no test changes. Preserve the row classification: arc unallocated, milestone M9.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-10T05:27:55Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-10T06:13:04Z -->
