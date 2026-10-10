@@ -1,39 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-10T20:13:32Z_
+_As of 2026-10-10T20:14:45Z_
 
 ## Latest
 
-Most of the fleet's recent motion is gauntlet and orchestration outcomes, and several of them now need a maintainer decision.
+The main thing to notice is that the minion.town gauntlets keep running out of review budget. [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after panel round 7 failed three times. Its stage retry budget is spent, and the held panel-7 stage plus a resume command are waiting on you. Several other gauntlets reached their round limits without converging and were left for a human decision: [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [#93](https://github.com/kriscendobot/minion.town/pull/93), [#171](https://github.com/kriscendobot/minion.town/pull/171) and [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403). Each notice offers `--add-rounds`, but none can say which must-fix items remain unaddressed. Stale-panel notices also say #174, #166 and #1403 have heads the earlier panel never reviewed.
 
-**Review budgets exhausted, awaiting your call:**
-- [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) ran out of rounds at 3/3, and [#171](https://github.com/kriscendobot/minion.town/pull/171) at 2/2. [#93](https://github.com/kriscendobot/minion.town/pull/93) ran out at 4/4. For all three, the PR is left improved and the must-fix list is unknown, so none of them converged.
-- [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) ran out at 6/6 ($17.40).
-- [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) is the stickiest case. It has spent 7/8 rounds ($12.30) and halted after panel round 7 failed three times (retry budget exhausted). A resume job, `resume-minion-town-pr174-gauntlet-panel7-20261010`, is now in `doin`. Each of these messages gives a `--add-rounds N` resume command.
-- [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [#174](https://github.com/kriscendobot/minion.town/pull/174) also carry stale-panel-head notices: their heads moved past the last panel-reviewed commit. They need an explicit "run the gauntlet" request or a review decision.
+**Production and deploy**
+- minion.town production is fine. The failed deploy after [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) was the GitHub Actions billing block, not a code break. The screener nonetheless paused delegation, and it stays paused until a green main deploy or you resume it. Your options are to resume by hand, move CD to the ci.minion.town runner, or wait for the billing reset.
+- The leader is holding its rolling deploy because no follower is available as a canary. `endolin-garden2` has been offline for about 16.7 hours. `oros-studio` is reporting again, but its canary is still stuck on an older SHA.
+- The fix for the sysop ack timeout has landed (96a2b4c6141). Once oros has deployed it, a temporary drop-in on that host needs removing by hand.
 
-**Minion.town deploy pause:**
-- Screening is paused because the deploy run for [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed. The heal job found no production breakage. The failure is the kriscendobot Actions billing block: the job got no runner and ran zero steps.
-- Production still serves the earlier deploy, and #169 is simply undeployed.
-- Your options are to resume the delegation by hand, move CD onto the ci.minion.town runner, or wait for the billing reset.
-- The job also recommends having the screener treat a no-runner deploy as "billing-deferred" instead of a merge failure. It will post that follow-up if you say so.
+**Stalled work**
+- The Moddable 10.0.0 IronHorse port-plan orchestrations halted on handler timeouts. The split-resume-resume run's synthesis child hit the 2400s budget. These jobs need splitting into smaller stages.
+- The review-docket consolidation child is parked after the reaper gave up on it, so the docket migration is incomplete.
+- The oauth-bonds build and the Jev triage trial both halted. The Jev trial needs `TYPESAFE_API_KEY` provisioned.
 
-**Orchestration halts:**
-- The Moddable 10.0.0 IronHorse port-plan chain halted repeatedly on handler timeouts (2400s budget). Several resume attempts failed, so the work needs splitting into smaller stages.
-- The Jev triage/foreman trial is blocked because `TYPESAFE_API_KEY` is missing from the job environment. It needs a maintainer-provisioned key.
-- The oauth-bonds build and the review-docket consolidation both halted. The docket child is parked in `plan`.
-- Completed cleanly: the minion.town CI-runner unblock and redeploy chains, the must-fix summary work, and the Moddable XS source inventory.
-
-**Fleet health:**
-- oros-studio came back online (heartbeat resumed) and is running 7 monks. Its rolling-deploy canary is still stuck on an older SHA, so the leader holds without advancing. Both followers have been offline or drained, so there is no canary for the leader's roll.
-- endolin-garden2 has been offline about 15 hours.
-- The journal worktree on the leader is about 2h stale (139 commits behind and diverged) and needs a look.
-- Claude endolin1 is in backoff at 44% of quota, endolin2 is in backoff, and the codex pool is at 76%.
-
-**Other items:**
-- The 610M weekly slate is confirmed. Planning jobs for the git-remote and clip-gutter arcs were posted.
-- ocap.site DNSSEC is still unpublished at the registrar. The 60-day transfer window opened tonight.
-- A sysop fix landed. Once oros-studio has deployed it, the temporary drop-in there must be removed by hand.
+**Needs your input**
+- The ocap.site DNSSEC DS record is still unpublished. The 60-day transfer window opened last night.
+- The accountant confirmed the 610M slate and posted planning jobs for the idle minion.town arcs.
+- The scholar flagged `project-releases.md` (Literate AI) at injection uncertainty 0.34 and is waiting for your clearance before ingesting it.
 
 ## Maintainer review docket
 
@@ -532,11 +518,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #304 (first seen 2026-10-10T04:05:32Z, latest 2026-10-10T19:14:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 304 times; this is ONE
-> coalesced notice that updates in place, not 304 messages. Latest detail:
+> WATCHDOG notice — occurrence #324 (first seen 2026-10-10T04:05:32Z, latest 2026-10-10T20:14:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 324 times; this is ONE
+> coalesced notice that updates in place, not 324 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 56445s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 60045s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -943,7 +929,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.2M | $522.91 _(notional, rate-card)_ | 44% of 271.0M (ok) |
+| Claude | 118.2M | $523.27 _(notional, rate-card)_ | 44% of 271.0M (ok) |
 | Codex | 1.5M _(+34.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 107005828 tokens/day lower bound._
