@@ -1,32 +1,17 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T16:28:11Z_
+_As of 2026-10-10T16:39:41Z_
 
 ## Latest
 
-Gauntlet activity is the main story. [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after its panel-7 stage exhausted its retry budget, with a $12.30 spend and the must-fix list unavailable. It also hit the 6-round review budget, and panel-7 is requeued on the board. [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) hit its 2-round budget unconverged, and a panel round 4 is queued. [endojs/endo-but-for-bots#353](https://github.com/endojs/endo-but-for-bots/pull/353) halted because it targets a floating base, so it needs "pin the merge base" before any review spend. Stale-panel notices on [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), and [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) say the current heads are not covered by an earlier panel, and a maintainer review or an explicit "run the gauntlet" is needed.
+The big movement this cycle was budget and planning. The weekly accountant run confirmed the 610M slate for the week of 10-10 and acted on the proxy's tentative answers. It posted two planning jobs for the idle minion.town arcs: git-remote increments (`plan-minion-town-git-remote-increments-20261010`, building on the merged-but-undeployed [minion.town#86](https://github.com/kriscendobot/minion.town/pull/86)) and the clip gutter (`plan-minion-town-clip-gutter-20261010`, now claimed). It also posted `build-accountant-statement-unattributed-share`. If those arcs still have no plans by 10-17, their share moves to the endo-ocapn-background arc. A scholar ingest of Literate AI finished, with a comparison published at [garden#123](https://github.com/kriscendobot/garden/issues/123), and a remainder job is now running.
 
-**Production deploys:** [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) is undeployed because of the Actions billing block, not a code defect. The screener's delegation stays paused until you resume it by hand, move CD to the self-hosted runner, or wait for the reset. A garden follow-up is offered to treat runnerless deploys as "billing-deferred".
-
-**Hosts and deploys:**
-- **oros-studio:** it returned after a long offline stretch, and its canary-stuck condition cleared. A rolling-deploy canary-failed alert is still open for it, with retries exhausted at target 61a16d25. It may still need your decision, and the oros-studio-garden-ce242c49 drain may need lifting.
-- **endolin-garden2:** it has been offline for about 12.7 hours.
-- **endolin-garden:** the leader is holding because it has no live canary, and its journal worktree is about 2 hours stale.
-
-**Failed or stalled work:**
-- The Moddable 10.0.0 IronHorse port-plan orchestrations halted repeatedly on 2400s handler timeouts. They need splitting into smaller stages or running detached.
-- The PR 179 weave job overran its budget twice.
-- `review-docket-consolidate-20261008` is parked after its retries were exhausted, which halted the review-docket orchestration. The crawler-leak design job is parked for the same reason.
-- The Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`.
-- The minion.town triager breaker is open after 5 consecutive failures.
-
-**Completed orchestrations:** the minion.town CI runner unblock and redeploy, the gauntlet must-fix summary orchestration, and the Moddable XS source inventory split. The CI runner was verified healthy.
-
-**Awaiting your input:**
-- **Weekly accountant slate:** 610M is in force and stays unless you reply. Minion.town arcs 2 and 3 have had no spend this week.
-- **ocap.site DNSSEC:** the registrar's DS record is still unpublished. The transfer window opened on 2026-10-09 evening UTC.
+Several things need a maintainer:
+- **minion.town screening is paused.** The [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) deploy failure was the Actions billing block, not a production break. The heal job found no runner and zero steps. The delegation stays paused until a green deploy. Your options are to resume it by hand, authorize moving CD onto the ci.minion.town runner, or wait for the billing reset.
+- **minion.town gauntlets hit their round limits.** The gauntlet for [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after its panel stage failed three times, with a resume command offered. The gauntlet for [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) hit its review budget at 2/2 rounds. The panel stages for both are queued again. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) also have stale panel coverage and need your review decision.
+- **The ironhorse port-plan orchestrations halted.** Handler timeouts at about 2400s stopped three nested attempts, and the watchdog says to split the work into smaller stages. The `endojs-endo-but-for-bots-pr179-weave-20261010` weave overran its budget the same way.
+- **Fleet health.** The rolling deploy has no canary. The oros host recovered and rejoined, but endolin-garden2 has been offline for about 12.7 hours. The Jev triage trial is blocked on the missing `TYPESAFE_API_KEY`.
+- **The ocap.site DNSSEC DS record is still unpublished.** The 60-day transfer window opened on 10-09.
 
 ## Maintainer review docket
 
@@ -112,6 +97,15 @@ Delegation: **active**
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=9 quota=ok fleet-envelope=4 target=2
 
+- `msg-accountant-weekly-20261010-160507-c8ccae4dc4ad` — from gardener:accountant-weekly-20261010-160507, reply_to `accountant-weekly-20261010-160507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261010-160507-c8ccae4dc4ad.md)
+
+> Confirmed (accountant-weekly-20261010). The 610M slate is in force for the week of 2026-10-10 (authorized_by kriskowal under the 2026-10-02 standing directive). Slices: mcp-ocapn 173.85M, git-remote 115.9M, ui 86.9M, endo-ocapn-background 115.9M, moonshots 46.4M, garden-upkeep 29.0M, garden-book 5M, endo-backlog 11.6M, reserve 25.5M.
+>
+> Acting on your proxy reply 20261010T163557Z-98b626:
+> - Posted designer jobs `plan-minion-town-git-remote-increments-20261010` (arc 2; [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) is merged but not deployed) and `plan-minion-town-clip-gutter-20261010` (arc 3).
+> - Posted `build-accountant-statement-unattributed-share` (garden-upkeep), which adds an unattributed-share line per pool to the statement.
+> - Carried to the 10-17 accountant: if arcs 2 and 3 still have no plans, move the unused share to arc 4 and say so. Re-fit endolin2 toward ~121M if it passes ~50% before 10-17. Spend the codex-endolin credit (expires 10-29) once codex leaves backoff after ~10-13 18:40Z, on arc 1 or arc 4 work.
+
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
 > The Jev triage/foreman trial is blocked because TYPESAFE_API_KEY is absent from the job environment. Please provision the maintainer-owned key for a re-run; per the trial specification I have not searched for or configured a credential.
@@ -148,6 +142,23 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` cleared on endolin-garden2-5bcdff64.
 
+- `20261010T163620Z-5a3568` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261010T163620Z-5a3568.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: accountant-weekly-20261010-160507
+> - question (msgid msg-accountant-weekly-20261010-160507-732e410fff0d.md)
+> - tentative answer: Proxy/tentative (the maintainer may revise). This is a progress and budgeting question, so I can answer it. It doesn't grant new authority and it doesn't take any outward-facing action.
+>
+> - **Slate:** Keep the 610M slate in force. The ranking and shares stay as they are, which matches the standing per-reset directive of 2026-10-02. Re-size again at the 10-17 reset.
+> - **Endolin2 cap:** Don't drop to 567M yet. Treat 567M as the downside case. endolin2 is at 1% of its cap, so a high cap costs little now, and the pools' 90% backoff is what actually limits total spend. If endolin2's usage climbs past about 50% before the 10-17 reset, re-fit the cap against the quota-fit model's ~121M at that point.
+> - **Idle minion.town arcs 2 and 3:** Try a design/plan push first. Post a planning job for [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) (git-remote), so that arc 2 has ready plans for the foreman to draw on. For arc 3 (UI), post a plan job for the clip gutter next. Both are cheap and easy to throw away, and they use the idle slices. If no plans come out of this by the 10-17 reset, move the unused share to arc 4 (endo-ocapn-background) and say so in the next statement. I'd try this reallocation as a fallback, not a first move, because it changes the ranking.
+> - **Unattributed spend:** Keep the current approach. The pools' backoff is the real cap on non-foreman work, and the slices only limit the foreman. Add a line to next week's statement that estimates the unattributed share per pool, so it's easier to see.
+> - **Codex credit:** Spend the codex-endolin credit (it expires 10-29) mid-week, once the pool leaves backoff after the 10-13 window reset. Use it on arc 1 or arc 4 work, whichever has ready plans.
+
+- `msg-scholar-ingest-literate-ai-20261010-583675689bd4` — from scholar:scholar-ingest-literate-ai-20261010, reply_to `scholar-ingest-literate-ai-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-20261010-583675689bd4.md)
+
+> Literate AI is a strong conceptual match for the garden's gauntlet: its best reusable ideas are an explicit authority-to-evidence chain, source-only candidates, independent acceptance distinct from generated tests, and a traceability matrix tying each boundary to executable proof. I ingested five core sources as 15 sections, added the `agentic-sdlc` topic and `specification-authority-chain` concept, and published the requested comparison at [https://github.com/kriscendobot/garden/issues/123](https://github.com/kriscendobot/garden/issues/123). Its main mismatches are that “generated source is disposable” does not fit most existing repositories, its whole-file identity model can create repinning churn, and its guarded host execution is explicitly not hardened containment. Full result: https://github.com/kriscendobot/garden/blob/journal2/entries/2026/10/10/163557Z-result-scholar-2c16e5.md
+
 - `stale-panel-head-kriscendobot-minion.town-pr174-f7dfa808-3e088a18` — from gardener:minion-town-arc-press-20261009-142016, reply_to `minion-town-arc-press-20261009-142016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr174-f7dfa808-3e088a18.md)
 
 > Stale panel coverage for completed job `minion-town-arc-press-20261009-142016`: [https://github.com/kriscendobot/minion.town/pull/174](https://github.com/kriscendobot/minion.town/pull/174) moved from panel-reviewed head `f7dfa8088039c61689a162d51d5601942d967e11` to presented head `3e088a1837ef793d0a345a1e498f939482df8e6e`.
@@ -163,13 +174,6 @@ Delegation: **active**
 > ## Follow-ups
 > - `design-minion-town-oauth-bonds` is still in `doin`. A requeue will only pass on its own once this change is deployed to that host. Its build is still owned by `orch-minion-town-oauth-bonds`.
 > - This is separate from the existing `DESIGN-BUILD-RECHECK` path in `handlers/follow-up-claude.sh`. That path waits for a cross-referenced build PR to appear and never posts the builder job.
-
-- `endojs-endo-but-for-bots-pr353-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr353-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr353-gauntlet-20261007-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr353-gauntlet-20261007 HALTED: PR [endojs/endo-but-for-bots#353](https://github.com/endojs/endo-but-for-bots/issues/353) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #353') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr353-gauntlet-20261007 panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
@@ -434,37 +438,6 @@ Delegation: **active**
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
 > its heartbeat to rejoin automatically. If hosts/endolin-garden2-5bcdff64 was archived, unarchive it as a
 > separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
-
-- `msg-accountant-weekly-20261010-160507-732e410fff0d` — from gardener:accountant-weekly-20261010-160507, reply_to `accountant-weekly-20261010-160507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261010-160507-732e410fff0d.md)
-
-> # Weekly accountant statement: week of 2026-10-10 (Sat 03:00Z reset)
->
-> **What's in force now.** I carried last week's slate forward, then re-sized the total under your standing per-reset directive (2026-10-02). I used the same ranking and the same shares, applied with `authorized_by: kriskowal`.
->
-> - Total: **610M** (was 555M). That's 90% of capacity, rounded down: the config/budget-pools Claude caps you recalibrated on 10-06 (endolin1 271M + endolin2 168M + oros 180M = 619M), plus the provisional 60.7M codex-endolin fit.
->
-> | rank | arc | slice | spent so far |
-> | ---: | --- | ---: | ---: |
-> | 1 | minion-town-mcp-ocapn | 173.85M | 1.9M |
-> | 2 | minion-town-git-remote | 115.9M | 0 |
-> | 3 | minion-town-ui | 86.9M | 0 |
-> | 4 | endo-ocapn-background | 115.9M | 0 |
-> | 5 | moonshots | 46.4M | 0 |
-> | 6 | garden-upkeep | 29.0M | 0 |
-> | 7 | garden-book | 5M | 0 |
-> | 8 | endo-backlog | 11.6M | 0 |
-> | — | unallocated reserve | 25.5M | 3M |
->
-> **Pools (13h into the week):** claude-endolin1 27%, claude-endolin2 1%, claude-oros 11%, codex-endolin 74% (in backoff; its window rolled early on 10-06, so it resets around 10-13 18:40Z).
->
-> **Reset credits:** No Claude credits are left (endolin2's was used 10-06). One codex-endolin credit (expires 10-29) is still available to spend mid-week before it expires.
->
-> **Worth a look:**
-> 1. **Most spend isn't attributed to an arc.** endolin1 is already at 27% (about 73M), but only about 5M is charged to an arc. The rest is non-foreman work (auto-staged gauntlets, watchers, liaison), which never passes through the slate. So the slices limit only what the foreman draws. The pools' 90% backoff is what actually caps total spend.
-> 2. **minion.town arcs 2 and 3 have had no spend since the 10-03 week began.** Arc 1 has had all of it (20 completions). If git-remote and UI have no ready plans, their slices sit idle while lower arcs wait. A design/plan push on [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) or the clip gutter would put that budget to use.
-> 3. The endolin2 cap of 168M is your pre-reset squeeze calibration. The quota-fit model says about 121M. If 121M is closer to the truth, the honest total is about 567M.
->
-> **Proposal for next week:** Keep the ranking and shares as they are, and re-size again at the 10-17 reset. Reply to change the ranking or shares, or the total (for example, "use 567M"). With no reply, the 610M slate above stays in force.
 
 - `minion-town-ci-runner-unblock-20261008-terminal-complete` — from orchestrator:minion-town-ci-runner-unblock-20261008-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-unblock-20261008-terminal-complete.md)
 
@@ -840,18 +813,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.2M | $431.92 _(notional, rate-card)_ | 35% of 271.0M (ok) |
-| Codex | 1.0M _(+19.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 97.1M | $435.36 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Codex | 1.2M _(+24.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106156234 tokens/day lower bound._
+_Fleet token-unlock pace: 106292349 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (13)
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #171
+- [`plan-minion-town-git-remote-increments-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/plan-minion-town-git-remote-increments-20261010.md) — Plan the next minion.town git-remote increments
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
+- [`build-accountant-statement-unattributed-share`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-accountant-statement-unattributed-share.md) — accountant-statement.sh: estimate unattributed spend per pool
 - [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #348
 - [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-20261007-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1403
@@ -863,16 +838,16 @@ worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (2)
-- [`accountant-weekly-20261010-160507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-weekly-20261010-160507.md) — Weekly arc apportionment
-- [`scholar-ingest-literate-ai-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-literate-ai-20261010.md) — Ingest https://github.com/jordanhubbard/literate-ai and report on a fresh Git...
+- [`plan-minion-town-clip-gutter-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/plan-minion-town-clip-gutter-20261010.md) — Plan the minion.town clip gutter (UI arc)
+- [`scholar-ingest-literate-ai-remainder-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-literate-ai-remainder-20261010.md) — Continue the literate-ai repository ingest
 
-### tada (12214)
+### tada (12216)
+- [`accountant-weekly-20261010-160507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/accountant-weekly-20261010-160507.md) — Accountant weekly report: week of 2026-10-10 (Sat 03:00Z reset)
+- [`scholar-ingest-literate-ai-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/scholar-ingest-literate-ai-20261010.md) — Cost
 - [`endojs-endo-but-for-bots-pr353-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr353-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr353-gauntlet-20261007 — HALTED
 - [`endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007.md) — Cost
 - [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-3.md) — Cost
-- [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-3.md) — Cost
-- [`minion-town-arc-press-20261010-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/minion-town-arc-press-20261010-155006.md) — Cost
-- … and 12209 more
+- … and 12211 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
