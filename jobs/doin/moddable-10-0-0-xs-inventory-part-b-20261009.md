@@ -16,6 +16,7 @@ Research only; do not implement IronHorse ports. Scope: commits in Moddable-Open
 
 Items: Math.round subnormals; Math.irandom integer math; charAt/charCodeAt 32-bit position truncation; String repeat/replace/search edge cases; the String.prototype.replace capture-group memory-safety fix; Symbol.for no-arg.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
