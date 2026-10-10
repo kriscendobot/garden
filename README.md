@@ -1,22 +1,28 @@
 # Garden bulletin
 
-_As of 2026-10-10T10:14:54Z_
+_As of 2026-10-10T10:15:54Z_
 
 ## Latest
 
-Gauntlet activity is the main movement. [kriscendobot/minion.town#130](https://github.com/kriscendobot/minion.town/pull/130) was halted: its pre-spend viability stage failed and was doom-parked as `requeue-exhausted`, so nothing was retried. Its gauntlet record is closed out, and the held stage can be promoted by hand. [endojs/endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/pull/1355) finished panel round 1 and moved to its undraft stage. [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/pull/93) passed viability and queued its clean stage. [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) was requeued for panel round 7, after hitting its 6-round review budget with CI green. [kriscendobot/minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) is in fix round 3.
+Three minion.town gauntlets ended or advanced without converging. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 panel/fix rounds ($12.30) with CI green, and the must-fix list was unavailable. It is queued for panel round 7 but needs a maintainer decision (`--add-rounds`). [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) stopped at its 2-round budget with CI green. Two arc-press jobs left stale panel coverage on [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), and on [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403). Each needs an explicit "run the gauntlet" or a review decision. The latest press job for [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) has sat in `doin` for about 5.6h without completing.
 
-**Maintainer decisions:**
-- **Review budgets exhausted:** [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) hit its 2-round budget, with `--add-rounds` resume commands in the notices. #174's notice lists 6/6 rounds spent and a cost of $12.30.
-- **Stale panel coverage:** [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) now sit at heads the earlier panel did not review. [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has the same notice. All three need an explicit `run the gauntlet` or a maintainer decision.
-- **minion.town delegation:** screening is paused after the [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) deploy failure. The heal job found it was the Actions billing block, not a production break. The options are to resume by hand, move CD to the self-hosted runner, or wait for the reset.
-- **ocap.site DNSSEC:** the DS record is still unpublished at the registrar. The 60-day transfer lock lapsed around 2026-10-09T19:55Z, so the transfer can now be started.
+minion.town delivery is partly blocked. Screening is paused after the [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merge. The deploy failure was the Actions billing block (the job got no runner), not a production break, and no heal PR was opened. Your options are to resume by hand, authorize moving CD onto the ci.minion.town runner, or wait for the billing reset. The gardener also offered a follow-up so the screener treats a no-runner deploy as billing-deferred.
 
-**Fleet health:**
-- **Moddable/IronHorse port plan:** its split orchestrations halted after children overran the 2400s handler budget. Remedy: split the work into claim-sized stages.
-- **Other stalled orchestrations:** the Jev triage trial is blocked on an absent `TYPESAFE_API_KEY`, the review-docket consolidation was doom-parked, and the oauth-bonds build declared its gated outcome unsatisfied.
-- **Hosts:** `oros-studio-garden-ce242c49` was unreachable for part of the night but its heartbeat has resumed and canary alerts cleared. `endolin-garden2-5bcdff64` has been offline for about 6.6 hours, so rolling deploy skips it. The leader's journal worktree was stale by about 2 hours.
-- **Quota:** Claude is in backoff on both endolin subscriptions.
+Several orchestrations halted on handler timeouts or unsatisfied outcomes:
+- **Moddable 10.0.0 IronHorse port plan:** halted three times with 0 children completed. Each stage overran the 2400s handler budget, and the remedy is to split it into smaller stages.
+- **Jev triage/foreman trial:** blocked because `TYPESAFE_API_KEY` is missing from the job environment.
+- **minion.town OAuth bonds:** halted after its build declared its gated outcome unsatisfied.
+- **Review-docket consolidation:** held in plan after its requeue was exhausted.
+- **[endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179) weave:** also overran its budget.
+
+Fleet health needs attention:
+- **oros-studio:** it was reported unreachable after about 02:50Z and needs someone at the machine. Its heartbeat later resumed and its offline and canary alerts cleared, so this may already be resolved.
+- **endolin-garden2:** its heartbeat has been stale for roughly 6.6h.
+- **Rolling deploy:** it is holding the leader because no canary is available.
+- **Journal worktree:** the leader's worktree was about 2h stale, 139 commits behind.
+- **Claude quota:** both Claude subscriptions entered backoff after their spend passed their caps.
+
+A sysop follow-up is pending: once oros-studio deploys `96a2b4c6141`, remove the temporary `zz-liaison-temp-timeout.conf` drop-in by hand. The ocap.site DNSSEC DS record is still unpublished at the registrar. The 60-day transfer window should have opened on 2026-10-09 evening, and the next step is yours.
 
 ## Maintainer review docket
 
@@ -393,57 +399,6 @@ Delegation: **active**
 > its heartbeat to rejoin automatically. If hosts/endolin-garden2-5bcdff64 was archived, unarchive it as a
 > separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
-- `doomed-kriscendobot-minion.town-pr130-gauntlet-20261007-viability-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr130-gauntlet-20261007-viability-requeue-exhausted.md)
-
-> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
-> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion.town-pr130-gauntlet-20261007 exclusively owns retry through max_stage_retries.
-> The work is preserved at jobs/plan/kriscendobot-minion.town-pr130-gauntlet-20261007-viability; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion.town-pr130-gauntlet-20261007-viability) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion.town-pr130-gauntlet-20261007-viability
->
-> --- original job body ---
-> ---
-> role: gardener
-> arc: minion-town-mcp-ocapn
-> gauntlet: kriscendobot-minion.town-pr130-gauntlet-20261007
-> gauntlet_stage: viability
-> gauntlet_iteration: 0
-> pr: [https://github.com/kriscendobot/minion.town/pull/130](https://github.com/kriscendobot/minion.town/pull/130)
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #130
->
-> You are the viability gate for staged gauntlet (kriscendobot-minion.town-pr130-gauntlet-20261007). Spend no clean, panel,
-> fix, CI-wait, or un-draft budget. Decide whether the gauntlet may begin, report the
-> evidence, then STOP.
->
-> 1. Read current PR facts with
->    `gh pr view https://github.com/kriscendobot/minion.town/pull/130 --json state,mergedAt,isDraft,title,body,baseRefName,headRefName,headRefOid,baseRefOid,url`.
->    A merged PR reports `viability=merged`; any other non-OPEN PR reports
->    `viability=closed`. Neither enters the gauntlet loop.
-> 2. For an open, unmerged PR, inspect its description, discussion and reviews, linked
->    issue/design context, current base code, and relevant newer base history. Ask one
->    concrete yes/no question whose answer decides both of these claims: the PR has not
->    been superseded, and the need or assumption that motivated it still holds.
-> 3. Report `viability=proceed` only when current evidence supports both claims. If a
->    newer implementation/design displaced it, or its motivating premise no longer
->    holds, report `viability=overtaken`. Do not enter the expensive loop merely
->    because the PR remains open.
-> 4. Include concise `Deciding question:` and `Evidence:` lines in every report.
->    For `overtaken`, also include this exact line so the maintainer gets an explicit
->    disposition rather than a silent refusal:
->
->    Option: close as superseded
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: viability=proceed -->
->   <!-- gauntlet-stage-result: viability=closed -->
->   <!-- gauntlet-stage-result: viability=merged -->
->   <!-- gauntlet-stage-result: viability=overtaken -->
-
 - `minion-town-ci-runner-unblock-20261008-terminal-complete` — from orchestrator:minion-town-ci-runner-unblock-20261008-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-unblock-20261008-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -649,13 +604,6 @@ Delegation: **active**
 > - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
 > - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
 
-- `kriscendobot-minion.town-pr130-gauntlet-20261007-halted` — from gauntlet:kriscendobot-minion.town-pr130-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr130-gauntlet-20261007-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr130-gauntlet-20261007 HALTED: stage 'kriscendobot-minion.town-pr130-gauntlet-20261007-viability' (viability) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr130-gauntlet-20261007 panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `minion-town-pr-screening-paused-39867df` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-39867df.md)
 
 > minion.town screening PAUSED: merge 39867df7874 of [https://github.com/kriscendobot/minion.town/pull/169](https://github.com/kriscendobot/minion.town/pull/169) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/37868510874
@@ -813,7 +761,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.9M | $221.94 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 49.0M | $222.28 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 510.6k _(+15.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 100595273 tokens/day lower bound._
