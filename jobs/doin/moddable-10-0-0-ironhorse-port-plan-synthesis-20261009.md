@@ -26,6 +26,7 @@ Items: immutable ArrayBuffer; Math.round subnormals; charAt/charCodeAt truncatio
 
 Do not start the ports. Park the resulting implementation children according to the standing designer/multi-part pattern, with complete bodies and stable basenames, so they remain held pending the design review/authorization path. Name the recommended orchestration and exact child order in the design and report. Open the draft design PR as the review surface, and report the PR URL plus all parked child basenames.
 
+<!-- garden-provider-quota-backoff: type=usage reset-at=2026-10-10T03:00:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
