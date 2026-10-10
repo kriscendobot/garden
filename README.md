@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T01:56:27Z_
+_As of 2026-10-10T02:04:46Z_
 
 ## Latest
 
@@ -223,11 +221,12 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-09T18:02:55Z, cleared 2026-10-09T18:07:59Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-09T18:02:55Z, latest 2026-10-10T02:03:52Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden2-5bcdff64 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 1 source(s); they post no acknowledgments while it holds.
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3697s (since 2026-10-10T01:02:14Z)
 
 - `20261009T111207Z-dff0cb` — from triager:kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261009T111207Z-dff0cb.md)
 
