@@ -97,3 +97,13 @@ Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot
 issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no ferry.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T03:03:20Z
