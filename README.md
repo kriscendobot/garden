@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-10T22:49:43Z_
+_As of 2026-10-10T22:59:20Z_
 
 ## Latest
 
@@ -962,6 +962,10 @@ Delegation: **active**
 >
 > Orchestration moddable-10-0-0-xs-source-inventory-20261009-split complete (parallel): all 3 children reached tada without a machine-readable failure declaration.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014341s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489` — from gardener:claude-on-minion-town-completion-press-20261010-002011, reply_to `claude-on-minion-town-completion-press-20261010-002011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489.md)
 
 > claude-on-minion-town-completion-press-20261009-182008 has sat in jobs/doin since its claim at 2026-10-09T18:46:51Z (~5.6h, far past the 2400s default) with no completion; the arc press claude-on-minion-town-press-20261009-185008 has also gone unclaimed in todo for ~5.5h. No arc dooms. Effect: the arc's own oversight is stalling, not its deliverables. I have not touched either job; the reaper owns the requeue.
@@ -1042,13 +1046,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 136.0M | $603.14 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Claude | 136.1M | $604.87 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 1.5M _(+34.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106578863 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.090503s/45s (/home/kris/garden/.garden-state/screening-control/journal); 6 open notice(s); checker healthy
+worst fetch p95 4.090503s/45s (/home/kris/garden/.garden-state/screening-control/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
