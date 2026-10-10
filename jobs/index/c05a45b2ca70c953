@@ -1,2 +1,2 @@
-base: improve-bounded-review-docket-reconcile
+base: improve-review-docket-lock-timeout-fatal
 identity: mentor:scripts/jobs/review-docket.sh
