@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: kriscendobot-minion.town-pr130-gauntlet-20261007
+role: gardener
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: unknown
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-10T10:13:09Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-10T10:13:09Z
+---
+
+---
 role: gardener
 arc: minion-town-mcp-ocapn
 gauntlet: kriscendobot-minion.town-pr130-gauntlet-20261007
@@ -39,13 +59,3 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: viability=closed -->
   <!-- gauntlet-stage-result: viability=merged -->
   <!-- gauntlet-stage-result: viability=overtaken -->
-
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-10T06:04:58Z
