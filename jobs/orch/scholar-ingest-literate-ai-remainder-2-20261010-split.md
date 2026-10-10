@@ -1,4 +1,5 @@
 ---
+child-scholar-ingest-literate-ai-architecture-priority-20261010-reap-count: 0
 order: serial
 children: scholar-ingest-literate-ai-architecture-priority-20261010 scholar-ingest-literate-ai-architecture-next-20261010 scholar-ingest-literate-ai-next-slice-20261010
 on-child-failure: halt
