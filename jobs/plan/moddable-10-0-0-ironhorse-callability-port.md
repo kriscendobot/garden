@@ -35,3 +35,7 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 <!-- garden-annotation: key=pr1435-panel1 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-1 at=2026-10-10T07:46:44Z -->
 
 PR #1435 panel round 1 (design commit 7d2d6f8d12): the campaign is now parallel (--parallel --on-child-failure continue) for children 1-5, with the oracle/matrix/ratchet work in a held sixth child, moddable-10-0-0-ironhorse-oracle-validation.
+
+<!-- garden-annotation: key=pr1435-panel2 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-2 at=2026-10-10T09:38:31Z -->
+
+Snapshot-golden rule (design § Orchestration, PR #1435 panel round 2): children 1 and 5 may both bump the snapshot format version (`ironhorse-snapshot/src/format.rs`) and regenerate `ironhorse-snapshot/tests/fixtures/state_golden*.tsv` (both math providers) and the inline digests. Regenerate these, never hand-merge them; whichever of the two merges second rebases onto the first, regenerates the goldens, takes the next format version, and says so in its PR. When a specified result disagrees with the 8.3.1 oracle, record the row as the run reports it and list it in the PR as an expected oracle divergence citing the spec and the XS 10.0.0 commit; never change the engine toward the oracle. Design row: R01.
