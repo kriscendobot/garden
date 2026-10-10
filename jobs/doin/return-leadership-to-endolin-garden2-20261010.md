@@ -25,3 +25,13 @@ incoming = endolin-garden2-5bcdff64, outgoing = oros-studio):
 5. Signal "leadership returned" on `role/liaison`; report in the job result.
 Never move the marker before step 3's confirmation unless the outgoing liaison is
 demonstrably absent.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T03:06:58Z
