@@ -1225,6 +1225,10 @@ because the specs are repository READMEs.
 | [User-directed work loop](literate-ai--docs-architecture-user-directed-work-loop.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 1 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Source promotion](literate-ai--docs-architecture-source-promotion.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Production containment threat model](literate-ai--docs-architecture-production-containment-threat-model.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 7 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Agent ledger boundary](literate-ai--docs-architecture-agent-ledger-boundary.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Component authoring and lock boundary](literate-ai--docs-architecture-component-authoring-lock-boundary.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Component authority](literate-ai--docs-architecture-component-authority.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 1 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Exact versioned components](literate-ai--docs-architecture-exact-versioned-components.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
