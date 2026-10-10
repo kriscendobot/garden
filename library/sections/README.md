@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7296 (530 parent indexes + 6766 children).
+Total section files: 7311 (530 parent indexes + 6781 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8423,6 +8423,33 @@ Total section files: 7296 (530 parent indexes + 6766 children).
 - [literate-ai--docs-architecture-domain-model--components-flavors-and-locks](literate-ai--docs-architecture-domain-model--components-flavors-and-locks.md)
 - [literate-ai--docs-architecture-domain-model--hexagonal-authority-boundary](literate-ai--docs-architecture-domain-model--hexagonal-authority-boundary.md)
 - [literate-ai--docs-architecture-domain-model--workflow-acceptance-and-receipts](literate-ai--docs-architecture-domain-model--workflow-acceptance-and-receipts.md)
+
+### literate-ai--docs-architecture-production-containment-threat-model
+
+- [literate-ai--docs-architecture-production-containment-threat-model--authenticated-evidence-closure](literate-ai--docs-architecture-production-containment-threat-model--authenticated-evidence-closure.md)
+- [literate-ai--docs-architecture-production-containment-threat-model--ci-identity-publication-and-delivery](literate-ai--docs-architecture-production-containment-threat-model--ci-identity-publication-and-delivery.md)
+- [literate-ai--docs-architecture-production-containment-threat-model--exact-build-binding-and-cgroup-preflight](literate-ai--docs-architecture-production-containment-threat-model--exact-build-binding-and-cgroup-preflight.md)
+- [literate-ai--docs-architecture-production-containment-threat-model--isolation-levels-and-threats](literate-ai--docs-architecture-production-containment-threat-model--isolation-levels-and-threats.md)
+- [literate-ai--docs-architecture-production-containment-threat-model--phase-specific-controls](literate-ai--docs-architecture-production-containment-threat-model--phase-specific-controls.md)
+- [literate-ai--docs-architecture-production-containment-threat-model--provider-neutral-fail-closed-contract](literate-ai--docs-architecture-production-containment-threat-model--provider-neutral-fail-closed-contract.md)
+- [literate-ai--docs-architecture-production-containment-threat-model--single-use-build-admission](literate-ai--docs-architecture-production-containment-threat-model--single-use-build-admission.md)
+
+### literate-ai--docs-architecture-repository-layout
+
+- [literate-ai--docs-architecture-repository-layout--generated-state-and-session-boundaries](literate-ai--docs-architecture-repository-layout--generated-state-and-session-boundaries.md)
+- [literate-ai--docs-architecture-repository-layout--package-audit-and-decomposition](literate-ai--docs-architecture-repository-layout--package-audit-and-decomposition.md)
+- [literate-ai--docs-architecture-repository-layout--root-authority-taxonomy](literate-ai--docs-architecture-repository-layout--root-authority-taxonomy.md)
+
+### literate-ai--docs-architecture-source-promotion
+
+- [literate-ai--docs-architecture-source-promotion--audited-component-graph-promotion](literate-ai--docs-architecture-source-promotion--audited-component-graph-promotion.md)
+- [literate-ai--docs-architecture-source-promotion--external-source-dependencies](literate-ai--docs-architecture-source-promotion--external-source-dependencies.md)
+- [literate-ai--docs-architecture-source-promotion--independent-language-translators](literate-ai--docs-architecture-source-promotion--independent-language-translators.md)
+- [literate-ai--docs-architecture-source-promotion--promotion-boundaries-and-qualification](literate-ai--docs-architecture-source-promotion--promotion-boundaries-and-qualification.md)
+
+### literate-ai--docs-architecture-user-directed-work-loop
+
+- [literate-ai--docs-architecture-user-directed-work-loop--durable-project-authority](literate-ai--docs-architecture-user-directed-work-loop--durable-project-authority.md)
 
 ### literate-ai--readme
 
