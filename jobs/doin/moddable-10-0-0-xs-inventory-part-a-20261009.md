@@ -16,6 +16,7 @@ Research only; do not implement IronHorse ports. Scope: commits in Moddable-Open
 
 Items: immutable ArrayBuffer (enabled in all builds) — ALSO explicitly determine whether this changes the minimum oracle xst version or any hardened262/ironhorse matrix assumption and any other ratchet-baseline implication; read context/operations/ironhorse-ratchet.md for local baseline conventions; ArrayBuffer resize rejection order; setFromHex bounds-vs-odd-length order; TypedArray set/fill/constructor/species ordering and detached checks; Atomics.wait leak/deadlock.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
