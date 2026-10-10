@@ -13,7 +13,7 @@ arc: minion-town-mcp-ocapn
 stage: panel
 iteration: 4
 resumes: 0
-stage_retries: 1
+stage_retries: 2
 current_child: kriscendobot-minion.town-pr174-gauntlet-panel-4
 state: running
 resumed_at: 2026-10-10T00:32:10Z
