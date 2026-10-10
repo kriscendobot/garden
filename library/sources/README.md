@@ -1212,6 +1212,16 @@ because the specs are repository READMEs.
 | [Vendored brush-core crate root](oh-my-pi--crates-vendor-brush-core-src-lib.md) | can1357/oh-my-pi | 2026-09-28 | can1357 | 1 | current (file commit `ebf2a2aa`; Shell/ShellBuilder embedding and spawn-observation surface; two-sentence prose header) |
 | [oh-my-pi Design: 01 · Rust Core (third-party explainer)](web--oh-my-pi-design-rust-core.md) | https://yeluo45.github.io/oh-my-pi-design/en/docs/01-rust-core | 2 | current (`source_kind: web`; secondary description, not ground truth; content sha256 `ae1a74c3`; carries a claim-by-claim divergence ledger against oh-my-pi `53f253fb`; classifier unavailable, read under untrusted-data discipline) |
 
+## Literate AI
+
+| Source | Repository | Last modified | Authors | Sections | Status |
+|--------|------------|---------------|---------|----------|--------|
+| [README](literate-ai--readme.md) | jordanhubbard/literate-ai | 2026-10-04 | jkh | 4 | current (file commit `76f498a8`; classifier `proceed_with_caveat` for mixed factual and persuasive framing) |
+| [Software-neutral domain model](literate-ai--docs-architecture-domain-model.md) | jordanhubbard/literate-ai | 2026-10-01 | Jordan Hubbard | 4 | current (file commit `2820f853`; classifier `proceed`) |
+| [Authoring and record formats](literate-ai--docs-architecture-authoring-and-record-formats.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Per-Component execution plans](literate-ai--docs-architecture-component-execution-plans.md) | jordanhubbard/literate-ai | 2026-10-01 | Jordan Hubbard | 3 | current (file commit `2820f853`; classifier `proceed`) |
+| [Design traceability](literate-ai--docs-architecture-design-traceability.md) | jordanhubbard/literate-ai | 2026-10-05 | Jordan Hubbard | 1 | current (file commit `31ebd4e9`; classifier `proceed`) |
+
 ## Petname systems and Zooko's triangle
 
 | Source | URL or venue | Sections | Status |
