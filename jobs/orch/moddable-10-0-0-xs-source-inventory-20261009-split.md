@@ -2,7 +2,7 @@
 order: parallel
 children: moddable-10-0-0-xs-inventory-part-a-20261009 moddable-10-0-0-xs-inventory-part-b-20261009 moddable-10-0-0-xs-inventory-part-c-20261009
 on-child-failure: continue
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-10T00:00:59Z
 ---
