@@ -15,6 +15,7 @@ Keep the row classification: arc unallocated, milestone M9. The maintainer still
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
