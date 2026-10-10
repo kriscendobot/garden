@@ -31,3 +31,7 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 - Pass the four currently divergent test262 cases named by the design: `typeof/proxy.js`, revoked function-proxy creation/revocation, and revoked base-constructor behavior.
 - Run the nearest `ironhorse-vm`, snapshot, and targeted `ironhorse-262` suites in sloppy and strict modes with the oracle enabled; introduce no generic skips or expectation regressions.
 - Open a draft implementation PR with the exact-head evidence and link the design PR. Do not merge it or start a sibling child.
+
+<!-- garden-annotation: key=pr1435-panel1 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-1 at=2026-10-10T07:46:44Z -->
+
+PR #1435 panel round 1 (design commit 7d2d6f8d12): the campaign is now parallel (--parallel --on-child-failure continue) for children 1-5, with the oracle/matrix/ratchet work in a held sixth child, moddable-10-0-0-ironhorse-oracle-validation.
