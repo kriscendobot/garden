@@ -1221,6 +1221,10 @@ because the specs are repository READMEs.
 | [Authoring and record formats](literate-ai--docs-architecture-authoring-and-record-formats.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Per-Component execution plans](literate-ai--docs-architecture-component-execution-plans.md) | jordanhubbard/literate-ai | 2026-10-01 | Jordan Hubbard | 3 | current (file commit `2820f853`; classifier `proceed`) |
 | [Design traceability](literate-ai--docs-architecture-design-traceability.md) | jordanhubbard/literate-ai | 2026-10-05 | Jordan Hubbard | 1 | current (file commit `31ebd4e9`; classifier `proceed`) |
+| [Repository layout](literate-ai--docs-architecture-repository-layout.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [User-directed work loop](literate-ai--docs-architecture-user-directed-work-loop.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 1 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Source promotion](literate-ai--docs-architecture-source-promotion.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Production containment threat model](literate-ai--docs-architecture-production-containment-threat-model.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 7 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
