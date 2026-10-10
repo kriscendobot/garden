@@ -1,24 +1,32 @@
 # Garden bulletin
 
-_As of 2026-10-10T07:59:56Z_
+_As of 2026-10-10T08:02:05Z_
 
 ## Latest
 
-Gauntlet work on [endo-but-for-bots#1435](https://github.com/endojs/endo-but-for-bots/pull/1435) moved from fix round 1 to panel round 2, and a weave of [endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179) was claimed. Otherwise the board was quiet.
+The file-level board feed was empty this cycle, but the maintainer inbox shows several things to know about.
 
-**Needs a person:**
-- **oros-studio-garden-ce242c49:** its heartbeat resumed and the offline watchdog cleared. An earlier health-watch note that it had gone unreachable is therefore probably stale.
-- **Rolling deploy to followers:** it is still holding the leader because there is no healthy canary. endolin-garden2-5bcdff64 has been offline for hours. The oros canary was halted after 3 failed retries and has since cleared as no longer stuck.
-- **minion.town screening:** [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) did not break production. The deploy failed because the Actions billing block left it no runner. The screener paused delegation and stays paused until a green main deploy, unless you resume it by hand or move CD onto the ci.minion.town runner.
-- **Gauntlet review budgets:** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 rounds and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used all 2. Both are left for a human decision or more rounds via `--add-rounds`.
-- **Stale panel coverage:** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) each have a head the earlier panel never saw. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) is in the same state.
-- **Halted orchestrations:**
-  - The Moddable 10.0.0 IronHorse port-plan splits timed out on the 2400s handler budget.
-  - The oauth-bonds build and the Jev triage trial both ended with gated outcomes unsatisfied. The Jev trial lacks `TYPESAFE_API_KEY`.
-  - The review-docket consolidate job is parked in plan after its retry also failed.
-- **Quota:** claude-endolin1 and claude-endolin2 both dropped into backoff on spend.
+**Two minion.town gauntlets ran out of review rounds and need a human call.** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 rounds (cost so far $12.30). [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used all 2 rounds ($6.06). Both left their fixes pushed with CI green. Neither panel report had a structured must-fix list, so unaddressed items are unknown. `--add-rounds N` on the resume command grants more. Panel coverage is also stale on [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403). The current heads are unreviewed, and no gauntlet was staged for them.
 
-**Resolved:** [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) merged and deployed cleanly. The minion-town CI-runner unblock and redeploy orchestrations finished, as did the gauntlet must-fix summary orchestration.
+**Screening of minion.town is paused.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged but its deploy failed. The heal job found this is the Actions billing block (no runner, zero steps), not a production break, and production is still serving. The pause lifts only after a green main deploy. Your options are to resume by hand, move CD onto the ci.minion.town runner, or wait for the billing reset. The heal job also suggests a follow-up so the screener treats this failure as billing-deferred. [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) merged and validated earlier.
+
+**The fleet is degraded:**
+- **oros-studio:** it went quiet around 02:50Z and has since come back. Its canary on target 44bfcbe is still marked failed after 3 retries, and its rolling-deploy host-offline watchdog cleared at 06:38Z.
+- **garden2:** it has been offline for 3+ hours.
+- **Leader:** with no usable canary, the leader will not advance.
+- **Journal worktree:** the leader's journal worktree was stale, 139 commits behind.
+- **Claude accounts:** both claude-endolin accounts are in backoff after overspending their budgets.
+- **Codex:** it is at 72% of plan.
+
+**Orchestrations halted:**
+- **Moddable 10.0.0 IronHorse port plan:** three successive attempts (the split and two resumes) hit the 2400s handler timeout and need real decomposition.
+- **Jev triage trial:** it is blocked on the missing `TYPESAFE_API_KEY`.
+- **orch-minion-town-oauth-bonds:** halted on an unsatisfied outcome.
+- **review-docket consolidation:** the job is doomed and held in plan.
+
+Finished cleanly: `minion-town-ci-runner-unblock`, `minion-town-ci-runner-redeploy`, `gauntlet-mustfix-summary-orch` and `moddable-10-0-0-xs-source-inventory`.
+
+**Decisions waiting on you:** the ocap.site DNSSEC DS record is still unpublished. The 60-day transfer window has now passed, so you can start the transfer or ask Key-Systems to add the DS. Also, after `96a2b4c6141` deploys on oros-studio, remove the temporary sysop timeout drop-in by hand.
 
 ## Maintainer review docket
 
@@ -763,10 +771,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.0M | $159.98 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 33.1M | $160.31 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 221.2k _(+8.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 100143408 tokens/day lower bound._
+_Fleet token-unlock pace: 100328188 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 15.340621s/45s (/home/kris/garden/.garden-state/budget-level/journal); 7 open notice(s); checker healthy
