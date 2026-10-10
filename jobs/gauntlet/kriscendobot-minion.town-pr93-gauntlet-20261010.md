@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 93
 build_job: 
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 4
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr93-gauntlet-20261010-viability
+current_child: kriscendobot-minion.town-pr93-gauntlet-20261010-clean
 state: running
 created_by: gardener
 created_at: 2026-10-10T09:51:11Z
