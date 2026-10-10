@@ -1,13 +1,14 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:self-heal
-sent_at: 2026-10-10T02:43:50Z
+sent_at: 2026-10-10T04:41:19Z
 watchdog_key: namespace-clone-packs-oros-studio-garden-ce242c49
 notice_count: 1
 first_seen: 2026-10-10T02:43:50Z
-last_seen: 2026-10-10T02:43:50Z
+last_seen: 2026-10-10T04:41:19Z
+recovered: true
 ---
-Per-namespace journal clones on oros-studio-garden-ce242c49 are still over the 50-pack threshold after maintenance:
-  /Users/dom/garden/.garden-state/leader/journal: 71 packs
-  /Users/dom/garden/.garden-state/transcripts/journal: 63 packs
+RECOVERED — the watchdog condition `namespace-clone-packs-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-10T02:43:50Z, cleared 2026-10-10T04:41:19Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-A pack/tmp_pack buildup makes every git read slow (2026-10-08: 57 s leader read wedged ~100 leader-gated units). Inspect by hand: `nice ionice -c3 git -C <clone> repack -a -d`.
+Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
