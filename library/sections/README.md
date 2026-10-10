@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7390 (530 parent indexes + 6860 children).
+Total section files: 7395 (530 parent indexes + 6865 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8563,6 +8563,14 @@ Total section files: 7390 (530 parent indexes + 6860 children).
 - [literate-ai--docs-architecture-retained-library-bindings--run-product-parity-and-oracle](literate-ai--docs-architecture-retained-library-bindings--run-product-parity-and-oracle.md)
 - [literate-ai--docs-architecture-retained-library-bindings--run-product-record-reopening](literate-ai--docs-architecture-retained-library-bindings--run-product-record-reopening.md)
 - [literate-ai--docs-architecture-retained-library-bindings--test-runtime-environment](literate-ai--docs-architecture-retained-library-bindings--test-runtime-environment.md)
+
+### literate-ai--docs-architecture-sample-portfolio-review
+
+- [literate-ai--docs-architecture-sample-portfolio-review--catalog-criteria-and-sample-roles](literate-ai--docs-architecture-sample-portfolio-review--catalog-criteria-and-sample-roles.md)
+- [literate-ai--docs-architecture-sample-portfolio-review--correctness-conclusion](literate-ai--docs-architecture-sample-portfolio-review--correctness-conclusion.md)
+- [literate-ai--docs-architecture-sample-portfolio-review--human-readability-standard](literate-ai--docs-architecture-sample-portfolio-review--human-readability-standard.md)
+- [literate-ai--docs-architecture-sample-portfolio-review--important-gaps](literate-ai--docs-architecture-sample-portfolio-review--important-gaps.md)
+- [literate-ai--docs-architecture-sample-portfolio-review--portfolio-conclusion](literate-ai--docs-architecture-sample-portfolio-review--portfolio-conclusion.md)
 
 ### literate-ai--docs-architecture-source-promotion
 
