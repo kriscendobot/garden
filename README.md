@@ -1,21 +1,37 @@
 # Garden bulletin
 
-_As of 2026-10-10T11:47:45Z_
+_As of 2026-10-10T11:51:00Z_
 
 ## Latest
 
-The Moddable 10.0.0 IronHorse port-plan work is stuck. The `-split`, `-split-resume` and `-split-resume-resume` orchestrations each halted on a handler timeout at the 2400s budget, and the latest child, `moddable-10-0-0-ironhorse-port-plan-synthesis-20261009`, ran 2612s. The watchdog says it can't fit in one claim and needs splitting into smaller stages or a detached run. The `weave` for PR 179 on endo-but-for-bots overran the same way.
+Production is fine, but the fleet's overnight attention went to deploy and quota trouble rather than merges.
 
-Gauntlet [endo-but-for-bots#283](https://github.com/endojs/endo-but-for-bots/pull/283) halted because the PR targets a floating base. It needs "pin the merge base #283" before it can be re-run. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used up all 6 review rounds without converging, and a panel round 7 is already queued. [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) also stopped after 2 of 2 rounds. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) have commits the earlier panel never reviewed. Endo-but-for-bots#1435 is in panel round 5 (fix round 4 just finished).
+**Needs your decision**
+- **minion.town#169 deploy:** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) did not break production. Its `deploy.yml` run got no runner because of the Actions billing block, which is expected to clear around 10-30. Production still serves the earlier deploy.
+  - The screener paused delegation and will stay paused until a green main deploy.
+  - Your options are to resume it by hand, authorize moving CD onto the `ci.minion.town` runner, or wait for the reset.
+  - The heal job also suggests a follow-up so the screener treats a no-runner, zero-step deploy as "billing-deferred".
+- **Gauntlets out of review budget:** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 rounds and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used all 2, so each is waiting on a human call or `--add-rounds`. Both reports say the unaddressed must-fix list is unavailable.
+- **Stale panel coverage:** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) moved past their panel-reviewed heads. No gauntlet is staged until you ask for one.
+- **ocap.site DNSSEC:** the 60-day transfer window ended about 2026-10-09T19:55Z. The DS record is still unpublished, so you can start the transfer or ask Key-Systems to publish it.
 
-minion.town screening is paused because the deploy for [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) failed on the Actions billing block, which isn't a code defect. Production is unaffected. The heal gardener offers three options: resume by hand, move CD onto the ci.minion.town runner, or wait for the reset. It also proposes treating "no runner, zero steps" as billing-deferred.
+**Fleet health**
+- **Rolling deploy:** it is holding the leader because no follower is available as a canary.
+  - The oros canary exhausted its retries on `61a16d25`, and its drain is still pending your decision.
+  - Oros's heartbeat has since resumed and its stuck-canary alert cleared.
+  - `endolin-garden2` has been offline about 7.6 hours.
+- **Leader journal worktree:** `endolin-garden`'s worktree has been 139 commits behind `origin/journal2` for about 2 hours and could not self-heal.
+- **Quota:** the `claude-endolin1` and `claude-endolin2` subscriptions both went into backoff on spend overruns. `claude-endolin1` has since returned to ok, and `claude-endolin2`'s weekly-limit notice remains open.
+- **Sysop timeout fix:** `fix-sysop-ack-timeout` landed on main2 as `96a2b4c6141`. Once oros has deployed it, someone needs to remove the temporary sysop drop-in by hand, because no remote op can do it.
 
-On the fleet side, oros-studio is back after a stretch offline and has rejoined the canary rotation. Its canary for target `61a16d25` was halted after exhausting retries. endolin-garden2 is still offline (heartbeat about 7.6h stale). The leader is holding because no healthy canary is available, and its journal worktree was reported stale and 139 commits behind.
-
-Maintainer items:
-- **ocap.site:** the DNSSEC DS record is still unpublished. The domain became transfer-eligible on 10-09.
-- **Jev trial:** it is blocked on a missing `TYPESAFE_API_KEY`.
-- **Sysop drop-in:** `zz-liaison-temp-timeout.conf` still needs removing from oros after it deploys `96a2b4c6141`.
+**Stalled work**
+- **Moddable 10.0.0 IronHorse port plan:** the split orchestrations halted on handler timeouts of about 2400s, which means the jobs need to be broken into smaller stages. The port-plan PR [endo-but-for-bots#1435](https://github.com/endojs/endo-but-for-bots/pull/1435) did finish fix round 4 and is in panel round 5.
+- **Other halted or parked orchestrations:**
+  - The Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`.
+  - The `build-minion-town-oauth-bonds` orchestration halted on an unsatisfied outcome.
+  - The review-docket consolidation job was parked after its retry also failed.
+- **Completed orchestrations:** the minion.town CI runner unblock and redeploy-verify, the gauntlet must-fix summary, and the Moddable XS source inventory all finished cleanly.
+- **Triager circuit breaker:** it opened for `kriscendobot-minion.town` after 5 identical failures. It clears when a new commit lands on `main`.
 
 ## Maintainer review docket
 
@@ -360,13 +376,6 @@ Delegation: **active**
 >
 > ## Follow-ups
 > - Neither check has run on a live panel yet; the first code PR that adds a socket or formula type will be the first real exercise.
-
-- `endojs-endo-but-for-bots-pr283-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr283-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr283-gauntlet-20261007-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr283-gauntlet-20261007 HALTED: PR [endojs/endo-but-for-bots#283](https://github.com/endojs/endo-but-for-bots/issues/283) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #283') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr283-gauntlet-20261007 panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `orch-minion-town-oauth-bonds-child-build-minion-town-oauth-bonds-failed` — from orchestrator:orch-minion-town-oauth-bonds-child-build-minion-town-oauth-bonds-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-minion-town-oauth-bonds-child-build-minion-town-oauth-bonds-failed.md)
 
@@ -781,7 +790,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.7M | $279.58 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Claude | 61.8M | $281.52 _(notional, rate-card)_ | 23% of 271.0M (ok) |
 | Codex | 510.6k _(+15.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101373764 tokens/day lower bound._
