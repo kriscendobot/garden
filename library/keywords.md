@@ -159,5 +159,6 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - pi-iso Rcopy, `git worktree add --detach` workspace, fuse-overlayfs fallback, `isoResolve` priority, `clone_candidates`, pi-iso auto order -> pi-iso
 - `SupportLang`, ast-grep expando char, pi-ast language registry, tree-sitter language list, pi-ast WASM claim, `apply_edits` overlap check, JSON multi-node pattern fallback -> pi-ast-grep
 - pi-natives loader, `loadNative`, `missingNativeExport`, `PI_NATIVE_VARIANT`, native JS fallback claim -> oh-my-pi-design-explainer
+- specification authority, specification-led development, spec-driven software, agentic SDLC, intent evidence boundary, authority evidence chain, generated source is disposable, independent acceptance, generation identity -> specification-authority-chain
 - pi-natives shell, `executeShell`, `Shell.pids`, `liveBackgroundJobCount`, `BRIDGE_QUEUE_CHUNKS`, `FORWARD_STALL_TIMEOUT`, shell output bridge backpressure -> pi-shell-output-minimizer
 - `isoResolve`, `isoStart`, `isoDiff`, `ISO_UNAVAILABLE`, `IsoBackendKind` -> pi-iso
