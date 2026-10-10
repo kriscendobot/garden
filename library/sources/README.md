@@ -1239,6 +1239,7 @@ because the specs are repository READMEs.
 | [Evaluation of OVA's development and Component model](literate-ai--docs-architecture-ova-model-evaluation.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier unavailable (`proceed_unclassified`), read under untrusted-data discipline) |
 | [Capability-based provider resolution](literate-ai--docs-architecture-provider-resolution.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Repository inheritance](literate-ai--docs-architecture-repository-inheritance.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Retained library bindings (Cargo bridge integrity)](literate-ai--docs-architecture-retained-library-bindings.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 16 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
