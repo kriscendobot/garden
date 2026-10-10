@@ -1,21 +1,35 @@
 # Garden bulletin
 
-_As of 2026-10-10T07:22:07Z_
+_As of 2026-10-10T07:26:42Z_
 
 ## Latest
 
-Little board motion since the last bulletin: two jobs posted, `claude-on-minion-town-press-20261010-072006` to press the Claude-on-minion.town arc and `oros-health-watch-20261010-072006`, with no claims or completions.
+Nothing resolved at the file level this cycle. The board shows 12 posts waiting in todo, 3 jobs in flight, and 12,104 completed. The signal is in the maintainer inbox and in the quota and host state around it.
 
-What needs a maintainer:
+**Needs a person**
+- `oros-studio-garden-ce242c49` went unreachable around 02:50Z and a health-watch message asks someone to check the machine. Its heartbeat has since resumed, and the rolling-deploy "host offline" and "canary stuck" alerts cleared by 06:38Z. Its canary had still failed three times in a row on target `44bfcbe6dbf4`, and that halt is not marked cleared. `endolin-garden2-5bcdff64` has been offline for about 3.5h.
+- With no healthy follower, the rolling deploy is holding the leader (`endolin-garden-ece02cb4`) instead of advancing it.
+- The leader's journal worktree was flagged stale (about 2h behind origin, 139 commits).
+- The minion.town screening pause from the [#169](https://github.com/kriscendobot/minion.town/pull/169) deploy failure traces to the GitHub Actions billing block, not a code regression. The screener stays paused until the billing reset or until you resume it by hand. You can also authorize moving CD onto the `ci.minion.town` runner. [#122](https://github.com/kriscendobot/minion.town/pull/122) later merged and its deploy succeeded.
+- Two gauntlets ran out of rounds and are waiting on your choice to grant more with `--add-rounds`. These are [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) (6 of 6 rounds) and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) (2 of 2). The panel report has no structured must-fix list, so the unaddressed items show as unknown.
+- Panel coverage is stale on [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403). Each needs an explicit `run the gauntlet` or a review decision.
+- Open DNSSEC item for `ocap.site`: the DS record is still unpublished at the registrar. The 60-day transfer lock lapsed around 2026-10-09T19:55Z, so you can now start the transfer or ask Key-Systems to add the DS.
 
-- **oros-studio-garden is back.** Its heartbeat resumed after about 1,836 offline observations, and its canary-stuck condition cleared. An earlier health-watch message says it went unreachable around 02:50Z. A sysop `reset-failed` sent at 03:15Z was still unacked at 03:43Z. Its sysop drop-in `zz-liaison-temp-timeout.conf` still needs manual removal once it deploys `96a2b4c6141`.
-- **A rolling-deploy canary on that host is still halted.** It failed three retries on target `44bfcbe6dbf4` and was left drained. `endolin-garden2-5bcdff64` is offline, with a heartbeat stale by about 3.5 hours. The leader will not advance while no canary is available.
-- **Minion.town screening is still paused.** Merging [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) tripped `deploy.yml`, but the heal job found a GitHub Actions billing block, not a production break. Options are to resume by hand, move CD onto the self-hosted runner, or wait for the reset. [#122](https://github.com/kriscendobot/minion.town/pull/122) did merge and deploy cleanly yesterday.
-- **Two gauntlets hit their review budgets with unresolved findings.** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used 6/6 rounds (about $12) and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used 2/2; each needs `--add-rounds` or a human decision. Stale-panel notices also flag [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) as needing review on their current heads.
-- **Several orchestrations halted.** The Moddable 10.0.0 IronHorse port-plan jobs hit the 2400s handler budget and need splitting into smaller stages. The Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`. The review-docket consolidation child is parked in plan after repeated failures. The oauth-bonds build and the crawler-leak design job also need a decision.
-- **Smaller items.** The `claude-endolin1` and `claude-endolin2` subscriptions are back in backoff, and the leader's journal worktree has been stale for about 2 hours. The triage circuit breaker for `kriscendobot-minion.town` opened after 5 failures, and the `claude-on-minion-town` completion press has sat in `doin` for about 5.6 hours.
+**Halted or failed work**
+- The Moddable 10.0.0 IronHorse port-plan orchestrations halted on handler timeouts (the 2400s budget), including the audit and synthesis children. The job needs splitting into claim-sized stages.
+- `orch-jev-triage-foreman` halted because `TYPESAFE_API_KEY` is missing from the job environment.
+- `orch-minion-town-oauth-bonds` halted when its build child declared its gated outcome unsatisfied.
+- `review-docket-consolidate-20261008` was doomed and is now parked in plan, so the review-docket orchestration stopped at 2 of 3 children.
+- The `minion.town` triage circuit-breaker opened after 5 consecutive handler failures on the same change.
 
-The `ocap.site` transfer window opened at 19:55Z on 2026-10-09. The DS record is still unpublished, so DNSSEC remains broken until you decide whether to start the transfer or ask Key-Systems to add it.
+**Completed**
+- The minion.town CI-runner unblock and redeploy orchestrations finished. Validation on `ci.minion.town` passed and the host was left unchanged.
+- The Moddable XS source-inventory split finished.
+- The gauntlet must-fix summary orchestration finished.
+- `fix-sysop-ack-timeout` landed on main2 as `96a2b4c6141`. It leaves one manual step: once `oros-studio-garden-ce242c49` has deployed it, remove the temporary sysop drop-in there.
+
+**Quota**
+- `claude-endolin1` moved from ok into backoff at 278M/271M, then back to ok after its window reset. `claude-endolin2` is in backoff at 208M/168M. The Codex plan is at 72%.
 
 ## Maintainer review docket
 
@@ -93,13 +107,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.182454s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.126804s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.170946s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.132587s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=83.835363s, giveups=6, steals=1 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.157746s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-10T07:21:03Z, cleared 2026-10-10T07:26:03Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -762,7 +774,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.0M | $151.23 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 31.1M | $152.91 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 221.2k _(+8.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 104496756 tokens/day lower bound._
