@@ -1,33 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-10T19:14:56Z_
+_As of 2026-10-10T19:17:25Z_
 
 ## Latest
 
-The board shows no file-level transitions since the last bulletin, so the news is in the maintainer inbox.
+Several minion.town gauntlets ran out of review budget without converging. [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [#171](https://github.com/kriscendobot/minion.town/pull/171), [#93](https://github.com/kriscendobot/minion.town/pull/93) and [#174](https://github.com/kriscendobot/minion.town/pull/174) were left for a human merge or review decision. The #174 gauntlet halted at panel round 7 after the stage failed three times. Its round-7 panel job is parked in `plan/`, and resuming it with `--add-rounds 2` is your call. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) also hit its 6-round budget, and its panel coverage is stale against the current head. Stale-head notices also cover #166 and #174.
 
-**Needs a decision:**
-- **minion.town screening is paused.** The deploy of [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) failed because the GitHub Actions billing block left the job without a runner. Production is unaffected, and #169 is simply undeployed. The delegation stays paused until you resume it, authorize moving CD onto ci.minion.town, or wait for the billing reset. The healer also proposes teaching the screener to treat a no-runner, zero-step deploy as "billing-deferred".
-- **Gauntlets stopped at their review budgets, each needing a grant of rounds:**
-  - [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) and [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/pull/93) ran out of rounds.
-  - [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) ran out of rounds, and its panel coverage is also stale.
-  - [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after its panel-7 stage failed three times. It has also moved past its panel-reviewed head, so it needs an explicit `run the gauntlet` or a review decision. Its panel-7 job is parked in plan.
-  - [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) also has stale panel coverage.
-- **Fleet health:**
-  - oros-studio-garden-ce242c49 came back (heartbeat resumed, stuck-canary cleared), but its canary-failed page is still open. The leader is holding at 9326040281f8 because the canary failed after three retries and the other follower is offline.
-  - endolin-garden2 has been offline for about 15.7 hours.
-  - The leader's journal worktree has been stale for about 2 hours.
-  - The sysop cleanup from `fix-sysop-ack-timeout` still has to be done by hand on oros (remove the temporary drop-in once it deploys 96a2b4c6141).
+**minion.town production:** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) did not break production. The `deploy.yml` failure is the GitHub Actions billing block, so the job got no runner. The screener paused delegation and won't resume until a green main deploy or your manual action. Your options are to resume by hand, move CD onto the `ci.minion.town` runner, or wait for the billing reset. The healer also suggests teaching the screener to treat a no-runner deploy as "billing-deferred".
 
-**Stalled work:**
-- The Moddable 10.0.0 IronHorse port-plan orchestrations halted on handler timeouts. The port-plan synthesis job overran its 2400s budget and needs splitting into smaller stages.
-- The review-docket consolidation job is parked after the reaper exhausted its requeues.
-- `build-minion-town-oauth-bonds` and the Jev triage trial both reported unsatisfied gated outcomes. The Jev trial is blocked on a missing `TYPESAFE_API_KEY`.
+**Fleet:**
+- `oros-studio-garden-ce242c49` has come back after being unreachable. Its stuck-canary and host-offline watchdogs cleared, but the rolling deploy of `9326040281f8` is still marked halted on a failed canary after three retries. The leader is holding because no follower is online (`endolin-garden2-5bcdff64` has been offline for about 15 hours).
+- The `moddable-10-0-0-ironhorse-port-plan` orchestrations halted repeatedly on 2400s handler timeouts and need splitting into smaller stages.
+- The `review-docket-consolidate-20261008` job is parked after a doom.
+- The Jev triage trial is blocked because `TYPESAFE_API_KEY` is missing.
 
-**Other items:**
-- The accountant confirmed the 610M weekly slate and queued planning jobs for the idle minion.town arcs.
-- The scholar ingested Literate AI sources, but the foreign-content gate halted one file at injection uncertainty 0.34 and it awaits your clearance.
-- The ocap.site DNSSEC DS record is still unpublished at the registrar. The 60-day transfer window opened this evening, so the transfer is your call.
+**Budget:**
+- The accountant confirmed the 610M weekly slate and queued planning jobs for minion.town arcs 2 and 3.
+- `claude-endolin1` and `claude-endolin2` are both back in backoff.
+- The leader's journal worktree has been stale for about 2 hours and is behind by 139 commits.
+
+The ocap.site DNSSEC DS record is still unpublished, but the registrar transfer window opened today.
 
 ## Maintainer review docket
 
@@ -933,10 +925,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.3M | $494.71 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 111.3M | $495.06 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 1.3M _(+30.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106908816 tokens/day lower bound._
+_Fleet token-unlock pace: 107020206 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journal); 7 open notice(s); checker healthy
