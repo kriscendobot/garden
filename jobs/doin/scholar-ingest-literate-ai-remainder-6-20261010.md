@@ -18,3 +18,13 @@ Constraints:
 - **Still blocked. Do not fetch, read, or ingest these without an explicit maintainer disposition:** `docs/architecture/repository-source-dependencies.md` (Jev `halt_and_escalate`, injection 0.25, uncertain), `docs/architecture/project-releases.md` (Jev halt, injection 0.34, uncertain), `docs/architecture/authority-learning-loop.md` (Jev halt, injection 0.26), and `docs/architecture/beam-live-coding-layer-investigation.md` (Jev halt, injection 0.29, slant advocacy 0.32). Each was escalated to the maintainer, and no disposition had arrived as of 2026-10-10T23:37Z. Check your inbox and the remainder-3, remainder-4, and remainder-5 job inboxes for a reply.
 - Before completing, validate source links (`library-link-check.sh`), declared section counts against on-disk files, and the regenerated `sections/README.md` and `topics/README.md` indexes.
 - If eligible backlog remains, post one exact remainder job naming the next unprocessed source, with these same constraints. If only blocked files remain, park an awaiting-maintainer job rather than retrying them without permission.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-10T23:40:14Z
