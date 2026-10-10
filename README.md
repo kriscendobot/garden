@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-10T01:11:58Z_
+_As of 2026-10-10T01:15:27Z_
 
 ## Latest
 
@@ -557,6 +557,19 @@ Delegation: **active**
 > the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 > design's `## Open questions`.
 
+- `moddable-10-0-0-xs-source-inventory-20261009-split-terminal-complete` — from orchestrator:moddable-10-0-0-xs-source-inventory-20261009-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-xs-source-inventory-20261009-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: moddable-10-0-0-xs-source-inventory-20261009-split
+> orchestration-status: complete
+> order: parallel
+> children-total: 3
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration moddable-10-0-0-xs-source-inventory-20261009-split complete (parallel): all 3 children reached tada without a machine-readable failure declaration.
+
 - `msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489` — from gardener:claude-on-minion-town-completion-press-20261010-002011, reply_to `claude-on-minion-town-completion-press-20261010-002011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489.md)
 
 > claude-on-minion-town-completion-press-20261009-182008 has sat in jobs/doin since its claim at 2026-10-09T18:46:51Z (~5.6h, far past the 2400s default) with no completion; the arc press claude-on-minion-town-press-20261009-185008 has also gone unclaimed in todo for ~5.5h. No arc dooms. Effect: the arc's own oversight is stalling, not its deliverables. I have not touched either job; the reaper owns the requeue.
@@ -612,7 +625,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 209.0M | $1463.33 _(notional, rate-card)_ | 124% of 168.0M (backoff) |
 | Codex | 19.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 126844899 tokens/day lower bound._
+_Fleet token-unlock pace: 126853310 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
@@ -628,13 +641,13 @@ worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #94
 
-### tada (12030)
+### tada (12031)
+- [`moddable-10-0-0-xs-source-inventory-20261009-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-source-inventory-20261009-split.md) — orchestration moddable-10-0-0-xs-source-inventory-20261009-split — complete
 - [`moddable-10-0-0-xs-inventory-part-b-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-inventory-part-b-20261009.md) — Moddable 10.0.0 XS inventory, part b: completion report
 - [`minion-town-arc-press-20261009-235009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/minion-town-arc-press-20261009-235009.md) — Cost
 - [`moddable-10-0-0-xs-inventory-part-a-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-inventory-part-a-20261009.md) — Engine semantics
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/kriscendobot-minion.town-pr174-gauntlet-fix-3.md) — Cost
-- [`resume-minion-town-pr174-gauntlet-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/resume-minion-town-pr174-gauntlet-20261010.md) — Panel-head freshness
-- … and 12025 more
+- … and 12026 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
