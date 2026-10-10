@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: moddable-10-0-0-xs-source-inventory-20261009-split
-priority: normal
-posted_by: producer
-posted_at: 2026-10-10T00:00:36Z
+role: researcher
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-10T00:03:48Z cleared=none -->
 
 ---
 role: researcher
