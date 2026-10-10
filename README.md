@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-10T01:21:02Z_
+_As of 2026-10-10T01:24:03Z_
 
 ## Latest
 
@@ -631,14 +631,14 @@ _Fleet token-unlock pace: 126859665 tokens/day lower bound._
 worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (2)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #94
 - [`claude-on-minion-town-press-20261010-010508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-010508.md) — Press the Claude-on-minion.town arc forward
-- [`moddable-10-0-0-ironhorse-audit-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-audit-20261009.md) — IronHorse conformance audit for Moddable SDK 10.0.0
 
-### doin (3)
+### doin (4)
 - [`oros-health-watch-20261010-010508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261010-010508.md) — ---
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #174
+- [`moddable-10-0-0-ironhorse-audit-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-audit-20261009.md) — IronHorse conformance audit for Moddable SDK 10.0.0
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #94
 
 ### tada (12031)
