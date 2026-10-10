@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7311 (530 parent indexes + 6781 children).
+Total section files: 7327 (530 parent indexes + 6797 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8401,11 +8401,33 @@ Total section files: 7311 (530 parent indexes + 6781 children).
   - [Body](kriskowal-com--giants--overview--body.md)
   - [Vocabulary established by this essay](kriskowal-com--giants--overview--vocabulary-established-by-this-essay.md)
 
+### literate-ai--docs-architecture-agent-ledger-boundary
+
+- [literate-ai--docs-architecture-agent-ledger-boundary--join-protocol-run-envelope](literate-ai--docs-architecture-agent-ledger-boundary--join-protocol-run-envelope.md)
+- [literate-ai--docs-architecture-agent-ledger-boundary--journals-explanations-and-status](literate-ai--docs-architecture-agent-ledger-boundary--journals-explanations-and-status.md)
+- [literate-ai--docs-architecture-agent-ledger-boundary--ownership-split](literate-ai--docs-architecture-agent-ledger-boundary--ownership-split.md)
+- [literate-ai--docs-architecture-agent-ledger-boundary--prompt-translation-paths](literate-ai--docs-architecture-agent-ledger-boundary--prompt-translation-paths.md)
+
 ### literate-ai--docs-architecture-authoring-and-record-formats
 
 - [literate-ai--docs-architecture-authoring-and-record-formats--intent-and-evidence-boundary](literate-ai--docs-architecture-authoring-and-record-formats--intent-and-evidence-boundary.md)
 - [literate-ai--docs-architecture-authoring-and-record-formats--skills-and-flavors](literate-ai--docs-architecture-authoring-and-record-formats--skills-and-flavors.md)
 - [literate-ai--docs-architecture-authoring-and-record-formats--workflow-catalogs-and-round-trips](literate-ai--docs-architecture-authoring-and-record-formats--workflow-catalogs-and-round-trips.md)
+
+### literate-ai--docs-architecture-component-authoring-lock-boundary
+
+- [literate-ai--docs-architecture-component-authoring-lock-boundary--component-lifecycle-kinds](literate-ai--docs-architecture-component-authoring-lock-boundary--component-lifecycle-kinds.md)
+- [literate-ai--docs-architecture-component-authoring-lock-boundary--field-classification](literate-ai--docs-architecture-component-authoring-lock-boundary--field-classification.md)
+- [literate-ai--docs-architecture-component-authoring-lock-boundary--flavor-target-and-provider-resolution](literate-ai--docs-architecture-component-authoring-lock-boundary--flavor-target-and-provider-resolution.md)
+- [literate-ai--docs-architecture-component-authoring-lock-boundary--intent-lock-evidence-separation](literate-ai--docs-architecture-component-authoring-lock-boundary--intent-lock-evidence-separation.md)
+- [literate-ai--docs-architecture-component-authoring-lock-boundary--lock-and-migrate-commands](literate-ai--docs-architecture-component-authoring-lock-boundary--lock-and-migrate-commands.md)
+- [literate-ai--docs-architecture-component-authoring-lock-boundary--lock-audit-pair-and-evidence-ownership](literate-ai--docs-architecture-component-authoring-lock-boundary--lock-audit-pair-and-evidence-ownership.md)
+- [literate-ai--docs-architecture-component-authoring-lock-boundary--lock-graph-invariants](literate-ai--docs-architecture-component-authoring-lock-boundary--lock-graph-invariants.md)
+- [literate-ai--docs-architecture-component-authoring-lock-boundary--workflow-skill-acceptance-repository-asset-fields](literate-ai--docs-architecture-component-authoring-lock-boundary--workflow-skill-acceptance-repository-asset-fields.md)
+
+### literate-ai--docs-architecture-component-authority
+
+- [literate-ai--docs-architecture-component-authority--append-only-authority-projection](literate-ai--docs-architecture-component-authority--append-only-authority-projection.md)
 
 ### literate-ai--docs-architecture-component-execution-plans
 
@@ -8423,6 +8445,12 @@ Total section files: 7311 (530 parent indexes + 6781 children).
 - [literate-ai--docs-architecture-domain-model--components-flavors-and-locks](literate-ai--docs-architecture-domain-model--components-flavors-and-locks.md)
 - [literate-ai--docs-architecture-domain-model--hexagonal-authority-boundary](literate-ai--docs-architecture-domain-model--hexagonal-authority-boundary.md)
 - [literate-ai--docs-architecture-domain-model--workflow-acceptance-and-receipts](literate-ai--docs-architecture-domain-model--workflow-acceptance-and-receipts.md)
+
+### literate-ai--docs-architecture-exact-versioned-components
+
+- [literate-ai--docs-architecture-exact-versioned-components--compatibility-and-downstream-contract](literate-ai--docs-architecture-exact-versioned-components--compatibility-and-downstream-contract.md)
+- [literate-ai--docs-architecture-exact-versioned-components--exact-ref-propagation](literate-ai--docs-architecture-exact-versioned-components--exact-ref-propagation.md)
+- [literate-ai--docs-architecture-exact-versioned-components--identity-triple](literate-ai--docs-architecture-exact-versioned-components--identity-triple.md)
 
 ### literate-ai--docs-architecture-production-containment-threat-model
 
