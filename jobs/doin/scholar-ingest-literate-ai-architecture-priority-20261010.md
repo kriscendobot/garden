@@ -24,3 +24,13 @@ For this cycle, ingest a normal 3-5-source / at-most-25-section slice drawn in t
 5. `docs/architecture/exact-versioned-components.md`
 
 Do not read or ingest `docs/architecture/project-releases.md`: its 2026-10-10 Jev result was `halt_and_escalate` (`injection=0.34`, uncertain), and it remains blocked unless a maintainer disposition explicitly permits reading. If the section cap prevents completing all five priority sources, leave the unprocessed priority sources for the next named orchestration child and report them precisely. Do not post a free-standing remainder job from this child; `scholar-ingest-literate-ai-architecture-next-20261010` already owns the immediate remainder. Validate source links, declared section counts, and regenerated indexes before completion.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T20:25:20Z
