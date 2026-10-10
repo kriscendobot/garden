@@ -1,10 +1,8 @@
 ---
-gate: deferred
-priority: normal
+tier: mentor
 arc: minion-town-mcp-ocapn
-posted_by: producer
-posted_at: 2026-10-07T16:37:00Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-10T03:45:40Z cleared=none -->
 
 ---
 tier: mentor
