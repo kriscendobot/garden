@@ -1,0 +1,45 @@
+<6>11:28:09 [monk/1] job 'endojs-endo-but-for-bots-pr266-address-review-20261007' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>11:28:09 [monk/1] job 'endojs-endo-but-for-bots-pr266-address-review-20261007' call ceiling: tier=mentor max-budget-usd=16.60 (scaled by fresh seven-day headroom when available)
+<6>11:28:09 [monk/1] job 'endojs-endo-but-for-bots-pr266-address-review-20261007' attaching minion.town MCP (stdio bridge)
+<6>11:44:44 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/266 is already non-draft; leaving it untouched for the completion guard
+<6>11:44:47 [review-docket] https://github.com/endojs/endo-but-for-bots/pull/266 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+## Completion report: endojs-endo-but-for-bots-pr266-address-review-20261007
+
+kriskowal's CHANGES_REQUESTED review on https://github.com/endojs/endo-but-for-bots/pull/266 (review 5085531865) said: "Coupling to Lal specifically is no longer the way. We would interface at the Agentry boundary." I've addressed it. Commit `fa16c18827` is pushed to `design/endopen` on top of `964cc634b8`.
+
+**Where the boundary sits:** a check of the `llm` branch shows that agents are built with `@endo/agentry`'s `defineAgent`. It resolves models through `resolveModelProfile` in `packages/agentry/src/harness/model.js` and gets API keys through a `Credentials` seam. The pi-ai version Agentry pins (0.79.0) already includes `openrouter` as a built-in provider: hundreds of models at `https://openrouter.ai/api/v1`, with the key read from `OPENROUTER_API_KEY`. So `model: 'openrouter/<vendor>/<id>'` should resolve today. I confirmed this from the pi-ai package and the resolver's code, not by running it.
+
+**Changes:**
+- **`endopen-openrouter.md`** is rewritten as "OpenRouter at the Agentry Boundary". It has three phases:
+  1. Pin the existing registry path with tests and add a README example.
+  2. Add an `openrouter` branch to `resolveModelProfile`. It keys on the provider name rather than the URL, adds the `HTTP-Referer` / `X-Title` attribution headers, and accepts models newer than pi-ai's built-in list.
+  3. Store provider configuration under a pet name, with the key kept behind the `Credentials` seam.
+
+  The Lal provider file, the guessing of the provider from the base URL, and the ordering hazard that guessing created are all gone.
+- **`endopen.md`**:
+  - The LLM-routing row and the provider table now point at Agentry and pi-ai.
+  - The Gap 2 (OpenRouter) section is reframed around Agentry.
+  - The cost-display note no longer mentions Lal.
+  - `agentry-agent-builder` is added to Related Designs.
+- **`endopen-acp-server.md`**:
+  - Each session's guest runs an Agentry-built agent, in the wire diagram, the capability section and the config.
+  - The config now names an Agentry definition and an Agentry model string instead of `agentModule: "lal"`.
+  - Design Decision 9 now says `cancel()`/`fork()` are implemented once, in the wrapper that exposes an Agentry agent as a guest. `cancel()` maps onto pi-agent-core's `abort()`.
+  - The grep evidence was re-run against `packages/agentry/src`.
+- **`endopen-concurrent-subagents.md`**: the Lal/Fae provider capability is replaced by a pet-named model profile resolved through Agentry. The package location is now a new `packages/panel/`.
+- **`endopen-tui-shell.md`**: the status bar reads usage from the messages an Agentry-built agent produces, instead of from the Lal envelope.
+- **`designs/README.md`**:
+  - The summary rows for `endopen-openrouter` and `endopen-acp-server` and the size-estimate row for `endopen-openrouter` are updated.
+  - All five designs get an Updated date of 2026-10-10.
+  - The dependency graph gains `agentry-agent-builder` → `endopen-openrouter` and → `endopen-acp-server` edges.
+  - Milestone placements, tallies and the 3-day estimate are unchanged, and the row stays classified as arc unallocated, milestone -.
+
+I posted a reply on the PR summarizing these changes: https://github.com/endojs/endo-but-for-bots/pull/266#issuecomment-6097145558
+
+**Notes and follow-ups:**
+- Lal is still mentioned in three places, none of them coupling: a history note in the OpenRouter design, the borrowed `lal-fae-form-provisioning` form pattern, and a quote of the review.
+- I didn't run prettier across the whole of these files. The repo's `.prettierignore` excludes `*.md`, and these files weren't prettier-clean before this change either. A full pass would also rewrite `*emphasis*` to `_emphasis_` throughout, which is churn the review didn't ask for. Some edited markdown tables have uneven column padding; they still render correctly.
+- An unrelated panel round-4 bot review (`5328271212`, on head `964cc634`) is still open with its own must-fix items, such as a `cwd` contradiction in the ACP design. It was outside this job's scope.
+- This job's project-worktree setup timed out partway through `yarn install`, which docs-only work doesn't need. The worktree checkout itself completed.
