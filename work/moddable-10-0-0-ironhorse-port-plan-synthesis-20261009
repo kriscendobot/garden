@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-10-10T03:14:38Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
+pr_number: 1435
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1435
+pr_head: design/moddable-10-0-0-ironhorse-port-plan
