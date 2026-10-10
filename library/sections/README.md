@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7374 (530 parent indexes + 6844 children).
+Total section files: 7390 (530 parent indexes + 6860 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8544,6 +8544,25 @@ Total section files: 7374 (530 parent indexes + 6844 children).
 - [literate-ai--docs-architecture-repository-layout--generated-state-and-session-boundaries](literate-ai--docs-architecture-repository-layout--generated-state-and-session-boundaries.md)
 - [literate-ai--docs-architecture-repository-layout--package-audit-and-decomposition](literate-ai--docs-architecture-repository-layout--package-audit-and-decomposition.md)
 - [literate-ai--docs-architecture-repository-layout--root-authority-taxonomy](literate-ai--docs-architecture-repository-layout--root-authority-taxonomy.md)
+
+### literate-ai--docs-architecture-retained-library-bindings
+
+- [literate-ai--docs-architecture-retained-library-bindings--archive-transport-and-storage](literate-ai--docs-architecture-retained-library-bindings--archive-transport-and-storage.md)
+- [literate-ai--docs-architecture-retained-library-bindings--cargo-workspace-graph-verifier](literate-ai--docs-architecture-retained-library-bindings--cargo-workspace-graph-verifier.md)
+- [literate-ai--docs-architecture-retained-library-bindings--cargo-workspace-plan](literate-ai--docs-architecture-retained-library-bindings--cargo-workspace-plan.md)
+- [literate-ai--docs-architecture-retained-library-bindings--consumer-execution-and-test-inventory](literate-ai--docs-architecture-retained-library-bindings--consumer-execution-and-test-inventory.md)
+- [literate-ai--docs-architecture-retained-library-bindings--current-authority-readers](literate-ai--docs-architecture-retained-library-bindings--current-authority-readers.md)
+- [literate-ai--docs-architecture-retained-library-bindings--delivery-commands-and-gate-policy](literate-ai--docs-architecture-retained-library-bindings--delivery-commands-and-gate-policy.md)
+- [literate-ai--docs-architecture-retained-library-bindings--export-set](literate-ai--docs-architecture-retained-library-bindings--export-set.md)
+- [literate-ai--docs-architecture-retained-library-bindings--importer-binding](literate-ai--docs-architecture-retained-library-bindings--importer-binding.md)
+- [literate-ai--docs-architecture-retained-library-bindings--lifecycle-build-test-sbom-reopening](literate-ai--docs-architecture-retained-library-bindings--lifecycle-build-test-sbom-reopening.md)
+- [literate-ai--docs-architecture-retained-library-bindings--loader-path-projections](literate-ai--docs-architecture-retained-library-bindings--loader-path-projections.md)
+- [literate-ai--docs-architecture-retained-library-bindings--native-dependency-custody](literate-ai--docs-architecture-retained-library-bindings--native-dependency-custody.md)
+- [literate-ai--docs-architecture-retained-library-bindings--preflight-and-archive-verification](literate-ai--docs-architecture-retained-library-bindings--preflight-and-archive-verification.md)
+- [literate-ai--docs-architecture-retained-library-bindings--producer-capture-and-publication](literate-ai--docs-architecture-retained-library-bindings--producer-capture-and-publication.md)
+- [literate-ai--docs-architecture-retained-library-bindings--run-product-parity-and-oracle](literate-ai--docs-architecture-retained-library-bindings--run-product-parity-and-oracle.md)
+- [literate-ai--docs-architecture-retained-library-bindings--run-product-record-reopening](literate-ai--docs-architecture-retained-library-bindings--run-product-record-reopening.md)
+- [literate-ai--docs-architecture-retained-library-bindings--test-runtime-environment](literate-ai--docs-architecture-retained-library-bindings--test-runtime-environment.md)
 
 ### literate-ai--docs-architecture-source-promotion
 
