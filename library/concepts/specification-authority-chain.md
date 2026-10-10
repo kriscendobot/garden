@@ -35,6 +35,8 @@ In a specification-authority chain, human-reviewable specifications and pinned p
 | [OVA's digest-bound continuity chain](../sections/literate-ai--docs-architecture-ova-model-evaluation--scope-and-verdict.md) | The intent-to-reusable-Component chain in OVA is the ancestor of the Literate AI authority chain; extract its invariants rather than rename the code. |
 | [provider resolution in the lock](../sections/literate-ai--docs-architecture-provider-resolution--lock-and-plan-authority.md) | Provider choice is locked as a complete identity-bearing result repeated in every generation key, so a capability change stales the lock by identity, not timestamp. |
 | [inherited authority and its trust boundary](../sections/literate-ai--docs-architecture-repository-inheritance--trust-boundary-and-parent-checkouts.md) | Authority inherited from parent repositories is bound by exact commits, file hashes, and CAS guards; local bytes outrank inherited ones and inheritance never executes repository code. |
+| [retained library export set and binding](../sections/literate-ai--docs-architecture-retained-library-bindings--export-set.md) | Retained provider libraries cross into an importer only through an exact export set and importer binding that carry no trusted flag; admission must reopen current qualification. |
+| [current-authority readers for retained admission](../sections/literate-ai--docs-architecture-retained-library-bindings--current-authority-readers.md) | Admission compares against current authority re-derived by guarded readers, never values copied from the candidate binding or historical evidence. |
 
 ## See also
 
