@@ -10,3 +10,13 @@ Run, with GARDEN_REPO_GIT_TIMEOUT=900 exported, on a host that is not draining:
     scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr174-gauntlet panel --iteration 7
 
 If it exits 0 silently, check `.garden-state/draining` and requeue rather than complete. If the gauntlet reports its budget reached, add rounds with `--add-rounds 2`. Report the printed child stage. Do no code work yourself.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T19:51:34Z
