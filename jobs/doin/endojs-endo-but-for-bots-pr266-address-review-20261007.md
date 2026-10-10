@@ -16,3 +16,13 @@ Unaddressed request from review https://github.com/endojs/endo-but-for-bots/pull
 - Remove the design coupling to Lal and move the interface boundary to Agentry.
 
 Evidence: the review was submitted against the current head `964cc634b818`; there are no later commits or bot replies. Update the endopen design raft and its index coherently. Preserve the row classification: arc unallocated, milestone -.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T11:27:38Z
