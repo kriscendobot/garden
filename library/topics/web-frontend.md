@@ -31,6 +31,7 @@ Web frontend CSS and HTML techniques for building and styling the garden's web s
 | [Canvas: rendering the editor on a <canvas> element](../sections/web--dbushell-text-editor--canvas.md) | A canvas-rendered editor gives full control but nothing for free (selection, undo, paste, scrolling) and is entirely inaccessible; abandoned. |
 | [Content editable: a contenteditable="plaintext-only" editing surface](../sections/web--dbushell-text-editor--content-editable.md) | `contenteditable="plaintext-only"` gives native selection, undo, and accessibility; disable spellcheck for latency; unpredictable large-document slowdown. |
 | [Textarea: a <textarea> editor with a separate syntax-highlight layer](../sections/web--dbushell-text-editor--textarea.md) | `<textarea>` is fastest on long text but needs an overlay layer for highlighting; OpaqueRange, EditContext, Tree-sitter, inverse-sticky virtualization. |
+| [literate-ai--docs-architecture-html-observability--single-file-network-and-failure-boundaries](../sections/literate-ai--docs-architecture-html-observability--single-file-network-and-failure-boundaries.md) | Inline CSS/JS plus SRI-pinned CDN libraries with honest offline fallbacks; escaped labels; typed refusals instead of partial success. |
 
 ## See also
 
