@@ -18,3 +18,13 @@ Freshly inspect the journal and idempotency-check every existing `literate-ai--*
 Ingest the next normal 3-5-source / at-most-25-section slice. First take any still-uningested files from the prior priority list, in its stated order; then continue the remaining `docs/architecture/*.md` filenames in deterministic lexicographic order. Do not read or ingest `docs/architecture/project-releases.md`: its 2026-10-10 Jev result was `halt_and_escalate` (`injection=0.34`, uncertain), and it remains blocked unless a maintainer disposition explicitly permits reading. Do not skip an eligible earlier file merely to reach decisions. If eligible architecture sources are exhausted within the slice, continue with `docs/decisions/0001-*.md` through `0049-*.md` in numeric order.
 
 Do not post a free-standing remainder job from this child; `scholar-ingest-literate-ai-next-slice-20261010` already owns the immediate remainder. Validate source links, declared section counts, and regenerated indexes before completion, and report the exact next unprocessed source.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T20:44:03Z
