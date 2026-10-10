@@ -103,7 +103,14 @@ fi
 : "${GARDEN_USAGE_LEDGER_MAXLINES:=20000}"
 : "${GARDEN_BUDGET_SNAPSHOT_SECS:=900}"
 : "${GARDEN_BUDGET_SNAPSHOT_MAX_AGE:=1800}"
-: "${GARDEN_BUDGET_PUBLISH_ATTEMPTS:=3}"
+# Total snapshot pushes per scaler tick: the first push plus three CAS retries.
+: "${GARDEN_BUDGET_PUBLISH_ATTEMPTS:=4}"
+# Full-jitter backoff between those retries (milliseconds; doubles per retry up to
+# the cap). Every host's snapshot lands near the same quarter-hour boundary as the
+# fleet's other quarter-hourly journal writers, so the generic 50ms CAS backoff let
+# all retries re-race the same burst and lose together (2026-10-07..10-10).
+: "${GARDEN_BUDGET_PUBLISH_BACKOFF_BASE_MS:=1000}"
+: "${GARDEN_BUDGET_PUBLISH_BACKOFF_CAP_MS:=8000}"
 # A session-log measurement slower than this (seconds) re-syncs the journal clone
 # before the first snapshot push; see budget_publish_local_pool.
 : "${GARDEN_BUDGET_PUBLISH_RESYNC_SECS:=5}"
@@ -1164,9 +1171,11 @@ _budget_publish_local_pool_once() {
 # timer publishes a cadence-bucketed exact session-log reading. This is the small
 # cross-host bridge the leader needs for fleet admission/leveling; at most one
 # journal commit per host per snapshot bucket. A lost journal CAS is retried
-# boundedly in the same scaler tick: re-sync, rebuild from the winning journal
-# tip with the memoized reading, then try publication again. Exhaustion merely leaves the remote verdict
-# unknown (fail-open); worker reconciliation still proceeds.
+# boundedly in the same scaler tick (GARDEN_BUDGET_PUBLISH_ATTEMPTS, seconds-scale
+# jittered backoff between tries): re-sync, rebuild from the winning journal tip
+# with the memoized reading, then try publication again. Only exhaustion reaches
+# the caller's WARN, and it merely leaves the remote verdict unknown (fail-open);
+# worker reconciliation still proceeds.
 budget_publish_local_pool() {
   local dir="$1" attempts="$GARDEN_BUDGET_PUBLISH_ATTEMPTS" attempt rc context_file
   [[ "$attempts" =~ ^[1-9][0-9]*$ ]] || attempts=3
@@ -1200,7 +1209,8 @@ budget_publish_local_pool() {
   fi
 
   for attempt in $(seq "$attempt" "$attempts"); do
-    [ "$attempt" -eq 1 ] || backoff "$((attempt - 1))"
+    [ "$attempt" -eq 1 ] || GARDEN_BACKOFF_BASE_MS="$GARDEN_BUDGET_PUBLISH_BACKOFF_BASE_MS" \
+      GARDEN_BACKOFF_CAP_MS="$GARDEN_BUDGET_PUBLISH_BACKOFF_CAP_MS" backoff "$((attempt - 1))"
     # sync_clone exits with EX_TEMPFAIL for an offline journal. Contain that exit
     # so snapshot publication remains fail-open and the scaler reaches its normal
     # warning latch plus worker reconciliation path.

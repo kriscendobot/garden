@@ -17,6 +17,8 @@ export GARDEN_BUDGET_PUBLISH_ATTEMPTS=2
 export GARDEN_CCUSAGE_LOGDIR="$TR/logs"
 export GARDEN_BACKOFF_BASE_MS=0
 export GARDEN_BACKOFF_CAP_MS=0
+export GARDEN_BUDGET_PUBLISH_BACKOFF_BASE_MS=0
+export GARDEN_BUDGET_PUBLISH_BACKOFF_CAP_MS=0
 export GARDEN_ALERT_CMD="$TR/alert"
 ALERTS="$TR/alerts"
 printf '#!/bin/sh\nprintf "%%s|%%s\\n" "$1" "$2" >> "%s"\n' "$ALERTS" > "$GARDEN_ALERT_CMD"
