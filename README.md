@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-10T01:41:47Z_
+_As of 2026-10-10T01:46:55Z_
 
 ## Latest
 
@@ -634,21 +634,20 @@ worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #94
 - [`oros-health-watch-20261010-010508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261010-010508.md) — ---
 - [`claude-on-minion-town-press-20261010-010508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261010-010508.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #174
 - [`moddable-10-0-0-ironhorse-audit-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-audit-20261009.md) — IronHorse conformance audit for Moddable SDK 10.0.0
-- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #94
 
-### tada (12031)
+### tada (12032)
+- [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5.md) — Cost
 - [`moddable-10-0-0-xs-source-inventory-20261009-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-source-inventory-20261009-split.md) — orchestration moddable-10-0-0-xs-source-inventory-20261009-split — complete
 - [`moddable-10-0-0-xs-inventory-part-b-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-inventory-part-b-20261009.md) — Moddable 10.0.0 XS inventory, part b: completion report
 - [`minion-town-arc-press-20261009-235009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/minion-town-arc-press-20261009-235009.md) — Cost
 - [`moddable-10-0-0-xs-inventory-part-a-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-inventory-part-a-20261009.md) — Engine semantics
-- [`kriscendobot-minion.town-pr174-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/kriscendobot-minion.town-pr174-gauntlet-fix-3.md) — Cost
-- … and 12026 more
+- … and 12027 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
