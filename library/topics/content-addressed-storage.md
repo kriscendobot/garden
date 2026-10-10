@@ -159,6 +159,7 @@
 | [cap-talk-2009-2012--networking-named-content-self-authenticating-names](../sections/cap-talk-2009-2012--networking-named-content-self-authenticating-names.md) | cap-talk 2010-December | CCN's key-rooted content validation is a self-authenticating name system (same as Self-certifying Filesystem and Tahoe-LAFS); the y-property versus misplaced transitive 'trust'. |
 | [cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names](../sections/cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names.md) | cap-talk 2011-April | Tyler Close's YURLs hash a public key into the hostname to authenticate an endpoint without DNS or a CA; the thread sizes the fingerprint (80/112/128 bits) against Hopwood's parallelizable multi-target preimage threat. |
 | [literate-ai--docs-architecture-html-observability--identity-without-self-reference](../sections/literate-ai--docs-architecture-html-observability--identity-without-self-reference.md) | literate-ai HTML observability | Embedded provenance holds render-input identity, the artifact record holds file identity; no task IDs or timestamps in identity; installed-wheel check. |
+| [literate-ai--docs-architecture-ova-model-evaluation--identities-evidence-and-cache-immutability](../sections/literate-ai--docs-architecture-ova-model-evaluation--identities-evidence-and-cache-immutability.md) | literate-ai OVA evaluation | Non-content source digests, evidence retained only by digest, a budget exhausted by vocabulary, and "immutable" manifests mutated with dependents. |
 
 ## See also
 
