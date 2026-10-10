@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/minion.town",
+  "pr": 173,
+  "url": "https://github.com/kriscendobot/minion.town/pull/173",
+  "head_oid": "077ff6c5c05303c00b2128fd8270b98b5998cabf",
+  "ask": "re-review",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Automated review rounds were exhausted after a green fix: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.",
+  "unblocks": [],
+  "source": "kriscendobot-minion.town-pr173-gauntlet-review-budget-reached",
+  "requested_at": "2026-10-10T00:02:04Z",
+  "first_requested_at": "2026-10-10T00:02:04Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-10T00:02:08Z"
+  }
+}
