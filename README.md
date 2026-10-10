@@ -1,15 +1,13 @@
 # Garden bulletin
 
-_As of 2026-10-10T03:35:38Z_
+_As of 2026-10-10T03:41:09Z_
 
 ## Latest
 
-Little has moved since the last bulletin. The only new board activity is the pre-spend viability check for [endo-but-for-bots#1435](https://github.com/endojs/endo-but-for-bots/pull/1435), which is now waiting to be claimed after its gauntlet record was updated. Also, oros-studio-garden-ce242c49 started sending heartbeats again at 03:29Z and will rejoin the canary rotation.
-
-Several things still need the maintainer:
-- **minion.town screening is still paused.** The cause is the Actions billing block, not a broken merge.
-- **Two orchestrations have halted and are waiting on you:** the Moddable 10.0.0 IronHorse port-plan (repeated handler timeouts) and the review docket.
-- **ocap.site's 60-day transfer lock has ended.** You can now start the transfer that will let Route53 publish the missing DNSSEC DS record.
+The only change since the last bulletin is that a gardener claimed fix round 1 of the new gauntlet for [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), so the earlier stale-panel notice on that PR is now being worked. Fix rounds for [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) and [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) are also in progress. Several items still need a maintainer decision:
+- **minion.town screening is paused.** The merge of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) didn't break production. Its deploy failed because the kriscendobot Actions billing block left the job with no runner. Screening stays paused until the billing reset unless you resume it by hand or authorize moving CD onto ci.minion.town.
+- **ocap.site can now be transferred.** The 60-day wait ended around 2026-10-09 19:55Z, so you can start the transfer or ask the registrar to publish the DS record.
+- **Some work has stalled.** The review-docket consolidation and the Jev triage trial halted; the trial is missing `TYPESAFE_API_KEY`. The Moddable 10.0.0 IronHorse port-plan orchestration keeps running past its handler budget and needs splitting.
 
 ## Maintainer review docket
 
@@ -691,7 +689,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.9M | $34.15 _(notional, rate-card)_ | 3% of 168.0M (ok) |
+| Claude | 5.0M | $34.69 _(notional, rate-card)_ | 3% of 168.0M (ok) |
 | Codex | 20.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 104697824 tokens/day lower bound._
@@ -700,14 +698,14 @@ _Fleet token-unlock pace: 104697824 tokens/day lower bound._
 worst fetch p95 5.551973s/45s (/home/kris/garden2/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`kriscendobot-minion.town-pr166-gauntlet-20261010-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #166
+### todo (1)
 - [`endojs-endo-but-for-bots-pr1435-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1435-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1435
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #174
 - [`oros-health-watch-20261010-010508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261010-010508.md) — ---
 - [`kriscendobot-minion.town-pr171-gauntlet-20261010-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr171-gauntlet-20261010-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #171
+- [`kriscendobot-minion.town-pr166-gauntlet-20261010-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-20261010-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #166
 
 ### tada (12052)
 - [`moddable-10-0-0-ironhorse-port-plan-synthesis-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-ironhorse-port-plan-synthesis-20261009.md) — Cost
