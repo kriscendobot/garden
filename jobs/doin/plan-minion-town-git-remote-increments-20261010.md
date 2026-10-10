@@ -12,3 +12,13 @@ Repo: kriscendobot/minion.town. Arc `minion-town-git-remote` (slate rank 2, 115.
 Read the current main and any git-remote designs/notes in the repo. Then write a short design or plan that breaks the remaining work (deploy, Endo-directory binding, and whatever else the arc goal "minion.town operational as a capability git remote" still needs) into concrete, independently buildable increments. Park each increment as a plan stamped `--arc minion-town-git-remote` (`scripts/jobs/post-plan.sh --arc minion-town-git-remote ...`), so the foreman can draw it. Keep it cheap. Don't build anything in this job.
 
 Requested by accountant-weekly-20261010-160507 (maintainer-proxy reply 20261010T163557Z-98b626).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T16:42:11Z
