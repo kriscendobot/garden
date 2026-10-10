@@ -635,7 +635,7 @@ hr; echo "SUBTEST 13 — COMMENT FAILURE: a gh write failure never blocks termin
 post_gauntlet --max-stage-retries 0 g14 https://github.com/testowner/testrepo/pull/14
 tick   # post g14-clean
 fail_stage g14-clean
-touch "$GAUNTLET_GH_FAIL_WRITES_FILE"
+printf '%s\n%s\n' 'gh: Bad credentials (HTTP 401)' 'g14 stderr second line' > "$GAUNTLET_GH_FAIL_WRITES_FILE"
 tick   # halt; comment write fails, journal finish must still land
 rm -f "$GAUNTLET_GH_FAIL_WRITES_FILE"
 { in_dir jobs/tada g14 && ! in_dir jobs/gauntlet g14; } \
@@ -647,6 +647,10 @@ rm -f "$GAUNTLET_GH_FAIL_WRITES_FILE"
 grep -q "WARN: gauntlet 'g14': terminal PR status comment failed" "$TR/tick.log" \
   && ok "failed terminal PR comment surfaced a WARN" \
   || bad "comment-failure: missing WARN in tick log"
+grep -F "WARN: gauntlet 'g14': terminal PR status comment failed" "$TR/tick.log" \
+    | grep -Fq 'will retry): gh: Bad credentials (HTTP 401) g14 stderr second line' \
+  && ok "the terminal-comment WARN carries the flattened gh stderr" \
+  || bad "comment-failure: WARN lacks gh stderr: [$(grep -F "'g14': terminal PR status comment failed" "$TR/tick.log")]"
 in_dir jobs/gauntlet-terminal-pending g14--halted \
   && ok "failed terminal PR comment persisted a pending receipt with the finish" \
   || bad "comment-failure: no pending receipt: [$(board jobs/gauntlet-terminal-pending)]"
@@ -659,6 +663,23 @@ tick
 [ "$(terminal_comment_count g14 halted)" = 1 ] \
   && ok "a delivered receipt is not re-posted" \
   || bad "comment-failure: receipt duplicated after delivery"
+
+# A permanent refusal (locked/closed/deleted PR) is logged once and not re-owed.
+post_gauntlet --max-stage-retries 0 g14p https://github.com/testowner/testrepo/pull/41
+tick   # post g14p-clean
+fail_stage g14p-clean
+printf '%s\n' 'GraphQL: Unable to create comment because issue is locked. (addComment)' > "$GAUNTLET_GH_FAIL_WRITES_FILE"
+tick   # halt; comment write fails permanently
+{ in_dir jobs/tada g14p && ! in_dir jobs/gauntlet g14p \
+    && ! in_dir jobs/gauntlet-terminal-pending g14p--halted \
+    && [ "$(terminal_comment_count g14p halted)" = 0 ]; } \
+  && ok "a permanent comment refusal finished the gauntlet without owing a pending receipt" \
+  || bad "comment-permanent: tada=[$(board jobs/tada)] pending=[$(board jobs/gauntlet-terminal-pending)]"
+grep -F "WARN: gauntlet 'g14p': terminal PR status comment failed permanently" "$TR/tick.log" \
+    | grep -Fq 'not retrying): GraphQL: Unable to create comment because issue is locked.' \
+  && ok "a permanent comment refusal is classified with its stderr" \
+  || bad "comment-permanent: missing classified WARN: [$(grep -F "'g14p'" "$TR/tick.log" | grep WARN)]"
+rm -f "$GAUNTLET_GH_FAIL_WRITES_FILE"
 
 # ============================================================================
 hr; echo "SUBTEST 14 — READ FAILURE: a quota-cooled comment read defers, then retries once"; hr

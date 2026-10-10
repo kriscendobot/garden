@@ -290,6 +290,27 @@ gauntlet_notify() {  # <subject> ; body on stdin
     log "gauntlet notify to maintainer failed (non-fatal): $subject"
 }
 
+# A gh failure that no retry can fix: the PR (or repo) is gone (404/410, GraphQL
+# "Could not resolve"), or its conversation is locked or closed to comments. A
+# terminal receipt hitting one of these is dropped rather than re-owed every tick.
+# Checked only after the primary-rate-limit classification, so a quota 403 is never
+# mistaken for a permanent refusal.
+GAUNTLET_GH_PERMANENT_FAILURE_SIGNATURES='HTTP 404|HTTP 410|Not Found|Could not resolve to a (PullRequest|Repository|Issue)|was deleted|is locked|conversation (is )?locked|locked (issue|conversation|pull request)|(issue|pull request) is closed|is closed (and|to)'
+is_gh_permanent_failure_text() {  # <stderr-text>
+  grep -qiE "$GAUNTLET_GH_PERMANENT_FAILURE_SIGNATURES" <<<"${1:-}"
+}
+
+# First ~200 characters of a captured gh stderr file, newlines flattened, for a
+# one-line WARN that tells a rate limit from an auth error or a vanished PR.
+gh_err_excerpt() {  # <stderr-file>
+  local text
+  text="$(tr '\r\n\t' '   ' < "$1" 2>/dev/null | tr -s ' ' || true)"
+  text="${text# }"; text="${text% }"
+  [ -n "$text" ] || text="(no stderr)"
+  [ "${#text}" -le 200 ] || text="${text:0:200}..."
+  printf '%s' "$text"
+}
+
 # Leave one PR-visible loop-status receipt when a gauntlet stops without reaching
 # its ordinary panel-pass/undraft end. The marker makes the write idempotent when
 # finish_gauntlet loses its journal CAS after the comment lands and the next tick
@@ -299,12 +320,13 @@ gauntlet_notify() {  # <subject> ; body on stdin
 # writable, so a failed read or write never blocks the finish. Instead it returns 1
 # (retryable) and gauntlet_terminal_receipt turns that into a pending-receipt record
 # committed WITH the finish; later ticks retry it (retry_terminal_pending). Returns 0
-# when the comment landed, was already present, or can never be posted.
+# when the comment landed, was already present, or can never be posted (a missing
+# repo/PR, or a permanent gh refusal per is_gh_permanent_failure_text).
 gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-billing> <reason> <repo> <pr-number> <iteration>
   local base="$1" terminal_state="$2" reason="$3" repo="$4" prnum="$5" iter="$6"
   local marker comments meta head ci pending bad total
   local panel_tada="" must_fix_count="" must_fix_part="" next body gh_bin rc=0
-  local comment_err write_rc quota_secs mustfix_summary=""
+  local comment_err comment_text write_rc quota_secs mustfix_summary="" read_err
 
   if [ -z "$repo" ] || [ -z "$prnum" ]; then
     log "WARN: gauntlet '$base': cannot post terminal PR status (missing repo/pr_number)"
@@ -319,10 +341,21 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
   if api_cooldown_active rest; then
     return 1
   fi
-  if ! comments="$(gh_api_retry --paginate "repos/$repo/issues/$prnum/comments" --jq '.[].body')"; then
-    log "WARN: gauntlet '$base': could not check for terminal PR status comment; deferring the post to a later tick to avoid a duplicate"
+  read_err="$(mktemp "${TMPDIR:-/tmp}/gauntlet-terminal-read-error.XXXXXX")"
+  if ! comments="$(gh_api_retry --paginate "repos/$repo/issues/$prnum/comments" --jq '.[].body' 2>"$read_err")"; then
+    cat "$read_err" >&2 2>/dev/null || true
+    if ! is_gh_primary_rate_limit_text "$(cat "$read_err" 2>/dev/null || true)" \
+       && is_gh_permanent_failure_text "$(cat "$read_err" 2>/dev/null || true)"; then
+      log "WARN: gauntlet '$base': terminal PR status ($terminal_state) cannot be posted to $repo#$prnum (permanent; not retrying): $(gh_err_excerpt "$read_err")"
+      rm -f "$read_err"
+      return 0
+    fi
+    log "WARN: gauntlet '$base': could not check for terminal PR status comment; deferring the post to a later tick to avoid a duplicate: $(gh_err_excerpt "$read_err")"
+    rm -f "$read_err"
     return 1
   fi
+  cat "$read_err" >&2 2>/dev/null || true
+  rm -f "$read_err"
   if grep -Fq -- "$marker" <<<"$comments"; then
     log "gauntlet '$base': terminal PR status already posted ($terminal_state)"
     return 0
@@ -416,13 +449,18 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
     log "gauntlet '$base': posted terminal PR status ($terminal_state)"
   else
     write_rc=$?
-    if is_gh_primary_rate_limit_text "$(cat "$comment_err" 2>/dev/null || true)"; then
+    comment_text="$(cat "$comment_err" 2>/dev/null || true)"
+    if is_gh_primary_rate_limit_text "$comment_text"; then
       quota_secs="$(api_primary_quota_secs)"
       if start_api_cooldown "gauntlet:$base:terminal-comment:primary-quota" "$quota_secs"; then
         log "WARN: gauntlet '$base': terminal PR status comment hit GitHub primary REST quota exhaustion (rc=$write_rc); cooling REST gh-api callers for ${quota_secs}s"
       fi
+    elif is_gh_permanent_failure_text "$comment_text"; then
+      log "WARN: gauntlet '$base': terminal PR status comment failed permanently (rc=$write_rc; state=$terminal_state; not retrying): $(gh_err_excerpt "$comment_err")"
+      rm -f "$body" "$comment_err"
+      return 0
     fi
-    log "WARN: gauntlet '$base': terminal PR status comment failed (non-fatal; rc=$write_rc; state=$terminal_state; will retry)"
+    log "WARN: gauntlet '$base': terminal PR status comment failed (non-fatal; rc=$write_rc; state=$terminal_state; will retry): $(gh_err_excerpt "$comment_err")"
     rc=1
   fi
   rm -f "$body" "$comment_err"

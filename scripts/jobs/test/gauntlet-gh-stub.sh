@@ -8,7 +8,7 @@ mkdir -p "$comments_dir"
 case "${1:-} ${2:-}" in
   "api --paginate")
     if [ -e "${GAUNTLET_GH_FAIL_READS_FILE:-/nonexistent}" ]; then
-      printf 'gh: Not Found (HTTP 404)\n' >&2
+      printf 'gh: Bad credentials (HTTP 401)\n' >&2
       exit 1
     fi
     [ -z "${GAUNTLET_GH_READS_LOG:-}" ] || printf '%s\n' "$*" >> "$GAUNTLET_GH_READS_LOG"
