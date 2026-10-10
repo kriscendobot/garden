@@ -4514,6 +4514,30 @@ fallback_warn_clear() {
   done
 }
 
+# _read_journal_worktree_origin <jw> — print the journal worktree's
+# remote.origin.url, retrying a momentarily-empty read before giving up. The read
+# goes empty while the worktree-keeper or another writer holds the shared config
+# lock, or while a worktree repair re-links the gitdir; both clear within a second.
+# Without the retry, journal_remote fell straight to its cached-remote fallback and
+# the sysop and gardener-scaler each logged a spurious "yielded no origin" WARN
+# (2026-10-07..09). GARDEN_JOURNAL_ORIGIN_READ_ATTEMPTS (default 3) bounds the
+# reads; GARDEN_JOURNAL_ORIGIN_READ_SLEEP (default 0.5s) separates them. rc 1 only
+# when every attempt read empty, and only then does the caller fall back and warn.
+_journal_worktree_origin_once() {
+  git -C "$1" config --get remote.origin.url 2>/dev/null
+}
+_read_journal_worktree_origin() {
+  local jw="$1" url i n="${GARDEN_JOURNAL_ORIGIN_READ_ATTEMPTS:-3}"
+  [[ "$n" =~ ^[1-9][0-9]*$ ]] || n=3
+  for (( i = 1; i <= n; i++ )); do
+    if url="$(_journal_worktree_origin_once "$jw")" && [ -n "$url" ]; then
+      printf '%s\n' "$url"; return 0
+    fi
+    [ "$i" -lt "$n" ] && sleep "${GARDEN_JOURNAL_ORIGIN_READ_SLEEP:-0.5}" 2>/dev/null
+  done
+  return 1
+}
+
 journal_remote() {
   if [ -n "$JOURNAL_REMOTE" ]; then printf '%s\n' "$JOURNAL_REMOTE"; return; fi
   local jw="$GARDEN_ROOT/journal"
@@ -4547,7 +4571,7 @@ journal_remote() {
   # clean source, re-assert the correct root origin (_reheal_root_origin) so the
   # poison is repaired at the source. If EVERY source is poisoned we die loudly
   # naming the fix — never returning a fork url.
-  if url="$(git -C "$jw" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
+  if url="$(_read_journal_worktree_origin "$jw")" && [ -n "$url" ]; then
     if _is_foreign_github_remote "$url"; then
       poisoned=1
       log "REFUSED: journal worktree $jw origin is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — the root checkout's remote.origin.url appears rewritten to a project/fork repo; refusing to propagate it (would make fresh doer clones clone the wrong repo). Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin $GARDEN_PRODUCTION_JOURNAL_URL"
@@ -4557,7 +4581,8 @@ journal_remote() {
       printf '%s\n' "$url"; return
     fi
   fi
-  # The journal worktree yielded no origin — the repair above could not re-link a
+  # The journal worktree yielded no origin across every retry of
+  # _read_journal_worktree_origin — the repair above could not re-link a
   # dangling gitdir (its admin dir is gone, not just mis-pointed), origin is unset
   # there, OR (the common transient case) the read was MOMENTARILY empty: a git
   # config lock held by the worktree-keeper, or a deploy window. A per-tick die()

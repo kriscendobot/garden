@@ -9,6 +9,7 @@ JOBS="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TR="$(mktemp -d /var/tmp/garden-fallback-warn.XXXXXX)"
 trap 'rm -rf "$TR"' EXIT
 export GARDEN_TEST=1 GARDEN_ROOT="$TR/root" GARDEN_STATE="$TR/state" JOURNAL_REMOTE=''
+export GARDEN_JOURNAL_ORIGIN_READ_SLEEP=0
 mkdir -p "$GARDEN_ROOT/journal" "$GARDEN_STATE"
 # shellcheck source=../common.sh
 . "$JOBS/common.sh"
@@ -61,6 +62,36 @@ rm -f "$GARDEN_ROOT/journal"; mkdir -p "$GARDEN_ROOT/journal"
 : > "$TR/err"
 journal_remote >/dev/null 2>>"$TR/err"; journal_remote >/dev/null 2>>"$TR/err"
 [ "$(count 'using cached journal remote' "$TR/err")" = 1 ] && ok "fresh episode warns once" || bad "fresh episode: $(cat "$TR/err")"
+
+echo "a momentarily-empty worktree origin read is retried, not warned"
+# Stand-in for the config-lock / worktree-repair window: the first read is
+# empty, the second sees the origin. No fallback, no WARN, cache untouched.
+real_once="$(declare -f _journal_worktree_origin_once)"
+: > "$TR/reads"
+_journal_worktree_origin_once() {
+  printf '.' >> "$TR/reads"
+  [ "$(stat -c %s "$TR/reads")" -ge 2 ] && printf '%s\n' "$UP"
+}
+: > "$TR/err"
+out="$( journal_remote 2>>"$TR/err" )"
+[ "$out" = "$UP" ] && ok "retry returned the worktree origin" || bad "retry returned '$out'"
+[ "$(stat -c %s "$TR/reads")" = 2 ] && ok "second attempt succeeded" || bad "reads: $(stat -c %s "$TR/reads")"
+grep -q 'yielded no origin' "$TR/err" && bad "WARN despite a successful retry: $(cat "$TR/err")" || ok "no WARN when a retry succeeds"
+[ -e "$GARDEN_FALLBACK_WARN_DIR/journal-remote-cache" ] && bad "retry opened a fallback episode" || ok "no fallback episode opened"
+
+echo "every attempt empty: bounded reads, then the cache fallback warns"
+: > "$TR/reads"
+_journal_worktree_origin_once() { printf '.' >> "$TR/reads"; return 1; }
+: > "$TR/err"
+out="$( journal_remote 2>>"$TR/err" )"
+[ "$out" = "$UP" ] && ok "fell back to the cache" || bad "fallback returned '$out'"
+[ "$(stat -c %s "$TR/reads")" = 3 ] && ok "three attempts by default" || bad "reads: $(stat -c %s "$TR/reads")"
+[ "$(count 'using cached journal remote' "$TR/err")" = 1 ] && ok "WARN only after retries fail" || bad "cache WARN: $(cat "$TR/err")"
+: > "$TR/reads"
+GARDEN_JOURNAL_ORIGIN_READ_ATTEMPTS=2 journal_remote >/dev/null 2>&1
+[ "$(stat -c %s "$TR/reads")" = 2 ] && ok "attempt count is configurable" || bad "reads: $(stat -c %s "$TR/reads")"
+eval "$real_once"
+fallback_warn_clear journal-remote-cache 2>/dev/null
 
 echo "leader fetch fallback: one WARN, cleared by a successful fetch"
 : > "$TR/err"
