@@ -1237,6 +1237,8 @@ because the specs are repository READMEs.
 | [Explicit monorepo adoption boundaries](literate-ai--docs-architecture-monorepo-adoption.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier unavailable (`proceed_unclassified`), read under untrusted-data discipline) |
 | [NVIDIA library discovery and integration](literate-ai--docs-architecture-nvidia-library-discovery.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier unavailable (`proceed_unclassified`), read under untrusted-data discipline) |
 | [Evaluation of OVA's development and Component model](literate-ai--docs-architecture-ova-model-evaluation.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier unavailable (`proceed_unclassified`), read under untrusted-data discipline) |
+| [Capability-based provider resolution](literate-ai--docs-architecture-provider-resolution.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Repository inheritance](literate-ai--docs-architecture-repository-inheritance.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
