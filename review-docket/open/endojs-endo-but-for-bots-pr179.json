@@ -9,12 +9,12 @@
   "milestone": "-",
   "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
   "unblocks": [],
-  "source": "readiness-audit-endojs-endo-but-for-bots-pr179-a9241aa8feec",
-  "requested_at": "2026-10-10T08:12:38Z",
+  "source": "manual-gauntlet-handoff-endojs-endo-but-for-bots-pr179",
+  "requested_at": "2026-10-10T08:41:22Z",
   "first_requested_at": "2026-10-10T06:04:11Z",
-  "generation": 7,
+  "generation": 8,
   "ci": {
-    "state": "pending",
-    "observed_at": "2026-10-10T08:27:44Z"
+    "state": "green",
+    "observed_at": "2026-10-10T08:41:24Z"
   }
 }
