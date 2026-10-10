@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume
-priority: normal
 role: designer
-posted_by: orchestrator
-posted_at: 2026-10-09T22:46:25Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-10T02:14:32Z cleared=none -->
 
 ---
 tier: mentor
