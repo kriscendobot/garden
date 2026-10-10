@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: kriscendobot/minion.town#130 closed as superseded by #139/#137
+withdrawn_by: producer
+withdrawn_at: 2026-10-10T11:00:53Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 gauntlet: kriscendobot-minion.town-pr130-gauntlet-20261007
