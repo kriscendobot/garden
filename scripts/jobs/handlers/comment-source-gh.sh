@@ -495,17 +495,19 @@ fi
 #      reserve can pay for (2 calls per PR, 3 in issues-disabled mode). A walk
 #      that would need more PRs than that stops admitting, freezes the cursor, and
 #      opens the cooldown instead of spending the quota down to a refusal.
-#   2. The FIRST PR runs synchronously in the parent as a canary. The parent
-#      classifies its result before it can start any peers, so a quota the probe
-#      could not see (unknown remaining, or spent by another host since the probe)
-#      costs one refused request, not a whole concurrent batch. Primary-quota
-#      evidence found later cancels the rest of that bounded batch.
+#   2. The FIRST PR runs synchronously in the parent as a canary. Every later
+#      bounded batch re-probes the quota and runs its own first PR synchronously
+#      before starting peers. Unknown quota serializes that batch. Thus quota
+#      spent after the initial canary costs one refused request in a later batch,
+#      not a whole concurrent burst. Primary-quota evidence found after peers
+#      launch still cancels the rest of that bounded batch.
 : "${GARDEN_COMMENT_REVIEW_QUOTA_RESERVE:=100}"
 case "$GARDEN_COMMENT_REVIEW_QUOTA_RESERVE" in
   ''|*[!0-9]*) GARDEN_COMMENT_REVIEW_QUOTA_RESERVE=100 ;;
 esac
 review_pr_cost=2; [ -z "$issues_disabled" ] || review_pr_cost=3
 review_pr_budget=""            # empty = unknown quota: no cap beyond the canary
+review_batch_capacity=1        # unknown/stale quota is serialized
 review_quota_reset_secs=""     # seconds until the probed reset, when known
 review_quota_guard_trip() {   # review_quota_guard_trip <reason>
   log "WARN: review-metadata fanout quota guard on $repo: $1 — freezing the cursor and opening the shared cooldown"
@@ -513,7 +515,9 @@ review_quota_guard_trip() {   # review_quota_guard_trip <reason>
   fetch_primary_quota=1
   : >"$review_tmp/primary-quota"
 }
-if [ -z "$fetch_primary_quota" ] && [ ! -e "$review_tmp/primary-quota" ] && [ -n "$open_prs" ]; then
+refresh_review_quota() {       # refresh_review_quota <already-admitted-prs>
+  local already="${1:-0}" affordable candidate
+  review_batch_capacity=1
   review_rl_err="$review_tmp/rate-limit.err"
   review_rl_rc=0
   if review_rl="$(timeout 20 gh api rate_limit --jq '[.resources.core.remaining, .resources.core.reset] | @tsv' 2>"$review_rl_err")"; then
@@ -532,7 +536,7 @@ if [ -z "$fetch_primary_quota" ] && [ ! -e "$review_tmp/primary-quota" ] && [ -n
       note_fetch_failure "rate_limit (review-metadata quota probe)" "$review_rl_err"
       review_quota_guard_trip "rate_limit probe hit GitHub primary quota; issuing no review-metadata request"
     else
-      { printf 'review-metadata fanout: REST quota unknown (rate_limit probe failed rc=%s); canary-first ramp only\n' "$review_rl_rc"
+      { printf 'review-metadata fanout: REST quota unknown (rate_limit probe failed rc=%s); serializing this batch\n' "$review_rl_rc"
         cat "$review_rl_err" 2>/dev/null || true; } >&2
     fi
   fi
@@ -540,27 +544,41 @@ if [ -z "$fetch_primary_quota" ] && [ ! -e "$review_tmp/primary-quota" ] && [ -n
     review_rl_remaining="${review_rl%%$'\t'*}"
     review_rl_reset="${review_rl#*$'\t'}"
     case "$review_rl_remaining" in
-      ''|*[!0-9]*) log "review-metadata fanout: REST quota unknown (rate_limit probe gave no count); canary-first ramp only" ;;
+      ''|*[!0-9]*) log "review-metadata fanout: REST quota unknown (rate_limit probe gave no count); serializing this batch" ;;
       *)
         case "$review_rl_reset" in
           ''|*[!0-9]*) ;;
           *) review_quota_reset_secs=$(( review_rl_reset - $(date +%s) ))
              [ "$review_quota_reset_secs" -ge 1 ] || review_quota_reset_secs="" ;;
         esac
-        review_pr_budget=$(( (review_rl_remaining - GARDEN_COMMENT_REVIEW_QUOTA_RESERVE) / review_pr_cost ))
-        if [ "$review_pr_budget" -le 0 ]; then
-          review_pr_budget=0
+        affordable=$(( (review_rl_remaining - GARDEN_COMMENT_REVIEW_QUOTA_RESERVE) / review_pr_cost ))
+        if [ "$affordable" -le 0 ]; then
+          candidate="$already"
+          [ -n "$review_pr_budget" ] && [ "$review_pr_budget" -lt "$candidate" ] && candidate="$review_pr_budget"
+          review_pr_budget="$candidate"
           review_quota_guard_trip "REST remaining $review_rl_remaining <= reserve $GARDEN_COMMENT_REVIEW_QUOTA_RESERVE; issuing no review-metadata request"
-        elif [ "$review_pr_budget" -lt "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
-          log "review-metadata fanout: REST remaining $review_rl_remaining; concurrency $GARDEN_COMMENT_REVIEW_CONCURRENCY clamped to $review_pr_budget"
-          GARDEN_COMMENT_REVIEW_CONCURRENCY="$review_pr_budget"
+        else
+          candidate=$(( already + affordable ))
+          if [ -z "$review_pr_budget" ] || [ "$candidate" -lt "$review_pr_budget" ]; then
+            review_pr_budget="$candidate"
+          fi
+          review_batch_capacity="$affordable"
+          if [ "$review_batch_capacity" -gt "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
+            review_batch_capacity="$GARDEN_COMMENT_REVIEW_CONCURRENCY"
+          fi
+          if [ "$review_batch_capacity" -lt "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
+            log "review-metadata fanout: REST remaining $review_rl_remaining; next batch clamped to $review_batch_capacity"
+          fi
         fi
         ;;
     esac
   fi
+}
+if [ -z "$fetch_primary_quota" ] && [ ! -e "$review_tmp/primary-quota" ] && [ -n "$open_prs" ]; then
+  refresh_review_quota 0
 fi
 
-scanned=0; total=0
+scanned=0; total=0; review_batch_slots=0
 while IFS=$'\t' read -r n updated; do
   [ -n "$n" ] || continue
   total=$((total+1))
@@ -590,17 +608,47 @@ while IFS=$'\t' read -r n updated; do
       review_quota_guard_trip "synchronous canary found GitHub primary quota; issuing no later review-metadata request"
       break
     fi
-  elif [ -n "$review_group_admitted" ]; then
-    _GARDEN_GH_API_ADMITTED=1 fetch_pr_review_metadata "$scanned" "$n" &
-    review_pids+=("$!")
   else
-    fetch_pr_review_metadata "$scanned" "$n" &
-    review_pids+=("$!")
-  fi
-  if [ "${#review_pids[@]}" -ge "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
-    review_wait_rc=0
-    wait_oldest_review_worker || review_wait_rc=$?
-    [ "$review_wait_rc" -ne "${GARDEN_TRANSIENT_RC:-75}" ] || break
+    if [ "$review_batch_slots" -eq 0 ]; then
+      # A successful first canary is not a licence for every later PR. Re-read the
+      # account-wide bucket before each bounded batch, and make the batch's first
+      # PR synchronous too. Thus a quota spent between the first canary and the
+      # later /reviews phase is published under the held admission lock before any
+      # peers launch. If the probe is unavailable or malformed, capacity remains
+      # one and this batch is deliberately serialized.
+      refresh_review_quota "$((scanned - 1))"
+      [ ! -e "$review_tmp/primary-quota" ] || break
+      review_batch_rc=0
+      if [ -n "$review_group_admitted" ]; then
+        _GARDEN_GH_API_ADMITTED=1 fetch_pr_review_metadata "$scanned" "$n" || review_batch_rc=$?
+      else
+        fetch_pr_review_metadata "$scanned" "$n" || review_batch_rc=$?
+      fi
+      if [ "$review_batch_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ] \
+          || [ -e "$review_tmp/primary-quota" ]; then
+        review_quota_guard_trip "post-canary batch leader found GitHub primary quota; issuing no peer review-metadata request"
+        break
+      fi
+      # Capacity is the bounded number of concurrent peers. The synchronous
+      # leader has already completed, so it does not occupy one of those slots.
+      # The absolute review_pr_budget check above still caps total PR cost.
+      review_batch_slots="$review_batch_capacity"
+    elif [ -n "$review_group_admitted" ]; then
+      _GARDEN_GH_API_ADMITTED=1 fetch_pr_review_metadata "$scanned" "$n" &
+      review_pids+=("$!")
+      review_batch_slots=$((review_batch_slots - 1))
+    else
+      fetch_pr_review_metadata "$scanned" "$n" &
+      review_pids+=("$!")
+      review_batch_slots=$((review_batch_slots - 1))
+    fi
+    if [ "$review_batch_slots" -eq 0 ]; then
+      while [ "${#review_pids[@]}" -gt 0 ]; do
+        review_wait_rc=0
+        wait_oldest_review_worker || review_wait_rc=$?
+        [ "$review_wait_rc" -ne "${GARDEN_TRANSIENT_RC:-75}" ] || break 2
+      done
+    fi
   fi
 done <<< "$open_prs"
 while [ "${#review_pids[@]}" -gt 0 ]; do

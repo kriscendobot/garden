@@ -1501,6 +1501,7 @@ leave_call() {
   unlock
 }
 case "$args" in
+  *rate_limit*) printf '5000\t%s\n' "$(( $(date +%s) + 3600 ))"; exit 0;;
   *"/issues/comments"*) printf '[]\n'; exit 0;;
   *"/pulls?state=open"*)
     printf '['
@@ -2084,7 +2085,9 @@ lock; a=$(( $(cat "$QF_ACTIVE") + 1 )); echo "$a" >"$QF_ACTIVE"
 [ "$a" -le "$(cat "$QF_MAX")" ] || echo "$a" >"$QF_MAX"; unlock
 sleep 0.1
 lock; echo $(( $(cat "$QF_ACTIVE") - 1 )) >"$QF_ACTIVE"; unlock
-if [ "${QF_REFUSE:-0}" = 1 ]; then
+if [ "${QF_REFUSE:-0}" = 1 ] || { [ "${QF_REFUSE:-0}" = post-canary ] \
+    && [[ "$args" =~ /pulls/([2-8])/(comments|reviews) ]] \
+    && { [ "${BASH_REMATCH[1]}" -gt 2 ] || [ "${BASH_REMATCH[2]}" = reviews ]; }; }; then
   printf 'refused\n' >> "${QF_REFUSALS:?}"
   echo "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" >&2; exit 1
 fi
@@ -2113,6 +2116,13 @@ EOF
     && grep -q primary-quota "$TR/state-qf-stale/gh-api-cooldown/marker" 2>/dev/null \
     && ok "the synchronous canary permits exactly one refused request, then latches before peers launch" \
     || bad "quota refusal burst not bounded (rc=$qf_rc calls=$(wc -l < "$QF_CALLS") refusals=$(wc -l < "$QF_REFUSALS")): $(cat "$QF_CALLS") $(cat "$TR/qf-stale.err")"
+  qf_run post-canary 4000 post-canary
+  [ "$qf_rc" -eq 75 ] && [ "$(wc -l < "$QF_CALLS")" -eq 4 ] \
+    && [ "$(wc -l < "$QF_REFUSALS")" -eq 1 ] \
+    && ! grep -qE '/pulls/[3-8]/' "$QF_CALLS" \
+    && grep -q primary-quota "$TR/state-qf-post-canary/gh-api-cooldown/marker" 2>/dev/null \
+    && ok "a post-canary batch leader publishes exhaustion after one refusal, before peers issue doomed calls" \
+    || bad "post-canary exhaustion reached peers (rc=$qf_rc calls=$(wc -l < "$QF_CALLS") refusals=$(wc -l < "$QF_REFUSALS")): $(cat "$QF_CALLS") $(cat "$TR/qf-post-canary.err")"
   qf_run probe-refused 4000 0 1
   [ "$qf_rc" -eq 75 ] && [ ! -s "$QF_CALLS" ] \
     && grep -q primary-quota "$TR/state-qf-probe-refused/gh-api-cooldown/marker" 2>/dev/null \
