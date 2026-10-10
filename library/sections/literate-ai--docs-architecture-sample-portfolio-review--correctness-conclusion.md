@@ -13,6 +13,8 @@ status: current
 
 > Abstract: The catalog's executable correctness boundary combines complete runnable recipes, pinned and entropy-derived verifier cases (or a stateful cross-process verifier), withheld expected results, exact acceptance-interface binding, deterministic arithmetic and ordering, and repository checks against checked-in generated source, while explicitly declining to claim universal implementation correctness or unstated production properties.
 
+> Curator note: the source's portfolio table lists 25 samples, while the paragraph below says “twenty-one applications.” Both are preserved as source evidence; readers should treat the total as internally inconsistent.
+
 All twenty-one applications define complete recipes for runnable artifacts. Twenty use
 two pinned verifier cases plus a third post-build entropy-derived case during E2E
 execution. The durable portfolio instead owns a stateful verifier across its four
