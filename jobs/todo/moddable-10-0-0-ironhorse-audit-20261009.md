@@ -22,13 +22,6 @@ Items to cover: immutable ArrayBuffer; Math.round subnormals; charAt/charCodeAt 
 The completion report is the durable audit artifact for the synthesis job. Use a compact evidence table and end with a provisional grouping of actual port candidates, but do not create code or implementation jobs.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=36 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-10T00:27:46Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-10T00:43:04Z -->
