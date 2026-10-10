@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7365 (530 parent indexes + 6835 children).
+Total section files: 7374 (530 parent indexes + 6844 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8523,6 +8523,21 @@ Total section files: 7365 (530 parent indexes + 6835 children).
 - [literate-ai--docs-architecture-production-containment-threat-model--phase-specific-controls](literate-ai--docs-architecture-production-containment-threat-model--phase-specific-controls.md)
 - [literate-ai--docs-architecture-production-containment-threat-model--provider-neutral-fail-closed-contract](literate-ai--docs-architecture-production-containment-threat-model--provider-neutral-fail-closed-contract.md)
 - [literate-ai--docs-architecture-production-containment-threat-model--single-use-build-admission](literate-ai--docs-architecture-production-containment-threat-model--single-use-build-admission.md)
+
+### literate-ai--docs-architecture-provider-resolution
+
+- [literate-ai--docs-architecture-provider-resolution--lock-and-plan-authority](literate-ai--docs-architecture-provider-resolution--lock-and-plan-authority.md)
+- [literate-ai--docs-architecture-provider-resolution--physics-workbench-migration](literate-ai--docs-architecture-provider-resolution--physics-workbench-migration.md)
+- [literate-ai--docs-architecture-provider-resolution--selection-contract](literate-ai--docs-architecture-provider-resolution--selection-contract.md)
+
+### literate-ai--docs-architecture-repository-inheritance
+
+- [literate-ai--docs-architecture-repository-inheritance--ancestor-first-catalog-composition](literate-ai--docs-architecture-repository-inheritance--ancestor-first-catalog-composition.md)
+- [literate-ai--docs-architecture-repository-inheritance--bounded-fetch-policy](literate-ai--docs-architecture-repository-inheritance--bounded-fetch-policy.md)
+- [literate-ai--docs-architecture-repository-inheritance--effective-authority-graph](literate-ai--docs-architecture-repository-inheritance--effective-authority-graph.md)
+- [literate-ai--docs-architecture-repository-inheritance--parent-dag-and-initialization](literate-ai--docs-architecture-repository-inheritance--parent-dag-and-initialization.md)
+- [literate-ai--docs-architecture-repository-inheritance--trust-boundary-and-parent-checkouts](literate-ai--docs-architecture-repository-inheritance--trust-boundary-and-parent-checkouts.md)
+- [literate-ai--docs-architecture-repository-inheritance--update-retirement-and-reparenting](literate-ai--docs-architecture-repository-inheritance--update-retirement-and-reparenting.md)
 
 ### literate-ai--docs-architecture-repository-layout
 
