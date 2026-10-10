@@ -77,6 +77,9 @@
 | [RPC and build-system review](../sections/cloudflare-os--review--rpc-and-build-system-review.md) | Cloudflare OS REVIEW.md | Review protects intentional RPC pipelining and catches Vite+ cache surfaces that fail silently. |
 | [Outside-contribution and review exclusions](../sections/cloudflare-os--review--outside-contribution-and-review-exclusions.md) | Cloudflare OS REVIEW.md | The narrow contributor bar pairs with explicit exclusions that prevent repository decisions becoming false positives. |
 | [literate-ai--docs-architecture-authoring-and-record-formats--intent-and-evidence-boundary](../sections/literate-ai--docs-architecture-authoring-and-record-formats--intent-and-evidence-boundary.md) | literate-ai authoring formats | Repository authority is reviewable Markdown; derived locks, receipts, and SBOMs are canonical machine records. |
+| [literate-ai--docs-architecture-repository-layout--root-authority-taxonomy](../sections/literate-ai--docs-architecture-repository-layout--root-authority-taxonomy.md) | literate-ai repository layout | Root directories expose authored authority separately from importable product code and supporting adapters. |
+| [literate-ai--docs-architecture-repository-layout--package-audit-and-decomposition](../sections/literate-ai--docs-architecture-repository-layout--package-audit-and-decomposition.md) | literate-ai repository layout | Structural debt is localized to oversized modules and should be split along typed ports with behavioral evidence. |
+| [literate-ai--docs-architecture-source-promotion--external-source-dependencies](../sections/literate-ai--docs-architecture-source-promotion--external-source-dependencies.md) | literate-ai source promotion | Quarantined pinned dependencies remain external unless explicitly promoted into regenerative Component authority. |
 
 ## See also
 
