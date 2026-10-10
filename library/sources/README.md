@@ -1240,6 +1240,7 @@ because the specs are repository READMEs.
 | [Capability-based provider resolution](literate-ai--docs-architecture-provider-resolution.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Repository inheritance](literate-ai--docs-architecture-repository-inheritance.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Retained library bindings (Cargo bridge integrity)](literate-ai--docs-architecture-retained-library-bindings.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 16 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Sample portfolio review](literate-ai--docs-architecture-sample-portfolio-review.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat` for mixed factual and persuasive framing) |
 
 ## Petname systems and Zooko's triangle
 
