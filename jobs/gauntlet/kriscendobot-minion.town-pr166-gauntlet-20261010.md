@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: kriscendobot-minion.town-pr166-gauntlet-20261010-viability
+state: running
 created_by: gardener
 created_at: 2026-10-10T03:07:58Z
 ---
