@@ -19,6 +19,7 @@ Evidence: the review was submitted against the current head `964cc634b818`; ther
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
