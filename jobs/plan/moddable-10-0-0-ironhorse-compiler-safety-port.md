@@ -32,3 +32,7 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 - Update only byte-identity fixtures whose intentional POP/unwind sequence changes, with an explanation per changed fixture.
 - Run the full `ironhorse-compile` tests plus the nearest VM and targeted test262 suites; introduce no generic skips or unrelated fixture churn.
 - Open a draft implementation PR with exact-head evidence and link the design PR. Do not merge it or start a sibling child.
+
+<!-- garden-annotation: key=pr1435-panel1 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-1 at=2026-10-10T07:46:29Z -->
+
+PR #1435 panel round 1 (design commit 7d2d6f8d12): port the XS scope-slot rule exactly as pinned in the design section "Scope-slot counting rule (child 2)" (XS cfe72a8cfcd2, binder->scopeMaximum > 65535 per function/module/program, variables plus temporaries); port tests/xs/issues/scope-count-limit.js verbatim plus a tagged-template temporaries case; if IronHorse peak count differs, report and stop. Runs in parallel under moddable-10-0-0-ironhorse-ports.
