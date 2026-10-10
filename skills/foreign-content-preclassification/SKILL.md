@@ -105,6 +105,20 @@ exit 0 — the whole task never fails closed on classifier unavailability, but
 the caller must record the gap in whatever it ingests. A `halt_and_escalate`
 verdict exits **3**, so a boolean caller cannot ignore a flag.
 
+**Strict mode** (`CLASSIFY_REQUIRE=1`). The fail-open default makes the gate
+only as strong as the claiming host: a host without the key ingests every
+source unclassified. With `CLASSIFY_REQUIRE=1`, every unavailability path
+reports `classify_policy=halt_unclassified` and exits **4** instead of 0.
+Exit 4 says "this host cannot classify right now", not "this content is bad".
+`fetch-source.sh` honors the same flag: with strict mode on and no
+`TYPESAFE_API_KEY`, it refuses before fetching and exits 4. The board enforces
+strict mode for any job whose requirements include the `typesafe` host
+capability (`requires: typesafe`; every `scholar-ingest-*` job carries it
+implicitly). A worker without `TYPESAFE_API_KEY` in its environment does not
+claim such a job, and `gardener.sh` exports `CLASSIFY_REQUIRE=1` to its handler.
+Add `requires: typesafe` to any other job that must not read foreign content
+unclassified.
+
 ## Procedure
 
 1. Fetch through `fetch-source.sh` as usual; pick the text artifact.
@@ -125,6 +139,12 @@ verdict exits **3**, so a boolean caller cannot ignore a flag.
    - `proceed_unclassified` — continue as today, and record the
      unavailability (with `classify_unavailable_reason`) in the ingested
      artifact's provenance and the report.
+   - `halt_unclassified` (exit 4, strict mode only; `fetch-source.sh` exits 4
+     for the same reason) — do **not** read or ingest the source, and do not
+     fall back to an unclassified read. Commit nothing derived from it, and
+     end the job **without** the completion signal so it requeues. A host
+     that can classify will claim it next time. Say in the report why you
+     stopped.
 4. Record the questions asked, answers, disposition, and `usage` token counts
    in the completion report (the calls are metered; the decisions must be
    auditable).

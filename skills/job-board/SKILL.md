@@ -27,6 +27,10 @@ workers without every capability skip the job, then the winning worker re-probes
 the same predicate after claim before running. It is capability, never authority;
 authorization fields such as `identity_switch_authorized: true` remain independent.
 See [`designs/host-requirements-gating.md`](../../designs/host-requirements-gating.md).
+Known tokens: `aws`, `host=<GARDEN>`, and `typesafe` (the worker has
+`TYPESAFE_API_KEY`; a job requiring it runs the foreign-content classifier in
+strict mode, per [foreign-content-preclassification](../foreign-content-preclassification/SKILL.md)).
+Every `scholar-ingest-*` job requires `typesafe` implicitly.
 
 New completions use `jobs/tada/YYYY/MM/DD/<base>.md` (UTC completion date).
 `tada_find` / `tada_find_tree` in `common.sh` read both date-sharded and legacy

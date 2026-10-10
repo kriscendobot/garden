@@ -659,6 +659,11 @@ while :; do
   # configured wall + grace. A near-constant elapsed across requeue cycles remains
   # a positive signal of a deterministic overrun or fixed external bound, distinct
   # from a varied deploy-drain kill. SECONDS is read-only timing state.
+  # A job that requires `typesafe` (every scholar-ingest-* job, implicitly) runs
+  # the foreign-content classifier in strict mode, so a lapsed or rejected key
+  # stops the ingest instead of reading sources unclassified.
+  job_classify_require="${CLASSIFY_REQUIRE:-0}"
+  job_requires_token "$jobfile" typesafe && job_classify_require=1
   handler_start=$SECONDS
   set +e
   set -m
@@ -666,7 +671,7 @@ while :; do
   # per-job wall, including an explicit handler-timeout override.
   GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" GARDEN_USAGE_FILE="$usage_file" \
     GARDEN_JOB_CLAIM_BASE="$base" GARDEN_JOB_CLAIM_FP="$claim_fp" \
-    GARDEN_APPLIED_HANDLER_BUDGET="$handler_budget" \
+    GARDEN_APPLIED_HANDLER_BUDGET="$handler_budget" CLASSIFY_REQUIRE="$job_classify_require" \
     timeout --foreground --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
     "${handler_cmd[@]}" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
   handler_pgid=$!

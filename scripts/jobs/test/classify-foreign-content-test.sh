@@ -10,6 +10,9 @@
 # uncertain covert persuasion, uncertain neutral, and head+tail sampling of an
 # oversized body. No real network is touched.
 set -euo pipefail
+# An ambient strict mode (a typesafe-requiring job running this test) would
+# turn the fail-open cases into exit 4; each strict case sets it explicitly.
+unset CLASSIFY_REQUIRE
 export GARDEN_TEST=1
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -172,7 +175,29 @@ else
   bad "sampling path broken (rc=$rc)"
 fi
 
-# --- 12. usage errors ----------------------------------------------------------
+# --- 12. strict mode refuses instead of proceeding unclassified ----------------
+out="$(env -u TYPESAFE_API_KEY CLASSIFY_REQUIRE=1 "$CLASSIFY" "$content")" && rc=0 || rc=$?
+if [ "$rc" -eq 4 ] && grep -q 'classify_policy=halt_unclassified' <<<"$out" \
+  && grep -q 'classify_status=unavailable' <<<"$out"; then
+  ok "strict mode without credential exits 4 with halt_unclassified"
+else
+  bad "strict mode credential-absent path broken (rc=$rc): $out"
+fi
+respond 0.01 neutral 0.9
+out="$(CLASSIFY_REQUIRE=1 CLASSIFY_TEST_RC=22 run "$content")" && rc=0 || rc=$?
+if [ "$rc" -eq 4 ] && grep -q 'classify_policy=halt_unclassified' <<<"$out"; then
+  ok "strict mode API failure exits 4"
+else
+  bad "strict mode API-failure path broken (rc=$rc): $out"
+fi
+out="$(CLASSIFY_REQUIRE=1 run "$content")" && rc=0 || rc=$?
+if [ "$rc" -eq 0 ] && grep -q 'classify_policy=proceed$' <<<"$out"; then
+  ok "strict mode with a working classifier proceeds normally"
+else
+  bad "strict mode classified path broken (rc=$rc): $out"
+fi
+
+# --- 13. usage errors ----------------------------------------------------------
 if ! "$CLASSIFY" "$TEST_DIRECTORY/absent-file" >/dev/null 2>&1; then
   ok "missing content file is a usage error"
 else

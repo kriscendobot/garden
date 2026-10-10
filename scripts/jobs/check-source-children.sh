@@ -67,6 +67,9 @@ require_tools curl sha256sum jq grep sed
 
 FETCH="${CHECK_SOURCE_FETCH:-$HERE/fetch-source.sh}"
 [ -x "$FETCH" ] || die "fetch-source.sh not found or not executable at: $FETCH"
+# Reachability probes and link extraction are read by this script, never by an
+# agent, so fetch-source.sh's classifier strict-mode preflight does not apply.
+export CLASSIFY_REQUIRE=0
 
 usage() {
   awk 'NR>1 && /^#/{sub(/^# ?/,"");print;next} NR>1{exit}' "$0"

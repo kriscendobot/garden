@@ -54,7 +54,7 @@ env GARDEN=host-b GARDEN_STATE="$TR/post-state" JOURNAL_REMOTE="$BARE" JOURNAL_B
   GARDEN_AWS_VERIFY="$LAPSE" AWS_PROBE_COUNT="$TR/probes" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=0 \
   GARDEN_JOB_HANDLER="$HERE/stub-handler.sh" "$JOBS/gardener.sh" 1 >"$TR/post.log" 2>&1 || true
 rm -rf "$V"; git clone -q --branch "$BRANCH" "$BARE" "$V"
-grep -q 'blocked: host requirements' "$V/jobs/tada/aws.md" 2>/dev/null \
+grep -rq 'blocked: host requirements' "$V/jobs/tada" 2>/dev/null \
   && ok "post-claim lapse completes a blocked report before the handler" \
   || bad "post-claim lapse was not completed as a blocked report ($(tr '\n' ' ' < "$TR/post.log" 2>/dev/null))"
 
@@ -76,6 +76,24 @@ env -u GARDEN_NO_MAINTAINER_ALERT GARDEN=leader GARDEN_STATE="$TR/watch-state" J
   GARDEN_REQUIREMENTS_DWELL_SECS=0 GARDEN_REQUIREMENTS_WATCH_CLONE="$TR/watch-clone" \
   GARDEN_ALERT_CMD="$ALERT" ALERT_OUT="$TR/alert.out" "$JOBS/requirements-watch.sh" >"$TR/watch.log" 2>&1
 grep -q "job 'aws'.*requires: quantum" "$TR/alert.out" && ok "unclaimable requirement produces maintainer notice" || bad "no maintainer notice naming aws/quantum ($(tr '\n' ' ' < "$TR/watch.log" 2>/dev/null))"
+
+# scholar-ingest-* jobs implicitly require `typesafe`, probed from the worker env.
+T="$TR/typesafe"; mkdir -p "$T"
+printf '# ingest\n' > "$T/scholar-ingest-foo.md"
+printf '%s\n' '---' 'requires: typesafe, aws' '---' > "$T/scholar-ingest-bar.md"
+printf '%s\n' '---' 'requires: typesafe' '---' > "$T/other.md"
+printf '# other\n' > "$T/plain.md"
+reqs() { bash -c 'source "$1"; job_requirements "$2" | paste -sd, -' _ "$JOBS/common.sh" "$1"; }
+[ "$(reqs "$T/scholar-ingest-foo.md")" = typesafe ] && ok "scholar-ingest-* implicitly requires typesafe" || bad "implicit requirement: '$(reqs "$T/scholar-ingest-foo.md")'"
+[ "$(reqs "$T/scholar-ingest-bar.md")" = typesafe,aws ] && ok "explicit typesafe is not duplicated" || bad "duplicate requirement: '$(reqs "$T/scholar-ingest-bar.md")'"
+[ -z "$(reqs "$T/plain.md")" ] && ok "ordinary job gains no implicit requirement" || bad "plain job requirements: '$(reqs "$T/plain.md")'"
+avail() { env -u TYPESAFE_API_KEY ${2:+TYPESAFE_API_KEY=$2} GARDEN_STATE="$TR/ts-state" bash -c 'source "$1"; job_requirements_available "$2" && job_requirements_available "$2" fresh' _ "$JOBS/common.sh" "$1"; }
+avail "$T/scholar-ingest-foo.md" && bad "scholar ingest claimable without TYPESAFE_API_KEY" || ok "scholar ingest not claimable without TYPESAFE_API_KEY"
+avail "$T/scholar-ingest-foo.md" k && ok "scholar ingest claimable with TYPESAFE_API_KEY" || bad "scholar ingest refused despite TYPESAFE_API_KEY"
+avail "$T/other.md" && bad "explicit requires: typesafe claimable without key" || ok "explicit requires: typesafe gated on the key"
+avail "$T/plain.md" && ok "ordinary job claimable without key" || bad "ordinary job refused"
+rt() { bash -c 'source "$1"; job_requires_token "$2" typesafe' _ "$JOBS/common.sh" "$1"; }
+rt "$T/scholar-ingest-foo.md" && ! rt "$T/plain.md" && ok "job_requires_token distinguishes typesafe jobs" || bad "job_requires_token wrong"
 
 echo "host-requirements-gating-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

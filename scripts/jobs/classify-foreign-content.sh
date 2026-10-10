@@ -68,6 +68,19 @@
 # record it in whatever it ingests (never a silent pass-through). A flagged
 # verdict, by contrast, exits 3 so a boolean caller cannot ignore it.
 #
+# STRICT MODE (CLASSIFY_REQUIRE=1). The fail-open default makes the gate only as
+# strong as the claiming host: a host without TYPESAFE_API_KEY ingests every
+# source unclassified (scholar-ingest-literate-ai-next-slice-20261010 read four
+# sources that way). A caller that must not ingest unclassified content sets
+# CLASSIFY_REQUIRE=1; then every unavailability path reports
+# classify_policy=halt_unclassified and exits 4 instead of 0. Exit 4 means "this
+# host cannot classify right now", not "the content is bad": the caller does not
+# ingest and leaves the job to requeue (a provisioned host claims it via the
+# `typesafe` host capability, scripts/jobs/common.sh § host capability
+# requirements). gardener.sh exports CLASSIFY_REQUIRE=1 to the handler of any job
+# whose requirements include `typesafe`, which every scholar-ingest-* job does
+# implicitly.
+#
 # THE CALLER ESCALATES; THIS SCRIPT ONLY VERDICTS. On exit 3 the calling role
 # does not ingest, and surfaces the verdict to the maintainer over the message
 # bus (message-user.sh) with the source URL and the manifest. The script makes
@@ -86,7 +99,7 @@
 #
 # Output manifest (stdout, one `key=value` per line):
 #   classify_status=classified|unavailable
-#   classify_policy=proceed|proceed_with_caveat|halt_and_escalate|proceed_unclassified
+#   classify_policy=proceed|proceed_with_caveat|halt_and_escalate|proceed_unclassified|halt_unclassified
 #   classify_unavailable_reason=<text>     # only when status=unavailable
 #   classify_injection=<0..1>              # only when classified
 #   classify_injection_verdict=clean|uncertain|flagged
@@ -105,8 +118,12 @@
 #   2  usage error (missing/unreadable content file)
 #   3  halt_and_escalate: do NOT ingest; surface the verdict and the source to
 #      the maintainer via the message bus and await disposition
+#   4  strict mode (CLASSIFY_REQUIRE=1) and the classifier is unavailable
+#      (halt_unclassified): do NOT ingest; let the job requeue to a host that
+#      can classify
 #
 # CONFIG (overridable; the test harness points curl at a stub)
+#   CLASSIFY_REQUIRE               1 = strict mode (see above); default off
 #   GARDEN_TYPESAFE_URL / GARDEN_TYPESAFE_MODEL / GARDEN_TYPESAFE_TIMEOUT
 #   CLASSIFY_FOREIGN_CURL          curl binary / wrapper (default: curl)
 #   CLASSIFY_FOREIGN_HEAD_BYTES    head sample size when truncating (196608)
@@ -142,6 +159,7 @@ require_tools jq curl
 : "${CLASSIFY_INJECTION_GRAY:=0.25}"
 : "${CLASSIFY_SLANT_CONFIDENT:=0.5}"
 : "${CLASSIFY_SLANT_NEUTRAL_MIN:=0.35}"
+: "${CLASSIFY_REQUIRE:=0}"
 
 usage() {
   awk 'NR>1 && /^#/{sub(/^# ?/,"");print;next} NR>1{exit}' "$0"
@@ -160,15 +178,23 @@ purpose="${3:-Ingest this external document into a reference library or an agent
 
 # Unavailability is explicit, never silent, and never fails the caller's whole
 # task: the manifest says so and the caller must record it in what it ingests.
+# In strict mode it is a distinct refusal (exit 4) instead.
 unavailable() {
+  if [ "$CLASSIFY_REQUIRE" = 1 ]; then
+    log "classifier unavailable in strict mode (CLASSIFY_REQUIRE=1): $1"
+    printf 'classify_status=unavailable\n'
+    printf 'classify_policy=halt_unclassified\n'
+    printf 'classify_unavailable_reason=%s\n' "$1"
+    exit 4
+  fi
   log "classifier unavailable: $1"
   printf 'classify_status=unavailable\n'
   printf 'classify_policy=proceed_unclassified\n'
-  printf 'classify_unavailable_reason=%s\n' "$1"
+  printf 'classify_unavailable_reason=%s; proceed with existing untrusted-data discipline and record the gap\n' "$1"
   exit 0
 }
 
-[ -n "${TYPESAFE_API_KEY:-}" ] || unavailable "TYPESAFE_API_KEY absent; proceed with existing untrusted-data discipline and record the gap"
+[ -n "${TYPESAFE_API_KEY:-}" ] || unavailable "TYPESAFE_API_KEY absent"
 
 mkdir -p "${GARDEN_SCRATCH:-/tmp}"
 temporary_directory="$(mktemp -d "${GARDEN_SCRATCH:-/tmp}/garden-classify-foreign.XXXXXX")"
@@ -246,7 +272,7 @@ if ! "$CLASSIFY_FOREIGN_CURL" --fail --silent --show-error \
   -H 'Content-Type: application/json' \
   --data-binary "@$request" \
   "$GARDEN_TYPESAFE_URL" >"$response"; then
-  unavailable "TypeSafe call failed; proceed with existing untrusted-data discipline and record the gap"
+  unavailable "TypeSafe call failed"
 fi
 
 jq -e '
@@ -258,7 +284,7 @@ jq -e '
   (.answers.slant.choice as $chosen | ["neutral","advocacy","covert_persuasion","mixed"] | index($chosen) != null) and
   ((.answers.slant.confidence | type) == "number") and
   (.answers.slant.confidence >= 0 and .answers.slant.confidence <= 1)
-' "$response" >/dev/null 2>&1 || unavailable "TypeSafe returned an unexpected response shape; proceed with existing untrusted-data discipline and record the gap"
+' "$response" >/dev/null 2>&1 || unavailable "TypeSafe returned an unexpected response shape"
 
 injection="$(jq -r '.answers.injection.noul' "$response")"
 slant="$(jq -r '.answers.slant.choice' "$response")"

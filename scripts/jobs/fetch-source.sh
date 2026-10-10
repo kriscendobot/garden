@@ -138,6 +138,12 @@
 #      capture timestamp could be resolved — a DISTINCT, retryable index-unreachable
 #      result (source_retryable=true), kept separate from exit 1 so a caller can
 #      retry later rather than re-hammering a likely-404 redirect path by hand.
+#   4  classifier strict mode (CLASSIFY_REQUIRE=1) is on but TYPESAFE_API_KEY is
+#      absent, so the bytes could never be classified before an agent reads them;
+#      nothing is fetched. Same code and meaning as classify-foreign-content.sh's
+#      strict refusal: do not ingest, let the job requeue to a provisioned host.
+#      The manifest is source_url, source_classify_unavailable=true, and
+#      source_retryable=true.
 #      Boolean callers (`if fetch-source.sh ...`) still see a non-zero "no bytes".
 #
 # CONFIG (overridable; the test harness points curl at a stub)
@@ -165,7 +171,11 @@
 # pure fetch+hash (classification is deliberately NOT embedded here, so
 # reachability probes like check-source-children.sh do not pay a metered
 # classification for content no agent ever reads); the gate belongs at the
-# point where the bytes are about to enter an LLM context.
+# point where the bytes are about to enter an LLM context. The one coupling is
+# the strict-mode preflight (exit 4): a caller running with CLASSIFY_REQUIRE=1,
+# as every scholar-ingest-* job does, is refused before fetching when this
+# worker has no TypeSafe credential, so the fetch fails fast instead of handing
+# back bytes the gate will refuse anyway.
 
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -202,6 +212,14 @@ esac
 
 url="$1"
 out="${2:-}"
+
+if [ "${CLASSIFY_REQUIRE:-0}" = 1 ] && [ -z "${TYPESAFE_API_KEY:-}" ]; then
+  log "CLASSIFY_REQUIRE=1 but TYPESAFE_API_KEY is absent; refusing to fetch bytes that cannot be classified"
+  printf 'source_url=%s\n' "$url"
+  printf 'source_classify_unavailable=true\n'
+  printf 'source_retryable=true\n'
+  exit 4
+fi
 if [ -z "$out" ]; then
   out="$(mktemp -t fetch-source.XXXXXX)"
 fi

@@ -19,7 +19,7 @@ now="$(date -u +%s)"
 for f in "$DIR/$JOBS_TODO"/*.md; do
   [ -e "$f" ] || continue
   base="${f##*/}"; base="${base%.md}"
-  req="$(plan_field "$f" requires)"
+  req="$(job_requirements "$f" | paste -sd, -)"
   [ -n "$req" ] || continue
   key="$(printf '%s\n' "$base:$req" | sha1sum | cut -c1-16)"
   marker="$STATE/$key.first"

@@ -30,6 +30,7 @@ hr()  { echo "----------------------------------------------------------------";
 # Scrub ambient fleet env so a live gardener invoking this test cannot splice its
 # own GARDEN_*/JOURNAL_* state underneath the fixture (mirrors run-test.sh).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+unset CLASSIFY_REQUIRE
 
 TR=/home/kris/.garden-fetch-source-test
 rm -rf "$TR"; mkdir -p "$TR"
@@ -552,6 +553,17 @@ MAN="$(STUB_DIRECT_RC=7 STUB_AVAIL_RC=0 STUB_AVAIL_JSON='{"archived_snapshots":{
 eff="$(printf '%s' "$MAN" | field source_effective_url)"
 [ "$eff" = "http://web.archive.org/web/2id_/$URL" ] && ok "used the bare 2id_ redirect form" || bad "unexpected effective URL: $eff"
 printf '%s' "$MAN" | grep -q '^source_index_unreachable=' && bad "index-unreachable fired with one authoritative answer" || ok "index-unreachable did NOT fire"
+
+# === 27. classifier strict mode without a TypeSafe key refuses before fetching =
+hr; echo "CASE 27: CLASSIFY_REQUIRE=1 without TYPESAFE_API_KEY -> exit 4, no fetch"
+: >"$STUB_LOG"
+OUT="$TR/case27.out"
+MAN="$(env -u TYPESAFE_API_KEY CLASSIFY_REQUIRE=1 STUB_DIRECT_BODY="hello" "$FETCH" "$URL" "$OUT" 2>/dev/null)" && rc=0 || rc=$?
+[ "$rc" = 4 ] && ok "exit 4 (strict mode, no classifier credential)" || bad "exit $rc (expected 4)"
+[ "$(printf '%s' "$MAN" | field source_classify_unavailable)" = true ] && ok "manifest names the classifier gap" || bad "no source_classify_unavailable in manifest"
+[ -s "$STUB_LOG" ] && bad "curl was invoked despite the refusal" || ok "nothing fetched"
+MAN="$(TYPESAFE_API_KEY=synthetic CLASSIFY_REQUIRE=1 STUB_DIRECT_BODY="hello" "$FETCH" "$URL" "$OUT" 2>/dev/null)" && rc=0 || rc=$?
+[ "$rc" = 0 ] && ok "strict mode with a credential fetches normally" || bad "strict mode with credential exit $rc"
 
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"

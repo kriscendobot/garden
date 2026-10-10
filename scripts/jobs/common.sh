@@ -9371,16 +9371,35 @@ plan_role() { plan_field "$1" role; }
 # a requirement describes a fact the host can currently satisfy; it never grants
 # a permission.  Unknown tokens fail closed, which makes adding a new requirement
 # safe before every host has learned its probe.
+#
+# Implicit requirements: a scholar-ingest-* job requires `typesafe` even when its
+# producer wrote no header, because scholar ingest must not read foreign sources
+# unclassified (classify-foreign-content.sh fails open on a host without
+# TYPESAFE_API_KEY; job improve-foreign-content-gate-requires-key).  The base is
+# read from the job file's leaf name, which is <base>.md on every board lane.
 job_requirements() { # <job-file> — one normalized token per line
-  local raw token
+  local raw token base saw_typesafe=0
   raw="$(plan_field "$1" requires)"
-  [ -n "$raw" ] || return 0
-  IFS=',' read -r -a _job_requirements <<< "$raw"
-  for token in "${_job_requirements[@]}"; do
-    token="$(printf '%s' "$token" | tr -d '[:space:]')"
-    [ -n "$token" ] || continue
-    printf '%s\n' "$token"
-  done
+  if [ -n "$raw" ]; then
+    IFS=',' read -r -a _job_requirements <<< "$raw"
+    for token in "${_job_requirements[@]}"; do
+      token="$(printf '%s' "$token" | tr -d '[:space:]')"
+      [ -n "$token" ] || continue
+      [ "$token" = typesafe ] && saw_typesafe=1
+      printf '%s\n' "$token"
+    done
+  fi
+  base="${1##*/}"; base="${base%.md}"
+  case "$base" in
+    scholar-ingest-*) [ "$saw_typesafe" = 1 ] || printf 'typesafe\n' ;;
+  esac
+}
+
+job_requires_token() { # <job-file> <token>
+  # No pipe into grep -q: under pipefail an early grep exit can SIGPIPE the producer.
+  local tokens
+  tokens="$(job_requirements "$1")"
+  [[ $'\n'"$tokens"$'\n' == *$'\n'"$2"$'\n'* ]]
 }
 
 job_requirements_valid() { # <job-file>
@@ -9411,6 +9430,10 @@ host_capability_probe() { # <token> — one authoritative, uncached probe
     # the host's own identity — no external probe, no credential, no journal read.
     host=*) [ "${1#host=}" = "$GARDEN" ] ;;
     aws) "$GARDEN_AWS_VERIFY" "$GARDEN_ROOT" >/dev/null 2>&1 ;;
+    # typesafe: this worker's environment carries the TypeSafe credential that
+    # classify-foreign-content.sh needs.  Presence only; a rejected key surfaces
+    # as strict-mode exit 4 at run time and the job requeues.
+    typesafe) [ -n "${TYPESAFE_API_KEY:-}" ] ;;
     *) return 1 ;;
   esac
 }
@@ -9421,6 +9444,9 @@ host_capability_available() { # <token> [fresh]
   # answer cannot lapse between claim and run the way an AWS session can), so short-
   # circuit before the boot-id cache path below.
   case "$token" in host=*) [ "${token#host=}" = "$GARDEN" ]; return $? ;; esac
+  # typesafe reads this process's environment, so it is likewise never cached: the
+  # boot-id cache is host-wide and one worker's env says nothing about another's.
+  case "$token" in typesafe) host_capability_probe typesafe; return $? ;; esac
   case "$token" in aws) ;; *) return 1 ;; esac
   if [ "$fresh" != fresh ]; then
     boot="$(tr -dc 'A-Za-z0-9' < /proc/sys/kernel/random/boot_id 2>/dev/null || true)"
