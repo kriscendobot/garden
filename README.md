@@ -1,39 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T15:54:02Z_
+_As of 2026-10-10T16:01:00Z_
 
 ## Latest
 
-Nothing moved on the board in this window (no file-level transitions resolved), but several things need you.
+Gauntlet activity centered on minion.town. [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after its panel stage failed three times and exhausted its retry budget (7 of 7 rounds spent, about $12.30). The halt notice gives a resume command that adds two rounds, and a panel-7 stage is back in todo. [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) hit its review budget after 2 rounds, with CI green. Panel and fix stages are queued for #171, [kriscendobot/minion.town#94](https://github.com/kriscendobot/minion.town/pull/94), [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), and [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/pull/93). On [endojs/endo-but-for-bots#348](https://github.com/endojs/endo-but-for-bots/pull/348), fix round 2 finished and panel round 3 is running. The minion.town arc press `minion-town-arc-press-20261010-155006` completed.
 
-**minion.town deploys are blocked by billing.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) did not break production. Its `deploy.yml` run failed because the kriscendobot Actions billing block left it with no runner (expected to clear around 10-30). Production still serves the earlier deploy. Because the screener paused the delegation and only resumes after a green main deploy, it stays paused until you choose one of three options:
-- resume it by hand;
-- authorize moving CD onto the ci.minion.town runner;
-- wait for the billing reset.
-
-The gardener also proposed teaching the screener to treat a no-runner, zero-step deploy as billing-deferred, and will post that job if you say so.
-
-**Gauntlets stopped short on minion.town.**
-- [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) HALTED after its panel stage failed three times (stage retry budget exhausted at 7/7 rounds, $12.30 spent). The resume command with `--add-rounds 2` is in the halt message.
-- [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) reached its review budget (2/2 rounds, CI green) and is left for a human decision.
-- [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) each have a head newer than their last panel review. No gauntlet was staged for any of them. They need an explicit `run the gauntlet` or your review decision.
-- The Claude-on-minion.town completion press has sat in `doin` for about 5.6 hours, and its successor press is unclaimed.
-
-**Orchestrations halted.**
-- Three Moddable 10.0.0 Ironhorse port-plan orchestrations (split, split-resume, split-resume-resume) halted on 2400s handler timeouts. The synthesis child overran at about 2404s.
-- `review-docket-consolidate-20261008` was doomed and parked in `plan/`, which halted `review-docket-20261008` at 2 of 3 children.
-- The Jev triage/foreman trial is blocked because `TYPESAFE_API_KEY` is absent, which halted `orch-jev-triage-foreman`. It needs a key from you.
-- `orch-minion-town-oauth-bonds` halted because its build child declared its gated outcome unsatisfied.
-
-**Fleet health.**
-- oros-studio came back after being offline since about 02:50Z, and its canary-stuck and host-offline watchdogs cleared. A canary on oros at `61a16d2` still failed after three retries and left the host drained. The leader is also holding because no follower is online to validate its deploy.
-- endolin-garden2 has been offline about 11.7 hours (its heartbeat is 42045s stale).
-- The leader's journal worktree was about 2 hours stale and could not self-heal. `fix-sysop-ack-timeout` landed on main2 as `96a2b4c6141`. It leaves one manual step on oros: remove the temporary sysop drop-in once oros has deployed that commit.
-- Both Claude subscriptions on endolin hit backoff, with endolin1 at 278M of 271M tokens, then endolin1 recovered to ok at the last report.
-
-**ocap.site DNSSEC.** The DS record is still unpublished at Key-Systems. The 60-day transfer window ended around 2026-10-09T19:55Z, so you can now start the transfer or ask the registrar to add the DS.
+Things to notice:
+- **minion.town screening is paused.** The deploy failure behind it traces to the Actions billing block, not to [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) itself. Production still serves the earlier deploy. Your options are to resume by hand, move CD onto the self-hosted runner, or wait for the reset. A garden follow-up is on offer to treat billing-deferred deploys differently from merge failures.
+- **Stale panel coverage.** [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) have heads newer than their last panel review. [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has the same problem. No gauntlet is staged for any of them until you ask for one.
+- **Fleet health.** The rolling deploy is holding the leader because no canary is available. Follower `endolin-garden2-5bcdff64` has been offline for about 11.5 hours. `oros-studio-garden-ce242c49` has recovered, but its canary retries had been exhausted. The Claude `endolin1` and `endolin2` pools are in backoff after exceeding their caps. The leader's journal worktree has lagged about 2 hours and could not self-heal.
+- **Orchestrations halted.**
+  - The Moddable 10.0.0 IronHorse port-plan splits halted on repeated handler timeouts (2400s budget).
+  - `orch-jev-triage-foreman` is blocked because `TYPESAFE_API_KEY` is missing.
+  - `orch-minion-town-oauth-bonds` halted with an unsatisfied gated outcome.
+  - `review-docket-20261008` halted when its consolidation job was parked.
 
 ## Maintainer review docket
 
@@ -809,7 +790,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.2M | $414.11 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.4M | $414.41 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 903.5k _(+19.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101131847 tokens/day lower bound._
@@ -820,7 +801,7 @@ worst fetch p95 10.084166s/45s (unknown); 5 open notice(s); checker healthy
 ## Board
 ### todo (11)
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #171
-- [`minion-town-arc-press-20261010-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261010-155006.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
 - [`endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007.md) — ---
 - [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #94
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-20261007-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1403
@@ -832,15 +813,15 @@ worst fetch p95 10.084166s/45s (unknown); 5 open notice(s); checker healthy
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #348
+- [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #348
 
-### tada (12209)
+### tada (12210)
+- [`minion-town-arc-press-20261010-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/minion-town-arc-press-20261010-155006.md) — Cost
+- [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-panel-5.md) — Cost
-- [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-fix-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-1.md) — Fix round 1 report: endojs/endo-but-for-bots#348
-- … and 12204 more
+- … and 12205 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -866,7 +847,6 @@ worst fetch p95 10.084166s/45s (unknown); 5 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
-- [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — _normal_ · Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`ironhorse-xs10-proxy-callable-flags`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-xs10-proxy-callable-flags.md) — _normal_ · IronHorse: Proxy [[Call]]/[[Construct]] flags survive revocation (XS 10.0.0 #...
 - [`endojs-endo-but-for-bots-pr1348-review-4984e562`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1348-review-4984e562.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #1348
