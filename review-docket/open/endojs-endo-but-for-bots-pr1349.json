@@ -4,17 +4,17 @@
   "pr": 1349,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/1349",
   "head_oid": "32be2c61d3b8bab6fc455cb572b83a1c9d058096",
-  "ask": "approve",
+  "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "fix(ses): encapsulate TextEncoder and TextDecoder behind SES-owned constructors",
+  "summary": "Panel reviewed 4d3354123e20, but the presented head is 32be2c61d3b8",
   "unblocks": [],
-  "source": "native-review-request-endojs-endo-but-for-bots-pr1349",
-  "requested_at": "2026-10-08T07:44:34Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1349-4d335412-32be2c61",
+  "requested_at": "2026-10-10T04:07:36Z",
   "first_requested_at": "2026-10-08T07:44:34Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-10T03:57:12Z"
+    "observed_at": "2026-10-10T04:07:54Z"
   }
 }
