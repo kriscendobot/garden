@@ -1,0 +1,30 @@
+<6>12:05:48 [monk/1] requeued job 'endojs-endo-but-for-bots-pr266-address-review-20261007' has no local transcript on endolin-garden-ece02cb4; prior session and worktree were lost — starting FRESH session d6d57a94-d3a5-592d-b2aa-ce952b010eb1 with lost-state framing
+<6>12:05:48 [monk/1] job 'endojs-endo-but-for-bots-pr266-address-review-20261007' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>12:05:48 [monk/1] job 'endojs-endo-but-for-bots-pr266-address-review-20261007' call ceiling: tier=mentor max-budget-usd=16.60 (scaled by fresh seven-day headroom when available)
+<6>12:05:49 [monk/1] job 'endojs-endo-but-for-bots-pr266-address-review-20261007' attaching minion.town MCP (stdio bridge)
+<6>12:06:23 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/266 is already non-draft; leaving it untouched for the completion guard
+<6>12:06:26 [review-docket] https://github.com/endojs/endo-but-for-bots/pull/266 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+## PR #266: Lal coupling removed, design now uses the Agentry boundary
+
+This run had no session or working tree from the prior attempt, so I checked what that attempt had committed and posted. It had finished the work, so I made no new changes.
+
+**Already on the PR:**
+- Commit `fa16c18827` ("design(endopen): interface at the Agentry boundary, not Lal") was pushed to `design/endopen` on endojs/endo-but-for-bots#266, after the reviewed head `964cc634b818`. It addresses review 5085531865 ("Coupling to Lal specifically is no longer the way. We would interface at the Agentry boundary").
+  - **`endopen-openrouter.md`:** rewritten around `@endo/agentry`. Step one tests that the `defineAgent` model path (through pi-ai's built-in `openrouter` provider) already reaches OpenRouter. Step two adds an `openrouter` branch to `resolveModelProfile`. Step three adds named provider config behind the `Credentials` interface. The Lal-specific provider adapter is gone.
+  - **The other four design files:** `endopen.md`, `endopen-acp-server.md`, `endopen-concurrent-subagents.md` and `endopen-tui-shell.md` now point at Agentry instead of the Lal and Fae provider capabilities.
+  - **`designs/README.md`:** summary and estimate rows, Updated dates, and the dependency links to `agentry-agent-builder` are updated. Milestone placement and estimates are unchanged, so the row classification (arc unallocated, milestone -) is preserved.
+- A reply on the PR (2026-10-10T11:44Z) answers kriskowal's "rsvp" and summarizes the change.
+
+**What I checked now:**
+- `design/endopen` is at `fa16c18827`.
+- The remaining mentions of Lal are not coupling:
+  - a historical note that an earlier draft used Lal's provider table
+  - the decision text saying Lal is one of several agents built with `defineAgent`
+  - links to the `lal-fae-form-provisioning` form pattern
+  - the quoted review
+- The README index rows are consistent with the rewrite.
+- No CI checks run on this branch.
+
+The review will still show CHANGES_REQUESTED until kriskowal reviews again.
