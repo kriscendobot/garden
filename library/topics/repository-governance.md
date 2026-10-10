@@ -76,6 +76,7 @@
 | [Secret-safe logging and reporting review](../sections/cloudflare-os--review--secret-safe-logging-and-reporting-review.md) | Cloudflare OS REVIEW.md | Logs, exceptions, reports, and locations must not disclose secrets or bearer capabilities. |
 | [RPC and build-system review](../sections/cloudflare-os--review--rpc-and-build-system-review.md) | Cloudflare OS REVIEW.md | Review protects intentional RPC pipelining and catches Vite+ cache surfaces that fail silently. |
 | [Outside-contribution and review exclusions](../sections/cloudflare-os--review--outside-contribution-and-review-exclusions.md) | Cloudflare OS REVIEW.md | The narrow contributor bar pairs with explicit exclusions that prevent repository decisions becoming false positives. |
+| [literate-ai--docs-architecture-authoring-and-record-formats--intent-and-evidence-boundary](../sections/literate-ai--docs-architecture-authoring-and-record-formats--intent-and-evidence-boundary.md) | literate-ai authoring formats | Repository authority is reviewable Markdown; derived locks, receipts, and SBOMs are canonical machine records. |
 
 ## See also
 
