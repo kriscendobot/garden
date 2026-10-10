@@ -1,0 +1,2 @@
+base: improve-self-deploy-deferred-status-retry
+identity: mentor:scripts/jobs/self-deploy.sh
