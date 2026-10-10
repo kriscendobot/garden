@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-09T01:18:37Z
 arc: minion-town-mcp-ocapn
-stage: panel
+stage: fix
 iteration: 5
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr174-gauntlet-panel-5
+current_child: kriscendobot-minion.town-pr174-gauntlet-fix-5
 state: running
 resumed_at: 2026-10-10T00:32:10Z
 resumed_from_stage: fix
