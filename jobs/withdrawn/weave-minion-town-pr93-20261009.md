@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by weave-minion-town-pr93-20261010 (done; #93 rebased onto main-c9a073c)
+withdrawn_by: producer
+withdrawn_at: 2026-10-10T11:01:02Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: weaver
