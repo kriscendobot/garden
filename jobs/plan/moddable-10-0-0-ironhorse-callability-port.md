@@ -1,0 +1,33 @@
+---
+gate: go-ahead
+priority: normal
+roadmap: ironhorse-engine
+role: builder
+posted_by: designer
+posted_at: 2026-10-10T03:29:18Z
+---
+
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+# Port revoked-Proxy callability and constructability to IronHorse
+
+Implement child 1 of the reviewed Moddable SDK 10.0.0 IronHorse plan for `endojs/endo-but-for-bots`.
+
+Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435 (`designs/moddable-10-0-0-ironhorse-port-plan.md`). This job is parked pending design review and must be activated only by the recommended `moddable-10-0-0-ironhorse-ports` orchestration.
+
+## Scope
+
+- In `rust/engine/ironhorse-vm`, preserve a Proxy object's immutable callable and constructable shape after revocation instead of deriving both predicates only from the now-cleared target.
+- Cover `slot_is_callable` and `slot_is_constructor`, proxy creation/revocation, persistence/snapshot encoding, restore, and every dependent dispatch path.
+- Keep revoked call/construct operations throwing as required; only IsCallable/IsConstructor shape and the ordering effects that follow from it change.
+- Do not change the `c/moddable` oracle pin, hardened262 immutable-arraybuffer matrix, IronHorse whole-tree ratchet floor, or any other Moddable 10.0.0 item.
+
+## Acceptance
+
+- Add focused unit and snapshot round-trip tests for callable-only, constructable, and non-callable proxies before and after revocation.
+- Pass the four currently divergent test262 cases named by the design: `typeof/proxy.js`, revoked function-proxy creation/revocation, and revoked base-constructor behavior.
+- Run the nearest `ironhorse-vm`, snapshot, and targeted `ironhorse-262` suites in sloppy and strict modes with the oracle enabled; introduce no generic skips or expectation regressions.
+- Open a draft implementation PR with the exact-head evidence and link the design PR. Do not merge it or start a sibling child.
