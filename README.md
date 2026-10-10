@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-10T02:43:19Z_
+_As of 2026-10-10T02:47:00Z_
 
 ## Latest
 
@@ -302,6 +302,14 @@ Delegation: **active**
 > detail: completed but declared its gated outcome unsatisfied
 >
 > Orchestration orch-minion-town-oauth-bonds observed child build-minion-town-oauth-bonds: completed but declared its gated outcome unsatisfied.
+
+- `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
+
+> Per-namespace journal clones on oros-studio-garden-ce242c49 are still over the 50-pack threshold after maintenance:
+>   /Users/dom/garden/.garden-state/leader/journal: 71 packs
+>   /Users/dom/garden/.garden-state/transcripts/journal: 63 packs
+>
+> A pack/tmp_pack buildup makes every git read slow (2026-10-08: 57 s leader read wedged ~100 leader-gated units). Inspect by hand: `nice ionice -c3 git -C <clone> repack -a -d`.
 
 - `minion-town-ci-runner-unblock-20261008-terminal-complete` — from orchestrator:minion-town-ci-runner-unblock-20261008-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-unblock-20261008-terminal-complete.md)
 
