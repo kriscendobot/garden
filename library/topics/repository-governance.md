@@ -80,6 +80,7 @@
 | [literate-ai--docs-architecture-repository-layout--root-authority-taxonomy](../sections/literate-ai--docs-architecture-repository-layout--root-authority-taxonomy.md) | literate-ai repository layout | Root directories expose authored authority separately from importable product code and supporting adapters. |
 | [literate-ai--docs-architecture-repository-layout--package-audit-and-decomposition](../sections/literate-ai--docs-architecture-repository-layout--package-audit-and-decomposition.md) | literate-ai repository layout | Structural debt is localized to oversized modules and should be split along typed ports with behavioral evidence. |
 | [literate-ai--docs-architecture-source-promotion--external-source-dependencies](../sections/literate-ai--docs-architecture-source-promotion--external-source-dependencies.md) | literate-ai source promotion | Quarantined pinned dependencies remain external unless explicitly promoted into regenerative Component authority. |
+| [literate-ai--docs-architecture-component-authoring-lock-boundary--workflow-skill-acceptance-repository-asset-fields](../sections/literate-ai--docs-architecture-component-authoring-lock-boundary--workflow-skill-acceptance-repository-asset-fields.md) | literate-ai authoring and lock boundary | Selectors, exact lock data, and evidence-only residue are distinct per input family; asset bytes stay outside the model-writable tree. |
 
 ## See also
 
