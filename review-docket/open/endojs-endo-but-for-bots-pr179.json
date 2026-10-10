@@ -3,18 +3,18 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 179,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/179",
-  "head_oid": "7eb2ed0648a10084e7eaf9cd89b3614b1301203b",
+  "head_oid": "fd5ed18c870e191a42dc1abae5396f49b027b1cb",
   "ask": "decide",
   "arc": "unallocated",
   "milestone": "-",
   "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
   "unblocks": [],
-  "source": "readiness-audit-endojs-endo-but-for-bots-pr179-7eb2ed0648a1",
-  "requested_at": "2026-10-10T06:22:23Z",
+  "source": "readiness-audit-endojs-endo-but-for-bots-pr179-fd5ed18c870e",
+  "requested_at": "2026-10-10T06:31:10Z",
   "first_requested_at": "2026-10-10T06:04:11Z",
-  "generation": 2,
+  "generation": 3,
   "ci": {
-    "state": "red",
-    "observed_at": "2026-10-10T06:22:25Z"
+    "state": "pending",
+    "observed_at": "2026-10-10T06:31:12Z"
   }
 }
