@@ -25,3 +25,13 @@ Create the project design/plan for `endojs/endo-but-for-bots` (IronHorse is `rus
 Items: immutable ArrayBuffer; Math.round subnormals; charAt/charCodeAt truncation; setFromHex validation order; revoked Proxy IsCallable; TypedArray set/fill/constructor/species ordering and detached checks; String repeat/replace/search; Symbol.for no-arg; Array.from ordering/ToLength; Reflect.apply/construct read order; Object.prototype.toString Symbol.toStringTag via handler; Array.fromAsync next; ArrayBuffer resize rejection order; Set method large size; Atomics.wait; Math.irandom; >65535 scope slots; labelled switch break/continue; and replace capture-group memory safety. Keep ECMA-419/device/Piu/board/TypeScript/xsdb out of scope unless the evidence proves an IronHorse impact.
 
 Do not start the ports. Park the resulting implementation children according to the standing designer/multi-part pattern, with complete bodies and stable basenames, so they remain held pending the design review/authorization path. Name the recommended orchestration and exact child order in the design and report. Open the draft design PR as the review surface, and report the PR URL plus all parked child basenames.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T02:14:48Z
