@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "week_start": "2026-10-03T03:00:00Z",
+  "week_start": "2026-10-10T03:00:00Z",
   "total_tokens": 555000000,
   "planning_ceiling": 0.9,
   "slate": [
@@ -58,6 +58,7 @@
   "notes": "Maintainer priority mandate (kriskowal, approved 2026-10-02): keep distributing tokens to this ranking as capacity becomes available each reset. Spend each subscription to 90%, never 100%. The current total rounds down from 90% of the calibrated 557M Claude capacity plus the provisional 60.7M codex-endolin token fit now that codex-endolin is active. The claude-endolin2 credit remains held for mid-week use, and the two codex-endolin credits remain available for use before expiry. Arc slices keep the approved 30/20/15/20/8/5/2 ratios over 95% of the total; the remaining 5% is the unallocated reserve. Re-slice 2026-10-04 (kriskowal, liaison session, reply to proposal 20261003T055048Z-1f7489): \"Approve a smaller slice for future editions.\" Adds a standing 5M garden-book arc at rank 7, above endo-backlog, taken from the unallocated reserve; all other arcs unchanged.",
   "authorized_by": "kriskowal",
   "message_id": "20261003T055048Z-1f7489",
-  "set_by": "accountant-reslice-20261004",
-  "set_at": "2026-10-04T04:40:48Z"
+  "set_by": "accountant-weekly-20261010-160507",
+  "set_at": "2026-10-10T16:18:35Z",
+  "carried_forward_from": "2026-10-03T03:00:00Z"
 }

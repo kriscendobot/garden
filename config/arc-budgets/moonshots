@@ -6,7 +6,7 @@
   "summary": "Trailing moonshots: endor, ironhorse, thixotrope, and slot machine",
   "token_cap": 42180000,
   "window": "week",
-  "window_start": "2026-10-03T03:00:00Z",
-  "set_by": "accountant-reslice-20261004",
-  "set_at": "2026-10-04T04:40:48Z"
+  "window_start": "2026-10-10T03:00:00Z",
+  "set_by": "accountant-weekly-20261010-160507",
+  "set_at": "2026-10-10T16:18:35Z"
 }
