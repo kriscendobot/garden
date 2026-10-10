@@ -137,9 +137,10 @@ cmd_emit() {
   local rundir="${1:?usage: panel-run-record.sh emit <rundir>}"
   [ -d "$rundir" ] || { log "WARN: rundir '$rundir' absent; nothing to record"; return 0; }
 
-  local repo pr panel_kind base disp exit_code app_ran app_count
+  local repo pr panel_kind base pr_body_hash disp exit_code app_ran app_count
   repo="$(meta "$rundir" repo)";           pr="$(meta "$rundir" pr)"
   panel_kind="$(meta "$rundir" panel_kind)"; base="$(meta "$rundir" base_ref)"
+  pr_body_hash="$(meta "$rundir" pr_body_hash)"
   disp="$(meta "$rundir" disposition)"
   exit_code="$(meta "$rundir" exit_code)"
   app_ran="$(meta "$rundir" appellate_ran)"; app_count="$(meta "$rundir" appellate_count)"
@@ -209,14 +210,14 @@ must-fix items ($mf_count):${mf_lines}
   fi
   case "$appellate_n" in ''|*[!0-9]*) appellate_n=0 ;; esac
 
-  # run-id: deterministic over the run's identity + every round's head, so a
-  # re-emit of the SAME run is idempotent (byte-identical file) while two genuinely
-  # different runs of the same PR (heads diverged) key distinctly. Overridable.
+  # run-id: deterministic over the run's identity, base, PR body, and every
+  # round's head, so a re-emit of the SAME review surface is idempotent while a
+  # body-only edit gets a distinct durable record. Overridable.
   local slug run_id
   slug="$(sanitize "$repo-$pr")"
   run_id="${GARDEN_PANEL_RUN_ID:-}"
   if [ -z "$run_id" ]; then
-    run_id="$(printf '%s|%s|%s|%s|%s' "$repo" "$pr" "$base" "$disp" "$allheads" \
+    run_id="$(printf '%s|%s|%s|%s|%s|%s' "$repo" "$pr" "$base" "$pr_body_hash" "$disp" "$allheads" \
              | (sha1sum 2>/dev/null || shasum) | cut -c1-12)"
   fi
   run_id="$(sanitize "$run_id")"
@@ -233,6 +234,7 @@ repo: $repo
 pr: $pr
 panel_kind: $panel_kind
 base_ref: $base
+pr_body_hash: $pr_body_hash
 rounds: $rounds
 disposition: $disp
 exit_code: $exit_code

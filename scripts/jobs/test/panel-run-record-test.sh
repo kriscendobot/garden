@@ -89,6 +89,7 @@ run_panel() {
     git -C "$sub/wt" add fixture.js
     git -C "$sub/wt" "${git_id[@]}" commit -q -m change
   fi
+  printf '%s\n' 'Test PR body.' >"$sub/pr-body.md"
   env \
     GARDEN=trh GARDEN_STATE="$sub/state" \
     JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 \
@@ -100,6 +101,7 @@ run_panel() {
     GARDEN_PANEL_APPELLATE=":" \
     GARDEN_PANEL_UNDRAFT="true" \
     GARDEN_PANEL_SEAT_BACKOFF=0 \
+    GARDEN_PANEL_PR_BODY_FILE="$sub/pr-body.md" \
     GARDEN_POST_ATTEMPTS=3 \
     PROSE_SENTINEL="$SENTINEL" \
     GARDEN_PANEL_RUNDIR="$sub/rundir" \
@@ -128,6 +130,7 @@ if [ -n "$REC1" ]; then
   grep -qE '^panel_kind: code$'      "$REC1" && ok "panel_kind: code recorded" || bad "panel_kind absent"
   grep -qE '^kind: panel-run$'       "$REC1" && ok "record self-identifies (kind: panel-run)" || bad "kind field absent"
   grep -qE '^reviewed_head: [0-9a-f]{40}$' "$REC1" && ok "exact reviewed head is machine-readable" || bad "exact reviewed_head absent"
+  grep -qE '^pr_body_hash: [0-9a-f]{64}$' "$REC1" && ok "PR body hash is machine-readable" || bad "PR body hash absent"
   grep -qE '^epoch:'                 "$REC1" && ok "epoch: field reserved for evaluation-epoch id" || bad "epoch field not reserved"
   grep -qE 'typist=pass'             "$REC1" && ok "per-seat verdict CLASS recorded (typist=pass)" || bad "seat verdict class absent"
   grep -q  "$SENTINEL"               "$REC1" && bad "seat PROSE leaked into the record!" || ok "seat prose does NOT appear (compact record)"

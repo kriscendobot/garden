@@ -13,8 +13,8 @@
 # `claude -p` burned per cycle, up to the reaper's doom threshold.
 #
 # THE PRIMITIVE: in single-round mode, BEFORE the fan-out, panel.sh looks for a
-# durable record whose LAST round head equals the current worktree HEAD. On an
-# EXACT match with a parseable disposition it reconstructs a review-ready aggregate
+# durable record whose head, base ref, and PR-body hash equal the current values.
+# On an EXACT match with a parseable disposition it reconstructs a review-ready aggregate
 # into the rundir from the record's recorded disposition + must-fix titles, prints
 # the single-round terminal contract, and exits 0 WITHOUT dispatching any seats.
 # It fails OPEN (missing store / stale clone / moved head / bad record → normal
@@ -25,9 +25,10 @@
 #             round-1.md carries the record's must-fix items for the gardener to post.
 # SUBTEST 2 — GARDEN_PANEL_RESUME=0 disables it: the seats run (round-1.<seat>.md
 #             exists), proving the short-circuit is opt-outable and inert when off.
-# SUBTEST 3 — head MISMATCH does not resume: a record for a different head is
-#             ignored and the seats run (no wrong verdict from a stale record).
-# SUBTEST 4 — classic mode (flag unset) never resumes even with a matching record.
+# SUBTEST 3 — body MISMATCH does not resume even though HEAD is unchanged.
+# SUBTEST 4 — base MISMATCH does not resume even though HEAD/body are unchanged.
+# SUBTEST 5 — head MISMATCH does not resume.
+# SUBTEST 6 — classic mode (flag unset) never resumes even with a matching record.
 #
 # Hermetic: seats/decider are env-stubbed; the "durable store" is a scratch dir.
 # A real git worktree gives panel.sh a HEAD to match against.
@@ -57,6 +58,9 @@ git -C "$WT" config user.email t@t; git -C "$WT" config user.name t
 echo base > "$WT/f"; git -C "$WT" add f; git -C "$WT" commit -qm base
 echo head > "$WT/f"; git -C "$WT" commit -qaqm head 2>/dev/null || git -C "$WT" commit -qm head
 HEAD_FULL="$(git -C "$WT" rev-parse HEAD)"; HSHA="${HEAD_FULL:0:8}"
+BODY="$TR/pr-body.md"
+printf '%s\n' 'Original PR description.' > "$BODY"
+BODY_HASH="$(sha256sum "$BODY" | awk '{print $1}')"
 
 # Plant a durable panel-run record whose round head == the worktree HEAD.
 REPO="endojs/endo-but-for-bots"; PR=1113
@@ -68,9 +72,11 @@ kind: panel-run
 repo: $REPO
 pr: $PR
 panel_kind: code
-base_ref: origin/llm
+base_ref: HEAD~1
+pr_body_hash: $BODY_HASH
 rounds: 1
 disposition: must-fix
+reviewed_head: $HEAD_FULL
 must_fix_total: 2
 run_id: deadbeef1234
 ---
@@ -104,6 +110,7 @@ run_panel() {
     GARDEN_PANEL_RECORD=":" \
     GARDEN_PANEL_RECORD_STORE="$STORE" \
     GARDEN_PANEL_REPO="$repo_over" \
+    GARDEN_PANEL_PR_BODY_FILE="$BODY" \
     GARDEN_PANEL_RUNDIR="$rundir" \
       bash "$PANEL" "$WT" "$PR" HEAD~1
 }
@@ -132,20 +139,44 @@ out2="$(run_panel 0 1 "$TR/rd2" 2>&1)"; rc2=$?
   && ok "seats ran (per-seat block present) — resume was opt-outable" \
   || bad "no per-seat block; resume fired despite GARDEN_PANEL_RESUME=0"
 
-hr; echo "SUBTEST 3 — head MISMATCH: a record for another head is ignored, seats run"; hr
-# Point at a slug/repo with NO matching-head record (the store has only endojs one).
-out3="$(run_panel unset 1 "$TR/rd3" other/repo 2>&1)"; rc3=$?
-[ "$rc3" -eq 0 ] && ok "mismatch run exits 0" || bad "exited $rc3: $out3"
+hr; echo "SUBTEST 3 — body MISMATCH: unchanged HEAD does not replay a stale body verdict"; hr
+printf '%s\n' 'Trimmed PR description.' > "$BODY"
+out3="$(run_panel unset 1 "$TR/rd3" 2>&1)"; rc3=$?
+[ "$rc3" -eq 0 ] && ok "body-mismatch run exits 0" || bad "exited $rc3: $out3"
 [ -f "$TR/rd3/round-1.assessor.md" ] \
-  && ok "seats ran — a non-matching store did not resume (fail-open)" \
-  || bad "resumed off a non-matching record: $out3"
+  && ok "seats ran — a body-only edit invalidated resume" \
+  || bad "resumed despite a changed PR body and unchanged HEAD: $out3"
+printf '%s\n' 'Original PR description.' > "$BODY"
 
-hr; echo "SUBTEST 4 — classic mode (flag unset) never resumes"; hr
-out4="$(run_panel unset 0 "$TR/rd4" 2>&1)"; rc4=$?
-[ "$rc4" -eq 0 ] && ok "classic run exits 0" || bad "exited $rc4: $out4"
+hr; echo "SUBTEST 4 — base MISMATCH: unchanged HEAD/body does not resume"; hr
+BASE_COMMIT="$(git -C "$WT" rev-parse HEAD~1)"
+out4="$(env GARDEN_PANEL_RESUME=1 GARDEN_PANEL_SINGLE_ROUND=1 \
+  GARDEN_CODE_SEATS="$SEATS" GARDEN_PANEL_CONCURRENCY=2 \
+  GARDEN_PANEL_SEAT="$STUB_SEAT" GARDEN_PANEL_DECIDE="$STUB_DECIDE" \
+  GARDEN_PANEL_APPELLATE=: GARDEN_PANEL_SEAT_ATTEMPTS=1 GARDEN_PANEL_SEAT_BACKOFF=0 \
+  GARDEN_PANEL_RECORD=: GARDEN_PANEL_RECORD_STORE="$STORE" GARDEN_PANEL_REPO="$REPO" \
+  GARDEN_PANEL_PR_BODY_FILE="$BODY" GARDEN_PANEL_RUNDIR="$TR/rd4" \
+  FAN_DIR="$TR/rd4/fan" FAN_SLEEP=0 DECIDE_VERDICT=pass \
+  bash "$PANEL" "$WT" "$PR" "$BASE_COMMIT" 2>&1)"; rc4=$?
+[ "$rc4" -eq 0 ] && ok "base-mismatch run exits 0" || bad "exited $rc4: $out4"
 [ -f "$TR/rd4/round-1.assessor.md" ] \
+  && ok "seats ran — a changed base ref invalidated resume" \
+  || bad "resumed despite a changed base ref: $out4"
+
+hr; echo "SUBTEST 5 — head MISMATCH: a record for another head is ignored, seats run"; hr
+# Point at a slug/repo with NO matching-head record (the store has only endojs one).
+out5="$(run_panel unset 1 "$TR/rd5" other/repo 2>&1)"; rc5=$?
+[ "$rc5" -eq 0 ] && ok "mismatch run exits 0" || bad "exited $rc5: $out5"
+[ -f "$TR/rd5/round-1.assessor.md" ] \
+  && ok "seats ran — a non-matching store did not resume (fail-open)" \
+  || bad "resumed off a non-matching record: $out5"
+
+hr; echo "SUBTEST 6 — classic mode (flag unset) never resumes"; hr
+out6="$(run_panel unset 0 "$TR/rd6" 2>&1)"; rc6=$?
+[ "$rc6" -eq 0 ] && ok "classic run exits 0" || bad "exited $rc6: $out6"
+[ -f "$TR/rd6/round-1.assessor.md" ] \
   && ok "seats ran in classic mode — resume is single-round-only" \
-  || bad "classic mode resumed off the record (should be single-round-only): $out4"
+  || bad "classic mode resumed off the record (should be single-round-only): $out6"
 
 hr
 echo "RESULT: $PASS passed, $FAIL failed"

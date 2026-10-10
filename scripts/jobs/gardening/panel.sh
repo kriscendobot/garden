@@ -231,6 +231,37 @@ PANEL_APPELLATE_RAN=0
 PANEL_APPELLATE_COUNT=0
 PANEL_MAIN_BASHPID="$BASHPID"
 
+# Snapshot the PR-description identity used by the single-round resume key. A
+# body edit does not move Git HEAD, so HEAD alone cannot prove that a recorded
+# verdict still describes the review surface. Hash bytes in a file (never shell
+# text) and fail open when the body cannot be resolved: an unavailable body may
+# cost a fresh panel, but can never replay a stale verdict.
+panel_hash_file() {
+  local file="$1"
+  (sha256sum "$file" 2>/dev/null || shasum -a 256 "$file" 2>/dev/null) \
+    | awk '{print $1}' | grep -E '^[0-9a-f]{64}$' | head -1
+}
+
+panel_pr_body_hash() {
+  local body_file="${GARDEN_PANEL_PR_BODY_FILE:-}" json_file gh
+  if [ -n "$body_file" ]; then
+    [ -r "$body_file" ] || return 1
+  else
+    [ -n "$wt_repo" ] || return 1
+    json_file="$GARDEN_PANEL_RUNDIR/resume-pr-body.json"
+    body_file="$GARDEN_PANEL_RUNDIR/resume-pr-body.txt"
+    gh="${GARDEN_GH:-gh}"
+    "$gh" pr view "$pr" --repo "$wt_repo" --json body >"$json_file" 2>/dev/null \
+      || return 1
+    # Match pr-body-template-check.sh's canonical body bytes (`jq -r`), since
+    # that round snapshot is what the durable record ultimately hashes.
+    jq -r '.body // ""' "$json_file" >"$body_file" 2>/dev/null || return 1
+  fi
+  panel_hash_file "$body_file"
+}
+
+PANEL_PR_BODY_HASH="$(panel_pr_body_hash || true)"
+
 # emit_panel_record <exit-code>: assemble record-meta from the accumulated facts and invoke
 # the writer. Fully defensive: every step is guarded so this can never fail the
 # panel (it runs from an EXIT trap that restores the real exit code).
@@ -258,6 +289,7 @@ emit_panel_record() {
     echo "pr=$pr"
     echo "panel_kind=${panel_kind%-panel}"
     echo "base_ref=$base"
+    echo "pr_body_hash=$PANEL_PR_BODY_HASH"
     echo "disposition=$recorded_disposition"
     echo "exit_code=$exit_code"
     echo "appellate_ran=$PANEL_APPELLATE_RAN"
@@ -290,19 +322,20 @@ trap 'panel_signal_exit 143' TERM
 # f9a07b3dee97.md but no review ever posted).
 #
 # RESUME CONTRACT (single-round mode only; classic mode is untouched): before the
-# fan-out, look in the durable panel-runs store for a record whose LAST round's
-# head sha equals the CURRENT worktree HEAD. When one is found, DO NOT re-run the
-# seats — reconstruct a review-ready aggregate into the rundir from the record's
-# recorded disposition + must-fix titles, print the same single-round terminal
-# contract, and exit 0. The supervising gardener then only has to (re)post the
-# review, the cheap idempotent-retryable step.
+# fan-out, look in the durable panel-runs store for a record whose reviewed head,
+# base ref, and PR-body hash equal the CURRENT values. When one is found, DO NOT
+# re-run the seats — reconstruct a review-ready aggregate into the rundir from
+# the record's recorded disposition + must-fix titles, print the same single-round
+# terminal contract, and exit 0. The supervising gardener then only has to
+# (re)post the review, the cheap idempotent-retryable step.
 #
-# FAIL-OPEN, deliberately narrow: resume fires ONLY on an EXACT head match with a
-# parseable disposition. A missing store, a stale clone, a moved head, or an
-# unparseable record all fall through to the normal panel — worst case is the
-# pre-existing recompute, never a wrong verdict. The record's must-fix titles are
-# LLM-authored text ABOUT a third-party diff: they are DATA, written to a file for
-# the gardener to post, never interpolated into a prompt as instruction.
+# FAIL-OPEN, deliberately narrow: resume fires ONLY on an EXACT three-part key
+# match with a parseable disposition. A missing body hash/store, a stale clone, a
+# moved head/base/body, or an unparseable record all fall through to the normal
+# panel — worst case is the pre-existing recompute, never a wrong verdict. The
+# record's must-fix titles are LLM-authored text ABOUT a third-party diff: they are
+# DATA, written to a file for the gardener to post, never interpolated into a
+# prompt as instruction.
 # Disable with GARDEN_PANEL_RESUME=0.
 resume_slug() { printf '%s' "${1:-}" | tr -c 'A-Za-z0-9._-' '-'; }
 
@@ -314,21 +347,23 @@ maybe_resume_single_round() {
   [ -d "$store" ] || return 1
   head="$(git -C "$wt" rev-parse HEAD 2>/dev/null | tr -dc 'A-Za-z0-9')"
   [ -n "$head" ] || return 1
+  [ -n "$PANEL_PR_BODY_HASH" ] || return 1
   hsha="${head:0:8}"
   slug="$(resume_slug "$PANEL_RECORD_REPO-$pr")"
   dir="$store/$slug"
   [ -d "$dir" ] || return 1
-  # Pick the most-recently-written record whose LAST `## Round N — head ...` line
-  # names the current head. A single-round stage record has exactly one round, but
-  # matching the LAST round header keeps this correct for a multi-round classic
-  # record that happens to share the store.
+  # Pick the most-recently-written record whose machine-readable resume key
+  # matches exactly. Requiring all three fields intentionally makes legacy
+  # records without a body hash non-resumable.
   for rec in "$dir"/*.md; do
     [ -e "$rec" ] || continue
-    local rec_head
-    rec_head="$(grep -oE '^## Round [0-9]+ — head `[0-9a-f]+`' "$rec" 2>/dev/null \
-      | tail -1 | grep -oE '`[0-9a-f]+`' | tr -d '`')"
-    [ -n "$rec_head" ] || continue
-    [ "$rec_head" = "$hsha" ] || continue
+    local rec_head rec_base rec_body_hash
+    rec_head="$(sed -n 's/^reviewed_head:[[:space:]]*//p' "$rec" 2>/dev/null | head -1 | tr -d '[:space:]')"
+    rec_base="$(sed -n 's/^base_ref:[[:space:]]*//p' "$rec" 2>/dev/null | head -1)"
+    rec_body_hash="$(sed -n 's/^pr_body_hash:[[:space:]]*//p' "$rec" 2>/dev/null | head -1 | tr -d '[:space:]')"
+    [ "$rec_head" = "$head" ] || continue
+    [ "$rec_base" = "$base" ] || continue
+    [ "$rec_body_hash" = "$PANEL_PR_BODY_HASH" ] || continue
     local m; m="$(stat -c %Y "$rec" 2>/dev/null || echo 0)"
     if [ "$m" -ge "$best_mtime" ]; then best="$rec"; best_mtime="$m"; fi
   done
@@ -1093,6 +1128,11 @@ run_pr_body_prepass() {
   bash "$PR_BODY_TEMPLATE_CHECK" "${src[@]}" --base-ref "$base" --worktree "$wt" \
     --evidence-file "$PR_BODY_TEMPLATE_FILE" --body-out "$body_copy" \
     >"$GARDEN_PANEL_RUNDIR/pr-body-template.log" 2>&1 || rc=$?
+  # The compact record must describe the body this round actually inspected,
+  # including a fixer-created body-only change in classic multi-round mode.
+  if [ -r "$body_copy" ]; then
+    PANEL_PR_BODY_HASH="$(panel_hash_file "$body_copy" || true)"
+  fi
   case "$rc" in
     20|10)
       export GARDEN_PANEL_PR_BODY_TEMPLATE_EVIDENCE="$PR_BODY_TEMPLATE_FILE"
