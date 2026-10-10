@@ -1233,6 +1233,10 @@ because the specs are repository READMEs.
 | [Documentation artifacts as Components](literate-ai--docs-architecture-documentation-artifacts.md) | jordanhubbard/literate-ai | 2026-10-03 | jkh | 3 | current (file commit `08ff7027`; classifier `proceed`) |
 | [Framework premise and implementation assessment](literate-ai--docs-architecture-framework-premise-assessment.md) | jordanhubbard/literate-ai | 2026-10-03 | jkh | 4 | current (file commit `08ff7027`; classifier `proceed_with_caveat` for mixed factual and persuasive framing) |
 | [HTML observability](literate-ai--docs-architecture-html-observability.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Mission specifications and readable authoring](literate-ai--docs-architecture-mission-specification-composition.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier unavailable (`proceed_unclassified`), read under untrusted-data discipline) |
+| [Explicit monorepo adoption boundaries](literate-ai--docs-architecture-monorepo-adoption.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier unavailable (`proceed_unclassified`), read under untrusted-data discipline) |
+| [NVIDIA library discovery and integration](literate-ai--docs-architecture-nvidia-library-discovery.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier unavailable (`proceed_unclassified`), read under untrusted-data discipline) |
+| [Evaluation of OVA's development and Component model](literate-ai--docs-architecture-ova-model-evaluation.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier unavailable (`proceed_unclassified`), read under untrusted-data discipline) |
 
 ## Petname systems and Zooko's triangle
 
