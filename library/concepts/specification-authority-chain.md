@@ -27,6 +27,9 @@ In a specification-authority chain, human-reviewable specifications and pinned p
 | [intent, lock, and evidence separation](../sections/literate-ai--docs-architecture-component-authoring-lock-boundary--intent-lock-evidence-separation.md) | Authored intent, the resolver's selected lock, its audit, and runtime evidence are separate identity-linked records. |
 | [exact versioned identity triple](../sections/literate-ai--docs-architecture-exact-versioned-components--identity-triple.md) | Generation and linking require coordinate, SemVer, and content identity together. |
 | [derivation engine versus agent ledger](../sections/literate-ai--docs-architecture-agent-ledger-boundary--ownership-split.md) | Ledger consent and learned experience never silently become generation authority or an execution grant. |
+| [disposability premise and authority ladder](../sections/literate-ai--docs-architecture-framework-premise-assessment--fundamental-premise.md) | Prompt hashes prove the request, not reproducibility; fungibility must be earned through a four-step ladder, with shipped source retained as escrow. |
+| [effective revision and Flavor spec fragments](../sections/literate-ai--docs-architecture-component-flavors--target-profile-and-effective-revision.md) | Target Flavors add to but never weaken base authority; the effective revision is a derived identity that generation, build authorization, and publication target. |
+| [terminal document Components and the oracle](../sections/literate-ai--docs-architecture-documentation-artifacts--terminal-components-and-oracle.md) | Document artifacts follow the same chain: generation authority is a pinned skill, acceptance is an independent mutation-tested oracle, publication a separate authorization. |
 
 ## See also
 
