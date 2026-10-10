@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-10T17:22:42Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-fu-endojs-endo-but-for-bots-pr344-gauntlet-20261007-fix-1-2
+pr_number: 1436
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1436
+pr_head: mirror/3047-abbreviations-style
