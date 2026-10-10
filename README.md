@@ -1,27 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T05:56:34Z_
+_As of 2026-10-10T06:01:16Z_
 
 ## Latest
 
-Two gauntlets ran out of review budget and now need a maintainer decision. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 panel/fix rounds ($12.30, last round green on CI), and [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used 2 of 2. Neither has a structured must-fix list. Each notice gives the `gauntlet.sh --resume-from-stage … panel --add-rounds N` command to grant more rounds. Stale-panel notices say the panel reviewed an older head than the current one for [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403). No gauntlet was staged for them, so each needs an explicit "run the gauntlet" or a review decision.
+Board movement since the last bulletin is thin: three gauntlet terminal-pending markers (endo-but-for-bots PRs 1156 and 1349, and minion.town PR 174) were cleared, and a new gauntlet record opened for [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171). Both PR 171 and [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) hit their review budgets without converging (6/6 and 2/2 rounds). Each is left for a human merge decision, or for more rounds via `--add-rounds`. The panel report gave no structured must-fix list for either. Stale-panel-head notices also say the current heads of #174 and [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) are no longer covered by a panel review, and nothing was staged. #166 is mid-panel (round 3).
 
-Fleet health is the bigger concern:
-- **Rolling deploy is stuck.** The `oros-studio-garden-ce242c49` canary exhausted its 3 retries on target `44bfcbe6dbf4`. It was left drained, and the leader will not advance. The same host looked unreachable from about 02:50Z. Its heartbeat later resumed, but it still reports the old SHA `fad05c57`. The other follower, `endolin-garden2-5bcdff64`, has been offline for over an hour.
-- **minion.town screening is paused.** The [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) deploy failed because the Actions billing block gave the job no runner. It did not break production, so no heal PR was opened. The delegation stays paused until a green main deploy or your manual resume. The options are to resume by hand, move CD onto the `ci.minion.town` runner, or wait for the billing reset. [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) merged and deployed cleanly earlier.
-- **Claude quota.** Both `claude-endolin` subscriptions are in backoff, and the provider weekly-limit notice is still open.
+**Needs a decision or hands:**
+- **minion.town screening is paused.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169)'s deploy failed only because of the Actions billing block, which the heal job found, so production is fine. Screening won't resume until a green main deploy. Your options are to resume by hand, move CD onto the ci.minion.town runner, or wait for the billing reset.
+- **oros-studio is unreachable and its canary is stuck.** The oros-health-watch message reported it dark from about 02:50Z. A later watchdog notice says its heartbeat resumed. Its canary is stuck on fad05c57 against target 44bfcbe6, after retries were exhausted. The leader is holding at the old tip because no canary can validate the new one, and endolin-garden2 is also offline.
+- **ocap.site DNSSEC.** The registrar transfer window opens around 19:55Z on 10-09, so you can start the transfer now. The DS record is still unpublished.
+- **Jev trial blocked.** `TYPESAFE_API_KEY` is missing, so the triage/foreman trial failed and its orchestration halted.
 
-Several orchestrations halted:
-- The Moddable 10.0.0 IronHorse port-plan chain stalled on handler timeouts of about 2400s. Its inventory, audit and synthesis children each hit them, so the chain needs splitting into smaller stages or a detached run.
-- `orch-minion-town-oauth-bonds` halted with its build child's gated outcome unsatisfied.
-- `orch-jev-triage-foreman` halted because `TYPESAFE_API_KEY` is missing.
-- `review-docket-consolidate-20261008` was doomed and parked for your go-ahead.
+**Failures on the board:**
+- The Moddable 10.0.0 IronHorse port-plan orchestrations halted on handler timeouts (about 2400s). They need to be split into smaller stages.
+- The `orch-minion-town-oauth-bonds` build child declared its gated outcome unsatisfied.
+- The review-docket consolidation child was doomed and is parked in plan.
+- The minion.town triager circuit breaker opened after five failures on one range.
 
-On the good side, three orchestrations completed: the minion.town CI runner unblock and redeploy-verify chain, the gauntlet must-fix summary work, and the Moddable XS source inventory split. The `ci.minion.town` selftest passed.
+**Completed:** three orchestrations finished cleanly: minion.town CI-runner unblock, the CI-runner redeploy split, and gauntlet must-fix summary. The ci.minion.town runner validated at 50aa690 with no operator items left.
 
-The `ocap.site` DNSSEC DS record is still unpublished at the registrar. The 60-day transfer window opened about 2026-10-09T19:55Z, so the transfer or a DS request to Key-Systems is your call. One manual step remains after the sysop fix (`96a2b4c6141`): remove the temporary sysop drop-in on oros once it has deployed.
+**Capacity:** the claude-endolin1 and claude-endolin2 subscriptions have both flipped into backoff.
 
 ## Maintainer review docket
 
@@ -766,7 +765,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.1M | $100.67 _(notional, rate-card)_ | 8% of 271.0M (ok) |
+| Claude | 21.5M | $103.18 _(notional, rate-card)_ | 8% of 271.0M (ok) |
 | Codex | 221.2k _(+8.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101205340 tokens/day lower bound._
