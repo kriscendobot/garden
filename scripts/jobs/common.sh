@@ -524,6 +524,7 @@ export GARDEN
 : "${GARDEN_ROLL_DEFER_FRESH:=900}"                  # a deferral status older than this is not "actively deferring"
 : "${GARDEN_ROLL_QUIESCE_AFTER:=1800}"               # continuous deferral before the quiesce-for-deploy drain
 : "${GARDEN_SELF_DEPLOY_DEFER_REPUBLISH:=300}"       # follower republishes a continuing deferral at most this often
+: "${GARDEN_SELF_DEPLOY_PUBLISH_ATTEMPTS:=3}"        # follower publishes a deferred status this many times (fresh sync each) before leaving a pending marker
 : "${GARDEN_DRAIN_SOURCE_QUIESCE:=rolling-deploy-quiesce}"
 # Host-local record deploy-garden.sh writes when it DEFERS (and removes at the start of
 # every run), so self-deploy can tell a deferral from a landed or failed deploy.

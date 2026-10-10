@@ -899,6 +899,53 @@ grep -q "deploy-invoked host=$F1" "$DEPLOY_LOG" && ok "FOLLOWER: under the quies
 grep -q '^roll_status: deferred' <<<"$(from_bare "fleet/health/$F1")" && ok "FOLLOWER: quiesce drain is not reported as roll-drained/operator-drained" \
   || bad "FOLLOWER: quiesce drain misreported: $(from_bare "fleet/health/$F1" | grep roll_status)"
 rm -f "$TR/sd-state-$F1/draining"
+
+# FOLLOWER PUBLISH RETRY: a transient journal fetch failure must not lose the deferred
+# status (2026-10-07 16:56Z/16:59Z). The fetch seam fails the PRODUCER clone's fetches
+# while a counter is positive; each publish attempt is one fetch (GARDEN_FETCH_RETRIES=1).
+FETCH_FAILS="$TR/producer-fetch-fails"
+cat > "$TR/flaky-fetch.sh" <<EOF
+#!/bin/bash
+n="\$(cat "$FETCH_FAILS" 2>/dev/null || echo 0)"
+case "\$GARDEN_FETCH_DIR" in
+  */producer/journal) if [ "\$n" -gt 0 ]; then echo \$((n-1)) > "$FETCH_FAILS"; echo "fatal: flaky test fetch" >&2; exit 1; fi ;;
+esac
+exec git -C "\$GARDEN_FETCH_DIR" fetch -q origin "$BRANCH"
+EOF
+chmod +x "$TR/flaky-fetch.sh"
+FLAKY_ENV=(GARDEN_LEADER="$LEADER" REC_DEPLOY_DEFER=1 GARDEN_FETCH_CMD="$TR/flaky-fetch.sh" GARDEN_FETCH_RETRIES=1
+           GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=5 GARDEN_SELF_DEPLOY_PUBLISH_ATTEMPTS=3)
+SD_PENDING="$TR/sd-state-$F1/self-deploy/deferral-pending"
+# (a) one failed attempt, then success inside the same tick.
+echo 1 > "$FETCH_FAILS"; : > "$TR/self-deploy.out"
+run_self_deploy "$F1" "${FLAKY_ENV[@]}" GARDEN_SELF_DEPLOY_NOW=60000
+if grep -q '^deferred_at_epoch: 60000' <<<"$(from_bare "fleet/health/$F1")" && [ ! -e "$SD_PENDING" ] \
+   && [ "$(cat "$FETCH_FAILS")" = 0 ]; then
+  ok "PUBLISH RETRY: a transient fetch failure is retried in the same tick and the deferral lands"
+else bad "PUBLISH RETRY: deferral not published after one transient failure: $(from_bare "fleet/health/$F1" | grep deferred_at); $(tail -5 "$TR/self-deploy.out")"; fi
+# (b) every attempt fails -> a pending marker, republished on the next tick even when that
+# tick exits early (upgrade-ready gone; the defer record still says it is deferring).
+echo 99 > "$FETCH_FAILS"; : > "$TR/self-deploy.out"
+run_self_deploy "$F1" "${FLAKY_ENV[@]}" GARDEN_SELF_DEPLOY_NOW=61000
+if [ -s "$SD_PENDING" ] && ! grep -q '^deferred_at_epoch: 61000' <<<"$(from_bare "fleet/health/$F1")" \
+   && grep -q 'left a pending marker' "$TR/self-deploy.out"; then
+  ok "PUBLISH RETRY: exhausted attempts leave a host-local pending-status marker"
+else bad "PUBLISH RETRY: no pending marker after exhausted attempts: $(tail -5 "$TR/self-deploy.out")"; fi
+echo 0 > "$FETCH_FAILS"; rm -f "$TR/sd-state-$F1/deploy/upgrade-ready"; : > "$DEPLOY_LOG"
+run_self_deploy "$F1" "${FLAKY_ENV[@]}" GARDEN_SELF_DEPLOY_NOW=61100
+if grep -q '^deferred_at_epoch: 61000' <<<"$(from_bare "fleet/health/$F1")" && [ ! -e "$SD_PENDING" ] \
+   && [ ! -s "$DEPLOY_LOG" ]; then
+  ok "PUBLISH RETRY: the next tick republishes the pending deferred status (no deploy re-fired)"
+else bad "PUBLISH RETRY: pending deferral not republished: $(from_bare "fleet/health/$F1" | grep deferred_at); $(tail -5 "$TR/self-deploy.out")"; fi
+# (c) a pending marker whose deferral has ended (record gone) is dropped, not published.
+printf '%s\ndeferred_target: %s\ndeferred_at_epoch: 1\n' "$TARGET" "$TARGET" > "$SD_PENDING"
+rm -f "$TR/sd-state-$F1/deploy/deferred"
+n0="$(git -C "$BARE" rev-list --count "$BRANCH" -- "fleet/health/$F1")"
+run_self_deploy "$F1" "${FLAKY_ENV[@]}" GARDEN_SELF_DEPLOY_NOW=61200
+n1="$(git -C "$BARE" rev-list --count "$BRANCH" -- "fleet/health/$F1")"
+[ "$n1" = "$n0" ] && [ ! -e "$SD_PENDING" ] && ok "PUBLISH RETRY: a pending status for an ended deferral is dropped, never published" \
+  || bad "PUBLISH RETRY: stale pending deferral was published or kept ($n0 -> $n1)"
+sd_signal "$F1" "$TARGET"
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after follower deferral test"
 
 # ============================================================================

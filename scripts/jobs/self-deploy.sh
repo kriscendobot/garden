@@ -48,6 +48,7 @@
 #   GARDEN_SELF_DEPLOY_ANCESTOR_CMD optional <a> <b> → rc0 iff a is an
 #                                   ancestor-or-equal of b (default: git in $GARDEN_ROOT)
 #   GARDEN_SELF_DEPLOY_NOW          fixed epoch seconds (default: date +%s)
+#   GARDEN_SELF_DEPLOY_PUBLISH_ATTEMPTS attempts per deferred-status publish
 
 # The body sits in one { ... } group that ends in an explicit exit: the deploy this
 # script runs replaces this file, and bash reads a script lazily, so the code after the
@@ -77,6 +78,79 @@ sd() { printf '%s\n' "${1:0:12}"; }
 # set -e / pipefail-safe single-line readers (a `cat missing | head` fails the pipe).
 rdsha()  { [ -f "$1" ] && head -n1 "$1" 2>/dev/null | tr -d '[:space:]' || true; }
 rdline() { [ -f "$1" ] && head -n1 "$1" 2>/dev/null || true; }
+now="$(now_s)"
+pub_file="$STATE/deferral-published"
+pending_file="$STATE/deferral-pending"
+
+# publish_deferred_status <deferred-target> <extra-fields> — publish roll_status
+# `deferred` with a bounded retry. publish_fleet_health re-syncs the journal at the top
+# of every call and retries its own push CAS, but it gives up at once when that sync
+# fails, so a transient fetch failure left the leader unaware that this canary was
+# deferring (2026-10-07 16:56Z and 16:59Z). If every attempt fails, record the status in
+# a host-local pending marker so the next tick republishes it even when that tick exits
+# before reaching the deploy.
+publish_deferred_status() {
+  local rel="$1" extra="$2" attempt
+  for attempt in $(seq 1 "$GARDEN_SELF_DEPLOY_PUBLISH_ATTEMPTS"); do
+    if publish_fleet_health "$(deployed_sha 2>/dev/null || true)" deferred "$extra"; then
+      rm -f "$pending_file" 2>/dev/null || true
+      printf '%s %s\n' "$rel" "$now" > "$pub_file"
+      return 0
+    fi
+    [ "$attempt" -ge "$GARDEN_SELF_DEPLOY_PUBLISH_ATTEMPTS" ] || backoff "$attempt"
+  done
+  printf '%s\n%s\n' "$rel" "$extra" > "$pending_file" 2>/dev/null || true
+  return 1
+}
+
+# publish_deferral <released-sha> — deploy-garden.sh DEFERRED behind a long in-flight
+# job (it left GARDEN_DEPLOY_DEFER_RECORD). Publish roll_status `deferred` so the
+# conductor treats this canary as WAITING, not stuck: without it the leader failed and
+# drained a canary that was deliberately deferring (2026-09-24/25, endolin-garden2).
+# Rate-limited to one journal push per GARDEN_SELF_DEPLOY_DEFER_REPUBLISH while the
+# deferral continues; the conductor's freshness window is several of those.
+publish_deferral() {
+  local rel="$1" rec="$GARDEN_DEPLOY_DEFER_RECORD" kind id elapsed last
+  [ -f "$rec" ] || return 0
+  kind="$(sed -n 's/^kind:[[:space:]]*//p' "$rec" | head -1)"
+  id="$(sed -n 's/^id:[[:space:]]*//p' "$rec" | head -1)"
+  elapsed="$(sed -n 's/^elapsed:[[:space:]]*//p' "$rec" | head -1)"
+  last="$(rdline "$pub_file")"
+  if [ ! -f "$pending_file" ] && [ "${last%% *}" = "$rel" ] && [[ "${last##* }" =~ ^[0-9]+$ ]] \
+     && [ $(( now - ${last##* } )) -lt "$GARDEN_SELF_DEPLOY_DEFER_REPUBLISH" ]; then
+    return 0
+  fi
+  if publish_deferred_status "$rel" "deferred_reason: long-job ${kind:-?} ${id:-?} ${elapsed:-?}s
+deferred_target: $rel
+deferred_at_epoch: $now"; then
+    log "deploy of ${rel:0:12} DEFERRED behind long-job ${kind:-?} ${id:-?} (${elapsed:-?}s); published roll_status deferred (the conductor waits, not fails)"
+  else
+    log "WARN: deploy deferred but could not publish the deferred status after $GARDEN_SELF_DEPLOY_PUBLISH_ATTEMPTS attempts; left a pending marker for the next tick"
+  fi
+}
+
+# republish_pending_deferral — retry a deferred status an earlier tick failed to
+# publish. Drop it instead if the deferral has ended (deploy-garden.sh removes its
+# record at the start of every run), so a landed deploy is never overwritten with a
+# stale `deferred`.
+republish_pending_deferral() {
+  [ -f "$pending_file" ] || return 0
+  local rel extra
+  rel="$(rdsha "$pending_file")"
+  extra="$(tail -n +2 "$pending_file" 2>/dev/null || true)"
+  if [ -z "$rel" ] || [ ! -f "$GARDEN_DEPLOY_DEFER_RECORD" ]; then
+    rm -f "$pending_file" 2>/dev/null || true
+    log "dropped a pending deferred status for ${rel:0:12}: the deferral has ended"
+    return 0
+  fi
+  if publish_deferred_status "$rel" "$extra"; then
+    log "republished the pending deferred status for ${rel:0:12} (an earlier tick could not publish it)"
+  else
+    log "WARN: pending deferred status for ${rel:0:12} still not published; will retry next tick"
+  fi
+}
+
+republish_pending_deferral
 
 # --- 1. the host-local deploy DECISION (never a bus message) -----------------
 if [ ! -e "$GARDEN_UPGRADE_READY_MARKER" ]; then
@@ -89,7 +163,6 @@ target="$( { sed -n 's/^available:[[:space:]]*//p' "$GARDEN_UPGRADE_READY_MARKER
 # --- 2. settle window (a FLOOR on tip age; clock restarts on a new target) ----
 settle_file="$STATE/settle/$(sd "$target")"
 mkdir -p "$(dirname "$settle_file")" 2>/dev/null || true
-now="$(now_s)"
 first_seen="$(rdline "$settle_file")"
 if ! [[ "$first_seen" =~ ^[0-9]+$ ]]; then first_seen="$now"; printf '%s\n' "$now" > "$settle_file"; fi
 waited=$(( now - first_seen ))
@@ -118,35 +191,6 @@ do_deploy() {  # do_deploy <mode> <pinned-sha>
     log "WARN: deploy-garden.sh returned non-zero (it manages its own drain/quiesce/abort)"
     # Unless it died before its cleanup ran: then finish the thaw and drain lift.
     "$STRAND_RECOVER_CMD" || true
-  fi
-}
-
-# publish_deferral <released-sha> — deploy-garden.sh DEFERRED behind a long in-flight
-# job (it left GARDEN_DEPLOY_DEFER_RECORD). Publish roll_status `deferred` so the
-# conductor treats this canary as WAITING, not stuck: without it the leader failed and
-# drained a canary that was deliberately deferring (2026-09-24/25, endolin-garden2).
-# Rate-limited to one journal push per GARDEN_SELF_DEPLOY_DEFER_REPUBLISH while the
-# deferral continues; the conductor's freshness window is several of those.
-publish_deferral() {
-  local rel="$1" rec="$GARDEN_DEPLOY_DEFER_RECORD" kind id elapsed pub_file last
-  [ -f "$rec" ] || return 0
-  kind="$(sed -n 's/^kind:[[:space:]]*//p' "$rec" | head -1)"
-  id="$(sed -n 's/^id:[[:space:]]*//p' "$rec" | head -1)"
-  elapsed="$(sed -n 's/^elapsed:[[:space:]]*//p' "$rec" | head -1)"
-  pub_file="$STATE/deferral-published"
-  last="$(rdline "$pub_file")"
-  if [ "${last%% *}" = "$rel" ] && [[ "${last##* }" =~ ^[0-9]+$ ]] \
-     && [ $(( now - ${last##* } )) -lt "$GARDEN_SELF_DEPLOY_DEFER_REPUBLISH" ]; then
-    return 0
-  fi
-  if publish_fleet_health "$(deployed_sha 2>/dev/null || true)" deferred \
-"deferred_reason: long-job ${kind:-?} ${id:-?} ${elapsed:-?}s
-deferred_target: $rel
-deferred_at_epoch: $now"; then
-    printf '%s %s\n' "$rel" "$now" > "$pub_file"
-    log "deploy of ${rel:0:12} DEFERRED behind long-job ${kind:-?} ${id:-?} (${elapsed:-?}s); published roll_status deferred (the conductor waits, not fails)"
-  else
-    log "WARN: deploy deferred but could not publish the deferred status"
   fi
 }
 
