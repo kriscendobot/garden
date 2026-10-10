@@ -1,23 +1,24 @@
 # Garden bulletin
 
-_As of 2026-10-10T16:52:40Z_
+_As of 2026-10-10T16:54:39Z_
 
 ## Latest
 
-The main change is that the minion.town git-remote arc now has parked work. The accountant's weekly pass confirmed the 610M slate for the week of 2026-10-10 and posted two designer jobs, `plan-minion-town-git-remote-increments-20261010` and `plan-minion-town-clip-gutter-20261010`. The git-remote planning job finished and parked five follow-up jobs: live validation, push caps, endo binding, a served-clip design, and the served-clip build. A `build-accountant-statement-unattributed-share` job is also queued. The scholar finished the second Literate AI ingest cycle, and a third is queued. One of its sources, `project-releases.md`, was held back by the foreign-content gate at injection uncertainty 0.34 and needs your clearance.
+The only board transition this cycle is on [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174). Its gauntlet panel round 7 moved from `doin` back to the plan queue, and the gauntlet halted there. The panel stage failed three times and used up its retry budget, with the reaper recording `requeue-exhausted` and a transient failure. Seven of seven rounds are spent ($12.30 so far), and the panel report gives no structured must-fix list. Resuming is the maintainer's call. The resume command in the halt notice grants two more rounds. The earlier stale-panel notice for this PR still stands, because the current head was never covered by a panel.
 
-**Needs your attention:**
-- **minion.town screening is paused.** The deploy failure for [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) is the Actions billing block, not a regression. Production is still serving the earlier deploy. You can resume the delegation by hand, authorize moving CD onto the ci.minion.town runner, or wait for the billing reset.
-- **PR #174 gauntlet halted.** [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 7 panel/fix rounds, and its panel stage then exhausted its retries. Resuming needs `--add-rounds`. Its panel coverage is also stale against the current head. Stale panel heads are also flagged on [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403). Round 2 of the [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) gauntlet reached its review budget, and a panel round 4 is queued.
-- **Moddable 10.0.0 IronHorse port-plan orchestrations halted.** Their children (xs-source-inventory, audit, synthesis) kept overrunning the 2400s handler budget. The work needs splitting into claim-sized stages or running detached. The same budget overrun hit the `endojs-endo-but-for-bots-pr179-weave-20261010` job.
-- **Other halted orchestrations.** The Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`. The oauth-bonds build reported its gated outcome unsatisfied. `review-docket-consolidate-20261008` is held in plan after exhausting its requeues.
-- **Fleet health.**
-  - oros-studio recovered after its heartbeat resumed, and its earlier rolling-deploy canary-stuck alert cleared. Its canary-failed alert (4 occurrences) is still open.
-  - endolin-garden2 has been offline for about 12.7 hours.
-  - The leader has no healthy canary, so the rolling deploy is holding.
-  - The leader's journal worktree was about 2 hours stale and 139 commits behind.
-  - After the sysop-ack fix landed, a drop-in file still has to be removed by hand on oros.
-- **Budget.** claude-endolin1 is back in backoff (278M of a 271M cap), and claude-endolin2 is in backoff too.
+Other items that need a maintainer:
+- **Screening and deploys:** minion.town screening is paused after [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169). Its deploy failed because of the Actions billing block, not a code regression, so a heal PR would not help. It stays paused until you resume it by hand, authorize moving CD to the `ci.minion.town` runner, or wait for the billing reset.
+- **Hosts and rolling deploy:**
+  - Rolling deploy is holding the leader because no follower is available as a canary.
+  - `endolin-garden2` has been offline for about 12 hours.
+  - `oros-studio-garden` recovered, but its canary is still marked failed after three retries and is drained.
+  - The leader's journal worktree is stale and 139 commits behind.
+- **Moddable 10.0.0 Ironhorse port plan:** the chain of split jobs halted on handler timeouts at about 2400s, so it needs a different decomposition.
+- **Backoff:** the `claude-endolin1` and `claude-endolin2` subscriptions are both in backoff. Codex quota is at 75%.
+- **Accountant week:** the week's 610M slate is in force. Planning jobs for the git-remote and clip-gutter arcs are posted.
+- **Review docket:** the consolidation job was doomed and parked, which halted the review-docket orchestration at 2 of 3 children.
+- **Jev trial:** the trial is blocked because `TYPESAFE_API_KEY` is missing.
+- **Literate AI scholar ingest:** one source was held at the foreign-content gate, so it needs maintainer clearance.
 
 ## Maintainer review docket
 
@@ -833,7 +834,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.5M | $441.38 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Claude | 98.6M | $442.06 _(notional, rate-card)_ | 36% of 271.0M (ok) |
 | Codex | 1.3M _(+30.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106472583 tokens/day lower bound._
@@ -857,8 +858,7 @@ worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`endojs-endo-but-for-bots-pr1435-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1435-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1435
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 
-### doin (2)
-- [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
+### doin (1)
 - [`endojs-endo-but-for-bots-pr344-gauntlet-20261007-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr344-gauntlet-20261007-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #344
 
 ### tada (12219)
@@ -893,6 +893,7 @@ worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — _normal_ · Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`ironhorse-xs10-proxy-callable-flags`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-xs10-proxy-callable-flags.md) — _normal_ · IronHorse: Proxy [[Call]]/[[Construct]] flags survive revocation (XS 10.0.0 #...
 - [`endojs-endo-but-for-bots-pr1348-review-4984e562`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1348-review-4984e562.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #1348
