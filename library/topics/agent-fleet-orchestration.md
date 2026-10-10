@@ -46,6 +46,7 @@
 | [literate-ai--readme--lifecycle](../sections/literate-ai--readme--lifecycle.md) | literate-ai README.md | The resolved Component DAG becomes bounded per-Component plans before coding-agent dispatch. |
 | [literate-ai--docs-architecture-authoring-and-record-formats--workflow-catalogs-and-round-trips](../sections/literate-ai--docs-architecture-authoring-and-record-formats--workflow-catalogs-and-round-trips.md) | literate-ai authoring formats | Workflow Markdown binds a typed stage DAG to exact per-stage instructions and output bounds. |
 | [literate-ai--docs-architecture-component-execution-plans--per-component-planning](../sections/literate-ai--docs-architecture-component-execution-plans--per-component-planning.md) | literate-ai execution plans | Planning creates stable dependency layers and independently cacheable work per Component. |
+| [literate-ai--docs-architecture-user-directed-work-loop--durable-project-authority](../sections/literate-ai--docs-architecture-user-directed-work-loop--durable-project-authority.md) | literate-ai user-directed work loop | User direction becomes a durable dependency-aware task with ownership and completion evidence rather than remaining conversational state. |
 
 ## See also
 
