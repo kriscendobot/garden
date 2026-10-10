@@ -4,9 +4,9 @@
   "arc": "garden-upkeep",
   "rank": 6,
   "summary": "Garden upkeep: self-heal, watchdog fixes, and deploys",
-  "token_cap": 26362500,
+  "token_cap": 28975000,
   "window": "week",
   "window_start": "2026-10-10T03:00:00Z",
   "set_by": "accountant-weekly-20261010-160507",
-  "set_at": "2026-10-10T16:18:35Z"
+  "set_at": "2026-10-10T16:19:44Z"
 }

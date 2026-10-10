@@ -4,10 +4,10 @@
   "arc": "minion-town-git-remote",
   "rank": 2,
   "summary": "minion.town as a capability git remote, including kriscendobot/minion.town#86",
-  "token_cap": 105450000,
+  "token_cap": 115900000,
   "window": "week",
   "window_start": "2026-10-10T03:00:00Z",
   "tracker": "https://github.com/kriscendobot/minion.town/pull/86",
   "set_by": "accountant-weekly-20261010-160507",
-  "set_at": "2026-10-10T16:18:35Z"
+  "set_at": "2026-10-10T16:19:44Z"
 }
