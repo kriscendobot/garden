@@ -2,7 +2,7 @@
 order: serial
 children: scholar-ingest-literate-ai-architecture-priority-20261010 scholar-ingest-literate-ai-architecture-next-20261010 scholar-ingest-literate-ai-next-slice-20261010
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-10T19:58:01Z
 ---
