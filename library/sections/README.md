@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7327 (530 parent indexes + 6797 children).
+Total section files: 7345 (530 parent indexes + 6815 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8435,9 +8435,24 @@ Total section files: 7327 (530 parent indexes + 6797 children).
 - [literate-ai--docs-architecture-component-execution-plans--lifecycle-and-build-boundary](literate-ai--docs-architecture-component-execution-plans--lifecycle-and-build-boundary.md)
 - [literate-ai--docs-architecture-component-execution-plans--per-component-planning](literate-ai--docs-architecture-component-execution-plans--per-component-planning.md)
 
+### literate-ai--docs-architecture-component-flavors
+
+- [literate-ai--docs-architecture-component-flavors--axes-slots-and-default-selectors](literate-ai--docs-architecture-component-flavors--axes-slots-and-default-selectors.md)
+- [literate-ai--docs-architecture-component-flavors--examples-lifecycle-and-conformance](literate-ai--docs-architecture-component-flavors--examples-lifecycle-and-conformance.md)
+- [literate-ai--docs-architecture-component-flavors--purpose-and-flavor-object-model](literate-ai--docs-architecture-component-flavors--purpose-and-flavor-object-model.md)
+- [literate-ai--docs-architecture-component-flavors--selected-flavor-requirements](literate-ai--docs-architecture-component-flavors--selected-flavor-requirements.md)
+- [literate-ai--docs-architecture-component-flavors--target-profile-and-effective-revision](literate-ai--docs-architecture-component-flavors--target-profile-and-effective-revision.md)
+- [literate-ai--docs-architecture-component-flavors--typed-contributions-and-toolchain-constraints](literate-ai--docs-architecture-component-flavors--typed-contributions-and-toolchain-constraints.md)
+
 ### literate-ai--docs-architecture-design-traceability
 
 - [literate-ai--docs-architecture-design-traceability--authority-evidence-matrix](literate-ai--docs-architecture-design-traceability--authority-evidence-matrix.md)
+
+### literate-ai--docs-architecture-documentation-artifacts
+
+- [literate-ai--docs-architecture-documentation-artifacts--access-formatting-and-publication](literate-ai--docs-architecture-documentation-artifacts--access-formatting-and-publication.md)
+- [literate-ai--docs-architecture-documentation-artifacts--layers-and-document-pair](literate-ai--docs-architecture-documentation-artifacts--layers-and-document-pair.md)
+- [literate-ai--docs-architecture-documentation-artifacts--terminal-components-and-oracle](literate-ai--docs-architecture-documentation-artifacts--terminal-components-and-oracle.md)
 
 ### literate-ai--docs-architecture-domain-model
 
@@ -8451,6 +8466,21 @@ Total section files: 7327 (530 parent indexes + 6797 children).
 - [literate-ai--docs-architecture-exact-versioned-components--compatibility-and-downstream-contract](literate-ai--docs-architecture-exact-versioned-components--compatibility-and-downstream-contract.md)
 - [literate-ai--docs-architecture-exact-versioned-components--exact-ref-propagation](literate-ai--docs-architecture-exact-versioned-components--exact-ref-propagation.md)
 - [literate-ai--docs-architecture-exact-versioned-components--identity-triple](literate-ai--docs-architecture-exact-versioned-components--identity-triple.md)
+
+### literate-ai--docs-architecture-framework-premise-assessment
+
+- [literate-ai--docs-architecture-framework-premise-assessment--critical-implementation-findings](literate-ai--docs-architecture-framework-premise-assessment--critical-implementation-findings.md)
+- [literate-ai--docs-architecture-framework-premise-assessment--fundamental-premise](literate-ai--docs-architecture-framework-premise-assessment--fundamental-premise.md)
+- [literate-ai--docs-architecture-framework-premise-assessment--strengths-constraints-and-work-order](literate-ai--docs-architecture-framework-premise-assessment--strengths-constraints-and-work-order.md)
+- [literate-ai--docs-architecture-framework-premise-assessment--verdict-and-comparison](literate-ai--docs-architecture-framework-premise-assessment--verdict-and-comparison.md)
+
+### literate-ai--docs-architecture-html-observability
+
+- [literate-ai--docs-architecture-html-observability--cli-publication-and-cache](literate-ai--docs-architecture-html-observability--cli-publication-and-cache.md)
+- [literate-ai--docs-architecture-html-observability--contract-and-surfaces](literate-ai--docs-architecture-html-observability--contract-and-surfaces.md)
+- [literate-ai--docs-architecture-html-observability--health-history-and-dashboard-views](literate-ai--docs-architecture-html-observability--health-history-and-dashboard-views.md)
+- [literate-ai--docs-architecture-html-observability--identity-without-self-reference](literate-ai--docs-architecture-html-observability--identity-without-self-reference.md)
+- [literate-ai--docs-architecture-html-observability--single-file-network-and-failure-boundaries](literate-ai--docs-architecture-html-observability--single-file-network-and-failure-boundaries.md)
 
 ### literate-ai--docs-architecture-production-containment-threat-model
 
