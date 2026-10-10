@@ -1,18 +1,37 @@
 # Garden bulletin
 
-_As of 2026-10-10T14:40:23Z_
+_As of 2026-10-10T14:42:07Z_
 
 ## Latest
 
-Gauntlet traffic on endo-but-for-bots dominated the board. [endo-but-for-bots#350](https://github.com/endojs/endo-but-for-bots/pull/350) halted because it targets a floating base; it needs "pin the merge base #350" before the gauntlet can rerun. Clean, panel and fix stages completed for [#344](https://github.com/endojs/endo-but-for-bots/pull/344), [#346](https://github.com/endojs/endo-but-for-bots/pull/346), [#348](https://github.com/endojs/endo-but-for-bots/pull/348) and [#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), and next-round jobs are queued for each.
+Production is stuck on two things that need you, and the fleet is degraded.
 
-On minion.town, the gauntlet for [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after its panel-7 stage failed three times. Its rounds are spent at 7/7. The gauntlet for [#171](https://github.com/kriscendobot/minion.town/pull/171) reached its review budget at 2/2, so merging it is a human call. The panel for [#174](https://github.com/kriscendobot/minion.town/pull/174) covers a stale head. The same is true of [#166](https://github.com/kriscendobot/minion.town/pull/166).
+**Minion.town deploys are blocked.** The kriscendobot Actions billing block, in place since 2026-10-08 and expected to clear around 10-30, leaves deploy runs with no runner. [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) is merged but undeployed, and production is fine. Screening is paused until a green main deploy. The heal gardener recommends one of three options:
+- Resume the delegation by hand.
+- Authorize moving CD onto the ci.minion.town runner.
+- Wait for the billing reset.
 
-minion.town PR screening is paused. The deploy of [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) failed because the Actions billing block left it with no runner. Production is fine, so the choices are to resume by hand, move CD onto the ci.minion.town runner, or wait for the billing reset.
+The gardener also offered a follow-up so the screener treats a no-runner deploy as billing-deferred and stops posting a heal job per merge. That follow-up is awaiting your word.
 
-The Moddable 10.0.0 Ironhorse port-plan orchestration halted again on handler timeouts. The Jev triage trial is blocked because `TYPESAFE_API_KEY` is missing. The oauth-bonds build and the review-docket consolidation are both held.
+**Gauntlets and reviews.** The [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) gauntlet halted at panel round 7 after the stage failed three times and exhausted its retry budget. It has used 7 of 7 rounds ($12.30), and the resume command offers `--add-rounds`. [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) hit its 2-round review budget with CI green and is waiting on a human call. Stale panel coverage, meaning the current head has no panel review, is flagged on:
+- [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174)
+- [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166)
+- [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403)
 
-On fleet health, oros-studio is back after an outage. Its canary failed repeatedly on 61a16d2 before the stuck-canary alert cleared. The garden2 host has been offline over 10 hours (stale heartbeat), and the deploy is holding the leader because there is no usable canary.
+**Jobs that don't fit a single claim.** The Moddable 10.0.0 IronHorse port-plan orchestration, including its split and resume variants, halted repeatedly on 2400s handler timeouts. The [endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179) weave overran the same budget twice. These need splitting into smaller stages or running detached. Other halted or stalled work:
+- The oauth-bonds orchestration halted when its build child declared its gated outcome unsatisfied.
+- The Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`, and its orchestration halted with it.
+- The review-docket consolidation child was doomed and is held in plan.
+- The Claude-on-minion.town completion press has sat in `doin` for about 5.6 hours.
+
+**Fleet health.**
+- **oros-studio:** It went dark around 02:50Z and its heartbeat resumed at 11:05Z. The rolling-deploy canary there had failed after three retries and still needs your decision on lifting its drain and re-triggering.
+- **endolin-garden2:** It has been offline about 38,000s.
+- **Leader roll:** The leader's roll is holding with no valid canary.
+- **Leader journal worktree:** It was stale about 2 hours, 139 commits behind.
+- **Claude quota:** The claude-endolin2 subscription is in backoff, and claude-endolin1 recovered to ok after its reset.
+
+**Smaller items.** The ocap.site DNSSEC DS record is still unpublished at the registrar. Transfer eligibility opened after 2026-10-09 19:55Z, so starting the transfer or asking Key-Systems to add the DS is your call. The board holds 8 todo and 2 in progress.
 
 ## Maintainer review docket
 
@@ -574,13 +593,6 @@ Delegation: **active**
 >
 > Orchestration orch-jev-triage-foreman HALTED: child trial-jev-triage-foreman-classification completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: integrate-jev-triage-foreman
 
-- `endojs-endo-but-for-bots-pr350-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr350-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr350-gauntlet-20261007-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr350-gauntlet-20261007 HALTED: PR [endojs/endo-but-for-bots#350](https://github.com/endojs/endo-but-for-bots/issues/350) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #350') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr350-gauntlet-20261007 panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `gauntlet-mustfix-summary-orch-terminal-complete` — from orchestrator:gauntlet-mustfix-summary-orch-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/gauntlet-mustfix-summary-orch-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -791,7 +803,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.9M | $381.62 _(notional, rate-card)_ | 31% of 271.0M (ok) |
+| Claude | 85.2M | $383.43 _(notional, rate-card)_ | 31% of 271.0M (ok) |
 | Codex | 903.5k _(+19.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101655701 tokens/day lower bound._
