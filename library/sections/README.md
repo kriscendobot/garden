@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7395 (530 parent indexes + 6865 children).
+Total section files: 7400 (530 parent indexes + 6870 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8571,6 +8571,14 @@ Total section files: 7395 (530 parent indexes + 6865 children).
 - [literate-ai--docs-architecture-sample-portfolio-review--human-readability-standard](literate-ai--docs-architecture-sample-portfolio-review--human-readability-standard.md)
 - [literate-ai--docs-architecture-sample-portfolio-review--important-gaps](literate-ai--docs-architecture-sample-portfolio-review--important-gaps.md)
 - [literate-ai--docs-architecture-sample-portfolio-review--portfolio-conclusion](literate-ai--docs-architecture-sample-portfolio-review--portfolio-conclusion.md)
+
+### literate-ai--docs-architecture-sbom-and-dependency-graph
+
+- [literate-ai--docs-architecture-sbom-and-dependency-graph--cache-receipt-and-trust-boundaries](literate-ai--docs-architecture-sbom-and-dependency-graph--cache-receipt-and-trust-boundaries.md)
+- [literate-ai--docs-architecture-sbom-and-dependency-graph--completeness-and-build-evidence](literate-ai--docs-architecture-sbom-and-dependency-graph--completeness-and-build-evidence.md)
+- [literate-ai--docs-architecture-sbom-and-dependency-graph--component-and-package-inventory](literate-ai--docs-architecture-sbom-and-dependency-graph--component-and-package-inventory.md)
+- [literate-ai--docs-architecture-sbom-and-dependency-graph--non-executing-host-observation](literate-ai--docs-architecture-sbom-and-dependency-graph--non-executing-host-observation.md)
+- [literate-ai--docs-architecture-sbom-and-dependency-graph--source-and-resolved-sbom-lifecycle](literate-ai--docs-architecture-sbom-and-dependency-graph--source-and-resolved-sbom-lifecycle.md)
 
 ### literate-ai--docs-architecture-source-promotion
 
