@@ -1,10 +1,8 @@
-once: 2026-10-10T03:05:00Z
-job_basename_prefix: return-leadership-to-endolin-garden2-20261010
----
 ---
 role: gardener
-tier: minion
+tier: mentor
 dispatch: automatic
+fallback-tier: minion
 ---
 # Return garden leadership to endolin-garden2-5bcdff64
 
