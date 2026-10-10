@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: moddable-10-0-0-ironhorse-port-plan-20261009-split
+orchestrated_by: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume
 priority: normal
 role: researcher
 posted_by: orchestrator
