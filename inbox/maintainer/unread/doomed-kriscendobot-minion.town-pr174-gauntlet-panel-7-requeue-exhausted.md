@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-10-10T17:53:13Z
+sent_at: 2026-10-10T22:33:16Z
 doom_base: kriscendobot-minion.town-pr174-gauntlet-panel-7
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-10-10T17:53:13Z
-last_seen: 2026-10-10T17:53:13Z
+last_seen: 2026-10-10T22:33:16Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-10-10T17:53:13Z, latest 2026-10-10T22:33:16Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
 The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion.town-pr174-gauntlet exclusively owns retry through max_stage_retries.
 The work is preserved at jobs/plan/kriscendobot-minion.town-pr174-gauntlet-panel-7; it stays HELD until a human promotes it
