@@ -1241,6 +1241,7 @@ because the specs are repository READMEs.
 | [Repository inheritance](literate-ai--docs-architecture-repository-inheritance.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Retained library bindings (Cargo bridge integrity)](literate-ai--docs-architecture-retained-library-bindings.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 16 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Sample portfolio review](literate-ai--docs-architecture-sample-portfolio-review.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat` for mixed factual and persuasive framing) |
+| [CycloneDX SBOM and dependency graph](literate-ai--docs-architecture-sbom-and-dependency-graph.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
