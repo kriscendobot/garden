@@ -163,3 +163,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - pi-natives shell, `executeShell`, `Shell.pids`, `liveBackgroundJobCount`, `BRIDGE_QUEUE_CHUNKS`, `FORWARD_STALL_TIMEOUT`, shell output bridge backpressure -> pi-shell-output-minimizer
 - `isoResolve`, `isoStart`, `isoDiff`, `ISO_UNAVAILABLE`, `IsoBackendKind` -> pi-iso
 - sample portfolio, executable sample portfolio, executable conformance evidence, conformance ladder, product-design shelf, portfolio test value, portfolio reuse value -> executable-sample-portfolio
+- SBOM, CycloneDX, source SBOM, resolved SBOM, pre-build SBOM, post-build SBOM, dependency evidence transition, source-to-resolved preservation, `incomplete_third_party_only` -> sbom-transition-invariant
