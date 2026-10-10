@@ -1,25 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T20:45:03Z_
+_As of 2026-10-10T20:49:20Z_
 
 ## Latest
 
-Several gauntlets ran out of rounds without converging and are now parked for your call. [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted in panel round 7 after exhausting its stage retries. Panel round 7 was re-posted and is claimed, and the resume grants 2 more rounds (max_iterations 8 → 10). [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171), [#166](https://github.com/kriscendobot/minion.town/pull/166), [#93](https://github.com/kriscendobot/minion.town/pull/93), [endojs/endo-but-for-bots#1435](https://github.com/endojs/endo-but-for-bots/pull/1435) and [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) hit their review budgets. Each was left pushed with CI green and an unknown unaddressed must-fix list, so each needs a human decision or an `--add-rounds` resume. Gauntlets continued on [endojs/endo-but-for-bots#348](https://github.com/endojs/endo-but-for-bots/pull/348), which finished fix round 5 and queued panel round 6, and on [kriscendobot/minion.town#176](https://github.com/kriscendobot/minion.town/pull/176), which is in fix round 1.
+Several minion.town gauntlets ran out of review budget without converging, and a few more are stalled. [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [#171](https://github.com/kriscendobot/minion.town/pull/171) and [#93](https://github.com/kriscendobot/minion.town/pull/93) each hit their round cap with CI green. [endojs/endo-but-for-bots#1435](https://github.com/endojs/endo-but-for-bots/pull/1435) and [#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) did the same. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) is the worst case. Its stage failed 3 times and halted, and panel round 7 is being resumed. Each of these needs a human decision on granting more rounds (`--add-rounds`), because none of the reports could list the unaddressed must-fix items. Two minion.town PRs ([#166](https://github.com/kriscendobot/minion.town/pull/166) and [#174](https://github.com/kriscendobot/minion.town/pull/174)) also have heads newer than their last panel review, so they need a deliberate `run the gauntlet` or a maintainer call.
 
-**minion.town screening is paused.** [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) did not break production. The `deploy.yml` failure is the Actions billing block, which should clear around 10-30. The heal job found no runner and recommends one of three options: resume the delegation by hand, authorize moving CD onto the `ci.minion.town` runner, or wait for the billing reset. Production still serves the earlier deploy.
+**Deploy blocked by billing:** The minion.town screener paused delegation after the [#169](https://github.com/kriscendobot/minion.town/pull/169) merge. The cause is the GitHub Actions billing block, not a code break. Production is still serving, and #169 is just undeployed. The heal gardener asks you to choose: resume by hand, move CD onto the ci.minion.town runner, or wait for the reset.
 
 **Fleet health:**
-- `oros-studio-garden-ce242c49` came back after a long outage, and its offline alert cleared. The canary is still reported stuck on an old SHA, so the rolling deploy holds the leader.
-- `endolin-garden2-5bcdff64` remains offline, with a heartbeat about 60,000 s stale.
-- Both Moddable 10.0.0 IronHorse port-plan orchestrations halted on 2400 s handler timeouts, and the synthesis child overran the same budget.
-- Review-docket consolidation was doomed and is held in plan.
-- The Jev triage trial is blocked because `TYPESAFE_API_KEY` is missing.
+- oros-studio is back and rejoined the canary rotation, but its canary is still stuck on an old sha.
+- endolin-garden2 has been offline for about 16 hours, so the leader is rolling without followers.
+- The Moddable 10.0.0 IronHorse port-plan orchestrations keep hitting the 2400s handler budget and halting. They need splitting into smaller stages.
 
-**Spend:** the Claude endolin1 pool is at 45% of quota and Codex at 76%. The accountant confirmed the 610M weekly slate and posted planning jobs for the idle minion.town git-remote and clip-gutter arcs.
-
-The Literate AI ingest is ongoing. Two source docs, `project-releases.md` and `authority-learning-loop.md`, are held at the foreign-content gate until you clear them.
+**Other open items:**
+- Three more Literate AI sources are held at the foreign-content gate, waiting for your read-or-keep-blocked call. Separately, the Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`.
+- The ocap.site DNSSEC DS record is still unpublished, and the 60-day transfer window has now opened.
+- Landed: the sysop ack-timeout fix, with one manual drop-in removal left on oros-studio.
 
 ## Maintainer review docket
 
@@ -69,6 +66,16 @@ Delegation: **active**
 > not advance unvalidated. Restore any offline host until budget/live heartbeats resume,
 > or lift an operator drain. An archived host additionally needs a separate operator
 > unarchive; this roll never reverses archival. (leader=endolin-garden-ece02cb4, offline=2)
+
+- `msg-scholar-ingest-literate-ai-architecture-next-20261010-12ee24e1dba4` — from scholar:scholar-ingest-literate-ai-architecture-next-20261010, reply_to `scholar-ingest-literate-ai-architecture-next-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-next-20261010-12ee24e1dba4.md)
+
+> Foreign-content gate halted a Literate AI source; I did not read or ingest it.
+>
+> - Source: https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/beam-live-coding-layer-investigation.md (file commit fcc40bc6)
+> - Jev jev-1.13.0: policy=halt_and_escalate, injection=0.29 (uncertain), slant=advocacy (0.32), usage 8,932 / 73 tokens.
+> - Fetched bytes: /home/kris/garden/scratch/tmpexec/fetch-source.dyo9tN (sha256 a72e60db…fadb7; scratch, may be GC'd)
+>
+> It joins authority-learning-loop.md and project-releases.md on the blocked list. Reply with an explicit disposition (read/ingest or keep blocked) if you want it ingested; otherwise the ingest skips it.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
@@ -956,10 +963,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.0M | $538.47 _(notional, rate-card)_ | 45% of 271.0M (ok) |
+| Claude | 122.5M | $542.26 _(notional, rate-card)_ | 45% of 271.0M (ok) |
 | Codex | 1.5M _(+34.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 107437643 tokens/day lower bound._
+_Fleet token-unlock pace: 107559896 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journal); 7 open notice(s); checker healthy
