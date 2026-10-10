@@ -17,15 +17,5 @@ Unaddressed request from review https://github.com/endojs/endo-but-for-bots/pull
 
 Evidence: the review was submitted against the current head `964cc634b818`; there are no later commits or bot replies. Update the endopen design raft and its index coherently. Preserve the row classification: arc unallocated, milestone -.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-10T12:47:13Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-10T13:03:08Z -->
