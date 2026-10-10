@@ -8774,7 +8774,17 @@ _push_journal() {
     if GARDEN_PUSH_STDERR="$(GARDEN_PUSH_DIR="$dir" "$GARDEN_PUSH_CMD" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
   else
     # shellcheck disable=SC2034 # consumed by cursor-set after commit_and_push returns
-    if GARDEN_PUSH_STDERR="$(git -C "$dir" push -q origin "HEAD:$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
+    # GARDEN_PUSH_TIMEOUT optionally bounds one push. bin/git runs real git
+    # under its own GARDEN_REPO_GIT_TIMEOUT in a separate process group, so the
+    # bound is handed to it as well as applied around it.
+    if [ -n "${GARDEN_PUSH_TIMEOUT:-}" ]; then
+      if GARDEN_PUSH_STDERR="$(GARDEN_REPO_GIT_TIMEOUT="$GARDEN_PUSH_TIMEOUT" \
+          timeout --kill-after=5 "${GARDEN_PUSH_TIMEOUT}s" \
+          git -C "$dir" push -q origin "HEAD:$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
+    elif GARDEN_PUSH_STDERR="$(git -C "$dir" push -q origin "HEAD:$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
+  fi
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
+    [ -z "${GARDEN_PUSH_TIMEOUT:-}" ] || GARDEN_PUSH_STDERR="push timed out after ${GARDEN_PUSH_TIMEOUT}s"
   fi
   return "$rc"
 }

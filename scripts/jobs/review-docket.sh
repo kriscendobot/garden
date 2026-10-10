@@ -19,6 +19,17 @@
 # GARDEN_REVIEW_DOCKET_RECONCILE_BUDGET seconds have elapsed since startup, so a
 # slow or large docket advances over several ticks instead of failing whole.
 # `reconcile <PR-URL>...` reconciles exactly those records and ignores the cursor.
+#
+# Transactions serialize on a host-local lock for at most
+# GARDEN_REVIEW_DOCKET_LOCK_WAIT seconds, and the holder's CAS work is killed
+# when that window ends (each push is also capped at
+# GARDEN_REVIEW_DOCKET_PUSH_TIMEOUT). When an intake operation (upsert, reenter,
+# retire-*, targeted reconcile) cannot finish inside the window, it is copied to
+# the host-local GARDEN_REVIEW_DOCKET_SPOOL and the command exits
+# GARDEN_REVIEW_DOCKET_SPOOLED_RC (76, retryable). The next transaction on this
+# host drains the spool first. A bare reconcile or render exits 75 instead.
+# A lock timeout logs the recorded holder (transaction.lock.holder) and the
+# kernel's flock holder from /proc/locks.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
@@ -411,28 +422,190 @@ fi
 # soft-skip default. Queue producers must wait for the preceding clerk
 # transaction instead of dropping intake merely because its push is in flight.
 GARDEN_REPO_LOCK_WAIT="${GARDEN_REVIEW_DOCKET_LOCK_WAIT:-180}"
+: "${GARDEN_REVIEW_DOCKET_SPOOL:=$GARDEN_STATE/review-docket/spool}"
+: "${GARDEN_REVIEW_DOCKET_SPOOLED_RC:=76}"
+: "${GARDEN_REVIEW_DOCKET_SPOOL_BATCH:=10}"
+: "${GARDEN_REVIEW_DOCKET_SPOOL_MAX_ATTEMPTS:=20}"
+# One journal push may not consume the whole transaction window; a timed-out
+# push is a lost CAS attempt that the loop below re-syncs and retries.
+export GARDEN_PUSH_TIMEOUT="${GARDEN_REVIEW_DOCKET_PUSH_TIMEOUT:-60}"
+
+# The CAS section proper. It runs in a child process that the transaction-lock
+# holder bounds with `timeout`, so a hung fetch or push cannot hold the lock
+# past the window its waiters are prepared to wait.
+if [ "${GARDEN_REVIEW_DOCKET_TXN_CHILD:-0}" = 1 ]; then
+  ensure_clone "$DIR"
+  garden_repo_lock "$DIR" exclusive || die "could not lock the shared review-docket journal clone"
+  DOCKET_LOCKED=1
+  for attempt in $(seq 1 "$GARDEN_REVIEW_DOCKET_ATTEMPTS"); do
+    sync_clone "$DIR"
+    rc=0; apply_operation "$DIR" || rc=$?
+    [ "$rc" -eq 2 ] && { log "$operation is an idempotent no-op"; save_reconcile_cursor; exit 0; }
+    [ "$rc" -eq 0 ] || exit "$rc"
+    git -C "$DIR" add -A review-docket PRIORITIES.md priorities-archive
+    [ ! -f "$DIR/README.md" ] || git -C "$DIR" add README.md
+    rc=0; commit_and_push "$DIR" "review-docket: $operation" || rc=$?
+    [ "$rc" -eq 0 ] && { log "$operation committed with regenerated PRIORITIES.md"; save_reconcile_cursor; exit 0; }
+    [ "$rc" -eq 2 ] && { save_reconcile_cursor; exit 0; }
+    backoff "$attempt"
+  done
+  die "review docket $operation could not win the journal CAS"
+fi
+
+# Intake operations carry a fact no later sweep rediscovers on its own, so a
+# retryable failure spools them host-locally. A bare reconcile and render are
+# periodic recomputations; their next tick is the retry.
+is_intake() {
+  case "$operation" in
+    upsert|reenter|retire-review|retire-terminal) return 0 ;;
+    reconcile) [ "${#ARGS[@]}" -gt 0 ] ;;
+    *) return 1 ;;
+  esac
+}
+
+spool_operation() { # durable host-local copy of this invocation; dedupes repeats
+  local request=null key entry tmp
+  if [ "$operation" = upsert ]; then
+    request="$(jq -c . "${ARGS[1]:-/nonexistent}" 2>/dev/null)" || die "cannot spool upsert: request JSON unreadable"
+  fi
+  entry="$(jq -cn --arg op "$operation" --argjson request "$request" \
+    --arg at "$GARDEN_REVIEW_DOCKET_NOW" '{operation:$op, args:$ARGS.positional,
+      request:$request, spooled_at:$at, attempts:0}' --args "${ARGS[@]}")"
+  key="$(jq -c '{operation,args:(if .request then .args[0:1] else .args end),request}' <<<"$entry" \
+    | sha256sum | cut -c1-16)"
+  mkdir -p "$GARDEN_REVIEW_DOCKET_SPOOL"
+  if compgen -G "$GARDEN_REVIEW_DOCKET_SPOOL/*-$key.json" >/dev/null; then
+    log "$operation ${ARGS[0]:-} is already spooled ($key)"; return 0
+  fi
+  tmp="$GARDEN_REVIEW_DOCKET_SPOOL/.tmp.$$"
+  printf '%s\n' "$entry" > "$tmp"
+  mv "$tmp" "$GARDEN_REVIEW_DOCKET_SPOOL/$(date +%s%N)-$key.json"
+  log "spooled $operation ${ARGS[0]:-} to $GARDEN_REVIEW_DOCKET_SPOOL ($key); the next transaction on this host drains it"
+}
+
+retryable_exit() { # <reason>; spool intake, then exit with a retryable rc
+  if is_intake; then
+    spool_operation
+    log "$1; $operation spooled, exiting rc=$GARDEN_REVIEW_DOCKET_SPOOLED_RC (retryable)"
+    exit "$GARDEN_REVIEW_DOCKET_SPOOLED_RC"
+  fi
+  log "$1; skipping this $operation (rc=$GARDEN_OFFLINE_RC)"
+  exit "$GARDEN_OFFLINE_RC"
+}
+
+lock_holder_report() { # <lock>; who holds it, from our record and the kernel
+  local lock="$1" inode pid line out="" record="" waiters=0
+  if [ -s "$lock.holder" ]; then
+    record="$(head -1 "$lock.holder")"
+    pid="$(sed -n 's/^pid=\([0-9]*\) .*/\1/p' <<<"$record")"
+    if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then out="holder: $record (alive)"
+    else out="holder record: $record (process gone)"; fi
+  else
+    out="holder record: none"
+  fi
+  inode="$(stat -c %i "$lock" 2>/dev/null || true)"
+  if [ -n "$inode" ] && [ -r /proc/locks ]; then
+    while read -r line; do
+      if [ "$(awk '{ print $2 }' <<<"$line")" = "->" ]; then waiters=$((waiters + 1)); continue; fi
+      pid="$(awk '{ print $5 }' <<<"$line")"
+      out="$out; kernel flock holder pid=$pid cmd=$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null | cut -c1-200 | sed 's/ *$//')"
+    done < <(awk -v ino="$inode" '{ f = ($2 == "->") ? $7 : $6; n = split(f, a, ":"); if (a[n] == ino) print }' /proc/locks)
+    out="$out; other waiters=$waiters"
+  fi
+  printf '%s\n' "$out"
+}
+
+run_transaction() { # <NOW> <operation> <args...>; the bounded CAS child
+  # The child gets its own session because every bin/git call runs under a
+  # timeout that moves it to a fresh process group, out of reach of a plain
+  # `timeout`. Killing the session reaps the whole tree, including a hung
+  # push still holding an inherited repository-lock descriptor.
+  local now="$1" pid rc=0 killed=0 deadline=$lock_deadline; shift
+  [ $(( deadline - $(date +%s) )) -gt 0 ] || return 124
+  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" \
+    "$HERE/review-docket.sh" "$@" {transaction_fd}>&- &
+  pid=$!
+  while kill -0 "$pid" 2>/dev/null; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      killed=1; pkill -TERM -s "$pid" 2>/dev/null || true
+      deadline=$(( deadline + 10 ))
+      [ "$(date +%s)" -lt "$deadline" ] || break
+      sleep 1; pkill -KILL -s "$pid" 2>/dev/null || true
+    fi
+    sleep 0.2
+  done
+  wait "$pid" || rc=$?
+  [ "$killed" -eq 0 ] || { pkill -KILL -s "$pid" 2>/dev/null || true; return 124; }
+  return "$rc"
+}
+
+drain_spool() { # apply spooled intake in FIFO order before this operation
+  local entry n=0 rc op now request attempts tmp
+  local -a args
+  [ -d "$GARDEN_REVIEW_DOCKET_SPOOL" ] || return 0
+  while IFS= read -r entry; do
+    [ -f "$entry" ] || continue
+    n=$((n + 1)); [ "$n" -le "$GARDEN_REVIEW_DOCKET_SPOOL_BATCH" ] || break
+    # Keep at least half the window for the operation that took the lock.
+    [ $(( lock_deadline - $(date +%s) )) -ge $(( GARDEN_REPO_LOCK_WAIT / 2 )) ] || break
+    op="$(jq -r .operation "$entry" 2>/dev/null)" || op=""
+    mapfile -t args < <(jq -r '.args[]' "$entry" 2>/dev/null)
+    now="$(jq -r '.spooled_at // empty' "$entry" 2>/dev/null)"
+    request=""
+    if [ "$op" = upsert ]; then
+      request="$(mktemp "${TMPDIR:-/tmp}/review-docket-spooled.XXXXXX")"
+      jq '.request' "$entry" > "$request"; args[1]="$request"
+    fi
+    rc=0; run_transaction "${now:-$GARDEN_REVIEW_DOCKET_NOW}" "$op" "${args[@]}" || rc=$?
+    [ -z "$request" ] || rm -f "$request"
+    if [ "$rc" -eq 0 ]; then
+      rm -f "$entry"; log "drained spooled $op ${args[0]:-} ($(basename "$entry"))"; continue
+    fi
+    attempts=$(( $(jq -r '.attempts // 0' "$entry" 2>/dev/null || echo 0) + 1 ))
+    if [ "$attempts" -ge "$GARDEN_REVIEW_DOCKET_SPOOL_MAX_ATTEMPTS" ]; then
+      mkdir -p "$GARDEN_REVIEW_DOCKET_SPOOL/dead"
+      mv "$entry" "$GARDEN_REVIEW_DOCKET_SPOOL/dead/"
+      log "ALERT: spooled $op ${args[0]:-} failed $attempts times (last rc=$rc); dead-lettered to $GARDEN_REVIEW_DOCKET_SPOOL/dead/$(basename "$entry")"
+      continue
+    fi
+    tmp="$entry.tmp.$$"
+    jq --argjson n "$attempts" '.attempts=$n' "$entry" > "$tmp" && mv "$tmp" "$entry"
+    log "spooled $op ${args[0]:-} failed (rc=$rc, attempt $attempts); kept for the next transaction"
+    # A timeout or outage will not clear within this transaction.
+    case "$rc" in 124|"$GARDEN_OFFLINE_RC") break ;; esac
+  done < <(find "$GARDEN_REVIEW_DOCKET_SPOOL" -maxdepth 1 -type f -name '*.json' 2>/dev/null | LC_ALL=C sort)
+}
+
 # This clone is deliberately shared by all intake producers on a host. Serialize
 # before ensure_clone: its internal order is clone-lock then repository-lock,
 # while a peer already past it owns the repository lock and sync_clone next wants
 # the clone lock. Entering concurrently would deadlock those opposite orders.
 transaction_lock="${GARDEN_REVIEW_DOCKET_TRANSACTION_LOCK:-$GARDEN_STATE/review-docket/transaction.lock}"
 mkdir -p "$(dirname "$transaction_lock")"
-exec {transaction_fd}>"$transaction_lock"
-flock -w "$GARDEN_REPO_LOCK_WAIT" "$transaction_fd" \
-  || die "timed out waiting for the review-docket transaction lock"
-ensure_clone "$DIR"
-garden_repo_lock "$DIR" exclusive || die "could not lock the shared review-docket journal clone"
-DOCKET_LOCKED=1
-for attempt in $(seq 1 "$GARDEN_REVIEW_DOCKET_ATTEMPTS"); do
-  sync_clone "$DIR"
-  rc=0; apply_operation "$DIR" || rc=$?
-  [ "$rc" -eq 2 ] && { log "$operation is an idempotent no-op"; save_reconcile_cursor; exit 0; }
-  [ "$rc" -eq 0 ] || exit "$rc"
-  git -C "$DIR" add -A review-docket PRIORITIES.md priorities-archive
-  [ ! -f "$DIR/README.md" ] || git -C "$DIR" add README.md
-  rc=0; commit_and_push "$DIR" "review-docket: $operation" || rc=$?
-  [ "$rc" -eq 0 ] && { log "$operation committed with regenerated PRIORITIES.md"; save_reconcile_cursor; exit 0; }
-  [ "$rc" -eq 2 ] && { save_reconcile_cursor; exit 0; }
-  backoff "$attempt"
-done
-die "review docket $operation could not win the journal CAS"
+exec {transaction_fd}>>"$transaction_lock"
+wait_started=$(date +%s)
+if ! flock -w "$GARDEN_REPO_LOCK_WAIT" "$transaction_fd"; then
+  retryable_exit "WARN: timed out after $(( $(date +%s) - wait_started ))s (limit ${GARDEN_REPO_LOCK_WAIT}s) waiting for the review-docket transaction lock; $(lock_holder_report "$transaction_lock")"
+fi
+waited=$(( $(date +%s) - wait_started ))
+# Everything done under the lock, spool drain included, ends by this deadline,
+# so a waiter that entered when we did never outlasts its own wait.
+lock_deadline=$(( $(date +%s) + GARDEN_REPO_LOCK_WAIT ))
+[ "$waited" -lt 30 ] || log "waited ${waited}s for the review-docket transaction lock"
+printf 'pid=%s op=%s target=%s since=%s\n' "$$" "$operation" "${ARGS[0]:--}" "$(date -u +%FT%TZ)" \
+  > "$transaction_lock.holder"
+release_holder() {
+  cleanup
+  if [ "$(sed -n 's/^pid=\([0-9]*\) .*/\1/p' "$transaction_lock.holder" 2>/dev/null)" = "$$" ]; then
+    rm -f "$transaction_lock.holder"
+  fi
+}
+trap release_holder EXIT
+drain_spool
+rc=0; run_transaction "$GARDEN_REVIEW_DOCKET_NOW" "$operation" "${ARGS[@]}" || rc=$?
+case "$rc" in
+  0) exit 0 ;;
+  124) retryable_exit "the $operation transaction exceeded the ${GARDEN_REPO_LOCK_WAIT}s lock window and was killed" ;;
+  "$GARDEN_OFFLINE_RC") retryable_exit "the $operation transaction could not reach the journal" ;;
+  *) exit "$rc" ;;
+esac
