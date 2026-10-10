@@ -16,3 +16,13 @@ Milestone: -
 On promotion, first verify that the PR is still OPEN and not draft. If it has merged, closed, or gone draft, complete this job as a no-op. Otherwise run:
 
 `scripts/jobs/post-gauntlet.sh --arc unallocated endojs-endo-but-for-bots-pr1156-gauntlet-20261007 https://github.com/endojs/endo-but-for-bots/pull/1156`
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T04:39:24Z
