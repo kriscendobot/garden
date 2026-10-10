@@ -21,3 +21,13 @@ conflicts, force-push, and move the PR base (skills/frozen-base-branch). Keep it
 GARDEN_YARN=npm. If the conflict set is too large to finish in one session, commit and push
 progress on a work branch and report exactly what remains rather than exiting silently. Report
 whether the rebased head builds and tests green; the supervisor stages the gauntlet next tick.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-10T03:09:30Z
