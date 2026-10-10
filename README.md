@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-10T22:44:05Z_
+_As of 2026-10-10T22:45:39Z_
 
 ## Latest
 
@@ -1036,7 +1036,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 136.0M | $602.96 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Claude | 136.1M | $604.00 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 1.5M _(+34.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106392913 tokens/day lower bound._
@@ -1045,8 +1045,9 @@ _Fleet token-unlock pace: 106392913 tokens/day lower bound._
 worst fetch p95 4.090503s/45s (/home/kris/garden/.garden-state/screening-control/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
+- [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #171
 - [`scholar-ingest-literate-ai-remainder-4-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-literate-ai-remainder-4-20261010.md) — Continue the Literate AI ingest at docs/architecture/retained-library-binding...
 - [`kriscendobot-minion.town-pr176-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr176-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #176
 - [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #94
