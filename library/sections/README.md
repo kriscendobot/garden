@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7345 (530 parent indexes + 6815 children).
+Total section files: 7365 (530 parent indexes + 6835 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8481,6 +8481,38 @@ Total section files: 7345 (530 parent indexes + 6815 children).
 - [literate-ai--docs-architecture-html-observability--health-history-and-dashboard-views](literate-ai--docs-architecture-html-observability--health-history-and-dashboard-views.md)
 - [literate-ai--docs-architecture-html-observability--identity-without-self-reference](literate-ai--docs-architecture-html-observability--identity-without-self-reference.md)
 - [literate-ai--docs-architecture-html-observability--single-file-network-and-failure-boundaries](literate-ai--docs-architecture-html-observability--single-file-network-and-failure-boundaries.md)
+
+### literate-ai--docs-architecture-mission-specification-composition
+
+- [literate-ai--docs-architecture-mission-specification-composition--common-language-in-skills](literate-ai--docs-architecture-mission-specification-composition--common-language-in-skills.md)
+- [literate-ai--docs-architecture-mission-specification-composition--literate-markdown-provider](literate-ai--docs-architecture-mission-specification-composition--literate-markdown-provider.md)
+- [literate-ai--docs-architecture-mission-specification-composition--refinement-contradiction-and-authoring-boundary](literate-ai--docs-architecture-mission-specification-composition--refinement-contradiction-and-authoring-boundary.md)
+- [literate-ai--docs-architecture-mission-specification-composition--three-relations](literate-ai--docs-architecture-mission-specification-composition--three-relations.md)
+- [literate-ai--docs-architecture-mission-specification-composition--vfi-tier-mapping](literate-ai--docs-architecture-mission-specification-composition--vfi-tier-mapping.md)
+
+### literate-ai--docs-architecture-monorepo-adoption
+
+- [literate-ai--docs-architecture-monorepo-adoption--descriptor-custody-consent-and-acceptance](literate-ai--docs-architecture-monorepo-adoption--descriptor-custody-consent-and-acceptance.md)
+- [literate-ai--docs-architecture-monorepo-adoption--root-selection-and-shared-custody](literate-ai--docs-architecture-monorepo-adoption--root-selection-and-shared-custody.md)
+- [literate-ai--docs-architecture-monorepo-adoption--staging-and-per-component-qualification](literate-ai--docs-architecture-monorepo-adoption--staging-and-per-component-qualification.md)
+
+### literate-ai--docs-architecture-nvidia-library-discovery
+
+- [literate-ai--docs-architecture-nvidia-library-discovery--admission-record](literate-ai--docs-architecture-nvidia-library-discovery--admission-record.md)
+- [literate-ai--docs-architecture-nvidia-library-discovery--desired-behavior-and-ownership](literate-ai--docs-architecture-nvidia-library-discovery--desired-behavior-and-ownership.md)
+- [literate-ai--docs-architecture-nvidia-library-discovery--first-realization-and-qualification](literate-ai--docs-architecture-nvidia-library-discovery--first-realization-and-qualification.md)
+- [literate-ai--docs-architecture-nvidia-library-discovery--initial-candidate-inventory](literate-ai--docs-architecture-nvidia-library-discovery--initial-candidate-inventory.md)
+
+### literate-ai--docs-architecture-ova-model-evaluation
+
+- [literate-ai--docs-architecture-ova-model-evaluation--build-acceptance-and-workflow-provenance](literate-ai--docs-architecture-ova-model-evaluation--build-acceptance-and-workflow-provenance.md)
+- [literate-ai--docs-architecture-ova-model-evaluation--domain-coupling-resolver-and-vocabulary](literate-ai--docs-architecture-ova-model-evaluation--domain-coupling-resolver-and-vocabulary.md)
+- [literate-ai--docs-architecture-ova-model-evaluation--extraction-decision-matrix](literate-ai--docs-architecture-ova-model-evaluation--extraction-decision-matrix.md)
+- [literate-ai--docs-architecture-ova-model-evaluation--identities-evidence-and-cache-immutability](literate-ai--docs-architecture-ova-model-evaluation--identities-evidence-and-cache-immutability.md)
+- [literate-ai--docs-architecture-ova-model-evaluation--readiness-and-conclusion](literate-ai--docs-architecture-ova-model-evaluation--readiness-and-conclusion.md)
+- [literate-ai--docs-architecture-ova-model-evaluation--scope-and-verdict](literate-ai--docs-architecture-ova-model-evaluation--scope-and-verdict.md)
+- [literate-ai--docs-architecture-ova-model-evaluation--settings-publication-self-hosting-and-lifecycle](literate-ai--docs-architecture-ova-model-evaluation--settings-publication-self-hosting-and-lifecycle.md)
+- [literate-ai--docs-architecture-ova-model-evaluation--what-ova-got-right](literate-ai--docs-architecture-ova-model-evaluation--what-ova-got-right.md)
 
 ### literate-ai--docs-architecture-production-containment-threat-model
 
