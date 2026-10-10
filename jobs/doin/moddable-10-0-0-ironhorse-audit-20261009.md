@@ -20,3 +20,13 @@ For each item, assign exactly one of: `already-conformant`, `needs-port`, `not-a
 Items to cover: immutable ArrayBuffer; Math.round subnormals; charAt/charCodeAt 32-bit position truncation; setFromHex bounds-vs-odd-length order; revoked Proxy IsCallable; TypedArray set/fill/constructor/species ordering and detached checks; String repeat/replace/search edge cases; Symbol.for no-arg; Array.from ToLength and iterator-callable order; Reflect.apply/construct argument-read order; Object.prototype.toString Symbol.toStringTag through a handler; Array.fromAsync non-object next; ArrayBuffer resize rejection order; Set methods size over 2^31-1; Atomics.wait leak/deadlock; Math.irandom integer math; SyntaxError for functions over 65535 scope slots; switch labelled break/continue stack leak; and the String.prototype.replace capture-group memory-safety fix.
 
 The completion report is the durable audit artifact for the synthesis job. Use a compact evidence table and end with a provisional grouping of actual port candidates, but do not create code or implementation jobs.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T00:27:46Z
