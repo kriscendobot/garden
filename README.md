@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T02:04:46Z_
+_As of 2026-10-10T02:13:52Z_
 
 ## Latest
 
@@ -223,12 +221,11 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-09T18:02:55Z, latest 2026-10-10T02:03:52Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-09T18:02:55Z, cleared 2026-10-10T02:08:17Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden2-5bcdff64 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 1 source(s); they post no acknowledgments while it holds.
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3697s (since 2026-10-10T01:02:14Z)
+> Comment acknowledgment condition cleared.
 
 - `20261009T111207Z-dff0cb` — from triager:kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261009T111207Z-dff0cb.md)
 
@@ -352,6 +349,19 @@ Delegation: **active**
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=3558506 cap=180000000 pace-bias=0.423764 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=4 backoff=0.6781(ramp) target=4
 
+- `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume
+> orchestration-status: halted
+> child: moddable-10-0-0-ironhorse-audit-20261009
+> failure-kind: handler-timeout
+> children-completed: 0
+> children-total: 2
+> halt-parked-remainder: moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
+>
+> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume HALTED: child moddable-10-0-0-ironhorse-audit-20261009 stalled in flight for 2583s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
+
 - `doomed-review-docket-consolidate-20261008-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-review-docket-consolidate-20261008-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden2-5bcdff64.
@@ -409,6 +419,19 @@ Delegation: **active**
 > post-outage restore). Every unit that trips the limit folds into THIS one notice
 > rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
 > provider quota exceeded while running garden-triager@kriscendobot-minion.town. Observed: You've hit your weekly limit · resets 3am (UTC) — the responder could NOT diagnose garden-triager@kriscendobot-minion.town (rc=1); its capture is blob 4421fe70430212905f5469a14f22e0d832992939 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 4421fe70430212905f5469a14f22e0d832992939).
+
+- `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-child-moddable-10-0-0-ironhorse-audit-20261009-failed` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-child-moddable-10-0-0-ironhorse-audit-20261009-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-child-moddable-10-0-0-ironhorse-audit-20261009-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume
+> orchestration-status: running
+> child: moddable-10-0-0-ironhorse-audit-20261009
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 2583s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1)
+>
+> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume observed child moddable-10-0-0-ironhorse-audit-20261009: stalled in flight for 2583s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1).
 
 - `review-docket-20261008-halted` — from orchestrator:review-docket-20261008-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-halted.md)
 
@@ -637,21 +660,20 @@ worst fetch p95 3.620414s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-e8518a2f-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #94
 - [`oros-health-watch-20261010-010508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261010-010508.md) — ---
 - [`claude-on-minion-town-press-20261010-010508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261010-010508.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #174
-- [`moddable-10-0-0-ironhorse-audit-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-audit-20261009.md) — IronHorse conformance audit for Moddable SDK 10.0.0
 
-### tada (12032)
+### tada (12034)
+- [`moddable-10-0-0-ironhorse-port-plan-20261009-split-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume.md) — orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume — HALTED
+- [`moddable-10-0-0-ironhorse-audit-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-ironhorse-audit-20261009.md) — IronHorse conformance audit against the Moddable SDK 10.0.0 XS fixes
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5.md) — Cost
 - [`moddable-10-0-0-xs-source-inventory-20261009-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-source-inventory-20261009-split.md) — orchestration moddable-10-0-0-xs-source-inventory-20261009-split — complete
 - [`moddable-10-0-0-xs-inventory-part-b-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-inventory-part-b-20261009.md) — Moddable 10.0.0 XS inventory, part b: completion report
-- [`minion-town-arc-press-20261009-235009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/minion-town-arc-press-20261009-235009.md) — Cost
-- [`moddable-10-0-0-xs-inventory-part-a-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-inventory-part-a-20261009.md) — Engine semantics
-- … and 12027 more
+- … and 12029 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
