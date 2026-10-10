@@ -1,4 +1,5 @@
 ---
+child-scholar-ingest-literate-ai-next-slice-20261010-host: oros-studio-garden-ce242c49
 child-scholar-ingest-literate-ai-next-slice-20261010-reap-count: 0
 child-scholar-ingest-literate-ai-architecture-next-20261010-host: endolin-garden-ece02cb4
 child-scholar-ingest-literate-ai-architecture-next-20261010-reap-count: 0
