@@ -1,0 +1,25 @@
+---
+title: OVA evaluation: eight things OVA got right
+source: docs/architecture/ova-model-evaluation.md
+source_repo: jordanhubbard/literate-ai
+source_commit: fcc40bc617a2bc2455627db7396a1e016ebfbab6
+source_date: 2026-09-29
+source_authors: [Jordan Hubbard]
+ingested: 2026-10-10
+ingested_by: scholar
+topics: [agentic-sdlc, llm-agent-frameworks]
+status: current
+---
+
+> Abstract: The evaluation credits OVA with eight invariants worth keeping: generated applications are Components; specs are full-content, digest-checked generation inputs; source knowledge is revision-bound evidence; generation is staged and contract-bearing; model routing is explicit, portable Component policy; empty local caches and explicit publication are first-class; samples carry executable architectural meaning; and security design separates authenticity from safety (planned, not yet implemented).
+
+1. **A generated application is a Component.** `OvaComponentSpec`, `CachedOvaComponent`, `ComponentSourceLock`, and the registry make generated applications discoverable alongside framework and catalog inputs, enabling recursive composition (the core reason OVA can eventually be built in OVA). The general framework must keep this while separating a Component's logical identity from its immutable revisions and machine-local projections.
+2. **Specifications are generation inputs, not documentation afterthoughts.** Every v2 manifest names canonical OpenSpec capability or active-change files; `OpenSpecArtifactLoader` loads their complete contents, records digests in the file plan and provenance, and rechecks them immediately before acceptance. The TOCTOU check and full-content binding are worth retaining. The journal mechanism (`ComponentSpecJournal`) needs redesign: prompt events should be immutable provenance records with an OpenSpec projection, not comments injected into one proposal file.
+3. **Source knowledge is revision-bound evidence.** OVA refuses model queries until `ComponentSourceLock` and `CodeGraphIndexLock` agree on revision and digest. `CodeEvidence` carries source, index, query, content, symbol, and location identities, and `EvidencePolicy` rechecks them at API contract, plan, and generated-file boundaries. The exact-source/index/evidence barrier should be a framework invariant, with CodeGraph as the first implementation of a general knowledge-index port.
+4. **Generation is staged and contract-bearing.** `SourceGroundedGenerator.generate()` resolves composition, assembles vocabulary, retrieves evidence, creates API contracts and an evidence-bound file plan, generates files, validates staged output, performs bounded evidence-assisted repair, checks spec drift, accepts output, and writes provenance. The stages and typed transition records are strong; the fixed stage names and single orchestrator method are not. The neutral system needs a versioned workflow definition whose default code workflow contains these stages.
+5. **Model policy belongs to the Component.** `ModelEndpoint`, `ModelGroup`, `ModelStageSelector`, and `ComponentModelSelector` make routing explicit and portable: versioned, digestible groups; selectors over capabilities, locality, context size, cost, providers, and fallback; exact decisions written to provenance; credentials as indirect environment references never rendered or persisted. This should become workflow-stage policy rather than requiring OVA's four stages in every Component schema.
+6. **Empty local caches and explicit publication are first-class.** `ComponentFinder`, `ComponentSourceCache`, `CodeGraphIndexManager`, and `ComponentCacheStore` support local, per-user fault-in; source packages carry forward dependencies, artifact packages carry the selected dependency package mapping, and the linker resolves a closure. `SourceCachePublicationService` is separate from cache readiness and publication is explicit by default, which is essential for offline, private, and single-user workflows.
+7. **Samples carry executable architectural meaning.** The sample ladder (simple, intermediate, advanced, composed, self-hosting) makes each sample a Component with specs, a pinned skill, a model selector, requirements, acceptance criteria, and an entrypoint; strict OpenSpec validation and a sample checker turn the playground into conformance input. The neutral framework should adopt the pattern with software-neutral scenarios; OVA-specific samples stay in OVA as downstream integration tests.
+8. **The security design separates authenticity from safety.** The plan states that authoritative signatures establish origin and integrity but not safe behavior, and proposes quarantine, scanning, classification locks, dependency-risk propagation, compiler enforcement, audit, and a non-default identity-scoped expiring `yolo` policy. This belongs in the general framework, but it is not implemented in the baseline and must remain described as planned until adversarial tests prove it.
+
+Source: [docs/architecture/ova-model-evaluation.md](https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/ova-model-evaluation.md) at commit `fcc40bc`.
