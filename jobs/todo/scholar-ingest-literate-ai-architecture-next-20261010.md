@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: scholar-ingest-literate-ai-remainder-2-20261010-split
-priority: normal
 role: scholar
-posted_by: orchestrator
-posted_at: 2026-10-10T19:57:41Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-10T20:37:13Z cleared=none -->
 
 ---
 tier: mentor
