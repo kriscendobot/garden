@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7281 (530 parent indexes + 6751 children).
+Total section files: 7296 (530 parent indexes + 6766 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8400,6 +8400,36 @@ Total section files: 7281 (530 parent indexes + 6751 children).
   - [Abstract](kriskowal-com--giants--overview--abstract.md)
   - [Body](kriskowal-com--giants--overview--body.md)
   - [Vocabulary established by this essay](kriskowal-com--giants--overview--vocabulary-established-by-this-essay.md)
+
+### literate-ai--docs-architecture-authoring-and-record-formats
+
+- [literate-ai--docs-architecture-authoring-and-record-formats--intent-and-evidence-boundary](literate-ai--docs-architecture-authoring-and-record-formats--intent-and-evidence-boundary.md)
+- [literate-ai--docs-architecture-authoring-and-record-formats--skills-and-flavors](literate-ai--docs-architecture-authoring-and-record-formats--skills-and-flavors.md)
+- [literate-ai--docs-architecture-authoring-and-record-formats--workflow-catalogs-and-round-trips](literate-ai--docs-architecture-authoring-and-record-formats--workflow-catalogs-and-round-trips.md)
+
+### literate-ai--docs-architecture-component-execution-plans
+
+- [literate-ai--docs-architecture-component-execution-plans--bounded-incremental-generation](literate-ai--docs-architecture-component-execution-plans--bounded-incremental-generation.md)
+- [literate-ai--docs-architecture-component-execution-plans--lifecycle-and-build-boundary](literate-ai--docs-architecture-component-execution-plans--lifecycle-and-build-boundary.md)
+- [literate-ai--docs-architecture-component-execution-plans--per-component-planning](literate-ai--docs-architecture-component-execution-plans--per-component-planning.md)
+
+### literate-ai--docs-architecture-design-traceability
+
+- [literate-ai--docs-architecture-design-traceability--authority-evidence-matrix](literate-ai--docs-architecture-design-traceability--authority-evidence-matrix.md)
+
+### literate-ai--docs-architecture-domain-model
+
+- [literate-ai--docs-architecture-domain-model--bidirectional-authoring](literate-ai--docs-architecture-domain-model--bidirectional-authoring.md)
+- [literate-ai--docs-architecture-domain-model--components-flavors-and-locks](literate-ai--docs-architecture-domain-model--components-flavors-and-locks.md)
+- [literate-ai--docs-architecture-domain-model--hexagonal-authority-boundary](literate-ai--docs-architecture-domain-model--hexagonal-authority-boundary.md)
+- [literate-ai--docs-architecture-domain-model--workflow-acceptance-and-receipts](literate-ai--docs-architecture-domain-model--workflow-acceptance-and-receipts.md)
+
+### literate-ai--readme
+
+- [literate-ai--readme--authority-and-evidence](literate-ai--readme--authority-and-evidence.md)
+- [literate-ai--readme--lifecycle](literate-ai--readme--lifecycle.md)
+- [literate-ai--readme--overview-and-premise](literate-ai--readme--overview-and-premise.md)
+- [literate-ai--readme--scope-and-containment](literate-ai--readme--scope-and-containment.md)
 
 ### mastodon-docs
 
