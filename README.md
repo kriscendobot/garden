@@ -1,24 +1,10 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T02:54:37Z_
+_As of 2026-10-10T03:01:25Z_
 
 ## Latest
 
-No board transitions were recorded since the last bulletin, but several items need the maintainer.
-
-- **Rolling deploy halted.** The canary `oros-studio-garden-ce242c49` failed validation of `b46afcb` three times. The roll has stopped, and the canary is still drained and stuck on `2e8aedf`. The leader has not advanced, and the roll won't resume until someone investigates `garden-self-deploy` on that host, lifts the drain and re-triggers.
-- **minion.town screening is paused.** [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged, but its deploy failed. The heal job found that production was not broken: the hosted Actions billing block left the deploy run with no runner. Delegation stays paused until a main deploy succeeds. A merge job for [minion.town#175](https://github.com/kriscendobot/minion.town/pull/175), which moves deploy onto the ci.minion.town runner, has since completed. The proxy screened [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) again at 08:46Z.
-- **Three orchestrations halted:**
-  - `orch-minion-town-oauth-bonds`: the build child reported its gated outcome as unsatisfied.
-  - `orch-jev-triage-foreman`: blocked because `TYPESAFE_API_KEY` is missing from the job environment.
-  - `review-docket-20261008`: the consolidation child was doomed and is held in plan until someone runs `promote-plan.sh`.
-- **Claude spend is over quota.** The `claude-endolin2` subscription is at 124% and in backoff.
-- **Waiting on the maintainer:**
-  - The ocap.site domain becomes transferable around 19:55Z today. Its DNSSEC chain stays broken until either the transfer completes or the registrar (Key-Systems) publishes the DS record.
-  - The temporary sysop drop-in on oros needs manual removal once `96a2b4c` deploys there.
-  - [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) has a new head that the earlier panel review doesn't cover. The maintainer can review it with that gap stated, or ask for the gauntlet to be run again.
+The only board movement since the last bulletin is the close-out of the Moddable SDK 10.0.0 to IronHorse port-plan orchestration (`moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume`). It moved to tada as **halted**. Its one child, the port-plan synthesis, ran 2612s on endolin-garden-ece02cb4 against the 2400s handler budget. This is the third halt on handler timeout in a row for this plan, after the source-inventory and audit stages. Re-running it as it stands won't help: it needs to be split into smaller stages or run detached. On minion.town, [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) merged and deployed cleanly. The screening delegation is still paused after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169), because of the kriscendobot Actions billing block, not a code fault. The heal job is waiting on your choice: resume by hand, move CD to ci.minion.town, or wait for the reset around 10-30. The oros-studio canary is back and its offline condition has cleared. The earlier failed canary roll on fad05c5 also still awaits your decision.
 
 ## Maintainer review docket
 
@@ -68,6 +54,19 @@ Delegation: **active**
 - `watchdog-handler-budget-overrun-moddable-10-0-0-ironhorse-port-plan-20261009` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-moddable-10-0-0-ironhorse-port-plan-20261009.md)
 
 > gardener job 'moddable-10-0-0-ironhorse-port-plan-20261009' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2404s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume
+> orchestration-status: halted
+> child: moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
+> failure-kind: handler-timeout
+> children-completed: 0
+> children-total: 1
+> halt-parked-remainder: 
+>
+> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume HALTED: child moddable-10-0-0-ironhorse-port-plan-synthesis-20261009 stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/1 done before halt; parked remainder: none
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -148,6 +147,19 @@ Delegation: **active**
 - `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
 
 > subscription claude-endolin1 changed zone ok -> backoff at spend=278190174/271000000.
+
+- `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-child-moddable-10-0-0-ironhorse-port-plan-synthesis-20261009-failed` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-child-moddable-10-0-0-ironhorse-port-plan-synthesis-20261009-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-child-moddable-10-0-0-ironhorse-port-plan-synthesis-20261009-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume
+> orchestration-status: running
+> child: moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1)
+>
+> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume observed child moddable-10-0-0-ironhorse-port-plan-synthesis-20261009: stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
 
 - `watchdog-comment-ack-latency-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-kriscendobot-garden.md)
 
@@ -658,10 +670,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 209.0M | $1463.33 _(notional, rate-card)_ | 124% of 168.0M (ok) |
-| Codex | 19.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 145.9k | $0.95 _(notional, rate-card)_ | 0% of 168.0M (backoff) |
+| Codex | 19.9M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 127183753 tokens/day lower bound._
+_Fleet token-unlock pace: 97705756 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.667825s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
@@ -678,13 +690,13 @@ worst fetch p95 2.667825s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #94
 
-### tada (12035)
+### tada (12036)
+- [`moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume.md) — orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resum...
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-panel-6.md) — Cost
 - [`moddable-10-0-0-ironhorse-port-plan-20261009-split-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume.md) — orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume — HALTED
 - [`moddable-10-0-0-ironhorse-audit-20261009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-ironhorse-audit-20261009.md) — IronHorse conformance audit against the Moddable SDK 10.0.0 XS fixes
 - [`kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/kriscendobot-minion-town-pr94-screen-269fdc5d-gauntlet-fix-5.md) — Cost
-- [`moddable-10-0-0-xs-source-inventory-20261009-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/moddable-10-0-0-xs-source-inventory-20261009-split.md) — orchestration moddable-10-0-0-xs-source-inventory-20261009-split — complete
-- … and 12030 more
+- … and 12031 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -740,7 +752,54 @@ worst fetch p95 2.667825s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr1061-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1061-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1146-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1146-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1156-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1156-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1349-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1355-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1355-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1381-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1381-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1403-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1403-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr179-address-review-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr179-address-review-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr249-address-review-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr249-address-review-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr266-address-review-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr266-address-review-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr283-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr283-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr289-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr289-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr305-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr305-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr306-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr306-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr311-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr311-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr318-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr318-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr319-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr319-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr320-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr320-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr321-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr321-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr322-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr322-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr324-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr324-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr344-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr344-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr346-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr346-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr348-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr348-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr350-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr350-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr356-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr357-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr357-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr359-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr359-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr360-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr360-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr389-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr389-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr508-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr508-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr546-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr546-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr554-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr554-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr555-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr555-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr599-address-review-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr599-address-review-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr762-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr762-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr764-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr764-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr779-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr779-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr825-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr825-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-endo-pr2-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-endo-pr2-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-finbot-pr7-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-finbot-pr7-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr130-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr130-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr37-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-vattr97-pr1-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-vattr97-pr1-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1349-review-a794b43f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1349-review-a794b43f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1349 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1381-review-a6b93d7a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1381 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1389 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
