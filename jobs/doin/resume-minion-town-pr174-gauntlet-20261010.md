@@ -24,3 +24,13 @@ Do exactly this, from your job worktree on main2:
 (On a host with slow journal clones, export GARDEN_REPO_GIT_TIMEOUT=900 first.) If it refuses,
 report the exact output and stop; do not hand-edit the gauntlet record. Pinned off
 oros-studio, whose journal clone livelocked the same command at 00:17Z on 2026-10-10.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T00:31:25Z
