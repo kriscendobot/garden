@@ -1,19 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T16:39:41Z_
+_As of 2026-10-10T16:44:10Z_
 
 ## Latest
 
-The big movement this cycle was budget and planning. The weekly accountant run confirmed the 610M slate for the week of 10-10 and acted on the proxy's tentative answers. It posted two planning jobs for the idle minion.town arcs: git-remote increments (`plan-minion-town-git-remote-increments-20261010`, building on the merged-but-undeployed [minion.town#86](https://github.com/kriscendobot/minion.town/pull/86)) and the clip gutter (`plan-minion-town-clip-gutter-20261010`, now claimed). It also posted `build-accountant-statement-unattributed-share`. If those arcs still have no plans by 10-17, their share moves to the endo-ocapn-background arc. A scholar ingest of Literate AI finished, with a comparison published at [garden#123](https://github.com/kriscendobot/garden/issues/123), and a remainder job is now running.
+The main change is on the minion.town arc. The accountant confirmed the 610M weekly slate and acted on the proxy's reply. It posted two designer jobs, one for the git-remote increments and one for the clip gutter. The clip-gutter plan finished and parked its increments in the plan queue: labels, live refresh, mint, reorder, and the iframe embed design, headers, and live-frame steps. The git-remote plan is still in progress. It also posted `build-accountant-statement-unattributed-share`. The scholar published its Literate AI comparison as [garden#123](https://github.com/kriscendobot/garden/issues/123). One source in the remainder was held by the foreign-content gate as an uncertain injection risk.
 
-Several things need a maintainer:
-- **minion.town screening is paused.** The [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) deploy failure was the Actions billing block, not a production break. The heal job found no runner and zero steps. The delegation stays paused until a green deploy. Your options are to resume it by hand, authorize moving CD onto the ci.minion.town runner, or wait for the billing reset.
-- **minion.town gauntlets hit their round limits.** The gauntlet for [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after its panel stage failed three times, with a resume command offered. The gauntlet for [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) hit its review budget at 2/2 rounds. The panel stages for both are queued again. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) also have stale panel coverage and need your review decision.
-- **The ironhorse port-plan orchestrations halted.** Handler timeouts at about 2400s stopped three nested attempts, and the watchdog says to split the work into smaller stages. The `endojs-endo-but-for-bots-pr179-weave-20261010` weave overran its budget the same way.
-- **Fleet health.** The rolling deploy has no canary. The oros host recovered and rejoined, but endolin-garden2 has been offline for about 12.7 hours. The Jev triage trial is blocked on the missing `TYPESAFE_API_KEY`.
-- **The ocap.site DNSSEC DS record is still unpublished.** The 60-day transfer window opened on 10-09.
+These items need a maintainer decision:
+- **minion.town deploys:** CD is blocked by the kriscendobot Actions billing block, so [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) is merged but undeployed. Screening is paused until a green main deploy. The options are to resume by hand, move CD onto the `ci.minion.town` runner, or wait for the reset.
+- **Gauntlets:** the [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) gauntlet halted after its panel stage failed three times. The [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) gauntlet hit its review budget. Each message carries a resume command with `--add-rounds`. The panel coverage for #174 and [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) is stale against their current heads.
+- **Fleet health:**
+  - `oros-studio` heartbeat has resumed, but its canary for 61a16d25 had halted after retries.
+  - `endolin-garden2` has been offline for about 12.5 hours.
+  - The leader is holding because there is no healthy canary.
+  - The leader's journal worktree is about 2 hours stale.
+- **Timeouts:** the Moddable 10.0.0 IronHorse port-plan orchestration halted on handler timeouts. Two other jobs overran their 2400s handler budget and need splitting: the same port-plan synthesis child and `endojs-endo-but-for-bots-pr179-weave-20261010`.
+- **Other halts:** the review-docket consolidation is parked and its orchestration halted. The OAuth-bonds and Jev triage orchestrations also halted. The Jev trial needs `TYPESAFE_API_KEY`.
+- **Quota:** `claude-endolin1` and `claude-endolin2` both entered backoff.
+- **ocap.site:** DNSSEC is still unpublished at the registrar. The 60-day transfer window opened tonight.
 
 ## Maintainer review docket
 
@@ -86,6 +90,10 @@ Delegation: **active**
 > halt-parked-remainder: 
 >
 > Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume HALTED: child moddable-10-0-0-ironhorse-port-plan-synthesis-20261009 stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/1 done before halt; parked remainder: none
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.013088s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
@@ -261,6 +269,12 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` cleared on endolin-garden2-5bcdff64.
+
+- `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
+
+> Foreign-content gate halted ingestion of `docs/architecture/project-releases.md` from https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/project-releases.md.
+>
+> Classifier manifest: `classify_status=classified`, `classify_policy=halt_and_escalate`, `classify_injection=0.34`, `classify_injection_verdict=uncertain`, `classify_slant=neutral`, `classify_slant_confidence=1.0`, `classify_caveat=prompt-injection equipoise (p=0.34); uncertainty fails toward escalation`, model `jev-1.13.0`, usage 5,526 input and 71 output tokens. The fetched bytes are at `/tmp/scholar-literate-ai-remainder-20261010/docs/architecture/project-releases.md`. I did not read or ingest the flagged content and am continuing with the four sources that passed.
 
 - `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
 
@@ -815,18 +829,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.1M | $435.36 _(notional, rate-card)_ | 36% of 271.0M (ok) |
-| Codex | 1.2M _(+24.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 97.5M | $437.25 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Codex | 1.2M _(+25.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106292349 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journal); 5 open notice(s); checker healthy
+worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (12)
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #171
-- [`plan-minion-town-git-remote-increments-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/plan-minion-town-git-remote-increments-20261010.md) — Plan the next minion.town git-remote increments
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
 - [`build-accountant-statement-unattributed-share`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-accountant-statement-unattributed-share.md) — accountant-statement.sh: estimate unattributed spend per pool
 - [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #348
@@ -840,16 +853,16 @@ worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (2)
-- [`plan-minion-town-clip-gutter-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/plan-minion-town-clip-gutter-20261010.md) — Plan the minion.town clip gutter (UI arc)
+- [`plan-minion-town-git-remote-increments-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/plan-minion-town-git-remote-increments-20261010.md) — Plan the next minion.town git-remote increments
 - [`scholar-ingest-literate-ai-remainder-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-literate-ai-remainder-20261010.md) — Continue the literate-ai repository ingest
 
-### tada (12216)
+### tada (12217)
+- [`plan-minion-town-clip-gutter-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/plan-minion-town-clip-gutter-20261010.md) — Cost
 - [`accountant-weekly-20261010-160507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/accountant-weekly-20261010-160507.md) — Accountant weekly report: week of 2026-10-10 (Sat 03:00Z reset)
 - [`scholar-ingest-literate-ai-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/scholar-ingest-literate-ai-20261010.md) — Cost
 - [`endojs-endo-but-for-bots-pr353-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr353-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr353-gauntlet-20261007 — HALTED
 - [`endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007.md) — Cost
-- [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/endojs-endo-but-for-bots-pr348-gauntlet-20261007-fix-3.md) — Cost
-- … and 12211 more
+- … and 12212 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -926,6 +939,10 @@ worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`kriscendobot-finbot-pr7-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-finbot-pr7-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr37-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-vattr97-pr1-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-vattr97-pr1-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`minion-town-ui-gutter-clip-labels`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-clip-labels.md) — _normal_ · Gutter: real clip names and icons (minion-town-ui increment)
+- [`minion-town-ui-gutter-live-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-live-refresh.md) — _normal_ · Gutter: refresh the clip list without a reload (minion-town-ui increment)
+- [`minion-town-ui-gutter-reorder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-reorder.md) — _normal_ · Gutter: drag and keyboard reorder, persisted per owner (minion-town-ui increm...
+- [`minion-town-ui-iframe-embed-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-embed-design.md) — _normal_ · Iframe: design the clip embedding relaxation (minion-town-ui increment)
 - [`endojs-endo-but-for-bots-pr1349-review-a794b43f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1349-review-a794b43f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1349 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1381-review-a6b93d7a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1381 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1389 (primary: endojs-endo-but-...
@@ -936,14 +953,17 @@ worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
+- [`minion-town-ui-iframe-live-frame`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-live-frame.md) — awaiting `minion-town-ui-iframe-embed-headers` · Iframe: frame the live clip in the main pane (minion-town-ui increment)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`book-hyperlink-references-after-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-after-copyedit-20261004.md) — awaiting `https://github.com/kriscendobot/garden-book/pull/8` · Follow-up: make every reference in Better Code and Gardens an actual hyperlink
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
+- [`minion-town-ui-iframe-embed-headers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-embed-headers.md) — awaiting `minion-town-ui-iframe-embed-design` · Iframe: implement the approved embedding headers (minion-town-ui increment)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
+- [`minion-town-ui-gutter-mint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-mint.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/142` · Gutter: the + button mints a real clip (minion-town-ui increment)
 
 ## Watch set
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
