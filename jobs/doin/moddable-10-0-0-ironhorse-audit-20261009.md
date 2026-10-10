@@ -25,3 +25,13 @@ The completion report is the durable audit artifact for the synthesis job. Use a
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-10T00:43:04Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T01:23:00Z
