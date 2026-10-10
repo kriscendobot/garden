@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: #153 head moved; later screen gauntlet d55b01d0 completed and un-drafted it
+withdrawn_by: producer
+withdrawn_at: 2026-10-10T11:01:13Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 gauntlet: kriscendobot-minion-town-pr153-screen-0f485240-gauntlet
