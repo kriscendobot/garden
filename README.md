@@ -1,30 +1,32 @@
 # Garden bulletin
 
-_As of 2026-10-10T07:06:14Z_
+_As of 2026-10-10T07:08:37Z_
 
 ## Latest
 
-Board activity was quiet this cycle: the only new transition is a daily progress-summary job posted to todo. The attention items are in the messages.
+Nothing resolved at the job-board level this cycle, so the news is in the maintainer inbox.
 
-**Needs a person:**
-- **oros-studio-garden-ce242c49 went silent around 02:50Z.** An `oros-health-watch` message says its sysop is not acking and asks someone to check that the Mac is awake, Docker Desktop is running, and the VM or container is up. Its host-offline watchdog has since cleared and its heartbeat is back.
-- **The rolling deploy is still stuck.** The leader is holding because there is no healthy canary for `de3e1c46ce2e`. `endolin-garden2-5bcdff64` has been offline for about 2.5 hours. The oros canary was drained after retries were exhausted on `44bfcbe6`, and it now reports the newer `fad05c57`. Its drain still needs lifting and the deploy re-triggering.
-- **minion.town production is not broken by [#169](https://github.com/kriscendobot/minion.town/pull/169).** Its deploy failed only because of the Actions billing block, so it is simply undeployed. Screening is paused until a green main deploy. You can resume it by hand, authorize moving CD to the `ci.minion.town` runner, or wait for the billing reset (about 10-30).
-- **Two gauntlets hit their review budget** and need a human decision or `--add-rounds`. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used 6 of 6 rounds. [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used 2 of 2. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) also have panel coverage that no longer matches their current heads.
+**Needs you:**
+- **oros-studio host.** It went unreachable around 02:50Z, and a person at the machine needs to check the Mac, Docker Desktop and the VM. It has since resumed its heartbeat. Its canary is still marked failed, with retries exhausted on target 44bfcbe6.
+- **Roll blocked.** The leader holds on the rolling deploy because no follower can serve as a canary: endolin-garden2 has been offline for about 3.5 hours.
+- **minion.town production deploy.** The deploy from [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) failed on the Actions billing block, not on a code defect. Production still serves the earlier deploy. Screening stays paused until a green main deploy or your decision. The options are to resume by hand, move CD to the self-hosted runner, or wait for the billing reset.
+- **ocap.site DNSSEC.** The DS record is still unpublished. The registrar's 60-day transfer lock lifted around 2026-10-09T19:55Z, so you can now start the transfer or ask Key-Systems to add the DS.
 
-**Failed or stalled work:**
-- **The Moddable 10.0.0 IronHorse port-plan orchestrations all halted on handler timeouts.** Each hit the 2400s budget. The remedy is to split the work into smaller stages.
-- **The Jev triage trial is blocked** because `TYPESAFE_API_KEY` is missing from the job environment.
-- **`orch-minion-town-oauth-bonds` halted** on an unsatisfied gated outcome.
-- **The review-docket consolidation job is parked** after its retry failed.
+**Gauntlets:** two hit their review budget without converging, and both are left for your decision or an `--add-rounds` resume.
+- [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used 6/6 rounds.
+- [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used 2/2 rounds.
 
-**Also noted:**
-- The `kriscendobot-minion.town` triage circuit-breaker opened after 5 handler failures.
-- The leader's journal worktree was stale for about 2 hours.
-- Claude zones on both endolin hosts moved to backoff at 278M of 271M and 208M of 168M.
-- The ocap.site transfer window opened this evening. DNSSEC still needs a DS record published at the registrar.
+Stale panel coverage on the current head of [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166), [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) needs an explicit `run the gauntlet` or a review decision.
 
-**Completed:** the minion.town CI runner orchestrations finished, and the runner was verified healthy at main `50aa690`. [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) merged and its deploy was validated.
+**Halted orchestrations:**
+- The Moddable 10.0.0 IronHorse port-plan chain timed out repeatedly at the 2400s handler budget, so it needs splitting into smaller stages.
+- The Jev triage trial stopped because `TYPESAFE_API_KEY` is absent.
+- `orch-minion-town-oauth-bonds` halted when its build child declared its outcome unsatisfied.
+- The review-docket consolidation was doomed and is parked in plan.
+
+**Fixed:** the sysop ack-timeout fix landed as 96a2b4c6141. Once oros-studio deploys it, someone must remove the temporary sysop drop-in by hand.
+
+The minion.town CI-runner redeploy and unblock orchestrations completed.
 
 ## Maintainer review docket
 
@@ -388,11 +390,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #42 (first seen 2026-10-10T04:05:32Z, latest 2026-10-10T06:08:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 42 times; this is ONE
-> coalesced notice that updates in place, not 42 messages. Latest detail:
+> WATCHDOG notice — occurrence #62 (first seen 2026-10-10T04:05:32Z, latest 2026-10-10T07:08:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 62 times; this is ONE
+> coalesced notice that updates in place, not 62 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 9285s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 12885s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -761,7 +763,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.6M | $149.14 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.7M | $149.58 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 221.2k _(+8.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 104309077 tokens/day lower bound._
