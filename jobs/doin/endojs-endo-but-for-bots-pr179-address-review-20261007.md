@@ -21,3 +21,13 @@ Evidence: the reviewed commit is still the current head `2e3f4d030dab`; the curr
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-10T06:13:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T07:55:45Z
