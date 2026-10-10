@@ -36,3 +36,7 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 <!-- garden-annotation: key=pr1435-panel1 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-1 at=2026-10-10T07:46:34Z -->
 
 PR #1435 panel round 1 (design commit 7d2d6f8d12): also add the targeted Rust probes for the ten already-conformant rows the design table assigns to child 3 (charAt/charCodeAt, replace Proxy callability, index/search no-arg, Symbol.for no-arg, Array.from iterator order, Reflect.apply/construct order, Object.prototype.toString via handler, Array.fromAsync non-object next, Set large size, capture-group long second getter result). Math.round expected values: +0 for Number.MIN_VALUE, -0 for -Number.MIN_VALUE (from the spec, not the 8.3.1 oracle). Runs in parallel under moddable-10-0-0-ironhorse-ports.
+
+<!-- garden-annotation: key=pr1435-panel2 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-2 at=2026-10-10T09:38:41Z -->
+
+PR #1435 panel round 2: design rows are now ID'd. This child ports R04 (Math.round), R05 (repeat), R06 (Array.from ToLength/Construct) and probes R07 to R16. Also pin `Math.round(0.49999999999999994)` === +0 from the spec (the current floor(a + 0.5) form gives 1). R16 (capture-group) has a partner oracle check in child 6. When a specified result disagrees with the 8.3.1 oracle, list it in the PR as an expected oracle divergence; never change the engine toward the oracle.
