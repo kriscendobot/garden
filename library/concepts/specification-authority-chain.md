@@ -33,6 +33,8 @@ In a specification-authority chain, human-reviewable specifications and pinned p
 | [specs as product intent, skills as conversion practice](../sections/literate-ai--docs-architecture-mission-specification-composition--common-language-in-skills.md) | Agent-written glue is generated reasoning, not specification authority; glue that creates behavior or interfaces must come back as a proposed spec change. |
 | [structural gate versus semantic contradiction](../sections/literate-ai--docs-architecture-mission-specification-composition--refinement-contradiction-and-authoring-boundary.md) | Deterministic validation catches structure; semantic conflicts are surfaced by a pinned planning skill and resolved only by human approval, never "nearest wins". |
 | [OVA's digest-bound continuity chain](../sections/literate-ai--docs-architecture-ova-model-evaluation--scope-and-verdict.md) | The intent-to-reusable-Component chain in OVA is the ancestor of the Literate AI authority chain; extract its invariants rather than rename the code. |
+| [provider resolution in the lock](../sections/literate-ai--docs-architecture-provider-resolution--lock-and-plan-authority.md) | Provider choice is locked as a complete identity-bearing result repeated in every generation key, so a capability change stales the lock by identity, not timestamp. |
+| [inherited authority and its trust boundary](../sections/literate-ai--docs-architecture-repository-inheritance--trust-boundary-and-parent-checkouts.md) | Authority inherited from parent repositories is bound by exact commits, file hashes, and CAS guards; local bytes outrank inherited ones and inheritance never executes repository code. |
 
 ## See also
 
