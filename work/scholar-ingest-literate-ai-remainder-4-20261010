@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-10-10T23:14:02Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-scholar-ingest-literate-ai-remainder-4-20261010
