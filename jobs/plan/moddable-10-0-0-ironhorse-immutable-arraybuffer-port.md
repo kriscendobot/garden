@@ -34,3 +34,7 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 - Run the full engine workspace, complete bounded whole-tree sweep, sanitizer-enabled oracle capture-group long-result regression, five-host hardened262 matrix, SES boot suites, and snapshot suites.
 - Lose no previously covered case; investigate timeouts and separate policy changes from engine changes. Commit only generated artifacts justified by the recorded runs.
 - Open a draft implementation PR with exact-head evidence and link the design PR. Do not merge it or promote a ratchet floor.
+
+<!-- garden-annotation: key=pr1435-panel1-split by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-1 at=2026-10-10T07:46:12Z -->
+
+Scope narrowed by the PR #1435 panel round 1 (design commit 7d2d6f8d12): the oracle pin move, the `xs-oracle/build.rs` overlay re-audit, the hardened262 five-host matrix, the sanitizer capture-group oracle run, and the full candidate ratchet comparison moved to the new child `moddable-10-0-0-ironhorse-oracle-validation`. This job now covers ONLY the immutable ArrayBuffer feature: the native surface, write guards, detached/immutable precedence, snapshot persistence, SES-boot tests, and the measured `FROZEN_REALM_FORECLOSURE` update, with targeted Rust tests. Do NOT move `c/moddable`, regenerate the whole-tree expectations, or touch the hardened262 baselines. It now runs in parallel with children 1–4 under `moddable-10-0-0-ironhorse-ports` (`--parallel --on-child-failure continue`); it is not the final child. Size: L, 1.5–2 weeks.
