@@ -1,23 +1,34 @@
 # Garden bulletin
 
-_As of 2026-10-10T15:29:47Z_
+_As of 2026-10-10T15:33:17Z_
 
 ## Latest
 
-Gauntlet traffic was the only board movement this cycle. [endo-but-for-bots#348](https://github.com/endojs/endo-but-for-bots/pull/348) finished panel round 2 and has fix round 2 queued. [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) is now in fix round 5.
+The fleet is mostly in gauntlet and watchdog churn. The one item that needs a decision is production on minion.town.
 
-**Needs a decision:**
-- **minion.town#169 deploy:** [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) did not break production. The deploy failure is the kriscendobot Actions billing block, so the run got no runner and executed no steps. The screener paused the delegation and will resume only after a green main deploy. The options are to resume by hand, move CD onto the ci.minion.town runner, or wait for the billing reset.
-- **minion.town#174 gauntlet:** [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after panel round 7 exhausted its stage retries. The panel head is also stale. The gauntlet can resume with `--add-rounds`.
-- **Other minion.town gauntlets and stale heads:** [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) hit its review budget after 2 rounds. [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) also has a stale panel head.
-- **Fleet hosts:**
-  - garden2 has been offline for about 11.7 hours.
-  - The leader's rolling deploy is holding because no canary is available.
-  - The oros canary failed 3 times and was left drained. The oros host's heartbeat has since resumed.
-- **Stalled orchestrations:** The Moddable 10.0.0 IronHorse port-plan orchestration halted repeatedly on 2400s handler timeouts, and [endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179) weave overran the same budget. These jobs need splitting into claim-sized stages. The review-docket consolidation was doomed and parked in plan.
-- **Jev trial:** The trial is blocked because `TYPESAFE_API_KEY` is missing.
+**Production deploy block.** The delegated-PR screener is paused after [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) merged. Its `deploy.yml` run failed. The heal gardener found no production breakage. The failure came from the Actions billing block: the job got no runner and ran zero steps. Production still serves the earlier deploy, and #169 is simply undeployed. The screener stays paused until a green main deploy. The gardener offers three options:
+- Resume the delegation by hand.
+- Authorize moving CD onto the ci.minion.town runner.
+- Wait for the billing reset.
 
-Separately, ocap.site's DNSSEC DS record is still unpublished. The 60-day transfer window closed on 2026-10-09, so the registrar transfer or a DS request is your call. The Claude endolin accounts are in the backoff zone, so spend is being throttled.
+It also proposes teaching the screener to treat a no-runner deploy as billing-deferred, and will post that job if you say so.
+
+**Gauntlets.** The panel on [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) failed three times and exhausted its retries. Its report shows 7 of 7 rounds spent and $12.30 so far, with the must-fix list unavailable. It was halted and parked at panel round 7. A separate notice says it hit its 6-round review budget. [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) reached its 2-round budget and has panel round 4 queued. The messages give a resume command with `--add-rounds`. Stale-panel notices say the panel-reviewed head no longer matches the current head on [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166). No gauntlet was staged for either. A stale notice also stands for [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), whose fix round 5 is in flight.
+
+**Handler timeouts.** The Moddable 10.0.0 IronHorse port-plan orchestration halted three times, and each synthesis, audit and inventory child hit the 2400s handler limit. The `endojs-endo-but-for-bots-pr179-weave-20261010` job overran its budget twice. These jobs need splitting into smaller stages.
+
+**Hosts and deploys.**
+- The leader is holding its rolling deploy. oros-studio-garden-ce242c49 failed its canary after 3 retries, and the other follower, endolin-garden2-5bcdff64, has been offline for about 11.7 hours.
+- The oros host's heartbeat resumed, and its host-offline and canary-stuck alarms cleared.
+- The leader's journal worktree was reported about 2 hours stale, 139 commits behind.
+- A one-time manual step remains. After oros deploys `96a2b4c6141`, remove the temporary sysop drop-in there.
+
+**Stalled or blocked.**
+- The review-docket consolidation job was doomed and held in plan, which halted its orchestration.
+- The Jev triage trial is blocked because `TYPESAFE_API_KEY` is missing.
+- Two other orchestrations halted: `orch-minion-town-oauth-bonds` (its build child declared its outcome unsatisfied) and `orch-jev-triage-foreman` (the Jev trial child).
+
+**Other.** The ocap.site DNSSEC DS record is still unpublished. The 60-day transfer lock ends about 2026-10-09T19:55Z, and the next step is yours. The claude-endolin1 and claude-endolin2 subscriptions both went into backoff zones, and endolin1 has since recovered to ok.
 
 ## Maintainer review docket
 
@@ -793,10 +804,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.5M | $410.89 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 91.6M | $411.27 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 903.5k _(+19.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 100842456 tokens/day lower bound._
+_Fleet token-unlock pace: 101123187 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.084166s/45s (unknown); 5 open notice(s); checker healthy
