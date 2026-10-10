@@ -35,3 +35,13 @@ upstream. Search open issues first (`gh issue list --repo kriscendobot/garden --
 literate-ai`); if one already exists for this ingest, do not open a duplicate, report its
 URL instead. Do not label it for the issue-inbox watcher or address it to automation.
 Complete the job with the issue URL in the result and the usual maintainer digest.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-10T16:25:21Z
