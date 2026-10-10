@@ -1,34 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T17:51:17Z_
+_As of 2026-10-10T17:54:26Z_
 
 ## Latest
 
-Several minion.town gauntlets ran out of review rounds without converging, so those PRs now wait on a human decision. [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/pull/93) used all 4 rounds, with CI green and the fix round pushed. [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used 2 of 2. [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted at panel round 7 after the stage retry budget ran out on transient reaper failures. Each notice gives a `--add-rounds` resume command if you want more rounds. The panel reports carry no structured must-fix list, so the unaddressed must-fix items are unknown. [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) is in panel round 3, and [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) and [kriscendobot/minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) both have heads the earlier panel didn't cover. They need an explicit "run the gauntlet" or a review decision from you.
+The main thing to notice is that minion.town screening is paused. Merge 39867df of [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169) tripped a deploy.yml failure. The heal job found production unaffected: the failure was the Actions billing block, which left the job with no runner. Production still serves the #143 deploy, and #169 is simply undeployed. The delegation stays paused until the billing reset or until you act. Your options are to resume it by hand, authorize moving CD onto the ci.minion.town runner, or wait. The job also proposed a follow-up so the screener treats a no-runner deploy as billing-deferred. That follow-up needs your go-ahead.
 
-**minion.town deploys:** The delegation screener is paused. The deploy run for [kriscendobot/minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) failed because the kriscendobot Actions billing block left it with no runner. Production is fine and still serves the earlier deploy. The heal job found nothing to fix, so there is no heal PR. It auto-resumes only after a green main deploy. Your options are to resume it by hand, move CD onto the ci.minion.town runner, or wait for the billing reset (expected around 10-30).
+Several minion.town gauntlets ran out of review rounds or halted. [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) and [minion.town#93](https://github.com/kriscendobot/minion.town/pull/93) hit their round budgets, so a human merge or review decision is left. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) halted after panel round 7 failed three times with transient reaper errors, and its stage is parked in `plan/`. Resume commands are in the inbox messages, where you pick how many rounds to add. Head-staleness notices also fired for [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403). Each needs a `run the gauntlet` request or an explicit review decision. On the board, a pre-spend viability stage was posted for [endo-but-for-bots#1436](https://github.com/endojs/endo-but-for-bots/pull/1436).
 
-**Fleet:**
-- **Offline hosts:** `endolin-garden2` has been offline for about 13.7 hours. `oros-studio-garden` went unreachable around 02:50Z. It has since come back and rejoined the canary rotation, so those watchdog alerts cleared.
-- **Rolling deploy:** It is holding the leader because no follower is online as a canary.
-- **Journal worktree:** The leader's journal worktree was stale and 139 commits behind origin, and it couldn't self-heal.
-- **Journal contention:** Lock contention is stacking up across the leader's clones, with 9 storm occurrences.
-- **Quota:** `claude-endolin1` crossed into backoff, then recovered. `claude-endolin2` is over its cap.
+Other stalls:
+- **Moddable 10.0.0 IronHorse port plan:** the split orchestrations halted on handler timeouts at 2400s, so the stages need to be split smaller.
+- **Review docket consolidation and Jev triage trial:** the consolidation job is parked in `plan/`, halting `review-docket-20261008` at 2 of 3 children. The Jev trial is blocked because `TYPESAFE_API_KEY` is missing from the job environment. The oauth-bonds orchestration also halted on an unsatisfied gated outcome.
 
-**Stuck jobs:**
-- **Moddable 10.0.0 port-plan orchestration:** It halted again on a handler timeout. The synthesis child and an earlier weave job both overran the 2400s budget and need splitting.
-- **Review-docket consolidation:** It was doomed and parked in plan, so the migration of everything onto the review docket is not done.
-- **Jev triage trial:** It is blocked because `TYPESAFE_API_KEY` is missing.
-- **OAuth-bonds build:** It halted on an unsatisfied gated outcome.
+Fleet health:
+- **Followers:** `endolin-garden2` has been offline about 13 hours, so the rolling deploy has no canary and is holding the leader. `oros-studio` recovered and its canary cleared.
+- **Journal:** the worktree on the leader went stale, 139 commits behind. There is also a lock-contention storm.
+- **Quota:** `claude-endolin1` and `claude-endolin2` entered backoff.
 
-**Waiting on you:**
-- **ocap.site DNSSEC:** The DS record is still unpublished. The 60-day transfer window has now passed, so you can start the registrar transfer or ask Key-Systems to add the DS.
-- **Literate AI scholar ingest:** The `project-releases.md` source was held by the foreign-content gate (injection score 0.34) and needs your clearance.
-- **Sysop drop-in on oros:** After 96a2b4c6141 deploys there, remove the temporary drop-in by hand. The sysop can't remove it remotely.
-
-**Accountant:** The 610M weekly slate is confirmed, and design jobs were posted for the idle minion.town arcs.
+The accountant confirmed the 610M weekly slate and posted planning jobs for the git-remote and clip-gutter arcs.
 
 ## Maintainer review docket
 
@@ -185,6 +174,61 @@ Delegation: **active**
 > - **Idle minion.town arcs 2 and 3:** Try a design/plan push first. Post a planning job for [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) (git-remote), so that arc 2 has ready plans for the foreman to draw on. For arc 3 (UI), post a plan job for the clip gutter next. Both are cheap and easy to throw away, and they use the idle slices. If no plans come out of this by the 10-17 reset, move the unused share to arc 4 (endo-ocapn-background) and say so in the next statement. I'd try this reallocation as a fallback, not a first move, because it changes the ranking.
 > - **Unattributed spend:** Keep the current approach. The pools' backoff is the real cap on non-foreman work, and the slices only limit the foreman. Add a line to next week's statement that estimates the unattributed share per pool, so it's easier to see.
 > - **Codex credit:** Spend the codex-endolin credit (it expires 10-29) mid-week, once the pool leaves backoff after the 10-13 window reset. Use it on arc 1 or arc 4 work, whichever has ready plans.
+
+- `doomed-kriscendobot-minion.town-pr174-gauntlet-panel-7-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr174-gauntlet-panel-7-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion.town-pr174-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/kriscendobot-minion.town-pr174-gauntlet-panel-7; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-minion.town-pr174-gauntlet-panel-7) or removes it, so nothing is lost.
+> Original job base: kriscendobot-minion.town-pr174-gauntlet-panel-7
+>
+> --- original job body ---
+> ---
+> role: gardener
+> arc: minion-town-mcp-ocapn
+> handler-budget-role: panel
+> handler-timeout: 10800
+> gauntlet: kriscendobot-minion.town-pr174-gauntlet
+> gauntlet_stage: panel
+> gauntlet_iteration: 7
+> pr: [https://github.com/kriscendobot/minion.town/pull/174](https://github.com/kriscendobot/minion.town/pull/174)
+> ---
+>
+> # Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
+>
+> You are ONE stage of a staged gauntlet (kriscendobot-minion.town-pr174-gauntlet). Run EXACTLY ONE panel round, post the
+> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion.town-pr174-gauntlet-panel-7 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/174 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 2. Run the panel in SINGLE-ROUND mode against that worktree:
+>    `GARDEN_PANEL_SINGLE_ROUND=1 \
+>      scripts/jobs/gardening/panel.sh <worktree> 174 <base-ref>`
+>    It fans the seats, aggregates, and prints its disposition as the terminal line's
+>    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
+> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/kriscendobot/minion.town/pull/174](https://github.com/kriscendobot/minion.town/pull/174) — the
+>    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
+>    review on must-fix, a comment/approve on pass).
+> 4. If panel.sh exits NON-ZERO it did NOT return a review verdict. A seat error, a
+>    decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
+>    failure, not a pass/must-fix decision. Do NOT report `orchestration-failed:
+>    true` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
+>    and emit the `panel=panel-error` marker: the driver then re-posts this panel
+>    round under its bounded stage-retry budget, exactly as it retries a doomed
+>    transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
+>    its own marker below — never panel-error.
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
+>   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
+>   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
 - `msg-scholar-ingest-literate-ai-20261010-583675689bd4` — from scholar:scholar-ingest-literate-ai-20261010, reply_to `scholar-ingest-literate-ai-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-20261010-583675689bd4.md)
 
@@ -855,7 +899,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.7M | $462.77 _(notional, rate-card)_ | 38% of 271.0M (ok) |
+| Claude | 103.8M | $463.44 _(notional, rate-card)_ | 38% of 271.0M (ok) |
 | Codex | 1.3M _(+30.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106511229 tokens/day lower bound._
@@ -864,9 +908,10 @@ _Fleet token-unlock pace: 106511229 tokens/day lower bound._
 worst fetch p95 10.119748s/45s (/home/kris/garden/.garden-state/accountant/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #171
 - [`minion-town-git-remote-live-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-git-remote-live-validation.md) — Validate the live git.minion.town capability-URL round trip
+- [`endojs-endo-but-for-bots-pr1436-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1436-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1436
 - [`endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr348-gauntlet-20261007-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #348
 - [`endojs-endo-but-for-bots-pr1435-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1435-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1435
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
