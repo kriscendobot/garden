@@ -1,4 +1,5 @@
 ---
+child-moddable-10-0-0-ironhorse-audit-20261009-failure-notified: true
 child-moddable-10-0-0-ironhorse-audit-20261009-host: endolin-garden-ece02cb4
 child-moddable-10-0-0-ironhorse-audit-20261009-reap-count: 0
 order: serial
