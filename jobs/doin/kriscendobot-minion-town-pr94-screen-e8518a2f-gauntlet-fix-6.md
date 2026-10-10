@@ -45,6 +45,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-provider-quota-backoff: type=usage reset-at=2026-10-10T03:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
