@@ -43,6 +43,9 @@
 | [division of labor between human and machine](../sections/habitat-chronicles--adventures-in-llm-land--division-of-labor-human-and-machine.md) | Adventures in LLM Land (Morningstar) | The machine makes, the human wants: "the AI can make things for you, but it can't want things for you"; a vague want yields slop. |
 | [delegation, wanting, and the CEO analogy](../sections/habitat-chronicles--adventures-in-llm-land--delegation-wanting-and-the-ceo-analogy.md) | Adventures in LLM Land (Morningstar) | Why you can't swap humans for AIs in org-chart boxes: delegation passes down judgment and taste through many layers of recursively ramified desire. |
 | [Sub-agent architectures](../sections/web--anthropic-context-engineering--sub-agent-architectures.md) | Effective context engineering (Anthropic) | Specialized sub-agents explore with clean context windows and return only a 1,000-2,000-token distilled summary; separation of concerns for complex research. |
+| [literate-ai--readme--lifecycle](../sections/literate-ai--readme--lifecycle.md) | literate-ai README.md | The resolved Component DAG becomes bounded per-Component plans before coding-agent dispatch. |
+| [literate-ai--docs-architecture-authoring-and-record-formats--workflow-catalogs-and-round-trips](../sections/literate-ai--docs-architecture-authoring-and-record-formats--workflow-catalogs-and-round-trips.md) | literate-ai authoring formats | Workflow Markdown binds a typed stage DAG to exact per-stage instructions and output bounds. |
+| [literate-ai--docs-architecture-component-execution-plans--per-component-planning](../sections/literate-ai--docs-architecture-component-execution-plans--per-component-planning.md) | literate-ai execution plans | Planning creates stable dependency layers and independently cacheable work per Component. |
 
 ## See also
 
