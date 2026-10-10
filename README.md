@@ -1,28 +1,36 @@
 # Garden bulletin
 
-_As of 2026-10-10T10:40:48Z_
+_As of 2026-10-10T10:42:12Z_
 
 ## Latest
 
-Oros-studio (`oros-studio-garden-ce242c49`) is the main thing to notice. It stopped reporting around 02:50Z. Its heartbeat resumed by 06:38Z, but the rolling-deploy canary there is still stuck on `44bfcbe6dbf4`. That canary was released to `61a16d250ef1` and halted after 3 failed retries, and the host is drained. As a result the leader will not advance. The other follower, `endolin-garden2`, has been offline about 6.6 hours (watchdog occurrence #123). Between the two, no canary can validate the tip, so the leader is holding.
+The fleet is mostly moving, but two hosts are failing and several long jobs keep timing out.
 
-The minion.town deploy block is a separate problem. [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) is undeployed because the deploy workflow failed on the kriscendobot Actions billing block, not because of a code fault. Screening is paused until a green main deploy or your decision. The heal job recommends one of three options: resume the delegation by hand, move CD onto the ci.minion.town runner, or wait for the reset. It also offers a follow-up to treat a runnerless deploy as "billing-deferred", which needs your word.
+**Needs a person:**
+- **oros-studio:** The rolling deploy to this canary halted after three automatic retries. The host still reports the old sha while a canary-stuck notice has fired 192 times. It also dropped off the network around 02:50Z. The health watch asked someone to check the Mac, Docker Desktop and the VM. The heartbeat has since resumed. The canary is left drained and needs your decision to lift the drain or hold the tip.
+- **endolin-garden2:** Offline for about 6.6 hours. The leader skips it, so the roll continues without it, and its notice has fired 123 times.
+- **minion.town deploys:** [minion.town#169](https://github.com/kriscendobot/minion.town/issues/169) did not break production. The deploy failed with no runner because of the Actions billing block, expected to clear around 10-30. The screener stays paused until a green deploy. Your options are to resume by hand, move CD onto ci.minion.town, or wait. The heal job also recommends teaching the screener to treat a runnerless deploy as billing-deferred.
+- **ocap.site DNSSEC:** The DS record is still unpublished at the registrar, so the zone resolves as insecure. The 60-day transfer lock lapsed around 2026-10-09T19:55Z. You decide whether to start the transfer or ask Key-Systems to add the DS.
+- **Review budgets:**
+  - [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 rounds without converging. Its head also moved past the last panel review, and a round-7 panel is already queued.
+  - [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used its 2 rounds, though a fix round 2 is still in flight.
+  - [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) also have heads past their last panel review and need your decision or an explicit gauntlet request.
 
-Two minion.town gauntlets ended at their review budget with the PRs left for your decision. [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 rounds, and a panel round 7 is already in `todo`. [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) used 2 of 2, and a fix round 2 is in `doin`. Both have headers that say the unaddressed must-fix list is "unknown". Panel coverage is also stale on [minion.town#174](https://github.com/kriscendobot/minion.town/pull/174), [minion.town#166](https://github.com/kriscendobot/minion.town/pull/166) and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403). Their heads moved after the last panel review, and none of them has a gauntlet staged. [endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/pull/1355) completed its gauntlet and was un-drafted today.
+**Stalled work:**
+- **Moddable 10.0.0 IronHorse port-plan:** Every split attempt halted on 2400s handler timeouts, so the plan needs to be cut into smaller stages.
+- **[endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179) weave:** Overran its handler budget twice.
+- **Review docket:** The final consolidation job was doomed and is parked in plan, so the migration onto the docket hasn't happened.
+- **Jev triage trial:** Blocked on the missing `TYPESAFE_API_KEY`.
+- **minion.town oauth-bonds build:** Halted after the build declared its outcome unsatisfied.
 
-Several orchestrations halted:
-- **Moddable 10.0.0 / IronHorse port plan:** three layers of split and resume all halted on handler timeouts (about 2400s). The work needs smaller stages or a detached run.
-- **Jev triage/foreman trial:** it is blocked because `TYPESAFE_API_KEY` is missing, and it needs you to provision it.
-- **minion.town OAuth bonds build:** halted on an unsatisfied gated outcome.
-- **Review docket consolidation:** it was doomed and is held in `plan`. That is why the docket is not yet the single review surface.
+**Landed:**
+- The sysop ack-timeout fix is on main2 as 96a2b4c6141. Once oros-studio deploys it, someone must remove the temporary sysop drop-in there by hand.
+- The ci.minion.town runner redeploy and unblock orchestrations completed.
+- The gauntlet must-fix-summary and the Moddable XS source inventory orchestrations completed.
+- [endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/pull/1355) finished its gauntlet and un-draft.
+- [minion.town#122](https://github.com/kriscendobot/minion.town/pull/122) merged, deployed and validated.
 
-The `weave` for [endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179) also overran its handler budget twice.
-
-Completed orchestrations include the minion.town CI-runner unblock and redeploy-verify. `ci.minion.town` was confirmed healthy on main `50aa690`. The gauntlet must-fix summary work and the Moddable XS source inventory also completed. The sysop ack-timeout fix landed on main2 as `96a2b4c6141`. Once oros-studio has deployed it, someone needs to remove the temporary sysop drop-in by hand.
-
-Other items waiting on you: the ocap.site DNSSEC DS record is still unpublished, and the domain transfer window opened tonight.
-
-The Claude weekly-limit notice is stale. Both Claude subscriptions are back in `ok` or `backoff` zones. The journal contention storms have cleared.
+**Quota:** Claude subscription claude-endolin2 is back in backoff.
 
 ## Maintainer review docket
 
@@ -443,7 +451,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=1.563916s max=32.990503s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-10T10:17:55Z, cleared 2026-10-10T10:41:31Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal.md)
 
@@ -781,13 +793,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.0M | $228.14 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 51.8M | $231.65 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 510.6k _(+15.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101071788 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 11.375537s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 7 open notice(s); checker healthy
+worst fetch p95 11.375537s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
