@@ -32,3 +32,7 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 - Add an observable custom constructor case at array-like length 2^32 proving constructor invocation precedes the implementation-limit error.
 - Run the nearest VM unit tests and affected `ironhorse-262` slices in sloppy and strict modes with the oracle enabled; introduce no generic skips.
 - Open a draft implementation PR with exact-head evidence and link the design PR. Do not merge it or start a sibling child.
+
+<!-- garden-annotation: key=pr1435-panel1 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-1 at=2026-10-10T07:46:34Z -->
+
+PR #1435 panel round 1 (design commit 7d2d6f8d12): also add the targeted Rust probes for the ten already-conformant rows the design table assigns to child 3 (charAt/charCodeAt, replace Proxy callability, index/search no-arg, Symbol.for no-arg, Array.from iterator order, Reflect.apply/construct order, Object.prototype.toString via handler, Array.fromAsync non-object next, Set large size, capture-group long second getter result). Math.round expected values: +0 for Number.MIN_VALUE, -0 for -Number.MIN_VALUE (from the spec, not the 8.3.1 oracle). Runs in parallel under moddable-10-0-0-ironhorse-ports.
