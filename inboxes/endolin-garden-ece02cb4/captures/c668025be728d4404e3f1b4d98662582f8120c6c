@@ -1,0 +1,39 @@
+<6>05:28:26 [monk/1] job 'endojs-endo-but-for-bots-pr179-address-review-20261007' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>05:28:26 [monk/1] job 'endojs-endo-but-for-bots-pr179-address-review-20261007' call ceiling: tier=mentor max-budget-usd=18.80 (scaled by fresh seven-day headroom when available)
+<6>05:28:26 [monk/1] job 'endojs-endo-but-for-bots-pr179-address-review-20261007' attaching minion.town MCP (stdio bridge)
+<6>05:53:25 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/179 is already non-draft; leaving it untouched for the completion guard
+<6>05:53:28 [review-docket] https://github.com/endojs/endo-but-for-bots/pull/179 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+## Completion report: endojs-endo-but-for-bots-pr179-address-review-20261007
+
+I added all three things review 4293420656 asked for on https://github.com/endojs/endo-but-for-bots/pull/179 and pushed them. They are only verified locally: the PR conflicts with `llm`, so GitHub runs no CI on the new head until it is woven.
+
+The new tests showed the feature had never worked. The daemon threw `Unknown message type` for `command` and `command-result` when saving them, and the `.catch()` around every recording call threw the error away. So nothing was ever written, and CI was green only because of that.
+
+### What I pushed
+Four commits, `2e3f4d030d..e7506fa3e4`:
+1. **`fix(daemon)` 4dce75cc8d:** the daemon now saves both message types, reloads them after a restart, and exposes their fields in the message hub (`@command`/`@args`, `@success`/`@summary`). A recording failure now logs to stderr instead of being silently dropped, which is what the PR description already claimed.
+2. **`test(daemon)` 7a2d72a3e5:** four integration tests in `endo.test.js`. They cover each command (`send`, `adopt`, `request`, `resolve` including its failure path, `reject`, `dismiss`), results linking back to their command, and records surviving a restart.
+   - Seven existing mailbox tests failed once recording worked, because an agent's own commands now take message numbers in its inbox. I updated them to skip command records so each still checks what it was written for.
+3. **`test(chat)` 3a140890a3:** I moved the card rendering into `packages/chat/command-message.js` so it can be unit tested. Added 9 unit tests and 3 component tests that drive the real inbox component.
+4. **`test(browser-test)` e7506fa3e4:** this sets up a pattern for chat cases in the Browser Tests CI:
+   - Fixture pages in `packages/chat/test/browser/` load a real component with mock daemon access.
+   - A new `yarn build:browser-fixtures` script builds them, and the workflow gained a step that runs it.
+   - `browser-test/server.js` serves them at `/chat-fixtures/`.
+   - The first case is `chat-command-messages.spec.js`: card order, result-to-command linking, and computed CSS.
+   - `packages/chat/test/browser/README.md` explains how to add a case. I also excluded the build output from chat's tsconfig.
+
+### Local results
+- **Daemon** (`endo`, `invite-retention`, `helpdown`): 182 passed. `failure to start` failed only under my temporary socket-path shortening, and passes once that is reverted.
+- **Not run:** `channel*.test.js` can't run in this checkout because the worktree path makes the socket path too long. They don't touch the host mailbox.
+- **Chat:** 436 tests passed (424 before, plus 12 new).
+- **Playwright on Chromium:** the new spec and `chat-smoke` passed (5 tests).
+- **Lint:** eslint shows no errors. Daemon tsc is clean. Chat tsc shows only errors that were already there before this change.
+
+### Follow-ups
+- **Weave job posted: `endojs-endo-but-for-bots-pr179-weave-20261010`.** The branch is about 4,400 commits behind `llm` and conflicting. The job covers the rebase and getting CI green, and lists the places likely to conflict.
+- **I posted a reply on the PR** (https://github.com/endojs/endo-but-for-bots/pull/179#issuecomment-6094384052) with two questions for the maintainer:
+  - Dismissing any message, including a command card, adds two new records, so the inbox can never be emptied. Should `dismiss` stop recording? A test currently pins the existing behavior.
+  - The stale base.
+- I kept the classification as arc unallocated, milestone M9.
