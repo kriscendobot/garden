@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by the proxy-screen gauntlet kriscendobot-minion-town-pr94-screen-6098638b-gauntlet
+withdrawn_by: producer
+withdrawn_at: 2026-10-10T11:01:08Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 gauntlet: kriscendobot-minion.town-pr94-gauntlet-20261008
