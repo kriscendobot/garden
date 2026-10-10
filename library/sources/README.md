@@ -1229,6 +1229,10 @@ because the specs are repository READMEs.
 | [Component authoring and lock boundary](literate-ai--docs-architecture-component-authoring-lock-boundary.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Component authority](literate-ai--docs-architecture-component-authority.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 1 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [Exact versioned components](literate-ai--docs-architecture-exact-versioned-components.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Composable Component Flavors](literate-ai--docs-architecture-component-flavors.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [Documentation artifacts as Components](literate-ai--docs-architecture-documentation-artifacts.md) | jordanhubbard/literate-ai | 2026-10-03 | jkh | 3 | current (file commit `08ff7027`; classifier `proceed`) |
+| [Framework premise and implementation assessment](literate-ai--docs-architecture-framework-premise-assessment.md) | jordanhubbard/literate-ai | 2026-10-03 | jkh | 4 | current (file commit `08ff7027`; classifier `proceed_with_caveat` for mixed factual and persuasive framing) |
+| [HTML observability](literate-ai--docs-architecture-html-observability.md) | jordanhubbard/literate-ai | 2026-09-29 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
