@@ -1,22 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-10T06:12:02Z_
+_As of 2026-10-10T06:13:24Z_
 
 ## Latest
 
-Gauntlet work on minion.town is the main movement. [kriscendobot/minion.town#94](https://github.com/kriscendobot/minion.town/pull/94) finished fix round 1 and queued panel round 2. [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/pull/174) used all 6 of its review rounds without converging. It is left for a human decision, and `--add-rounds N` resumes it. [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) also hit its 2-round budget, and its viability stage is in flight. On the endo side, [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) completed fix round 1 and was claimed for panel round 2.
+No board transitions resolved this cycle, so the news is in the maintainer inbox, and most of it needs a decision.
 
-Needs attention:
-- **Offline hosts:** `oros-studio` looks unreachable (last journal activity about 02:50Z, though its offline watchdog later cleared). Its canary for the rolling deploy is also stuck on `fad05c57`, after the roll was halted on a failed canary. Because no canary is available, the leader will not advance. The `endolin-garden2` heartbeat is also stale.
-- **Moddable 10.0.0 port plan:** the orchestration halted on handler timeouts (2400s budget) across three attempts. The work needs splitting into smaller stages.
-- **minion.town screening:** it is paused after [minion.town#169](https://github.com/kriscendobot/minion.town/pull/169). The deploy failure is the Actions billing block, not a code regression, and production is intact. The heal job's options are to resume by hand, move CD to the `ci.minion.town` runner, or wait for the billing reset.
-- **Other blocked items:**
-  - The Jev triage trial is blocked on a missing `TYPESAFE_API_KEY`.
-  - The `ocap.site` DS record is still unpublished, and the 60-day transfer window has now passed.
-  - `review-docket-consolidate-20261008` is parked after repeated failures.
-  - Claude quota is in backoff on both endolin accounts.
+**Fleet health.** The rolling deploy is stuck. It is holding the leader because no follower can serve as a validated canary. `oros-studio-garden-ce242c49` is the canary but is still on `fad05c57898` instead of `44bfcbe6dbf4`, and its canary retries are exhausted. A health check also reports it unreachable since about 02:50Z, so someone needs to check the Mac, Docker Desktop, and the VM. Separately, `endolin-garden2-5bcdff64` has been offline for about 2.5 hours. The `fix-sysop-ack-timeout` change landed on main2 as `96a2b4c6141`. After `oros-studio-garden-ce242c49` has deployed it, someone must delete the temporary sysop drop-in on that host by hand.
+
+**minion.town.** Screening is paused. The [#169](https://github.com/kriscendobot/minion.town/issues/169) deploy failure was an Actions billing block, not a production break, so no heal PR was opened. The screener resumes only after a green main deploy. Your options are to resume it by hand, move CD onto the `ci.minion.town` runner, or wait for the billing reset. [#122](https://github.com/kriscendobot/minion.town/pull/122) merged and its deploy succeeded. Two gauntlets hit their review budget without converging: [#174](https://github.com/kriscendobot/minion.town/pull/174) after 6 of 6 rounds and [#171](https://github.com/kriscendobot/minion.town/pull/171) after 2 of 2. Both can resume with `--add-rounds`. Stale panel coverage also needs a decision on [#174](https://github.com/kriscendobot/minion.town/pull/174), [#166](https://github.com/kriscendobot/minion.town/pull/166), and [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), since each moved past its reviewed head.
+
+**Stalled or halted work.**
+- The Moddable 10.0.0 IronHorse port-plan orchestrations halted on handler timeouts at the 2400s budget, so that work needs splitting into smaller stages.
+- `orch-minion-town-oauth-bonds` halted and `orch-jev-triage-foreman` halted. The Jev trial is blocked because `TYPESAFE_API_KEY` is missing.
+- The `review-docket-20261008` consolidation child was doomed and is parked in plan, so the docket migration is unfinished.
+- The minion.town triage circuit breaker opened after 5 consecutive failures on `c5a0ae6`→`c9a073c`.
+
+**Provider quota.** The `claude-endolin1` and `claude-endolin2` subscriptions both crossed into backoff, and a weekly-limit notice was filed.
+
+**Maintainer-only follow-ups.** `ocap.site` DNSSEC is still unpublished at the registrar. The 60-day transfer window closed around 2026-10-09T19:55Z, so you can now start the transfer or ask the registrar to add the DS record.
 
 ## Maintainer review docket
 
@@ -761,7 +763,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.4M | $106.29 _(notional, rate-card)_ | 8% of 271.0M (ok) |
+| Claude | 22.5M | $106.60 _(notional, rate-card)_ | 8% of 271.0M (ok) |
 | Codex | 221.2k _(+8.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101614804 tokens/day lower bound._
