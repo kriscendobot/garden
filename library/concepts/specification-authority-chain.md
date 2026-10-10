@@ -23,6 +23,10 @@ In a specification-authority chain, human-reviewable specifications and pinned p
 | [per-Component planning](../sections/literate-ai--docs-architecture-component-execution-plans--per-component-planning.md) | Generation keys bind every authority-bearing input before model egress. |
 | [typed lifecycle](../sections/literate-ai--docs-architecture-component-execution-plans--lifecycle-and-build-boundary.md) | Model output is a candidate until typed build, test, acceptance, and admission checks succeed. |
 | [design traceability](../sections/literate-ai--docs-architecture-design-traceability--authority-evidence-matrix.md) | The traceability matrix connects each concern to its authority, enforcement seam, and proofs. |
+| [Component authority projection](../sections/literate-ai--docs-architecture-component-authority--append-only-authority-projection.md) | Implementation authority is an append-only projection; human acceptance stops at retained source until regenerative qualification. |
+| [intent, lock, and evidence separation](../sections/literate-ai--docs-architecture-component-authoring-lock-boundary--intent-lock-evidence-separation.md) | Authored intent, the resolver's selected lock, its audit, and runtime evidence are separate identity-linked records. |
+| [exact versioned identity triple](../sections/literate-ai--docs-architecture-exact-versioned-components--identity-triple.md) | Generation and linking require coordinate, SemVer, and content identity together. |
+| [derivation engine versus agent ledger](../sections/literate-ai--docs-architecture-agent-ledger-boundary--ownership-split.md) | Ledger consent and learned experience never silently become generation authority or an execution grant. |
 
 ## See also
 
