@@ -103,12 +103,65 @@ pool_file="$(budget_pool_file "$dir" 2>/dev/null || true)"
 if [ -z "$pool_file" ] || [ ! -f "$pool_file" ]; then
   printf 'No bounded pools are configured.\n'
 else
-  printf '| pool | status | used %% |\n| --- | --- | ---: |\n'
+  # Unattributed share: the pool's used tokens (ceiling x used %, so it covers
+  # every caller on the account) minus the arc-charged ledger rows on that pool's
+  # hosts and provider since the pool's own reset window began.
+  mapping="$dir/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+  pools='{}'
   while IFS=$'\t ' read -r pool _rest; do
     case "$pool" in ''|'#'*) continue ;; esac
-    printf '| %s | %s | %s |\n' "$pool" "$(meter_quota_status "$pool" "$dir" 2>/dev/null || echo unknown)" \
-      "$(subscription_used_percent "$pool" "$dir" 2>/dev/null || echo '?')"
+    row="$(budget_pool_row "$pool" "$dir" 2>/dev/null || true)"
+    provider=""; kind=""; ceiling=""
+    [ -z "$row" ] || IFS=$'\t' read -r _ provider kind ceiling _ <<<"$row"
+    cutoff="$(subscription_window_start_epoch "$pool" "$dir" "$now" 2>/dev/null || echo "$week_epoch")"
+    [[ "$cutoff" =~ ^[0-9]+$ ]] || cutoff="$week_epoch"
+    hosts="$(awk -v s="$pool" '!/^[[:space:]]*(#|$)/ && $1 == s { print $2 }' "$mapping" 2>/dev/null | sort -u \
+      | jq -Rsc 'split("\n") | map(select(. != ""))')"
+    used="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || echo '?')"
+    pools="$(jq -c --arg p "$pool" --arg prov "$provider" --arg kind "$kind" --arg ceil "$ceiling" \
+      --arg used "$used" --argjson cutoff "$cutoff" --argjson hosts "${hosts:-[]}" \
+      '. + {($p): {provider:$prov, kind:$kind, ceiling:($ceil | tonumber? // null),
+        used:($used | tonumber? // null), cutoff:$cutoff, hosts:$hosts}}' <<<"$pools")"
   done < "$pool_file"
+  charged='{}'
+  if [ -d "$dir/usage" ]; then
+    # A row without `provider` is attributed by its model family; an unparseable
+    # line is skipped rather than voiding the whole sum.
+    charged="$(find "$dir/usage" -maxdepth 1 -type f -name '*.jsonl' -exec awk 1 {} + 2>/dev/null \
+      | jq -cR 'fromjson? | select(type == "object" and (.arc // "") != "" and (.source // "") != "none")
+          | select([.input_tokens, .output_tokens, .cache_creation_tokens]
+                   | all(. == null or (type == "number" and . >= 0)))
+          | {h: .host, e: ((.ts // "") | fromdateiso8601? // -1),
+             p: (.provider // ((.model // "") | if startswith("claude") then "anthropic"
+                   elif test("^(gpt|codex|o[0-9])") then "openai" else "" end)),
+             t: ((.input_tokens // 0) + (.output_tokens // 0) + (.cache_creation_tokens // 0))}' \
+      | jq -sc --argjson pools "$pools" '. as $rows
+        | $pools | with_entries(.value as $v | .value =
+            ([ $rows[] | select(.p == $v.provider and .e >= $v.cutoff
+                                and (.h as $h | any($v.hosts[]; . == $h))) | .t ] | add // 0))' \
+      2>/dev/null || true)"
+    [ "$(jq -r 'type' <<<"$charged" 2>/dev/null)" = object ] || charged='{}'
+  fi
+  printf '| pool | status | used %% | used tokens (est.) | arc-charged | unattributed (est.) |\n'
+  printf '| --- | --- | ---: | ---: | ---: | ---: |\n'
+  while IFS=$'\t' read -r pool used est arc; do
+    unattr="-"
+    if [ "$est" != - ]; then
+      if [ "$est" -ge "$arc" ]; then
+        unattr="$(human $(( est - arc ))) ($(( (est - arc) * 100 / (est > 0 ? est : 1) ))%)"
+      else
+        unattr="0 (arc rows exceed the estimate)"
+      fi
+      est="$(human "$est")"
+    fi
+    printf '| %s | %s | %s | %s | %s | %s |\n' "$pool" \
+      "$(meter_quota_status "$pool" "$dir" 2>/dev/null || echo unknown)" "$used" "$est" "$(human "$arc")" "$unattr"
+  done < <(jq -r --argjson charged "$charged" 'to_entries[] | .key as $k | .value as $v
+    | [$k, ($v.used // "?"),
+       (if $v.kind == "weekly-tokens" and $v.ceiling != null and $v.used != null
+        then ($v.ceiling * $v.used / 100 | floor) else "-" end),
+       ($charged[$k] // 0)] | @tsv' <<<"$pools")
+  printf '\nMethod: used tokens = ceiling x used %%; arc-charged = arc-tagged ledger rows (input + output + cache creation) on the pool'"'"'s mapped hosts and provider since its reset; unattributed = the difference (gauntlets, watchers, liaison, untagged jobs). Percent-ceiling pools have no token estimate.\n'
   reset="$(meter_next_reset_epoch "$now" "$dir" 2>/dev/null || true)"
   [[ "$reset" =~ ^[0-9]+$ ]] && printf '\nNext subscription reset: %s (%sh away).\n' \
     "$(date -u -d "@$reset" +%FT%TZ)" "$(( (reset - now) / 3600 ))"

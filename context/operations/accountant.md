@@ -41,6 +41,14 @@ scripts/jobs/set-apportionment.sh --authorized-by <maintainer-login> \
   --message-id <inbox-message-id> [--dry-run] slate.json
 ```
 
+The statement's Pools table shows, per pool, status, used %, and an
+**unattributed share** estimate: used tokens (ceiling × used %, weekly-token
+pools only) minus the arc-tagged ledger rows charged on that pool's mapped hosts
+and provider since its reset. The difference is spend that never passed through
+the slate (auto-staged gauntlets, watchers, the liaison, untagged jobs).
+Percent-ceiling pools show `-`. The estimate inherits the ceiling's
+calibration error. When arc rows exceed it, it reads `0`.
+
 `slate.json`: arc order is rank order. Amounts are integers, `800K` / `15M` /
 `1.5G`, or `N%` of `total_tokens`. The remainder goes to `unallocated`, and a
 slate that sums past the total is refused with the overage. A schema-2 arc left

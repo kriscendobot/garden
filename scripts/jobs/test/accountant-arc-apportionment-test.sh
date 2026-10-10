@@ -237,5 +237,31 @@ grep -q '^# Accountant statement: week of 2026-09-26T04:00:00Z$' <<<"$stmt" \
   && ok "the statement reports slices, spend, holds, and foreman decisions" \
   || { bad "statement:"; printf '%s\n' "$stmt"; }
 
+# The Pools section estimates each pool's unattributed share: ceiling x used %
+# minus arc-tagged rows on the pool's hosts and provider since its reset.
+mkdir -p "$V/budget/reset-events" "$V/budget/manual-checkpoints"
+printf 'pool-a\tanthropic\tweekly-tokens\t100000\ttest\t2026-09-26\npool-c\topenai\tpercent\t95\ttest\t2026-09-26\n' \
+  > "$V/config/budget-pools"
+printf 'pool-a\ttesthost\tmonk\npool-c\ttesthost\tcleric\n' > "$V/config/subscription-mapping"
+for p in pool-a pool-c; do
+  printf '{"cadence":"observed","reset_at":"2026-09-26T04:00:00Z"}\n' > "$V/budget/reset-events/$p.jsonl"
+done
+printf '{"checked_at":"2026-09-29T18:00:00Z","weekly_percent":10}\n' > "$V/budget/manual-checkpoints/pool-a.jsonl"
+pool_row() { jq -cn --arg ts "$1" --arg host "$2" --arg arc "$3" --argjson n "$4" --arg model "$5" \
+  '{ts:$ts,base:"p",host:$host,source:"result",model:$model,input_tokens:$n,output_tokens:0,cache_creation_tokens:0}
+   + (if $arc != "" then {arc:$arc} else {} end)'; }
+{ pool_row 2026-09-28T00:00:00Z testhost alpha 1000 claude-opus-5-5   # charged (provider from model)
+  pool_row 2026-09-25T00:00:00Z testhost alpha 500 claude-opus-5-5    # before the reset
+  pool_row 2026-09-28T00:00:00Z otherhost alpha 700 claude-opus-5-5   # another account's host
+  pool_row 2026-09-28T00:00:00Z testhost "" 3000 claude-opus-5-5      # untagged
+  echo 'not json'
+} > "$V/usage/pools.jsonl"
+stmt="$(GARDEN_STATE="$FSTATE" "$JOBS/accountant-statement.sh" --dir "$V" --now-epoch "$NOW" 2>/dev/null)"
+grep -qF '| pool-a | ' <<<"$stmt" && grep -qF ' | 10 | 10K | 1K | 9K (90%) |' <<<"$stmt" \
+  && grep -qE '^\| pool-c \| .* \| - \| 0 \| - \|$' <<<"$stmt" \
+  && grep -q '^Method: used tokens = ceiling x used %' <<<"$stmt" \
+  && ok "the statement estimates each pool's unattributed share" \
+  || { bad "pool statement:"; sed -n '/## Pools/,/## Foreman/p' <<<"$stmt"; }
+
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
