@@ -2,7 +2,7 @@
 order: serial
 children: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
 on-child-failure: halt
-state: pending
+state: running
 resume_from: moddable-10-0-0-ironhorse-port-plan-20261009-split
 created_by: orchestrator-resume
 created_at: 2026-10-10T00:05:04Z
