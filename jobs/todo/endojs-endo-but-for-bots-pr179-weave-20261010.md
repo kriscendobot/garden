@@ -13,15 +13,4 @@ The head `feat/daemon-chat-commands-as-messages` (e7506fa3e4) is about 4,400 com
 - `packages/daemon/src/daemon.js` `makeMessageHub` and `mail.js` `makeMessageFormula`/`makeStampedMessage`: on `llm` these may have gained message types. Keep the `command`/`command-result` branches.
 Keep the row classification: arc unallocated, milestone M9. The maintainer still has two open questions on the PR (comment https://github.com/endojs/endo-but-for-bots/pull/179#issuecomment-6094384052): whether `dismiss` should keep recording, and the stale base. Do not change behavior for either.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-10T06:03:33Z
+<!-- garden-reaped: 0 -->
