@@ -19,3 +19,13 @@ Unaddressed requests from review https://github.com/endojs/endo-but-for-bots/pul
 - Resolve the inline design directions: define `importNow` as returning after the first initialization turn while `import` awaits completed exports; design virtual module sources and synchronous/asynchronous initialization around the proposed import calling convention, checking the standards proposal naming.
 
 Evidence: no commits address the review; the only later current-history commit is an empty CI nudge (`76d43d5c719e`). Preserve the row classification: arc unallocated, milestone -.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-10T11:41:18Z
