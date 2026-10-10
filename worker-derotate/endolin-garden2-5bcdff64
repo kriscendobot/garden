@@ -1,0 +1,7 @@
+host: endolin-garden2-5bcdff64
+reason: heartbeat-offline
+prior_monk: 4
+prior_cleric: 4
+derotated_at: 2026-10-10T04:20:07Z
+derotated_by: endolin-garden-ece02cb4
+detail: heartbeat stale by 2808s (offline threshold 1800s; sampled_at_epoch=1791603197)
