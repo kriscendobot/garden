@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: minion-town-git-remote-served-clip-design
-priority: normal
 role: builder
+tier: mentor
 arc: minion-town-git-remote
-posted_by: designer
-posted_at: 2026-10-10T16:45:16Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-11T01:41:03Z cleared=none -->
 
 ---
 tier: mentor
