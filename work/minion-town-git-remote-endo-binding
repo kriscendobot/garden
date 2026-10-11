@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-10-11T03:05:00Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-git-remote-endo-binding
+pr_number: 180
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/180
+pr_head: design/git-remote-endo-binding
