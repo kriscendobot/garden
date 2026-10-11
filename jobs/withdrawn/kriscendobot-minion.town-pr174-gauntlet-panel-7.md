@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: stale doomed parked copy: panel round 7 already ran (verdict = review 5478567414); gauntlet resumed at fix-7 by resume-minion-town-pr174-pr93-gauntlets-20261011
+withdrawn_by: gardener
+withdrawn_at: 2026-10-11T08:54:30Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 gauntlet: kriscendobot-minion.town-pr174-gauntlet
