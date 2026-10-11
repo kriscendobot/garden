@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7400 (530 parent indexes + 6870 children).
+Total section files: 7412 (530 parent indexes + 6882 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8590,6 +8590,27 @@ Total section files: 7400 (530 parent indexes + 6870 children).
 ### literate-ai--docs-architecture-user-directed-work-loop
 
 - [literate-ai--docs-architecture-user-directed-work-loop--durable-project-authority](literate-ai--docs-architecture-user-directed-work-loop--durable-project-authority.md)
+
+### literate-ai--docs-architecture-worker-storage-protocol
+
+- [literate-ai--docs-architecture-worker-storage-protocol--admission-polling-and-cleanup](literate-ai--docs-architecture-worker-storage-protocol--admission-polling-and-cleanup.md)
+- [literate-ai--docs-architecture-worker-storage-protocol--deadlines-and-failures](literate-ai--docs-architecture-worker-storage-protocol--deadlines-and-failures.md)
+- [literate-ai--docs-architecture-worker-storage-protocol--explicit-alert-history](literate-ai--docs-architecture-worker-storage-protocol--explicit-alert-history.md)
+- [literate-ai--docs-architecture-worker-storage-protocol--independent-quota-domains](literate-ai--docs-architecture-worker-storage-protocol--independent-quota-domains.md)
+- [literate-ai--docs-architecture-worker-storage-protocol--public-storage-inspection](literate-ai--docs-architecture-worker-storage-protocol--public-storage-inspection.md)
+- [literate-ai--docs-architecture-worker-storage-protocol--receiver-selection-and-request-protocol](literate-ai--docs-architecture-worker-storage-protocol--receiver-selection-and-request-protocol.md)
+
+### literate-ai--docs-decisions-0001-framework-boundary
+
+- [literate-ai--docs-decisions-0001-framework-boundary--boundary-rule](literate-ai--docs-decisions-0001-framework-boundary--boundary-rule.md)
+- [literate-ai--docs-decisions-0001-framework-boundary--consequences-alternatives-and-validation](literate-ai--docs-decisions-0001-framework-boundary--consequences-alternatives-and-validation.md)
+- [literate-ai--docs-decisions-0001-framework-boundary--context-and-decision](literate-ai--docs-decisions-0001-framework-boundary--context-and-decision.md)
+
+### literate-ai--docs-decisions-0002-reference-implementation-ecosystem
+
+- [literate-ai--docs-decisions-0002-reference-implementation-ecosystem--consequences-and-validation](literate-ai--docs-decisions-0002-reference-implementation-ecosystem--consequences-and-validation.md)
+- [literate-ai--docs-decisions-0002-reference-implementation-ecosystem--context-and-decision](literate-ai--docs-decisions-0002-reference-implementation-ecosystem--context-and-decision.md)
+- [literate-ai--docs-decisions-0002-reference-implementation-ecosystem--dependency-admission-policy](literate-ai--docs-decisions-0002-reference-implementation-ecosystem--dependency-admission-policy.md)
 
 ### literate-ai--readme
 
