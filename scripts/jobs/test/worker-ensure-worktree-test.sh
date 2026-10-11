@@ -172,6 +172,61 @@ else
   bad "resume path clobbered or failed (rc=$rc)"
 fi
 
+# Cases 5-7 run in a subshell (die/die_environmental exit) against an alternate
+# GARDEN_ROOT. run_ewt <root> <worktree> → prints combined output; rc in $rc.
+run_ewt() {
+  bash -c '
+    set -uo pipefail
+    export GARDEN_TEST=1
+    export GARDEN_ROOT="$1" GARDEN_SCRATCH="$1/scratch"
+    source "$3/common.sh"
+    source "$3/handlers/worker-common.sh"
+    worker_ensure_worktree "$2" main2 false
+  ' _ "$1" "$2" "$JOBS_SRC" 2>&1
+}
+
+# === 5: GARDEN_ROOT that is not a git checkout → explicit host-fault exit =====
+NOGIT="$TR/not-a-repo"; mkdir -p "$NOGIT"
+out="$(GIT_CEILING_DIRECTORIES="$TR" run_ewt "$NOGIT" "$NOGIT/scratch/gardener-wt-case-nogit")"; rc=$?
+[ "$rc" -eq "${GARDEN_ENV_RC:-75}" ] \
+  && ok "non-checkout GARDEN_ROOT exits the environmental rc (host fault, requeued)" \
+  || bad "non-checkout GARDEN_ROOT exited rc=$rc, want ${GARDEN_ENV_RC:-75}: $out"
+printf '%s' "$out" | grep -q "GARDEN_ROOT=$NOGIT is not a git checkout" \
+  && ok "non-checkout GARDEN_ROOT names itself in the message" \
+  || bad "missing 'is not a git checkout' message: $out"
+
+# === 6: no ref resolves, fetch cannot help → per-ref reasons in the message ===
+UNBORN="$TR/unborn"
+"$REAL_GIT" init -q "$UNBORN"
+"$REAL_GIT" -C "$UNBORN" symbolic-ref HEAD refs/heads/main2
+EMPTY="$TR/empty.git"; "$REAL_GIT" init -q --bare "$EMPTY"
+"$REAL_GIT" -C "$UNBORN" remote add origin "$EMPTY"
+out="$(run_ewt "$UNBORN" "$UNBORN/scratch/gardener-wt-case-unborn")"; rc=$?
+[ "$rc" -eq "${GARDEN_ENV_RC:-75}" ] \
+  && ok "no resolvable ref exits the environmental rc (host fault, requeued)" \
+  || bad "no resolvable ref exited rc=$rc: $out"
+for want in 'origin/main2: tracking ref refs/remotes/origin/main2 is missing' \
+            'main2: no local branch refs/heads/main2' \
+            'HEAD is unborn (points at refs/heads/main2' \
+            'fetch origin main2 failed'; do
+  printf '%s' "$out" | grep -qF "$want" \
+    && ok "die message carries: $want" \
+    || bad "die message lacks '$want': $out"
+done
+
+# === 7: no ref resolves until a fetch → the one fetch-and-retry heals it ======
+FRESH="$TR/fresh"
+"$REAL_GIT" init -q "$FRESH"
+"$REAL_GIT" -C "$FRESH" symbolic-ref HEAD refs/heads/unborn
+"$REAL_GIT" -C "$FRESH" remote add origin "$ORIGIN"
+WT7="$FRESH/scratch/gardener-wt-case-fetch"
+out="$(run_ewt "$FRESH" "$WT7")"; rc=$?
+if [ "$rc" -eq 0 ] && [ -e "$WT7/.git" ]; then
+  ok "a never-fetched tracking ref is healed by one fetch, then the add succeeds"
+else
+  bad "fetch-and-retry did not heal (rc=$rc): $out"
+fi
+
 echo
 echo "worker-ensure-worktree-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

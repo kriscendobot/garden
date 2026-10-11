@@ -39,6 +39,34 @@ worker_worktree_path() {
   printf '%s\n' "$GARDEN_SCRATCH/gardener-wt-$base"
 }
 
+# worker_ref_failure_reason <ref> — one short clause naming WHY <ref> did not
+# resolve to a commit in $GARDEN_ROOT (a missing origin remote, a never-fetched
+# tracking ref, an absent local branch, an unborn HEAD), falling back to git's
+# own rev-parse error. Only called after rev-parse --verify already failed.
+worker_ref_failure_reason() {
+  local ref="$1" target err
+  case "$ref" in
+    HEAD)
+      if target="$(git -C "$GARDEN_ROOT" symbolic-ref -q HEAD 2>/dev/null)" && \
+         ! git -C "$GARDEN_ROOT" show-ref --verify --quiet "$target"; then
+        printf 'HEAD is unborn (points at %s, which has no commit)' "$target"; return
+      fi ;;
+    origin/*)
+      if ! git -C "$GARDEN_ROOT" remote get-url origin >/dev/null 2>&1; then
+        printf '%s: no origin remote configured' "$ref"; return
+      fi
+      if ! git -C "$GARDEN_ROOT" show-ref --verify --quiet "refs/remotes/$ref"; then
+        printf '%s: tracking ref refs/remotes/%s is missing' "$ref" "$ref"; return
+      fi ;;
+    *)
+      if ! git -C "$GARDEN_ROOT" show-ref --verify --quiet "refs/heads/$ref"; then
+        printf '%s: no local branch refs/heads/%s' "$ref" "$ref"; return
+      fi ;;
+  esac
+  err="$(git -C "$GARDEN_ROOT" rev-parse --verify "$ref^{commit}" 2>&1 >/dev/null | tail -n 1)"
+  printf '%s: does not resolve to a commit (%s)' "$ref" "${err:-rev-parse gave no reason}"
+}
+
 # worker_ensure_worktree <worktree> <main-branch> <resuming> — make $worktree a
 # detached checkout of origin/<main-branch>. On a resume (resuming=true and the dir
 # exists) we keep whatever is there (the interrupted attempt's uncommitted work);
@@ -47,6 +75,14 @@ worker_worktree_path() {
 # rather than fetching here, so the launch path adds no per-job network cost; the
 # CAS push loop the job itself runs reconciles any staleness. Falls back to the bare
 # branch then HEAD if the tracking ref is absent (a freshly cloned root).
+#
+# A broken garden root is a HOST fault, not a job defect, so it exits through
+# die_environmental (EX_TEMPFAIL): gardener.sh classifies that transient and the
+# reaper requeues the job instead of charging the failure to its attempts. That
+# covers a $GARDEN_ROOT that is not a git work tree at all (checked up front) and
+# one where no candidate ref resolves even after one `fetch origin <main-branch>`
+# — the 2026-10-11 oros-studio failure, whose die message named the refs but not
+# why each one failed. Each ref's reason is now recorded and carried in the message.
 worker_ensure_worktree() {
   local worktree="${1:?worker_ensure_worktree: worktree required}"
   local main_branch="${2:?worker_ensure_worktree: main-branch required}"
@@ -58,6 +94,12 @@ worker_ensure_worktree() {
   # requeue whose transcript was pruned) is removed and recreated so the job starts
   # from a clean current-tip checkout, never a stale base.
   [ -e "$worktree" ] && scratch_cleanup "$worktree"
+  local inside inside_err
+  inside="$(git -C "$GARDEN_ROOT" rev-parse --is-inside-work-tree 2>/dev/null)" || true
+  if [ "$inside" != true ]; then
+    inside_err="$(git -C "$GARDEN_ROOT" rev-parse --is-inside-work-tree 2>&1 >/dev/null | tail -n 1)"
+    die_environmental "GARDEN_ROOT=$GARDEN_ROOT is not a git checkout${inside_err:+ ($inside_err)}; cannot create per-job worktree $worktree"
+  fi
   # Capture the worktree-add's stderr rather than swallowing it: a bare `2>&1
   # >/dev/null` turned every failure — most plausibly `index.lock`/"already
   # registered" contention from the gardener pool's concurrent same-host adds —
@@ -67,29 +109,49 @@ worker_ensure_worktree() {
   # retry with backoff when the captured stderr matches a lock-contention
   # signature so a same-host race self-heals, and re-emit the real stderr on a
   # terminal failure so the error is actionable instead of a bare rc=1.
-  local attempt max_attempts=4 err last_err=""
-  for ref in "origin/$main_branch" "$main_branch" HEAD; do
-    if git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$ref" >/dev/null 2>&1; then
-      mkdir -p "$GARDEN_SCRATCH"
-      for (( attempt = 1; attempt <= max_attempts; attempt++ )); do
-        if err="$(git -C "$GARDEN_ROOT" worktree add --detach "$worktree" "$ref" 2>&1 >/dev/null)"; then
-          record_worktree_start_head "$worktree"   # first-cycle productivity baseline
-          return 0
-        fi
-        last_err="$err"
-        # Retry only a lock-contention race (a peer's concurrent worktree add
-        # holds index.lock, or a half-registered entry has not settled). Any
-        # other error is terminal — fall through to the next ref / die.
-        if [ "$attempt" -lt "$max_attempts" ] && \
-           printf '%s' "$err" | grep -Eqi 'index\.lock|already (registered|exists|locked)|is already checked out|cannot lock ref'; then
-          sleep "$(awk "BEGIN{print $attempt * 0.5}")"
-          [ -e "$worktree" ] && scratch_cleanup "$worktree"
-          continue
-        fi
+  local attempt max_attempts=4 err last_err="" pass resolved=0 reasons fetch_err=""
+  for pass in 1 2; do
+    reasons=""
+    for ref in "origin/$main_branch" "$main_branch" HEAD; do
+      if ! git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$ref^{commit}" >/dev/null 2>&1; then
+        reasons="${reasons:+$reasons; }$(worker_ref_failure_reason "$ref")"
+      else
+        resolved=1
+        mkdir -p "$GARDEN_SCRATCH"
+        for (( attempt = 1; attempt <= max_attempts; attempt++ )); do
+          if err="$(git -C "$GARDEN_ROOT" worktree add --detach "$worktree" "$ref" 2>&1 >/dev/null)"; then
+            record_worktree_start_head "$worktree"   # first-cycle productivity baseline
+            return 0
+          fi
+          last_err="$err"
+          # Retry only a lock-contention race (a peer's concurrent worktree add
+          # holds index.lock, or a half-registered entry has not settled). Any
+          # other error is terminal — fall through to the next ref / die.
+          if [ "$attempt" -lt "$max_attempts" ] && \
+             printf '%s' "$err" | grep -Eqi 'index\.lock|already (registered|exists|locked)|is already checked out|cannot lock ref'; then
+            sleep "$(awk "BEGIN{print $attempt * 0.5}")"
+            [ -e "$worktree" ] && scratch_cleanup "$worktree"
+            continue
+          fi
+          break
+        done
+      fi
+    done
+    # A ref resolved but its worktree add failed terminally: a fetch cannot help.
+    [ "$resolved" = 1 ] && break
+    # No ref resolved at all. Fetch the dev branch once (the tracking ref may simply
+    # never have been fetched on this host) and retry before giving up.
+    if [ "$pass" = 1 ]; then
+      if ! fetch_err="$(git -C "$GARDEN_ROOT" fetch -q origin "$main_branch" 2>&1)"; then
+        fetch_err="$(printf '%s' "$fetch_err" | tail -n 1)"
         break
-      done
+      fi
+      fetch_err=""
     fi
   done
+  if [ "$resolved" = 0 ]; then
+    die_environmental "could not create per-job worktree $worktree: no ref resolves in GARDEN_ROOT=$GARDEN_ROOT ($reasons)${fetch_err:+; fetch origin $main_branch failed: $fetch_err}"
+  fi
   die "could not create per-job worktree $worktree off any of origin/$main_branch, $main_branch, HEAD${last_err:+: $last_err}"
 }
 
