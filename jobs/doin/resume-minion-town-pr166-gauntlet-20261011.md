@@ -32,3 +32,13 @@ Do:
 3. Leave the merge to the proxy screen (`scripts/jobs/minion-town-screening.sh status` must say
    `active`). Never merge by hand. When #166 lands, tell `resume-minion-town-pr171-after-pr166-20261010`
    through `scripts/jobs/inbox-send.sh`.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T12:44:53Z
