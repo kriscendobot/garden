@@ -5,14 +5,14 @@ repo: kriscendobot/minion.town
 pr_number: 176
 build_job: minion-town-git-remote-live-validation
 kind: feature
-stage: panel
+stage: undraft
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr176-gauntlet-panel-4
+current_child: kriscendobot-minion.town-pr176-gauntlet-undraft
 state: running
 created_by: producer
 arc: minion-town-git-remote
