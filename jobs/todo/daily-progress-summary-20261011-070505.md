@@ -63,12 +63,5 @@ midnight) once the anchored scheduler landed on the leader host; do not revert i
 to `daily` while any leader host still runs a pre-anchor scheduler, or that
 scheduler would treat the token as its weekly default.
 
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-11T07:12:19Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-11T11:23:10Z -->
