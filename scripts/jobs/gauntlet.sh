@@ -944,7 +944,8 @@ evidence, then STOP.
 
    Option: close as superseded
 
-END your completion report with EXACTLY ONE of these marker lines (last line):
+Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: viability=proceed -->
   <!-- gauntlet-stage-result: viability=closed -->
   <!-- gauntlet-stage-result: viability=merged -->
@@ -986,7 +987,8 @@ posting host's garden root.
      NOT rerun, push, or message anyone, and do NOT write \`orchestration-failed\`:
      emit the ci-billing-blocked marker and the driver parks the gauntlet.
 
-END your completion report with EXACTLY ONE of these marker lines (last line):
+Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
@@ -1024,7 +1026,8 @@ posting host's garden root.
    transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
    its own marker below — never panel-error.
 
-END your completion report with EXACTLY ONE of these marker lines (last line):
+Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
@@ -1059,7 +1062,8 @@ posting host's garden root.
      spending limit); the maintainer is already alerted. Do NOT rerun, push more, or
      write \`orchestration-failed\`: emit the ci-billing-blocked marker (the driver parks).
 
-END your completion report with EXACTLY ONE of these marker lines (last line):
+Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
@@ -1090,7 +1094,8 @@ panel and MUST NOT be un-drafted.
    failure marker below. The deterministic driver independently repeats this gate
    before accepting \`undraft=done\`.
 
-END your completion report with EXACTLY ONE of these marker lines (last line):
+Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: undraft=done -->
   <!-- gauntlet-stage-result: undraft=head-mismatch -->
   <!-- gauntlet-stage-result: undraft=metadata-unreadable -->

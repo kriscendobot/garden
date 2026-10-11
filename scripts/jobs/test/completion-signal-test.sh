@@ -117,6 +117,40 @@ strip_completion_marker "$r"
   && ok "strip drops the marker line, preserves the report body" \
   || bad "strip damaged the body or left the marker ($(tr '\n' '|' <"$r"))"
 
+# Gauntlet stage-result marker ordering (kriscendobot-minion.town-pr174-gauntlet-
+# panel-7): the prompted order puts the stage marker just BEFORE the completion
+# marker; the legacy "last line" order put it AFTER. Both must complete, and strip
+# must leave exactly the stage marker for gauntlet.sh to read.
+stage='<!-- gauntlet-stage-result: panel=must-fix -->'
+printf 'panel ran\n%s\n%s\n' "$stage" "$GARDEN_COMPLETION_MARKER" > "$r"
+report_has_completion_marker "$r" && ok "stage marker before completion marker → completion detected" \
+  || bad "stage marker before completion marker not detected"
+strip_completion_marker "$r"
+{ [ "$(awk 'NF{l=$0} END{print l}' "$r")" = "$stage" ] && ! grep -qF "$GARDEN_COMPLETION_MARKER" "$r" && grep -qxF 'panel ran' "$r"; } \
+  && ok "strip (prompted order) keeps the stage marker and body" \
+  || bad "strip (prompted order) damaged the report ($(tr '\n' '|' <"$r"))"
+
+printf 'panel ran\n%s\n\n%s\n\n' "$GARDEN_COMPLETION_MARKER" "$stage" > "$r"
+report_has_completion_marker "$r" && ok "legacy order (completion marker, then stage marker) → completion detected" \
+  || bad "legacy order (completion then stage marker) not detected"
+strip_completion_marker "$r"
+{ [ "$(awk 'NF{l=$0} END{print l}' "$r")" = "$stage" ] && ! grep -qF "$GARDEN_COMPLETION_MARKER" "$r" \
+    && grep -qxF 'panel ran' "$r" && [ "$(grep -cF 'gauntlet-stage-result' "$r")" = 1 ]; } \
+  && ok "strip (legacy order) normalizes: drops completion marker, keeps one stage marker last" \
+  || bad "strip (legacy order) failed to normalize ($(tr '\n' '|' <"$r"))"
+report_has_completion_marker "$r" && bad "normalized report still reads as carrying a completion marker" \
+  || ok "normalized legacy report no longer carries a completion marker"
+
+printf 'work\n%s\nmore prose\n%s\n' "$GARDEN_COMPLETION_MARKER" "$stage" > "$r"
+report_has_completion_marker "$r" && bad "completion marker not adjacent to a trailing stage marker forged completion" \
+  || ok "completion marker separated from the trailing stage marker by prose does NOT count"
+printf 'work\n%s\n%s\n%s\n' "$GARDEN_COMPLETION_MARKER" "$stage" "$stage" > "$r"
+report_has_completion_marker "$r" && bad "two trailing stage markers after the completion marker accepted" \
+  || ok "only ONE trailing stage marker may follow the completion marker"
+printf 'work\n%s\n<!-- some-other-marker: x=y -->\n' "$GARDEN_COMPLETION_MARKER" > "$r"
+report_has_completion_marker "$r" && bad "non-stage trailing comment after the completion marker accepted" \
+  || ok "a non-stage-result trailer after the completion marker does NOT count"
+
 printf 'work finished without the gated outcome\n%s\n' "$GARDEN_ORCHESTRATION_FAILURE_MARKER" > "$r"
 report_has_orchestration_failure_marker "$r" \
   && ok "exact final failure signal is detected for mechanical stamping" \

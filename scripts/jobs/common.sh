@@ -7206,11 +7206,28 @@ GARDEN_FOLLOWUP_OVERRIDE_MARKER_PREFIX='<<<GARDEN-FOLLOWUP-GATE-OVERRIDE:'
 # Anchoring on the last non-blank line means a marker quoted mid-report (a job
 # spec that mentions it, a diff) cannot forge completion — only a run that reached
 # its final act and emitted the marker last passes.
+#
+# Tolerated legacy ordering: gauntlet stage prompts once said to put the
+# `<!-- gauntlet-stage-result: <stage>=<result> -->` marker on the "last line", so
+# an obedient worker ended with the completion marker FOLLOWED by the stage marker
+# and was requeued until requeue-exhausted (kriscendobot-minion.town-pr174-
+# gauntlet-panel-7, 2026-10-10). A report whose last non-blank line is exactly one
+# stage-result marker and whose previous non-blank line is the completion marker
+# also counts; strip_completion_marker normalizes it. Only that single trailing
+# stage marker is allowed past the completion marker, so a marker quoted
+# mid-report still cannot forge completion.
+GARDEN_STAGE_RESULT_LINE_RE='^<!--[[:space:]]*gauntlet-stage-result:[[:space:]]*[a-z]+=[a-z-]+[[:space:]]*-->[[:space:]]*$'
 report_has_completion_marker() {
-  local f="${1:-}" last
+  local f="${1:-}"
   [ -f "$f" ] || return 1
-  last="$(awk 'NF{l=$0} END{print l}' "$f")"
-  [ "$last" = "$GARDEN_COMPLETION_MARKER" ]
+  awk -v m="$GARDEN_COMPLETION_MARKER" -v re="$GARDEN_STAGE_RESULT_LINE_RE" '
+    NF { prev=last; last=$0 }
+    END {
+      if (last == m) exit 0
+      if (last ~ re && prev == m) exit 0
+      exit 1
+    }
+  ' "$f"
 }
 
 # strip_completion_marker <report-file> — remove the trailing completion-marker
@@ -7219,14 +7236,23 @@ report_has_completion_marker() {
 strip_completion_marker() {
   local f="${1:-}"
   [ -f "$f" ] || return 0
-  awk -v m="$GARDEN_COMPLETION_MARKER" '
+  awk -v m="$GARDEN_COMPLETION_MARKER" -v re="$GARDEN_STAGE_RESULT_LINE_RE" '
     { line[NR]=$0 }
     END {
-      n=NR
+      n=NR; stage=""
       while (n>0 && line[n] ~ /^[ \t]*$/) n--   # trailing blanks
+      # Legacy ordering: completion marker, then one stage-result marker. Keep
+      # the stage marker (gauntlet.sh greps it anywhere) and drop the completion
+      # marker before it.
+      if (n>0 && line[n] ~ re) {
+        k=n-1
+        while (k>0 && line[k] ~ /^[ \t]*$/) k--
+        if (k>0 && line[k]==m) { stage=line[n]; n=k }
+      }
       if (n>0 && line[n]==m) n--                # the marker line itself
       while (n>0 && line[n] ~ /^[ \t]*$/) n--   # blanks that preceded it
       for (i=1;i<=n;i++) print line[i]
+      if (stage != "") print stage
     }
   ' "$f" > "$f.stripmarker" && mv "$f.stripmarker" "$f"
 }
