@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T07:04:37Z_
+_As of 2026-10-11T07:05:55Z_
 
 ## Latest
 
@@ -1136,8 +1136,9 @@ _Fleet token-unlock pace: 105787400 tokens/day lower bound._
 worst fetch p95 4.799743s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
+- [`daily-progress-summary-20261011-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261011-070505.md) — Daily midnight Pacific progress summary
 - [`resume-minion-town-pr171-after-pr166-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr171-after-pr166-20261010.md) — Carry kriscendobot/minion.town#171 once its parent #166 finishes its gauntlet
 - [`oros-hardware-report-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-hardware-report-20261011.md) — Hardware and capability report for oros-studio-garden-ce242c49
 - [`resume-minion-town-pr174-pr93-gauntlets-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr174-pr93-gauntlets-20261011.md) — Resume the stalled minion.town gauntlets on #174 and #93
