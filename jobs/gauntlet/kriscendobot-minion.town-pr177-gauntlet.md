@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 177
 build_job: minion-town-git-remote-served-clip-design
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr177-gauntlet-clean
+current_child: kriscendobot-minion.town-pr177-gauntlet-panel-1
 state: running
 created_by: producer
 arc: minion-town-git-remote
