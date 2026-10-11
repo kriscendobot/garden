@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7625 (530 parent indexes + 7095 children).
+Total section files: 7644 (530 parent indexes + 7114 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8941,6 +8941,40 @@ Total section files: 7625 (530 parent indexes + 7095 children).
 - [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--ready-queue-and-slots](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--ready-queue-and-slots.md)
 - [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--windows-paths-and-ssh-transport](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--windows-paths-and-ssh-transport.md)
 - [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--worker-side-source-indexing](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--worker-side-source-indexing.md)
+
+### literate-ai--docs-decisions-0045-debian-package-worker-custody
+
+- [literate-ai--docs-decisions-0045-debian-package-worker-custody--apt-packaging-custody-gap](literate-ai--docs-decisions-0045-debian-package-worker-custody--apt-packaging-custody-gap.md)
+- [literate-ai--docs-decisions-0045-debian-package-worker-custody--consequences](literate-ai--docs-decisions-0045-debian-package-worker-custody--consequences.md)
+- [literate-ai--docs-decisions-0045-debian-package-worker-custody--exact-debian-projection-and-worker-custody](literate-ai--docs-decisions-0045-debian-package-worker-custody--exact-debian-projection-and-worker-custody.md)
+- [literate-ai--docs-decisions-0045-debian-package-worker-custody--qualification-and-rollout](literate-ai--docs-decisions-0045-debian-package-worker-custody--qualification-and-rollout.md)
+
+### literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle
+
+- [literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle--consequences](literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle--consequences.md)
+- [literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle--project-scoped-placement-and-evidence-bearing-retirement](literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle--project-scoped-placement-and-evidence-bearing-retirement.md)
+- [literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle--qualification-and-rollout](literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle--qualification-and-rollout.md)
+- [literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle--worktree-placement-and-retirement-gap](literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle--worktree-placement-and-retirement-gap.md)
+
+### literate-ai--docs-decisions-0047-native-cli-component-acceptance
+
+- [literate-ai--docs-decisions-0047-native-cli-component-acceptance--consequences](literate-ai--docs-decisions-0047-native-cli-component-acceptance--consequences.md)
+- [literate-ai--docs-decisions-0047-native-cli-component-acceptance--native-cli-acceptance-gap](literate-ai--docs-decisions-0047-native-cli-component-acceptance--native-cli-acceptance-gap.md)
+- [literate-ai--docs-decisions-0047-native-cli-component-acceptance--qualification-and-rollout](literate-ai--docs-decisions-0047-native-cli-component-acceptance--qualification-and-rollout.md)
+- [literate-ai--docs-decisions-0047-native-cli-component-acceptance--verifier-owned-native-cli-cases](literate-ai--docs-decisions-0047-native-cli-component-acceptance--verifier-owned-native-cli-cases.md)
+
+### literate-ai--docs-decisions-0048-retained-project-standard-lifecycle
+
+- [literate-ai--docs-decisions-0048-retained-project-standard-lifecycle--consequences](literate-ai--docs-decisions-0048-retained-project-standard-lifecycle--consequences.md)
+- [literate-ai--docs-decisions-0048-retained-project-standard-lifecycle--explicit-retained-project-standard-lifecycle](literate-ai--docs-decisions-0048-retained-project-standard-lifecycle--explicit-retained-project-standard-lifecycle.md)
+- [literate-ai--docs-decisions-0048-retained-project-standard-lifecycle--implementation-and-acceptance](literate-ai--docs-decisions-0048-retained-project-standard-lifecycle--implementation-and-acceptance.md)
+- [literate-ai--docs-decisions-0048-retained-project-standard-lifecycle--retained-project-admission-gap](literate-ai--docs-decisions-0048-retained-project-standard-lifecycle--retained-project-admission-gap.md)
+
+### literate-ai--docs-decisions-0049-repository-succession
+
+- [literate-ai--docs-decisions-0049-repository-succession--consequences](literate-ai--docs-decisions-0049-repository-succession--consequences.md)
+- [literate-ai--docs-decisions-0049-repository-succession--declared-repository-succession](literate-ai--docs-decisions-0049-repository-succession--declared-repository-succession.md)
+- [literate-ai--docs-decisions-0049-repository-succession--repository-move-continuity-gap](literate-ai--docs-decisions-0049-repository-succession--repository-move-continuity-gap.md)
 
 ### literate-ai--readme
 
