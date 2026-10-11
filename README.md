@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T20:04:11Z_
+_As of 2026-10-11T20:09:31Z_
 
 ## Latest
 
@@ -579,11 +577,26 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-09T18:02:55Z, cleared 2026-10-11T12:01:39Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-09T18:02:55Z, latest 2026-10-11T20:06:54Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 14 source(s); they post no acknowledgments while it holds.
+> - kriscendobot/cosgov: watcher ticking but cooldown for 3586s (since 2026-10-11T19:07:07Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 3599s (since 2026-10-11T19:06:54Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 3585s (since 2026-10-11T19:07:08Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 3580s (since 2026-10-11T19:07:13Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 3607s (since 2026-10-11T19:06:46Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3558s (since 2026-10-11T19:07:35Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 3647s (since 2026-10-11T19:06:06Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3610s (since 2026-10-11T19:06:43Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3643s (since 2026-10-11T19:06:10Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3637s (since 2026-10-11T19:06:16Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 3632s (since 2026-10-11T19:06:21Z)
+> watcher ticking but cooldown for 3570s (since 2026-10-11T19:07:23Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 3611s (since 2026-10-11T19:06:42Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 3593s (since 2026-10-11T19:07:00Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3648s (since 2026-10-11T19:06:05Z)
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
@@ -1218,12 +1231,12 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #435 (first seen 2026-10-09T06:59:03Z, latest 2026-10-11T19:05:03Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 435 times; this is ONE
-> coalesced notice that updates in place, not 435 messages. Latest detail:
+> WATCHDOG notice — occurrence #442 (first seen 2026-10-09T06:59:03Z, latest 2026-10-11T20:08:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 442 times; this is ONE
+> coalesced notice that updates in place, not 442 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to db962f139798 380 min ago
-> but still reports deployed_sha 592f66b2a04fbb9c4c1905809f2a2172d0fa820c. Check garden-self-deploy on oros-studio-garden-ce242c49
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 835397297441 24 min ago
+> but still reports deployed_sha db962f13979837e7a6c8f91920b8f67394c3c9d5. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
 > (leader=endolin-garden-ece02cb4)
@@ -1313,16 +1326,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 172.2M | $783.71 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 5.3M _(+150.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Codex | 5.3M _(+151.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106191143 tokens/day lower bound._
+_Fleet token-unlock pace: 106384903 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.145834s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-8.md) — Gauntlet stage: PANEL round 8 — kriscendobot/minion.town PR #93
+- [`endojs-endo-but-for-bots-pr1403-review-1cfc544e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-review-1cfc544e.md) — Review directive on endojs/endo-but-for-bots PR #1403
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr182-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #182
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr181-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #181
@@ -1426,6 +1440,7 @@ worst fetch p95 5.145834s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1381-review-a6b93d7a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1381 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1389 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr166-review-324bc83e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr166-review-324bc83e-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #166 (primary: kriscendobot-mini...
+- [`endojs-endo-but-for-bots-pr1403-review-1cfc544e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1403-review-1cfc544e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1403 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
