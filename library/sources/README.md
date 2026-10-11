@@ -1245,6 +1245,10 @@ because the specs are repository READMEs.
 | [Worker storage observation protocol](literate-ai--docs-architecture-worker-storage-protocol.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0001: software-neutral lifecycle kernel](literate-ai--docs-decisions-0001-framework-boundary.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, slant confidence low) |
 | [ADR 0002: Python reference kernel, isolated Node tooling](literate-ai--docs-decisions-0002-reference-implementation-ecosystem.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, slant confidence low) |
+| [ADR 0003: invariant, policy, and deferred-claim classification](literate-ai--docs-decisions-0003-constraint-classification.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0004: executable port boundaries](literate-ai--docs-decisions-0004-executable-port-boundaries.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, slant confidence low) |
+| [ADR 0005: independently executable Component semantics](literate-ai--docs-decisions-0005-executable-component-semantics.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0006: significant-feature request governance](literate-ai--docs-decisions-0006-significant-feature-request-governance.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, openly argued maintainer process position) |
 
 ## Petname systems and Zooko's triangle
 
