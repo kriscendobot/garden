@@ -19,3 +19,13 @@ Fetch each through `fetch-source.sh` at its pinned raw URL and run `classify-for
 Do not fetch, read, or ingest without explicit maintainer disposition: ADRs 0014, 0016, and 0041, plus architecture files `repository-source-dependencies.md`, `project-releases.md`, `authority-learning-loop.md`, `beam-live-coding-layer-investigation.md`, `skills.md`, and `superpowers-skills-assessment.md`. Check the current job inbox and durable prior-job records for a release. ADR 0041 halted at injection 0.30 uncertain, slant neutral 0.35 on commit `fcc40bc617a2bc2455627db7396a1e016ebfbab6` and was escalated.
 
 Before completing, run `library-link-check.sh`, validate declared section counts against on-disk files, regenerate and check `sections/README.md` and `topics/README.md` (pass `--library <staging>/library` to the checks so they read the committed tip, not the deployed worktree), post one exact remainder for any eligible backlog, land through the journal lander, record a result, and notify the maintainer.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-11T19:10:38Z
