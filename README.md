@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T02:19:52Z_
+_As of 2026-10-11T02:21:35Z_
 
 ## Latest
 
@@ -1103,9 +1103,10 @@ _Fleet token-unlock pace: 106295471 tokens/day lower bound._
 worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
 - [`kriscendobot-minion.town-pr177-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr177-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #177
+- [`kriscendobot-minion.town-pr179-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr179-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #179
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #94
 - [`minion-town-git-remote-endo-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-git-remote-endo-binding.md) — Endo-directory binding for git-remote partitions (guest @git power + MCP mint)
