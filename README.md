@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T19:36:57Z_
+_As of 2026-10-11T19:39:31Z_
 
 ## Latest
 
@@ -1310,8 +1310,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.9M | $777.79 _(notional, rate-card)_ | 63% of 271.0M (ok) |
-| Codex | 5.2M _(+146.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 170.9M | $777.85 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Codex | 5.2M _(+146.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106097773 tokens/day lower bound._
 
@@ -1319,7 +1319,7 @@ _Fleet token-unlock pace: 106097773 tokens/day lower bound._
 worst fetch p95 5.145834s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (8)
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-8.md) — Gauntlet stage: PANEL round 8 — kriscendobot/minion.town PR #93
 - [`minion-town-arc-press-20261011-193532`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261011-193532.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`claude-on-minion-town-completion-press-20261011-190514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261011-190514.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
@@ -1327,12 +1327,12 @@ worst fetch p95 5.145834s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`kriscendobot-minion.town-pr182-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #182
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr181-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #181
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #171
-- [`kriscendobot-minion.town-pr174-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-minion.town-pr179-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr179-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #179
 - [`fix-minion-town-prod-probe-runs-on-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-prod-probe-runs-on-validation.md) — Finish and validate the minion.town prod-probe runner fix
+- [`kriscendobot-minion.town-pr174-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #174
 
 ### tada (12421)
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr166-gauntlet-20261010.md) — gauntlet kriscendobot-minion.town-pr166-gauntlet-20261010 — HALTED
