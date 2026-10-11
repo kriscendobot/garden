@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T21:21:16Z_
+_As of 2026-10-11T21:22:51Z_
 
 ## Latest
 
@@ -1323,7 +1323,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 175.3M | $801.99 _(notional, rate-card)_ | 65% of 271.0M (ok) |
-| Codex | 6.1M _(+186.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 6.1M _(+188.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106377097 tokens/day lower bound._
 
@@ -1331,8 +1331,9 @@ _Fleet token-unlock pace: 106377097 tokens/day lower bound._
 worst fetch p95 18.419408s/45s (/home/kris/garden/.garden-state/dependabot-watcher/verify); 8 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #171
+- [`improve-run-test-fixture-dependencies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-run-test-fixture-dependencies.md) — ---
 - [`oros-health-watch-20261011-205031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261011-205031.md) — ---
 - [`endojs-endo-but-for-bots-pr1438-dependabot-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1438-dependabot-close.md) — botanist: execute REJECT (incompatible) close on endojs/endo-but-for-bots PR ...
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
