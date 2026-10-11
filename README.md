@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T14:34:57Z_
+_As of 2026-10-11T14:36:47Z_
 
 ## Latest
 
@@ -1203,10 +1203,12 @@ _Fleet token-unlock pace: 106173586 tokens/day lower bound._
 worst fetch p95 2.544668s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (14)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
+- [`oros-health-watch-20261011-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261011-143507.md) — ---
 - [`kriscendobot-minion.town-pr178-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr178-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #178
 - [`kriscendobot-minion.town-pr181-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr181-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #181
+- [`claude-on-minion-town-press-20261011-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261011-143507.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #93
 - [`claude-on-minion-town-press-20261011-113506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261011-113506.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #166
