@@ -1,0 +1,2 @@
+base: improve-sections-index-check-target
+identity: mentor:scripts/jobs/regenerate-sections-index.sh
