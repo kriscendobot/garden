@@ -19,6 +19,8 @@
 #      fails --check (exit 1).
 #   7. ANCHOR — a README missing the `## Index` anchor is refused (exit 2),
 #      never silently clobbered.
+#   8. CHECK TARGET — bare --check refuses the deployed-journal fallback outside
+#      a worker clone, while a worker clone remains an unambiguous implicit target.
 #
 # Hermetic: a throwaway library/ tree. No real journal, no network. --print and
 # --check are pure (no clone), so the test exercises the generator directly.
@@ -99,7 +101,17 @@ Intro paragraph that must be preserved verbatim.
 A hand-curated tail that must be preserved verbatim.
 EOF
 
-# --- 1. --print: reconciliation + meta passthrough + abstract preservation ---
+# --- 1. bare --check target guard --------------------------------------------
+hr; echo "bare --check target guard"
+mkdir -p "$TR/deployed/journal"
+cp -R "$LIB" "$TR/deployed/journal/library"
+guard_out="$(cd "$TR" && GARDEN_ROOT="$TR/deployed" "$GEN" --check 2>&1)"; rc=$?
+[ "$rc" = 2 ] && ok "bare --check outside a worker clone is refused (exit 2)" \
+  || { bad "bare --check selected a default target (exit $rc, expected 2)"; echo "$guard_out"; }
+printf '%s\n' "$guard_out" | grep -qF 'pass --library <dir>' \
+  && ok "refusal names the explicit --library remedy" || bad "refusal omitted the --library remedy"
+
+# --- 2. --print: reconciliation + meta passthrough + abstract preservation ---
 hr; echo "reconciler --print"
 out="$("$GEN" --print --library "$LIB" 2>/tmp/regen-topics-err)"; rc=$?
 [ "$rc" = 0 ] && ok "--print exits 0 on a clean fixture" || { bad "--print exit $rc"; cat /tmp/regen-topics-err; }
@@ -117,7 +129,7 @@ printf '%s\n' "$out" | grep -qF '| [beta](beta.md) | Plain abstract. | 1 |' \
 printf '%s\n' "$out" | grep -qF '| [meta-axis](meta-axis.md) | A non-countable taxonomy axis. | (meta) |' \
   && ok "(meta) row passed through verbatim (never recounted)" || bad "(meta) row not preserved"
 
-# --- 2. preservation: preamble + tail verbatim ------------------------------
+# --- 3. preservation: preamble + tail verbatim ------------------------------
 hr; echo "preservation"
 diff <(sed -n '1,/^## Index/p' "$TOP/README.md") \
      <(printf '%s\n' "$out" | sed -n '1,/^## Index/p') >/dev/null \
@@ -126,12 +138,14 @@ diff <(sed -n '/^## Seed-but-not-yet-populated topics/,$p' "$TOP/README.md") \
      <(printf '%s\n' "$out" | sed -n '/^## Seed-but-not-yet-populated topics/,$p') >/dev/null \
   && ok "tail preserved byte-for-byte" || bad "tail changed"
 
-# --- 3. idempotence ---------------------------------------------------------
+# --- 4. idempotence + worker-clone implicit target --------------------------
 hr; echo "idempotence"
 printf '%s\n' "$out" > "$TOP/README.md"
 "$GEN" --check --library "$LIB" >/dev/null 2>&1 && ok "--check on reconciled README reports current (idempotent)" || bad "--check not idempotent"
+GARDEN_WORKER_CLONE="$TR" "$GEN" --check >/dev/null 2>&1 \
+  && ok "bare --check uses the worker clone's library" || bad "bare --check rejected a valid worker clone"
 
-# --- 4. missing topic page detection ----------------------------------------
+# --- 5. missing topic page detection ----------------------------------------
 hr; echo "missing topic page"
 # Add a non-meta Index row whose topic page does not exist.
 cat > "$TOP/README.md" <<'EOF'
@@ -154,7 +168,7 @@ out2="$("$GEN" --check --library "$LIB" 2>&1)"; rc=$?
 [ "$rc" = 1 ] && ok "missing topic page fails --check (exit 1)" || { bad "expected exit 1, got $rc"; echo "$out2"; }
 printf '%s\n' "$out2" | grep -q 'MISSING topics/ghost.md' && ok "missing page named in the MISSING report" || bad "ghost page not reported"
 
-# --- 5. missing anchor refusal ----------------------------------------------
+# --- 6. missing anchor refusal ----------------------------------------------
 hr; echo "missing anchor"
 cat > "$TOP/README.md" <<'EOF'
 # Topics

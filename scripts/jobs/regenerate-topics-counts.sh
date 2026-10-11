@@ -47,10 +47,13 @@
 # USAGE
 #   regenerate-topics-counts.sh --print [--library DIR]
 #       Emit the fully reconciled README to stdout. No network, no write.
-#   regenerate-topics-counts.sh --check [--library DIR]
-#       Reconcile and diff against the committed README in DIR. Exit 0 if the
+#   regenerate-topics-counts.sh --check --library DIR
+#       Reconcile and diff against the committed README in DIR. Inside a worker
+#       clone, --library may be omitted and GARDEN_WORKER_CLONE/library is used.
+#       Outside a worker clone the explicit target is required, so a check cannot
+#       accidentally inspect the long-lived deployed journal. Exit 0 if the
 #       counts are already current (the generator is idempotent), 1 if they would
-#       change (the Index is stale — run --land), 2 on setup error. CI-style.
+#       change (the Index is stale; run --land), 2 on setup error. CI-style.
 #   regenerate-topics-counts.sh --land
 #       Sync a dedicated journal2 clone to the current origin/journal2 tip,
 #       reconcile against it, and land the new README via land-journal-edit.sh
@@ -208,6 +211,18 @@ while [ $# -gt 0 ]; do
     *) echo "regenerate-topics-counts: unknown argument: $1" >&2; usage >&2; exit 2 ;;
   esac
 done
+
+# A bare check is safe only in a worker clone, where the staged corpus is the
+# unambiguous target. In particular, do not let locate_library fall through to
+# GARDEN_ROOT/journal/library: that is the long-lived deployed journal and can
+# report a false stale verdict after a scholar has staged changes elsewhere.
+if [ "$MODE" = check ] && [ -z "$LIBRARY" ]; then
+  worker_library="${GARDEN_WORKER_CLONE:-}/library"
+  if [ -z "${GARDEN_WORKER_CLONE:-}" ] || [ ! -d "$worker_library/topics" ]; then
+    echo "regenerate-topics-counts: refusing bare --check outside a worker clone; pass --library <dir>" >&2
+    exit 2
+  fi
+fi
 
 case "$MODE" in
   print)

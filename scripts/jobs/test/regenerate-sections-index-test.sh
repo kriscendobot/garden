@@ -18,6 +18,8 @@
 #      --check (exit 1).
 #   7. ANCHORS — a README missing a splice anchor is refused (exit 2), never
 #      silently clobbered.
+#   8. CHECK TARGET — bare --check refuses the deployed-journal fallback outside
+#      a worker clone, while a worker clone remains an unambiguous implicit target.
 #
 # Hermetic: a throwaway library/ tree. No real journal, no network. --print and
 # --check are pure (no clone), so the test exercises the generator directly.
@@ -132,7 +134,17 @@ Total section files: 1 (0 parent indexes + 1 children).
 - a narrative line that the regenerator must never touch.
 EOF
 
-# --- 1. --print: completeness + nesting + parens ----------------------------
+# --- 1. bare --check target guard --------------------------------------------
+hr; echo "bare --check target guard"
+mkdir -p "$TR/deployed/journal"
+cp -R "$LIB" "$TR/deployed/journal/library"
+guard_out="$(cd "$TR" && GARDEN_ROOT="$TR/deployed" "$GEN" --check 2>&1)"; rc=$?
+[ "$rc" = 2 ] && ok "bare --check outside a worker clone is refused (exit 2)" \
+  || { bad "bare --check selected a default target (exit $rc, expected 2)"; echo "$guard_out"; }
+printf '%s\n' "$guard_out" | grep -qF 'pass --library <dir>' \
+  && ok "refusal names the explicit --library remedy" || bad "refusal omitted the --library remedy"
+
+# --- 2. --print: completeness + nesting + parens ----------------------------
 hr; echo "regenerator --print"
 out="$("$GEN" --print --library "$LIB" 2>/tmp/regen-test-err)"; rc=$?
 [ "$rc" = 0 ] && ok "--print exits 0 on a clean fixture" || { bad "--print exit $rc"; cat /tmp/regen-test-err; }
@@ -158,7 +170,7 @@ printf '%s\n' "$out" | grep -qE '^  - \[Quickstart\]\(alpha--guide--quickstart.m
 printf '%s\n' "$out" | grep -qF '  - [Routers (not dumb pipes)](alpha--guide--routers.md)' \
   && ok "child title with parentheses parses to the correct target" || { bad "parens-in-title mis-parsed"; printf '%s\n' "$out" | grep -i router; }
 
-# --- 2. preservation: preamble + historical tail verbatim -------------------
+# --- 3. preservation: preamble + historical tail verbatim -------------------
 hr; echo "preservation"
 diff <(sed -n '1,/^## Current sections/p' "$SEC/README.md") \
      <(printf '%s\n' "$out" | sed -n '1,/^## Current sections/p') >/dev/null \
@@ -167,12 +179,14 @@ diff <(sed -n '/^## Historical ingest log/,$p' "$SEC/README.md") \
      <(printf '%s\n' "$out" | sed -n '/^## Historical ingest log/,$p') >/dev/null \
   && ok "historical ingest log preserved byte-for-byte" || bad "historical log changed"
 
-# --- 3. idempotence ---------------------------------------------------------
+# --- 4. idempotence + worker-clone implicit target --------------------------
 hr; echo "idempotence"
 printf '%s\n' "$out" > "$SEC/README.md"
 "$GEN" --check --library "$LIB" >/dev/null 2>&1 && ok "--check on regenerated README reports current (idempotent)" || bad "--check not idempotent"
+GARDEN_WORKER_CLONE="$TR" "$GEN" --check >/dev/null 2>&1 \
+  && ok "bare --check uses the worker clone's library" || bad "bare --check rejected a valid worker clone"
 
-# --- 4. dangling child detection --------------------------------------------
+# --- 5. dangling child detection --------------------------------------------
 hr; echo "dangling child"
 cat >> "$SEC/alpha--guide.md" <<'EOF'
 EOF
@@ -195,7 +209,7 @@ out2="$("$GEN" --check --library "$LIB" 2>&1)"; rc=$?
 [ "$rc" = 1 ] && ok "dangling child fails --check (exit 1)" || { bad "expected exit 1, got $rc"; echo "$out2"; }
 printf '%s\n' "$out2" | grep -q 'DANGLING.*alpha--guide--ghost.md' && ok "missing child named in the DANGLING report" || bad "ghost child not reported"
 
-# --- 5. missing anchor refusal ----------------------------------------------
+# --- 6. missing anchor refusal ----------------------------------------------
 hr; echo "missing anchor"
 cat > "$SEC/README.md" <<'EOF'
 # Sections
