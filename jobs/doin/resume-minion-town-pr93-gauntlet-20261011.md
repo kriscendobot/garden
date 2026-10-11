@@ -17,3 +17,13 @@ Confirm it prints "accepted resume at panel (iteration 7)" and then "restarted a
 Note: the terminal report's first line is a leaked `garden repo lock: cleared dead-holder metadata ...` stderr line ahead of the frontmatter. If the resume dies on missing metadata, that leak is why.
 
 No project-repo edits; no main2 commits.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T12:09:07Z
