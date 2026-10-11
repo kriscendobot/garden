@@ -262,6 +262,57 @@ grep -q '^remedy: deferred-deadline$' "$WATCH_STATE/stats/$slug" || { echo 'FAIL
 [ ! -e "$WATCH_STATE/remedy/$slug" ] || { echo 'FAIL: deferred remedy stamped a backoff'; exit 1; }
 assert_open "journal-clone-oversized-$slug"
 
+# A live clone-lock owner defers the optional remedy once per clone. The expected
+# soft-lock failure is quiet, does not contaminate the contention rings, and is
+# retried exactly when the persisted deadline expires.
+reset_case
+CLONE="$STATE/locked-remedy/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q
+: > "$CLONE/.git/gc.log"; : > "$CLONE/original"
+slug="${CLONE//[!A-Za-z0-9]/_}"
+LOCK_READY="$TR/remedy-lock-ready"
+GARDEN_STATE="$STATE" bash -c '
+  . "$1/common.sh"
+  lf="$(_clone_lockfile "$2")"
+  mkdir -p "$(dirname "$lf")"
+  exec {fd}<>"$lf"
+  flock "$fd"
+  _clone_lock_stamp "$fd"
+  : > "$3"
+  sleep 30
+' _ "$JOBS" "$CLONE" "$LOCK_READY" & holder=$!
+for n in $(seq 1 100); do [ -e "$LOCK_READY" ] && break; sleep 0.01; done
+[ -e "$LOCK_READY" ] || { echo 'FAIL: remedy clone lock was not acquired'; kill "$holder" 2>/dev/null || true; exit 1; }
+LOCK_ERR="$TR/remedy-lock.err"
+env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+  GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH=1000 \
+  GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+  GARDEN_CONTENTION_REMEDY_LOCK_WAIT=0.1 GARDEN_CONTENTION_REMEDY_LOCK_BACKOFF=300 \
+  GARDEN_CONTENTION_ENSURE_CLONE_CMD="$ENSURE" "$JOBS/journal-contention-watch.sh" 2>"$LOCK_ERR"
+grep -q '^remedy: lock-backoff$' "$WATCH_STATE/stats/$slug" || { echo 'FAIL: live-lock remedy was not deferred'; exit 1; }
+grep -q '^1300 ' "$WATCH_STATE/remedy-lock-deferred/$slug" || { echo 'FAIL: live-lock retry deadline was not recorded'; exit 1; }
+[ -e "$CLONE/original" ] || { echo 'FAIL: live-lock deferral replaced the clone'; exit 1; }
+[ ! -s "$LOCK_ERR" ] || { echo 'FAIL: expected soft-lock diagnostic escaped'; cat "$LOCK_ERR"; exit 1; }
+[ ! -e "$RINGS/lock-giveup/$slug" ] || { echo 'FAIL: optional remedy polluted lock-giveup telemetry'; exit 1; }
+
+# Before expiry, even a still-live owner causes no new attempt or diagnostic.
+env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+  GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH=1299 \
+  GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+  GARDEN_CONTENTION_REMEDY_LOCK_WAIT=0.1 GARDEN_CONTENTION_REMEDY_LOCK_BACKOFF=300 \
+  GARDEN_CONTENTION_ENSURE_CLONE_CMD="$ENSURE" "$JOBS/journal-contention-watch.sh" 2>"$LOCK_ERR"
+grep -q '^1300 ' "$WATCH_STATE/remedy-lock-deferred/$slug" || { echo 'FAIL: live-lock deadline drifted before expiry'; exit 1; }
+[ ! -s "$LOCK_ERR" ] || { echo 'FAIL: lock-backoff tick emitted a diagnostic'; cat "$LOCK_ERR"; exit 1; }
+
+kill "$holder" 2>/dev/null || true; wait "$holder" 2>/dev/null || true
+env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+  GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH=1300 \
+  GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+  GARDEN_CONTENTION_REMEDY_LOCK_WAIT=0.1 GARDEN_CONTENTION_REMEDY_LOCK_BACKOFF=300 \
+  GARDEN_CONTENTION_ENSURE_CLONE_CMD="$ENSURE" "$JOBS/journal-contention-watch.sh"
+[ ! -e "$WATCH_STATE/remedy-lock-deferred/$slug" ] || { echo 'FAIL: expired live-lock deadline survived successful retry'; exit 1; }
+[ ! -e "$CLONE/original" ] || { echo 'FAIL: remedy did not retry at live-lock deadline'; exit 1; }
+grep -q '^remedy: applied$' "$WATCH_STATE/stats/$slug" || { echo 'FAIL: expired live-lock remedy was not applied'; exit 1; }
+
 # Quiet low baselines never page.
 reset_case
 for n in $(seq 1 20); do sample lock-wait "$n" 1000 quiet; sample fetch "$n" 2000 quiet; sample push-attempts "$n" 1 quiet; done

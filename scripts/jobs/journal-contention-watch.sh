@@ -25,6 +25,7 @@ export GARDEN_TAG=journal-contention-watch
 : "${GARDEN_CONTENTION_PUSH_CAP:=50}"
 : "${GARDEN_CONTENTION_REMEDY:=1}"
 : "${GARDEN_CONTENTION_REMEDY_INTERVAL:=21600}"
+: "${GARDEN_CONTENTION_REMEDY_LOCK_BACKOFF:=900}"
 : "${GARDEN_CONTENTION_CADENCE:=300}"
 # Fetch drift needs a real trend: enough samples over a long enough span, a newest
 # median at or above the floor, and (a 1.5x rise or a projection to the hard guard
@@ -57,7 +58,7 @@ GARDEN_CONTENTION_SLUG_PREFIX="${GARDEN_CONTENTION_SLUG_PREFIX-$(contention_clon
 : "${GARDEN_CONTENTION_INSPECTION_LOCK_WAIT:=2}"
 : "${GARDEN_CONTENTION_TEST_SLUG_COST:=0}" # test hook: fake seconds charged per analyzed clone
 
-mkdir -p "$GARDEN_CONTENTION_STATE"/{stats,confirm,alerts,remedy,remedy-await,remedy-deferred,remedy-cleanup,notice-pending}
+mkdir -p "$GARDEN_CONTENTION_STATE"/{stats,confirm,alerts,remedy,remedy-await,remedy-deferred,remedy-lock-deferred,remedy-cleanup,notice-pending}
 now="$GARDEN_CONTENTION_NOW_EPOCH"
 export JC_SINCE=$(( now - GARDEN_CONTENTION_MAX_AGE ))
 hard_fetch="$(awk -v cap="$GARDEN_FETCH_TIMEOUT" 'BEGIN { printf "%.6f", cap * 0.70 }')"
@@ -153,7 +154,12 @@ remedy_clone_inner() { # clone old; invoked beneath the tick's hard timeout
   trap 'exit 124' TERM INT
   trap remedy_restore EXIT
   GARDEN_CLONE_LOCK_SOFT=1 GARDEN_LOCK_SOFT_WAIT="${GARDEN_CONTENTION_REMEDY_LOCK_WAIT:-2}"
-  export GARDEN_CLONE_LOCK_SOFT GARDEN_LOCK_SOFT_WAIT
+  # The checker losing its optional actuator lock to a producer is expected, not
+  # evidence that journal producers are contending. The parent records a durable
+  # retry deadline, so do not feed this self-generated give-up back into the
+  # anomaly rings.
+  GARDEN_CONTENTION_INSTRUMENT=0
+  export GARDEN_CLONE_LOCK_SOFT GARDEN_LOCK_SOFT_WAIT GARDEN_CONTENTION_INSTRUMENT
   clone_lock "$_remedy_clone"; _remedy_locked=1
   [ -e "$_remedy_clone" ] || return 1
   mv -- "$_remedy_clone" "$_remedy_old"
@@ -191,28 +197,48 @@ flush_remedy_cleanups() {
   done
 }
 
-remedy_clone() { # clone slug reason; prints applied|backoff|disabled|deferred|out-of-scope
+remedy_clone() { # clone slug reason; prints applied|backoff|lock-backoff|disabled|deferred|out-of-scope
   local clone="$1" slug="$2" reason="$3" last=0 old ts remaining run_for rc=0
   local stamp="$GARDEN_CONTENTION_STATE/remedy/$slug"
+  local lock_deferred="$GARDEN_CONTENTION_STATE/remedy-lock-deferred/$slug" lock_retry=0 err
   [ "$GARDEN_CONTENTION_REMEDY" = 1 ] || { printf 'disabled'; return 0; }
   case "${clone%/}/" in "${GARDEN_STATE%/}/"*) ;; *) printf 'out-of-scope'; return 0;; esac
   [ "${clone%/}" != "${GARDEN_STATE%/}" ] || { printf 'out-of-scope'; return 0; }
   last="$(cat "$stamp" 2>/dev/null || echo 0)"; case "$last" in *[!0-9]*|'') last=0;; esac
   if [ "$last" -gt 0 ] && [ $(( now - last )) -lt "$GARDEN_CONTENTION_REMEDY_INTERVAL" ]; then printf 'backoff'; return 0; fi
+  if [ -f "$lock_deferred" ]; then
+    read -r lock_retry _ < "$lock_deferred" || true
+    case "$lock_retry" in *[!0-9]*|'') lock_retry=0;; esac
+    if [ "$now" -lt "$lock_retry" ]; then printf 'lock-backoff'; return 0; fi
+    rm -f "$lock_deferred"
+  fi
   ts="$(date -u -d "@$now" +%Y%m%dT%H%M%SZ 2>/dev/null || printf '%s' "$now")"
   old="${clone}.contention-old.${ts}"
   remaining="$(tick_remaining)"; run_for=$(( remaining - GARDEN_CONTENTION_KILL_AFTER ))
   [ "$run_for" -gt 0 ] || { printf 'deferred'; return 0; }
+  err="$GARDEN_CONTENTION_STATE/remedy-lock-deferred/.${slug}.$$.err"
   GARDEN_CLONE_TIMEOUT="$run_for" GARDEN_CLONE_RETRIES=1 GARDEN_FETCH_RETRIES=1 \
     timeout --signal=TERM --kill-after="${GARDEN_CONTENTION_KILL_AFTER}s" "${run_for}s" \
-    "$HERE/journal-contention-watch.sh" --remedy-inner "$clone" "$old" || rc=$?
+    "$HERE/journal-contention-watch.sh" --remedy-inner "$clone" "$old" 2>"$err" || rc=$?
   if [ "$rc" -eq 0 ]; then
+    rm -f "$err" "$lock_deferred"
     printf '%s\n' "$now" > "$stamp"
     rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
     log "rebuilt contention-affected clone $clone ($reason)"
     remedy_cleanup "$slug" "$old"
     printf 'applied'
+  elif [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+    # A live producer owns either the clone lock or its repository lock. This is
+    # an ordinary actuator deferral: suppress clone_lock's fail-open WARN, persist
+    # one deadline per clone, and retry on the first tick at/after that deadline.
+    lock_retry=$(( now + GARDEN_CONTENTION_REMEDY_LOCK_BACKOFF ))
+    printf '%s %s\n' "$lock_retry" "$reason" > "$lock_deferred"
+    printf '%s\n' "$reason" > "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
+    rm -f "$err"
+    printf 'lock-backoff'
   else
+    [ ! -s "$err" ] || cat "$err" >&2
+    rm -f "$err" "$lock_deferred"
     printf '%s\n' "$reason" > "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
     printf 'deferred'
   fi
@@ -301,7 +327,7 @@ analyze_clone() {
       printf '%s\n' "${clone_reason:-fetch ${fmax}s near ${hard_fetch}s cap guard}" \
         > "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
     else remedy="$(remedy_clone "$clone" "$slug" "${clone_reason:-fetch ${fmax}s near ${hard_fetch}s cap guard}")"; fi
-    case "$remedy" in deferred|deferred-deadline) ;; *) rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug";; esac
+    case "$remedy" in deferred|deferred-deadline|lock-backoff) ;; *) rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug";; esac
     if [ "$remedy" = applied ]; then
       printf '%s %s\n' "$now" "$remedy_class" > "$await_file"
       # Old-clone latency must not keep the rebuilt clone anomalous forever. A
@@ -310,7 +336,7 @@ analyze_clone() {
       : > "$(ring fetch "$slug")"
     fi
   elif [ "$clone_bad" -eq 0 ] && [ "$fetch_hard" -eq 0 ]; then
-    rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
+    rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug" "$GARDEN_CONTENTION_STATE/remedy-lock-deferred/$slug"
   fi
 
   {
