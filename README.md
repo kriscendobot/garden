@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T07:25:43Z_
+_As of 2026-10-11T07:30:39Z_
 
 ## Latest
 
@@ -1037,11 +1037,15 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T06:59:03Z, cleared 2026-10-11T00:35:15Z).
-> It was observed 250 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #251 (first seen 2026-10-09T06:59:03Z, latest 2026-10-11T07:29:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 251 times; this is ONE
+> coalesced notice that updates in place, not 251 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release 592f66b2a04fbb9c4c1905809f2a2172d0fa820c, deployed 2972b8d8284bdbdd2b0ab610e604bb9b45b4a649).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to a4268c400d3d 21 min ago
+> but still reports deployed_sha 592f66b2a04fbb9c4c1905809f2a2172d0fa820c. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0.md)
 
@@ -1115,7 +1119,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 151.7M | $679.81 _(notional, rate-card)_ | 56% of 271.0M (ok) |
+| Claude | 151.7M | $680.35 _(notional, rate-card)_ | 56% of 271.0M (ok) |
 | Codex | 2.5M _(+73.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 105790256 tokens/day lower bound._
