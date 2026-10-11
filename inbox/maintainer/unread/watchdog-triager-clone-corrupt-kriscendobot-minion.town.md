@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:triager/kriscendobot-minion.town
-sent_at: 2026-10-11T08:35:37Z
+sent_at: 2026-10-11T13:34:59Z
 watchdog_key: triager-clone-corrupt-kriscendobot-minion.town
-notice_count: 2
+notice_count: 3
 first_seen: 2026-10-10T21:20:08Z
-last_seen: 2026-10-11T08:35:37Z
+last_seen: 2026-10-11T13:34:59Z
 ---
-WATCHDOG notice — occurrence #2 (first seen 2026-10-10T21:20:08Z, latest 2026-10-11T08:35:37Z).
-The SAME condition (`triager-clone-corrupt-kriscendobot-minion.town`) has now been observed 2 times; this is ONE
-coalesced notice that updates in place, not 2 messages. Latest detail:
+WATCHDOG notice — occurrence #3 (first seen 2026-10-10T21:20:08Z, latest 2026-10-11T13:34:59Z).
+The SAME condition (`triager-clone-corrupt-kriscendobot-minion.town`) has now been observed 3 times; this is ONE
+coalesced notice that updates in place, not 3 messages. Latest detail:
 
 triager: bare clone path /home/kris/garden/worktrees/kriscendobot-minion.town.git for kriscendobot-minion.town exists but is not a git repo; needs manual reconciliation (not clobbering). kriscendobot-minion.town is not being triaged until it is restored.
