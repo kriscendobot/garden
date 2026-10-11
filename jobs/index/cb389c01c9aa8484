@@ -1,2 +1,2 @@
-base: improve-dependabot-claude-harness-refresh
+base: improve-dependabot-terminal-close-routing
 identity: mentor:scripts/jobs/dependabot-watcher.sh
