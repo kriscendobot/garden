@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-11T09:03:12Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-11T09:03:12Z
+---
+
+---
 role: gardener
 tier: minion
 model-burned: mentor
@@ -96,17 +117,3 @@ look productive while blocked.
 
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot/garden`
 issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no ferry.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-11T01:13:11Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-11T08:40:46Z
