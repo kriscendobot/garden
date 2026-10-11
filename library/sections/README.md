@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7412 (530 parent indexes + 6882 children).
+Total section files: 7430 (530 parent indexes + 6900 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8611,6 +8611,36 @@ Total section files: 7412 (530 parent indexes + 6882 children).
 - [literate-ai--docs-decisions-0002-reference-implementation-ecosystem--consequences-and-validation](literate-ai--docs-decisions-0002-reference-implementation-ecosystem--consequences-and-validation.md)
 - [literate-ai--docs-decisions-0002-reference-implementation-ecosystem--context-and-decision](literate-ai--docs-decisions-0002-reference-implementation-ecosystem--context-and-decision.md)
 - [literate-ai--docs-decisions-0002-reference-implementation-ecosystem--dependency-admission-policy](literate-ai--docs-decisions-0002-reference-implementation-ecosystem--dependency-admission-policy.md)
+
+### literate-ai--docs-decisions-0003-constraint-classification
+
+- [literate-ai--docs-decisions-0003-constraint-classification--consequences](literate-ai--docs-decisions-0003-constraint-classification--consequences.md)
+- [literate-ai--docs-decisions-0003-constraint-classification--context-and-decision](literate-ai--docs-decisions-0003-constraint-classification--context-and-decision.md)
+- [literate-ai--docs-decisions-0003-constraint-classification--flow-classification](literate-ai--docs-decisions-0003-constraint-classification--flow-classification.md)
+- [literate-ai--docs-decisions-0003-constraint-classification--hard-constraint-disposition](literate-ai--docs-decisions-0003-constraint-classification--hard-constraint-disposition.md)
+
+### literate-ai--docs-decisions-0004-executable-port-boundaries
+
+- [literate-ai--docs-decisions-0004-executable-port-boundaries--compatibility](literate-ai--docs-decisions-0004-executable-port-boundaries--compatibility.md)
+- [literate-ai--docs-decisions-0004-executable-port-boundaries--consequences](literate-ai--docs-decisions-0004-executable-port-boundaries--consequences.md)
+- [literate-ai--docs-decisions-0004-executable-port-boundaries--context-and-decision](literate-ai--docs-decisions-0004-executable-port-boundaries--context-and-decision.md)
+
+### literate-ai--docs-decisions-0005-executable-component-semantics
+
+- [literate-ai--docs-decisions-0005-executable-component-semantics--authored-assets-and-repair](literate-ai--docs-decisions-0005-executable-component-semantics--authored-assets-and-repair.md)
+- [literate-ai--docs-decisions-0005-executable-component-semantics--compatibility-and-consequences](literate-ai--docs-decisions-0005-executable-component-semantics--compatibility-and-consequences.md)
+- [literate-ai--docs-decisions-0005-executable-component-semantics--context-and-component-revision](literate-ai--docs-decisions-0005-executable-component-semantics--context-and-component-revision.md)
+- [literate-ai--docs-decisions-0005-executable-component-semantics--diamond-invalidation-example](literate-ai--docs-decisions-0005-executable-component-semantics--diamond-invalidation-example.md)
+- [literate-ai--docs-decisions-0005-executable-component-semantics--driver-trust-provenance](literate-ai--docs-decisions-0005-executable-component-semantics--driver-trust-provenance.md)
+- [literate-ai--docs-decisions-0005-executable-component-semantics--per-node-target-and-flavor-resolution](literate-ai--docs-decisions-0005-executable-component-semantics--per-node-target-and-flavor-resolution.md)
+- [literate-ai--docs-decisions-0005-executable-component-semantics--phase-specific-edge-semantics](literate-ai--docs-decisions-0005-executable-component-semantics--phase-specific-edge-semantics.md)
+- [literate-ai--docs-decisions-0005-executable-component-semantics--public-interface-boundary](literate-ai--docs-decisions-0005-executable-component-semantics--public-interface-boundary.md)
+
+### literate-ai--docs-decisions-0006-significant-feature-request-governance
+
+- [literate-ai--docs-decisions-0006-significant-feature-request-governance--adr-planning-roadmap-sequence](literate-ai--docs-decisions-0006-significant-feature-request-governance--adr-planning-roadmap-sequence.md)
+- [literate-ai--docs-decisions-0006-significant-feature-request-governance--consequences](literate-ai--docs-decisions-0006-significant-feature-request-governance--consequences.md)
+- [literate-ai--docs-decisions-0006-significant-feature-request-governance--context](literate-ai--docs-decisions-0006-significant-feature-request-governance--context.md)
 
 ### literate-ai--readme
 
