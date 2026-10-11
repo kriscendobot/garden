@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T08:33:51Z_
+_As of 2026-10-11T08:36:37Z_
 
 ## Latest
 
@@ -886,6 +886,10 @@ Delegation: **active**
 
 - `watchdog-triager-clone-corrupt-kriscendobot-minion.town` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-clone-corrupt-kriscendobot-minion.town.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-10T21:20:08Z, latest 2026-10-11T08:35:37Z).
+> The SAME condition (`triager-clone-corrupt-kriscendobot-minion.town`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > triager: bare clone path /home/kris/garden/worktrees/kriscendobot-minion.town.git for kriscendobot-minion.town exists but is not a git repo; needs manual reconciliation (not clobbering). kriscendobot-minion.town is not being triaged until it is restored.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
@@ -1129,7 +1133,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 154.5M | $693.50 _(notional, rate-card)_ | 57% of 271.0M (ok) |
+| Claude | 154.5M | $694.52 _(notional, rate-card)_ | 57% of 271.0M (ok) |
 | Codex | 2.5M _(+73.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106244515 tokens/day lower bound._
@@ -1138,8 +1142,10 @@ _Fleet token-unlock pace: 106244515 tokens/day lower bound._
 worst fetch p95 8.575998s/45s (/home/kris/garden/.garden-state/maintainer/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (14)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
+- [`claude-on-minion-town-press-20261011-083506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261011-083506.md) — Press the Claude-on-minion.town arc forward
+- [`oros-health-watch-20261011-083506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261011-083506.md) — ---
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #166
 - [`kriscendobot-minion.town-pr177-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr177-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #177
 - [`kriscendobot-minion.town-pr179-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr179-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #179
