@@ -1255,6 +1255,7 @@ because the specs are repository READMEs.
 | [ADR 0010: canonical Flavor naming migration](literate-ai--docs-decisions-0010-canonical-flavor-naming-migration.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0011: typed Component domain metadata](literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0012: sample portfolio matrix and committed source cache](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0013: intent refinement and specification sufficiency](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 9 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, openly argued advocacy) |
 
 ## Petname systems and Zooko's triangle
 
