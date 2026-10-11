@@ -30,3 +30,13 @@ Gutter increment 1 of arc `minion-town-ui` ([plan](https://github.com/kriscendob
 - The name is author-chosen, not owner-chosen: a clip shows whatever its page calls itself. A guest-assigned pet name would need publish to record one, which it does not today.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T08:14:09Z
