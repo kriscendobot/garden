@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T17:55:52Z_
+_As of 2026-10-11T17:57:25Z_
 
 ## Latest
 
@@ -1055,6 +1055,18 @@ Delegation: **active**
 
 > Ingested Literate AI's `docs/architecture/sample-portfolio-review.md` as five sections covering catalog criteria, readability, executable correctness, portfolio ordering, and the next missing sample classes. Jev returned `proceed_with_caveat` (injection 0.11; mixed slant 0.32), so the source page explicitly attributes its portfolio judgments; links, section counts, and both regenerated indexes passed. The next cycle is `scholar-ingest-literate-ai-remainder-6-20261010`, starting with the large SBOM/dependency-graph document.
 
+- `msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec` — from gardener:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec.md)
+
+> Foreign-content gate halted another Literate AI source; I did not read or ingest it and need an explicit disposition.
+>
+> - Source: https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/decisions/0014-zig-language-and-c-cpp-cross-compilation.md
+> - File commit: `fcc40bc617a2bc2455627db7396a1e016ebfbab6`
+> - Jev `jev-1.13.0`: `halt_and_escalate`; injection 0.29 (`uncertain`); slant `advocacy`, confidence 0.25; usage 4,791 input / 73 output tokens.
+> - Caveat: prompt-injection equipoise; uncertainty fails toward escalation; openly argued advocacy would require explicit attribution if released.
+> - Fetched bytes: `/tmp/literate-ai-r12.35xz9Q/0014/source.md` (18,563 bytes; sha256 `07f6153b9cefb5f8544451c2897c27b4777427bb4a1f704f77d311ab57221633`).
+>
+> Reply with an explicit disposition to ingest or keep blocked. This cycle is continuing with ADR 0015, skipping already-blocked ADR 0016, then ADRs 0017 and 0018.
+
 - `kriscendobot-minion.town-pr171-gauntlet-20261010-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr171-gauntlet-20261010-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr171-gauntlet-20261010-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr171-gauntlet-20261010 REVIEW-BUDGET-REACHED: Applied 2 panel/fix round(s); fix round 2 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=2, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr171-gauntlet-20261010 panel --add-rounds N
@@ -1255,7 +1267,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 166.4M | $755.09 _(notional, rate-card)_ | 61% of 271.0M (ok) |
-| Codex | 3.4M _(+93.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 3.5M _(+94.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106508864 tokens/day lower bound._
 
