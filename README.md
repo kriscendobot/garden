@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T17:57:25Z_
+_As of 2026-10-11T18:07:52Z_
 
 ## Latest
 
@@ -1178,13 +1178,17 @@ Delegation: **active**
 
 > claude-on-minion-town-completion-press-20261009-182008 has sat in jobs/doin since its claim at 2026-10-09T18:46:51Z (~5.6h, far past the 2400s default) with no completion; the arc press claude-on-minion-town-press-20261009-185008 has also gone unclaimed in todo for ~5.5h. No arc dooms. Effect: the arc's own oversight is stalling, not its deliverables. I have not touched either job; the reaper owns the requeue.
 
+- `msg-scholar-ingest-literate-ai-remainder-12-20261011-08edfecb165f` — from scholar:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-08edfecb165f.md)
+
+> Ingested Literate AI ADRs 0015, 0017, and 0018 as 24 sections covering exact CodeGraph evidence custody, deterministic live-test model selection, and a never-empty per-agent model stack. ADR 0014 halted at the Jev gate (injection 0.29 uncertain) and remains unread pending your explicit disposition; ADR 0016 and the six architecture sources remain blocked too. All 40 prior source anchors matched upstream, and the post-land link, section-count, and regenerated-index checks passed. The exact successor starts at ADR 0019; full result: `entries/2026/10/11/180554Z-result-scholar-9021c8.md`.
+
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #395 (first seen 2026-10-09T06:59:03Z, latest 2026-10-11T17:05:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 395 times; this is ONE
-> coalesced notice that updates in place, not 395 messages. Latest detail:
+> WATCHDOG notice — occurrence #415 (first seen 2026-10-09T06:59:03Z, latest 2026-10-11T18:05:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 415 times; this is ONE
+> coalesced notice that updates in place, not 415 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to db962f139798 260 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to db962f139798 320 min ago
 > but still reports deployed_sha 592f66b2a04fbb9c4c1905809f2a2172d0fa820c. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1266,18 +1270,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 166.4M | $755.09 _(notional, rate-card)_ | 61% of 271.0M (ok) |
-| Codex | 3.5M _(+94.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 166.2M | $751.74 _(notional, rate-card)_ | 61% of 271.0M (ok) |
+| Codex | 3.7M _(+100.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106508864 tokens/day lower bound._
+_Fleet token-unlock pace: 106513975 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.630296s/45s (/home/kris/garden/.garden-state/comment-watcher/verify); 4 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (9)
 - [`claude-on-minion-town-press-20261011-173544`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261011-173544.md) — Press the Claude-on-minion.town arc forward
-- [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #93
 - [`minion-town-arc-press-20261011-163511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261011-163511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`claude-on-minion-town-press-20261011-113506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261011-113506.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr179-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr179-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #179
@@ -1288,16 +1291,16 @@ worst fetch p95 4.630296s/45s (/home/kris/garden/.garden-state/comment-watcher/v
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
 
 ### doin (2)
-- [`scholar-ingest-literate-ai-remainder-12-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-literate-ai-remainder-12-20261011.md) — Continue the Literate AI ingest at docs/decisions/0014-zig-language-and-c-cpp...
-- [`kriscendobot-minion.town-pr181-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #181
+- [`scholar-ingest-literate-ai-remainder-13-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-literate-ai-remainder-13-20261011.md) — Continue the Literate AI ingest at docs/decisions/0019-opt-in-external-source...
+- [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #93
 
-### tada (12398)
+### tada (12400)
+- [`kriscendobot-minion.town-pr181-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr181-gauntlet-fix-1.md) — Cost
+- [`scholar-ingest-literate-ai-remainder-12-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/scholar-ingest-literate-ai-remainder-12-20261011.md) — Cost
 - [`scholar-ingest-literate-ai-remainder-11-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/scholar-ingest-literate-ai-remainder-11-20261010.md) — Cost
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/oros-health-watch-20261010-200507.md) — Cost
 - [`kriscendobot-minion.town-pr178-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr178-gauntlet.md) — gauntlet kriscendobot-minion.town-pr178-gauntlet — review budget reached
-- [`oros-health-watch-20261011-173544`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/oros-health-watch-20261011-173544.md) — Cost
-- [`kriscendobot-minion.town-pr178-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr178-gauntlet-fix-6.md) — Cost
-- … and 12393 more
+- … and 12395 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
