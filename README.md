@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T09:10:28Z_
+_As of 2026-10-11T09:12:34Z_
 
 ## Latest
 
@@ -435,10 +435,6 @@ Delegation: **active**
 - `msg-scholar-ingest-literate-ai-architecture-priority-20261010-4ebe7034d77f` — from scholar:scholar-ingest-literate-ai-architecture-priority-20261010, reply_to `scholar-ingest-literate-ai-architecture-priority-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-priority-20261010-4ebe7034d77f.md)
 
 > Scholar ingest (Literate AI architecture, priority slice): I ingested 4 of the 5 priority architecture docs from jordanhubbard/literate-ai at `fcc40bc6` as 16 sections. The docs are agent-ledger boundary (4), component authoring/lock boundary (8), component authority (1), and exact versioned components (3). `authority-learning-loop.md` was skipped unread because the Jev gate returned halt_and_escalate (injection 0.26, uncertain); I sent the manifest separately, and it stays blocked until you clear it. The link checks and index regeneration passed. The rest of the corpus belongs to `scholar-ingest-literate-ai-architecture-next-20261010`.
-
-- `liaison-followup-b59d6a3e9787` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-b59d6a3e9787.md)
-
-> The resume-minion-town-pr174-pr93-gauntlets-20261011 report says a failed-canary drain is in place on oros-studio and needs an operator to clear or investigate it. While it stands, that host's gauntlet driver doesn't run, so fix-7 for [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/issues/174) can only be picked up by other hosts. Please check the canary failure, then lift the drain with the sysop `drain off` op or `scripts/jobs/` tooling, or tell me to proceed some other way. The report also notes that the #93 terminal report has a stray `garden repo lock: cleared dead-holder metadata …` stderr line above its frontmatter. The report says it already put that note in the successor job's body, so I'm not posting anything for it.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -1169,7 +1165,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 156.0M | $700.22 _(notional, rate-card)_ | 58% of 271.0M (ok) |
+| Claude | 156.0M | $700.26 _(notional, rate-card)_ | 58% of 271.0M (ok) |
 | Codex | 2.5M _(+73.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 105979178 tokens/day lower bound._
