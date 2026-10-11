@@ -124,7 +124,7 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - overt causality, covert causality, in-model causality, conforming-implementation channel test -> distributed-confinement
 - ad hominem security, trusted by whom, trusted computing, trusted PC, Palladium, who wrote the code -> ad-hominem-security
 - bearer capability, web-key, webkey, web key, webkeys, capability URL, capability-in-URL, capabilities in URLs, swiss number URL, unguessable URL, Waterken web-key, https capability -> web-key
-- petname, petnames, petname system, per-holder naming, Zooko's triangle, edgename, edge name, proposed name, alleged name, petname path -> petnames
+- petname, pet name, petnames, petname system, per-holder naming, Zooko's triangle, edgename, edge name, proposed name, alleged name, petname path -> petnames
 - OpenID, single sign-on, SSO, single sign-out, federated identity -> oauth-client-credentials-vs-authorization-code
 - introduction by default, introduction-by-default, proxy by default, proxy-by-default, direct delegation, path-based access -> introduction-by-default
 - master capability, master web-key, capability bootstrap, last secret, borrowed-computer login -> web-keys
