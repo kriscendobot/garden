@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T12:28:20Z_
+_As of 2026-10-11T12:31:12Z_
 
 ## Latest
 
@@ -1157,7 +1157,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 158.9M | $716.25 _(notional, rate-card)_ | 59% of 271.0M (ok) |
+| Claude | 159.0M | $716.30 _(notional, rate-card)_ | 59% of 271.0M (ok) |
 | Codex | 2.5M _(+73.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106203481 tokens/day lower bound._
@@ -1166,13 +1166,12 @@ _Fleet token-unlock pace: 106203481 tokens/day lower bound._
 worst fetch p95 8.575998s/45s (/home/kris/garden/.garden-state/maintainer/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (12)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
 - [`kriscendobot-minion.town-pr179-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr179-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #179
 - [`oros-health-watch-20261011-113506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261011-113506.md) — ---
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #93
 - [`claude-on-minion-town-press-20261011-113506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261011-113506.md) — Press the Claude-on-minion.town arc forward
-- [`kriscendobot-minion.town-pr178-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr178-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #178
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #166
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #171
@@ -1181,9 +1180,10 @@ worst fetch p95 8.575998s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`scholar-ingest-literate-ai-remainder-8-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-literate-ai-remainder-8-20261010.md) — Continue the Literate AI ingest at docs/decisions/0003-constraint-classificat...
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr177-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr177-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #177
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #174
+- [`kriscendobot-minion.town-pr178-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr178-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #178
 - [`claude-on-minion-town-completion-press-20261011-065011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261011-065011.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (12363)
