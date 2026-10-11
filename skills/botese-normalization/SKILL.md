@@ -1,5 +1,6 @@
 ---
 created: 2026-09-16
+updated: 2026-10-11
 author: gardener
 ---
 
@@ -50,7 +51,7 @@ fixtures, and generated output are left as-is.
 ## The data file: `cliches.tsv`
 
 `cliches.tsv` (co-located) is the auditable rule set: a **curated, explicit phrase
-list**. Four TAB-separated columns, one cliché per row, `#`-comment and blank lines
+list**. Five TAB-separated columns, one cliché per row, `#`-comment and blank lines
 ignored:
 
 | column       | meaning                                                              |
@@ -59,6 +60,7 @@ ignored:
 | `phrase`     | the literal, usually **multi-word** phrase to detect                |
 | `suggestion` | the rewrite direction — what to write instead                       |
 | `notes`      | false-friend cautions, the legitimate literal sense, provenance     |
+| `scope`      | optional: blank for all surfaces; `pr-metadata` for title/body only  |
 
 **Every row is an enumerated literal phrase, never a suffix pattern or a heuristic**
 — the same "comprehensive list, not patterns" decision `divergences.tsv` made
@@ -80,8 +82,10 @@ its grep must match a phrase.
 
 Two layers of precision, exactly as the spelling mechanism has:
 
-1. **The grep matches only a curated multi-word phrase.** It can never fire on a
-   bare "seam" or "load-bearing".
+1. **Source lines match only a curated multi-word phrase.** They never fire on a
+   bare "seam" or "load-bearing". A maintainer-reviewed `pr-metadata` row may be
+   a bare word because a PR title/description is a narrow, wholly authored prose
+   surface; the seat still adjudicates the hit.
 2. **The thesaurus seat (a `claude -p`) adjudicates every hit.** Even a matched
    phrase can sit inside a quote, an identifier, or a genuinely literal sentence;
    the seat accepts those with rationale, exactly as the orthographer seat accepts a
@@ -89,9 +93,10 @@ Two layers of precision, exactly as the spelling mechanism has:
 
 ## Exclusion discipline (precision over recall)
 
-- **Never add a bare common word.** A phrase is only ever a *construction* distinct
-  enough that its literal senses do not collide with it. `load-bearing` alone,
-  `seam` alone — excluded by construction.
+- **Never add a bare common word to source scanning.** A phrase is only ever a
+  *construction* distinct enough that its literal senses do not collide with it.
+  A bare `pr-metadata` rule is the narrow exception: it applies only to the PR
+  title and description, not files in the diff.
 - **Keep the literal senses safe.** Real load-bearing structural elements (`wall`,
   `beam`, `column`, `member`), a real fabric/rock seam, and the established
   software-testing "seam" (Feathers) are legitimate; the enumerated collocations do
@@ -116,7 +121,9 @@ legitimate literal sentence.
 - **The seat-gate grep** — `scripts/jobs/gardening/thesaurus-cliche-grep.sh`
   (no LLM). Reads `cliches.tsv`, computes the diff's **added lines** against the
   base, whitespace-normalizes each, and whole-phrase/case-insensitively matches each
-  `phrase`, emitting `<path>:<line>: <phrase> [<category>] rewrite: <suggestion>`,
+  `phrase`. The seat gate also supplies the live PR title and body as files; rules
+  scoped to `pr-metadata` scan only those two surfaces. It emits
+  `<path>:<line>: <phrase> [<category>] rewrite: <suggestion>`,
   one line per occurrence. It casts a wide net (all added text lines) and does not
   try to distinguish a genuine literal use from a cliché — that precision is the
   seat's job. Exit 0 iff ≥1 candidate; exit 1 clean/no-base; exit 2 cannot-determine.

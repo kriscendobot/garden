@@ -6,12 +6,12 @@
 # candidate) AND the terminating oracle of the deslopper's apply-then-re-grep loop
 # (the loop stops only when this returns clean). It is a direct structural port of
 # orthographer-divergence-grep.sh — the same deterministic-pre-pass-then-cost-gated-
-# handler split — differing in ONE dimension: it matches curated MULTI-WORD PHRASES
-# (a distinctive construction) rather than single whole words, because a Botese word
-# ("seam", "load-bearing") is a cliché only in a specific collocation, not on its own.
+# handler split. Source scanning matches curated MULTI-WORD PHRASES because a
+# Botese word ("seam", "load-bearing") is usually a cliché only in a specific
+# collocation. Narrow PR-metadata rules may name a maintainer-vetted bare word.
 #
-# CANDIDATE LINES are the change's ADDED (`+`) lines from `git diff <base>...HEAD`,
-# mapped to their line numbers in the NEW file. Each line is whitespace-normalized
+# CANDIDATE LINES are the change's ADDED (`+`) lines from `git diff <base>...HEAD`
+# plus, when supplied, the live PR title and body. Each line is whitespace-normalized
 # (runs of blanks collapsed to one space) so a phrase survives incidental spacing.
 # For each added line and each row of cliches.tsv, a WHOLE-PHRASE, CASE-INSENSITIVE
 # match of the `phrase` emits one candidate:
@@ -36,6 +36,10 @@
 # Usage: thesaurus-cliche-grep.sh <check|lines|report> <worktree> [base] [tsv]
 #   base  diff base (default HEAD~1).
 #   tsv   phrase list (default $GARDEN_CLICHES_TSV, else the skill's cliches.tsv).
+#
+# The seat gate supplies live PR metadata through GARDEN_THESAURUS_PR_TITLE_FILE
+# and GARDEN_THESAURUS_PR_BODY_FILE. Keeping these as files makes the scanner
+# hermetic in tests and keeps untrusted PR prose off the shell command line.
 
 set -uo pipefail
 
@@ -86,6 +90,20 @@ added_lines() {
   '
 }
 
+# Emit all text surfaces as `<scope>\t<path>\t<line>\t<text>`. A rule whose
+# optional fifth TSV column is `pr-metadata` is deliberately confined to the
+# title/body. This lets the maintainer name a bare metadata cliché (notably
+# "seam") without turning ordinary literal uses in source into false positives.
+candidate_lines() {
+  added_lines | awk 'BEGIN { FS="\t" } { print "diff\t" $0 }'
+  if [ -n "${GARDEN_THESAURUS_PR_TITLE_FILE:-}" ] && [ -r "$GARDEN_THESAURUS_PR_TITLE_FILE" ]; then
+    awk '{ print "pr-metadata\tPR_TITLE\t" NR "\t" $0 }' "$GARDEN_THESAURUS_PR_TITLE_FILE"
+  fi
+  if [ -n "${GARDEN_THESAURUS_PR_BODY_FILE:-}" ] && [ -r "$GARDEN_THESAURUS_PR_BODY_FILE" ]; then
+    awk '{ print "pr-metadata\tPR_BODY\t" NR "\t" $0 }' "$GARDEN_THESAURUS_PR_BODY_FILE"
+  fi
+}
+
 # Emit candidates: for each added line, for each cliché phrase, whole-phrase
 # case-insensitive match. Runs of whitespace in the line are collapsed to one space
 # so incidental spacing does not defeat a multi-word phrase. The whole-phrase test
@@ -94,28 +112,31 @@ added_lines() {
 # `seam where` from matching inside a larger token and lets `Load-Bearing Invariant`
 # match `load-bearing invariant`.
 candidates() {
-  added_lines | awk -v tsvfile="$tsv" '
+  candidate_lines | awk -v tsvfile="$tsv" '
     BEGIN {
       FS="\t"
       while ((getline row < tsvfile) > 0) {
         if (row ~ /^#/ || row ~ /^[[:space:]]*$/) continue
         n = split(row, c, "\t")
         if (n < 3) continue
-        cat = c[1]; ph = c[2]; sug = c[3]
+        cat = c[1]; ph = c[2]; sug = c[3]; rule_scope = c[5]
         if (ph == "" || sug == "") continue
         idx++
         P[idx] = ph; S[idx] = sug; C[idx] = cat
+        R[idx] = (rule_scope == "" ? "all" : rule_scope)
         PL[idx] = tolower(ph)
       }
       close(tsvfile)
     }
     {
-      path=$1; ln=$2; text=$3
+      scope=$1; path=$2; ln=$3; text=$4
+      for (field=5; field<=NF; field++) text = text "\t" $field
       low = tolower(text)
       gsub(/[ \t]+/, " ", low)          # collapse whitespace runs to one space
       # pad so first/last chars have a non-word neighbour
       padded = " " low " "
       for (i=1; i<=idx; i++) {
+        if (R[i] != "all" && R[i] != scope) continue
         tok = PL[i]
         start = 1
         tl = length(tok)

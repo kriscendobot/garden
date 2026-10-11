@@ -32,6 +32,22 @@ base="${4:-HEAD~1}"
 brief="$JURORS_DIR/$seat/AGENT.md"
 RULE="skills/botese-normalization/SKILL.md"
 
+# The panel judges the complete authored review surface, including the live PR
+# title and description. Fetch each into a file: the contents are untrusted data
+# and must never be interpolated into a shell command line.
+metadata_dir="$(mktemp -d "${TMPDIR:-/tmp}/thesmeta.XXXXXX")"
+trap 'rm -rf "$metadata_dir"' EXIT
+repo="$(git -C "$wt" remote get-url origin 2>/dev/null \
+  | sed -E 's#(git@|ssh://git@|https://)github\.com[:/]+##; s#\.git$##; s#/$##' || true)"
+if [ -n "$repo" ] \
+   && gh pr view "$pr" --repo "$repo" --json title --jq .title >"$metadata_dir/title" 2>/dev/null \
+   && gh pr view "$pr" --repo "$repo" --json body --jq .body >"$metadata_dir/body" 2>/dev/null; then
+  export GARDEN_THESAURUS_PR_TITLE_FILE="$metadata_dir/title"
+  export GARDEN_THESAURUS_PR_BODY_FILE="$metadata_dir/body"
+else
+  metadata_error="live PR title/body could not be fetched"
+fi
+
 approve_block() {
   cat <<EOF
 ### $seat
@@ -68,10 +84,13 @@ EOF
 }
 
 # --- deterministic pre-pass -------------------------------------------------
-errfile="$(mktemp "${TMPDIR:-/tmp}/thesseat.XXXXXX")"
-trap 'rm -f "$errfile"' EXIT
+errfile="$metadata_dir/grep.err"
 "$GREP_PREPASS" check "$wt" "$base" 2>"$errfile"; rc=$?
 reason="$(tr '\n' ' ' < "$errfile" | sed 's/^[^:]*: //; s/[[:space:]]*$//')"
+
+if [ -n "${metadata_error:-}" ]; then
+  no_list_block "$metadata_error"; exit 0
+fi
 
 case "$rc" in
   1) approve_block; exit 0 ;;                                    # clean / no base -> approve, no LLM

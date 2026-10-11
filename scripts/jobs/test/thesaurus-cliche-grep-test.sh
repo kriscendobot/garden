@@ -10,8 +10,8 @@
 #      LITERAL use of the same word — a real "load-bearing wall", a real fabric
 #      "seam", a Feathers testing "seam" — is NOT flagged, because the list matches
 #      the distinctive multi-word COLLOCATION, not the bare word.
-#   3. NO BARE-WORD MATCH: bare "load-bearing" / bare "seam" with no listed
-#      collocation is NOT flagged.
+#   3. SOURCE NO BARE-WORD MATCH: bare "load-bearing" / bare "seam" with no
+#      listed collocation is NOT flagged in changed files.
 #   4. WIDE NET: a cliché inside a QUOTED string IS flagged (the seat, not the grep,
 #      adjudicates quote vs prose).
 #   5. ADDED-ONLY: a REMOVED cliché is not a hit.
@@ -22,7 +22,8 @@
 #  10. NO-BASE: an unresolvable base => `check` exits 1 (skip), quiet.
 #  11. NO-LIST: a missing phrase list => exit 2 (LOUD), never a silent clean.
 #  12. SKIP non-prose: the phrase list itself and a lockfile do not self-trigger.
-#  13. CONVERGENCE: the apply-then-re-grep loop reaches a zero-candidate fixpoint in
+#  13. PR METADATA: bare "seam" is flagged in both title and description.
+#  14. CONVERGENCE: the apply-then-re-grep loop reaches a zero-candidate fixpoint in
 #      finite steps (the deslopper invariant), modelling "apply" as a rephrase that
 #      removes the matched phrase.
 #
@@ -91,6 +92,17 @@ commit_file "$R3" doc.md 'base line' \
 out3="$(GARDEN_CLICHES_TSV="$TSV" bash "$GREP" lines "$R3" HEAD~1 2>/dev/null)"
 [ -z "$out3" ] && ok "3 NO BARE-WORD MATCH: bare 'load-bearing' / bare 'seam' not flagged" || bad "3 BARE-WORD: bare load-bearing/seam matched ($out3)"
 
+# --- 13: PR METADATA catches the maintainer-named bare-word case ------------
+R13M="$TR/metadata"; make_repo "$R13M" doc.md
+commit_file "$R13M" doc.md 'base line' 'Plain source prose.'
+printf '%s\n' 'feat: add an inference seam' > "$TR/title"
+printf '%s\n' 'This package provides the provider-neutral seam.' > "$TR/body"
+rep13m="$(GARDEN_THESAURUS_PR_TITLE_FILE="$TR/title" \
+  GARDEN_THESAURUS_PR_BODY_FILE="$TR/body" GARDEN_CLICHES_TSV="$TSV" \
+  bash "$GREP" report "$R13M" HEAD~1 2>/dev/null)"
+echo "$rep13m" | grep -q 'PR_TITLE:1: seam ' && ok "13 PR METADATA bare 'seam' flagged in title" || bad "13 PR TITLE seam missed ($rep13m)"
+echo "$rep13m" | grep -q 'PR_BODY:1: seam ' && ok "13 PR METADATA bare 'seam' flagged in description" || bad "13 PR BODY seam missed ($rep13m)"
+
 # --- 5: ADDED-ONLY ----------------------------------------------------------
 R5="$TR/removed"; make_repo "$R5" doc.md
 printf 'base line\nthe old load-bearing invariant text\n' > "$R5/doc.md"; git -C "$R5" add -A; git -C "$R5" commit -qm withcliche >/dev/null
@@ -148,7 +160,7 @@ git -C "$R12" add -A; git -C "$R12" commit -qm nonprose >/dev/null
 rep12="$(run_report "$R12")"
 echo "$rep12" | grep -q 'cliches.tsv:\|yarn.lock:' && bad "12 non-prose self-triggered ($rep12)" || ok "12 SKIP non-prose (cliches.tsv + yarn.lock) do not self-trigger"
 
-# --- 13: CONVERGENCE — apply-then-re-grep loop reaches zero -----------------
+# --- 14: CONVERGENCE — apply-then-re-grep loop reaches zero -----------------
 # Model the deslopper loop: each round, remove every matched phrase the digest names
 # (a rephrase leaves no cliché behind), commit so the next `HEAD~1` diff shrinks,
 # re-grep. Assert it terminates at zero in finite rounds.
@@ -175,9 +187,9 @@ EOF
 done
 GARDEN_CLICHES_TSV="$TSV" bash "$GREP" check "$R13" HEAD~1 2>/dev/null; rc13=$?
 if [ "$rc13" -eq 1 ] && [ "$rounds" -le "$max" ]; then
-  ok "13 CONVERGENCE loop reached zero-candidate fixpoint in $rounds round(s)"
+  ok "14 CONVERGENCE loop reached zero-candidate fixpoint in $rounds round(s)"
 else
-  bad "13 CONVERGENCE fixpoint not reached (rc=$rc13 rounds=$rounds)"
+  bad "14 CONVERGENCE fixpoint not reached (rc=$rc13 rounds=$rounds)"
 fi
 
 echo
