@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7536 (530 parent indexes + 7006 children).
+Total section files: 7561 (530 parent indexes + 7031 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8807,6 +8807,46 @@ Total section files: 7536 (530 parent indexes + 7006 children).
 - [literate-ai--docs-decisions-0028-browser-interaction-acceptance--text-only-frontend-false-passes](literate-ai--docs-decisions-0028-browser-interaction-acceptance--text-only-frontend-false-passes.md)
 - [literate-ai--docs-decisions-0028-browser-interaction-acceptance--tool-neutral-real-browser-adapter](literate-ai--docs-decisions-0028-browser-interaction-acceptance--tool-neutral-real-browser-adapter.md)
 - [literate-ai--docs-decisions-0028-browser-interaction-acceptance--verifier-owned-interaction-contract](literate-ai--docs-decisions-0028-browser-interaction-acceptance--verifier-owned-interaction-contract.md)
+
+### literate-ai--docs-decisions-0029-ipc-surface-contract
+
+- [literate-ai--docs-decisions-0029-ipc-surface-contract--adapters-and-schema-authority](literate-ai--docs-decisions-0029-ipc-surface-contract--adapters-and-schema-authority.md)
+- [literate-ai--docs-decisions-0029-ipc-surface-contract--documentation-and-implementation-consequences](literate-ai--docs-decisions-0029-ipc-surface-contract--documentation-and-implementation-consequences.md)
+- [literate-ai--docs-decisions-0029-ipc-surface-contract--missing-cross-protocol-contract](literate-ai--docs-decisions-0029-ipc-surface-contract--missing-cross-protocol-contract.md)
+- [literate-ai--docs-decisions-0029-ipc-surface-contract--protocol-neutral-ipc-surface](literate-ai--docs-decisions-0029-ipc-surface-contract--protocol-neutral-ipc-surface.md)
+
+### literate-ai--docs-decisions-0030-executable-cross-layer-authority
+
+- [literate-ai--docs-decisions-0030-executable-cross-layer-authority--canonical-skill-catalog](literate-ai--docs-decisions-0030-executable-cross-layer-authority--canonical-skill-catalog.md)
+- [literate-ai--docs-decisions-0030-executable-cross-layer-authority--compatibility-and-migration-consequences](literate-ai--docs-decisions-0030-executable-cross-layer-authority--compatibility-and-migration-consequences.md)
+- [literate-ai--docs-decisions-0030-executable-cross-layer-authority--cross-layer-authority-drift](literate-ai--docs-decisions-0030-executable-cross-layer-authority--cross-layer-authority-drift.md)
+- [literate-ai--docs-decisions-0030-executable-cross-layer-authority--deterministic-application-services](literate-ai--docs-decisions-0030-executable-cross-layer-authority--deterministic-application-services.md)
+- [literate-ai--docs-decisions-0030-executable-cross-layer-authority--host-platform-path-policy](literate-ai--docs-decisions-0030-executable-cross-layer-authority--host-platform-path-policy.md)
+
+### literate-ai--docs-decisions-0031-durable-user-configuration-home
+
+- [literate-ai--docs-decisions-0031-durable-user-configuration-home--central-user-configuration-root](literate-ai--docs-decisions-0031-durable-user-configuration-home--central-user-configuration-root.md)
+- [literate-ai--docs-decisions-0031-durable-user-configuration-home--configuration-versus-mutable-state](literate-ai--docs-decisions-0031-durable-user-configuration-home--configuration-versus-mutable-state.md)
+- [literate-ai--docs-decisions-0031-durable-user-configuration-home--conflict-safe-migration](literate-ai--docs-decisions-0031-durable-user-configuration-home--conflict-safe-migration.md)
+- [literate-ai--docs-decisions-0031-durable-user-configuration-home--fail-closed-cutover-and-validation](literate-ai--docs-decisions-0031-durable-user-configuration-home--fail-closed-cutover-and-validation.md)
+- [literate-ai--docs-decisions-0031-durable-user-configuration-home--project-tree-private-state-failure](literate-ai--docs-decisions-0031-durable-user-configuration-home--project-tree-private-state-failure.md)
+
+### literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms
+
+- [literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--consent-bound-generic-orchestration](literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--consent-bound-generic-orchestration.md)
+- [literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--native-prerequisite-authority-gap](literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--native-prerequisite-authority-gap.md)
+- [literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--ownership-safe-uninstallation](literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--ownership-safe-uninstallation.md)
+- [literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--three-dependency-layers](literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--three-dependency-layers.md)
+- [literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--tuple-specific-cyclonedx-install-sboms](literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--tuple-specific-cyclonedx-install-sboms.md)
+- [literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--validation-and-authority-separation](literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms--validation-and-authority-separation.md)
+
+### literate-ai--docs-decisions-0033-os-base-universal-toolchain
+
+- [literate-ai--docs-decisions-0033-os-base-universal-toolchain--duplicated-toolchain-authority](literate-ai--docs-decisions-0033-os-base-universal-toolchain--duplicated-toolchain-authority.md)
+- [literate-ai--docs-decisions-0033-os-base-universal-toolchain--logical-capabilities-and-flavor-mix-ins](literate-ai--docs-decisions-0033-os-base-universal-toolchain--logical-capabilities-and-flavor-mix-ins.md)
+- [literate-ai--docs-decisions-0033-os-base-universal-toolchain--os-realization-and-deterministic-composition](literate-ai--docs-decisions-0033-os-base-universal-toolchain--os-realization-and-deterministic-composition.md)
+- [literate-ai--docs-decisions-0033-os-base-universal-toolchain--portability-and-validation-consequences](literate-ai--docs-decisions-0033-os-base-universal-toolchain--portability-and-validation-consequences.md)
+- [literate-ai--docs-decisions-0033-os-base-universal-toolchain--provider-selection-and-custody-invariants](literate-ai--docs-decisions-0033-os-base-universal-toolchain--provider-selection-and-custody-invariants.md)
 
 ### literate-ai--readme
 
