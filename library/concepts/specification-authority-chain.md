@@ -37,6 +37,8 @@ In a specification-authority chain, human-reviewable specifications and pinned p
 | [inherited authority and its trust boundary](../sections/literate-ai--docs-architecture-repository-inheritance--trust-boundary-and-parent-checkouts.md) | Authority inherited from parent repositories is bound by exact commits, file hashes, and CAS guards; local bytes outrank inherited ones and inheritance never executes repository code. |
 | [retained library export set and binding](../sections/literate-ai--docs-architecture-retained-library-bindings--export-set.md) | Retained provider libraries cross into an importer only through an exact export set and importer binding that carry no trusted flag; admission must reopen current qualification. |
 | [current-authority readers for retained admission](../sections/literate-ai--docs-architecture-retained-library-bindings--current-authority-readers.md) | Admission compares against current authority re-derived by guarded readers, never values copied from the candidate binding or historical evidence. |
+| [ADR 0001: boundary rule](../sections/literate-ai--docs-decisions-0001-framework-boundary--boundary-rule.md) | The founding decision that keeps product, provider, and tool policy out of the neutral kernel's authority contracts. |
+| [ADR 0002: dependency admission policy](../sections/literate-ai--docs-decisions-0002-reference-implementation-ecosystem--dependency-admission-policy.md) | Runtime dependencies enter the kernel only through recorded, port-isolated admission evidence. |
 
 ## See also
 
