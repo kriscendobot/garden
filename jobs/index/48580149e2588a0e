@@ -1,2 +1,2 @@
-base: improve-journal-contention-watch-time-budget
+base: improve-journal-contention-remedy-lock-deferral
 identity: mentor:scripts/jobs/journal-contention-watch.sh
