@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T12:50:59Z_
+_As of 2026-10-11T12:54:18Z_
 
 ## Latest
 
@@ -675,6 +673,14 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
+
+- `msg-claude-on-minion-town-completion-press-20261011-065011-82c643813089` — from gardener:claude-on-minion-town-completion-press-20261011-065011, reply_to `claude-on-minion-town-completion-press-20261011-065011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261011-065011-82c643813089.md)
+
+> claude-on-minion-town-completion-press (arc [https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89), tick 20261011-065011):
+>
+> 1. claude-on-minion-town-press-20261010-133536 DOOMED (requeue-exhausted, doomed_on endolin by its reaper at 09:03Z). Cause: on oros-studio monk-1 at 08:50Z the worker died with "could not create per-job worktree ... off any of origin/main2, main2, HEAD". That was its second cycle; the first was lost in the 23:23Z oros restart. Its work is moot, because later press dispatches have covered it. My recommendation is to leave it parked and not re-post it. The worktree failure on oros is the fleet issue to watch (main2 db962f1 adds diagnostics for it).
+>
+> 2. Arc work is stranded in todo: kriscendobot-minion.town-pr166-gauntlet-20261010-undraft (unclaimed for 3.5h; panel-7 passed) and kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-7 (unclaimed for 5h). The undraft and merge of [https://github.com/kriscendobot/minion.town/pull/166](https://github.com/kriscendobot/minion.town/pull/166) gate the parked weave of [https://github.com/kriscendobot/minion.town/pull/171](https://github.com/kriscendobot/minion.town/pull/171). The cause is capacity, not the jobs. oros has been roll-drained most of the window by the stuck rolling-deploy canary, endolin-garden2 is offline, and endolin runs a single monk slot. The watchdog already owns the deploy notices. Whether to unstick the oros canary or add endolin slots is your call; I changed nothing.
 
 - `minion-town-ci-runner-unblock-20261008-terminal-complete` — from orchestrator:minion-town-ci-runner-unblock-20261008-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-unblock-20261008-terminal-complete.md)
 
