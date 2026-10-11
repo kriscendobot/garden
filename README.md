@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T03:50:07Z_
+_As of 2026-10-11T03:51:43Z_
 
 ## Latest
 
@@ -1112,8 +1112,9 @@ _Fleet token-unlock pace: 106334079 tokens/day lower bound._
 worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
+- [`kriscendobot-minion.town-pr180-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #180
 - [`kriscendobot-minion.town-pr177-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr177-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #177
 - [`oros-hardware-report-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-hardware-report-20261011.md) — Hardware and capability report for oros-studio-garden-ce242c49
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #166
