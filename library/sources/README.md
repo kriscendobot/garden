@@ -1283,6 +1283,7 @@ because the specs are repository READMEs.
 | [ADR 0040: retained Cargo library bridge](literate-ai--docs-decisions-0040-retained-cargo-library-bridge.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0042: compiled C++ library products](literate-ai--docs-decisions-0042-cpp-library-products.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0043: bounded worker resource health](literate-ai--docs-decisions-0043-worker-resource-health.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0044: action DAG scheduling and shared verified caches](literate-ai--docs-decisions-0044-action-dag-and-shared-cache.md) | jordanhubbard/literate-ai | 2026-10-01 | Jordan Hubbard | 16 | current (file commit `2820f853`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
