@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7436 (530 parent indexes + 6906 children).
+Total section files: 7453 (530 parent indexes + 6923 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8650,6 +8650,38 @@ Total section files: 7436 (530 parent indexes + 6906 children).
 - [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--optional-coding-agent-review](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--optional-coding-agent-review.md)
 - [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--resolved-parent-catalog-comparison](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--resolved-parent-catalog-comparison.md)
 - [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--unchanged-boundaries](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--unchanged-boundaries.md)
+
+### literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience
+
+- [literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--bounded-transient-retry](literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--bounded-transient-retry.md)
+- [literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--consequences-and-unchanged-boundaries](literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--consequences-and-unchanged-boundaries.md)
+- [literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--context-and-corrected-diagnosis](literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--context-and-corrected-diagnosis.md)
+- [literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--failure-evidence-and-existing-patterns](literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--failure-evidence-and-existing-patterns.md)
+- [literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--identity-bound-sample-checkpointing](literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience--identity-bound-sample-checkpointing.md)
+
+### literate-ai--docs-decisions-0009-explicit-cache-root-binding
+
+- [literate-ai--docs-decisions-0009-explicit-cache-root-binding--ambient-cache-custody-problem](literate-ai--docs-decisions-0009-explicit-cache-root-binding--ambient-cache-custody-problem.md)
+- [literate-ai--docs-decisions-0009-explicit-cache-root-binding--compatibility-and-consequences](literate-ai--docs-decisions-0009-explicit-cache-root-binding--compatibility-and-consequences.md)
+- [literate-ai--docs-decisions-0009-explicit-cache-root-binding--explicit-binding-and-receipt-identity](literate-ai--docs-decisions-0009-explicit-cache-root-binding--explicit-binding-and-receipt-identity.md)
+
+### literate-ai--docs-decisions-0010-canonical-flavor-naming-migration
+
+- [literate-ai--docs-decisions-0010-canonical-flavor-naming-migration--canonical-names-and-reviewed-re-pin](literate-ai--docs-decisions-0010-canonical-flavor-naming-migration--canonical-names-and-reviewed-re-pin.md)
+- [literate-ai--docs-decisions-0010-canonical-flavor-naming-migration--classification-and-migration-consequences](literate-ai--docs-decisions-0010-canonical-flavor-naming-migration--classification-and-migration-consequences.md)
+- [literate-ai--docs-decisions-0010-canonical-flavor-naming-migration--mixed-naming-and-identity-risk](literate-ai--docs-decisions-0010-canonical-flavor-naming-migration--mixed-naming-and-identity-risk.md)
+
+### literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2
+
+- [literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2--freeform-domain-structure-gap](literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2--freeform-domain-structure-gap.md)
+- [literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2--verifier-boundaries-and-consequences](literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2--verifier-boundaries-and-consequences.md)
+- [literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2--versioned-typed-domain-metadata](literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2--versioned-typed-domain-metadata.md)
+
+### literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache
+
+- [literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--capability-cells-and-specification-hierarchy](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--capability-cells-and-specification-hierarchy.md)
+- [literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--committed-source-cache-and-portfolio-floor](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--committed-source-cache-and-portfolio-floor.md)
+- [literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--portfolio-coverage-cost-and-narrative](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--portfolio-coverage-cost-and-narrative.md)
 
 ### literate-ai--readme
 
