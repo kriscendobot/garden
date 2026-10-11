@@ -19,3 +19,13 @@ Own all remaining work:
 5. Drain the inbox and perform the normal self-improvement check.
 
 Evidence inherited: `npm run typecheck` passed; `node --test deploy/probe/prod-objectives.test.mjs` passed 16/16; GitHub Actions run https://github.com/kriscendobot/minion.town/actions/runs/38164494531 passed `test`, `Claude harness (arm64)`, and `Claude harness (amd64)` on `17e4d3c`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-11T20:37:30Z
