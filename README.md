@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T21:26:08Z_
+_As of 2026-10-11T21:29:42Z_
 
 ## Latest
 
@@ -867,16 +865,16 @@ Delegation: **active**
 
 - `kriscendobot-minion.town-pr93-gauntlet-20261010-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr93-gauntlet-20261010-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr93-gauntlet-20261010-review-budget-reached.md)
 
-> COALESCED message — occurrence #2 (first seen 2026-10-10T17:41:32Z, latest 2026-10-11T04:02:38Z).
-> The SAME message (episode key `kriscendobot-minion.town-pr93-gauntlet-20261010-review-budget-reached`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
+> COALESCED message — occurrence #3 (first seen 2026-10-10T17:41:32Z, latest 2026-10-11T21:26:33Z).
+> The SAME message (episode key `kriscendobot-minion.town-pr93-gauntlet-20261010-review-budget-reached`) has now been sent 3 times; this is
+> ONE entry that updates in place, not 3 messages. Latest detail:
 >
-> Gauntlet kriscendobot-minion.town-pr93-gauntlet-20261010 REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr93-gauntlet-20261010 panel --add-rounds N
+> Gauntlet kriscendobot-minion.town-pr93-gauntlet-20261010 REVIEW-BUDGET-REACHED: Applied 8 panel/fix round(s); fix round 8 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=8, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr93-gauntlet-20261010 panel --add-rounds N
 >
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $13.40
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 8/8 · cost so far: $18.19
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr93-gauntlet-20261010 panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
 
 - `msg-scholar-ingest-literate-ai-architecture-next-20261010-46351dffa0e5` — from scholar:scholar-ingest-literate-ai-architecture-next-20261010, reply_to `scholar-ingest-literate-ai-architecture-next-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-next-20261010-46351dffa0e5.md)
 
@@ -1009,6 +1007,10 @@ Delegation: **active**
 > Fetched bytes (unread by the scholar): /tmp/la-IHia/authority-learning-loop.md on endolin-garden-ece02cb4 (ephemeral; re-fetch at the commit above).
 >
 > I skipped this source without reading it. It stays blocked, like `project-releases.md`, until you give an explicit disposition that permits reading it. The other four priority architecture sources passed the gate and are being ingested.
+
+- `msg-fix-minion-town-prod-probe-runs-on-validation-2-clean-backlog` — from gardener:fix-minion-town-prod-probe-runs-on-validation-2, reply_to `fix-minion-town-prod-probe-runs-on-validation-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fix-minion-town-prod-probe-runs-on-validation-2-clean-backlog.md)
+
+> The existing staged gauntlet for [https://github.com/kriscendobot/minion.town/pull/182](https://github.com/kriscendobot/minion.town/pull/182) is still blocked at its clean child, which has remained in todo since 19:12Z while the only monk works the aged mentor backlog. This continuation is waiting in the foreground. If completing the production validation today is a priority, please temporarily add mentor/monk capacity; otherwise I will keep waiting and post a durable continuation before this handler's deadline.
 
 - `gauntlet-mustfix-summary-orch-terminal-complete` — from orchestrator:gauntlet-mustfix-summary-orch-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/gauntlet-mustfix-summary-orch-terminal-complete.md)
 
@@ -1325,7 +1327,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 175.2M | $799.42 _(notional, rate-card)_ | 65% of 271.0M (ok) |
-| Codex | 6.2M _(+191.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 6.2M _(+194.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106377097 tokens/day lower bound._
 
@@ -1352,13 +1354,13 @@ worst fetch p95 18.419408s/45s (/home/kris/garden/.garden-state/dependabot-watch
 - [`endojs-endo-but-for-bots-pr1438-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1438-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #174
 
-### tada (12440)
+### tada (12441)
+- [`kriscendobot-minion.town-pr93-gauntlet-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr93-gauntlet-20261010.md) — gauntlet kriscendobot-minion.town-pr93-gauntlet-20261010 — review budget reached
 - [`improve-silent-namespace-clone-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/improve-silent-namespace-clone-lock-contention.md) — Cost
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-8.md) — Cost
 - [`improve-dependabotany-proven-engine-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/improve-dependabotany-proven-engine-close.md) — Cost
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-8.md) — Cost
-- [`claude-on-minion-town-press-20261011-205031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/claude-on-minion-town-press-20261011-205031.md) — Panel-head freshness
-- … and 12435 more
+- … and 12436 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
