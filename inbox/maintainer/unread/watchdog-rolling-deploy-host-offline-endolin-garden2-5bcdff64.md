@@ -1,16 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:rolling-deploy
-sent_at: 2026-10-11T06:14:02Z
+sent_at: 2026-10-11T07:17:03Z
 watchdog_key: rolling-deploy-host-offline-endolin-garden2-5bcdff64
-notice_count: 524
+notice_count: 545
 first_seen: 2026-10-10T04:05:32Z
-last_seen: 2026-10-11T06:14:02Z
+last_seen: 2026-10-11T07:17:03Z
 ---
-WATCHDOG notice — occurrence #524 (first seen 2026-10-10T04:05:32Z, latest 2026-10-11T06:14:02Z).
-The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 524 times; this is ONE
-coalesced notice that updates in place, not 524 messages. Latest detail:
+WATCHDOG notice — occurrence #545 (first seen 2026-10-10T04:05:32Z, latest 2026-10-11T07:17:03Z).
+The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 545 times; this is ONE
+coalesced notice that updates in place, not 545 messages. Latest detail:
 
-Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 96045s (offline threshold 1800s; sampled_at_epoch=1791603197).
+Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 99826s (offline threshold 1800s; sampled_at_epoch=1791603197).
 The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 no release token, deploy budget, failed-canary count, or halt. Restore the host and
