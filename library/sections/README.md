@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7511 (530 parent indexes + 6981 children).
+Total section files: 7536 (530 parent indexes + 7006 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8767,6 +8767,46 @@ Total section files: 7511 (530 parent indexes + 6981 children).
 - [literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--institutional-event-context](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--institutional-event-context.md)
 - [literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--jira-association-policy](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--jira-association-policy.md)
 - [literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--mutagenic-classification-and-journal](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--mutagenic-classification-and-journal.md)
+
+### literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene
+
+- [literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene--catalog-identity-and-composition](literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene--catalog-identity-and-composition.md)
+- [literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene--distinct-project-mcp-lifecycle](literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene--distinct-project-mcp-lifecycle.md)
+- [literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene--fail-closed-mcp-hygiene](literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene--fail-closed-mcp-hygiene.md)
+- [literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene--release-scope-and-rejected-flattening](literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene--release-scope-and-rejected-flattening.md)
+
+### literate-ai--docs-decisions-0025-cli-operator-mcp-client
+
+- [literate-ai--docs-decisions-0025-cli-operator-mcp-client--direct-cli-fan-out-contract](literate-ai--docs-decisions-0025-cli-operator-mcp-client--direct-cli-fan-out-contract.md)
+- [literate-ai--docs-decisions-0025-cli-operator-mcp-client--four-mcp-seams-and-testing-consequences](literate-ai--docs-decisions-0025-cli-operator-mcp-client--four-mcp-seams-and-testing-consequences.md)
+- [literate-ai--docs-decisions-0025-cli-operator-mcp-client--headless-institutional-memory-gap](literate-ai--docs-decisions-0025-cli-operator-mcp-client--headless-institutional-memory-gap.md)
+- [literate-ai--docs-decisions-0025-cli-operator-mcp-client--opt-in-mcp-discovery](literate-ai--docs-decisions-0025-cli-operator-mcp-client--opt-in-mcp-discovery.md)
+- [literate-ai--docs-decisions-0025-cli-operator-mcp-client--skill-wrapping-and-duplicate-suppression](literate-ai--docs-decisions-0025-cli-operator-mcp-client--skill-wrapping-and-duplicate-suppression.md)
+
+### literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units
+
+- [literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--build-units-versus-deployment-units](literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--build-units-versus-deployment-units.md)
+- [literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--compatibility-and-implementation-consequences](literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--compatibility-and-implementation-consequences.md)
+- [literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--dispatcher-and-artifact-binding](literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--dispatcher-and-artifact-binding.md)
+- [literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--entrypoint-cardinality-and-authority](literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--entrypoint-cardinality-and-authority.md)
+- [literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--lock-receipt-and-sbom-topology](literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--lock-receipt-and-sbom-topology.md)
+- [literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--per-entrypoint-lifecycle-projection](literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units--per-entrypoint-lifecycle-projection.md)
+
+### literate-ai--docs-decisions-0027-durable-split-service-pattern
+
+- [literate-ai--docs-decisions-0027-durable-split-service-pattern--coherent-snapshot-publication](literate-ai--docs-decisions-0027-durable-split-service-pattern--coherent-snapshot-publication.md)
+- [literate-ai--docs-decisions-0027-durable-split-service-pattern--conformance-and-operational-consequences](literate-ai--docs-decisions-0027-durable-split-service-pattern--conformance-and-operational-consequences.md)
+- [literate-ai--docs-decisions-0027-durable-split-service-pattern--four-public-capability-boundaries](literate-ai--docs-decisions-0027-durable-split-service-pattern--four-public-capability-boundaries.md)
+- [literate-ai--docs-decisions-0027-durable-split-service-pattern--monolith-and-request-time-collection-failure](literate-ai--docs-decisions-0027-durable-split-service-pattern--monolith-and-request-time-collection-failure.md)
+- [literate-ai--docs-decisions-0027-durable-split-service-pattern--scheduler-and-lease-authority](literate-ai--docs-decisions-0027-durable-split-service-pattern--scheduler-and-lease-authority.md)
+
+### literate-ai--docs-decisions-0028-browser-interaction-acceptance
+
+- [literate-ai--docs-decisions-0028-browser-interaction-acceptance--deterministic-fixture-authority](literate-ai--docs-decisions-0028-browser-interaction-acceptance--deterministic-fixture-authority.md)
+- [literate-ai--docs-decisions-0028-browser-interaction-acceptance--evidence-binding-and-lifecycle-scope](literate-ai--docs-decisions-0028-browser-interaction-acceptance--evidence-binding-and-lifecycle-scope.md)
+- [literate-ai--docs-decisions-0028-browser-interaction-acceptance--text-only-frontend-false-passes](literate-ai--docs-decisions-0028-browser-interaction-acceptance--text-only-frontend-false-passes.md)
+- [literate-ai--docs-decisions-0028-browser-interaction-acceptance--tool-neutral-real-browser-adapter](literate-ai--docs-decisions-0028-browser-interaction-acceptance--tool-neutral-real-browser-adapter.md)
+- [literate-ai--docs-decisions-0028-browser-interaction-acceptance--verifier-owned-interaction-contract](literate-ai--docs-decisions-0028-browser-interaction-acceptance--verifier-owned-interaction-contract.md)
 
 ### literate-ai--readme
 
