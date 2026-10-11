@@ -32,3 +32,13 @@ Do:
    or a fresh gauntlet if that record cannot resume). Un-draft when the gauntlet is clean.
 4. Leave the merge to the proxy screen (`scripts/jobs/minion-town-screening.sh status` must print
    `active`). Never merge by hand; never resume a `paused` delegation.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T17:07:30Z
