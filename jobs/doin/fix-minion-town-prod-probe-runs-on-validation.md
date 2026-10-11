@@ -19,3 +19,13 @@ Own all remaining work:
 5. Drain the job inbox and perform the normal self-improvement check before completion.
 
 Evidence already collected: `npm run typecheck` passed; `node --test deploy/probe/prod-objectives.test.mjs` passed 16/16; PR CI run 38164494531 passed `test`, `Claude harness (arm64)`, and `Claude harness (amd64)` on commit `17e4d3c`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-11T19:05:00Z
