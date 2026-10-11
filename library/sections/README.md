@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7585 (530 parent indexes + 7055 children).
+Total section files: 7609 (530 parent indexes + 7079 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8886,6 +8886,42 @@ Total section files: 7585 (530 parent indexes + 7055 children).
 - [literate-ai--docs-decisions-0038-importable-library-artifact-authority--generated-tests-and-independent-acceptance](literate-ai--docs-decisions-0038-importable-library-artifact-authority--generated-tests-and-independent-acceptance.md)
 - [literate-ai--docs-decisions-0038-importable-library-artifact-authority--library-lifecycle-gap](literate-ai--docs-decisions-0038-importable-library-artifact-authority--library-lifecycle-gap.md)
 - [literate-ai--docs-decisions-0038-importable-library-artifact-authority--package-shaped-export](literate-ai--docs-decisions-0038-importable-library-artifact-authority--package-shaped-export.md)
+
+### literate-ai--docs-decisions-0039-1.1-capability-boundaries
+
+- [literate-ai--docs-decisions-0039-1.1-capability-boundaries--authorization-and-validation-order](literate-ai--docs-decisions-0039-1.1-capability-boundaries--authorization-and-validation-order.md)
+- [literate-ai--docs-decisions-0039-1.1-capability-boundaries--bounded-execution-claims](literate-ai--docs-decisions-0039-1.1-capability-boundaries--bounded-execution-claims.md)
+- [literate-ai--docs-decisions-0039-1.1-capability-boundaries--capability-audit-context](literate-ai--docs-decisions-0039-1.1-capability-boundaries--capability-audit-context.md)
+- [literate-ai--docs-decisions-0039-1.1-capability-boundaries--library-support-boundary](literate-ai--docs-decisions-0039-1.1-capability-boundaries--library-support-boundary.md)
+- [literate-ai--docs-decisions-0039-1.1-capability-boundaries--plugin-adapter-qualification](literate-ai--docs-decisions-0039-1.1-capability-boundaries--plugin-adapter-qualification.md)
+- [literate-ai--docs-decisions-0039-1.1-capability-boundaries--repository-boundary-plans](literate-ai--docs-decisions-0039-1.1-capability-boundaries--repository-boundary-plans.md)
+
+### literate-ai--docs-decisions-0040-retained-cargo-library-bridge
+
+- [literate-ai--docs-decisions-0040-retained-cargo-library-bridge--binding-authority](literate-ai--docs-decisions-0040-retained-cargo-library-bridge--binding-authority.md)
+- [literate-ai--docs-decisions-0040-retained-cargo-library-bridge--bridge-consequences-and-qualification](literate-ai--docs-decisions-0040-retained-cargo-library-bridge--bridge-consequences-and-qualification.md)
+- [literate-ai--docs-decisions-0040-retained-cargo-library-bridge--evidence-gated-boundary-transfer](literate-ai--docs-decisions-0040-retained-cargo-library-bridge--evidence-gated-boundary-transfer.md)
+- [literate-ai--docs-decisions-0040-retained-cargo-library-bridge--incremental-cargo-bridge-gap](literate-ai--docs-decisions-0040-retained-cargo-library-bridge--incremental-cargo-bridge-gap.md)
+- [literate-ai--docs-decisions-0040-retained-cargo-library-bridge--model-free-artifact-delivery](literate-ai--docs-decisions-0040-retained-cargo-library-bridge--model-free-artifact-delivery.md)
+- [literate-ai--docs-decisions-0040-retained-cargo-library-bridge--verified-cargo-materialization](literate-ai--docs-decisions-0040-retained-cargo-library-bridge--verified-cargo-materialization.md)
+
+### literate-ai--docs-decisions-0042-cpp-library-products
+
+- [literate-ai--docs-decisions-0042-cpp-library-products--authored-interface-and-sealed-layout](literate-ai--docs-decisions-0042-cpp-library-products--authored-interface-and-sealed-layout.md)
+- [literate-ai--docs-decisions-0042-cpp-library-products--compiled-library-product-gap](literate-ai--docs-decisions-0042-cpp-library-products--compiled-library-product-gap.md)
+- [literate-ai--docs-decisions-0042-cpp-library-products--cross-platform-qualification](literate-ai--docs-decisions-0042-cpp-library-products--cross-platform-qualification.md)
+- [literate-ai--docs-decisions-0042-cpp-library-products--native-build-and-generated-tests](literate-ai--docs-decisions-0042-cpp-library-products--native-build-and-generated-tests.md)
+- [literate-ai--docs-decisions-0042-cpp-library-products--native-packaging-boundaries](literate-ai--docs-decisions-0042-cpp-library-products--native-packaging-boundaries.md)
+- [literate-ai--docs-decisions-0042-cpp-library-products--verifier-and-consumer-custody](literate-ai--docs-decisions-0042-cpp-library-products--verifier-and-consumer-custody.md)
+
+### literate-ai--docs-decisions-0043-worker-resource-health
+
+- [literate-ai--docs-decisions-0043-worker-resource-health--authorized-cleanup-and-retry](literate-ai--docs-decisions-0043-worker-resource-health--authorized-cleanup-and-retry.md)
+- [literate-ai--docs-decisions-0043-worker-resource-health--bounded-read-only-investigation](literate-ai--docs-decisions-0043-worker-resource-health--bounded-read-only-investigation.md)
+- [literate-ai--docs-decisions-0043-worker-resource-health--classification-and-dispatch](literate-ai--docs-decisions-0043-worker-resource-health--classification-and-dispatch.md)
+- [literate-ai--docs-decisions-0043-worker-resource-health--cli-alert-and-skill-surface](literate-ai--docs-decisions-0043-worker-resource-health--cli-alert-and-skill-surface.md)
+- [literate-ai--docs-decisions-0043-worker-resource-health--health-boundary-and-private-observations](literate-ai--docs-decisions-0043-worker-resource-health--health-boundary-and-private-observations.md)
+- [literate-ai--docs-decisions-0043-worker-resource-health--qualification-and-consequences](literate-ai--docs-decisions-0043-worker-resource-health--qualification-and-consequences.md)
 
 ### literate-ai--readme
 
