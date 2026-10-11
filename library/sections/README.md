@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7453 (530 parent indexes + 6923 children).
+Total section files: 7462 (530 parent indexes + 6932 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8682,6 +8682,18 @@ Total section files: 7453 (530 parent indexes + 6923 children).
 - [literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--capability-cells-and-specification-hierarchy](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--capability-cells-and-specification-hierarchy.md)
 - [literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--committed-source-cache-and-portfolio-floor](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--committed-source-cache-and-portfolio-floor.md)
 - [literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--portfolio-coverage-cost-and-narrative](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache--portfolio-coverage-cost-and-narrative.md)
+
+### literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency
+
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--atomic-acceptance-and-component-decomposition](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--atomic-acceptance-and-component-decomposition.md)
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--independent-acceptance-and-bounded-sample](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--independent-acceptance-and-bounded-sample.md)
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--independent-decidability-and-sufficiency-states](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--independent-decidability-and-sufficiency-states.md)
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--mixed-concern-specification-gap](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--mixed-concern-specification-gap.md)
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--normalized-resource-measurement](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--normalized-resource-measurement.md)
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--pi-service-boundaries-and-open-decisions](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--pi-service-boundaries-and-open-decisions.md)
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--refinement-lifecycle-and-concern-authority](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--refinement-lifecycle-and-concern-authority.md)
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--reviewable-design-drafts](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--reviewable-design-drafts.md)
+- [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--tradeoffs-and-binding-constraints](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--tradeoffs-and-binding-constraints.md)
 
 ### literate-ai--readme
 
