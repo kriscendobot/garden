@@ -159,6 +159,7 @@ run_dep() {  # run_dep <state> <bare> <fixture> [slug]
       GARDEN_DEP_COMPARE="$CMPSTUB" CMP_FIXTURE="${CMP_FIXTURE:-}" CMP_LOG="${CMP_LOG:-}" \
       GARDEN_DEP_COMPAT="$COMPSTUB" COMP_FIXTURE="${COMP_FIXTURE:-}" COMP_LOG="${COMP_LOG:-}" \
       GARDEN_FETCH_CMD="${GARDEN_FETCH_CMD:-}" VLOCK_LOG="${VLOCK_LOG:-}" \
+      GARDEN_DEPENDABOT_CLOSE_HOST=write-host \
       GARDEN_DEP_POST="$JOBS/post-job.sh" \
       "$JOBS/dependabot-watcher.sh" "${4:-$SLUG}" >/dev/null 2>&1
 }
@@ -240,6 +241,10 @@ has_in_body "$BARE_G" "$SLUG-pr560-dependabot" "https://github.com/$REPO/pull/56
   && ok "#560 body carries the peer PR URL" || bad "#560 body lacks the peer PR URL"
 has_in_body "$BARE_G" "$SLUG-pr560-dependabot" 'Literal duplicate' \
   && ok "#560 body carries the literal-duplicate evidence" || bad "#560 body lacks the evidence"
+has_in_body "$BARE_G" "$SLUG-pr560-dependabot" 'requires: host=write-host' \
+  && has_in_body "$BARE_G" "$SLUG-pr560-dependabot" 'dependabot-terminal-close: v1' \
+  && ok "superseded close is a deterministic directive pinned to the write host" \
+  || bad "superseded close lacks deterministic host routing"
 [ ! -s "$CMP_LOG" ] && ok "containment oracle never consulted (no version disagreement)" \
   || bad "oracle was consulted for a literal duplicate: $(cat "$CMP_LOG")"
 
@@ -370,6 +375,10 @@ has_in_body "$BARE_N" "$SLUG-pr800-dependabot" 'EMPTY intersection' \
   && ok "peer body carries the empty-intersection proof" || bad "peer proof missing"
 has_in_body "$BARE_N" "$SLUG-pr800-dependabot" 'Do NOT run the lockfile/source/advisory/test' \
   && ok "peer body avoids the full review" || bad "peer body did not avoid full review"
+has_in_body "$BARE_N" "$SLUG-pr800-dependabot" 'requires: host=write-host' \
+  && has_in_body "$BARE_N" "$SLUG-pr800-dependabot" 'dependabot-close-kind: peer' \
+  && ok "peer-incompatible close is pinned and machine-readable" \
+  || bad "peer-incompatible close lacks deterministic routing"
 
 # ============================================================================
 hr; echo "O — target Node engine excludes project floor → cheap incompatible close job"; hr
@@ -382,6 +391,10 @@ has_in_body "$BARE_O" "$SLUG-pr801-dependabot" 'INCOMPATIBLE by preflight' \
   && ok "Node-floor conflict got the cheap incompatible body" || bad "Node conflict did not get the cheap body"
 has_in_body "$BARE_O" "$SLUG-pr801-dependabot" 'excludes the project-supported floor' \
   && ok "Node body carries the floor proof" || bad "Node floor proof missing"
+has_in_body "$BARE_O" "$SLUG-pr801-dependabot" 'requires: host=write-host' \
+  && has_in_body "$BARE_O" "$SLUG-pr801-dependabot" 'dependabot-close-kind: node' \
+  && ok "Node-incompatible close is pinned and machine-readable" \
+  || bad "Node-incompatible close lacks deterministic routing"
 
 # ============================================================================
 hr; echo "P — no declaration-level proof → fall open to full review"; hr

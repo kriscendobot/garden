@@ -19,6 +19,10 @@ if [ "$1" = api ]; then
     *) exit 1 ;;
   esac
 fi
+if [ "$1 $2" = 'pr comment' ] && [ "${COMMENT_FAIL:-0}" = 1 ]; then
+  echo 'HTTP 403: Resource not accessible by personal access token' >&2
+  exit 1
+fi
 EOF
 cat > "$TR/compat" <<'EOF'
 #!/bin/bash
@@ -60,6 +64,14 @@ run_close $'incompatible\tnode\t20.0.0\t>=20\t>=22\tpackage.json'
 [ "$RC" -eq 1 ] && ! grep -q '^pr ' "$TR/gh.log" && [ ! -e "$TR/journal.body" ] \
   && ok "changed proof falls back without comment, close, or result" \
   || bad "changed proof acted (rc=$RC log=$(tr '\n' ';' < "$TR/gh.log"))"
+
+: > "$TR/gh.log"; rm -f "$TR/journal.args" "$TR/journal.body"
+COMMENT_FAIL=1 run_close "$proof"
+[ "$RC" -eq 0 ] && grep -q '^pr close 1174 -R endojs/endo-but-for-bots$' "$TR/gh.log" \
+  && grep -q '^comment-status: failed$' "$TR/journal.body" \
+  && grep -q '^close-status: closed$' "$TR/journal.body" \
+  && ok "comment 403 is recorded separately and does not suppress close" \
+  || bad "comment 403 blocked close or was not recorded (rc=$RC log=$(tr '\n' ';' < "$TR/gh.log"))"
 
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

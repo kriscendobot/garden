@@ -81,6 +81,7 @@ CLONE="$GARDEN_WORKER_CLONE"
 : "${GARDEN_GARDENER_DOCKET_REQUEST:=$HERE/review-docket-request.sh}"
 DEFAULT_JOB_HANDLER="$HERE/$(worker_kind_field "$KIND" handler)"
 : "${GARDEN_JOB_HANDLER:=$DEFAULT_JOB_HANDLER}"
+: "${GARDEN_DEPENDABOT_TERMINAL_CLOSE:=$HERE/handlers/dependabot-terminal-close-gh.sh}"
 # --- pre-claim health gate applicability (common.sh § pre-claim worker health gate)
 # The gate asserts this KIND's agent CLI resolves, which is the dependency of the
 # kind's OWN handler. The spine is backend-pluggable, so a SUBSTITUTED handler (a
@@ -509,6 +510,32 @@ while :; do
     "$HERE/complete-job.sh" "$id" "$base" "$report" || die "could not complete canary probe '$base'"
     rm -f "$report"
     continue
+  fi
+
+  # Watcher-proven Dependabot terminal dispositions are fixed directives, not an
+  # invitation for whichever model won the claim to improvise the close. They are
+  # host-pinned by `requires: host=...`; execute the live-proof recheck and close
+  # in plain code. rc 1 means the proof changed and deliberately falls through to
+  # the ordinary botanist. An outward-action failure remains claimed for reaping
+  # and retry, preserving the exact directive.
+  if [ "$(plan_field "$jobfile" dependabot-terminal-close)" = v1 ]; then
+    "$HERE/inbox-read.sh" "$base" || true
+    terminal_close_rc=0
+    "$GARDEN_DEPENDABOT_TERMINAL_CLOSE" "$jobfile" "$report" \
+      || terminal_close_rc=$?
+    if [ "$terminal_close_rc" -eq 0 ]; then
+      log "completed deterministic Dependabot terminal close '$base' on $GARDEN (no LLM)"
+      "$HERE/complete-job.sh" "$id" "$base" "$report" \
+        || die "could not complete deterministic Dependabot close '$base'"
+      rm -f "$report"
+      continue
+    fi
+    if [ "$terminal_close_rc" -ne 1 ]; then
+      log "deterministic Dependabot close '$base' deferred (rc=$terminal_close_rc); leaving in doin for retry"
+      rm -f "$report"
+      continue
+    fi
+    log "deterministic Dependabot proof changed for '$base'; falling back to the ordinary botanist handler"
   fi
 
   # divert the handler's combined stdout+stderr here so a failure can be captured

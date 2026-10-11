@@ -146,6 +146,11 @@ export GARDEN_TAG="dependabot-watcher/$slug"
 : "${GARDEN_DEP_COMPARE:=$HERE/handlers/dep-compare-gh.sh}"
 : "${GARDEN_DEP_COMPAT:=$HERE/handlers/dep-compat-gh.sh}"
 : "${GARDEN_DEP_POST:=$HERE/post-job.sh}"
+# Terminal, declaration-proven closes must run where the fork-scoped bot token can
+# write endojs PRs. Other fleet hosts can enumerate them but their PATs may be
+# read-only (PR #1439, 2026-10-11). Keep this an explicit host pin rather than a
+# claimed capability: the permission is repo-specific and must not be guessed.
+: "${GARDEN_DEPENDABOT_CLOSE_HOST:=endolin-garden-ece02cb4}"
 # Per-(repo, package) migration hooks the full-review body names (lookup only).
 : "${GARDEN_DEP_MIGRATION:=$HERE/dependabot-migration.sh}"
 # Bound the containment oracle the same way the PR source is bounded: a hung gh or
@@ -425,6 +430,7 @@ open_prs=0; theirs=0; posted=0; cheap=0
 # embedded tab/newline as a literal backslash pair, and `\` is in neither charset,
 # so a multi-line title cannot smuggle a fragment through either.
 BUMP_PKG=""; BUMP_OLD=""; BUMP_NEW=""
+declare -A BUMP_NEW_BY_PR=()
 parse_bump_title() {
   BUMP_PKG=""; BUMP_OLD=""; BUMP_NEW=""
   local t="${1:-}" pkg old new
@@ -464,6 +470,7 @@ while IFS=$'\t' read -r pr author _head _updated title; do
   theirs=$((theirs+1))
 
   if parse_bump_title "${title:-}"; then
+    BUMP_NEW_BY_PR[$pr]="$BUMP_NEW"
     printf '%s\t%s\t%s\t%s\n' "$pr" "$BUMP_PKG" "$BUMP_OLD" "$BUMP_NEW" >> "$DEPS"
   else
     printf '%s\t\t\t\n' "$pr" >> "$DEPS"
@@ -663,7 +670,18 @@ write_full_body() {  # write_full_body <pr> [<pkg> <old> <new>]
 # a fresh end-to-end diligence whose only output would be "REJECT, superseded".
 write_superseded_body() {  # write_superseded_body <pr> <pkg> <old> <new> <peer-pr>
   local pr="$1" pkg="$2" old="$3" new="$4" peer="$5"
-  printf '%s\n%s\n%s\n\n' '---' 'role: botanist' '---'
+  printf '%s\n' '---' 'role: botanist'
+  printf 'requires: host=%s\n' "$GARDEN_DEPENDABOT_CLOSE_HOST"
+  printf '%s\n' 'dependabot-terminal-close: v1' 'dependabot-close-kind: superseded'
+  printf 'dependabot-close-repo: %s\n' "$repo"
+  printf 'dependabot-close-pr: %s\n' "$pr"
+  printf 'dependabot-close-package: %s\n' "$(yaml_single_quote_scalar "$pkg")"
+  printf 'dependabot-close-old: %s\n' "$(yaml_single_quote_scalar "$old")"
+  printf 'dependabot-close-new: %s\n' "$(yaml_single_quote_scalar "$new")"
+  printf 'dependabot-close-peer: %s\n' "$peer"
+  printf 'dependabot-close-peer-new: %s\n' "$(yaml_single_quote_scalar "${BUMP_NEW_BY_PR[$peer]:-}")"
+  printf 'dependabot-close-project: %s\n' "$slug"
+  printf '%s\n\n' '---'
   printf '# botanist (auto: dependabot PR, SUPERSEDED by preflight) on %s PR #%s\n\n' "$repo" "$pr"
   printf 'The dependabot-PR watcher reconciled the open Dependabot PRs on this repo\n'
   printf 'BEFORE commissioning any review and determined DETERMINISTICALLY that this one\n'
@@ -703,7 +721,21 @@ write_superseded_body() {  # write_superseded_body <pr> <pkg> <old> <new> <peer-
 
 write_incompatible_body() {  # write_incompatible_body <pr> <pkg> <old> <new>
   local pr="$1" pkg="$2" old="$3" new="$4" kind="${INCOMP_KIND[$1]}"
-  printf '%s\n%s\n%s\n\n' '---' 'role: botanist' '---'
+  printf '%s\n' '---' 'role: botanist'
+  printf 'requires: host=%s\n' "$GARDEN_DEPENDABOT_CLOSE_HOST"
+  printf '%s\n' 'dependabot-terminal-close: v1'
+  printf 'dependabot-close-kind: %s\n' "$kind"
+  printf 'dependabot-close-repo: %s\n' "$repo"
+  printf 'dependabot-close-pr: %s\n' "$pr"
+  printf 'dependabot-close-package: %s\n' "$(yaml_single_quote_scalar "$pkg")"
+  printf 'dependabot-close-old: %s\n' "$(yaml_single_quote_scalar "$old")"
+  printf 'dependabot-close-new: %s\n' "$(yaml_single_quote_scalar "$new")"
+  printf 'dependabot-close-proof-a: %s\n' "$(yaml_single_quote_scalar "${INCOMP_A[$pr]}")"
+  printf 'dependabot-close-proof-project: %s\n' "$(yaml_single_quote_scalar "${INCOMP_PROJECT[$pr]}")"
+  printf 'dependabot-close-proof-required: %s\n' "$(yaml_single_quote_scalar "${INCOMP_REQUIRED[$pr]}")"
+  printf 'dependabot-close-proof-path: %s\n' "$(yaml_single_quote_scalar "${INCOMP_PATH[$pr]}")"
+  printf 'dependabot-close-project: %s\n' "$slug"
+  printf '%s\n\n' '---'
   printf '# botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on %s PR #%s\n\n' "$repo" "$pr"
   printf 'The watcher found a terminal declaration-level incompatibility before\n'
   printf 'commissioning the full review. Do NOT run the lockfile/source/advisory/test\n'

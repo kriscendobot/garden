@@ -30,7 +30,9 @@ doc="$(gh_api_retry "repos/$repo/pulls/$pr" 2>/dev/null)" || exit 1
 state="$(printf '%s' "$doc" | jq -r '.state // empty')"
 author="$(printf '%s' "$doc" | jq -r '.user.login // empty')"
 title="$(printf '%s' "$doc" | jq -r '.title // empty')"
-[ "$state" = open ] || exit 1
+[ "$state" = open ] || [ "$state" = closed ] || exit 1
+[ "$state" = closed ] && already_closed=1 || already_closed=0
+[ "$already_closed" -eq 1 ] || {
 [ "$(printf '%s' "$author" | tr '[:upper:]' '[:lower:]')" = "$(printf '%s' "$GARDEN_DEPENDABOT_LOGIN" | tr '[:upper:]' '[:lower:]')" ] || exit 1
 [[ "$title" =~ ^[A-Za-z]+(\([A-Za-z0-9_./-]*\))?!?:[[:space:]]+(.*)$ ]] && title="${BASH_REMATCH[2]}"
 [[ "$title" =~ ^[Bb]ump[[:space:]]+([^[:space:]]+)[[:space:]]+from[[:space:]]+([^[:space:]]+)[[:space:]]+to[[:space:]]+([^[:space:]]+)([[:space:]].*)?$ ]] || exit 1
@@ -38,6 +40,7 @@ title="$(printf '%s' "$doc" | jq -r '.title // empty')"
 
 proof="$("$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$new" 2>/dev/null)" || exit 1
 [ "$proof" = "incompatible"$'\t'"node"$'\t'"$floor"$'\t'"$declared"$'\t'"$required"$'\t'"$path" ] || exit 1
+}
 
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
 marker="<!-- garden-dependabot-engine-close:$repo#$pr:$pkg@$new -->"
@@ -47,19 +50,32 @@ marker="<!-- garden-dependabot-engine-close:$repo#$pr:$pkg@$new -->"
   printf 'This was reverified against the live Dependabot head during this deterministic close attempt. Reopen if either declaration changes.\n\n%s\n' "$marker"
 } > "$tmp/comment"
 
-# Keep retries idempotent across a comment-success/close-failure split.
-comments="$(gh_api_retry --paginate "repos/$repo/issues/$pr/comments?per_page=100" 2>/dev/null)" || exit "${GARDEN_TRANSIENT_RC:-75}"
-if ! printf '%s' "$comments" | jq -se --arg m "$marker" 'any(.[][]; (.body // "") | contains($m))' >/dev/null; then
-  "$gh_bin" pr comment "$pr" -R "$repo" --body-file "$tmp/comment" >/dev/null \
-    || exit "${GARDEN_TRANSIENT_RC:-75}"
+# Keep retries idempotent across a comment-success/close-failure split. The
+# comment is best-effort: authorization can differ between issue comments and PR
+# lifecycle writes, so a 403 must not suppress the terminal close.
+comment_status=skipped-already-closed
+comment_error=""
+if [ "$already_closed" -eq 0 ]; then
+  comment_status=already-present
+  comments="$(gh_api_retry --paginate "repos/$repo/issues/$pr/comments?per_page=100" 2>"$tmp/comment-read.err")" || comments=""
+  if ! printf '%s' "$comments" | jq -se --arg m "$marker" 'any(.[][]; (.body // "") | contains($m))' >/dev/null; then
+    comment_status=posted
+    if ! "$gh_bin" pr comment "$pr" -R "$repo" --body-file "$tmp/comment" >/dev/null 2>"$tmp/comment-write.err"; then
+      comment_status=failed
+      comment_error="$(tr '\n' ' ' < "$tmp/comment-write.err" | head -c 500)"
+    fi
+  fi
+
+  "$gh_bin" pr close "$pr" -R "$repo" >/dev/null || exit "${GARDEN_TRANSIENT_RC:-75}"
 fi
 
 {
-  printf 'project: %s\nrepo: %s\npr: %s\ndependabotany-terminal-pr: %s\n\n' "$project" "$repo" "$pr" "$pr"
+  printf 'project: %s\nrepo: %s\npr: %s\ndependabotany-terminal-pr: %s\n' "$project" "$repo" "$pr" "$pr"
+  printf 'comment-status: %s\nclose-status: closed\n\n' "$comment_status"
   printf '# Dependabotany deterministic result: %s#%s — REJECT incompatible\n\n' "$repo" "$pr"
   printf 'Fixed REJECT (incompatible) for `%s` %s -> %s after a second live-head revalidation reproduced the exact Node-engine conflict: `%s` declares `%s` (floor `%s`), while the target requires `%s`. The deterministic close is authorized and retried on an outward-action failure; no botanist review is dispatched.\n' \
     "$pkg" "$old" "$new" "$path" "$declared" "$floor" "$required"
+  [ -z "$comment_error" ] || printf 'The verdict comment failed non-fatally: %s\n' "$comment_error"
 } > "$tmp/result"
 GARDEN_ROLE=dependabotany-preflight "$GARDEN_DEPB_JOURNAL_RESULT" result "$tmp/result" >/dev/null \
   || exit "${GARDEN_TRANSIENT_RC:-75}"
-"$gh_bin" pr close "$pr" -R "$repo" >/dev/null || exit "${GARDEN_TRANSIENT_RC:-75}"
