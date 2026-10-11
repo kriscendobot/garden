@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T08:39:14Z_
+_As of 2026-10-11T08:43:58Z_
 
 ## Latest
 
@@ -1057,11 +1055,15 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T06:59:03Z, cleared 2026-10-11T08:08:18Z).
-> It was observed 251 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #252 (first seen 2026-10-09T06:59:03Z, latest 2026-10-11T08:41:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 252 times; this is ONE
+> coalesced notice that updates in place, not 252 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release a4268c400d3d26d02189098ddb9b9ccedefda261, deployed 592f66b2a04fbb9c4c1905809f2a2172d0fa820c).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to a4268c400d3d 21 min ago
+> but still reports deployed_sha 592f66b2a04fbb9c4c1905809f2a2172d0fa820c. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0.md)
 
@@ -1144,7 +1146,7 @@ _Fleet token-unlock pace: 106244515 tokens/day lower bound._
 worst fetch p95 8.575998s/45s (/home/kris/garden/.garden-state/maintainer/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (13)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
 - [`claude-on-minion-town-press-20261011-083506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261011-083506.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261011-083506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261011-083506.md) — ---
@@ -1156,22 +1158,22 @@ worst fetch p95 8.575998s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`deadmail-20261011T080853Z-b9304e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261011T080853Z-b9304e.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-literate-ai-remainder-8-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-literate-ai-remainder-8-20261010.md) — Continue the Literate AI ingest at docs/decisions/0003-constraint-classificat...
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
-- [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
 - [`claude-on-minion-town-completion-press-20261011-065011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261011-065011.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### doin (3)
+### doin (4)
 - [`daily-progress-summary-20261011-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261011-070505.md) — Daily midnight Pacific progress summary
 - [`kriscendobot-minion.town-pr178-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr178-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #178
 - [`resume-minion-town-pr174-pr93-gauntlets-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/resume-minion-town-pr174-pr93-gauntlets-20261011.md) — Resume the stalled minion.town gauntlets on #174 and #93
+- [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 
-### tada (12352)
+### tada (12351)
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr166-gauntlet-20261010-fix-6.md) — Cost
 - [`kriscendobot-minion.town-pr179-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr179-gauntlet-panel-2.md) — Cost
 - [`restack-minion-town-pr171-after-pr166-round6-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/restack-minion-town-pr171-after-pr166-round6-20261011.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr178-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr178-gauntlet-panel-1.md) — Cost
 - [`oros-hardware-report-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/oros-hardware-report-20261011.md) — oros-studio-garden-ce242c49: hardware and capability report (2026-10-11 07:34Z)
-- … and 12347 more
+- … and 12346 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
