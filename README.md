@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T01:37:37Z_
+_As of 2026-10-11T01:40:22Z_
 
 ## Latest
 
@@ -1094,7 +1094,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 141.7M | $630.66 _(notional, rate-card)_ | 52% of 271.0M (ok) |
+| Claude | 141.8M | $631.41 _(notional, rate-card)_ | 52% of 271.0M (ok) |
 | Codex | 1.8M _(+45.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106193344 tokens/day lower bound._
@@ -1103,8 +1103,11 @@ _Fleet token-unlock pace: 106193344 tokens/day lower bound._
 worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (9)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
+- [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #94
+- [`minion-town-ui-gutter-clip-labels`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-ui-gutter-clip-labels.md) — Gutter: real clip names and icons (minion-town-ui increment)
+- [`kriscendobot-minion.town-pr177-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr177-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #177
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #93
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #166
@@ -1197,7 +1200,6 @@ worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`kriscendobot-finbot-pr7-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-finbot-pr7-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-minion.town-pr37-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-gauntlet-plan-20261007.md) — _normal_ · ---
 - [`kriscendobot-vattr97-pr1-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-vattr97-pr1-gauntlet-plan-20261007.md) — _normal_ · ---
-- [`minion-town-ui-gutter-clip-labels`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-clip-labels.md) — _normal_ · Gutter: real clip names and icons (minion-town-ui increment)
 - [`minion-town-ui-gutter-live-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-live-refresh.md) — _normal_ · Gutter: refresh the clip list without a reload (minion-town-ui increment)
 - [`minion-town-ui-gutter-reorder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-reorder.md) — _normal_ · Gutter: drag and keyboard reorder, persisted per owner (minion-town-ui increm...
 - [`minion-town-ui-iframe-embed-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-embed-design.md) — _normal_ · Iframe: design the clip embedding relaxation (minion-town-ui increment)
