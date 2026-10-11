@@ -16,5 +16,11 @@
   "ci": {
     "state": "pending",
     "observed_at": "2026-10-11T21:00:10Z"
+  },
+  "retirement": {
+    "kind": "terminal",
+    "repo": "endojs/endo-but-for-bots",
+    "at": "2026-10-11T21:47:49Z",
+    "state": "MERGED"
   }
 }
