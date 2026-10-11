@@ -59,21 +59,47 @@ maintain_one() {
 }
 
 over=""
+busy_clones=""
+busy_count=0
+lock_err="$(mktemp)"
+body="$(mktemp)"
+trap 'rm -f "$lock_err" "$body"' EXIT
 for clone in "$GARDEN_STATE"/*/journal; do
   [ -d "$clone" ] || continue
   # Subshell: soft clone_lock EXITS (not returns) when the clone is busy, which
   # must skip only this clone, and the lock is released with the subshell's fds.
-  ( GARDEN_CLONE_LOCK_SOFT=1 clone_lock "$clone"; maintain_one "$clone" ) || true
+  : > "$lock_err"
+  if ( GARDEN_CLONE_LOCK_SOFT=1 clone_lock "$clone"; maintain_one "$clone" ) \
+       2>"$lock_err"; then
+    lock_rc=0
+  else
+    lock_rc=$?
+  fi
+  lock_diagnostic="$(cat "$lock_err")"
+  if [ "$lock_rc" -eq "$GARDEN_OFFLINE_RC" ] \
+     && printf '%s\n' "$lock_diagnostic" | grep -qE \
+       'WARN: clone lock .* busy >[0-9]+s; abandoning this OPTIONAL refresh \(fail-open, no retry ladder\)' \
+     && ! journal_diagnostic_is_definite_failure "$lock_diagnostic"; then
+    busy_count=$((busy_count + 1))
+    busy_clones="${busy_clones}${busy_clones:+, }$clone"
+    # Keep anything other than clone_lock's expected busy-peer line visible.
+    grep -vE 'WARN: clone lock .* busy >[0-9]+s; abandoning this OPTIONAL refresh \(fail-open, no retry ladder\)' \
+      "$lock_err" >&2 || true
+  else
+    [ -z "$lock_diagnostic" ] || printf '%s\n' "$lock_diagnostic" >&2
+    [ "$lock_rc" -eq 0 ] || log "$clone: maintenance failed (rc=$lock_rc)"
+  fi
   gitdir="$(git -C "$clone" rev-parse --absolute-git-dir 2>/dev/null)" || continue
   n="$(pack_count "$gitdir")"
   [ "$n" -gt "$GARDEN_NS_CLONE_PACK_THRESHOLD" ] && over="$over  $clone: $n packs"$'\n'
 done
+[ "$busy_count" -eq 0 ] \
+  || log "clone lock contention: skipped $busy_count busy clone(s) this tick: $busy_clones"
 
 key="namespace-clone-packs-$GARDEN"
 # Host-local "alert open" flag, so a healthy pass only sends --recovered after a
 # real alert (never a recovery notice for an episode that never opened).
 flag="$GARDEN_STATE/namespace-clone-maintenance/alert-open"
-body="$(mktemp)"; trap 'rm -f "$body"' EXIT
 if [ -n "$over" ]; then
   printf 'Per-namespace journal clones on %s are still over the %s-pack threshold after maintenance:\n%s\nA pack/tmp_pack buildup makes every git read slow (2026-10-08: 57 s leader read wedged ~100 leader-gated units). Inspect by hand: `nice ionice -c3 git -C <clone> repack -a -d`.\n' \
     "$GARDEN" "$GARDEN_NS_CLONE_PACK_THRESHOLD" "$over" > "$body"
