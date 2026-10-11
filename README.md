@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T21:11:00Z_
+_As of 2026-10-11T21:13:51Z_
 
 ## Latest
 
@@ -1322,8 +1322,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 175.3M | $801.72 _(notional, rate-card)_ | 65% of 271.0M (ok) |
-| Codex | 5.9M _(+173.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 175.3M | $801.91 _(notional, rate-card)_ | 65% of 271.0M (ok) |
+| Codex | 5.9M _(+177.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106285193 tokens/day lower bound._
 
@@ -1331,12 +1331,11 @@ _Fleet token-unlock pace: 106285193 tokens/day lower bound._
 worst fetch p95 18.419408s/45s (/home/kris/garden/.garden-state/dependabot-watcher/verify); 8 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`improve-silent-namespace-clone-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-silent-namespace-clone-lock-contention.md) — ---
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #171
 - [`oros-health-watch-20261011-205031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261011-205031.md) — ---
 - [`kriscendobot-minion.town-pr179-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr179-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #179
-- [`endojs-endo-but-for-bots-pr1439-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1439-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
 - [`endojs-endo-but-for-bots-pr1438-dependabot-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1438-dependabot-close.md) — botanist: execute REJECT (incompatible) close on endojs/endo-but-for-bots PR ...
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
 - [`kriscendobot-minion.town-pr182-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #182
@@ -1344,11 +1343,12 @@ worst fetch p95 18.419408s/45s (/home/kris/garden/.garden-state/dependabot-watch
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1403-conduct-r5484623670`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1403-conduct-r5484623670.md) — Conduct endojs/endo-but-for-bots PR #1403
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #93
 - [`endojs-endo-but-for-bots-pr1403-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1403-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1403
 - [`fix-minion-town-prod-probe-runs-on-validation-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-prod-probe-runs-on-validation-2.md) — Continue and complete minion.town PR 182 production-probe validation
+- [`endojs-endo-but-for-bots-pr1439-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1439-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
 - [`endojs-endo-but-for-bots-pr1438-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1438-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
 - [`improve-dependabotany-proven-engine-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-proven-engine-close.md) — ---
 
