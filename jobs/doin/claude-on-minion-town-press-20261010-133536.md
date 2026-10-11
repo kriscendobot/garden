@@ -100,6 +100,7 @@ issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no fe
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-11T01:13:11Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
