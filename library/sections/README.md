@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7462 (530 parent indexes + 6932 children).
+Total section files: 7486 (530 parent indexes + 6956 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8694,6 +8694,39 @@ Total section files: 7462 (530 parent indexes + 6932 children).
 - [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--refinement-lifecycle-and-concern-authority](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--refinement-lifecycle-and-concern-authority.md)
 - [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--reviewable-design-drafts](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--reviewable-design-drafts.md)
 - [literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--tradeoffs-and-binding-constraints](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency--tradeoffs-and-binding-constraints.md)
+
+### literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse
+
+- [literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--acceptance-and-invalidation-matrix](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--acceptance-and-invalidation-matrix.md)
+- [literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--bounded-provider-diagnostics-and-scope](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--bounded-provider-diagnostics-and-scope.md)
+- [literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--deliberately-consumed-graph-evidence](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--deliberately-consumed-graph-evidence.md)
+- [literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--exact-evidence-custody-reuse](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--exact-evidence-custody-reuse.md)
+- [literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--operational-consequences](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--operational-consequences.md)
+- [literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--rejected-policy-downgrades](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--rejected-policy-downgrades.md)
+- [literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--source-intelligence-availability-problem](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse--source-intelligence-availability-problem.md)
+
+### literate-ai--docs-decisions-0017-explicit-live-test-coding-cli
+
+- [literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--attended-local-use-boundary](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--attended-local-use-boundary.md)
+- [literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--consequences-and-rejected-fallbacks](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--consequences-and-rejected-fallbacks.md)
+- [literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--explicit-launcher-and-model-pin](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--explicit-launcher-and-model-pin.md)
+- [literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--nondeterministic-live-qualification](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--nondeterministic-live-qualification.md)
+- [literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--one-invocation-override-precedence](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--one-invocation-override-precedence.md)
+- [literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--operator-owned-durable-default](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--operator-owned-durable-default.md)
+- [literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--remote-fan-out-prerequisites](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--remote-fan-out-prerequisites.md)
+- [literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--session-selection-observability](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli--session-selection-observability.md)
+
+### literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack
+
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--acceptance-tests-and-release-evidence](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--acceptance-tests-and-release-evidence.md)
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--context-local-stack-ownership](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--context-local-stack-ownership.md)
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--lexical-binding-versus-runtime-cursor](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--lexical-binding-versus-runtime-cursor.md)
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--never-empty-session-frame](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--never-empty-session-frame.md)
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--product-consequences](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--product-consequences.md)
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--refused-final-pop-diagnostics](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--refused-final-pop-diagnostics.md)
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--rejected-stack-semantics](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--rejected-stack-semantics.md)
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--scoped-push-and-pop](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--scoped-push-and-pop.md)
+- [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--specification-language-operations](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--specification-language-operations.md)
 
 ### literate-ai--readme
 
