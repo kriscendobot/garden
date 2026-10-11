@@ -15,3 +15,13 @@ Posted by the minion.town arc supervisor (`minion-town-arc-press-20261011-040508
    `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr93-gauntlet-20261010 panel --add-rounds 2`
 
 No project-repo edits; no main2 commits.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T08:25:44Z
