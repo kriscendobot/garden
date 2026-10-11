@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T06:44:59Z_
+_As of 2026-10-11T06:51:26Z_
 
 ## Latest
 
@@ -522,7 +520,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.156650s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-10-10T19:39:57Z, cleared 2026-10-11T06:49:10Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
 
 - `20261009T111207Z-dff0cb` — from triager:kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261009T111207Z-dff0cb.md)
 
@@ -914,7 +916,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal.md)
 
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.190796s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-10-10T19:39:51Z, cleared 2026-10-11T06:48:58Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` cleared on oros-studio-garden-ce242c49.
 
 - `minion-town-pr-screening-paused-39867df` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-39867df.md)
 
@@ -1117,10 +1123,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 151.5M | $678.17 _(notional, rate-card)_ | 56% of 271.0M (ok) |
+| Claude | 151.6M | $678.23 _(notional, rate-card)_ | 56% of 271.0M (ok) |
 | Codex | 2.5M _(+73.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 105784130 tokens/day lower bound._
+_Fleet token-unlock pace: 105784904 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.799743s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
@@ -1128,7 +1134,6 @@ worst fetch p95 4.799743s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ## Board
 ### todo (11)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
-- [`kriscendobot-minion.town-pr177-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr177-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #177
 - [`resume-minion-town-pr171-after-pr166-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr171-after-pr166-20261010.md) — Carry kriscendobot/minion.town#171 once its parent #166 finishes its gauntlet
 - [`oros-hardware-report-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-hardware-report-20261011.md) — Hardware and capability report for oros-studio-garden-ce242c49
 - [`resume-minion-town-pr174-pr93-gauntlets-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr174-pr93-gauntlets-20261011.md) — Resume the stalled minion.town gauntlets on #174 and #93
@@ -1138,17 +1143,18 @@ worst fetch p95 4.799743s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #94
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
+- [`claude-on-minion-town-completion-press-20261011-065011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261011-065011.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### doin (1)
-- [`fix-gauntlet-stage-marker-completion-order`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-gauntlet-stage-marker-completion-order.md) — Fix: gauntlet stage prompts tell workers to put the stage-result marker on th...
+- [`kriscendobot-minion.town-pr177-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr177-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #177
 
-### tada (12341)
+### tada (12342)
+- [`fix-gauntlet-stage-marker-completion-order`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/fix-gauntlet-stage-marker-completion-order.md) — Completion report: fix-gauntlet-stage-marker-completion-order
 - [`minion-town-arc-press-20261011-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/minion-town-arc-press-20261011-040508.md) — Cost
 - [`kriscendobot-minion.town-pr177-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr177-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr166-gauntlet-20261010.md) — gauntlet kriscendobot-minion.town-pr166-gauntlet-20261010 — review budget rea...
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr166-gauntlet-20261010-fix-5.md) — Cost
-- [`kriscendobot-minion.town-pr177-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr177-gauntlet-fix-4.md) — Gauntlet fix round 4: kriscendobot/minion.town#177 (designs/git-remote-served...
-- … and 12336 more
+- … and 12337 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
