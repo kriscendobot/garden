@@ -1250,6 +1250,11 @@ because the specs are repository READMEs.
 | [ADR 0005: independently executable Component semantics](literate-ai--docs-decisions-0005-executable-component-semantics.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0006: significant-feature request governance](literate-ai--docs-decisions-0006-significant-feature-request-governance.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, openly argued maintainer process position) |
 | [ADR 0007: update classification and semantic merge](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge.md) | jordanhubbard/literate-ai | 2026-10-01 | Jordan Hubbard | 6 | current (file commit `2820f853`; classifier `proceed`) |
+| [ADR 0008: sample-gate live-generation resilience](literate-ai--docs-decisions-0008-samples-gate-live-generation-resilience.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0009: explicit lifecycle cache-root binding](literate-ai--docs-decisions-0009-explicit-cache-root-binding.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, openly argued advocacy) |
+| [ADR 0010: canonical Flavor naming migration](literate-ai--docs-decisions-0010-canonical-flavor-naming-migration.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0011: typed Component domain metadata](literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0012: sample portfolio matrix and committed source cache](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
