@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion.town-pr177-gauntlet
-priority: normal
 role: builder
+tier: mentor
 arc: minion-town-git-remote
-posted_by: design-build-handoff
-posted_at: 2026-10-11T01:35:49Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-11T12:36:08Z cleared=none -->
 
 ---
 role: builder
