@@ -1269,6 +1269,11 @@ because the specs are repository READMEs.
 | [ADR 0026: multi-entrypoint deployment units](literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0027: durable split-service pattern](literate-ai--docs-decisions-0027-durable-split-service-pattern.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`) |
 | [ADR 0028: verifier-owned browser acceptance](literate-ai--docs-decisions-0028-browser-interaction-acceptance.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`) |
+| [ADR 0029: unified IPC-surface contract](literate-ai--docs-decisions-0029-ipc-surface-contract.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`) |
+| [ADR 0030: executable cross-layer authority](literate-ai--docs-decisions-0030-executable-cross-layer-authority.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0031: durable user configuration home](literate-ai--docs-decisions-0031-durable-user-configuration-home.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0032: tuple-specific native-install SBOMs](literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0033: universal os-base toolchain](literate-ai--docs-decisions-0033-os-base-universal-toolchain.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
