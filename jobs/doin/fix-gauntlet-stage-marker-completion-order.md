@@ -16,3 +16,13 @@ dispatch: automatic
 - Add a test under the existing gardener/complete-job test suite covering both orderings.
 
 Land on main2 per the usual CAS push.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T06:30:43Z
