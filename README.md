@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T20:40:35Z_
+_As of 2026-10-11T20:44:19Z_
 
 ## Latest
 
@@ -1313,7 +1311,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 172.2M | $783.76 _(notional, rate-card)_ | 64% of 271.0M (ok) |
-| Codex | 5.5M _(+159.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Codex | 5.6M _(+161.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106384040 tokens/day lower bound._
 
@@ -1333,19 +1331,19 @@ worst fetch p95 18.419408s/45s (/home/kris/garden/.garden-state/dependabot-watch
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
 
 ### doin (5)
-- [`endojs-endo-but-for-bots-pr1403-review-1cfc544e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1403-review-1cfc544e.md) — Review directive on endojs/endo-but-for-bots PR #1403
+- [`endojs-endo-but-for-bots-pr1403-conduct-r5484623670`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1403-conduct-r5484623670.md) — Conduct endojs/endo-but-for-bots PR #1403
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #171
 - [`fix-minion-town-prod-probe-runs-on-validation-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-prod-probe-runs-on-validation-2.md) — Continue and complete minion.town PR 182 production-probe validation
 - [`endojs-endo-but-for-bots-pr1438-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1438-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #174
 
-### tada (12432)
+### tada (12433)
+- [`endojs-endo-but-for-bots-pr1403-review-1cfc544e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/endojs-endo-but-for-bots-pr1403-review-1cfc544e.md) — Cost
 - [`endojs-endo-but-for-bots-pr1440-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/endojs-endo-but-for-bots-pr1440-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1437-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/endojs-endo-but-for-bots-pr1437-dependabot.md) — Cost
 - [`fix-minion-town-prod-probe-runs-on-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/fix-minion-town-prod-probe-runs-on-validation.md) — Cost
 - [`kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-panel-7.md) — Cost
-- [`endojs-endo-but-for-bots-pr1441-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/endojs-endo-but-for-bots-pr1441-dependabot.md) — Cost
-- … and 12427 more
+- … and 12428 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
