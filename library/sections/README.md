@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7486 (530 parent indexes + 6956 children).
+Total section files: 7511 (530 parent indexes + 6981 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8727,6 +8727,46 @@ Total section files: 7486 (530 parent indexes + 6956 children).
 - [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--rejected-stack-semantics](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--rejected-stack-semantics.md)
 - [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--scoped-push-and-pop](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--scoped-push-and-pop.md)
 - [literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--specification-language-operations](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack--specification-language-operations.md)
+
+### literate-ai--docs-decisions-0019-opt-in-external-source-intelligence
+
+- [literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--consequences-and-acceptance](literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--consequences-and-acceptance.md)
+- [literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--context-and-partial-reversal](literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--context-and-partial-reversal.md)
+- [literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--opt-in-policy-and-fail-closed-observation](literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--opt-in-policy-and-fail-closed-observation.md)
+- [literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--provider-custody-and-lifecycle](literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--provider-custody-and-lifecycle.md)
+- [literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--rejected-policy-alternatives](literate-ai--docs-decisions-0019-opt-in-external-source-intelligence--rejected-policy-alternatives.md)
+
+### literate-ai--docs-decisions-0020-paginated-component-lock-review
+
+- [literate-ai--docs-decisions-0020-paginated-component-lock-review--atomic-final-apply](literate-ai--docs-decisions-0020-paginated-component-lock-review--atomic-final-apply.md)
+- [literate-ai--docs-decisions-0020-paginated-component-lock-review--automation-safe-interface](literate-ai--docs-decisions-0020-paginated-component-lock-review--automation-safe-interface.md)
+- [literate-ai--docs-decisions-0020-paginated-component-lock-review--bounded-identity-chained-pages](literate-ai--docs-decisions-0020-paginated-component-lock-review--bounded-identity-chained-pages.md)
+- [literate-ai--docs-decisions-0020-paginated-component-lock-review--consequences-and-acceptance](literate-ai--docs-decisions-0020-paginated-component-lock-review--consequences-and-acceptance.md)
+- [literate-ai--docs-decisions-0020-paginated-component-lock-review--large-review-transaction](literate-ai--docs-decisions-0020-paginated-component-lock-review--large-review-transaction.md)
+- [literate-ai--docs-decisions-0020-paginated-component-lock-review--rejected-large-review-alternatives](literate-ai--docs-decisions-0020-paginated-component-lock-review--rejected-large-review-alternatives.md)
+
+### literate-ai--docs-decisions-0021-operator-local-mcp-catalog
+
+- [literate-ai--docs-decisions-0021-operator-local-mcp-catalog--alternatives-and-consequences](literate-ai--docs-decisions-0021-operator-local-mcp-catalog--alternatives-and-consequences.md)
+- [literate-ai--docs-decisions-0021-operator-local-mcp-catalog--availability-and-client-ownership](literate-ai--docs-decisions-0021-operator-local-mcp-catalog--availability-and-client-ownership.md)
+- [literate-ai--docs-decisions-0021-operator-local-mcp-catalog--catalog-location-and-secret-boundary](literate-ai--docs-decisions-0021-operator-local-mcp-catalog--catalog-location-and-secret-boundary.md)
+- [literate-ai--docs-decisions-0021-operator-local-mcp-catalog--interactive-and-headless-setup](literate-ai--docs-decisions-0021-operator-local-mcp-catalog--interactive-and-headless-setup.md)
+- [literate-ai--docs-decisions-0021-operator-local-mcp-catalog--operator-local-catalog-context](literate-ai--docs-decisions-0021-operator-local-mcp-catalog--operator-local-catalog-context.md)
+
+### literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary
+
+- [literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary--envelope-schema-and-safe-fields](literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary--envelope-schema-and-safe-fields.md)
+- [literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary--inbound-authority-boundary](literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary--inbound-authority-boundary.md)
+- [literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary--parsing-alternatives-and-consequences](literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary--parsing-alternatives-and-consequences.md)
+- [literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary--shared-channel-envelope-context](literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary--shared-channel-envelope-context.md)
+
+### literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out
+
+- [literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--alternatives-consequences-and-tests](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--alternatives-consequences-and-tests.md)
+- [literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--inbound-outlook-authority](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--inbound-outlook-authority.md)
+- [literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--institutional-event-context](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--institutional-event-context.md)
+- [literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--jira-association-policy](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--jira-association-policy.md)
+- [literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--mutagenic-classification-and-journal](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out--mutagenic-classification-and-journal.md)
 
 ### literate-ai--readme
 
