@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Press the Claude-on-minion.town arc forward
@@ -96,12 +97,5 @@ look productive while blocked.
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot/garden`
 issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no ferry.
 
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-10T20:59:41Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-11T01:13:11Z -->
