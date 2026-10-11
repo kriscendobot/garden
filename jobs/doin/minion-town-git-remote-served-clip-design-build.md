@@ -22,3 +22,13 @@ Dispatched by design-build-handoff.sh from the design report's follow-ups:
 
 > - The build is increment 5, `minion-town-git-remote-served-clip`, which is already parked waiting on this design. It should build whichever model the maintainer approves.
 > - The design gauntlet is staged automatically when this job completes. I did not un-draft the PR or post a gauntlet by hand.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T13:03:21Z
