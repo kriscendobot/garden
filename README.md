@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T01:32:08Z_
+_As of 2026-10-11T01:37:37Z_
 
 ## Latest
 
@@ -116,18 +116,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #18 (first seen 2026-10-10T07:21:03Z, latest 2026-10-11T01:31:11Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 18 times; this is ONE
-> coalesced notice that updates in place, not 18 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-10T07:21:03Z, cleared 2026-10-11T01:36:12Z).
+> It was observed 18 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on oros-studio-garden-ce242c49: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=3.287608s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.227938s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.162047s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.187023s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.207020s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=0.191617s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=57.148896s, giveups=2, steals=2 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1101,36 +1094,33 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 141.8M | $632.80 _(notional, rate-card)_ | 52% of 271.0M (ok) |
+| Claude | 141.7M | $630.66 _(notional, rate-card)_ | 52% of 271.0M (ok) |
 | Codex | 1.8M _(+45.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106157290 tokens/day lower bound._
+_Fleet token-unlock pace: 106193344 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
-- [`minion-town-git-remote-push-caps`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-git-remote-push-caps.md) — Resource caps on git-remote receive-pack
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #93
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #166
 - [`scholar-ingest-literate-ai-remainder-8-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-literate-ai-remainder-8-20261010.md) — Continue the Literate AI ingest at docs/decisions/0003-constraint-classificat...
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 
-### doin (3)
-- [`minion-town-git-remote-served-clip-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-git-remote-served-clip-design.md) — Design: serve a git-remote partition's pushed content as a clip
-- [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #94
-- [`claude-on-minion-town-completion-press-20261011-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261011-005006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (1)
+- [`minion-town-git-remote-push-caps`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-git-remote-push-caps.md) — Resource caps on git-remote receive-pack
 
-### tada (12300)
+### tada (12303)
+- [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-clean.md) — Clean stage report: kriscendobot/minion.town PR #94 (gauntlet kriscendobot-mi...
+- [`minion-town-git-remote-served-clip-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/minion-town-git-remote-served-clip-design.md) — Completion report: minion-town-git-remote-served-clip-design
+- [`claude-on-minion-town-completion-press-20261011-005006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/claude-on-minion-town-completion-press-20261011-005006.md) — Cost
 - [`endojs-endo-but-for-bots-pr346-gauntlet-20261007-fix-2-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/endojs-endo-but-for-bots-pr346-gauntlet-20261007-fix-2-body.md) — Manual gauntlet handoff
 - [`resume-minion-town-pr174-gauntlet-panel7-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/resume-minion-town-pr174-gauntlet-panel7-20261010.md) — Cost
-- [`minion-town-arc-press-20261011-010507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/minion-town-arc-press-20261011-010507.md) — Cost
-- [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet.md) — gauntlet kriscendobot-minion-town-pr94-screen-6098638b-gauntlet — review budg...
-- [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-fix-7.md) — Cost
-- … and 12295 more
+- … and 12298 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1222,6 +1212,7 @@ worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ui-iframe-live-frame`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-live-frame.md) — awaiting `minion-town-ui-iframe-embed-headers` · Iframe: frame the live clip in the main pane (minion-town-ui increment)
+- [`minion-town-git-remote-served-clip-design-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-git-remote-served-clip-design-build.md) — awaiting `kriscendobot-minion.town-pr177-gauntlet` · Build: the design in kriscendobot/minion.town#177
 - [`minion-town-git-remote-served-clip`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-git-remote-served-clip.md) — awaiting `minion-town-git-remote-served-clip-design` · Serve a git-remote partition's pushed content as a clip
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
