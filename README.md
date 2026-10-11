@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T00:44:57Z_
+_As of 2026-10-11T00:48:57Z_
 
 ## Latest
 
@@ -28,7 +26,7 @@ Fleet health:
 
 Delegation: **active**
 
-- 2026-10-11T00:30:21Z [#176](https://github.com/kriscendobot/minion.town/pull/176) merged `c7bdf201889`; deploy [pending](https://github.com/kriscendobot/minion.town/actions/runs/37921255681)
+- 2026-10-11T00:30:21Z [#176](https://github.com/kriscendobot/minion.town/pull/176) merged `c7bdf201889`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/38098652163)
 - 2026-10-11T00:21:34Z [#176](https://github.com/kriscendobot/minion.town/pull/176) `be86339de04` screened
 
 ## Messages to the maintainer
@@ -598,11 +596,14 @@ Delegation: **active**
 
 - `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `namespace-clone-packs-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-10T02:43:50Z, cleared 2026-10-10T04:41:19Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-10T02:43:50Z, latest 2026-10-11T00:43:41Z).
+> The SAME condition (`namespace-clone-packs-oros-studio-garden-ce242c49`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
+> Per-namespace journal clones on oros-studio-garden-ce242c49 are still over the 50-pack threshold after maintenance:
+>   /Users/dom/garden/.garden-state/leader/journal: 77 packs
+>
+> A pack/tmp_pack buildup makes every git read slow (2026-10-08: 57 s leader read wedged ~100 leader-gated units). Inspect by hand: `nice ionice -c3 git -C <clone> repack -a -d`.
 
 - `kriscendobot-minion.town-pr174-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr174-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr174-gauntlet-review-budget-reached.md)
 
@@ -1084,10 +1085,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 141.5M | $631.27 _(notional, rate-card)_ | 52% of 271.0M (ok) |
+| Claude | 141.5M | $631.33 _(notional, rate-card)_ | 52% of 271.0M (ok) |
 | Codex | 1.8M _(+45.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106429790 tokens/day lower bound._
+_Fleet token-unlock pace: 106438649 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 4 open notice(s); checker healthy
