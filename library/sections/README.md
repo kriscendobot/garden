@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7609 (530 parent indexes + 7079 children).
+Total section files: 7625 (530 parent indexes + 7095 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8922,6 +8922,25 @@ Total section files: 7609 (530 parent indexes + 7079 children).
 - [literate-ai--docs-decisions-0043-worker-resource-health--cli-alert-and-skill-surface](literate-ai--docs-decisions-0043-worker-resource-health--cli-alert-and-skill-surface.md)
 - [literate-ai--docs-decisions-0043-worker-resource-health--health-boundary-and-private-observations](literate-ai--docs-decisions-0043-worker-resource-health--health-boundary-and-private-observations.md)
 - [literate-ai--docs-decisions-0043-worker-resource-health--qualification-and-consequences](literate-ai--docs-decisions-0043-worker-resource-health--qualification-and-consequences.md)
+
+### literate-ai--docs-decisions-0044-action-dag-and-shared-cache
+
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--action-dag-projection](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--action-dag-projection.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--artifact-transport-and-retention](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--artifact-transport-and-retention.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--cache-and-scheduling-gap](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--cache-and-scheduling-gap.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--cache-hits-untrusted](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--cache-hits-untrusted.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--command-action-wire-boundary](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--command-action-wire-boundary.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--compatible-worker-selection](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--compatible-worker-selection.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--compiler-cache-composition](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--compiler-cache-composition.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--consequences](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--consequences.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--execution-input-scope](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--execution-input-scope.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--layered-cache-configuration](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--layered-cache-configuration.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--phase-capability-admission](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--phase-capability-admission.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--private-config-and-read-only-bazel](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--private-config-and-read-only-bazel.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--qualification-and-rollout](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--qualification-and-rollout.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--ready-queue-and-slots](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--ready-queue-and-slots.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--windows-paths-and-ssh-transport](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--windows-paths-and-ssh-transport.md)
+- [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--worker-side-source-indexing](literate-ai--docs-decisions-0044-action-dag-and-shared-cache--worker-side-source-indexing.md)
 
 ### literate-ai--readme
 
