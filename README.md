@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T06:20:35Z_
+_As of 2026-10-11T06:25:03Z_
 
 ## Latest
 
@@ -1113,7 +1111,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 151.2M | $677.70 _(notional, rate-card)_ | 56% of 271.0M (ok) |
+| Claude | 151.4M | $677.64 _(notional, rate-card)_ | 56% of 271.0M (ok) |
 | Codex | 2.5M _(+73.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 105741581 tokens/day lower bound._
@@ -1122,9 +1120,8 @@ _Fleet token-unlock pace: 105741581 tokens/day lower bound._
 worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (9)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
-- [`kriscendobot-minion.town-pr177-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr177-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #177
 - [`oros-hardware-report-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-hardware-report-20261011.md) — Hardware and capability report for oros-studio-garden-ce242c49
 - [`minion-town-arc-press-20261011-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261011-040508.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr178-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr178-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #178
@@ -1135,15 +1132,15 @@ worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr166-gauntlet-20261010-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-20261010-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #166
+- [`kriscendobot-minion.town-pr177-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr177-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #177
 
-### tada (12337)
+### tada (12338)
+- [`kriscendobot-minion.town-pr166-gauntlet-20261010-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr166-gauntlet-20261010-fix-5.md) — Cost
 - [`kriscendobot-minion.town-pr177-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr177-gauntlet-fix-4.md) — Gauntlet fix round 4: kriscendobot/minion.town#177 (designs/git-remote-served...
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5.md) — Cost
 - [`claude-on-minion-town-press-20261011-053506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/claude-on-minion-town-press-20261011-053506.md) — Cost
 - [`kriscendobot-minion.town-pr177-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr177-gauntlet-panel-4.md) — Cost
-- [`oros-health-watch-20261011-053506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/oros-health-watch-20261011-053506.md) — Cost
-- … and 12332 more
+- … and 12333 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
