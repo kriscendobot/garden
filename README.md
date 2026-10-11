@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T11:10:56Z_
+_As of 2026-10-11T11:14:16Z_
 
 ## Latest
 
@@ -1185,9 +1185,10 @@ _Fleet token-unlock pace: 105983232 tokens/day lower bound._
 worst fetch p95 8.575998s/45s (/home/kris/garden/.garden-state/maintainer/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (16)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
 - [`improve-worker-worktree-no-ref-diagnostic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-worker-worktree-no-ref-diagnostic.md) — ---
+- [`daily-progress-summary-20261011-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261011-070505.md) — Daily midnight Pacific progress summary
 - [`resume-minion-town-pr93-gauntlet-20261011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr93-gauntlet-20261011.md) — Resume the minion.town #93 gauntlet (review-budget-reached) for one more pane...
 - [`minion-town-arc-press-20261011-103505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261011-103505.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr177-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr177-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #177
@@ -1202,8 +1203,7 @@ worst fetch p95 8.575998s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #180
 - [`claude-on-minion-town-completion-press-20261011-065011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261011-065011.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### doin (2)
-- [`daily-progress-summary-20261011-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261011-070505.md) — Daily midnight Pacific progress summary
+### doin (1)
 - [`kriscendobot-minion.town-pr178-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr178-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #178
 
 ### tada (12357)
