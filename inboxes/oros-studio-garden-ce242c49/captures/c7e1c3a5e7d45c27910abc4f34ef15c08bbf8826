@@ -1,0 +1,32 @@
+<6>21:23:08 [monk/1] job 'endojs-endo-but-for-bots-pr1439-dependabot' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>21:23:21 [monk/1] job 'endojs-endo-but-for-bots-pr1439-dependabot' call ceiling: tier=mentor max-budget-usd=16.60 (scaled by fresh seven-day headroom when available)
+<4>21:23:21 [monk/1] WARN minion-mcp: token preflight failed; job 'endojs-endo-but-for-bots-pr1439-dependabot' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>21:55:53 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/1439 is authored by 'app/dependabot', not 'kriscendobot'; treating it as a citation
+
+--- handler report (partial) ---
+**Report: endojs-endo-but-for-bots-pr1439-dependabot (botanist, preflight INCOMPATIBLE)**
+
+The verdict for PR #1439 is REJECT (incompatible), but the PR is still open. This host's bot token can't comment on or close endojs PRs, so I handed the close to a successor job pinned to an endolin host.
+
+**Re-check of the live head** (`5d76cb14b4147a02ea75f4c30da598473999ab4b`) — the proof still holds:
+- The root `package.json` still declares `engines.node: "^20.17.0 || >=22.9.0"`, so the supported floor is 20.17.0.
+- The npm registry still gives `@earendil-works/pi-ai@1.0.2` an engine range of `>=22.19.0`, which excludes that floor.
+- Because the proof held, I skipped the full lockfile, source and advisory review, as the job instructed.
+
+**Finding for the maintainer:** the outgoing `@earendil-works/pi-ai@0.87.1` *also* declares `>=22.19.0`. The base branch already depends on a version that excludes the declared floor, so this rejection isn't really about 1.0.2. The actual decision is whether to raise the root Node floor or to declare `>=22.19.0` engines in `packages/agentry` and `packages/lal`. Until that's settled, every pi-ai bump will be closed the same way.
+
+**What I tried:**
+- **Comment and close (failed):** posting the verdict comment returned 403 `Resource not accessible by personal access token`, the known limit on host oros-studio-garden-ce242c49. Because the close was chained after the comment, it never ran. PR #1439 is still **OPEN**.
+- **Ledger entry (failed):** I used the slug `endojs-endo-but-for-bots`, but the journal's project slug is `endo-but-for-bots`. Since the close didn't happen, I didn't retry; the successor writes it after closing.
+- **Successor job (posted):** `endojs-endo-but-for-bots-pr1439-dependabot-close`, pinned with `requires: host=endolin-garden-ece02cb4`, the same pattern as the #1438 close job. It first re-checks both declarations, then:
+  - posts the fixed verdict comment with the marker `<!-- garden-dependabot-engine-close:endojs/endo-but-for-bots#1439:@earendil-works/pi-ai@1.0.2 -->`, skipping it if a comment with that marker already exists;
+  - closes the PR and confirms it shows CLOSED;
+  - writes the ledger entry with `project: endo-but-for-bots` and `dependabotany-terminal-pr: 1439`.
+
+  The post took several retries because the journal lock was busy, but the log confirms `posted 'endojs-endo-but-for-bots-pr1439-dependabot-close'`.
+
+**Follow-ups:**
+- The lasting fix is to give the bot's PAT "Pull requests: write" on the endojs org.
+- The Node-floor question above needs a maintainer decision.
+
+<<<GARDEN-JOB-HANDED-OFF: endojs-endo-but-for-bots-pr1439-dependabot-close>>>
