@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T13:13:14Z_
+_As of 2026-10-11T13:15:41Z_
 
 ## Latest
 
@@ -1188,7 +1188,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 159.1M | $719.91 _(notional, rate-card)_ | 59% of 271.0M (ok) |
+| Claude | 159.2M | $721.35 _(notional, rate-card)_ | 59% of 271.0M (ok) |
 | Codex | 2.5M _(+73.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106485744 tokens/day lower bound._
@@ -1197,9 +1197,10 @@ _Fleet token-unlock pace: 106485744 tokens/day lower bound._
 worst fetch p95 8.575998s/45s (/home/kris/garden/.garden-state/maintainer/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (13)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
 - [`claude-on-minion-town-completion-press-20261011-130506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261011-130506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`kriscendobot-minion.town-pr178-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr178-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #178
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-panel-8.md) — Gauntlet stage: PANEL round 8 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion.town-pr179-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr179-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #179
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #93
