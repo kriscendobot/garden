@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 94
 build_job: 
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-panel-1
+current_child: kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-1
 state: running
 created_by: proxy:screen
 created_at: 2026-10-10T21:51:18Z
