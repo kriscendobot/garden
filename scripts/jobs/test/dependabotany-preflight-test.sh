@@ -73,6 +73,16 @@ awk -F '\t' -v pr="$2" '$1 == pr { $1=""; sub(/^\t/, ""); print; found=1; exit }
 EOF
 chmod +x "$COMPSTUB"
 
+# Deterministic close stub. The companion handler test exercises the action; this
+# fixture proves the preflight's route/dispatch decisions without touching GitHub.
+CLOSESTUB="$TR/engine-close-stub.sh"
+cat > "$CLOSESTUB" <<'EOF'
+#!/bin/bash
+[ -n "${CLOSE_LOG:-}" ] && printf '%s\n' "$*" >> "$CLOSE_LOG"
+exit "${CLOSE_RC:-0}"
+EOF
+chmod +x "$CLOSESTUB"
+
 TS='2026-08-13T00:00:00Z'
 prline() { printf '%s\t%s\t%s\t%s\t%s\n' "$1" "$2" "$REPO" "$TS" "${3:-}"; }
 
@@ -117,8 +127,10 @@ run_pre() {  # run_pre [pr-fixture] [src-stub]  -> fills $OUT/$RC/$CONTEXT
              GARDEN_BOT_LOGIN=kriscendobot \
              GARDEN_DEPB_PR_SOURCE="${2:-$SRCSTUB}" PR_FIXTURE="${1:-}" \
              GARDEN_DEPB_COMPAT="$COMPSTUB" \
+             GARDEN_DEPB_ENGINE_CLOSE="$CLOSESTUB" \
              GARDEN_PREFLIGHT_CONTEXT_FILE="$CONTEXT_FILE" \
              COMP_FIXTURE="${COMP_FIXTURE:-}" COMP_LOG="${COMP_LOG:-}" \
+             CLOSE_LOG="${CLOSE_LOG:-}" CLOSE_RC="${CLOSE_RC:-0}" \
              bash "$PRE" "$SCHED" 2>&1)"
   RC=$?
   set -e
@@ -157,6 +169,10 @@ all_rows_terminal_body() {
 no_embargo_remains_body() {
   printf 'project: %s\nrepo: %s\n\n# Dependabotany ledger: %s — terminal sweep\n\nNo prior EMBARGO remains open; the active set is empty.\n' \
     "$PROJECT" "$REPO" "$REPO"
+}
+terminal_pr_body() {
+  printf 'project: %s\nrepo: %s\npr: %s\ndependabotany-terminal-pr: %s\n\n# Dependabotany deterministic result: terminal\n' \
+    "$PROJECT" "$REPO" "$1" "$1"
 }
 
 # ============================================================================
@@ -205,6 +221,25 @@ add_entry 2026/08/01/000001Z-a "$(embargo_body 904 2026-08-05)"   # matured befo
 add_entry 2026/08/06/000002Z-b "$(no_embargo_remains_body)"
 run_pre ""
 [ "$RC" -eq 2 ] && ok '"no prior EMBARGO remains open" + matured row + no PRs → exit 2' || bad "exit $RC (want 2); OUT=$OUT"
+
+# ============================================================================
+hr; echo "NO WORK — per-PR deterministic terminal result retires only its embargo row"; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 905 2026-08-05)"
+add_entry 2026/08/06/000002Z-b "$(terminal_pr_body 905)"
+run_pre ""
+[ "$RC" -eq 2 ] && ok "terminal marker retires the closed PR's matured row" || bad "exit $RC (want 2); OUT=$OUT CONTEXT=$CONTEXT"
+
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 905 2026-08-05)"
+add_entry 2026/08/02/000002Z-b "$(embargo_body 906 2026-08-06)"
+add_entry 2026/08/06/000003Z-c "$(terminal_pr_body 905)"
+run_pre ""
+[ "$RC" -eq 0 ] \
+  && ! grep -q $'\t905\t' <<<"$CONTEXT" \
+  && grep -q $'^2026-08-06\t906\t' <<<"$CONTEXT" \
+  && ok "per-PR terminal marker preserves another matured embargo" \
+  || bad "terminal marker drained another PR: rc=$RC CONTEXT=$CONTEXT"
 
 # ============================================================================
 hr; echo "NO WORK — no open dependabot PRs + live embargo NOT yet due: exit 2"; hr
@@ -262,7 +297,7 @@ run_pre "$FIX"
 grep -qi 'open dependabot\[bot\] PR' <<<"$OUT" && ok "logged the open-PR dispatch" || bad "no open-PR log; OUT=$OUT"
 
 # ============================================================================
-hr; echo "ROUTE: live target excludes Node floor; attach cheap reverify-and-close context"; hr
+hr; echo "CLOSE: unchanged live Node-engine conflict closes without botanist dispatch"; hr
 reset_bare
 add_entry 2026/08/01/000001Z-a "$(embargo_body 1174 2026-08-05)"
 FIX_COMPAT="$TR/prs-compat.tsv"
@@ -270,21 +305,38 @@ prline 1174 "$DEP" 'Bump better-sqlite3 from 12.4.1 to 13.0.0' > "$FIX_COMPAT"
 COMP_FIXTURE="$TR/compat.tsv"
 printf '1174\tincompatible\tnode\t20.0.0\t>=20\t20.19.0 || 22.12.0 || >=23\tpackage.json\n' > "$COMP_FIXTURE"
 COMP_LOG="$TR/compat.log"; : > "$COMP_LOG"
+CLOSE_LOG="$TR/close.log"; : > "$CLOSE_LOG"; CLOSE_RC=0
 run_pre "$FIX_COMPAT"
-[ "$RC" -eq 0 ] && ok "runtime-engine conflict still dispatches the due recheck" || bad "exit $RC (want 0); OUT=$OUT"
+[ "$RC" -eq 2 ] && ok "reverified runtime-engine conflict closes without dispatch" || bad "exit $RC (want 2); OUT=$OUT"
 grep -q $'^endojs/endo-but-for-bots\t1174\tbetter-sqlite3\t13.0.0$' "$COMP_LOG" \
   && ok "existing oracle ran against the live PR and exact proposed package version" \
   || bad "oracle arguments were wrong: $(cat "$COMP_LOG")"
-grep -q 'cheap reverify-and-close' <<<"$OUT" \
-  && ok "log names the cheap route" || bad "cheap-route log missing; OUT=$OUT"
-grep -qi 'do NOT run the lockfile/source/advisory/test chain' <<<"$CONTEXT" \
-  && ok "scheduler context suppresses expensive diligence while the proof stays live" \
-  || bad "cheap-route context missing; CONTEXT=$CONTEXT"
-grep -q 'https://github.com/endojs/endo-but-for-bots/pull/1174' <<<"$CONTEXT" \
-  && grep -q 'better-sqlite3.*12.4.1 -> 13.0.0' <<<"$CONTEXT" \
-  && grep -q 'floor 20.0.0' <<<"$CONTEXT" \
-  && ok "context carries the PR, bump, and runtime-engine proof" \
-  || bad "context omitted proof detail; CONTEXT=$CONTEXT"
+grep -q 'unchanged Node-engine conflict reverified, closed, and journaled without botanist dispatch' <<<"$OUT" \
+  && ok "log records the deterministic terminal route" || bad "terminal-route log missing; OUT=$OUT"
+grep -q '^endojs/endo-but-for-bots 1174 better-sqlite3 12.4.1 13.0.0 20.0.0 >=20 20.19.0 || 22.12.0 || >=23 package.json endo-but-for-bots$' "$CLOSE_LOG" \
+  && ok "closer receives the complete original proof tuple" \
+  || bad "closer arguments were wrong: $(cat "$CLOSE_LOG")"
+! grep -q 'declaration-compatibility preflight routing' <<<"$CONTEXT" \
+  && ok "successful deterministic close emits no botanist routing context" \
+  || bad "successful close still routed a botanist: $CONTEXT"
+
+# ============================================================================
+hr; echo "FALLBACK: changed live proof dispatches the botanist"; hr
+CLOSE_RC=1
+run_pre "$FIX_COMPAT"
+[ "$RC" -eq 0 ] && ok "failed revalidation falls back to scheduled botanist" || bad "exit $RC (want 0); OUT=$OUT"
+grep -q 'falling back to the botanist' <<<"$OUT" \
+  && ! grep -q 'declaration-compatibility preflight routing' <<<"$CONTEXT" \
+  && ok "revalidation failure selects the ordinary botanist path" \
+  || bad "revalidation fallback was not ordinary: OUT=$OUT CONTEXT=$CONTEXT"
+CLOSE_RC=0
+
+# ============================================================================
+hr; echo "DEFER: exact proof with unavailable close surface does not dispatch botanist"; hr
+CLOSE_RC=75
+run_pre "$FIX_COMPAT"
+[ "$RC" -eq 75 ] && ok "action failure defers instead of dispatching botanist" || bad "exit $RC (want 75); OUT=$OUT"
+CLOSE_RC=0
 
 # ============================================================================
 hr; echo "FALL OPEN: oracle has no proof; ordinary scheduled review, no routing context"; hr

@@ -12,8 +12,8 @@
 # `preflight: dependabotany-preflight.sh` (set-schedule.sh attaches it by default
 # for this schedule family). The scheduler runs this when the daily cadence
 # has elapsed and acts on the exit code (skills/schedule/SKILL.md):
-#   exit 0 = work present → dispatch the botanist ledger sweep + advance the clock
-#   exit 2 = no work      → advance the clock only, dispatch nothing
+#   exit 0 = work remains → dispatch the botanist ledger sweep + advance the clock
+#   exit 2 = no work remains (including conflicts closed here) → advance only
 #   exit 75 = deferred    → the gate reached its total deadline without a verdict,
 #                           or the open-PR source hit the gh-api cooldown; the
 #                           scheduler leaves the schedule due and retries later
@@ -52,13 +52,17 @@
 # stubs, exactly like dependabot-watcher.sh:
 #   GARDEN_DEPB_PR_SOURCE <owner/name> <bot-login> -> TSV: number author head updated title
 #   GARDEN_DEPB_COMPAT   <repo> <pr> <pkg> <new-ver> -> TSV declaration proof
+#   GARDEN_DEPB_ENGINE_CLOSE <repo> <pr> <pkg> <old> <new> <floor> <declared>
+#                            <required> <path> <project> -> 0 closed+recorded,
+#                            1 proof changed, 75 action temporarily unavailable
 #   GARDEN_PREFLIGHT_CONTEXT_FILE                  -> scheduler-owned snapshot/routing context
 #   GARDEN_DEPB_ENTRIES_DIR                        -> the ledger entries/ tree to grep
 #   GARDEN_DEPB_REPO                               -> owner/name override (else derived from the ledger)
 #   GARDEN_DEPB_TODAY                              -> UTC YYYY-MM-DD override for the due comparison
 #   GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS             -> total wall-clock budget (default 110)
-# Read-only against the journal: it reuses common.sh's ensure_clone/sync_clone and
-# never writes or pushes.
+# Ledger discovery is read-only. The one terminal exception is an unchanged,
+# twice-proven Node-engine conflict on a bot-owned repo: a hardened helper posts a
+# fixed verdict, closes it, and appends its structured terminal journal result.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -70,6 +74,7 @@ export GARDEN_TAG="dependabotany-preflight"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_DEPB_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
 : "${GARDEN_DEPB_COMPAT:=$HERE/handlers/dep-compat-gh.sh}"
+: "${GARDEN_DEPB_ENGINE_CLOSE:=$HERE/handlers/dependabot-engine-close-gh.sh}"
 : "${GARDEN_DEPB_PREFLIGHT_CLONE:=$GARDEN_STATE/dependabotany-preflight/journal}"
 : "${GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS:=110}"
 : "${GARDEN_DEPB_SOURCE_TIMEOUT_SECS:=180}"
@@ -228,7 +233,7 @@ ledger_declares_drained() {
 ledger_due=0
 declare -a SNAPSHOT_ROWS=()
 declare -a ACTIVE_LEDGER=()
-declare -A SNAPSHOT_DATE=() SNAPSHOT_PR=() SNAPSHOT_SOURCE=()
+declare -A SNAPSHOT_DATE=() SNAPSHOT_PR=() SNAPSHOT_SOURCE=() TERMINAL_SOURCE=()
 if [ "${#LEDGER[@]}" -gt 0 ]; then
   # Fold global drain declarations in chronology order. A drain resets all rows
   # before it; later entries can start a new active generation. This avoids
@@ -255,6 +260,10 @@ if [ "${#LEDGER[@]}" -gt 0 ]; then
     # journal HEAD.
     for entry in "${ACTIVE_LEDGER[@]}"; do
       rel="${entry#"$CLONE"/}"
+      while IFS= read -r terminal_pr; do
+        case "$terminal_pr" in ''|*[!0-9]*) continue;; esac
+        TERMINAL_SOURCE[$terminal_pr]="$rel"
+      done < <(sed -nE 's/^dependabotany-terminal-pr:[[:space:]]*([0-9]+)[[:space:]]*$/\1/p' "$entry" 2>/dev/null)
       fallback_pr="$(grep -Eio 'github\.com/[^/[:space:]]+/[^/[:space:]]+/pull/[0-9]+|PR[[:space:]]*#?[0-9]+|#[0-9]+' "$entry" 2>/dev/null \
         | sed -nE 's@.*(/pull/|PR[[:space:]]*#?|#)([0-9]+).*@\2@Ip' | head -1 || true)"
       while IFS= read -r line; do
@@ -277,6 +286,16 @@ if [ "${#LEDGER[@]}" -gt 0 ]; then
           fi
         done < <(printf '%s\n' "$line" | grep -oE 'EMBARGO-[0-9]{4}-[0-9]{2}-[0-9]{2}' | sort -u)
       done < <(grep -iE 'EMBARGO-[0-9]{4}-[0-9]{2}-[0-9]{2}' "$entry" 2>/dev/null || true)
+    done
+    # A deterministic close records a per-PR terminal marker instead of a global
+    # "set drained" assertion. Retire only an embargo observation at or before
+    # that marker; a genuinely later embargo for the same PR remains active.
+    for key in "${!SNAPSHOT_DATE[@]}"; do
+      pr="${SNAPSHOT_PR[$key]}"
+      if [ "$pr" != unknown ] && [ -n "${TERMINAL_SOURCE[$pr]:-}" ] \
+         && [[ "${SNAPSHOT_SOURCE[$key]}" < "${TERMINAL_SOURCE[$pr]}" || "${SNAPSHOT_SOURCE[$key]}" = "${TERMINAL_SOURCE[$pr]}" ]]; then
+        unset 'SNAPSHOT_DATE[$key]' 'SNAPSHOT_PR[$key]' 'SNAPSHOT_SOURCE[$key]'
+      fi
     done
     if [ "${#SNAPSHOT_DATE[@]}" -gt 0 ]; then
       for key in "${!SNAPSHOT_DATE[@]}"; do
@@ -349,6 +368,14 @@ fi
 
 dep_lc="$(printf '%s' "$GARDEN_DEPENDABOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
 open_dep=0
+declare -A CLOSED_PR=()
+
+bot_owned_repo() {
+  case "$1" in
+    endojs/endo-but-for-bots|"$GARDEN_BOT_LOGIN"/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
 
 # Parse only Dependabot's narrow single-package title form. The captures are
 # validated before they may reach the oracle or the scheduled job body, matching
@@ -407,12 +434,61 @@ case "$GARDEN_DEPB_COMPAT_MAX_CHECKS" in
       case "$declared" in *[!A-Za-z0-9.*+\<\>=~^\|\ -]*|'') continue;; esac
       case "$required" in *[!A-Za-z0-9.*+\<\>=~^\|\ -]*|'') continue;; esac
       case "$path" in *[!A-Za-z0-9._/-]*|'') continue;; esac
+
+      # This second, independent oracle pass is the commit point. The closer
+      # re-fetches the live PR, requires it still to be open and Dependabot-owned
+      # with the same package target, and requires the complete proof tuple to be
+      # byte-identical before posting the fixed verdict, closing, and recording a
+      # structured terminal journal result. A changed/unreadable proof falls back
+      # to the botanist; an unavailable action surface defers the schedule instead
+      # of buying an LLM review for a disposition that is still proven.
+      if bot_owned_repo "$repo"; then
+        close_rc=0
+        if ! stage_timeout "$GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS"; then
+          deadline_defer "deterministic engine-conflict close"
+        fi
+        timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" "${STAGE_TIMEOUT}s" \
+          "$GARDEN_DEPB_ENGINE_CLOSE" "$repo" "$pr" "$pkg" "$old" "$new" \
+            "$floor" "$declared" "$required" "$path" "$project" || close_rc=$?
+        if [ "$close_rc" -eq 124 ] || [ "$close_rc" -eq 137 ]; then
+          deadline_defer "deterministic engine-conflict close"
+        fi
+        if [ "$close_rc" -eq 0 ]; then
+          CLOSED_PR[$pr]=1
+          open_dep=$((open_dep-1))
+          log "preflight: PR $pr ($pkg -> $new) unchanged Node-engine conflict reverified, closed, and journaled without botanist dispatch"
+          continue
+        fi
+        if [ "$close_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
+          log "deterministic close for $repo#$pr is temporarily unavailable — deferring (EX_TEMPFAIL)"
+          exit "$close_rc"
+        fi
+        log "preflight: PR $pr engine proof did not survive deterministic revalidation; falling back to the botanist"
+        continue
+      fi
       printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
         "$pr" "$pkg" "$old" "$new" "$floor" "$declared" "$required" "$path" >> "$ROUTES"
       log "preflight: PR $pr ($pkg -> $new) has a proven Node-engine incompatibility; routing to cheap reverify-and-close"
     done < "$DEPS"
   ;;
 esac
+
+# A close result posted during this run is not present in the journal snapshot we
+# read at entry. Remove its row in-memory and recompute due-ness so the same tick
+# does not dispatch a botanist merely to reconcile work the deterministic path
+# just finished. Future ticks perform the equivalent fold from the structured
+# `dependabotany-terminal-pr:` marker written by the closer.
+if [ "${#CLOSED_PR[@]}" -gt 0 ]; then
+  kept_rows=()
+  ledger_due=0
+  for row in "${SNAPSHOT_ROWS[@]}"; do
+    rest="${row#*$'\t'}"; row_pr="${rest%%$'\t'*}"; d="${row%%$'\t'*}"
+    [ -n "${CLOSED_PR[$row_pr]:-}" ] && continue
+    kept_rows+=("$row")
+    if [ "$d" \< "$today" ] || [ "$d" = "$today" ]; then ledger_due=1; fi
+  done
+  SNAPSHOT_ROWS=("${kept_rows[@]}")
+fi
 
 if [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
   {
