@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7561 (530 parent indexes + 7031 children).
+Total section files: 7585 (530 parent indexes + 7055 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8847,6 +8847,45 @@ Total section files: 7561 (530 parent indexes + 7031 children).
 - [literate-ai--docs-decisions-0033-os-base-universal-toolchain--os-realization-and-deterministic-composition](literate-ai--docs-decisions-0033-os-base-universal-toolchain--os-realization-and-deterministic-composition.md)
 - [literate-ai--docs-decisions-0033-os-base-universal-toolchain--portability-and-validation-consequences](literate-ai--docs-decisions-0033-os-base-universal-toolchain--portability-and-validation-consequences.md)
 - [literate-ai--docs-decisions-0033-os-base-universal-toolchain--provider-selection-and-custody-invariants](literate-ai--docs-decisions-0033-os-base-universal-toolchain--provider-selection-and-custody-invariants.md)
+
+### literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure
+
+- [literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--checkpoint-and-layer-ownership](literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--checkpoint-and-layer-ownership.md)
+- [literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--closure-consequences-and-validation](literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--closure-consequences-and-validation.md)
+- [literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--continuous-contribution-disposition](literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--continuous-contribution-disposition.md)
+- [literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--derived-class-and-deliverable-evidence](literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--derived-class-and-deliverable-evidence.md)
+- [literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--release-authority-gap](literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--release-authority-gap.md)
+- [literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--trunk-binding-and-version-mirrors](literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure--trunk-binding-and-version-mirrors.md)
+
+### literate-ai--docs-decisions-0035-explicit-operator-adoption-state
+
+- [literate-ai--docs-decisions-0035-explicit-operator-adoption-state--durable-stage-authority](literate-ai--docs-decisions-0035-explicit-operator-adoption-state--durable-stage-authority.md)
+- [literate-ai--docs-decisions-0035-explicit-operator-adoption-state--front-door-and-plan-apply](literate-ai--docs-decisions-0035-explicit-operator-adoption-state--front-door-and-plan-apply.md)
+- [literate-ai--docs-decisions-0035-explicit-operator-adoption-state--inferred-adoption-state-failure](literate-ai--docs-decisions-0035-explicit-operator-adoption-state--inferred-adoption-state-failure.md)
+- [literate-ai--docs-decisions-0035-explicit-operator-adoption-state--status-consequences-and-validation](literate-ai--docs-decisions-0035-explicit-operator-adoption-state--status-consequences-and-validation.md)
+
+### literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle
+
+- [literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle--consequences-and-validation](literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle--consequences-and-validation.md)
+- [literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle--dependency-authority-conflict](literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle--dependency-authority-conflict.md)
+- [literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle--exact-flavor-bound-profile](literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle--exact-flavor-bound-profile.md)
+- [literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle--replay-package-and-cache-boundaries](literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle--replay-package-and-cache-boundaries.md)
+
+### literate-ai--docs-decisions-0037-prefix-installed-cli-self-update
+
+- [literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--apply-reexec-and-failure-policy](literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--apply-reexec-and-failure-policy.md)
+- [literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--enrollment-and-authorization](literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--enrollment-and-authorization.md)
+- [literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--manual-upgrade-and-ownership-gap](literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--manual-upgrade-and-ownership-gap.md)
+- [literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--release-channel-and-staging](literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--release-channel-and-staging.md)
+- [literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--uninstall-tests-and-consequences](literate-ai--docs-decisions-0037-prefix-installed-cli-self-update--uninstall-tests-and-consequences.md)
+
+### literate-ai--docs-decisions-0038-importable-library-artifact-authority
+
+- [literate-ai--docs-decisions-0038-importable-library-artifact-authority--consequences-and-validation](literate-ai--docs-decisions-0038-importable-library-artifact-authority--consequences-and-validation.md)
+- [literate-ai--docs-decisions-0038-importable-library-artifact-authority--consumer-binding-and-compatibility](literate-ai--docs-decisions-0038-importable-library-artifact-authority--consumer-binding-and-compatibility.md)
+- [literate-ai--docs-decisions-0038-importable-library-artifact-authority--generated-tests-and-independent-acceptance](literate-ai--docs-decisions-0038-importable-library-artifact-authority--generated-tests-and-independent-acceptance.md)
+- [literate-ai--docs-decisions-0038-importable-library-artifact-authority--library-lifecycle-gap](literate-ai--docs-decisions-0038-importable-library-artifact-authority--library-lifecycle-gap.md)
+- [literate-ai--docs-decisions-0038-importable-library-artifact-authority--package-shaped-export](literate-ai--docs-decisions-0038-importable-library-artifact-authority--package-shaped-export.md)
 
 ### literate-ai--readme
 
