@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T06:51:26Z_
+_As of 2026-10-11T06:53:11Z_
 
 ## Latest
 
@@ -345,7 +343,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.167713s, giveups=1, steals=1 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-10-10T21:56:08Z, cleared 2026-10-11T06:51:30Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` cleared on oros-studio-garden-ce242c49.
 
 - `msg-scholar-ingest-literate-ai-remainder-7-20261010-6ad6331200c6` — from scholar:scholar-ingest-literate-ai-remainder-7-20261010, reply_to `scholar-ingest-literate-ai-remainder-7-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-7-20261010-6ad6331200c6.md)
 
