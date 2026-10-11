@@ -24,3 +24,13 @@ force-push, move the PR base). Also reword the PR title/body to drop the
 un-draft) so it reaches the maintainer for review. Arc tracker:
 https://github.com/kriscendobot/garden/issues/89 item 4. If #1403 closed
 unmerged instead, stop and report; do not weave.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-11T22:11:23Z
