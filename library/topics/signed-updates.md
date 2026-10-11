@@ -7,6 +7,9 @@ Cryptographically signed software update channels for always-online appliance-li
 | Section | One-line summary |
 |---|---|
 | [The Update Framework (TUF): overview](../sections/web--tuf-signed-update-framework--overview.md) | TUF role hierarchy, online/offline key distinction, rollback-attack defense, threat model, and always-online node deployment pattern. |
+| [Repository-move continuity gap](../sections/literate-ai--docs-decisions-0049-repository-succession--repository-move-continuity-gap.md) | repository-governance, signed-updates | A sanitized move from an internal predecessor to a public successor leaves projects, installed self-updaters, contributor remotes, and historical tags pointing at different repository identities. |
+| [Declared repository succession](../sections/literate-ai--docs-decisions-0049-repository-succession--declared-repository-succession.md) | repository-governance, signed-updates, software-supply-chain | One exact predecessor-to-successor declaration permits update continuity without rewriting recorded provenance; an attempted private bridge release failed, so 1.0.x prefix installs require one manual reinstall. |
+| [Consequences](../sections/literate-ai--docs-decisions-0049-repository-succession--consequences.md) | repository-governance, signed-updates | Successor-built CLIs can update predecessor-initialized projects and future self-updates target the successor, while each additional move still requires explicit review. |
 
 ## See also
 
