@@ -1284,6 +1284,11 @@ because the specs are repository READMEs.
 | [ADR 0042: compiled C++ library products](literate-ai--docs-decisions-0042-cpp-library-products.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0043: bounded worker resource health](literate-ai--docs-decisions-0043-worker-resource-health.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0044: action DAG scheduling and shared verified caches](literate-ai--docs-decisions-0044-action-dag-and-shared-cache.md) | jordanhubbard/literate-ai | 2026-10-01 | Jordan Hubbard | 16 | current (file commit `2820f853`; classifier `proceed`) |
+| [ADR 0045: Debian package worker custody](literate-ai--docs-decisions-0045-debian-package-worker-custody.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0046: project-scoped worktree lifecycle](literate-ai--docs-decisions-0046-project-scoped-worktree-lifecycle.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0047: native CLI Component acceptance](literate-ai--docs-decisions-0047-native-cli-component-acceptance.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0048: retained-project Standard lifecycle](literate-ai--docs-decisions-0048-retained-project-standard-lifecycle.md) | jordanhubbard/literate-ai | 2026-10-02 | Jordan Hubbard | 4 | current (file commit `8fbe58f9`; classifier `proceed`) |
+| [ADR 0049: repository succession](literate-ai--docs-decisions-0049-repository-succession.md) | jordanhubbard/literate-ai | 2026-10-05 | Jordan Hubbard | 3 | current (file commit `e797acdd`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
