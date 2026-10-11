@@ -1249,6 +1249,7 @@ because the specs are repository READMEs.
 | [ADR 0004: executable port boundaries](literate-ai--docs-decisions-0004-executable-port-boundaries.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, slant confidence low) |
 | [ADR 0005: independently executable Component semantics](literate-ai--docs-decisions-0005-executable-component-semantics.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0006: significant-feature request governance](literate-ai--docs-decisions-0006-significant-feature-request-governance.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, openly argued maintainer process position) |
+| [ADR 0007: update classification and semantic merge](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge.md) | jordanhubbard/literate-ai | 2026-10-01 | Jordan Hubbard | 6 | current (file commit `2820f853`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
