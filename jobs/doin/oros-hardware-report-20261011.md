@@ -39,3 +39,13 @@ Compare against the leader endolin-garden-ece02cb4 (AMD Ryzen AI Max+ 395, 32 th
 throughput, and which observed symptoms (drain state, stale deploy, worker counts) are
 configuration rather than hardware. Send the report as a maintainer message with
 `scripts/jobs/message-user.sh` and put the same text in the job result.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T07:24:49Z
