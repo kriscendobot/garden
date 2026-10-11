@@ -19,3 +19,13 @@ Steps:
    **Botanist verdict: REJECT (incompatible)**. Root `package.json` declares Node `^20.17.0 || >=22.9.0` (floor 20.17.0); `@earendil-works/pi-ai@1.0.2` requires Node `>=22.19.0`, which excludes the project-supported floor. The full lockfile/source/advisory review was not run because this declaration-level finding is terminal. Note for the maintainer: the outgoing 0.87.1 *also* requires `>=22.19.0`, so the base already depends on a package that excludes the declared floor. This close is not a finding against 1.0.2 specifically. The real decision is whether to raise the root floor or declare `>=22.19.0` engines in `packages/agentry` / `packages/lal`. Reopen once either declaration changes.
    Marker: `<!-- garden-dependabot-engine-close:endojs/endo-but-for-bots#1439:@earendil-works/pi-ai@1.0.2 -->`
 3. Write the dependabotany ledger entry (`journal-entry.sh message`). The body contains `project: endo-but-for-bots`, `dependabotany-terminal-pr: 1439`, and a `# Dependabotany` heading recording the REJECT close.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-11T21:55:43Z
