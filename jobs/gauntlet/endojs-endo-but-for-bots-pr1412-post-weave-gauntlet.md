@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-viability
+state: running
 created_by: weaver
 created_at: 2026-10-11T22:16:43Z
 ---
