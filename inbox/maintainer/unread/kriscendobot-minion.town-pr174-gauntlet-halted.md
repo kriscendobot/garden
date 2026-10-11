@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: gauntlet:kriscendobot-minion.town-pr174-gauntlet-halted
 msg_key: kriscendobot-minion.town-pr174-gauntlet-halted
-notice_count: 3
+notice_count: 4
 first_seen: 2026-10-10T12:56:20Z
-last_seen: 2026-10-10T21:53:38Z
-sent_at: 2026-10-10T21:53:38Z
+last_seen: 2026-10-11T02:56:21Z
+sent_at: 2026-10-11T02:56:21Z
 ---
-COALESCED message — occurrence #3 (first seen 2026-10-10T12:56:20Z, latest 2026-10-10T21:53:38Z).
-The SAME message (episode key `kriscendobot-minion.town-pr174-gauntlet-halted`) has now been sent 3 times; this is
-ONE entry that updates in place, not 3 messages. Latest detail:
+COALESCED message — occurrence #4 (first seen 2026-10-10T12:56:20Z, latest 2026-10-11T02:56:21Z).
+The SAME message (episode key `kriscendobot-minion.town-pr174-gauntlet-halted`) has now been sent 4 times; this is
+ONE entry that updates in place, not 4 messages. Latest detail:
 
 Gauntlet kriscendobot-minion.town-pr174-gauntlet HALTED: stage 'kriscendobot-minion.town-pr174-gauntlet-panel-7' (panel) failed 3 times; its stage retry budget is exhausted (max_stage_retries=2). Last failure: reaper doom_signature=requeue-exhausted with failure_classification=transient
 
