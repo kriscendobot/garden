@@ -1259,6 +1259,11 @@ because the specs are repository READMEs.
 | [ADR 0015: bounded CodeGraph evidence and exact custody reuse](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 7 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0017: explicit live-test coding CLI and model](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0018: never-empty per-agent model stack](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 9 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0019: opt-in external source intelligence](literate-ai--docs-decisions-0019-opt-in-external-source-intelligence.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0020: paginated Component-lock review](literate-ai--docs-decisions-0020-paginated-component-lock-review.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0021: operator-local MCP catalog](literate-ai--docs-decisions-0021-operator-local-mcp-catalog.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0022: shared channel author/recipient vocabulary](literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0023: mutagenic CLI channel fan-out](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
