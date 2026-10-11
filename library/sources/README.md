@@ -1256,6 +1256,9 @@ because the specs are repository READMEs.
 | [ADR 0011: typed Component domain metadata](literate-ai--docs-decisions-0011-component-domain-structure-literate-markdown-v2.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0012: sample portfolio matrix and committed source cache](literate-ai--docs-decisions-0012-sample-portfolio-matrix-and-committed-source-cache.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 3 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0013: intent refinement and specification sufficiency](literate-ai--docs-decisions-0013-intent-refinement-and-specification-sufficiency.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 9 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`, openly argued advocacy) |
+| [ADR 0015: bounded CodeGraph evidence and exact custody reuse](literate-ai--docs-decisions-0015-bounded-codegraph-evidence-and-reuse.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 7 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0017: explicit live-test coding CLI and model](literate-ai--docs-decisions-0017-explicit-live-test-coding-cli.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 8 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0018: never-empty per-agent model stack](literate-ai--docs-decisions-0018-never-empty-per-agent-model-stack.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 9 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
