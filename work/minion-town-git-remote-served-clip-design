@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-10-11T01:24:55Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-git-remote-served-clip-design
-pr_number: 177
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/177
-pr_head: design/git-remote-served-clip
