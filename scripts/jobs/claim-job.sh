@@ -286,16 +286,55 @@ off=$(( off % n ))
 # roll halts on a healthy canary (2026-09-29: garden2 took a 7200s gauntlet fix one
 # second after probe r1 landed; r1..r3 all expired). Host eligibility is still
 # decided by the ordinary requires: gate below.
-probes=(); rest=()
+#
+# Aged jobs go next, still ahead of the rotation. Rotation alone gives no job a
+# bound on its wait: a job whose position every live worker's offset reaches late
+# can sit unclaimed while newer jobs are taken around it (2026-10-11: PR 171's
+# panel-7 waited 12 hours). A job that has sat in todo/ longer than the threshold
+# is tried before any younger one; within the aged tier the worker's rotation is
+# kept so peers still spread across several aged jobs instead of all colliding on
+# one. Age is the `posted_at:` header when present, else the commit that added the
+# file to todo/ (renames off, so a requeue restarts the clock). One bounded log
+# walk over the threshold window finds the young set; everything else is aged. A
+# clone whose history is shorter than the window reads every header-less job as
+# aged, which degrades to the plain rotation. Eligibility is still decided per
+# candidate below, so an aged job this host cannot run is skipped as before.
+CLAIM_AGING_SECONDS="${GARDEN_CLAIM_AGING_SECONDS:-3600}"
+case "$CLAIM_AGING_SECONDS" in
+  ''|*[!0-9]*) log "WARNING: GARDEN_CLAIM_AGING_SECONDS='$CLAIM_AGING_SECONDS' is not a count of seconds; using 3600"; CLAIM_AGING_SECONDS=3600 ;;
+esac
+aging_cutoff=$(( claim_now - CLAIM_AGING_SECONDS ))
+declare -A young=()
+if [ "$CLAIM_AGING_SECONDS" -gt 0 ]; then
+  while IFS= read -r path; do
+    [ -n "$path" ] && young["${path##*/}"]=1
+  done < <(git -C "$DIR" log --no-renames --diff-filter=A --format= --name-only \
+             --since="@$aging_cutoff" -- "$JOBS_TODO" 2>/dev/null || true)
+fi
+job_is_aged() { # <leaf>
+  local posted epoch
+  [ "$CLAIM_AGING_SECONDS" -gt 0 ] || return 1
+  posted="$(plan_field "$DIR/$JOBS_TODO/$1" posted_at 2>/dev/null || true)"
+  if [ -n "$posted" ] && epoch="$(date -u -d "$posted" +%s 2>/dev/null)"; then
+    [ "$epoch" -le "$aging_cutoff" ]
+    return
+  fi
+  [ -z "${young[$1]:-}" ]
+}
+
+probes=(); aged=(); rest=()
 for ((k=0; k<n; k++)); do
   c="${cand[$(( (off + k) % n ))]}"
   if grep -q '^canary-probe: true' "$DIR/$JOBS_TODO/$c" 2>/dev/null; then
     probes+=("$c")
+  elif job_is_aged "$c"; then
+    aged+=("$c")
   else
     rest+=("$c")
   fi
 done
-cand=("${probes[@]}" "${rest[@]}")
+[ "${#aged[@]}" -gt 0 ] && log "${#aged[@]} job(s) in todo/ past the ${CLAIM_AGING_SECONDS}s aging threshold; trying them before the rotation"
+cand=("${probes[@]}" "${aged[@]}" "${rest[@]}")
 
 for ((k=0; k<n; k++)); do
   # candidates are leaf filenames (<base>.md); the spine key is extensionless.
