@@ -1279,6 +1279,10 @@ because the specs are repository READMEs.
 | [ADR 0036: selection-bound npm dependency lifecycle](literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0037: prefix-installed CLI self-update](literate-ai--docs-decisions-0037-prefix-installed-cli-self-update.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0038: importable library artifact authority](literate-ai--docs-decisions-0038-importable-library-artifact-authority.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0039: bounded 1.1 capability decisions](literate-ai--docs-decisions-0039-1.1-capability-boundaries.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0040: retained Cargo library bridge](literate-ai--docs-decisions-0040-retained-cargo-library-bridge.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0042: compiled C++ library products](literate-ai--docs-decisions-0042-cpp-library-products.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0043: bounded worker resource health](literate-ai--docs-decisions-0043-worker-resource-health.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
