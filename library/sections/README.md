@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7430 (530 parent indexes + 6900 children).
+Total section files: 7436 (530 parent indexes + 6906 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8641,6 +8641,15 @@ Total section files: 7430 (530 parent indexes + 6900 children).
 - [literate-ai--docs-decisions-0006-significant-feature-request-governance--adr-planning-roadmap-sequence](literate-ai--docs-decisions-0006-significant-feature-request-governance--adr-planning-roadmap-sequence.md)
 - [literate-ai--docs-decisions-0006-significant-feature-request-governance--consequences](literate-ai--docs-decisions-0006-significant-feature-request-governance--consequences.md)
 - [literate-ai--docs-decisions-0006-significant-feature-request-governance--context](literate-ai--docs-decisions-0006-significant-feature-request-governance--context.md)
+
+### literate-ai--docs-decisions-0007-update-classification-and-semantic-merge
+
+- [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--actual-three-way-migration](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--actual-three-way-migration.md)
+- [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--consequences-and-explicit-selection](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--consequences-and-explicit-selection.md)
+- [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--context](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--context.md)
+- [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--optional-coding-agent-review](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--optional-coding-agent-review.md)
+- [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--resolved-parent-catalog-comparison](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--resolved-parent-catalog-comparison.md)
+- [literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--unchanged-boundaries](literate-ai--docs-decisions-0007-update-classification-and-semantic-merge--unchanged-boundaries.md)
 
 ### literate-ai--readme
 
