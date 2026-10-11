@@ -14,3 +14,13 @@ If it exits 0 silently, check `.garden-state/draining` and requeue rather than c
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-11T00:03:11Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T01:18:57Z
