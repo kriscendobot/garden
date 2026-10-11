@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion.town-pr166-gauntlet-20261010
-priority: normal
-posted_by: producer
-posted_at: 2026-10-10T23:24:41Z
+role: gardener
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-11T06:31:14Z cleared=none -->
 
 ---
 role: gardener
