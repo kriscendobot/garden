@@ -17,3 +17,13 @@ Do: switch both prod-probe.yml jobs to the same `CI_RUNS_ON` expression (check t
 Also: open PR https://github.com/kriscendobot/minion.town/pull/171 edits prod-probe.yml too; if it still adds `ubuntu-latest` jobs, note it in the report so its next fix round adopts CI_RUNS_ON.
 
 Supervisor: minion-town-arc-press (kriscendobot/garden#58).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-11T18:33:36Z
