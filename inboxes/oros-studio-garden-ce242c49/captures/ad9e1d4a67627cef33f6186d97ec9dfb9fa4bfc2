@@ -1,0 +1,34 @@
+<6>22:06:36 [monk/4] job 'kriscendobot-minion.town-pr181-gauntlet-fix-3' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>22:07:03 [monk/4] job 'kriscendobot-minion.town-pr181-gauntlet-fix-3' call ceiling: tier=mentor max-budget-usd=16.60 (scaled by fresh seven-day headroom when available)
+<4>22:07:03 [monk/4] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion.town-pr181-gauntlet-fix-3' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<3>22:51:19 [auto-gauntlet-handoff] FATAL: auto-gauntlet: could not establish panel-head freshness for https://github.com/kriscendobot/minion.town/pull/181 (rc=1)
+
+--- handler report (partial) ---
+# PR #181 fix round 3: all panel-3 must-fix items are in, and CI is green
+
+I applied every must-fix item from panel round 3, plus two should-fix items, and pushed them as `b49da25` to `git-remote-served-clip` on https://github.com/kriscendobot/minion.town/pull/181. The PR head moved from `4922ce7` to `b49da25`.
+
+**Must-fix:**
+- **Unpublish and purge-root no longer depend on a successful projection** (wire-watcher 1, `src/endo/git-remote/served-clip.ts`). When a projection fails, a new step still applies withdrawals using the last recorded state:
+  - an unpublish tombstone removes the vhost record;
+  - pending purge requests drop their roots from the live record and from the recorded state;
+  - the purge requests stay pending, so the next good projection clears them;
+  - otherwise visitors still get the last good deployment.
+  - A new test covers both unpublish and purge when the projection fails.
+- **`DEPLOYMENT.md` defaults** (archivist 1): every value in the Default column now carries a unit.
+- **Primer link** (archivist 2): the § 5.1 link now includes its anchor (`#51-model-s-stable-origin-two-cache-tiers-recommended`).
+
+**Should-fix:**
+- **One declaration for `.content`** (curator 1): it is now declared once, as `CONTENT_SEGMENT` in `gateway/content-server.ts`. `publish.ts` and `html-rewrite.ts` import it, and the comment in `projection.ts` points to the authoritative list.
+- **Guest `publish` tool description** (curator 2): it now names the `.content/` reservation and says the match ignores case.
+- The existing purge test already checks wire-watcher 2's case: a purged root returns 404 even though its manifest is still in the content store.
+
+**Checks:**
+- **Typecheck:** clean.
+- **`test/git-remote/served-clip.test.ts`:** 20 of 22 pass, including the new test. The other two also fail on the unmodified PR head on this host. The case-colliding `.content`/`.Content` test fails because this checkout sits on a case-insensitive filesystem. The `start runs a full sweep` test times out under host load.
+- **CI on `b49da25`:** "test (typecheck + vitest)" passed. `ci-wait-merge.sh` could not read the PR on this host, because the token here lacks access to check status. I polled the Actions runs API instead. The previous head also had this single workflow, so nothing is missing.
+
+**Not done:**
+- The remaining wire-watcher should-fix items (more `kind` validation tests, and showing a stuck unparseable record in `status`) are left for a later round.
+- My job-inbox read timed out, so a message sent to this job during the run may not have been seen.
+<!-- gauntlet-stage-result: fix=done -->
