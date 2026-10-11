@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: minion-town-git-remote-push-caps
-priority: normal
 role: builder
+tier: mentor
 arc: minion-town-git-remote
-posted_by: designer
-posted_at: 2026-10-10T16:44:47Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-11T02:01:11Z cleared=none -->
 
 ---
 tier: mentor
