@@ -1,9 +1,14 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-11T09:24:15Z
+sent_at: 2026-10-11T18:54:51Z
 watchdog_key: journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal
 notice_count: 1
 first_seen: 2026-10-11T09:24:15Z
-last_seen: 2026-10-11T09:24:15Z
+last_seen: 2026-10-11T18:54:51Z
+recovered: true
 ---
-Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.316237s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` has CLEARED (first seen 2026-10-11T09:24:15Z, cleared 2026-10-11T18:54:51Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
