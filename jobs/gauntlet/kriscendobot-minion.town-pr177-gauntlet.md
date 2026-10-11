@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: kriscendobot-minion.town-pr177-gauntlet-viability
+state: running
 created_by: producer
 arc: minion-town-git-remote
 created_at: 2026-10-11T01:35:40Z
