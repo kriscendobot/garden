@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-10-11T08:14:09Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-restack-minion-town-pr171-after-pr166-round6-20261011
