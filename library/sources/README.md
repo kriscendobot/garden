@@ -1264,6 +1264,11 @@ because the specs are repository READMEs.
 | [ADR 0021: operator-local MCP catalog](literate-ai--docs-decisions-0021-operator-local-mcp-catalog.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0022: shared channel author/recipient vocabulary](literate-ai--docs-decisions-0022-channel-author-recipient-vocabulary.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0023: mutagenic CLI channel fan-out](literate-ai--docs-decisions-0023-mutagenic-cli-channel-fan-out.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0024: project MCP catalog hygiene](literate-ai--docs-decisions-0024-project-mcp-catalog-hygiene.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0025: direct CLI operator-MCP client](literate-ai--docs-decisions-0025-cli-operator-mcp-client.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0026: multi-entrypoint deployment units](literate-ai--docs-decisions-0026-multi-entrypoint-deployment-units.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0027: durable split-service pattern](literate-ai--docs-decisions-0027-durable-split-service-pattern.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`) |
+| [ADR 0028: verifier-owned browser acceptance](literate-ai--docs-decisions-0028-browser-interaction-acceptance.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed_with_caveat`) |
 
 ## Petname systems and Zooko's triangle
 
