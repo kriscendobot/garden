@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T18:40:44Z_
+_As of 2026-10-11T18:42:43Z_
 
 ## Latest
 
@@ -1283,7 +1283,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 167.7M | $760.77 _(notional, rate-card)_ | 62% of 271.0M (ok) |
-| Codex | 4.3M _(+119.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Codex | 4.3M _(+121.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106106842 tokens/day lower bound._
 
@@ -1291,8 +1291,9 @@ _Fleet token-unlock pace: 106106842 tokens/day lower bound._
 worst fetch p95 4.630296s/45s (/home/kris/garden/.garden-state/comment-watcher/verify); 4 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-8.md) — Gauntlet stage: PANEL round 8 — kriscendobot/minion.town PR #93
+- [`kriscendobot-minion.town-pr182-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #182
 - [`kriscendobot-minion.town-pr179-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr179-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #179
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #166
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #94
