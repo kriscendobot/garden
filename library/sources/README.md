@@ -1274,6 +1274,11 @@ because the specs are repository READMEs.
 | [ADR 0031: durable user configuration home](literate-ai--docs-decisions-0031-durable-user-configuration-home.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0032: tuple-specific native-install SBOMs](literate-ai--docs-decisions-0032-tuple-specific-native-install-sboms.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0033: universal os-base toolchain](literate-ai--docs-decisions-0033-os-base-universal-toolchain.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0034: continuous evidence-bound release closure](literate-ai--docs-decisions-0034-continuous-evidence-bound-release-closure.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 6 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0035: explicit operator adoption state](literate-ai--docs-decisions-0035-explicit-operator-adoption-state.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0036: selection-bound npm dependency lifecycle](literate-ai--docs-decisions-0036-selection-bound-npm-dependency-lifecycle.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0037: prefix-installed CLI self-update](literate-ai--docs-decisions-0037-prefix-installed-cli-self-update.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
+| [ADR 0038: importable library artifact authority](literate-ai--docs-decisions-0038-importable-library-artifact-authority.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 5 | current (file commit `fcc40bc6`; classifier `proceed`) |
 
 ## Petname systems and Zooko's triangle
 
