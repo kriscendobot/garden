@@ -47,3 +47,13 @@ The generated `nestedEvaluate`/`getExport` bundle text changes for any module th
 
 Bundles already built and stored (for example, installed on chain) keep the old behavior until they are rebuilt with the fixed `@endo/compartment-mapper`; code that worked around the `undefined` alias by importing the unaliased name continues to work unchanged after a rebuild.
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-11T01:22:59Z
