@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-11T03:01:31Z_
+_As of 2026-10-11T03:05:46Z_
 
 ## Latest
 
@@ -1099,10 +1099,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.0M | $646.73 _(notional, rate-card)_ | 54% of 271.0M (ok) |
-| Codex | 1.8M _(+45.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
+| Claude | 145.1M | $648.99 _(notional, rate-card)_ | 54% of 271.0M (ok) |
+| Codex | 1.9M _(+46.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 105995383 tokens/day lower bound._
+_Fleet token-unlock pace: 106148426 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
@@ -1110,7 +1110,7 @@ worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegat
 ## Board
 ### todo (8)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
-- [`minion-town-git-remote-endo-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-git-remote-endo-binding.md) — Endo-directory binding for git-remote partitions (guest @git power + MCP mint)
+- [`kriscendobot-minion.town-pr177-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr177-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #177
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #93
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr166-gauntlet-20261010-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #166
 - [`kriscendobot-minion.town-pr178-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr178-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #178
@@ -1120,15 +1120,15 @@ worst fetch p95 4.896816s/45s (/home/kris/garden/.garden-state/screening-delegat
 
 ### doin (2)
 - [`kriscendobot-minion.town-pr179-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr179-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #179
-- [`oros-health-watch-20261011-023506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261011-023506.md) — ---
+- [`minion-town-git-remote-endo-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-git-remote-endo-binding.md) — Endo-directory binding for git-remote partitions (guest @git power + MCP mint)
 
-### tada (12317)
+### tada (12318)
+- [`oros-health-watch-20261011-023506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/oros-health-watch-20261011-023506.md) — Cost
 - [`kriscendobot-minion.town-pr177-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr177-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr174-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr174-gauntlet.md) — gauntlet kriscendobot-minion.town-pr174-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr179-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr179-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr177-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr177-gauntlet-clean.md) — Cost
-- [`claude-on-minion-town-press-20261011-023506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/claude-on-minion-town-press-20261011-023506.md) — Cost
-- … and 12312 more
+- … and 12313 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
