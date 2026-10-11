@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-11T00:15:34Z_
+_As of 2026-10-11T00:23:13Z_
 
 ## Latest
 
@@ -28,7 +26,7 @@ Fleet health:
 
 Delegation: **active**
 
-(no screening activity in the last 24 h)
+- 2026-10-11T00:21:34Z [#176](https://github.com/kriscendobot/minion.town/pull/176) `be86339de04` screened
 
 ## Messages to the maintainer
 
@@ -328,6 +326,22 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.167713s, giveups=1, steals=1 (max 3/window), wait floor=60s.
+
+- `msg-scholar-ingest-literate-ai-remainder-7-20261010-6ad6331200c6` — from scholar:scholar-ingest-literate-ai-remainder-7-20261010, reply_to `scholar-ingest-literate-ai-remainder-7-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-7-20261010-6ad6331200c6.md)
+
+> Literate AI ingest: the foreign-content gate halted two more sources, so I did not read or ingest either. Please reply `proceed`, `proceed-with-caveat`, or `skip` for each (reply to this job's inbox or post a fresh disposition).
+>
+> 1. `docs/architecture/skills.md` @ `08ff70273a5462cf4d205b730f445a296cb3f067`
+>    https://raw.githubusercontent.com/jordanhubbard/literate-ai/08ff70273a5462cf4d205b730f445a296cb3f067/docs/architecture/skills.md
+>    Jev jev-1.13.0: `halt_and_escalate`, injection 0.32 (uncertain), slant neutral 1.0. 24,123 bytes, sha256 59af4642.
+>    Fetched bytes: /home/kris/garden/scratch/scholar-ingest-literate-ai-remainder-7-20261010-esc/fetch-source.GxmBTn
+>
+> 2. `docs/architecture/superpowers-skills-assessment.md` @ `fcc40bc617a2bc2455627db7396a1e016ebfbab6`
+>    https://raw.githubusercontent.com/jordanhubbard/literate-ai/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/superpowers-skills-assessment.md
+>    Jev: `halt_and_escalate`, injection 0.31 (uncertain), slant advocacy 0.61. 7,928 bytes, sha256 babe8d75.
+>    Fetched bytes: /home/kris/garden/scratch/scholar-ingest-literate-ai-remainder-7-20261010-esc/fetch-source.JDq8zX
+>
+> Both are likely false positives (docs about agent skills/prompts tend to read as instruction-shaped), but the gate says escalate. These join the four still-blocked files (repository-source-dependencies, project-releases, authority-learning-loop, beam-live-coding-layer-investigation). The cycle continues with worker-storage-protocol (Jev proceed).
 
 - `watchdog-rolling-deploy-canary-failed-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden-ece02cb4.md)
 
@@ -1063,10 +1077,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 141.4M | $629.11 _(notional, rate-card)_ | 52% of 271.0M (ok) |
+| Claude | 141.5M | $630.17 _(notional, rate-card)_ | 52% of 271.0M (ok) |
 | Codex | 1.8M _(+45.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106515464 tokens/day lower bound._
+_Fleet token-unlock pace: 106741618 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.090503s/45s (/home/kris/garden/.garden-state/screening-control/journal); 7 open notice(s); checker healthy
@@ -1074,26 +1088,26 @@ worst fetch p95 4.090503s/45s (/home/kris/garden/.garden-state/screening-control
 ## Board
 ### todo (7)
 - [`oros-health-watch-20261010-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261010-200507.md) — ---
-- [`kriscendobot-minion.town-pr176-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr176-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #176
-- [`scholar-ingest-literate-ai-remainder-7-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-literate-ai-remainder-7-20261010.md) — Continue the Literate AI ingest at docs/architecture/skills.md
+- [`screen-minion-town-pr176-be86339-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr176-be86339-conduct.md) — Screened delegated merge: kriscendobot/minion.town#176 at be86339de0458245282...
+- [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #94
 - [`resume-minion-town-pr174-gauntlet-panel7-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/resume-minion-town-pr174-gauntlet-panel7-20261010.md) — ---
 - [`endojs-endo-but-for-bots-pr346-gauntlet-20261007-fix-2-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr346-gauntlet-20261007-fix-2-body.md) — Restore PR template headings on endojs/endo-but-for-bots#346 (gauntlet fix-2 ...
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #93
 - [`kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr94-screen-9afedef0-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #94
 
 ### doin (4)
-- [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #94
+- [`scholar-ingest-literate-ai-remainder-7-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-literate-ai-remainder-7-20261010.md) — Continue the Literate AI ingest at docs/architecture/skills.md
 - [`claude-on-minion-town-completion-press-20261010-185006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261010-185006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`kriscendobot-minion.town-pr166-gauntlet-20261010-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr166-gauntlet-20261010-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #166
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261010-133536.md) — Press the Claude-on-minion.town arc forward
 
-### tada (12288)
+### tada (12291)
+- [`kriscendobot-minion.town-pr176-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr176-gauntlet.md) — gauntlet kriscendobot-minion.town-pr176-gauntlet — complete
+- [`kriscendobot-minion.town-pr176-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr176-gauntlet-undraft.md) — Completion report: kriscendobot/minion.town PR #176, gauntlet undraft stage
+- [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-panel-7.md) — Cost
 - [`kriscendobot-minion.town-pr176-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion.town-pr176-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/11/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-fix-6.md) — Gauntlet fix round 6: kriscendobot/minion.town PR #94
-- [`kriscendobot-minion.town-pr176-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/kriscendobot-minion.town-pr176-gauntlet-fix-3.md) — Gauntlet fix round 3: kriscendobot/minion.town#176
-- [`scholar-ingest-literate-ai-remainder-6-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/scholar-ingest-literate-ai-remainder-6-20261010.md) — Cost
-- [`scholar-ingest-literate-ai-remainder-5-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/10/scholar-ingest-literate-ai-remainder-5-20261010.md) — Cost
-- … and 12283 more
+- … and 12286 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
