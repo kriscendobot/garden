@@ -19,3 +19,13 @@ Open a DRAFT PR; successful completion stages the gauntlet. CI must be green.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-12T23:03:06Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T23:03:31Z
