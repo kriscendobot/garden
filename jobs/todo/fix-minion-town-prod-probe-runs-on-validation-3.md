@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion.town-pr182-gauntlet
-priority: high
 role: fixer
-posted_by: gardener
-posted_at: 2026-10-11T21:30:58Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-10-12T10:31:10Z cleared=none -->
 
 ---
 tier: mentor
