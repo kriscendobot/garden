@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T23:27:07Z_
+_As of 2026-10-12T23:37:03Z_
 
 ## Latest
 
@@ -510,6 +508,10 @@ Delegation: **active**
 >
 > ## Follow-ups
 > - Neither check has run on a live panel yet; the first code PR that adds a socket or formula type will be the first real exercise.
+
+- `msg-garden-book-review-supervisor-after-gauntlet-20261012-ddeebb841772` — from gardener:garden-book-review-supervisor-after-gauntlet-20261012, reply_to `garden-book-review-supervisor-after-gauntlet-20261012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-book-review-supervisor-after-gauntlet-20261012-ddeebb841772.md)
+
+> Clean review posted: [https://github.com/kriscendobot/garden-book/pull/8](https://github.com/kriscendobot/garden-book/pull/8)#pullrequestreview-5497063042. I verified the required branch correction at 04a5b7e; 21 tests pass, the book builds, and generated internal fragments are clean. The adopted gauntlet passed on the same head. I am releasing the existing conductor under your book-only delegation, requiring live main and preservation of newer illumination/data work. A dated successor will supervise the merge, hyperlink PR, and publication; no new edition URL is claimed yet.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -1071,10 +1073,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 220.5M | $1031.41 _(notional, rate-card)_ | 81% of 271.0M (ok) |
-| Codex | 12.2M _(+375.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 220.5M | $1031.63 _(notional, rate-card)_ | 81% of 271.0M (ok) |
+| Codex | 12.3M _(+378.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94439149 tokens/day lower bound._
+_Fleet token-unlock pace: 94442462 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
@@ -1083,20 +1085,21 @@ worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 ### todo (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (5)
+### doin (6)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`kriscendobot-minion.town-pr183-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`build-minion-town-inference-phase3-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-inference-phase3-secrets.md) — Build: item 4 phase 3 on minion.town — Claude credentials onto @secrets
+- [`kriscendobot-garden-book-pr8-conduct-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-conduct-20261012.md) — Finalize (curate -> merge) kriscendobot/garden-book PR #8
 
-### tada (12608)
+### tada (12610)
+- [`garden-book-review-supervisor-after-gauntlet-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/garden-book-review-supervisor-after-gauntlet-20261012.md) — Cost
+- [`kriscendobot-garden-book-pr8-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet.md) — gauntlet kriscendobot-garden-book-pr8-gauntlet — complete
 - [`kriscendobot-garden-book-pr8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-undraft.md) — Cost
 - [`ironhorse-reconcile-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/ironhorse-reconcile-xs-frame-locals-limit.md) — Cost
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion.town-pr183-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-clean.md) — Cost
-- [`oros-health-watch-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-220527.md) — Cost
-- … and 12603 more
+- … and 12605 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1141,7 +1144,6 @@ worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1340-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1340
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
-- [`kriscendobot-garden-book-pr8-conduct-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-book-pr8-conduct-20261012.md) — _normal_ · Finalize (curate -> merge) kriscendobot/garden-book PR #8
 - [`moddable-10-0-0-ironhorse-builtins-order-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-builtins-order-port.md) — _normal_ · Port three Moddable 10.0.0 built-in ordering corrections to IronHorse
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-press-20261010-133536.md) — _normal_ · Press the Claude-on-minion.town arc forward
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
@@ -1193,7 +1195,6 @@ worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ui-iframe-live-frame`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-live-frame.md) — awaiting `minion-town-ui-iframe-embed-headers` · Iframe: frame the live clip in the main pane (minion-town-ui increment)
-- [`garden-book-review-supervisor-after-gauntlet-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-book-review-supervisor-after-gauntlet-20261012.md) — awaiting `kriscendobot-garden-book-pr8-gauntlet` · Supervise the garden book's reviews (kriscendobot/garden-book) - mentat tier
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`book-hyperlink-references-after-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-after-copyedit-20261004.md) — awaiting `https://github.com/kriscendobot/garden-book/pull/8` · Follow-up: make every reference in Better Code and Gardens an actual hyperlink
@@ -1203,6 +1204,7 @@ worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`garden-book-publish-ocap-site-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-book-publish-ocap-site-20261012.md) — awaiting `book-hyperlink-references-after-copyedit-20261004` · Publish the next edition of "Better Code and Gardens" as an ocap.site clip
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
+- [`garden-book-review-supervisor-after-merge-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-book-review-supervisor-after-merge-20261012.md) — awaiting `kriscendobot-garden-book-pr8-conduct-20261012` · Supervise the garden book's reviews (kriscendobot/garden-book) - mentat tier
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 - [`minion-town-ui-gutter-mint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-mint.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/142` · Gutter: the + button mints a real clip (minion-town-ui increment)
 
