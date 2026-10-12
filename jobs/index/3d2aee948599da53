@@ -1,0 +1,2 @@
+base: improve-sysop-control-plane-liveness
+identity: mentor:scripts/jobs/worker-derotate.sh
