@@ -16,3 +16,13 @@ Repo: kriscendobot/minion.town, base `main`. Review is inverted for minion.town 
 4. Do NOT run the root canary or gate 1. The parked `minion-town-claude-kriscendobot-canary-after-connect-20261006` owns that and waits on the maintainer's "connected" reply.
 
 Open a DRAFT PR; successful completion stages the gauntlet. CI must be green.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-12T22:23:47Z
