@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T06:29:32Z_
+_As of 2026-10-12T06:31:19Z_
 
 ## Latest
 
@@ -392,6 +392,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
+
+- `msg-oros-health-watch-20261012-062008-ac8676b917a8` — from gardener:oros-health-watch-20261012-062008, reply_to `oros-health-watch-20261012-062008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-062008-ac8676b917a8.md)
+
+> Oros health watch: the sysop bridge is unreachable. The 03:05 health checkup remains stuck in doin after publishing a degraded health log at 05:02Z; the new 06:20 checkup remains unclaimed. Heartbeat last published at 06:05:55Z, no derotation marker exists, and fleet health still reports 0/294 unit failures but is stale/deferred on deployed 78f9dacc versus main2 563e6db8. I sent reset-failed op 20261012T062401Z-04ef75; it has no ack, and the previous 03:07 reset-failed is also unacked. The last sysop-log activity was 00:52Z. A person at the machine should check garden-sysop.timer/service and, if the heartbeat also stops, Docker Desktop, Mac sleep state, and the VM.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -1365,7 +1369,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 201.0M | $929.83 _(notional, rate-card)_ | 74% of 271.0M (ok) |
-| Codex | 8.4M _(+261.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 8.4M _(+261.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 105717316 tokens/day lower bound._
 
