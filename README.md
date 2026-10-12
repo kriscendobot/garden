@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T05:08:34Z_
+_As of 2026-10-12T05:16:46Z_
 
 ## Latest
 
@@ -342,11 +342,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` has CLEARED (first seen 2026-10-10T16:58:13Z, cleared 2026-10-11T23:18:36Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-10T16:58:13Z, latest 2026-10-12T05:15:27Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.013239s, giveups=2, steals=1 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
@@ -1359,13 +1359,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 192.4M | $886.49 _(notional, rate-card)_ | 71% of 271.0M (ok) |
+| Claude | 192.4M | $886.59 _(notional, rate-card)_ | 71% of 271.0M (ok) |
 | Codex | 8.3M _(+259.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106375764 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.660257s/45s (/home/kris/garden/.garden-state/maintainer/journal); 5 open notice(s); checker healthy
+worst fetch p95 5.660257s/45s (/home/kris/garden/.garden-state/maintainer/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
