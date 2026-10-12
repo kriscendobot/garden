@@ -9,3 +9,13 @@ Carry two stalled kriscendobot/minion.town gauntlets (supervisor: minion-town-ar
 2. https://github.com/kriscendobot/minion.town/pull/181 (git-remote served clip, sibling arc https://github.com/kriscendobot/garden/issues/89). Its panel-4 stage was reaper doom-parked `requeue-exhausted` at 2026-10-12T05:33Z (jobs/plan/kriscendobot-minion.town-pr181-gauntlet-panel-4.md). Find out why it died (the earlier carry found an oros-studio rollup-403 / hung-session class), then resume the gauntlet from panel without spending a new round.
 
 Report each PR's resulting stage job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T11:47:26Z
