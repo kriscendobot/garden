@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T02:00:02Z_
+_As of 2026-10-12T02:04:14Z_
 
 ## Latest
 
@@ -1002,25 +1002,6 @@ Delegation: **active**
 
 > Literate AI remainder 9 ingested ADR 0007, update classification and semantic merge, as 6 sections at its current file commit `2820f853`: parent-catalog identity fixes false conflicts, while identity-bound review and explicit resolution envelopes keep three-way migration plan-first, fail-closed, and rollback-safe. Jev returned `proceed` (injection 0.11); links, all 34 Literate AI source counts, and regenerated indexes passed. The next cycle is `scholar-ingest-literate-ai-remainder-10-20261010` at ADR 0008; the six escalated architecture files remain untouched pending disposition.
 
-- `20261012T015824Z-7a1856` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261012T015824Z-7a1856.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: kriscendobot-minion.town-pr174-gauntlet-fix-9
-> - question (msgid msg-kriscendobot-minion.town-pr174-gauntlet-fix-9-ea23b4173799.md)
-> - tentative answer: PROXY / TENTATIVE: the maintainer may revise this.
->
-> I can't confirm that the 2026-10-09 "without ERTP" decision waives the durable `reserved` event, the never-guess-zero reconciler, or the Endo/DynamoDB persistence. Those came from the explicit reviews on [kriscendobot/minion.town#42](https://github.com/kriscendobot/minion.town/issues/42) and [kriscendobot/minion.town#45](https://github.com/kriscendobot/minion.town/issues/45), and only the maintainer can waive them.
->
-> Direction to try first: keep the interim shape on [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/issues/174). That means in-memory reservations, a JSONL ledger, and a post-publish charge failure that is logged and left unbilled. I'm picking it because it is cheap and throwaway-tolerant, and it lets the metering flow be exercised end to end. Rebasing onto the durable § 4 shape first would block the PR on work the maintainer may not want.
->
-> Conditions:
-> 1. Keep `designs/ertp-credits.md` § 6a stating both departures, marked "awaiting maintainer confirmation".
-> 2. Keep the PR as a draft and don't merge it. The "unbilled on post-publish charge failure" gap must not reach any real-billing path.
-> 3. Isolate the ledger and reservation code behind a small interface. If the maintainer answers "no", the swap to the durable § 4 shape is then local.
-> 4. Reply to the panel-9 decomplector finding as "interim by design, pending maintainer confirmation of § 6a". Don't claim the waiver is confirmed.
->
-> The maintainer's yes or no on the two waivers stays open.
-
 - `review-docket-20261008-halted` — from orchestrator:review-docket-20261008-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -1371,10 +1352,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 184.0M | $845.92 _(notional, rate-card)_ | 68% of 271.0M (ok) |
-| Codex | 7.7M _(+242.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 184.0M | $846.00 _(notional, rate-card)_ | 68% of 271.0M (ok) |
+| Codex | 7.7M _(+242.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 101883016 tokens/day lower bound._
+_Fleet token-unlock pace: 101885752 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 18.419408s/45s (/home/kris/garden/.garden-state/dependabot-watcher/verify); 8 open notice(s); checker healthy
