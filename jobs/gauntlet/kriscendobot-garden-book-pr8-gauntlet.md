@@ -4,14 +4,14 @@ repo: kriscendobot/garden-book
 pr_number: 8
 build_job: 
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-garden-book-pr8-gauntlet-panel-3
+current_child: kriscendobot-garden-book-pr8-gauntlet-fix-3
 state: running
 created_by: producer
 created_at: 2026-10-12T19:22:41Z
