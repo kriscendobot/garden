@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T20:16:57Z_
+_As of 2026-10-12T20:20:04Z_
 
 ## Latest
 
@@ -1488,10 +1486,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 216.7M | $1008.55 _(notional, rate-card)_ | 80% of 271.0M (ok) |
-| Codex | 10.7M _(+319.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 216.8M | $1009.12 _(notional, rate-card)_ | 80% of 271.0M (ok) |
+| Codex | 10.8M _(+320.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94660557 tokens/day lower bound._
+_Fleet token-unlock pace: 94722598 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.397109s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 7 open notice(s); checker healthy
@@ -1500,7 +1498,8 @@ worst fetch p95 2.397109s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 ### todo (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (3)
+### doin (4)
+- [`garden-book-review-supervisor-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-review-supervisor-20261012.md) — Supervise the garden book's reviews (kriscendobot/garden-book) - mentat tier
 - [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 2e531a6e2dda
 - [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-185007.md) — ---
 - [`kriscendobot-garden-book-pr8-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/garden-book PR #8
