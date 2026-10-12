@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T22:08:33Z_
+_As of 2026-10-12T22:14:38Z_
 
 ## Latest
 
@@ -1059,8 +1057,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 219.0M | $1021.90 _(notional, rate-card)_ | 81% of 271.0M (backoff) |
-| Codex | 11.4M _(+336.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 219.1M | $1022.25 _(notional, rate-card)_ | 81% of 271.0M (ok) |
+| Codex | 11.5M _(+337.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94509957 tokens/day lower bound._
 
@@ -1068,16 +1066,16 @@ _Fleet token-unlock pace: 94509957 tokens/day lower bound._
 worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
+### todo (3)
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-220527.md) — ---
-- [`xs-locals-limit-check-20261012-213527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs-locals-limit-check-20261012-213527.md) — Has Moddable's XS 65535-locals-per-frame parser fix landed upstream yet?
 - [`claude-on-minion-town-press-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261012-220527.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (3)
+### doin (5)
+- [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`oros-health-watch-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
+- [`xs-locals-limit-check-20261012-213527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs-locals-limit-check-20261012-213527.md) — Has Moddable's XS 65535-locals-per-frame parser fix landed upstream yet?
 - [`kriscendobot-garden-book-pr8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #8
 
 ### tada (12599)
