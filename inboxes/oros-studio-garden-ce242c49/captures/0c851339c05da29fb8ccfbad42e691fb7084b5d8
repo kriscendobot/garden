@@ -1,0 +1,28 @@
+<6>05:07:38 [monk/5] job 'kriscendobot-minion.town-pr182-gauntlet-panel-4' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>05:07:55 [monk/5] job 'kriscendobot-minion.town-pr182-gauntlet-panel-4' call ceiling: tier=mentor max-budget-usd=15.60 (scaled by fresh seven-day headroom when available)
+<4>05:07:55 [monk/5] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion.town-pr182-gauntlet-panel-4' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<3>05:19:44 [auto-gauntlet-handoff] FATAL: auto-gauntlet: could not establish panel-head freshness for https://github.com/kriscendobot/minion.town/pull/182 (rc=1)
+
+--- handler report (partial) ---
+Panel round 4 on kriscendobot/minion.town PR #182 (head `94f3ae2`, base `main-4bd13c8`) came back **must-fix**. I posted the verdict as a review on the PR; it was not fixed or un-drafted.
+
+**What ran**
+- I ran `panel.sh` in single-round mode in an isolated checkout of `fix/prod-probe-ci-runs-on`. It exited 0. All 34 seats ran without error; the decomplector and the pruner requested changes.
+- The check for a repeated problem fired again: rounds 2 and 3 also raised must-fix on the same `prod-probe.yml` / `CI_RUNS_ON` code. That made the decomplector ask whether the mechanism is needed at all.
+- Round 3's blocker is resolved. The probe now runs on GitHub-hosted runners unless `PROBE_RUNS_ON` opts in, so the production probe credentials no longer reach the self-hosted runner by default.
+
+**Review posted:** https://github.com/kriscendobot/minion.town/pull/182 (review id 5486755120, state COMMENTED).
+- GitHub rejected `--request-changes` because the bot can't request changes on its own PR, so the review went in as a comment. Rounds 1–3 were posted the same way.
+- The fleet's `gh` wrapper refused the first attempt because two seat reports had bare `#182` and `#145` references. I put those in backticks and posted again.
+
+**Must-fix**
+1. Replace the hand-written shell REST client (`api()`, `find_issue()`, `comment()`, label POST) in the tracking-issue step with one `actions/github-script` step. It runs on hosted runners and on `ci-minion-town`, needs no `gh`, and needs no `bootstrap.sh` change. Keep the close-before-comment ordering.
+
+**Should-fix**
+2. The `report` job follows `CI_RUNS_ON`, which defaults to the self-hosted runner. If that runner is offline, a real failure found by the hosted probe never gets a tracking issue. Keep `report` hosted, or document this case.
+3. The same runner facts are stated in three or four places across the workflow comments and `DEPLOYMENT.md`. Keep one copy and point to it.
+4. Squash the fix-up commits or reword their titles. Because the repo lands PRs as merge commits, every commit stays in `git log`.
+
+**Follow-up for the garden:** the integrator found that `skills/minion-town-ci-runner-switch/SKILL.md` doesn't mention `PROBE_RUNS_ON`. An operator following its billing-block procedure would leave the probe on hosted runners. I didn't post a job for this; it's outside this stage's scope.
+
+<!-- gauntlet-stage-result: panel=must-fix -->
