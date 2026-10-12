@@ -16,6 +16,10 @@ source "$HERE/common.sh"
 
 doer="${1:?usage: inbox-read.sh <doer>}"
 export GARDEN_TAG="inbox-read/$doer"
+# The doer alone moves its own unread messages, so a lost CAS (a sender added a
+# new message) is replayed onto the fresh tip without the working tree first
+# (journal_replay_head); a sync_clone per retry lost 39 times on oros 2026-10-12.
+: "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"
 DIR="${GARDEN_INBOX_CLONE:-$GARDEN_STATE/inbox/$doer/journal}"
 : "${GARDEN_INBOX_CLONE_RETRIES:=3}"
 

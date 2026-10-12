@@ -19,6 +19,11 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 # shellcheck source=auction.sh
 source "$HERE/auction.sh"     # reputation.sh helpers + JOBS_BIDS (source-once guarded)
+# Every path a completion writes is keyed by this base (its doin/tada files, work/,
+# inbox/, bids, reputation event), so a lost CAS is replayed onto the fresh tip
+# without the working tree first (journal_replay_head); a peer write to any of them
+# still refuses the replay. A sync_clone per retry lost 26 times on oros 2026-10-12.
+: "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"
 
 orchestration_failed=false
 orchestration_auth_unavailable=false

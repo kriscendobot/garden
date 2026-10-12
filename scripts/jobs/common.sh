@@ -662,6 +662,12 @@ GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 : "${GARDEN_JOURNAL_RESET_TIMEOUT:=900}"
 : "${GARDEN_JOURNAL_DEEPEN_ATTEMPTS:=3}"  # bounded local attempts when a Git lock contends
 : "${GARDEN_JOURNAL_DEEPEN_RETRY_BASE:=100}" # full-jitter retry base, in milliseconds
+# Worktree-free replays commit_and_push makes after a lost CAS before handing the
+# loss back to its caller's slow sync_clone loop (journal_replay_head). Opt-in (0 by
+# default): a replay keeps the edit derived from the old tip, so only a writer whose
+# commit touches paths it alone owns may enable it. A check-then-write caller (a
+# dedup, a claim) must re-derive from the fresh tip on every loss. Left unset here
+# so an opting-in script's own `: "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"` applies.
 # A tmp_pack_* older than any bounded git transfer can run is a killed fetch's
 # leftover, never a live transfer's in-progress pack.
 : "${GARDEN_TMP_PACK_STALE_SECS:=$(( GARDEN_CLONE_TIMEOUT + GARDEN_FETCH_KILL_AFTER + 60 ))}"
@@ -5202,6 +5208,14 @@ journal_seed_from_root() {
 journal_deepen_from_root() {
   local dir="$1" attempt=1 attempts="$GARDEN_JOURNAL_DEEPEN_ATTEMPTS" error_file diagnostic=""
   [ "$(git -C "$dir" rev-parse --is-shallow-repository 2>/dev/null)" = true ] || return 0
+  # A shallow root repo cannot complete anything past its own boundary. Once the
+  # clone's boundary is a subset of the root's, the --unshallow fetch is a no-op
+  # that still costs every sync a local fetch (and logged "completed" for a clone
+  # that stayed shallow): oros 2026-10-12, root shallow at 1fa90b4f, ~90s syncs.
+  if [ -s "$GARDEN_ROOT/.git/shallow" ] && [ -f "$dir/.git/shallow" ] \
+     && ! grep -vxFf "$GARDEN_ROOT/.git/shallow" "$dir/.git/shallow" >/dev/null 2>&1; then
+    return 1
+  fi
   [[ "$attempts" =~ ^[1-9][0-9]*$ ]] || attempts=3
   error_file="$(mktemp "$dir/.git/garden-deepen-error.XXXXXX")" || {
     log "WARN: could not complete shallow journal clone $dir from local root repo; it stays shallow until a later sync"
@@ -5210,6 +5224,10 @@ journal_deepen_from_root() {
   while :; do
     if _journal_root_seed_fetch "$dir" --stderr-file "$error_file" --unshallow >/dev/null; then
       rm -f "$error_file"
+      if [ "$(git -C "$dir" rev-parse --is-shallow-repository 2>/dev/null)" = true ]; then
+        log "deepened journal clone $dir to the shallow root repo's boundary; it stays shallow"
+        return 1
+      fi
       log "completed shallow journal clone $dir from local root repo"
       return 0
     fi
@@ -8990,8 +9008,64 @@ commit_and_push() {
   guard_no_production_push_in_test "$dir"
   if ! git -C "$dir" commit -q -m "$msg"; then clone_unlock "$dir"; return 2; fi
   rc=0; journal_push_head "$dir" || rc=$?
+  local replay=0 class
+  while [ "$rc" -ne 0 ] && [ "$GARDEN_COMMIT_PUSH_CLASS" = cas ] \
+        && [ "$replay" -lt "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:-0}" ]; do
+    replay=$((replay + 1)); class="$GARDEN_COMMIT_PUSH_CLASS"
+    rc=0; journal_replay_head "$dir" || rc=$?
+    if [ "$rc" -eq 3 ]; then rc=1; GARDEN_COMMIT_PUSH_CLASS="$class"; GARDEN_COMMIT_PUSH_REJECTED=1; break; fi
+  done
   clone_unlock "$dir"
   return "$rc"
+}
+
+# journal_replay_head <dir> — after a lost CAS, carry HEAD's commit onto the fresh
+# origin tip WITHOUT the working tree, then push it once. The caller's slow path
+# (sync_clone's reset --hard over ~68k files, then redoing the edit) took ~90s per
+# attempt on loaded virtiofs, so every retry left from a stale tip and lost again:
+# oros 2026-10-12 22:00-23:00Z, completions at attempt 26 and an inbox read at 39.
+# Each path HEAD changes is replayed only when the fresh tip still holds that path
+# exactly as HEAD's parent did; any overlap with a peer's write is refused, so the
+# caller re-derives its edit from the new tip as before. On a landed push the index
+# and worktree advance by the peer delta only (a two-tree read-tree, not a reset).
+# Returns 0 landed, 1 lost again (HEAD back where it was), 3 not replayable.
+# The caller holds clone_lock.
+journal_replay_head() {
+  local dir="$1" old parent base idx tree commit p entry mode blob rc=0
+  old="$(git -C "$dir" rev-parse -q --verify 'HEAD^{commit}')" || return 3
+  parent="$(git -C "$dir" rev-parse -q --verify 'HEAD^1')" || return 3
+  ! git -C "$dir" rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1 || return 3
+  journal_fetch "$dir" 0 >/dev/null 2>&1 || return 3
+  base="$(git -C "$dir" rev-parse -q --verify "origin/$JOURNAL_BRANCH^{commit}")" || return 3
+  [ "$base" != "$parent" ] || return 3
+  idx="$(mktemp "${TMPDIR:-/tmp}/garden-replay-index.XXXXXX")" || return 3
+  GIT_INDEX_FILE="$idx" git -C "$dir" read-tree "$base" || rc=3
+  while [ "$rc" -eq 0 ] && IFS= read -r -d '' p; do
+    [ "$(git -C "$dir" rev-parse -q --verify "$base:$p" 2>/dev/null)" \
+      = "$(git -C "$dir" rev-parse -q --verify "$parent:$p" 2>/dev/null)" ] || { rc=3; break; }
+    entry="$(git -C "$dir" ls-tree "$old" -- "$p")"
+    if [ -n "$entry" ]; then
+      read -r mode _ blob _ <<<"$entry"
+      GIT_INDEX_FILE="$idx" git -C "$dir" update-index --add --cacheinfo "$mode,$blob,$p" || rc=3
+    else
+      GIT_INDEX_FILE="$idx" git -C "$dir" update-index --force-remove -- "$p" || rc=3
+    fi
+  done < <(git -C "$dir" diff-tree -r -z --no-renames --name-only "$parent" "$old")
+  [ "$rc" -ne 0 ] || tree="$(GIT_INDEX_FILE="$idx" git -C "$dir" write-tree)" || rc=3
+  rm -f "$idx"
+  [ "$rc" -ne 0 ] || [ "$tree" != "$(git -C "$dir" rev-parse "$base^{tree}")" ] || rc=3
+  [ "$rc" -ne 0 ] || commit="$(git -C "$dir" cat-file commit "$old" | sed '1,/^$/d' \
+    | git -C "$dir" commit-tree "$tree" -p "$base")" || rc=3
+  [ "$rc" -ne 0 ] || git -C "$dir" update-ref HEAD "$commit" "$old" || rc=3
+  [ "$rc" -eq 0 ] || return 3
+  if journal_push_head "$dir"; then
+    git -C "$dir" read-tree -m -u "$old" "$commit" >/dev/null 2>&1 \
+      || git -C "$dir" read-tree "$commit" >/dev/null 2>&1 || true
+    log "replayed '$(git -C "$dir" log -1 --format=%s "$commit" 2>/dev/null)' onto the fresh journal tip without the working tree"
+    return 0
+  fi
+  git -C "$dir" update-ref HEAD "$old" "$commit" >/dev/null 2>&1 || true
+  return 1
 }
 
 # journal_push_head <dir> — push <dir>'s HEAD to origin/$JOURNAL_BRANCH, verify it
