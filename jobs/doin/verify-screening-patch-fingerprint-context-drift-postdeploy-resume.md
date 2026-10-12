@@ -22,3 +22,13 @@ For head `ea66af29724a5e54140c18aaae1be0b7fdc40c0f`, require journal attestation
 and posted job `screen-minion-town-pr93-ea66af2-conduct`. If the PR head changed,
 analyze whether the original requirement is overtaken. Do not merge the PR by
 hand. Report deployed SHA, attestation path, and conductor path.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-12T12:50:44Z
