@@ -43,3 +43,13 @@ by running the upstream vectors through #1278's `compile_atoms` + `run_program_w
 
 Minor: field-init frames report at the first member's line; XS reports at the synthesized
 initializer function's node line. Align if cheap.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T22:35:41Z
