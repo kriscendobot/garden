@@ -45,3 +45,13 @@ Do not change drains, worker leveling, derotation markers, budget pools or sched
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-12T17:23:05Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 6
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-12T17:31:50Z
