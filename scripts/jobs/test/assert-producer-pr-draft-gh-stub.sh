@@ -50,7 +50,7 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     # DRAFT PR authored by someone else → citation, not a producer artifact.
     */pull/215) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"feat: cited","body":"b","author":{"login":"interloper"},"files":[{"path":"src/x.js"}]}\n' "$url" ;;
     # DRAFT build PRs with plain titles: the probe classification rides on the job file.
-    */pull/216|*/pull/217) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"fix: plain","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
+    */pull/216|*/pull/217|*/pull/223|*/pull/224) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"fix: plain","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
     # DRAFT build PRs whose phase/evidence ledger says the PR is not the
     # deliverable (#219 replays kriscendobot/minion.town#148) or now is (#220).
     */pull/219|*/pull/220|*/pull/221|*/pull/222)

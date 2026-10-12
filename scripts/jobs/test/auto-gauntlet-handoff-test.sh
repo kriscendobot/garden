@@ -23,6 +23,7 @@ GARDEN_ROOT="$(cd "$JOBS/../.." && pwd)"
 export GARDEN_ROOT
 export GARDEN_TEST=1 JOURNAL_REMOTE="$TR/journal.git" JOURNAL_BRANCH=journal2
 export GARDEN_STATE="$TR/state" GARDEN=auto-gauntlet-test
+export GARDEN_OFFLINE_RC=75
 export GARDEN_BOT_LOGIN=kriscendobot
 export GARDEN_PRODUCER_CLONE="$TR/state/producer/journal"
 export GARDEN_GH="$HERE/assert-producer-pr-draft-gh-stub.sh"
@@ -153,4 +154,26 @@ if run_hook build-down "$builder" 212 2>"$TR/down.err"; then fail 'exhausted tra
 [ "$(grep -c 'pull/212 ' "$TR/gh-calls.log")" -eq 3 ] || fail 'exhausted read did not spend exactly GARDEN_GH_API_ATTEMPTS'
 grep -q 'gh could not inspect' "$TR/down.err" || fail 'exhaustion did not fail loud'
 
-echo 'PASS: completion-local auto handoff stages every bot-authored draft artifact by PR identity, skips exceptions, never mutates PR state, replays idempotently, and retries only transient gh reads'
+echo '== temporary-unavailable freshness reads preserve diagnostics and defer cleanly =='
+export GARDEN_AUTO_GAUNTLET_FRESHNESS_SENSOR="$HERE/auto-gauntlet-freshness-stub.sh"
+for pair in '12 223' '75 224'; do
+  read -r freshness_rc pr <<EOF
+$pair
+EOF
+  set +e
+  GARDEN_STUB_FRESHNESS_RC="$freshness_rc" run_hook "freshness-$freshness_rc" "$builder" "$pr" \
+    >"$TR/freshness-$freshness_rc.out" 2>"$TR/freshness-$freshness_rc.err"
+  hook_rc=$?
+  set -e
+  [ "$hook_rc" -eq "$GARDEN_OFFLINE_RC" ] \
+    || fail "freshness rc=$freshness_rc returned $hook_rc, expected GARDEN_OFFLINE_RC=$GARDEN_OFFLINE_RC"
+  grep -q "fixture freshness diagnostic rc=$freshness_rc" "$TR/freshness-$freshness_rc.err" \
+    || fail "freshness rc=$freshness_rc diagnostic was suppressed"
+  grep -q "deferring handoff (rc=$GARDEN_OFFLINE_RC)" "$TR/freshness-$freshness_rc.err" \
+    || fail "freshness rc=$freshness_rc lacked the clean deferred-handoff diagnostic"
+  [ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr$pr-gauntlet.md" ] \
+    || fail "freshness rc=$freshness_rc staged a gauntlet despite an unreadable journal"
+done
+unset GARDEN_AUTO_GAUNTLET_FRESHNESS_SENSOR
+
+echo 'PASS: completion-local auto handoff stages every bot-authored draft artifact by PR identity, skips exceptions, never mutates PR state, replays idempotently, retries transient gh reads, and cleanly defers transient freshness reads'

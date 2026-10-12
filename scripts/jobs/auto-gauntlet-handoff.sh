@@ -100,12 +100,23 @@ gauntlet_base="${slug}-pr${pr_number}-gauntlet"
 # enters a re-review request in the docket. Do not race that decision by staging
 # a brand-new gauntlet first.
 freshness_rc=0
-"$HERE/assert-panel-head-fresh.sh" pr "$repo" "$pr_number" >/dev/null 2>&1 || freshness_rc=$?
+freshness_sensor="${GARDEN_AUTO_GAUNTLET_FRESHNESS_SENSOR:-$HERE/assert-panel-head-fresh.sh}"
+# Keep the sensor's diagnostic in the gardener capture.  In particular, an
+# unreadable journal explains why this completion is being deferred; suppressing
+# it made a transient repository-lock timeout look like a producer defect.
+freshness_diag="$(mktemp "${TMPDIR:-/tmp}/garden-auto-gauntlet-freshness.XXXXXX")"
+"$freshness_sensor" pr "$repo" "$pr_number" >"$freshness_diag" 2>&1 || freshness_rc=$?
+if [ "$freshness_rc" -ne 0 ]; then cat "$freshness_diag" >&2 || true; fi
+rm -f "$freshness_diag"
 case "$freshness_rc" in
   0) ;;
   10)
     log "auto-gauntlet: $pr_url moved after a completed panel; deferring to the review-docket freshness disposition"
     exit 0
+    ;;
+  12|"$GARDEN_OFFLINE_RC")
+    log "auto-gauntlet: panel-head freshness is temporarily unavailable for $pr_url (rc=$freshness_rc); deferring handoff (rc=$GARDEN_OFFLINE_RC)"
+    exit "$GARDEN_OFFLINE_RC"
     ;;
   *) die "auto-gauntlet: could not establish panel-head freshness for $pr_url (rc=$freshness_rc)" ;;
 esac
