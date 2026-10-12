@@ -651,6 +651,10 @@ GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 : "${GARDEN_JOURNAL_SEED_FROM_ROOT:=1}"   # 0 disables the local seed (network-only clones)
 : "${GARDEN_JOURNAL_SEED_DEPTH:=50}"      # shallow depth of a seeded clone
 : "${GARDEN_JOURNAL_SEED_TIMEOUT:=120}"   # wall-clock cap on the local seed fetch
+# Cap on the seed's full-tree checkout (~68k files). On oros's virtiofs one checkout
+# takes minutes and several concurrent ones well over 15 (2026-10-12), so the 120s
+# bin/git bound and even the 300s clone cap killed every attempt.
+: "${GARDEN_JOURNAL_SEED_CHECKOUT_TIMEOUT:=1800}"
 : "${GARDEN_JOURNAL_DEEPEN_ATTEMPTS:=3}"  # bounded local attempts when a Git lock contends
 : "${GARDEN_JOURNAL_DEEPEN_RETRY_BASE:=100}" # full-jitter retry base, in milliseconds
 # A tmp_pack_* older than any bounded git transfer can run is a killed fetch's
@@ -5213,7 +5217,11 @@ repair_migrated_journal_clone_origin() {
 # from the root repo, check out the tracking branch, and publish it with the same
 # atomic `mv -T` bounded_clone uses. rc 1 (and nothing left behind) when no seed is
 # available, so the caller falls back to a network clone. The clone's first sync
-# tops it up from origin incrementally.
+# tops it up from origin incrementally. The checkout writes the whole journal tree,
+# so it runs under GARDEN_JOURNAL_SEED_CHECKOUT_TIMEOUT, not the 120s bin/git bound
+# for ordinary operations. Under that bound four concurrent seeds on oros's virtiofs
+# were each killed mid-checkout, fell back to a network clone that also timed out,
+# and left monks 5-8 offline for hours (2026-10-12).
 _seed_clone_from_root() {
   local dir="$1" remote="$2" tmp="${1%/}.seed.$$"
   [ "$GARDEN_JOURNAL_SEED_FROM_ROOT" = 1 ] && [ -d "$GARDEN_ROOT/.git" ] || return 1
@@ -5222,7 +5230,8 @@ _seed_clone_from_root() {
   if git init -q "$tmp" >/dev/null 2>&1 \
      && git -C "$tmp" remote add -t "$JOURNAL_BRANCH" origin "$remote" >/dev/null 2>&1 \
      && journal_seed_from_root "$tmp" \
-     && git -C "$tmp" checkout -q -b "$JOURNAL_BRANCH" --track "origin/$JOURNAL_BRANCH" >/dev/null 2>&1; then
+     && GARDEN_REPO_GIT_TIMEOUT="$GARDEN_JOURNAL_SEED_CHECKOUT_TIMEOUT" \
+          git -C "$tmp" checkout -q -b "$JOURNAL_BRANCH" --track "origin/$JOURNAL_BRANCH" >/dev/null 2>&1; then
     if mv -T "$tmp" "$dir" 2>/dev/null; then
       return 0
     fi

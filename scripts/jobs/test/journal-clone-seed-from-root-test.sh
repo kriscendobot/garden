@@ -12,6 +12,8 @@
 #   * sync_clone re-seeds a stale clone whose capped fetch fails, then succeeds;
 #   * a seed never rewinds a clone that is ahead of the root;
 #   * a seeded shallow clone is completed from the root after its first sync;
+#   * the seed's full-tree checkout runs under its own budget, not the 120s
+#     bin/git bound (oros 2026-10-12: monks 5-8 offline for hours);
 #   * stray tmp_pack_* files are swept (stale ones always, a timed-out attempt's own);
 #   * pre-transfer kriskowal/garden URLs are canonicalized for both new and
 #     already-existing clones, including before an existing producer pushes.
@@ -82,6 +84,30 @@ if [ "$rc" -eq 0 ] \
   ok "seeded single-branch shallow clone at the root's tip, no temp left behind"
 else
   bad "fresh seed: rc=$rc stderr=$(tr '\n' ' ' < "$TR/fresh.err")"
+fi
+
+hr; echo "CASE — the seed checkout gets its own budget, not the bin/git bound"; hr
+# A PATH shim records the bound bin/git would apply to the checkout, then defers to
+# the real git (2026-10-12: the 120s default killed every seed mid-checkout).
+REAL_GIT="$(git --exec-path)/git"
+mkdir -p "$TR/shim"
+cat > "$TR/shim/git" <<SHIM
+#!/bin/bash
+for a in "\$@"; do
+  [ "\$a" = checkout ] && printf '%s\n' "\${GARDEN_REPO_GIT_TIMEOUT:-unset}" >> "$TR/checkout-bound"
+done
+exec "$REAL_GIT" "\$@"
+SHIM
+chmod +x "$TR/shim/git"
+: > "$TR/checkout-bound"
+rc=0
+( export PATH="$TR/shim:$PATH" GARDEN_REPO_GIT_TIMEOUT=7 GARDEN_JOURNAL_SEED_CHECKOUT_TIMEOUT=654
+  _seed_clone_from_root "$TR/c-bound" "$RB" ) >/dev/null 2>"$TR/bound.err" || rc=$?
+if [ "$rc" -eq 0 ] && [ "$(git -C "$TR/c-bound" rev-parse HEAD)" = "$(tip)" ] \
+   && [ "$(cat "$TR/checkout-bound")" = 654 ]; then
+  ok "seed checkout ran under GARDEN_JOURNAL_SEED_CHECKOUT_TIMEOUT"
+else
+  bad "seed checkout bound: rc=$rc bound=$(tr '\n' ' ' < "$TR/checkout-bound") stderr=$(tr '\n' ' ' < "$TR/bound.err")"
 fi
 
 hr; echo "CASE — a clone of a different journal is never seeded from the root"; hr
