@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T22:03:37Z_
+_As of 2026-10-12T22:07:09Z_
 
 ## Latest
 
@@ -354,11 +354,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-06T09:36:04Z, latest 2026-10-12T11:05:24Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-10-06T09:36:04Z, latest 2026-10-12T22:05:21Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
@@ -1058,20 +1058,23 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 219.0M | $1021.90 _(notional, rate-card)_ | 81% of 271.0M (backoff) |
-| Codex | 11.4M _(+335.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Codex | 11.4M _(+335.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94505432 tokens/day lower bound._
+_Fleet token-unlock pace: 94509957 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (5)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
+- [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-220527.md) — ---
 - [`xs-locals-limit-check-20261012-213527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs-locals-limit-check-20261012-213527.md) — Has Moddable's XS 65535-locals-per-frame parser fix landed upstream yet?
+- [`claude-on-minion-town-press-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261012-220527.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (2)
+### doin (3)
+- [`oros-health-watch-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`kriscendobot-garden-book-pr8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #8
 
