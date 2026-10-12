@@ -17,6 +17,16 @@
 #      GARDEN_NS_CLONE_TMP_MAX_AGE_MIN minutes (a live fetch's tmp file is fresh);
 #   2. when the pack count exceeds GARDEN_NS_CLONE_PACK_THRESHOLD, run
 #      `git repack -a -d` at nice 19 / ionice idle.
+#   3. (once per pass, outside any clone lock) remove ORPHANED clone siblings:
+#      bounded_clone's `<path>.reclone.<pid>.<n>` temps and usage-meter's
+#      `<path>.budget-stale.<pid>` / `<path>.budget-reclone.<pid>` swap dirs that
+#      a SIGTERM/SIGKILL (a unit timeout, a scaler kill) stranded before their own
+#      cleanup ran. Removed only when the embedded pid is dead AND the dir's ctime
+#      is older than GARDEN_NS_CLONE_TMP_MAX_AGE_MIN, or unconditionally once its
+#      ctime is older than GARDEN_NS_CLONE_ORPHAN_MAX_AGE_MIN (pid reuse; no clone
+#      runs that long). ctime, not mtime: the budget swap renames an old clone,
+#      which keeps its mtime but refreshes its ctime. (oros-studio 2026-10-12: 12
+#      such dirs, 3.0 GB / 193k inodes, the oldest from 2026-10-01.)
 # A clone still over the threshold after the pass (repack failed or was skipped)
 # raises a coalesced watchdog-notice; a healthy pass clears it.
 #
@@ -29,6 +39,7 @@ export GARDEN_TAG="${GARDEN_TAG:-namespace-clone-maintenance}"
 
 : "${GARDEN_NS_CLONE_PACK_THRESHOLD:=50}"
 : "${GARDEN_NS_CLONE_TMP_MAX_AGE_MIN:=180}"
+: "${GARDEN_NS_CLONE_ORPHAN_MAX_AGE_MIN:=1440}"
 : "${GARDEN_NS_CLONE_JITTER:=300}"
 : "${GARDEN_NS_CLONE_REPACK_TIMEOUT:=1800}"
 : "${GARDEN_NS_CLONE_NOTICE:=$HERE/watchdog-notice.sh}"
@@ -57,6 +68,46 @@ maintain_one() {
     fi
   fi
 }
+
+# orphan_pid <dir> — the pid embedded in a clone-sibling name (first match).
+orphan_pid() {
+  basename "$1" | grep -oE '\.(reclone|budget-stale|budget-reclone)\.[0-9]+' \
+    | head -n 1 | grep -oE '[0-9]+$'
+}
+
+# ctime_age_min <dir> — whole minutes since the dir's ctime.
+ctime_age_min() {
+  local ct
+  ct="$(stat -c %Z "$1" 2>/dev/null)" || return 1
+  echo $(( ($(date +%s) - ct) / 60 ))
+}
+
+sweep_orphans() {
+  local dir pid age reaped=0
+  while IFS= read -r dir; do
+    [ -d "$dir" ] || continue
+    pid="$(orphan_pid "$dir")"
+    [ -n "$pid" ] || continue
+    age="$(ctime_age_min "$dir")" || continue
+    if [ "$age" -ge "$GARDEN_NS_CLONE_ORPHAN_MAX_AGE_MIN" ]; then
+      :
+    elif kill -0 "$pid" 2>/dev/null || [ -d "/proc/$pid" ]; then
+      continue
+    elif [ "$age" -lt "$GARDEN_NS_CLONE_TMP_MAX_AGE_MIN" ]; then
+      continue
+    fi
+    if rm -rf -- "$dir" 2>/dev/null && [ ! -e "$dir" ]; then
+      log "removed orphaned clone sibling $dir (pid $pid)"
+      reaped=$((reaped + 1))
+    else
+      log "could not remove orphaned clone sibling $dir"
+    fi
+  done < <(find "$GARDEN_STATE" -mindepth 2 -maxdepth 3 -type d \
+             \( -name '*.reclone.[0-9]*' -o -name '*.budget-stale.[0-9]*' \
+                -o -name '*.budget-reclone.[0-9]*' \) -prune -print 2>/dev/null)
+  [ "$reaped" -eq 0 ] || log "removed $reaped orphaned clone sibling(s)"
+}
+sweep_orphans
 
 over=""
 busy_clones=""
