@@ -270,8 +270,12 @@ class Screening(unittest.TestCase):
         (self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md').write_text(
             f'gauntlet-status: complete\nrepo: {policy.REPOSITORY}\npr_number: 17\npanel_head: {OTHER}\n')
         self.publish()
+        self.configuration['compare'][HEAD] = dict(merge_base_commit=dict(sha='e' * 40), files=[
+            dict(filename='src/app.ts', status='modified',
+                 patch='@@ -1,3 +1,3 @@\n head context\n-old\n+new\n head tail')])
         self.configuration['compare'][OTHER] = dict(merge_base_commit=dict(sha='f' * 40), files=[
-            dict(filename='src/app.ts', status='modified', patch='@@ -9 +9 @@\n-old\n+new')])
+            dict(filename='src/app.ts', status='modified',
+                 patch='@@ -9,3 +9,3 @@\n other context\n-old\n+new\n other tail')])
         self.tick()
         record = json.loads((self.journal / policy.SCREENINGS / '17' / f'{HEAD}.json').read_text())
         self.assertEqual(record['panel_match'], 'rebase')
@@ -287,6 +291,21 @@ class Screening(unittest.TestCase):
         self.assertEqual(self.posts(), [gauntlet])
         self.tick()
         self.assertEqual(self.posts(), [gauntlet])
+
+    def test_halted_screen_gauntlet_notifies_once(self):
+        (self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md').unlink()
+        base = f'kriscendobot-minion-town-pr17-screen-{HEAD[:8]}-gauntlet'
+        path = self.journal / f'jobs/tada/2026/10/12/{base}.md'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f'gauntlet-status: halted\nrepo: {policy.REPOSITORY}\npr_number: 17\n')
+        self.publish()
+        self.refused()
+        self.tick()
+        notices = list((self.journal / 'inbox/maintainer/unread').glob(
+            'minion-town-pr-screening-gauntlet-halted-*'))
+        self.assertEqual(len(notices), 1)
+        self.assertIn(base, notices[0].read_text())
+        self.assertEqual(self.posts(), [])
 
     def test_gauntlet_in_flight_waits(self):
         (self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md').unlink()

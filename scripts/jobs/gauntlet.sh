@@ -1480,8 +1480,24 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
     # exactly like an inconclusive read — the pin gate never fails a PR on infra.
     : "${GARDEN_ASSERT_PINNED_BASE:=$HERE/gardening/assert-pinned-base.sh}"
     pin_rc=0
-    timeout "${GARDEN_ASSERT_PINNED_BASE_TIMEOUT:-45}" \
-      "$GARDEN_ASSERT_PINNED_BASE" pr "$repo" "$prnum" || pin_rc=$?
+    # A proxy screen gauntlet is the narrow live-base exception. Its conductor
+    # already rebased the head onto live main, and the screen compares only the
+    # changed lines against the prior panel head. Pinning here would mutate the
+    # PR again merely to review the exact head that the conductor produced.
+    # Constrain the exception by trusted producer, repository, and deterministic
+    # screen-gauntlet name; every other gauntlet retains the frozen-base gate.
+    if [ "$(plan_field "$f" created_by)" = proxy:screen ] \
+      && [ "$repo" = kriscendobot/minion.town ] \
+      && [[ "$base" =~ ^kriscendobot-minion-town-pr${prnum}-screen-[0-9a-f]{8}-gauntlet$ ]]; then
+      GARDEN_PIN_ALLOW_LIVE_BASE=main \
+        timeout "${GARDEN_ASSERT_PINNED_BASE_TIMEOUT:-45}" \
+          "$GARDEN_ASSERT_PINNED_BASE" pr "$repo" "$prnum" || pin_rc=$?
+      [ "$pin_rc" -ne 0 ] \
+        || log "gauntlet '$base': accepting live main for delegated screen re-review"
+    else
+      timeout "${GARDEN_ASSERT_PINNED_BASE_TIMEOUT:-45}" \
+        "$GARDEN_ASSERT_PINNED_BASE" pr "$repo" "$prnum" || pin_rc=$?
+    fi
     case "$pin_rc" in
       5) halt_gauntlet "$base" "PR $repo#$prnum targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #$prnum') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch."
          advanced=$((advanced+1)); continue;;

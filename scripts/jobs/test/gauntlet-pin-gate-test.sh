@@ -47,7 +47,7 @@ export GARDEN_CLAIM_TTL=14400 GARDEN_HANDLER_KILL_AFTER=60
 export GARDEN_SHEPHERD_HANDLER_TIMEOUT=7200
 
 # Two fast stubs standing in for the deterministic sensor.
-printf '#!/bin/bash\nexit 5\n' > "$TR/gate-floating.sh"   # shape (1): floating base
+printf '#!/bin/bash\n[ "${GARDEN_PIN_ALLOW_LIVE_BASE:-}" = main ] && exit 0\nexit 5\n' > "$TR/gate-floating.sh"   # shape (1): floating base, unless scoped live-main exception
 printf '#!/bin/bash\nexit 0\n' > "$TR/gate-pinned.sh"     # pinned + within delta
 chmod +x "$TR/gate-floating.sh" "$TR/gate-pinned.sh"
 
@@ -77,6 +77,14 @@ GARDEN_ASSERT_PINNED_BASE="$TR/gate-pinned.sh" tick
 { in_dir jobs/todo gok-viability && in_dir jobs/gauntlet gok; } \
   && ok "pinned base advances to viability (no regression to the normal flow)" \
   || bad "pinned base did not advance: todo=[$(board jobs/todo)] gauntlet=[$(board jobs/gauntlet)]"
+
+hr; echo "PROCEED — a delegated minion.town screen gauntlet may review the live-base head"; hr
+screen_base=kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet
+"$JOBS/post-gauntlet.sh" --by proxy:screen "$screen_base" https://github.com/kriscendobot/minion.town/pull/93 >/dev/null
+GARDEN_ASSERT_PINNED_BASE="$TR/gate-floating.sh" tick
+{ in_dir jobs/todo "$screen_base-viability" && in_dir jobs/gauntlet "$screen_base"; } \
+  && ok "delegated screen gauntlet bypasses only the pin gate and advances to viability" \
+  || bad "delegated screen gauntlet did not advance: todo=[$(board jobs/todo)] gauntlet=[$(board jobs/gauntlet)]"
 
 hr
 if [ "$FAIL" -eq 0 ]; then

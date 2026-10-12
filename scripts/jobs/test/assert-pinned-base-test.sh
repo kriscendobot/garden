@@ -76,10 +76,15 @@ mk_gh() {  # mk_gh <file> <baseRefName> <commit-count> | 'FAIL'
 hr; echo "PR MODE — the live-PR gate applies both shapes"; hr
 mk_gh "$TR/gh-ok.sh"        llm-6beb4e5 3
 mk_gh "$TR/gh-floating.sh"  llm         2
+mk_gh "$TR/gh-main.sh"      main        2
 mk_gh "$TR/gh-entrained.sh" llm-6beb4e5 79
 mk_gh "$TR/gh-fail.sh"      FAIL        0
 [ "$(rc_of env GARDEN_GH="$TR/gh-ok.sh"        bash "$SENSOR" pr o/r 1)" = 0 ] && ok "pinned + small → 0" || bad "pinned+small not 0"
 [ "$(rc_of env GARDEN_GH="$TR/gh-floating.sh"  bash "$SENSOR" pr o/r 1)" = 5 ] && ok "floating base → 5 (shape 1)" || bad "floating base not 5"
+[ "$(rc_of env GARDEN_GH="$TR/gh-main.sh" GARDEN_PIN_ALLOW_LIVE_BASE=main bash "$SENSOR" pr o/r 1)" = 0 ] \
+  && ok "an explicitly scoped live-main exception accepts main" || bad "scoped live-main exception ignored"
+[ "$(rc_of env GARDEN_GH="$TR/gh-floating.sh" GARDEN_PIN_ALLOW_LIVE_BASE=main bash "$SENSOR" pr o/r 1)" = 5 ] \
+  && ok "the live-main exception still refuses a different floating base" || bad "live-main exception widened to llm"
 [ "$(rc_of env GARDEN_GH="$TR/gh-entrained.sh" bash "$SENSOR" pr o/r 1)" = 6 ] && ok "79 commits → 6 (shape 2)" || bad "wide delta not 6"
 [ "$(rc_of env GARDEN_GH="$TR/gh-fail.sh"      bash "$SENSOR" pr o/r 1)" = 4 ] && ok "gh failure → 4 (inconclusive)" || bad "gh failure not 4"
 # The wide-delta threshold is tunable and its default (40) does not trip a normal PR.

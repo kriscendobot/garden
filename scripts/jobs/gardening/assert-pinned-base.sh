@@ -47,6 +47,8 @@
 #   GARDEN_GH           the gh binary (a stub), resolved with the same
 #                       stale-override-is-non-fatal guard as ensure-pr.sh.
 #   GARDEN_PIN_MAX_AHEAD  the wide-delta threshold in `pr` mode (default 40).
+#   GARDEN_PIN_ALLOW_LIVE_BASE  one exact live base name accepted in `pr` mode;
+#                       callers must scope this exception before setting it.
 
 set -uo pipefail
 
@@ -98,7 +100,7 @@ cmd_pr() {
   [ -n "$base" ] || { log "PR $repo#$pr reports no baseRefName — INCONCLUSIVE"; exit 4; }
 
   # Shape (1): a floating base is deterministically wrong.
-  if ! is_pinned "$base"; then
+  if ! is_pinned "$base" && [ "$base" != "${GARDEN_PIN_ALLOW_LIVE_BASE:-}" ]; then
     log "$repo#$pr targets FLOATING base '$base' (not a pinned <base>-<sha> snapshot) — skills/frozen-base-branch"
     exit 5
   fi

@@ -157,13 +157,18 @@ def compare(base, head):
 
 
 def patch_fingerprint(base, head):
-    """The PR's own change (merge-base..head) with hunk offsets erased, or None."""
+    """The PR's added/removed lines (merge-base..head), or None when incomplete."""
     items = []
     for item in compare(base, head).get('files', []):
         if 'patch' not in item and item.get('changes', 0):
             return None
-        patch = '\n'.join(line for line in item.get('patch', '').splitlines() if not line.startswith('@@'))
-        items.append([item['filename'], item.get('status'), item.get('previous_filename'), patch])
+        changed = []
+        for line in item.get('patch', '').splitlines():
+            if line.startswith(('+++ ', '--- ')):
+                continue
+            if line.startswith(('+', '-')):
+                changed.append(line)
+        items.append([item['filename'], item.get('status'), item.get('previous_filename'), changed])
     return digest(json.dumps(sorted(items, key=str)).encode())
 
 
@@ -307,6 +312,14 @@ def screen(value, pull):
         if in_flight:
             return note(f'#{number}: gauntlet in flight')
         gauntlet_base = f'kriscendobot-minion-town-pr{number}-screen-{head[:8]}-gauntlet'
+        completed_gauntlet = TADA.get(gauntlet_base)
+        if (completed_gauntlet is not None
+                and fields(completed_gauntlet).get('gauntlet-status') == 'halted'):
+            notify(f'gauntlet-halted-pr{number}-{head[:7]}',
+                   f'minion.town screen BLOCKED {URL}/pull/{number} (head {head[:11]}): '
+                   f'screen gauntlet {gauntlet_base} halted. Read '
+                   f'{completed_gauntlet.relative_to(JOURNAL)} and resume or replace the gauntlet; '
+                   'the proxy cannot produce a panel verdict for this head.')
         if not on_board(gauntlet_base) and not (JOURNAL / f'jobs/gauntlet/{gauntlet_base}.md').is_file():
             actions.append(dict(kind='gauntlet', base=gauntlet_base, url=f'{URL}/pull/{number}'))
         return note(f'#{number}: no panel verdict at this head')

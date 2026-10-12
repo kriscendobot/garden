@@ -2,7 +2,7 @@
 
 | Created | 2026-09-29 |
 | Author  | gardener (designer, job `design-minion-town-pr-screening-by-proxy`) |
-| Status  | Accepted; widened 2026-10-07 |
+| Status  | Accepted; widened 2026-10-07; rebase matching corrected 2026-10-12 |
 
 ## Mandate
 
@@ -115,6 +115,16 @@ A PR **passes** only when every gate holds on that exact head:
    (a fixer or shepherd follow-up) invalidates the verdict, and the screener
    re-requests a gauntlet (`run the gauntlet #N`, the existing staged-gauntlet
    trigger) instead of passing.
+   A conductor rebase may change hunk context without changing the PR's edits, so
+   rebase matching hashes the filename, status, previous filename, and only the
+   added and removed patch lines. Context and hunk offsets are excluded. A screen
+   gauntlet posted by `proxy:screen` for this repository may run on live `main`:
+   the conductor already produced that exact live-base head, and pinning it again
+   would mutate the PR instead of reviewing it. The exception is constrained to
+   the deterministic screen-gauntlet name and producer; ordinary gauntlets still
+   require a frozen base. A halted screen gauntlet sends one coalesced maintainer
+   notice for the current head rather than leaving the proxy to log the same wait
+   forever.
 3. **CI.** The status rollup is terminal-green on the current head, with at least
    one check (`test.yml`). A PR with no checks does not pass.
 4. **No human veto.** No live `CHANGES_REQUESTED` review from any human. A
