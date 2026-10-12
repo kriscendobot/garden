@@ -38,7 +38,7 @@ beat() { # host age-seconds  (pool-scoped heartbeat, as usage-meter publishes)
 publish() { git -C "$WORK" add -A; git -C "$WORK" "${git_id[@]}" commit -q -m fixture --allow-empty; git -C "$WORK" push -q origin HEAD:journal2; }
 seed() { # leveling rows...
   resync
-  rm -rf "$WORK/budget" "$WORK/worker-derotate"; mkdir -p "$WORK/config"
+  rm -rf "$WORK/budget" "$WORK/worker-derotate" "$WORK/msgs" "$WORK/sysop-log"; mkdir -p "$WORK/config"
   { printf '# fixture\nmonk-fleet-ceiling\t10\ncleric-fleet-ceiling\t0\n'; for r in "$@"; do printf 'host\t%s\n' "$r"; done; } \
     >"$WORK/config/worker-leveling"
 }
@@ -78,7 +78,7 @@ resync; beat "$B" 30; publish
 tick
 if [ "$(row "$B")" = "4 0" ] && ! marker "$B"; then ok "heartbeat resumed: owned row restored exactly to 4 0 and marker dropped"
 else bad "restore wrong: B='$(row "$B")'"; fi
-if grep -q "key=worker-derotate-$B msg=RECOVERED: heartbeat resumed for $B" "$ALERT_LOG"; then ok "restore closes the same notice key with one RECOVERED notice"
+if grep -q "key=worker-derotate-$B msg=RECOVERED: heartbeat and sysop control plane are available for $B" "$ALERT_LOG"; then ok "restore closes the same notice key with one RECOVERED notice"
 else bad "recovery notice missing: $(cat "$ALERT_LOG")"; fi
 rec_before="$(grep -c RECOVERED "$ALERT_LOG" || true)"; tick; tick
 if [ "$(grep -c RECOVERED "$ALERT_LOG" || true)" = "$rec_before" ] && [ "$(row "$B")" = "4 0" ]; then ok "steady present host: no further notices or writes"
@@ -130,6 +130,49 @@ beat "$LEADER" 9000; beat "$A" 9000; publish
 CONFIRM=1 tick
 if [ "$(row "$A")" = "3 0" ] && [ "$(alerts worker-derotate-self-stale)" = 1 ]; then ok "stale leader view freezes derotation loudly"
 else bad "stale leader view still acted: A='$(row "$A")'"; fi
+
+# 5b. A fresh budget heartbeat does not mask a sysop bridge that failed to log an
+# addressed operation. The unavailable edge alerts once, derotates, and restores
+# only after the matching durable log appears.
+: >"$ALERT_LOG"
+seed "$LEADER	4	4" "$A	3	0"
+beat "$LEADER" 60; beat "$A" 30
+mkdir -p "$WORK/msgs/host/$A"
+printf 'from_host: %s\nsent_at: %s\n---\nop: reset-failed\n' \
+  "$LEADER" "$(date -u -d "@$((NOW - 121))" +%FT%TZ)" >"$WORK/msgs/host/$A/stale-op.md"
+publish
+CONFIRM=1 tick; tick; tick
+if [ "$(row "$A")" = "0 0" ] && marker "$A" \
+   && grep -q '^reason: control-plane-unavailable$' "$WORK/worker-derotate/$A"; then
+  ok "fresh-heartbeat host with an overdue unlogged sysop op is marked control-plane unavailable and derotated"
+else bad "stale sysop bridge retained capacity: A='$(row "$A")'"; fi
+if [ "$(alerts "worker-derotate-sysop-stale-$A")" = 1 ]; then
+  ok "stale sysop bridge raises one deduplicated maintainer alert across repeated ticks"
+else bad "stale sysop alert count $(alerts "worker-derotate-sysop-stale-$A")"; fi
+resync; mkdir -p "$WORK/sysop-log/$A"
+printf 'op: reset-failed\nhost: %s\noutcome: accepted-and-applied\nmsgid: stale-op\nat: now\n' "$A" \
+  >"$WORK/sysop-log/$A/stale-op.md"
+publish
+tick
+if [ "$(row "$A")" = "3 0" ] && ! marker "$A"; then
+  ok "matching sysop-log record marks control plane available and restores exact caps"
+else bad "sysop recovery did not restore capacity: A='$(row "$A")'"; fi
+if grep -q "key=worker-derotate-sysop-stale-$A msg=RECOVERED:" "$ALERT_LOG"; then
+  ok "sysop recovery closes the deduplicated maintainer alert"
+else bad "sysop recovery notice missing: $(cat "$ALERT_LOG")"; fi
+
+# 5c. An operation still inside the acknowledgement allowance is not stale.
+: >"$ALERT_LOG"
+seed "$LEADER	4	4" "$A	3	0"
+beat "$LEADER" 60; beat "$A" 30
+mkdir -p "$WORK/msgs/host/$A"
+printf 'from_host: %s\nsent_at: %s\n---\nop: reset-failed\n' \
+  "$LEADER" "$(date -u -d "@$((NOW - 120))" +%FT%TZ)" >"$WORK/msgs/host/$A/fresh-op.md"
+publish
+CONFIRM=1 tick
+if [ "$(row "$A")" = "3 0" ] && ! marker "$A" && [ ! -s "$ALERT_LOG" ]; then
+  ok "unlogged sysop op at the threshold remains inside the acknowledgement allowance"
+else bad "fresh sysop op was treated stale: A='$(row "$A")' alerts=$(cat "$ALERT_LOG")"; fi
 
 # 6. adopt: hand a manually zeroed row to the mechanism (the oros-studio takeover).
 seed "$LEADER	4	4" "$A	0	0"
