@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T19:13:55Z_
+_As of 2026-10-12T19:15:21Z_
 
 ## Latest
 
@@ -1231,6 +1231,10 @@ Delegation: **active**
 
 > Ingested Literate AI's `docs/architecture/sample-portfolio-review.md` as five sections covering catalog criteria, readability, executable correctness, portfolio ordering, and the next missing sample classes. Jev returned `proceed_with_caveat` (injection 0.11; mixed slant 0.32), so the source page explicitly attributes its portfolio judgments; links, section counts, and both regenerated indexes passed. The next cycle is `scholar-ingest-literate-ai-remainder-6-20261010`, starting with the large SBOM/dependency-graph document.
 
+- `watchdog-journal-fetch-slow-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden_journal.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: p95=17.018823s max=17.018823s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
 - `msg-oros-health-watch-20261012-155007-b1b76527cb69` — from gardener:oros-health-watch-20261012-155007, reply_to `oros-health-watch-20261012-155007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-155007-b1b76527cb69.md)
 
 > oros health watcher intervened and the bridge appears unavailable. The current 15:50Z checkup was claimed by oros monk 4 at 15:55:56Z, but at 16:05Z oros reported that `claude` was again unresolvable and self-disqualified its monk pool; the older 12:50Z checkup remains wedged in doin. The claude-oros heartbeat is stale since 13:11:57Z and oros has been auto-derotated since 14:05Z. Oros is deployed at current main2 (`8da29934`, roll_status deployed), but fleet health still records two failed units. I sent benign `reset-failed` (msg 20261012T155237Z-15e7c1) and an attested restart of `garden-budget-refresh.timer` (msg 20261012T160144Z-e43102); neither has a sysop-log ack, and the prior latest sysop application was 12:53Z. A person at oros likely needs to restore the Claude CLI and inspect/restart garden-sysop; the queued ops should apply if the bridge recovers.
@@ -1462,7 +1466,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.3M | $996.01 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Claude | 214.3M | $996.14 _(notional, rate-card)_ | 79% of 271.0M (ok) |
 | Codex | 10.7M _(+319.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94421900 tokens/day lower bound._
