@@ -1175,10 +1175,14 @@ _budget_publish_local_pool_once() {
 # jittered backoff between tries): re-sync, rebuild from the winning journal tip
 # with the memoized reading, then try publication again. Only exhaustion reaches
 # the caller's WARN, and it merely leaves the remote verdict unknown (fail-open);
-# worker reconciliation still proceeds.
+# worker reconciliation still proceeds. A tick with no snapshot due also returns 0
+# but sets _BUDGET_PUBLISH_NOT_DUE=1: nothing was published, so the caller must not
+# read it as recovery from a publish outage (oros 2026-10-12: a not-due tick logged
+# "recovered" and cleared the outage latch 19 min into a 51 min heartbeat gap).
 budget_publish_local_pool() {
   local dir="$1" attempts="$GARDEN_BUDGET_PUBLISH_ATTEMPTS" attempt rc context_file
   [[ "$attempts" =~ ^[1-9][0-9]*$ ]] || attempts=3
+  _BUDGET_PUBLISH_NOT_DUE=""
   _BUDGET_PUBLISH_FAILURE_POOL=unknown
   _BUDGET_PUBLISH_FAILURE_RC=unknown
   _BUDGET_PUBLISH_FAILURE_CLASS=unknown
@@ -1198,7 +1202,9 @@ budget_publish_local_pool() {
   # this call (and its retry subshells), never across scaler ticks.
   local _BUDGET_MEASURE_MEMO="" _BUDGET_MEASURE_MEMO_ON=1 _BUDGET_MEASURE_DUE=""
   _BUDGET_MEASURE_ONLY=1 _budget_publish_local_pool_once "$dir" "" || true
-  if [ -z "$_BUDGET_MEASURE_DUE" ]; then rm -f "$context_file"; return 0; fi
+  if [ -z "$_BUDGET_MEASURE_DUE" ]; then
+    _BUDGET_PUBLISH_NOT_DUE=1; rm -f "$context_file"; return 0
+  fi
 
   if [ $((SECONDS - measured_at)) -lt "$resync" ]; then
     if _budget_publish_local_pool_once "$dir" "$context_file"; then rc=0; else rc=$?; fi

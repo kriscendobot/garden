@@ -33,7 +33,8 @@ host="$GARDEN"
 # to another host's ~/.claude. Failure is only a visibility gap and must not block
 # worker reconciliation.
 if budget_publish_local_pool "$DIR"; then
-  budget_publish_note_success
+  # A not-due tick published nothing; it neither ends nor extends an outage.
+  [ -n "${_BUDGET_PUBLISH_NOT_DUE:-}" ] || budget_publish_note_success
 else
   budget_publish_note_failure \
     "$_BUDGET_PUBLISH_FAILURE_POOL" \

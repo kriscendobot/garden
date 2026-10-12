@@ -56,6 +56,7 @@ printf 'sample_bucket: %s\nsampled_at_epoch: %s\nstatus: ok\n' \
 : > "$LOG"
 budget_publish_local_pool "$D" || fail "not-due tick reported failure"
 [ ! -s "$LOG" ] || fail "a not-due tick scanned, synced, or pushed"
+[ "${_BUDGET_PUBLISH_NOT_DUE:-}" = 1 ] || fail "a not-due tick did not flag itself (would read as recovery)"
 echo "PASS: a tick with no snapshot due runs no session-log scan"
 
 # 2. Due with a slow measurement (threshold 0): scan, re-sync, then push; a lost
@@ -65,6 +66,7 @@ LOSE_PUSHES=1 GARDEN_BUDGET_PUBLISH_RESYNC_SECS=0 budget_publish_local_pool "$D"
   || fail "publication after one lost CAS failed"
 [ "$(paste -sd' ' "$LOG")" = "scan sync push-lost sync push-ok" ] \
   || fail "expected 'scan sync push-lost sync push-ok', saw '$(paste -sd' ' "$LOG")'"
+[ -z "${_BUDGET_PUBLISH_NOT_DUE:-}" ] || fail "a published tick kept the not-due flag"
 echo "PASS: slow measurement re-syncs before the push; a CAS retry reuses the reading"
 
 # 3. Due with a fast measurement: no extra sync before the first push.
