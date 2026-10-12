@@ -276,3 +276,14 @@ Inspect via `git -C journal cat-file -p 0c851339c05da29fb8ccfbad42e691fb7084b5d8
 
 Inspect via `git -C journal cat-file -p 552472f16220754ce4b1df59971c84c44856f948` (or read
 `journal/inboxes/oros-studio-garden-ce242c49/captures/552472f16220754ce4b1df59971c84c44856f948`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-10-12T14:31:51Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5903e877990f46eb043bbc3817a39d70532cf713
+- Context: gardener-5 on oros-studio-garden-ce242c49: job 'kriscendobot-minion.town-pr181-gauntlet-fix-5' handler exited rc=1
+- Capture: inboxes/oros-studio-garden-ce242c49/captures/5903e877990f46eb043bbc3817a39d70532cf713
+
+Inspect via `git -C journal cat-file -p 5903e877990f46eb043bbc3817a39d70532cf713` (or read
+`journal/inboxes/oros-studio-garden-ce242c49/captures/5903e877990f46eb043bbc3817a39d70532cf713`) -- both work off-host after a plain `journal2` fetch.
