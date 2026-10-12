@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T21:15:22Z_
+_As of 2026-10-12T21:21:01Z_
 
 ## Latest
 
@@ -99,15 +97,6 @@ Delegation: **active**
 >
 > I did not read or ingest the file. It will remain blocked unless you explicitly authorize reading and ingestion.
 
-- `kriscendobot-minion.town-pr182-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr182-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr182-gauntlet-review-budget-reached.md)
-
-> Gauntlet kriscendobot-minion.town-pr182-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr182-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $11.82
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr182-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -145,24 +134,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr177-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `msg-accountant-weekly-20261010-160507-c8ccae4dc4ad` — from gardener:accountant-weekly-20261010-160507, reply_to `accountant-weekly-20261010-160507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261010-160507-c8ccae4dc4ad.md)
-
-> Confirmed (accountant-weekly-20261010). The 610M slate is in force for the week of 2026-10-10 (authorized_by kriskowal under the 2026-10-02 standing directive). Slices: mcp-ocapn 173.85M, git-remote 115.9M, ui 86.9M, endo-ocapn-background 115.9M, moonshots 46.4M, garden-upkeep 29.0M, garden-book 5M, endo-backlog 11.6M, reserve 25.5M.
->
-> Acting on your proxy reply 20261010T163557Z-98b626:
-> - Posted designer jobs `plan-minion-town-git-remote-increments-20261010` (arc 2; [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) is merged but not deployed) and `plan-minion-town-clip-gutter-20261010` (arc 3).
-> - Posted `build-accountant-statement-unattributed-share` (garden-upkeep), which adds an unattributed-share line per pool to the statement.
-> - Carried to the 10-17 accountant: if arcs 2 and 3 still have no plans, move the unused share to arc 4 and say so. Re-fit endolin2 toward ~121M if it passes ~50% before 10-17. Spend the codex-endolin credit (expires 10-29) once codex leaves backoff after ~10-13 18:40Z, on arc 1 or arc 4 work.
-
-- `kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-review-budget-reached.md)
-
-> Gauntlet kriscendobot-minion-town-pr94-screen-6098638b-gauntlet REVIEW-BUDGET-REACHED: Applied 7 panel/fix round(s); fix round 7 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=7, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr94-screen-6098638b-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 7/7 · cost so far: $16.88
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr94-screen-6098638b-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 7 -> 9 (N is yours to choose).
 
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
@@ -311,14 +282,6 @@ Delegation: **active**
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=9 quota=ok fleet-envelope=4 target=2
 
-- `msg-oros-health-watch-20261012-030519-07b22cd02d23` — from gardener:oros-health-watch-20261012-030519, reply_to `oros-health-watch-20261012-030519` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-030519-07b22cd02d23.md)
-
-> Oros health watcher: `oros-health-checkup-20261012-000506` was claimed on oros at 02:21:47Z but had no journal/log progress for over 45 minutes. The budget heartbeat was last sampled at 02:06:40Z, and the host is behind main2 (`78f9dacc`, target/main2 now `c60e4758`) with roll status deferred on a long job. The last sysop audit was 00:52:02Z. I sent benign `reset-failed` as msg `20261012T030720Z-cc2946` at 03:07Z; no ack or sysop-log record arrived across multiple 20-second ticks. Oros's sysop bridge is unreachable and needs a person at the machine to check Docker Desktop, sleep/wake state, the VM, and `garden-sysop.timer`.
-
-- `msg-oros-health-watch-20261012-062008-ac8676b917a8` — from gardener:oros-health-watch-20261012-062008, reply_to `oros-health-watch-20261012-062008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-062008-ac8676b917a8.md)
-
-> Oros health watch: the sysop bridge is unreachable. The 03:05 health checkup remains stuck in doin after publishing a degraded health log at 05:02Z; the new 06:20 checkup remains unclaimed. Heartbeat last published at 06:05:55Z, no derotation marker exists, and fleet health still reports 0/294 unit failures but is stale/deferred on deployed 78f9dacc versus main2 563e6db8. I sent reset-failed op 20261012T062401Z-04ef75; it has no ack, and the previous 03:07 reset-failed is also unacked. The last sysop-log activity was 00:52Z. A person at the machine should check garden-sysop.timer/service and, if the heartbeat also stops, Docker Desktop, Mac sleep state, and the VM.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-10-10T21:56:08Z, latest 2026-10-12T18:37:31Z).
@@ -343,10 +306,6 @@ Delegation: **active**
 >
 > Both are likely false positives (docs about agent skills/prompts tend to read as instruction-shaped), but the gate says escalate. These join the four still-blocked files (repository-source-dependencies, project-releases, authority-learning-loop, beam-live-coding-layer-investigation). The cycle continues with worker-storage-protocol (Jev proceed).
 
-- `msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d` — from gardener:minion-town-ci-runner-redeploy-verify-50aa690, reply_to `minion-town-ci-runner-redeploy-verify-50aa690` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d.md)
-
-> ci.minion.town validation succeeded at kriscendobot/minion.town main 50aa690f87bab73cadc83eaeb39806b60913f054. Lambda was already byte-for-byte in sync and remained Active/Successful; host files were already in sync, so neither component was redeployed and the host was not rebooted. Fresh SSM observation showed boot 2026-10-08 20:23:32 UTC, service active since 20:23:40 UTC, well beyond the 10-minute window. Selftest: https://github.com/kriscendobot/minion.town/actions/runs/37849209480 — probe and verify passed, verify reported no planted residue (including X11, systemd-private, named volume/container/image, cron, and /run/lock), and the intentional fail job failed as expected. Logs used timestamp-suffixed runners, including ci-minion-town-0fdb85b6-20261008T214954Z for verify and ci-minion-town-0fdb85b6-20261008T215307Z for fail. CI_RUNS_ON is unset, selecting self-hosted. After the prune window the runners API showed exactly one ci-minion-town registration, online with timestamp suffix, and no orphaned/offline registrations. Open operator items: none.
-
 - `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
 
 > subscription claude-endolin1 changed zone ok -> backoff at spend=278190174/271000000.
@@ -363,10 +322,6 @@ Delegation: **active**
 > detail: stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1)
 >
 > Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume observed child moddable-10-0-0-ironhorse-port-plan-synthesis-20261009: stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
-
-- `msg-oros-health-watch-20261010-010508-6c8230a9616c` — from gardener:oros-health-watch-20261010-010508, reply_to `oros-health-watch-20261010-010508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261010-010508-6c8230a9616c.md)
-
-> oros-health-watch: oros-studio-garden-ce242c49 looks UNREACHABLE since ~02:50Z 2026-10-10. Last journal activity: budget heartbeat 02:49Z (last tada 02:30Z); nothing since (~55 min). A benign op=reset-failed (msg 20261010T031501Z-d7a081, sent 03:15Z) is still unacked at 03:43Z, so the sysop is not ticking either. The rolling-deploy host-offline watchdog keeps re-firing too. Before it went quiet it was healthy: deployed fad05c57 (= main2), roll_status deployed, 1 failed unit (garden-manual-deploy.service), not derotated. The oros-health-checkup schedule is snoozed until 2026-10-12, so no checkup ran this cycle. Needs a person at the machine: check the Mac is awake, Docker Desktop, and the VM/container.
 
 - `msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3` — from gardener:reset-credit-watch-20261012-160506, reply_to `reset-credit-watch-20261012-160506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3.md)
 
@@ -458,15 +413,6 @@ Delegation: **active**
 >
 > Orchestration review-docket-20261008 observed child review-docket-consolidate-20261008: doomed and held in plan.
 
-- `endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1403-gauntlet-20261007 REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1403-gauntlet-20261007 panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $17.40
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1403-gauntlet-20261007 panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-10-10T19:39:57Z, latest 2026-10-12T12:49:43Z).
@@ -534,23 +480,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-10-09T07:56:09Z, latest 2026-10-12T20:02:09Z).
-> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T07:56:09Z, cleared 2026-10-12T21:17:09Z).
+> It was observed 11 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling deploy HALTED on a failed canary.
-> canary host: oros-studio-garden-ce242c49
-> target sha:  f9b279f6200603bec814a9feb5d2713e105035a1
-> failing signal: retries exhausted after re-validation kept failing
-> This canary was RETRIED 3 time(s) automatically and kept
-> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
-> confirmed regression, not a transient blip — treat it as higher severity than a
-> first-tick halt.
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
-> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
 
 - `followup-gate-review-improve-design-bespoke-mechanism-over-existing-path` — from followup-gate:review-improve-design-bespoke-mechanism-over-existing-path, reply_to `review-improve-design-bespoke-mechanism-over-existing-path` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-design-bespoke-mechanism-over-existing-path.md)
 
@@ -599,10 +533,6 @@ Delegation: **active**
 >
 > Please provide an explicit disposition before a future scholar reads or ingests this file.
 
-- `msg-oros-health-watch-20261011-173544-9cc093a7b2f5` — from gardener:oros-health-watch-20261011-173544, reply_to `oros-health-watch-20261011-173544` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261011-173544-9cc093a7b2f5.md)
-
-> Correction to my immediately preceding alert: oros sysop is reachable. It accepted and applied reset-failed 20261011T173829Z-e1fdef at 17:39:24Z; the ack appeared in sysop-log after the local journal projection refreshed, while the directed job inbox remained empty. No physical intervention is needed for sysop. The known stuck canary remains: oros is intentionally roll-drained on 592f66b pending maintainer diagnosis of garden-self-deploy versus main2 db962f1.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-11T13:27:02Z, latest 2026-10-12T18:37:37Z).
@@ -610,19 +540,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.234229s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `kriscendobot-minion.town-pr174-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr174-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr174-gauntlet-review-budget-reached.md)
-
-> COALESCED message — occurrence #3 (first seen 2026-10-10T05:29:26Z, latest 2026-10-12T03:50:11Z).
-> The SAME message (episode key `kriscendobot-minion.town-pr174-gauntlet-review-budget-reached`) has now been sent 3 times; this is
-> ONE entry that updates in place, not 3 messages. Latest detail:
->
-> Gauntlet kriscendobot-minion.town-pr174-gauntlet REVIEW-BUDGET-REACHED: Applied 10 panel/fix round(s); fix round 10 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=10, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr174-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 10/10 · cost so far: $21.99
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr174-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 10 -> 12 (N is yours to choose).
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
@@ -652,16 +569,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.163381s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `msg-oros-health-watch-20261012-185007-da6e22a3a885` — from gardener:oros-health-watch-20261012-185007, reply_to `oros-health-watch-20261012-185007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-185007-da6e22a3a885.md)
-
-> Oros health watcher intervention: the 15:50Z `oros-health-checkup-20261012-155007` remains claimed by monk 4 with no checkup progress or health-log update since claim, and the last Oros worker event at 16:04Z says all monks self-disqualified because the Claude CLI could not be resolved. Oros otherwise has a fresh 18:49Z budget heartbeat, no derotation marker, zero fleet-health unit failures, and is deployed at current main2 `2e531a6e`.
->
-> I sent benign `reset-failed` (msgid `20261012T185232Z-a6f7ec`) and the standing-authorized restart of the wedged `garden-monk@4.service` (msgid `20261012T190022Z-500f0b`, `authorized_by=kriskowal`). Both acknowledgments are still pending; the sysop last acknowledged the rolling deploy's drain-off at 18:39Z, so it is delayed but not yet past the one-hour unreachable threshold. If no ack/recovery arrives, a person should inspect `garden-sysop.timer/service` and the missing Claude CLI on Oros.
-
-- `msg-oros-health-watch-20261011-205031-bf5a950e12f1` — from gardener:oros-health-watch-20261011-205031, reply_to `oros-health-watch-20261011-205031` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261011-205031-bf5a950e12f1.md)
-
-> Oros host is publishing a fresh heartbeat (22:04Z), but its sysop bridge is unresponsive: the newest sysop-log message is 20261011T211704Z-b88037 (over 1h old by message time), and reset-failed 20261011T212723Z-f6403a plus restore 20261011T215412Z-865a73 remain unacknowledged after prolonged foreground polling. The rolling deploy is still targeting a78fb723 while fleet/health remains stale at db962f1/roll-drained. Please inspect or restart garden-sysop.timer/service on oros; the bridge cannot restart itself. No drain was lifted by this watcher.
 
 - `kriscendobot-minion.town-pr178-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr178-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr178-gauntlet-review-budget-reached.md)
 
@@ -809,10 +716,6 @@ Delegation: **active**
 >    - Then **archive** each into the date-indexed priorities archive (dated by its last edit), and replace the original path with a one-line pointer to the new root document, or remove it per the design.
 > 3. Regenerate the root priorities/docket document and check that its ordering follows `config/apportionment`/`config/foreman-mandate` and what each item unblocks.
 > 4. **Send ONE maintainer message** (`send-msg.sh maintainer`, key `review-docket-live`) with the **full GitHub URL** of the root document on journal2 (`https://github.com/kriscendobot/garden/blob/journal2/<path>`). Include counts per arc, the top 5 reviews and what each unblocks, and the archive index URL.
-
-- `msg-oros-health-watch-20261011-173544-b7e27ae194cf` — from gardener:oros-health-watch-20261011-173544, reply_to `oros-health-watch-20261011-173544` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261011-173544-b7e27ae194cf.md)
-
-> Oros sysop bridge is not responding: no sysop-log activity since 13:02Z, and reset-failed 20261011T173829Z-e1fdef received no ack after 10 minutes. The host quota heartbeat is still fresh (sampled 17:01Z), but fleet/health remains stale at 12:01Z and roll-drained on 592f66b while main2 is db962f1. The rolling deploy left an active failure drain, so I did not lift it. A person should inspect garden-sysop and garden-self-deploy on oros; physical access may be needed if the VM or Docker service is unhealthy.
 
 - `endojs-endo-but-for-bots-pr1435-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1435-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1435-gauntlet-review-budget-reached.md)
 
@@ -973,10 +876,6 @@ Delegation: **active**
 > Heal job heal-minion-town-39867df posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
 > Operations: context/operations/minion-town-screening.md
 
-- `msg-oros-health-watch-20261012-155007-b1b76527cb69` — from gardener:oros-health-watch-20261012-155007, reply_to `oros-health-watch-20261012-155007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-155007-b1b76527cb69.md)
-
-> oros health watcher intervened and the bridge appears unavailable. The current 15:50Z checkup was claimed by oros monk 4 at 15:55:56Z, but at 16:05Z oros reported that `claude` was again unresolvable and self-disqualified its monk pool; the older 12:50Z checkup remains wedged in doin. The claude-oros heartbeat is stale since 13:11:57Z and oros has been auto-derotated since 14:05Z. Oros is deployed at current main2 (`8da29934`, roll_status deployed), but fleet health still records two failed units. I sent benign `reset-failed` (msg 20261012T155237Z-15e7c1) and an attested restart of `garden-budget-refresh.timer` (msg 20261012T160144Z-e43102); neither has a sysop-log ack, and the prior latest sysop application was 12:53Z. A person at oros likely needs to restore the Claude CLI and inspect/restart garden-sysop; the queued ops should apply if the bridge recovers.
-
 - `msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec` — from gardener:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec.md)
 
 > Foreign-content gate halted another Literate AI source; I did not read or ingest it and need an explicit disposition.
@@ -1083,10 +982,6 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013590s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489` — from gardener:claude-on-minion-town-completion-press-20261010-002011, reply_to `claude-on-minion-town-completion-press-20261010-002011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489.md)
-
-> claude-on-minion-town-completion-press-20261009-182008 has sat in jobs/doin since its claim at 2026-10-09T18:46:51Z (~5.6h, far past the 2400s default) with no completion; the arc press claude-on-minion-town-press-20261009-185008 has also gone unclaimed in todo for ~5.5h. No arc dooms. Effect: the arc's own oversight is stalling, not its deliverables. I have not touched either job; the reaper owns the requeue.
-
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0.md)
 
 > Scholar foreign-content gate: halt_and_escalate on a Literate AI source. Not ingested; disposition needed.
@@ -1128,19 +1023,6 @@ Delegation: **active**
 >
 > Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split HALTED: child moddable-10-0-0-xs-source-inventory-20261009 stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
 
-- `kriscendobot-minion.town-pr166-gauntlet-20261010-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr166-gauntlet-20261010-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr166-gauntlet-20261010-review-budget-reached.md)
-
-> COALESCED message — occurrence #2 (first seen 2026-10-10T18:47:40Z, latest 2026-10-11T06:26:23Z).
-> The SAME message (episode key `kriscendobot-minion.town-pr166-gauntlet-20261010-review-budget-reached`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
->
-> Gauntlet kriscendobot-minion.town-pr166-gauntlet-20261010 REVIEW-BUDGET-REACHED: Applied 5 panel/fix round(s); fix round 5 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=5, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr166-gauntlet-20261010 panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 5/5 · cost so far: $13.51
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr166-gauntlet-20261010 panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 5 -> 7 (N is yours to choose).
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-10-10T21:55:54Z, latest 2026-10-11T18:57:14Z).
@@ -1155,10 +1037,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 219.0M | $1020.67 _(notional, rate-card)_ | 81% of 271.0M (backoff) |
-| Codex | 11.2M _(+328.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Claude | 219.0M | $1021.90 _(notional, rate-card)_ | 81% of 271.0M (backoff) |
+| Codex | 11.2M _(+329.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94516429 tokens/day lower bound._
+_Fleet token-unlock pace: 94504571 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
