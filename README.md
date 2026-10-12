@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T16:03:40Z_
+_As of 2026-10-12T16:10:41Z_
 
 ## Latest
 
@@ -491,6 +489,17 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3` — from gardener:reset-credit-watch-20261012-160506, reply_to `reset-credit-watch-20261012-160506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3.md)
+
+> Reset-credit watch (week of 10-12): **no credit to spend this week, and no decision needed now.**
+>
+> - **codex-endolin** (credits expire 10-29 and 11-06): it was at 74% on 10-10T16Z, at about 1%/h, and the meter has kept climbing. It is probably at or near the 95% cap now. Its natural reset is about 10-13T19Z to 10-14T05Z, roughly 1 to 1.5 days away, so a credit now would mostly be wasted. **Let it roll naturally.** Plan: spend the **10-29 credit** in the next window. At current pace it reaches 90% about 3.5 to 4 days after the 10-14 reset, so around **Sat 10-18 (PT)**, and you reset then. Keep 11-06 for the window after that. No acceleration needed.
+> - **claude-endolin1**: no credit. It was at 44% on 10-11T06Z; the meter now derives about 62 to 67%, at about 0.5%/h. At that pace it hits 90% around **Tue 10-14 evening UTC**, about 2.5 days before its natural reset on 10-17T03:00Z. Your "slow down" brake is still needed; there is no credit to bridge the gap.
+> - **claude-endolin2**: retired for now. Its only credit was used 10-06.
+> - **claude-oros**: offline, credits unknown.
+>
+> Inventory reconciled in projects/garden/reset-credits.md: the codex expiries are now 10-29 and 11-06 (your 10-10 statement), and claude2 is listed with no credits.
 
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
@@ -1220,6 +1229,10 @@ Delegation: **active**
 
 > Ingested Literate AI's `docs/architecture/sample-portfolio-review.md` as five sections covering catalog criteria, readability, executable correctness, portfolio ordering, and the next missing sample classes. Jev returned `proceed_with_caveat` (injection 0.11; mixed slant 0.32), so the source page explicitly attributes its portfolio judgments; links, section counts, and both regenerated indexes passed. The next cycle is `scholar-ingest-literate-ai-remainder-6-20261010`, starting with the large SBOM/dependency-graph document.
 
+- `msg-oros-health-watch-20261012-155007-b1b76527cb69` — from gardener:oros-health-watch-20261012-155007, reply_to `oros-health-watch-20261012-155007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-155007-b1b76527cb69.md)
+
+> oros health watcher intervened and the bridge appears unavailable. The current 15:50Z checkup was claimed by oros monk 4 at 15:55:56Z, but at 16:05Z oros reported that `claude` was again unresolvable and self-disqualified its monk pool; the older 12:50Z checkup remains wedged in doin. The claude-oros heartbeat is stale since 13:11:57Z and oros has been auto-derotated since 14:05Z. Oros is deployed at current main2 (`8da29934`, roll_status deployed), but fleet health still records two failed units. I sent benign `reset-failed` (msg 20261012T155237Z-15e7c1) and an attested restart of `garden-budget-refresh.timer` (msg 20261012T160144Z-e43102); neither has a sysop-log ack, and the prior latest sysop application was 12:53Z. A person at oros likely needs to restore the Claude CLI and inspect/restart garden-sysop; the queued ops should apply if the bridge recovers.
+
 - `msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec` — from gardener:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec.md)
 
 > Foreign-content gate halted another Literate AI source; I did not read or ingest it and need an explicit disposition.
@@ -1448,7 +1461,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 214.2M | $995.30 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.3M _(+310.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Codex | 10.3M _(+312.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101155546 tokens/day lower bound._
 
@@ -1459,19 +1472,18 @@ worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-125006.md) — ---
 - [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-125006.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
-- [`oros-health-watch-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261012-155007.md) — ---
 
-### tada (12572)
+### tada (12574)
+- [`oros-health-watch-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-155007.md) — Cost
+- [`reset-credit-watch-20261012-160506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/reset-credit-watch-20261012-160506.md) — Cost
 - [`claude-on-minion-town-press-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-155007.md) — Cost
 - [`kriscendobot-minion.town-pr181-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr181-gauntlet.md) — gauntlet kriscendobot-minion.town-pr181-gauntlet — HALTED
 - [`arm-minion-town-prod-probe-runner-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/arm-minion-town-prod-probe-runner-20261012.md) — Cost
-- [`minion-town-arc-press-20261012-143506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/minion-town-arc-press-20261012-143506.md) — Cost
-- [`screen-minion-town-pr182-6eab3a3-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/screen-minion-town-pr182-6eab3a3-conduct.md) — Cost
-- … and 12567 more
+- … and 12569 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
