@@ -28,3 +28,13 @@ Once deployed, confirm the proxy screens `kriscendobot/minion.town#93`. For head
 and posted job `screen-minion-town-pr93-ea66af2-conduct`. If the PR head changed,
 analyze whether the original requirement is overtaken. Do not merge the PR by
 hand. Report deployed SHA, attestation path, and conductor path.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-12T17:56:30Z
