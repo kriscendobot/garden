@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Reconcile Iron Horse's frame-locals ceiling (PR #1278) with the landed upstream XS fix
@@ -45,13 +46,6 @@ Minor: field-init frames report at the first member's line; XS reports at the sy
 initializer function's node line. Align if cheap.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=55 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-12T22:35:41Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-12T22:53:06Z -->
