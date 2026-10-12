@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T19:25:40Z_
+_As of 2026-10-12T19:33:54Z_
 
 ## Latest
 
@@ -1235,7 +1233,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: p95=17.018823s max=17.018823s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden_journal` has CLEARED (first seen 2026-10-12T19:14:17Z, cleared 2026-10-12T19:29:20Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden_journal` cleared on oros-studio-garden-ce242c49.
 
 - `msg-oros-health-watch-20261012-155007-b1b76527cb69` — from gardener:oros-health-watch-20261012-155007, reply_to `oros-health-watch-20261012-155007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-155007-b1b76527cb69.md)
 
@@ -1468,10 +1470,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.3M | $996.52 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Claude | 214.4M | $996.86 _(notional, rate-card)_ | 79% of 271.0M (ok) |
 | Codex | 10.7M _(+319.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94418725 tokens/day lower bound._
+_Fleet token-unlock pace: 94421764 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
@@ -1481,8 +1483,9 @@ worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
 - [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 2e531a6e2dda
 - [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-185007.md) — ---
 
-### doin (1)
+### doin (2)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
+- [`kriscendobot-garden-book-pr8-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #8
 
 ### tada (12583)
 - [`kriscendobot-garden-book-pr8-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-viability.md) — Cost
