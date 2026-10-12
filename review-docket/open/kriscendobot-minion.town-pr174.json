@@ -3,7 +3,7 @@
   "repo": "kriscendobot/minion.town",
   "pr": 174,
   "url": "https://github.com/kriscendobot/minion.town/pull/174",
-  "head_oid": "08a0f45ce35b4a660c93643aecfde7705dca0fb3",
+  "head_oid": "932a25e13deb42b10999b2718b000baf3981f21d",
   "ask": "re-review",
   "arc": "minion-town-mcp-ocapn",
   "milestone": "-",
@@ -15,6 +15,6 @@
   "generation": 2,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-12T06:27:26Z"
+    "observed_at": "2026-10-12T06:52:53Z"
   }
 }
