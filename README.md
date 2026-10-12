@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T13:40:14Z_
+_As of 2026-10-12T13:46:09Z_
 
 ## Latest
 
@@ -59,11 +57,16 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-12T09:23:02Z).
-> It was observed 1872 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #1873 (first seen 2026-10-08T20:53:04Z, latest 2026-10-12T13:44:08Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1873 times; this is ONE
+> coalesced notice that updates in place, not 1873 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1925s (offline threshold 1800s; sampled_at_epoch=1791810717).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
@@ -812,11 +815,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1133 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T12:41:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1133 times; this is ONE
-> coalesced notice that updates in place, not 1133 messages. Latest detail:
+> WATCHDOG notice — occurrence #1153 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T13:41:03Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1153 times; this is ONE
+> coalesced notice that updates in place, not 1153 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 205664s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 209266s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1314,6 +1317,16 @@ Delegation: **active**
 >
 > Orchestration moddable-10-0-0-xs-source-inventory-20261009-split complete (parallel): all 3 children reached tada without a machine-readable failure declaration.
 
+- `msg-claude-on-minion-town-completion-press-20261012-132012-fd027a2e477b` — from gardener:claude-on-minion-town-completion-press-20261012-132012, reply_to `claude-on-minion-town-completion-press-20261012-132012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261012-132012-fd027a2e477b.md)
+
+> # Claude-on-minion.town completion press: [endojs/endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/issues/1412) hit its review budget with no owner; [kriscendobot/minion.town#182](https://github.com/kriscendobot/minion.town/issues/182) production validation has no owner
+>
+> 1. **endojs-endo-but-for-bots-pr1412-post-weave-gauntlet** finished at 11:41Z with `review-budget-reached` after 6 of 6 rounds ($15.38). Fix round 6 pushed head 85acc161 and CI is green. The panel kept returning must-fix, but its report has no structured must-fix list. PR [https://github.com/endojs/endo-but-for-bots/pull/1412](https://github.com/endojs/endo-but-for-bots/pull/1412) is still a draft. No job on the board (todo, doin, or plan) references it. The arc press at 11:44Z still described it as "in fix round 6", so nothing has picked it up. This blocks arc item 4, phase 2, which is the endo review ask. You have two options: grant more rounds (`gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1412-post-weave-gauntlet panel --add-rounds N`) or review it yourself. This is the same pattern as [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/issues/171), where extra rounds have not converged.
+>
+> 2. **fix-minion-town-prod-probe-runs-on-validation-3** completed at 10:53Z with `orchestration-failed: true`. It stopped because the [kriscendobot/minion.town#182](https://github.com/kriscendobot/minion.town/issues/182) gauntlet was at its review budget. After that, carry-minion-town-pr182-pr181-gauntlets-20261012 granted one more round. Panel 7 passed, and [https://github.com/kriscendobot/minion.town/pull/182](https://github.com/kriscendobot/minion.town/pull/182) was taken out of draft at about 13:35Z (head 6eab3a38). That means the gate's precondition now holds. Still, no job owns the remaining validation: the conductor/proxy merge of [kriscendobot/minion.town#182](https://github.com/kriscendobot/minion.town/issues/182), then the `prod-probe.yml` dispatch. Also, [kriscendobot/minion.town#171](https://github.com/kriscendobot/minion.town/issues/171) still needs its jobs switched to `CI_RUNS_ON`. A validation-4 (or the proxy's merge path) would need to be posted. I have not posted one.
+>
+> No new arc dooms in this window. The new doom kriscendobot-minion.town-pr180-gauntlet-fix-5 (requeue-exhausted, endolin) belongs to the git-remote arc, not this one.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-10T22:58:37Z, latest 2026-10-11T06:44:09Z).
@@ -1430,32 +1443,31 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.2M | $996.21 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.0M _(+306.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 214.1M | $995.15 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Codex | 10.0M _(+307.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 104888895 tokens/day lower bound._
+_Fleet token-unlock pace: 101335531 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`claude-on-minion-town-completion-press-20261012-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261012-132012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### todo (0)
+(none)
 
-### doin (5)
-- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy-resume.md) — Resume post-deploy validation: screening patch fingerprint context drift
+### doin (4)
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-125006.md) — ---
 - [`screen-minion-town-pr182-7c3a765-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr182-7c3a765-conduct.md) — Screened delegated merge: kriscendobot/minion.town#182 at 7c3a765ee2971c789d1...
 - [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-125006.md) — Press the Claude-on-minion.town arc forward
 
-### tada (12564)
+### tada (12566)
+- [`claude-on-minion-town-completion-press-20261012-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-completion-press-20261012-132012.md) — Panel-head freshness
+- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr182-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet.md) — gauntlet kriscendobot-minion.town-pr182-gauntlet — complete
 - [`kriscendobot-minion.town-pr182-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-undraft.md) — Cost
 - [`oros-health-watch-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-125006.md) — Cost
-- [`kriscendobot-minion.town-pr180-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr180-gauntlet.md) — gauntlet kriscendobot-minion.town-pr180-gauntlet — HALTED
-- [`kriscendobot-minion.town-pr181-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr181-gauntlet-panel-5.md) — Cost
-- … and 12559 more
+- … and 12561 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
