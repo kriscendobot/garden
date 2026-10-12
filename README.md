@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T22:14:38Z_
+_As of 2026-10-12T22:25:16Z_
 
 ## Latest
 
@@ -1059,10 +1057,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 219.1M | $1022.25 _(notional, rate-card)_ | 81% of 271.0M (ok) |
-| Codex | 11.5M _(+337.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 219.1M | $1022.36 _(notional, rate-card)_ | 81% of 271.0M (ok) |
+| Codex | 11.5M _(+338.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94509957 tokens/day lower bound._
+_Fleet token-unlock pace: 94513420 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
@@ -1070,23 +1068,23 @@ worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 ## Board
 ### todo (3)
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-220527.md) — ---
-- [`claude-on-minion-town-press-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261012-220527.md) — Press the Claude-on-minion.town arc forward
+- [`ironhorse-reconcile-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-reconcile-xs-frame-locals-limit.md) — Reconcile Iron Horse's frame-locals ceiling (PR #1278) with the landed upstre...
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
 ### doin (5)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`oros-health-watch-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
-- [`xs-locals-limit-check-20261012-213527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs-locals-limit-check-20261012-213527.md) — Has Moddable's XS 65535-locals-per-frame parser fix landed upstream yet?
 - [`kriscendobot-garden-book-pr8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #8
+- [`build-minion-town-inference-phase3-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-inference-phase3-secrets.md) — Build: item 4 phase 3 on minion.town — Claude credentials onto @secrets
 
-### tada (12599)
+### tada (12602)
+- [`context-graph-size-audit-focused-20261012-222007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/context-graph-size-audit-focused-20261012-222007.md) — Cost
+- [`claude-on-minion-town-press-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-220527.md) — Cost
+- [`xs-locals-limit-check-20261012-213527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/xs-locals-limit-check-20261012-213527.md) — The XS frame-locals fix has landed upstream (final run; I retired the schedule)
 - [`endojs-endo-but-for-bots-pr1412-conduct-r5495956664`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-conduct-r5495956664.md) — Cost
 - [`endojs-endo-but-for-bots-pr1412-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr1412-review-c8b358a6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-review-c8b358a6.md) — Cost
-- [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-185007.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe — round trip OK
-- … and 12594 more
+- … and 12597 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
