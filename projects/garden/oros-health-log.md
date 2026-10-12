@@ -1,0 +1,36 @@
+# oros-studio-garden-ce242c49 health log
+
+Newest first. One note per `oros-health-checkup-*` run.
+
+## 2026-10-12T04:13Z (oros-health-checkup-20261012-030519): degraded
+
+- **Load/mem:** load 3.3/4.1/5.0; 12 GiB of 15 GiB available; swap 326 MiB used.
+- **Disk/inodes:** 54% (216 GB free); inodes 1%.
+- **Uptime:** 10d11h, no recent reboot.
+- **Deployed vs main2:** deployed `78f9dacc` is 7 behind `75b15068`.
+  - The 03:31 canary release passed the gate but was DEFERRED at 03:45, because monk 4 had been mid-job for 4396s (the previous health checkup).
+  - At 04:14 the leader cleared the release ("peer offline": a 51 min heartbeat gap).
+  - At 04:15 a main2 fetch failed transiently.
+  - At 04:35 the leader re-released oros for `5ec392b0`. The gate passed at 04:51, but the deploy was DEFERRED again because monk 6 (this run) had been mid-job for 2308s. It retries once this job ends.
+- **Units:** 5 failed, all journal-git rc=124 under contention.
+  - Timed out: state-clone-keeper, library-link-scan, regenerate-sections-index, regenerate-topics-counts.
+  - worktree-sweeper fails "hard reset failed after retry" every 30 min from 02:15. Its reset is killed at the 120s bin/git bound; fixed on main2 by `cc0fa2a2`, pending deploy.
+  - Ran reset-failed.
+- **Budget heartbeat:** snapshots at 03:26, 03:41, then nothing until 04:32 (51 min).
+  - CAS push losses at 03:37, 03:54, and 04:08–04:32 (3 ticks).
+  - A not-due tick at 04:00 falsely logged "recovered" and cleared the outage latch. Fixed on main2 by `eedd785f`.
+- **Roll status:** canary release for oros was outstanding at 04:35; last-known-good (leader-sha) is `9affc0d6`.
+- **Workers:** 8 monks; not drained; no derotation marker.
+- **$GARDEN_STATE clones:**
+  - Largest per-namespace clones are at 47–53 packs (namespace-clone-maintenance repacks above 50, last ran 02:37).
+  - Found 12 orphaned `*.reclone.<pid>.N` / `*.budget-stale.<pid>` sibling dirs: 3.0 GB, ~193k inodes, the oldest from 10-01. Removed the 10 dead/aged ones by hand.
+  - No stale locks.
+- **rc=124:** 335 in the last 3h.
+  - 87 were `claim`.
+  - ~175 were `monitor/monk-N`: network journal clones timing out at 300s.
+  - The root-seed fix `75b15068` is pending deploy.
+- **Changes landed on main2:**
+  - `5ec392b0`: namespace-clone-maintenance sweeps orphaned clone siblings.
+  - `cc0fa2a2`: sync_clone's reset gets GARDEN_JOURNAL_RESET_TIMEOUT=900s.
+  - `eedd785f`: the scaler no longer treats a not-due publish tick as outage recovery.
+- **Note:** this 3h checkup is itself a >300s monk job, so it defers any deploy that reaches its gate while the checkup runs (03:45 and 04:51 today).
