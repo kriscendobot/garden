@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T03:03:18Z_
+_As of 2026-10-12T03:06:59Z_
 
 ## Latest
 
@@ -579,11 +579,12 @@ Delegation: **active**
 
 - `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T00:20:13Z, cleared 2026-10-12T02:20:17Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-09T00:20:13Z, latest 2026-10-12T03:05:11Z).
+> The SAME condition (`worker-derotate-oros-studio-garden-ce242c49`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (810s old; sampled_at_epoch=1791770800)); it is PRESENT again and its config/worker-leveling caps are restored to 8 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 3504s (offline threshold 1800s; sampled_at_epoch=1791770800).
+> worker-derotate zeroed its config/worker-leveling caps (were 8 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden-ece02cb4)
 
 - `endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached.md)
 
@@ -1365,13 +1366,16 @@ _Fleet token-unlock pace: 102008262 tokens/day lower bound._
 worst fetch p95 5.660257s/45s (/home/kris/garden/.garden-state/maintainer/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (3)
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #174
+- [`oros-health-checkup-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-030519.md) — ---
+- [`claude-on-minion-town-press-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261012-030519.md) — Press the Claude-on-minion.town arc forward
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1412
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #180
 - [`oros-health-checkup-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-000506.md) — ---
+- [`oros-health-watch-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261012-030519.md) — ---
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #182
 - [`kriscendobot-minion.town-pr181-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #181
 
