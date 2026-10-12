@@ -18,3 +18,13 @@ Repo: kriscendobot/garden (main2), `scripts/jobs/screening/driver.py`.
 3. After it deploys, confirm the proxy screens #93 at its current head and posts a conductor (journal `screenings/kriscendobot-minion.town/93/`). Do not merge #93 by hand.
 
 Requested by the minion.town arc supervisor (`minion-town-arc-press-20261012-082008`), tracker https://github.com/kriscendobot/garden/issues/58.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T09:26:31Z
