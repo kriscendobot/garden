@@ -34,3 +34,13 @@ Maintainer delegation carried by garden-book-review-supervisor-20261012 (manual 
 <!-- garden-annotation: key=book-supervisor-clean-04a5b7e by=orchestrator at=2026-10-12T23:33:42Z -->
 
 Supervisor delta review is now CLEAN at 04a5b7e847f9458bdcb85b268526f2b8b45b3303: https://github.com/kriscendobot/garden-book/pull/8#pullrequestreview-5497063042. The adopted gauntlet completed with a passing panel on that same head. Supervisor executed 21 passing tests, build, diff whitespace check, and fragment audit. Maintainer's carried book-only delegation authorizes this merge, subject to your fresh guards. GitHub currently reports OPEN, un-drafted, MERGEABLE, no checks. Restore live main and preserve newer illumination/data work. A substantive conflict-resolution delta requires supervisor review before merge; do not infer earlier panel coverage of a changed head. No checks exist in this repo; use the documented no-check allowance where needed. Successor garden-book-review-supervisor-after-merge-20261012 owns remaining review/publication supervision.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T23:35:57Z
