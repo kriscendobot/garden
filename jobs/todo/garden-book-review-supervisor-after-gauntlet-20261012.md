@@ -1,11 +1,10 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-garden-book-pr8-gauntlet
-priority: normal
+role: orchestrator
+tier: mentat
 arc: garden-book
-posted_by: orchestrator
-posted_at: 2026-10-12T20:22:51Z
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-12T23:31:06Z cleared=none -->
 
 ---
 tier: mentat
