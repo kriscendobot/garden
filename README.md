@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T10:21:18Z_
+_As of 2026-10-12T10:25:09Z_
 
 ## Latest
 
@@ -1377,8 +1375,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 210.1M | $974.33 _(notional, rate-card)_ | 78% of 271.0M (ok) |
-| Codex | 9.3M _(+286.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 210.1M | $974.37 _(notional, rate-card)_ | 78% of 271.0M (ok) |
+| Codex | 9.4M _(+287.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106111235 tokens/day lower bound._
 
@@ -1386,24 +1384,23 @@ _Fleet token-unlock pace: 106111235 tokens/day lower bound._
 worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1412
-- [`verify-screening-patch-fingerprint-context-drift-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-screening-patch-fingerprint-context-drift-postdeploy.md) — Post-deploy validation: screening patch fingerprint context drift
 
 ### doin (5)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
-- [`fix-screening-patch-fingerprint-context-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-screening-patch-fingerprint-context-drift.md) — Fix: the minion.town screener's rebase match breaks when only diff context mo...
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #182
+- [`verify-screening-patch-fingerprint-context-drift-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy.md) — Post-deploy validation: screening patch fingerprint context drift
 - [`claude-on-minion-town-press-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-093524.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-093524.md) — ---
 
-### tada (12547)
+### tada (12548)
+- [`fix-screening-patch-fingerprint-context-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/fix-screening-patch-fingerprint-context-drift.md) — Cost
 - [`oros-health-watch-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-093524.md) — Cost
 - [`kriscendobot-minion.town-pr182-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-panel-6.md) — Panel round 6: kriscendobot/minion.town PR #182 needs fixes (must-fix)
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-6.md) — Cost
 - [`minion-town-arc-press-20261012-082008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/minion-town-arc-press-20261012-082008.md) — Cost
-- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-5.md) — Cost
-- … and 12542 more
+- … and 12543 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
