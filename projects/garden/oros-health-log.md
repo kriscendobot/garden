@@ -2,6 +2,30 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-12T07:40Z (oros-health-checkup-20261012-062008): degraded
+
+- **Load/mem:** load 9.1/5.0/4.7 at 06:55, 5.1/4.2/4.2 at 07:39; 12 GiB of 15.6 GiB available; swap 334 MiB used.
+- **Disk/inodes:** 6% (405 GB free); inodes 1%.
+- **Uptime:** 10d14h, no recent reboot.
+- **Deployed vs main2:** deployed `78f9dacc` is now 14 behind `3935f665`.
+  - The leader re-released oros for `563e6db8` and self-deploy tried at 06:23 and 06:59. Both passed into deploy-garden.sh and DEFERRED behind long jobs (monk 6 at 8822s, then monk 1 at 2921s).
+  - The 06:08 self-deploy tick hit the 2400s SELF_HEAL_HANDLER_TIMEOUT.
+- **Root cause of the stuck roll:** every deferred-status publish failed from 02:39 to 07:36, so fleet/health showed oros deferring for an old target and the leader never sent its quiesce-for-deploy drain.
+  - publish_fleet_health shared `$GARDEN_STATE/producer/journal` with post-job, land-journal-edit and watchdog-notice. That lock saw ~100s waits, a 300s post-job holder, and give-ups every few minutes.
+  - Fixed on main2 by `3935f665`: a dedicated `fleet-health/journal` clone, with a rolling-deploy-test regression check. The test fails on the old code.
+  - A pending republish happened to land at 07:36:57, so the leader now sees `deferred` for `563e6db8` behind monk 1.
+- **Units:** 5 failed at 06:55: state-clone-keeper, library-link-scan, regenerate-sections-index, regenerate-topics-counts, worktree-sweeper (all journal-git contention; the fixes are pending deploy). All were clear by 07:39 (reset-failed).
+- **Budget heartbeat:** claude-oros pushes at 05:59, 06:06, 06:37, 06:56, 07:04 (gaps of 31 min and 19 min); spend 55.1M of 180M (31%); status ok.
+- **Roll status:** release `deploy/roll/oros` = `563e6db8`; leader-sha (last-known-good) `9affc0d6`.
+- **Workers:** 8 monks; not drained; no derotation marker.
+- **$GARDEN_STATE clones:**
+  - Repacks of leader (77 packs), state-clone-keeper (59), library-link-check (57) and regenerate-topics-counts (54) all timed out at 120s under load.
+  - The only reclone siblings belonged to live in-flight clones; none were orphaned. No stale held locks.
+- **rc=124:** 290 in the last 3h, mostly `monitor/monk-N` journal clones/fetches.
+- **New clone:** the first publish seeded `$GARDEN_STATE/fleet-health/journal` (~7 min, because the root is still shallow per the 07:12 note). It now exists on oros, so later publishes only fetch.
+- **Other:** the minion.town MCP probe has been down since 10-08 (no AWS credentials on oros; known, needs `requires: aws`).
+- **Note:** this checkup ran past 300s too, so it is one of the long jobs a deploy defers behind.
+
 ## 2026-10-12T07:12Z (oros-health-checkup-20261012-000506, resumed after reap): degraded
 
 - **Deployed:** still `78f9dacc`; roll_status `deferred`, behind a long-running monk job.
