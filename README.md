@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T15:45:04Z_
+_As of 2026-10-12T15:48:45Z_
 
 ## Latest
 
@@ -61,11 +59,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1894 (first seen 2026-10-08T20:53:04Z, latest 2026-10-12T14:47:03Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1894 times; this is ONE
-> coalesced notice that updates in place, not 1894 messages. Latest detail:
+> WATCHDOG notice — occurrence #1914 (first seen 2026-10-08T20:53:04Z, latest 2026-10-12T15:47:04Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1914 times; this is ONE
+> coalesced notice that updates in place, not 1914 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 5706s (offline threshold 1800s; sampled_at_epoch=1791810717).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 9306s (offline threshold 1800s; sampled_at_epoch=1791810717).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
