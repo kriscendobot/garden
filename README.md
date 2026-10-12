@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T03:27:45Z_
+_As of 2026-10-12T03:34:28Z_
 
 ## Latest
 
@@ -54,16 +52,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1848 (first seen 2026-10-08T20:53:04Z, latest 2026-10-12T02:38:18Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1848 times; this is ONE
-> coalesced notice that updates in place, not 1848 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-12T03:29:02Z).
+> It was observed 1848 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1882s (offline threshold 1800s; sampled_at_epoch=1791770800).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
@@ -1363,34 +1356,33 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 189.2M | $871.70 _(notional, rate-card)_ | 70% of 271.0M (ok) |
+| Claude | 189.2M | $870.11 _(notional, rate-card)_ | 70% of 271.0M (ok) |
 | Codex | 8.0M _(+247.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106105548 tokens/day lower bound._
+_Fleet token-unlock pace: 106097946 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.660257s/45s (/home/kris/garden/.garden-state/maintainer/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (3)
-- [`kriscendobot-minion.town-pr174-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr174-gauntlet-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #174
+### todo (2)
+- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1412
 - [`oros-health-checkup-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-030519.md) — ---
-- [`claude-on-minion-town-press-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261012-030519.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (5)
-- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1412
+- [`kriscendobot-minion.town-pr174-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #180
 - [`oros-health-checkup-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-000506.md) — ---
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #182
 - [`kriscendobot-minion.town-pr181-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #181
 
-### tada (12494)
+### tada (12496)
+- [`claude-on-minion-town-press-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-030519.md) — Panel-head freshness
+- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-1.md) — Cost
 - [`oros-health-watch-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-030519.md) — Cost
 - [`kriscendobot-minion.town-pr182-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr174-gauntlet-panel-10.md) — Cost
-- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion.town-pr93-gauntlet-20261010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr93-gauntlet-20261010.md) — gauntlet kriscendobot-minion.town-pr93-gauntlet-20261010 — HALTED
-- … and 12489 more
+- … and 12491 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
