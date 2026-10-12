@@ -1,9 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: producer
-posted_at: 2026-10-12T19:22:48Z
+role: conductor
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-10-12T23:33:59Z cleared=none -->
 
 ---
 role: conductor
