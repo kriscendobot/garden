@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T19:18:48Z_
+_As of 2026-10-12T19:25:40Z_
 
 ## Latest
 
@@ -1468,13 +1466,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.3M | $996.14 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Claude | 214.3M | $996.52 _(notional, rate-card)_ | 79% of 271.0M (ok) |
 | Codex | 10.7M _(+319.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94418725 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.457785s/45s (/home/kris/garden/.garden-state/decisions/journal); 7 open notice(s); checker healthy
+worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
@@ -1484,13 +1482,13 @@ worst fetch p95 2.457785s/45s (/home/kris/garden/.garden-state/decisions/journal
 ### doin (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
 
-### tada (12582)
+### tada (12583)
+- [`kriscendobot-garden-book-pr8-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-viability.md) — Cost
 - [`oros-health-watch-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-185007.md) — Cost
 - [`improve-sanitize-inherited-clone-lock-soft-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/improve-sanitize-inherited-clone-lock-soft-mode.md) — Cost
 - [`claude-on-minion-town-press-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-185007.md) — Panel-head freshness
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume3.md) — Cost
-- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume2.md) — Cost
-- … and 12577 more
+- … and 12578 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1537,6 +1535,7 @@ worst fetch p95 2.457785s/45s (/home/kris/garden/.garden-state/decisions/journal
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1340-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1340
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
+- [`kriscendobot-garden-book-pr8-conduct-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-book-pr8-conduct-20261012.md) — _normal_ · Finalize (curate -> merge) kriscendobot/garden-book PR #8
 - [`moddable-10-0-0-ironhorse-builtins-order-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-builtins-order-port.md) — _normal_ · Port three Moddable 10.0.0 built-in ordering corrections to IronHorse
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-press-20261010-133536.md) — _normal_ · Press the Claude-on-minion.town arc forward
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
