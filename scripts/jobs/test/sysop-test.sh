@@ -65,7 +65,7 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 
 # --- fixtures: maintainer allowlist file, installed-unit dir, stubs ----------
 MAINT_FILE="$TR/maintainers"; printf '%s\n' "$MAINTAINER" > "$MAINT_FILE"
-UNIT_DIR="$TR/units"; mkdir -p "$UNIT_DIR"; : > "$UNIT_DIR/garden-foreman.timer"; : > "$UNIT_DIR/garden-sysop.timer"
+UNIT_DIR="$TR/units"; mkdir -p "$UNIT_DIR"; : > "$UNIT_DIR/garden-foreman.timer"; : > "$UNIT_DIR/garden-sysop.timer"; : > "$UNIT_DIR/garden-monk@.service"
 
 MOCK="$HERE/mock-systemctl.sh"
 ACK_LOG="$TR/acks"; : > "$ACK_LOG"
@@ -304,6 +304,11 @@ seed_op "$ISSUER" "$TARGET" op=unit action=restart name=garden-foreman.timer aut
 run_sysop "$TR/s-unit"
 { grep -q 'restart garden-foreman.timer' "$TR/mock-log" && grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG"; } \
   && ok "attested unit restart applied + acked" || bad "attested unit restart not applied (mock: $(cat "$TR/mock-log"))"
+: > "$ACK_LOG"; : > "$TR/mock-log"
+seed_op "$ISSUER" "$TARGET" op=unit action=restart name=garden-monk@4.service authorized_by="$MAINTAINER"
+run_sysop "$TR/s-unit-instance"
+{ grep -q 'restart garden-monk@4.service' "$TR/mock-log" && grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG"; } \
+  && ok "attested template instance restart applied + acked" || bad "template instance restart not applied (mock: $(cat "$TR/mock-log"))"
 : > "$REC_LOG"; : > "$ACK_LOG"
 seed_op "$ISSUER" "$TARGET" op=deploy authorized_by="$MAINTAINER"
 run_sysop "$TR/s-deploy"

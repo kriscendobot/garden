@@ -608,7 +608,16 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
       # Self-preservation: the sysop may never be told to silence itself.
       case "$name" in garden-sysop.service|garden-sysop.timer) OUTCOME="refused"; DETAIL="unit: refusing to $action $name (self-preservation)"; return;; esac
       if [ ! -e "$GARDEN_SYSOP_INSTALLED_UNIT_DIR/$name" ]; then
-        OUTCOME="refused"; DETAIL="unit: '$name' is not an installed garden unit"; return
+        # systemd installs an instantiated worker as one template file
+        # (garden-monk@.service), not one file per numeric instance. Accept a
+        # concrete numeric instance only when its exact template is installed;
+        # all other absent names remain closed by default.
+        if [[ "$name" =~ ^(garden-[A-Za-z0-9_.-]+)@[0-9]+\.service$ ]] \
+          && [ -e "$GARDEN_SYSOP_INSTALLED_UNIT_DIR/${BASH_REMATCH[1]}@.service" ]; then
+          :
+        else
+          OUTCOME="refused"; DETAIL="unit: '$name' is not an installed garden unit"; return
+        fi
       fi
       local rc=0; unit_ctl "$action" "$name" >/dev/null 2>&1 || rc=$?
       if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="unit $action $name"; else OUTCOME="failed"; DETAIL="unit $action $name rc=$rc"; fi
