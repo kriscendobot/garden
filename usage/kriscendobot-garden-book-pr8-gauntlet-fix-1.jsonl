@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-10-12T19:59:35Z","base":"kriscendobot-garden-book-pr8-gauntlet-fix-1","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":679,"role":"gardener","provider":"anthropic"}
