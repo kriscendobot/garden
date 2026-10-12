@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T03:34:28Z_
+_As of 2026-10-12T03:36:02Z_
 
 ## Latest
 
@@ -578,12 +578,11 @@ Delegation: **active**
 
 - `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-10-09T00:20:13Z, latest 2026-10-12T03:05:11Z).
-> The SAME condition (`worker-derotate-oros-studio-garden-ce242c49`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T00:20:13Z, cleared 2026-10-12T03:35:09Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 3504s (offline threshold 1800s; sampled_at_epoch=1791770800).
-> worker-derotate zeroed its config/worker-leveling caps (were 8 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (506s old; sampled_at_epoch=1791775598)); it is PRESENT again and its config/worker-leveling caps are restored to 8 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
 
 - `endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached.md)
 
@@ -1356,7 +1355,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 189.2M | $870.11 _(notional, rate-card)_ | 70% of 271.0M (ok) |
+| Claude | 189.2M | $870.23 _(notional, rate-card)_ | 70% of 271.0M (ok) |
 | Codex | 8.0M _(+247.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106097946 tokens/day lower bound._
