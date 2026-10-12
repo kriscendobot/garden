@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-11T03:48:03Z
 arc: minion-town-git-remote
-stage: panel
+stage: fix
 iteration: 3
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr180-gauntlet-panel-3
+current_child: kriscendobot-minion.town-pr180-gauntlet-fix-3
 state: running
 resumed_at: 2026-10-12T05:29:18Z
 resumed_from_stage: fix
