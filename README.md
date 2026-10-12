@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T10:25:09Z_
+_As of 2026-10-12T10:30:54Z_
 
 ## Latest
 
@@ -23,7 +21,7 @@ Fleet health:
 
 ## Maintainer review docket
 
-133 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+134 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -111,6 +109,15 @@ Delegation: **active**
 > Jev 1.13.0 returned `halt_and_escalate`: injection 0.30 (`uncertain`), slant `neutral` at confidence 0.35, usage 2,591 input and 71 output tokens. Fetched bytes are `/tmp/scholar-ingest-literate-ai-remainder-17-20261011/0041-production-containment-runners.md` on `endolin-garden-ece02cb4`, SHA-256 `671ac8edb4f316712cf68a629dec667220155036445e60e26d3777cff5181fd0`.
 >
 > I did not read or ingest the file. It will remain blocked unless you explicitly authorize reading and ingestion.
+
+- `kriscendobot-minion.town-pr182-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr182-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr182-gauntlet-review-budget-reached.md)
+
+> Gauntlet kriscendobot-minion.town-pr182-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr182-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $11.82
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr182-gauntlet panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted.md)
 
@@ -1377,32 +1384,32 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 210.1M | $974.37 _(notional, rate-card)_ | 78% of 271.0M (ok) |
-| Codex | 9.4M _(+287.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 210.0M | $974.23 _(notional, rate-card)_ | 78% of 271.0M (ok) |
+| Codex | 9.4M _(+288.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106111235 tokens/day lower bound._
+_Fleet token-unlock pace: 106122284 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1412
+### todo (0)
+(none)
 
 ### doin (5)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
-- [`kriscendobot-minion.town-pr182-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #182
+- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1412
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy.md) — Post-deploy validation: screening patch fingerprint context drift
 - [`claude-on-minion-town-press-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-093524.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-093524.md) — ---
 
-### tada (12548)
+### tada (12550)
+- [`kriscendobot-minion.town-pr182-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet.md) — gauntlet kriscendobot-minion.town-pr182-gauntlet — review budget reached
+- [`kriscendobot-minion.town-pr182-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-fix-6.md) — Gauntlet fix round 6: kriscendobot/minion.town PR #182
 - [`fix-screening-patch-fingerprint-context-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/fix-screening-patch-fingerprint-context-drift.md) — Cost
 - [`oros-health-watch-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-093524.md) — Cost
 - [`kriscendobot-minion.town-pr182-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-panel-6.md) — Panel round 6: kriscendobot/minion.town PR #182 needs fixes (must-fix)
-- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-6.md) — Cost
-- [`minion-town-arc-press-20261012-082008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/minion-town-arc-press-20261012-082008.md) — Cost
-- … and 12543 more
+- … and 12545 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
