@@ -64,6 +64,12 @@
 #   T38 ordinary `release-2024` base (suffix names no commit) → merge
 #   T39 `<name>-<hex>` base with no live `<name>` → merge
 #   T40 live-branch read fails → fail closed, no merge
+#   T41 statusCheckRollup read 403 (token lacks checks:read) + green Actions runs →
+#      falls back to the Actions runs API: --no-merge exit 0, merge mode merges
+#   T42 rollup 403 + a failed Actions run → exit 3 (red), not pending
+#   T43 rollup 403 + an in-progress Actions run → still waits (exit 4 at deadline)
+#   T44 rollup 403 AND Actions runs 403 → exit 1 ci-read-forbidden, never rc 4
+#   T45 a secondary-rate-limit 403 stays on the transient retry path (exit 4)
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -111,9 +117,20 @@ if [ "$1" = api ] && [[ "$2" =~ /git/ref/heads/(.+)$ ]]; then
 if [ "$1" = api ] && [[ "$2" =~ /compare/ ]]; then
   [ -f "$STUBDIR/compare" ] || { echo "gh: Not Found (HTTP 404)" >&2; exit 1; }
   cat "$STUBDIR/compare"; exit 0; fi
+# Actions runs (the forbidden-rollup fallback): $STUBDIR/runs holds the REST body;
+# $STUBDIR/runs_forbidden makes the read a 403.
+if [ "$1" = api ] && [[ "$2" =~ /actions/runs\?head_sha= ]]; then
+  [ -f "$STUBDIR/runs_forbidden" ] && { echo "gh: Resource not accessible by personal access token (HTTP 403)" >&2; exit 1; }
+  cat "$STUBDIR/runs"; exit 0; fi
 if [ "$1" = api ]; then cat "$STUBDIR/reviews" 2>/dev/null || printf '[{"state":"APPROVED","commit_id":"123abc123abc123abc123abc123abc123abc123a","user":{"login":"kriskowal"}}]'; exit 0; fi
 case "$1 $2" in
   "pr view")
+    # $STUBDIR/rollup_forbidden: every statusCheckRollup read is a GraphQL 403;
+    # $STUBDIR/rollup_ratelimited: the same reads hit a secondary rate limit.
+    if printf ' %s' "$@" | grep -q -- 'statusCheckRollup'; then
+      [ -f "$STUBDIR/rollup_forbidden" ] && { echo "GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup)" >&2; exit 1; }
+      [ -f "$STUBDIR/rollup_ratelimited" ] && { echo "gh: You have exceeded a secondary rate limit (HTTP 403)" >&2; exit 1; }
+    fi
     if printf ' %s' "$@" | grep -q -- '--json state,autoMergeRequest'; then cat "$STUBDIR/verify"; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json author'; then
       [ -f "$STUBDIR/author_fail" ] && exit 1
@@ -177,7 +194,7 @@ CONFLICT_EMPTY="{\"state\":\"OPEN\",\"mergeable\":\"CONFLICTING\",\"headRefOid\"
 # Green CI but a maintainer requested changes: reviewDecision drives the gate.
 GREEN_CR="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"reviewDecision\":\"CHANGES_REQUESTED\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
 
-reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta" "$STUBDIR/refs" "$STUBDIR/refs_fail" "$STUBDIR/compare"; }
+reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta" "$STUBDIR/refs" "$STUBDIR/refs_fail" "$STUBDIR/compare" "$STUBDIR/runs" "$STUBDIR/runs_forbidden" "$STUBDIR/rollup_forbidden" "$STUBDIR/rollup_ratelimited"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
 chk()       { if [ "$1" = "$2" ]; then ok "$3 (rc=$1)"; else bad "$3 (got rc=$1 want $2)"; fi; }
 merged()    { if [ -f "$STUBDIR/merge.log" ]; then ok "$1 merge called"; else bad "$1 merge NOT called"; fi; }
@@ -474,6 +491,43 @@ run o/r 178; chk "$rc" 3 T34; nomerge T34
 echo "T35 stale red run + still-queued rerun → keeps waiting, no merge"
 reset_seq; seq_add "$(rerun_rollup "$(run_at test COMPLETED '"FAILURE"' 2026-09-30T01:00:00Z 206)" "$(run_at test QUEUED null 0001-01-01T00:00:00Z 207)")"
 GARDEN_CI_DEADLINE_SECS=1 run o/r 178; chk "$rc" 4 T35; nomerge T35
+
+# The oros-studio-garden-ce242c49 shape (2026-10-12): the bot PAT gets a 403 on
+# statusCheckRollup while every Actions run on the head succeeded.
+wf_run() { printf '{"name":"%s","event":"pull_request","status":"%s","conclusion":%s,"run_started_at":"2026-10-12T01:00:00Z","updated_at":"2026-10-12T01:05:00Z","html_url":"https://github.com/o/r/actions/runs/%s"}' "$1" "$2" "$3" "$4"; }
+runs_body() { printf '{"total_count":%s,"workflow_runs":[%s]}' "$#" "$(IFS=,; echo "$*")"; }
+
+echo "T41 rollup 403 + green Actions runs → fallback reads green"
+reset_seq; seq_add "$PEND"; touch "$STUBDIR/rollup_forbidden"
+runs_body "$(wf_run 'test (typecheck + vitest)' completed '"success"' 301)" > "$STUBDIR/runs"
+run_capture o/r 93 --no-merge; chk "$rc" 0 "T41 --no-merge"
+if grep -q "CI GREEN" "$STUBDIR/output" && grep -q "using the Actions runs API" "$STUBDIR/output"; then
+  ok "T41 green verdict came from the Actions runs API"
+else
+  bad "T41 missing fallback green: $(cat "$STUBDIR/output")"
+fi
+printf 'MERGED|false' > "$STUBDIR/verify"
+run o/r 93; chk "$rc" 0 "T41 merge mode"; merged T41
+
+echo "T42 rollup 403 + a failed Actions run → exit 3"
+reset_seq; seq_add "$PEND"; touch "$STUBDIR/rollup_forbidden"
+runs_body "$(wf_run test completed '"failure"' 302)" "$(wf_run lint completed '"success"' 303)" > "$STUBDIR/runs"
+run_capture o/r 93 --no-merge; chk "$rc" 3 T42
+grep -q "red: test (pull_request) = FAILURE" "$STUBDIR/output" && ok "T42 names the failed run" || bad "T42 failed run not named: $(cat "$STUBDIR/output")"
+
+echo "T43 rollup 403 + an in-progress Actions run → still waits"
+reset_seq; seq_add "$PEND"; touch "$STUBDIR/rollup_forbidden"
+runs_body "$(wf_run test in_progress null 304)" > "$STUBDIR/runs"
+GARDEN_CI_DEADLINE_SECS=1 run o/r 93 --no-merge; chk "$rc" 4 T43
+
+echo "T44 rollup 403 + Actions runs 403 → exit 1 ci-read-forbidden, not pending"
+reset_seq; seq_add "$PEND"; touch "$STUBDIR/rollup_forbidden" "$STUBDIR/runs_forbidden"
+GARDEN_CI_DEADLINE_SECS=999 run_capture o/r 93 --no-merge; chk "$rc" 1 T44; nomerge T44
+grep -q "ci-read-forbidden repo=o/r pr=93" "$STUBDIR/output" && ok "T44 names the permission gap" || bad "T44 missing ci-read-forbidden: $(cat "$STUBDIR/output")"
+
+echo "T45 secondary-rate-limit 403 → transient, keeps retrying to the deadline"
+reset_seq; seq_add "$PEND"; touch "$STUBDIR/rollup_ratelimited"
+GARDEN_CI_DEADLINE_SECS=1 run o/r 93 --no-merge; chk "$rc" 4 T45
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"

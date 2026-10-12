@@ -58,6 +58,15 @@
 #     to be increased", read from the check-run annotations): alert the maintainer
 #     once per owning account and exit 5, never 3. No push can fix it, so the
 #     caller parks instead of dispatching a shepherd or failing its stage.
+#   * ROLLUP READ FORBIDDEN: a token without checks:read/statuses:read gets a
+#     403 ("Resource not accessible by personal access token") on the GraphQL
+#     statusCheckRollup. That is not "still pending": the read falls back to the
+#     Actions runs API (`repos/<r>/actions/runs?head_sha=<head>`), one entry per
+#     workflow run, and the verdict is computed from those. If that read is
+#     forbidden too, or the mode is a delegated merge (which must not accept the
+#     narrower Actions-only view), exit 1 `ci-read-forbidden` with a maintainer
+#     alert. (oros-studio-garden-ce242c49, 2026-10-12: two minion.town gauntlet
+#     fix stages burned to rc 4 while every Actions run was green.)
 #   * On TIMEOUT while still pending, or when a concurrent push changes the live
 #     head after the rebase: exit 4 — CI is NOT a terminal state for the head this
 #     invocation prepared, so the caller MUST re-enqueue the merge job (leave it
@@ -73,7 +82,9 @@
 #   5  CI billing-blocked: every failed check is an Actions job the account's
 #      payment/spending limit kept from starting (maintainer alerted)
 #                                                     → park until billing is fixed
-#   1  hard error / merge or rebase blocked (`needs weave`) / not mergeable /
+#   1  hard error / CI unreadable because the token is forbidden from both the
+#      rollup and the Actions runs API (`ci-read-forbidden`, maintainer alerted) /
+#      merge or rebase blocked (`needs weave`) / not mergeable /
 #      frozen base shared by a sibling stack / base is a snapshot of a non-trunk
 #      branch (`reason=nontrunk-frozen-base`) / reviewDecision=CHANGES_REQUESTED (maintainer
 #      alerted)                                      → stall, re-enqueue
@@ -264,15 +275,89 @@ LATEST_CHECKS_JQ='
     | sort_by(.key) | .[].value;
 '
 
+# A token lacking checks:read/statuses:read cannot read the rollup at all. gh
+# surfaces that as a GraphQL FORBIDDEN ("Resource not accessible by personal
+# access token") or, on REST, an HTTP 403. Re-polling cannot fix it, so it must
+# never fall into the transient read-failure path that ends as rc 4 (pending).
+: "${GARDEN_CI_READ_FORBIDDEN_PATTERN:=HTTP 403|Resource not accessible by|FORBIDDEN|403 Forbidden}"
+# A secondary rate limit is also an HTTP 403, but it clears on its own: keep it
+# on the transient retry path.
+ci_read_forbidden() {  # ci_read_forbidden <stderr-file>
+  grep -qE -- "$GARDEN_CI_READ_FORBIDDEN_PATTERN" "$1" && ! grep -qi 'rate limit' "$1"
+}
+
+# Synthesize statusCheckRollup entries from the Actions runs API for <head>.
+# Each workflow run becomes one CheckRun-shaped entry keyed by workflow name and
+# triggering event, so LATEST_CHECKS_JQ and the verdicts below apply unchanged.
+# Echoes the JSON array; returns 6 when this read is forbidden too, 1 otherwise.
+actions_runs_rollup() {  # actions_runs_rollup <head-sha>
+  local head="$1" err runs rc=0
+  err="$(mktemp)"
+  runs="$("$GH" api "repos/$repo/actions/runs?head_sha=$head&per_page=100" 2>"$err")" || rc=$?
+  if [ "$rc" -ne 0 ]; then
+    if ci_read_forbidden "$err"; then
+      log "Actions runs read forbidden for $repo@${head:0:11}: $(head -c 300 "$err" | tr '\n' ' ')"
+      rm -f "$err"; return 6
+    fi
+    rm -f "$err"; return 1
+  fi
+  rm -f "$err"
+  printf '%s' "$runs" | jq -ce '
+    if (.workflow_runs | type) != "array" then error("no workflow_runs") else . end
+    | [ .workflow_runs[]
+        | (.status // "" | ascii_upcase) as $s
+        | { __typename: "CheckRun",
+            workflowName: (.name // ""),
+            name: "\(.name // "") (\(.event // ""))",
+            status: (if $s == "REQUESTED" then "QUEUED" else $s end),
+            conclusion: ((.conclusion // "") | ascii_upcase),
+            startedAt: (.run_started_at // .created_at // ""),
+            completedAt: (if $s == "COMPLETED" then (.updated_at // "") else "" end),
+            detailsUrl: (.html_url // ""),
+            source: "actions-runs" } ]' 2>/dev/null || return 1
+}
+
+# pr view for <fields> (which include statusCheckRollup). On a forbidden rollup
+# read, re-read the other fields plus headRefOid and substitute the Actions runs
+# rollup for that head. Echoes JSON; returns 0, 1 (read failure: retry), or 6
+# (forbidden with no usable fallback).
+read_pr_with_rollup() {  # read_pr_with_rollup <comma-separated json fields>
+  local fields="$1" err json rc=0 field meta_fields="" meta head checks
+  err="$(mktemp)"
+  json="$("$GH" pr view "$pr" -R "$repo" --json "$fields" 2>"$err")" || rc=$?
+  if [ "$rc" -eq 0 ]; then rm -f "$err"; printf '%s\n' "$json"; return 0; fi
+  if ! ci_read_forbidden "$err"; then rm -f "$err"; return 1; fi
+  log "statusCheckRollup read forbidden for $repo#$pr: $(head -c 300 "$err" | tr '\n' ' ')"
+  rm -f "$err"
+  if [ "$ratchet_delegated_merge" -eq 1 ]; then
+    log "delegated merge will not accept the Actions-only fallback for $repo#$pr"
+    return 6
+  fi
+  for field in ${fields//,/ }; do
+    case "$field" in statusCheckRollup|headRefOid) ;; *) meta_fields="$meta_fields$field," ;; esac
+  done
+  meta="$("$GH" pr view "$pr" -R "$repo" --json "${meta_fields}headRefOid" 2>/dev/null)" || return 1
+  printf '%s' "$meta" | jq -e . >/dev/null 2>&1 || return 1
+  head="$(printf '%s' "$meta" | jq -r '.headRefOid // ""')"
+  [[ "$head" =~ ^[0-9a-fA-F]{40}$ ]] || return 1
+  rc=0; checks="$(actions_runs_rollup "$head")" || rc=$?
+  [ "$rc" -eq 0 ] || return "$rc"
+  log "using the Actions runs API for $repo#$pr@${head:0:11} ($(printf '%s' "$checks" | jq 'length') run(s)); commit statuses and non-Actions check runs are not visible"
+  printf '%s' "$meta" | jq -c --argjson checks "$checks" '. + {statusCheckRollup: $checks}'
+}
+
 # One rollup read. Echoes
 # "<state>|<pending>|<failed>|<total>|<reviewDecision>|<headRefOid>|<mergeable>"
 # on stdout, or returns non-zero (never a fabricated green) when the read itself
-# fails. reviewDecision is GitHub's review rollup (CHANGES_REQUESTED / APPROVED /
+# fails: 6 when the token is forbidden from every CI read, 1 otherwise.
+# reviewDecision is GitHub's review rollup (CHANGES_REQUESTED / APPROVED /
 # REVIEW_REQUIRED / ""); the green-and-terminal block below refuses to merge over
 # a CHANGES_REQUESTED so a maintainer review landing mid-wait is never merged over.
 read_rollup() {
-  local json state pending failed total review head_oid mergeable
-  json="$("$GH" pr view "$pr" -R "$repo" --json state,mergeable,statusCheckRollup,reviewDecision,headRefOid 2>/dev/null)" \
+  local json state pending failed total review head_oid mergeable rc=0
+  json="$(read_pr_with_rollup state,mergeable,statusCheckRollup,reviewDecision,headRefOid)" || rc=$?
+  [ "$rc" -ne 6 ] || return 6
+  [ "$rc" -eq 0 ] \
     || { log "gh pr view $repo#$pr failed — aborting this tick (never fabricate green)"; return 1; }
   [ -n "$json" ] || { log "empty PR state for $repo#$pr"; return 1; }
   # Validate the payload IS json before extracting: a jq parse failure on
@@ -314,8 +399,10 @@ read_rollup() {
 }
 
 print_failures() {
+  local json
+  json="$(read_pr_with_rollup statusCheckRollup)" || return 0
   # shellcheck disable=SC2016  # jq program — $c is jq's, not the shell's.
-  "$GH" pr view "$pr" -R "$repo" --json statusCheckRollup --jq "$LATEST_CHECKS_JQ"'
+  printf '%s' "$json" | jq -r "$LATEST_CHECKS_JQ"'
     latest_checks
     | ((.conclusion // .state // "") | ascii_upcase) as $c
     | select($c=="FAILURE" or $c=="ERROR" or $c=="CANCELLED"
@@ -338,7 +425,7 @@ print_failures() {
 : "${GARDEN_ACTIONS_BILLING_PATTERN:=recent account payments have failed|spending limit needs to be increased}"
 actions_billing_blocked() {
   local json entries name url job_repo job_id annotations names=""
-  json="$("$GH" pr view "$pr" -R "$repo" --json statusCheckRollup 2>/dev/null)" || return 1
+  json="$(read_pr_with_rollup statusCheckRollup)" || return 1
   entries="$(printf '%s' "$json" | jq -r "$LATEST_CHECKS_JQ"'
     latest_checks
     | ((.conclusion // .state // "") | ascii_upcase) as $c
@@ -529,7 +616,14 @@ fi
 
 # --- block until CI is terminal (or the deadline passes) --------------------
 while :; do
-  if ! rollup="$(read_rollup)"; then
+  read_rc=0; rollup="$(read_rollup)" || read_rc=$?
+  if [ "$read_rc" -eq 6 ]; then
+    alert_maintainer "ci-read-forbidden-$(hostname -s 2>/dev/null || echo host)-${repo%%/*}" \
+      "ci-wait-merge on $(hostname -s 2>/dev/null || echo this host) cannot read CI for $repo#$pr: the GitHub token is forbidden (HTTP 403) from statusCheckRollup$([ "$ratchet_delegated_merge" -eq 1 ] && echo ', and delegated merges do not accept the Actions-only fallback' || echo ' and from the Actions runs API fallback'). This is a token permission gap, not pending CI. Grant the bot token checks:read and statuses:read (and actions:read) on '${repo%%/*}', then rerun the stage."
+    echo "ci-read-forbidden repo=$repo pr=$pr → token lacks CI read permission (403); NOT pending — fix the token, then rerun"
+    exit 1
+  fi
+  if [ "$read_rc" -ne 0 ]; then
     if past_deadline; then
       echo "ci-wait-timeout repo=$repo pr=$pr (gh read kept failing) after ${deadline_secs}s — STILL UNMERGED, re-enqueue"
       exit 4
