@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T01:40:03Z_
+_As of 2026-10-12T01:42:57Z_
 
 ## Latest
 
@@ -905,6 +905,19 @@ Delegation: **active**
 
 > Literate AI ingest, next architecture slice: 4 sources ingested as 18 sections: component-flavors (6), documentation-artifacts (3), framework-premise-assessment (4, with a caveat for persuasive framing; it is the project's own 6.5/10 self-assessment) and html-observability (5). The foreign-content gate halted beam-live-coding-layer-investigation.md (injection 0.29), so I did not read it; it is blocked pending your disposition, with a separate escalation sent. The next unprocessed source is docs/architecture/mission-specification-composition.md. The details are in this job's result entry.
 
+- `msg-kriscendobot-minion.town-pr174-gauntlet-fix-9-ea23b4173799` — from gardener:kriscendobot-minion.town-pr174-gauntlet-fix-9, reply_to `kriscendobot-minion.town-pr174-gauntlet-fix-9` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr174-gauntlet-fix-9-ea23b4173799.md)
+
+> [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/issues/174) (interim credit metering, no ERTP) needs a maintainer decision. The panel-9 decomplector asks you to confirm it.
+>
+> Does your 2026-10-09 decision to build metering "without ERTP" also waive two things?
+> 1. The durable `reserved` event and the never-guess-zero reconciler from clip-usage-metering § 4 (approved on [kriscendobot/minion.town#42](https://github.com/kriscendobot/minion.town/issues/42)).
+> 2. The Endo / DynamoDB persistence you asked for in the [kriscendobot/minion.town#42](https://github.com/kriscendobot/minion.town/issues/42) and [kriscendobot/minion.town#45](https://github.com/kriscendobot/minion.town/issues/45) reviews.
+>
+> What the interim does instead: it keeps reservations in memory in the gateway, stores the ledger as a JSONL file, and lets a charge that fails after a successful publish go unbilled (it is logged).
+>
+> designs/ertp-credits.md § 6a now states both departures and says they await your confirmation. Reply yes to keep the interim as it is, or no to rebase it onto the durable § 4 shape.
+> [https://github.com/kriscendobot/minion.town/pull/174](https://github.com/kriscendobot/minion.town/pull/174)
+
 - `doomed-review-docket-consolidate-20261008-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-review-docket-consolidate-20261008-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden2-5bcdff64.
@@ -1347,7 +1360,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.9M | $844.19 _(notional, rate-card)_ | 68% of 271.0M (ok) |
+| Claude | 183.9M | $845.62 _(notional, rate-card)_ | 68% of 271.0M (ok) |
 | Codex | 7.5M _(+240.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 105628784 tokens/day lower bound._
