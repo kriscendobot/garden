@@ -1,26 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: kriscendobot-minion.town-pr182-gauntlet
-role: gardener
-tier: mentor
-handler-budget-role: shepherd
-handler-timeout: 7200
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-10-12T04:03:06Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-10-12T04:03:06Z
----
-
----
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
@@ -28,9 +6,6 @@ gauntlet: kriscendobot-minion.town-pr182-gauntlet
 gauntlet_stage: fix
 gauntlet_iteration: 3
 pr: https://github.com/kriscendobot/minion.town/pull/182
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #182
