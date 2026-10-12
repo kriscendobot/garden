@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T03:43:37Z_
+_As of 2026-10-12T03:52:22Z_
 
 ## Latest
 
@@ -752,16 +750,16 @@ Delegation: **active**
 
 - `kriscendobot-minion.town-pr174-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr174-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr174-gauntlet-review-budget-reached.md)
 
-> COALESCED message — occurrence #2 (first seen 2026-10-10T05:29:26Z, latest 2026-10-11T21:38:11Z).
-> The SAME message (episode key `kriscendobot-minion.town-pr174-gauntlet-review-budget-reached`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
+> COALESCED message — occurrence #3 (first seen 2026-10-10T05:29:26Z, latest 2026-10-12T03:50:11Z).
+> The SAME message (episode key `kriscendobot-minion.town-pr174-gauntlet-review-budget-reached`) has now been sent 3 times; this is
+> ONE entry that updates in place, not 3 messages. Latest detail:
 >
-> Gauntlet kriscendobot-minion.town-pr174-gauntlet REVIEW-BUDGET-REACHED: Applied 8 panel/fix round(s); fix round 8 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=8, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr174-gauntlet panel --add-rounds N
+> Gauntlet kriscendobot-minion.town-pr174-gauntlet REVIEW-BUDGET-REACHED: Applied 10 panel/fix round(s); fix round 10 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=10, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr174-gauntlet panel --add-rounds N
 >
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 8/8 · cost so far: $16.73
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 10/10 · cost so far: $21.99
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr174-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 10 -> 12 (N is yours to choose).
 
 - `msg-scholar-ingest-literate-ai-remainder-18-20261011-e9bae64801a4` — from scholar:scholar-ingest-literate-ai-remainder-18-20261011, reply_to `scholar-ingest-literate-ai-remainder-18-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-18-20261011-e9bae64801a4.md)
 
@@ -1357,33 +1355,32 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 189.2M | $870.23 _(notional, rate-card)_ | 70% of 271.0M (ok) |
+| Claude | 190.8M | $878.22 _(notional, rate-card)_ | 70% of 271.0M (ok) |
 | Codex | 8.0M _(+247.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106115095 tokens/day lower bound._
+_Fleet token-unlock pace: 106120755 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.660257s/45s (/home/kris/garden/.garden-state/maintainer/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1412
+### todo (1)
 - [`oros-health-checkup-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-030519.md) — ---
 
 ### doin (5)
-- [`kriscendobot-minion.town-pr174-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #174
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #180
 - [`oros-health-checkup-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-000506.md) — ---
+- [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1412
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #182
 - [`kriscendobot-minion.town-pr181-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #181
 
-### tada (12496)
+### tada (12498)
+- [`kriscendobot-minion.town-pr174-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr174-gauntlet.md) — gauntlet kriscendobot-minion.town-pr174-gauntlet — review budget reached
+- [`kriscendobot-minion.town-pr174-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr174-gauntlet-fix-10.md) — Gauntlet fix round 10: kriscendobot/minion.town PR #174
 - [`claude-on-minion-town-press-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-030519.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-1.md) — Cost
 - [`oros-health-watch-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-030519.md) — Cost
-- [`kriscendobot-minion.town-pr182-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-panel-3.md) — Cost
-- [`kriscendobot-minion.town-pr174-gauntlet-panel-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr174-gauntlet-panel-10.md) — Cost
-- … and 12491 more
+- … and 12493 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
