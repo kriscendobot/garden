@@ -22,3 +22,13 @@ https://github.com/kriscendobot/minion.town/actions/runs/38260878200. The `prod-
    matching fix/build job against minion.town (deterministic basename) and report.
    If it sits queued for over an hour, the runner is offline. Check it per DEPLOYMENT.md § CI runner.
 Do not merge anything by hand. The proxy screen owns merges.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-12T14:38:09Z
