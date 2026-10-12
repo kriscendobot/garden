@@ -49,3 +49,13 @@ unless it asks you to stop.
 - One claim cannot span the chain. Before this job ends, if work remains, post a dated
   successor supervisor job (same body, updated state, `blocked_on` the next child) so
   supervision continues until the publish lands and you have reported the new ocap.site URL.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T20:18:46Z
