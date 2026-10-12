@@ -17,6 +17,7 @@ Repo: kriscendobot/minion.town, base `main`. Review is inverted for minion.town 
 
 Open a DRAFT PR; successful completion stages the gauntlet. CI must be green.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
