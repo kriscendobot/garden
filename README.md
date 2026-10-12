@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T19:33:54Z_
+_As of 2026-10-12T19:41:56Z_
 
 ## Latest
 
@@ -1472,10 +1470,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.4M | $996.86 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.7M _(+319.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 214.4M | $998.02 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Codex | 10.7M _(+319.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94421764 tokens/day lower bound._
+_Fleet token-unlock pace: 94593622 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
@@ -1486,16 +1484,16 @@ worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
 - [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-185007.md) — ---
 
 ### doin (2)
+- [`kriscendobot-garden-book-pr8-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/garden-book PR #8
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
-- [`kriscendobot-garden-book-pr8-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #8
 
-### tada (12583)
+### tada (12586)
+- [`claude-on-minion-town-completion-press-20261012-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-completion-press-20261012-193508.md) — Panel-head freshness
+- [`kriscendobot-garden-book-pr8-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-clean.md) — Cost
+- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume4.md) — Cost
 - [`kriscendobot-garden-book-pr8-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-viability.md) — Cost
 - [`oros-health-watch-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-185007.md) — Cost
-- [`improve-sanitize-inherited-clone-lock-soft-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/improve-sanitize-inherited-clone-lock-soft-mode.md) — Cost
-- [`claude-on-minion-town-press-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-185007.md) — Panel-head freshness
-- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume3.md) — Cost
-- … and 12578 more
+- … and 12581 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
