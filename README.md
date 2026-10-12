@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T20:20:04Z_
+_As of 2026-10-12T20:25:55Z_
 
 ## Latest
 
@@ -23,7 +21,7 @@ Fleet health:
 
 ## Maintainer review docket
 
-133 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+134 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -238,6 +236,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > gardener job 'endojs-endo-but-for-bots-pr179-weave-20261010' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2408s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `msg-garden-book-review-supervisor-20261012-aa35035b7444` — from gardener:garden-book-review-supervisor-20261012, reply_to `garden-book-review-supervisor-20261012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-book-review-supervisor-20261012-aa35035b7444.md)
+
+> Posted my review of [https://github.com/kriscendobot/garden-book/pull/8](https://github.com/kriscendobot/garden-book/pull/8)#pullrequestreview-5495588201: one factual correction required (the Endo fork uses frozen master-<sha> review bases, not a persistent master branch). Tests pass 21/21; generated internal links are clean. I settled the four editorial calls in the review and am routing the correction through the existing gauntlet. Feedback will inform the next pass; merge remains gated on the fix and gauntlet completion.
 
 - `msg-scholar-ingest-literate-ai-remainder-16-20261011-cce1ae339796` — from scholar:scholar-ingest-literate-ai-remainder-16-20261011, reply_to `scholar-ingest-literate-ai-remainder-16-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-16-20261011-cce1ae339796.md)
 
@@ -1488,10 +1490,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 216.8M | $1009.12 _(notional, rate-card)_ | 80% of 271.0M (ok) |
-| Codex | 10.8M _(+320.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 216.8M | $1009.34 _(notional, rate-card)_ | 80% of 271.0M (ok) |
+| Codex | 10.8M _(+322.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94722598 tokens/day lower bound._
+_Fleet token-unlock pace: 94728654 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.397109s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 7 open notice(s); checker healthy
@@ -1500,19 +1502,18 @@ worst fetch p95 2.397109s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 ### todo (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (4)
-- [`garden-book-review-supervisor-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-review-supervisor-20261012.md) — Supervise the garden book's reviews (kriscendobot/garden-book) - mentat tier
+### doin (3)
 - [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 2e531a6e2dda
 - [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-185007.md) — ---
 - [`kriscendobot-garden-book-pr8-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/garden-book PR #8
 
-### tada (12589)
+### tada (12590)
+- [`garden-book-review-supervisor-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/garden-book-review-supervisor-20261012.md) — Panel-head freshness
 - [`kriscendobot-garden-book-pr8-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-garden-book-pr8-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-garden-book-pr8-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-panel-1.md) — Cost
 - [`claude-on-minion-town-completion-press-20261012-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-completion-press-20261012-193508.md) — Panel-head freshness
-- [`kriscendobot-garden-book-pr8-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-clean.md) — Cost
-- … and 12584 more
+- … and 12585 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1610,6 +1611,7 @@ worst fetch p95 2.397109s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ui-iframe-live-frame`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-live-frame.md) — awaiting `minion-town-ui-iframe-embed-headers` · Iframe: frame the live clip in the main pane (minion-town-ui increment)
+- [`garden-book-review-supervisor-after-gauntlet-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-book-review-supervisor-after-gauntlet-20261012.md) — awaiting `kriscendobot-garden-book-pr8-gauntlet` · Supervise the garden book's reviews (kriscendobot/garden-book) - mentat tier
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`book-hyperlink-references-after-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-after-copyedit-20261004.md) — awaiting `https://github.com/kriscendobot/garden-book/pull/8` · Follow-up: make every reference in Better Code and Gardens an actual hyperlink
