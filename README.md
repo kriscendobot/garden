@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T19:05:45Z_
+_As of 2026-10-12T19:09:55Z_
 
 ## Latest
 
@@ -220,6 +218,12 @@ Delegation: **active**
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-5` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-5.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 5 (target 6): subscription claude-oros spend=11356596 cap=180000000 pace-bias=0.436502 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=6 backoff=0.6967(ramp) target=6
+
+- `msg-oros-health-watch-20261012-185007-aa6cac2eee1f` — from gardener:oros-health-watch-20261012-185007, reply_to `oros-health-watch-20261012-185007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-185007-aa6cac2eee1f.md)
+
+> Oros watcher update: `reset-failed` was acknowledged and applied. The attested `garden-monk@4.service` restart was acknowledged but refused because the sysop checked only for a concrete unit file, while systemd installs worker instances through `garden-monk@.service`.
+>
+> I fixed that sysop bridge bug on main2 at `f9b279f6200`: concrete numeric instances are now accepted only when their exact installed template exists. `scripts/jobs/test/sysop-test.sh` passes 62/62, including the new instance-restart regression. The fix still needs the normal rolling deploy before a worker restart can be retried. The 15:50Z checkup remains in doin; a person should inspect the unresolved Claude CLI lookup on Oros if the worker pool does not publish a recovery after deploy.
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
@@ -1459,7 +1463,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 214.3M | $996.01 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.6M _(+317.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Codex | 10.7M _(+319.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94421900 tokens/day lower bound._
 
@@ -1471,17 +1475,16 @@ worst fetch p95 2.576248s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 2e531a6e2dda
 - [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-185007.md) — ---
 
-### doin (2)
-- [`oros-health-watch-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261012-185007.md) — ---
+### doin (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
 
-### tada (12581)
+### tada (12582)
+- [`oros-health-watch-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-185007.md) — Cost
 - [`improve-sanitize-inherited-clone-lock-soft-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/improve-sanitize-inherited-clone-lock-soft-mode.md) — Cost
 - [`claude-on-minion-town-press-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-185007.md) — Panel-head freshness
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume3.md) — Cost
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume2.md) — Cost
-- [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-125006.md) — Cost
-- … and 12576 more
+- … and 12577 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
