@@ -655,6 +655,11 @@ GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 # takes minutes and several concurrent ones well over 15 (2026-10-12), so the 120s
 # bin/git bound and even the 300s clone cap killed every attempt.
 : "${GARDEN_JOURNAL_SEED_CHECKOUT_TIMEOUT:=1800}"
+# Cap on sync_clone's `reset --hard` to origin. A clone that has fallen hours behind
+# checks out a large delta; under the 120s bin/git bound the reset was killed (rc 124,
+# empty stderr) every tick, the index never advanced, and the delta only grew
+# (oros worktree-sweeper journal, 2026-10-12, failing every 30 min since 02:15).
+: "${GARDEN_JOURNAL_RESET_TIMEOUT:=900}"
 : "${GARDEN_JOURNAL_DEEPEN_ATTEMPTS:=3}"  # bounded local attempts when a Git lock contends
 : "${GARDEN_JOURNAL_DEEPEN_RETRY_BASE:=100}" # full-jitter retry base, in milliseconds
 # A tmp_pack_* older than any bounded git transfer can run is a killed fetch's
@@ -8726,7 +8731,8 @@ sync_clone() {
   # a connectivity outage, so exit EX_TEMPFAIL exactly like the fetch path. A
   # reset that fails for any other reason still surfaces (the retry below dies).
   reset_stderr=""
-  if reset_stderr="$(git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
+  if reset_stderr="$(GARDEN_REPO_GIT_TIMEOUT="$GARDEN_JOURNAL_RESET_TIMEOUT" \
+    git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
     rc=0
   else
     rc=$?
@@ -8753,7 +8759,8 @@ sync_clone() {
         die "fetch failed in $dir after re-cloning corrupt journal clone"
       fi
       reset_stderr=""
-      if ! reset_stderr="$(git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
+      if ! reset_stderr="$(GARDEN_REPO_GIT_TIMEOUT="$GARDEN_JOURNAL_RESET_TIMEOUT" \
+    git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
         die "hard reset of $dir to origin/$JOURNAL_BRANCH failed after re-cloning corrupt journal clone${reset_stderr:+: $reset_stderr}"
       fi
       log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-stale gc.log})"
@@ -8786,7 +8793,8 @@ sync_clone() {
       # reset). The entry sweep above ran before those children existed.
       _sweep_stale_git_locks "$dir"
       reset_stderr=""
-      if ! reset_stderr="$(git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
+      if ! reset_stderr="$(GARDEN_REPO_GIT_TIMEOUT="$GARDEN_JOURNAL_RESET_TIMEOUT" \
+    git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
         die "hard reset of $dir to origin/$JOURNAL_BRANCH failed after retry${reset_stderr:+: $reset_stderr}"
       fi
     fi
