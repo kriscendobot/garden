@@ -5,4 +5,4 @@ unit_failures: 4
 unit_total: 294
 first_bad_unit: garden-library-link-scan.service
 advisory_failures: 0
-at: 2026-10-12T11:09:25Z
+at: 2026-10-12T11:11:15Z
