@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T14:04:14Z_
+_As of 2026-10-12T14:06:30Z_
 
 ## Latest
 
@@ -603,11 +603,12 @@ Delegation: **active**
 
 - `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T00:20:13Z, cleared 2026-10-12T09:35:16Z).
-> It was observed 5 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #6 (first seen 2026-10-09T00:20:13Z, latest 2026-10-12T14:05:10Z).
+> The SAME condition (`worker-derotate-oros-studio-garden-ce242c49`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (777s old; sampled_at_epoch=1791796927)); it is PRESENT again and its config/worker-leveling caps are restored to 8 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 3186s (offline threshold 1800s; sampled_at_epoch=1791810717).
+> worker-derotate zeroed its config/worker-leveling caps (were 8 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden-ece02cb4)
 
 - `endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached.md)
 
