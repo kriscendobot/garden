@@ -74,3 +74,13 @@ This supersedes the weave comment's head `b744bacbe0`. Since the weave, the post
 
 **Verification:** the round-4 push changes only documentation (`packages/claude/README.md`, `designs/endo-claude-inference-backends.md`); no source or test file changed. Lint and tests were not re-run locally, so CI on `bade55a5b2` is the check.
 =====COMMENT=====
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-12T08:16:07Z
