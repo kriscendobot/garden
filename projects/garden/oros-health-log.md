@@ -2,6 +2,24 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-12T13:30Z (oros-health-checkup-20261012-125006): degraded
+
+- **Load/mem:** load 3.7/3.6/3.2; 13 GiB of 15.6 GiB available; swap 317 MiB used.
+- **Disk/inodes:** 57% (203 GB free); inodes 1%.
+- **Uptime:** 10d20h, no recent reboot.
+- **Deployed vs main2:** deployed `8da29934` = origin/main2 tip. Deployed at 11:44Z; fleet/health roll_status `deployed`; roll release names `8da29934`. The `3935f665` dedicated fleet-health clone unstuck the roll.
+- **Units:** 0 failed (fleet/health's `unit_failures: 2` is the 11:44 publish-time count). Units in `activating` were all under 6 min; none stuck.
+- **Budget heartbeat:** claude-oros pushes at 10:28, 10:37, 11:04, 11:22, 11:48, 12:02, 12:18, 12:32, 12:47, 13:12. The largest gap was 27 min. CAS push losses at 10:35, 10:54, 11:37 and 13:07 were each recovered on the next tick. Spend is 56.8M of 180M (22% derived), status ok.
+- **Workers:** 8 monks active; not drained; no derotation marker for oros.
+- **$GARDEN_STATE clones:** namespace-clone-maintenance repacked leader 61 → 26 at 12:41, but leader is back at 65 packs (with 1 tmp_pack) 40 min later. That is about 1 pack/min. The hourly pass at threshold 50 keeps up, so nothing was done by hand. Other clones are at 47–53 packs. No orphaned reclone or budget-stale siblings. The only held locks belong to a live transcripts fetch.
+- **rc=124:** 90 in the last 3h, down from 290. Mostly `monitor/monk-N` journal clones (>300s).
+- **Producer lane wedged:** the producer clone sat at 57–59 packs, over gc.autoPackLimit 50. After every fetch, `journal_auto_gc` ran `gc --auto`, and over the limit that is an all-in-one cruft repack. bin/git's 120s bound killed it every time (rc=124), so each fetch, including every CAS retry, paid about 120s under the producer lock. This run's own land spent 20+ min retrying, and the producer lock showed busy >3 min.
+- **Changed:**
+  - stopped this run's own stuck land;
+  - geometric-repacked `producer/journal` from 59 packs to 3 in seconds (`repack -d -l --geometric=2` via the fleet wrapper);
+  - fixed `journal_auto_gc` on main2 to use a geometric repack instead of `gc --auto`, with a new `journal-auto-gc-test.sh`.
+- **Still open:** the root repo is still shallow (`.git/shallow` = journal2 `1fa90b4f`). Running `git fetch --unshallow` needs an operator decision; see the 07:12Z note.
+
 ## 2026-10-12T07:40Z (oros-health-checkup-20261012-062008): degraded
 
 - **Load/mem:** load 9.1/5.0/4.7 at 06:55, 5.1/4.2/4.2 at 07:39; 12 GiB of 15.6 GiB available; swap 334 MiB used.
