@@ -15,8 +15,8 @@ stage: fix
 iteration: 6
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: kriscendobot-minion.town-pr182-gauntlet-fix-6
+state: running
 resumed_at: 2026-10-12T11:49:34Z
 resumed_from_stage: fix
 ---
