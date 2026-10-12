@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T20:25:55Z_
+_As of 2026-10-12T20:30:30Z_
 
 ## Latest
 
@@ -238,10 +236,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > gardener job 'endojs-endo-but-for-bots-pr179-weave-20261010' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2408s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `msg-garden-book-review-supervisor-20261012-aa35035b7444` — from gardener:garden-book-review-supervisor-20261012, reply_to `garden-book-review-supervisor-20261012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-book-review-supervisor-20261012-aa35035b7444.md)
-
-> Posted my review of [https://github.com/kriscendobot/garden-book/pull/8](https://github.com/kriscendobot/garden-book/pull/8)#pullrequestreview-5495588201: one factual correction required (the Endo fork uses frozen master-<sha> review bases, not a persistent master branch). Tests pass 21/21; generated internal links are clean. I settled the four editorial calls in the review and am routing the correction through the existing gauntlet. Feedback will inform the next pass; merge remains gated on the fix and gauntlet completion.
 
 - `msg-scholar-ingest-literate-ai-remainder-16-20261011-cce1ae339796` — from scholar:scholar-ingest-literate-ai-remainder-16-20261011, reply_to `scholar-ingest-literate-ai-remainder-16-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-16-20261011-cce1ae339796.md)
 
