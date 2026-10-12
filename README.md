@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T23:50:06Z_
+_As of 2026-10-12T23:52:06Z_
 
 ## Latest
 
@@ -358,9 +358,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-10-06T09:36:04Z, latest 2026-10-12T22:05:21Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-10-06T09:36:04Z, latest 2026-10-12T23:50:29Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
 
@@ -567,11 +567,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1336 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T22:50:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1336 times; this is ONE
-> coalesced notice that updates in place, not 1336 messages. Latest detail:
+> WATCHDOG notice — occurrence #1356 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T23:50:07Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1356 times; this is ONE
+> coalesced notice that updates in place, not 1356 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 242205s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 245805s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1070,15 +1070,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 221.8M | $1037.24 _(notional, rate-card)_ | 82% of 271.0M (ok) |
-| Codex | 12.5M _(+379.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 12.5M _(+380.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94509667 tokens/day lower bound._
+_Fleet token-unlock pace: 94510345 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`minion-town-arc-press-20261012-235039`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261012-235039.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
 ### doin (4)
