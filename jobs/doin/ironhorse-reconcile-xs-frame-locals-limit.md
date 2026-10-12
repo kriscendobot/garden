@@ -44,6 +44,7 @@ by running the upstream vectors through #1278's `compile_atoms` + `run_program_w
 Minor: field-init frames report at the first member's line; XS reports at the synthesized
 initializer function's node line. Align if cheap.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=55 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
