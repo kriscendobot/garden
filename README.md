@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T00:44:04Z_
+_As of 2026-10-12T00:46:28Z_
 
 ## Latest
 
@@ -721,11 +721,14 @@ Delegation: **active**
 
 - `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `namespace-clone-packs-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-10T02:43:50Z, cleared 2026-10-11T10:42:43Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-10T02:43:50Z, latest 2026-10-12T00:44:22Z).
+> The SAME condition (`namespace-clone-packs-oros-studio-garden-ce242c49`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
+> Per-namespace journal clones on oros-studio-garden-ce242c49 are still over the 50-pack threshold after maintenance:
+>   /Users/dom/garden/.garden-state/leader/journal: 66 packs
+>
+> A pack/tmp_pack buildup makes every git read slow (2026-10-08: 57 s leader read wedged ~100 leader-gated units). Inspect by hand: `nice ionice -c3 git -C <clone> repack -a -d`.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
@@ -1347,7 +1350,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 181.0M | $829.73 _(notional, rate-card)_ | 67% of 271.0M (ok) |
-| Codex | 7.2M _(+236.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Codex | 7.3M _(+236.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 105431292 tokens/day lower bound._
 
