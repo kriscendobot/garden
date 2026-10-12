@@ -901,14 +901,14 @@ grep -q '^roll_status: deferred' <<<"$(from_bare "fleet/health/$F1")" && ok "FOL
 rm -f "$TR/sd-state-$F1/draining"
 
 # FOLLOWER PUBLISH RETRY: a transient journal fetch failure must not lose the deferred
-# status (2026-10-07 16:56Z/16:59Z). The fetch seam fails the PRODUCER clone's fetches
+# status (2026-10-07 16:56Z/16:59Z). The fetch seam fails the FLEET-HEALTH clone's fetches
 # while a counter is positive; each publish attempt is one fetch (GARDEN_FETCH_RETRIES=1).
 FETCH_FAILS="$TR/producer-fetch-fails"
 cat > "$TR/flaky-fetch.sh" <<EOF
 #!/bin/bash
 n="\$(cat "$FETCH_FAILS" 2>/dev/null || echo 0)"
 case "\$GARDEN_FETCH_DIR" in
-  */producer/journal) if [ "\$n" -gt 0 ]; then echo \$((n-1)) > "$FETCH_FAILS"; echo "fatal: flaky test fetch" >&2; exit 1; fi ;;
+  */fleet-health/journal) if [ "\$n" -gt 0 ]; then echo \$((n-1)) > "$FETCH_FAILS"; echo "fatal: flaky test fetch" >&2; exit 1; fi ;;
 esac
 exec git -C "\$GARDEN_FETCH_DIR" fetch -q origin "$BRANCH"
 EOF
@@ -945,6 +945,17 @@ run_self_deploy "$F1" "${FLAKY_ENV[@]}" GARDEN_SELF_DEPLOY_NOW=61200
 n1="$(git -C "$BARE" rev-list --count "$BRANCH" -- "fleet/health/$F1")"
 [ "$n1" = "$n0" ] && [ ! -e "$SD_PENDING" ] && ok "PUBLISH RETRY: a pending status for an ended deferral is dropped, never published" \
   || bad "PUBLISH RETRY: stale pending deferral was published or kept ($n0 -> $n1)"
+# (d) a busy shared PRODUCER clone lock must not block the deferral (2026-10-12 oros:
+# post-job holders kept that lock for minutes, so every publish gave up on it).
+PRODUCER_LOCK="$TR/sd-state-$F1/producer/journal.lock"
+mkdir -p "$(dirname "$PRODUCER_LOCK")"; : > "$PRODUCER_LOCK"   # empty stamp = live, never stale
+flock "$PRODUCER_LOCK" sleep 60 & LOCK_HOLDER=$!
+sleep 0.2; : > "$TR/self-deploy.out"; sd_signal "$F1" "$TARGET"
+run_self_deploy "$F1" "${FLAKY_ENV[@]}" GARDEN_LOCK_WAIT=1 GARDEN_LOCK_RETRIES=1 GARDEN_SELF_DEPLOY_NOW=63000
+kill "$LOCK_HOLDER" 2>/dev/null; wait "$LOCK_HOLDER" 2>/dev/null || true
+if grep -q '^deferred_at_epoch: 63000' <<<"$(from_bare "fleet/health/$F1")" && [ ! -e "$SD_PENDING" ]; then
+  ok "PUBLISH ISOLATION: a busy producer-clone lock does not block the deferred-status publish"
+else bad "PUBLISH ISOLATION: deferral not published while the producer lock was held: $(from_bare "fleet/health/$F1" | grep deferred_at); $(tail -5 "$TR/self-deploy.out")"; fi
 sd_signal "$F1" "$TARGET"
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after follower deferral test"
 

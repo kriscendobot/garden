@@ -1942,7 +1942,7 @@ fleet_unit_health() {
 
 # publish_fleet_health <deployed-sha> [roll-status] — write this host's deployed +
 # health records to journal2 (fleet/deployed/<GARDEN>, fleet/health/<GARDEN>) via
-# the producer clone with a CAS loop, and — on the leader — deploy/leader-sha. This
+# a dedicated fleet-health clone with a CAS loop, and — on the leader — deploy/leader-sha. This
 # is the canary-validation input the leader reads AND the leaderless fallback's
 # last-known-good source. Best-effort: an unreachable journal never fails a deploy.
 # roll-status defaults to `deployed` (a normal post-deploy publish); a follower that
@@ -1955,9 +1955,15 @@ fleet_unit_health() {
 # An optional third argument is extra `key: value` lines appended to the health record
 # (self-deploy's `deferred` status carries deferred_reason/deferred_target/
 # deferred_at_epoch there).
+#
+# The clone is dedicated (GARDEN_FLEET_HEALTH_CLONE), not the shared producer clone:
+# under load every post-job/land-journal-edit on the host queues on the producer lock
+# (waits of 100s, holders of 300s), so sync_clone gave up on the lock and every
+# deferred-status publish failed. On 2026-10-12 oros published nothing from 02:39 to
+# 07:00, and the leader never saw it deferring.
 publish_fleet_health() {
   local sha="${1:?publish_fleet_health: sha}" status="${2:-deployed}" extra="${3:-}"
-  local DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+  local DIR="${GARDEN_FLEET_HEALTH_CLONE:-$GARDEN_STATE/fleet-health/journal}"
   local health; health="$(fleet_unit_health 2>/dev/null || echo '? ? - ?')"
   local unit_failures; unit_failures="$(printf '%s' "$health" | awk '{print $1}')"
   local unit_total; unit_total="$(printf '%s' "$health" | awk '{print $2}')"
