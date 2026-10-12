@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T20:54:07Z_
+_As of 2026-10-12T21:15:22Z_
 
 ## Latest
 
@@ -741,6 +739,10 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr93-gauntlet-20261010 panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
 
+- `msg-oros-health-checkup-20261012-185007-28e5e347851b` — from gardener:oros-health-checkup-20261012-185007, reply_to `oros-health-checkup-20261012-185007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261012-185007-28e5e347851b.md)
+
+> oros-studio-garden-ce242c49 is DRAINED (set 21:00:08Z, source rolling-deploy, reason 'canary FAILED validation (retries exhausted)'). Most likely this is a false canary failure: oros self-deployed f9b279f6 cleanly at 19:49Z, but every one of its post-deploy 'deployed' fleet/health publishes lost the journal CAS (a slow virtiofs reset --hard), so the leader read 'roll-drained @ 2e531a6' and failed it. The wedged sysop applied the leader's 20:02Z drain-on op only at 21:00Z. I republished fleet/health 'deployed @ f9b279f6' at 20:33Z, and the root-cause fix is on main2 as 0411ed9f. Per my job I did not touch the drain. If the leader's conductor does not lift it, someone needs to run 'drain off' for oros (sysop op or on-host drain-fleet.sh off).
+
 - `msg-scholar-ingest-literate-ai-architecture-next-20261010-46351dffa0e5` — from scholar:scholar-ingest-literate-ai-architecture-next-20261010, reply_to `scholar-ingest-literate-ai-architecture-next-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-next-20261010-46351dffa0e5.md)
 
 > Literate AI ingest, next architecture slice: 4 sources ingested as 18 sections: component-flavors (6), documentation-artifacts (3), framework-premise-assessment (4, with a caveat for persuasive framing; it is the project's own 6.5/10 self-assessment) and html-observability (5). The foreign-content gate halted beam-live-coding-layer-investigation.md (injection 0.29), so I did not read it; it is blocked pending your disposition, with a separate escalation sent. The next unprocessed source is docs/architecture/mission-specification-composition.md. The details are in this job's result entry.
@@ -1151,35 +1153,35 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 217.9M | $1016.04 _(notional, rate-card)_ | 80% of 271.0M (ok) |
-| Codex | 10.9M _(+322.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Claude | 219.0M | $1020.67 _(notional, rate-card)_ | 81% of 271.0M (backoff) |
+| Codex | 11.2M _(+328.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94625105 tokens/day lower bound._
+_Fleet token-unlock pace: 94516429 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
+worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`minion-town-arc-press-20261012-205007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261012-205007.md) — Supervise the minion.town arc: carry its pull requests through review
+### todo (5)
+- [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
+- [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
+- [`kriscendobot-garden-book-pr8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr8-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #8
+- [`endojs-endo-but-for-bots-pr1412-conduct-r5495956664`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-conduct-r5495956664.md) — Finalize endojs/endo-but-for-bots PR #1412
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (3)
-- [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 2e531a6e2dda
-- [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-185007.md) — ---
-- [`kriscendobot-garden-book-pr8-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/garden-book PR #8
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1412-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1412
 
-### tada (12592)
-- [`kriscendobot-garden-book-pr8-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-panel-3.md) — Cost
-- [`kriscendobot-garden-book-pr8-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-fix-2.md) — Cost
-- [`garden-book-review-supervisor-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/garden-book-review-supervisor-20261012.md) — Panel-head freshness
-- [`kriscendobot-garden-book-pr8-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-panel-2.md) — Cost
-- [`kriscendobot-garden-book-pr8-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-fix-1.md) — Cost
-- … and 12587 more
+### tada (12597)
+- [`endojs-endo-but-for-bots-pr1412-review-c8b358a6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/endojs-endo-but-for-bots-pr1412-review-c8b358a6.md) — Cost
+- [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-185007.md) — Cost
+- [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe — round trip OK
+- [`carry-minion-town-pr180-pr181-fix5-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/carry-minion-town-pr180-pr181-fix5-20261012.md) — Cost
+- [`kriscendobot-garden-book-pr8-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-panel-4.md) — Cost
+- … and 12592 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _low_ · ---
 - [`review-docket-consolidate-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-docket-consolidate-20261008.md) — _normal_ · ---
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/revive-hermit-lane-qwen3.8-20261001.md) — _normal_ · Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
@@ -1195,7 +1197,6 @@ worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-minion-town-ocap-site-crawler-leak-rotation.md) — _normal_ · Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
-- [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
@@ -1265,6 +1266,7 @@ worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1389 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr166-review-324bc83e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr166-review-324bc83e-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #166 (primary: kriscendobot-mini...
 - [`endojs-endo-but-for-bots-pr1403-review-1cfc544e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1403-review-1cfc544e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1403 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1412-review-c8b358a6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1412-review-c8b358a6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1412 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
