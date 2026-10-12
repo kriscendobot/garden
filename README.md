@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T09:08:53Z_
+_As of 2026-10-12T09:11:30Z_
 
 ## Latest
 
@@ -1390,18 +1390,17 @@ worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`kriscendobot-minion.town-pr182-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #182
 - [`minion-town-arc-press-20261012-082008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261012-082008.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1412
-- [`oros-health-checkup-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-030519.md) — ---
 
-### tada (12541)
+### tada (12542)
+- [`oros-health-checkup-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-030519.md) — Cost
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-fix-5.md) — Gauntlet fix round 5: kriscendobot/minion.town PR #182
 - [`kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet.md) — gauntlet kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet — HALTED
 - [`screen-minion-town-pr93-df22056-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/screen-minion-town-pr93-df22056-conduct.md) — Cost
 - [`oros-health-checkup-20261012-062008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-062008.md) — Cost
-- [`kriscendobot-minion.town-pr180-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr180-gauntlet-panel-5.md) — Cost
-- … and 12536 more
+- … and 12537 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
