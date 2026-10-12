@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T23:37:03Z_
+_As of 2026-10-12T23:44:03Z_
 
 ## Latest
 
@@ -23,7 +21,7 @@ Fleet health:
 
 ## Maintainer review docket
 
-133 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+134 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -484,6 +482,10 @@ Delegation: **active**
 >
 > Orchestration orch-minion-town-oauth-bonds HALTED: child build-minion-town-oauth-bonds completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
 
+- `20261012T234115Z-b0dd18` — from unblock:garden-book-review-supervisor-after-merge-20261012-blocked-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261012T234115Z-b0dd18.md)
+
+> Blocked job 'garden-book-review-supervisor-after-merge-20261012' will NOT be promoted: its blocker 'kriscendobot-garden-book-pr8-conduct-20261012' completed but DECLINED its gated outcome (e.g. a conductor that refused to merge a red / frozen-base / ferry-required PR). Promoting it would run downstream work against a base that never landed. It is HELD in plan/ under gate=blocked-failed for you: run promote-plan.sh 'garden-book-review-supervisor-after-merge-20261012' to override if the decline is acceptable, or discard it.
+
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #12 (first seen 2026-10-09T07:56:09Z, latest 2026-10-12T21:50:20Z).
@@ -510,10 +512,6 @@ Delegation: **active**
 >
 > ## Follow-ups
 > - Neither check has run on a live panel yet; the first code PR that adds a socket or formula type will be the first real exercise.
-
-- `msg-garden-book-review-supervisor-after-gauntlet-20261012-ddeebb841772` — from gardener:garden-book-review-supervisor-after-gauntlet-20261012, reply_to `garden-book-review-supervisor-after-gauntlet-20261012` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-book-review-supervisor-after-gauntlet-20261012-ddeebb841772.md)
-
-> Clean review posted: [https://github.com/kriscendobot/garden-book/pull/8](https://github.com/kriscendobot/garden-book/pull/8)#pullrequestreview-5497063042. I verified the required branch correction at 04a5b7e; 21 tests pass, the book builds, and generated internal fragments are clean. The adopted gauntlet passed on the same head. I am releasing the existing conductor under your book-only delegation, requiring live main and preservation of newer illumination/data work. A dated successor will supervise the merge, hyperlink PR, and publication; no new edition URL is claimed yet.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -1075,8 +1073,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 220.5M | $1031.63 _(notional, rate-card)_ | 81% of 271.0M (ok) |
-| Codex | 12.3M _(+378.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 221.7M | $1035.24 _(notional, rate-card)_ | 82% of 271.0M (ok) |
+| Codex | 12.5M _(+379.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94442462 tokens/day lower bound._
 
@@ -1087,21 +1085,18 @@ worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 ### todo (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (6)
+### doin (3)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
-- [`kriscendobot-minion.town-pr183-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
-- [`build-minion-town-inference-phase3-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-inference-phase3-secrets.md) — Build: item 4 phase 3 on minion.town — Claude credentials onto @secrets
-- [`kriscendobot-garden-book-pr8-conduct-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-conduct-20261012.md) — Finalize (curate -> merge) kriscendobot/garden-book PR #8
 
-### tada (12610)
+### tada (12614)
+- [`kriscendobot-minion.town-pr183-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-panel-2.md) — Cost
+- [`build-minion-town-inference-phase3-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/build-minion-town-inference-phase3-secrets.md) — Panel-head freshness
+- [`kriscendobot-garden-book-pr8-conduct-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-conduct-20261012.md) — Cost
+- [`kriscendobot-minion.town-pr183-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-fix-1.md) — Cost
 - [`garden-book-review-supervisor-after-gauntlet-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/garden-book-review-supervisor-after-gauntlet-20261012.md) — Cost
-- [`kriscendobot-garden-book-pr8-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet.md) — gauntlet kriscendobot-garden-book-pr8-gauntlet — complete
-- [`kriscendobot-garden-book-pr8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-gauntlet-undraft.md) — Cost
-- [`ironhorse-reconcile-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/ironhorse-reconcile-xs-frame-locals-limit.md) — Cost
-- [`kriscendobot-minion.town-pr183-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-panel-1.md) — Cost
-- … and 12605 more
+- … and 12609 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1206,7 +1201,6 @@ worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`garden-book-publish-ocap-site-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-book-publish-ocap-site-20261012.md) — awaiting `book-hyperlink-references-after-copyedit-20261004` · Publish the next edition of "Better Code and Gardens" as an ocap.site clip
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
-- [`garden-book-review-supervisor-after-merge-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-book-review-supervisor-after-merge-20261012.md) — awaiting `kriscendobot-garden-book-pr8-conduct-20261012` · Supervise the garden book's reviews (kriscendobot/garden-book) - mentat tier
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 - [`minion-town-ui-gutter-mint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-mint.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/142` · Gutter: the + button mints a real clip (minion-town-ui increment)
 
