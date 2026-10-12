@@ -23,3 +23,13 @@ re-verifying the conductor's freshness, effective-approval, and CI gates. Do
 not infer a merge method from this job; the conductor owns merge mechanics.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1412
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T21:36:23Z
