@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T11:01:24Z_
+_As of 2026-10-12T11:05:09Z_
 
 ## Latest
 
@@ -1386,23 +1384,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 210.1M | $974.83 _(notional, rate-card)_ | 78% of 271.0M (ok) |
-| Codex | 9.6M _(+293.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 210.1M | $975.03 _(notional, rate-card)_ | 78% of 271.0M (ok) |
+| Codex | 9.6M _(+293.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 105205493 tokens/day lower bound._
+_Fleet token-unlock pace: 105203080 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`claude-on-minion-town-press-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261012-093524.md) — Press the Claude-on-minion.town arc forward
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1412
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy.md) — Post-deploy validation: screening patch fingerprint context drift
-- [`claude-on-minion-town-press-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-093524.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (12552)
 - [`oros-health-checkup-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-093524.md) — oros-health-checkup-20261012-093524: **degraded**
