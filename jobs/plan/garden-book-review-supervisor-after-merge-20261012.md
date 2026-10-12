@@ -9,11 +9,10 @@ posted_at: 2026-10-12T23:34:33Z
 
 ---
 role: orchestrator
-tier: mentor
-dispatch: automatic
+tier: mentat
+dispatch: manual
 arc: garden-book
 handler-timeout: 10800
-fallback-tier: minion
 ---
 # Supervise the garden book's reviews (kriscendobot/garden-book) - mentat tier
 
