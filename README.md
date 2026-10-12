@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T10:48:58Z_
+_As of 2026-10-12T11:01:24Z_
 
 ## Latest
 
@@ -152,9 +150,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-06T06:35:18Z, latest 2026-10-12T00:35:29Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-10-06T06:35:18Z, latest 2026-10-12T10:50:20Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
 
@@ -1386,32 +1384,31 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 210.1M | $974.53 _(notional, rate-card)_ | 78% of 271.0M (ok) |
-| Codex | 9.4M _(+290.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 210.1M | $974.83 _(notional, rate-card)_ | 78% of 271.0M (ok) |
+| Codex | 9.6M _(+293.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106124720 tokens/day lower bound._
+_Fleet token-unlock pace: 105205493 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`fix-minion-town-prod-probe-runs-on-validation-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-minion-town-prod-probe-runs-on-validation-3.md) — Complete minion.town PR 182 production-probe validation
+### todo (0)
+(none)
 
-### doin (5)
+### doin (4)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1412
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy.md) — Post-deploy validation: screening patch fingerprint context drift
 - [`claude-on-minion-town-press-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-093524.md) — Press the Claude-on-minion.town arc forward
-- [`oros-health-checkup-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-093524.md) — ---
 
-### tada (12550)
+### tada (12552)
+- [`oros-health-checkup-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-093524.md) — oros-health-checkup-20261012-093524: **degraded**
+- [`fix-minion-town-prod-probe-runs-on-validation-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/fix-minion-town-prod-probe-runs-on-validation-3.md) — Cost
 - [`kriscendobot-minion.town-pr182-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet.md) — gauntlet kriscendobot-minion.town-pr182-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-fix-6.md) — Gauntlet fix round 6: kriscendobot/minion.town PR #182
 - [`fix-screening-patch-fingerprint-context-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/fix-screening-patch-fingerprint-context-drift.md) — Cost
-- [`oros-health-watch-20261012-093524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-093524.md) — Cost
-- [`kriscendobot-minion.town-pr182-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-panel-6.md) — Panel round 6: kriscendobot/minion.town PR #182 needs fixes (must-fix)
-- … and 12545 more
+- … and 12547 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
