@@ -1971,46 +1971,88 @@ publish_fleet_health() {
   local advisory_failures; advisory_failures="$(printf '%s' "$health" | awk '{print $4}')"
   local am_leader=0; is_main_host 2>/dev/null && am_leader=1
   local attempt rc
+  local record leader_rec=0
+  [ "$am_leader" -eq 1 ] && [ "$status" = deployed ] && leader_rec=1
+  record="$(
+    printf 'host: %s\n'          "$GARDEN"
+    printf 'deployed_sha: %s\n'  "$sha"
+    printf 'roll_status: %s\n'   "$status"
+    printf 'unit_failures: %s\n' "$unit_failures"
+    printf 'unit_total: %s\n'    "$unit_total"
+    printf 'first_bad_unit: %s\n' "$first_bad"
+    printf 'advisory_failures: %s\n' "${advisory_failures:-0}"
+    printf 'at: %s\n'            "$(date -u +%FT%TZ)"
+    [ -z "$extra" ] || printf '%s\n' "$extra"
+  )"
   # Contain ensure_clone/sync_clone in SUBSHELLS: both can `die`/exit (an
   # unresolvable journal_remote, an offline EX_TEMPFAIL), and this function is called
   # on the deploy success path — a bare exit there would fail an already-completed
   # deploy. The subshell converts any such exit into a non-zero status this function
-  # absorbs (the filesystem writes a subshell makes still persist). Best-effort by
-  # contract: an unreachable journal never fails a deploy.
+  # absorbs. Best-effort by contract: an unreachable journal never fails a deploy.
   ( ensure_clone "$DIR" ) >/dev/null 2>&1 || return 1
+  # Every path written here is owned by this host (or, for deploy/leader-sha, the
+  # leader), so each attempt grafts the records onto the fresh tip without the
+  # working tree (journal_graft_push). On oros 2026-10-12 19:49-20:10Z all 15
+  # post-deploy `deployed` attempts through sync_clone lost the CAS, and the leader
+  # kept reading roll-drained for a host that had already deployed.
+  local tmp; tmp="$(mktemp -d "${TMPDIR:-/tmp}/garden-fleet-health.XXXXXX")" || return 1
+  printf '%s\n' "$record" > "$tmp/health"
+  printf '%s\n' "$sha" > "$tmp/sha"
+  local files=("$GARDEN_FLEET_DEPLOYED_PATH/$GARDEN" "$tmp/sha" "$GARDEN_FLEET_HEALTH_PATH/$GARDEN" "$tmp/health")
+  [ "$leader_rec" -eq 1 ] && files+=("$GARDEN_DEPLOY_LEADER_SHA_PATH" "$tmp/sha")
   for attempt in $(seq 1 15); do
-    ( sync_clone "$DIR" ) >/dev/null 2>&1 || return 1
-    # sync_clone took clone_lock but released it when its subshell exited, so the
-    # write + push below would otherwise race concurrent producers on this shared
-    # producer clone's index (the cursor-set index-corruption shape). Re-take the
-    # lock in THIS shell across the mutation; commit_and_push releases it on every
-    # path (and the next retry re-syncs, then re-takes it).
-    clone_lock "$DIR"
-    mkdir -p "$DIR/$GARDEN_FLEET_DEPLOYED_PATH" "$DIR/$GARDEN_FLEET_HEALTH_PATH" 2>/dev/null || true
-    printf '%s\n' "$sha" > "$DIR/$GARDEN_FLEET_DEPLOYED_PATH/$GARDEN"
-    {
-      printf 'host: %s\n'          "$GARDEN"
-      printf 'deployed_sha: %s\n'  "$sha"
-      printf 'roll_status: %s\n'   "$status"
-      printf 'unit_failures: %s\n' "$unit_failures"
-      printf 'unit_total: %s\n'    "$unit_total"
-      printf 'first_bad_unit: %s\n' "$first_bad"
-      printf 'advisory_failures: %s\n' "${advisory_failures:-0}"
-      printf 'at: %s\n'            "$(date -u +%FT%TZ)"
-      [ -z "$extra" ] || printf '%s\n' "$extra"
-    } > "$DIR/$GARDEN_FLEET_HEALTH_PATH/$GARDEN"
-    git -C "$DIR" add "$GARDEN_FLEET_DEPLOYED_PATH/$GARDEN" "$GARDEN_FLEET_HEALTH_PATH/$GARDEN"
-    if [ "$am_leader" -eq 1 ] && [ "$status" = deployed ]; then
-      mkdir -p "$(dirname "$DIR/$GARDEN_DEPLOY_LEADER_SHA_PATH")" 2>/dev/null || true
-      printf '%s\n' "$sha" > "$DIR/$GARDEN_DEPLOY_LEADER_SHA_PATH"
-      git -C "$DIR" add "$GARDEN_DEPLOY_LEADER_SHA_PATH"
-    fi
-    rc=0; commit_and_push "$DIR" "fleet/health($GARDEN) $status @ ${sha:0:12}" || rc=$?
-    [ "$rc" -eq 0 ] && return 0
-    [ "$rc" -eq 2 ] && return 0   # nothing to commit → already current
+    rc=0; journal_graft_push "$DIR" "fleet/health($GARDEN) $status @ ${sha:0:12}" "${files[@]}" || rc=$?
+    { [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; } && { rm -rf "$tmp"; return 0; }
+    [ "$rc" -eq 3 ] && break
     backoff "$attempt"
   done
+  rm -rf "$tmp"
   return 1
+}
+
+# journal_graft_push [--keep-existing] <dir> <msg> <path> <src> [<path> <src>]... —
+# ONE CAS attempt that writes each <src> file's content to <path> on the fresh
+# journal tip and pushes, WITHOUT the working tree: fetch, read the tip into a
+# scratch index, add the blobs, commit-tree, move HEAD, push. The worktree path
+# (sync_clone's reset --hard, then `git add`/commit) stats all ~68k journal files;
+# on loaded virtiofs a no-op reset took 63-105s, so every push left from a tip
+# ~100s stale and lost the CAS again. Only for paths this host alone writes: the
+# graft overwrites whatever the tip holds. --keep-existing skips a path the tip
+# already has (an idempotent append-only record).
+# Returns 0 landed, 2 nothing to change, 3 the clone is unusable (sync_clone could
+# not heal it), 1 a lost CAS or other retryable failure. Takes and releases
+# clone_lock. HEAD moves without the index/worktree; the next sync_clone resets both.
+journal_graft_push() {
+  local keep=0
+  [ "${1:-}" = --keep-existing ] && { keep=1; shift; }
+  local dir="$1" msg="$2" base idx tree commit blob p rc=0 changed=0
+  shift 2
+  clone_lock "$dir"
+  if ! journal_fetch "$dir" 0 >/dev/null 2>&1; then
+    # The slow path self-heals a corrupt or missing clone (in a subshell: it can exit).
+    clone_unlock "$dir"
+    ( sync_clone "$dir" ) >/dev/null 2>&1 || return 3
+    clone_lock "$dir"
+  fi
+  base="$(git -C "$dir" rev-parse -q --verify "origin/$JOURNAL_BRANCH^{commit}")" || rc=1
+  idx="$(mktemp "${TMPDIR:-/tmp}/garden-graft-index.XXXXXX")" || rc=1
+  [ "$rc" -ne 0 ] || GIT_INDEX_FILE="$idx" git -C "$dir" read-tree "$base" || rc=1
+  while [ "$rc" -eq 0 ] && [ "$#" -ge 2 ]; do
+    p="$1"; shift
+    if [ "$keep" -eq 1 ] && git -C "$dir" cat-file -e "$base:$p" 2>/dev/null; then shift; continue; fi
+    blob="$(git -C "$dir" hash-object -w "$1")" \
+      && GIT_INDEX_FILE="$idx" git -C "$dir" update-index --add --cacheinfo "100644,$blob,$p" || rc=1
+    shift
+  done
+  [ "$rc" -ne 0 ] || tree="$(GIT_INDEX_FILE="$idx" git -C "$dir" write-tree)" || rc=1
+  rm -f "$idx"
+  [ "$rc" -ne 0 ] || [ "$tree" = "$(git -C "$dir" rev-parse "$base^{tree}")" ] || changed=1
+  if [ "$rc" -eq 0 ] && [ "$changed" -eq 0 ]; then clone_unlock "$dir"; return 2; fi
+  [ "$rc" -ne 0 ] || commit="$(printf '%s\n' "$msg" | git -C "$dir" commit-tree "$tree" -p "$base")" || rc=1
+  [ "$rc" -ne 0 ] || git -C "$dir" update-ref HEAD "$commit" || rc=1
+  [ "$rc" -ne 0 ] || journal_push_head "$dir" || rc=1
+  clone_unlock "$dir"
+  return "$rc"
 }
 
 # --- deterministic weekly token meter (the foreman back-off signal) -----------
@@ -8947,11 +8989,25 @@ commit_and_push() {
   # Structural refusal: a test context must never push to production journal2.
   guard_no_production_push_in_test "$dir"
   if ! git -C "$dir" commit -q -m "$msg"; then clone_unlock "$dir"; return 2; fi
+  rc=0; journal_push_head "$dir" || rc=$?
+  clone_unlock "$dir"
+  return "$rc"
+}
+
+# journal_push_head <dir> — push <dir>'s HEAD to origin/$JOURNAL_BRANCH, verify it
+# landed, and classify a rejection (GARDEN_COMMIT_PUSH_CLASS / _REJECTED, the
+# journal-contention ring). Returns 0 when landed, 1 otherwise. The caller holds
+# and releases clone_lock.
+journal_push_head() {
+  local dir="$1" rc=1
+  GARDEN_COMMIT_PUSH_CLASS=""
+  GARDEN_COMMIT_PUSH_REJECTED=0
+  guard_no_production_push_in_test "$dir"
   if _push_journal "$dir"; then
     if _verify_pushed "$dir"; then
       rc=0
     else
-      log "ALERT: push of '$msg' reported success but did NOT land on origin/$JOURNAL_BRANCH; re-syncing (silent-loss guard)"
+      log "ALERT: push of '$(git -C "$dir" log -1 --format=%s HEAD 2>/dev/null)' reported success but did NOT land on origin/$JOURNAL_BRANCH; re-syncing (silent-loss guard)"
       rc=1
     fi
   else
@@ -8975,7 +9031,6 @@ commit_and_push() {
     [ -z "$GARDEN_COMMIT_PUSH_CLASS" ] \
       || contention_record "$dir" push-class "$GARDEN_COMMIT_PUSH_CLASS"
   fi
-  clone_unlock "$dir"
   return "$rc"
 }
 

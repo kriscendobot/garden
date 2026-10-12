@@ -257,25 +257,23 @@ spool_result() {  # spool_result <msgid> <op> <from_host> <reply_to> <outcome> <
 
 flush_pending() {
   local DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
-  local recs=() f m attempt rc n
+  local recs=() files=() f attempt rc
   for f in "$GARDEN_SYSOP_PENDING"/*.rec; do [ -e "$f" ] && recs+=("$f"); done
   [ "${#recs[@]}" -gt 0 ] || return 0
+  for f in "${recs[@]}"; do files+=("sysop-log/$GARDEN/$(basename "$f" .rec).md" "$f"); done
   ensure_clone "$DIR"
+  # The records are this host's own, so they are grafted onto the fresh tip without
+  # the working tree. Through sync_clone + commit, each attempt on loaded virtiofs
+  # left from a tip minutes stale and lost the CAS; on oros 2026-10-12 every tick
+  # from 20:03Z hit the 600s handler timeout with one `drain off` ack still spooled.
   for attempt in $(seq 1 25); do
-    sync_clone "$DIR"
-    mkdir -p "$DIR/sysop-log/$GARDEN"
-    n=0
-    for f in "${recs[@]}"; do
-      m="$(basename "$f" .rec)"
-      [ -f "$DIR/sysop-log/$GARDEN/$m.md" ] && continue   # already recorded (idempotent)
-      cp "$f" "$DIR/sysop-log/$GARDEN/$m.md"
-      git -C "$DIR" add "sysop-log/$GARDEN/$m.md"; n=$((n+1))
-    done
-    [ "$n" -eq 0 ] && break
-    rc=0; commit_and_push "$DIR" "sysop-log($GARDEN) $n record(s)" || rc=$?
+    rc=0; journal_graft_push --keep-existing "$DIR" "sysop-log($GARDEN) ${#recs[@]} record(s)" "${files[@]}" || rc=$?
     { [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; } && break
+    if [ "$rc" -eq 3 ] || [ "$attempt" -eq 25 ]; then
+      log "WARN: could not record ${#recs[@]} spooled sysop-log record(s) after retries (acking anyway; op idempotency protects replay)"
+      break
+    fi
     backoff "$attempt"
-    [ "$attempt" -eq 25 ] && log "WARN: could not record ${#recs[@]} spooled sysop-log record(s) after retries (acking anyway; op idempotency protects replay)"
   done
   for f in "${recs[@]}"; do
     m="$(basename "$f" .rec)"
