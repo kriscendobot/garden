@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1412
 build_job: weave-endo-pr1412-after-pr1403-merge-20261011
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-3
+current_child: endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-3
 state: running
 created_by: weaver
 created_at: 2026-10-11T22:16:43Z
