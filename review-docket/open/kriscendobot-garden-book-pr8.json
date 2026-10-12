@@ -3,7 +3,7 @@
   "repo": "kriscendobot/garden-book",
   "pr": 8,
   "url": "https://github.com/kriscendobot/garden-book/pull/8",
-  "head_oid": "04a5b7e847f9458bdcb85b268526f2b8b45b3303",
+  "head_oid": "272112515e2062954136f09a33f53012844637d7",
   "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
@@ -15,6 +15,6 @@
   "generation": 1,
   "ci": {
     "state": "pending",
-    "observed_at": "2026-10-12T23:27:16Z"
+    "observed_at": "2026-10-12T23:52:28Z"
   }
 }
