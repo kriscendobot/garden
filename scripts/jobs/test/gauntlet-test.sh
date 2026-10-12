@@ -949,6 +949,23 @@ out="$("$MFS" "$mfs_dir" q 1)"; rc=$?
 { [ "$rc" = 0 ] && grep -Fq 'Unaddressed must-fix: 4 · list unavailable' <<<"$out"; } \
   && ok "mustfix summary: count line without bullets keeps the count, says list unavailable" \
   || bad "mustfix count-only: rc=$rc [$out]"
+# Current stage reports are agent-authored prose and omit the structured list.
+# Resolve the report's reviewed head to the authoritative panel-run record.
+mfs_w r-panel-1 'Panel round 1 reviewed head `abcdef1` and returned must-fix.'
+mkdir -p "$mfs_dir/panel-runs/acme-widget-171"
+{
+  printf '%s\n' '---' 'kind: panel-run' \
+    'reviewed_head: abcdef1234567890abcdef1234567890abcdef12' '---' '' \
+    'must-fix items (20):'
+  for i in $(seq 1 20); do printf -- '- seat%s: authoritative finding %s\n' "$i" "$i"; done
+} > "$mfs_dir/panel-runs/acme-widget-171/run.md"
+out="$("$MFS" "$mfs_dir" r 1)"
+{ grep -Fq '**Unaddressed must-fix: 20**' <<<"$out" \
+    && grep -Fq '[new, since r1] seat1: authoritative finding 1' <<<"$out" \
+    && grep -Fq '… and 8 more' <<<"$out" \
+    && [ "$(grep -c '^\[new, since r1\]' <<<"$out")" = 12 ]; } \
+  && ok "mustfix summary: stage reviewed head resolves bounded authoritative panel-run list" \
+  || bad "mustfix panel-run resolution: [$out]"
 # Oversize: long item truncated, long list capped.
 long="$(printf 'x%.0s' $(seq 1 500))"
 lines=(); for i in $(seq 1 20); do lines+=("- s$i: item $i $long"); done

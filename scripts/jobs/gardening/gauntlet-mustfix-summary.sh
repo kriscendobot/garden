@@ -8,10 +8,13 @@
 # Usage: gauntlet-mustfix-summary.sh <journal-dir> <gauntlet-base> <last-round> [max-iterations]
 #
 # Input: the panel stage reports `jobs/tada/**/<base>-panel-<k>.md` for k=1..last
-# round, and the fix reports `<base>-fix-<k>.md` (cost only). From each panel report
-# it reads the LAST `must-fix items (N):` block (panel-run-record.sh's shape),
-# whose bullets are `- <seat>: <text>` (or a bare `- <text>`). max-iterations, when
-# omitted, is read from the gauntlet's own tada report frontmatter.
+# round, the matching `panel-runs/<repo>-<pr>/*.md` records, and the fix reports
+# `<base>-fix-<k>.md` (cost only). Each stage report's reviewed head resolves its
+# authoritative panel-run record; the stage report remains the fail-soft fallback
+# for older records. From that source this reads the LAST `must-fix items (N):`
+# block (panel-run-record.sh's shape), whose bullets are `- <seat>: <text>` (or a
+# bare `- <text>`). max-iterations, when omitted, is read from the gauntlet's own
+# tada report frontmatter.
 #
 # An item's identity across rounds is <seat> + its text lowercased with everything
 # but [a-z0-9] removed (first 80 chars) — exact-ish matching only; a reworded
@@ -48,6 +51,46 @@ find_report() {  # <base> → path or empty
   find "$TADA" -mindepth 1 -type f -name "$1.md" -print -quit 2>/dev/null
 }
 
+reviewed_head_from_report() { # <stage-report> → full or abbreviated SHA
+  # Agent-authored reports are prose, but consistently identify the reviewed
+  # commit as "reviewed head", "at head", or "head SHA". Keep this deliberately
+  # narrow: a false match to the base SHA is worse than the fail-soft fallback.
+  sed -nE \
+    -e 's/^[[:space:]]*reviewed_head:[[:space:]]*([0-9A-Fa-f]{7,40}).*/\1/p' \
+    -e 's/.*[Rr]eviewed head[[:space:]]*[`:]*[[:space:]]*([0-9A-Fa-f]{7,40}).*/\1/p' \
+    -e 's/.*[Aa]t head[[:space:]]*[`:]*[[:space:]]*([0-9A-Fa-f]{7,40}).*/\1/p' \
+    -e 's/.*head SHA[[:space:]]*[`:]*[[:space:]]*([0-9A-Fa-f]{7,40}).*/\1/p' \
+    "$1" 2>/dev/null | head -1 | tr '[:upper:]' '[:lower:]'
+}
+
+resolve_panel_record() { # <stage-report> → matching durable record or empty
+  local report="$1" rel head record record_head match=""
+
+  # Prefer an explicit durable-record citation when the stage report carries it.
+  rel="$(grep -Eo 'panel-runs/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+\.md' "$report" 2>/dev/null | tail -1)"
+  if [ -n "$rel" ] && [ -f "$dir/$rel" ]; then
+    printf '%s\n' "$dir/$rel"
+    return 0
+  fi
+
+  head="$(reviewed_head_from_report "$report")"
+  [ -n "$head" ] || return 1
+  while IFS=$'\t' read -r record_head record; do
+    case "$record_head:$head" in
+      "$head"*:*) ;;
+      *:"$record_head"*) ;;
+      *) continue ;;
+    esac
+    # A head should identify one append-only run record. Ambiguity is unusual
+    # (for example, two panel reruns without a commit) and must fail soft rather
+    # than silently attributing another run's findings to this stage.
+    [ -z "$match" ] || return 1
+    match="$record"
+  done < "$PANEL_INDEX"
+  [ -n "$match" ] || return 1
+  printf '%s\n' "$match"
+}
+
 case "$last" in ''|*[!0-9]*|0) exit 0;; esac
 [ -d "$TADA" ] || exit 0
 if ! [[ "$max" =~ ^[0-9]+$ ]]; then
@@ -58,7 +101,17 @@ fi
 
 # Gather "<round>\t<raw-line>" records for every panel round, and cost.
 recs="$(mktemp "${TMPDIR:-/tmp}/gauntlet-mustfix.XXXXXX")"
-trap 'rm -f "$recs"' EXIT
+PANEL_INDEX="$(mktemp "${TMPDIR:-/tmp}/gauntlet-mustfix-panel-index.XXXXXX")"
+trap 'rm -f "$recs" "$PANEL_INDEX"' EXIT
+# Index once: a terminal digest may cover many rounds, and repeatedly scanning
+# every durable panel record for each round makes the fail-soft summary needlessly
+# expensive on a mature journal.
+for record in "$dir"/panel-runs/*/*.md; do
+  [ -f "$record" ] || continue
+  record_head="$(sed -nE 's/^[[:space:]]*reviewed_head:[[:space:]]*([0-9A-Fa-f]{7,40}).*/\1/p' "$record" 2>/dev/null \
+    | head -1 | tr '[:upper:]' '[:lower:]')"
+  [ -n "$record_head" ] && printf '%s\t%s\n' "$record_head" "$record" >> "$PANEL_INDEX"
+done
 cost_files=()
 for k in $(seq 1 "$last"); do
   p="$(find_report "$base-panel-$k")"
@@ -66,6 +119,15 @@ for k in $(seq 1 "$last"); do
   [ -n "$f" ] && cost_files+=("$f")
   [ -n "$p" ] || { printf '%s\tMISSING\n' "$k" >> "$recs"; continue; }
   cost_files+=("$p")
+  # Stage reports are human completion summaries and commonly omit the compact
+  # list. The panel-run record is the authoritative machine-readable artifact.
+  # If it cannot be resolved (legacy report/record, ambiguity, missing store),
+  # parse the stage report exactly as before.
+  source="$p"
+  record="$(resolve_panel_record "$p" || true)"
+  if [ -n "$record" ] && grep -qE '^must-fix items \([0-9]+\):' "$record" 2>/dev/null; then
+    source="$record"
+  fi
   # Last `must-fix items (N):` block: header, then the contiguous `- ` bullets.
   awk -v k="$k" '
     /^must-fix items \([0-9]+\):/ { n=0; hdr=$0; inb=1; next }
@@ -76,7 +138,7 @@ for k in $(seq 1 "$last"); do
       c=hdr; sub(/^must-fix items \(/, "", c); sub(/\).*/, "", c)
       printf "%s\tCOUNT\t%s\n", k, c
       for (i=1; i<=n; i++) printf "%s\tITEM\t%s\n", k, b[i]
-    }' "$p" >> "$recs" 2>/dev/null || printf '%s\tNOHDR\n' "$k" >> "$recs"
+    }' "$source" >> "$recs" 2>/dev/null || printf '%s\tNOHDR\n' "$k" >> "$recs"
 done
 
 cost=""
