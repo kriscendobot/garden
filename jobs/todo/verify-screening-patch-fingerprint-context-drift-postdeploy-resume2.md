@@ -1,6 +1,3 @@
-once: 2026-10-12T17:45:00Z
-job_basename_prefix: verify-screening-patch-fingerprint-context-drift-postdeploy-resume2
----
 ---
 role: fixer
 tier: mentor
