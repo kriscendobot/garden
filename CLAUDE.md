@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-09-29
+updated: 2026-10-12
 author: gardener, liaison, builder
 ---
 
@@ -202,7 +202,8 @@ The **sysop** (`scripts/jobs/sysop.sh`, `garden-sysop.{service,timer}`;
 [designs/sysop.md](designs/sysop.md)) is a **deterministic, no-LLM per-host daemon**
 that receives host-directed system operations over the bus — addressed to a new
 `host/<GARDEN>` bus kind — and executes a **closed vocabulary** (`set-workers`,
-`drain`, `reset-failed`, `restore`, `unit`, `deploy`, `local-model`, `maintain`) on the host it
+`drain`, `reset-failed`, `restore`, `refresh-budget-snapshot`, `unit`, `deploy`,
+`local-model`, `maintain`) on the host it
 runs on, each delegating to the existing hardened same-host tool. Its motivation is the
 **unattended follower**: today "throttle host Y" waits for a human to sit at Y
 (`set-workers.sh` correctly refuses cross-host writes); the sysop is the daemon that

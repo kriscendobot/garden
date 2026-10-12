@@ -173,6 +173,7 @@ The ops, split into two trust tiers (§6):
 | `drain` | `state: on\|off`, optional `reason: <text, single line, logged only>` | `drain-fleet.sh on [reason]` / `drain-fleet.sh off` | interpret `reason` as anything but an opaque logged note; touch any host but its own |
 | `reset-failed` | *(none)* | `systemctl --user reset-failed 'garden-*'` | reset units outside the `garden-*` glob; `start`/`stop`/`enable` anything |
 | `restore` | *(none)* | the deterministic recovery one-shots only: `reset-failed` + `reaper.sh` + `deadmail.sh` | perform the liaison-judgement half of the [restore](../skills/restore/SKILL.md) skill (doom triage / redispatch); read or interpret maintainer-inbox prose |
+| `refresh-budget-snapshot` | `pool: <subscription id>` mapped to this host | starts the fixed `garden-gardener-scaler.service` (this host's existing bounded snapshot publisher) | refresh a pool owned by another host; accept an arbitrary command; increase the pool on the requesting leader before a fresh snapshot is accepted |
 
 ### Destructive tier (less reversible — stricter gate, §6)
 
@@ -184,7 +185,7 @@ The ops, split into two trust tiers (§6):
 | `maintain` | *(none but `authorized_by`)* — targets exactly `$GARDEN_ROOT`; **no** `path`/`ref`/`force`/`action` field (an arbitrary repo op is unrepresentable) | starts the non-enabled `garden-root-maintenance.service` (`root-maintenance.sh` invokes `root-repo-guard.sh` with the authorized gc-lock escalation) — an **async** op; a cheap synchronous liveness precheck refuses a lock held by a LIVE gc, else it acks `accepted-in-progress` then a terminal `applied`/`refused`/`failed` on a later tick | pass `git gc --force`; clobber a lock held by a live gc; **drop any ref or history** (a store with genuinely missing objects still alerts a human); touch any repo but `$GARDEN_ROOT`. Full design: [sysop-repo-maintenance.md](sysop-repo-maintenance.md) |
 
 Every op is **idempotent by nature** (set-workers to N, drain on/off, reset-failed,
-deploy-to-current-sha, unit start/stop to a target state), which combines with the
+refresh-budget-snapshot, deploy-to-current-sha, unit start/stop to a target state), which combines with the
 exactly-once cursor (§3) to make replay safe (§6).
 
 The enumeration is deliberately small. Each entry delegates to an **existing,

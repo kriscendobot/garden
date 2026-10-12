@@ -17,6 +17,7 @@
 #   send-host-op.sh ps23-garden-abcd1234 op=drain state=off
 #   send-host-op.sh ps23-garden-abcd1234 op=reset-failed
 #   send-host-op.sh ps23-garden-abcd1234 op=restore
+#   send-host-op.sh ps23-garden-abcd1234 op=refresh-budget-snapshot pool=claude-oros
 #   send-host-op.sh ps23-garden-abcd1234 op=unit action=restart name=garden-foreman.timer authorized_by=<login>
 #   send-host-op.sh ps23-garden-abcd1234 op=deploy authorized_by=<login>
 #   send-host-op.sh ps23-garden-abcd1234 op=local-model authorized_by=<login>

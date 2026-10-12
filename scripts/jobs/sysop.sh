@@ -5,8 +5,9 @@
 #
 # A DETERMINISTIC, no-LLM consumer of host-directed system operations off the bus.
 # It reads this host's `host/<GARDEN>` topic, parses each message against a CLOSED
-# operation vocabulary (set-workers, drain, reset-failed, restore, unit, deploy,
-# local-model, maintain), validates it BEFORE execution, and delegates each op to the
+# operation vocabulary (set-workers, drain, reset-failed, restore,
+# refresh-budget-snapshot, unit, deploy, local-model, maintain), validates it BEFORE
+# execution, and delegates each op to the
 # EXISTING hardened same-host tool (set-workers.sh, drain-fleet.sh, …) — it adds
 # addressing + destructive-tier attestation, never new privileged mechanics. It
 # runs on EVERY host (leader and follower alike): the whole point is to drive an
@@ -88,6 +89,7 @@ export GARDEN_TAG="sysop"
 : "${GARDEN_SYSOP_DEPLOY:=$HERE/deploy-garden.sh}"
 : "${GARDEN_SYSOP_REAPER:=$HERE/reaper.sh}"
 : "${GARDEN_SYSOP_DEADMAIL:=$HERE/deadmail.sh}"
+: "${GARDEN_SYSOP_REFRESH_BUDGET:=}"                       # test seam; production starts the fixed scaler service
 : "${GARDEN_SYSOP_ACK_SEND:=$HERE/send-msg.sh}"              # ack to host/<from_host>
 : "${GARDEN_SYSOP_ACK_INBOX:=$HERE/inbox-send.sh}"          # ack to a live job doer (reply_to: job/<base>)
 : "${GARDEN_SYSOP_PENDING:=$GARDEN_STATE/sysop/pending}"      # host-local record/ack spool (survives a killed tick)
@@ -571,6 +573,29 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
       GARDEN_REAP_PUSH_ATTEMPTS="$GARDEN_SYSOP_RESTORE_REAP_ATTEMPTS" timeout "$t" "$GARDEN_SYSOP_REAPER" >/dev/null 2>&1 && steps+=(reaper)   || rc=1
       timeout "$t" "$GARDEN_SYSOP_DEADMAIL" >/dev/null 2>&1 && steps+=(deadmail) || rc=1
       if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="restore: ${steps[*]}"; else OUTCOME="failed"; DETAIL="restore partial: ran ${steps[*]:-none}"; fi
+      ;;
+    refresh-budget-snapshot)
+      local pool rc=0 out
+      pool="$(field pool)"
+      if [ -z "$pool" ] || [[ "$pool" == *[!A-Za-z0-9._:-]* ]]; then
+        OUTCOME="parse-error"; DETAIL="refresh-budget-snapshot: missing/invalid pool '${pool:-<none>}'"; return
+      fi
+      if ! awk -v pool="$pool" -v host="$GARDEN" \
+          '$0 !~ /^[[:space:]]*#/ && $1==pool && $2==host {found=1} END{exit !found}' \
+          "$CLONE/$GARDEN_SUBSCRIPTION_MAPPING_PATH" 2>/dev/null; then
+        OUTCOME="refused"; DETAIL="refresh-budget-snapshot: pool '$pool' is not mapped to this host"; return
+      fi
+      # The fixed scaler service is the existing same-host snapshot publisher.
+      # systemd serializes this request with a scaler tick already in progress, so
+      # two processes never mutate its journal clone concurrently. A genuinely
+      # stale sample is immediately due; a fresh view makes this an idempotent no-op.
+      if [ -n "$GARDEN_SYSOP_REFRESH_BUDGET" ]; then
+        out="$("$GARDEN_SYSOP_REFRESH_BUDGET" 2>&1)" || rc=$?
+      else
+        out="$(unit_ctl start garden-gardener-scaler.service 2>&1)" || rc=$?
+      fi
+      if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="refresh-budget-snapshot pool=$pool";
+      else OUTCOME="failed"; DETAIL="refresh-budget-snapshot pool=$pool rc=$rc: $(printf '%s' "$out" | tail -1)"; fi
       ;;
     unit)
       local action name

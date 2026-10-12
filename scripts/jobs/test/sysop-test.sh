@@ -216,6 +216,27 @@ run_sysop "$TR/s-restore"
   && ok "restore ran reset-failed + reaper + deadmail (deterministic one-shots only)" \
   || bad "restore did not run all three one-shots (mock: $(cat "$TR/mock-log"); rec: $(cat "$REC_LOG"))"
 
+# A stale-snapshot request is host-scoped by the subscription mapping and runs
+# the existing local scaler/publisher; it cannot name an arbitrary command.
+git -C "$SEED" pull -q --rebase origin "$BRANCH"
+printf 'claude-test\t%s\tmonk\n' "$TARGET" > "$SEED/config/subscription-mapping"
+git -C "$SEED" add config/subscription-mapping
+git -C "$SEED" "${git_id[@]}" commit -qm "map test subscription"
+git -C "$SEED" push -q origin "$BRANCH"
+: > "$REC_LOG"; : > "$ACK_LOG"; : > "$TR/mock-log"
+seed_op "$ISSUER" "$TARGET" op=refresh-budget-snapshot pool=claude-test
+run_sysop "$TR/s-refresh-budget"
+grep -q 'start garden-gardener-scaler.service$' "$TR/mock-log" \
+  && grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" \
+  && ok "refresh-budget-snapshot delegates to the owning host's deterministic scaler" \
+  || bad "refresh-budget-snapshot was not applied (systemctl: $(cat "$TR/mock-log"); ack: $(cat "$ACK_LOG"))"
+: > "$REC_LOG"; : > "$ACK_LOG"; : > "$TR/mock-log"
+seed_op "$ISSUER" "$TARGET" op=refresh-budget-snapshot pool=claude-not-owned
+run_sysop "$TR/s-refresh-budget-refuse"
+[ ! -s "$TR/mock-log" ] && grep -q 'sysop_ack: refused' "$ACK_LOG" \
+  && ok "refresh-budget-snapshot refuses a pool not mapped to this host" \
+  || bad "refresh-budget-snapshot accepted a foreign pool"
+
 # A hung reaper must not outlive restore's per-step budget (head-of-line block).
 : > "$REC_LOG"; : > "$ACK_LOG"
 printf '#!/bin/sh\nsleep 30\n' > "$TR/hang-reaper.sh"; chmod +x "$TR/hang-reaper.sh"

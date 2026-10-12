@@ -11,9 +11,21 @@ BARE="$TR/journal.git"
 SEED="$TR/seed"
 STATE="$TR/state"
 LOG="$TR/level.log"
+REQUESTS="$TR/requests.log"
+ACTIONS="$TR/actions.log"
 POOL=claude-test
 HOST=remote
 NOW=100000
+
+cat > "$TR/send-host-op" <<'EOF'
+#!/bin/bash
+if [ "$2" = op=refresh-budget-snapshot ]; then
+  printf '%s\n' "$*" >> "$REQUESTS"
+else
+  printf '%s\n' "$*" >> "$ACTIONS"
+fi
+EOF
+chmod +x "$TR/send-host-op"
 
 git init -q --bare "$BARE"
 git init -q "$SEED"
@@ -21,7 +33,7 @@ git -C "$SEED" checkout -qb journal2
 mkdir -p "$SEED"/{budget/live/$POOL,budget/reset-events,config,hosts,usage,jobs/{todo,doin,plan,tada},inbox/maintainer/{unread,read}}
 printf '%s\tanthropic\t%s\tweekly-tokens\t500\tusage-panel\t2026-09-29\n' "$POOL" "$HOST" > "$SEED/config/budget-pools"
 printf '%s\t%s\tmonk\n' "$POOL" "$HOST" > "$SEED/config/subscription-mapping"
-printf 'monk-fleet-ceiling\t1\ncleric-fleet-ceiling\t0\nhost\t%s\t1\t0\n' "$HOST" > "$SEED/config/worker-leveling"
+printf 'monk-fleet-ceiling\t2\ncleric-fleet-ceiling\t0\nhost\t%s\t2\t0\n' "$HOST" > "$SEED/config/worker-leveling"
 printf 'monks: 1\nclerics: 0\n' > "$SEED/hosts/$HOST"
 printf '{"cadence":"manual","reset_at":"1970-01-01T01:00:00Z"}\n' > "$SEED/budget/reset-events/$POOL.jsonl"
 touch "$SEED/usage/.gitkeep" "$SEED/jobs"/{todo,doin,plan,tada}/.gitkeep \
@@ -34,12 +46,14 @@ write_snapshot() { # cap sampled-at
 commit_seed() {
   git -C "$SEED" add -A
   git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm "$1"
+  git -C "$SEED" -c user.name=test -c user.email=test@example.invalid pull -q --rebase origin journal2
   git -C "$SEED" push -q origin journal2
 }
 run_tick() {
   env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" \
     GARDEN_STATE="$STATE" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$NOW" \
-    GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 "$JOBS/budget-level.sh" >> "$LOG" 2>&1
+    GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send-host-op" \
+    REQUESTS="$REQUESTS" ACTIONS="$ACTIONS" "$JOBS/budget-level.sh" >> "$LOG" 2>&1
 }
 
 write_snapshot 500 90000
@@ -56,6 +70,14 @@ run_tick
 STALE_SUPPRESSED="$(find "$STATE/budget-level/remote-spend-failures" -name suppressed -exec cat {} \;)"
 [ "$STALE_SUPPRESSED" = 2 ] \
   || { echo "FAIL: stale snapshot latch counted '$STALE_SUPPRESSED' suppressed repeats, expected 2"; exit 1; }
+if [ "$(wc -l < "$REQUESTS")" -ne 1 ] \
+   || ! grep -qx "$HOST op=refresh-budget-snapshot pool=$POOL" "$REQUESTS"; then
+  echo "FAIL: stale episode did not send exactly one deterministic refresh request"
+  cat "$REQUESTS"
+  exit 1
+fi
+[ ! -s "$ACTIONS" ] \
+  || { echo "FAIL: stale snapshot allowed the pool to increase"; cat "$ACTIONS"; exit 1; }
 
 # A distinct remote-spend reason gets its own edge and counter under the same
 # pool, host, and operation.
@@ -87,5 +109,7 @@ commit_seed rearm
 run_tick
 [ "$(grep -c 'operation=read-remote-spend failed.*reason=stale-snapshot beyond max-age' "$LOG")" -eq 2 ] \
   || { echo "FAIL: recovery did not re-arm a later stale-snapshot edge"; cat "$LOG"; exit 1; }
+[ "$(wc -l < "$REQUESTS")" -eq 2 ] \
+  || { echo "FAIL: recovery did not re-arm stale-snapshot remediation"; cat "$REQUESTS"; exit 1; }
 
-echo "PASS: budget-level remote snapshot failures warn once per reason, count repeats, summarize recovery, and re-arm"
+echo "PASS: budget-level stale snapshots request one owning-host refresh per episode, warn once per reason, summarize recovery, and re-arm"

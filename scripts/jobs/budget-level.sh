@@ -92,6 +92,26 @@ remote_spend_recovered() { # pool host operation
     fi
   done
 }
+request_stale_snapshot_refresh() { # pool host
+  local pool="$1" host="$2" operation=read-remote-spend reason key incident tmp
+  reason="$(meter_journal_failure_reason 7)"
+  key="$(remote_spend_failure_key "$pool" "$host" "$operation" "$reason")"
+  incident="$GARDEN_BUDGET_LEVEL_FAILURE_LATCH_DIR/$key"
+  # One deterministic request per stale episode. A valid snapshot removes the
+  # incident in remote_spend_recovered, re-arming a later episode. If sending
+  # fails, leave the marker absent so the next controller tick retries.
+  [ -e "$incident/remediation-requested" ] && return 0
+  if /bin/bash "$GARDEN_BUDGET_LEVEL_SEND_HOST_OP" "$host" \
+      op=refresh-budget-snapshot pool="$pool"; then
+    tmp="$incident/remediation-requested.$$"
+    if printf 'requested_at: %s\n' "$(date -u +%FT%TZ)" >"$tmp" 2>/dev/null; then
+      mv "$tmp" "$incident/remediation-requested" 2>/dev/null || true
+    fi
+    log "requested fresh budget snapshot for pool=$pool from owning host=$host; pool remains non-increasable until a fresh snapshot is accepted"
+  else
+    log "WARN: could not request fresh budget snapshot for pool=$pool from owning host=$host; will retry next leveling tick"
+  fi
+}
 pool_failure() { # pool host operation exit_status
   local reason="" detail=""
   [ "$3" = read-remote-spend ] && reason=" reason=$(meter_journal_failure_reason "$4")"
@@ -102,7 +122,13 @@ pool_failure() { # pool host operation exit_status
   if [ "$3" = read-remote-spend ]; then
     remote_spend_failure "$1" "$2" "$3" "$4" \
       "$(meter_journal_failure_reason "$4")" "$detail"
-    return
+    # Legacy anthropic:<host> pools can still use their journal-ledger fallback;
+    # subscription-keyed pools (such as claude-oros) have no such owner-local
+    # remediation path on the leader, so ask their mapped owner explicitly.
+    if [ "$4" = 7 ] && [[ "$1" != anthropic:* ]]; then
+      request_stale_snapshot_refresh "$1" "$2"
+    fi
+    return 0
   fi
   log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4$reason; failure isolated (fail-open)"
 }
@@ -305,7 +331,7 @@ apply_target(){ # pool host kind current target reason signal-value limit proven
  log "leveled $h $kind $cur->$next (target $target; $reason)";alert_maintainer "budget-level-$kind-$h-$next" "budget-level changed $h $kind workers $cur -> $next (target $target): $reason"
 }
 
-for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov="${pprov[i]}";bias="";pacing="";[[ "$cap" =~ ^[1-9][0-9]*$ ]]||continue
+for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov="${pprov[i]}";bias="";pacing="";snapshot_stale=0;[[ "$cap" =~ ^[1-9][0-9]*$ ]]||continue
  [ "${monk_pool_eligible[i]}" -eq 1 ] || continue
  [ "$mv" -eq 1 ]||! uncalibrated "$prov"||continue
  cutoff="$(subscription_window_start_epoch "$pool" "$DIR" 2>/dev/null || true)"; if ! [[ "$cutoff" =~ ^[0-9]+$ ]];then case "$pool" in anthropic:*)cutoff="$(meter_window_cutoff anchor 2>/dev/null)"||{ pool_failure "$pool" "$h" read-window-cutoff "$?";continue;};;*)pool_failure "$pool" "$h" read-window-cutoff 1;continue;;esac;fi
@@ -313,11 +339,13 @@ for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov
  if [ "$snap_rc" -eq 0 ];then
   remote_spend_recovered "$pool" "$h" read-remote-spend
  else
-  if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-remote-spend "$snap_rc";continue;fi
+  if [ "$snap_rc" -eq 7 ];then snapshot_stale=1;pool_failure "$pool" "$h" read-remote-spend "$snap_rc";fi
+  if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else [ "$snap_rc" -eq 7 ]||pool_failure "$pool" "$h" read-remote-spend "$snap_rc";continue;fi
  fi
  [[ "$spend" =~ ^[0-9]+$ ]]||{ pool_failure "$pool" "$h" validate-spend 1;continue;};hf="$DIR/hosts/$h";if [ -n "$GARDEN_BUDGET_LEVEL_KIND" ];then kind="$GARDEN_BUDGET_LEVEL_KIND";else kind=monk;fi;key="$(worker_kind_field "$kind" count_key 2>/dev/null||echo monks)";cur="$(read_desired_count "$hf" "$key" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-host-workers "$?";continue;}
  IFS=$'\t' read -r bfrac bsrc bdetail < <(token_backoff_fraction_for "$pool" "$DIR");log "budget-level backoff $pool: $bfrac ($bsrc; $bdetail)"
  if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$bfrac" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$bfrac" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";bias="$(subscription_pacing_bias "$pool" "$spend" "$cap" "$DIR")";pacing="$(subscription_pacing_summary "$pool" "$DIR")";case "$pacing" in *'(planned)'*|*'['*)log "budget-level pacing $pool: $pacing";;esac;pace_target="$(awk -v b="$bias" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{print lo+int(b*(hi-lo)+.5)}')";[ "$pace_target" -le "$target" ]||target="$pace_target";fi
+ if [ "$snapshot_stale" -eq 1 ]&&[ "$target" -gt "$cur" ];then log "budget-level: pool $pool snapshot is stale; monk target $target clamped to current $cur until a fresh snapshot is accepted";target="$cur";fi
  if [[ "${uncal_hosts[$h]+set}" ]]&&[ "$target" -gt "$cur" ];then log "budget-level: $h holds an uncalibrated pool; monk target $target clamped to current $cur (non-increasable)";target="$cur";fi
  apply_target "$pool" "$h" "$kind" "$cur" "$target" "subscription $pool spend=$spend cap=$cap pace-bias=${bias:-0} ${pacing:-deadline=unknown} ceiling=${mceil[$h]:-frozen} backoff=$bfrac($bsrc) target=$target" "$spend" "$cap" "$prov" weekly-token-spend
 done
