@@ -1,0 +1,7 @@
+host: oros-studio-garden-ce242c49
+reason: heartbeat-offline
+prior_monk: 8
+prior_cleric: 0
+derotated_at: 2026-10-12T07:50:05Z
+derotated_by: endolin-garden-ece02cb4
+detail: heartbeat stale by 2736s (offline threshold 1800s; sampled_at_epoch=1791788668)
