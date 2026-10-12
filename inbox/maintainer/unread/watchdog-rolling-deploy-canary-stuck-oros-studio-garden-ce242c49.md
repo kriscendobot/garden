@@ -1,17 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:rolling-deploy
-sent_at: 2026-10-12T18:20:06Z
+sent_at: 2026-10-12T18:29:02Z
 watchdog_key: rolling-deploy-canary-stuck-oros-studio-garden-ce242c49
 notice_count: 494
 first_seen: 2026-10-09T06:59:03Z
-last_seen: 2026-10-12T18:20:06Z
+last_seen: 2026-10-12T18:29:02Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #494 (first seen 2026-10-09T06:59:03Z, latest 2026-10-12T18:20:06Z).
-The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 494 times; this is ONE
-coalesced notice that updates in place, not 494 messages. Latest detail:
+RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T06:59:03Z, cleared 2026-10-12T18:29:02Z).
+It was observed 494 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 2e531a6e2dda 21 min ago
-but still reports deployed_sha 8da29934080b323a7319806aeec0d52bfb8b0b1d. Check garden-self-deploy on oros-studio-garden-ce242c49
-(journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-keeps it from advancing. The leader does not advance past an undeployed canary.
-(leader=endolin-garden-ece02cb4)
+canary oros-studio-garden-ce242c49 is no longer stuck (release 2e531a6e2dda1bcb66d6f2d04739270baba3fa30, deployed 2e531a6e2dda1bcb66d6f2d04739270baba3fa30).
