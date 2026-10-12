@@ -1,0 +1,23 @@
+<6>00:03:58 [monk/3] job 'kriscendobot-minion.town-pr174-gauntlet-panel-9' call ceiling: tier=minion max-budget-usd=8.30 (scaled by fresh seven-day headroom when available)
+<4>00:03:58 [monk/3] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion.town-pr174-gauntlet-panel-9' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<3>00:20:29 [auto-gauntlet-handoff] FATAL: auto-gauntlet: could not establish panel-head freshness for https://github.com/kriscendobot/minion.town/pull/174 (rc=75)
+
+--- handler report (partial) ---
+Panel round 9 on kriscendobot/minion.town PR #174 came back **must-fix**. The review is posted.
+
+**Run:** `GARDEN_PANEL_SINGLE_ROUND=1 scripts/jobs/gardening/panel.sh` ran against an isolated checkout of head `c9ac17a` (`build/credit-metering-no-ertp`), base `origin/main-39867df`. It exited 0 with disposition must-fix. All 34 seats returned `ok`, with no seat or decider errors.
+
+**Verdicts:** 8 request-changes, 9 approve, 17 comment-only. The request-changes seats were archivist, prover, breaker, purist, integrator, pruner and decomplector, plus one more.
+
+**Repeat-mechanism signal:** the previous two panel rounds (heads `dd4b5914` and `0b15028e`) also raised must-fix findings on the same mechanism: `authorizePublish`, `charge` and `publish.ts`. Because of that, the panel seated the decomplector with the is-it-needed question. Its must-fix asks to move the hold into the ledger as `AccountCharge.hold(id, amount) → {settle, cancel}`, run inside the ledger's existing serializer, and delete the processor's `held` map and `serially` queue. Rounds 5–8 kept patching races in the processor-side hold instead. The change also touches the design doc `designs/ertp-credits.md`, which may re-open a maintainer decision.
+
+**Review:** https://github.com/kriscendobot/minion.town/pull/174#pullrequestreview-5485646838, on commit `c9ac17a`, state `COMMENTED`.
+- GitHub refused `--request-changes` because the bot cannot request changes on its own PR, so I posted it as a comment, as rounds 7 and 8 were. The body starts with "Panel round 9 — must-fix".
+- The full aggregate is 101 KB, over GitHub's review size limit. The review carries every request-changes seat in full, as many other seats as fit, and the rest listed by verdict only.
+- The garden's `gh` wrapper blocked the first post over bare `#169`, `#42` and `#45` references. They refer to minion.town, so I rewrote them as `kriscendobot/minion.town#N`.
+
+**Follow-ups:**
+- The panel record (`panel-runs/kriscendobot-minion.town-174/141f21ba122b.md`) did not reach the journal. Two pushes lost races, then the journal clone lock stayed busy. That push is best-effort, so the run directory `/Users/dom/garden/scratch/panel-run-pr174-r9` is the only copy of the full per-seat text.
+- I did no fixing or un-drafting; the gauntlet driver owns the next stage. Since the same mechanism keeps failing, the maintainer may want to decide on the ledger-owned hold before another fix round.
+
+<!-- gauntlet-stage-result: panel=must-fix -->
