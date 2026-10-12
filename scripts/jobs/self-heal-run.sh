@@ -59,6 +59,13 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 export GARDEN_TAG="self-heal"
+# Clone-lock SOFT mode is a per-call-site scope (deadline-nudge, the watchers'
+# verify clones, the contention remedy): a caller sets it for the ONE optional
+# acquisition it covers. Inherited into a wrapped service it would turn every
+# MANDATORY journal sync into a fail-open "OPTIONAL" abandon (the 2026-10-12
+# bulletin/orchestrate warnings). Drop it here so each handler starts in default
+# hard mode; scripts that explicitly scope soft acquisition still set it inline.
+unset GARDEN_CLONE_LOCK_SOFT GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY
 
 # --- tunables (all overridable) ---------------------------------------------
 : "${SELF_HEAL_THROTTLE_SECS:=1800}"   # min seconds between responders per signature

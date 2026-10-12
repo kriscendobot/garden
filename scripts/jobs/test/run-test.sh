@@ -2723,6 +2723,17 @@ set +e; "$SHRUN" garden-probe -- bash -c 'echo ok; exit 0' >/dev/null 2>&1; r0=$
 { [ "$r0" -eq 0 ] && [ "$(shcalls)" -eq 0 ]; } \
   && ok "clean exit: silent, no responder fired (rc preserved)" || bad "clean exit fired responder (rc=$r0 calls=$(shcalls))"
 
+# (1b) an INHERITED clone-lock soft mode is sanitized out of the handler's env, so
+# a wrapped service's mandatory journal syncs keep the hard wait ladder; a script
+# that scopes soft acquisition inline (inside the handler) is unaffected.
+set +e
+shsoft="$(GARDEN_CLONE_LOCK_SOFT=1 GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY=k "$SHRUN" garden-probe -- \
+  bash -c 'echo "inherited=${GARDEN_CLONE_LOCK_SOFT-unset}/${GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY-unset}"; GARDEN_CLONE_LOCK_SOFT=1 bash -c "echo scoped=\$GARDEN_CLONE_LOCK_SOFT"' 2>/dev/null)"
+set -e
+{ printf '%s\n' "$shsoft" | grep -qx 'inherited=unset/unset' && printf '%s\n' "$shsoft" | grep -qx 'scoped=1'; } \
+  && ok "inherited GARDEN_CLONE_LOCK_SOFT sanitized from the handler; inline soft scope still honored" \
+  || bad "clone-lock soft mode leaked into wrapped handler (got: $shsoft)"
+
 # (2) failure WITH output → responder fires once, exit code preserved, blob captured
 : > "$SHCALLS"
 set +e; "$SHRUN" garden-probe --work-id PR42 -- bash -c 'echo line; echo boom >&2; exit 3' >/dev/null 2>&1; r3=$?; set -e
