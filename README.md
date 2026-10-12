@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T07:48:15Z_
+_As of 2026-10-12T07:54:42Z_
 
 ## Latest
 
@@ -589,11 +589,12 @@ Delegation: **active**
 
 - `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T00:20:13Z, cleared 2026-10-12T03:35:09Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-10-09T00:20:13Z, latest 2026-10-12T07:50:10Z).
+> The SAME condition (`worker-derotate-oros-studio-garden-ce242c49`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (506s old; sampled_at_epoch=1791775598)); it is PRESENT again and its config/worker-leveling caps are restored to 8 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 2736s (offline threshold 1800s; sampled_at_epoch=1791788668).
+> worker-derotate zeroed its config/worker-leveling caps (were 8 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden-ece02cb4)
 
 - `endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached.md)
 
@@ -1370,8 +1371,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 204.1M | $944.26 _(notional, rate-card)_ | 75% of 271.0M (ok) |
-| Codex | 8.9M _(+268.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 205.1M | $949.27 _(notional, rate-card)_ | 76% of 271.0M (ok) |
+| Codex | 8.9M _(+268.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101306140 tokens/day lower bound._
 
@@ -1381,21 +1382,21 @@ worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ## Board
 ### todo (2)
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr93-gauntlet-20261010-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #93
-- [`kriscendobot-minion.town-pr180-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #180
+- [`kriscendobot-minion.town-pr182-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #182
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1412
-- [`kriscendobot-minion.town-pr182-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #182
 - [`oros-health-checkup-20261012-062008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-062008.md) — ---
 - [`oros-health-checkup-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-030519.md) — ---
+- [`kriscendobot-minion.town-pr180-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #180
 
-### tada (12529)
+### tada (12530)
+- [`kriscendobot-minion.town-pr182-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-panel-5.md) — Cost
 - [`claude-on-minion-town-completion-press-20261012-072006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-completion-press-20261012-072006.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-12.md) — Cost
 - [`oros-health-checkup-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-000506.md) — Cost
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr180-gauntlet-panel-4.md) — Cost
-- [`kriscendobot-minion.town-pr182-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-fix-4.md) — Cost
-- … and 12524 more
+- … and 12525 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
