@@ -1,8 +1,8 @@
 host: oros-studio-garden-ce242c49
 deployed_sha: 78f9dacc9383e72f5c069392606e4cd7da886986
 roll_status: roll-drained
-unit_failures: 4
+unit_failures: 3
 unit_total: 294
 first_bad_unit: garden-library-link-scan.service
 advisory_failures: 0
-at: 2026-10-12T11:11:15Z
+at: 2026-10-12T11:12:38Z
