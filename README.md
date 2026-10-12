@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T23:44:03Z_
+_As of 2026-10-12T23:45:59Z_
 
 ## Latest
 
@@ -481,10 +481,6 @@ Delegation: **active**
 > halt-parked-remainder: 
 >
 > Orchestration orch-minion-town-oauth-bonds HALTED: child build-minion-town-oauth-bonds completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
-
-- `20261012T234115Z-b0dd18` — from unblock:garden-book-review-supervisor-after-merge-20261012-blocked-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261012T234115Z-b0dd18.md)
-
-> Blocked job 'garden-book-review-supervisor-after-merge-20261012' will NOT be promoted: its blocker 'kriscendobot-garden-book-pr8-conduct-20261012' completed but DECLINED its gated outcome (e.g. a conductor that refused to merge a red / frozen-base / ferry-required PR). Promoting it would run downstream work against a base that never landed. It is HELD in plan/ under gate=blocked-failed for you: run promote-plan.sh 'garden-book-review-supervisor-after-merge-20261012' to override if the decline is acceptable, or discard it.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -1073,7 +1069,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 221.7M | $1035.24 _(notional, rate-card)_ | 82% of 271.0M (ok) |
+| Claude | 221.7M | $1035.54 _(notional, rate-card)_ | 82% of 271.0M (ok) |
 | Codex | 12.5M _(+379.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94442462 tokens/day lower bound._
@@ -1085,10 +1081,11 @@ worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 ### todo (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
+- [`kriscendobot-minion.town-pr183-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #183
 
 ### tada (12614)
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-panel-2.md) — Cost
