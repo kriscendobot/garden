@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded: fix-10's work completed (58ef771 pushed, CI green; handler died only on the transient oros-studio auto-gauntlet freshness rc=1). Gauntlet resumed at panel-11 with +2 rounds by carry-minion-town-stalled-gauntlets-20261012.
+withdrawn_by: gardener
+withdrawn_at: 2026-10-12T05:29:58Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 gauntlet: kriscendobot-minion.town-pr93-gauntlet-20261010
