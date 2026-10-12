@@ -1,11 +1,11 @@
 subscription: codex-endolin
 host: endolin-garden-ece02cb4
 window_start_epoch: 1791311991
-spend: 15398083
+spend: 15569990
 spend_unit: tokens
 cap_percent: 95
 status: ok
-sampled_at_epoch: 1791771457
-sampled_at: 2026-10-12T02:17:37Z
-sample_bucket: 1990857
+sampled_at_epoch: 1791772361
+sampled_at: 2026-10-12T02:32:41Z
+sample_bucket: 1990858
 used_percent: 20.0
