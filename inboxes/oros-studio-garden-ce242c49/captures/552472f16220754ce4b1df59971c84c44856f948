@@ -1,0 +1,31 @@
+<6>10:25:32 [monk/6] job 'claude-on-minion-town-press-20261012-093524' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>10:26:09 [monk/6] job 'claude-on-minion-town-press-20261012-093524' call ceiling: tier=mentor max-budget-usd=15.60 (scaled by fresh seven-day headroom when available)
+<4>10:26:09 [monk/6] WARN minion-mcp: token preflight failed; job 'claude-on-minion-town-press-20261012-093524' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>10:35:50 [auto-gauntlet-handoff] auto-gauntlet: 'claude-on-minion-town-press-20261012-093524' named several PRs; treating the first, https://github.com/endojs/endo-but-for-bots/pull/1412, as its artifact
+<6>10:35:50 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/1412 is a probe; leaving it draft
+panel-head-freshness: stale target=endojs/endo-but-for-bots#1412 reviewed_head=f3591289bd0fc9485fa03a413dbf2eb67d6f598b presented_head=85acc161d18370b83a1dcd22bff9f05d50a4fe30 disposition=review-required
+<6>10:37:37 [review-docket] completed shallow journal clone /Users/dom/garden/.garden-state/review-docket/journal from local root repo
+<6>10:39:28 [review-docket] spooled upsert https://github.com/endojs/endo-but-for-bots/pull/1412 to /Users/dom/garden/.garden-state/review-docket/spool (0d0fe3a272c1ea6e); the next transaction on this host drains it
+<6>10:39:28 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+No change since the last press comment (2026-10-12 01:05Z). Still waiting on endojs/endo-but-for-bots#1412 to come out of its post-weave gauntlet before it can be put to the maintainer for review, and on the maintainer's answer to kriscendobot/minion.town#167 open questions 1–4.
+
+**What I checked:**
+- **endojs/endo-but-for-bots#1412** (item 4, phase 2): open, still a draft, CI green at head `f3591289`. Its post-weave gauntlet is still going: `endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-6` is in `todo`. It is not ready to ask for review yet.
+- **endojs/endo-but-for-bots#1015**: merged 2026-09-29. **endojs/endo-but-for-bots#1125**: closed. **kriscendobot/minion.town#87**: merged 2026-09-22. None of these changed.
+- **kriscendobot/minion.town#171** (item 1's production validation): draft at `f5b24a4c`. It stays draft by its phase ledger and waits on kriscendobot/minion.town#182.
+- **kriscendobot/minion.town#182**: owned by the issue-58 press; its `pr182-gauntlet-fix-6` is in `doin`.
+- **kriscendobot/minion.town#167**: draft, nothing new since 2026-10-08. The maintainer question on it was already asked, so per the stop condition I'm only checking for an answer.
+
+**What I left alone:**
+- **Issue body:** no checkbox or evidence line is wrong. The #1412 status in the header is dated 06:3xZ and still accurate as of that time, so I didn't edit the 77 KB body for gauntlet-round churn.
+- **Comments:** I posted none, since nothing changed.
+- **Jobs:** I posted none. Every unblock edge is either already in flight on the board or still blocked.
+
+**Couldn't check:**
+- The bot token can't read CI status on minion.town PRs (GraphQL `statusCheckRollup` is not accessible). This didn't affect anything this tick.
+- `minion-town-screening.sh status` timed out, so this pass didn't confirm whether proxy merging is active. Nothing was ready to merge either way.
+- The inbox drain timed out too. Its background run finished with no output, so it showed no new messages.
+
+There's an older parked `claude-on-minion-town-press-20261010-133536` in `plan/`. It belongs to the scheduler and I didn't touch it.
