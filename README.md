@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T01:51:55Z_
+_As of 2026-10-12T02:00:02Z_
 
 ## Latest
 
@@ -910,19 +910,6 @@ Delegation: **active**
 
 > Literate AI ingest, next architecture slice: 4 sources ingested as 18 sections: component-flavors (6), documentation-artifacts (3), framework-premise-assessment (4, with a caveat for persuasive framing; it is the project's own 6.5/10 self-assessment) and html-observability (5). The foreign-content gate halted beam-live-coding-layer-investigation.md (injection 0.29), so I did not read it; it is blocked pending your disposition, with a separate escalation sent. The next unprocessed source is docs/architecture/mission-specification-composition.md. The details are in this job's result entry.
 
-- `msg-kriscendobot-minion.town-pr174-gauntlet-fix-9-ea23b4173799` — from gardener:kriscendobot-minion.town-pr174-gauntlet-fix-9, reply_to `kriscendobot-minion.town-pr174-gauntlet-fix-9` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr174-gauntlet-fix-9-ea23b4173799.md)
-
-> [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/issues/174) (interim credit metering, no ERTP) needs a maintainer decision. The panel-9 decomplector asks you to confirm it.
->
-> Does your 2026-10-09 decision to build metering "without ERTP" also waive two things?
-> 1. The durable `reserved` event and the never-guess-zero reconciler from clip-usage-metering § 4 (approved on [kriscendobot/minion.town#42](https://github.com/kriscendobot/minion.town/issues/42)).
-> 2. The Endo / DynamoDB persistence you asked for in the [kriscendobot/minion.town#42](https://github.com/kriscendobot/minion.town/issues/42) and [kriscendobot/minion.town#45](https://github.com/kriscendobot/minion.town/issues/45) reviews.
->
-> What the interim does instead: it keeps reservations in memory in the gateway, stores the ledger as a JSONL file, and lets a charge that fails after a successful publish go unbilled (it is logged).
->
-> designs/ertp-credits.md § 6a now states both departures and says they await your confirmation. Reply yes to keep the interim as it is, or no to rebase it onto the durable § 4 shape.
-> [https://github.com/kriscendobot/minion.town/pull/174](https://github.com/kriscendobot/minion.town/pull/174)
-
 - `doomed-review-docket-consolidate-20261008-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-review-docket-consolidate-20261008-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden2-5bcdff64.
@@ -1014,6 +1001,25 @@ Delegation: **active**
 - `msg-scholar-ingest-literate-ai-remainder-9-20261010-3247a5180faf` — from scholar:scholar-ingest-literate-ai-remainder-9-20261010, reply_to `scholar-ingest-literate-ai-remainder-9-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-9-20261010-3247a5180faf.md)
 
 > Literate AI remainder 9 ingested ADR 0007, update classification and semantic merge, as 6 sections at its current file commit `2820f853`: parent-catalog identity fixes false conflicts, while identity-bound review and explicit resolution envelopes keep three-way migration plan-first, fail-closed, and rollback-safe. Jev returned `proceed` (injection 0.11); links, all 34 Literate AI source counts, and regenerated indexes passed. The next cycle is `scholar-ingest-literate-ai-remainder-10-20261010` at ADR 0008; the six escalated architecture files remain untouched pending disposition.
+
+- `20261012T015824Z-7a1856` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261012T015824Z-7a1856.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: kriscendobot-minion.town-pr174-gauntlet-fix-9
+> - question (msgid msg-kriscendobot-minion.town-pr174-gauntlet-fix-9-ea23b4173799.md)
+> - tentative answer: PROXY / TENTATIVE: the maintainer may revise this.
+>
+> I can't confirm that the 2026-10-09 "without ERTP" decision waives the durable `reserved` event, the never-guess-zero reconciler, or the Endo/DynamoDB persistence. Those came from the explicit reviews on [kriscendobot/minion.town#42](https://github.com/kriscendobot/minion.town/issues/42) and [kriscendobot/minion.town#45](https://github.com/kriscendobot/minion.town/issues/45), and only the maintainer can waive them.
+>
+> Direction to try first: keep the interim shape on [kriscendobot/minion.town#174](https://github.com/kriscendobot/minion.town/issues/174). That means in-memory reservations, a JSONL ledger, and a post-publish charge failure that is logged and left unbilled. I'm picking it because it is cheap and throwaway-tolerant, and it lets the metering flow be exercised end to end. Rebasing onto the durable § 4 shape first would block the PR on work the maintainer may not want.
+>
+> Conditions:
+> 1. Keep `designs/ertp-credits.md` § 6a stating both departures, marked "awaiting maintainer confirmation".
+> 2. Keep the PR as a draft and don't merge it. The "unbilled on post-publish charge failure" gap must not reach any real-billing path.
+> 3. Isolate the ledger and reservation code behind a small interface. If the maintainer answers "no", the swap to the durable § 4 shape is then local.
+> 4. Reply to the panel-9 decomplector finding as "interim by design, pending maintainer confirmation of § 6a". Don't claim the waiver is confirmed.
+>
+> The maintainer's yes or no on the two waivers stays open.
 
 - `review-docket-20261008-halted` — from orchestrator:review-docket-20261008-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-halted.md)
 
@@ -1365,8 +1371,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.9M | $845.62 _(notional, rate-card)_ | 68% of 271.0M (ok) |
-| Codex | 7.6M _(+241.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 184.0M | $845.92 _(notional, rate-card)_ | 68% of 271.0M (ok) |
+| Codex | 7.7M _(+242.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101883016 tokens/day lower bound._
 
@@ -1379,21 +1385,20 @@ worst fetch p95 18.419408s/45s (/home/kris/garden/.garden-state/dependabot-watch
 - [`oros-health-checkup-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-000506.md) — ---
 - [`kriscendobot-minion.town-pr182-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #182
 
-### doin (6)
+### doin (5)
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #93
 - [`kriscendobot-minion.town-pr174-gauntlet-fix-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr174-gauntlet-fix-9.md) — Gauntlet stage: FIX round 9 — kriscendobot/minion.town PR #174
-- [`improve-run-test-fixture-dependencies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-run-test-fixture-dependencies.md) — ---
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #180
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1412
 - [`kriscendobot-minion.town-pr181-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #181
 
-### tada (12482)
+### tada (12483)
+- [`improve-run-test-fixture-dependencies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/improve-run-test-fixture-dependencies.md) — Cost
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-fix-1.md) — Cost
 - [`claude-on-minion-town-press-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-000506.md) — Press tick, 2026-10-12 ~00:55Z: the arc's state changed, no new review ask yet
 - [`kriscendobot-minion.town-pr174-gauntlet-panel-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr174-gauntlet-panel-9.md) — Cost
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-panel-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr93-gauntlet-20261010-panel-10.md) — Cost
-- [`screen-minion-town-pr94-13b7e0a-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/screen-minion-town-pr94-13b7e0a-conduct.md) — Cost
-- … and 12477 more
+- … and 12478 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
