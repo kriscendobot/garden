@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T05:19:13Z_
+_As of 2026-10-12T05:21:00Z_
 
 ## Latest
 
@@ -1368,8 +1368,9 @@ _Fleet token-unlock pace: 106375994 tokens/day lower bound._
 worst fetch p95 5.660257s/45s (/home/kris/garden/.garden-state/maintainer/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`oros-health-checkup-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-000506.md) — ---
+- [`minion-town-arc-press-20261012-052006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261012-052006.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### doin (4)
 - [`kriscendobot-minion.town-pr182-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #182
