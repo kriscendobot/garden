@@ -277,9 +277,9 @@ GARDEN=testhost "$JOBS/gardener-scaler.sh" >/dev/null 2>"$sclog"
   || bad "absent clerics line did not go quiet: $(grep -E 'clerics' "$sclog" | tr '\n' '|')"
 sclog2="$TR/scaler-nofile.err"
 GARDEN=undeclaredhost "$JOBS/gardener-scaler.sh" >/dev/null 2>"$sclog2"
-grep -q "WARN host 'undeclaredhost' desired gardeners undeterminable" "$sclog2" \
-  && ok "wholly-absent hosts/<host> file → gardeners WARN preserved (real signal intact)" \
-  || bad "missing hosts file did not WARN: $(grep -E 'gardeners' "$sclog2" | tr '\n' '|')"
+grep -q "WARN host 'undeclaredhost' desired monks undeterminable" "$sclog2" \
+  && ok "wholly-absent hosts/<host> file → monks WARN preserved (real signal intact)" \
+  || bad "missing hosts file did not WARN: $(grep -E 'monks' "$sclog2" | tr '\n' '|')"
 
 # --- IDENTITY RECONCILE: a worker whose in-process GARDEN drifted is restarted ---
 # A long-lived garden-monk@N inherits GARDEN once, at spawn; if the host
@@ -1134,9 +1134,10 @@ QF="$TR/plan-queue"; mkdir -p "$QF/journal/jobs/plan"
 # renderer spans two source files, so name them explicitly here.
 qextract() { awk -v fn="$1" 'index($0, fn"() {")==1{f=1} f{print} f && /^}/{exit}' "$2"; }
 {
-  for fn in list_jobs plan_field plan_gate plan_priority plan_blocked_on plan_rank plan_deferred_ranked; do qextract "$fn" "$JOBS/common.sh"; echo; done
+  for fn in list_jobs plan_field plan_gate plan_priority plan_blocked_on plan_rank job_arc arc_reserve_armed admission_arc plan_deferred_status plan_deferred_ranked; do qextract "$fn" "$JOBS/common.sh"; echo; done
   for fn in job_desc render_plan_queue; do qextract "$fn" "$JOBS/bulletin.sh"; echo; done
   echo 'JOBS_PLAN="jobs/plan"'
+  echo 'GARDEN_ARC_RESERVE="unallocated"'
 } > "$QF/funcs.sh"
 bash -n "$QF/funcs.sh" && ok "extracted plan-queue functions parse" || bad "plan-queue functions do not parse"
 # Fixture: one go-ahead job, one answerable maintainer-decision job, and two
