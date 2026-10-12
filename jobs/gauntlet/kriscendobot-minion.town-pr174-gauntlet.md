@@ -12,11 +12,11 @@ created_by: producer
 created_at: 2026-10-09T01:18:37Z
 arc: minion-town-mcp-ocapn
 added_rounds: 1
-stage: panel
+stage: undraft
 iteration: 11
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr174-gauntlet-panel-11
+current_child: kriscendobot-minion.town-pr174-gauntlet-undraft
 state: running
 resumed_at: 2026-10-12T05:29:30Z
 resumed_from_stage: fix
