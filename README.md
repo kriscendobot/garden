@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T17:19:58Z_
+_As of 2026-10-12T17:24:55Z_
 
 ## Latest
 
@@ -1370,11 +1368,15 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T06:59:03Z, cleared 2026-10-12T11:47:03Z).
-> It was observed 492 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #493 (first seen 2026-10-09T06:59:03Z, latest 2026-10-12T17:23:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 493 times; this is ONE
+> coalesced notice that updates in place, not 493 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release 8da29934080b323a7319806aeec0d52bfb8b0b1d, deployed 8da29934080b323a7319806aeec0d52bfb8b0b1d).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to ec4cc369d1b0 20 min ago
+> but still reports deployed_sha 8da29934080b323a7319806aeec0d52bfb8b0b1d. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0.md)
 
@@ -1466,14 +1468,14 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 104744949 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.789660s/45s (unknown); 7 open notice(s); checker healthy
+worst fetch p95 2.576248s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-125006.md) — ---
+- [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261012-125006.md) — Press the Claude-on-minion.town arc forward
 
-### doin (2)
-- [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-125006.md) — Press the Claude-on-minion.town arc forward
+### doin (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
 
 ### tada (12574)
