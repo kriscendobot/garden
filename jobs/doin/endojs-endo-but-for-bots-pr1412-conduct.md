@@ -28,3 +28,13 @@ Guards (the reconciler already enforced these; re-verify before merging):
 PR: https://github.com/endojs/endo-but-for-bots/pull/1412
 Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T21:13:11Z
