@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T13:31:32Z_
+_As of 2026-10-12T13:35:54Z_
 
 ## Latest
 
@@ -28,6 +26,7 @@ Fleet health:
 
 Delegation: **active**
 
+- 2026-10-12T13:33:43Z [#182](https://github.com/kriscendobot/minion.town/pull/182) `7c3a765ee29` screened
 - 2026-10-12T08:13:21Z [#93](https://github.com/kriscendobot/minion.town/pull/93) `df2205636b2` screened
 - 2026-10-12T07:16:54Z [#174](https://github.com/kriscendobot/minion.town/pull/174) merged `ae695a384b1`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/38216866823), watchdog ok — validated
 - 2026-10-12T06:53:14Z [#174](https://github.com/kriscendobot/minion.town/pull/174) `932a25e13de` screened
@@ -1321,14 +1320,6 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013590s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-cursor-push-rejected-endolin-garden-ece02cb4-follow-up_seen` — from watchdog:cursor-set, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-cursor-push-rejected-endolin-garden-ece02cb4-follow-up_seen.md)
-
-> cursor-set on endolin-garden-ece02cb4 cannot advance follow-up/seen after deterministic remote verification: server-reject. The fetched remote cursor does not contain the requested content and journal2 did not move. Cursor-driven work will replay until this receive-side rejection is repaired. Push diagnostic:
-> remote: fatal error in commit_refs        
-> To github.com:kriscendobot/garden.git
->  ! [remote rejected]       HEAD -> journal2 (failure)
-> error: failed to push some refs to 'github.com:kriscendobot/garden.git'
-
 - `msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489` — from gardener:claude-on-minion-town-completion-press-20261010-002011, reply_to `claude-on-minion-town-completion-press-20261010-002011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489.md)
 
 > claude-on-minion-town-completion-press-20261009-182008 has sat in jobs/doin since its claim at 2026-10-09T18:46:51Z (~5.6h, far past the 2400s default) with no completion; the arc press claude-on-minion-town-press-20261009-185008 has also gone unclaimed in todo for ~5.5h. No arc dooms. Effect: the arc's own oversight is stalling, not its deliverables. I have not touched either job; the reaper owns the requeue.
@@ -1430,9 +1421,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 214.2M | $996.21 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.0M _(+306.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 10.0M _(+306.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 104886523 tokens/day lower bound._
+_Fleet token-unlock pace: 104888895 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 6 open notice(s); checker healthy
@@ -1441,10 +1432,11 @@ worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 ### todo (1)
 - [`claude-on-minion-town-completion-press-20261012-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261012-132012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### doin (4)
+### doin (5)
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy-resume.md) — Resume post-deploy validation: screening patch fingerprint context drift
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-125006.md) — ---
+- [`screen-minion-town-pr182-7c3a765-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr182-7c3a765-conduct.md) — Screened delegated merge: kriscendobot/minion.town#182 at 7c3a765ee2971c789d1...
 - [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-125006.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (12564)
