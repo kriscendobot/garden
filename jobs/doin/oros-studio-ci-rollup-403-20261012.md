@@ -13,3 +13,13 @@ Fix one of these and verify on that host, or via a sysop/host op:
 - Or make ci-wait-merge.sh (and assert-panel-head-fresh.sh, if it shares the read) fall back to the Actions runs API (`repos/<r>/actions/runs?head_sha=`) when the rollup read is 403.
 
 Report which one you did. A 403 must not be classified as pending.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-12T05:37:00Z
