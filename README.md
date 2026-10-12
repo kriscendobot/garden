@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T08:35:20Z_
+_As of 2026-10-12T08:40:02Z_
 
 ## Latest
 
@@ -58,11 +56,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1851 (first seen 2026-10-08T20:53:04Z, latest 2026-10-12T07:35:07Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1851 times; this is ONE
-> coalesced notice that updates in place, not 1851 messages. Latest detail:
+> WATCHDOG notice — occurrence #1872 (first seen 2026-10-08T20:53:04Z, latest 2026-10-12T08:38:07Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1872 times; this is ONE
+> coalesced notice that updates in place, not 1872 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1833s (offline threshold 1800s; sampled_at_epoch=1791788668).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 5614s (offline threshold 1800s; sampled_at_epoch=1791788668).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -795,11 +793,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1032 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T07:38:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1032 times; this is ONE
-> coalesced notice that updates in place, not 1032 messages. Latest detail:
+> WATCHDOG notice — occurrence #1052 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T08:38:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1052 times; this is ONE
+> coalesced notice that updates in place, not 1052 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 187485s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 191085s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
