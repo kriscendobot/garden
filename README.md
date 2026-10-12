@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T12:38:39Z_
+_As of 2026-10-12T12:43:56Z_
 
 ## Latest
 
@@ -772,14 +770,11 @@ Delegation: **active**
 
 - `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-10-10T02:43:50Z, latest 2026-10-12T00:44:22Z).
-> The SAME condition (`namespace-clone-packs-oros-studio-garden-ce242c49`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> RECOVERED — the watchdog condition `namespace-clone-packs-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-10T02:43:50Z, cleared 2026-10-12T12:41:34Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Per-namespace journal clones on oros-studio-garden-ce242c49 are still over the 50-pack threshold after maintenance:
->   /Users/dom/garden/.garden-state/leader/journal: 66 packs
->
-> A pack/tmp_pack buildup makes every git read slow (2026-10-08: 57 s leader read wedged ~100 leader-gated units). Inspect by hand: `nice ionice -c3 git -C <clone> repack -a -d`.
+> Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
@@ -816,11 +811,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1112 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T11:38:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1112 times; this is ONE
-> coalesced notice that updates in place, not 1112 messages. Latest detail:
+> WATCHDOG notice — occurrence #1133 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T12:41:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1133 times; this is ONE
+> coalesced notice that updates in place, not 1133 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 201885s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 205664s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1413,7 +1408,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 211.6M | $984.23 _(notional, rate-card)_ | 78% of 271.0M (ok) |
+| Claude | 212.6M | $987.27 _(notional, rate-card)_ | 78% of 271.0M (ok) |
 | Codex | 9.8M _(+302.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 104742941 tokens/day lower bound._
@@ -1422,20 +1417,20 @@ _Fleet token-unlock pace: 104742941 tokens/day lower bound._
 worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`kriscendobot-minion.town-pr182-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #182
+### todo (0)
+(none)
 
 ### doin (2)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
-- [`kriscendobot-minion.town-pr181-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #181
+- [`kriscendobot-minion.town-pr182-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #182
 
-### tada (12557)
+### tada (12558)
+- [`kriscendobot-minion.town-pr181-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr181-gauntlet-fix-4.md) — Cost
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-fix-6.md) — Cost
 - [`kriscendobot-minion.town-pr181-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr181-gauntlet-panel-4.md) — Cost
 - [`carry-minion-town-pr182-pr181-gauntlets-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/carry-minion-town-pr182-pr181-gauntlets-20261012.md) — Cost
 - [`minion-town-arc-press-20261012-113506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/minion-town-arc-press-20261012-113506.md) — Cost
-- [`verify-screening-patch-fingerprint-context-drift-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy.md) — Cost
-- … and 12552 more
+- … and 12553 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
