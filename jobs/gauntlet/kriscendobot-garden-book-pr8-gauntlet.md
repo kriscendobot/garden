@@ -1,4 +1,5 @@
 ---
+panel_head: 04a5b7e847f9458bdcb85b268526f2b8b45b3303
 pr: https://github.com/kriscendobot/garden-book/pull/8
 repo: kriscendobot/garden-book
 pr_number: 8
