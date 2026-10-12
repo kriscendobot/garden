@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T06:52:13Z_
+_As of 2026-10-12T06:54:56Z_
 
 ## Latest
 
@@ -28,6 +26,7 @@ Fleet health:
 
 Delegation: **active**
 
+- 2026-10-12T06:53:14Z [#174](https://github.com/kriscendobot/minion.town/pull/174) `932a25e13de` screened
 - 2026-10-12T06:23:35Z [#174](https://github.com/kriscendobot/minion.town/pull/174) `08a0f45ce35` screened
 - 2026-10-12T00:57:07Z [#94](https://github.com/kriscendobot/minion.town/pull/94) merged `e427b79a6de`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/38189980007), watchdog ok — validated
 - 2026-10-12T00:52:52Z [#94](https://github.com/kriscendobot/minion.town/pull/94) `13b7e0a4d56` screened
@@ -1371,34 +1370,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 201.0M | $929.32 _(notional, rate-card)_ | 74% of 271.0M (ok) |
-| Codex | 8.5M _(+263.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 8.5M _(+264.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 105826916 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.660257s/45s (/home/kris/garden/.garden-state/maintainer/journal); 6 open notice(s); checker healthy
+worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #180
 - [`oros-health-checkup-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-000506.md) — ---
-- [`improve-sysop-control-plane-liveness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-sysop-control-plane-liveness.md) — ---
+- [`screen-minion-town-pr174-932a25e-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr174-932a25e-conduct.md) — Screened delegated merge: kriscendobot/minion.town#174 at 932a25e13deb42b1099...
 
 ### doin (6)
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1412
-- [`screen-minion-town-pr174-08a0f45-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr174-08a0f45-conduct.md) — Screened delegated merge: kriscendobot/minion.town#174 at 08a0f45ce35b4a660c9...
 - [`oros-health-checkup-20261012-062008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-062008.md) — ---
+- [`improve-sysop-control-plane-liveness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-sysop-control-plane-liveness.md) — ---
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr182-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #182
 - [`kriscendobot-minion.town-pr93-gauntlet-20261010-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr93-gauntlet-20261010-fix-11.md) — Gauntlet stage: FIX round 11 — kriscendobot/minion.town PR #93
 - [`oros-health-checkup-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-030519.md) — ---
 
-### tada (12519)
+### tada (12520)
+- [`screen-minion-town-pr174-08a0f45-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/screen-minion-town-pr174-08a0f45-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr180-gauntlet-fix-3.md) — Fix round 3 for kriscendobot/minion.town PR #180: pushed, CI green
 - [`oros-health-watch-20261012-062008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-062008.md) — Cost
 - [`claude-on-minion-town-press-20261012-062008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-062008.md) — Cost
 - [`kriscendobot-minion.town-pr182-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-panel-4.md) — Cost
-- [`kriscendobot-minion.town-pr174-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr174-gauntlet.md) — gauntlet kriscendobot-minion.town-pr174-gauntlet — complete
-- … and 12514 more
+- … and 12515 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
