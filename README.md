@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T13:51:05Z_
+_As of 2026-10-12T13:57:17Z_
 
 ## Latest
 
@@ -23,11 +21,12 @@ Fleet health:
 
 ## Maintainer review docket
 
-134 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+133 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
 
+- 2026-10-12T13:51:31Z [#182](https://github.com/kriscendobot/minion.town/pull/182) merged `bc110102b6f`; deploy [pending](https://github.com/kriscendobot/minion.town/actions/runs/38216866823)
 - 2026-10-12T13:49:10Z [#182](https://github.com/kriscendobot/minion.town/pull/182) `6eab3a38386` screened
 - 2026-10-12T13:33:43Z [#182](https://github.com/kriscendobot/minion.town/pull/182) `7c3a765ee29` screened
 - 2026-10-12T08:13:21Z [#93](https://github.com/kriscendobot/minion.town/pull/93) `df2205636b2` screened
@@ -1436,8 +1435,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.1M | $995.15 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.1M _(+307.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 214.2M | $995.30 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Codex | 10.1M _(+308.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101331739 tokens/day lower bound._
 
@@ -1448,19 +1447,18 @@ worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-125006.md) — ---
 - [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-125006.md) — Press the Claude-on-minion.town arc forward
-- [`screen-minion-town-pr182-6eab3a3-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr182-6eab3a3-conduct.md) — Screened delegated merge: kriscendobot/minion.town#182 at 6eab3a383869f700c0b...
 
-### tada (12567)
+### tada (12568)
+- [`screen-minion-town-pr182-6eab3a3-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/screen-minion-town-pr182-6eab3a3-conduct.md) — Cost
 - [`screen-minion-town-pr182-7c3a765-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/screen-minion-town-pr182-7c3a765-conduct.md) — Panel-head freshness
 - [`claude-on-minion-town-completion-press-20261012-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-completion-press-20261012-132012.md) — Panel-head freshness
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr182-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet.md) — gauntlet kriscendobot-minion.town-pr182-gauntlet — complete
-- [`kriscendobot-minion.town-pr182-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-undraft.md) — Cost
-- … and 12562 more
+- … and 12563 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
