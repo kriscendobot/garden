@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T18:59:33Z_
+_As of 2026-10-12T19:05:45Z_
 
 ## Latest
 
@@ -832,6 +830,12 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.163381s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `msg-oros-health-watch-20261012-185007-da6e22a3a885` — from gardener:oros-health-watch-20261012-185007, reply_to `oros-health-watch-20261012-185007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-185007-da6e22a3a885.md)
+
+> Oros health watcher intervention: the 15:50Z `oros-health-checkup-20261012-155007` remains claimed by monk 4 with no checkup progress or health-log update since claim, and the last Oros worker event at 16:04Z says all monks self-disqualified because the Claude CLI could not be resolved. Oros otherwise has a fresh 18:49Z budget heartbeat, no derotation marker, zero fleet-health unit failures, and is deployed at current main2 `2e531a6e`.
+>
+> I sent benign `reset-failed` (msgid `20261012T185232Z-a6f7ec`) and the standing-authorized restart of the wedged `garden-monk@4.service` (msgid `20261012T190022Z-500f0b`, `authorized_by=kriskowal`). Both acknowledgments are still pending; the sysop last acknowledged the rolling deploy's drain-off at 18:39Z, so it is delayed but not yet past the one-hour unreachable threshold. If no ack/recovery arrives, a person should inspect `garden-sysop.timer/service` and the missing Claude CLI on Oros.
+
 - `msg-oros-health-watch-20261011-205031-bf5a950e12f1` — from gardener:oros-health-watch-20261011-205031, reply_to `oros-health-watch-20261011-205031` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261011-205031-bf5a950e12f1.md)
 
 > Oros host is publishing a fresh heartbeat (22:04Z), but its sysop bridge is unresponsive: the newest sysop-log message is 20261011T211704Z-b88037 (over 1h old by message time), and reset-failed 20261011T212723Z-f6403a plus restore 20261011T215412Z-865a73 remain unacknowledged after prolonged foreground polling. The rolling deploy is still targeting a78fb723 while fleet/health remains stale at db962f1/roll-drained. Please inspect or restart garden-sysop.timer/service on oros; the bridge cannot restart itself. No drain was lifted by this watcher.
@@ -1452,10 +1456,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.2M | $996.03 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.6M _(+316.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 214.3M | $996.01 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Codex | 10.6M _(+317.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 104722916 tokens/day lower bound._
+_Fleet token-unlock pace: 94421900 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.576248s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 7 open notice(s); checker healthy
@@ -1465,18 +1469,17 @@ worst fetch p95 2.576248s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 2e531a6e2dda
 - [`oros-health-checkup-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-185007.md) — ---
 
-### doin (3)
-- [`improve-sanitize-inherited-clone-lock-soft-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-sanitize-inherited-clone-lock-soft-mode.md) — ---
+### doin (2)
 - [`oros-health-watch-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261012-185007.md) — ---
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
 
-### tada (12580)
+### tada (12581)
+- [`improve-sanitize-inherited-clone-lock-soft-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/improve-sanitize-inherited-clone-lock-soft-mode.md) — Cost
 - [`claude-on-minion-town-press-20261012-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-185007.md) — Panel-head freshness
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume3.md) — Cost
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume2.md) — Cost
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-125006.md) — Cost
-- [`minion-town-arc-press-20261012-173508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/minion-town-arc-press-20261012-173508.md) — Cost
-- … and 12575 more
+- … and 12576 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
