@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T17:53:38Z_
+_As of 2026-10-12T17:59:53Z_
 
 ## Latest
 
@@ -1452,8 +1450,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.2M | $995.30 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.4M _(+312.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 214.2M | $995.72 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Codex | 10.4M _(+313.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 104720252 tokens/day lower bound._
 
@@ -1465,16 +1463,16 @@ worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 (none)
 
 ### doin (2)
-- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy-resume2.md) — Resume post-deploy validation (2): screening patch fingerprint context drift
+- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy-resume3.md) — Resume post-deploy validation (3): screening patch fingerprint context drift
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
 
-### tada (12577)
+### tada (12578)
+- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume2.md) — Cost
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-checkup-20261012-125006.md) — Cost
 - [`minion-town-arc-press-20261012-173508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/minion-town-arc-press-20261012-173508.md) — Cost
 - [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-125006.md) — Cost
 - [`oros-health-watch-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-155007.md) — Cost
-- [`reset-credit-watch-20261012-160506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/reset-credit-watch-20261012-160506.md) — Cost
-- … and 12572 more
+- … and 12573 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
