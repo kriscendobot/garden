@@ -1,2 +1,2 @@
-base: improve-isolate-uncalibrated-monk-pool
+base: improve-refresh-stale-budget-snapshot
 identity: mentor:scripts/jobs/budget-level.sh
