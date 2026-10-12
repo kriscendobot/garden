@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T14:40:13Z_
+_As of 2026-10-12T14:42:27Z_
 
 ## Latest
 
@@ -818,11 +818,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1153 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T13:41:03Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1153 times; this is ONE
-> coalesced notice that updates in place, not 1153 messages. Latest detail:
+> WATCHDOG notice — occurrence #1173 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T14:41:03Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1173 times; this is ONE
+> coalesced notice that updates in place, not 1173 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 209266s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 212866s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1141,11 +1141,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-10-11T22:45:24Z, cleared 2026-10-12T08:29:22Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-11T22:45:24Z, latest 2026-10-12T14:41:11Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.015526s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
@@ -1436,31 +1436,30 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.2M | $995.68 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Claude | 214.2M | $995.30 _(notional, rate-card)_ | 79% of 271.0M (ok) |
 | Codex | 10.1M _(+308.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101333966 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 6 open notice(s); checker healthy
+worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-125006.md) — ---
 - [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-125006.md) — Press the Claude-on-minion.town arc forward
-- [`arm-minion-town-prod-probe-runner-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arm-minion-town-prod-probe-runner-20261012.md) — Arm the minion.town production probe on the self-hosted runner, then prove a ...
 
-### tada (12569)
+### tada (12570)
+- [`arm-minion-town-prod-probe-runner-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/arm-minion-town-prod-probe-runner-20261012.md) — Cost
 - [`minion-town-arc-press-20261012-143506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/minion-town-arc-press-20261012-143506.md) — Cost
 - [`screen-minion-town-pr182-6eab3a3-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/screen-minion-town-pr182-6eab3a3-conduct.md) — Cost
 - [`screen-minion-town-pr182-7c3a765-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/screen-minion-town-pr182-7c3a765-conduct.md) — Panel-head freshness
 - [`claude-on-minion-town-completion-press-20261012-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-completion-press-20261012-132012.md) — Panel-head freshness
-- [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/verify-screening-patch-fingerprint-context-drift-postdeploy-resume.md) — Panel-head freshness
-- … and 12564 more
+- … and 12565 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
