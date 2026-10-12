@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T20:44:44Z_
+_As of 2026-10-12T20:54:07Z_
 
 ## Latest
 
@@ -41,14 +39,6 @@ Delegation: **active**
 
 ## Messages to the maintainer
 
-- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal.md)
-
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal` has CLEARED (first seen 2026-10-09T02:59:25Z, cleared 2026-10-09T03:54:05Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal` cleared on endolin-garden2-5bcdff64.
-
 - `msg-ocap-site-dnssec-followup-20261008-df1e9ee7a916` — from gardener:ocap-site-dnssec-followup-20261008, reply_to `ocap-site-dnssec-followup-20261008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dnssec-followup-20261008-df1e9ee7a916.md)
 
 > ocap.site DNSSEC / transfer follow-up (2026-10-08 01:22Z)
@@ -58,14 +48,6 @@ Delegation: **active**
 > - DNSSEC: Route53 zone Z048672026UQWLGHNEQE0 still SIGNING, but the DS record is STILL UNPUBLISHED at the registrar: RDAP shows delegationSigned=false and there is no DS for ocap.site in the .site zone. The chain of trust stays broken (zone resolves as insecure) until either the transfer completes and Route53 Domains publishes DS, or Key-Systems publishes it some other way (support ticket / API).
 >
 > Next step is your call: start the transfer after 10-09 19:55Z, or ask the registrar to add the DS.
-
-- `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
-
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-08T20:53:04Z, cleared 2026-10-12T17:38:02Z).
-> It was observed 1915 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
@@ -145,14 +127,6 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.012669s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
-
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-10T07:21:03Z, cleared 2026-10-12T12:49:14Z).
-> It was observed 46 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
-
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
 > WATCHDOG notice — occurrence #7 (first seen 2026-10-06T06:35:18Z, latest 2026-10-12T10:50:20Z).
@@ -160,18 +134,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 7 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
-
-- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
-
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` has CLEARED (first seen 2026-10-11T10:44:34Z, cleared 2026-10-12T08:44:26Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` cleared on endolin-garden-ece02cb4.
-
-- `msg-scholar-ingest-literate-ai-next-slice-20261010-2f03c064ebbe` — from scholar:scholar-ingest-literate-ai-next-slice-20261010, reply_to `scholar-ingest-literate-ai-next-slice-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-next-slice-20261010-2f03c064ebbe.md)
-
-> I ingested the next Literate AI architecture slice: 4 docs as 20 library sections. They are mission-specification composition (5), monorepo adoption (3), NVIDIA library discovery (4), and the OVA evaluation (8), all at `fcc40bc6`. This host has no `TYPESAFE_API_KEY`, so the Jev gate returned `proceed_unclassified`. I read the docs as untrusted data and saw no agent-directed text, and the gap is recorded on each source page. `project-releases.md`, `authority-learning-loop.md`, and `beam-live-coding-layer-investigation.md` are still blocked pending your disposition. `scholar-ingest-literate-ai-remainder-3-20261010` continues at `provider-resolution.md`. Details are in today's scholar `result` entry for this job.
 
 - `kriscendobot-minion.town-pr177-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr177-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr177-gauntlet-review-budget-reached.md)
 
@@ -190,19 +152,6 @@ Delegation: **active**
 > - Posted designer jobs `plan-minion-town-git-remote-increments-20261010` (arc 2; [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) is merged but not deployed) and `plan-minion-town-clip-gutter-20261010` (arc 3).
 > - Posted `build-accountant-statement-unattributed-share` (garden-upkeep), which adds an unattributed-share line per pool to the statement.
 > - Carried to the 10-17 accountant: if arcs 2 and 3 still have no plans, move the unused share to arc 4 and say so. Re-fit endolin2 toward ~121M if it passes ~50% before 10-17. Spend the codex-endolin credit (expires 10-29) once codex leaves backoff after ~10-13 18:40Z, on arc 1 or arc 4 work.
-
-- `scholar-ingest-literate-ai-remainder-2-20261010-split-terminal-complete` — from orchestrator:scholar-ingest-literate-ai-remainder-2-20261010-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/scholar-ingest-literate-ai-remainder-2-20261010-split-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: scholar-ingest-literate-ai-remainder-2-20261010-split
-> orchestration-status: complete
-> order: serial
-> children-total: 3
-> children-failed: 0
-> failed-children: 
-> recovered-children: 
->
-> Orchestration scholar-ingest-literate-ai-remainder-2-20261010-split complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
 - `kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr94-screen-6098638b-gauntlet-review-budget-reached.md)
 
@@ -239,29 +188,9 @@ Delegation: **active**
 >
 > gardener job 'endojs-endo-but-for-bots-pr179-weave-20261010' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2408s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `msg-scholar-ingest-literate-ai-remainder-16-20261011-cce1ae339796` — from scholar:scholar-ingest-literate-ai-remainder-16-20261011, reply_to `scholar-ingest-literate-ai-remainder-16-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-16-20261011-cce1ae339796.md)
-
-> Ingested Literate AI ADRs 0034 through 0038 as 24 sections covering evidence-bound release closure, explicit adoption state, npm lifecycle authority, prefix self-update, and importable library artifacts. All five foreign-content classifications permitted ingestion, and the source-link, section-count, sections-index, and topic-count gates passed. The next cycle is posted for ADR 0039; the previously blocked sources remain untouched pending maintainer disposition. Full result: `entries/2026/10/11/185032Z-result-scholar-95e043.md`.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal.md)
-
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal` has CLEARED (first seen 2026-10-09T03:04:14Z, cleared 2026-10-09T03:07:59Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal` cleared on endolin-garden2-5bcdff64.
-
 - `msg-scholar-ingest-literate-ai-remainder-20261010-aa71d0ac0098` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-aa71d0ac0098.md)
 
 > The second Literate AI cycle added 15 sections from four architecture sources: repository layout, durable user-directed work, source promotion, and the production containment threat model. The resulting comparison material sharpens the garden's parallels around durable work authority, source-versus-specification promotion, per-phase containment, and authenticated evidence without treating local policy checks as execution authority. `project-releases.md` was not read because the foreign-content gate halted it at injection uncertainty 0.34; I sent the classifier manifest separately and queued it only after maintainer clearance. Full result: `entries/2026/10/10/165034Z-result-scholar-dfd445.md`.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify.md)
-
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` has CLEARED (first seen 2026-10-09T03:09:15Z, cleared 2026-10-09T03:59:20Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` cleared on endolin-garden2-5bcdff64.
 
 - `20261010T163620Z-5a3568` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261010T163620Z-5a3568.md)
 
@@ -335,10 +264,6 @@ Delegation: **active**
 >   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
 >   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
-- `msg-scholar-ingest-literate-ai-20261010-583675689bd4` — from scholar:scholar-ingest-literate-ai-20261010, reply_to `scholar-ingest-literate-ai-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-20261010-583675689bd4.md)
-
-> Literate AI is a strong conceptual match for the garden's gauntlet: its best reusable ideas are an explicit authority-to-evidence chain, source-only candidates, independent acceptance distinct from generated tests, and a traceability matrix tying each boundary to executable proof. I ingested five core sources as 15 sections, added the `agentic-sdlc` topic and `specification-authority-chain` concept, and published the requested comparison at [https://github.com/kriscendobot/garden/issues/123](https://github.com/kriscendobot/garden/issues/123). Its main mismatches are that “generated source is disposable” does not fit most existing repositories, its whole-file identity model can create repinning churn, and its guarded host execution is explicitly not hardened containment. Full result: https://github.com/kriscendobot/garden/blob/journal2/entries/2026/10/10/163557Z-result-scholar-2c16e5.md
-
 - `stale-panel-head-kriscendobot-minion.town-pr174-f7dfa808-3e088a18` — from gardener:minion-town-arc-press-20261009-142016, reply_to `minion-town-arc-press-20261009-142016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr174-f7dfa808-3e088a18.md)
 
 > Stale panel coverage for completed job `minion-town-arc-press-20261009-142016`: [https://github.com/kriscendobot/minion.town/pull/174](https://github.com/kriscendobot/minion.town/pull/174) moved from panel-reviewed head `f7dfa8088039c61689a162d51d5601942d967e11` to presented head `3e088a1837ef793d0a345a1e498f939482df8e6e`.
@@ -372,14 +297,6 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.013239s, giveups=2, steals=1 (max 3/window), wait floor=60s.
 
-- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
-
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` has CLEARED (first seen 2026-10-10T14:43:18Z, cleared 2026-10-10T20:42:07Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` cleared on endolin-garden-ece02cb4.
-
 - `stale-panel-head-kriscendobot-minion.town-pr166-4353d0bf-1f84e580` — from gardener:claude-on-minion-town-completion-press-20261009-182008, reply_to `claude-on-minion-town-completion-press-20261009-182008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr166-4353d0bf-1f84e580.md)
 
 > Stale panel coverage for completed job `claude-on-minion-town-completion-press-20261009-182008`: [https://github.com/kriscendobot/minion.town/pull/166](https://github.com/kriscendobot/minion.town/pull/166) moved from panel-reviewed head `4353d0bf0d0f0e1774b565d251743e7e69ce9332` to presented head `1f84e580ef0e973d1aaef69dd2731a9893855741`.
@@ -388,14 +305,6 @@ Delegation: **active**
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
-- `watchdog-comment-ack-latency-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-endojs-endo-but-for-bots.md)
-
-> RECOVERED — the watchdog condition `comment-ack-latency-endojs-endo-but-for-bots` has CLEARED (first seen 2026-10-09T01:42:46Z, cleared 2026-10-09T01:47:09Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=9 quota=ok fleet-envelope=4 target=2
@@ -403,18 +312,6 @@ Delegation: **active**
 - `msg-oros-health-watch-20261012-030519-07b22cd02d23` — from gardener:oros-health-watch-20261012-030519, reply_to `oros-health-watch-20261012-030519` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-030519-07b22cd02d23.md)
 
 > Oros health watcher: `oros-health-checkup-20261012-000506` was claimed on oros at 02:21:47Z but had no journal/log progress for over 45 minutes. The budget heartbeat was last sampled at 02:06:40Z, and the host is behind main2 (`78f9dacc`, target/main2 now `c60e4758`) with roll status deferred on a long job. The last sysop audit was 00:52:02Z. I sent benign `reset-failed` as msg `20261012T030720Z-cc2946` at 03:07Z; no ack or sysop-log record arrived across multiple 20-second ticks. Oros's sysop bridge is unreachable and needs a person at the machine to check Docker Desktop, sleep/wake state, the VM, and `garden-sysop.timer`.
-
-- `msg-scholar-ingest-literate-ai-remainder-6-20261010-64d125c67f5b` — from scholar:scholar-ingest-literate-ai-remainder-6-20261010, reply_to `scholar-ingest-literate-ai-remainder-6-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-6-20261010-64d125c67f5b.md)
-
-> Ingested Literate AI's `docs/architecture/sbom-and-dependency-graph.md` at `fcc40bc6` as five sections, adding the `software-supply-chain` topic and `sbom-transition-invariant` concept. Jev returned `proceed` (injection 0.13 clean; neutral slant 0.96), and the link, section-count, and regenerated-index checks all passed. The next exact remainder job is `scholar-ingest-literate-ai-remainder-7-20261010` for `docs/architecture/skills.md`; the four previously escalated architecture files remain untouched because no disposition appeared. Full result: `entries/2026/10/10/234749Z-result-scholar-4267e6.md`.
-
-- `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
-
-> RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-10-10T03:52:48Z, cleared 2026-10-10T06:27:40Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
 
 - `msg-oros-health-watch-20261012-062008-ac8676b917a8` — from gardener:oros-health-watch-20261012-062008, reply_to `oros-health-watch-20261012-062008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-062008-ac8676b917a8.md)
 
@@ -444,18 +341,6 @@ Delegation: **active**
 >
 > Both are likely false positives (docs about agent skills/prompts tend to read as instruction-shaped), but the gate says escalate. These join the four still-blocked files (repository-source-dependencies, project-releases, authority-learning-loop, beam-live-coding-layer-investigation). The cycle continues with worker-storage-protocol (Jev proceed).
 
-- `watchdog-rolling-deploy-canary-failed-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden-ece02cb4.md)
-
-> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-09T03:53:09Z, cleared 2026-10-09T05:53:08Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> retrying canary endolin-garden-ece02cb4 (attempt 1/3); clearing prior page.
-
-- `msg-scholar-ingest-literate-ai-remainder-17-20261011-9876536b03f8` — from scholar:scholar-ingest-literate-ai-remainder-17-20261011, reply_to `scholar-ingest-literate-ai-remainder-17-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-17-20261011-9876536b03f8.md)
-
-> Ingested Literate AI ADRs 0039, 0040, 0042, and 0043 as 24 sections covering bounded 1.1 capabilities, retained Cargo library bindings, compiled C++ products, and worker resource health. ADR 0041 was not read because Jev halted it at injection 0.30 uncertain; I sent its manifest separately, and it now joins the eight previously blocked sources pending your disposition. All links, declared counts, and regenerated indexes pass; `scholar-ingest-literate-ai-remainder-18-20261011` continues with the large ADR 0044. Full result: `entries/2026/10/11/190355Z-result-scholar-2d078e.md`.
-
 - `msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d` — from gardener:minion-town-ci-runner-redeploy-verify-50aa690, reply_to `minion-town-ci-runner-redeploy-verify-50aa690` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-ci-runner-redeploy-verify-50aa690-d2a7e84df68d.md)
 
 > ci.minion.town validation succeeded at kriscendobot/minion.town main 50aa690f87bab73cadc83eaeb39806b60913f054. Lambda was already byte-for-byte in sync and remained Active/Successful; host files were already in sync, so neither component was redeployed and the host was not rebooted. Fresh SSM observation showed boot 2026-10-08 20:23:32 UTC, service active since 20:23:40 UTC, well beyond the 10-minute window. Selftest: https://github.com/kriscendobot/minion.town/actions/runs/37849209480 — probe and verify passed, verify reported no planted residue (including X11, systemd-private, named volume/container/image, cron, and /run/lock), and the intentional fail job failed as expected. Logs used timestamp-suffixed runners, including ci-minion-town-0fdb85b6-20261008T214954Z for verify and ci-minion-town-0fdb85b6-20261008T215307Z for fail. CI_RUNS_ON is unset, selecting self-hosted. After the prune window the runners API showed exactly one ci-minion-town registration, online with timestamp suffix, and no orphaned/offline registrations. Open operator items: none.
@@ -477,21 +362,9 @@ Delegation: **active**
 >
 > Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume observed child moddable-10-0-0-ironhorse-port-plan-synthesis-20261009: stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
 
-- `msg-scholar-ingest-literate-ai-remainder-19-20261011-54a0de4c5020` — from scholar:scholar-ingest-literate-ai-remainder-19-20261011, reply_to `scholar-ingest-literate-ai-remainder-19-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-19-20261011-54a0de4c5020.md)
-
-> The final eligible Literate AI backlog is ingested: ADRs 0045–0049 landed as 19 sections covering Debian-package worker custody, project-scoped worktree retirement, native CLI acceptance, retained-project lifecycle admission, and repository succession. All five Jev checks returned `proceed`, all 68 prior anchors matched upstream, and committed-tip link/count/index checks pass. No eligible remainder remains; ADRs 0014/0016/0041 and the six blocked architecture files remain untouched pending explicit disposition. See the new scholar result entry for full provenance and classifier usage.
-
 - `msg-oros-health-watch-20261010-010508-6c8230a9616c` — from gardener:oros-health-watch-20261010-010508, reply_to `oros-health-watch-20261010-010508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261010-010508-6c8230a9616c.md)
 
 > oros-health-watch: oros-studio-garden-ce242c49 looks UNREACHABLE since ~02:50Z 2026-10-10. Last journal activity: budget heartbeat 02:49Z (last tada 02:30Z); nothing since (~55 min). A benign op=reset-failed (msg 20261010T031501Z-d7a081, sent 03:15Z) is still unacked at 03:43Z, so the sysop is not ticking either. The rolling-deploy host-offline watchdog keeps re-firing too. Before it went quiet it was healthy: deployed fad05c57 (= main2), roll_status deployed, 1 failed unit (garden-manual-deploy.service), not derotated. The oros-health-checkup schedule is snoozed until 2026-10-12, so no checkup ran this cycle. Needs a person at the machine: check the Mac is awake, Docker Desktop, and the VM/container.
-
-- `watchdog-comment-ack-latency-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-kriscendobot-garden.md)
-
-> RECOVERED — the watchdog condition `comment-ack-latency-kriscendobot-garden` has CLEARED (first seen 2026-10-09T03:57:24Z, cleared 2026-10-09T04:02:13Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
 
 - `msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3` — from gardener:reset-credit-watch-20261012-160506, reply_to `reset-credit-watch-20261012-160506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3.md)
 
@@ -508,35 +381,11 @@ Delegation: **active**
 
 > subscription claude-endolin2 changed zone ok -> backoff at spend=207858888/168000000.
 
-- `msg-scholar-ingest-literate-ai-remainder-7-20261010-b950ef1dff9c` — from scholar:scholar-ingest-literate-ai-remainder-7-20261010, reply_to `scholar-ingest-literate-ai-remainder-7-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-7-20261010-b950ef1dff9c.md)
-
-> Ingested 3 Literate AI sources as 12 sections: `docs/architecture/worker-storage-protocol.md` (6; Jev proceed) plus ADRs 0001 framework boundary and 0002 Python reference kernel (3 each; proceed_with_caveat for low slant confidence). Jev halted two more files (`skills.md` injection 0.32, `superpowers-skills-assessment.md` injection 0.31 with advocacy slant), so they were not read; see my separate escalation for a disposition, which would join the four already blocked. Links, counts, and both regenerated indexes passed (result `entries/2026/10/11/002831Z-result-scholar-52cb10.md`); next cycle is `scholar-ingest-literate-ai-remainder-8-20261010` starting at ADR 0003.
-
-- `msg-scholar-ingest-literate-ai-remainder-10-20261010-593cf0a2cafe` — from scholar:scholar-ingest-literate-ai-remainder-10-20261010, reply_to `scholar-ingest-literate-ai-remainder-10-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-10-20261010-593cf0a2cafe.md)
-
-> Ingested Literate AI ADRs 0008 through 0012 into 17 sections covering resilient sample gates, explicit cache custody, canonical Flavor naming, typed Component metadata, and curated sample coverage. All five source clusters and both generated indexes passed their deterministic checks; ADR 0009 carries Jev's advocacy caveat, and the other four proceeded cleanly. No disposition arrived for the six blocked architecture files, so they remain untouched. Follow-up `scholar-ingest-literate-ai-remainder-11-20261010` continues at ADR 0013.
-
-- `msg-scholar-ingest-literate-ai-remainder-11-20261010-bb87de21eda6` — from scholar:scholar-ingest-literate-ai-remainder-11-20261010, reply_to `scholar-ingest-literate-ai-remainder-11-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-11-20261010-bb87de21eda6.md)
-
-> Ingested Literate AI ADR 0013 as 9 sections covering per-concern intent refinement, independently decidable specifications, atomic human acceptance, and the distributed-pi reference case. All 39 prior source anchors remained current, and source/topic links plus regenerated section and topic indexes passed their final checks. ADR 0016 was separately halted and escalated by Jev, so the posted successor starts at ADR 0014 and skips ADR 0016 pending an explicit disposition. Full result: `entries/2026/10/11/175424Z-result-scholar-6c191c.md`.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal.md)
-
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-09T05:59:29Z, cleared 2026-10-09T07:38:14Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_bulletin_journal` cleared on endolin-garden2-5bcdff64.
-
 - `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
 
 > Foreign-content gate halted ingestion of `docs/architecture/project-releases.md` from https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/project-releases.md.
 >
 > Classifier manifest: `classify_status=classified`, `classify_policy=halt_and_escalate`, `classify_injection=0.34`, `classify_injection_verdict=uncertain`, `classify_slant=neutral`, `classify_slant_confidence=1.0`, `classify_caveat=prompt-injection equipoise (p=0.34); uncertainty fails toward escalation`, model `jev-1.13.0`, usage 5,526 input and 71 output tokens. The fetched bytes are at `/tmp/scholar-literate-ai-remainder-20261010/docs/architecture/project-releases.md`. I did not read or ingest the flagged content and am continuing with the four sources that passed.
-
-- `msg-scholar-ingest-literate-ai-remainder-13-20261011-340307145931` — from scholar:scholar-ingest-literate-ai-remainder-13-20261011, reply_to `scholar-ingest-literate-ai-remainder-13-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-13-20261011-340307145931.md)
-
-> Literate AI ingest remainder 13 added ADRs 0019 through 0023 as 25 sections: opt-in external source intelligence, paginated atomic lock review, operator-local MCP catalogs, shared channel envelopes, and mutagenic-event fan-out. All five Jev checks returned `proceed`; the five source clusters, declared counts, and both regenerated indexes passed their deterministic checks. The eight previously escalated files remain unread and blocked because no maintainer disposition arrived. The next cycle is `scholar-ingest-literate-ai-remainder-14-20261011`, starting at ADR 0024; full result: `entries/2026/10/11/181514Z-result-scholar-bb7e60.md`.
 
 - `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
 
@@ -557,14 +406,6 @@ Delegation: **active**
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 4): subscription claude-endolin1 spend=1445685 cap=271000000 pace-bias=0 window-start=2026-10-10T03:00Z(calendar) deadline=2026-10-17T03:00Z(calendar) ceiling=4 backoff=0.5010(ramp) target=4
-
-- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal.md)
-
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` has CLEARED (first seen 2026-10-11T20:45:31Z, cleared 2026-10-12T02:45:40Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` cleared on endolin-garden-ece02cb4.
 
 - `kriscendobot-minion.town-pr174-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr174-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr174-gauntlet-halted.md)
 
@@ -615,14 +456,6 @@ Delegation: **active**
 >
 > Orchestration review-docket-20261008 observed child review-docket-consolidate-20261008: doomed and held in plan.
 
-- `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
-
-> RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T00:20:13Z, cleared 2026-10-12T16:50:11Z).
-> It was observed 6 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (892s old; sampled_at_epoch=1791822912)); it is PRESENT again and its config/worker-leveling caps are restored to 8 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
-
 - `endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1403-gauntlet-20261007 REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1403-gauntlet-20261007 panel --add-rounds N
@@ -631,26 +464,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1403-gauntlet-20261007 panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `msg-scholar-ingest-literate-ai-remainder-4-20261010-f32d629bc7cb` — from scholar:scholar-ingest-literate-ai-remainder-4-20261010, reply_to `scholar-ingest-literate-ai-remainder-4-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-4-20261010-f32d629bc7cb.md)
-
-> Literate AI ingest, slice 5: I ingested `docs/architecture/retained-library-bindings.md` (52 KB, Jev `proceed`, injection 0.19) as 16 sections at commit `fcc40bc6`. It covers the integrity machinery behind ADR 0040's retained Cargo library bridge: export set and binding, current-authority readers, evidence capture and reopening, and consumer test execution under native-dependency and loader-path custody. Integrity gates pass, and both indexes were regenerated. The next source is `sample-portfolio-review` (job `scholar-ingest-literate-ai-remainder-5-20261010`). Four architecture docs are still blocked on your disposition after Jev halts (`repository-source-dependencies`, `project-releases`, `authority-learning-loop`, `beam-live-coding-layer-investigation`).
-
-- `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-09T18:02:55Z, cleared 2026-10-11T20:12:19Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
-- `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
-
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-11T09:00:15Z, cleared 2026-10-12T18:37:13Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-contention-watch-overrun` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
@@ -788,14 +601,6 @@ Delegation: **active**
 
 > Correction to my immediately preceding alert: oros sysop is reachable. It accepted and applied reset-failed 20261011T173829Z-e1fdef at 17:39:24Z; the ack appeared in sysop-log after the local journal projection refreshed, while the directed job inbox remained empty. No physical intervention is needed for sysop. The known stuck canary remains: oros is intentionally roll-drained on 592f66b pending maintainer diagnosis of garden-self-deploy versus main2 db962f1.
 
-- `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
-
-> RECOVERED — the watchdog condition `namespace-clone-packs-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-10T02:43:50Z, cleared 2026-10-12T12:41:34Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-11T13:27:02Z, latest 2026-10-12T18:37:37Z).
@@ -817,10 +622,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr174-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 10 -> 12 (N is yours to choose).
 
-- `msg-scholar-ingest-literate-ai-remainder-18-20261011-e9bae64801a4` — from scholar:scholar-ingest-literate-ai-remainder-18-20261011, reply_to `scholar-ingest-literate-ai-remainder-18-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-18-20261011-e9bae64801a4.md)
-
-> Literate AI ingest: ADR 0044 (action-DAG scheduling across compatible workers + layered, always-untrusted shared caches) landed as 16 library sections at commit 2820f853; classifier proceed (injection 0.12 clean, slant neutral 0.95). All 67 prior literate-ai source pages are still current. Blocked items (ADRs 0014/0016/0041 and six architecture docs) remain untouched pending your disposition. Next: scholar-ingest-literate-ai-remainder-19-20261011 covers ADRs 0045–0049, the last eligible backlog.
-
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-09-17T00:05:19Z, latest 2026-10-11T22:20:39Z).
@@ -831,11 +632,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1275 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T19:47:04Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1275 times; this is ONE
-> coalesced notice that updates in place, not 1275 messages. Latest detail:
+> WATCHDOG notice — occurrence #1296 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T20:50:03Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1296 times; this is ONE
+> coalesced notice that updates in place, not 1296 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 231227s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 235005s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -860,19 +661,6 @@ Delegation: **active**
 
 > Oros host is publishing a fresh heartbeat (22:04Z), but its sysop bridge is unresponsive: the newest sysop-log message is 20261011T211704Z-b88037 (over 1h old by message time), and reset-failed 20261011T212723Z-f6403a plus restore 20261011T215412Z-865a73 remain unacknowledged after prolonged foreground polling. The rolling deploy is still targeting a78fb723 while fleet/health remains stale at db962f1/roll-drained. Please inspect or restart garden-sysop.timer/service on oros; the bridge cannot restart itself. No drain was lifted by this watcher.
 
-- `minion-town-ci-runner-unblock-20261008-terminal-complete` — from orchestrator:minion-town-ci-runner-unblock-20261008-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-unblock-20261008-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: minion-town-ci-runner-unblock-20261008
-> orchestration-status: complete
-> order: serial
-> children-total: 3
-> children-failed: 0
-> failed-children: 
-> recovered-children: 
->
-> Orchestration minion-town-ci-runner-unblock-20261008 complete (serial): all 3 children reached tada without a machine-readable failure declaration.
-
 - `kriscendobot-minion.town-pr178-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr178-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr178-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr178-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds N
@@ -882,23 +670,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
-- `msg-scholar-ingest-source-awesome-ocap-petnames-remainder-1380ef14b3c4` — from scholar:scholar-ingest-source-awesome-ocap-petnames-remainder, reply_to `scholar-ingest-source-awesome-ocap-petnames-remainder` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-source-awesome-ocap-petnames-remainder-1380ef14b3c4.md)
-
-> Finished the PetNames reference walk: ingested the 2022 Spritely paper, Tyler Close's 2005 browser paper, Bill Frantz's 2000 reply, and the recovered Walnut section as five library sections. The DCF demo and Endo 2.0.0–2.3.0 changelog add no petname behavior beyond the existing Endo source corpus; the two linked issues are unanswered discussion stubs rather than authoritative sources. Jev remained unavailable because `TYPESAFE_API_KEY` is absent, and every ingested source records that caveat. Full result: `entries/2026/10/08/204736Z-result-scholar-626da7.md`.
-
-- `minion-town-ci-runner-redeploy-50aa690-split-terminal-complete` — from orchestrator:minion-town-ci-runner-redeploy-50aa690-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-ci-runner-redeploy-50aa690-split-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: minion-town-ci-runner-redeploy-50aa690-split
-> orchestration-status: complete
-> order: serial
-> children-total: 3
-> children-failed: 0
-> failed-children: 
-> recovered-children: 
->
-> Orchestration minion-town-ci-runner-redeploy-50aa690-split complete (serial): all 3 children reached tada without a machine-readable failure declaration.
-
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-d41c7e131ed3` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-d41c7e131ed3.md)
 
 > Literate AI ingest, slice 4: added `provider-resolution` (3 sections) and `repository-inheritance` (6 sections), both classified `proceed` by Jev on endolin. Link checks passed and both indexes are regenerated.
@@ -906,14 +677,6 @@ Delegation: **active**
 > `repository-source-dependencies` came back `halt_and_escalate` (injection 0.25, uncertain), so I did not read it. It is now the fourth blocked Literate AI file awaiting your disposition (separate message).
 >
 > Next source is `retained-library-bindings` (about 52 KB), posted as `scholar-ingest-literate-ai-remainder-4-20261010`. Result: entries/2026/10/10/222041Z-result-scholar-f3560a.md.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
-
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-10T10:17:55Z, cleared 2026-10-10T10:41:31Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
 
 - `kriscendobot-minion.town-pr180-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr180-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr180-gauntlet-halted.md)
 
@@ -923,14 +686,6 @@ Delegation: **active**
 >
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --iteration 5 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal.md)
-
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal` has CLEARED (first seen 2026-10-09T02:59:30Z, cleared 2026-10-09T07:09:14Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_monks_1_journal` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
@@ -1049,10 +804,6 @@ Delegation: **active**
 > 3. Regenerate the root priorities/docket document and check that its ordering follows `config/apportionment`/`config/foreman-mandate` and what each item unblocks.
 > 4. **Send ONE maintainer message** (`send-msg.sh maintainer`, key `review-docket-live`) with the **full GitHub URL** of the root document on journal2 (`https://github.com/kriscendobot/garden/blob/journal2/<path>`). Include counts per arc, the top 5 reviews and what each unblocks, and the archive index URL.
 
-- `msg-scholar-ingest-literate-ai-remainder-14-20261011-a9e75525b6b4` — from scholar:scholar-ingest-literate-ai-remainder-14-20261011, reply_to `scholar-ingest-literate-ai-remainder-14-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-14-20261011-a9e75525b6b4.md)
-
-> Literate AI ingest remainder 14 added ADRs 0024 through 0028 as 25 sections: project MCP catalog hygiene, direct CLI MCP fan-out, multi-entrypoint deployment units, the durable split-service pattern, and verifier-owned browser acceptance. ADRs 0027 and 0028 carry Jev's low-confidence neutral-slant caveat; the other three classified cleanly, and the previously blocked files remain untouched without a maintainer disposition. Source links, declared counts, and both regenerated indexes passed; full details are in `entries/2026/10/11/182738Z-result-scholar-8f18be.md`. The posted continuation `scholar-ingest-literate-ai-remainder-15-20261011` begins at ADR 0029.
-
 - `msg-oros-health-watch-20261011-173544-b7e27ae194cf` — from gardener:oros-health-watch-20261011-173544, reply_to `oros-health-watch-20261011-173544` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261011-173544-b7e27ae194cf.md)
 
 > Oros sysop bridge is not responding: no sysop-log activity since 13:02Z, and reset-failed 20261011T173829Z-e1fdef received no ack after 10 minutes. The host quota heartbeat is still fresh (sampled 17:01Z), but fleet/health remains stale at 12:01Z and roll-drained on 592f66b while main2 is db962f1. The rolling deploy left an active failure drain, so I did not lift it. A person should inspect garden-sysop and garden-self-deploy on oros; physical access may be needed if the VM or Docker service is unhealthy.
@@ -1098,10 +849,6 @@ Delegation: **active**
 >
 > Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume observed child moddable-10-0-0-ironhorse-audit-20261009: stalled in flight for 2583s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1).
 
-- `msg-scholar-ingest-literate-ai-remainder-9-20261010-3247a5180faf` — from scholar:scholar-ingest-literate-ai-remainder-9-20261010, reply_to `scholar-ingest-literate-ai-remainder-9-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-9-20261010-3247a5180faf.md)
-
-> Literate AI remainder 9 ingested ADR 0007, update classification and semantic merge, as 6 sections at its current file commit `2820f853`: parent-catalog identity fixes false conflicts, while identity-bound review and explicit resolution envelopes keep three-way migration plan-first, fail-closed, and rollback-safe. Jev returned `proceed` (injection 0.11); links, all 34 Literate AI source counts, and regenerated indexes passed. The next cycle is `scholar-ingest-literate-ai-remainder-10-20261010` at ADR 0008; the six escalated architecture files remain untouched pending disposition.
-
 - `review-docket-20261008-halted` — from orchestrator:review-docket-20261008-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -1142,19 +889,6 @@ Delegation: **active**
 
 > Post-deploy validation is blocked: the deliberate rolling deploy exhausted retries at 2026-10-12T11:32:14Z because canary oros-studio-garden-ce242c49 remained on 78f9dacc9383e72f5c069392606e4cd7da886986; leader endolin-garden-ece02cb4 correctly holds at fad05c57898961deea273986ef299ad6b32eecbd. I did not bypass the gate or deploy by hand. Target remains 8da29934080b323a7319806aeec0d52bfb8b0b1d; live screening validation for [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93) cannot proceed until a deliberate roll advances.
 
-- `gauntlet-mustfix-summary-orch-terminal-complete` — from orchestrator:gauntlet-mustfix-summary-orch-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/gauntlet-mustfix-summary-orch-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: gauntlet-mustfix-summary-orch
-> orchestration-status: complete
-> order: serial
-> children-total: 3
-> children-failed: 0
-> failed-children: 
-> recovered-children: 
->
-> Orchestration gauntlet-mustfix-summary-orch complete (serial): all 3 children reached tada without a machine-readable failure declaration.
-
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-06T07:50:51Z, latest 2026-10-09T06:20:24Z).
@@ -1170,14 +904,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > triager: bare clone path /home/kris/garden/worktrees/kriscendobot-minion.town.git for kriscendobot-minion.town exists but is not a git repo; needs manual reconciliation (not clobbering). kriscendobot-minion.town is not being triaged until it is restored.
-
-- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
-
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-10-11T22:45:24Z, cleared 2026-10-12T20:39:59Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
@@ -1240,18 +966,6 @@ Delegation: **active**
 > minion.town screening PAUSED: merge 39867df7874 of [https://github.com/kriscendobot/minion.town/pull/169](https://github.com/kriscendobot/minion.town/pull/169) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/37868510874
 > Heal job heal-minion-town-39867df posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
 > Operations: context/operations/minion-town-screening.md
-
-- `msg-scholar-ingest-literate-ai-remainder-5-20261010-00e09ccd30d9` — from scholar:scholar-ingest-literate-ai-remainder-5-20261010, reply_to `scholar-ingest-literate-ai-remainder-5-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-5-20261010-00e09ccd30d9.md)
-
-> Ingested Literate AI's `docs/architecture/sample-portfolio-review.md` as five sections covering catalog criteria, readability, executable correctness, portfolio ordering, and the next missing sample classes. Jev returned `proceed_with_caveat` (injection 0.11; mixed slant 0.32), so the source page explicitly attributes its portfolio judgments; links, section counts, and both regenerated indexes passed. The next cycle is `scholar-ingest-literate-ai-remainder-6-20261010`, starting with the large SBOM/dependency-graph document.
-
-- `watchdog-journal-fetch-slow-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden_journal.md)
-
-> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden_journal` has CLEARED (first seen 2026-10-12T19:14:17Z, cleared 2026-10-12T19:29:20Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-fetch-slow-_Users_dom_garden_journal` cleared on oros-studio-garden-ce242c49.
 
 - `msg-oros-health-watch-20261012-155007-b1b76527cb69` — from gardener:oros-health-watch-20261012-155007, reply_to `oros-health-watch-20261012-155007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-155007-b1b76527cb69.md)
 
@@ -1355,19 +1069,6 @@ Delegation: **active**
 > the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 > design's `## Open questions`.
 
-- `moddable-10-0-0-xs-source-inventory-20261009-split-terminal-complete` — from orchestrator:moddable-10-0-0-xs-source-inventory-20261009-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-xs-source-inventory-20261009-split-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: moddable-10-0-0-xs-source-inventory-20261009-split
-> orchestration-status: complete
-> order: parallel
-> children-total: 3
-> children-failed: 0
-> failed-children: 
-> recovered-children: 
->
-> Orchestration moddable-10-0-0-xs-source-inventory-20261009-split complete (parallel): all 3 children reached tada without a machine-readable failure declaration.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-10T22:58:37Z, latest 2026-10-11T06:44:09Z).
@@ -1376,29 +1077,9 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013590s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-cursor-push-rejected-endolin-garden-ece02cb4-follow-up_seen` — from watchdog:cursor-set, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-cursor-push-rejected-endolin-garden-ece02cb4-follow-up_seen.md)
-
-> RECOVERED — the watchdog condition `cursor-push-rejected-endolin-garden-ece02cb4-follow-up_seen` has CLEARED (first seen 2026-10-12T13:28:34Z, cleared 2026-10-12T13:38:27Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> cursor-set on endolin-garden-ece02cb4 can advance follow-up/seen again; the journal push rejection has cleared.
-
 - `msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489` — from gardener:claude-on-minion-town-completion-press-20261010-002011, reply_to `claude-on-minion-town-completion-press-20261010-002011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489.md)
 
 > claude-on-minion-town-completion-press-20261009-182008 has sat in jobs/doin since its claim at 2026-10-09T18:46:51Z (~5.6h, far past the 2400s default) with no completion; the arc press claude-on-minion-town-press-20261009-185008 has also gone unclaimed in todo for ~5.5h. No arc dooms. Effect: the arc's own oversight is stalling, not its deliverables. I have not touched either job; the reaper owns the requeue.
-
-- `msg-scholar-ingest-literate-ai-remainder-12-20261011-08edfecb165f` — from scholar:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-08edfecb165f.md)
-
-> Ingested Literate AI ADRs 0015, 0017, and 0018 as 24 sections covering exact CodeGraph evidence custody, deterministic live-test model selection, and a never-empty per-agent model stack. ADR 0014 halted at the Jev gate (injection 0.29 uncertain) and remains unread pending your explicit disposition; ADR 0016 and the six architecture sources remain blocked too. All 40 prior source anchors matched upstream, and the post-land link, section-count, and regenerated-index checks passed. The exact successor starts at ADR 0019; full result: `entries/2026/10/11/180554Z-result-scholar-9021c8.md`.
-
-- `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
-
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T06:59:03Z, cleared 2026-10-12T20:35:02Z).
-> It was observed 495 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> canary oros-studio-garden-ce242c49 is no longer stuck (release f9b279f6200603bec814a9feb5d2713e105035a1, deployed f9b279f6200603bec814a9feb5d2713e105035a1).
 
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0.md)
 
@@ -1428,10 +1109,6 @@ Delegation: **active**
 
 > awaiting maintainer — beyond proxy authority: gardener fix-minion-town-prod-probe-runs-on-validation, msgid msg-fix-minion-town-prod-probe-runs-on-validation-19c0b6fde070.md — Restoring or re-issuing the bot's GitHub credential is an authority and credential grant that only the maintainer can perform, and the proxy can't fix it.
 
-- `msg-scholar-ingest-literate-ai-remainder-15-20261011-315d6419468d` — from scholar:scholar-ingest-literate-ai-remainder-15-20261011, reply_to `scholar-ingest-literate-ai-remainder-15-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-15-20261011-315d6419468d.md)
-
-> I ingested Literate AI ADRs 0029 through 0033 as 25 sections at file commit `fcc40bc6`, covering protocol-neutral IPC contracts, executable cross-layer authority, durable user configuration, tuple-native install SBOMs, and universal toolchain realization. ADR 0029 carries Jev's advocacy caveat; the other four passed cleanly, and all link/count/index checks passed. The eight previously halted sources remain untouched pending your disposition. Full result: `entries/2026/10/11/183805Z-result-scholar-1e1d84.md`; remainder 16 continues at ADR 0034.
-
 - `moddable-10-0-0-ironhorse-port-plan-20261009-split-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -1444,14 +1121,6 @@ Delegation: **active**
 > halt-parked-remainder: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
 >
 > Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split HALTED: child moddable-10-0-0-xs-source-inventory-20261009 stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
-
-- `watchdog-journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_reaper_journal.md)
-
-> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` has CLEARED (first seen 2026-10-09T05:59:34Z, cleared 2026-10-09T06:48:17Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-push-contention-_home_kris_garden2__garden_state_reaper_journal` cleared on endolin-garden2-5bcdff64.
 
 - `kriscendobot-minion.town-pr166-gauntlet-20261010-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr166-gauntlet-20261010-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr166-gauntlet-20261010-review-budget-reached.md)
 
@@ -1474,26 +1143,23 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.173702s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `msg-scholar-ingest-literate-ai-remainder-8-20261010-f690fc459edc` — from scholar:scholar-ingest-literate-ai-remainder-8-20261010, reply_to `scholar-ingest-literate-ai-remainder-8-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-8-20261010-f690fc459edc.md)
-
-> Ingested Literate AI ADRs 0003–0006 into 18 abstract-routed sections covering constraint classification, executable ports, per-Component execution semantics, and significant-feature governance. The Jev gate allowed all four: 0003 and 0005 proceeded cleanly, while 0004 carries low-confidence neutral-slant uncertainty and 0006 carries explicit advocacy attribution. Link, section-count, and regenerated-index checks passed; the next cycle is posted at ADR 0007, while the six previously escalated architecture sources remain untouched pending disposition. Full result: `entries/2026/10/11/172410Z-result-scholar-bebcb8.md`.
-
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 217.9M | $1014.61 _(notional, rate-card)_ | 80% of 271.0M (ok) |
-| Codex | 10.8M _(+322.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Claude | 217.9M | $1016.04 _(notional, rate-card)_ | 80% of 271.0M (ok) |
+| Codex | 10.9M _(+322.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94559910 tokens/day lower bound._
+_Fleet token-unlock pace: 94625105 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.374506s/45s (unknown); 7 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`minion-town-arc-press-20261012-205007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261012-205007.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
 ### doin (3)
