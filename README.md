@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T13:27:09Z_
+_As of 2026-10-12T13:31:32Z_
 
 ## Latest
 
@@ -1321,6 +1319,14 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013590s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `watchdog-cursor-push-rejected-endolin-garden-ece02cb4-follow-up_seen` — from watchdog:cursor-set, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-cursor-push-rejected-endolin-garden-ece02cb4-follow-up_seen.md)
+
+> cursor-set on endolin-garden-ece02cb4 cannot advance follow-up/seen after deterministic remote verification: server-reject. The fetched remote cursor does not contain the requested content and journal2 did not move. Cursor-driven work will replay until this receive-side rejection is repaired. Push diagnostic:
+> remote: fatal error in commit_refs        
+> To github.com:kriscendobot/garden.git
+>  ! [remote rejected]       HEAD -> journal2 (failure)
+> error: failed to push some refs to 'github.com:kriscendobot/garden.git'
+
 - `msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489` — from gardener:claude-on-minion-town-completion-press-20261010-002011, reply_to `claude-on-minion-town-completion-press-20261010-002011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261010-002011-f4ef0ba1d489.md)
 
 > claude-on-minion-town-completion-press-20261009-182008 has sat in jobs/doin since its claim at 2026-10-09T18:46:51Z (~5.6h, far past the 2400s default) with no completion; the arc press claude-on-minion-town-press-20261009-185008 has also gone unclaimed in todo for ~5.5h. No arc dooms. Effect: the arc's own oversight is stalling, not its deliverables. I have not touched either job; the reaper owns the requeue.
@@ -1421,7 +1427,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.2M | $996.16 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Claude | 214.2M | $996.21 _(notional, rate-card)_ | 79% of 271.0M (ok) |
 | Codex | 10.0M _(+306.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 104886523 tokens/day lower bound._
@@ -1430,22 +1436,22 @@ _Fleet token-unlock pace: 104886523 tokens/day lower bound._
 worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
+### todo (1)
 - [`claude-on-minion-town-completion-press-20261012-132012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261012-132012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### doin (3)
+### doin (4)
 - [`verify-screening-patch-fingerprint-context-drift-postdeploy-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-screening-patch-fingerprint-context-drift-postdeploy-resume.md) — Resume post-deploy validation: screening patch fingerprint context drift
+- [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`oros-health-checkup-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-125006.md) — ---
 - [`claude-on-minion-town-press-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261012-125006.md) — Press the Claude-on-minion.town arc forward
 
-### tada (12563)
+### tada (12564)
+- [`kriscendobot-minion.town-pr182-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet.md) — gauntlet kriscendobot-minion.town-pr182-gauntlet — complete
 - [`kriscendobot-minion.town-pr182-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-undraft.md) — Cost
 - [`oros-health-watch-20261012-125006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-125006.md) — Cost
 - [`kriscendobot-minion.town-pr180-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr180-gauntlet.md) — gauntlet kriscendobot-minion.town-pr180-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr181-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr181-gauntlet-panel-5.md) — Cost
-- [`kriscendobot-minion.town-pr182-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr182-gauntlet-panel-7.md) — Cost
-- … and 12558 more
+- … and 12559 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
