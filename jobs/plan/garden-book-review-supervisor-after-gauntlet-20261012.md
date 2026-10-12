@@ -8,9 +8,8 @@ posted_at: 2026-10-12T20:22:51Z
 ---
 
 ---
-tier: mentor
-dispatch: automatic
-fallback-tier: minion
+tier: mentat
+dispatch: manual
 ---
 ---
 role: orchestrator
