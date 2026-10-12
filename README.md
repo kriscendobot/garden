@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T06:49:47Z_
+_As of 2026-10-12T06:52:13Z_
 
 ## Latest
 
@@ -1369,7 +1369,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 201.0M | $929.32 _(notional, rate-card)_ | 74% of 271.0M (ok) |
-| Codex | 8.4M _(+263.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 8.5M _(+263.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 105826916 tokens/day lower bound._
 
@@ -1377,9 +1377,10 @@ _Fleet token-unlock pace: 105826916 tokens/day lower bound._
 worst fetch p95 5.660257s/45s (/home/kris/garden/.garden-state/maintainer/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (3)
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #180
 - [`oros-health-checkup-20261012-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-000506.md) — ---
+- [`improve-sysop-control-plane-liveness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-sysop-control-plane-liveness.md) — ---
 
 ### doin (6)
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1412
