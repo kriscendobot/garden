@@ -1,0 +1,25 @@
+<6>01:32:17 [monk/1] job 'kriscendobot-minion.town-pr93-gauntlet-20261010-fix-10' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>01:32:46 [monk/1] job 'kriscendobot-minion.town-pr93-gauntlet-20261010-fix-10' call ceiling: tier=mentor max-budget-usd=16.20 (scaled by fresh seven-day headroom when available)
+<4>01:32:46 [monk/1] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion.town-pr93-gauntlet-20261010-fix-10' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<3>02:11:44 [auto-gauntlet-handoff] FATAL: auto-gauntlet: could not establish panel-head freshness for https://github.com/kriscendobot/minion.town/pull/93 (rc=1)
+
+--- handler report (partial) ---
+I've pushed the round-10 fixes to PR #93 as `58ef771`, and CI is green. One caveat: `ci-wait-merge.sh` itself never reported green. It returned rc 4 because this host's bot PAT gets a 403 on `statusCheckRollup` and on commit statuses. I read the result from the Actions runs API instead: the PR's only workflow, `test (typecheck + vitest)`, finished with success on `58ef771`.
+
+**What I fixed** (the round-10 review asked for changes from one seat, saboteur):
+1. **A dead directory no longer aborts every GC run.** For an unknown id, the daemon's `@sites` registry returns `undefined`, and the old `E(undefined).lookup` then rejected. The daemon directory source (`makeDaemonSiteDirectorySource.read`) now returns `undefined` in that case, and also when a live directory has no such entry. Any other rejection is still treated as ambiguous and stops the run. This also means `--drop-unresolved` can now remove a dead record.
+2. **The failure-path restore no longer overwrites a freshly written blob.** It now links the quarantined copy back, and if a fresh copy is already in place it keeps that one and deletes the old copy.
+3. **A stray `vhosts/*.json` no longer blocks the GC.** A file whose name isn't a record id is now listed under a new `ignoredVhostEntries` field in the report instead of aborting the run. The CLI prints it and the runbook (`deploy/aws/content-gc-runbook.md`) has a new section on it.
+4. **Corrupt-record errors keep the JSON parser's message.**
+5. **One extra from the warden seat:** the CLI now passes the GC a wrapper (`frontOnlyDirectorySource`) that can only read `front`, so `back` is unreachable at runtime, not just in the types.
+
+**Tests:** I added regression tests for each fix, including a new file `test/gateway/site-directory-source.test.ts`. I also added an assertion to the daemon integration test, but that test is skipped unless `ENDO_CHECKOUT` is set, so I didn't run it. Typecheck is clean and all 205 tests in `test/gateway` pass locally.
+
+**PR comment:** I posted a summary comment for heads `c49849a` and `58ef771`, which closes the archivist's missing-summary finding: https://github.com/kriscendobot/minion.town/pull/93#issuecomment-6116215206
+
+**Follow-ups:**
+- Several suggestions from seats that didn't request changes are left for the later history rewrite: typist's tighter type for inventory entries, decomplector's options-bag split and pid-based liveness check, and curator's commit squash. They are listed in the summary comment.
+- The systemd unit, the ACL grants, and `ReadWritePaths` have still not been run on a real host.
+- `ci-wait-merge.sh` can't read checks on `oros-studio` (403 on `statusCheckRollup`). Until the PAT gets checks:read or the script falls back to the Actions runs API, every gauntlet stage on this host will get rc 4 from it.
+
+<!-- gauntlet-stage-result: fix=done -->
