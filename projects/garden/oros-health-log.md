@@ -2,6 +2,14 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-12T07:12Z (oros-health-checkup-20261012-000506, resumed after reap): degraded
+
+- **Deployed:** still `78f9dacc`; roll_status `deferred`, behind a long-running monk job.
+- **Monks 5-8 offline (diagnosed 02:35Z):** bin/git's 120s bound killed the root-seed checkout (~68k files on virtiofs). The fallback network clone then timed out at 300s, because the **root repo is shallow** and can't lend objects: `.git/shallow` holds journal2 `1fa90b4f`, written 2026-10-11 09:15Z, cause unknown.
+  - Fixed on main2 by `75b15068` (`GARDEN_JOURNAL_SEED_CHECKOUT_TIMEOUT`, 1800s, with a test).
+  - A transient serial seed unit got clones in place. At 07:10Z monks 5, 6 and 8 have clones and monk 7 was still seeding.
+- **Still open:** the root is still shallow. Run `git fetch --unshallow origin journal2` against the root's object store at a quiet moment. This mutates the shared root repo, so it needs an operator decision.
+
 ## 2026-10-12T04:13Z (oros-health-checkup-20261012-030519): degraded
 
 - **Load/mem:** load 3.3/4.1/5.0; 12 GiB of 15 GiB available; swap 326 MiB used.
