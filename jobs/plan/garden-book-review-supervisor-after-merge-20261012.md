@@ -1,5 +1,6 @@
 ---
-gate: blocked
+gate: blocked-failed
+blocked_failed_reason: blocker 'kriscendobot-garden-book-pr8-conduct-20261012' completed but declined its gated outcome; held for a human decision
 blocked_on: kriscendobot-garden-book-pr8-conduct-20261012
 priority: normal
 arc: garden-book
