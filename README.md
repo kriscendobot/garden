@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T13:00:39Z_
+_As of 2026-10-12T13:03:45Z_
 
 ## Latest
 
@@ -954,6 +952,10 @@ Delegation: **active**
 
 > Literate AI ingest, next architecture slice: 4 sources ingested as 18 sections: component-flavors (6), documentation-artifacts (3), framework-premise-assessment (4, with a caveat for persuasive framing; it is the project's own 6.5/10 self-assessment) and html-observability (5). The foreign-content gate halted beam-live-coding-layer-investigation.md (injection 0.29), so I did not read it; it is blocked pending your disposition, with a separate escalation sent. The next unprocessed source is docs/architecture/mission-specification-composition.md. The details are in this job's result entry.
 
+- `msg-verify-screening-patch-fingerprint-context-drift-postdeploy-resume-ba07225ff93b` — from gardener:verify-screening-patch-fingerprint-context-drift-postdeploy-resume, reply_to `verify-screening-patch-fingerprint-context-drift-postdeploy-resume` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-verify-screening-patch-fingerprint-context-drift-postdeploy-resume-ba07225ff93b.md)
+
+> Rolling deploy of main2 8da29934080b is still HALTED (status 'failed' at canary oros-studio-garden-ce242c49, sticky until a human clears it); leader endolin-garden-ece02cb4 holds at fad05c57898. New fact: oros DID later reach 8da29934080b (fleet/health at 2026-10-12T11:43:58Z: deployed_sha=8da2993, roll_status=deployed, 2/294 unit failures, first_bad_unit garden-library-link-scan.service), so the original 'never advanced' halt reason looks like a slow deploy, not a broken tip. To finish validating the screening fix ([kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93) head ea66af2) the leader must advance: please lift oros's roll drain and re-trigger the roll, or hold the tip. I am waiting in the foreground for a bounded time and will not deploy by hand.
+
 - `endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-review-budget-reached.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1412-post-weave-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1412-post-weave-gauntlet panel --add-rounds N
@@ -1413,10 +1415,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.1M | $995.65 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.0M _(+304.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 214.1M | $995.90 _(notional, rate-card)_ | 79% of 271.0M (ok) |
+| Codex | 10.0M _(+304.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 104823640 tokens/day lower bound._
+_Fleet token-unlock pace: 104886329 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 6 open notice(s); checker healthy
