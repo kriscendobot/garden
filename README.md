@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T22:59:36Z_
+_As of 2026-10-12T23:10:35Z_
 
 ## Latest
 
@@ -1071,34 +1069,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 219.1M | $1023.36 _(notional, rate-card)_ | 81% of 271.0M (ok) |
-| Codex | 11.8M _(+345.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 219.6M | $1025.62 _(notional, rate-card)_ | 81% of 271.0M (ok) |
+| Codex | 12.1M _(+361.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94509957 tokens/day lower bound._
+_Fleet token-unlock pace: 94519313 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`build-minion-town-inference-phase3-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-inference-phase3-secrets.md) — Build: item 4 phase 3 on minion.town — Claude credentials onto @secrets
+### todo (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (6)
+### doin (7)
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #180
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`kriscendobot-garden-book-pr8-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr8-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #8
-- [`kriscendobot-minion.town-pr183-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #183
+- [`kriscendobot-minion.town-pr183-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #183
+- [`build-minion-town-inference-phase3-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-inference-phase3-secrets.md) — Build: item 4 phase 3 on minion.town — Claude credentials onto @secrets
 - [`ironhorse-reconcile-xs-frame-locals-limit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-reconcile-xs-frame-locals-limit.md) — Reconcile Iron Horse's frame-locals ceiling (PR #1278) with the landed upstre...
 
-### tada (12604)
+### tada (12605)
+- [`kriscendobot-minion.town-pr183-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-clean.md) — Cost
 - [`oros-health-watch-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/oros-health-watch-20261012-220527.md) — Cost
 - [`kriscendobot-minion.town-pr183-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-viability.md) — Cost
 - [`context-graph-size-audit-focused-20261012-222007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/context-graph-size-audit-focused-20261012-222007.md) — Cost
 - [`claude-on-minion-town-press-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/claude-on-minion-town-press-20261012-220527.md) — Cost
-- [`xs-locals-limit-check-20261012-213527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/xs-locals-limit-check-20261012-213527.md) — The XS frame-locals fix has landed upstream (final run; I retired the schedule)
-- … and 12599 more
+- … and 12600 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
