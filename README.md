@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T18:40:11Z_
+_As of 2026-10-12T18:42:06Z_
 
 ## Latest
 
@@ -1459,8 +1459,8 @@ _Fleet token-unlock pace: 104722916 tokens/day lower bound._
 worst fetch p95 2.576248s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-2e531a6e2dda-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 2e531a6e2dda
 
 ### doin (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-155007.md) — ---
