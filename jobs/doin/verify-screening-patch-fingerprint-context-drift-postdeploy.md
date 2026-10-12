@@ -23,3 +23,13 @@ head: journal attestation
 `screenings/kriscendobot-minion.town/93/ea66af29724a5e54140c18aaae1be0b7fdc40c0f.json`
 and a posted `screen-minion-town-pr93-ea66af2-conduct` job. Do not merge #93 by
 hand. Report the deployed SHA, attestation, and conductor path.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T10:21:38Z
