@@ -27,3 +27,7 @@ Guards (re-verify before merging):
 - Do not name a merge method; the conductor owns that (roles/conductor/AGENT.md).
 After merging, confirm the parked hyperlink job
 `book-hyperlink-references-after-copyedit-20261004` is promoted by the unblock watcher.
+
+<!-- garden-annotation: key=book-supervisor-delegation-20261012 by=orchestrator at=2026-10-12T20:22:06Z -->
+
+Maintainer delegation carried by garden-book-review-supervisor-20261012 (manual mentat dispatch, 2026-10-12): the supervisor is granted the maintainer's go-ahead for kriscendobot/garden-book PRs only, provided the PR is open, mergeable, un-drafted, green/no checks, and the supervisor's own posted review is clean. This supersedes this job's older request for a separate maintainer go-ahead/signature for this repo only; do not switch identities or change fleet configuration. The current supervisor review is NOT clean yet: https://github.com/kriscendobot/garden-book/pull/8#pullrequestreview-5495588201 requires correcting the new Endo branch explanation. Keep parked until the adopted gauntlet completes and a supervisor verifies that correction and posts a clean review. The next supervisor owns promotion. Merge must land on the book's live main, not the frozen main-e6f2790 snapshot, and must preserve already-merged illumination/data work.
