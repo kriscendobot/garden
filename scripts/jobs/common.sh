@@ -5585,19 +5585,28 @@ GARDEN_FETCH_STDERR=""
 # gc.log behind if the service cgroup kills it.  That safety setting must not
 # turn every successful fetch into a permanent new pack, though.  Run the same
 # threshold check synchronously after a successful real journal fetch instead.
-# `gc --auto` is a cheap no-op below gc.autoPackLimit and the git wrapper takes
-# the clone's exclusive lock before it can compact.  Keep failures advisory: a
-# fresh journal view is still usable, while the next fetch retries maintenance.
+# Below GARDEN_JOURNAL_AUTO_GC_PACK_LIMIT packs this is a no-op; above it, a
+# geometric repack folds the small fetch-created packs (and loose objects) into
+# one, leaving the big base pack alone, and the git wrapper takes the clone's
+# exclusive lock before it can compact.  Not `gc --auto`: over its pack limit
+# that runs an all-in-one cruft repack of the whole journal, which on a loaded
+# virtiofs host never finished inside bin/git's 120s bound, so every fetch paid
+# 120s under the clone lock and the pack count only grew (oros producer clone,
+# 2026-10-12, a one-file land taking 20+ minutes).  The full repack and
+# pruning stay with namespace-clone-maintenance.sh, which has its own budget.
+# Keep failures advisory: a fresh journal view is still usable, while the next
+# fetch retries maintenance.
 : "${GARDEN_JOURNAL_AUTO_GC:=1}"
 : "${GARDEN_JOURNAL_AUTO_GC_PACK_LIMIT:=50}"
 journal_auto_gc() {  # journal_auto_gc <clone>
-  local dir="$1" rc=0
+  local dir="$1" rc=0 packs
   [ "$GARDEN_JOURNAL_AUTO_GC" = 1 ] || return 0
   # Test-injected fetches do not necessarily name a real Git repository; their
   # contract is only the fetch outcome, not this host-maintenance side effect.
   [ -z "${GARDEN_FETCH_CMD:-}" ] || return 0
-  if git -C "$dir" -c gc.auto=1 -c "gc.autoPackLimit=$GARDEN_JOURNAL_AUTO_GC_PACK_LIMIT" \
-      gc --auto >/dev/null 2>&1; then
+  packs="$(find "$dir/.git/objects/pack" -maxdepth 1 -name '*.pack' 2>/dev/null | wc -l)"
+  [ "$packs" -gt "$GARDEN_JOURNAL_AUTO_GC_PACK_LIMIT" ] || return 0
+  if git -C "$dir" repack -q -d -l --geometric=2 >/dev/null 2>&1; then
     return 0
   else
     rc=$?
