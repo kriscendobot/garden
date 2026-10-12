@@ -1,26 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: kriscendobot-minion.town-pr181-gauntlet
-role: gardener
-tier: mentor
-handler-budget-role: panel
-handler-timeout: 10800
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: unknown
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-10-12T05:33:06Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-10-12T05:33:06Z
----
-
----
 role: gardener
 arc: minion-town-git-remote
 handler-budget-role: panel
@@ -29,9 +7,6 @@ gauntlet: kriscendobot-minion.town-pr181-gauntlet
 gauntlet_stage: panel
 gauntlet_iteration: 4
 pr: https://github.com/kriscendobot/minion.town/pull/181
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #181
@@ -64,7 +39,8 @@ posting host's garden root.
    transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
    its own marker below — never panel-error.
 
-END your completion report with EXACTLY ONE of these marker lines (last line):
+Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
