@@ -2,6 +2,25 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-12T21:00Z (oros-health-checkup-20261012-185007): degraded → fixed on main2
+
+- **Load/mem:** load 1.9/2.6/2.9 (3.2 at 20:57); 13 GiB of 15.6 GiB available; swap 387 MiB used.
+- **Disk/inodes:** 50% (233 GB free); inodes 1%.
+- **Uptime:** 11d3h, no recent reboot.
+- **Deployed vs main2:** self-deploy advanced oros `2e531a6e` → `f9b279f6` at 19:44–19:49 (gate passed in 12.5 min; quiesce was instant; 151 units coherent). Main2 is now `0411ed9f` (this run's fix).
+- **Units:** 0 failed; 8 monks active; not drained; no derotation marker.
+- **Budget heartbeat:** claude-oros pushes at 18:50, 19:02, 19:17, 19:32, 19:52, 20:06 (max gap 20 min). Spend 57.0M of 180M, status ok. Spend is almost flat since 13:30 (56.8M).
+- **Post-deploy publish lost every CAS:** the `deployed` fleet/health publish ran 15 attempts, about 100s each, from 19:49 to 20:10. All lost the CAS. The self-deploy handler hit its 2400s timeout, and fleet/health kept reading `roll-drained @ 2e531a6` for a host that had already deployed.
+  - **Root cause:** sync_clone's `reset --hard` over the 68k-file journal. On virtiofs a no-op reset measured 63–105s and `git status` 29s, so every push left from a stale tip.
+- **Sysop wedged by the same cause:** from 20:03 every tick hit the 600s handler timeout. Its `flush_pending` was stuck retrying one spooled record, the 20:03 leader `drain off` (applied, never acked).
+- **rc=124:** 28 in the last 3h (down from 90): 12 self-heal handlers (sysop, self-deploy), 7 sysop.
+- **$GARDEN_STATE clones:** decisions, leader, producer and reaper are at 47–49 packs, all under the threshold of 50. fleet-health and review-docket clones are shallow. Held repo locks all belong to live jobs; none are stale.
+- **Changed:**
+  - landed `0411ed9f` on main2: `journal_graft_push` grafts host-owned files onto the fresh tip via a scratch index (no worktree), and publish_fleet_health and the sysop flush_pending use it; new `fleet-health-publish-test.sh` (fails on old code), and the rolling-deploy, sysop, land-journal-edit and budget-replay suites pass;
+  - republished oros fleet/health as `deployed @ f9b279f6` with the new code (landed first try, 33s);
+  - landed the stuck sysop-log record `20261012T195902Z-d97800` so the running sysop can ack it.
+- **Still open:** the root repo is still shallow (`.git/shallow` = `1fa90b4f`; see 07:12Z). Other sync_clone+commit producers (post-job, land-journal-edit, watchdog-notice) still pay the slow reset, and only host-owned writers can use the graft.
+
 ## 2026-10-12T13:30Z (oros-health-checkup-20261012-125006): degraded
 
 - **Load/mem:** load 3.7/3.6/3.2; 13 GiB of 15.6 GiB available; swap 317 MiB used.
