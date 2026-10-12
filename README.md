@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T16:45:04Z_
+_As of 2026-10-12T16:52:00Z_
 
 ## Latest
 
@@ -611,12 +609,11 @@ Delegation: **active**
 
 - `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-09T00:20:13Z, latest 2026-10-12T14:05:10Z).
-> The SAME condition (`worker-derotate-oros-studio-garden-ce242c49`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T00:20:13Z, cleared 2026-10-12T16:50:11Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 3186s (offline threshold 1800s; sampled_at_epoch=1791810717).
-> worker-derotate zeroed its config/worker-leveling caps (were 8 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (892s old; sampled_at_epoch=1791822912)); it is PRESENT again and its config/worker-leveling caps are restored to 8 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
 
 - `endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1403-gauntlet-20261007-review-budget-reached.md)
 
@@ -928,6 +925,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=3558506 cap=180000000 pace-bias=0.423764 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=4 backoff=0.6781(ramp) target=4
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.015900s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `20261011T080237Z-02ab9f` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261011T080237Z-02ab9f.md)
 
@@ -1458,12 +1459,12 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 214.2M | $995.30 _(notional, rate-card)_ | 79% of 271.0M (ok) |
-| Codex | 10.3M _(+312.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Codex | 10.3M _(+312.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 104742083 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 5 open notice(s); checker healthy
+worst fetch p95 3.598625s/45s (/home/kris/garden/.garden-state/reaper/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
