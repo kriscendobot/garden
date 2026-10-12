@@ -21,3 +21,13 @@ This is the durable continuation of `fix-minion-town-prod-probe-runs-on-validati
 5. Drain the inbox and perform the normal self-improvement check.
 
 Inherited evidence: PR 182 remained draft at head `17e4d3c63fcde0f65c88af11e905a1606465f21b` with all three checks green as of 2026-10-11T21:30Z; `npm run typecheck` passed; `node --test deploy/probe/prod-objectives.test.mjs` passed 16/16; GitHub Actions run https://github.com/kriscendobot/minion.town/actions/runs/38164494531 passed `test`, `Claude harness (arm64)`, and `Claude harness (amd64)`. The existing clean child had remained queued since 19:12Z behind the single monk's aged mentor backlog. The predecessor waited in the foreground through 21:30Z and asked the maintainer for temporary mentor/monk capacity.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-12T10:52:02Z
