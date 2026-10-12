@@ -78,3 +78,7 @@ per `build/README.md` and record the new edition.
 
 Scope is only `kriscendobot/garden-book`; make no upstream or fleet/config
 changes.
+
+<!-- garden-annotation: key=supervisor-chain-20261012 by=orchestrator at=2026-10-12T23:34:11Z -->
+
+The supervisor posted a clean copy-edit review at https://github.com/kriscendobot/garden-book/pull/8#pullrequestreview-5497063042 and released the existing conductor. Preserve your live-main preflight. The supervisor successor garden-book-review-supervisor-after-merge-20261012 owns review and delegated merge authorization for your resulting hyperlink PR. Report its URL and reviewed head, and notify that supervisor if active. The existing garden-book-publish-ocap-site-20261012 job owns publication after the hyperlink PR actually merges; do not duplicate its publication work. A completed builder report or draft PR is not publication readiness.
