@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T08:31:03Z_
+_As of 2026-10-12T08:35:20Z_
 
 ## Latest
 
@@ -607,13 +605,6 @@ Delegation: **active**
 > Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $17.40
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1403-gauntlet-20261007 panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet-halted` — from gauntlet:kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet HALTED: PR [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #93') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr93-screen-ea66af29-gauntlet panel --iteration 0 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `msg-scholar-ingest-literate-ai-remainder-4-20261010-f32d629bc7cb` — from scholar:scholar-ingest-literate-ai-remainder-4-20261010, reply_to `scholar-ingest-literate-ai-remainder-4-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-4-20261010-f32d629bc7cb.md)
@@ -1386,10 +1377,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 208.4M | $965.91 _(notional, rate-card)_ | 77% of 271.0M (ok) |
+| Claude | 208.4M | $965.96 _(notional, rate-card)_ | 77% of 271.0M (ok) |
 | Codex | 9.0M _(+270.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 101460072 tokens/day lower bound._
+_Fleet token-unlock pace: 101556365 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 5 open notice(s); checker healthy
