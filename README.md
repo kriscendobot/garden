@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-12T08:20:03Z_
+_As of 2026-10-12T08:21:07Z_
 
 ## Latest
 
@@ -1373,7 +1373,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 207.7M | $962.80 _(notional, rate-card)_ | 77% of 271.0M (ok) |
+| Claude | 208.3M | $965.31 _(notional, rate-card)_ | 77% of 271.0M (ok) |
 | Codex | 9.0M _(+269.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101460072 tokens/day lower bound._
@@ -1382,9 +1382,10 @@ _Fleet token-unlock pace: 101460072 tokens/day lower bound._
 worst fetch p95 5.725837s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-post-weave-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1412
 - [`kriscendobot-minion.town-pr182-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr182-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #182
+- [`minion-town-arc-press-20261012-082008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261012-082008.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261012-030519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-030519.md) — ---
 
 ### doin (3)
