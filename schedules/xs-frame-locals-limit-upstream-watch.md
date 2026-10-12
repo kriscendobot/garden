@@ -1,5 +1,5 @@
 cadence: weekly
-last_dispatched: 2026-10-05T21:35:08Z
+last_dispatched: 2026-10-12T21:35:27Z
 job_basename_prefix: xs-locals-limit-check
 handler-timeout: 7200
 occupancy: skip
