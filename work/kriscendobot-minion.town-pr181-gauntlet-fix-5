@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 5
+worker_kind: monk
+claimed_at: 2026-10-12T13:30:20Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-kriscendobot-minion.town-pr181-gauntlet-fix-5
