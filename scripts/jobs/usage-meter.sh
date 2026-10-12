@@ -1217,6 +1217,11 @@ budget_publish_local_pool() {
   for attempt in $(seq "$attempt" "$attempts"); do
     [ "$attempt" -eq 1 ] || GARDEN_BACKOFF_BASE_MS="$GARDEN_BUDGET_PUBLISH_BACKOFF_BASE_MS" \
       GARDEN_BACKOFF_CAP_MS="$GARDEN_BUDGET_PUBLISH_BACKOFF_CAP_MS" backoff "$((attempt - 1))"
+    if [ "$attempt" -gt 1 ]; then
+      if ( _budget_publish_replay "$dir" "$context_file" ); then rc=0; else rc=$?; fi
+      if [ "$rc" -eq 0 ]; then rm -f "$context_file"; return 0; fi
+      [ "$rc" -eq 3 ] || continue
+    fi
     # sync_clone exits with EX_TEMPFAIL for an offline journal. Contain that exit
     # so snapshot publication remains fail-open and the scaler reaches its normal
     # warning latch plus worker reconciliation path.
@@ -1231,6 +1236,79 @@ budget_publish_local_pool() {
   fi
   rm -f "$context_file"
   return 1
+}
+
+# _budget_publish_replay <clone> [failure-context-file] — re-land the snapshot a
+# lost CAS left committed locally, WITHOUT the working tree. Each budget/live file
+# is written only by its own host, so the losing commit's blob is still correct on
+# any newer tip: fetch, graft the blob onto origin's tip through a scratch index,
+# and push. The worktree path (sync_clone's reset --hard, then commit) stats every
+# one of the journal's ~68k files; on a loaded virtiofs host that took minutes per
+# attempt, so every retry lost the CAS again (oros 2026-10-12 13:12-16:12Z: no
+# heartbeat for three hours, and worker-derotate zeroed the host's caps).
+# Returns 0 when published, 3 when there is nothing safe to replay (no unpushed
+# commit, a path outside budget/live, a zone change whose alert belongs to the
+# full rebuild, or a config/ change on the new tip), and another nonzero rc when the replayed push lost again. The
+# local branch moves to the replayed commit; the next sync_clone resets the index.
+_budget_publish_replay() {
+  local dir="$1" context_file="${2:-}" paths p msg base blob tree commit idx rc pool
+  local new_status old_status lost
+  paths="$(git -C "$dir" diff --name-only "origin/$JOURNAL_BRANCH" HEAD 2>/dev/null)" || return 3
+  [ -n "$paths" ] || return 3
+  while IFS= read -r p; do
+    case "$p" in budget/live/*) ;; *) return 3;; esac
+    new_status="$(git -C "$dir" show "HEAD:$p" 2>/dev/null | sed -n 's/^status:[[:space:]]*//p')"
+    old_status="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$p" 2>/dev/null | sed -n 's/^status:[[:space:]]*//p')"
+    # Same predicate as the zone-change alert in _budget_publish_local_pool_once.
+    if [ "$old_status" != "$new_status" ] && { [ -n "$old_status" ] || [ "$new_status" = backoff ]; }; then
+      return 3
+    fi
+  done <<<"$paths"
+  msg="$(git -C "$dir" log -1 --format=%B HEAD)" || return 3
+  # The losing attempt recorded its configured pool name; keep it on a replay loss.
+  pool=""
+  [ ! -s "$context_file" ] || IFS=$'\t' read -r pool _ < "$context_file" || true
+  [ -n "$pool" ] || { pool="${p#budget/live/}"; pool="${pool%/*}"; }
+  lost="$(git -C "$dir" rev-parse "origin/$JOURNAL_BRANCH" 2>/dev/null)" || return 3
+  clone_lock "$dir"
+  # Skip the post-fetch gc check: it is maintenance, and its bound is the very
+  # delay this path exists to avoid.
+  if ! GARDEN_JOURNAL_AUTO_GC=0 journal_fetch "$dir" 0 >/dev/null 2>&1; then
+    clone_unlock "$dir"; return 1
+  fi
+  base="$(git -C "$dir" rev-parse "origin/$JOURNAL_BRANCH")" || { clone_unlock "$dir"; return 1; }
+  # The snapshot's cap, zone and window come from config/. If the race changed
+  # it, the snapshot must be rebuilt from the new tip, not replayed.
+  if ! git -C "$dir" diff --quiet "$lost" "$base" -- config; then
+    clone_unlock "$dir"; return 3
+  fi
+  idx="$(mktemp "${TMPDIR:-/tmp}/garden-budget-replay-index.XXXXXX")" || { clone_unlock "$dir"; return 1; }
+  rc=0
+  GIT_INDEX_FILE="$idx" git -C "$dir" read-tree "$base" || rc=1
+  while [ "$rc" -eq 0 ] && IFS= read -r p; do
+    blob="$(git -C "$dir" rev-parse "HEAD:$p")" \
+      && GIT_INDEX_FILE="$idx" git -C "$dir" update-index --add --cacheinfo "100644,$blob,$p" || rc=1
+  done <<<"$paths"
+  [ "$rc" -ne 0 ] || tree="$(GIT_INDEX_FILE="$idx" git -C "$dir" write-tree)" || rc=1
+  rm -f "$idx"
+  [ "$rc" -ne 0 ] || commit="$(printf '%s\n' "$msg" | git -C "$dir" commit-tree "$tree" -p "$base")" || rc=1
+  [ "$rc" -ne 0 ] || git -C "$dir" update-ref HEAD "$commit" || rc=1
+  if [ "$rc" -ne 0 ]; then clone_unlock "$dir"; return 1; fi
+  guard_no_production_push_in_test "$dir"
+  GARDEN_COMMIT_PUSH_CLASS=""
+  if _push_journal "$dir"; then
+    _verify_pushed "$dir" || rc=1
+  else
+    rc=1
+    if journal_push_is_cas_contention "$GARDEN_PUSH_STDERR"; then GARDEN_COMMIT_PUSH_CLASS=cas
+    elif journal_push_is_server_rejection "$GARDEN_PUSH_STDERR"; then GARDEN_COMMIT_PUSH_CLASS=server-reject
+    elif journal_push_is_definite_failure "$GARDEN_PUSH_STDERR"; then GARDEN_COMMIT_PUSH_CLASS=definite-fail
+    fi
+    [ -z "$GARDEN_COMMIT_PUSH_CLASS" ] || contention_record "$dir" push-class "$GARDEN_COMMIT_PUSH_CLASS"
+  fi
+  clone_unlock "$dir"
+  [ "$rc" -eq 0 ] || _budget_publish_record_failure "$context_file" "$pool" "$rc"
+  return "$rc"
 }
 
 # _budget_measure_memo_put <pool> <cutoff> <spend> <used-percent> /
