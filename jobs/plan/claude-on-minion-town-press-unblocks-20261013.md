@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: claude-on-minion-town-press-20261013-072006-split
+orchestrated_by: claude-on-minion-town-press-20261013-072006-split-resume
 priority: normal
 role: gardener
 posted_by: producer
