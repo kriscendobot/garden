@@ -18,3 +18,13 @@ Rule for the resolution: **where the copy-edit and the newer chapter 8 text over
 Verify: `npm test`, `npm run build`, `git diff --check`. Report the conflict hunks and how each was resolved, in the PR as a comment.
 
 Do not merge. Do not start a gauntlet. Substantive resolution needs fresh review: the liaison will release the parked mentat supervisor `garden-book-review-supervisor-after-merge-20261012` once this completes. Be economical (claude-endolin1 is high; maintainer asked the fleet to slow down).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-13T04:56:21Z
