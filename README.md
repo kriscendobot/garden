@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T21:04:04Z_
+_As of 2026-10-13T21:12:04Z_
 
 ## Latest
 
@@ -172,11 +170,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-7` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-7.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-10-10T04:35:17Z, latest 2026-10-13T19:20:28Z).
-> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-7`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-10T04:35:17Z, latest 2026-10-13T21:05:32Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-7`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed oros-studio-garden-ce242c49 monk workers 8 -> 7 (target 6): subscription claude-oros spend=967024 cap=180000000 pace-bias=0.045864 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=6 backoff=0.5278(ramp) target=6
+> budget-level changed oros-studio-garden-ce242c49 monk workers 8 -> 7 (target 6): subscription claude-oros spend=982207 cap=180000000 pace-bias=0.055842 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=6 backoff=0.5330(ramp) target=6
 
 - `20261010T163620Z-5a3568` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261010T163620Z-5a3568.md)
 
@@ -405,9 +403,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-10-06T09:36:04Z, latest 2026-10-13T18:35:23Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> WATCHDOG notice — occurrence #11 (first seen 2026-10-06T09:36:04Z, latest 2026-10-13T21:05:52Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
 
@@ -1285,13 +1283,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 242.2M | $1137.25 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
 | Codex | 18.6M _(+585.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 98911948 tokens/day lower bound._
+_Fleet token-unlock pace: 98924337 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`claude-on-minion-town-completion-press-20261013-080506-integrity-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-080506-integrity-audit.md) — Claude-on-minion.town completion press: outcome-integrity audit
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #183
 - [`kriscendobot-minion.town-pr186-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #186
@@ -1299,13 +1297,13 @@ worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`minion-town-arc-press-20261013-182028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`claude-on-minion-town-press-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261013-193508.md) — Press the Claude-on-minion.town arc forward
 - [`claude-on-minion-town-press-carry-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-carry-20261013.md) — Press the Claude-on-minion.town arc: carry PR state and focus maintainer review
-- [`claude-on-minion-town-completion-press-20261013-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-200507.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-163508.md) — ---
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (2)
+### doin (3)
 - [`oros-health-checkup-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-193508.md) — ---
+- [`claude-on-minion-town-completion-press-20261013-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261013-200507.md) — Completion press: Claude-on-minion.town arc
 - [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (12710)
