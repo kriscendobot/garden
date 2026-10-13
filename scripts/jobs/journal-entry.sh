@@ -135,6 +135,11 @@ if [ -d "$GARDEN_ROOT/journal" ]; then
   [ "$dir_abs" = "$live_abs" ] && die "refusing to write an entry into the live worktree ($live_abs); post through an isolated producer clone (set GARDEN_PRODUCER_CLONE), not the shared read tree"
 fi
 
+# An entry is add-only at its own unique path, so a lost CAS is replayed onto the
+# fresh tip without the working tree first (journal_replay_head). On oros
+# 2026-10-13 a monk's post-job progress entry retried sync_clone on the contended
+# producer clone for over 50 minutes, and self-deploy deferred behind it.
+: "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"
 : "${GARDEN_ENTRY_DUP_WINDOW:=900}"
 : "${GARDEN_ENTRY_DUP_MAX_DAYS:=2}"
 # A non-numeric knob would blow up inside the arithmetic below, turning a

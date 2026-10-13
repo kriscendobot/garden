@@ -93,6 +93,7 @@ rc=0; commit_and_push "$CLONE" 'no replay' || rc=$?
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/complete-job.sh" || fail "complete-job.sh does not opt in"
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/inbox-read.sh" || fail "inbox-read.sh does not opt in"
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/send-msg.sh" || fail "send-msg.sh does not opt in"
+grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/journal-entry.sh" || fail "journal-entry.sh does not opt in"
 
 # A machine sender can durably correlate its posted message with the consumer's
 # later audit record. The generated id is exposed before posting and is exactly the
