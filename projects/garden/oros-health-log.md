@@ -2,6 +2,25 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-13T18:55Z (oros-health-checkup-20261013-102024, resumed after reaper requeue; first pass 12:13–13:10Z): degraded (journal clones still on virtiofs) → one fix on main2, now deployed
+
+- **Load/mem:** load 3.5/3.3/3.1; 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1%.
+- **Uptime:** 12d1h, no reboot.
+- **Deployed vs main2:** fleet/health is `deployed @ 8fd22da4` (16:43Z). origin/main2 `9e4b600c` is ahead by later commits only.
+- **Units:** 0 failed; 7 monks running; 3 busy.
+- **Budget heartbeat:** the claude-oros snapshot was sampled at 18:34Z, 0% used, status ok.
+- **rc=124:** 52 since 16:00Z (rough count).
+- **First pass (12:13–13:10Z):** the deploy of `f4a9a985` was deferred on `long-job monk 5`.
+  - Monk 5's handler had ended at 10:05 (rc=124). It then spent about 1.5h posting one progress entry under producer-clone lock contention, and 37 min in a best-effort handler-budget-overrun `watchdog-notice`. I stopped that notice and the busy marker cleared.
+  - `journal-worktree-keeper` held the root repo's EXCLUSIVE lock while it delivered fffail and stale notices, minutes each through the producer clone. That blocked every same-host fetch, push and deploy. I stopped both notices.
+  - This run's own log push lost CAS races for 20+ min and was reaped (oros's symptom, first-hand).
+- **Changed (main2):** `8fd22da4`: the keeper queues alerts and clears them while it holds the lock, and delivers them from an EXIT trap after `garden_repo_unlock`. The keeper test checks this: the old keeper gives 117/1, the fixed one 118/0. Deployed at 16:43.
+- **Changed (on-host):** pruned 127 leaked `/var/tmp/garden-triager-pacing.*` test temps, presumably from killed deploy-gate runs.
+- **Needs a person at the machine:** `f4a9a985` (hot journal clones on local storage) is **opt-in at container creation**. `GARDEN_JOURNAL_CLONE_BASE` is unset in this container, so the producer and worker clones are still on virtiofs, and claim and post-job journal writes stay slow.
+  - To fix: recreate the oros container with `GARDEN_JOURNAL_CLONE_BASE=/var/tmp/garden-journal-clones ./garden` (see the `garden` launcher help).
+  - No drains, leveling or schedules were touched.
+
 ## 2026-10-13T15:15Z (oros-health-checkup-20261013-042006, second rerun after reaper requeue): degraded (journal git on virtiofs still starves claims and job tails; deploy deferred) → no code change
 
 - **Load/mem:** load 2.3/2.6/2.9; 13 GiB of 15 GiB available; swap 521M used.
