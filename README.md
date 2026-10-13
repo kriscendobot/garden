@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T11:51:13Z_
+_As of 2026-10-13T11:54:10Z_
 
 ## Latest
 
@@ -1217,7 +1215,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 237.5M | $1112.97 _(notional, rate-card)_ | 88% of 271.0M (backoff) |
-| Codex | 15.4M _(+488.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Codex | 15.5M _(+488.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91078742 tokens/day lower bound._
 
@@ -1236,8 +1234,9 @@ worst fetch p95 2.861208s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr181-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #181
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #167
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr184-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #184
+- [`improve-arc-completion-press-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-arc-completion-press-report.md) — ---
 - [`oros-health-checkup-20261013-072006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-072006.md) — ---
 - [`claude-on-minion-town-completion-press-20261013-080506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261013-080506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
