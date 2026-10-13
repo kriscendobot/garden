@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T09:19:59Z_
+_As of 2026-10-13T09:22:05Z_
 
 ## Latest
 
@@ -921,6 +921,10 @@ Delegation: **active**
 >
 > triager: bare clone path /home/kris/garden/worktrees/kriscendobot-minion.town.git for kriscendobot-minion.town exists but is not a git repo; needs manual reconciliation (not clobbering). kriscendobot-minion.town is not being triaged until it is restored.
 
+- `watchdog-actions-billing-blocked-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-actions-billing-blocked-kriscendobot.md)
+
+> GitHub Actions is refusing to START jobs for the 'kriscendobot' account: "recent account payments have failed or your spending limit needs to be increased". Latest: [kriscendobot/minion.town#167](https://github.com/kriscendobot/minion.town/issues/167) (head bb172bee7e4; checks: test, Claude harness (amd64), Claude harness (arm64)). This is an ACCOUNT BILLING block, not a code failure: no push can fix it, so I am not treating it as CI red. Fix Billing & plans for 'kriscendobot', then rerun the failed runs (gh run rerun <id> --failed) and resume whatever parked on it (a gauntlet: scripts/jobs/gauntlet.sh --resume-from-stage <g> <clean|fix> [--iteration N]).
+
 - `20261013T050525Z-a5b5b3` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261013T050525Z-a5b5b3.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1194,17 +1198,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 233.2M | $1094.27 _(notional, rate-card)_ | 86% of 271.0M (backoff) |
-| Codex | 14.4M _(+442.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 233.5M | $1095.51 _(notional, rate-card)_ | 86% of 271.0M (backoff) |
+| Codex | 14.4M _(+444.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94496271 tokens/day lower bound._
+_Fleet token-unlock pace: 94503469 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.730251s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`kriscendobot-minion.town-pr183-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr183-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #183
+- [`kriscendobot-minion.town-pr184-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #184
 - [`minion-town-arc-press-20261013-090507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-090507.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr167-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #167
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #167
