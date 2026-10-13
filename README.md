@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T20:24:02Z_
+_As of 2026-10-13T20:31:11Z_
 
 ## Latest
 
@@ -1295,7 +1293,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 242.1M | $1136.80 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
-| Codex | 18.3M _(+575.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Codex | 18.4M _(+575.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99009843 tokens/day lower bound._
 
@@ -1303,11 +1301,12 @@ _Fleet token-unlock pace: 99009843 tokens/day lower bound._
 worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`claude-on-minion-town-completion-press-20261013-080506-integrity-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-080506-integrity-audit.md) — Claude-on-minion.town completion press: outcome-integrity audit
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1442
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #183
 - [`kriscendobot-minion.town-pr186-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #186
+- [`endojs-endo-but-for-bots-pr1442-69bf491a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-69bf491a.md) — attention directive on endojs/endo-but-for-bots PR #1442
 - [`minion-town-arc-press-20261013-182028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`claude-on-minion-town-press-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261013-193508.md) — Press the Claude-on-minion.town arc forward
 - [`claude-on-minion-town-press-carry-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-carry-20261013.md) — Press the Claude-on-minion.town arc: carry PR state and focus maintainer review
@@ -1316,10 +1315,11 @@ worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (3)
+### doin (4)
 - [`oros-health-checkup-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-193508.md) — ---
 - [`oros-health-checkup-20261013-072006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-072006.md) — ---
 - [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`endojs-endo-but-for-bots-pr1442-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1442-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1442
 
 ### tada (12706)
 - [`claude-on-minion-town-press-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-20261013-163508.md) — Press tick — arc issue 89 (Claude on minion.town), 2026-10-13 ~19:3xZ
@@ -1422,6 +1422,7 @@ worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-pr1403-review-1cfc544e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1403-review-1cfc544e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1403 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1412-review-c8b358a6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1412-review-c8b358a6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1412 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr166-review-324bc83e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr166-review-324bc83e-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #166 (primary: kriscendobot-mini...
+- [`endojs-endo-but-for-bots-pr1442-69bf491a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1442-69bf491a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1442 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
