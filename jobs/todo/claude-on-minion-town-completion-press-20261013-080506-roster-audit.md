@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: claude-on-minion-town-completion-press-20261013-080506-split
-priority: normal
 role: gardener
-posted_by: orchestrator
-posted_at: 2026-10-13T12:45:59Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-13T12:47:53Z cleared=none -->
 
 ---
 tier: mentor
