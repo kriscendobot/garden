@@ -99,3 +99,13 @@ issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no fe
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-13T08:53:27Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-13T09:04:14Z
