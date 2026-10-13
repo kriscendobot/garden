@@ -2,7 +2,7 @@
 order: serial
 children: claude-on-minion-town-press-audit-20261013 claude-on-minion-town-press-carry-20261013 claude-on-minion-town-press-unblocks-20261013
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-13T11:06:47Z
 ---
