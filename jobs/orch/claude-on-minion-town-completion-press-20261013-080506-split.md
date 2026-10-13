@@ -2,7 +2,7 @@
 order: serial
 children: claude-on-minion-town-completion-press-20261013-080506-roster-audit claude-on-minion-town-completion-press-20261013-080506-integrity-audit claude-on-minion-town-completion-press-20261013-080506-publish
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-13T12:46:35Z
 ---
