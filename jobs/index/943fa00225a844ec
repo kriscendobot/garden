@@ -1,2 +1,2 @@
-base: improve-follow-up-seen-cursor-retry
+base: improve-follow-up-cursor-retry
 identity: mentor:scripts/jobs/follow-up.sh
