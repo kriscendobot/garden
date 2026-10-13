@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T17:10:13Z_
+_As of 2026-10-13T17:14:10Z_
 
 ## Latest
 
@@ -671,11 +669,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1682 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T16:08:04Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1682 times; this is ONE
-> coalesced notice that updates in place, not 1682 messages. Latest detail:
+> WATCHDOG notice — occurrence #1703 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T17:11:03Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1703 times; this is ONE
+> coalesced notice that updates in place, not 1703 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 304487s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 308266s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1225,12 +1223,12 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #277 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T16:08:10Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 277 times; this is ONE
-> coalesced notice that updates in place, not 277 messages. Latest detail:
+> WATCHDOG notice — occurrence #291 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T17:11:08Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 291 times; this is ONE
+> coalesced notice that updates in place, not 291 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 8fd22da4bfb6 201 min ago
-> but still reports deployed_sha bdc2943ce1f4b19ef3e28d1a92426544a762da55. Check garden-self-deploy on oros-studio-garden-ce242c49
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 9e4b600c48be 23 min ago
+> but still reports deployed_sha 8fd22da4bfb6a96511d6cb90898525d7df2b00c6. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
 > (leader=endolin-garden-ece02cb4)
@@ -1290,8 +1288,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 241.9M | $1135.42 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
-| Codex | 16.5M _(+508.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 241.9M | $1135.61 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
+| Codex | 16.6M _(+511.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 97917903 tokens/day lower bound._
 
@@ -1309,10 +1307,11 @@ worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (3)
+### doin (4)
 - [`build-minion-town-root-canary-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-root-canary-20261013.md) — Build the root canary principal (kriscendobot/minion.town design PR #167)
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #184
 - [`claude-on-minion-town-press-carry-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-carry-20261013.md) — Press the Claude-on-minion.town arc: carry PR state and focus maintainer review
+- [`garden-book-review-supervisor-after-merge-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-review-supervisor-after-merge-20261012.md) — Supervise the garden book's reviews (kriscendobot/garden-book) - mentat tier
 
 ### tada (12693)
 - [`kriscendobot-minion-town-pr167-record-answers-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion-town-pr167-record-answers-20261013.md) — Cost
