@@ -35,3 +35,13 @@ gauntlet record is active again and that its panel job is on `jobs/todo/`:
 
 Do not do any review or fix substance yourself. Report the command output and the resulting
 record states.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-13T05:47:45Z
