@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T20:15:20Z_
+_As of 2026-10-13T20:20:00Z_
 
 ## Latest
 
@@ -380,6 +378,10 @@ Delegation: **active**
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
 > subscription claude-endolin2 changed zone ok -> backoff at spend=207858888/168000000.
+
+- `msg-oros-health-watch-20261013-193508-84e31f3db2e6` — from gardener:oros-health-watch-20261013-193508, reply_to `oros-health-watch-20261013-193508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261013-193508-84e31f3db2e6.md)
+
+> Oros health watcher: the 19:35Z checkup was claimed by oros monk 4 at 20:00:54Z and oros journal/heartbeat activity is fresh, but the sysop bridge is unreachable by the watcher's criterion. The last sysop-log activity was 19:07:06Z (over 1 hour ago at 20:17Z), and the 19:20 set-workers plus 19:23 rolling-deploy drain-on operations remain unacknowledged. No new op was sent because the bridge is not consuming its existing queue; a person should check garden-sysop on the machine (and Docker/Desktop/VM sleep only if needed). Oros is deployed at 8fd22da4 while main2 is 9e4b600c.
 
 - `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
 
@@ -1291,7 +1293,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 242.1M | $1136.80 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
-| Codex | 18.3M _(+574.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Codex | 18.3M _(+575.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 98769047 tokens/day lower bound._
 
@@ -1312,20 +1314,18 @@ worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (5)
+### doin (3)
 - [`oros-health-checkup-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-193508.md) — ---
-- [`oros-health-watch-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261013-193508.md) — ---
 - [`oros-health-checkup-20261013-072006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-072006.md) — ---
-- [`claude-on-minion-town-press-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261013-163508.md) — Press the Claude-on-minion.town arc forward
 - [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (12704)
+### tada (12706)
+- [`claude-on-minion-town-press-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-20261013-163508.md) — Press tick — arc issue 89 (Claude on minion.town), 2026-10-13 ~19:3xZ
+- [`oros-health-watch-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-watch-20261013-193508.md) — Cost
 - [`oros-health-checkup-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-checkup-20261013-102024.md) — Cost
 - [`garden-book-review-supervisor-after-hyperlinks-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/garden-book-review-supervisor-after-hyperlinks-20261013.md) — Cost
 - [`deadmail-20261013T174905Z-72fa91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/deadmail-20261013T174905Z-72fa91.md) — Cost
-- [`kriscendobot-garden-book-pr14-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-garden-book-pr14-gauntlet.md) — gauntlet kriscendobot-garden-book-pr14-gauntlet — HALTED
-- [`garden-book-publish-ocap-site-after-hyperlinks-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/garden-book-publish-ocap-site-after-hyperlinks-20261013.md) — Cost
-- … and 12699 more
+- … and 12701 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
