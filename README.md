@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T02:41:57Z_
+_As of 2026-10-13T02:46:20Z_
 
 ## Latest
 
@@ -703,10 +701,6 @@ Delegation: **active**
 >
 > Do not change worker counts, drain state, or deploy state from this job. Scale through `scripts/jobs/set-workers.sh` or the sysop only if the maintainer asks.
 
-- `watchdog-handler-budget-overrun-oros-health-checkup-20261012-220527` — from watchdog:monk/5, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-oros-health-checkup-20261012-220527.md)
-
-> gardener job 'oros-health-checkup-20261012-220527' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=6494s, handler-budget=3600s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -1167,11 +1161,11 @@ _Fleet token-unlock pace: 94536246 tokens/day lower bound._
 worst fetch p95 20.463554s/45s (/home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-220527.md) — ---
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (4)
-- [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
+### doin (3)
 - [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-012006.md) — ---
 - [`kriscendobot-minion.town-pr184-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #184
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #183
