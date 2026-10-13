@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T00:49:32Z_
+_As of 2026-10-13T00:51:59Z_
 
 ## Latest
 
@@ -554,11 +554,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1356 (first seen 2026-10-10T04:05:32Z, latest 2026-10-12T23:50:07Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1356 times; this is ONE
-> coalesced notice that updates in place, not 1356 messages. Latest detail:
+> WATCHDOG notice — occurrence #1376 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T00:50:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1376 times; this is ONE
+> coalesced notice that updates in place, not 1376 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 245805s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 249405s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1065,7 +1065,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 221.7M | $1035.93 _(notional, rate-card)_ | 82% of 271.0M (ok) |
-| Codex | 12.8M _(+391.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Codex | 12.9M _(+391.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94508529 tokens/day lower bound._
 
