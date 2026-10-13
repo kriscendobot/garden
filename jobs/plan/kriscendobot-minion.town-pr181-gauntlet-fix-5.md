@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: kriscendobot-minion.town-pr181-gauntlet
+role: gardener
+handler-budget-role: shepherd
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: unknown
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-13T01:33:09Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-13T01:33:09Z
+---
+
+---
 role: gardener
 arc: minion-town-git-remote
 handler-budget-role: shepherd
@@ -41,13 +62,3 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
-
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-12T21:31:40Z
