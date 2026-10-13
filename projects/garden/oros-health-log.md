@@ -2,6 +2,24 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-13T20:45Z (oros-health-checkup-20261013-193508): degraded (deployed at 9e4b600c, but its health record never published, so the roll stalled) → one fix on main2, health record republished
+
+- **Load/mem:** load 4.3/3.3/3.0; 12 GiB of 15 GiB available; no swap.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1%.
+- **Uptime:** 12d3h, no reboot.
+- **Deployed vs main2:** `9e4b600c` has been deployed since 17:20Z (the host-local deployed-sha). origin/main2 is now `242f944c`, this run's fix. `GARDEN_JOURNAL_CLONE_BASE` is still unset.
+- **Units:** 0 failed (294); 8 monks running; not drained; derotate markers exist only for the endolin hosts.
+- **Budget heartbeat:** claude-oros was sampled at 19:35Z: 0% used, status ok.
+- **rc=124:** 54 in the last 3h, from the system journal.
+- **$GARDEN_STATE:** 86 journal clones (114 at 15:15). The bounded `du`/stale-lock scan timed out (virtiofs), so its result is unknown. The upgrade-monitor fetch of main2 fails twice every 30 min (at :17/:22 and :47/:52) and recovers each time; it stays well under its alert threshold.
+- **Finding:** the 17:20 deploy of `9e4b600c` stalled after it lifted the drain.
+  - Its fleet-restart wave waited on monk 5. That monk was inside a slow `claim-job.sh` pass when it got SIGTERM. Bash defers the TERM trap, so at 17:26 the monk claimed `claude-on-minion-town-press-20261013-163508` and ran it to 19:07.
+  - Self-heal killed `deploy-garden.sh` at 2400s (17:43). The kill skipped `publish_fleet_health`, so `fleet/health` showed `8fd22da4` and `deploy/roll/oros` stayed released at `9e4b600c`.
+- **Changed (main2):** `242f944c`: claim-job.sh abandons the claim pass, with rc=3 and nothing claimed, when the worker's own unit is `deactivating`.
+  - New test `claim-stops-when-unit-stopping-test.sh`: 4/4 pass on the fix; on the old code the stopping worker claims the job.
+- **Changed (on-host):** republished `fleet/health` for oros at `9e4b600c` through `publish_fleet_health`, so the leader can validate the canary.
+- **Open:** `deploy-garden.sh`'s restart wave is still unbounded. A worker that is already mid-job when the drain lifts can still hold it for up to `TimeoutStopSec`. The container still needs to be recreated with `GARDEN_JOURNAL_CLONE_BASE` (see the 18:55 entry). No drains, leveling or schedules were touched.
+
 ## 2026-10-13T18:55Z (oros-health-checkup-20261013-102024, resumed after reaper requeue; first pass 12:13–13:10Z): degraded (journal clones still on virtiofs) → one fix on main2, now deployed
 
 - **Load/mem:** load 3.5/3.3/3.1; 13 GiB of 15 GiB available.
