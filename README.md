@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T16:26:09Z_
+_As of 2026-10-13T16:27:19Z_
 
 ## Latest
 
@@ -718,6 +718,10 @@ Delegation: **active**
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --iteration 5 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
+- `msg-kriscendobot-minion.town-pr183-gauntlet-fix-7-314b9485ac2c` — from gardener:kriscendobot-minion.town-pr183-gauntlet-fix-7, reply_to `kriscendobot-minion.town-pr183-gauntlet-fix-7` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr183-gauntlet-fix-7-314b9485ac2c.md)
+
+> [https://github.com/kriscendobot/minion.town/pull/183](https://github.com/kriscendobot/minion.town/pull/183) gauntlet fix-7: the purist panel item asks to drop the node:crypto sha256 exemption in favor of `@endo/sha256`. That package is on neither npm nor npm.minion.town, so I kept the exemption (as credential-vault.ts and other call sites do) and reworded it. If you want `@endo/sha256` published to npm.minion.town and consumed, say so and a follow-up can do it. Non-blocking.
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-10-08T17:50:19Z, latest 2026-10-08T21:50:28Z).
@@ -1280,8 +1284,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 241.9M | $1135.96 _(notional, rate-card)_ | 89% of 271.0M (ok) |
-| Codex | 16.1M _(+496.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 241.9M | $1136.36 _(notional, rate-card)_ | 89% of 271.0M (ok) |
+| Codex | 16.1M _(+497.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 90668208 tokens/day lower bound._
 
