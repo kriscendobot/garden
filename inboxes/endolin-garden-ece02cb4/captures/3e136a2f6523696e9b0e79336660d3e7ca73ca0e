@@ -1,0 +1,15 @@
+<6>18:03:51 [cleric/3] requeued job 'mirror-endo-3372' has no local codex sidecar on endolin-garden-ece02cb4; prior session and worktree were lost — starting fresh with lost-state framing
+<6>18:03:51 [cleric/3] job 'mirror-endo-3372' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>18:03:51 [cleric/3] job 'mirror-endo-3372' attaching minion.town MCP (stdio bridge as minion-town)
+<6>18:05:36 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/1442 is already non-draft; leaving it untouched for the completion guard
+<6>18:05:40 [review-docket] https://github.com/endojs/endo-but-for-bots/pull/1442 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+Existing mirror found; no changes made per idempotency rule.
+
+Mirror: https://github.com/endojs/endo-but-for-bots/pull/1442  
+Head `b9d3913` matches upstream; frozen base `master-356d6e7`; one cross-link comment exists.
+
+CI: 12 checks passing; `lint` and `viable-release` failing.
+
+Self-improvement: nothing this time.
