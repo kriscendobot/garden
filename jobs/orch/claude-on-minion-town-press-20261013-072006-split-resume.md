@@ -1,4 +1,5 @@
 ---
+child-claude-on-minion-town-press-unblocks-20261013-reap-count: 0
 order: serial
 children: claude-on-minion-town-press-unblocks-20261013
 on-child-failure: halt
