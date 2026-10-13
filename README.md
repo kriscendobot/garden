@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T16:56:59Z_
+_As of 2026-10-13T17:00:37Z_
 
 ## Latest
 
@@ -1290,8 +1288,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 241.9M | $1135.15 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
-| Codex | 16.4M _(+505.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 241.9M | $1135.42 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
+| Codex | 16.4M _(+506.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 97873774 tokens/day lower bound._
 
@@ -1404,6 +1402,8 @@ worst fetch p95 3.296731s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`minion-town-ui-gutter-live-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-live-refresh.md) — _normal_ · Gutter: refresh the clip list without a reload (minion-town-ui increment)
 - [`minion-town-ui-gutter-reorder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-gutter-reorder.md) — _normal_ · Gutter: drag and keyboard reorder, persisted per owner (minion-town-ui increm...
 - [`minion-town-ui-iframe-embed-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-embed-design.md) — _normal_ · Iframe: design the clip embedding relaxation (minion-town-ui increment)
+- [`endo-zip-native-node-fallthrough-investigation-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-zip-native-node-fallthrough-investigation-20261013.md) — _normal_ · Investigate: let @endo/zip fall through to Node.js's native Zip implementatio...
+- [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-nanoseedlm-20261013.md) — _normal_ · Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1349-review-a794b43f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1349-review-a794b43f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1349 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1381-review-a6b93d7a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1381 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1389-review-a7ef9c88-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1389 (primary: endojs-endo-but-...
