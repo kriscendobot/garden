@@ -100,6 +100,7 @@ run_deploy() {  # run_deploy [extra env assignments...] ; returns rc, fills $OUT
              GARDEN_DEPLOY_TEST_SUITES=scripts/jobs/test/deploy-gate-probe.sh \
              GARDEN_DEPLOY_TEST_SUITE_TIMEOUT=5 GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT=20 \
              GARDEN_DEPLOY_REPORT_TIMEOUT=1 \
+             GARDEN_DEPLOY_GATE_LOCAL_BASE= \
              XDG_CONFIG_HOME="$TR/config" \
              "$@" bash "$DEPLOY" 2>&1)"
   RC=$?
@@ -362,6 +363,55 @@ grep -q "unpack directory is exec-capable: $TR/root/scratch/tmpexec/" <<<"$OUT" 
 [ "$(cat "$TR/state/deploy/candidate-gate-base" 2>/dev/null)" = "$TR/root/scratch/tmpexec" ] \
   && ok "the recovered base replaces the stale cache" \
   || bad "stale cache not refreshed after re-probe: $(cat "$TR/state/deploy/candidate-gate-base" 2>/dev/null)"
+
+# A container-local base (GARDEN_DEPLOY_GATE_LOCAL_BASE) outranks the slow scratch
+# fallback: it is probed before scratch, and a host whose cache still names scratch
+# moves to it quietly on its next tick (oros-studio, 2026-10-13: scratch is a
+# virtiofs share and the gate blew its 900s budget there on every tick).
+setup_fixture
+mkdir -p "$TR/simulated-noexec" "$TR/local-base"
+run_deploy TMPDIR="$TR/simulated-noexec" \
+  GARDEN_DEPLOY_GATE_LOCAL_BASE="$TR/local-base" \
+  GARDEN_DEPLOY_TEST_EXEC_PROBE="$EXEC_PROBE_RUNNER" \
+  GARDEN_DEPLOY_TEST_NOEXEC_PREFIX="$TR/simulated-noexec"
+[ "$RC" -eq 0 ] && ok "deploy passes with a container-local gate base" || bad "local-base deploy exit $RC: $OUT"
+grep -q "unpack directory is exec-capable: $TR/local-base/" <<<"$OUT" \
+  && ok "the container-local base is preferred over the scratch fallback" \
+  || bad "container-local base not selected ahead of scratch: $OUT"
+printf '%s\n' "$TR/root/scratch/tmpexec" > "$TR/state/deploy/candidate-gate-base"
+run_deploy TMPDIR="$TR/simulated-noexec" \
+  GARDEN_DEPLOY_GATE_LOCAL_BASE="$TR/local-base" \
+  GARDEN_DEPLOY_TEST_EXEC_PROBE="$EXEC_PROBE_RUNNER" \
+  GARDEN_DEPLOY_TEST_NOEXEC_PREFIX="$TR/simulated-noexec"
+[ "$RC" -eq 0 ] && ok "a scratch-cached host deploys via the local base" || bad "scratch-cached tick exit $RC: $OUT"
+grep -q "container-local base $TR/local-base preferred over scratch" <<<"$OUT" \
+  && ok "a remembered scratch base yields to the container-local base" \
+  || bad "remembered scratch base not upgraded to the local base: $OUT"
+[ "$(cat "$TR/state/deploy/candidate-gate-base" 2>/dev/null)" = "$TR/local-base" ] \
+  && ok "the cache moves from scratch to the container-local base" \
+  || bad "cache still names $(cat "$TR/state/deploy/candidate-gate-base" 2>/dev/null)"
+# A noexec local base leaves a scratch-cached host on scratch without new WARNs.
+printf '%s\n' "$TR/root/scratch/tmpexec" > "$TR/state/deploy/candidate-gate-base"
+run_deploy TMPDIR="$TR/simulated-noexec" \
+  GARDEN_DEPLOY_GATE_LOCAL_BASE="$TR/simulated-noexec/local" \
+  GARDEN_DEPLOY_TEST_EXEC_PROBE="$EXEC_PROBE_RUNNER" \
+  GARDEN_DEPLOY_TEST_NOEXEC_PREFIX="$TR/simulated-noexec"
+[ "$RC" -eq 0 ] && ok "a noexec local base falls back to the remembered scratch base" || bad "noexec local-base tick exit $RC: $OUT"
+grep -q "remembered base $TR/root/scratch/tmpexec" <<<"$OUT" \
+  && ok "the remembered scratch base still serves when the local base is unusable" \
+  || bad "remembered scratch base not reused: $OUT"
+grep -q "rejected temporary location" <<<"$OUT" \
+  && bad "the quiet local-base attempt logged a per-tick rejection WARN" \
+  || ok "the quiet local-base attempt adds no per-tick WARN"
+
+# Suites get a TMPDIR inside the gate root, so their fixture repos live on the
+# selected base instead of the host default.
+setup_fixture
+origin_commit scripts/jobs/test/deploy-gate-probe.sh \
+  'case "$TMPDIR" in */garden-deploy-gate.*/.candidate-gate-state/*/tmp) [ -d "$TMPDIR" ] && exit 0 ;; esac; echo "TMPDIR=$TMPDIR"; exit 1' \
+  "probe the suite TMPDIR"
+run_deploy
+[ "$RC" -eq 0 ] && ok "candidate suites run with TMPDIR inside the gate root" || bad "suite TMPDIR not inside the gate root: $OUT"
 
 # If every candidate location rejects direct execution, fail BEFORE running a
 # suite or engaging the drain, with the environmental cause in the diagnostic.

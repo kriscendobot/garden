@@ -152,6 +152,14 @@ export GARDEN_TAG="deploy-garden"
 # scratch fallback. The cache is advisory: if the remembered base later fails its
 # probe, the full ordered re-probe of every base still runs (fallback intact).
 : "${GARDEN_DEPLOY_GATE_BASE_CACHE:=$GARDEN_DEPLOY_STATE/candidate-gate-base}"
+# Container-local candidate-gate base, probed after TMPDIR and before the garden
+# scratch fallback. On a Docker Desktop host (oros-studio) TMPDIR=/tmp is a noexec
+# tmpfs and the garden root (scratch included) is a virtiofs share of the macOS
+# home, where every stat/open crosses the VM boundary: a gate suite that spends
+# ~25s of CPU took 5.5 min of wall clock there and only 1.5 min on /var/tmp, so
+# the 900s gate failed `total-wall-clock` on every tick (2026-10-13). /var/tmp
+# lives on the container's own overlay. Set empty to skip it.
+: "${GARDEN_DEPLOY_GATE_LOCAL_BASE=/var/tmp}"
 
 # Exit status for a deliberate deferral (a long mid-job gardener; the fleet was
 # never paused). Distinct from the abort path (exit 1) and from a real deploy:
@@ -317,14 +325,14 @@ remember_candidate_gate_base() { # <base>
 # WARN naming the cause, leaves candidate_gate_root cleared, and returns 1.
 # Factored out so both the cached-base fast path and the full ordered probe share
 # one implementation.
-try_candidate_gate_base() { # <base>
-  local base="$1" root probe probe_rc
+try_candidate_gate_base() { # <base> [quiet]
+  local base="$1" quiet="${2:-}" root probe probe_rc
   if ! mkdir -p "$base" 2>/dev/null; then
-    log "WARN: candidate gate rejected temporary location '$base': cannot create it"
+    [ -n "$quiet" ] || log "WARN: candidate gate rejected temporary location '$base': cannot create it"
     return 1
   fi
   root="$(mktemp -d "$base/garden-deploy-gate.XXXXXXXX" 2>/dev/null)" || {
-    log "WARN: candidate gate rejected temporary location '$base': cannot create a private directory"
+    [ -n "$quiet" ] || log "WARN: candidate gate rejected temporary location '$base': cannot create a private directory"
     return 1
   }
   # Arm the EXIT cleanup before writing or executing anything in the new root;
@@ -340,24 +348,35 @@ try_candidate_gate_base() { # <base>
   rm -f "$probe" 2>/dev/null || true
   [ "$probe_rc" -eq 0 ] && return 0
   cleanup_candidate_gate_root
-  log "WARN: candidate gate rejected temporary location '$base': executable probe failed (possible noexec mount)"
+  [ -n "$quiet" ] || log "WARN: candidate gate rejected temporary location '$base': executable probe failed (possible noexec mount)"
   return 1
 }
 
 prepare_candidate_gate_root() {
   local preferred_base="${TMPDIR:-/tmp}" scratch_base="$GARDEN_SCRATCH/tmpexec"
+  local local_base="$GARDEN_DEPLOY_GATE_LOCAL_BASE"
   local base cached checked=""
   local -a candidate_bases=("$preferred_base")
+  case "$local_base" in ''|"$preferred_base"|"$scratch_base") local_base="" ;; *) candidate_bases+=("$local_base") ;; esac
   [ "$scratch_base" = "$preferred_base" ] || candidate_bases+=("$scratch_base")
 
   cleanup_candidate_gate_root
+  cached="$(cat "$GARDEN_DEPLOY_GATE_BASE_CACHE" 2>/dev/null || true)"
+
+  # A remembered scratch base predates the container-local base (or the local
+  # base was briefly unusable). Scratch is the slow last resort, so quietly try
+  # the local base first and move the cache to it when it probes exec-capable.
+  if [ -n "$local_base" ] && [ "$cached" = "$scratch_base" ] && try_candidate_gate_base "$local_base" quiet; then
+    remember_candidate_gate_base "$local_base"
+    log "candidate gate unpack directory is exec-capable (container-local base $local_base preferred over scratch): $candidate_gate_root"
+    return 0
+  fi
 
   # Fast path: reuse a base this host already proved exec-capable. Trying it alone
   # skips re-probing (and re-WARNing about) any base already known noexec — the
   # routine per-tick "`/tmp` is noexec" noise when a later base is the real home.
   # If the remembered base no longer probes exec-capable (unmounted, remounted
   # noexec, or GC'd), fall through to the full ordered re-probe below.
-  cached="$(cat "$GARDEN_DEPLOY_GATE_BASE_CACHE" 2>/dev/null || true)"
   if [ -n "$cached" ]; then
     if try_candidate_gate_base "$cached"; then
       log "candidate gate unpack directory is exec-capable (remembered base $cached): $candidate_gate_root"
@@ -419,12 +438,16 @@ execute_gate_suites() { # <candidate> <gate_root> <deadline> <attempt> <failed-a
     remaining=$(( deadline - now )); limit="${_limits[$suite]:-$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT}"
     [ "$remaining" -lt "$limit" ] && limit="$remaining"
     capture="$gate_root/.candidate-gate-output-$attempt-$suite_number"
+    # Suites mktemp their fixture repos under TMPDIR; keep them on the gate's
+    # exec-capable base rather than the host's (possibly slow) default.
+    mkdir -p "$suite_state/tmp"
     rc=0
     # Candidate suites must not inherit any host-standing latch. GARDEN_STATE
     # covers the ordinary defaults; the explicit overrides cover the older
     # host-shared defaults which intentionally resolve beneath GARDEN_ROOT.
     timeout --kill-after=5 "$limit" env \
       GARDEN_TEST=1 \
+      TMPDIR="$suite_state/tmp" \
       GARDEN_STATE="$suite_state" \
       GARDEN_API_COOLDOWN_DIR="$suite_state/gh-api-cooldown" \
       GARDEN_JOURNAL_OUTAGE_DIR="$suite_state/journal-outage-cooldown" \
