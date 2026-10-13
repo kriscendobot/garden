@@ -87,6 +87,14 @@ fi
 # unique, sortable message id (timestamp + short random)
 msgid="$(date -u +%Y%m%dT%H%M%SZ)-$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')"
 relpath="msgs/$addr/$msgid.md"
+# Machine callers that must correlate delivery with a durable consumer record can
+# ask for the generated id.  Write it before the CAS loop: even if posting fails,
+# the caller can retain the attempted id and fail closed while awaiting an ack that
+# will never appear, instead of losing which operation it tried to send.
+if [ -n "${GARDEN_MSGID_FILE:-}" ]; then
+  mkdir -p "$(dirname "$GARDEN_MSGID_FILE")" 2>/dev/null || true
+  printf '%s\n' "$msgid" > "$GARDEN_MSGID_FILE"
+fi
 
 # A message is add-only at its own unique msgid path, so a lost CAS is replayed
 # onto the fresh tip without the working tree first (journal_replay_head). On oros

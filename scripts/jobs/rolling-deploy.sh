@@ -46,6 +46,8 @@
 #   GARDEN_ROLLING_DRAIN_OP     send a benign drain op to a host (default send-host-op.sh)
 #   GARDEN_ROLL_REGRESSION_CMD  optional deterministic regression check <host> <sha> (default: pass)
 #   GARDEN_ROLL_PREDRAIN        1 → send a benign `drain on` before releasing a canary (default 0)
+#   GARDEN_ROLL_PREDRAIN_ACK_TIMEOUT seconds to await its durable sysop-log ack
+#                               before halting the roll (default: 180)
 #   GARDEN_ROLLING_NOW          fixed epoch seconds (default: date +%s)
 #   GARDEN_ROLLING_ANCESTOR_CMD optional <a> <b> → rc0 iff a is an ancestor-or-equal
 #                               of b (default: git in $GARDEN_ROOT)
@@ -112,6 +114,7 @@ rdsha()  { [ -f "$1" ] && head -n1 "$1" 2>/dev/null | tr -d '[:space:]' || true;
 rdline() { [ -f "$1" ] && head -n1 "$1" 2>/dev/null || true; }
 
 : "${GARDEN_ROLL_STUCK_CANARY_AFTER:=1200}"
+: "${GARDEN_ROLL_PREDRAIN_ACK_TIMEOUT:=180}"
 
 is_ancestor() {  # is_ancestor <a> <b> → rc0 iff a is an ancestor-or-equal of b
   [ "$1" = "$2" ] && return 0
@@ -421,6 +424,70 @@ roll_undrain() {  # roll_undrain <host> <reason>
     || log "WARN: could not send drain-off to canary $1"
 }
 
+# A pre-drain is a release/validation safety gate, not a fire-and-forget hint.
+# Persist its msgid in the per-target host state and accept it only after the
+# addressed host has committed the terminal successful sysop audit record.  This
+# deliberately polls sysop-log rather than the return code of send-host-op: that
+# return code proves only that the message was posted, not that the remote host
+# received and applied it.
+predrain_halt() {  # predrain_halt <host> <target> <reason>
+  local host="$1" target="$2" reason="$3"
+  rstat_set "$target" "$host" failed
+  alert_maintainer "rolling-deploy-predrain-unacked-$host" \
+"Rolling deploy HALTED before releasing or validating a canary because its pre-drain was not acknowledged.
+canary host: $host
+target sha:  $target
+failing signal: $reason
+No release or validation was permitted without a durable successful
+sysop-log/$host/<msgid>.md acknowledgement. Restore the host's control bridge/sysop,
+inspect the recorded operation, and restart the roll. (leader=$GARDEN)"
+  log "HALTED: canary $host pre-drain gate failed for ${target:0:12}: $reason"
+}
+
+ensure_predrain_ack() {  # ensure_predrain_ack <host> <target>; 0=acked, 2=waiting, 1=halted
+  local host="$1" target="$2" msgid sent_at rec outcome op capture rc=0
+  msgid="$(rfield_get "$target" "$host" predrain_msgid)"
+  sent_at="$(rfield_get "$target" "$host" predrain_sent_at)"
+  if [ -z "$sent_at" ]; then
+    capture="$STATE/roll/$(sd "$target")/$host.predrain-msgid.capture"
+    mkdir -p "$(dirname "$capture")" 2>/dev/null || true
+    rm -f "$capture" 2>/dev/null || true
+    GARDEN_MSGID_FILE="$capture" "$DRAIN_OP" "$host" op=drain state=on \
+      source="$GARDEN_DRAIN_SOURCE_QUIESCE" \
+      reason="rolling-deploy: pre-drain canary before release" >/dev/null 2>&1 || rc=$?
+    msgid="$(rdline "$capture")"
+    sent_at="$now"
+    rfield_set "$target" "$host" predrain_sent_at "$sent_at"
+    rfield_set "$target" "$host" predrain_msgid "$msgid"
+    rfield_set "$target" "$host" predrain_dispatch_rc "$rc"
+    rm -f "$capture" 2>/dev/null || true
+    log "canary $host pre-drain dispatched${msgid:+ (msgid $msgid)}; awaiting durable sysop-log acknowledgement"
+  fi
+  [[ "$sent_at" =~ ^[0-9]+$ ]] || sent_at="$now"
+  if [ -n "$msgid" ]; then
+    rec="$DIR/sysop-log/$host/$msgid.md"
+    if [ -f "$rec" ]; then
+      outcome="$(sed -n 's/^outcome:[[:space:]]*//p' "$rec" | head -1)"
+      op="$(sed -n 's/^op:[[:space:]]*//p' "$rec" | head -1)"
+      if [ "$op" = drain ] && [ "$outcome" = accepted-and-applied ]; then
+        rfield_set "$target" "$host" predrain_acked_at "$now"
+        alert_maintainer_clear "rolling-deploy-predrain-unacked-$host" \
+          "pre-drain acknowledgement arrived for canary $host; the roll may resume." || true
+        log "canary $host pre-drain ACKNOWLEDGED by sysop-log/$host/$msgid.md"
+        return 0
+      fi
+      predrain_halt "$host" "$target" "sysop acknowledgement $msgid reported op=${op:-missing}, outcome=${outcome:-missing}"
+      return 1
+    fi
+  fi
+  if [ $(( now - sent_at )) -ge "$GARDEN_ROLL_PREDRAIN_ACK_TIMEOUT" ]; then
+    predrain_halt "$host" "$target" "no sysop-log acknowledgement for ${msgid:-an unrecorded dispatch id} within ${GARDEN_ROLL_PREDRAIN_ACK_TIMEOUT}s (dispatch rc $(rfield_get "$target" "$host" predrain_dispatch_rc))"
+    return 1
+  fi
+  log "canary $host awaiting pre-drain sysop acknowledgement (${msgid:-no msgid captured}, $(( now - sent_at ))s/${GARDEN_ROLL_PREDRAIN_ACK_TIMEOUT}s); release and validation remain blocked"
+  return 2
+}
+
 # --- retry_or_halt: a FRESH validation/deploy failure of a canary ------------
 # A roll-induced canary drain is RETRYABLE. Under the retry budget: drain the suspect
 # canary (roll provenance) and schedule a retry (rstat retry-wait); the conductor lifts
@@ -725,11 +792,15 @@ for f in "${followers[@]}"; do
   esac
   skipped_all=0
 
+  # Gate BOTH release and validation. This placement also catches a release token
+  # written by an older conductor before this acknowledgement contract existed.
+  if [ "${GARDEN_ROLL_PREDRAIN:-0}" = "1" ]; then
+    set +e; ensure_predrain_ack "$f" "$target"; parc=$?; set -e
+    [ "$parc" -eq 0 ] || exit 0
+  fi
+
   # Not yet released for this target? Release it (batch=1 → only one in flight).
   if [ "$(release_token "$f")" != "$target" ]; then
-    if [ "${GARDEN_ROLL_PREDRAIN:-0}" = "1" ]; then
-      "$DRAIN_OP" "$f" op=drain state=on reason="rolling-deploy: pre-drain canary before release" >/dev/null 2>&1 || true
-    fi
     if journal_put "$GARDEN_DEPLOY_ROLL_PATH/$f" "$target" "deploy/roll($f)=${target:0:12} (canary release by $GARDEN)"; then
       rstat_set "$target" "$f" released
       rfield_set "$target" "$f" released_at "$now"

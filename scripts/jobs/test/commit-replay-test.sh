@@ -94,4 +94,15 @@ grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/complete-job.sh" || f
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/inbox-read.sh" || fail "inbox-read.sh does not opt in"
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/send-msg.sh" || fail "send-msg.sh does not opt in"
 
+# A machine sender can durably correlate its posted message with the consumer's
+# later audit record. The generated id is exposed before posting and is exactly the
+# basename that landed in the journal.
+printf 'probe: correlation\n' > "$TR/body"
+GARDEN_MSGID_FILE="$TR/msgid" GARDEN_PRODUCER_CLONE="$TR/send-clone" \
+  "$JOBS/send-msg.sh" broadcast "$TR/body" >/dev/null 2>&1
+msgid="$(cat "$TR/msgid" 2>/dev/null)"
+[ -n "$msgid" ] || fail "send-msg.sh did not write GARDEN_MSGID_FILE"
+git --git-dir="$BARE" cat-file -e "journal2:msgs/broadcast/$msgid.md" \
+  || fail "GARDEN_MSGID_FILE did not name the message that landed"
+
 echo 'PASS: a lost journal CAS is replayed onto the fresh tip without the working tree'

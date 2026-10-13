@@ -144,6 +144,7 @@ EOF
 cat > "$TR/rec-drain.sh" <<EOF
 #!/bin/bash
 printf 'drain %s\n' "\$*" >> "$DRAIN_LOG"
+[ -z "\${GARDEN_MSGID_FILE:-}" ] || printf 'test-drain-%s\n' "\$(basename "\$(dirname "\$GARDEN_MSGID_FILE")")" > "\$GARDEN_MSGID_FILE"
 EOF
 cat > "$TR/rec-alert.sh" <<EOF
 #!/bin/bash
@@ -1041,6 +1042,68 @@ grep -q 'state=on' "$DRAIN_LOG" && ok "BUSY: an idle canary that still never cla
   || bad "BUSY: idle unclaimed probe did not fail (status: $(cat "$TR/state-leader/rolling-deploy/roll/$T2_12/$F1.status" 2>/dev/null))"
 grep -q deploy-invoked "$DEPLOY_LOG" && bad "BUSY: leader advanced without a passing canary" || ok "BUSY: leader never advanced"
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after busy-canary"
+
+# ============================================================================
+hr; echo "PRE-DRAIN ACK — durable sysop acknowledgement gates release and validation; timeout halts once"; hr
+T3="3333333333333333333333333333333333333333"; T3_12="${T3:0:12}"
+push_change "hosts/$F2" "@DELETE" "single-canary pre-drain fleet"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for pre-drain ack"
+push_change "fleet/deployed/$F1" "@DELETE" "clear F1 deployment for pre-drain ack"
+push_change "fleet/health/$F1" "@DELETE" "clear F1 health for pre-drain ack"
+set_heartbeat "$F1" 7900
+set_leader_signal "$T3"; reset_leader_roll_state
+: > "$DRAIN_LOG"; : > "$ALERT_LOG"
+PREDRAIN_ENV=(GARDEN_ROLL_PREDRAIN=1 GARDEN_ROLL_PREDRAIN_ACK_TIMEOUT=30)
+run_conductor "${PREDRAIN_ENV[@]}" GARDEN_ROLLING_NOW=8000
+pd_msgid="$(cat "$TR/state-leader/rolling-deploy/roll/$T3_12/$F1.predrain_msgid" 2>/dev/null)"
+if [ -n "$pd_msgid" ] && [ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ]; then
+  ok "pre-drain msgid persisted and canary release withheld while its sysop-log ack is absent"
+else bad "pre-drain dispatch was not persisted or release escaped the ack gate (msgid=$pd_msgid release=$(from_bare "deploy/roll/$F1"))"; fi
+push_change "sysop-log/$F1/$pd_msgid.md" \
+  "op: drain"$'\n'"from_host: $LEADER"$'\n'"host: $F1"$'\n'"outcome: accepted-and-applied"$'\n'"msgid: $pd_msgid"$'\n' \
+  "ack pre-drain $pd_msgid"
+run_conductor "${PREDRAIN_ENV[@]}" GARDEN_ROLLING_NOW=8010
+if [ "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" = "$T3" ] && [ "$(grep -c '^drain ' "$DRAIN_LOG")" -eq 1 ]; then
+  ok "successful durable drain ack releases the canary without redispatching the pre-drain"
+else bad "acked pre-drain did not release exactly once (release=$(from_bare "deploy/roll/$F1") drains=$(cat "$DRAIN_LOG"))"; fi
+
+# A release left by an older conductor must not bypass the new validation gate.
+T4="4444444444444444444444444444444444444444"; T4_12="${T4:0:12}"
+push_change "deploy/roll/$F1" "$T4" "seed legacy release before pre-drain ack"
+simulate_follower_deploy "$F1" "$T4"
+set_leader_signal "$T4"; reset_leader_roll_state
+: > "$DRAIN_LOG"
+run_conductor "${PREDRAIN_ENV[@]}" GARDEN_ROLLING_NOW=8100
+legacy_msgid="$(cat "$TR/state-leader/rolling-deploy/roll/$T4_12/$F1.predrain_msgid" 2>/dev/null)"
+if [ -z "$(from_bare "jobs/todo/canary-probe-$F1-$T4_12.md")" ]; then
+  ok "an existing release token still cannot enter validation before the pre-drain acknowledgement"
+else bad "legacy released canary entered validation without a pre-drain acknowledgement"; fi
+push_change "sysop-log/$F1/$legacy_msgid.md" \
+  "op: drain"$'\n'"outcome: accepted-and-applied"$'\n'"msgid: $legacy_msgid"$'\n' \
+  "ack legacy-release pre-drain $legacy_msgid"
+run_conductor "${PREDRAIN_ENV[@]}" GARDEN_ROLLING_NOW=8110
+[ -n "$(from_bare "jobs/todo/canary-probe-$F1-$T4_12.md")" ] \
+  && ok "validation begins after the existing release's pre-drain ack arrives" \
+  || bad "acked existing release did not proceed to validation"
+
+# No ack reaches a bounded terminal halt. Repeated ticks must not redispatch or
+# page again: the failed roll state and keyed alert coalesce the episode.
+T5="5555555555555555555555555555555555555555"; T5_12="${T5:0:12}"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for pre-drain timeout"
+push_change "fleet/deployed/$F1" "@DELETE" "clear F1 deploy for pre-drain timeout"
+push_change "fleet/health/$F1" "@DELETE" "clear F1 health for pre-drain timeout"
+set_heartbeat "$F1" 8900
+set_leader_signal "$T5"; reset_leader_roll_state
+: > "$DRAIN_LOG"; : > "$ALERT_LOG"
+run_conductor "${PREDRAIN_ENV[@]}" GARDEN_ROLLING_NOW=9000
+run_conductor "${PREDRAIN_ENV[@]}" GARDEN_ROLLING_NOW=9031
+run_conductor "${PREDRAIN_ENV[@]}" GARDEN_ROLLING_NOW=9040
+timeout_alerts="$(grep -c "key=rolling-deploy-predrain-unacked-$F1" "$ALERT_LOG" || true)"
+if [ "$(cat "$TR/state-leader/rolling-deploy/roll/$T5_12/$F1.status" 2>/dev/null)" = failed ] \
+   && [ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ] \
+   && [ "$(grep -c '^drain ' "$DRAIN_LOG")" -eq 1 ] && [ "$timeout_alerts" -eq 1 ]; then
+  ok "missing ack times out to a halted roll with one dispatch and one deduplicated maintainer alert"
+else bad "pre-drain timeout did not halt/coalesce (status=$(cat "$TR/state-leader/rolling-deploy/roll/$T5_12/$F1.status" 2>/dev/null) release=$(from_bare "deploy/roll/$F1") drains=$(cat "$DRAIN_LOG") alerts=$(cat "$ALERT_LOG"))"; fi
 
 # ============================================================================
 hr; echo "RESULTS"; hr
