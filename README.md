@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T04:44:17Z_
+_As of 2026-10-13T04:46:21Z_
 
 ## Latest
 
@@ -161,10 +161,6 @@ Delegation: **active**
 - `msg-scholar-ingest-literate-ai-remainder-20261010-aa71d0ac0098` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-aa71d0ac0098.md)
 
 > The second Literate AI cycle added 15 sections from four architecture sources: repository layout, durable user-directed work, source promotion, and the production containment threat model. The resulting comparison material sharpens the garden's parallels around durable work authority, source-versus-specification promotion, per-phase containment, and authenticated evidence without treating local policy checks as execution authority. `project-releases.md` was not read because the foreign-content gate halted it at injection uncertainty 0.34; I sent the classifier manifest separately and queued it only after maintainer clearance. Full result: `entries/2026/10/10/165034Z-result-scholar-dfd445.md`.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261013-042006` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261013-042006.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261013-042006' has remained unclaimed for 1200s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `20261010T163620Z-5a3568` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261010T163620Z-5a3568.md)
 
@@ -1148,8 +1144,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 224.6M | $1050.03 _(notional, rate-card)_ | 83% of 271.0M (backoff) |
-| Codex | 13.6M _(+417.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 224.6M | $1050.37 _(notional, rate-card)_ | 83% of 271.0M (backoff) |
+| Codex | 13.6M _(+418.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94444034 tokens/day lower bound._
 
@@ -1157,9 +1153,10 @@ _Fleet token-unlock pace: 94444034 tokens/day lower bound._
 worst fetch p95 20.463554s/45s (/home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town); 3 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`minion-town-pr180-pr181-gauntlet-resume-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-pr181-gauntlet-resume-20261013.md) — Resume the stalled minion.town #180 and #181 gauntlets (leader host)
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-220527.md) — ---
+- [`kriscendobot-garden-book-pr8-weave-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr8-weave-20261013.md) — Weave kriscendobot/garden-book PR #8 onto live main (resolve the chapter 8 co...
 - [`oros-health-checkup-20261013-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-042006.md) — ---
 - [`repair-claude-harness-refresh-and-finish-pr185`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/repair-claude-harness-refresh-and-finish-pr185.md) — Repair the Claude harness migration hook and finish minion.town PR #185
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
