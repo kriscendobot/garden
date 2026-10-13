@@ -1,6 +1,6 @@
 ---
 created: 2026-09-28
-updated: 2026-10-08
+updated: 2026-10-13
 author: builder, gardener
 ---
 
@@ -11,6 +11,14 @@ This is the complete operator inventory for the user units shipped in
 `scripts/jobs/install-units.sh`. The facts below come from those unit files,
 their `ExecStart` scripts, `scripts/jobs/common.sh`, and the installer's enable
 policy. The units run under `systemd --user`, not the system manager.
+
+On a container host whose bind-mounted home makes `$GARDEN_STATE` slow, create
+the container with
+`GARDEN_JOURNAL_CLONE_BASE=/var/tmp/garden-journal-clones ./garden create`.
+The launcher carries that allowlisted value through `/run/environment.d` to the
+user manager. Worker and producer checkouts then use container-local disk, while
+their lock files and all non-checkout state remain under `$GARDEN_STATE`. The
+base is intentionally disposable and is reseeded from `journal2` when empty.
 
 ## Summary
 
@@ -162,8 +170,10 @@ and renders `garden-monk@.service`, `garden-cleric@.service`,
   timeout `2400` seconds, provider credentials/models, and the per-kind count in
   journal `hosts/$GARDEN`. The registry and defaults are in
   `scripts/jobs/common.sh`.
-- **State/journal:** `$GARDEN_STATE/<kind-plural>/<id>/journal`, per-instance
-  markers below the same namespace, job transitions in `jobs/{todo,doin,tada}`,
+- **State/journal:** `$GARDEN_STATE/<kind-plural>/<id>/journal` by default, or
+  `$GARDEN_JOURNAL_CLONE_BASE/<kind-plural>/<id>/journal` when the host opts into
+  container-local journal checkouts. Per-instance markers and checkout lock files
+  remain below `$GARDEN_STATE`; job transitions in `jobs/{todo,doin,tada}`,
   `jobs/index`, inbox messages, progress/result entries, and usage/reputation
   events. The `hermit` lane is registered for old records but clamped to zero.
 - **Inspect/stop:** use the common commands with a concrete instance; also run

@@ -1,5 +1,5 @@
 #!/bin/bash
-# seed-api-key-handoff.sh -- seed API keys for the lingering systemd user manager.
+# seed-api-key-handoff.sh -- seed allowlisted fleet environment for the user manager.
 #
 # Docker gives PID 1 these variables, but user@.service starts through PAM and
 # therefore does not inherit PID 1's environment. systemd's built-in
@@ -37,6 +37,18 @@ for key_name in ANTHROPIC_API_KEY MOONSHOT_API_KEY FIREWORKS_API_KEY OPENROUTER_
         printf '%s=%s\n' "$key_name" "$key_value" >> "$tmp_file"
     fi
 done
+
+# This non-secret host knob follows the same tmpfs-only bridge because the PAM-
+# started user manager does not inherit Docker's environment. Keep its parser
+# surface deliberately narrower than a general environment pass-through.
+if [[ -n "${GARDEN_JOURNAL_CLONE_BASE:-}" ]]; then
+    if [[ ! "$GARDEN_JOURNAL_CLONE_BASE" =~ ^/[A-Za-z0-9._/-]+$ ]] \
+       || [[ "$GARDEN_JOURNAL_CLONE_BASE" == / ]]; then
+        printf 'GARDEN_JOURNAL_CLONE_BASE must be an absolute non-root path using portable path characters\n' >&2
+        exit 1
+    fi
+    printf 'GARDEN_JOURNAL_CLONE_BASE=%s\n' "$GARDEN_JOURNAL_CLONE_BASE" >> "$tmp_file"
+fi
 
 if [[ -s "$tmp_file" ]]; then
     # The user manager runs as this account. Root retains ownership while its

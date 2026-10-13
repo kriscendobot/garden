@@ -17,7 +17,7 @@ cleanup() { rm -rf "$TR"; }
 trap cleanup EXIT
 
 run_seed() {
-    env -u ANTHROPIC_API_KEY -u MOONSHOT_API_KEY -u FIREWORKS_API_KEY -u OPENROUTER_API_KEY -u OLLAMA_CLOUD_API_KEY -u TYPESAFE_API_KEY \
+    env -u ANTHROPIC_API_KEY -u MOONSHOT_API_KEY -u FIREWORKS_API_KEY -u OPENROUTER_API_KEY -u OLLAMA_CLOUD_API_KEY -u TYPESAFE_API_KEY -u GARDEN_JOURNAL_CLONE_BASE \
         GARDEN_TEST=1 GARDEN_API_KEY_HANDOFF_DIR="$TR/run/environment.d" \
         GARDEN_USER="$(id -un)" "$@" "$SEED"
 }
@@ -45,6 +45,18 @@ actual="$(cat "$handoff")"
 [[ "$actual" = 'ANTHROPIC_API_KEY=synthetic-anthropic' ]] \
     && ok "absent keys are omitted rather than synthesized" \
     || bad "absent key was retained or synthesized"
+
+run_seed env GARDEN_JOURNAL_CLONE_BASE=/var/tmp/garden-journal-clones
+actual="$(cat "$handoff")"
+[[ "$actual" = 'GARDEN_JOURNAL_CLONE_BASE=/var/tmp/garden-journal-clones' ]] \
+    && ok "container-local journal clone base reaches the user manager" \
+    || bad "journal clone base was omitted or rewritten"
+
+if run_seed env GARDEN_JOURNAL_CLONE_BASE='../shared' >/dev/null 2>&1; then
+    bad "relative journal clone base was accepted"
+else
+    ok "relative journal clone base is rejected"
+fi
 
 run_seed env ANTHROPIC_API_KEY=synthetic-anthropic UNRELATED_SECRET=synthetic-unrelated
 if grep -q '^UNRELATED_SECRET=' "$handoff"; then

@@ -1,3 +1,9 @@
+---
+created: 2026-06-24
+updated: 2026-10-13
+author: gardener
+---
+
 # Design: the journal-backed job system
 
 A git-backed, multi-host job board, message bus, and worker fleet for the
@@ -150,7 +156,11 @@ host where the CLI is genuinely absent. Covered by
   requires; reap-now-hinted claims (known-dead) bypass the cap.
 - **Per-gardener worktrees.** Two same-host gardeners must not share one journal
   checkout (they'd stomp each other's working tree); each operates in its own
-  clone under `GARDEN_STATE`. The push race serializes them.
+  clone under `GARDEN_STATE` by default. A host may set
+  `GARDEN_JOURNAL_CLONE_BASE` to put the reconstructible worker and producer
+  checkouts on container-local storage; their locks remain at the corresponding
+  historical `GARDEN_STATE` paths, and an empty local base is reseeded on demand.
+  The push race serializes them.
 - **Standing state outside reset-prone worktrees.** Triager/watchman last-seen
   markers and topic read-cursors live under `GARDEN_STATE`, never in a worktree
   that gets `reset --hard`.

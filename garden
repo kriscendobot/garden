@@ -63,6 +63,10 @@ GARDEN_DNS="${GARDEN_DNS-1.1.1.1 8.8.8.8}"
 # never a block device. entrypoint.sh's ensure_gpu_group then grants the bot user
 # the node group; with GARDEN_DEVICES unset the nodes are simply absent (a no-op).
 GARDEN_DEVICES="${GARDEN_DEVICES-}"
+# Optional container-local placement for hot, reconstructible journal checkouts.
+# Forwarded only at container creation; /var/tmp is private to each container, so
+# the same value is safe for several garden instances on one physical host.
+GARDEN_JOURNAL_CLONE_BASE="${GARDEN_JOURNAL_CLONE_BASE-}"
 
 usage() {
     cat <<EOF
@@ -115,6 +119,11 @@ Environment:
                       unprivileged). Set per-host ONLY for GPU passthrough, e.g.
                       "/dev/kfd /dev/dri/renderD128" for AMD local inference. A
                       deliberate, operator-chosen weakening; never a block device.
+  GARDEN_JOURNAL_CLONE_BASE Absolute in-container directory for worker and
+                      producer journal clones (default: unset, so clones remain
+                      under GARDEN_STATE). Use /var/tmp/garden-journal-clones on
+                      a host whose bind-mounted home is slow; takes effect when
+                      the container is created.
 
 Notes:
   The container runs systemd as PID 1 so the garden's user-mode units
@@ -295,6 +304,9 @@ ensure_container() {
         fi
         if [[ -n "${TYPESAFE_API_KEY:-}" ]]; then
             api_key_args+=(-e "TYPESAFE_API_KEY=${TYPESAFE_API_KEY}")
+        fi
+        if [[ -n "$GARDEN_JOURNAL_CLONE_BASE" ]]; then
+            api_key_args+=(-e "GARDEN_JOURNAL_CLONE_BASE=${GARDEN_JOURNAL_CLONE_BASE}")
         fi
 
         # Seed the container guard's SessionStart hook (host-side, only when

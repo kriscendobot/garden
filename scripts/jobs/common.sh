@@ -319,6 +319,40 @@ unset _garden_prod_repo_alt _garden_prod_repo
 # Kept OUTSIDE any reset-prone worktree on purpose.
 : "${GARDEN_STATE:=$GARDEN_ROOT/.garden-state}"
 
+# Optional container-local home for the two hot journal checkout families: the
+# shared producer clone and each worker's private clone.  The default is empty,
+# preserving the historical $GARDEN_STATE paths.  A host whose GARDEN_STATE is on
+# a slow shared mount can point this at local ephemeral storage (for example
+# /var/tmp/garden-journal-clones); every checkout is reconstructible from
+# origin/journal2, so ensure_clone reseeds it after a container recreation.
+#
+# Only the working trees move.  _clone_lockfile maps these paths back onto their
+# historical $GARDEN_STATE siblings, keeping the coordination files and all
+# other durable host state where operators already expect them.
+: "${GARDEN_JOURNAL_CLONE_BASE:=}"
+if [ -n "$GARDEN_JOURNAL_CLONE_BASE" ]; then
+  GARDEN_JOURNAL_CLONE_BASE="${GARDEN_JOURNAL_CLONE_BASE%/}"
+  case "$GARDEN_JOURNAL_CLONE_BASE" in
+    /*) : ;;
+    *) printf 'GARDEN_JOURNAL_CLONE_BASE must be an absolute path\n' >&2; return 2 ;;
+  esac
+  [ "$GARDEN_JOURNAL_CLONE_BASE" != / ] \
+    || { printf 'GARDEN_JOURNAL_CLONE_BASE must not be /\n' >&2; return 2; }
+  : "${GARDEN_PRODUCER_CLONE:=$GARDEN_JOURNAL_CLONE_BASE/producer/journal}"
+  export GARDEN_JOURNAL_CLONE_BASE GARDEN_PRODUCER_CLONE
+fi
+
+# journal_clone_path <historical-path-below-GARDEN_STATE> — select the optional
+# fast checkout base without moving markers, locks, or other host state.
+journal_clone_path() {
+  local relative="${1#/}"
+  if [ -n "${GARDEN_JOURNAL_CLONE_BASE:-}" ]; then
+    printf '%s/%s\n' "$GARDEN_JOURNAL_CLONE_BASE" "$relative"
+  else
+    printf '%s/%s\n' "$GARDEN_STATE" "$relative"
+  fi
+}
+
 # --- deprecated env-knob aliases (the doom rename, 2026-08-04) ----------------
 # The reaper's doom-park knobs were renamed from GARDEN_*POISON* to GARDEN_*DOOM*
 # ("doomed" replaces "poisoned" as the job-state vocabulary). These knobs are an
@@ -4747,7 +4781,20 @@ journal_remote() {
 
 declare -A _CLONE_LOCK_FD 2>/dev/null || true
 
-_clone_lockfile() { printf '%s' "${1%/}.lock"; }
+_clone_lockfile() {
+  local dir="${1%/}" base="${GARDEN_JOURNAL_CLONE_BASE:-}" relative
+  base="${base%/}"
+  if [ -n "$base" ]; then
+    case "$dir" in
+      "$base"/*)
+        relative="${dir#"$base"/}"
+        printf '%s/%s.lock' "$GARDEN_STATE" "$relative"
+        return
+        ;;
+    esac
+  fi
+  printf '%s.lock' "$dir"
+}
 
 # Stamp the acquiring process's identity into an already-flocked lock fd so a
 # future waiter can tell a crashed/hung holder from a busy one. Written at offset

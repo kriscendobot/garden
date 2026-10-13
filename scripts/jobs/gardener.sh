@@ -67,13 +67,15 @@ WORKER_PROVIDER="$(worker_kind_field "$KIND" provider 2>/dev/null || true)"
 # $GARDEN_ROOT at all.
 export GIT_CEILING_DIRECTORIES="$GARDEN_ROOT${GIT_CEILING_DIRECTORIES:+:$GIT_CEILING_DIRECTORIES}"
 
-# Per-instance journal clone lives under the KIND's state namespace, so a cleric-1
-# and a monk-1 never share a working tree. Exported as GARDEN_WORKER_CLONE — the
+# Per-instance journal clone lives under the KIND's clone namespace, so a cleric-1
+# and a monk-1 never share a working tree. GARDEN_JOURNAL_CLONE_BASE may move only
+# these reconstructible checkouts to container-local storage; markers and the clone
+# lock remain under GARDEN_STATE. Exported as GARDEN_WORKER_CLONE — the
 # kind-neutral name claim-job.sh / complete-job.sh read — so those primitives operate
 # on THIS worker's clone without a signature change (the env is the seam). It is the
 # only name: the legacy gardener-kind alias is retired (design
 # anthropic-worker-kind-monk.md § Shared spine and handlers).
-export GARDEN_WORKER_CLONE="${GARDEN_WORKER_CLONE:-$GARDEN_STATE/$STATE_NS/$id/journal}"
+export GARDEN_WORKER_CLONE="${GARDEN_WORKER_CLONE:-$(journal_clone_path "$STATE_NS/$id/journal")}"
 CLONE="$GARDEN_WORKER_CLONE"
 
 : "${GARDEN_IDLE_SLEEP:=5}"
