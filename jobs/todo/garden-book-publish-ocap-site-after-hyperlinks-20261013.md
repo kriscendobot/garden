@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: https://github.com/kriscendobot/garden-book/pull/13
-priority: normal
 role: builder
+tier: mentor
 arc: garden-book
-posted_by: builder
-posted_at: 2026-10-13T17:43:34Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-13T17:49:46Z cleared=none -->
 
 ---
 tier: mentor
