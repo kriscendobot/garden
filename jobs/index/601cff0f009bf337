@@ -1,2 +1,2 @@
-base: improve-rolling-deploy-sigterm-retry
+base: improve-rolling-deploy-unacked-sysop-drain
 identity: mentor:scripts/jobs/rolling-deploy.sh
