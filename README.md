@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T03:24:33Z_
+_As of 2026-10-13T03:30:50Z_
 
 ## Latest
 
@@ -1089,11 +1087,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #76 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T02:26:04Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 76 times; this is ONE
-> coalesced notice that updates in place, not 76 messages. Latest detail:
+> WATCHDOG notice — occurrence #96 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T03:26:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 96 times; this is ONE
+> coalesced notice that updates in place, not 96 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to bdc2943ce1f4 144 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to bdc2943ce1f4 204 min ago
 > but still reports deployed_sha 0411ed9fbd12f5d26799a599d85f541723aaadac. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1155,7 +1153,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 224.5M | $1049.11 _(notional, rate-card)_ | 83% of 271.0M (backoff) |
-| Codex | 13.1M _(+400.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Codex | 13.2M _(+403.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94438810 tokens/day lower bound._
 
@@ -1163,24 +1161,24 @@ _Fleet token-unlock pace: 94438810 tokens/day lower bound._
 worst fetch p95 20.463554s/45s (/home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town); 6 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-220527.md) — ---
+- [`repair-claude-harness-refresh-and-finish-pr185`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/repair-claude-harness-refresh-and-finish-pr185.md) — Repair the Claude harness migration hook and finish minion.town PR #185
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #184
 
-### doin (4)
+### doin (3)
 - [`minion-town-arc-press-20261013-030506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-030506.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-012006.md) — ---
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #183
-- [`kriscendobot-minion.town-pr185-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr185-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #185
 
-### tada (12631)
+### tada (12632)
+- [`kriscendobot-minion.town-pr185-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr185-dependabot.md) — Cost
 - [`kriscendobot-minion.town-pr184-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-fix-1.md) — Gauntlet fix round 1: kriscendobot/minion.town PR #184 (fix/prod-probe-dispat...
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr184-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-clean.md) — Gauntlet clean stage: kriscendobot/minion.town PR #184 (fix/prod-probe-dispat...
 - [`claude-on-minion-town-completion-press-20261013-015007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-completion-press-20261013-015007.md) — Cost
-- [`kriscendobot-minion.town-pr180-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr180-gauntlet.md) — gauntlet kriscendobot-minion.town-pr180-gauntlet — review budget reached
-- … and 12626 more
+- … and 12627 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
