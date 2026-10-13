@@ -23,6 +23,8 @@
 #   E. TRUNCATION BEFORE HASHING: over the byte cap, bounded beginning and ending
 #      slices surround an explicit omission marker, and the SHA still names
 #      EXACTLY the committed bytes.
+#   F. COMMIT/PUSH FAILURE: neither failure mode prints a SHA or returns success,
+#      so callers cannot publish a diagnostic reference that only exists locally.
 #
 # Usage: report-error-reachable-test.sh
 set -uo pipefail
@@ -153,6 +155,37 @@ if [ "$(cksum < "$TR/e/big.txt")" = "$before_sum" ]; then
   ok "E: the caller's transcript file was not mutated"
 else
   bad "E: the caller's transcript file was mutated"
+fi
+
+hr; echo "F. commit/push failures do not publish a SHA"
+fresh f_commit
+printf 'commit must fail\n' > "$TR/f_commit/transcript.txt"
+mkdir -p "$CLONE/.git/hooks"
+printf '#!/bin/sh\nexit 1\n' > "$CLONE/.git/hooks/pre-commit"
+chmod +x "$CLONE/.git/hooks/pre-commit"
+commit_out="$(report "$TR/f_commit/transcript.txt" 2>/dev/null)"
+commit_rc=$?
+if [ "$commit_rc" -ne 0 ] && [ -z "$commit_out" ] \
+   && [ "$(git -C "$BARE" rev-list --count journal2)" -eq 1 ]; then
+  ok "F: commit failure returned nonzero without publishing a SHA"
+else
+  bad "F: commit failure leaked success/reference (rc=$commit_rc out=${commit_out:-<empty>})"
+fi
+
+fresh f_push
+printf 'push must fail\n' > "$TR/f_push/transcript.txt"
+cat > "$BARE/hooks/pre-receive" <<'EOF'
+#!/bin/sh
+exit 1
+EOF
+chmod +x "$BARE/hooks/pre-receive"
+push_out="$(report "$TR/f_push/transcript.txt" 2>/dev/null)"
+push_rc=$?
+if [ "$push_rc" -ne 0 ] && [ -z "$push_out" ] \
+   && [ "$(git -C "$BARE" rev-list --count journal2)" -eq 1 ]; then
+  ok "F: push failure returned nonzero without publishing a SHA"
+else
+  bad "F: push failure leaked success/reference (rc=$push_rc out=${push_out:-<empty>})"
 fi
 
 hr

@@ -1,6 +1,6 @@
 ---
 created: 2026-06-01
-updated: 2026-08-30
+updated: 2026-10-13
 author: gardener, builder
 ---
 
@@ -43,8 +43,9 @@ work was PR-bound.
 `--context` is a one-line description the caller writes; helpful for
 maintainers grepping the inbox.
 
-Output: the transcript SHA on stdout. Exits non-zero if the journal
-worktree is not reachable.
+Output: the transcript SHA on stdout only after the capture-and-inbox commit is
+durably pushed. Exits non-zero, without publishing a SHA, if the journal
+worktree is not reachable or the commit/push fails.
 
 ## State
 
@@ -128,7 +129,10 @@ what carries it off-host.
    (`journal2` by default). The commit message is
    `inboxes(gardener): error from lane <n> state <state>`.
 
-5. **Print the transcript SHA on stdout** and exit zero. The caller
+5. **Print the transcript SHA on stdout** and exit zero only after the push
+   succeeds. A commit or push failure exits non-zero and prints no SHA, so the
+   caller can use its fallback instead of publishing a clone-local diagnostic
+   reference. The caller
    typically discards stdout (the trap is firing on its way to
    non-zero exit) but the SHA is useful for ad-hoc invocations from
    the maintainer's shell.
@@ -188,11 +192,11 @@ one section at a time.
   current failure rate and the 64 KiB cap.
 
 - **No-network fallback.** When the journal worktree's `origin` is
-  unreachable, the skill still hashes the transcript, writes the
-  capture file, and appends the inbox section to the local journal
-  worktree; the push retry loop will eventually succeed once
-  connectivity returns, carrying both. The transcript blob is durable
-  as soon as `hash-object -w` writes it.
+  unreachable, the skill still hashes the transcript, writes the capture file,
+  appends the inbox section, and attempts a local commit. After its bounded push
+  retries it exits non-zero without printing the SHA. The caller therefore uses
+  its fallback rather than claiming off-host durability; a later journal sync
+  may still carry the queued local commit once connectivity returns.
 
 - **Concurrent failures.** Two services failing simultaneously each
   append their own section. The journal-sync rebase loop linearizes

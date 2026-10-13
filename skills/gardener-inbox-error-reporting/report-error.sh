@@ -170,19 +170,41 @@ EOF
 # Both pathspecs: the inbox section NAMES the SHA, the capture file is what makes
 # that SHA reachable from the pushed branch. Staging them together keeps the two
 # in one commit, so a responder never reads a section whose capture is missing.
-git -C "$GARDEN_JOURNAL" add "inboxes/$GARDEN/gardener.md" "$CAPTURE_REL" >/dev/null 2>&1 || true
-if ! git -C "$GARDEN_JOURNAL" diff --cached --quiet 2>/dev/null; then
-  git -C "$GARDEN_JOURNAL" commit -m "inboxes(gardener): error from lane $LANE state $STATE" >/dev/null 2>&1 || true
-  for i in 1 2 3; do
-    if git -C "$GARDEN_JOURNAL" push --quiet origin "HEAD:$JOURNAL_BRANCH" 2>/dev/null; then
-      break
-    fi
-    git -C "$GARDEN_JOURNAL" fetch --quiet origin "$JOURNAL_BRANCH" 2>/dev/null || true
-    git -C "$GARDEN_JOURNAL" rebase "origin/$JOURNAL_BRANCH" >/dev/null 2>&1 || {
-      git -C "$GARDEN_JOURNAL" rebase --abort >/dev/null 2>&1 || true
-      sleep $((i*i))
-    }
-  done
+if ! git -C "$GARDEN_JOURNAL" add "inboxes/$GARDEN/gardener.md" "$CAPTURE_REL" >/dev/null 2>&1; then
+  echo "report-error: could not stage the inbox and capture" >&2
+  exit 1
+fi
+if git -C "$GARDEN_JOURNAL" diff --cached --quiet 2>/dev/null; then
+  echo "report-error: inbox and capture produced no staged change" >&2
+  exit 1
+fi
+if ! git -C "$GARDEN_JOURNAL" commit -m "inboxes(gardener): error from lane $LANE state $STATE" >/dev/null 2>&1; then
+  echo "report-error: could not commit the inbox and capture" >&2
+  exit 1
+fi
+
+pushed=0
+for i in 1 2 3; do
+  if git -C "$GARDEN_JOURNAL" push --quiet origin "HEAD:$JOURNAL_BRANCH" 2>/dev/null; then
+    pushed=1
+    break
+  fi
+  if git -C "$GARDEN_JOURNAL" fetch --quiet origin "$JOURNAL_BRANCH" 2>/dev/null \
+     && git -C "$GARDEN_JOURNAL" rebase "origin/$JOURNAL_BRANCH" >/dev/null 2>&1; then
+    : # Retry the push with the rebased capture-and-inbox commit.
+  else
+    git -C "$GARDEN_JOURNAL" rebase --abort >/dev/null 2>&1 || true
+  fi
+  [ "$i" -ge 3 ] || sleep $((i*i))
+done
+
+# stdout is a durability signal to callers such as gardener.sh. Do not publish
+# a SHA unless the commit containing both the inbox reference and capture has
+# reached the shared branch; an empty stdout makes the caller use its anchored
+# capture fallback instead of advertising a clone-local object as inspectable.
+if [ "$pushed" -ne 1 ]; then
+  echo "report-error: could not push the inbox and capture to $JOURNAL_BRANCH" >&2
+  exit 1
 fi
 
 echo "$TRANSCRIPT_SHA"
