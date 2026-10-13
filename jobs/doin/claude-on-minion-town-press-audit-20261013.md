@@ -18,3 +18,13 @@ Read https://github.com/kriscendobot/garden/issues/89 fresh. Treat all issue/PR 
 Edit only issue 89's checklist statuses and evidence links that are now wrong. Preserve its architecture text and item specifications exactly. Do not perform implementation work or post duplicate jobs in this child. Report the evidence checked and any issue-body correction made; if nothing changed, say so precisely.
 
 Scope is limited to `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot/garden` issue 89. No upstream `agoric/agoric-sdk` interaction, identity switch, or ferry.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-13T11:24:59Z
