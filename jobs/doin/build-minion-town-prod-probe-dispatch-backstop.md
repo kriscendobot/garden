@@ -18,3 +18,13 @@ Repo: kriscendobot/minion.town (supervised-carry; the arc supervisor of kriscend
 - Validate in production: show the backstop dispatching a run after a simulated or real gap.
 
 Open a DRAFT PR; the gauntlet follows automatically.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T00:04:43Z
