@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T19:10:20Z_
+_As of 2026-10-13T19:15:41Z_
 
 ## Latest
 
@@ -659,11 +657,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1724 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T18:14:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1724 times; this is ONE
-> coalesced notice that updates in place, not 1724 messages. Latest detail:
+> WATCHDOG notice — occurrence #1744 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T19:14:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1744 times; this is ONE
+> coalesced notice that updates in place, not 1744 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 312044s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 315645s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1213,11 +1211,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #312 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T18:14:07Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 312 times; this is ONE
-> coalesced notice that updates in place, not 312 messages. Latest detail:
+> WATCHDOG notice — occurrence #332 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T19:14:07Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 332 times; this is ONE
+> coalesced notice that updates in place, not 332 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 9e4b600c48be 86 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 9e4b600c48be 146 min ago
 > but still reports deployed_sha 8fd22da4bfb6a96511d6cb90898525d7df2b00c6. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1287,7 +1285,7 @@ _Fleet token-unlock pace: 98871012 tokens/day lower bound._
 worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`claude-on-minion-town-completion-press-20261013-080506-integrity-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-080506-integrity-audit.md) — Claude-on-minion.town completion press: outcome-integrity audit
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #183
 - [`kriscendobot-minion.town-pr186-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #186
@@ -1298,11 +1296,11 @@ worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-163508.md) — ---
 - [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
+- [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1442-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1442
 - [`oros-health-checkup-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-102024.md) — ---
-- [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
 ### tada (12703)
 - [`garden-book-review-supervisor-after-hyperlinks-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/garden-book-review-supervisor-after-hyperlinks-20261013.md) — Cost
