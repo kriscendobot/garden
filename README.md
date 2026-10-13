@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-12T23:57:08Z_
+_As of 2026-10-13T00:10:04Z_
 
 ## Latest
 
@@ -864,6 +862,10 @@ Delegation: **active**
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
+- `msg-build-minion-town-prod-probe-dispatch-backstop-772933737883` — from gardener:build-minion-town-prod-probe-dispatch-backstop, reply_to `build-minion-town-prod-probe-dispatch-backstop` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-prod-probe-dispatch-backstop-772933737883.md)
+
+> Production validation needs the one credential the fleet cannot mint: a fine-grained GitHub PAT scoped only to kriscendobot/minion.town with Actions: read and write (Metadata: read is implicit). Please create it and seed AWS Secrets Manager `minion/prod-probe-dispatch-token` in us-west-1 as JSON `{"token":"..."}` from a credentialed shell; do not send the token in chat. Reply when the secret exists. I am implementing and testing the backstop meanwhile.
+
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-ok.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-01T18:30:59Z, latest 2026-10-10T03:03:04Z).
@@ -1071,32 +1073,32 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 221.8M | $1037.24 _(notional, rate-card)_ | 82% of 271.0M (ok) |
-| Codex | 12.5M _(+380.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Claude | 221.7M | $1035.78 _(notional, rate-card)_ | 82% of 271.0M (ok) |
+| Codex | 12.7M _(+381.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94510345 tokens/day lower bound._
+_Fleet token-unlock pace: 94509059 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.301257s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (3)
-- [`kriscendobot-minion.town-pr180-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #180
-- [`minion-town-arc-press-20261012-235039`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261012-235039.md) — Supervise the minion.town arc: carry its pull requests through review
+### todo (2)
+- [`kriscendobot-minion.town-pr183-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr183-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (3)
+### doin (4)
+- [`build-minion-town-prod-probe-dispatch-backstop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-prod-probe-dispatch-backstop.md) — Build: make the minion.town prod probe actually run every 3 hours
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
-- [`kriscendobot-minion.town-pr183-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #183
+- [`kriscendobot-minion.town-pr180-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #180
 
-### tada (12615)
+### tada (12617)
+- [`minion-town-arc-press-20261012-235039`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/minion-town-arc-press-20261012-235039.md) — Cost
+- [`kriscendobot-minion.town-pr183-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr183-gauntlet-fix-2.md) — Gauntlet FIX round 2: kriscendobot/minion.town PR #183
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr180-gauntlet-fix-5.md) — Cost
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-panel-2.md) — Cost
 - [`build-minion-town-inference-phase3-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/build-minion-town-inference-phase3-secrets.md) — Panel-head freshness
-- [`kriscendobot-garden-book-pr8-conduct-20261012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-garden-book-pr8-conduct-20261012.md) — Cost
-- [`kriscendobot-minion.town-pr183-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/12/kriscendobot-minion.town-pr183-gauntlet-fix-1.md) — Cost
-- … and 12610 more
+- … and 12612 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
