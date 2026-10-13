@@ -1,4 +1,5 @@
 ---
+child-claude-on-minion-town-press-carry-20261013-host: oros-studio-garden-ce242c49
 child-claude-on-minion-town-press-carry-20261013-reap-count: 0
 child-claude-on-minion-town-press-audit-20261013-host: oros-studio-garden-ce242c49
 child-claude-on-minion-town-press-audit-20261013-reap-count: 0
