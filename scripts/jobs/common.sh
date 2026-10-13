@@ -5296,6 +5296,15 @@ repair_migrated_journal_clone_origin() {
 _seed_clone_from_root() {
   local dir="$1" remote="$2" tmp="${1%/}.seed.$$"
   [ "$GARDEN_JOURNAL_SEED_FROM_ROOT" = 1 ] && [ -d "$GARDEN_ROOT/.git" ] || return 1
+  # A seed killed mid-checkout (handler timeout, SIGKILL) never reaches its own
+  # rm, and the next attempt's temp has a different pid, so the dead one leaked
+  # (329M on oros, 2026-10-13). Sweep sibling temps whose owner is gone.
+  local stale owner
+  for stale in "${1%/}".seed.*; do
+    owner="${stale##*.seed.}"
+    case "$owner" in ''|*[!0-9]*) continue ;; esac
+    [ -d "$stale" ] && ! kill -0 "$owner" 2>/dev/null && rm -rf "$stale"
+  done
   rm -rf "$tmp"
   mkdir -p "$(dirname "$dir")"
   if git init -q "$tmp" >/dev/null 2>&1 \

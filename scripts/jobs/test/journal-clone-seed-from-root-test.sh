@@ -88,6 +88,21 @@ else
   bad "fresh seed: rc=$rc stderr=$(tr '\n' ' ' < "$TR/fresh.err")"
 fi
 
+hr; echo "CASE — a seed temp left by a dead process is swept; a live one is kept"; hr
+CL="$TR/c-sweep"
+mkdir -p "$CL.seed.4194999/junk"            # above pid_max: its owner cannot be alive
+sleep 300 & live=$!
+mkdir -p "$CL.seed.$live/junk"
+rc=0
+( ensure_clone "$CL" ) >/dev/null 2>"$TR/sweep.err" || rc=$?
+if [ "$rc" -eq 0 ] && [ "$(git -C "$CL" rev-parse HEAD)" = "$(tip)" ] \
+   && [ ! -e "$CL.seed.4194999" ] && [ -d "$CL.seed.$live/junk" ]; then
+  ok "dead owner's seed temp swept, live owner's left alone"
+else
+  bad "sweep: rc=$rc dead=$(ls -d "$CL".seed.4194999 2>&1) live=$(ls -d "$CL.seed.$live" 2>&1)"
+fi
+kill "$live" 2>/dev/null; wait "$live" 2>/dev/null || true
+
 hr; echo "CASE — the seed checkout gets its own budget, not the bin/git bound"; hr
 # A PATH shim records the bound bin/git would apply to the checkout, then defers to
 # the real git (2026-10-12: the 120s default killed every seed mid-checkout).
