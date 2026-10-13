@@ -1,4 +1,5 @@
 ---
+child-claude-on-minion-town-completion-press-20261013-080506-integrity-audit-reap-count: 0
 child-claude-on-minion-town-completion-press-20261013-080506-roster-audit-host: endolin-garden-ece02cb4
 child-claude-on-minion-town-completion-press-20261013-080506-roster-audit-reap-count: 0
 order: serial
