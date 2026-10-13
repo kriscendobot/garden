@@ -80,3 +80,13 @@ Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-13T11:13:29Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 6
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-13T13:02:14Z
