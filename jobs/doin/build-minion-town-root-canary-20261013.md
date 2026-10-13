@@ -19,3 +19,13 @@ Constraints from the maintainer (kriskowal, 2026-10-13):
 - Do the build scope's item 0 (verification spike) only as far as it needs no human sign-in; mark the rest as pending the login.
 - Keep it economical: claude-endolin1 is at 78% and the fleet was asked to slow down. Open a DRAFT PR on kriscendobot/minion.town. The completion machinery stages the gauntlet; do not stage extra rounds.
 - Do not weaken any existing confinement or allowlist beyond what the design specifies.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T17:07:26Z
