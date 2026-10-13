@@ -2,6 +2,28 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-13T08:20Z (oros-health-checkup-20261013-042006): degraded (deploy stuck behind gate) → two fixes on main2
+
+- **Load/mem:** load 3.4/3.0/3.1 at 07:44, 3.0/3.5/3.7 at 08:17; 12 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (405 GB free); inodes 1%.
+- **Uptime:** 11d14h, no recent reboot.
+- **Deployed vs main2:** deployed `bdc2943c`; the roll target is `548243e2`. origin/main2 is now `32099c2c` after this run's fixes.
+  - 06:53 attempt: the gate passed, then the deploy deferred at 07:08 behind `long-job monk 4 3454s`. That monk was already about 2550s into its job when the gate started.
+  - 07:10 attempt: rejected for total-wall-clock (terminal-handler-failure-reap and triager-pacing hit rc=124, both near the end of their output).
+  - 07:30 attempt: rejected at 08:05 for total-wall-clock (codex-policy-refusal-resume hit rc=124). This run's own test runs added load during that window.
+  - Self-deploy keeps retrying by itself; nothing was forced.
+- **Units:** 0 failed; 8 monks running; not drained; no derotation marker.
+- **Budget heartbeat:** the claude-oros snapshot was sampled at 07:06; spend is 59.5M of 180M, 22% used, status ok.
+- **fleet/health:** `deferred @ bdc2943c` (target `548243e2`, reason `long-job monk 4 3454s`), unit_failures 0, as of 07:07.
+- **rc=124:** 27 in the last 3h (flat).
+- **$GARDEN_STATE:** 30 clones; fleet-health, self-deploy and sysop are at 50 packs each, with no tmp_pack.
+  - Removed stale zero-byte `index.lock` files with no holder: `cursors/journal` (since 10-12 20:44) and `transcripts/clone` (since 09-22).
+  - Removed a leaked 329M seed temp, `receipt-watcher/journal-endojs-endo-but-for-bots.seed.3950595`. Its pid has been dead since 03:11.
+- **Changed (main2):**
+  - `4bd91412`: deploy-garden runs the long-job defer check before the candidate gate as well as after it, so a job already past the threshold no longer wastes a 15-minute gate. New deploy-garden-test assertion; the mid-drain case now bypasses the gate so its timing is deterministic. 212/212 pass.
+  - `32099c2c`: `_seed_clone_from_root` sweeps sibling `.seed.<pid>` temps whose owner is dead. New seed-from-root case; 19/19 pass.
+- **Still open:** the gate budget (900s) is marginal under normal oros load: 2 of the last 3 attempts failed on total-wall-clock, with different suites timing out each time. Consider a per-host total budget or a lighter oros gate. Self-deploy's idle tick still does not republish a mismatched fleet/health record.
+
 ## 2026-10-13T06:40Z (oros-health-checkup-20261012-155007, rerun after reaper requeue): degraded → sysop fix on main2
 
 - **Load/mem:** load 4.3/3.9/3.5 at 06:10, 3.3 at 06:40; 13 GiB of 15 GiB available.
