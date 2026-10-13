@@ -433,9 +433,11 @@ hr; echo "LONG-JOB DEFER — a long mid-job gardener defers WITHOUT pausing the 
 setup_fixture
 mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"
 touch -d "10 minutes ago" "$TR/state/monks/1/busy"   # a long job: busy 600s
+origin_commit scripts/jobs/test/deploy-gate-probe.sh ': > "${DEPLOY_GATE_RAN_MARKER:?}"' "test: gate probe records that it ran"
 origin_commit scripts/jobs/worker-lib.sh "echo newdefer" "fix: worker-lib defer"
 before="$(root_head)"
-run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
+rm -f "$TR/gate-ran"
+run_deploy DEPLOY_GATE_RAN_MARKER="$TR/gate-ran" GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
 [ "$RC" -eq 0 ] && ok "exit 0 on a deferral (not a failure)" || bad "exit $RC on deferral: $OUT"
 grep -q "DEFERRED" <<<"$OUT" && ok "deferral logged" || bad "deferral not logged: $OUT"
 grep -q "drain engaged" <<<"$OUT" && bad "the drain was engaged on a doomed attempt (fleet paused!)" || ok "drain NEVER engaged — the fleet was not paused"
@@ -443,6 +445,10 @@ grep -q "waiting for" <<<"$OUT" && bad "entered the quiesce wait (fleet paused)"
 [ "$(root_head)" = "$before" ] && ok "root NOT advanced on a deferral" || bad "root advanced on a deferral"
 draining && bad "drain marker present after a deferral" || ok "no drain marker (fleet untouched)"
 grep -q restart "$TR/log" && bad "restarted on a deferral" || ok "no restart on a deferral"
+# The long job was already past the threshold before the gate, so the deferral comes
+# BEFORE the candidate gate: a passed gate would be thrown away (oros 2026-10-13).
+[ -e "$TR/gate-ran" ] && bad "candidate gate ran although the long job already doomed the deploy" \
+  || ok "deferred before running the candidate gate"
 # The deferral leaves a host-local record self-deploy publishes as roll_status
 # `deferred`, so the rolling-deploy conductor waits instead of failing the canary.
 if grep -q '^kind: monk' "$TR/state/deploy/deferred" 2>/dev/null \
@@ -487,10 +493,12 @@ hr; echo "LONG-JOB DEFER (MID-DRAIN) — a job that crosses the threshold while 
 # crosses, rather than hold the fleet paused for the rest of the budget.
 setup_fixture
 mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"
-touch -d "4 seconds ago" "$TR/state/monks/1/busy"    # age 4 < threshold 5 at the check
+touch -d "2 seconds ago" "$TR/state/monks/1/busy"    # age 2 < threshold 10 at the check
 origin_commit scripts/jobs/worker-lib.sh "echo newmid" "fix: worker-lib mid"
 before="$(root_head)"
-run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=5 GARDEN_DEPLOY_DRAIN_TIMEOUT=30 GARDEN_DEPLOY_POLL=1
+# Bypass the gate: the defer check runs on both sides of it, so a gate slower than
+# the headroom would defer post-gate before the drain this case exercises.
+run_deploy GARDEN_DEPLOY_TEST_OVERRIDE=1 GARDEN_DEPLOY_LONG_JOB_THRESHOLD=10 GARDEN_DEPLOY_DRAIN_TIMEOUT=30 GARDEN_DEPLOY_POLL=1
 [ "$RC" -eq 0 ] && ok "exit 0 on a mid-drain deferral" || bad "exit $RC on mid-drain deferral: $OUT"
 grep -q "drain engaged" <<<"$OUT" && ok "drain WAS engaged (job was under threshold at the check)" || bad "drain not engaged: $OUT"
 grep -q "mid-drain" <<<"$OUT" && ok "mid-drain deferral logged once the job crossed the threshold" || bad "mid-drain deferral not logged: $OUT"

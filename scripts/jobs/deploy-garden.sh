@@ -672,11 +672,6 @@ if [ -n "${GARDEN_DEPLOY_TARGET:-}" ]; then
     || log "pinned deploy: advancing to $pinned_sha, NOT the newer origin/$GARDEN_MAIN_BRANCH tip $candidate_sha"
   candidate_sha="$pinned_sha"
 fi
-run_candidate_gate "$candidate_sha" || {
-  log "ABORTED: candidate test gate failed; root tree remains unchanged"
-  exit 1
-}
-
 # record_deferral <kind> <idx> <age> — leave the host-local deferral record that
 # self-deploy.sh publishes as roll_status `deferred`, so the rolling-deploy conductor
 # treats this canary as WAITING rather than failed. Best-effort.
@@ -698,17 +693,34 @@ record_deferral() {
 # "quiesce for deploy" drain is the exception: it exists precisely to let a long job
 # finish as the host's last, so under it a long job still DEFERS (leaving the drain in
 # place) instead of burning the drain budget and aborting.
-rm -f "$GARDEN_DEPLOY_DEFER_RECORD" 2>/dev/null || true
-if ! fleet_draining || drain_is_deploy_quiesce; then
-  read -r busy_age busy_kind busy_idx < <(oldest_busy)
-  if [ "$busy_age" -ge "$GARDEN_DEPLOY_LONG_JOB_THRESHOLD" ]; then
-    record_deferral "$busy_kind" "$busy_idx" "$busy_age"
-    log "DEFERRED: $busy_kind $busy_idx has been mid-job ${busy_age}s (>= ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold)."
-    log "  Not engaging the drain — the fleet keeps claiming, never paused on this doomed attempt. The Upgrade-ready"
-    log "  signal persists; a later trigger retries once the long job finishes. Nothing was advanced."
-    exit "$GARDEN_DEPLOY_DEFER_RC"
+defer_if_long_job() {
+  rm -f "$GARDEN_DEPLOY_DEFER_RECORD" 2>/dev/null || true
+  if ! fleet_draining || drain_is_deploy_quiesce; then
+    read -r busy_age busy_kind busy_idx < <(oldest_busy)
+    if [ "$busy_age" -ge "$GARDEN_DEPLOY_LONG_JOB_THRESHOLD" ]; then
+      record_deferral "$busy_kind" "$busy_idx" "$busy_age"
+      log "DEFERRED: $busy_kind $busy_idx has been mid-job ${busy_age}s (>= ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold)."
+      log "  Not engaging the drain — the fleet keeps claiming, never paused on this doomed attempt. The Upgrade-ready"
+      log "  signal persists; a later trigger retries once the long job finishes. Nothing was advanced."
+      exit "$GARDEN_DEPLOY_DEFER_RC"
+    fi
   fi
-fi
+}
+
+# The check runs BEFORE the candidate gate as well as after it. The gate takes most
+# of its 900s budget on a loaded host, and a job already past the threshold when it
+# starts is still running when it ends: on oros (2026-10-13 05:33 and 07:08) a passed
+# gate was thrown away behind monks already mid-job 1600s and 2550s at gate start,
+# and the wasted gate's own load pushed the next attempts past total-wall-clock. The
+# post-gate check still catches a job that crossed the threshold during the gate.
+defer_if_long_job
+
+run_candidate_gate "$candidate_sha" || {
+  log "ABORTED: candidate test gate failed; root tree remains unchanged"
+  exit 1
+}
+
+defer_if_long_job
 
 # --- 2. DRAIN ----------------------------------------------------------------
 
