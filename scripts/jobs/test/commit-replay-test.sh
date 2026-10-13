@@ -89,8 +89,9 @@ unset GARDEN_JOURNAL_REPLAY_ATTEMPTS
 rc=0; commit_and_push "$CLONE" 'no replay' || rc=$?
 [ "$rc" -eq 1 ] && [ "$(cat "$COUNT")" -eq 1 ] || fail "commit_and_push replayed for a caller that did not opt in"
 
-# The two path-owned writers that starved on oros opt in.
+# The path-owned writers that starved on oros opt in.
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/complete-job.sh" || fail "complete-job.sh does not opt in"
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/inbox-read.sh" || fail "inbox-read.sh does not opt in"
+grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/send-msg.sh" || fail "send-msg.sh does not opt in"
 
 echo 'PASS: a lost journal CAS is replayed onto the fresh tip without the working tree'

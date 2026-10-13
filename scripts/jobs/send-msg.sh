@@ -88,6 +88,11 @@ fi
 msgid="$(date -u +%Y%m%dT%H%M%SZ)-$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')"
 relpath="msgs/$addr/$msgid.md"
 
+# A message is add-only at its own unique msgid path, so a lost CAS is replayed
+# onto the fresh tip without the working tree first (journal_replay_head). On oros
+# 2026-10-13 every sysop ack went through a sync_clone per retry and the ack spool
+# backed up for six hours.
+: "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 
