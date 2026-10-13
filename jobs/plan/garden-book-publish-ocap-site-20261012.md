@@ -43,3 +43,7 @@ Complete with the new URL and the commit sha published. Update the edition histo
 `build/README.md` through a normal PR on `kriscendobot/garden-book` only if the existing
 process does so; do not touch any other repo. Message the maintainer with the URL via
 `scripts/jobs/message-user.sh`.
+
+<!-- garden-annotation: key=hyperlink-publication-guard-20261013 by=orchestrator at=2026-10-13T17:17:15Z -->
+
+PR https://github.com/kriscendobot/garden-book/pull/8 merged as c75caaed. The hyperlink builder is now released. garden-book-review-supervisor-after-hyperlinks-20261013 owns review and delegated merge of its resulting PR, plus all remaining publication supervision. Your job-completion blocker may release before the hyperlink PR merges: enforce your preflight against actual GitHub MERGED state and live-main content. If early, report the exact PR blocker and repark a named publication successor behind that PR; do not publish the draft. Notify the supervisor of the eventual published URL and source SHA. You remain sole publication owner.
