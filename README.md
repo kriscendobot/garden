@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T04:46:21Z_
+_As of 2026-10-13T04:48:48Z_
 
 ## Latest
 
@@ -476,6 +474,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 9 -> 11 (N is yours to choose).
+
+- `msg-oros-health-watch-20261013-042006-7a41203cca33` — from gardener:oros-health-watch-20261013-042006, reply_to `oros-health-watch-20261013-042006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261013-042006-7a41203cca33.md)
+
+> Oros's host heartbeat is fresh (04:36Z), but its sysop bridge is unreachable: the newest sysop-log activity is 03:46:30Z, now over one hour old. The 01:20 health check remains claimed past its 03:30 deadline with no health-log progress, and the new 04:20 check remains unclaimed. I sent reset-failed (20261013T042311Z-2b93b9) and a drain-off for the stale rolling-deploy drain after bdc2943 reached deployed (20261013T042557Z-1a4876); neither has been acknowledged. A person at oros should inspect/restart garden-sysop (and, if necessary, Docker Desktop/the VM). Fleet health otherwise reports deployed bdc2943, zero unit failures, no derotation marker, and quota status ok.
 
 - `orch-minion-town-oauth-bonds-halted` — from orchestrator:orch-minion-town-oauth-bonds-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-minion-town-oauth-bonds-halted.md)
 
@@ -1146,10 +1148,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 224.6M | $1050.37 _(notional, rate-card)_ | 83% of 271.0M (backoff) |
-| Codex | 13.6M _(+418.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 224.6M | $1050.41 _(notional, rate-card)_ | 83% of 271.0M (backoff) |
+| Codex | 13.6M _(+419.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94444034 tokens/day lower bound._
+_Fleet token-unlock pace: 94445454 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 20.463554s/45s (/home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town); 3 open notice(s); checker healthy
