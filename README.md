@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T22:59:22Z_
+_As of 2026-10-13T23:02:49Z_
 
 ## Latest
 
@@ -141,10 +141,6 @@ Delegation: **active**
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-5` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-5.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 5 (target 6): subscription claude-oros spend=11356596 cap=180000000 pace-bias=0.436502 window-start=2026-10-06T10:00Z(calendar) deadline=2026-10-13T10:00Z(calendar) ceiling=6 backoff=0.6967(ramp) target=6
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261013-223508` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261013-223508.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261013-223508' has remained unclaimed for 1199s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-oros-health-watch-20261012-185007-aa6cac2eee1f` — from gardener:oros-health-watch-20261012-185007, reply_to `oros-health-watch-20261012-185007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261012-185007-aa6cac2eee1f.md)
 
@@ -1285,7 +1281,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 242.2M | $1137.25 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
-| Codex | 18.9M _(+590.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 18.9M _(+590.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 98729237 tokens/day lower bound._
 
