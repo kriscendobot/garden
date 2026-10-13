@@ -17,3 +17,13 @@ Maintainer answers to fold in (read the PR threads for exact wording):
 - Root subjects / identity-based access: the maintainer is **skeptical of identity-based access control in general**; the system mints inference capabilities that are isolated and see the world narrowly through their endowments. Reframe any "root subjects as identity" framing toward capability-minting, and drop/soften identity-ACL language rather than expanding it.
 
 This is a design PR with answered open questions; once folded in and the open-questions section is resolved, drive it through its gauntlet to un-drafted. Once it lands, its build (the root MCP principal) unblocks item 6's watchInbox/restart canary on deployed kriscendobot/minion.town#165 and item 4's parked kriscendobot inference canary.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T09:10:01Z
