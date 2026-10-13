@@ -19,3 +19,13 @@ The earlier hook stderr was:
 refreshed Claude Code 2.1.290 (3897a65075994f4efddcf34b4a32ea7c7c5ebc13) from its signed release manifest
 dependabot-migration: 'claude-harness-refresh' modified 'tools/claude-harness/manifest.json', outside its output set (tools/claude-harness/release.json); nothing committed
 ```
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-13T04:58:48Z
