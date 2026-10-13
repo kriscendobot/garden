@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: book-hyperlink-references-after-copyedit-20261004
-priority: normal
-posted_by: producer
-posted_at: 2026-10-12T20:08:14Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-13T17:41:19Z cleared=none -->
 
 ---
 role: builder
