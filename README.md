@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T08:37:09Z_
+_As of 2026-10-13T08:39:25Z_
 
 ## Latest
 
@@ -656,6 +654,10 @@ Delegation: **active**
 >
 > Next source is `retained-library-bindings` (about 52 KB), posted as `scholar-ingest-literate-ai-remainder-4-20261010`. Result: entries/2026/10/10/222041Z-result-scholar-f3560a.md.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=1.838811s max=45.001196s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `kriscendobot-minion.town-pr180-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr180-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr180-gauntlet-halted.md)
 
 > Gauntlet kriscendobot-minion.town-pr180-gauntlet HALTED: stage 'kriscendobot-minion.town-pr180-gauntlet-fix-5' (fix) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
@@ -1186,7 +1188,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 94680239 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.730251s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 8 open notice(s); checker healthy
+worst fetch p95 3.730251s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (5)
