@@ -20,3 +20,13 @@ Follow the precedent of `mirror-endo-3137` (journal `jobs/tada/2026/06/26/mirror
 6. Record the mapping: `scripts/jobs/record-mirror.sh endojs/endo#3372 endojs/endo-but-for-bots#<M> "mirror"`.
 
 This is mirroring only: no gauntlet, no fixes, no review, no changes to the code. Report the mirror PR's fully qualified URL and its CI status in the completion summary.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T17:45:52Z
