@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T14:29:49Z_
+_As of 2026-10-13T14:37:02Z_
 
 ## Latest
 
@@ -1139,6 +1137,10 @@ Delegation: **active**
 > the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 > design's `## Open questions`.
 
+- `msg-oros-health-watch-20261013-133505-214991eacb1f` — from gardener:oros-health-watch-20261013-133505, reply_to `oros-health-watch-20261013-133505` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261013-133505-214991eacb1f.md)
+
+> oros health watcher: the 13:35Z checkup remained unclaimed through 14:20Z despite a fresh quota heartbeat (14:05Z). The prior 10:20Z checkup has been stuck on monk 7 since 11:56Z; fleet health at 14:11Z reports deploy deferred behind that 7,172-second job. I sent reset-failed (msgid 20261013T142103Z-39d81d), but it received no sysop-log acknowledgement during 12 minutes. The newest sysop-log operation remains drain-off applied at 10:17Z, over four hours ago, so the sysop bridge is unreachable. A person at oros should inspect/restart garden-sysop and the wedged monk 7; if the VM/host is unhealthy, check Docker Desktop, sleep state, and the VM.
+
 - `20261013T015937Z-553901` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261013T015937Z-553901.md)
 
 > awaiting maintainer — beyond proxy authority: gardener oros-health-watch-20261013-012006, msgid msg-oros-health-watch-20261013-012006-c059110257ce.md — Restarting the sysop service or inspecting Docker Desktop, VM state, and machine sleep on Oros is physical, host-level work only a person can do, and it falls outside proxy authority.
@@ -1219,9 +1221,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 237.5M | $1112.97 _(notional, rate-card)_ | 88% of 271.0M (backoff) |
-| Codex | 15.8M _(+495.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 15.8M _(+495.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 89484261 tokens/day lower bound._
+_Fleet token-unlock pace: 89696352 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.072461s/45s (unknown); 6 open notice(s); checker healthy
@@ -1239,21 +1241,20 @@ worst fetch p95 3.072461s/45s (unknown); 6 open notice(s); checker healthy
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #167
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
 
-### doin (6)
+### doin (5)
 - [`oros-health-checkup-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-102024.md) — ---
-- [`oros-health-watch-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261013-133505.md) — ---
 - [`claude-on-minion-town-press-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261013-102024.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-042006.md) — ---
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #184
 - [`claude-on-minion-town-press-carry-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-carry-20261013.md) — Press the Claude-on-minion.town arc: carry PR state and focus maintainer review
 
-### tada (12671)
+### tada (12672)
+- [`oros-health-watch-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-watch-20261013-133505.md) — Cost
 - [`minion-town-arc-press-20261013-060506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/minion-town-arc-press-20261013-060506.md) — Cost
 - [`claude-on-minion-town-completion-press-20261013-080506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-completion-press-20261013-080506.md) — Cost
 - [`improve-arc-completion-press-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/improve-arc-completion-press-report.md) — Cost
 - [`kriscendobot-minion.town-pr184-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-fix-4.md) — Cost
-- [`claude-on-minion-town-press-audit-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-audit-20261013.md) — Cost
-- … and 12666 more
+- … and 12667 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
