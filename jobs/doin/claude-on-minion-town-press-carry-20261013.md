@@ -22,3 +22,13 @@ The maintainer still reviews every `endojs/endo-but-for-bots` change. Identify t
 For each landed objective, confirm a deterministic production validation exists and runs; if missing, post the build job (subject to the at-most-couple limit and board deduplication). Do not do the third child's general unblock scan here beyond jobs necessary to carry the PRs.
 
 Scope is limited to `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot/garden` issue 89. No upstream `agoric/agoric-sdk` interaction, identity switch, or ferry.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 6
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-13T14:15:49Z
