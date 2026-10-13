@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-13T18:13:38Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-13T18:13:38Z
+---
+
+---
 role: fixer
 tier: minion
 model-burned: mentor
@@ -21,17 +42,3 @@ Follow the precedent of `mirror-endo-3137` (journal `jobs/tada/2026/06/26/mirror
 6. Record the mapping: `scripts/jobs/record-mirror.sh endojs/endo#3372 endojs/endo-but-for-bots#<M> "mirror"`.
 
 This is mirroring only: no gauntlet, no fixes, no review, no changes to the code. Report the mirror PR's fully qualified URL and its CI status in the completion summary.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-13T18:03:34Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-13T18:03:45Z
