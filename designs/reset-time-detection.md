@@ -191,6 +191,26 @@ detector populates and a hand row omits: `grade` (`confirmed|likely|suspected|re
    Open question on whether `endolin-garden2` (unmetered, temporary API key) needs it at all
    and the maintainer's call on auto-notify cadence.
 
+## Coordinated follow-up with manual quota calibration
+
+The implementation authorized through
+[`manual-quota-calibration.md`](manual-quota-calibration.md) remains the first stage. Its
+fit must split on temporal contiguity and must never pool observations across a genuine
+quota reset, even if the local meter later returns to an earlier anchor. Reset detection
+then follows as a second sensor over the same checkpoint stream rather than competing with
+the fit or adding another actuation path.
+
+The durable follow-up job `kriscendobot-garden-pr83-reset-calibration-followup` is blocked
+on the complete PR 80 calibration campaign. It will add the detector's classifications to
+that campaign's seven daily effectiveness observations, check that reset boundaries are
+also fit boundaries, and include both mechanisms in the seventh-day synthesis. Every host
+with a checkpoint log remains in measurement scope, including a temporarily `unmetered`
+host, but observation alone neither promotes a cap nor releases a quota hold. The week of
+joint evidence decides the permanent cadence, notice coalescing, and whether to enable the
+already-built opt-in append/notify path. This sequencing reconciles the two in-flight
+designs without duplicating either implementation or silently granting the reset sensor
+actuator authority.
+
 ## Alternatives considered
 
 - **Read `budget/live/<host>` git history for anchor transitions** (how the seeded
