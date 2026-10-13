@@ -119,3 +119,13 @@ look productive while blocked.
 
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot/garden`
 issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no ferry.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T11:04:14Z
