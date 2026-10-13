@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T04:54:00Z_
+_As of 2026-10-13T05:10:12Z_
 
 ## Latest
 
@@ -477,10 +475,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 9 -> 11 (N is yours to choose).
 
-- `msg-oros-health-watch-20261013-042006-7a41203cca33` — from gardener:oros-health-watch-20261013-042006, reply_to `oros-health-watch-20261013-042006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261013-042006-7a41203cca33.md)
-
-> Oros's host heartbeat is fresh (04:36Z), but its sysop bridge is unreachable: the newest sysop-log activity is 03:46:30Z, now over one hour old. The 01:20 health check remains claimed past its 03:30 deadline with no health-log progress, and the new 04:20 check remains unclaimed. I sent reset-failed (20261013T042311Z-2b93b9) and a drain-off for the stale rolling-deploy drain after bdc2943 reached deployed (20261013T042557Z-1a4876); neither has been acknowledged. A person at oros should inspect/restart garden-sysop (and, if necessary, Docker Desktop/the VM). Fleet health otherwise reports deployed bdc2943, zero unit failures, no derotation marker, and quota status ok.
-
 - `orch-minion-town-oauth-bonds-halted` — from orchestrator:orch-minion-town-oauth-bonds-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-minion-town-oauth-bonds-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -620,11 +614,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1437 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T03:53:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1437 times; this is ONE
-> coalesced notice that updates in place, not 1437 messages. Latest detail:
+> WATCHDOG notice — occurrence #1458 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T04:56:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1458 times; this is ONE
+> coalesced notice that updates in place, not 1458 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 260385s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 264165s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -899,6 +893,28 @@ Delegation: **active**
 >
 > triager: bare clone path /home/kris/garden/worktrees/kriscendobot-minion.town.git for kriscendobot-minion.town exists but is not a git repo; needs manual reconciliation (not clobbering). kriscendobot-minion.town is not being triaged until it is restored.
 
+- `20261013T050525Z-a5b5b3` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261013T050525Z-a5b5b3.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: oros-health-watch-20261013-042006
+> - question (msgid msg-oros-health-watch-20261013-042006-7a41203cca33.md)
+> - tentative answer: Proxy/tentative reply; the maintainer may revise.
+>
+> This is an operations report, not a policy question, so I can give direction. No authority is needed beyond what you've already used.
+>
+> 1. **Keep what you sent.** The reset-failed and drain-off ops are benign and idempotent. Don't re-send them or escalate to other host ops. In particular, don't send `unit`, `deploy` or `local-model` to oros. Those need maintainer attestation, and a dead sysop wouldn't run them anyway.
+> 2. **Don't try to bypass the sysop.** Don't reach oros by other means, such as ssh or cross-host writes. The sysop's host-scoped design is deliberate. Restarting garden-sysop, Docker Desktop or the VM needs a person at oros.
+> 3. **Ask for the human fix through the maintainer inbox.** Send one coalesced notice and don't repeat it every tick. It should say:
+>    - oros's heartbeat is fresh at 04:36Z, but the sysop log has been silent since 03:46:30Z.
+>    - The 01:20 health check is stuck in a claim past its 03:30 deadline.
+>    - The 04:20 health check is unclaimed.
+>    - The stale rolling-deploy drain is still set after bdc2943 reached deployed.
+>    - Please restart garden-sysop at oros, and the VM if needed.
+> 4. **Leave the stuck claim to the reaper.** Don't force-release or doom the 01:20 health-check job by hand. Note it in your health-log so it's visible.
+> 5. **Keep watching.** On your next tick, check the sysop-log for acks of 20261013T042311Z-2b93b9 and 20261013T042557Z-1a4876. If they land, confirm the drain is cleared and the health checks resume. If oros stays silent, repeat only the single inbox notice, with the elapsed time updated.
+>
+> The rest of the fleet is healthy: bdc2943 deployed, zero unit failures, quota ok. So this is a one-host degradation, and you can finish your health-watch job with the finding recorded.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-10-13T01:16:48Z, cleared 2026-10-13T04:40:43Z).
@@ -1150,37 +1166,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 224.6M | $1050.41 _(notional, rate-card)_ | 83% of 271.0M (backoff) |
-| Codex | 13.7M _(+420.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 226.3M | $1060.33 _(notional, rate-card)_ | 83% of 271.0M (ok) |
+| Codex | 13.7M _(+422.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94445454 tokens/day lower bound._
+_Fleet token-unlock pace: 94466874 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 20.463554s/45s (/home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town); 3 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (4)
 - [`minion-town-pr180-pr181-gauntlet-resume-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-pr181-gauntlet-resume-20261013.md) — Resume the stalled minion.town #180 and #181 gauntlets (leader host)
-- [`kriscendobot-garden-book-pr8-weave-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr8-weave-20261013.md) — Weave kriscendobot/garden-book PR #8 onto live main (resolve the chapter 8 co...
 - [`oros-health-checkup-20261013-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-042006.md) — ---
-- [`repair-claude-harness-refresh-and-finish-pr185`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/repair-claude-harness-refresh-and-finish-pr185.md) — Repair the Claude harness migration hook and finish minion.town PR #185
+- [`kriscendobot-minion.town-pr184-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #184
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
-- [`kriscendobot-minion.town-pr184-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #184
-- [`kriscendobot-minion.town-pr183-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr183-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #183
 
 ### doin (4)
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
 - [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-012006.md) — ---
 - [`claude-on-minion-town-press-20261013-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261013-042006.md) — Press the Claude-on-minion.town arc forward
-- [`oros-health-watch-20261013-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261013-042006.md) — ---
+- [`kriscendobot-minion.town-pr183-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #183
 
-### tada (12635)
+### tada (12639)
+- [`oros-health-watch-20261013-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-watch-20261013-042006.md) — Cost
+- [`kriscendobot-minion.town-pr184-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-panel-2.md) — Cost
+- [`repair-claude-harness-refresh-and-finish-pr185`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/repair-claude-harness-refresh-and-finish-pr185.md) — Completion report: repair-claude-harness-refresh-and-finish-pr185
+- [`kriscendobot-garden-book-pr8-weave-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-garden-book-pr8-weave-20261013.md) — Panel-head freshness
 - [`minion-town-arc-press-20261013-030506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/minion-town-arc-press-20261013-030506.md) — Cost
-- [`dependabotany-recheck-minion-town-20261013-033506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/dependabotany-recheck-minion-town-20261013-033506.md) — Cost
-- [`kriscendobot-minion.town-pr183-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr183-gauntlet-panel-3.md) — Cost
-- [`kriscendobot-minion.town-pr185-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr185-dependabot.md) — Cost
-- [`kriscendobot-minion.town-pr184-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-fix-1.md) — Gauntlet fix round 1: kriscendobot/minion.town PR #184 (fix/prod-probe-dispat...
-- … and 12630 more
+- … and 12634 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
