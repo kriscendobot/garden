@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion-town-pr167-record-answers-20261013
-priority: normal
-posted_by: producer
-posted_at: 2026-10-13T16:43:18Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-13T17:06:53Z cleared=none -->
 
 ---
 role: builder
