@@ -38,6 +38,23 @@ export GARDEN_TAG="claim/$id"
 
 fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 
+# Is THIS worker's own unit being stopped or restarted? A deploy's restart wave
+# SIGTERMs the gardener, but bash defers its TERM trap until this claim returns, and
+# under journal contention one claim pass can race candidates for many minutes. Left
+# alone, the pass claims a job after the stop began and the gardener then runs it to
+# completion, holding the restart (and the deploy waiting on it) for the whole job
+# (oros 2026-10-13: monk 5 claimed 6 min into its stop and held the deploy until
+# self-heal killed it at 2400s, so fleet health was never published). The unit is
+# `deactivating` for the whole stop, so checking it between candidates bounds the
+# claim pass to the attempt already in flight. Off in tests unless a mock unit_ctl
+# is injected, so a test claim never reads a live host's unit state.
+own_worker_stopping() {
+  [ "${GARDEN_TEST:-0}" != 1 ] || [ -n "${GARDEN_UNIT_CTL:-}" ] || return 1
+  local u
+  u="$(worker_kind_field "$KIND" unit 2>/dev/null)" || return 1
+  [ "$(unit_ctl_bounded is-active "${u}${id}.service" 2>/dev/null || true)" = deactivating ]
+}
+
 # --- §1.3 pre-auction claim eligibility (the interim backend-fit filter) ------
 #
 # Now that more than one backend claims from the same board, a worker must never
@@ -339,6 +356,10 @@ cand=("${probes[@]}" "${aged[@]}" "${rest[@]}")
 for ((k=0; k<n; k++)); do
   # candidates are leaf filenames (<base>.md); the spine key is extensionless.
   base="${cand[$k]%.md}"
+  if own_worker_stopping; then
+    log "this worker's unit is stopping; abandoning the claim pass before '$base'"
+    exit 3
+  fi
   # re-sync each attempt: the board may have moved under us
   sync_clone "$DIR"
   [ -e "$DIR/$JOBS_TODO/$base.md" ] || { log "'$base' already taken; next"; continue; }
