@@ -5,3 +5,13 @@ dispatch: automatic
 ---
 scripts/jobs/follow-up.sh
 scripts/jobs/follow-up.sh:212 suppresses cursor-set diagnostics and retries only on the next tick after the 10:18:35 publication failure. Use the shared bounded cursor-advance retry/classification helper so transient lock/CAS failures retry within the tick and deterministic remote rejections retain their diagnostic and repair alert.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T10:38:38Z
