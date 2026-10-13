@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T01:59:01Z_
+_As of 2026-10-13T02:00:44Z_
 
 ## Latest
 
@@ -1052,6 +1052,10 @@ Delegation: **active**
 > the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 > design's `## Open questions`.
 
+- `20261013T015937Z-553901` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261013T015937Z-553901.md)
+
+> awaiting maintainer — beyond proxy authority: gardener oros-health-watch-20261013-012006, msgid msg-oros-health-watch-20261013-012006-c059110257ce.md — Restarting the sysop service or inspecting Docker Desktop, VM state, and machine sleep on Oros is physical, host-level work only a person can do, and it falls outside proxy authority.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-10T22:58:37Z, latest 2026-10-11T06:44:09Z).
@@ -1127,8 +1131,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 223.3M | $1044.69 _(notional, rate-card)_ | 82% of 271.0M (ok) |
-| Codex | 13.0M _(+397.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 223.3M | $1044.84 _(notional, rate-card)_ | 82% of 271.0M (ok) |
+| Codex | 13.0M _(+398.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94541221 tokens/day lower bound._
 
