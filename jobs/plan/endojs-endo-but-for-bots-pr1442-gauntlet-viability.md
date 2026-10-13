@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: endojs-endo-but-for-bots-pr1442-gauntlet
+role: gardener
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-13T20:13:39Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-13T20:13:39Z
+---
+
+---
 role: gardener
 gauntlet: endojs-endo-but-for-bots-pr1442-gauntlet
 gauntlet_stage: viability
@@ -38,14 +58,3 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: viability=closed -->
   <!-- gauntlet-stage-result: viability=merged -->
   <!-- gauntlet-stage-result: viability=overtaken -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-13T19:06:02Z
