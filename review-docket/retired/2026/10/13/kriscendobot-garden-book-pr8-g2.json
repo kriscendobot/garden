@@ -16,5 +16,11 @@
   "ci": {
     "state": "pending",
     "observed_at": "2026-10-13T17:03:02Z"
+  },
+  "retirement": {
+    "kind": "terminal",
+    "repo": "kriscendobot/garden-book",
+    "at": "2026-10-13T17:15:07Z",
+    "state": "MERGED"
   }
 }
