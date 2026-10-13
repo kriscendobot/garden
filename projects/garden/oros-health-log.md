@@ -2,6 +2,24 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 ## 2026-10-13T05:05Z (oros-health-watch-20261013-042006): unreachable sysop bridge
+## 2026-10-12T23:45Z (oros-health-checkup-20261012-220527): degraded → fixed on main2, deployed
+
+- **Load/mem:** load 4.3/3.3/3.2 (4.7 at 23:46); 13 GiB of 15.6 GiB available; swap 387 MiB used.
+- **Disk/inodes:** 51% (230 GB free); inodes 1%.
+- **Uptime:** 11d6h, no recent reboot.
+- **Deployed vs main2:** self-deploy advanced oros `f9b279f6` → `0411ed9f` at 21:53 (gate passed, quiesce instant, 142 timers thawed). The old-code self-deploy process then lost its `deployed` publish until the 2400s timeout (22:16), and the idle ticks after it never republish. So fleet/health kept showing `roll-drained @ f9b279f6`. Main2 is now `bdc2943c` (this run's fix).
+- **Units:** 0 failed; 8 monks; not drained; no derotation marker.
+- **Budget heartbeat:** claude-oros pushes at 22:35, 22:49, 23:05; spend 57.1M of 180M, status ok.
+- **Journal CAS starvation:** every completion and inbox read lost its CAS on every attempt. Monk 7's completion of `kriscendobot-garden-book-pr8-gauntlet-undraft` reached attempt 26 over 55 min, and monk 2's inbox read for `kriscendobot-minion.town-pr181-gauntlet-fix-5` reached attempt 39 over 89 min. Both monks were stuck in a post-deploy graceful restart.
+  - **Root cause:** each retry ran sync_clone's reset --hard plus a deepen from the shallow root (~90s), so it always pushed from a stale tip. The deepen never completes (root shallow at `1fa90b4f`) but logged "completed" every sync.
+- **rc=124:** 24 in the last 3h (down from 28).
+- **$GARDEN_STATE:** no stale locks; held locks all belong to live processes.
+- **Changed:**
+  - republished oros fleet/health as `deployed @ 0411ed9f` (landed in 47s);
+  - landed `bdc2943c` on main2: commit_and_push can replay a lost commit onto the fresh tip through a scratch index (journal_replay_head). It refuses on any path overlap and is opt-in, enabled for complete-job and inbox-read. journal_deepen_from_root now skips once the clone's boundary is the root's. The new `commit-replay-test.sh` fails on old code. fleet-health-publish, land-journal-edit, sync-clone-reset-retry, seed-from-root, post-gauntlet-dedup and the budget-snapshot suites pass. budget-live-percent-label, foreman-edge-kick, outage-doom-pause and repo-locks fail identically on unmodified main2.
+- **Follow-up 2026-10-13T05:00Z (resumed after a reaper requeue):** self-deploy put `bdc2943c` on oros at 04:02, and fleet/health reads `deployed @ bdc2943c`. All 8 monks are running and 0 units have failed. Load is 3.6 and 13 GiB is available. Since the deploy there have been 0 `lost a push race` lines, and one inbox read landed on its first replay. rc=124: 29 in 3h. The claude-oros heartbeat is every 15 min, spend 59.0M of 180M.
+- **Still open:** Self-deploy's idle tick should republish a fleet/health record that disagrees with the deployed sha (this is the second time it was fixed by hand). The root repo is still shallow.
+
 
 - **Checkups:** `oros-health-checkup-20261013-012006` remains claimed after its 03:30:35Z handler deadline, with both deadline notices unread and no health-log progress. The current `oros-health-checkup-20261013-042006` remains unclaimed 45 minutes after dispatch; older 15:50Z and 22:05Z checks are also queued.
 - **Host signals:** the claude-oros heartbeat is fresh at 04:36:29Z (quota status `ok`, 22% derived use); no worker-derotation marker. Fleet health reports `deployed` at `bdc2943c`, zero unit/advisory failures, as of 04:02:31Z; origin/main2 is now `31a9c782`, so oros is behind the latest tip.
