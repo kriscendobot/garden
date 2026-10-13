@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T01:13:37Z_
+_As of 2026-10-13T01:18:40Z_
 
 ## Latest
 
@@ -825,6 +823,10 @@ Delegation: **active**
 >
 > triager: bare clone path /home/kris/garden/worktrees/kriscendobot-minion.town.git for kriscendobot-minion.town exists but is not a git repo; needs manual reconciliation (not clobbering). kriscendobot-minion.town is not being triaged until it is restored.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.015341s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=73567510 cap=271000000 pace-bias=0 window-start=2026-10-10T03:00Z(calendar) deadline=2026-10-17T03:00Z(calendar) ceiling=2 backoff=0.5315(ramp) target=1
@@ -1064,13 +1066,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 221.8M | $1036.26 _(notional, rate-card)_ | 82% of 271.0M (ok) |
+| Claude | 221.8M | $1036.30 _(notional, rate-card)_ | 82% of 271.0M (ok) |
 | Codex | 12.9M _(+392.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94510877 tokens/day lower bound._
+_Fleet token-unlock pace: 94513400 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.234375s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 5 open notice(s); checker healthy
+worst fetch p95 5.234375s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
