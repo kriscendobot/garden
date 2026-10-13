@@ -128,6 +128,29 @@ _keeper_lock_repo="$GARDEN_ROOT"
 [ -e "$GARDEN_ROOT/.git" ] || _keeper_lock_repo="$JW"
 garden_repo_lock "$_keeper_lock_repo" exclusive || { log "repository busy; skipping worktree keeper"; exit 0; }
 
+# Deliver maintainer alerts only AFTER the root repository lock is released. An
+# alert is a journal push through the producer clone: on a host with slow journal
+# storage that retry loop runs for minutes (oros 2026-10-13: a fffail notice held
+# the exclusive root lock for 4+ minutes, queuing every same-host fetch, push and
+# deploy behind it). The keeper's decisions stay under the lock; delivery doesn't.
+eval "$(declare -f alert_maintainer | sed '1s/^alert_maintainer/_jw_deliver_alert/')"
+eval "$(declare -f alert_maintainer_clear | sed '1s/^alert_maintainer_clear/_jw_deliver_alert_clear/')"
+_JW_ALERT_KIND=() _JW_ALERT_KEY=() _JW_ALERT_MSG=()
+alert_maintainer() { _JW_ALERT_KIND+=(alert) _JW_ALERT_KEY+=("$1") _JW_ALERT_MSG+=("${2:-}"); }
+alert_maintainer_clear() { _JW_ALERT_KIND+=(clear) _JW_ALERT_KEY+=("$1") _JW_ALERT_MSG+=("${2:-}"); }
+_jw_flush_alerts() {
+  garden_repo_unlock "$_keeper_lock_repo" || true
+  local i
+  for i in "${!_JW_ALERT_KEY[@]}"; do
+    if [ "${_JW_ALERT_KIND[$i]}" = clear ]; then
+      _jw_deliver_alert_clear "${_JW_ALERT_KEY[$i]}" "${_JW_ALERT_MSG[$i]}" || true
+    else
+      _jw_deliver_alert "${_JW_ALERT_KEY[$i]}" "${_JW_ALERT_MSG[$i]}" || true
+    fi
+  done
+}
+trap _jw_flush_alerts EXIT
+
 # Self-heal knobs (all overridable for tests):
 #   GARDEN_JW_BACKUP_DIR   root for lossless backups, OUTSIDE the worktree.
 #   GARDEN_JW_SETTLE_SECS  mtime-stability window for the active-writer probe.

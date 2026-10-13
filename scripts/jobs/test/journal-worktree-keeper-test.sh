@@ -78,7 +78,10 @@ write_alert_stub() {
   mkdir -p "$TR"
   cat > "$ALERT_STUB" <<EOF
 #!/bin/bash
-printf '%s|%s\n' "\$1" "\$2" >> "$ALERTS"
+# Tag a delivery made while the keeper still holds the root repository lock.
+held=''
+compgen -G "$TR/state/repo-locks/*/repo.lock.holder.*" >/dev/null && held='|LOCK-HELD'
+printf '%s|%s%s\n' "\$1" "\$2" "\$held" >> "$ALERTS"
 EOF
   chmod +x "$ALERT_STUB"
 }
@@ -221,6 +224,7 @@ grep -qF "unpreservable WIP" "$JW/f" && ok "WIP preserved in place (never clobbe
 grep -qF "UNPRESERVABLE:" <<<"$OUT" && ok "logged the UNPRESERVABLE case" || bad "did not log unpreservable"
 [ "$(alert_count)" -ge 1 ] && ok "paged the maintainer for genuine unpreservable WIP" || bad "did not page on unpreservable WIP"
 grep -qF "journal-worktree-unpreservable-testhost" "$ALERTS" && ok "page carries the unpreservable dedup-key" || bad "unpreservable dedup-key wrong/missing"
+! grep -qF "|LOCK-HELD" "$ALERTS" && ok "page delivered after the root repository lock was released" || bad "page delivered while holding the root repository lock"
 
 # ============================================================================
 hr; echo "SELF-HEAL (d) — active writer: heal aborts, tree untouched, no page"; hr
