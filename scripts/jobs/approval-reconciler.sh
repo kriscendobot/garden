@@ -137,17 +137,27 @@ VERIFY="$GARDEN_AR_VERIFY_CLONE"
 # by the next timer firing.
 : "${GARDEN_AR_TICK_TIMEOUT_SECS:=780}"
 : "${GARDEN_AR_PROBE_TIMEOUT_SECS:=60}"
+# A timed-out probe is specific to one PR and one stage.  Remember it briefly so
+# the next stateless tick does not spend the same 60 seconds on the same stuck
+# endpoint before reaching the rest of the repo.  The marker is host-local
+# reconstructible state; the hard ceiling keeps an operator override from hiding
+# a recovered approval/readiness endpoint indefinitely.
+: "${GARDEN_AR_PROBE_COOLDOWN_SECS:=300}"
+GARDEN_AR_PROBE_COOLDOWN_MAX_SECS=3600
 # Defense-in-depth leader gate (the unit's ExecCondition is the primary). Mockable
 # for the leader/follower test. Set to 0 to defer entirely to the ExecCondition.
 : "${GARDEN_AR_LEADER_GUARD:=1}"
 
-case "$GARDEN_AR_SOURCE_TIMEOUT_SECS:$GARDEN_AR_TICK_TIMEOUT_SECS:$GARDEN_AR_PROBE_TIMEOUT_SECS" in
-  *[!0-9:]*|0:*|*:0:*|*:0) die "GARDEN_AR_SOURCE_TIMEOUT_SECS, GARDEN_AR_TICK_TIMEOUT_SECS, and GARDEN_AR_PROBE_TIMEOUT_SECS must be positive integers" ;;
+case "$GARDEN_AR_SOURCE_TIMEOUT_SECS:$GARDEN_AR_TICK_TIMEOUT_SECS:$GARDEN_AR_PROBE_TIMEOUT_SECS:$GARDEN_AR_PROBE_COOLDOWN_SECS" in
+  *[!0-9:]*|0:*|*:0:*|*:0) die "approval reconciler timeout/cooldown settings must be positive integers" ;;
 esac
 # Force base ten so a zero-padded operator override cannot become invalid octal.
 GARDEN_AR_SOURCE_TIMEOUT_SECS=$((10#$GARDEN_AR_SOURCE_TIMEOUT_SECS))
 GARDEN_AR_TICK_TIMEOUT_SECS=$((10#$GARDEN_AR_TICK_TIMEOUT_SECS))
 GARDEN_AR_PROBE_TIMEOUT_SECS=$((10#$GARDEN_AR_PROBE_TIMEOUT_SECS))
+GARDEN_AR_PROBE_COOLDOWN_SECS=$((10#$GARDEN_AR_PROBE_COOLDOWN_SECS))
+[ "$GARDEN_AR_PROBE_COOLDOWN_SECS" -le "$GARDEN_AR_PROBE_COOLDOWN_MAX_SECS" ] \
+  || GARDEN_AR_PROBE_COOLDOWN_SECS="$GARDEN_AR_PROBE_COOLDOWN_MAX_SECS"
 tick_started="$(date +%s)"
 tick_deadline=$((tick_started + GARDEN_AR_TICK_TIMEOUT_SECS))
 
@@ -566,6 +576,52 @@ open_prs=0; ours=0; stale=0; deduped=0; approved=0; conducted=0; shepherded=0
 merged_closed=0; not_approved=0
 source_prs="$(awk -F '\t' '$1 ~ /^[0-9]+$/ { n++ } END { print n+0 }' "$SRC")"
 seen_prs=0; deferred=0; defer_pr=""; defer_stage=""; defer_limit=0; defer_tick_limited=0
+probe_timeouts=0; cooldown_skipped=0
+
+PROBE_COOLDOWN_DIR="$GARDEN_STATE/approval-reconciler/probe-cooldowns/$slug"
+probe_cooldown_marker() {  # probe_cooldown_marker <stage> <pr>
+  printf '%s/%s-%s\n' "$PROBE_COOLDOWN_DIR" "$2" "$1"
+}
+
+# rc 0 means this exact PR/stage is still cooling down.  Leave an expired marker
+# in place during the sweep so a completed probe clears it; end-of-tick pruning
+# removes expired markers for PRs that disappeared from the open-PR source.
+probe_cooldown_live() {  # probe_cooldown_live <stage> <pr>
+  local marker expiry now
+  marker="$(probe_cooldown_marker "$1" "$2")"
+  [ -f "$marker" ] || return 1
+  expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
+  case "$expiry" in ''|*[!0-9]*) rm -f "$marker"; return 1 ;; esac
+  now="$(date +%s)"
+  [ "$expiry" -gt "$now" ]
+}
+
+start_probe_cooldown() {  # start_probe_cooldown <stage> <pr>
+  local marker tmp expiry
+  marker="$(probe_cooldown_marker "$1" "$2")"
+  mkdir -p "$PROBE_COOLDOWN_DIR"
+  expiry=$(( $(date +%s) + GARDEN_AR_PROBE_COOLDOWN_SECS ))
+  tmp="${marker}.tmp.$$"
+  printf '%s\n%s\n' "$expiry" "$tick_started" > "$tmp"
+  mv -f "$tmp" "$marker"
+}
+
+clear_probe_cooldown() {  # clear_probe_cooldown <stage> <pr>
+  rm -f "$(probe_cooldown_marker "$1" "$2")"
+}
+
+reap_expired_probe_cooldowns() {
+  local marker expiry now
+  now="$(date +%s)"
+  for marker in "$PROBE_COOLDOWN_DIR"/*; do
+    [ -f "$marker" ] || continue
+    expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
+    case "$expiry" in
+      ''|*[!0-9]*) rm -f "$marker" ;;
+      *) [ "$expiry" -gt "$now" ] || rm -f "$marker" ;;
+    esac
+  done
+}
 
 # Run one live per-PR read under both bounds.  rc 124 is reserved here for a
 # deferred probe (GNU timeout also uses it); callers must never reinterpret it as
@@ -644,11 +700,25 @@ while IFS=$'\t' read -r pr author head updated _title; do
   # Gate 5 (API): EFFECTIVE trusted-maintainer approval. A still-standing APPROVED
   # counts even after the head moved; a dismissal, a later CHANGES_REQUESTED, and
   # untrusted approvers return nonzero.
+  if probe_cooldown_live approval "$pr"; then
+    cooldown_skipped=$((cooldown_skipped+1))
+    log "#$pr: approval probe cooldown is live — skipping this PR/stage and continuing the sweep"
+    continue
+  fi
   set +e; run_pr_probe approval "$pr" "$GARDEN_AR_APPROVAL" "$repo" "$pr"; arc=$?; set -e
   if [ "$arc" -eq 124 ]; then
-    deferred=$((source_prs - seen_prs + 1))
-    break
+    if [ "$defer_tick_limited" -eq 1 ]; then
+      deferred=$((source_prs - seen_prs + 1))
+      break
+    fi
+    start_probe_cooldown approval "$pr"
+    probe_timeouts=$((probe_timeouts+1))
+    log "WARN: approval probe for #$pr reached its ${defer_limit}s per-PR bound; cooling only #$pr/approval for ${GARDEN_AR_PROBE_COOLDOWN_SECS}s and continuing with later PRs"
+    continue
   fi
+  # Any non-timeout result proves the endpoint answered.  Clear even for a
+  # semantic negative (not approved/not ready): that is a successful probe.
+  clear_probe_cooldown approval "$pr"
   if [ "$arc" -ne 0 ]; then
     not_approved=$((not_approved+1))
     log "#$pr: no effective trusted-maintainer approval (rc=$arc) — skipping"
@@ -660,11 +730,23 @@ while IFS=$'\t' read -r pr author head updated _title; do
 
   # Gate 6 (API): the event watcher's EXACT eligibility probe decides conductor vs
   # shepherd vs nothing (draft/mergeable/CI/approval semantics, reused wholesale).
+  if probe_cooldown_live mergeability "$pr"; then
+    cooldown_skipped=$((cooldown_skipped+1))
+    log "#$pr: mergeability probe cooldown is live — skipping this PR/stage and continuing the sweep"
+    continue
+  fi
   set +e; run_pr_probe mergeability "$pr" "$GARDEN_AR_MERGEABLE" "$repo" "$pr"; mrc=$?; set -e
   if [ "$mrc" -eq 124 ]; then
-    deferred=$((source_prs - seen_prs + 1))
-    break
+    if [ "$defer_tick_limited" -eq 1 ]; then
+      deferred=$((source_prs - seen_prs + 1))
+      break
+    fi
+    start_probe_cooldown mergeability "$pr"
+    probe_timeouts=$((probe_timeouts+1))
+    log "WARN: mergeability probe for #$pr reached its ${defer_limit}s per-PR bound; cooling only #$pr/mergeability for ${GARDEN_AR_PROBE_COOLDOWN_SECS}s and continuing with later PRs"
+    continue
   fi
+  clear_probe_cooldown mergeability "$pr"
   case "$mrc" in
     2)  log "#$pr approved but already merged/closed — nothing to finalize"
         merged_closed=$((merged_closed+1)); continue ;;
@@ -754,6 +836,8 @@ while IFS=$'\t' read -r pr author head updated _title; do
   esac
 done < "$SRC"
 
+reap_expired_probe_cooldowns
+
 if [ "$deferred" -gt 0 ]; then
   if [ "$defer_limit" -gt 0 ]; then
     if [ "$defer_tick_limited" -eq 1 ]; then
@@ -767,4 +851,4 @@ if [ "$deferred" -gt 0 ]; then
   log "WARN: $defer_detail; deferring #$defer_pr and $((deferred-1)) later PR(s) to the next stateless tick. Inspect the $defer_stage handler/GitHub latency before raising GARDEN_AR_PROBE_TIMEOUT_SECS; keep GARDEN_AR_TICK_TIMEOUT_SECS below the unit's 900s TimeoutStartSec."
 fi
 
-log "reconciled $repo: $open_prs open PR(s), $ours bot-authored, $stale stale-skipped, $deduped already-tracked, $approved effective-approval ($not_approved without), $merged_closed merged/closed, $conducted conductor(s) + $shepherded shepherd(s) posted, $deferred deferred"
+log "reconciled $repo: $open_prs open PR(s), $ours bot-authored, $stale stale-skipped, $deduped already-tracked, $approved effective-approval ($not_approved without), $merged_closed merged/closed, $conducted conductor(s) + $shepherded shepherd(s) posted, $probe_timeouts probe timeout(s), $cooldown_skipped cooldown-skipped, $deferred deferred by tick deadline"

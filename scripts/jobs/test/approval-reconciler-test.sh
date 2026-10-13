@@ -35,12 +35,13 @@
 #      a fresh confirmation and is not posted again
 #   O. PERSISTENT POST FAILURE — bounded attempts, actionable diagnostics retained,
 #      then explicit deferral to the next tick
-#   P. PER-PR PROBE TIMEOUT — one slow approval read is bounded; it and all later
-#      PRs are deferred with exactly one actionable diagnostic
+#   P. PER-PR PROBE TIMEOUT — one repeatedly slow approval read gets a bounded,
+#      persistent PR/stage cooldown while later PRs continue; a completed retry
+#      clears the marker
 #   Q. TICK DEADLINE — repeated slow-but-successful reads stop at the whole-tick
 #      bound rather than approaching the unit's 900-second timeout
-#   R. MERGEABILITY PROBE TIMEOUT — a timed-out eligibility read is deferred and
-#      cannot be misclassified as the ordinary rc-1 shepherd path
+#   R. MERGEABILITY PROBE TIMEOUT — a timed-out eligibility read is cooled down
+#      and cannot be misclassified as the ordinary rc-1 shepherd path
 #   T. PRIMARY-QUOTA SOURCE REFUSAL — the shared PR source's primary-quota 403 arms
 #      the host-wide gh-api latch for the full primary-quota window (not the 300s
 #      transient default), and a later tick inside that window skips the source
@@ -352,27 +353,64 @@ if ! board_has "$BARE" "$SLUG-pr903-conduct" \
 else bad "persistent failure did not retain diagnostics or respect the retry bound"; fi
 
 # ============================================================================
-hr; echo "P. PER-PR PROBE TIMEOUT — bounded once, remainder safely deferred"; hr
+hr; echo "P. PER-PR PROBE TIMEOUT — cooldown isolates slow PR; suffix progresses"; hr
 BARE="$TR/p.git"; seed_bare "$BARE"
 FIX="$TR/p.tsv"
 { prline 910 kriscendobot "$BOThead"; prline 911 kriscendobot "$BOThead"; } > "$FIX"
 SLOWAPPR="$TR/approval-slow-stub.sh"
 cat > "$SLOWAPPR" <<'EOF'
 #!/bin/bash
-sleep 3
+printf '%s\n' "$2" >> "$AR_APPROVAL_CALLS"
+if [ "$2" = 910 ] && [ "$(cat "$AR_SLOW_MODE")" = slow ]; then sleep 3; fi
 exit 0
 EOF
 chmod +x "$SLOWAPPR"
+PCALLS="$TR/p.calls"; : > "$PCALLS"
+PSLOW="$TR/p.mode"; printf 'slow\n' > "$PSLOW"
+PMARKER="$TR/sp/approval-reconciler/probe-cooldowns/$SLUG/910-approval"
 PLOG="$TR/p.log"; RUN_AR_LOG="$PLOG"; p_started="$(date +%s)"
 run_ar "$TR/sp" "$BARE" "$FIX" "" "910=0 911=0" "$SLUG" \
-  GARDEN_AR_APPROVAL="$SLOWAPPR" GARDEN_AR_PROBE_TIMEOUT_SECS=1 \
+  GARDEN_AR_APPROVAL="$SLOWAPPR" AR_APPROVAL_CALLS="$PCALLS" AR_SLOW_MODE="$PSLOW" \
+  GARDEN_AR_PROBE_TIMEOUT_SECS=1 GARDEN_AR_PROBE_COOLDOWN_SECS=99999 \
   GARDEN_AR_TICK_TIMEOUT_SECS=10 GARDEN_AR_KILL_AFTER=1s
 p_elapsed=$(($(date +%s) - p_started)); RUN_AR_LOG=/dev/null
 if [ "$p_elapsed" -lt 5 ] \
-   && [ "$(lane_count "$BARE" todo 'conduct|shepherd')" = 0 ] \
-   && [ "$(grep -c 'WARN: .*per-PR bound.*deferring #910 and 1 later PR' "$PLOG" || true)" = 1 ]; then
-  ok "a slow approval probe is bounded and the untouched suffix gets one actionable deferral"
-else bad "per-PR timeout did not bound/defer cleanly (elapsed=${p_elapsed}s; log=$(tr '\n' ' ' < "$PLOG"))"; fi
+   && board_has "$BARE" "$SLUG-pr911-conduct" \
+   && ! board_has "$BARE" "$SLUG-pr910-conduct" \
+   && [ -s "$PMARKER" ] \
+   && grep -q 'cooling only #910/approval for 3600s and continuing with later PRs' "$PLOG"; then
+  ok "a slow approval probe is bounded and later PR #911 still reaches reconciliation"
+else bad "per-PR timeout blocked suffix progress (elapsed=${p_elapsed}s; log=$(tr '\n' ' ' < "$PLOG"))"; fi
+p_expiry="$(sed -n '1p' "$PMARKER" 2>/dev/null || echo 0)"; p_now="$(date +%s)"
+if [ "$p_expiry" -gt "$p_now" ] && [ "$p_expiry" -le $((p_now + 3600)) ]; then
+  ok "the timeout persisted a per-PR/stage cooldown capped at one hour"
+else bad "approval cooldown marker is absent or unbounded (expiry=$p_expiry now=$p_now)"; fi
+
+# A second tick must skip only the still-live #910/approval probe.  #911 is also
+# visited (then board-deduped), proving the cooldown is not a suffix/global latch.
+PLOG2="$TR/p2.log"; RUN_AR_LOG="$PLOG2"
+run_ar "$TR/sp" "$BARE" "$FIX" "" "910=0 911=0" "$SLUG" \
+  GARDEN_AR_APPROVAL="$SLOWAPPR" AR_APPROVAL_CALLS="$PCALLS" AR_SLOW_MODE="$PSLOW" \
+  GARDEN_AR_PROBE_TIMEOUT_SECS=1 GARDEN_AR_PROBE_COOLDOWN_SECS=99999 \
+  GARDEN_AR_TICK_TIMEOUT_SECS=10 GARDEN_AR_KILL_AFTER=1s
+RUN_AR_LOG=/dev/null
+if [ "$(grep -c '^910$' "$PCALLS" || true)" = 1 ] \
+   && grep -q '#910: approval probe cooldown is live' "$PLOG2" \
+   && grep -q '#911: a conductor is already tracked' "$PLOG2"; then
+  ok "a repeated tick skips the cooled probe while continuing past it"
+else bad "live cooldown re-probed #910 or stopped before #911 ($(tr '\n' ' ' < "$PLOG2"))"; fi
+
+# Expire the persisted window and let the endpoint recover.  A completed probe
+# posts #910 and removes the old timeout marker.
+printf '%s\n%s\n' "$(( $(date +%s) - 1 ))" 0 > "$PMARKER"
+printf 'fast\n' > "$PSLOW"
+run_ar "$TR/sp" "$BARE" "$FIX" "" "910=0 911=0" "$SLUG" \
+  GARDEN_AR_APPROVAL="$SLOWAPPR" AR_APPROVAL_CALLS="$PCALLS" AR_SLOW_MODE="$PSLOW" \
+  GARDEN_AR_PROBE_TIMEOUT_SECS=1 GARDEN_AR_PROBE_COOLDOWN_SECS=99999 \
+  GARDEN_AR_TICK_TIMEOUT_SECS=10 GARDEN_AR_KILL_AFTER=1s
+if board_has "$BARE" "$SLUG-pr910-conduct" && [ ! -e "$PMARKER" ]; then
+  ok "a successful post-cooldown probe clears its marker and reconciles the PR"
+else bad "recovered #910 did not clear its cooldown and reconcile"; fi
 
 # ============================================================================
 hr; echo "Q. TICK DEADLINE — cumulative slow reads cannot consume the unit timeout"; hr
@@ -418,9 +456,11 @@ run_ar "$TR/sr" "$BARE" "$FIX" "930=0" "" "$SLUG" \
   GARDEN_AR_MERGEABLE="$SLOWMERGE" GARDEN_AR_PROBE_TIMEOUT_SECS=1 \
   GARDEN_AR_TICK_TIMEOUT_SECS=10 GARDEN_AR_KILL_AFTER=1s
 RUN_AR_LOG=/dev/null
+RMARKER="$TR/sr/approval-reconciler/probe-cooldowns/$SLUG/930-mergeability"
 if [ "$(lane_count "$BARE" todo 'conduct|shepherd')" = 0 ] \
-   && [ "$(grep -c 'WARN: mergeability probe for #930.*per-PR bound.*deferring #930 and 0 later PR' "$RLOG" || true)" = 1 ]; then
-  ok "a timed-out mergeability read is deferred, never turned into a shepherd"
+   && [ -s "$RMARKER" ] \
+   && [ "$(grep -c 'WARN: mergeability probe for #930.*cooling only #930/mergeability' "$RLOG" || true)" = 1 ]; then
+  ok "a timed-out mergeability read gets its own cooldown, never a shepherd"
 else bad "mergeability timeout was not safely distinguished from rc 1 (log=$(tr '\n' ' ' < "$RLOG"))"; fi
 
 # ============================================================================
