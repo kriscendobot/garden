@@ -7,8 +7,9 @@
 # Asserts:
 #   A. lookup: the exact (repo, package) row matches; a different repo, a different
 #      package, and a prefix of the package do not
-#   B. happy path: a plain bump plus a refresh that rewrites only release.json →
-#      `committed <sha>`, and the new commit touches release.json alone
+#   B. happy path: a plain bump plus a refresh that rewrites the three declared
+#      signed-release artifacts → `committed <sha>`, and the commit touches only
+#      those artifacts
 #   C. a requeue on an already-refreshed head → `already-current`, no new commit
 #   D. a PR that touches a path outside the input set → rc 2, refresh never runs
 #   E. a dirty checkout → rc 2, refresh never runs
@@ -45,7 +46,11 @@ cd "$prefix"
 case "$script" in
   claude-harness:refresh)
     [ "${STUB_REFRESH_FAIL:-}" = 1 ] && exit 1
-    [ -n "${STUB_REFRESH_WRITE:-}" ] && printf '{"version":"%s"}\n' "${STUB_VERSION:-2.1.283}" > tools/claude-harness/release.json
+    if [ -n "${STUB_REFRESH_WRITE:-}" ]; then
+      printf '{"version":"%s"}\n' "${STUB_VERSION:-2.1.283}" > tools/claude-harness/manifest.json
+      printf 'signature %s\n' "${STUB_VERSION:-2.1.283}" > tools/claude-harness/manifest.json.sig
+      printf '{"version":"%s"}\n' "${STUB_VERSION:-2.1.283}" > tools/claude-harness/release.json
+    fi
     [ -n "${STUB_STRAY_MOD:-}" ] && echo stray >> "$STUB_STRAY_MOD"
     [ -n "${STUB_STRAY_NEW:-}" ] && echo new > "$STUB_STRAY_NEW"
     exit 0 ;;
@@ -65,6 +70,8 @@ fixture() {
   mkdir -p "$d/$H" "$d/src"
   echo '{"dependencies":{"@anthropic-ai/claude-code":"2.1.278"}}' > "$d/$H/package.json"
   echo '{"lock":"2.1.278"}' > "$d/$H/package-lock.json"
+  echo '{"version":"2.1.278"}' > "$d/$H/manifest.json"
+  echo 'signature 2.1.278' > "$d/$H/manifest.json.sig"
   echo '{"version":"2.1.278"}' > "$d/$H/release.json"
   echo 'code' > "$d/src/app.js"
   git -C "$d" add -A; git -C "$d" "${git_id[@]}" commit -q -m base
@@ -88,12 +95,15 @@ hr; echo "A — lookup matches only the exact (repo, package) row"; hr
 "$MIG" lookup kriscendobot/minion.town vitest >/dev/null && bad "other package matched" || ok "other package: no hook"
 "$MIG" lookup kriscendobot/minion.town @anthropic-ai/claude >/dev/null && bad "package prefix matched" || ok "package prefix: no hook"
 
-hr; echo "B — happy path commits release.json alone"; hr
+hr; echo "B — happy path commits the signed-release artifacts alone"; hr
 : > "$STUB_LOG"; fixture "$TR/b"
 STUB_REFRESH_WRITE=1 run "$TR/b"
 [ "$RC" -eq 0 ] && [ "${OUT%% *}" = committed ] && ok "rc 0, $OUT" || bad "rc $RC out '$OUT' err $(cat "$TR/err")"
-[ "$(git -C "$TR/b" show --name-only --format= HEAD)" = "$H/release.json" ] \
-  && ok "commit touches release.json only" || bad "commit touched: $(git -C "$TR/b" show --name-only --format= HEAD | tr '\n' ' ')"
+expected_outputs="$H/manifest.json
+$H/manifest.json.sig
+$H/release.json"
+[ "$(git -C "$TR/b" show --name-only --format= HEAD)" = "$expected_outputs" ] \
+  && ok "commit touches only the three declared outputs" || bad "commit touched: $(git -C "$TR/b" show --name-only --format= HEAD | tr '\n' ' ')"
 [ -z "$(git -C "$TR/b" status --porcelain)" ] && ok "checkout clean after commit" || bad "checkout left dirty"
 grep -q '^claude-harness:check' "$STUB_LOG" && ok "pin check ran on the result" || bad "pin check never ran"
 

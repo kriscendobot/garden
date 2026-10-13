@@ -40,10 +40,10 @@ set -euo pipefail
 hook_table() {
   printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
     claude-harness-refresh kriscendobot/minion.town @anthropic-ai/claude-code \
-    'tools/claude-harness/package.json tools/claude-harness/package-lock.json tools/claude-harness/release.json' \
+    'tools/claude-harness/package.json tools/claude-harness/package-lock.json tools/claude-harness/manifest.json tools/claude-harness/manifest.json.sig tools/claude-harness/release.json' \
     claude-harness:refresh claude-harness:check \
-    'tools/claude-harness/release.json' \
-    'chore(claude-harness): refresh release.json pin'
+    'tools/claude-harness/manifest.json tools/claude-harness/manifest.json.sig tools/claude-harness/release.json' \
+    'chore(claude-harness): refresh signed release manifest'
 }
 
 die() { printf 'dependabot-migration: %s\n' "$*" >&2; exit "${2:-2}"; }
