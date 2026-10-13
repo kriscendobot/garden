@@ -23,12 +23,5 @@ For each landed objective, confirm a deterministic production validation exists 
 
 Scope is limited to `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot/garden` issue 89. No upstream `agoric/agoric-sdk` interaction, identity switch, or ferry.
 
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 6
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-13T14:15:49Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-13T18:33:34Z -->
