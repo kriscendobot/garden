@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: gauntlet:kriscendobot-minion.town-pr181-gauntlet-halted
 msg_key: kriscendobot-minion.town-pr181-gauntlet-halted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-10-12T14:44:13Z
-last_seen: 2026-10-12T14:44:13Z
-sent_at: 2026-10-12T14:44:13Z
+last_seen: 2026-10-13T01:35:11Z
+sent_at: 2026-10-13T01:35:11Z
 ---
-Gauntlet kriscendobot-minion.town-pr181-gauntlet HALTED: stage 'kriscendobot-minion.town-pr181-gauntlet-fix-5' (fix) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=deterministic); repeating an unknown failure would waste the stage budget.
+COALESCED message — occurrence #2 (first seen 2026-10-12T14:44:13Z, latest 2026-10-13T01:35:11Z).
+The SAME message (episode key `kriscendobot-minion.town-pr181-gauntlet-halted`) has now been sent 2 times; this is
+ONE entry that updates in place, not 2 messages. Latest detail:
+
+Gauntlet kriscendobot-minion.town-pr181-gauntlet HALTED: stage 'kriscendobot-minion.town-pr181-gauntlet-fix-5' (fix) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
 
 Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 5/6 · cost so far: $11.90
 
