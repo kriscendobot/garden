@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T00:29:30Z_
+_As of 2026-10-13T00:34:36Z_
 
 ## Latest
 
@@ -1081,18 +1079,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 221.7M | $1035.86 _(notional, rate-card)_ | 82% of 271.0M (ok) |
 | Codex | 12.8M _(+391.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94508456 tokens/day lower bound._
+_Fleet token-unlock pace: 94508479 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.234375s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (3)
-- [`kriscendobot-minion.town-pr184-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #184
+### todo (2)
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr183-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (3)
+### doin (4)
+- [`kriscendobot-minion.town-pr184-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #184
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #181
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #180
