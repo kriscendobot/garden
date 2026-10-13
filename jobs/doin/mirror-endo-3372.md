@@ -21,6 +21,7 @@ Follow the precedent of `mirror-endo-3137` (journal `jobs/tada/2026/06/26/mirror
 
 This is mirroring only: no gauntlet, no fixes, no review, no changes to the code. Report the mirror PR's fully qualified URL and its CI status in the completion summary.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
