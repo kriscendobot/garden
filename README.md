@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T02:38:37Z_
+_As of 2026-10-13T02:41:57Z_
 
 ## Latest
 
@@ -700,6 +700,10 @@ Delegation: **active**
 > 3. Checking Docker Desktop's CPU and RAM allocation against the Mac's physical capacity is a change on the Mac, so a human has to do it. Mention it to the maintainer, but don't block on it.
 >
 > Do not change worker counts, drain state, or deploy state from this job. Scale through `scripts/jobs/set-workers.sh` or the sysop only if the maintainer asks.
+
+- `watchdog-handler-budget-overrun-oros-health-checkup-20261012-220527` — from watchdog:monk/5, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-oros-health-checkup-20261012-220527.md)
+
+> gardener job 'oros-health-checkup-20261012-220527' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=6494s, handler-budget=3600s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted.md)
 
