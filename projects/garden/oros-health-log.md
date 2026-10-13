@@ -2,6 +2,24 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-13T10:10Z (oros-health-checkup-20261013-012006, rerun after reaper requeue): degraded (journal git on virtiofs starves claims; deploy deferred) → one fix on main2
+
+- **Load/mem:** load 2.6/3.0/3.2; 13 GiB of 15 GiB available; IO pressure avg300 1.9%.
+- **Disk/inodes:** 53% of the virtiofs share used (218G free); inodes 1%.
+- **Uptime:** 11d16h, no recent reboot.
+- **Deployed vs main2:** deployed `bdc2943c`. fleet/health is `deferred` at 09:43, target `614437c2`, reason `long-job monk 4 5778s`. origin/main2 is now `ca5aa15d` after this run's fix.
+  - Monk 4's handler for `claude-on-minion-town-press-20261013-072006` hit rc=124 at 08:57. Since 09:11 the monk has been stuck in a post-job `journal-entry.sh progress`. That script retries sync_clone (`reset --hard` over ~68.5k files) on the shared producer clone, where three entry writers were contending. So the "long job" self-deploy waits on is a journal write, not real work.
+- **Units:** 0 failed; 8 monks; not drained; no derotation marker.
+- **Budget heartbeat:** the claude-oros snapshot was sampled at 09:34 and pushed at 09:45; spend 62.9M, 27% used, status ok.
+- **Claim starvation:** at 10:00, 6 of 8 monks were inside `claim-job.sh`/`usage-append.sh` doing `git reset --hard origin/journal2` on their own clones.
+  - A read-only `git status` on one clone took 13.5s. A claim attempt takes about 100–120s.
+  - Monk 1 lost every race from 09:11 to 10:00. Monk 4 took 22 min from claim (07:45) to working (08:07).
+  - This run's job was the only `claude -p` running on the host.
+- **rc=124:** about 36 in the last 3h (counted from the self-heal logs; the method is rough).
+- **$GARDEN_STATE:** 87 clones; none over 50 packs; no tmp_pack; no `index.lock` older than 30 min. The live locks belong to the running reset processes.
+- **Changed (main2):** `ca5aa15d`: journal-entry.sh opts into `journal_replay_head` (GARDEN_JOURNAL_REPLAY_ATTEMPTS=3), like complete-job, inbox-read and send-msg. commit-replay-test asserts the opt-in. commit-replay and journal-entry argv/dedup/project tests all pass. It deploys with the next roll.
+- **Still open (needs design):** claim-job.sh and usage-append.sh still do a full worktree `sync_clone` per attempt. On virtiofs that costs about 100s, so oros loses nearly every claim race to the other hosts. Two possible fixes: a worktree-free claim (graft/replay the todo→doin move), or per-worker journal clones on container-local disk (as `614437c2` did for the deploy gate). Nothing was forced, and no drains or leveling were touched.
+
 ## 2026-10-13T08:20Z (oros-health-checkup-20261013-042006): degraded (deploy stuck behind gate) → two fixes on main2
 
 - **Load/mem:** load 3.4/3.0/3.1 at 07:44, 3.0/3.5/3.7 at 08:17; 12 GiB of 15 GiB available.
