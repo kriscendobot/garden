@@ -1,11 +1,10 @@
 ---
-gate: blocked
-blocked_on: book-hyperlink-references-after-copyedit-20261004
-priority: normal
+role: orchestrator
+tier: mentor
 arc: garden-book
-posted_by: orchestrator
-posted_at: 2026-10-13T17:16:51Z
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-13T17:41:05Z cleared=none -->
 
 ---
 role: orchestrator
