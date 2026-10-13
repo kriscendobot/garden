@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-10-13T17:45:52Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-mirror-endo-3372
-pr_number: 1442
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1442
-pr_head: mirror/endo-3372-ses-frozen-null-pills

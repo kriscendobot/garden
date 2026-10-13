@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Mirror endojs/endo#3372 onto endojs/endo-but-for-bots
@@ -21,13 +22,5 @@ Follow the precedent of `mirror-endo-3137` (journal `jobs/tada/2026/06/26/mirror
 
 This is mirroring only: no gauntlet, no fixes, no review, no changes to the code. Report the mirror PR's fully qualified URL and its CI status in the completion summary.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-13T17:45:52Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-13T18:03:34Z -->
