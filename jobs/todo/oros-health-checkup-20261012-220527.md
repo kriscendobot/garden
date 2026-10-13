@@ -43,13 +43,4 @@ Standing maintainer request (kriskowal, 2026-10-02). Background is in the 2026-1
 
 Do not change drains, worker leveling, derotation markers, budget pools or schedules. The maintainer's 90% quota policy stands.
 
-<!-- garden-productive-cycle -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 5
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-12T22:41:44Z
+<!-- garden-reaped: 0 -->
