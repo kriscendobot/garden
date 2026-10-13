@@ -2,6 +2,29 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-13T15:15Z (oros-health-checkup-20261013-042006, second rerun after reaper requeue): degraded (journal git on virtiofs still starves claims and job tails; deploy deferred) → no code change
+
+- **Load/mem:** load 2.3/2.6/2.9; 13 GiB of 15 GiB available; swap 521M used.
+- **Disk/inodes:** overlay 6% used (405G free); inodes 1%.
+- **Uptime:** 11d21h, no recent reboot.
+- **Deployed vs main2:** deployed `bdc2943c`; origin/main2 `8fd22da4`. fleet/health at 14:40 is `deferred`, target `8fd22da4`, reason `long-job monk 7 8923s`.
+  - Monk 7's busy marker dates from 12:11. Its handler (the 10:20 health check-up, `oros-health-checkup-20261013-102024`) overran, and since 14:20 the monk has sat in a post-job `watchdog-notice.sh handler-budget-overrun-…`, waiting on the producer clone. As at 10:10, the "long job" self-deploy waits on is a journal write, not real work.
+  - Monk 4 has been in `journal-entry.sh error` for 62 min, looping on `flock -w 60` for `producer/journal.lock`. The holder is a `git reset --hard origin/journal2` on the producer clone; sysop and watchdog-notice are also queued behind it.
+- **Claim starvation (unchanged):** 4 monks were inside `claim-job.sh` loops for 8–20 min each. Each attempt runs `git reset --hard origin/journal2` on its own virtiofs clone. A plain `find` over `$GARDEN_STATE` timed out at 60s.
+- **Units:** 0 failed (294 units); 8 monks; not drained; no derotation marker.
+- **Budget heartbeat:** claude-oros was sampled at 14:35 and pushed at 14:45. The weekly window has reset: spend 0.5M, 0% used, status ok.
+- **rc=124:** 62 in the last 3h, from the system journal. That is up from about 36 at 10:10.
+- **$GARDEN_STATE:** 114 journal clones (87 at 10:10). Pack counts are at or below the gc auto limit of 50, with no tmp_pack. The stale-lock scan did not finish inside its bound, so its result is unknown.
+- **Changed:** nothing. The fix is already on main2 but not deployed on oros.
+  - `f4a9a985` adds an opt-in `GARDEN_JOURNAL_CLONE_BASE`, which puts the producer and worker checkouts on container-local disk.
+  - It only takes effect when the container is created with `GARDEN_JOURNAL_CLONE_BASE=/var/tmp/garden-journal-clones ./garden create`.
+  - Nothing was forced, and no drains or leveling were touched.
+- **Needs a person at the machine:**
+  1. Let self-deploy land `8fd22da4`, or a later commit.
+  2. Then recreate the oros container with `GARDEN_JOURNAL_CLONE_BASE` set.
+  
+  Until then, oros keeps losing claim races and its job tails stall on the producer lock. Those stalls keep self-deploy deferred behind "long jobs", so the deploy and the fix block each other.
+
 ## 2026-10-13T10:10Z (oros-health-checkup-20261013-012006, rerun after reaper requeue): degraded (journal git on virtiofs starves claims; deploy deferred) → one fix on main2
 
 - **Load/mem:** load 2.6/3.0/3.2; 13 GiB of 15 GiB available; IO pressure avg300 1.9%.
