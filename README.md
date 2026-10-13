@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T03:19:54Z_
+_As of 2026-10-13T03:24:33Z_
 
 ## Latest
 
@@ -1155,7 +1153,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 224.5M | $1049.11 _(notional, rate-card)_ | 83% of 271.0M (backoff) |
-| Codex | 13.1M _(+400.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Codex | 13.1M _(+400.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94438810 tokens/day lower bound._
 
@@ -1168,10 +1166,11 @@ worst fetch p95 20.463554s/45s (/home/kris/garden/.garden-state/ci-watcher/retir
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #184
 
-### doin (3)
+### doin (4)
 - [`minion-town-arc-press-20261013-030506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-030506.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-012006.md) — ---
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #183
+- [`kriscendobot-minion.town-pr185-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr185-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #185
 
 ### tada (12631)
 - [`kriscendobot-minion.town-pr184-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-fix-1.md) — Gauntlet fix round 1: kriscendobot/minion.town PR #184 (fix/prod-probe-dispat...
