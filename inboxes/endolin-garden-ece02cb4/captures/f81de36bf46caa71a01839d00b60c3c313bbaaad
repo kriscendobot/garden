@@ -1,0 +1,16 @@
+<6>17:46:31 [cleric/1] job 'mirror-endo-3372' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>17:46:31 [cleric/1] job 'mirror-endo-3372' attaching minion.town MCP (stdio bridge as minion-town)
+<6>17:51:30 [auto-gauntlet-handoff] auto-gauntlet: 'mirror-endo-3372' named several PRs; treating the first, https://github.com/endojs/endo-but-for-bots/pull/1442, as its artifact
+<6>17:51:30 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/1442 is already non-draft; leaving it untouched for the completion guard
+<6>17:51:33 [review-docket] https://github.com/endojs/endo-but-for-bots/pull/1442 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+Mirrored endojs/endo#3372 to https://github.com/endojs/endo-but-for-bots/pull/1442.
+
+- Preserved the ready-for-review state, title, description, two commits, and exact head `b9d391353e6691b5788f6a7a24aced88e4e714a1`.
+- Targeted frozen base `master-356d6e7` at the exact upstream merge-base.
+- Added the single required cross-link comment and recorded the durable mirror mapping.
+- Applied the `foreign-content-preclassification`, `frozen-base-branch`, and `pr-handoff` procedures.
+- CI status: failing/in progress. `lint` and `viable-release` failed; seven checks passed and six remained pending. No fixes were attempted because this job is mirroring only.
+- Follow-up: CI remediation requires a separate job.
+- Self-improvement: nothing this time.
