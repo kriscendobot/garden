@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T16:07:07Z_
+_As of 2026-10-13T16:09:49Z_
 
 ## Latest
 
@@ -663,11 +661,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1662 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T15:08:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1662 times; this is ONE
-> coalesced notice that updates in place, not 1662 messages. Latest detail:
+> WATCHDOG notice — occurrence #1682 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T16:08:04Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1682 times; this is ONE
+> coalesced notice that updates in place, not 1682 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 300885s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 304487s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1217,11 +1215,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #257 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T15:08:09Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 257 times; this is ONE
-> coalesced notice that updates in place, not 257 messages. Latest detail:
+> WATCHDOG notice — occurrence #277 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T16:08:10Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 277 times; this is ONE
+> coalesced notice that updates in place, not 277 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 8fd22da4bfb6 140 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 8fd22da4bfb6 201 min ago
 > but still reports deployed_sha bdc2943ce1f4b19ef3e28d1a92426544a762da55. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
