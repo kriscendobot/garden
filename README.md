@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T02:00:44Z_
+_As of 2026-10-13T02:04:48Z_
 
 ## Latest
 
@@ -1133,18 +1131,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 223.3M | $1044.84 _(notional, rate-card)_ | 82% of 271.0M (ok) |
-| Codex | 13.0M _(+398.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 223.3M | $1045.33 _(notional, rate-card)_ | 82% of 271.0M (ok) |
+| Codex | 13.0M _(+398.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94541221 tokens/day lower bound._
+_Fleet token-unlock pace: 94543677 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.234375s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (3)
 - [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-012006.md) — ---
-- [`kriscendobot-minion.town-pr180-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #180
 - [`claude-on-minion-town-completion-press-20261013-015007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-015007.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
@@ -1155,13 +1152,13 @@ worst fetch p95 5.234375s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`kriscendobot-minion.town-pr184-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #184
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #183
 
-### tada (12623)
+### tada (12624)
+- [`kriscendobot-minion.town-pr180-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr180-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Fix round 5 report: kriscendobot/minion.town PR #181
 - [`claude-on-minion-town-press-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-20261013-012006.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr180-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr180-gauntlet-panel-6.md) — Cost
 - [`kriscendobot-minion.town-pr181-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr181-gauntlet.md) — gauntlet kriscendobot-minion.town-pr181-gauntlet — HALTED
-- [`kriscendobot-minion.town-pr184-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-viability.md) — Viability report: kriscendobot/minion.town PR #184, "fix(probe): add determin...
-- … and 12618 more
+- … and 12619 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
