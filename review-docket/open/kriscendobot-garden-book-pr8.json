@@ -3,18 +3,18 @@
   "repo": "kriscendobot/garden-book",
   "pr": 8,
   "url": "https://github.com/kriscendobot/garden-book/pull/8",
-  "head_oid": "272112515e2062954136f09a33f53012844637d7",
+  "head_oid": "36fb19513fd5793aa61b51c81559d865b8ce2f3d",
   "ask": "re-review",
-  "arc": "unallocated",
+  "arc": "garden-book",
   "milestone": "-",
-  "summary": "Panel reviewed 83045432f309, but the presented head is b044f89742ac",
+  "summary": "Panel reviewed 04a5b7e847f9, but the presented head is 36fb19513fd5",
   "unblocks": [],
-  "source": "stale-panel-head-kriscendobot-garden-book-pr8-83045432-b044f897",
-  "requested_at": "2026-10-12T20:24:19Z",
+  "source": "stale-panel-head-kriscendobot-garden-book-pr8-04a5b7e8-36fb1951",
+  "requested_at": "2026-10-13T04:58:24Z",
   "first_requested_at": "2026-10-12T20:24:19Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "pending",
-    "observed_at": "2026-10-13T04:47:19Z"
+    "observed_at": "2026-10-13T04:58:26Z"
   }
 }
