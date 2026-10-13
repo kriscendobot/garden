@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T02:28:50Z_
+_As of 2026-10-13T02:31:45Z_
 
 ## Latest
 
@@ -1149,12 +1149,12 @@ _Fleet token-unlock pace: 94536246 tokens/day lower bound._
 worst fetch p95 20.463554s/45s (/home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town); 6 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-012006.md) — ---
+### todo (1)
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
-### doin (3)
+### doin (4)
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261012-220527.md) — ---
+- [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-012006.md) — ---
 - [`kriscendobot-minion.town-pr184-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #184
 - [`kriscendobot-minion.town-pr183-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #183
 
