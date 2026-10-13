@@ -20,3 +20,13 @@ kriskowal answered the open questions with inline review comments on 2026-10-13 
 8. Q8: not pursued: he is "not terribly interested in identity based access control in general"; minion.town mints inference capabilities that see the world narrowly through their endowments, and he does not see how root subjects fit. Record that, and do not file the follow-up design.
 
 Then remove the Status line's "should not be built until the open questions are answered" gate and replace the answered questions with a short "Decisions (2026-10-13)" section, citing the review. Fix the copy-edit findings from the last panel if they are one-line: premise A8 wording ("the verifier does not read it"), the "to no other surface's allowlist" phrasing, and the ownership-map row split (storage vs canary lifecycle). Push to the PR head and leave the PR a draft. Post one PR comment summarizing the change.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T16:43:25Z
