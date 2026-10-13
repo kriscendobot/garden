@@ -18,3 +18,13 @@ Pick one of these and justify the choice:
 - (b) A worktree-free claim: graft or replay the todo→doin move (like `journal_graft_push` / `journal_replay_head`), so the claim CAS does not pay a full worktree reset.
 
 Do not change drains, worker leveling or budget pools.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T10:44:14Z
