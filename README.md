@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T14:53:44Z_
+_As of 2026-10-13T15:00:56Z_
 
 ## Latest
 
@@ -862,6 +860,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
+- `claude-on-minion-town-press-20261013-072006-split-child-claude-on-minion-town-press-carry-20261013-failed` — from orchestrator:claude-on-minion-town-press-20261013-072006-split-child-claude-on-minion-town-press-carry-20261013-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-on-minion-town-press-20261013-072006-split-child-claude-on-minion-town-press-carry-20261013-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: claude-on-minion-town-press-20261013-072006-split
+> orchestration-status: running
+> child: claude-on-minion-town-press-carry-20261013
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 2474s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1)
+>
+> Orchestration claude-on-minion-town-press-20261013-072006-split observed child claude-on-minion-town-press-carry-20261013: stalled in flight for 2474s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1).
+
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
 > provider weekly limit reached: the API is refusing calls fleet-wide (resets 3am (UTC) — the responder could NOT diagnose garden-triager@kriscendobot-minion).
@@ -1151,6 +1162,19 @@ Delegation: **active**
 
 > awaiting maintainer — beyond proxy authority: gardener oros-health-watch-20261013-012006, msgid msg-oros-health-watch-20261013-012006-c059110257ce.md — Restarting the sysop service or inspecting Docker Desktop, VM state, and machine sleep on Oros is physical, host-level work only a person can do, and it falls outside proxy authority.
 
+- `claude-on-minion-town-press-20261013-072006-split-halted` — from orchestrator:claude-on-minion-town-press-20261013-072006-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-on-minion-town-press-20261013-072006-split-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: claude-on-minion-town-press-20261013-072006-split
+> orchestration-status: halted
+> child: claude-on-minion-town-press-carry-20261013
+> failure-kind: handler-timeout
+> children-completed: 1
+> children-total: 3
+> halt-parked-remainder: claude-on-minion-town-press-unblocks-20261013
+>
+> Orchestration claude-on-minion-town-press-20261013-072006-split HALTED: child claude-on-minion-town-press-carry-20261013 stalled in flight for 2474s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: claude-on-minion-town-press-unblocks-20261013
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-10-10T22:58:37Z, latest 2026-10-13T08:42:29Z).
@@ -1254,13 +1278,13 @@ worst fetch p95 3.072461s/45s (unknown); 6 open notice(s); checker healthy
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #184
 - [`claude-on-minion-town-press-carry-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-carry-20261013.md) — Press the Claude-on-minion.town arc: carry PR state and focus maintainer review
 
-### tada (12672)
+### tada (12673)
+- [`claude-on-minion-town-press-20261013-072006-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-20261013-072006-split.md) — orchestration claude-on-minion-town-press-20261013-072006-split — HALTED
 - [`oros-health-watch-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-watch-20261013-133505.md) — Cost
 - [`minion-town-arc-press-20261013-060506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/minion-town-arc-press-20261013-060506.md) — Cost
 - [`claude-on-minion-town-completion-press-20261013-080506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-completion-press-20261013-080506.md) — Cost
 - [`improve-arc-completion-press-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/improve-arc-completion-press-report.md) — Cost
-- [`kriscendobot-minion.town-pr184-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr184-gauntlet-fix-4.md) — Cost
-- … and 12667 more
+- … and 12668 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
