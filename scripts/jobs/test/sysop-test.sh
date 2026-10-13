@@ -267,6 +267,20 @@ from_bare "sysop-log/$TARGET/spooled-1.md" | grep -q 'outcome: accepted-and-appl
   && ok "next tick flushed the spooled record + ack and cleared the spool" \
   || bad "spooled record/ack not resumed (ack: $(cat "$ACK_LOG"); spool: $(ls "$TR/s-spool-pending"))"
 
+# A backlog of hung acks must not starve a new op, and each ack is bounded.
+: > "$REC_LOG"; : > "$ACK_LOG"
+printf '#!/bin/sh\nsleep 30\n' > "$TR/hang-ack.sh"; chmod +x "$TR/hang-ack.sh"
+mkdir -p "$TR/s-starve-pending"
+printf 'op: drain\nfrom_host: %s\nhost: %s\noutcome: accepted-and-applied\nmsgid: backlog-1\ndetail: y\nat: now\n' "$ISSUER" "$TARGET" > "$TR/s-starve-pending/backlog-1.rec"
+: > "$TR/s-starve-pending/backlog-1.reply"
+seed_op "$ISSUER" "$TARGET" op=set-workers kind=monk count=4
+t0=$(date +%s)
+run_sysop "$TR/s-starve" GARDEN_SYSOP_ACK_SEND="$TR/hang-ack.sh" GARDEN_SYSOP_ACK_TIMEOUT=2 GARDEN_SYSOP_PENDING="$TR/s-starve-pending"
+grep -q 'set-workers.*4' "$REC_LOG" && [ $(( $(date +%s) - t0 )) -lt 25 ] \
+  && from_bare "sysop-log/$TARGET/backlog-1.md" | grep -q 'outcome: accepted-and-applied' \
+  && ok "a hung ack backlog does not starve a new op; acks are bounded" \
+  || bad "new op starved behind hung acks (rec: $(cat "$REC_LOG"); took $(( $(date +%s) - t0 ))s)"
+
 # ============================================================================
 hr; echo "REFUSE — unknown op refused; parse-error acked as such"; hr
 : > "$REC_LOG"; : > "$ACK_LOG"

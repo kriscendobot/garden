@@ -94,6 +94,7 @@ export GARDEN_TAG="sysop"
 : "${GARDEN_SYSOP_ACK_INBOX:=$HERE/inbox-send.sh}"          # ack to a live job doer (reply_to: job/<base>)
 : "${GARDEN_SYSOP_PENDING:=$GARDEN_STATE/sysop/pending}"      # host-local record/ack spool (survives a killed tick)
 : "${GARDEN_SYSOP_RESTORE_STEP_TIMEOUT:=150}"              # per-step wall budget for restore's reaper/deadmail
+: "${GARDEN_SYSOP_ACK_TIMEOUT:=90}"                        # per-ack wall budget; a hung ack must not eat the tick
 : "${GARDEN_SYSOP_RESTORE_REAP_ATTEMPTS:=3}"               # restore's reaper push budget (the leader's reaper owns the fleet)
 : "${GARDEN_MAINTAINERS_ALLOWLIST:=}"                      # override maintainer allowlist file (else journal)
 : "${GARDEN_SYSOP_INSTALLED_UNIT_DIR:=${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user}"
@@ -224,10 +225,10 @@ send_ack() {  # send_ack <from_host> <reply_to> <msgid> <op> <outcome> <detail>
     printf 'at: %s\n'        "$(date -u +%FT%TZ)"
   } > "$bf"
   if [ -n "$reply" ] && [ "${reply#job/}" != "$reply" ]; then
-    GARDEN_SENDER="sysop-$GARDEN" GARDEN_SKIP_REF_CHECK=1 "$GARDEN_SYSOP_ACK_INBOX" "${reply#job/}" "$bf" >/dev/null 2>&1 \
+    GARDEN_SENDER="sysop-$GARDEN" GARDEN_SKIP_REF_CHECK=1 timeout --kill-after=10 "$GARDEN_SYSOP_ACK_TIMEOUT" "$GARDEN_SYSOP_ACK_INBOX" "${reply#job/}" "$bf" >/dev/null 2>&1 \
       || log "WARN: ack inbox-send to '$reply' failed (audit record still written)"
   elif [ -n "$fh" ]; then
-    GARDEN_SENDER="sysop-$GARDEN" GARDEN_SKIP_REF_CHECK=1 "$GARDEN_SYSOP_ACK_SEND" "host/$fh" "$bf" >/dev/null 2>&1 \
+    GARDEN_SENDER="sysop-$GARDEN" GARDEN_SKIP_REF_CHECK=1 timeout --kill-after=10 "$GARDEN_SYSOP_ACK_TIMEOUT" "$GARDEN_SYSOP_ACK_SEND" "host/$fh" "$bf" >/dev/null 2>&1 \
       || log "WARN: ack to 'host/$fh' failed (audit record still written)"
   fi
   rm -f "$bf" 2>/dev/null || true
@@ -238,7 +239,10 @@ send_ack() {  # send_ack <from_host> <reply_to> <msgid> <op> <outcome> <detail>
 # handler timeout can never drop (and so re-run) a completed op. flush_pending then
 # lands every spooled record in ONE journal commit (one sync per CAS attempt, not one
 # per op) and sends the acks; a spool entry is removed only once its ack is sent, so a
-# tick killed mid-flush resumes the flush at the start of the next tick.
+# tick killed mid-flush resumes the flush at the start of the next tick. The
+# top-of-tick resume lands records only (--records-only): acks go out after the op
+# loop, so a backlog of slow acks can never starve a new op such as `drain off`
+# (oros 2026-10-13: eleven spooled acks hung every tick for 7h and no op ran).
 spool_result() {  # spool_result <msgid> <op> <from_host> <reply_to> <outcome> <detail>
   local f="$GARDEN_SYSOP_PENDING/$1.rec"
   mkdir -p "$GARDEN_SYSOP_PENDING"
@@ -255,11 +259,18 @@ spool_result() {  # spool_result <msgid> <op> <from_host> <reply_to> <outcome> <
   mv -f "$f.tmp" "$f"
 }
 
-flush_pending() {
+flush_pending() {  # flush_pending [--records-only]
   local DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
   local recs=() files=() f attempt rc
-  for f in "$GARDEN_SYSOP_PENDING"/*.rec; do [ -e "$f" ] && recs+=("$f"); done
-  [ "${#recs[@]}" -gt 0 ] || return 0
+  for f in "$GARDEN_SYSOP_PENDING"/*.rec; do
+    [ -e "$f" ] || continue
+    # A record already landed by an earlier --records-only pass is not re-grafted.
+    [ -e "$f.landed" ] || recs+=("$f")
+  done
+  if [ "${#recs[@]}" -eq 0 ]; then
+    [ "${1:-}" = --records-only ] && return 0
+    send_pending_acks; return 0
+  fi
   for f in "${recs[@]}"; do files+=("sysop-log/$GARDEN/$(basename "$f" .rec).md" "$f"); done
   ensure_clone "$DIR"
   # The records are this host's own, so they are grafted onto the fresh tip without
@@ -275,11 +286,19 @@ flush_pending() {
     fi
     backoff "$attempt"
   done
-  for f in "${recs[@]}"; do
+  for f in "${recs[@]}"; do : > "$f.landed"; done
+  [ "${1:-}" = --records-only ] && return 0
+  send_pending_acks
+}
+
+send_pending_acks() {
+  local f m
+  for f in "$GARDEN_SYSOP_PENDING"/*.rec; do
+    [ -e "$f" ] || continue
     m="$(basename "$f" .rec)"
     send_ack "$(sed -n 's/^from_host: //p' "$f" | head -1)" "$(head -1 "$GARDEN_SYSOP_PENDING/$m.reply" 2>/dev/null)" \
       "$m" "$(sed -n 's/^op: //p' "$f" | head -1)" "$(sed -n 's/^outcome: //p' "$f" | head -1)" "$(sed -n 's/^detail: //p' "$f" | head -1)"
-    rm -f "$f" "$GARDEN_SYSOP_PENDING/$m.reply"
+    rm -f "$f" "$f.landed" "$GARDEN_SYSOP_PENDING/$m.reply"
   done
 }
 
@@ -790,12 +809,13 @@ poll_local_model
 # Likewise advance an in-flight root-repo maintenance run (designs/sysop-repo-maintenance.md);
 # polling never waits for gc — it only reads the host-local terminal result.
 poll_root_maintenance
-# Land any records/acks a previous (killed) tick spooled but did not finish sending.
-flush_pending
+# Land any records a previous (killed) tick spooled; their acks wait for the final flush.
+flush_pending --records-only
 
 d="$CLONE/msgs/host/$GARDEN"
 if [ ! -d "$d" ]; then
   log "no host ops addressed to $GARDEN (topic empty)"
+  flush_pending
   exit 0
 fi
 
