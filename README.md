@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T01:22:08Z_
+_As of 2026-10-13T01:24:41Z_
 
 ## Latest
 
@@ -1003,11 +1001,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #35 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T00:23:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 35 times; this is ONE
-> coalesced notice that updates in place, not 35 messages. Latest detail:
+> WATCHDOG notice — occurrence #55 (first seen 2026-10-12T21:38:02Z, latest 2026-10-13T01:23:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 55 times; this is ONE
+> coalesced notice that updates in place, not 55 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to bdc2943ce1f4 20 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to bdc2943ce1f4 80 min ago
 > but still reports deployed_sha 0411ed9fbd12f5d26799a599d85f541723aaadac. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1068,10 +1066,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 221.8M | $1036.30 _(notional, rate-card)_ | 82% of 271.0M (ok) |
-| Codex | 12.9M _(+392.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 221.8M | $1036.34 _(notional, rate-card)_ | 82% of 271.0M (ok) |
+| Codex | 12.9M _(+392.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94513400 tokens/day lower bound._
+_Fleet token-unlock pace: 94630531 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.234375s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 6 open notice(s); checker healthy
