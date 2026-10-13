@@ -1,0 +1,33 @@
+<6>17:35:01 [monk/5] job 'claude-on-minion-town-press-20261013-163508' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>17:35:35 [monk/5] job 'claude-on-minion-town-press-20261013-163508' call ceiling: tier=mentor max-budget-usd=20.00 (scaled by fresh seven-day headroom when available)
+<4>17:35:36 [monk/5] WARN minion-mcp: token preflight failed; job 'claude-on-minion-town-press-20261013-163508' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>17:48:06 [auto-gauntlet-handoff] auto-gauntlet: 'claude-on-minion-town-press-20261013-163508' named several PRs; treating the first, https://github.com/kriscendobot/minion.town/pull/183, as its artifact
+<6>17:48:07 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/183 is already non-draft; leaving it untouched for the completion guard
+panel-head-freshness: stale target=kriscendobot/minion.town#183 reviewed_head=f8cf901fa8420fd0ab05c603aa3892789221f185 presented_head=78df7d858b3463d663c58f1b9b6ccf12501c6ac7 disposition=review-required
+<6>17:56:08 [review-docket] spooled upsert https://github.com/endojs/endo-but-for-bots/pull/1412 failed (rc=124, attempt 2); kept for the next transaction
+<6>17:56:08 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/183 to /Users/dom/garden/.garden-state/review-docket/spool (f0d50b734e23b467); the next transaction on this host drains it
+<6>17:56:08 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+Press tick for Claude-on-minion.town (https://github.com/kriscendobot/garden/issues/89): I un-drafted #183, updated the issue body and commented once, because the state changed since the last press comment (09:10Z). I posted no jobs.
+
+**What changed since 09:10Z**
+- **kriscendobot/minion.town#183** (item 4 phase 3): its gauntlet stopped at the 7/7 round limit without converging. Fix round 7 pushed `78df7d85` and CI is green. Following the standing order and the earlier #171 handling, I **un-drafted it** for the proxy screen and left a one-line reason on the PR. The merge is not in my hands: the round-7 panel still voted must-fix, and fix round 7 was meant to cover those findings. Its last local test run had one failure in `git-remote` code that commit doesn't touch, and nobody checked whether it fails without the change.
+- **kriscendobot/minion.town#167** (root canary design): the maintainer's answers are recorded at `8368f8c6`, CI is green, and it is still a draft. Its gauntlet panel round 1 is waiting in todo.
+- **`build-minion-town-root-canary-20261013`**: no longer blocked, and claimed at 17:07Z on endolin. The sign-in is interactive, so the canary itself waits on the maintainer logging in.
+- **Unchanged:**
+  - #171 (item 1's production probe) is still draft, CI green; the issue-58 press carries it.
+  - #87 merged on 2026-09-22.
+  - endo-but-for-bots #1015 is merged and #1125 was closed without merging, so neither still gates anything.
+  - No arc endo PR is waiting on the maintainer.
+
+**Issue 89**
+- I added a dated evidence line to the top of the checklist. The boxes, architecture text and item specs are unchanged.
+- I posted one short comment: no endo review ask, #183 un-drafted, #167's answers recorded, root canary build running.
+
+**Jobs:** none posted. Everything unblocked is already on the board: the #167 gauntlet, the root canary build, and #171 under the issue-58 press.
+
+**Follow-ups**
+- `claude-on-minion-town-press-carry-20261013` has been in `doin` since 14:15Z on this host (gardener 6) and I found no live process for it. It looks stale, which is the reaper's to handle; if it resumes it may repeat this un-draft, which is harmless.
+- I couldn't confirm the screening status this tick because the screening repo lock was busy. The 13:35Z press saw `active`.
+- #183's fix round 7 left an open question to decide on `@endo/sha256`. The proxy screen should look at it.
