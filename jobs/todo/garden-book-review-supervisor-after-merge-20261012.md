@@ -1,12 +1,10 @@
 ---
-gate: blocked-failed
-blocked_failed_reason: blocker 'kriscendobot-garden-book-pr8-conduct-20261012' completed but declined its gated outcome; held for a human decision
-blocked_on: kriscendobot-garden-book-pr8-conduct-20261012
-priority: normal
+role: orchestrator
+tier: mentat
 arc: garden-book
-posted_by: orchestrator
-posted_at: 2026-10-12T23:34:33Z
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=blocked-failed priority=normal at=2026-10-13T17:12:25Z cleared=none -->
 
 ---
 role: orchestrator
