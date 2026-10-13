@@ -1,2 +1,2 @@
-base: improve-error-capture-head-tail
+base: improve-durable-gardener-error-captures
 identity: mentor:skills/gardener-inbox-error-reporting/report-error.sh
