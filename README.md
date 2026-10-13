@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T13:54:56Z_
+_As of 2026-10-13T13:57:03Z_
 
 ## Latest
 
@@ -361,10 +361,6 @@ Delegation: **active**
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
 > subscription claude-endolin2 changed zone ok -> backoff at spend=207858888/168000000.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261013-133505` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261013-133505.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261013-133505' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
 
