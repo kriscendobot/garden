@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T01:40:29Z_
+_As of 2026-10-13T01:42:13Z_
 
 ## Latest
 
@@ -850,6 +850,10 @@ Delegation: **active**
 >
 > Orchestration orch-jev-triage-foreman HALTED: child trial-jev-triage-foreman-classification completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: integrate-jev-triage-foreman
 
+- `msg-oros-health-watch-20261013-012006-c059110257ce` — from gardener:oros-health-watch-20261013-012006, reply_to `oros-health-watch-20261013-012006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261013-012006-c059110257ce.md)
+
+> Oros's sysop bridge remains unreachable: no sysop log or ack since 2026-10-12 21:58Z, and reset-failed op `20261013T013540Z-5a2152` remains unacked alongside earlier ops. The host itself is alive (budget heartbeat 01:34Z; fleet health 01:33Z), but the 22:05 checkup is wedged in doin after its 00:55 timeout/requeue record and the 01:20 checkup remains unclaimed. A person may need to restart the garden sysop service or inspect Docker Desktop, VM state, and machine sleep.
+
 - `msg-scholar-ingest-literate-ai-architecture-priority-20261010-f0105bede3c8` — from scholar:scholar-ingest-literate-ai-architecture-priority-20261010, reply_to `scholar-ingest-literate-ai-architecture-priority-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-priority-20261010-f0105bede3c8.md)
 
 > Foreign-content gate halt: `jordanhubbard/literate-ai` `docs/architecture/authority-learning-loop.md` (file commit `fcc40bc617a2bc2455627db7396a1e016ebfbab6`, https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/authority-learning-loop.md).
@@ -1123,8 +1127,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 223.2M | $1043.49 _(notional, rate-card)_ | 82% of 271.0M (ok) |
-| Codex | 12.9M _(+394.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 223.3M | $1044.37 _(notional, rate-card)_ | 82% of 271.0M (ok) |
+| Codex | 12.9M _(+395.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94465613 tokens/day lower bound._
 
