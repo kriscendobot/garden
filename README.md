@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T21:13:48Z_
+_As of 2026-10-13T21:20:15Z_
 
 ## Latest
 
@@ -663,11 +661,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1764 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T20:14:07Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1764 times; this is ONE
-> coalesced notice that updates in place, not 1764 messages. Latest detail:
+> WATCHDOG notice — occurrence #1785 (first seen 2026-10-10T04:05:32Z, latest 2026-10-13T21:17:04Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1785 times; this is ONE
+> coalesced notice that updates in place, not 1785 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 319250s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 323027s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1303,18 +1301,17 @@ worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (3)
-- [`oros-health-checkup-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-193508.md) — ---
+### doin (2)
 - [`claude-on-minion-town-completion-press-20261013-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261013-200507.md) — Completion press: Claude-on-minion.town arc
 - [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (12710)
+### tada (12711)
+- [`oros-health-checkup-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-checkup-20261013-193508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1442-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/endojs-endo-but-for-bots-pr1442-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/endojs-endo-but-for-bots-pr1442-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1442-69bf491a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/endojs-endo-but-for-bots-pr1442-69bf491a.md) — Cost
 - [`oros-health-checkup-20261013-072006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-checkup-20261013-072006.md) — Cost
-- [`claude-on-minion-town-press-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-20261013-163508.md) — Press tick — arc issue 89 (Claude on minion.town), 2026-10-13 ~19:3xZ
-- … and 12705 more
+- … and 12706 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
