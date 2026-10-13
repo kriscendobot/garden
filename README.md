@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T03:04:18Z_
+_As of 2026-10-13T03:07:04Z_
 
 ## Latest
 
@@ -1161,7 +1161,8 @@ _Fleet token-unlock pace: 94608328 tokens/day lower bound._
 worst fetch p95 20.463554s/45s (/home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town); 6 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (3)
+- [`minion-town-arc-press-20261013-030506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-030506.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261012-220527`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-220527.md) — ---
 - [`oros-health-checkup-20261012-155007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261012-155007.md) — ---
 
