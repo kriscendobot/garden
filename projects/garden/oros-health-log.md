@@ -2,6 +2,24 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-13T06:40Z (oros-health-checkup-20261012-155007, rerun after reaper requeue): degraded → sysop fix on main2
+
+- **Load/mem:** load 4.3/3.9/3.5 at 06:10, 3.3 at 06:40; 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (405 GB free); inodes 1%.
+- **Uptime:** 11d13h, no recent reboot.
+- **Deployed vs main2:** deployed `bdc2943c`; origin/main2 is `855ba4b6`, now `548243e2` after this run's fix.
+  - Self-deploy passed the gate for `31a9c782` at 05:33 but then deferred: `long-job monk 6 2498s`.
+  - It retried `855ba4b6` twice, and both gates were rejected for `total-wall-clock` (900s): provider-cooldown-test at 06:20 and api-cooldown-test at 06:39.
+  - The gate is marginal on oros. It passes in about 13–15 min and fails just past 15. Self-deploy retries each tick by itself; nothing was hand-forced.
+- **Units:** 0 failed; 8 monks running; not drained (`drain-fleet status`: not draining); no derotation marker.
+- **Budget heartbeat:** claude-oros pushed at 05:10, 05:21, 05:35, 05:50, 06:06 and 06:22; spend is 59.1M of 180M, status ok.
+- **fleet/health:** `deferred @ bdc2943c`, unit_failures 0, as of 05:33.
+- **rc=124:** 28 in the last 3h (flat).
+- **$GARDEN_STATE:** 30 clones, all ≤48 packs, no tmp_pack; no stale index.lock; held locks belong to live processes.
+- **Sysop starvation (root cause of the 05:05Z "unreachable bridge"):** the sysop was alive, but every tick started by acking 11 spooled records through send-msg on the contended producer clone. Those records date from 22:31Z to 02:32Z, and their sysop-log records were already on origin. Each tick hit the 600s timeout before the op loop, so the 04:23 `reset-failed`, the 04:25 `drain off` and the leader's 04:38–05:20 drain ops were never dispatched. Acks are now trickling, with 9 left at 06:40.
+- **Changed:** landed `548243e2` on main2. The top-of-tick flush now lands records only (`--records-only`), acks go after the op loop, and each ack is bounded by `GARDEN_SYSOP_ACK_TIMEOUT` (90s). New sysop-test case: a hung ack backlog must not starve a new op. Suite passes 63/63.
+- **Still open:** self-deploy runs the 15-min gate before it checks for long jobs, so a passed gate can be wasted by a long-job deferral (05:33). The gate budget is marginal under normal oros load. Self-deploy's idle tick still does not republish a mismatched fleet/health record.
+
 ## 2026-10-13T05:05Z (oros-health-watch-20261013-042006): unreachable sysop bridge
 
 - **Checkups:** `oros-health-checkup-20261013-012006` remains claimed after its 03:30:35Z handler deadline, with both deadline notices unread and no health-log progress. The current `oros-health-checkup-20261013-042006` remains unclaimed 45 minutes after dispatch; older 15:50Z and 22:05Z checks are also queued.
