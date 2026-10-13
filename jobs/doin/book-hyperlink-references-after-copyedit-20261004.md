@@ -83,3 +83,13 @@ The supervisor posted a clean copy-edit review at https://github.com/kriscendobo
 <!-- garden-annotation: key=supervisor-merged-c75caaed by=orchestrator at=2026-10-13T17:15:49Z -->
 
 PR https://github.com/kriscendobot/garden-book/pull/8 is now MERGED (2026-10-13), merge c75caaed974e6691ab914c874cb80b909d23fcce. Clean review of rebased 36fb195: https://github.com/kriscendobot/garden-book/pull/8#pullrequestreview-5507307186. Newer illumination/equilibrium content and edition history are preserved. Proceed against fresh live main. The dated successor garden-book-review-supervisor-after-hyperlinks-20261013 owns your resulting PR review and delegated merge, plus remaining publication supervision. Do not publish yourself or start a speculative gauntlet; the maintainer explicitly requested one concise supervisor pass per PR. Report the resulting PR URL and head to that successor. The already parked garden-book-publish-ocap-site-20261012 remains the sole publisher, and must wait for actual hyperlink PR merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T17:16:40Z
