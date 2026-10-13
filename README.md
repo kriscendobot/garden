@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T10:41:25Z_
+_As of 2026-10-13T10:49:38Z_
 
 ## Latest
 
@@ -123,7 +121,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadmail/journal: p95=0.014365s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` has CLEARED (first seen 2026-10-13T07:57:25Z, cleared 2026-10-13T10:45:55Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` cleared on endolin-garden-ece02cb4.
 
 - `kriscendobot-minion.town-pr177-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr177-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr177-gauntlet-review-budget-reached.md)
 
@@ -1213,7 +1215,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 237.5M | $1112.97 _(notional, rate-card)_ | 88% of 271.0M (backoff) |
-| Codex | 15.0M _(+477.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Codex | 15.2M _(+481.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91078742 tokens/day lower bound._
 
@@ -1221,8 +1223,7 @@ _Fleet token-unlock pace: 91078742 tokens/day lower bound._
 worst fetch p95 3.663685s/45s (/home/kris/garden/.garden-state/follow-up/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (6)
-- [`oros-journal-clones-container-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-journal-clones-container-local.md) — ---
+### todo (5)
 - [`kriscendobot-minion.town-pr184-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #184
 - [`minion-town-arc-press-20261013-090507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-090507.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-102024.md) — ---
@@ -1231,7 +1232,7 @@ worst fetch p95 3.663685s/45s (/home/kris/garden/.garden-state/follow-up/journal
 
 ### doin (8)
 - [`kriscendobot-minion.town-pr183-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #183
-- [`improve-follow-up-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-follow-up-cursor-retry.md) — ---
+- [`oros-journal-clones-container-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-journal-clones-container-local.md) — ---
 - [`minion-town-arc-press-20261013-060506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-060506.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr167-gauntlet-20261013-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #167
 - [`oros-health-checkup-20261013-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-042006.md) — ---
@@ -1239,13 +1240,13 @@ worst fetch p95 3.663685s/45s (/home/kris/garden/.garden-state/follow-up/journal
 - [`claude-on-minion-town-completion-press-20261013-080506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261013-080506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`claude-on-minion-town-press-20261013-072006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261013-072006.md) — Press the Claude-on-minion.town arc forward
 
-### tada (12661)
+### tada (12662)
+- [`improve-follow-up-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/improve-follow-up-cursor-retry.md) — Cost
 - [`oros-health-watch-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-watch-20261013-102024.md) — Cost
 - [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-checkup-20261013-012006.md) — Cost
 - [`revise-minion-town-pr167-root-canary-answers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/revise-minion-town-pr167-root-canary-answers.md) — Cost
 - [`kriscendobot-minion.town-pr167-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr167-shepherd.md) — Cost
-- [`improve-approval-probe-timeout-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/improve-approval-probe-timeout-backoff.md) — Cost
-- … and 12656 more
+- … and 12657 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
