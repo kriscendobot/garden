@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T07:39:07Z_
+_As of 2026-10-13T07:40:33Z_
 
 ## Latest
 
@@ -64,10 +64,6 @@ Delegation: **active**
 > - Fetched bytes: /home/kris/garden/scratch/tmpexec/fetch-source.dyo9tN (sha256 a72e60db…fadb7; scratch, may be GC'd)
 >
 > It joins authority-learning-loop.md and project-releases.md on the blocked list. Reply with an explicit disposition (read/ingest or keep blocked) if you want it ingested; otherwise the ingest skips it.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261013-072006` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261013-072006.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261013-072006' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
@@ -1172,7 +1168,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 229.0M | $1072.33 _(notional, rate-card)_ | 84% of 271.0M (backoff) |
-| Codex | 14.0M _(+427.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Codex | 14.0M _(+427.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94585975 tokens/day lower bound._
 
