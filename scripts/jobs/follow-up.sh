@@ -80,9 +80,11 @@
 # host published more recently, every report in that commit's tree is adopted as
 # seen; when no cursor exists, or its commit is unreadable here, the stale marker
 # is treated as a cold start. A missing marker stays a plain cold start.
-# A failed cursor publication is retained in a host-local pending file and retried
-# on every later tick, including ticks with no new reports. The pending file is
-# cleared only after cursor-set confirms that publication is durable.
+# A failed cursor publication is retained in a host-local pending file. Transient
+# CAS contention is retried within this tick through the shared bounded cursor
+# helper; anything still pending is retried on every later tick, including ticks
+# with no new reports. The pending file is cleared only after cursor-set confirms
+# that publication is durable.
 #
 # Pluggable for tests: GARDEN_FOLLOWUP_HANDLER <digest-file>.
 
@@ -203,14 +205,18 @@ publish_seen_cursor() {
   retry_pending_seen_cursor
 }
 
-# retry_pending_seen_cursor — retry a previously staged publication. Publication
-# remains best-effort for this tick, but the durable local marker makes failure
-# persistent rather than forgotten. cursor-set's success includes its remote
-# verification/idempotent-content paths, so only then is it safe to clear.
+# retry_pending_seen_cursor — retry a previously staged publication. Route the
+# write through the shared classifier so ambiguous lock/CAS contention gets fresh
+# in-tick attempts, while a deterministic remote rejection stays loud (including
+# cursor-set's deduplicated repair-alert diagnostic) and is not retried as weather.
+# Publication remains best-effort for this tick, but the durable local marker makes
+# failure persistent rather than forgotten. cursor-set's success includes its
+# remote verification/idempotent-content paths, so only then is it safe to clear.
 retry_pending_seen_cursor() {
   [ -s "$SEEN_CURSOR_PENDING" ] || return 0
-  if "$GARDEN_FOLLOWUP_CURSOR_SET" "$GARDEN_FOLLOWUP_SEEN_CURSOR" "$SEEN_CURSOR_PENDING" \
-      >/dev/null 2>&1; then
+  if GARDEN_CURSOR_SET="$GARDEN_FOLLOWUP_CURSOR_SET" \
+      advance_cursor_with_retry "$GARDEN_FOLLOWUP_SEEN_CURSOR" \
+      < "$SEEN_CURSOR_PENDING"; then
     rm -f "$SEEN_CURSOR_PENDING"
   else
     log "WARN: could not publish the follow-up seen cursor; publication remains pending and will retry next tick"

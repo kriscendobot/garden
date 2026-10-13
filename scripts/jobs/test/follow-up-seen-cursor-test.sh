@@ -132,34 +132,82 @@ else
   bad "no cursor: rc=$rc handled=$handled stderr=$(tr '\n' ' ' < "$TR/hostD.err")"
 fi
 
-hr; echo "CASE — failed cursor publication persists and a no-op tick retries it"; hr
+hr; echo "CASE — transient cursor publication retries in-tick"; hr
 cat > "$TR/cursor-set-once" <<EOF
 #!/bin/bash
-if [ ! -e "$TR/cursor-set-failed" ]; then
-  touch "$TR/cursor-set-failed"
+n=\$(( \$(wc -l < "$TR/cursor-set-calls") + 1 ))
+echo x >> "$TR/cursor-set-calls"
+if [ "\$n" -lt "\${FU_CURSOR_OK_AT:-99}" ]; then
+  cat >/dev/null
   exit 1
 fi
 exec "$JOBS/cursor-set.sh" "\$@"
 EOF
 chmod +x "$TR/cursor-set-once"
 report r6
-tick hostE "$TR/cursor-set-once"       # cold start: local seen advance, publish fails
+: > "$TR/cursor-set-calls"
+export FU_CURSOR_OK_AT=3 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2
+tick hostE "$TR/cursor-set-once"       # cold start: first two writes lose, third lands
+unset FU_CURSOR_OK_AT GARDEN_BACKOFF_BASE_MS GARDEN_BACKOFF_CAP_MS
 pending="$TR/state-hostE/follow-up/seen-cursor-pending"
 pending_sha="$(git --git-dir="$BARE" rev-parse journal2)"
-if [ "$rc" -eq 0 ] && [ "$handled" -eq 0 ] && [ -s "$pending" ] \
-   && grep -qx 'host: hostE' "$pending" && grep -qx "sha: $pending_sha" "$pending" \
-   && grep -q 'publication remains pending' "$TR/hostE.err"; then
-  ok "a failed cursor publication leaves its complete body pending"
+cur="$(git --git-dir="$BARE" show journal2:cursors/follow-up/seen 2>/dev/null || true)"
+if [ "$rc" -eq 0 ] && [ "$handled" -eq 0 ] && [ ! -e "$pending" ] \
+   && [ "$(grep -c . "$TR/cursor-set-calls")" -eq 3 ] \
+   && printf '%s\n' "$cur" | grep -qx 'host: hostE'; then
+  ok "transient publication contention clears within the tick and removes the pending body"
 else
-  bad "failed publish: rc=$rc handled=$handled pending=$(test -s "$pending" && echo yes || echo no) stderr=$(tr '\n' ' ' < "$TR/hostE.err")"
+  bad "in-tick retry: rc=$rc handled=$handled calls=$(grep -c . "$TR/cursor-set-calls") pending=$(test -e "$pending" && echo yes || echo no) stderr=$(tr '\n' ' ' < "$TR/hostE.err")"
 fi
-tick hostE "$TR/cursor-set-once"       # no new reports: must still retry publication
+
+hr; echo "CASE — exhausted publication persists and a no-op tick retries it"; hr
+report r7
+: > "$TR/cursor-set-calls"
+export FU_CURSOR_OK_AT=5 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2
+tick hostE "$TR/cursor-set-once"       # four bounded attempts all lose
+unset FU_CURSOR_OK_AT GARDEN_BACKOFF_BASE_MS GARDEN_BACKOFF_CAP_MS
+pending_sha="$(git --git-dir="$BARE" rev-parse journal2)"
+if [ "$rc" -eq 0 ] && [ "$handled" -eq 1 ] && [ -s "$pending" ] \
+   && grep -qx 'host: hostE' "$pending" && grep -qx "sha: $pending_sha" "$pending" \
+   && [ "$(grep -c . "$TR/cursor-set-calls")" -eq 4 ] \
+   && grep -q 'transient journal-write contention' "$TR/hostE.err" \
+   && grep -q 'publication remains pending' "$TR/hostE.err"; then
+  ok "exhausted bounded retries retain the complete pending publication"
+else
+  bad "exhausted publish: rc=$rc handled=$handled calls=$(grep -c . "$TR/cursor-set-calls") pending=$(test -s "$pending" && echo yes || echo no) stderr=$(tr '\n' ' ' < "$TR/hostE.err")"
+fi
+export FU_CURSOR_OK_AT=5 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2
+tick hostE "$TR/cursor-set-once"       # no new reports: fifth call lands
+unset FU_CURSOR_OK_AT GARDEN_BACKOFF_BASE_MS GARDEN_BACKOFF_CAP_MS
 cur="$(git --git-dir="$BARE" show journal2:cursors/follow-up/seen 2>/dev/null || true)"
 if [ "$rc" -eq 0 ] && [ "$handled" -eq 0 ] && [ ! -e "$pending" ] \
    && printf '%s\n' "$cur" | grep -qx 'host: hostE'; then
   ok "a later no-op tick publishes the pending cursor and clears it only after success"
 else
   bad "no-op retry: rc=$rc handled=$handled pending=$(test -e "$pending" && echo yes || echo no) cursor=$(printf '%s' "$cur" | tr '\n' ' ') stderr=$(tr '\n' ' ' < "$TR/hostE.err")"
+fi
+
+hr; echo "CASE — deterministic remote rejection stays loud and is not retried"; hr
+cat > "$TR/cursor-set-rejected" <<EOF
+#!/bin/bash
+cat >/dev/null
+echo x >> "$TR/cursor-reject-calls"
+printf '%s\n' '! [remote rejected] journal2 -> journal2 (protected branch hook declined)' >&2
+printf '%s\n' 'cursor-set: raised deduplicated repair alert for follow-up/seen (server-reject)' >&2
+exit 1
+EOF
+chmod +x "$TR/cursor-set-rejected"
+report r8
+: > "$TR/cursor-reject-calls"
+tick hostF "$TR/cursor-set-rejected"
+rejected_pending="$TR/state-hostF/follow-up/seen-cursor-pending"
+if [ "$rc" -eq 0 ] && [ "$handled" -eq 0 ] && [ -s "$rejected_pending" ] \
+   && [ "$(grep -c . "$TR/cursor-reject-calls")" -eq 1 ] \
+   && grep -q 'DEFINITE: cursor-set: raised deduplicated repair alert' "$TR/hostF.err" \
+   && grep -q 'NOT retrying — needs repair' "$TR/hostF.err"; then
+  ok "deterministic rejection is attempted once and retains its repair-alert diagnostic"
+else
+  bad "remote rejection: rc=$rc handled=$handled calls=$(grep -c . "$TR/cursor-reject-calls") pending=$(test -s "$rejected_pending" && echo yes || echo no) stderr=$(tr '\n' ' ' < "$TR/hostF.err")"
 fi
 
 hr; echo "RESULT: $PASS passed, $FAIL failed"
