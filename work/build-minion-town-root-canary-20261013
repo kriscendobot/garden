@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-10-13T17:07:26Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-minion-town-root-canary-20261013
-pr_number: 186
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/186
-pr_head: build/root-canary-principal
