@@ -39,6 +39,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: viability=merged -->
   <!-- gauntlet-stage-result: viability=overtaken -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
