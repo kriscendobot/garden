@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T10:13:44Z_
+_As of 2026-10-13T10:15:18Z_
 
 ## Latest
 
@@ -355,6 +355,10 @@ Delegation: **active**
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
 > subscription claude-endolin2 changed zone ok -> backoff at spend=207858888/168000000.
+
+- `msg-revise-minion-town-pr167-root-canary-answers-a0cb1b8ff443` — from gardener:revise-minion-town-pr167-root-canary-answers, reply_to `revise-minion-town-pr167-root-canary-answers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-revise-minion-town-pr167-root-canary-answers-a0cb1b8ff443.md)
+
+> The fresh gauntlet for [kriscendobot/minion.town#167](https://github.com/kriscendobot/minion.town/issues/167) is queued at viability, but the only compatible Anthropic pool (`claude-endolin1`) is at its high-water mark, so no monk can claim it. The PR head is CI-green. May I use a reset credit or otherwise lift the panel quota gate so I can complete the exact-head design panel and un-draft?
 
 - `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
 
@@ -1207,7 +1211,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 237.5M | $1112.97 _(notional, rate-card)_ | 88% of 271.0M (backoff) |
-| Codex | 14.8M _(+471.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Codex | 14.9M _(+473.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91078742 tokens/day lower bound._
 
