@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T19:19:34Z_
+_As of 2026-10-13T19:22:24Z_
 
 ## Latest
 
@@ -170,11 +170,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-7` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-7.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-10T04:35:17Z, latest 2026-10-13T10:05:28Z).
-> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-7`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-10T04:35:17Z, latest 2026-10-13T19:20:28Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-7`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed oros-studio-garden-ce242c49 monk workers 8 -> 7 (target 6): subscription claude-oros spend=16879 cap=180000000 pace-bias=0.000363 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=6 backoff=0.5003(ramp) target=6
+> budget-level changed oros-studio-garden-ce242c49 monk workers 8 -> 7 (target 6): subscription claude-oros spend=967024 cap=180000000 pace-bias=0.045864 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=6 backoff=0.5278(ramp) target=6
 
 - `20261010T163620Z-5a3568` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261010T163620Z-5a3568.md)
 
@@ -1277,7 +1277,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 242.1M | $1136.80 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
-| Codex | 18.2M _(+572.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Codex | 18.2M _(+572.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 98871012 tokens/day lower bound._
 
