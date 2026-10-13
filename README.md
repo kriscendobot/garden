@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T10:29:44Z_
+_As of 2026-10-13T10:31:56Z_
 
 ## Latest
 
@@ -1207,7 +1207,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 237.5M | $1112.97 _(notional, rate-card)_ | 88% of 271.0M (backoff) |
-| Codex | 15.0M _(+475.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Codex | 15.0M _(+475.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91078742 tokens/day lower bound._
 
@@ -1215,19 +1215,19 @@ _Fleet token-unlock pace: 91078742 tokens/day lower bound._
 worst fetch p95 3.663685s/45s (/home/kris/garden/.garden-state/follow-up/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`kriscendobot-minion.town-pr184-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #184
 - [`minion-town-arc-press-20261013-090507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-090507.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`improve-follow-up-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-follow-up-cursor-retry.md) — ---
 - [`oros-health-checkup-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-102024.md) — ---
-- [`kriscendobot-minion.town-pr167-gauntlet-20261013-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #167
 - [`claude-on-minion-town-press-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261013-102024.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr181-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #181
 
-### doin (8)
+### doin (9)
 - [`kriscendobot-minion.town-pr183-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr183-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261013-012006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-012006.md) — ---
 - [`minion-town-arc-press-20261013-060506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-060506.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`kriscendobot-minion.town-pr167-gauntlet-20261013-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr167-gauntlet-20261013-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #167
 - [`oros-health-checkup-20261013-042006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-042006.md) — ---
 - [`oros-health-checkup-20261013-072006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-072006.md) — ---
 - [`oros-health-watch-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261013-102024.md) — ---
