@@ -24,3 +24,13 @@ This is mirroring only: no gauntlet, no fixes, no review, no changes to the code
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-13T18:03:34Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T18:03:45Z
