@@ -19,3 +19,13 @@ Maintainer answers to fold in (read the PR threads for exact wording):
 This is a design PR with answered open questions; once folded in and the open-questions section is resolved, drive it through its gauntlet to un-drafted. Once it lands, its build (the root MCP principal) unblocks item 6's watchInbox/restart canary on deployed kriscendobot/minion.town#165 and item 4's parked kriscendobot inference canary.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-13T09:53:47Z
