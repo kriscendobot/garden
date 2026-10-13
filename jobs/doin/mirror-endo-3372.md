@@ -25,6 +25,7 @@ This is mirroring only: no gauntlet, no fixes, no review, no changes to the code
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-13T18:03:34Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
