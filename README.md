@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-13T17:00:37Z_
+_As of 2026-10-13T17:10:13Z_
 
 ## Latest
 
@@ -663,11 +661,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-17T00:05:19Z, latest 2026-10-11T22:20:39Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-17T00:05:19Z, latest 2026-10-13T17:05:40Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 4 -> 3 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
+> budget-level changed endolin-garden-ece02cb4 cleric workers 4 -> 3 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
@@ -1024,11 +1022,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-10-13T01:16:48Z, cleared 2026-10-13T04:40:43Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-13T01:16:48Z, latest 2026-10-13T17:08:39Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.017200s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
@@ -1291,12 +1289,12 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 241.9M | $1135.42 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
-| Codex | 16.4M _(+506.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Codex | 16.5M _(+508.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 97873774 tokens/day lower bound._
+_Fleet token-unlock pace: 97917903 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.296731s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 6 open notice(s); checker healthy
+worst fetch p95 6.351865s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
@@ -1310,17 +1308,17 @@ worst fetch p95 3.296731s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
 ### doin (3)
+- [`build-minion-town-root-canary-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-root-canary-20261013.md) — Build the root canary principal (kriscendobot/minion.town design PR #167)
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #184
 - [`claude-on-minion-town-press-carry-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-carry-20261013.md) — Press the Claude-on-minion.town arc: carry PR state and focus maintainer review
-- [`kriscendobot-minion-town-pr167-record-answers-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr167-record-answers-20261013.md) — Record the maintainer's answers in design PR kriscendobot/minion.town#167
 
-### tada (12692)
+### tada (12693)
+- [`kriscendobot-minion-town-pr167-record-answers-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion-town-pr167-record-answers-20261013.md) — Cost
 - [`claude-on-minion-town-press-20261013-102024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-20261013-102024.md) — Cost
 - [`oros-health-watch-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-watch-20261013-163508.md) — Cost
 - [`kriscendobot-minion.town-pr183-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr183-gauntlet.md) — gauntlet kriscendobot-minion.town-pr183-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr183-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/kriscendobot-minion.town-pr183-gauntlet-fix-7.md) — Cost
-- [`improve-durable-gardener-error-captures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/improve-durable-gardener-error-captures.md) — Cost
-- … and 12687 more
+- … and 12688 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1421,7 +1419,6 @@ worst fetch p95 3.296731s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ui-iframe-live-frame`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-live-frame.md) — awaiting `minion-town-ui-iframe-embed-headers` · Iframe: frame the live clip in the main pane (minion-town-ui increment)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
-- [`build-minion-town-root-canary-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-root-canary-20261013.md) — awaiting `kriscendobot-minion-town-pr167-record-answers-20261013` · Build the root canary principal (kriscendobot/minion.town design PR #167)
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`book-hyperlink-references-after-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-after-copyedit-20261004.md) — awaiting `https://github.com/kriscendobot/garden-book/pull/8` · Follow-up: make every reference in Better Code and Gardens an actual hyperlink
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
