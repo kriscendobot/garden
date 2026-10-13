@@ -1,2 +1,2 @@
-base: improve-approval-reconciler-primary-quota
+base: improve-approval-probe-timeout-backoff
 identity: mentor:scripts/jobs/approval-reconciler.sh
