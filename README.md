@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-13T06:09:26Z_
+_As of 2026-10-13T06:12:21Z_
 
 ## Latest
 
@@ -1138,6 +1138,10 @@ Delegation: **active**
 - `20261011T192238Z-34070d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261011T192238Z-34070d.md)
 
 > awaiting maintainer — beyond proxy authority: gardener fix-minion-town-prod-probe-runs-on-validation, msgid msg-fix-minion-town-prod-probe-runs-on-validation-19c0b6fde070.md — Restoring or re-issuing the bot's GitHub credential is an authority and credential grant that only the maintainer can perform, and the proxy can't fix it.
+
+- `watchdog-handler-budget-overrun-claude-on-minion-town-press-20261013-042006` — from watchdog:monk/6, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-claude-on-minion-town-press-20261013-042006.md)
+
+> gardener job 'claude-on-minion-town-press-20261013-042006' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2483s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `moddable-10-0-0-ironhorse-port-plan-20261009-split-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-halted.md)
 
