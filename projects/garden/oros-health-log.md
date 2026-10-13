@@ -1,6 +1,14 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-13T05:05Z (oros-health-watch-20261013-042006): unreachable sysop bridge
+
+- **Checkups:** `oros-health-checkup-20261013-012006` remains claimed after its 03:30:35Z handler deadline, with both deadline notices unread and no health-log progress. The current `oros-health-checkup-20261013-042006` remains unclaimed 45 minutes after dispatch; older 15:50Z and 22:05Z checks are also queued.
+- **Host signals:** the claude-oros heartbeat is fresh at 04:36:29Z (quota status `ok`, 22% derived use); no worker-derotation marker. Fleet health reports `deployed` at `bdc2943c`, zero unit/advisory failures, as of 04:02:31Z; origin/main2 is now `31a9c782`, so oros is behind the latest tip.
+- **Stale drain:** sysop last applied the rolling-deploy drain-on at 03:46:30Z even though the target `bdc2943c` subsequently reached `deployed`; this makes the remaining drain stale.
+- **Intervention:** sent `reset-failed` (`20261013T042311Z-2b93b9`) and `drain off` (`20261013T042557Z-1a4876`). Neither received a sysop-log record or ack during 42 minutes of polling.
+- **Unreachable:** newest sysop-log activity remains 03:46:30Z, over one hour old. The maintainer inbox was notified once. A person at oros needs to restart `garden-sysop` and, if necessary, Docker Desktop or the VM; leave the stale checkup claim to the reaper.
+
 
 ## 2026-10-12T21:00Z (oros-health-checkup-20261012-185007): degraded → fixed on main2
 
