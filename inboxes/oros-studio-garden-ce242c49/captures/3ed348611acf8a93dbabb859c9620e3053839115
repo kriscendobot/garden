@@ -1,0 +1,30 @@
+<6>14:59:01 [monk/4] requeued job 'oros-health-checkup-20261013-133505' has no local transcript on oros-studio-garden-ce242c49; prior session and worktree were lost — starting FRESH session 5254f4e6-0d50-5907-ad17-f7baacd7563f with lost-state framing
+<6>14:59:01 [monk/4] job 'oros-health-checkup-20261013-133505' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>14:59:25 [monk/4] job 'oros-health-checkup-20261013-133505' call ceiling: tier=mentor max-budget-usd=19.20 (scaled by fresh seven-day headroom when available)
+<4>14:59:25 [monk/4] WARN minion-mcp: token preflight failed; job 'oros-health-checkup-20261013-133505' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+panel-head-freshness: not-applicable target=oros-health-checkup-20261013-133505 reason=no-presented-pr
+<6>15:51:04 [assert-overrun-split] gate: BLOCK — 'oros-health-checkup-20261013-133505' must hand off to its deterministic split orchestration 'oros-health-checkup-20261013-133505-split' (reported 'none')
+
+--- handler report (partial) ---
+I couldn't create the split. Neither child job nor the orchestration record got onto the journal, so `oros-health-checkup-20261013-133505-split` doesn't exist and this report does not claim a handoff. I'm closing the job without the split because the check-up it would have run is already covered by later runs.
+
+**Decision:** the work splits into two child jobs, run in order, pinned to oros-studio-garden-ce242c49:
+- **`-snapshot`:** record the health snapshot in the log and do the safe on-host fixes.
+- **`-deploy-and-bugs`:** find what is holding up oros's deploy and land garden code fixes with tests.
+
+The orchestration was to run them in that order and keep going if one failed. The job bodies are written and kept in `/Users/dom/garden/scratch/tmpexec/tmp.FxIZD6f7WH/` (`a.md`, `b.md`, `o.md`).
+
+**What blocked posting:** journal pushes from this host are very slow and keep losing races with other writers. I made four attempts to post the first child between 15:00 and 15:50Z:
+- Twice through the host's shared posting clone. Every push lost the race, and each attempt hit its 300s limit and gave up (rc=75).
+- Once with the posting time limit raised to 560s. My 580s timeout killed the run before it posted anything (rc=124).
+- Once through a private clone (`GARDEN_PRODUCER_CLONE` under `scratch/tmpexec/split-…-producer/`). Copying the journal from the local repo alone ran past 9 minutes and was killed (rc=124).
+
+A fresh `origin/journal2` shows nothing posted under any of the three names. The job's time window is nearly gone.
+
+**Why closing without the split is safe:** this is a recurring every-3-hours check-up, and this run is the stale 2026-10-13 13:35Z one. Later runs have covered it. `oros-health-checkup-20261014-075034` finished with a full snapshot, the deploy diagnosis and fixes (`af3a8456`), and `oros-health-checkup-20261014-110506` is running on oros now. `-20261013-163508` and `-223508` are still waiting on the board, and the schedule keeps adding new runs. Re-queuing this one would only bring the same split, and the same posting problem, back.
+
+**Follow-ups:**
+- **Posting is unreliable on this host.** The posting scripts (`post-plan.sh` / `post-job.sh`) lose every push race under load, and copying the journal into a fresh clone takes more than 9 minutes. This goes with the known clone-bloat and 45s-clone problems already noted for this host. Any split or orchestration triggered from oros right now will fail the same way, so the next check-up (`-20261014-110506`) should look at it.
+- **Leftover directory:** `scratch/tmpexec/split-oros-health-checkup-20261013-133505-producer/` holds a half-finished copy of the journal. It's safe to delete.
+
+I did not change drains, worker leveling, derotation, budgets or schedules.
