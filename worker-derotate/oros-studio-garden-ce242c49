@@ -1,7 +1,0 @@
-host: oros-studio-garden-ce242c49
-reason: control-plane-unavailable
-prior_monk: 8
-prior_cleric: 0
-derotated_at: 2026-10-14T17:05:08Z
-derotated_by: endolin-garden-ece02cb4
-detail: unlogged sysop op 20260926T134702Z-cc61bb is 1567081s old (stale threshold 120s)
