@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T08:21:18Z_
+_As of 2026-10-14T08:25:10Z_
 
 ## Latest
 
@@ -125,6 +125,16 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
+
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.014013s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.013556s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.016057s, giveups=1, steals=1 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadmail/journal: p95=0.013184s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_inbox_daily_progress_summary_20261014_070509_journal: p95=86.656927s, giveups=0, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013737s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -716,11 +726,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #1986 (first seen 2026-10-10T04:05:32Z, latest 2026-10-14T07:20:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 1986 times; this is ONE
-> coalesced notice that updates in place, not 1986 messages. Latest detail:
+> WATCHDOG notice — occurrence #2007 (first seen 2026-10-10T04:05:32Z, latest 2026-10-14T08:23:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 2007 times; this is ONE
+> coalesced notice that updates in place, not 2007 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 359205s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 362985s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1344,12 +1354,12 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 248.3M | $1168.31 _(notional, rate-card)_ | 92% of 271.0M (ok) |
-| Codex | 21.4M _(+671.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Codex | 21.4M _(+672.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99021796 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
+worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (13)
