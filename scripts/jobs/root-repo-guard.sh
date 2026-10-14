@@ -188,8 +188,9 @@ STALL_ALERTED="$GUARD_STATE/stall-alerted"
 # multi-minute gc on every ~30m tick.
 : "${GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS:=6}"
 # Per-step wall-clock budgets. Their worst-case sum (gc + refetch + gc + scan) must
-# stay under the unit's TimeoutStartSec.
-: "${GARDEN_ROOT_GUARD_GC_TIMEOUT:=420}"
+# stay under the unit's TimeoutStartSec. A full gc of oros's 1.4M-object store took
+# 8m12s (2026-10-14); 420s failed there on every attempt for days.
+: "${GARDEN_ROOT_GUARD_GC_TIMEOUT:=900}"
 : "${GARDEN_ROOT_GUARD_REFETCH_TIMEOUT:=420}"
 : "${GARDEN_ROOT_GUARD_MISSING_SCAN_TIMEOUT:=180}"
 MAINT_LAST="$GUARD_STATE/maint-last"

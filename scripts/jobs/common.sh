@@ -36,9 +36,16 @@ _garden_real_git() {
 
 # Add safety configuration through Git's environment interface so argv remains
 # byte-for-byte intact for callers, hooks and PATH-injected Git adapters.
+# Fetch never auto-gcs; other commands gc in the foreground, since a detached gc
+# could outlive the shared lock. The deployed root's store never auto-gcs: there a
+# foreground auto-gc repacks the whole garden history inside GARDEN_REPO_GIT_TIMEOUT
+# and is killed every time, so the packs never consolidate and every merge or
+# commit pays the bound (oros 2026-10-14: 59 packs, 1.4M objects, the journal
+# keeper's fast-forward killed at 120s every tick). root-repo-guard.sh owns that
+# store's gc instead.
 _garden_git_exec() (
   local kind="$1" count="${GIT_CONFIG_COUNT:-0}"; shift
-  if [ "$kind" = fetch ]; then
+  if [ "$kind" = fetch ] || [ "${_GARDEN_GIT_ROOT_STORE:-0}" = 1 ]; then
     export "GIT_CONFIG_KEY_$count=gc.auto" "GIT_CONFIG_VALUE_$count=0"
     count=$((count + 1))
     export "GIT_CONFIG_KEY_$count=maintenance.auto" "GIT_CONFIG_VALUE_$count=false"
@@ -213,6 +220,9 @@ garden_git() (
   gd="$(_garden_real_git -C "$repo" "${globals[@]}" rev-parse --absolute-git-dir 2>/dev/null)" || {
     _garden_real_git "${original[@]}"; return;
   }
+  local root _GARDEN_GIT_ROOT_STORE=0
+  root="$(realpath -m "${GARDEN_ROOT:-${BASH_SOURCE[0]%/*}/../..}")/.git"
+  case "$(realpath -m "$gd")/" in "$root"/|"$root"/worktrees/*) _GARDEN_GIT_ROOT_STORE=1 ;; esac
   case "$cmd" in fetch|rev-parse|show|log|diff|diff-tree|ls-tree|cat-file|merge-base|rev-list|for-each-ref|ls-remote|count-objects|archive|check-ref-format) mode=shared ;; esac
   [ "${#globals[@]}" = 0 ] || mode=exclusive
   # Use the resolved admin directory to honor --git-dir and worktree gitfiles.

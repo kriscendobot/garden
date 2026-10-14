@@ -569,7 +569,7 @@ Foreman brake affects none. Inspect and mask the matching pair. See
 ## Per-host maintenance and security
 
 - **`garden-root-repo-guard.timer`, `garden-root-repo-guard.service`:** every
-  host at `:22/30`; runs `scripts/jobs/root-repo-guard.sh` with a 30-minute unit
+  host at `:22/30`; runs `scripts/jobs/root-repo-guard.sh` with a 45-minute unit
   timeout. It continues checking during drain. It verifies canonical origin,
   deployed ancestry, object-store health, inode headroom, and stalled deploys,
   repairing classified drift or alerting. State is
