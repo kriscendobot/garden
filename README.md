@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T09:09:05Z_
+_As of 2026-10-14T09:10:16Z_
 
 ## Latest
 
@@ -803,11 +803,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-13T08:37:26Z, cleared 2026-10-13T08:40:44Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-13T08:37:26Z, latest 2026-10-14T09:09:03Z).
+> The SAME condition (`journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=3.063062s max=40.083617s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `kriscendobot-minion.town-pr180-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr180-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr180-gauntlet-halted.md)
 
@@ -1401,13 +1401,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 251.2M | $1185.65 _(notional, rate-card)_ | 93% of 271.0M (ok) |
+| Claude | 251.2M | $1185.90 _(notional, rate-card)_ | 93% of 271.0M (ok) |
 | Codex | 21.5M _(+675.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99202967 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control/journal); 10 open notice(s); checker healthy
+worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (11)
