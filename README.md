@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T06:00:46Z_
+_As of 2026-10-14T06:06:47Z_
 
 ## Latest
 
@@ -1345,9 +1343,10 @@ _Fleet token-unlock pace: 97317296 tokens/day lower bound._
 worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (16)
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`oros-health-checkup-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-045008.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 320cfbed2828
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #183
 - [`minion-town-arc-press-20261014-035009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-035009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-garden-book-pr15-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #15
