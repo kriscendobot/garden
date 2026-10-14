@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T04:22:30Z_
+_As of 2026-10-14T04:26:27Z_
 
 ## Latest
 
@@ -1337,15 +1335,15 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 246.8M | $1160.34 _(notional, rate-card)_ | 91% of 271.0M (backoff) |
-| Codex | 20.1M _(+624.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 20.1M _(+624.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99602014 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.629955s/45s (/home/kris/garden/.garden-state/monitors/cleric-3/journal); 8 open notice(s); checker healthy
+worst fetch p95 4.080913s/45s (/home/kris/garden/.garden-state/monitors/cleric-3/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`minion-town-arc-press-20261014-035009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-035009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-015008.md) — ---
 - [`claude-on-minion-town-completion-press-20261013-200507-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-200507-expanded-window.md) — Completion press: Claude-on-minion.town arc
@@ -1354,16 +1352,16 @@ worst fetch p95 4.629955s/45s (/home/kris/garden/.garden-state/monitors/cleric-3
 - [`claude-on-minion-town-press-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-015008.md) — Press the Claude-on-minion.town arc forward
 - [`minion-town-pr180-panel9-pr184-panel5-resume-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-panel9-pr184-panel5-resume-20261014.md) — Resume two halted minion.town gauntlets (kriscendobot/minion.town #180, #184)
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1442
-- [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #186
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (6)
+### doin (7)
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-223508.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 242f944cdf7d
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #183
 - [`garden-book-illuminations-republish-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-illuminations-republish-20261014.md) — Garden book: the published edition still shows the old "junk" SVGs; fix and r...
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-163508.md) — ---
+- [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-133505.md) — ---
 
 ### tada (12741)
