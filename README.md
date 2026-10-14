@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T18:41:48Z_
+_As of 2026-10-14T18:49:49Z_
 
 ## Latest
 
@@ -107,6 +105,10 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 > Oros sysop bridge is unreachable: the 22:35Z health checkup remained unclaimed through 23:28Z, and sysop has acknowledged nothing since 21:28Z. I sent reset-failed (20261013T232115Z-685276); it remains unacked. Host heartbeat and fleet health are fresh, with deploy deferred at 9e4b600c behind long work versus main2 242f944c, so the host itself is alive. Please restart or inspect garden-sysop on oros; check Docker Desktop, VM state, or machine sleep only if the unit cannot be reached locally.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.012610s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `watchdog-handler-budget-overrun-moddable-10-0-0-ironhorse-port-plan-20261009` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-moddable-10-0-0-ironhorse-port-plan-20261009.md)
 
 > gardener job 'moddable-10-0-0-ironhorse-port-plan-20261009' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2404s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -158,11 +160,11 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-13T07:57:25Z, latest 2026-10-14T02:43:56Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` has CLEARED (first seen 2026-10-13T07:57:25Z, cleared 2026-10-14T18:42:49Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadmail/journal: p95=0.013839s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` cleared on endolin-garden-ece02cb4.
 
 - `kriscendobot-minion.town-pr177-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr177-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr177-gauntlet-review-budget-reached.md)
 
@@ -379,12 +381,12 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #58 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T18:39:38Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 58 times; this is ONE
-> coalesced notice that updates in place, not 58 messages. Latest detail:
+> WATCHDOG notice — occurrence #59 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T18:44:36Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 59 times; this is ONE
+> coalesced notice that updates in place, not 59 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=1641s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=1941s; heartbeat=full-poll)
 
 - `kriscendobot-minion.town-pr183-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr183-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr183-gauntlet-review-budget-reached.md)
 
@@ -1222,11 +1224,11 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-10-13T01:16:48Z, latest 2026-10-14T07:34:18Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-10-13T01:16:48Z, cleared 2026-10-14T18:42:44Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.015522s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
@@ -1513,13 +1515,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 252.9M | $1192.63 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
+| Claude | 252.9M | $1192.85 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
 | Codex | 24.3M _(+752.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99328910 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.200922s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
+worst fetch p95 4.200922s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (14)
@@ -1538,16 +1540,16 @@ worst fetch p95 4.200922s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`minion-town-arc-press-20261014-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-162006.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-460f0598b585-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-460f0598b585-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 460f0598b585
+### doin (0)
+(none)
 
-### tada (12820)
+### tada (12821)
+- [`canary-probe-oros-studio-garden-ce242c49-460f0598b585-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/canary-probe-oros-studio-garden-ce242c49-460f0598b585-r2.md) — rolling-deploy canary probe — round trip OK
 - [`heal-minion-town-ad0257e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/heal-minion-town-ad0257e.md) — Cost
 - [`endojs-endo-but-for-bots-pr1442-7f8fa973`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/endojs-endo-but-for-bots-pr1442-7f8fa973.md) — Cost
 - [`kriscendobot-garden-book-pr15-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-garden-book-pr15-gauntlet-fix-3.md) — Fix round 3 report: kriscendobot/garden-book PR #15
 - [`improve-typesafe-http-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/improve-typesafe-http-classification.md) — Cost
-- [`screen-minion-town-pr93-d7b0717-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/screen-minion-town-pr93-d7b0717-conduct.md) — Cost
-- … and 12815 more
+- … and 12816 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
