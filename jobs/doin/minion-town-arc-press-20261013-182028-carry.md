@@ -19,3 +19,13 @@ For objective-serving PRs, carry them one verb at a time via the board: a draft 
 For every landed issue-58 objective, ensure a deterministic automatic production validation exists and runs. If the checklist slice found a missing validation, use the available job allowance to post the self-contained build job that creates it. `endojs/endo-but-for-bots` changes remain maintainer-reviewed: point the maintainer at only the one or two reviews that unblock the most. If the next step is genuinely a maintainer design decision, ambiguous specification point, or endo review, ask exactly one clear question and stop inventing work. If all issue-58 objectives are checked and automatically validated in production, send one whole-product-review-ready message. Comment on issue 58 only for a state change; otherwise report `no change since <timestamp>`.
 
 Standing authorization: `entries/2026/10/07/203746Z-message-gardener-a253b1.md`. Scope is only `kriscendobot/minion.town`, pointing at (not self-reviewing) `endojs/endo-but-for-bots`, and `kriscendobot/garden` issue 58. No upstream `agoric/agoric-sdk`, ferry, or identity switch. This remains a standing schedule; do not retire it.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-14T18:51:29Z
