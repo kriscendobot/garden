@@ -29,13 +29,6 @@ Land per the repo's design conventions (`designs/AGENTS.md`: metadata table, per
 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=723 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-14T22:28:31Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-14T22:53:07Z -->
