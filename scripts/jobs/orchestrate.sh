@@ -116,8 +116,88 @@ fleet_draining && exit 0
 # just-completing child resolves to tada. Only paid on the rare gone reading.
 : "${GARDEN_ORCH_GONE_RECHECK:=2}"
 : "${GARDEN_ORCH_GONE_RECHECK_SLEEP:=2}"
+# The watcher is a courtesy timer: a previous/peer tick can legitimately still
+# hold its private clone while the next firing arrives.  Bound every clone-lock
+# attempt to one short wait, then defer the tick.  A service-local cooldown keeps
+# later firings from paying that wait and repeating the soft-lock warning while
+# the clone remains busy; it deliberately does not suppress other journal users.
+: "${GARDEN_ORCH_LOCK_WAIT:=$GARDEN_LOCK_SOFT_WAIT}"
+: "${GARDEN_ORCH_LOCK_COOLDOWN_SECS:=300}"
 
 DIR="${GARDEN_ORCH_CLONE:-$GARDEN_STATE/orch/journal}"
+ORCH_LOCK_STATE="${GARDEN_ORCH_LOCK_STATE:-$GARDEN_STATE/orch/clone-lock-cooldown}"
+ORCH_LOCK_MARKER="$ORCH_LOCK_STATE/marker"
+ORCH_LOCK_MARKER_LOCK="$ORCH_LOCK_STATE/marker.lock"
+
+orch_lock_cooldown_secs() {
+  local secs="${GARDEN_ORCH_LOCK_COOLDOWN_SECS:-300}"
+  case "$secs" in ''|*[!0-9]*) secs=300;; esac
+  [ "$secs" -le 900 ] || secs=900
+  printf '%s\n' "$secs"
+}
+
+orch_lock_cooldown_active() { # rc 0 = defer this tick quietly
+  local secs now expiry
+  secs="$(orch_lock_cooldown_secs)"; [ "$secs" -gt 0 ] || return 1
+  [ -e "$ORCH_LOCK_MARKER" ] || return 1
+  mkdir -p "$ORCH_LOCK_STATE"
+  if (
+    flock 9
+    now="$(date +%s 2>/dev/null || echo 0)"
+    expiry="$(sed -n '1p' "$ORCH_LOCK_MARKER" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+    [ "$expiry" -gt "$now" ] && exit 0
+    rm -f "$ORCH_LOCK_MARKER"
+    exit 1
+  ) 9>"$ORCH_LOCK_MARKER_LOCK"; then
+    return 0
+  fi
+  return 1
+}
+
+orch_lock_cooldown_arm() {
+  local secs now expiry tmp
+  secs="$(orch_lock_cooldown_secs)"; [ "$secs" -gt 0 ] || return 0
+  mkdir -p "$ORCH_LOCK_STATE" 2>/dev/null || return 0
+  (
+    flock 9
+    now="$(date +%s 2>/dev/null || echo 0)"
+    [[ "$now" =~ ^[0-9]+$ ]] || exit 0
+    expiry=$((now + secs))
+    tmp="$ORCH_LOCK_MARKER.$$"
+    if printf '%s\n' "$expiry" > "$tmp" && mv -f "$tmp" "$ORCH_LOCK_MARKER"; then
+      :
+    else
+      rm -f "$tmp"
+    fi
+  ) 9>"$ORCH_LOCK_MARKER_LOCK"
+}
+
+# A live cooldown is intentionally silent.  A nonblocking service admission
+# lock also collapses manually/concurrently-started ticks before they can all
+# enter clone_lock and each emit the first warning for the same busy episode.
+orch_lock_cooldown_active && exit 0
+mkdir -p "$ORCH_LOCK_STATE"
+exec {ORCH_TICK_FD}>"$ORCH_LOCK_STATE/tick.lock"
+flock -n "$ORCH_TICK_FD" || exit 0
+
+# clone_lock exits directly on a soft give-up, so normalize EX_TEMPFAIL in an
+# EXIT trap.  The first tick retains clone_lock's useful warning and arms this
+# watcher's private cooldown; subsequent ticks return cleanly and quietly.
+# shellcheck disable=SC2317 # invoked indirectly by the EXIT trap
+orch_tick_exit() {
+  local rc=$?
+  trap - EXIT
+  if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+    orch_lock_cooldown_arm
+    exit 0
+  fi
+  exit "$rc"
+}
+trap orch_tick_exit EXIT
+export GARDEN_CLONE_LOCK_SOFT=1
+export GARDEN_LOCK_SOFT_WAIT="$GARDEN_ORCH_LOCK_WAIT"
+
 ensure_clone "$DIR"
 sync_clone "$DIR"
 [ -z "${GARDEN_ORCH_AFTER_SYNC_CMD:-}" ] || "$GARDEN_ORCH_AFTER_SYNC_CMD" "$DIR"

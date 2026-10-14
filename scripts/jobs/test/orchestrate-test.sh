@@ -95,6 +95,7 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 # common env pointing every script at the throwaway journal
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
+export GARDEN_JOURNAL_OUTAGE_DIR="$GARDEN_STATE/journal-outage-cooldown"
 # keep pushes fast and quiet
 export GARDEN_POST_ATTEMPTS=50
 # the gone re-sync guard sleeps between re-reads in production; zero it here so the
@@ -102,6 +103,58 @@ export GARDEN_POST_ATTEMPTS=50
 export GARDEN_ORCH_GONE_RECHECK_SLEEP=0
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
+
+# A timer overlap or another live holder of the orchestration clone is a bounded
+# deferral, not a hard lock-wait ladder.  The first tick warns once and opens an
+# orchestrate-only cooldown; repeats inside that window do not touch the clone or
+# emit another warning, and an expired window permits one fresh probe.
+hold_orch_clone_lock() {
+  local lock="${GARDEN_STATE%/}/orch/journal.lock" ready="$1"
+  mkdir -p "$(dirname "$lock")"
+  bash -c 'exec 9<>"$1"; flock 9; printf "%s %s\n" "$$" "$(date +%s)" >&9; : > "$2"; exec sleep 30' \
+    _ "$lock" "$ready" </dev/null >/dev/null 2>&1 &
+  ORCH_LOCK_HOLDER=$!
+  for _ in $(seq 1 50); do [ -e "$ready" ] && return 0; sleep 0.1; done
+  return 1
+}
+
+hold_orch_clone_lock "$TR/orch-lock.ready" || bad "orchestration lock fixture could not take the clone lock"
+orch_lock_t0=$SECONDS
+GARDEN_ORCH_LOCK_WAIT=1 GARDEN_ORCH_LOCK_COOLDOWN_SECS=30 \
+  "$JOBS/orchestrate.sh" >"$TR/orch-lock-first.log" 2>&1
+orch_lock_rc=$?
+orch_lock_marker="$GARDEN_STATE/orch/clone-lock-cooldown/marker"
+if [ "$orch_lock_rc" -eq 0 ] && [ "$((SECONDS - orch_lock_t0))" -lt 10 ] \
+  && grep -q 'WARN: clone lock .* busy >1s' "$TR/orch-lock-first.log" \
+  && [ -s "$orch_lock_marker" ] \
+  && [ ! -e "$GARDEN_JOURNAL_OUTAGE_DIR/marker" ]; then
+  ok "busy orchestration clone defers cleanly after one bounded wait and opens its cooldown"
+else
+  bad "busy orchestration clone did not defer cleanly (rc=$orch_lock_rc elapsed=$((SECONDS - orch_lock_t0))s)"
+fi
+orch_lock_t0=$SECONDS
+GARDEN_ORCH_LOCK_WAIT=3 GARDEN_ORCH_LOCK_COOLDOWN_SECS=30 \
+  "$JOBS/orchestrate.sh" >"$TR/orch-lock-repeat.log" 2>&1
+orch_lock_rc=$?
+if [ "$orch_lock_rc" -eq 0 ] && [ "$((SECONDS - orch_lock_t0))" -lt 3 ] \
+  && [ ! -s "$TR/orch-lock-repeat.log" ]; then
+  ok "repeated orchestration tick skips quietly while its lock cooldown is live"
+else
+  bad "orchestration lock cooldown retried or logged during its live window"
+fi
+printf '0\n' > "$orch_lock_marker"
+GARDEN_ORCH_LOCK_WAIT=1 GARDEN_ORCH_LOCK_COOLDOWN_SECS=30 \
+  "$JOBS/orchestrate.sh" >"$TR/orch-lock-expired.log" 2>&1
+orch_lock_rc=$?
+if [ "$orch_lock_rc" -eq 0 ] \
+  && grep -q 'WARN: clone lock .* busy >1s' "$TR/orch-lock-expired.log"; then
+  ok "expired orchestration lock cooldown permits one fresh bounded probe"
+else
+  bad "expired orchestration lock cooldown did not retry the clone"
+fi
+kill "$ORCH_LOCK_HOLDER" 2>/dev/null || true
+wait "$ORCH_LOCK_HOLDER" 2>/dev/null || true
+rm -f "$orch_lock_marker"
 
 # --- board inspection helpers (fresh clone each call) -----------------------
 V="$TR/verify"
