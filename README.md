@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T13:13:59Z_
+_As of 2026-10-14T13:19:27Z_
 
 ## Latest
 
@@ -1399,7 +1397,7 @@ _Fleet token-unlock pace: 100236713 tokens/day lower bound._
 worst fetch p95 28.586589s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (15)
 - [`claude-on-minion-town-press-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-075034.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`kriscendobot-garden-book-pr15-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/garden-book PR #15
@@ -1415,10 +1413,10 @@ worst fetch p95 28.586589s/45s (unknown); 10 open notice(s); checker healthy
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-045008.md) — Press the Claude-on-minion.town arc forward
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
 - [`claude-on-minion-town-press-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-110506.md) — Press the Claude-on-minion.town arc forward
-- [`minion-town-arc-press-20261014-100533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-100533.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (1)
+### doin (2)
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-163508.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-163508
+- [`minion-town-arc-press-20261014-100533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261014-100533.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (12789)
 - [`fu-kriscendobot-garden-book-pr15-gauntlet-fix-2-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/fu-kriscendobot-garden-book-pr15-gauntlet-fix-2-2.md) — Cost
