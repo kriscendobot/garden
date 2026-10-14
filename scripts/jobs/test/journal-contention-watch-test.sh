@@ -428,4 +428,18 @@ rm -f "$RINGS/lock-giveup/s6" "$RINGS/lock-giveup/s7"
 grep -q '^--recovered journal-contention-storm-lock-contention ' "$NOTICES" || { echo 'FAIL: storm summary not recovered'; exit 1; }
 [ "$(grep -c '^journal-lock-contention-s[1-5] ' "$NOTICES")" -eq 5 ] || { echo 'FAIL: sub-storm notices not individual'; cat "$NOTICES"; exit 1; }
 
-echo 'PASS: contention recorder, thresholds, drift, outage latch, bounded notice/remedy work, recovery, tick deadline, and quiet baseline'
+# Clone discovery lists every repository under the state root but never walks a
+# repository's working tree, node_modules, the dep-cache, the repo-lock tree, or
+# the keeper's backups (the find walk outran TimeoutStartSec on oros, 2026-10-14).
+reset_case
+for r in svc/journal monks/3/journal .hidden/journal; do mkdir -p "$STATE/$r/.git"; done
+mkdir -p "$STATE/svc/journal/nested/.git" "$STATE/wt" "$STATE/dep-cache/x/.git" \
+  "$STATE/repo-locks/x/.git" "$STATE/journal-worktree-keeper/backups/b/.git" \
+  "$STATE/proj/node_modules/m/.git" "$STATE/a/b/c/d/e/f/g/h/.git" "$STATE/real"
+: > "$STATE/wt/.git"; mkdir -p "$STATE/wt/inner/.git"
+ln -s "$STATE/real" "$STATE/link"; mkdir -p "$STATE/real/r/.git"
+got="$(GARDEN_STATE="$STATE" bash -c '. "$1/common.sh"; . "$1/journal-contention-lib.sh"; jc_list_repos "$GARDEN_STATE" 7' _ "$JOBS" | sed "s|^$STATE/||" | sort | tr '\n' ' ')"
+want=".hidden/journal/.git monks/3/journal/.git real/r/.git svc/journal/.git "
+[ "$got" = "$want" ] || { echo "FAIL: clone discovery listed '$got', want '$want'"; exit 1; }
+
+echo 'PASS: contention recorder, thresholds, drift, outage latch, bounded notice/remedy work, recovery, tick deadline, bounded clone discovery, and quiet baseline'

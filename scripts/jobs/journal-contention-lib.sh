@@ -98,6 +98,27 @@ jc_clone_metrics() ( # bytes packs gc-log(0/1)
 declare -A JC_CLONE_BY_SLUG JC_BUSY_CLONE_BY_SLUG 2>/dev/null || true
 JC_CLONE_INDEX_READY=0
 JC_FOUND_CLONE=""
+# Print <repo>/.git for every repository at most <depth> levels below <dir>.
+# Never descend into a repository (a .git dir or worktree .git file), node_modules,
+# the dep-cache, the repo-lock tree, or the journal keeper's dirty-tree backups:
+# none can hold a journal clone. `find -name .git -prune` pruned only .git itself and walked every
+# checkout, cache and backup (~4M entries, 288s on oros), which outran the unit's
+# 240s TimeoutStartSec on every tick (2026-10-13..14). Symlinks are not followed.
+jc_list_repos() {
+  local dir="$1" depth="$2" sub
+  if [ -e "$dir/.git" ]; then
+    [ -d "$dir/.git" ] && [ ! -L "$dir/.git" ] && printf '%s/.git\n' "$dir"
+    return 0
+  fi
+  [ "$depth" -gt 0 ] || return 0
+  for sub in "$dir"/* "$dir"/.[!.]* "$dir"/..?*; do
+    [ -d "$sub" ] && [ ! -L "$sub" ] || continue
+    case "$sub" in
+      */node_modules|"$GARDEN_STATE"/dep-cache|"$GARDEN_STATE"/journal-worktree-keeper|"$GARDEN_STATE"/repo-locks) continue ;;
+    esac
+    jc_list_repos "$sub" $((depth - 1))
+  done
+}
 jc_build_clone_index() {
   local path slug remote lock_rc
   [ "$JC_CLONE_INDEX_READY" -eq 0 ] || return 0
@@ -123,7 +144,7 @@ jc_build_clone_index() {
     # remediators must never rename those. Tests use isolated fixture repos.
     if [ "${GARDEN_TEST:-0}" != 1 ] && ! is_production_journal_remote "$remote"; then continue; fi
     JC_CLONE_BY_SLUG["$slug"]="$path"
-  done < <(find "$GARDEN_STATE" -maxdepth 8 -type d -name .git -prune 2>/dev/null)
+  done < <(jc_list_repos "$GARDEN_STATE" 7 2>/dev/null)
 }
 jc_resolve_clone() {
   jc_build_clone_index
