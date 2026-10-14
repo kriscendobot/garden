@@ -14,3 +14,13 @@ Plumbing only; no review or fix work. Re-read each terminal report on fresh `ori
 2. #184 (panel round 5 doom-parked requeue-exhausted): remove stale `jobs/plan/kriscendobot-minion.town-pr184-gauntlet-panel-5.md` if it would block the re-post, then `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr184-gauntlet panel`
 
 Confirm each new panel child is on `jobs/todo/` and report the record state.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-14T23:26:28Z
