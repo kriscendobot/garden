@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T01:44:12Z_
+_As of 2026-10-14T01:46:39Z_
 
 ## Latest
 
@@ -384,6 +384,15 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
+
+- `msg-claude-on-minion-town-completion-press-20261013-200507-expanded-window-c05f9de93eeb` — from gardener:claude-on-minion-town-completion-press-20261013-200507-expanded-window, reply_to `claude-on-minion-town-completion-press-20261013-200507-expanded-window` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261013-200507-expanded-window-c05f9de93eeb.md)
+
+> Completion press ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)), window 2026-10-13T14:05:06Z..20:05:07Z: NEW DOOM.
+>
+> - kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1: signature requeue-exhausted, host endolin-garden-ece02cb4, landed 2026-10-13T19:13:36Z.
+> - Impact: the gauntlet driver re-posted it, so it is back in jobs/todo (panel round 1, handler-timeout 10800). The parent gauntlet kriscendobot-minion.town-pr167-gauntlet-20261013 is still active, and its clean stage completed at 16:21Z. [https://github.com/kriscendobot/minion.town/pull/167](https://github.com/kriscendobot/minion.town/pull/167) is waiting on that panel round. If the retry dooms again, the bounded stage-retry budget may run out.
+>
+> Otherwise nominal: roster 637, 20 completions in-window (none failed), 0 stalled claims, 0 absent prior-roster jobs. Full roster delta: journal entries/2026/10/14/014025Z-progress-gardener-2d219e.md.
 
 - `msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3` — from gardener:reset-credit-watch-20261012-160506, reply_to `reset-credit-watch-20261012-160506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3.md)
 
@@ -1317,7 +1326,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 246.5M | $1158.63 _(notional, rate-card)_ | 91% of 271.0M (ok) |
+| Claude | 246.5M | $1158.79 _(notional, rate-card)_ | 91% of 271.0M (ok) |
 | Codex | 19.3M _(+598.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 100065155 tokens/day lower bound._
