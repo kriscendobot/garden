@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: kriscendobot-garden-book-pr15-gauntlet-viability
+state: running
 created_by: producer
 arc: garden-book
 created_at: 2026-10-14T04:07:45Z
