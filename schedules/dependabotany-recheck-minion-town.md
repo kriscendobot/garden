@@ -1,5 +1,5 @@
 cadence: daily
-last_dispatched: 2026-10-13T03:35:06Z
+last_dispatched: 2026-10-14T03:35:06Z
 job_basename_prefix: dependabotany-recheck-minion-town
 preflight: dependabotany-preflight.sh
 handler-timeout: 7200
