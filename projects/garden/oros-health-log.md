@@ -2,6 +2,27 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T01:30Z (oros-health-checkup-20261013-223508): degraded (deployed at 242f944c, but the roll's canary probe was never claimed and the roll re-drained oros) → one fix on main2
+
+- **Load/mem:** load 3.9/3.1/2.9; 13 GiB of 15 GiB available; swap 449 MiB used.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1%.
+- **Uptime:** 12d8h, no reboot.
+- **Deployed vs main2:** fleet/health shows `deployed @ 242f944c`, 0 of 294 units failed, published at 00:18Z. origin/main2 is now `e1e898bd`, this run's fix. `GARDEN_JOURNAL_CLONE_BASE` is still unset.
+- **Units:** 0 failed; 6 monks (scaler holds 6 of 6 declared). Only 2 busy, both oros check-ups (this run and the sibling `…163508`).
+- **Drain:** **draining** since 01:04Z, `source: rolling-deploy`. The leader (endolin) sent a sysop drain because the canary failed: probe `…242f944cdf7d-r3` did not reach tada within 600s. Derotate markers exist only for the endolin hosts.
+- **Budget heartbeat:** claude-oros was sampled at 00:34Z: 0% used, status ok. The last 3 pushes (00:02, 00:18, 00:34) were all ok.
+- **rc=124:** 23 in the last 3h.
+- **$GARDEN_STATE:** 38 journal clones (86 at 20:45) and no tmp_pack leftovers. The `.lock` files older than 1h are flock files, not held locks.
+- **Finding:** the canary probe was never claimed, so the roll failed a healthy canary.
+  - From 00:52 to 00:55Z all five idle monks tried to claim r2, then r3. Every attempt logged "lost claim race".
+  - All 3967 recorded monk push failures are class `cas`. Each claim is decided at a clone tip about 90s old on virtiofs, so any peer write wins. claim-job then moves on to the next candidate instead of retrying.
+- **Changed (main2):** `e1e898bd`: a canary probe's claim now replays a lost CAS onto the fresh tip without the worktree (the existing `journal_replay_head`, default 3 attempts).
+  - The replay still checks the probe's own todo/ path, so a probe that a peer claimed or the roller withdrew is never claimed a second time. Ordinary claims still re-derive.
+  - New test `claim-probe-replay-test.sh`: 5/5 pass on the fix; the old code fails the 2 replay cases.
+  - A sibling fix landed alongside it: `aba64ba1` lets a canary probe posted mid-pass preempt the claim pass.
+- **Changed (on-host):** nothing. The drain was left as it was (the roll owns it).
+- **Open:** oros stays drained until the leader's roll re-releases it with a fresh probe. Once oros deploys `e1e898bd`, the probe claim should land. The root cause is still the virtiofs journal clones: the container needs to be recreated with `GARDEN_JOURNAL_CLONE_BASE` (see the 18:55 entry).
+
 ## 2026-10-13T20:45Z (oros-health-checkup-20261013-193508): degraded (deployed at 9e4b600c, but its health record never published, so the roll stalled) → one fix on main2, health record republished
 
 - **Load/mem:** load 4.3/3.3/3.0; 12 GiB of 15 GiB available; no swap.
