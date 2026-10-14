@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T04:38:48Z_
+_As of 2026-10-14T04:44:10Z_
 
 ## Latest
 
@@ -207,10 +205,6 @@ Delegation: **active**
 > - **Idle minion.town arcs 2 and 3:** Try a design/plan push first. Post a planning job for [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) (git-remote), so that arc 2 has ready plans for the foreman to draw on. For arc 3 (UI), post a plan job for the clip gutter next. Both are cheap and easy to throw away, and they use the idle slices. If no plans come out of this by the 10-17 reset, move the unused share to arc 4 (endo-ocapn-background) and say so in the next statement. I'd try this reallocation as a fallback, not a first move, because it changes the ranking.
 > - **Unattributed spend:** Keep the current approach. The pools' backoff is the real cap on non-foreman work, and the slices only limit the foreman. Add a line to next week's statement that estimates the unattributed share per pool, so it's easier to see.
 > - **Codex credit:** Spend the codex-endolin credit (it expires 10-29) mid-week, once the pool leaves backoff after the 10-13 window reset. Use it on arc 1 or arc 4 work, whichever has ready plans.
-
-- `watchdog-handler-budget-overrun-oros-health-checkup-20261013-133505` — from watchdog:monk/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-oros-health-checkup-20261013-133505.md)
-
-> gardener job 'oros-health-checkup-20261013-133505' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=3601s, handler-budget=3600s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `doomed-kriscendobot-minion.town-pr174-gauntlet-panel-7-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr174-gauntlet-panel-7-requeue-exhausted.md)
 
@@ -1341,7 +1335,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 246.8M | $1160.34 _(notional, rate-card)_ | 91% of 271.0M (backoff) |
-| Codex | 20.3M _(+632.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Codex | 20.4M _(+636.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99880809 tokens/day lower bound._
 
