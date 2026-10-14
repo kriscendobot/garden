@@ -201,7 +201,7 @@ fi
 # =============================================================================
 hr; echo "2. OCCUPANCY skip: a still-live prior instance advances the clock, posts nothing"
 setup_root
-setup_journal occ-sched "2026-08-22T11:00:00Z" "occupancy: skip" ""
+setup_journal occ-sched "2026-08-22T11:00:00Z" $'occupancy: skip\ninterchangeable: false' ""
 seed_file "jobs/doin/occ-sched-20260822-110000.md" $'# prior instance still running\n'
 run_tick "$LATER" "$TR/log-occ"   # due (1h since last), but a live instance exists
 tt="$(count_in todo occ-sched)"
@@ -215,6 +215,9 @@ occ_epoch="$(date -u -d "$occ_stamp" +%s 2>/dev/null || echo 0)"
 grep -q "occupancy: skip" <(git --git-dir="$JBARE" show "$BRANCH:schedules/occ-sched.md") \
   && ok "occupancy field preserved across the re-stamp" \
   || bad "occupancy field dropped on re-stamp"
+grep -q "interchangeable: false" <(git --git-dir="$JBARE" show "$BRANCH:schedules/occ-sched.md") \
+  && ok "interchangeable=false opt-out preserved across the re-stamp" \
+  || bad "interchangeable opt-out dropped on re-stamp"
 
 hr; echo "2b. OCCUPANCY carry-forward: live instance → no post AND clock NOT advanced"
 setup_root

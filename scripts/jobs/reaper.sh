@@ -653,6 +653,62 @@ clean_body() {
   ' "$1"
 }
 
+# scheduled_dispatch_identity <clone-dir> <base> — print the recurring schedule
+# name whose scheduler commit dispatched <base>. The commit subject is the
+# durable dispatch identity: the job body intentionally contains only the task.
+# One-time schedules use a different subject and are deliberately excluded.
+scheduled_dispatch_identity() {
+  local dir="$1" base="$2" subject prefix suffix name
+  prefix=" dispatched $base -> "
+  while IFS= read -r subject; do
+    case "$subject" in
+      schedule\(*"$prefix"todo|schedule\(*"$prefix"plan)
+        name="${subject#schedule(}"
+        suffix=")$prefix${subject##*"$prefix"}"
+        name="${name%"$suffix"}"
+        [ -n "$name" ] || continue
+        printf '%s\n' "$name"
+        return 0
+        ;;
+    esac
+  done < <(git -C "$dir" log --all --format='%s' --fixed-strings \
+    --grep="$prefix" 2>/dev/null || true)
+  return 1
+}
+
+# newer_interchangeable_dispatch <clone-dir> <schedule> <base> — print the
+# newest later dispatch of the same recurring schedule that still exists in
+# todo/doin/tada. A schedule can declare `interchangeable: false` when each
+# period is independently meaningful. Fixed-width UTC suffixes sort as time.
+newer_interchangeable_dispatch() {
+  local dir="$1" schedule="$2" base="$3" old_stamp subject prefix rest candidate stamp newest="" setting
+  old_stamp="${base: -15}"
+  [[ "$old_stamp" =~ ^[0-9]{8}-[0-9]{6}$ ]] || return 1
+
+  setting="$(plan_field "$dir/schedules/$schedule.md" interchangeable 2>/dev/null || true)"
+  case "${setting,,}" in false|no|preserve) return 1 ;; esac
+
+  prefix="schedule($schedule) dispatched "
+  while IFS= read -r subject; do
+    case "$subject" in "$prefix"*" -> todo"|"$prefix"*" -> plan") ;; *) continue ;; esac
+    rest="${subject#"$prefix"}"
+    candidate="${rest% -> *}"
+    [ "$candidate" != "$rest" ] || continue
+    stamp="${candidate: -15}"
+    [[ "$stamp" =~ ^[0-9]{8}-[0-9]{6}$ ]] || continue
+    [[ "$stamp" > "$old_stamp" ]] || continue
+    if [ -e "$dir/$JOBS_TODO/$candidate.md" ] \
+       || [ -e "$dir/$JOBS_DOIN/$candidate.md" ] \
+       || tada_exists "$dir" "$candidate"; then
+      [ -z "$newest" ] || [[ "$stamp" > "${newest: -15}" ]] || continue
+      newest="$candidate"
+    fi
+  done < <(git -C "$dir" log --all --format='%s' --fixed-strings \
+    --grep="$prefix" 2>/dev/null || true)
+  [ -n "$newest" ] || return 1
+  printf '%s\n' "$newest"
+}
+
 # record_kimi_fallback_event <doin-file> <spine> <kimi-cycles> — BEST-EFFORT, fully
 # guarded: when a kimi-k3 job is re-routed to opus, record ONE reputation event for
 # the KIMI arm marked `accepted: false` so the evaluation charges the failed attempt
@@ -912,6 +968,7 @@ STALE=("${KEEP[@]}")
 reaped=0
 doomed=0
 dropped=0
+superseded=0
 staged=0
 declare -a DOOM_BASE=() DOOM_BODY=() DOOM_COUNT=() DOOM_OVERRUN=() DOOM_CONSTANCY=() DOOM_SIG=() DOOM_BUDGET=()
 declare -a DOOM_TOKEN_BUDGET=() DOOM_TOKEN_SPEND=() DOOM_PROGRESS=()
@@ -925,6 +982,7 @@ declare -a DOOM_GAUNTLET=() DOOM_TRANSIENT=()
 # requeue-exhaustion (no plan park, no notice) — carried only for the post-CAS
 # decision-ledger entry so the drop is still auditable off the maintainer inbox.
 declare -a DROP_RETRO_BASE=() DROP_RETRO_SIG=() DROP_RETRO_COUNT=()
+declare -a SUPERSEDED_BASE=() SUPERSEDED_SCHEDULE=() SUPERSEDED_BY=()
 for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   sync_clone "$DIR"
   staged=0
@@ -934,6 +992,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   RETRY_BASE=(); RETRY_KIND=(); RETRY_COUNT=(); RETRY_NOT_BEFORE=(); RETRY_QUOTA_TYPE=(); RETRY_QUOTA_RESET_AT=()
   DOOM_GAUNTLET=(); DOOM_TRANSIENT=()
   DROP_RETRO_BASE=(); DROP_RETRO_SIG=(); DROP_RETRO_COUNT=()
+  SUPERSEDED_BASE=(); SUPERSEDED_SCHEDULE=(); SUPERSEDED_BY=()
   mkdir -p "$DIR/$JOBS_TODO" "$DIR/$JOBS_PLAN"
   for base in "${STALE[@]}"; do
     spine="${base%.md}"
@@ -943,6 +1002,40 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     case "$spine" in *-retro) is_retro=1 ;; *) is_retro=0 ;; esac
     f="$DIR/$JOBS_DOIN/$base"
     [ -e "$f" ] || { log "'$base' already moved by someone else; skip"; continue; }
+
+    # A later tick from the SAME recurring schedule makes this stale claim
+    # obsolete before either ordinary requeue or deadline-overrun split runs.
+    schedule_name="$(scheduled_dispatch_identity "$DIR" "$spine" || true)"
+    superseded_by=""
+    if [ -n "$schedule_name" ]; then
+      superseded_by="$(newer_interchangeable_dispatch "$DIR" "$schedule_name" "$spine" || true)"
+    fi
+    if [ -n "$superseded_by" ]; then
+      tada_rel="$(tada_write_path "$spine")"
+      mkdir -p "$DIR/$(dirname "$tada_rel")"
+      {
+        printf -- '---\n'
+        printf 'status: superseded\n'
+        printf 'deliverable-complete: false\n'
+        printf 'schedule: %s\n' "$(yaml_single_quote_scalar "$schedule_name")"
+        printf 'superseded_by: %s\n' "$(yaml_single_quote_scalar "$superseded_by")"
+        printf 'retired_by: reaper:%s\n' "$GARDEN"
+        printf 'retired_at: %s\n' "$(date -u +%FT%TZ)"
+        printf -- '---\n\n'
+        printf 'Scheduled recurrence `%s` was retired without requeue or split because newer dispatch `%s` from schedule `%s` already exists.\n' \
+          "$spine" "$superseded_by" "$schedule_name"
+      } > "$DIR/$tada_rel"
+      git -C "$DIR" rm -q "$JOBS_DOIN/$base"
+      [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
+      [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
+      [ -d "$DIR/$(auction_bid_dir "$spine")" ] \
+        && git -C "$DIR" rm -rq "$(auction_bid_dir "$spine")" 2>/dev/null || true
+      git -C "$DIR" add "$tada_rel"
+      SUPERSEDED_BASE+=("$spine"); SUPERSEDED_SCHEDULE+=("$schedule_name"); SUPERSEDED_BY+=("$superseded_by")
+      staged=$(( staged + 1 ))
+      log "SUPERSEDED: '$spine' will not requeue or split; newer '$superseded_by' from schedule '$schedule_name' exists"
+      continue
+    fi
 
     prev="$(sed -n 's/^<!-- garden-reaped: \([0-9][0-9]*\) -->$/\1/p' "$f" | tail -1)"
     [ -n "${prev:-}" ] || prev=0
@@ -1451,7 +1544,21 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     contention_record "$DIR" push-attempts "$attempt"
     doomed=${#DOOM_BASE[@]}
     dropped=${#DROP_RETRO_BASE[@]}
-    reaped=$(( staged - doomed - dropped ))
+    superseded=${#SUPERSEDED_BASE[@]}
+    reaped=$(( staged - doomed - dropped - superseded ))
+    for i in "${!SUPERSEDED_BASE[@]}"; do
+      cleanup_terminal_project_worktrees "${SUPERSEDED_BASE[$i]}"
+      if decision_input_json="$(jq -cn --arg base "${SUPERSEDED_BASE[$i]}" \
+        --arg schedule "${SUPERSEDED_SCHEDULE[$i]}" --arg newer "${SUPERSEDED_BY[$i]}" \
+        '{base:$base,schedule:$schedule,newer_dispatch:$newer,classification:"scheduled-recurrence"}')"; then
+        record_decision --loop reaper --input-json "$decision_input_json" \
+          --decision retire-superseded-schedule-dispatch \
+          --from-json "$(jq -cn --arg value "$JOBS_DOIN/${SUPERSEDED_BASE[$i]}.md" '$value')" \
+          --to-json "$(jq -cn --arg value "$(tada_write_path "${SUPERSEDED_BASE[$i]}")" '$value')" \
+          --reason "a newer dispatch from the same interchangeable recurring schedule already exists" \
+          --outcome superseded --outcome-detail "reap batch CAS accepted; stale dispatch retired without requeue or split"
+      fi
+    done
     # A quietly-dropped `*-retro` telemetry job posts NO maintainer notice, but the
     # drop is still recorded to the decision ledger (off the inbox) so the disposition
     # remains auditable — the whole point is to move retro doom OUT of the inbox, not
@@ -1702,9 +1809,10 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   backoff "$attempt"
 done
 
-if [ "$reaped" -eq 0 ] && [ "$doomed" -eq 0 ] && [ "$dropped" -eq 0 ] && [ "$staged" -ne 0 ]; then
+if [ "$reaped" -eq 0 ] && [ "$doomed" -eq 0 ] && [ "$dropped" -eq 0 ] \
+   && [ "$superseded" -eq 0 ] && [ "$staged" -ne 0 ]; then
   contention_record "$DIR" push-attempts "$GARDEN_REAP_PUSH_ATTEMPTS"   # reached the CAS cap: a push wedge
   log "FAILED to land requeue of ${#STALE[@]} stale claim(s) after $GARDEN_REAP_PUSH_ATTEMPTS attempts"
   exit 1
 fi
-log "reaped $reaped stale claim(s); parked $doomed held claim(s) (doom or budget); dropped $dropped retro telemetry claim(s)"
+log "reaped $reaped stale claim(s); retired $superseded superseded scheduled claim(s); parked $doomed held claim(s) (doom or budget); dropped $dropped retro telemetry claim(s)"

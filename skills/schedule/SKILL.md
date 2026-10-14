@@ -29,6 +29,7 @@ job_basename_prefix: <p>   # dispatched job basename = <p>-<YYYYMMDD-HHMMSS>
 preflight: <script>        # OPTIONAL deterministic gate (see below)
 handler-timeout: <seconds> # OPTIONAL positive per-job handler budget (see below)
 occupancy: skip            # OPTIONAL dedup when a prior instance is still live (see below)
+interchangeable: false     # OPTIONAL: preserve every period on reaper retry (see below)
 ---
 <the task body to duplicate each period>
 ```
@@ -156,6 +157,17 @@ It is preserved across later cadence edits exactly like `last_dispatched`. Set i
 `GARDEN_SCHEDULE_OCCUPANCY=skip set-schedule.sh …` (validated to `skip`/`carry-forward`
 at set time), and an existing value is preserved on later edits when the env var is
 unset.
+
+**Stale-run superseding (`interchangeable:`).** Recurring runs are interchangeable by
+default. When the reaper is about to requeue a stale claim or route its wall overrun
+to decomposition, it resolves the scheduler's durable dispatch identity and checks
+`todo/`, `doin/`, and date-sharded `tada/` for a newer dispatch from that same
+schedule. If one exists, the stale run is retired to `tada/` with
+`status: superseded` instead of consuming another worker or spawning a split. Set
+`interchangeable: false` for schedules whose periods are independently meaningful
+and must all finish. Configure it with
+`GARDEN_SCHEDULE_INTERCHANGEABLE=false set-schedule.sh …`; the field is validated
+and preserved across later schedule edits.
 
 **Carry-forward from a dead-lettered tick reply.** A recurring driver dispatches
 each tick as a fresh short-lived doer with a TIMESTAMPED base

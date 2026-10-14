@@ -203,18 +203,21 @@ anchored_window() {  # $1=cadence $2=anchor-stamp-iso
 }
 
 # Rewrite a recurring schedule's frontmatter with a fresh last_dispatched stamp,
-# PRESERVING the optional preflight, handler-timeout, and occupancy fields. Every
+# PRESERVING the optional preflight, handler-timeout, occupancy, and
+# interchangeability fields. Every
 # path that re-stamps the file (dispatch, preflight no-work, occupancy-gated) goes
 # through this so no optional line is ever dropped on a re-stamp.
 # $1=dest, $2=cadence, $3=stamp, $4=prefix, $5=preflight (may be empty),
-# $6=handler-timeout (may be empty), $7=body, $8=occupancy (may be empty).
+# $6=handler-timeout (may be empty), $7=body, $8=occupancy (may be empty),
+# $9=interchangeable (may be empty; false opts out of stale-run superseding).
 write_schedule() {
-  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" handler_timeout="$6" body="$7" occupancy="${8:-}"
+  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" handler_timeout="$6" body="$7" occupancy="${8:-}" interchangeable="${9:-}"
   {
     printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cad" "$stamp" "$prefix"
     [ -n "$preflight" ] && printf 'preflight: %s\n' "$preflight"
     [ -n "$handler_timeout" ] && printf 'handler-timeout: %s\n' "$handler_timeout"
     [ -n "$occupancy" ] && printf 'occupancy: %s\n' "$occupancy"
+    [ -n "$interchangeable" ] && printf 'interchangeable: %s\n' "$interchangeable"
     printf -- '---\n'
     printf '%s\n' "$body"
   } > "$dest"
@@ -489,6 +492,7 @@ for name in $(list_jobs "$DIR" schedules); do
   preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$f" | head -1)"
   handler_timeout_raw="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$f" | head -1)"
   occupancy="$(sed -n 's/^occupancy:[[:space:]]*//p' "$f" | head -1)"
+  interchangeable="$(sed -n 's/^interchangeable:[[:space:]]*//p' "$f" | head -1)"
   last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
   # Due-ness + the stamp to write come from schedule_due_stamp: interval cadences
   # stamp `now`; anchored `daily-at-HH:MM-TZ` cadences stamp the anchor instant so
@@ -508,6 +512,7 @@ for name in $(list_jobs "$DIR" schedules); do
     handler_timeout=""
     handler_timeout="$(schedule_handler_timeout "$name" "$handler_timeout_raw")" || handler_timeout=""
     occupancy="$(sed -n 's/^occupancy:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
+    interchangeable="$(sed -n 's/^interchangeable:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
 
     # Occupancy gate for RECURRING schedules (cybernetics-audit § 3.4, rec 8). The
     # basename is timestamped per period, so a schedule whose job outlives its
@@ -528,7 +533,7 @@ for name in $(list_jobs "$DIR" schedules); do
       if [ -n "$live_base" ]; then
         case "$occupancy" in
           skip)
-            write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy"
+            write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
             git -C "$DIR" add "schedules/$name"
             rc=0; commit_and_push "$DIR" "schedule($name) occupancy=skip: '$live_base' still live; advanced clock" || rc=$?
             if [ "$rc" -eq 0 ]; then
@@ -604,7 +609,7 @@ for name in $(list_jobs "$DIR" schedules); do
       fi
       if [ "$pf_rc" -eq 2 ]; then
         # No work: advance the clock so the cadence keeps marching, post nothing.
-        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy"
+        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
         git -C "$DIR" add "schedules/$name"
         # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
         # swallow commit_and_push's rc=2 "nothing to stamp" on an already-current clock).
@@ -697,7 +702,7 @@ for name in $(list_jobs "$DIR" schedules); do
     mkdir -p "$DIR/$target_dir"
     printf '%s\n' "$job_content" > "$DIR/$target_dir/$base.md"
     # Stamp last_dispatched in the same commit, preserving optional schedule config.
-    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy"
+    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$handler_timeout_raw" "$body" "$occupancy" "$interchangeable"
     git -C "$DIR" add "$target_dir/$base.md" "schedules/$name"
     # Retire the drained carry-forward files in this same CAS commit.
     if [ "${#cf_files[@]}" -gt 0 ]; then

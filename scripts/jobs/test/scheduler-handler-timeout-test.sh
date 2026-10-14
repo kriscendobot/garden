@@ -64,11 +64,15 @@ setup_journal 7200
 printf 'updated schedule body\n' | \
   GARDEN_STATE="$STATE" JOURNAL_REMOTE="$JBARE" JOURNAL_BRANCH="$BRANCH" \
   GARDEN_SCHEDULE_HANDLER_TIMEOUT=7200 \
+  GARDEN_SCHEDULE_INTERCHANGEABLE=false \
   bash "$ROOT/scripts/jobs/set-schedule.sh" timeout-test hourly timeout-test >/dev/null
 peek
 grep -qx 'handler-timeout: 7200' "$TR/peek/schedules/timeout-test.md" \
   && ok "set-schedule writes a declared timeout" \
   || bad "set-schedule did not write declared timeout"
+grep -qx 'interchangeable: false' "$TR/peek/schedules/timeout-test.md" \
+  && ok "set-schedule writes the non-interchangeable opt-out" \
+  || bad "set-schedule did not write the non-interchangeable opt-out"
 printf 'preserved schedule body\n' | \
   GARDEN_STATE="$STATE" JOURNAL_REMOTE="$JBARE" JOURNAL_BRANCH="$BRANCH" \
   bash "$ROOT/scripts/jobs/set-schedule.sh" timeout-test hourly timeout-test >/dev/null
@@ -76,6 +80,9 @@ peek
 grep -qx 'handler-timeout: 7200' "$TR/peek/schedules/timeout-test.md" \
   && ok "set-schedule preserves timeout on later edits" \
   || bad "set-schedule dropped timeout on later edit"
+grep -qx 'interchangeable: false' "$TR/peek/schedules/timeout-test.md" \
+  && ok "set-schedule preserves the non-interchangeable opt-out on later edits" \
+  || bad "set-schedule dropped the non-interchangeable opt-out on later edit"
 run_tick
 peek
 job="$(find "$TR/peek/jobs/todo" -type f ! -name .gitkeep | head -1)"

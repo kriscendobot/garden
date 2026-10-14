@@ -143,6 +143,11 @@ scripted loop can no longer let the swallow pass unnoticed.
   the unfinished deliverable itself.
   Touches only your own basename, so **retry with backoff until it lands**.
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
+  Before requeueing or splitting a recurring scheduled claim, the reaper checks its
+  durable `schedule(<name>) dispatched <base>` identity. If a newer dispatch of the
+  same interchangeable schedule exists in todo/doin/tada, it retires the stale run
+  to tada with `status: superseded`; `interchangeable: false` on the schedule opts
+  periods that must all finish out of this behavior.
 
 ## Per-job handler budget (`handler-timeout:`)
 
