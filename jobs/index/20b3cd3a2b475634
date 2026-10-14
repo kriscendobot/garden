@@ -1,0 +1,2 @@
+base: improve-auction-reputation-worker-kind-fixtures
+identity: mentor:scripts/jobs/test/auction-reputation-test.sh
