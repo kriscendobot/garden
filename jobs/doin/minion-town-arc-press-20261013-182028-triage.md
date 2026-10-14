@@ -19,3 +19,13 @@ Classify every open minion.town PR as: (1) serves an unchecked issue-58 or issue
 The standing authorization is recorded at `entries/2026/10/07/203746Z-message-gardener-a253b1.md`: the maintainer delegates full carry authority for `kriscendobot/minion.town`, including PR lifecycle actions, but still reviews every needed `endojs/endo-but-for-bots` change. Do not interact with upstream `agoric/agoric-sdk`, the ferry, or another identity. Comment on issue 58 only for a real state change; otherwise keep the classification in the completion report for the successor.
 
 Write a precise completion report listing every open PR's classification, any closures, proxy-screen state, and the specific next verb for each objective-serving PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-14T09:11:20Z
