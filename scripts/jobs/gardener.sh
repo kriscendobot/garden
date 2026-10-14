@@ -84,6 +84,9 @@ CLONE="$GARDEN_WORKER_CLONE"
 DEFAULT_JOB_HANDLER="$HERE/$(worker_kind_field "$KIND" handler)"
 : "${GARDEN_JOB_HANDLER:=$DEFAULT_JOB_HANDLER}"
 : "${GARDEN_DEPENDABOT_TERMINAL_CLOSE:=$HERE/handlers/dependabot-terminal-close-gh.sh}"
+# Test seam: the claim primitive (claim-stop-race-test.sh wraps it to deliver a
+# SIGTERM mid-claim).
+: "${GARDEN_CLAIM_JOB_CMD:=$HERE/claim-job.sh}"
 # --- pre-claim health gate applicability (common.sh § pre-claim worker health gate)
 # The gate asserts this KIND's agent CLI resolves, which is the dependency of the
 # kind's OWN handler. The spine is backend-pluggable, so a SUBSTITUTED handler (a
@@ -416,7 +419,7 @@ while :; do
   fi
 
   set +e
-  base="$("$HERE/claim-job.sh" "$id")"; rc=$?
+  base="$("$GARDEN_CLAIM_JOB_CMD" "$id")"; rc=$?
   set -e
 
   if [ "$rc" -eq 3 ]; then
@@ -448,6 +451,22 @@ while :; do
   idle_attempt=1   # productive tick: a job was claimed — reset to a quick first poll
 
   jobfile="$CLONE/$JOBS_DOIN/$base.md"
+  # A SIGTERM that lands WHILE claim-job.sh runs is deferred until the claim returns,
+  # so the top-of-loop check above already passed. Starting the handler now would pin
+  # the stop for the whole job: on oros 2026-10-14 the deploy's post-drain restart of
+  # monk@3/monk@7 hit claims that landed 9s after the SIGTERM, and deploy-garden then
+  # sat in `systemctl restart` for the full handler budget. No handler has started
+  # and no busy marker is set, so hand the claim back through the reaper (reap-now)
+  # and honor the stop.
+  if [ "$stop_requested" -eq 1 ]; then
+    log "stop requested during the claim of '$base'; not starting its handler"
+    if ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+      log "stamped reap-now hint on '$base'; reaper will requeue it"
+    else
+      log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+    fi
+    exit 0
+  fi
   report="$(mktemp "${TMPDIR:-/tmp}/garden-report-$base.XXXXXX")"
   # Claim-time eligibility is only an optimization. Re-probe freshly after the
   # accepted claim so an AWS key/session that expired or rotated in the race is

@@ -877,6 +877,13 @@ log "advanced the root tree atomically (per-file rename): $old_sha -> $new_sha"
 
 record_deployed_sha "$new_sha"
 log "recorded deployed sha: $new_sha"
+# Arm the post-deploy health retry NOW, not after the restart below: a deploy killed
+# mid-restart (self-deploy's wall clock, 2026-10-14 on oros, while a restart waited on
+# a just-claimed job) would otherwise leave fleet/health naming the OLD sha, and
+# self-deploy's republish_pending_deployed would have nothing to retry.
+if [ "${GARDEN_DEPLOY_NO_HEALTH_PUBLISH:-0}" != "1" ]; then
+  printf '%s\n' "$new_sha" > "$GARDEN_DEPLOY_HEALTH_PENDING" 2>/dev/null || true
+fi
 
 # Reconcile systemd units to the freshly-deployed tree. A deploy can LAND a unit
 # retirement (a unit removed from scripts/systemd/ and added to install-units'

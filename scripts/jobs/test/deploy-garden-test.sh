@@ -946,6 +946,23 @@ grep -q "install-units enable-services" "$TR/install-units.calls" 2>/dev/null \
 draining && bad "legacy strand: deploy drain not lifted" || ok "legacy strand: deploy drain lifted"
 
 # ============================================================================
+hr; echo "KILLED MID-RESTART — the deployed-health retry is armed before the restart"; hr
+# oros 2026-10-14: a restart waited on a just-claimed job until self-deploy's wall
+# clock killed deploy-garden. The tree had advanced, but the pending marker was only
+# written after the restart, so fleet/health kept naming the old sha. The marker must
+# already exist when the restart hangs.
+setup_fixture
+origin_commit scripts/jobs/worker-lib.sh "echo newkilled" "fix: worker-lib killed"
+target="$(origin_head)"
+rm -f "$TR/state/deploy/deployed-health-pending"
+run_deploy GARDEN_MOCK_HANG_UNIT=garden-monk@1.service timeout -k 2 25
+[ "$RC" -eq 124 ] || [ "$RC" -eq 137 ] && ok "deploy killed while the restart hung (rc=$RC)" || bad "deploy not killed mid-restart (rc=$RC): $OUT"
+[ "$(root_head)" = "$target" ] && ok "root advanced before the kill" || bad "root not advanced before the kill: $OUT"
+[ "$(cat "$TR/state/deploy/deployed-health-pending" 2>/dev/null)" = "$target" ] \
+  && ok "deployed-health-pending names the new sha for self-deploy to republish" \
+  || bad "no deployed-health-pending marker for $target after a mid-restart kill"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]
