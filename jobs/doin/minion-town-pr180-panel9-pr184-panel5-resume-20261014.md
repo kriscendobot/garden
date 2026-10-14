@@ -48,3 +48,13 @@ Plumbing only. Do no review or fix work yourself. First re-read each terminal re
 
 Confirm each new panel child is on `jobs/todo/` and report the record state (state, stage,
 iteration, max_iterations, current_child). Leave #181 halted; the supervisor holds it until #180 converges.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T21:38:24Z
