@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T23:09:34Z_
+_As of 2026-10-14T23:14:39Z_
 
 ## Latest
 
@@ -387,13 +385,14 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #81 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T23:07:37Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 81 times; this is ONE
-> coalesced notice that updates in place, not 81 messages. Latest detail:
+> WATCHDOG notice — occurrence #82 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T23:12:32Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 82 times; this is ONE
+> coalesced notice that updates in place, not 82 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=17683s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1460](https://github.com/endojs/endo-but-for-bots/pull/1460)#discussion_r4277118108 (age=948s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=17983s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1460](https://github.com/endojs/endo-but-for-bots/pull/1460)#discussion_r4277118108 (age=1248s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1460](https://github.com/endojs/endo-but-for-bots/pull/1460)#discussion_r4277127802 (age=1158s; heartbeat=full-poll)
 
 - `kriscendobot-minion.town-pr183-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr183-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr183-gauntlet-review-budget-reached.md)
 
@@ -1535,7 +1534,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 254.6M | $1203.62 _(notional, rate-card)_ | 94% of 271.0M (backoff) |
-| Codex | 26.1M _(+800.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Codex | 26.1M _(+802.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101508090 tokens/day lower bound._
 
