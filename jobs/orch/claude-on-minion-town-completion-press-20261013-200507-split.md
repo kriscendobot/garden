@@ -1,4 +1,5 @@
 ---
+child-claude-on-minion-town-completion-press-20261013-200507-expanded-window-reap-count: 0
 order: serial
 children: claude-on-minion-town-completion-press-20261013-200507-expanded-window
 on-child-failure: halt
