@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 187
 build_job: heal-minion-town-ad0257e
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr187-gauntlet-viability
+current_child: kriscendobot-minion.town-pr187-gauntlet-clean
 state: running
 created_by: gardener
 created_at: 2026-10-14T18:17:55Z
