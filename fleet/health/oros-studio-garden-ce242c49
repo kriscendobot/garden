@@ -1,8 +1,8 @@
 host: oros-studio-garden-ce242c49
 deployed_sha: 320cfbed282856094ef3a4f88f6ea556f3d71d9d
-roll_status: deployed
+roll_status: roll-drained
 unit_failures: 0
 unit_total: 292
 first_bad_unit: -
 advisory_failures: 0
-at: 2026-10-14T05:31:10Z
+at: 2026-10-14T07:43:08Z
