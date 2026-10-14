@@ -2,6 +2,25 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T14:05Z (oros-health-checkup-20261014-075034): degraded (the deploy to 42863eb0 advanced the tree but was killed mid-restart, so fleet/health still says roll-drained at d82f327a) → two fixes on main2 `af3a8456`
+
+- **Load/mem:** load 2.5/2.8/2.8; 13 GiB of 16 GiB available; swap 511 MiB used.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1%.
+- **Uptime:** 12d20h, no reboot.
+- **Deployed vs main2:** root at `42863eb0` (from `d82f327a`, swapped 13:21:57Z); origin/main2 is now `af3a8456`. The roll release named oros for `42863eb0`. fleet/health (13:06Z): `roll_status: roll-drained`, deployed_sha `d82f327a`, 0 of 292 units failed.
+- **Units:** 0 failed. Monks 1, 2, 4, 5 and 6 are running; monks 3 and 7 are in stop-sigterm (see the finding). No drain marker; derotation untouched.
+- **Budget heartbeat:** claude-oros sampled at 13:01Z, status ok, 3% used; the file was updated at 13:15Z.
+- **rc=124 (3h):** transcript-capture ×3, and garden-self-deploy ×1 at 13:49Z (the finding).
+- **$GARDEN_STATE:** no pack-bloated clone (max 50 packs, no tmp_pack).
+- **Finding (fixed, main2 `af3a8456`):**
+  - deploy-garden lifted its drain and then restarted the monks. The SIGTERM (13:22:13Z) reached monk@3 and monk@7 while each was inside claim-job.sh. bash deferred the trap, so both ran their freshly claimed jobs (this check-up claimed at 13:22:22Z).
+  - `systemctl restart` waited on those jobs until self-deploy's 2400s wall clock killed deploy-garden at 13:49Z. The tree had already advanced and the drain was lifted, but the deployed-health pending marker was only written after the restart, so nothing republished `deployed`.
+  - Fix: gardener.sh re-checks the stop after a claim; if set, it stamps reap-now and exits without starting the handler. deploy-garden arms the pending marker as soon as the sha is recorded. New tests: claim-stop-race-test (4/4) and a deploy-garden-test subtest for a mid-restart kill. Both fail without the fix.
+- **Changed (on-host):** wrote `deploy/deployed-health-pending` = `42863eb0` (what the fixed code writes), so self-deploy's next tick republishes `deployed` for the leader's canary check.
+- **Open:**
+  - monk@3 and monk@7 restart onto the new code when their current jobs finish (this one ends now).
+  - If the leader's canary for `42863eb0` already timed out on the stale record, the next roll (to `af3a8456`) should pass.
+
 ## 2026-10-14T10:50Z (oros-health-checkup-20261013-163508, superseded re-run): unhealthy at 08:20Z (roll-drained after 4 of 4 failed 320cfbed canaries) → fix on main2 `8eb6caec`; superseded by the 09:45Z note for the current state
 
 - **Finding (canary blocker, fixed on main2 `8eb6caec`):**
