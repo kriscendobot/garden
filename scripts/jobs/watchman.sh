@@ -42,14 +42,14 @@ git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null || log "
 
 local_sha=''
 for ((attempt = 1; attempt <= GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS; attempt += 1)); do
-  local_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$GARDEN_MAIN_BRANCH" || true)"
+  local_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet HEAD || true)"
   [ -z "$local_sha" ] || break
   if [ "$attempt" -lt "$GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS" ]; then
-    log "WARN: cannot resolve local $GARDEN_MAIN_BRANCH in $GARDEN_ROOT (attempt $attempt/$GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS); retrying after ${GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP}s"
+    log "WARN: cannot resolve deployed HEAD in $GARDEN_ROOT (attempt $attempt/$GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS); retrying after ${GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP}s"
     sleep "$GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP"
   fi
 done
-[ -n "$local_sha" ] || die "cannot resolve local $GARDEN_MAIN_BRANCH in $GARDEN_ROOT"
+[ -n "$local_sha" ] || die "cannot resolve deployed HEAD in $GARDEN_ROOT"
 up_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || echo "$local_sha")"
 
 # Aggressively converge local main2 onto upstream when behind (and clean).

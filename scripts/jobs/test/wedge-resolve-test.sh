@@ -173,6 +173,20 @@ run_watchman() {  # fills $OUT/$RC
   set -e
 }
 
+hr; echo "WATCHMAN/DETACHED-HEAD — deployed SHA does not require a local main2 ref"; hr
+setup_fixture; rm -rf "$TR/state"
+deployed_sha="$(git -C "$TR/root" rev-parse HEAD)"
+git -C "$TR/root" checkout -q --detach "$deployed_sha"
+git -C "$TR/root" branch -q -D main2
+run_watchman
+[ "$RC" -eq 0 ] && ok "watchman resolves a detached deployed HEAD without local main2" || bad "watchman exit $RC: $OUT"
+[ -z "$(git -C "$TR/root" show-ref --verify --hash refs/heads/main2 2>/dev/null)" ] \
+  && ok "watchman does not require or recreate a local main2 ref" \
+  || bad "watchman unexpectedly recreated local main2"
+[ "$(git -C "$TR/root" rev-parse HEAD)" = "$deployed_sha" ] \
+  && ok "detached deployed HEAD remains the local watch target" \
+  || bad "watchman did not retain the deployed HEAD"
+
 hr; echo "WATCHMAN/LOCAL-SHA-RETRY — a transient lock failure does not kill the tick"; hr
 setup_fixture; rm -rf "$TR/state"
 REAL_GIT="$(command -v git)"
@@ -181,7 +195,7 @@ cat > "$TR/git-shim/git" <<'EOF'
 #!/bin/bash
 if [ "$#" -eq 6 ] && [ "$1" = -C ] && [ "$2" = "$WATCHMAN_TEST_ROOT" ] \
    && [ "$3" = rev-parse ] && [ "$4" = --verify ] && [ "$5" = --quiet ] \
-   && [ "$6" = main2 ]; then
+   && [ "$6" = HEAD ]; then
   count="$(cat "$WATCHMAN_TEST_COUNT" 2>/dev/null || echo 0)"
   count=$((count + 1)); printf '%s\n' "$count" > "$WATCHMAN_TEST_COUNT"
   if [ "$count" -lt 3 ]; then
@@ -200,8 +214,8 @@ run_watchman
 unset WATCHMAN_REAL_GIT WATCHMAN_TEST_ROOT WATCHMAN_TEST_COUNT WATCHMAN_TEST_REAL_GIT
 [ "$RC" -eq 0 ] && ok "watchman recovered after two transient local rev-parse failures" || bad "watchman exit $RC"
 [ "$(cat "$TR/local-sha-count" 2>/dev/null)" -eq 3 ] \
-  && ok "local branch resolution made three bounded attempts" \
-  || bad "local branch resolution attempt count was $(cat "$TR/local-sha-count" 2>/dev/null || echo 0)"
+  && ok "deployed HEAD resolution made three bounded attempts" \
+  || bad "deployed HEAD resolution attempt count was $(cat "$TR/local-sha-count" 2>/dev/null || echo 0)"
 grep -q 'attempt 2/3' <<<"$OUT" && ok "retry attempts were logged" || bad "retry attempts were not logged"
 
 hr; echo "WATCHMAN/TRACKED-WEDGE — posts a resolve-wedge job, no maintainer message"; hr
