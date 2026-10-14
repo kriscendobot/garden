@@ -30,3 +30,13 @@ Then drive it to the end, posting dated blocked successor jobs (`post-plan.sh --
 3. Republish as a new immutable ocap.site clip (never `upgrade`), following `skills/minion-town-clip-publishing/SKILL.md` (inert `powers` pet name, never `sites` or `@agent`; the skill's `powers: "sites"` example is stale and unsafe, fix it in the garden repo if you can touch it, otherwise report it). Verify published bytes equal the build output, check the live page in a real browser at phone and desktop widths in light and dark, and confirm the illuminations the maintainer cares about actually render. Record the edition in the edition history as before (PR #14 is the template).
 
 Report the new URL only after the publish is verified. Send the maintainer one concise message at the end with the root cause, the PR link(s) and the URL.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T03:58:44Z
