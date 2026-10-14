@@ -115,6 +115,7 @@ busy_count=0
 lock_err="$(mktemp)"
 body="$(mktemp)"
 trap 'rm -f "$lock_err" "$body"' EXIT
+soft_lock_warning_re='WARN: clone lock .* busy >[0-9]+s; abandoning this OPTIONAL refresh \(fail-open, no retry ladder\)'
 for clone in "$GARDEN_STATE"/*/journal; do
   [ -d "$clone" ] || continue
   # Subshell: soft clone_lock EXITS (not returns) when the clone is busy, which
@@ -126,16 +127,19 @@ for clone in "$GARDEN_STATE"/*/journal; do
   else
     lock_rc=$?
   fi
-  lock_diagnostic="$(cat "$lock_err")"
+  lock_diagnostic="$(<"$lock_err")"
+  # Match the capture file directly. With pipefail, `printf "$capture" |
+  # grep -q` can report printf's SIGPIPE (141), not grep's match, when grep exits
+  # after an early match in a capture larger than the pipe buffer. That turns an
+  # ordinary busy clone into the fallback branch, which replays every <4> warning
+  # to journald instead of coalescing it.
   if [ "$lock_rc" -eq "$GARDEN_OFFLINE_RC" ] \
-     && printf '%s\n' "$lock_diagnostic" | grep -qE \
-       'WARN: clone lock .* busy >[0-9]+s; abandoning this OPTIONAL refresh \(fail-open, no retry ladder\)' \
-     && ! journal_diagnostic_is_definite_failure "$lock_diagnostic"; then
+     && grep -qE "$soft_lock_warning_re" "$lock_err" \
+     && ! (set +o pipefail; journal_diagnostic_is_definite_failure "$lock_diagnostic"); then
     busy_count=$((busy_count + 1))
     busy_clones="${busy_clones}${busy_clones:+, }$clone"
     # Keep anything other than clone_lock's expected busy-peer line visible.
-    grep -vE 'WARN: clone lock .* busy >[0-9]+s; abandoning this OPTIONAL refresh \(fail-open, no retry ladder\)' \
-      "$lock_err" >&2 || true
+    grep -vE "$soft_lock_warning_re" "$lock_err" >&2 || true
   else
     [ -z "$lock_diagnostic" ] || printf '%s\n' "$lock_diagnostic" >&2
     [ "$lock_rc" -eq 0 ] || log "$clone: maintenance failed (rc=$lock_rc)"

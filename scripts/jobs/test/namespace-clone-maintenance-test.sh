@@ -19,6 +19,12 @@ make_clone beta
 mkdir -p "$TR/busy-bin"
 cat > "$TR/busy-bin/flock" <<'EOF'
 #!/bin/bash
+# Model the non-TTY capture handed to journald: log() prefixes warnings with
+# <4>. Repeating the expected line beyond a pipe buffer catches a grep -q match
+# that is accidentally replaced by the producer's SIGPIPE under pipefail.
+for _ in $(seq 1 1024); do
+  printf '<4>00:00:00 [fixture] WARN: clone lock /fixture/journal.lock busy >5s; abandoning this OPTIONAL refresh (fail-open, no retry ladder)\n' >&2
+done
 exit 1
 EOF
 chmod +x "$TR/busy-bin/flock"
@@ -34,8 +40,13 @@ PATH="$TR/busy-bin:$PATH" \
 
 [ "$(grep -c 'clone lock contention: skipped 2 busy clone(s) this tick:' "$TR/busy.err")" -eq 1 ] \
   || { echo 'FAIL: busy clones did not produce one coalesced summary'; cat "$TR/busy.err"; exit 1; }
-! grep -q 'abandoning this OPTIONAL refresh' "$TR/busy.err" \
-  || { echo 'FAIL: per-clone soft-lock diagnostics escaped'; cat "$TR/busy.err"; exit 1; }
+if [ "$(wc -l < "$TR/busy.err")" -ne 1 ] \
+   || grep -q '<4>\|abandoning this OPTIONAL refresh' "$TR/busy.err" \
+   || ! grep -q '^<6>.*clone lock contention:' "$TR/busy.err"; then
+  echo 'FAIL: non-TTY priority capture emitted more than the info-priority coalesced summary'
+  cat "$TR/busy.err"
+  exit 1
+fi
 if ! grep -q "$TR/state/alpha/journal" "$TR/busy.err" \
    || ! grep -q "$TR/state/beta/journal" "$TR/busy.err"; then
   echo 'FAIL: contention summary omitted a busy clone'
