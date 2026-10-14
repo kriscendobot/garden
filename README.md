@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T22:16:54Z_
+_As of 2026-10-14T22:25:14Z_
 
 ## Latest
 
@@ -387,12 +385,12 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #70 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T22:12:04Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 70 times; this is ONE
-> coalesced notice that updates in place, not 70 messages. Latest detail:
+> WATCHDOG notice — occurrence #72 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T22:22:26Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 72 times; this is ONE
+> coalesced notice that updates in place, not 72 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=14382s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=14982s; heartbeat=full-poll)
 
 - `kriscendobot-minion.town-pr183-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr183-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr183-gauntlet-review-budget-reached.md)
 
@@ -864,11 +862,11 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #2216 (first seen 2026-10-10T04:05:32Z, latest 2026-10-14T21:15:17Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 2216 times; this is ONE
-> coalesced notice that updates in place, not 2216 messages. Latest detail:
+> WATCHDOG notice — occurrence #2237 (first seen 2026-10-10T04:05:32Z, latest 2026-10-14T22:17:03Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 2237 times; this is ONE
+> coalesced notice that updates in place, not 2237 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 409315s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 413025s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1533,10 +1531,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 254.4M | $1200.40 _(notional, rate-card)_ | 94% of 271.0M (backoff) |
-| Codex | 25.0M _(+771.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
+| Claude | 254.5M | $1201.74 _(notional, rate-card)_ | 94% of 271.0M (backoff) |
+| Codex | 25.3M _(+774.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 100570120 tokens/day lower bound._
+_Fleet token-unlock pace: 100578650 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.073358s/45s (/home/kris/garden/.garden-state/mentor/journal); 8 open notice(s); checker healthy
@@ -1553,17 +1551,18 @@ worst fetch p95 5.073358s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`kriscendobot-minion.town-pr187-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr187-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #187
 - [`kriscendobot-garden-book-pr15-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/garden-book PR #15
 
-### doin (2)
+### doin (3)
 - [`improve-codex-nonzero-completion-rescue`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-codex-nonzero-completion-rescue.md) — ---
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #184
+- [`improve-sysop-unlogged-record-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-sysop-unlogged-record-reconcile.md) — ---
 
-### tada (12848)
+### tada (12849)
+- [`improve-review-docket-lock-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/improve-review-docket-lock-timeout.md) — Cost
 - [`kriscendobot-minion.town-pr186-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion.town-pr186-gauntlet-fix-3.md) — Gauntlet fix round 3: kriscendobot/minion.town PR #186
 - [`endojs-endo-but-for-bots-pr1442-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/endojs-endo-but-for-bots-pr1442-rebase.md) — Cost
 - [`oros-health-watch-20261014-211624`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-watch-20261014-211624.md) — Cost
 - [`improve-auction-reputation-worker-kind-fixtures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/improve-auction-reputation-worker-kind-fixtures.md) — Cost
-- [`minion-town-pr180-panel9-pr184-panel5-resume-20261014-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-pr180-panel9-pr184-panel5-resume-20261014-split.md) — orchestration minion-town-pr180-panel9-pr184-panel5-resume-20261014-split — c...
-- … and 12843 more
+- … and 12844 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
