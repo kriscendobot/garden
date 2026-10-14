@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T14:46:42Z_
+_As of 2026-10-14T14:50:06Z_
 
 ## Latest
 
@@ -167,6 +167,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr177-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_decisions_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_decisions_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/decisions/journal: p95=22.223952s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
@@ -1194,6 +1198,14 @@ Delegation: **active**
 > Heal job heal-minion-town-39867df posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
 > Operations: context/operations/minion-town-screening.md
 
+- `watchdog-backend-degraded-endolin-garden-ece02cb4-cleric` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden-ece02cb4-cleric.md)
+
+> RECOVERED — the watchdog condition `backend-degraded-endolin-garden-ece02cb4-cleric` has CLEARED (first seen 2026-10-14T14:26:54Z, cleared 2026-10-14T14:48:55Z).
+> It was observed 22 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> cleric backend on endolin-garden-ece02cb4 recovered; effective ramped to declared 1.
+
 - `msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec` — from gardener:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec.md)
 
 > Foreign-content gate halted another Literate AI source; I did not read or ingest it and need an explicit disposition.
@@ -1404,10 +1416,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 252.7M | $1192.42 _(notional, rate-card)_ | 93% of 271.0M (ok) |
 | Codex | 22.6M _(+700.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 101275236 tokens/day lower bound._
+_Fleet token-unlock pace: 101283046 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 28.586589s/45s (unknown); 9 open notice(s); checker healthy
+worst fetch p95 28.586589s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (15)
