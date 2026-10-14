@@ -152,6 +152,30 @@ republish_pending_deferral() {
 
 republish_pending_deferral
 
+# republish_pending_deployed — retry the post-deploy `deployed` health record that
+# deploy-garden.sh could not publish (it leaves GARDEN_DEPLOY_HEALTH_PENDING until the
+# publish lands). Runs before step 1 because a deployed host has no upgrade-ready
+# marker and would exit there. Dropped if the host has since moved to another sha.
+republish_pending_deployed() {
+  [ -f "$GARDEN_DEPLOY_HEALTH_PENDING" ] || return 0
+  local sha cur
+  sha="$(rdsha "$GARDEN_DEPLOY_HEALTH_PENDING")"
+  cur="$(deployed_sha 2>/dev/null || true)"
+  if [ -z "$sha" ] || [ "$sha" != "$cur" ]; then
+    rm -f "$GARDEN_DEPLOY_HEALTH_PENDING" 2>/dev/null || true
+    log "dropped a pending deployed status for ${sha:0:12}: this host is now at ${cur:0:12}"
+    return 0
+  fi
+  if publish_fleet_health "$sha" deployed; then
+    rm -f "$GARDEN_DEPLOY_HEALTH_PENDING" 2>/dev/null || true
+    log "republished the deployed status for ${sha:0:12} (the deploy could not publish it)"
+  else
+    log "WARN: pending deployed status for ${sha:0:12} still not published; will retry next tick"
+  fi
+}
+
+republish_pending_deployed
+
 # --- 1. the host-local deploy DECISION (never a bus message) -----------------
 if [ ! -e "$GARDEN_UPGRADE_READY_MARKER" ]; then
   # Current: nothing to do. Silent (autonomous posture).

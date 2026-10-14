@@ -563,6 +563,12 @@ export GARDEN
 # Host-local record deploy-garden.sh writes when it DEFERS (and removes at the start of
 # every run), so self-deploy can tell a deferral from a landed or failed deploy.
 : "${GARDEN_DEPLOY_DEFER_RECORD:=$GARDEN_DEPLOY_STATE/deferred}"
+# Host-local record deploy-garden.sh writes (the new sha) just before it publishes the
+# post-deploy `deployed` health record, and removes once that publish lands. A deploy
+# killed mid-publish leaves it behind, and self-deploy republishes on its next tick:
+# once the tree is current self-deploy exits before any other publish, so the leader
+# read a stale `deferred` for a canary that had deployed (oros 2026-10-14 02:32-03:21Z).
+: "${GARDEN_DEPLOY_HEALTH_PENDING:=$GARDEN_DEPLOY_STATE/deployed-health-pending}"
 # Host-local record deploy-garden.sh writes before it engages the drain and removes
 # when it exits through its own cleanup: pid, whether it engaged the drain, and the
 # old/target shas. A record whose pid is gone means the deploy died without cleaning

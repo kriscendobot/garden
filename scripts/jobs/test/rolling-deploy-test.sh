@@ -957,6 +957,27 @@ kill "$LOCK_HOLDER" 2>/dev/null; wait "$LOCK_HOLDER" 2>/dev/null || true
 if grep -q '^deferred_at_epoch: 63000' <<<"$(from_bare "fleet/health/$F1")" && [ ! -e "$SD_PENDING" ]; then
   ok "PUBLISH ISOLATION: a busy producer-clone lock does not block the deferred-status publish"
 else bad "PUBLISH ISOLATION: deferral not published while the producer lock was held: $(from_bare "fleet/health/$F1" | grep deferred_at); $(tail -5 "$TR/self-deploy.out")"; fi
+# (e) a deploy killed mid-publish leaves the deployed-health pending marker; the next
+# tick republishes `deployed` even though upgrade-ready is gone (oros 2026-10-14: the
+# leader read a stale `deferred` for 50 minutes after the canary had deployed).
+SD_DEPLOYED_PENDING="$TR/sd-state-$F1/deploy/deployed-health-pending"
+printf '%s\n' "$TARGET" > "$TR/sd-state-$F1/deploy/deployed-sha"
+printf '%s\n' "$TARGET" > "$SD_DEPLOYED_PENDING"
+rm -f "$TR/sd-state-$F1/deploy/upgrade-ready" "$TR/sd-state-$F1/deploy/deferred"; : > "$DEPLOY_LOG"; : > "$TR/self-deploy.out"
+run_self_deploy "$F1" "${FLAKY_ENV[@]}" GARDEN_SELF_DEPLOY_NOW=64000
+fh="$(from_bare "fleet/health/$F1")"
+if grep -q '^roll_status: deployed' <<<"$fh" && grep -q "^deployed_sha: $TARGET" <<<"$fh" \
+   && [ ! -e "$SD_DEPLOYED_PENDING" ] && [ ! -s "$DEPLOY_LOG" ]; then
+  ok "DEPLOYED REPUBLISH: a pending deployed status is published on the next tick (no deploy re-fired)"
+else bad "DEPLOYED REPUBLISH: pending deployed status not published: $fh; $(tail -5 "$TR/self-deploy.out")"; fi
+# (f) a pending marker for a sha this host is no longer at is dropped, never published.
+printf '%s\n' "$DEF_BASE" > "$SD_DEPLOYED_PENDING"
+n0="$(git -C "$BARE" rev-list --count "$BRANCH" -- "fleet/health/$F1")"
+run_self_deploy "$F1" "${FLAKY_ENV[@]}" GARDEN_SELF_DEPLOY_NOW=64100
+n1="$(git -C "$BARE" rev-list --count "$BRANCH" -- "fleet/health/$F1")"
+[ "$n1" = "$n0" ] && [ ! -e "$SD_DEPLOYED_PENDING" ] && ok "DEPLOYED REPUBLISH: a pending status for a superseded sha is dropped" \
+  || bad "DEPLOYED REPUBLISH: superseded pending status published or kept ($n0 -> $n1)"
+rm -f "$TR/sd-state-$F1/deploy/deployed-sha"
 sd_signal "$F1" "$TARGET"
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after follower deferral test"
 

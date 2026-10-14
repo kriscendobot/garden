@@ -923,10 +923,15 @@ fi
 # plus deploy/leader-sha on the leader) so the rolling deploy's canary validation can
 # read it (designs/follower-self-deploy.md § Post-deploy validation). Best-effort: an
 # unreachable journal never turns a completed deploy into a failure.
+# A pending marker outlives a publish that fails or is killed; self-deploy retries it.
 if [ "${GARDEN_DEPLOY_NO_HEALTH_PUBLISH:-0}" != "1" ]; then
-  publish_fleet_health "$new_sha" deployed \
-    && log "published fleet health record for $GARDEN @ $new_sha" \
-    || log "WARN: could not publish fleet health record (no journal?); canary validation will fall back to a live probe"
+  printf '%s\n' "$new_sha" > "$GARDEN_DEPLOY_HEALTH_PENDING" 2>/dev/null || true
+  if publish_fleet_health "$new_sha" deployed; then
+    rm -f "$GARDEN_DEPLOY_HEALTH_PENDING" 2>/dev/null || true
+    log "published fleet health record for $GARDEN @ $new_sha"
+  else
+    log "WARN: could not publish fleet health record (no journal?); self-deploy retries it from the pending marker"
+  fi
 fi
 
 # Best-effort post-deploy reread broadcast (the watchman also broadcasts on the
