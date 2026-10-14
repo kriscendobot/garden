@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7644 (530 parent indexes + 7114 children).
+Total section files: 7651 (530 parent indexes + 7121 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -10444,6 +10444,16 @@ Total section files: 7644 (530 parent indexes + 7114 children).
 - [web--anthropic-context-engineering--structured-note-taking](web--anthropic-context-engineering--structured-note-taking.md)
 - [web--anthropic-context-engineering--sub-agent-architectures](web--anthropic-context-engineering--sub-agent-architectures.md)
 - [web--anthropic-context-engineering--why-context-engineering-matters](web--anthropic-context-engineering--why-context-engineering-matters.md)
+
+### web--anthropic-redesigning-source-control
+
+- [web--anthropic-redesigning-source-control--agent-scale-principles](web--anthropic-redesigning-source-control--agent-scale-principles.md)
+- [web--anthropic-redesigning-source-control--changesets-and-derived-data](web--anthropic-redesigning-source-control--changesets-and-derived-data.md)
+- [web--anthropic-redesigning-source-control--ecosystem-directions](web--anthropic-redesigning-source-control--ecosystem-directions.md)
+- [web--anthropic-redesigning-source-control--engineering-and-operations-lessons](web--anthropic-redesigning-source-control--engineering-and-operations-lessons.md)
+- [web--anthropic-redesigning-source-control--growing-the-monorepo](web--anthropic-redesigning-source-control--growing-the-monorepo.md)
+- [web--anthropic-redesigning-source-control--overview](web--anthropic-redesigning-source-control--overview.md)
+- [web--anthropic-redesigning-source-control--scalable-object-delivery](web--anthropic-redesigning-source-control--scalable-object-delivery.md)
 
 ### web--apple-es-new-descendants-client
 
