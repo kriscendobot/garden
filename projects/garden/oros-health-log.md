@@ -2,6 +2,27 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T05:00Z (oros-health-checkup-20261014-015008): degraded (deployed at e1e898bd; roll to 320cfbed is deferring behind long jobs, not failing) → on-host pruning only, no code change
+
+- **Load/mem:** load 4.7/3.5/3.4; 13 GiB of 15 GiB available; swap 507 MiB used.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1%.
+- **Uptime:** 12d11h, no reboot.
+- **Deployed vs main2:** root at `e1e898bd`; origin/main2 is `320cfbed` (the target includes `369ca75a` and `d43e3363`). fleet/health at 04:41Z: `roll_status: deferred`, `long-job monk 3 4948s`, 0 of 292 units failed.
+- **Units:** 0 failed; 6 monks running. No drain marker; derotation untouched.
+- **Budget heartbeat:** claude-oros sampled at 04:34Z, status ok, 2% used; the file was updated at 04:45Z.
+- **rc=124:** 11 in the system journal over 3h. One was the previous check-up `…133505`, which hit its own 3600s handler budget at 04:18Z even though it had written its log note at 03:50Z.
+- **$GARDEN_STATE:** no pack-bloated clone (largest is 48 packs, no tmp_pack). 97 per-id inbox clones, 84 of them for jobs not in doin/todo/plan.
+- **Finding (deploy blocker):**
+  - deploy-garden defers whenever any worker has been busy longer than 300s (`GARDEN_DEPLOY_LONG_JOB_THRESHOLD`). On oros, monk 3 sat in post-timeout handling for `…133505` for about 28 minutes: classify 04:18→04:32, overrun stamp →04:46. This check-up and monk 1's gauntlet fix are also long jobs.
+  - The deferral works as designed: the conductor waits rather than failing the canary. I left the drains alone, so the roll proceeds at the next quiet window or through the leader's quiesce.
+  - Until `d43e3363` lands here, the first inbox-read still costs 11 minutes (seed 03:07→03:18 for `…133505`).
+- **Changed (on-host):**
+  - removed 79 orphaned per-id inbox clones (job no longer live, idle more than 2h, no process referencing it). 17 remain.
+  - pruned 254 dead-pid repo-lock holder files older than 1h.
+- **Open:**
+  - `doin/` still lists the finished `oros-health-checkup-20261013-223508` and `canary-probe-…242f944cdf7d-r3` claims; the reaper should clear them.
+  - The post-handler journal work after an rc=124 is slow on virtiofs (about 28 minutes), and it holds a busy marker that blocks the deploy.
+
 ## 2026-10-14T03:50Z (oros-health-checkup-20261013-133505): degraded (deployed at main2 e1e898bd, but canary validation still fails; roll-drained again since 03:37) → one fix on main2; a posted fixer job landed the second
 
 - **Load/mem:** load 3.6/3.5/3.4; 13 GiB of 15 GiB available; swap 499 MiB used.
