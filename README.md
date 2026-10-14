@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T08:57:59Z_
+_As of 2026-10-14T09:06:42Z_
 
 ## Latest
 
@@ -789,6 +789,10 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
+- `msg-kriscendobot-garden-book-pr15-gauntlet-fix-1-f9e602573853` — from gardener:kriscendobot-garden-book-pr15-gauntlet-fix-1, reply_to `kriscendobot-garden-book-pr15-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-garden-book-pr15-gauntlet-fix-1-f9e602573853.md)
+
+> garden-book [kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/issues/15) (OpenAI raster illuminations), [https://github.com/kriscendobot/garden-book/pull/15](https://github.com/kriscendobot/garden-book/pull/15): the gauntlet fix round found that this edition cannot be published. minion.town's /mcp takes at most 2 MB per request (MCP_JSON_BODY_LIMIT, your 2026-09-23 decision). The book with its 25 WebP plates encodes to about 11.3 MB in its single publish call, so the host returns HTTP 413. The CSP is not the problem: same-origin images load. Choose a path: (a) wait for out-of-band (git-HTTP) clip submission, (b) raise the limit, (c) shrink the plates to about 16 KB each, or (d) revert to inline SVG art. publish-book.mjs now refuses an oversize clip with a clear error. The PR history has also been split as the panel asked.
+
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-d41c7e131ed3` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-d41c7e131ed3.md)
 
 > Literate AI ingest, slice 4: added `provider-resolution` (3 sections) and `repository-inheritance` (6 sections), both classified `proceed` by Jev on endolin. Link checks passed and both indexes are regenerated.
@@ -1397,10 +1401,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 251.2M | $1184.67 _(notional, rate-card)_ | 93% of 271.0M (ok) |
+| Claude | 251.2M | $1185.65 _(notional, rate-card)_ | 93% of 271.0M (ok) |
 | Codex | 21.5M _(+675.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 99101019 tokens/day lower bound._
+_Fleet token-unlock pace: 99202967 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control/journal); 10 open notice(s); checker healthy
@@ -1409,17 +1413,18 @@ worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control
 ### todo (11)
 - [`claude-on-minion-town-press-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-075034.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
-- [`oros-health-checkup-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-045008.md) — ---
 - [`oros-health-checkup-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-075034.md) — ---
 - [`minion-town-arc-press-20261013-182028-triage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-triage.md) — Triage the minion.town arc pull-request portfolio
 - [`claude-on-minion-town-completion-press-20261014-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261014-080513.md) — Completion press: Claude-on-minion.town arc
+- [`kriscendobot-minion.town-pr167-gauntlet-20261013-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #167
 - [`minion-town-pr180-panel9-pr184-panel5-resume-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-panel9-pr184-panel5-resume-20261014.md) — Resume two halted minion.town gauntlets (kriscendobot/minion.town #180, #184)
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1442
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-133505
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #186
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-045008.md) — Press the Claude-on-minion.town arc forward
 
-### doin (3)
+### doin (4)
+- [`oros-health-checkup-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261014-045008.md) — ---
 - [`kriscendobot-garden-book-pr15-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr15-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/garden-book PR #15
 - [`claude-on-minion-town-press-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261014-015008.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-163508.md) — ---
