@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T17:56:43Z_
+_As of 2026-10-14T18:01:45Z_
 
 ## Latest
 
@@ -23,7 +21,7 @@ Fleet health:
 
 ## Maintainer review docket
 
-133 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+132 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -83,11 +81,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-10-10T19:39:41Z, latest 2026-10-12T12:49:29Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_producer_journal`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` has CLEARED (first seen 2026-10-10T19:39:41Z, cleared 2026-10-14T18:00:27Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=114.157663s, giveups=15, steals=6 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` cleared on oros-studio-garden-ce242c49.
 
 - `msg-heal-minion-town-39867df-44e244494ac6` — from gardener:heal-minion-town-39867df, reply_to `heal-minion-town-39867df` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-heal-minion-town-39867df-44e244494ac6.md)
 
@@ -562,11 +560,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-10-14T01:36:55Z, latest 2026-10-14T16:43:33Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-14T01:36:55Z, cleared 2026-10-14T18:00:09Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on oros-studio-garden-ce242c49 made no progress inside its 210s budget on consecutive ticks: analyzed=0, deferred work=31 (previous 31; clones=29 [busy=0], remedies=2, cleanup=0, notices=0).
+> Journal contention condition `journal-contention-watch-overrun` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
@@ -1279,11 +1277,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-10-10T19:39:51Z, cleared 2026-10-14T09:45:57Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-10T19:39:51Z, latest 2026-10-14T18:00:36Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.185680s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `minion-town-pr-screening-paused-39867df` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-39867df.md)
 
@@ -1511,7 +1509,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 252.9M | $1192.63 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
-| Codex | 23.9M _(+743.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
+| Codex | 23.9M _(+744.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99308809 tokens/day lower bound._
 
@@ -1533,17 +1531,16 @@ worst fetch p95 4.200922s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`minion-town-arc-press-20261014-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-162006.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
 
-### doin (2)
+### doin (1)
 - [`kriscendobot-garden-book-pr15-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr15-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/garden-book PR #15
-- [`improve-typesafe-http-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-typesafe-http-classification.md) — ---
 
-### tada (12816)
+### tada (12817)
+- [`improve-typesafe-http-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/improve-typesafe-http-classification.md) — Cost
 - [`screen-minion-town-pr93-d7b0717-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/screen-minion-town-pr93-d7b0717-conduct.md) — Cost
 - [`scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014.md) — Cost
 - [`oros-health-watch-20261014-170518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-watch-20261014-170518.md) — Cost
 - [`minion-town-arc-press-20261014-130538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-arc-press-20261014-130538.md) — Cost
-- [`scholar-ingest-anthropic-redesigning-source-control-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/scholar-ingest-anthropic-redesigning-source-control-20261014.md) — Cost
-- … and 12811 more
+- … and 12812 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
