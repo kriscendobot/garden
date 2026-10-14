@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T03:21:11Z_
+_As of 2026-10-14T03:24:41Z_
 
 ## Latest
 
@@ -1259,15 +1257,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #353 (first seen 2026-10-12T21:38:02Z, latest 2026-10-14T02:32:03Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 353 times; this is ONE
-> coalesced notice that updates in place, not 353 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-12T21:38:02Z, cleared 2026-10-14T03:23:02Z).
+> It was observed 353 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to e1e898bdc9d4 48 min ago
-> but still reports deployed_sha 242f944cdf7db5e58f19a09e9b9a07a5d3c2effb. Check garden-self-deploy on oros-studio-garden-ce242c49
-> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-> keeps it from advancing. The leader does not advance past an undeployed canary.
-> (leader=endolin-garden-ece02cb4)
+> canary oros-studio-garden-ce242c49 is no longer stuck (release e1e898bdc9d44caec21a53a2b2a2986cc1976e5e, deployed e1e898bdc9d44caec21a53a2b2a2986cc1976e5e).
 
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0.md)
 
@@ -1333,7 +1327,7 @@ _Fleet token-unlock pace: 99053666 tokens/day lower bound._
 worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-015008.md) — ---
 - [`claude-on-minion-town-completion-press-20261013-200507-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-200507-expanded-window.md) — Completion press: Claude-on-minion.town arc
@@ -1343,6 +1337,7 @@ worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`minion-town-pr180-panel9-pr184-panel5-resume-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-panel9-pr184-panel5-resume-20261014.md) — Resume two halted minion.town gauntlets (kriscendobot/minion.town #180, #184)
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1442
 - [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`canary-probe-oros-studio-garden-ce242c49-e1e898bdc9d4-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-e1e898bdc9d4-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ e1e898bdc9d4
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #186
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
