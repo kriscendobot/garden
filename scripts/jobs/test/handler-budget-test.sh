@@ -80,7 +80,7 @@ seed_board() {
       { printf -- '---\ntier: mentor\ndispatch: automatic\n---\n'; printf '%s' "$body"; } > "jobs/todo/$job.md"
     fi )
   for host in honorhost bighost zerohost overrunhost; do
-    seed_calibrated_test_pool "$seed" "$host" gardener
+    seed_calibrated_test_pool "$seed" "$host" monk
   done
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
@@ -180,7 +180,7 @@ STATE4="$D4/state"
 # One overrun cycle: default budget 1s, stub sleeps 3s → rc=124 at the wall. Reuses
 # the SAME GARDEN_STATE across calls so the alert throttle marker persists.
 run_overrun_cycle() {
-  env JOURNAL_REMOTE="$BARE4" JOURNAL_BRANCH="$BRANCH" \
+  env GARDEN_ALERT_STUB_SLEEP="${ALERT_SLEEP:-0}" JOURNAL_REMOTE="$BARE4" JOURNAL_BRANCH="$BRANCH" \
       GARDEN="overrunhost" GARDEN_STATE="$STATE4" \
       GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_HANDLER_TIMEOUT=1 GARDEN_STUB_SLEEP=3 \
       GARDEN_ALERT_CMD="$ALERT" GARDEN_ALERT_RECORD="$REC4" \
@@ -202,7 +202,19 @@ requeue_doin_to_todo() {
   rm -rf "$w"
 }
 
+# The overrun alert is delivered DETACHED (so a slow journal push cannot hold the
+# worker's busy marker); give the background recorder a moment to land.
+wait_for_alert() { # <record> <min-count>
+  local i
+  for i in $(seq 1 50); do
+    [ "$(grep -c '^KEY=handler-budget-overrun-overrunjob$' "$1")" -ge "$2" ] && return 0
+    sleep 0.2
+  done
+  return 1
+}
+
 run_overrun_cycle "$D4/gardener1.log"
+wait_for_alert "$REC4" 1 || true
 if grep -Eq "deterministic deadline overrun" "$D4/gardener1.log"; then
   ok "default-budget handler classified as a deterministic deadline overrun (rc=124 at the wall)"
 else
@@ -227,6 +239,7 @@ fi
 # direct gardener invocations, confirming the throttle collapses repeat observations.
 requeue_doin_to_todo
 run_overrun_cycle "$D4/gardener2.log"
+sleep 1
 if grep -Eq "deterministic deadline overrun" "$D4/gardener2.log"; then
   ok "a repeated direct invocation also overran deterministically"
 else
@@ -237,6 +250,27 @@ if [ "$(grep -c '^KEY=handler-budget-overrun-overrunjob$' "$REC4")" = 1 ]; then
 else
   bad "expected the alert to stay deduped at one entry across both cycles. record: $(cat "$REC4")"
 fi
+
+hr; echo "SUBTEST 5 — a slow overrun alert does not hold the worker past the handler"; hr
+# Regression: on oros (2026-10-14) the overrun alert's journal push loop ran 30+
+# minutes after the handler died, holding the busy marker and deferring the deploy.
+# A fresh state dir clears the throttle, so this cycle delivers again. The stub
+# sleeps 300s; a gardener that waited for it would still be running, so the stub
+# must still be alive when the gardener has already returned.
+requeue_doin_to_todo
+STATE4="$D4/state5"
+ALERT_SLEEP=300 run_overrun_cycle "$D4/gardener5.log"
+if grep -q 'stamped deadline-overrun hint' "$D4/gardener5.log"; then
+  ok "deadline-overrun hint stamped without waiting for the alert"
+else
+  bad "no deadline-overrun stamp. log: $(grep -i 'overrun' "$D4/gardener5.log" | tail -3)"
+fi
+if pgrep -f budget-alert-record-stub.sh >/dev/null; then
+  ok "gardener returned while the slow alert was still delivering in the background"
+else
+  bad "no alert delivery outlived the gardener (it waited for it, or never sent it)"
+fi
+pkill -f 'budget-alert-record-stub.sh' 2>/dev/null || true
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

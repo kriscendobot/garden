@@ -4,4 +4,6 @@
 # appends both to $GARDEN_ALERT_RECORD instead of routing to the maintainer inbox
 # over the network, so the test can assert the escalation content offline.
 set -uo pipefail
+# GARDEN_ALERT_STUB_SLEEP simulates a slow journal delivery (a contended push loop).
+sleep "${GARDEN_ALERT_STUB_SLEEP:-0}"
 printf 'KEY=%s\nMSG=%s\n' "$1" "$2" >> "${GARDEN_ALERT_RECORD:?GARDEN_ALERT_RECORD unset}"

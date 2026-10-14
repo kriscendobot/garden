@@ -1722,6 +1722,11 @@ while :; do
         printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=%s, %s, elapsed=%ss, handler-budget=%ss, kill-grace=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper applies the bounded wall-hit disposition (ordinary job: split-orchestrator immediately; gauntlet stage: immediate handoff to driver-owned max_stage_retries); left in doin for the reaper\n' \
           "$id" "$GARDEN" "$base" "$rc" "$deadline_overrun_kind" "$elapsed" "$handler_budget" "$GARDEN_HANDLER_KILL_AFTER" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+        if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+          log "stamped deadline-overrun hint on '$base'; reaper will act before TTL (ordinary split-orchestrator immediately; gauntlet driver handoff immediately)"
+        else
+          log "could not stamp deadline-overrun hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+        fi
         # EARLY ACTIONABLE DIAGNOSIS to the maintainer. A job that DECLARES an
         # over-large `handler-timeout:` gets the clamp-path alert above (line ~358)
         # before it ever runs; a job that runs under the DEFAULT budget and
@@ -1731,15 +1736,15 @@ while :; do
         # reaper's generic doom report cycles later. Emit the same diagnosis HERE,
         # deterministically, under the SAME dedup key as the clamp path so both
         # surfaces of the one root cause collapse onto a single throttled alert.
-        # Best-effort/subshell-isolated like the surrounding stamps — never fail the
-        # gardener (alert_maintainer already swallows its own errors).
+        # Best-effort and never fails the gardener (alert_maintainer already swallows
+        # its own errors). DETACHED, and sent AFTER the stamp above: delivery is a
+        # journal push retried up to GARDEN_POST_ATTEMPTS times, and on a contended
+        # virtiofs host one delivery took 30+ minutes (oros, 2026-10-14). Waiting for it
+        # held this worker's busy marker, so the deploy deferred on
+        # `long-job monk N` long after the handler had died.
         ( alert_maintainer "handler-budget-overrun-$base" \
-            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=$rc, $deadline_overrun_kind, elapsed=${elapsed}s, handler-budget=${handler_budget}s, kill-grace=${GARDEN_HANDLER_KILL_AFTER}s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) || true
-        if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
-          log "stamped deadline-overrun hint on '$base'; reaper will act before TTL (ordinary split-orchestrator immediately; gauntlet driver handoff immediately)"
-        else
-          log "could not stamp deadline-overrun hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
-        fi
+            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=$rc, $deadline_overrun_kind, elapsed=${elapsed}s, handler-budget=${handler_budget}s, kill-grace=${GARDEN_HANDLER_KILL_AFTER}s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) </dev/null >/dev/null 2>&1 &
+        disown $! 2>/dev/null || true
       else
         quota_text="$(tail -c 65536 "$capture" 2>/dev/null || true)"
         quota_type="$(provider_quota_limit_type "$quota_text" 2>/dev/null || true)"
