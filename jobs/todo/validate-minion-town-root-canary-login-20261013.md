@@ -1,12 +1,8 @@
 ---
-gate: awaiting-maintainer
-maintainer_question: 'Complete the interactive kriscendobot GitHub login and MFA on endolin-garden1, then promote this validation job.'
-asked_at: https://github.com/kriscendobot/minion.town/pull/167#pullrequestreview-5498953013
-priority: normal
 role: builder
-posted_by: builder
-posted_at: 2026-10-13T17:22:40Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=awaiting-maintainer priority=normal maintainer=true at=2026-10-14T04:02:37Z cleared=none -->
 
 ---
 tier: mentor
