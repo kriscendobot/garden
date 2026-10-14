@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T21:24:23Z_
+_As of 2026-10-14T21:25:58Z_
 
 ## Latest
 
@@ -338,6 +338,10 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
+- `watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal.md)
+
+> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: attempts p95=14.000000 max=14.000000 (cap 50), classes cas=13 server-reject=0 definite-fail=0.
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
 
@@ -1529,7 +1533,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 100639461 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.073358s/45s (/home/kris/garden/.garden-state/mentor/journal); 7 open notice(s); checker healthy
+worst fetch p95 5.073358s/45s (/home/kris/garden/.garden-state/mentor/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (14)
