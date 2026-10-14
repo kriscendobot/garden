@@ -17,3 +17,13 @@ Supervisor: `minion-town-arc-press-20261014-100533` (issue https://github.com/kr
 https://github.com/kriscendobot/minion.town/pull/186 (head `build/root-canary-principal`) is based on the frozen `design/root-canary-principal-8368f8c`. Its base PR https://github.com/kriscendobot/minion.town/pull/167 merged into `main` at 2026-10-14T11:00Z as `e3ffcbb5`, and `main` is one merge commit ahead of `8368f8c6` with no file changes.
 
 Pin the merge base (skills/frozen-base-branch): snapshot `main`'s current tip to a frozen `main-<short-sha>`, rebase the head onto it (expected trivial), force-push the head with `scripts/jobs/gardening/safe-push-pr-head.sh`, and move the PR's `base` field. Leave the draft state and the running gauntlet `kriscendobot-minion.town-pr186-gauntlet` alone; do not run review or fix work.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T17:01:54Z
