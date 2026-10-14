@@ -29,6 +29,7 @@ Land per the repo's design conventions (`designs/AGENTS.md`: metadata table, per
 
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=723 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
