@@ -13,3 +13,13 @@ dispatch: automatic
 - Effect: oros spends long stretches roll-drained. Host-pinned `oros-health-checkup-*` jobs went unclaimed and stacked up: 5 in todo at 14:45Z, the oldest from 2026-10-13T16:35.
 
 **Do:** find why the journal steps on the oros spine (inbox-read, complete-job push) take minutes. Possible causes: lock wait, CAS retries, fetch cost from a Mac/Docker host. Then fix the slow path, or make the canary deadline reflect the real round trip (for example, measured per host). Don't just raise it blindly. Add a regression test. Do not change drains, worker leveling, derotation, budgets or schedules.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T15:06:43Z
