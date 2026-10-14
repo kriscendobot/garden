@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T01:59:40Z_
+_As of 2026-10-14T02:10:29Z_
 
 ## Latest
 
@@ -387,15 +385,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
 
-- `msg-claude-on-minion-town-completion-press-20261013-200507-expanded-window-c05f9de93eeb` — from gardener:claude-on-minion-town-completion-press-20261013-200507-expanded-window, reply_to `claude-on-minion-town-completion-press-20261013-200507-expanded-window` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261013-200507-expanded-window-c05f9de93eeb.md)
-
-> Completion press ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)), window 2026-10-13T14:05:06Z..20:05:07Z: NEW DOOM.
->
-> - kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1: signature requeue-exhausted, host endolin-garden-ece02cb4, landed 2026-10-13T19:13:36Z.
-> - Impact: the gauntlet driver re-posted it, so it is back in jobs/todo (panel round 1, handler-timeout 10800). The parent gauntlet kriscendobot-minion.town-pr167-gauntlet-20261013 is still active, and its clean stage completed at 16:21Z. [https://github.com/kriscendobot/minion.town/pull/167](https://github.com/kriscendobot/minion.town/pull/167) is waiting on that panel round. If the retry dooms again, the bounded stage-retry budget may run out.
->
-> Otherwise nominal: roster 637, 20 completions in-window (none failed), 0 stalled claims, 0 absent prior-roster jobs. Full roster delta: journal entries/2026/10/14/014025Z-progress-gardener-2d219e.md.
-
 - `msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3` — from gardener:reset-credit-watch-20261012-160506, reply_to `reset-credit-watch-20261012-160506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261012-160506-0fd5e9eaa6f3.md)
 
 > Reset-credit watch (week of 10-12): **no credit to spend this week, and no decision needed now.**
@@ -414,6 +403,10 @@ Delegation: **active**
 - `msg-oros-health-watch-20261013-193508-84e31f3db2e6` — from gardener:oros-health-watch-20261013-193508, reply_to `oros-health-watch-20261013-193508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261013-193508-84e31f3db2e6.md)
 
 > Oros health watcher: the 19:35Z checkup was claimed by oros monk 4 at 20:00:54Z and oros journal/heartbeat activity is fresh, but the sysop bridge is unreachable by the watcher's criterion. The last sysop-log activity was 19:07:06Z (over 1 hour ago at 20:17Z), and the 19:20 set-workers plus 19:23 rolling-deploy drain-on operations remain unacknowledged. No new op was sent because the bridge is not consuming its existing queue; a person should check garden-sysop on the machine (and Docker/Desktop/VM sleep only if needed). Oros is deployed at 8fd22da4 while main2 is 9e4b600c.
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261014-015008` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261014-015008.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261014-015008' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
 
@@ -1329,10 +1322,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 246.5M | $1157.80 _(notional, rate-card)_ | 91% of 271.0M (backoff) |
-| Codex | 19.4M _(+600.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 246.5M | $1157.95 _(notional, rate-card)_ | 91% of 271.0M (backoff) |
+| Codex | 19.4M _(+601.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 98927648 tokens/day lower bound._
+_Fleet token-unlock pace: 98926124 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 5 open notice(s); checker healthy
@@ -1344,20 +1337,21 @@ worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`oros-health-checkup-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-015008.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 242f944cdf7d
 - [`minion-town-arc-press-20261013-182028-checklist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-checklist.md) — Refresh the minion.town arc objective evidence
+- [`claude-on-minion-town-completion-press-20261014-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261014-020508.md) — Completion press: Claude-on-minion.town arc
 - [`claude-on-minion-town-press-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-015008.md) — Press the Claude-on-minion.town arc forward
 - [`claude-on-minion-town-press-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261013-223508.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1442
-- [`claude-on-minion-town-press-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261013-193508.md) — Press the Claude-on-minion.town arc forward
 - [`minion-town-arc-press-20261014-005007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-005007.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #186
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (4)
+### doin (5)
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-223508.md) — ---
 - [`oros-health-watch-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261014-015008.md) — ---
 - [`claude-on-minion-town-completion-press-20261013-200507-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261013-200507-expanded-window.md) — Completion press: Claude-on-minion.town arc
+- [`claude-on-minion-town-press-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261013-193508.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-163508.md) — ---
 
 ### tada (12731)
