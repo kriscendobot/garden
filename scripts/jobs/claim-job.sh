@@ -476,6 +476,17 @@ while [ "${#cand[@]}" -gt 0 ]; do
     log "'$base' auction: $bidder is eligible; claiming (committed arm $awarded_provider/$awarded_model/$awarded_tht)"
   fi
 
+  # A canary probe's claim replays a lost CAS onto the fresh tip without the
+  # worktree (journal_replay_head) instead of falling back to the next candidate.
+  # On a slow clone every claim is decided at a tip ~90s old and loses to any peer
+  # write, so the probe never left todo/ and the roll failed a healthy canary (oros
+  # 2026-10-14 00:52-01:04Z: five idle monks lost r2 and r3, every loss `cas`, then
+  # the roll re-drained the host). The replay stays a CAS on the claim's own paths:
+  # it is refused once a peer claimed, the roller withdrew, or anyone edited the
+  # probe's todo/ file. Ordinary claims keep re-deriving from the fresh tip.
+  claim_replay="${GARDEN_JOURNAL_REPLAY_ATTEMPTS:-0}"
+  grep -q '^canary-probe: true' "$jf" 2>/dev/null && claim_replay="${GARDEN_CLAIM_PROBE_REPLAY_ATTEMPTS:-3}"
+
   mkdir -p "$DIR/$JOBS_DOIN" "$DIR/work"
   git -C "$DIR" mv "$JOBS_TODO/$base.md" "$JOBS_DOIN/$base.md"
   claimed_at="$(date -u +%FT%TZ)"
@@ -519,7 +530,7 @@ while [ "${#cand[@]}" -gt 0 ]; do
   touch "$DIR/inbox/$base/unread/.gitkeep" "$DIR/inbox/$base/read/.gitkeep"
   git -C "$DIR" add "$JOBS_DOIN/$base.md" "work/$base" "inbox/$base"
 
-  if commit_and_push "$DIR" "claim($base) $GARDEN/$KIND-$id"; then
+  if GARDEN_JOURNAL_REPLAY_ATTEMPTS="$claim_replay" commit_and_push "$DIR" "claim($base) $GARDEN/$KIND-$id"; then
     log "claimed '$base'"
     printf '%s\n' "$base"
     exit 0
