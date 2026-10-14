@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T05:00:42Z_
+_As of 2026-10-14T05:06:48Z_
 
 ## Latest
 
@@ -697,11 +695,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-17T00:05:19Z, latest 2026-10-13T17:05:40Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-17T00:05:19Z, latest 2026-10-14T05:05:22Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 4 -> 3 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
+> budget-level changed endolin-garden-ece02cb4 cleric workers 4 -> 3 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
@@ -1337,7 +1335,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 246.8M | $1160.34 _(notional, rate-card)_ | 91% of 271.0M (backoff) |
-| Codex | 20.6M _(+642.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Codex | 20.6M _(+643.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99765974 tokens/day lower bound._
 
@@ -1345,7 +1343,8 @@ _Fleet token-unlock pace: 99765974 tokens/day lower bound._
 worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (15)
+- [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`oros-health-checkup-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-045008.md) — ---
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #183
 - [`minion-town-arc-press-20261014-035009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-035009.md) — Supervise the minion.town arc: carry its pull requests through review
@@ -1361,8 +1360,7 @@ worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-045008.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (5)
-- [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-223508.md) — ---
+### doin (4)
 - [`oros-health-watch-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261014-045008.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 242f944cdf7d
 - [`oros-health-checkup-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261014-015008.md) — ---
