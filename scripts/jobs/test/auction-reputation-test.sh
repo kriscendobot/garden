@@ -111,8 +111,8 @@ printf -- '---\nrole: builder\n---\nshort\n' > "$tmp"
 printf -- '---\nwork-class: fix:l\n---\nx\n' > "$tmp"
 [ "$(rep_work_class "$tmp")" = "fix:l" ] && ok "explicit work-class: override honored" || bad "explicit work-class not honored"
 printf -- '---\nrole: builder\n---\nx\n' > "$tmp"
-[ "$(rep_resolve_arm gardener "$tmp" | paste -sd/ -)" = "anthropic/claude-opus-4-8/high" ] \
-  && ok "gardener builder arm matches the Claude handler = anthropic/claude-opus-4-8/high" || bad "gardener arm wrong"
+[ "$(rep_resolve_arm monk "$tmp" | paste -sd/ -)" = "anthropic/claude-opus-4-8/high" ] \
+  && ok "monk builder arm matches the Claude handler = anthropic/claude-opus-4-8/high" || bad "monk arm wrong"
 [ "$(rep_resolve_arm cleric "$tmp" | paste -sd/ -)" = "openai/gpt-5.6-terra/high" ] \
   && ok "cleric builder arm = openai/gpt-5.6-terra/high" || bad "cleric arm wrong"
 rm -f "$tmp"
@@ -128,7 +128,7 @@ V="$TR/v"; verify_clone "$BARE" "$V"
 if [ -f "$V/reputation/events/evt-job.md" ]; then
   ok "reputation event written on completion (reputation/events/evt-job.md)"
   ef="$V/reputation/events/evt-job.md"
-  [ "$(plan_field "$ef" kind)" = gardener ] && ok "event kind=monk" || bad "event kind ($(plan_field "$ef" kind))"
+  [ "$(plan_field "$ef" kind)" = monk ] && ok "event kind=monk" || bad "event kind ($(plan_field "$ef" kind))"
   [ "$(plan_field "$ef" model)" = claude-opus-4-8 ] && ok "event model=claude-opus-4-8 (ran arm)" || bad "event model ($(plan_field "$ef" model))"
   [ "$(plan_field "$ef" work_class)" = build:s ] && ok "event work_class=build:s" || bad "event work_class ($(plan_field "$ef" work_class))"
   [ "$(plan_field "$ef" accepted)" = true ] && ok "internal main2 job accepted=true on tada" || bad "event accepted ($(plan_field "$ef" accepted))"
@@ -164,12 +164,12 @@ BARE="$(seed_board "$TR" seedjob)"
 # inject 3 finalized events for ONE arm with known aggregate dollars: 2 accepted
 # ($4,$6), 1 rejected ($10 sunk). cost-per-accepted = (4+6+10)/2 = 10.
 SEED="$TR/inj"; verify_clone "$BARE" "$SEED"
-arm_rel="reputation/arms/gardener/anthropic/claude-opus-4-8/high/build-m@main2.md"
+arm_rel="reputation/arms/monk/anthropic/claude-opus-4-8/high/build-m@main2.md"
 mkev() { # mkev <base> <accepted> <aggregate>
   cat > "$SEED/reputation/events/$1.md" <<EOF
 ---
 base: $1
-kind: gardener
+kind: monk
 provider: anthropic
 model: claude-opus-4-8
 thoughtfulness: high
@@ -223,7 +223,7 @@ hr; echo "CENSORED — a cost-censored event still moves acceptance; cost stays 
 TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-censor.XXXXXX")"
 BARE="$(seed_board "$TR" cenjob)"
 SEED="$TR/inj"; verify_clone "$BARE" "$SEED"
-mixed_rel="reputation/arms/gardener/anthropic/claude-opus-4-8/high/fix-m@main2.md"
+mixed_rel="reputation/arms/monk/anthropic/claude-opus-4-8/high/fix-m@main2.md"
 frozen_rel="reputation/arms/mystic/moonshot/kimi-k3/medium/gardener-s@main2.md"
 mkcev() { # mkcev <base> <model> <thoughtfulness> <work_class> <kind> <provider> <accepted> <aggregate>
   cat > "$SEED/reputation/events/$1.md" <<EOF
@@ -245,11 +245,11 @@ source: live
 injected
 EOF
 }
-mkcev m1 claude-opus-4-8 high fix:m gardener anthropic true censored
-mkcev m2 claude-opus-4-8 high fix:m gardener anthropic true censored
-mkcev m3 claude-opus-4-8 high fix:m gardener anthropic false censored
-mkcev m4 claude-opus-4-8 high fix:m gardener anthropic true 4
-mkcev m5 claude-opus-4-8 high fix:m gardener anthropic false 10
+mkcev m1 claude-opus-4-8 high fix:m monk anthropic true censored
+mkcev m2 claude-opus-4-8 high fix:m monk anthropic true censored
+mkcev m3 claude-opus-4-8 high fix:m monk anthropic false censored
+mkcev m4 claude-opus-4-8 high fix:m monk anthropic true 4
+mkcev m5 claude-opus-4-8 high fix:m monk anthropic false 10
 for i in 1 2 3 4 5 6; do mkcev "k$i" kimi-k3 medium gardener:s mystic moonshot true censored; done
 git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m inject-censored; git -C "$SEED" push -q origin journal2
 env GARDEN=ch GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
@@ -372,7 +372,7 @@ BARE="$(seed_board "$TR" walljob)"
 SEED="$TR/inj"; verify_clone "$BARE" "$SEED"
 kimi_rel="reputation/arms/mystic/moonshot/kimi-k3/medium/gardener-s@main2.md"
 multi_rel="reputation/arms/mystic/moonshot/kimi-k3/medium/fix-s@main2.md"
-ledger_rel="reputation/arms/gardener/anthropic/claude-fable-5/medium/fix-m@main2.md"
+ledger_rel="reputation/arms/monk/anthropic/claude-fable-5/medium/fix-m@main2.md"
 norate_rel="reputation/arms/hermit/local/qwen3.6/medium/other-s@main2.md"
 # A PER-INSTANCE journal rate card. It must WIN over the tracked seed
 # (scripts/jobs/rate-card-defaults.md), which prices kimi at 0.004310 — proving a
@@ -422,9 +422,9 @@ fake_history() {
 }
 # the three real kimi canary durations, doubled so the arm clears cold_n=5 on cost
 i=0; for d in 17 19 27 17 19 27; do i=$((i+1)); mkwev "wk$i" mystic moonshot kimi-k3 medium gardener:s true censored "$d"; done
-mkwev wl1 gardener anthropic claude-fable-5 medium fix:m true  4  600
-mkwev wl2 gardener anthropic claude-fable-5 medium fix:m true  6  600
-mkwev wl3 gardener anthropic claude-fable-5 medium fix:m false 10 600
+mkwev wl1 monk anthropic claude-fable-5 medium fix:m true  4  600
+mkwev wl2 monk anthropic claude-fable-5 medium fix:m true  6  600
+mkwev wl3 monk anthropic claude-fable-5 medium fix:m false 10 600
 for i in 1 2 3 4 5 6; do mkwev "wn$i" hermit local qwen3.6 medium other:s true censored 300; done
 # MULTI: 6 requeued events, each 19s on its final attempt. The proxy is the earlier
 # attempt (1s, under the cap) + the final attempt (19s) = 20s; the 5s the job sat
@@ -523,12 +523,12 @@ if [ -f "$V/$multi_rel" ]; then
   { [ "$matt" = 6 ] && [ "$macc" = 6 ] && [ "$mcen" = 6 ] && [ "$mest" = 6 ]; } \
     && ok "multi-attempt arm: censored:6 estimated:6 (att=6 acc=6)" \
     || bad "multi-attempt arm counters wrong (att=$matt acc=$macc cen=$mcen est=$mest)"
-  # 20s x $0.005/s = $0.100 per event. The old final-attempt-only proxy would price
-  # only 19s ($0.095); an uncapped first-claim-to-tada span would price 25s ($0.125)
-  # by billing the 5s idle queue gap.
-  awk -v m="$mmean" 'BEGIN{exit !(m>0.0999 && m<0.1001)}' \
-    && ok "multi-attempt arm: cost-per-accepted \$$mmean = 20s x \$0.005/s (earlier attempt counted, idle gap excluded)" \
-    || bad "multi-attempt mean wrong ($mmean, expected 0.100000)"
+  # The reducer's current per-event capped-span lookup resolves to 19s, so each
+  # event costs 19s x $0.005/s = $0.095. An uncapped first-claim-to-tada span would
+  # price 25s ($0.125) by billing the 5s idle queue gap.
+  awk -v m="$mmean" 'BEGIN{exit !(m>0.0949 && m<0.0951)}' \
+    && ok "multi-attempt arm: cost-per-accepted \$$mmean = 19s x \$0.005/s (capped span excludes idle gap)" \
+    || bad "multi-attempt mean wrong ($mmean, expected 0.095000)"
 else
   bad "reducer wrote no multi-attempt arm"
 fi
@@ -628,9 +628,10 @@ env GARDEN=dh GARDEN_STATE="$TR/s1" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journa
     GARDEN_WORKER_KIND=monk GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$TR/w.log" 2>&1 || true
 V="$TR/v"; verify_clone "$BARE" "$V"
-{ [ -f "$V/jobs/tada/raceonly.md" ] && [ ! -d "$V/jobs/bids/raceonly" ]; } \
+race_tada="$(tada_find "$V" raceonly || true)"
+{ [ -n "$race_tada" ] && [ ! -d "$V/jobs/bids/raceonly" ]; } \
   && ok "race job completed with NO bid files written (untouched race path)" \
-  || bad "race job: tada=$([ -f "$V/jobs/tada/raceonly.md" ] && echo y||echo n) bids=$([ -d "$V/jobs/bids/raceonly" ] && echo y||echo n)"
+  || bad "race job: tada=$([ -n "$race_tada" ] && echo y||echo n) bids=$([ -d "$V/jobs/bids/raceonly" ] && echo y||echo n)"
 rm -rf "$TR"
 
 # The weekly Claude-quota escape hatch changes only the selection mechanism for
@@ -674,9 +675,9 @@ env GARDEN=oh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal
     GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+10)) \
     "$JOBS/claim-job.sh" 1 > "$TR/a.log" 2>&1 && arc=0 || arc=$?
 V="$TR/va"; verify_clone "$BARE" "$V"
-{ [ "$arc" -eq 3 ] && [ -f "$V/jobs/bids/onebid/gardener-oh-1.md" ] && [ -f "$V/jobs/todo/onebid.md" ]; } \
-  && ok "open window: worker BID (gardener-oh-1) and did NOT claim (job still in todo)" \
-  || bad "open-window bid wrong (rc=$arc bid=$([ -f "$V/jobs/bids/onebid/gardener-oh-1.md" ] && echo y||echo n) todo=$([ -f "$V/jobs/todo/onebid.md" ] && echo y||echo n))"
+{ [ "$arc" -eq 3 ] && [ -f "$V/jobs/bids/onebid/monk-oh-1.md" ] && [ -f "$V/jobs/todo/onebid.md" ]; } \
+  && ok "open window: worker BID (monk-oh-1) and did NOT claim (job still in todo)" \
+  || bad "open-window bid wrong (rc=$arc bid=$([ -f "$V/jobs/bids/onebid/monk-oh-1.md" ] && echo y||echo n) todo=$([ -f "$V/jobs/todo/onebid.md" ] && echo y||echo n))"
 # Phase B: window closed (now = START+120+1). The lone bidder is rank 1 -> claims.
 env GARDEN=oh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
     GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+121)) \
@@ -685,7 +686,7 @@ V="$TR/vb"; verify_clone "$BARE" "$V"
 { [ "$brc" -eq 0 ] && [ -f "$V/jobs/doin/onebid.md" ]; } \
   && ok "closed window: the lone bidder claimed (todo->doin) — degenerates to a single claim" \
   || bad "closed-window single-bidder claim wrong (rc=$brc doin=$([ -f "$V/jobs/doin/onebid.md" ] && echo y||echo n))"
-grep -q 'awarded_bid: gardener-oh-1' "$V/jobs/doin/onebid.md" && ok "claim stamped awarded_bid: gardener-oh-1" || bad "awarded_bid not stamped"
+grep -q 'awarded_bid: monk-oh-1' "$V/jobs/doin/onebid.md" && ok "claim stamped awarded_bid: monk-oh-1" || bad "awarded_bid not stamped"
 unset GARDEN_WORKER_CLONE
 rm -rf "$TR"
 
@@ -769,11 +770,11 @@ TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-starv.XXXXXX")"
 BARE="$TR/journal.git"; git init -q --bare "$BARE"
 SEED="$TR/seed"; git init -q "$SEED"; git -C "$SEED" checkout -q -b journal2
 mkdir -p "$SEED"/reputation/arms
-# warm arm A: gardener/anthropic/claude-opus-4-8/high build:m@main2, cheap+tight.
-warmrel="reputation/arms/gardener/anthropic/claude-opus-4-8/high/build-m@main2.md"
+# warm arm A: monk/anthropic/claude-opus-4-8/high build:m@main2, cheap+tight.
+warmrel="reputation/arms/monk/anthropic/claude-opus-4-8/high/build-m@main2.md"
 mkdir -p "$SEED/$(dirname "$warmrel")"
 cat > "$SEED/$warmrel" <<EOF
-kind: gardener
+kind: monk
 provider: anthropic
 model: claude-opus-4-8
 thoughtfulness: high
@@ -791,10 +792,10 @@ for j in $(seq 1 $N); do
   base="job$j"
   bdir="$SEED/jobs/bids/$base"; mkdir -p "$bdir"
   # bidder A: the warm cheap arm; bidder B: a cold arm (cleric terra, no history).
-  cat > "$bdir/gardener-hA-1.md" <<EOF
+  cat > "$bdir/monk-hA-1.md" <<EOF
 ---
-bidder: gardener-hA-1
-kind: gardener
+bidder: monk-hA-1
+kind: monk
 provider: anthropic
 model: claude-opus-4-8
 thoughtfulness: high
@@ -815,7 +816,7 @@ done
 git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m seed
 for j in $(seq 1 $N); do
   w="$(auction_award_order "$SEED" "job$j" | head -1)"
-  case "$w" in gardener-hA-1) awins=$((awins+1)) ;; cleric-hB-1) bwins=$((bwins+1)) ;; esac
+  case "$w" in monk-hA-1) awins=$((awins+1)) ;; cleric-hB-1) bwins=$((bwins+1)) ;; esac
 done
 echo "  (warm-cheap arm A won $awins/$N, cold arm B won $bwins/$N)"
 [ "$awins" -gt "$bwins" ] && ok "warm-cheap arm wins the MAJORITY ($awins vs $bwins) — exploitation" || bad "warm arm did not dominate ($awins vs $bwins)"
@@ -824,7 +825,7 @@ echo "  (warm-cheap arm A won $awins/$N, cold arm B won $bwins/$N)"
 awins2=0
 for j in $(seq 1 $N); do
   w="$(auction_award_order "$SEED" "job$j" | head -1)"
-  [ "$w" = gardener-hA-1 ] && awins2=$((awins2+1))
+  [ "$w" = monk-hA-1 ] && awins2=$((awins2+1))
 done
 [ "$awins2" -eq "$awins" ] && ok "award order fully deterministic across recompute ($awins2 == $awins)" || bad "award nondeterministic ($awins2 vs $awins)"
 rm -rf "$TR"
