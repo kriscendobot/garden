@@ -2,6 +2,18 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T10:50Z (oros-health-checkup-20261013-163508, superseded re-run): unhealthy at 08:20Z (roll-drained after 4 of 4 failed 320cfbed canaries) → fix on main2 `8eb6caec`; superseded by the 09:45Z note for the current state
+
+- **Finding (canary blocker, fixed on main2 `8eb6caec`):**
+  - Every 320cfbed probe on oros (r0 to r3, 05:32Z to 07:05Z) spent about 10.5 minutes in inbox-read and missed the leader's 600s window.
+  - The leader's deadline-nudge had sent a nudge and a checkpoint to each probe at claim. Its 120s `handler-timeout` falls inside the two-tick floor.
+  - The two messages force a commit, push, and replay on a fresh per-id clone. An un-nudged probe (`242f944c-r3`) finished in 70s.
+  - Fix: deadline-nudge now skips `canary-probe: true` claims. deadline-nudge-test passes 68/68.
+- **Open:**
+  - deadline-nudge runs on the **leader**. As of 10:45Z the leader's fleet/health still names `fad05c57`, which does not contain `8eb6caec`, so oros canaries are still nudged.
+  - Until the leader rolls to 8eb6caec or later, a person may need to pass oros's canary or advance the leader.
+- **Changed (on-host, 08:00Z):** pruned 24 dead-pid repo-lock holder files.
+
 ## 2026-10-14T09:45Z (oros-health-checkup-20261014-045008): degraded (deployed at 320cfbed; roll to 8eb6caec has been deferred all morning behind long jobs) → one fix on main2, one follow-up job posted
 
 - **Load/mem:** load 2.4/2.9/3.2; 13 GiB of 15 GiB available; no swap.
