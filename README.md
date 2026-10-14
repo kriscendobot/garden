@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T14:10:21Z_
+_As of 2026-10-14T14:15:57Z_
 
 ## Latest
 
@@ -1427,17 +1427,16 @@ worst fetch p95 28.586589s/45s (unknown); 9 open notice(s); checker healthy
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
 - [`claude-on-minion-town-press-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-110506.md) — Press the Claude-on-minion.town arc forward
 
-### doin (2)
-- [`oros-health-checkup-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261014-075034.md) — ---
+### doin (1)
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-163508.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-163508
 
-### tada (12792)
+### tada (12793)
+- [`oros-health-checkup-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-checkup-20261014-075034.md) — Cost
 - [`kriscendobot-garden-book-pr15-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-garden-book-pr15-gauntlet-panel-3.md) — Cost
 - [`minion-town-arc-press-20261014-100533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-arc-press-20261014-100533.md) — Cost
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/claude-on-minion-town-press-20261014-045008.md) — Cost
 - [`fu-kriscendobot-garden-book-pr15-gauntlet-fix-2-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/fu-kriscendobot-garden-book-pr15-gauntlet-fix-2-2.md) — Cost
-- [`improve-decision-append-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/improve-decision-append-lock-contention.md) — Cost
-- … and 12787 more
+- … and 12788 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
