@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-pr180-panel9-pr184-panel5-resume-20261014-split
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-10-14T21:39:11Z
+role: gardener
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-14T21:41:25Z cleared=none -->
 
 ---
 role: gardener
