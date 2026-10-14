@@ -170,6 +170,8 @@
 | [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--private-config-and-read-only-bazel](../sections/literate-ai--docs-decisions-0044-action-dag-and-shared-cache--private-config-and-read-only-bazel.md) | literate-ai ADR 0044 | Rebuild loads a private `shared-cache.json`, keeps bearer credentials in a per-invocation Bazel RC, and gives read-only builds a bounded disposable cache copy. |
 | [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--compiler-cache-composition](../sections/literate-ai--docs-decisions-0044-action-dag-and-shared-cache--compiler-cache-composition.md) | literate-ai ADR 0044 | Each build owns a content-identified sccache server in stable disposable staging; native loader evidence enters cache identity, and cache counters stay advisory. |
 | [literate-ai--docs-decisions-0044-action-dag-and-shared-cache--worker-side-source-indexing](../sections/literate-ai--docs-decisions-0044-action-dag-and-shared-cache--worker-side-source-indexing.md) | literate-ai ADR 0044 | `literate_ai.action_worker` materializes CAS-verified source into a private workspace to run only the source-index action, optionally fetching blobs from a private HTTPS CAS. |
+| [Scion changesets and derived data](../sections/web--anthropic-redesigning-source-control--changesets-and-derived-data.md) | Anthropic Scion | Changesets point to compressed file contents by content address while query indexes remain derived projections. |
+| [Scion scalable object delivery](../sections/web--anthropic-redesigning-source-control--scalable-object-delivery.md) | Anthropic Scion | Immutable named trees and blobs make recursive sparse fetches resumable and cacheable at every tier. |
 
 ## See also
 
