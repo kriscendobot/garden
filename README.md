@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T18:24:48Z_
+_As of 2026-10-14T18:26:57Z_
 
 ## Latest
 
@@ -1515,7 +1515,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 252.9M | $1192.63 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
-| Codex | 24.2M _(+751.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Codex | 24.2M _(+751.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99326454 tokens/day lower bound._
 
@@ -1540,16 +1540,16 @@ worst fetch p95 4.200922s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`minion-town-arc-press-20261014-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-162006.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1442-7f8fa973`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1442-7f8fa973.md) — attention directive on endojs/endo-but-for-bots PR #1442
+### doin (0)
+(none)
 
-### tada (12818)
+### tada (12819)
+- [`endojs-endo-but-for-bots-pr1442-7f8fa973`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/endojs-endo-but-for-bots-pr1442-7f8fa973.md) — Cost
 - [`kriscendobot-garden-book-pr15-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-garden-book-pr15-gauntlet-fix-3.md) — Fix round 3 report: kriscendobot/garden-book PR #15
 - [`improve-typesafe-http-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/improve-typesafe-http-classification.md) — Cost
 - [`screen-minion-town-pr93-d7b0717-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/screen-minion-town-pr93-d7b0717-conduct.md) — Cost
 - [`scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014.md) — Cost
-- [`oros-health-watch-20261014-170518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-watch-20261014-170518.md) — Cost
-- … and 12813 more
+- … and 12814 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
