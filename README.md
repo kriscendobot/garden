@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T06:24:08Z_
+_As of 2026-10-14T06:26:03Z_
 
 ## Latest
 
@@ -1358,19 +1358,18 @@ worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #186
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-045008.md) — Press the Claude-on-minion.town arc forward
 
-### doin (4)
-- [`canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 320cfbed2828
+### doin (3)
 - [`minion-town-arc-press-20261014-035009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261014-035009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 242f944cdf7d
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### tada (12748)
+### tada (12749)
+- [`canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-garden-book-pr15-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-garden-book-pr15-gauntlet-viability.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-320cfbed2828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/canary-probe-oros-studio-garden-ce242c49-320cfbed2828.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-watch-20261014-045008.md) — Cost
 - [`oros-health-checkup-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-checkup-20261014-015008.md) — Cost
-- [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-arc-press-20261013-152006.md) — Completion report — minion.town arc supervisor tick (job minion-town-arc-pres...
-- … and 12743 more
+- … and 12744 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
