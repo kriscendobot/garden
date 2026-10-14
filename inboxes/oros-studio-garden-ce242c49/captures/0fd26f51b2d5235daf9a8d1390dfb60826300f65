@@ -1,0 +1,24 @@
+<6>23:43:22 [monk/3] job 'claude-on-minion-town-press-20261013-193508' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>23:43:43 [monk/3] job 'claude-on-minion-town-press-20261013-193508' call ceiling: tier=mentor max-budget-usd=20.00 (scaled by fresh seven-day headroom when available)
+<4>23:43:43 [monk/3] WARN minion-mcp: token preflight failed; job 'claude-on-minion-town-press-20261013-193508' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>23:48:24 [auto-gauntlet-handoff] auto-gauntlet: 'claude-on-minion-town-press-20261013-193508' named several PRs; treating the first, https://github.com/kriscendobot/minion.town/pull/183, as its artifact
+<6>23:48:25 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/183 is already non-draft; leaving it untouched for the completion guard
+panel-head-freshness: stale target=kriscendobot/minion.town#183 reviewed_head=f8cf901fa8420fd0ab05c603aa3892789221f185 presented_head=78df7d858b3463d663c58f1b9b6ccf12501c6ac7 disposition=review-required
+<6>23:53:14 [review-docket] spooled upsert https://github.com/endojs/endo-but-for-bots/pull/1412 failed (rc=124, attempt 3); kept for the next transaction
+<6>23:53:14 [review-docket] upsert https://github.com/kriscendobot/minion.town/pull/183 is already spooled (f0d50b734e23b467)
+<6>23:53:14 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+No change since 2026-10-13 19:3xZ (body last edited 20:08Z, last press comment 17:43Z). I posted nothing: no comment, no body edit, no new jobs.
+
+- **Board items still in flight:**
+  - kriscendobot/minion.town#183 is un-drafted and `MERGEABLE` at `78df7d85`. Its screen gauntlet-viability job is queued.
+  - kriscendobot/minion.town#167 is a draft. Panel-1 is queued.
+  - kriscendobot/minion.town#186 is a draft at `f10693fc`. Gauntlet viability is queued.
+  - kriscendobot/minion.town#171 is a draft at `f5b24a4c` with nothing new.
+  - kriscendobot/minion.town#87 merged on 2026-09-22.
+- **Endo:** endojs/endo-but-for-bots#1015 merged on 2026-09-29 and endojs/endo-but-for-bots#1125 is closed. No endo review is pending.
+- **The only wait on the maintainer:** the interactive login/MFA for `validate-minion-town-root-canary-login-20261013`, which is parked on `plan/` and goes through the liaison.
+- **Couldn't verify:** `minion-town-screening.sh status` timed out, so I don't know whether the proxy screen is active. CI rollups can't be read with this host's PAT, so I didn't check CI.
+
+The next press, `claude-on-minion-town-press-20261013-223508`, is already queued.
