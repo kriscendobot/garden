@@ -1,4 +1,5 @@
 ---
+child-claude-on-minion-town-completion-press-20261013-080506-publish-host: oros-studio-garden-ce242c49
 child-claude-on-minion-town-completion-press-20261013-080506-publish-reap-count: 0
 child-claude-on-minion-town-completion-press-20261013-080506-integrity-audit-host: oros-studio-garden-ce242c49
 child-claude-on-minion-town-completion-press-20261013-080506-integrity-audit-reap-count: 0
