@@ -1,2 +1,2 @@
-base: improve-silent-namespace-clone-lock-contention
+base: improve-namespace-clone-lock-noise
 identity: mentor:scripts/jobs/namespace-clone-maintenance.sh
