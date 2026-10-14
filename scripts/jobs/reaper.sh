@@ -93,11 +93,12 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-# reputation.sh (source-once guarded) supplies rep_resolve_arm/rep_work_class/
-# rep_target/rep_arm_relpath, used ONLY by the best-effort kimi-fallback attribution
-# event below. It never gates the requeue path.
-# shellcheck source=reputation.sh
-source "$HERE/reputation.sh"
+# auction.sh (source-once guarded) supplies auction_bid_dir and sources
+# reputation.sh for rep_resolve_arm/rep_work_class/rep_target/rep_arm_relpath.
+# The reputation helpers are used ONLY by the best-effort kimi-fallback
+# attribution event below. Neither helper family gates the requeue path.
+# shellcheck source=auction.sh
+source "$HERE/auction.sh"
 export GARDEN_TAG="reaper"
 
 : "${GARDEN_CLAIM_TTL:=14400}"         # seconds a claim may sit in doin before reaping (4h; must match gardener.sh)

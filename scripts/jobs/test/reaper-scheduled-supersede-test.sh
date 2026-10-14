@@ -38,7 +38,10 @@ add_schedule() { # <name> [interchangeable]
 dispatch_old_and_claim() { # <schedule> <base>
   local schedule="$1" base="$2"
   printf 'scheduled work for %s\n' "$schedule" > "$SEED/jobs/todo/$base.md"
+  mkdir -p "$SEED/jobs/bids/$base"
+  printf 'bid for %s\n' "$base" > "$SEED/jobs/bids/$base/test-bidder.md"
   git -C "$SEED" add "jobs/todo/$base.md"
+  git -C "$SEED" add "jobs/bids/$base/test-bidder.md"
   git -C "$SEED" "${git_id[@]}" commit -q -m "schedule($schedule) dispatched $base -> todo"
   git -C "$SEED" mv "jobs/todo/$base.md" "jobs/doin/$base.md"
   {
@@ -112,10 +115,12 @@ for family in todo doin tada; do
   [ ! -e "$VERIFY/jobs/todo/$old.md" ] || { echo "FAIL: $old was requeued"; fail=1; }
   [ ! -e "$VERIFY/jobs/plan/$old.md" ] || { echo "FAIL: $old was split/parked"; fail=1; }
   [ ! -e "$VERIFY/jobs/doin/$old.md" ] || { echo "FAIL: $old remains claimed"; fail=1; }
+  [ ! -d "$VERIFY/jobs/bids/$old" ] || { echo "FAIL: $old bid directory remains"; fail=1; }
 done
 
 preserve_old=preserve-family-20261013-040000
 [ -f "$VERIFY/jobs/todo/$preserve_old.md" ] || { echo "FAIL: non-interchangeable run was not requeued to split"; fail=1; }
+[ -d "$VERIFY/jobs/bids/$preserve_old" ] || { echo "FAIL: non-superseded run lost its bid directory"; fail=1; }
 grep -q '^role: orchestrator$' "$VERIFY/jobs/todo/$preserve_old.md" \
   || { echo "FAIL: non-interchangeable overrun did not retain split behavior"; fail=1; }
 if find "$VERIFY/jobs/tada" -type f -name "$preserve_old.md" -print -quit | grep -q .; then
