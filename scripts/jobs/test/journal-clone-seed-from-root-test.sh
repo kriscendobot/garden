@@ -12,6 +12,8 @@
 #   * sync_clone re-seeds a stale clone whose capped fetch fails, then succeeds;
 #   * a seed never rewinds a clone that is ahead of the root;
 #   * a fresh inbox-read clone never requests --unshallow;
+#   * a gardener inbox read reuses its already-hot worker clone instead of making
+#     a per-doer checkout on a slow host filesystem;
 #   * a seeded shallow clone is completed from the root after its first sync;
 #   * the seed's full-tree checkout runs under its own budget, not the 120s
 #     bin/git bound (oros 2026-10-12: monks 5-8 offline for hours);
@@ -197,6 +199,35 @@ if [ "$rc" -eq 0 ] && [ ! -s "$TR/inbox-unshallow.calls" ]; then
 else
   bad "inbox deepen opt-out: rc=$rc calls=$(tr '\n' ' ' < "$TR/inbox-unshallow.calls") stderr=$(tr '\n' ' ' < "$TR/inbox-fresh.err")"
 fi
+
+hr; echo "CASE — a gardener inbox read reuses its hot worker clone"; hr
+# Advance the journal with one directed message, then prepare the same private
+# worker clone claim-job.sh would have just synced. The inbox reader must move the
+# message in THIS clone; falling back to $GARDEN_STATE/inbox/<doer>/journal leaves
+# the worker clone at the old tip and creates the costly per-doer checkout.
+mkdir -p "$W/inbox/hot-worker/unread" "$W/inbox/hot-worker/read"
+printf 'hot worker message\n' > "$W/inbox/hot-worker/unread/one.md"
+git -C "$W" add inbox/hot-worker
+git -C "$W" -c user.name=t -c user.email=t@localhost commit -q -m "message for hot worker"
+git -C "$W" push -q origin HEAD:journal2
+refresh_root
+HOT_WORKER="$TR/c-hot-worker"
+git clone -q --single-branch --branch journal2 "$RB" "$HOT_WORKER"
+rc=0
+( export GARDEN_WORKER_CLONE="$HOT_WORKER"
+  "$JOBS/inbox-read.sh" hot-worker ) >"$TR/hot-worker.out" 2>"$TR/hot-worker.err" || rc=$?
+if [ "$rc" -eq 1 ] \
+   && git -C "$HOT_WORKER" log -1 --format=%s | grep -q '^inbox(hot-worker) read 1 msg(s) on ' \
+   && [ ! -e "$GARDEN_STATE/inbox/hot-worker/journal" ] \
+   && grep -q 'hot worker message' "$TR/hot-worker.out"; then
+  ok "gardener inbox read used the hot worker clone and created no per-doer clone"
+else
+  bad "hot worker reuse: rc=$rc subject=$(git -C "$HOT_WORKER" log -1 --format=%s 2>/dev/null) per_doer=$([ -e "$GARDEN_STATE/inbox/hot-worker/journal" ] && echo y || echo n) stderr=$(tr '\n' ' ' < "$TR/hot-worker.err")"
+fi
+# The inbox CAS advanced the shared fixture behind the writer's back. Realign the
+# writer so the later commit_n cases can keep extending the same linear history.
+git -C "$W" fetch -q origin journal2
+git -C "$W" reset -q --hard origin/journal2
 
 hr; echo "CASE — the seeded shallow clone is completed from the root on sync"; hr
 rc=0

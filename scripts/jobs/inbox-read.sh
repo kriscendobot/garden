@@ -17,19 +17,24 @@ source "$HERE/common.sh"
 doer="${1:?usage: inbox-read.sh <doer>}"
 export GARDEN_TAG="inbox-read/$doer"
 # Inbox delivery reads and moves paths at the current journal tip; it never walks
-# history. Keep its per-doer clone shallow, especially for rolling-deploy canaries
-# whose no-LLM path must finish inside the probe deadline.
+# history. Keep a standalone per-doer clone shallow. A gardener instead lends this
+# subprocess its already-hot, private worker clone: claim-job.sh just synced and
+# pushed that clone, so making a fresh full-tree checkout for every claimed basename
+# is pure latency (14 minutes on oros's Docker/virtiofs spine, 2026-10-14). The same
+# hot clone then carries the read tip into complete-job.sh, avoiding a second cold
+# catch-up there. Explicit GARDEN_INBOX_CLONE still wins for standalone callers and
+# tests.
 export GARDEN_JOURNAL_DEEPEN_ON_SYNC=0
 # The doer alone moves its own unread messages, so a lost CAS (a sender added a
 # new message) is replayed onto the fresh tip without the working tree first
 # (journal_replay_head); a sync_clone per retry lost 39 times on oros 2026-10-12.
 : "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"
-DIR="${GARDEN_INBOX_CLONE:-$GARDEN_STATE/inbox/$doer/journal}"
+DIR="${GARDEN_INBOX_CLONE:-${GARDEN_WORKER_CLONE:-$GARDEN_STATE/inbox/$doer/journal}}"
 : "${GARDEN_INBOX_CLONE_RETRIES:=3}"
 
 # A gardener drains its directed inbox only once, immediately after claiming a
-# job. Do not let a momentary failure while creating this doer's cold journal
-# clone turn that sole drain into the caller's silent `|| true` skip. Contain
+# job. Do not let a momentary failure while preparing its journal clone turn that
+# sole drain into the caller's silent `|| true` skip. Contain
 # ensure_clone in a subshell because its failure path calls die (exit), then
 # retry with the shared bounded exponential backoff.
 clone_ready=0

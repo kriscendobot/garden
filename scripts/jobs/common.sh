@@ -4012,9 +4012,10 @@ node_runtime_parity_message() {
 # state_cleanup <dir> — remove a per-identity state dir under $GARDEN_STATE.
 #
 # The $GARDEN_STATE sibling of scratch_cleanup, for the per-ephemeral-id journal
-# clones the fleet creates and (until this existed) never removed:
-# $GARDEN_STATE/<kind>/<id>/journal, one full journal2 clone per doer inbox,
-# gardener id, monitor id, cleric and monk. Each costs ~17k-29k inodes.
+# clones the fleet creates and (until this existed) never removed. Standalone
+# inbox readers may still use one full journal2 clone per doer; gardener-launched
+# readers reuse their private worker clone as of 2026-10-14. Gardener ids, monitor
+# ids, clerics, monks, and legacy inbox clones each cost ~17k-29k inodes.
 #
 # WHY THIS EXISTS (two inode-starvation incidents, three days apart). inbox-read.sh
 # points a doer's inbox at $GARDEN_STATE/inbox/<doer>/journal and calls

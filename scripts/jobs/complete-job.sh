@@ -298,11 +298,11 @@ for attempt in $(seq 1 100); do
     # later — including residue from a job that completed or was doomed on a
     # DIFFERENT host, which this host-local teardown never sees.
     cleanup_terminal_project_worktrees "$base"
-    # Destroy this doer's HOST-LOCAL inbox state too. The `git rm inbox/$base`
-    # above removes only the JOURNAL-SIDE inbox: $DIR is the gardener's own clone
-    # ($GARDEN_STATE/monks/$id/journal, set at the top of this file), not the
-    # doer's inbox clone. inbox-read.sh full-clones journal2 into
-    # $GARDEN_STATE/inbox/<doer>/journal (~17k-29k inodes) and nothing pruned it,
+    # Destroy any legacy/standalone HOST-LOCAL inbox state too. The `git rm
+    # inbox/$base` above removes only the JOURNAL-SIDE inbox. Gardener-launched
+    # inbox-read now reuses this worker clone, but standalone callers and old
+    # deployments can still create $GARDEN_STATE/inbox/<doer>/journal
+    # (~17k-29k inodes), and historically nothing pruned it,
     # so every completed job left one behind forever — the leak that wedged
     # endolin-garden-ece02cb4 at ZERO free inodes on 2026-08-28 and starved
     # endolin-garden2-5bcdff64 to 1.11% on 2026-08-31 (state_cleanup in common.sh
