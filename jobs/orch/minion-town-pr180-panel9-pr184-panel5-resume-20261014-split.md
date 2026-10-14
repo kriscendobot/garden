@@ -2,7 +2,7 @@
 order: parallel
 children: minion-town-pr180-panel9-resume-20261014 minion-town-pr184-panel5-resume-20261014
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-14T21:39:32Z
 ---
