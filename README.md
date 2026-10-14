@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T16:51:28Z_
+_As of 2026-10-14T16:55:07Z_
 
 ## Latest
 
@@ -452,10 +450,6 @@ Delegation: **active**
 - `msg-oros-health-watch-20261013-193508-84e31f3db2e6` — from gardener:oros-health-watch-20261013-193508, reply_to `oros-health-watch-20261013-193508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261013-193508-84e31f3db2e6.md)
 
 > Oros health watcher: the 19:35Z checkup was claimed by oros monk 4 at 20:00:54Z and oros journal/heartbeat activity is fresh, but the sysop bridge is unreachable by the watcher's criterion. The last sysop-log activity was 19:07:06Z (over 1 hour ago at 20:17Z), and the 19:20 set-workers plus 19:23 rolling-deploy drain-on operations remain unacknowledged. No new op was sent because the bridge is not consuming its existing queue; a person should check garden-sysop on the machine (and Docker/Desktop/VM sleep only if needed). Oros is deployed at 8fd22da4 while main2 is 9e4b600c.
-
-- `watchdog-worker-derotate-sysop-stale-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-sysop-stale-oros-studio-garden-ce242c49.md)
-
-> Host oros-studio-garden-ce242c49 control-plane operations are UNAVAILABLE: unlogged sysop op 20260926T134702Z-cc61bb is 1566182s old (stale threshold 120s). Its budget heartbeat may still be fresh; worker-derotate will remove its capacity after confirmation. Inspect garden-sysop.service/timer and the addressed operation. (leader=endolin-garden-ece02cb4)
 
 - `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
 
@@ -1499,16 +1493,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 252.7M | $1191.82 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
-| Codex | 23.1M _(+721.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 252.8M | $1192.45 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
+| Codex | 23.2M _(+722.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 100001763 tokens/day lower bound._
+_Fleet token-unlock pace: 100077532 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 19.295885s/45s (unknown); 9 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (13)
 - [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`oros-health-checkup-20261014-140506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-140506.md) — ---
@@ -1521,8 +1515,10 @@ worst fetch p95 19.295885s/45s (unknown); 9 open notice(s); checker healthy
 - [`claude-on-minion-town-press-20261014-140506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-140506.md) — Press the Claude-on-minion.town arc forward
 - [`minion-town-arc-press-20261014-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-162006.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
+- [`improve-namespace-clone-lock-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-namespace-clone-lock-noise.md) — ---
 
-### doin (2)
+### doin (3)
+- [`scholar-ingest-anthropic-redesigning-source-control-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-anthropic-redesigning-source-control-20261014.md) — Ingest "Redesigning source control" (Anthropic Engineering)
 - [`kriscendobot-minion.town-pr186-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr186-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #186
 - [`claude-on-minion-town-press-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261014-110506.md) — Press the Claude-on-minion.town arc forward
 
