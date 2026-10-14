@@ -2146,6 +2146,37 @@ fi
 
 BARE_RATE="$TR/rate.git"; seed_bare "$BARE_RATE"
 
+# Run the real source through the real watcher for the review-fanout guard path.
+# The source records its local reason at info severity; the watcher owns the one
+# journal warning for the shared primary-quota incident.
+if [ "$have_jq_rate" -eq 1 ]; then
+  : >"$QF_CALLS"; : >"$QF_REFUSALS"; echo 0 >"$QF_ACTIVE"; echo 0 >"$QF_MAX"
+  RATE_QF_WATCH_STATE="$TR/state-rate-qf-watch"
+  RATE_QF_WATCH_ERR="$TR/rate-qf-watch.err"
+  set +e
+  env PATH="$GHQF:$PATH" QF_CALLS="$QF_CALLS" QF_LOCK="$QF_LOCK" \
+      QF_ACTIVE="$QF_ACTIVE" QF_MAX="$QF_MAX" QF_REFUSALS="$QF_REFUSALS" \
+      QF_REMAINING=4000 QF_REFUSE=0 QF_PROBE_REFUSE=1 \
+      GARDEN_COMMENT_REVIEW_CONCURRENCY=8 GARDEN_COMMENT_REVIEW_QUOTA_RESERVE=100 \
+      GARDEN_GH_API_ATTEMPTS=1 GARDEN_API_COOLDOWN_SECS=300 \
+      GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+      GARDEN_STATE="$RATE_QF_WATCH_STATE" \
+      GARDEN_API_COOLDOWN_DIR="$RATE_QF_WATCH_STATE/gh-api-cooldown" \
+      JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      GARDEN_COMMENT_SOURCE="$JOBS/handlers/comment-source-gh.sh" \
+      GARDEN_NO_MAINTAINER_ALERT=1 \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$RATE_QF_WATCH_ERR"
+  rate_qf_watch_rc=$?
+  set -e
+  [ "$rate_qf_watch_rc" -eq 0 ] \
+    && [ "$(grep -c '^<4>' "$RATE_QF_WATCH_ERR" || true)" -eq 1 ] \
+    && grep -q '^<6>.*review-metadata fanout quota guard' "$RATE_QF_WATCH_ERR" \
+    && grep -q '^<4>.*comment source hit GitHub primary quota exhaustion' "$RATE_QF_WATCH_ERR" \
+    && ok "review quota incident emits one coordinator warning; handler diagnostic stays info" \
+    || bad "review quota warning was not deduplicated (rc=$rate_qf_watch_rc): $(cat "$RATE_QF_WATCH_ERR")"
+fi
+
 # A source killed by `timeout` commonly leaves no stderr signature. Both timeout's
 # own deadline code (124) and its --kill-after SIGKILL code (137) must therefore be
 # classified from the return code alone: skip the tick, freeze the cursor, and back

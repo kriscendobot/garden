@@ -510,7 +510,10 @@ review_pr_budget=""            # empty = unknown quota: no cap beyond the canary
 review_batch_capacity=1        # unknown/stale quota is serialized
 review_quota_reset_secs=""     # seconds until the probed reset, when known
 review_quota_guard_trip() {   # review_quota_guard_trip <reason>
-  log "WARN: review-metadata fanout quota guard on $repo: $1 — freezing the cursor and opening the shared cooldown"
+  # The watcher coordinates the episode-wide WARN after it receives our rc 75.
+  # Keep this source-local reason at info severity so one quota incident produces
+  # one warning in the journal instead of a handler warning plus a watcher warning.
+  log "review-metadata fanout quota guard on $repo: $1 — freezing the cursor and opening the shared cooldown"
   fetch_failed=1
   fetch_primary_quota=1
   : >"$review_tmp/primary-quota"
