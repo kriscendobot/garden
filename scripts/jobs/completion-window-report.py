@@ -248,7 +248,12 @@ def schedule_window(repo, ref, name):
     for commit in git(repo, "log", "--format=%H", ref, "--", path).splitlines():
         try:
             stamp = field(git(repo, "show", f"{commit}:{path}"), "last_dispatched")
-        except subprocess.CalledProcessError:
+        except subprocess.CalledProcessError as error:
+            # 128: the path is absent at a deletion commit.  Anything else (the
+            # fleet wrapper's 124 timeout) must fail loudly: skipping it would
+            # silently slide the window back to older dispatch stamps.
+            if error.returncode != 128:
+                raise
             continue
         if stamp and stamp not in stamps:
             stamps.append(stamp)
