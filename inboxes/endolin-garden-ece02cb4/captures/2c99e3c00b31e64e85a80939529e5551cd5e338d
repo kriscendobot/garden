@@ -1,0 +1,15 @@
+<6>18:14:44 [cleric/2] job 'heal-minion-town-ad0257e' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>18:14:46 [cleric/2] job 'heal-minion-town-ad0257e' attaching minion.town MCP (stdio bridge as minion-town)
+garden repo lock: cleared dead-holder metadata pid=605273 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+<6>18:20:41 [post-gauntlet] gauntlet 'kriscendobot-minion.town-pr187-gauntlet' already recorded; nothing to do
+<6>18:20:41 [auto-gauntlet-handoff] auto-gauntlet: 'heal-minion-town-ad0257e' recorded gauntlet 'kriscendobot-minion.town-pr187-gauntlet' for https://github.com/kriscendobot/minion.town/pull/187
+<6>18:20:44 [review-docket] https://github.com/kriscendobot/minion.town/pull/187 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+Opened draft heal PR https://github.com/kriscendobot/minion.town/pull/187 at `364e8e4a3b5`. The fix installs the missing Ubuntu `acl` package before applying GC access controls and adds regression coverage for both deployment paths.
+
+Verification passed: typecheck, targeted tests, shell syntax, diff checks, and all 11 pre-push gates. The full local suite had 21 unrelated environment-dependent failures. GitHub CI is queued.
+
+Staged ordinary gauntlet `kriscendobot-minion.town-pr187-gauntlet` for automated review and merge.
+
+Self-improvement: nothing this time.
