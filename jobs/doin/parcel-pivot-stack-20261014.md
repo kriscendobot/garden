@@ -26,3 +26,13 @@ Follow skills/stacked-pr-build and skills/rebase-before-followup: rework each PR
 
 Draft PRs stay draft; do not un-draft or merge anything. Do not ferry upstream. Do not force-push a PR that has an unresolved human review thread without replying on it first. After each layer, post one PR comment summarizing the rename, linking the design. Finish with a table: PR, new title, head SHA, CI state. Successful completion stages the normal gauntlet per layer; do not run it by hand.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T23:34:21Z
