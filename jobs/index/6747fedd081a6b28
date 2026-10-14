@@ -1,2 +1,2 @@
-base: improve-sysop-journal-origin-resolution
+base: improve-sysop-unlogged-record-reconcile
 identity: mentor:scripts/jobs/sysop.sh
