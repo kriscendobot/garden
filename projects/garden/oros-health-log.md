@@ -2,6 +2,20 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T15:55Z (oros-health-checkup-20261014-110506): healthy (deployed af3a8456, one behind main2 82fc050e; the roll is deferred behind a long job, as designed)
+
+- **Load/mem:** load 3.6/3.3/3.1; 13 GiB of 16 GiB available; swap 532 MiB used.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1%.
+- **Uptime:** 12d22h, no reboot.
+- **Deployed vs main2:** root at `af3a8456`, so the 14:05Z roll landed. origin/main2 is `82fc050e` (1 ahead), and `upgrade-ready` is set. The roll release names oros for `82fc050e`. fleet/health (15:44Z): `roll_status: deferred`, `deferred_reason: long-job monk 4`, 0 of 293 units failed.
+- **Units:** 0 failed. Monks 1 to 7 are running. No drain marker; derotation untouched.
+- **Budget heartbeat:** claude-oros sampled at 15:34Z, status ok, 3% used; the file was updated at 15:45Z.
+- **rc=124 (3h):** transcript-capture ×3 (hourly, recurring), library-link-scan ×1, and the already-diagnosed self-deploy kill at 13:49Z.
+- **$GARDEN_STATE:** no tmp_pack. The largest clone pack dirs hold about 150 files each (monks/4, monitors/monk-2, decisions, reaper), up from a maximum of 50 at 14:05Z. That is not yet bloat; watch it. 0 dead-pid repo-lock holders (the harness cleared one at claim).
+- **Deploy blocker:** monk 4 is running `oros-health-checkup-20261013-133505` (claimed at 14:56Z), the reaper-split re-run of an older check-up. It is mid-`post-plan.sh` and still progressing. Self-deploy should roll once it finishes or hits its 3600s wall at about 15:56Z. Nothing to force.
+- **Changed:** nothing.
+- **Open:** scratch/ has 212 entries older than 24h, and scratch/tmpexec has 1735 entries. Inodes are fine (1%); this is a slow leak for a future GC pass.
+
 ## 2026-10-14T14:05Z (oros-health-checkup-20261014-075034): degraded (the deploy to 42863eb0 advanced the tree but was killed mid-restart, so fleet/health still says roll-drained at d82f327a) → two fixes on main2 `af3a8456`
 
 - **Load/mem:** load 2.5/2.8/2.8; 13 GiB of 16 GiB available; swap 511 MiB used.
