@@ -1,0 +1,19 @@
+<6>06:27:35 [monk/2] job 'minion-town-arc-press-20261014-035009' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>06:28:43 [monk/2] job 'minion-town-arc-press-20261014-035009' call ceiling: tier=mentor max-budget-usd=19.60 (scaled by fresh seven-day headroom when available)
+<4>06:28:43 [monk/2] WARN minion-mcp: token preflight failed; job 'minion-town-arc-press-20261014-035009' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>06:33:23 [auto-gauntlet-handoff] auto-gauntlet: 'minion-town-arc-press-20261014-035009' named several PRs; treating the first, https://github.com/kriscendobot/minion.town/pull/185, as its artifact
+<6>06:33:24 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/185 is authored by 'app/dependabot', not 'kriscendobot'; treating it as a citation
+
+--- handler report (partial) ---
+No change since 2026-10-14T03:15Z. I left the checklist as it was, didn't comment on issue 58, posted no jobs and closed no PRs.
+
+- **Merges:** none since kriscendobot/minion.town#185 (merged 2026-10-13T03:57Z). No checklist box has new evidence.
+- **Delegation screen:** still `active`, so the proxy screen handles merges.
+- **Production check:** the most recent scheduled prod-probe run still dates from 00:18Z ([run 38489389860](https://github.com/kriscendobot/minion.town/actions/runs/38489389860), success). The two runs before it also passed.
+- **PRs:** the jobs that carry the open PRs are already on the board, so posting more would only duplicate them:
+  - The resume job `minion-town-pr180-panel9-pr184-panel5-resume-20261014` has reached `todo/`. Last tick it hadn't reached the board, which was why kriscendobot/minion.town#180 and #184 stayed halted.
+  - #183 (sibling arc kriscendobot/garden#89) was updated at 04:32Z, and its gauntlet panel 2 is queued.
+  - #186's panel 1 is queued, and #167's panel 1 is running.
+  - #181 is still held until #180 converges.
+- **Inbox:** empty. No question to the maintainer is pending.
+- **Follow-ups:** none new.
