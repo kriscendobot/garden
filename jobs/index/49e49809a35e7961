@@ -1,2 +1,2 @@
-base: improve-quota-safe-review-fanout
+base: improve-comment-review-quota-warning-dedup
 identity: mentor:scripts/jobs/handlers/comment-source-gh.sh
