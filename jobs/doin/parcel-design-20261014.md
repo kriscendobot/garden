@@ -27,3 +27,13 @@ Update the stack's design documents in place (layer 1 `designs/sturdyref-shim-co
 
 Land per the repo's design conventions (`designs/AGENTS.md`: metadata table, per-sentence lines, Prompt section, README sync). Follow the garden carve-out in CLAUDE.md: a design carrying a non-empty Open questions section is presented for review on its existing draft PR (#1389) with the `<!-- garden-design-open-questions -->` convention where applicable, not landed bare. Do not touch code. Report the decisions made on each of items 1-4 so the next job (the pivot build) can follow them.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T22:28:31Z
