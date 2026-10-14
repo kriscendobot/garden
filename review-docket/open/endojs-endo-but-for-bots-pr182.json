@@ -4,17 +4,17 @@
   "pr": 182,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/182",
   "head_oid": "78b65e63b5f11cf2d97a637b7d67fc540a386dc9",
-  "ask": "decide",
+  "ask": "approve",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
+  "summary": "test(ses): getScopeConstants tolerates own names with no descriptor (iOS Safari)",
   "unblocks": [],
-  "source": "readiness-audit-endojs-endo-but-for-bots-pr182-78b65e63b5f1",
-  "requested_at": "2026-10-10T04:04:34Z",
+  "source": "native-review-request-endojs-endo-but-for-bots-pr182",
+  "requested_at": "2026-10-14T16:48:18Z",
   "first_requested_at": "2026-10-08T07:40:07Z",
-  "generation": 5,
+  "generation": 6,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-14T16:28:06Z"
+    "observed_at": "2026-10-14T16:48:20Z"
   }
 }
