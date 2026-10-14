@@ -1,5 +1,6 @@
 ---
 created: 2026-09-01
+updated: 2026-10-14
 author: liaison
 ---
 
@@ -41,16 +42,14 @@ clip's normal public URL — a visitor to a clip needs no login at all.
 
 ## `publish` gotchas
 
-- **Caution (2026-10-01): the `powers: "sites"` advice below is stale and
-  unsafe.** Since the clip ocap synthesis, `powers` names the capability that
+- **Never publish with `powers: "sites"` or `powers: "@agent"`.** Since the
+  clip ocap synthesis, `powers` names the capability that
   becomes the **public CapTP bootstrap every visitor of the clip receives**
   (read the live `publish` tool description). Passing `sites` exposes your own
   sites power, and `@agent` exposes full guest authority. For a static clip,
-  pass a deliberately inert pet name (for example an empty `writeText` value)
-  until the verified recipe lands in minion.town's served guide
-  (`designs/mcp-resources-getting-started.md` § 3.1 on kriscendobot/minion.town).
-- ~~`powers` must name a pet name in your guest holding a sites capability; in
-  practice pass `"sites"` (the literal name a guest is provisioned with).~~
+  first create or overwrite a purpose-specific inert pet name with an empty
+  `writeText` value, then pass that name to `publish`. Never overwrite a pet
+  name that might hold real authority.
 - **`Invalid pet name "@main"` on publish — diagnosed and FIXED, deployed
   2026-09-01.** Symptom: a `publish` call failed unconditionally with
   `Invalid pet name "@main"`, regardless of the `powers` value or the
@@ -89,11 +88,12 @@ clip's normal public URL — a visitor to a clip needs no login at all.
   `source scripts/jobs/minion-mcp-lib.sh`, merge `minion_mcp_env_json` into the
   environment, spawn `python3 scripts/jobs/minion-mcp-bridge.py`, and write
   newline-delimited JSON-RPC to it: `initialize`, then
-  `notifications/initialized`, then `tools/call` `publish` with
-  `{"powers":"sites","content":[{path,contentType,bytes}...]}`, where the bytes
-  come from `base64 -w0` files. After publishing, `curl` the URL and `cmp` it
-  against the local file. Used for the 2026-09-30 Endo progress report (two files,
-  about 23 KB; `serving: true` on the first try).
+  `notifications/initialized`, then `tools/call` `writeText` with a unique inert
+  name and empty text, then `tools/call` `publish` with that same inert name as
+  `powers` and `content:[{path,contentType,bytes}...]`, where the bytes come from
+  `base64 -w0` files. After publishing, `curl` the URL and `cmp` it against the
+  local file. The garden-book publisher is a checked example: it accepts only
+  `garden-book-*` names and defaults to `garden-book-inert`.
 - Despite the "inline CSS" some job specs ask for, the CSP is `style-src
   'self'`: ship a sibling `styles.css` and link it.
 
