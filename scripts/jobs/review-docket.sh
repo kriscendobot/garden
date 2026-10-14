@@ -27,7 +27,10 @@
 # retire-*, targeted reconcile) cannot finish inside the window, it is copied to
 # the host-local GARDEN_REVIEW_DOCKET_SPOOL and the command exits
 # GARDEN_REVIEW_DOCKET_SPOOLED_RC (76, retryable). The next transaction on this
-# host drains the spool first. A bare reconcile or render exits 75 instead.
+# host drains the spool first. A bare reconcile that exhausts its lock window
+# preserves its cursor and exits successfully so the periodic unit can defer to
+# its next tick; other transient failures from a bare reconcile, and render
+# failures, exit 75.
 # A lock timeout logs the recorded holder (transaction.lock.holder) and the
 # kernel's flock holder from /proc/locks.
 set -euo pipefail
@@ -493,6 +496,16 @@ retryable_exit() { # <reason>; spool intake, then exit with a retryable rc
   exit "$GARDEN_OFFLINE_RC"
 }
 
+lock_window_exit() { # <reason>; bare reconcile defers cleanly, intake remains retryable
+  if [ "$operation" = reconcile ] && [ "${#ARGS[@]}" -eq 0 ]; then
+    # The cursor is advanced only by a completed transaction child. Leaving it
+    # untouched here makes the next periodic tick retry the interrupted batch.
+    log "$1; preserving the reconcile cursor and deferring to the next tick"
+    exit 0
+  fi
+  retryable_exit "$1"
+}
+
 lock_holder_report() { # <lock>; who holds it, from our record and the kernel
   local lock="$1" inode pid line out="" record="" waiters=0
   if [ -s "$lock.holder" ]; then
@@ -585,7 +598,7 @@ mkdir -p "$(dirname "$transaction_lock")"
 exec {transaction_fd}>>"$transaction_lock"
 wait_started=$(date +%s)
 if ! flock -w "$GARDEN_REPO_LOCK_WAIT" "$transaction_fd"; then
-  retryable_exit "WARN: timed out after $(( $(date +%s) - wait_started ))s (limit ${GARDEN_REPO_LOCK_WAIT}s) waiting for the review-docket transaction lock; $(lock_holder_report "$transaction_lock")"
+  lock_window_exit "WARN: timed out after $(( $(date +%s) - wait_started ))s (limit ${GARDEN_REPO_LOCK_WAIT}s) waiting for the review-docket transaction lock; $(lock_holder_report "$transaction_lock")"
 fi
 waited=$(( $(date +%s) - wait_started ))
 # Everything done under the lock, spool drain included, ends by this deadline,
@@ -605,7 +618,7 @@ drain_spool
 rc=0; run_transaction "$GARDEN_REVIEW_DOCKET_NOW" "$operation" "${ARGS[@]}" || rc=$?
 case "$rc" in
   0) exit 0 ;;
-  124) retryable_exit "the $operation transaction exceeded the ${GARDEN_REPO_LOCK_WAIT}s lock window and was killed" ;;
+  124) lock_window_exit "the $operation transaction exceeded the ${GARDEN_REPO_LOCK_WAIT}s lock window and was killed" ;;
   "$GARDEN_OFFLINE_RC") retryable_exit "the $operation transaction could not reach the journal" ;;
   *) exit "$rc" ;;
 esac

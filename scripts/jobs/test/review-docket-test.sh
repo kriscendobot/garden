@@ -179,8 +179,14 @@ grep -q 'kernel flock holder pid=[0-9]* cmd=flock ' "$TEST_ROOT/timeout.log" || 
 [ "$(jq -r .request.summary "$SPOOL"/*.json)" = 'spooled eleven' ] || fail 'spool lost the request body'
 rc=0; GARDEN_REVIEW_DOCKET_LOCK_WAIT=1 live upsert https://github.com/example/repo/pull/11 "$TEST_ROOT/r11" >/dev/null 2>&1 || rc=$?
 [ "$rc" -eq 76 ] && [ "$(ls "$SPOOL"/*.json | wc -l)" = 1 ] || fail 'a repeated timeout duplicated the spool entry'
-rc=0; GARDEN_REVIEW_DOCKET_LOCK_WAIT=1 live reconcile >/dev/null 2>&1 || rc=$?
-[ "$rc" -eq 75 ] && [ "$(ls "$SPOOL"/*.json | wc -l)" = 1 ] || fail "a bare reconcile timeout should skip (75) without spooling (rc=$rc)"
+printf '%s\n' cursor-before-lock-wait > "$GARDEN_REVIEW_DOCKET_CURSOR"
+rc=0; GARDEN_REVIEW_DOCKET_LOCK_WAIT=1 live reconcile >"$TEST_ROOT/reconcile-lock-wait.log" 2>&1 || rc=$?
+[ "$rc" -eq 0 ] && [ "$(ls "$SPOOL"/*.json | wc -l)" = 1 ] \
+  || fail "a bare reconcile lock wait should defer successfully without spooling (rc=$rc)"
+[ "$(cat "$GARDEN_REVIEW_DOCKET_CURSOR")" = cursor-before-lock-wait ] \
+  || fail 'a deferred reconcile lock wait changed the cursor'
+grep -q 'preserving the reconcile cursor and deferring to the next tick' "$TEST_ROOT/reconcile-lock-wait.log" \
+  || fail 'a deferred reconcile lock wait did not explain its unit-safe outcome'
 pkill -P "$holder_pid" 2>/dev/null || true; kill "$holder_pid" 2>/dev/null || true; wait "$holder_pid" 2>/dev/null || true
 rm -f "$LOCK.holder"
 
@@ -211,5 +217,22 @@ rm -f "$TEST_ROOT/journal.git/hooks/pre-receive"
 live render >"$TEST_ROOT/drain2.log" 2>&1 || { cat "$TEST_ROOT/drain2.log" >&2; fail 'second drain failed'; }
 git -C "$TEST_ROOT/verify" pull -q
 [ -f "$TEST_ROOT/verify/review-docket/open/example-repo-pr12.json" ] || fail 'spooled upsert after hung push was lost'
+
+# A bare reconcile killed after it acquired the transaction lock is also a
+# successful deferred timer tick. Its prior cursor remains the retry point.
+printf '#!/bin/sh\nexec sleep 30 >/dev/null 2>&1\n' > "$TEST_ROOT/journal.git/hooks/pre-receive"
+chmod +x "$TEST_ROOT/journal.git/hooks/pre-receive"
+printf '%s\n' cursor-before-window-kill > "$GARDEN_REVIEW_DOCKET_CURSOR"
+printf '%s\n' '{"head_oid":"dddddddddddddddd","state":"OPEN","ci":{"state":"pending","observed_at":"2026-10-08T20:00:00Z"},"reviews":[]}' > "$META"
+rc=0
+GARDEN_REVIEW_DOCKET_LOCK_WAIT=3 GARDEN_REVIEW_DOCKET_PUSH_TIMEOUT=1 \
+  GARDEN_REVIEW_DOCKET_RECONCILE_BATCH=1 live reconcile >"$TEST_ROOT/reconcile-window.log" 2>&1 || rc=$?
+[ "$rc" -eq 0 ] || { cat "$TEST_ROOT/reconcile-window.log" >&2; fail "bare reconcile window kill exited $rc, not 0"; }
+[ "$(cat "$GARDEN_REVIEW_DOCKET_CURSOR")" = cursor-before-window-kill ] \
+  || fail 'a deferred reconcile window kill changed the cursor'
+grep -q 'reconcile transaction exceeded the 3s lock window and was killed; preserving the reconcile cursor' \
+  "$TEST_ROOT/reconcile-window.log" \
+  || { cat "$TEST_ROOT/reconcile-window.log" >&2; fail 'bare reconcile window kill did not report clean deferral'; }
+rm -f "$TEST_ROOT/journal.git/hooks/pre-receive"
 
 echo 'review-docket-test: PASS'
