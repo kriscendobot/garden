@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T05:14:11Z_
+_As of 2026-10-14T05:17:21Z_
 
 ## Latest
 
@@ -1320,10 +1320,6 @@ Delegation: **active**
 >
 > Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split HALTED: child moddable-10-0-0-xs-source-inventory-20261009 stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
 
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261014-045008` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261014-045008.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261014-045008' has remained unclaimed for 1200s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-10-10T21:55:54Z, latest 2026-10-11T18:57:14Z).
@@ -1339,7 +1335,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 246.8M | $1160.34 _(notional, rate-card)_ | 91% of 271.0M (backoff) |
-| Codex | 20.6M _(+645.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Codex | 20.6M _(+646.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 100073675 tokens/day lower bound._
 
@@ -1364,19 +1360,18 @@ worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-045008.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (4)
+### doin (3)
 - [`oros-health-watch-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261014-045008.md) — ---
 - [`canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 242f944cdf7d
 - [`oros-health-checkup-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261014-015008.md) — ---
-- [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-152006.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (12743)
+### tada (12744)
+- [`minion-town-arc-press-20261013-152006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-arc-press-20261013-152006.md) — Completion report — minion.town arc supervisor tick (job minion-town-arc-pres...
 - [`garden-book-illuminations-republish-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/garden-book-illuminations-republish-20261014.md) — Cost
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-1.md) — Fix round 1 done for kriscendobot/minion.town PR #183: fixes pushed, CI green
 - [`validate-minion-town-root-canary-login-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/validate-minion-town-root-canary-login-20261013.md) — Cost
 - [`claude-on-minion-town-press-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/claude-on-minion-town-press-20261013-223508.md) — Cost
-- [`fix-inbox-read-deepen-canary-latency`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/fix-inbox-read-deepen-canary-latency.md) — Cost
-- … and 12738 more
+- … and 12739 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
