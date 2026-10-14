@@ -1,6 +1,6 @@
 ---
 created: 2026-09-28
-updated: 2026-09-28
+updated: 2026-10-14
 author: gardener
 ---
 
@@ -98,12 +98,24 @@ caveat tier is for content safe to ingest so long as its bias or the
 classifier's uncertainty is recorded in the ingested artifact. **No path
 resolves uncertainty into a silent clean pass.**
 
-**Fail-safe shape** (mirrors `muster-pilot.sh`): a missing credential, a
-failed API call, or an invalid response shape yields
+**Fail-safe shape** (mirrors `muster-pilot.sh`): a missing credential, an
+exhausted transient API call, or an invalid response shape yields
 `classify_status=unavailable` / `classify_policy=proceed_unclassified` and
 exit 0 — the whole task never fails closed on classifier unavailability, but
 the caller must record the gap in whatever it ingests. A `halt_and_escalate`
 verdict exits **3**, so a boolean caller cannot ignore a flag.
+
+The HTTP boundary is classified before this fallback. Transport failures and
+HTTP 408, 429, and 5xx responses retry at most three times with bounded
+exponential backoff. No other response retries. In particular, a 4xx other
+than 408/429 is an actionable request/API-contract failure:
+`classify_status=api_contract_error`, `classify_policy=halt_api_contract`, and
+exit **5**. It does not become strict-mode exit 4, because moving the same
+request to another TypeSafe-capable host cannot repair its contract. API
+manifests include `classify_http_status`, `classify_attempts`, and, for
+failures, `classify_retryable`; when TypeSafe supplies an error code the
+script carries it as `classify_provider_error_code`, restricted to a 64-byte
+safe character set.
 
 **Strict mode** (`CLASSIFY_REQUIRE=1`). The fail-open default makes the gate
 only as strong as the claiming host: a host without the key ingests every
@@ -145,6 +157,10 @@ unclassified.
      end the job **without** the completion signal so it requeues. A host
      that can classify will claim it next time. Say in the report why you
      stopped.
+   - `halt_api_contract` (exit 5) — do **not** read or ingest the source and do
+     not requeue it as host failover. Report the actionable TypeSafe request
+     failure with `classify_http_status` and any
+     `classify_provider_error_code`; the request or integration must be fixed.
 4. Record the questions asked, answers, disposition, and `usage` token counts
    in the completion report (the calls are metered; the decisions must be
    auditable).

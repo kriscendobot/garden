@@ -3,7 +3,8 @@
 # foreign-content pre-classification gate (classify-foreign-content.sh).
 #
 # Pins: the credential-absent fallback (proceed_unclassified, exit 0), the
-# API-failure and bad-shape fallbacks, the request shape (both questions, the
+# transient retry, API-contract failure, and bad-shape paths; the request
+# shape (both questions, the
 # untrusted-data boundary, content as JSON data), and the deterministic policy
 # table across both axes — clean, gray-zone injection (uncertainty fails
 # toward escalation), flagged injection, advocacy caveat, confident and
@@ -50,6 +51,7 @@ run() {  # runs the classifier against the canned response; echoes manifest
   CLASSIFY_TEST_REQUEST="$request" \
   CLASSIFY_TEST_RESPONSE="$response" \
   CLASSIFY_FOREIGN_CURL="$FAKE_CURL" \
+  CLASSIFY_FOREIGN_RETRY_DELAY=0 \
   "$CLASSIFY" "$@"
 }
 
@@ -62,13 +64,18 @@ else
   bad "missing credential fallback broken (rc=$rc): $out"
 fi
 
-# --- 2. API failure fallback -------------------------------------------------
+# --- 2. exhausted transient transport failure fallback ----------------------
 respond 0.01 neutral 0.9
-out="$(CLASSIFY_TEST_RC=22 run "$content")" && rc=0 || rc=$?
-if [ "$rc" -eq 0 ] && grep -q 'classify_policy=proceed_unclassified' <<<"$out"; then
-  ok "API failure yields explicit proceed_unclassified, exit 0"
+attempts="$TEST_DIRECTORY/transport-attempts"
+out="$(CLASSIFY_TEST_RC=7 CLASSIFY_TEST_ATTEMPT_FILE="$attempts" run "$content")" && rc=0 || rc=$?
+if [ "$rc" -eq 0 ] && grep -q 'classify_policy=proceed_unclassified' <<<"$out" \
+  && grep -q 'classify_http_status=200' <<<"$out" \
+  && grep -q 'classify_retryable=true' <<<"$out" \
+  && grep -q 'classify_attempts=3' <<<"$out" \
+  && [ "$(cat "$attempts")" -eq 3 ]; then
+  ok "transient transport failure retries to the bound, then degrades explicitly"
 else
-  bad "API failure fallback broken (rc=$rc): $out"
+  bad "transport retry/fallback broken (rc=$rc): $out"
 fi
 
 # --- 3. invalid response shape fallback --------------------------------------
@@ -85,7 +92,9 @@ fi
 respond 0.02 neutral 0.92
 out="$(run "$content" 'https://example.org/doc.html' 'Ingest into the library')" && rc=0 || rc=$?
 if [ "$rc" -eq 0 ] && grep -q 'classify_policy=proceed$' <<<"$out" \
-  && grep -q 'classify_injection_verdict=clean' <<<"$out"; then
+  && grep -q 'classify_injection_verdict=clean' <<<"$out" \
+  && grep -q 'classify_http_status=200' <<<"$out" \
+  && grep -q 'classify_attempts=1' <<<"$out"; then
   ok "clean neutral content -> proceed, exit 0"
 else
   bad "clean-content path broken (rc=$rc): $out"
@@ -184,7 +193,7 @@ else
   bad "strict mode credential-absent path broken (rc=$rc): $out"
 fi
 respond 0.01 neutral 0.9
-out="$(CLASSIFY_REQUIRE=1 CLASSIFY_TEST_RC=22 run "$content")" && rc=0 || rc=$?
+out="$(CLASSIFY_REQUIRE=1 CLASSIFY_TEST_RC=7 run "$content")" && rc=0 || rc=$?
 if [ "$rc" -eq 4 ] && grep -q 'classify_policy=halt_unclassified' <<<"$out"; then
   ok "strict mode API failure exits 4"
 else
@@ -197,7 +206,49 @@ else
   bad "strict mode classified path broken (rc=$rc): $out"
 fi
 
-# --- 13. usage errors ----------------------------------------------------------
+# --- 13. transient HTTP responses retry and can recover ----------------------
+respond 0.01 neutral 0.9
+attempts="$TEST_DIRECTORY/http-attempts"
+out="$(CLASSIFY_FOREIGN_MAX_ATTEMPTS=4 CLASSIFY_TEST_HTTP_SEQUENCE=500,429,408,200 CLASSIFY_TEST_ATTEMPT_FILE="$attempts" run "$content")" && rc=0 || rc=$?
+if [ "$rc" -eq 0 ] && grep -q 'classify_policy=proceed$' <<<"$out" \
+  && grep -q 'classify_http_status=200' <<<"$out" \
+  && grep -q 'classify_attempts=4' <<<"$out" \
+  && [ "$(cat "$attempts")" -eq 4 ]; then
+  ok "HTTP 5xx, 429, and 408 retry with bounded backoff and recover"
+else
+  bad "transient HTTP retry broken (rc=$rc): $out"
+fi
+
+# --- 14. non-retryable 4xx is an actionable API-contract failure ------------
+printf '{"error":{"code":"bad request/with spaces and ! punctuation %070d"}}\n' 0 >"$response"
+attempts="$TEST_DIRECTORY/contract-attempts"
+out="$(CLASSIFY_REQUIRE=1 CLASSIFY_TEST_HTTP_STATUS=400 CLASSIFY_TEST_ATTEMPT_FILE="$attempts" run "$content")" && rc=0 || rc=$?
+provider_code="$(sed -n 's/^classify_provider_error_code=//p' <<<"$out")"
+if [ "$rc" -eq 5 ] && grep -q 'classify_status=api_contract_error' <<<"$out" \
+  && grep -q 'classify_policy=halt_api_contract' <<<"$out" \
+  && grep -q 'classify_http_status=400' <<<"$out" \
+  && grep -q 'classify_retryable=false' <<<"$out" \
+  && [ "$(cat "$attempts")" -eq 1 ] \
+  && [[ "$provider_code" =~ ^[A-Za-z0-9._-]{1,64}$ ]] \
+  && [ "${#provider_code}" -eq 64 ]; then
+  ok "HTTP 400 halts distinctly without retry and bounds/sanitizes the provider code"
+else
+  bad "HTTP 400 API-contract classification broken (rc=$rc, code=$provider_code): $out"
+fi
+
+# --- 15. other non-transient curl failures are not retried -------------------
+respond 0.01 neutral 0.9
+attempts="$TEST_DIRECTORY/local-curl-attempts"
+out="$(CLASSIFY_TEST_RC=3 CLASSIFY_TEST_HTTP_STATUS=000 CLASSIFY_TEST_ATTEMPT_FILE="$attempts" run "$content")" && rc=0 || rc=$?
+if [ "$rc" -eq 0 ] && grep -q 'classify_retryable=false' <<<"$out" \
+  && grep -q 'classify_attempts=1' <<<"$out" \
+  && [ "$(cat "$attempts")" -eq 1 ]; then
+  ok "non-transient curl failure does not retry"
+else
+  bad "non-transient curl failure retried or was misclassified (rc=$rc): $out"
+fi
+
+# --- 16. usage errors ----------------------------------------------------------
 if ! "$CLASSIFY" "$TEST_DIRECTORY/absent-file" >/dev/null 2>&1; then
   ok "missing content file is a usage error"
 else

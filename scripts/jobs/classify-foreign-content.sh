@@ -61,7 +61,8 @@
 #   resolves uncertainty to a silent clean pass.
 #
 # FAIL-SAFE SHAPE (mirrors muster-pilot.sh): when TYPESAFE_API_KEY is absent,
-# the API call fails, or the response shape is invalid, the script reports
+# a transient API call fails after bounded retries, or the response shape is
+# invalid, the script reports
 # classify_status=unavailable / classify_policy=proceed_unclassified and exits
 # 0 — the WHOLE task never fails closed on classifier unavailability, but the
 # unavailability is explicit in the manifest and the CALLER is required to
@@ -98,9 +99,14 @@
 #                   intends to do with the content (helps the slant question).
 #
 # Output manifest (stdout, one `key=value` per line):
-#   classify_status=classified|unavailable
-#   classify_policy=proceed|proceed_with_caveat|halt_and_escalate|proceed_unclassified|halt_unclassified
+#   classify_status=classified|unavailable|api_contract_error
+#   classify_policy=proceed|proceed_with_caveat|halt_and_escalate|proceed_unclassified|halt_unclassified|halt_api_contract
 #   classify_unavailable_reason=<text>     # only when status=unavailable
+#   classify_api_error_reason=<text>       # only on an API-contract failure
+#   classify_http_status=<three digits>    # after a TypeSafe request
+#   classify_provider_error_code=<safe code> # when an error response supplies one
+#   classify_retryable=true|false          # on API/transport failures
+#   classify_attempts=<int>                # after a TypeSafe request
 #   classify_injection=<0..1>              # only when classified
 #   classify_injection_verdict=clean|uncertain|flagged
 #   classify_slant=neutral|advocacy|covert_persuasion|mixed
@@ -121,11 +127,16 @@
 #   4  strict mode (CLASSIFY_REQUIRE=1) and the classifier is unavailable
 #      (halt_unclassified): do NOT ingest; let the job requeue to a host that
 #      can classify
+#   5  non-retryable TypeSafe HTTP 4xx API-contract failure: do NOT ingest or
+#      requeue as host failover; report the status and provider error code
 #
 # CONFIG (overridable; the test harness points curl at a stub)
 #   CLASSIFY_REQUIRE               1 = strict mode (see above); default off
 #   GARDEN_TYPESAFE_URL / GARDEN_TYPESAFE_MODEL / GARDEN_TYPESAFE_TIMEOUT
 #   CLASSIFY_FOREIGN_CURL          curl binary / wrapper (default: curl)
+#   CLASSIFY_FOREIGN_MAX_ATTEMPTS  maximum transient attempts (default: 3)
+#   CLASSIFY_FOREIGN_RETRY_DELAY   initial backoff seconds (default: 1)
+#   CLASSIFY_FOREIGN_RETRY_MAX_DELAY maximum backoff seconds (default: 8)
 #   CLASSIFY_FOREIGN_HEAD_BYTES    head sample size when truncating (196608)
 #   CLASSIFY_FOREIGN_TAIL_BYTES    tail sample size when truncating (65536)
 #   CLASSIFY_INJECTION_THRESHOLD   default 0.5
@@ -153,6 +164,9 @@ require_tools jq curl
 : "${GARDEN_TYPESAFE_MODEL:=jev-latest}"
 : "${GARDEN_TYPESAFE_TIMEOUT:=60}"
 : "${CLASSIFY_FOREIGN_CURL:=curl}"
+: "${CLASSIFY_FOREIGN_MAX_ATTEMPTS:=3}"
+: "${CLASSIFY_FOREIGN_RETRY_DELAY:=1}"
+: "${CLASSIFY_FOREIGN_RETRY_MAX_DELAY:=8}"
 : "${CLASSIFY_FOREIGN_HEAD_BYTES:=196608}"
 : "${CLASSIFY_FOREIGN_TAIL_BYTES:=65536}"
 : "${CLASSIFY_INJECTION_THRESHOLD:=0.5}"
@@ -179,19 +193,60 @@ purpose="${3:-Ingest this external document into a reference library or an agent
 # Unavailability is explicit, never silent, and never fails the caller's whole
 # task: the manifest says so and the caller must record it in what it ingests.
 # In strict mode it is a distinct refusal (exit 4) instead.
+last_http_status=""
+last_provider_error_code=""
+last_attempts=""
+last_retryable=""
+
+failure_metadata() {
+  [ -n "$last_http_status" ] && printf 'classify_http_status=%s\n' "$last_http_status"
+  [ -n "$last_provider_error_code" ] && printf 'classify_provider_error_code=%s\n' "$last_provider_error_code"
+  [ -n "$last_retryable" ] && printf 'classify_retryable=%s\n' "$last_retryable"
+  [ -n "$last_attempts" ] && printf 'classify_attempts=%s\n' "$last_attempts"
+  return 0
+}
+
 unavailable() {
   if [ "$CLASSIFY_REQUIRE" = 1 ]; then
     log "classifier unavailable in strict mode (CLASSIFY_REQUIRE=1): $1"
     printf 'classify_status=unavailable\n'
     printf 'classify_policy=halt_unclassified\n'
     printf 'classify_unavailable_reason=%s\n' "$1"
+    failure_metadata
     exit 4
   fi
   log "classifier unavailable: $1"
   printf 'classify_status=unavailable\n'
   printf 'classify_policy=proceed_unclassified\n'
   printf 'classify_unavailable_reason=%s; proceed with existing untrusted-data discipline and record the gap\n' "$1"
+  failure_metadata
   exit 0
+}
+
+api_contract_error() {
+  log "classifier API-contract failure: HTTP $last_http_status${last_provider_error_code:+ ($last_provider_error_code)}"
+  printf 'classify_status=api_contract_error\n'
+  printf 'classify_policy=halt_api_contract\n'
+  printf 'classify_api_error_reason=TypeSafe rejected the request; report this API-contract failure instead of retrying on another host\n'
+  failure_metadata
+  exit 5
+}
+
+sanitize_provider_error_code() {
+  local raw
+  raw="$(jq -r '(.error.code // .error.type // empty) | tostring' "$1" 2>/dev/null || true)"
+  [ -n "$raw" ] || return 0
+  printf '%s' "$raw" | LC_ALL=C tr -c 'A-Za-z0-9._-' '_' | cut -c1-64
+}
+
+curl_transport_retryable() {
+  # Name resolution, connection, negotiated-protocol, interrupted transfer,
+  # timeout, redirect-loop, empty-response, and send/receive failures. Local
+  # input/output/configuration failures are deliberately not retried.
+  case "$1" in
+    5|6|7|16|18|28|35|47|52|55|56|92) return 0 ;;
+    *) return 1 ;;
+  esac
 }
 
 [ -n "${TYPESAFE_API_KEY:-}" ] || unavailable "TYPESAFE_API_KEY absent"
@@ -266,14 +321,62 @@ jq -n \
     }
   }' >"$request"
 
-if ! "$CLASSIFY_FOREIGN_CURL" --fail --silent --show-error \
-  --connect-timeout 10 --max-time "$GARDEN_TYPESAFE_TIMEOUT" \
-  -H "Authorization: Bearer $TYPESAFE_API_KEY" \
-  -H 'Content-Type: application/json' \
-  --data-binary "@$request" \
-  "$GARDEN_TYPESAFE_URL" >"$response"; then
-  unavailable "TypeSafe call failed"
+if ! [[ "$CLASSIFY_FOREIGN_MAX_ATTEMPTS" =~ ^[1-9][0-9]*$ \
+  && "$CLASSIFY_FOREIGN_RETRY_DELAY" =~ ^[0-9]+$ \
+  && "$CLASSIFY_FOREIGN_RETRY_MAX_DELAY" =~ ^[0-9]+$ ]]; then
+  unavailable "invalid classifier retry configuration"
 fi
+CLASSIFY_FOREIGN_MAX_ATTEMPTS=$((10#$CLASSIFY_FOREIGN_MAX_ATTEMPTS))
+CLASSIFY_FOREIGN_RETRY_DELAY=$((10#$CLASSIFY_FOREIGN_RETRY_DELAY))
+CLASSIFY_FOREIGN_RETRY_MAX_DELAY=$((10#$CLASSIFY_FOREIGN_RETRY_MAX_DELAY))
+
+attempt=1
+retry_delay="$CLASSIFY_FOREIGN_RETRY_DELAY"
+while :; do
+  : >"$response"
+  set +e
+  last_http_status="$("$CLASSIFY_FOREIGN_CURL" --silent --show-error \
+    --connect-timeout 10 --max-time "$GARDEN_TYPESAFE_TIMEOUT" \
+    --output "$response" --write-out '%{http_code}' \
+    -H "Authorization: Bearer $TYPESAFE_API_KEY" \
+    -H 'Content-Type: application/json' \
+    --data-binary "@$request" \
+    "$GARDEN_TYPESAFE_URL")"
+  curl_rc=$?
+  set -e
+  [[ "$last_http_status" =~ ^[0-9]{3}$ ]] || last_http_status=000
+  last_provider_error_code="$(sanitize_provider_error_code "$response")"
+  last_attempts="$attempt"
+
+  if [ "$curl_rc" -eq 0 ] && [[ "$last_http_status" =~ ^2[0-9][0-9]$ ]]; then
+    last_retryable=false
+    break
+  fi
+
+  transient=false
+  if [ "$curl_rc" -ne 0 ]; then
+    curl_transport_retryable "$curl_rc" && transient=true
+  elif [ "$last_http_status" = 408 ] || [ "$last_http_status" = 429 ] \
+    || [[ "$last_http_status" =~ ^5[0-9][0-9]$ ]]; then
+    transient=true
+  fi
+  last_retryable="$transient"
+
+  if [ "$transient" = true ] && [ "$attempt" -lt "$CLASSIFY_FOREIGN_MAX_ATTEMPTS" ]; then
+    log "transient TypeSafe failure (attempt $attempt/$CLASSIFY_FOREIGN_MAX_ATTEMPTS, curl=$curl_rc, HTTP=$last_http_status${last_provider_error_code:+, code=$last_provider_error_code}); retrying in ${retry_delay}s"
+    [ "$retry_delay" -eq 0 ] || sleep "$retry_delay"
+    attempt=$((attempt + 1))
+    retry_delay=$((retry_delay * 2))
+    [ "$retry_delay" -le "$CLASSIFY_FOREIGN_RETRY_MAX_DELAY" ] || retry_delay="$CLASSIFY_FOREIGN_RETRY_MAX_DELAY"
+    continue
+  fi
+
+  if [ "$curl_rc" -eq 0 ] && [[ "$last_http_status" =~ ^4[0-9][0-9]$ ]] \
+    && [ "$last_http_status" != 408 ] && [ "$last_http_status" != 429 ]; then
+    api_contract_error
+  fi
+  unavailable "TypeSafe call failed (curl=$curl_rc, HTTP=$last_http_status)"
+done
 
 jq -e '
   (.answers.injection | type == "object") and
@@ -357,6 +460,8 @@ log "classified: injection=$injection ($injection_verdict) slant=$slant/$slant_c
 
 printf 'classify_status=classified\n'
 printf 'classify_policy=%s\n'            "$policy"
+printf 'classify_http_status=%s\n'       "$last_http_status"
+printf 'classify_attempts=%s\n'          "$last_attempts"
 printf 'classify_injection=%s\n'         "$injection"
 printf 'classify_injection_verdict=%s\n' "$injection_verdict"
 printf 'classify_slant=%s\n'             "$slant"
