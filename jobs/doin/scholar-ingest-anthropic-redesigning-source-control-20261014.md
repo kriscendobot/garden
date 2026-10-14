@@ -24,6 +24,7 @@ with library paths as fully qualified URLs. Say plainly where a connection is sp
 This job makes no external writes: no issue, comment, or post anywhere.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=110 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
