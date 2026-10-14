@@ -1,19 +1,20 @@
 #!/bin/bash
 # post-orchestration.sh — producer primitive: record an ORCHESTRATION over a set
-# of already-parked child sub-jobs, so the deterministic orchestrate.sh watcher
-# sequences them into todo/ and watches them to completion.
+# of child sub-jobs, so the deterministic orchestrate.sh watcher sequences them
+# into todo/ and watches them to completion. The ordinary mode records children
+# that are already parked; repeated --child NAME BODY-FILE arguments atomically
+# park fresh children and record the orchestration in one journal CAS push.
 #
 # The maintainer directive (kriskowal 2026-07-01): for a MULTI-PART job, always
 # make ONE orchestration job that moves the planned sub-jobs off plan/ into todo/
 # in sequence (default) or in parallel, and WATCHES the children so it is less
 # likely to forget to follow up with the next one. This is that job.
 #
-# Shape:
-#   1. Park each child sub-job first with:
-#        post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body]
-#      (gate=orchestrated → invisible to the foreman AND the unblock watcher; only
-#      orchestrate.sh promotes it.)
-#   2. Record the orchestration with THIS script, naming the children in run order.
+# Shape: prefer repeated `--child <name> <body-file>` arguments, which park all
+# fresh children and write the orchestration record in ONE commit. The positional
+# record-only form remains for already-parked children, adoption, and resume.
+# Either way, gate=orchestrated keeps a child invisible to the foreman and unblock
+# watcher; only orchestrate.sh promotes it.
 #   The orchestrate.sh watcher then, deterministically and with NO `claude -p`:
 #      - serial   : promote child #1, WATCH it reach jobs/tada/, then #2, …
 #      - parallel : promote ALL children at once, then watch them all.
@@ -31,7 +32,9 @@
 #   post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
 #                         [--budget-tokens N] [--resume-from TERMINAL-CAMPAIGN]
 #                         [--adopt-go-ahead]
-#                         [--by ROLE] [--no-validate] <orch-base> <child>... [-- body-file]
+#                         [--by ROLE] [--no-validate]
+#                         { --child NAME BODY-FILE ... <orch-base> |
+#                           <orch-base> <child>... } [-- body-file]
 #
 #   --serial | --parallel        ordering of the children (default --serial).
 #   --on-child-failure halt|continue   policy on a child failure (default halt).
@@ -55,6 +58,11 @@
 #                                for maintainer authorization become an orchestration
 #                                the moment authorization is given, with no window in
 #                                which the record exists over un-retagged children.
+#   --child NAME BODY-FILE       atomically park this fresh orchestrated child and
+#                                record it in run order. Repeat for every child;
+#                                replaces positional <child> arguments. Each body
+#                                receives post-plan's validation, routing, and stale
+#                                cycle-marker cleanup before the single CAS push.
 #   --arc ARC                    the arc the campaign draws from. Children inherit it
 #                                at promotion; a serial child is promoted only while
 #                                the arc slice has headroom (and, with
@@ -94,7 +102,9 @@ Usage:
   post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
                         [--budget-tokens N] [--resume-from TERMINAL-CAMPAIGN]
                         [--adopt-go-ahead]
-                        [--by ROLE] [--no-validate] <orch-base> <child>... [-- body-file]
+                        [--by ROLE] [--no-validate]
+                        { --child NAME BODY-FILE ... <orch-base> |
+                          <orch-base> <child>... } [-- body-file]
 
   --serial | --parallel              ordering (default --serial).
   --on-child-failure halt|continue   policy on a child failure (default halt).
@@ -104,6 +114,9 @@ Usage:
   --adopt-go-ahead                   atomically adopt gate=go-ahead children into
                                     this orchestration (flip gate -> orchestrated
                                     and set orchestrated_by in the record commit).
+  --child NAME BODY-FILE             atomically park a child from BODY-FILE and
+                                    record it in this orchestration. Repeat in run
+                                    order; do not also pass positional children.
   --arc ARC                          arc the campaign draws from (children inherit).
   --by ROLE                          provenance (default $GARDEN_SENDER or producer).
   --no-validate                      skip child-gate validation (not with
@@ -123,6 +136,8 @@ body_src=""
 budget_tokens=""
 resume_from=""
 arc=""
+children=()
+child_body_sources=()
 while [ $# -gt 0 ]; do
   case "$1" in
     -h|--help)          usage; exit 0;;
@@ -132,6 +147,11 @@ while [ $# -gt 0 ]; do
     --budget-tokens)   budget_tokens="${2:?--budget-tokens needs a positive integer}"; shift 2;;
     --resume-from)     resume_from="${2:?--resume-from needs a terminal campaign base}"; shift 2;;
     --adopt-go-ahead)   adopt_go_ahead=1; shift;;
+    --child)
+      [ "$#" -ge 3 ] || die "--child needs NAME and BODY-FILE"
+      children+=("$2")
+      child_body_sources+=("$3")
+      shift 3;;
     --by)               by="${2:?--by needs a value}"; shift 2;;
     --arc)              arc="${2:?--arc needs a value}"; shift 2;;
     --no-validate)      validate=0; shift;;
@@ -162,16 +182,37 @@ fi
 case "$arc" in */*|.*|-*|*[[:space:]]*) die "illegal --arc: '$arc'";; esac
 case "$resume_from" in */*|.*|-*) die "illegal --resume-from campaign: '$resume_from'";; esac
 
-# Collect the child basenames (everything up to a lone `--`, which starts the body).
-children=()
+# Collect positional child basenames (everything up to a lone `--`, which starts
+# the orchestration body). In atomic-child mode, --child already supplied the
+# ordered child list, so only the optional `-- body-file` tail is legal here.
+atomic_children=0
+[ "${#child_body_sources[@]}" -gt 0 ] && atomic_children=1
 while [ $# -gt 0 ]; do
   case "$1" in
     --) shift; body_src="${1:-}"; break;;
-    *)  case "$1" in */*|.*|-*|'') die "illegal child basename: '$1'";; esac
+    *)  [ "$atomic_children" -eq 0 ] \
+          || die "positional child '$1' cannot be combined with --child NAME BODY-FILE"
+        case "$1" in */*|.*|-*|'') die "illegal child basename: '$1'";; esac
         children+=("$1"); shift;;
   esac
 done
 [ "${#children[@]}" -ge 1 ] || die "an orchestration needs at least one child sub-job"
+for c in "${children[@]}"; do
+  case "$c" in */*|.*|-*|'') die "illegal child basename: '$c'";; esac
+done
+
+if [ "$atomic_children" -eq 1 ]; then
+  [ -z "$resume_from" ] \
+    || die "--child cannot be combined with --resume-from (resume adopts existing parked children)"
+  [ "$adopt_go_ahead" -eq 0 ] \
+    || die "--child cannot be combined with --adopt-go-ahead (atomic children are newly parked)"
+  [ "$validate" -eq 1 ] \
+    || die "--child cannot be combined with --no-validate"
+  for child_src in "${child_body_sources[@]}"; do
+    [ -f "$child_src" ] \
+      || die "child body source '$child_src' is not a readable file"
+  done
+fi
 
 # Adoption RE-TAGS a go-ahead child based on what the validation loop reads off the
 # board; with validation skipped there is nothing to key the retag on. Reject the
@@ -203,6 +244,36 @@ read_body() {
 }
 BODY="$(read_body)"
 
+# Atomic-child bodies follow the same write-side pipeline as post-plan.sh: reject
+# malformed execution frontmatter in strict mode, normalize automatic routing,
+# and clear stale reaper/gardener cycle markers before parking. Keep prepared
+# bodies in private temporary files so arbitrary Markdown never enters shell argv.
+atomic_tmp=""
+child_body_files=()
+child_cleared=()
+if [ "$atomic_children" -eq 1 ]; then
+  atomic_tmp="$(mktemp -d "${TMPDIR:-/tmp}/garden-post-orch-children.XXXXXX")"
+  trap 'rm -rf "$atomic_tmp"' EXIT
+  for i in "${!children[@]}"; do
+    prepared="$atomic_tmp/$i.body"
+    cat "${child_body_sources[$i]}" > "$prepared"
+    if ! validate_job_frontmatter "$prepared"; then
+      die "refusing to park child '${children[$i]}': job frontmatter failed validation (unset GARDEN_JOB_FRONTMATTER_STRICT to WARN and park anyway)"
+    fi
+    routed="$atomic_tmp/$i.routed"
+    automatic_route_body < "$prepared" > "$routed"
+    cleared="$(cycle_marker_summary "$routed")"
+    if [ "$cleared" != none ]; then
+      strip_cycle_markers < "$routed" > "$prepared"
+      log "cleared stale cycle markers from the parked body of '${children[$i]}': $cleared"
+    else
+      mv "$routed" "$prepared"
+    fi
+    child_body_files+=("$prepared")
+    child_cleared+=("$cleared")
+  done
+fi
+
 compose() {
   printf -- '---\n'
   printf 'order: %s\n' "$order"
@@ -216,6 +287,21 @@ compose() {
   printf 'created_at: %s\n' "$(date -u +%FT%TZ)"
   printf -- '---\n\n'
   printf '%s\n' "$BODY"
+}
+
+compose_atomic_child() {
+  local i="$1"
+  printf -- '---\n'
+  printf 'gate: orchestrated\n'
+  printf 'orchestrated_by: %s\n' "$base"
+  printf 'priority: normal\n'
+  printf 'posted_by: %s\n' "$by"
+  printf 'posted_at: %s\n' "$(date -u +%FT%TZ)"
+  [ "${child_cleared[$i]}" != none ] \
+    && printf 'cleared: %s\n' "${child_cleared[$i]}"
+  printf -- '---\n\n'
+  cat "${child_body_files[$i]}"
+  printf '\n'
 }
 
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
@@ -312,12 +398,38 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
         fi
       elif job_in_lifecycle "$DIR" "$c"; then
         :   # already promoted (todo/doin/tada) — a restart-safe re-post
+      elif [ "$atomic_children" -eq 1 ]; then
+        :   # fresh child: composed and staged with the record below
       else
         die "child '$c' is not parked in plan/ (or anywhere on the board); park it first with post-plan.sh --orchestrated --orchestrated-by $base $c"
       fi
     done
   fi
+  # The project-pause gate applies to atomic child creation just as it does to
+  # post-plan.sh. Check from this attempt's freshly-synced board before staging
+  # any paths. Existing lifecycle children are idempotent and need no new park.
+  if [ "$atomic_children" -eq 1 ]; then
+    for i in "${!children[@]}"; do
+      c="${children[$i]}"
+      if ! job_in_lifecycle "$DIR" "$c"; then
+        if pause_slug="$(project_pause_hit "$DIR" "$c" "${child_body_files[$i]}")"; then
+          note_project_pause_block "$DIR" "$pause_slug" "atomic park of orchestration child '$c'"
+          die "refusing to park child '$c': it belongs to PAUSED project '$pause_slug'"
+        fi
+      fi
+    done
+  fi
   mkdir -p "$DIR/$JOBS_ORCH"
+  if [ "$atomic_children" -eq 1 ]; then
+    mkdir -p "$DIR/$JOBS_PLAN"
+    for i in "${!children[@]}"; do
+      c="${children[$i]}"
+      if ! job_in_lifecycle "$DIR" "$c"; then
+        compose_atomic_child "$i" > "$DIR/$JOBS_PLAN/$c.md"
+        git -C "$DIR" add "$JOBS_PLAN/$c.md"
+      fi
+    done
+  fi
   compose > "$DIR/$JOBS_ORCH/$base.md"
   git -C "$DIR" add "$JOBS_ORCH/$base.md"
   # Adoption and the new orchestration record are one journal commit: a watcher

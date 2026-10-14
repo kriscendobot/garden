@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-10-04
+updated: 2026-10-14
 author: gardener, liaison
 ---
 
@@ -437,11 +437,12 @@ decompose it into planned sub-jobs plus ONE orchestration job (serial default).*
 Do not post a loose pile of sub-jobs and rely on follow-ups — that is how a
 next-step gets forgotten. Instead:
 
-1. Park each child in run order:
-   `scripts/jobs/post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body]`.
-2. Record the orchestration:
-   `scripts/jobs/post-orchestration.sh [--serial|--parallel]
-   [--on-child-failure halt|continue] <orch-base> <child>...`.
+Prepare each child body in a file, then create the whole plan atomically:
+`scripts/jobs/post-orchestration.sh [--serial|--parallel]
+[--on-child-failure halt|continue] --child <child-a> <body-a>
+--child <child-b> <body-b> <orch-base>`. Repeated `--child` arguments define run
+order. Use the positional record-only form only for children already on the board
+(including go-ahead adoption and campaign resume).
 
 The deterministic `garden-orchestrate` watcher then moves the children off `plan/`
 into `todo/` **in sequence (default) or parallel (as instructed)** and **watches**

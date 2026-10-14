@@ -41,6 +41,8 @@
 #                   successful or continued-failure predecessor outcome.
 #  12. NOTICES      - fresh active state is silent; child failure/timeout and
 #                   every terminal completion emit deterministic structured fields.
+#  24b. ATOMIC POST  - repeated --child NAME BODY-FILE arguments park every child
+#                   and record the orchestration in one idempotent CAS commit.
 #  17b. AUTH PARK    - an auth-unavailable child parks downstream validation and
 #                   emits one maintainer action notice, not failure+halt notices.
 #  25. TADA AUTHORITY — an inferred in-flight stall re-checks jobs/tada/ before
@@ -1183,6 +1185,55 @@ rc=0; "$JOBS/post-orchestration.sh" --adopt-go-ahead --no-validate val-orch-d vg
 [ "$val_ok" -eq 1 ] \
   && ok "wrong-gate, foreign-owned, and contradictory-flag children are refused before any record is written" \
   || bad "child validation did not fail closed"
+
+# ============================================================================
+hr; echo "SUBTEST 24b — ATOMIC POST: child plans and orchestration land in one idempotent CAS commit"; hr
+atomic_ok=1
+atomic_a="$TR/atomic-a.md"
+atomic_b="$TR/atomic-b.md"
+printf '%s\n' 'role: builder' 'first atomic child' '<!-- garden-reaped: 2 -->' > "$atomic_a"
+printf '%s\n' 'role: shepherd' 'second atomic child' > "$atomic_b"
+atomic_before="$(git --git-dir="$BARE" rev-parse "$BRANCH")"
+"$JOBS/post-orchestration.sh" --serial \
+  --child atom-a "$atomic_a" --child atom-b "$atomic_b" atom-orch >/dev/null
+atomic_after="$(git --git-dir="$BARE" rev-parse "$BRANCH")"
+atomic_paths="$(git --git-dir="$BARE" diff-tree --no-commit-id --name-only -r "$atomic_after" | sort)"
+[ "$atomic_paths" = $'jobs/orch/atom-orch.md\njobs/plan/atom-a.md\njobs/plan/atom-b.md' ] \
+  || { atomic_ok=0; echo "    atomic commit paths differ: [$atomic_paths]"; }
+atomic_view="$(mktemp -d "$TR/atomic-view.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$atomic_view"
+grep -qx 'children: atom-a atom-b' "$atomic_view/jobs/orch/atom-orch.md" || atomic_ok=0
+for c in atom-a atom-b; do
+  grep -qx 'gate: orchestrated' "$atomic_view/jobs/plan/$c.md" || atomic_ok=0
+  grep -qx 'orchestrated_by: atom-orch' "$atomic_view/jobs/plan/$c.md" || atomic_ok=0
+done
+grep -qx 'cleared: reaped=2' "$atomic_view/jobs/plan/atom-a.md" || atomic_ok=0
+grep -q 'garden-reaped' "$atomic_view/jobs/plan/atom-a.md" \
+  && { atomic_ok=0; echo "    stale cycle marker survived atomic park"; }
+rm -rf "$atomic_view"
+# A replay is a true no-op: no extra commit and no rewritten timestamps.
+"$JOBS/post-orchestration.sh" --serial \
+  --child atom-a "$atomic_a" --child atom-b "$atomic_b" atom-orch >/dev/null
+[ "$(git --git-dir="$BARE" rev-parse "$BRANCH")" = "$atomic_after" ] \
+  || { atomic_ok=0; echo "    idempotent replay created a commit"; }
+[ "$atomic_before" != "$atomic_after" ] || atomic_ok=0
+# Existing child validation still fails closed, even when a body is supplied.
+"$JOBS/post-plan.sh" --deferred atom-foreign >/dev/null
+rc=0
+"$JOBS/post-orchestration.sh" --child atom-foreign "$atomic_a" atom-bad-owner >/dev/null 2>&1 || rc=$?
+[ "$rc" -ne 0 ] && ! in_dir jobs/orch atom-bad-owner \
+  || { atomic_ok=0; echo "    atomic mode accepted a foreign-gated child"; }
+# Body validation happens before any board paths are staged.
+atomic_invalid="$TR/atomic-invalid.md"
+printf '%s\n' 'handler-timeout: nope' 'invalid body' > "$atomic_invalid"
+rc=0
+GARDEN_JOB_FRONTMATTER_STRICT=1 "$JOBS/post-orchestration.sh" \
+  --child atom-invalid "$atomic_invalid" atom-invalid-orch >/dev/null 2>&1 || rc=$?
+[ "$rc" -ne 0 ] && ! in_dir jobs/plan atom-invalid && ! in_dir jobs/orch atom-invalid-orch \
+  || { atomic_ok=0; echo "    invalid child body left board state"; }
+[ "$atomic_ok" -eq 1 ] \
+  && ok "child bodies were validated and child plans + record landed in one replay-safe commit" \
+  || bad "atomic orchestration posting mismatch"
 
 # ============================================================================
 hr; echo "SUBTEST 25 — TADA AUTHORITY: an inferred in-flight stall re-checks tada before failing"; hr

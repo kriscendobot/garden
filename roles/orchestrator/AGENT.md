@@ -23,8 +23,9 @@ to completion — so a follow-up is never forgotten.
   with the next one. This is the standing decomposition for multi-part work.
 - **Two halves.** The orchestrator is mostly **producer + engine**:
   1. A producer (the liaison, a gardener, the steward posture) *sets up* an
-     orchestration — decompose, park the children (`post-plan.sh --orchestrated
-     --orchestrated-by <orch-base> <child>`), record it (`post-orchestration.sh`).
+     orchestration — decompose, then use repeated `post-orchestration.sh --child
+     <child> <body-file>` arguments to park all children and record it in one CAS
+     push. The positional record-only form serves already-posted/adopted children.
   2. The deterministic `orchestrate.sh` watcher (the leader-only
      `garden-orchestrate` timer, **no `claude -p`**) *drives* it: promote per
      order, watch each child reach `jobs/tada/`, report progress, apply the

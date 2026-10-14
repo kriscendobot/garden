@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-10-12
+updated: 2026-10-14
 author: gardener, liaison, builder
 ---
 
@@ -289,14 +289,14 @@ each child to completion so the next follow-up is not forgotten. Skill:
 [orchestrator](roles/orchestrator/AGENT.md); design:
 [`designs/orchestration-jobs.md`](designs/orchestration-jobs.md).
 
-Set-up (any producer — the liaison, a gardener, an autonomous watcher):
-1. Park each child in run order:
-   `scripts/jobs/post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body]`
-   (gate `orchestrated` → invisible to the foreman and the unblock watcher; only
-   the orchestrate watcher promotes it).
-2. Record the orchestration:
-   `scripts/jobs/post-orchestration.sh [--serial|--parallel]
-   [--on-child-failure halt|continue] <orch-base> <child>...`.
+Set-up (any producer — the liaison, a gardener, an autonomous watcher): prepare
+one body file per child, then park every child and record the orchestration in one
+CAS push:
+`scripts/jobs/post-orchestration.sh [--serial|--parallel]
+[--on-child-failure halt|continue] --child <child-a> <body-a>
+--child <child-b> <body-b> <orch-base>`. The repeated `--child` arguments define
+run order. The record-only `<orch-base> <child>...` form remains for already
+parked children, go-ahead adoption, and campaign resume.
 
 The deterministic **`orchestrate.sh`** watcher (the leader-only
 `garden-orchestrate` timer, **no `claude -p`**) then drives it: serial promotes one

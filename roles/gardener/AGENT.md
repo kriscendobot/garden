@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-09-27
+updated: 2026-10-14
 author: gardener
 ---
 
@@ -71,10 +71,11 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
 - **When your work decomposes into ordered parts, orchestrate it — don't pile
   sub-jobs.** The standing pattern (kriskowal 2026-07-01) for MULTI-PART work is
   one **orchestration job** over parked child sub-jobs, not a loose pile of posts
-  that relies on follow-ups (which is how a next-step gets forgotten). Park the
-  children (`post-plan.sh --orchestrated --orchestrated-by <orch-base> <child>`) and
-  record the orchestration (`post-orchestration.sh [--serial|--parallel]
-  [--on-child-failure halt|continue] <orch-base> <child>...`); the deterministic
+  that relies on follow-ups (which is how a next-step gets forgotten). Prefer the
+  single-CAS producer (`post-orchestration.sh [--serial|--parallel]
+  [--on-child-failure halt|continue] --child <child-a> <body-a>
+  --child <child-b> <body-b> <orch-base>`), which parks all children and records
+  the orchestration atomically; the deterministic
   `garden-orchestrate` watcher sequences them into `todo/` and watches each to
   `tada/`. Serial is the default. See
   [orchestration](../../skills/orchestration/SKILL.md).

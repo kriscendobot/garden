@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-10-08
+updated: 2026-10-14
 author: gardener, builder
 ---
 
@@ -22,8 +22,11 @@ progress, and applies a failure policy rather than silently stalling.
 
 ## Inputs / state
 
-- **Child sub-jobs**, parked in `jobs/plan/` with gate `orchestrated`
-  (`post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body]`).
+- **Child sub-jobs**, parked in `jobs/plan/` with gate `orchestrated`. Prefer
+  creating them atomically with the record via repeated
+  `post-orchestration.sh --child <child> <body-file>` arguments. The legacy /
+  adoption paths may park them first with `post-plan.sh --orchestrated
+  --orchestrated-by <orch-base> <child> [body]`.
   This gate is invisible to the foreman (which auto-promotes only `deferred`) and
   to the unblock watcher (which promotes only `blocked`), so **only** the
   orchestrate watcher ever promotes a child.
@@ -68,24 +71,39 @@ progress, and applies a failure policy rather than silently stalling.
    re-stages the gauntlet that un-drafts. Never write "the build stays draft with
    no gauntlet" into a build child (`kriscendobot/minion.town#148`, review-miss
    cluster `builder-pr-gauntlet-bypass`).
-2. **Park the children** (in run order):
-   `post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body-file]`.
+2. **Prepare one body file per child**, then atomically park the children and
+   record the orchestration in one CAS push (the repeated arguments define run
+   order):
+
+   ```sh
+   post-orchestration.sh --serial \
+     --child <child-a> <child-a-body-file> \
+     --child <child-b> <child-b-body-file> \
+     <orch-base>
+   ```
+
+   The atomic path applies the same job-frontmatter validation, automatic model
+   routing, project-pause check, and stale cycle-marker cleanup as
+   `post-plan.sh`. A replay is idempotent on `<orch-base>`. If any named child is
+   already parked under the wrong gate or owner, the whole post is refused.
    **Name a recurring-action child with a disambiguator.** A child that is a
    recurring verb against a target — `weave`/`shepherd`/`conduct`/restack/`retcon`
    of a specific PR — must carry an ISO-date `-YYYYMMDD` (or id-hash) suffix, because
    a bare `<slug>-pr<N>-<verb>` base can collide with an already-**completed** job of
-   the same name and `post-plan.sh` will silently no-op the park ("already present in
-   lifecycle") — the child never enters `plan/` and the orchestration breaks at that
-   step. This is exactly what happened to a fresh `endojs-endo-but-for-bots-pr395-weave`
+   the same name. The atomic mode preserves restart idempotency, so it treats that
+   old lifecycle entry as the named child; the record-only flow likewise accepts it,
+   while `post-plan.sh` no-ops the park. In every case, the intended fresh stage does
+   not run. This is exactly what happened to a fresh `endojs-endo-but-for-bots-pr395-weave`
    child of `endojs-endo-but-for-bots-gateway-phase-restack-chain` (2026-08-17): it
    collided with a since-superseded PR #395 restack in `tada/` and was caught only by
    reading the posting loop's log line by line. `post-plan.sh` now WARNs loudly on a
    tada/ collision, but the fix is to name the child uniquely. See
    [job-board](../job-board/SKILL.md) § Basename shape.
-3. **Record the orchestration:**
+3. **Use the record-only form for children that are already parked or running:**
    `post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
    [--budget-tokens N] [--arc ARC] [--resume-from terminal-campaign] [--adopt-go-ahead]
-   <orch-base> <child>...`. It validates each child, then writes the record.
+   <orch-base> <child>...`. This is also the adoption/resume path. It validates
+   each child, then writes the record.
    `--arc` names the arc the campaign draws from: children inherit `arc:` when
    they are promoted, and the next serial child waits while that arc's weekly
    slice has no headroom. A `--budget-tokens` cap is a sub-budget inside the arc
@@ -262,10 +280,11 @@ also leaves a maintainer-inbox note.
   so a missed or duplicated tick self-heals.
 - **Leader-only** so a child failure surfaces to the maintainer exactly once
   (child promotion itself is CAS-deduped and safe on any host).
-- **Children must be parked before the orchestration is recorded** —
-  `post-orchestration.sh` enforces this; a child that never existed reads as
-  `failed` once a readable committed snapshot confirms it is absent from all four
-  board directories.
+- **A record never lands over absent children.** The preferred `--child` form
+  writes every fresh child plan and the record in one commit; record-only mode
+  requires every child to be parked or already in the lifecycle. A child that
+  later vanishes reads as `failed` once a readable committed snapshot confirms
+  it is absent from all four board directories.
 - **Legacy report compatibility:** `tada_failed()` also recognizes a dedicated
   verdict line whose marker is wrapped in Markdown list/emphasis/backtick
   decoration, including an `Outcome:` line. A prose sentence that merely
