@@ -22,3 +22,13 @@ its main claims and the evidence given, and one paragraph on relevance to the ga
 job board and journal, the per-job worktree model, the gauntlet/frozen-base PR flow, and Endo)
 with library paths as fully qualified URLs. Say plainly where a connection is speculative.
 This job makes no external writes: no issue, comment, or post anywhere.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T16:54:02Z
