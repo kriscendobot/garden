@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T21:25:58Z_
+_As of 2026-10-14T21:31:02Z_
 
 ## Latest
 
@@ -387,12 +385,12 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #60 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T21:21:51Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 60 times; this is ONE
-> coalesced notice that updates in place, not 60 messages. Latest detail:
+> WATCHDOG notice — occurrence #61 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T21:27:02Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 61 times; this is ONE
+> coalesced notice that updates in place, not 61 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=11379s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=11679s; heartbeat=full-poll)
 
 - `kriscendobot-minion.town-pr183-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr183-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr183-gauntlet-review-budget-reached.md)
 
@@ -1529,8 +1527,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 253.1M | $1195.16 _(notional, rate-card)_ | 93% of 271.0M (ok) |
-| Codex | 24.5M _(+753.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Claude | 253.1M | $1195.21 _(notional, rate-card)_ | 93% of 271.0M (ok) |
+| Codex | 24.5M _(+753.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 100639461 tokens/day lower bound._
 
