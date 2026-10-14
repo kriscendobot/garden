@@ -1,2 +1,2 @@
-base: improve-foreign-content-gate-requires-key
+base: improve-typesafe-http-classification
 identity: mentor:scripts/jobs/classify-foreign-content.sh
