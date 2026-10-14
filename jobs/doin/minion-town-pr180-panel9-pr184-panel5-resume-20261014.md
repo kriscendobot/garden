@@ -24,3 +24,13 @@ Plumbing only. Do no review or fix work yourself. First re-read each terminal re
 
 Confirm each new panel child is on `jobs/todo/` and report the record state (state, stage,
 iteration, max_iterations, current_child). Leave #181 halted; the supervisor holds it until #180 converges.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-14T19:45:36Z
