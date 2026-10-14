@@ -1,2 +1,2 @@
-base: improve-codex-policy-refusal-retry
+base: improve-codex-nonzero-completion-rescue
 identity: mentor:scripts/jobs/handlers/cleric-codex.sh
