@@ -2,7 +2,7 @@
 order: serial
 children: claude-on-minion-town-completion-press-20261013-200507-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-14T00:05:48Z
 ---
