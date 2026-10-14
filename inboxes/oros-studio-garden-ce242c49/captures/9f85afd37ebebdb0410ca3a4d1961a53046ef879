@@ -1,0 +1,39 @@
+<6>01:18:25 [monk/5] job 'claude-on-minion-town-completion-press-20261013-200507-expanded-window' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>01:18:32 [monk/5] job 'claude-on-minion-town-completion-press-20261013-200507-expanded-window' call ceiling: tier=mentor max-budget-usd=20.00 (scaled by fresh seven-day headroom when available)
+<4>01:18:32 [monk/5] WARN minion-mcp: token preflight failed; job 'claude-on-minion-town-completion-press-20261013-200507-expanded-window' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>01:46:00 [auto-gauntlet-handoff] auto-gauntlet: 'claude-on-minion-town-completion-press-20261013-200507-expanded-window' named several PRs; treating the first, https://github.com/kriscendobot/minion.town/pull/167, as its artifact
+panel-head-freshness: stale target=kriscendobot/minion.town#167 reviewed_head=8c6bb0713feec21a939e0c6258183c28f9c773eb presented_head=8368f8c66ac60b810242b7210e2529fb12ad5008 disposition=review-required
+<6>01:48:40 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/167 moved after a completed panel; deferring to the review-docket freshness disposition
+panel-head-freshness: stale target=kriscendobot/minion.town#167 reviewed_head=8c6bb0713feec21a939e0c6258183c28f9c773eb presented_head=8368f8c66ac60b810242b7210e2529fb12ad5008 disposition=review-required
+<6>01:52:31 [review-docket] spooled upsert https://github.com/endojs/endo-but-for-bots/pull/1412 failed (rc=124, attempt 4); kept for the next transaction
+<6>01:52:31 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/167 to /Users/dom/garden/.garden-state/review-docket/spool (92a9be4349b542ca); the next transaction on this host drains it
+<6>01:52:31 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+The press for kriscendobot/garden#89 found one new doom, so I sent the maintainer a single alert. Nothing else needs action.
+
+**Report window:** 2026-10-13T14:05:06Z to 20:05:07Z (prior ref 0310ab0ee5 against origin/journal2). The numbers below come from `claude-on-minion-town-completion-report.sh`.
+
+**Counts**
+- **Roster:** 637 jobs. 618 are in tada and 19 are outstanding: 7 todo, 6 plan, 3 orch, 2 doin, 1 gauntlet. None are absent.
+- **In-window activity:** 20 claims and 20 completions. No completion was flagged `orchestration_failed`.
+- **Stalled claims:** 0.
+- **Prior-roster jobs now absent:** 0.
+
+**New doom (alerted)**
+- `kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1` doomed with signature `requeue-exhausted` on host `endolin-garden-ece02cb4` at 2026-10-13T19:13:36Z.
+- The gauntlet driver has already re-posted it to `jobs/todo` as panel round 1. Its parent gauntlet record is still active, and the clean stage finished at 16:21Z.
+- https://github.com/kriscendobot/minion.town/pull/167 is waiting on that panel round. If the retry dooms again, the gauntlet's limited retry allowance may run out.
+
+**Older dooms (context only, no alert)**
+- `claude-on-minion-town-press-20261010-133536` is now in plan.
+- `kriscendobot-minion.town-pr181-gauntlet-fix-5` is now in plan. The pr181 gauntlet itself completed in-window at 15:47:54Z.
+
+**Output**
+- **Journal entry:** posted as `entries/2026/10/14/014025Z-progress-gardener-2d219e.md`. It lists the window, the counts, the 19 non-tada roster rows, the 20 completion basenames and how each exception was handled.
+  - My first attempt was killed when it hit the 10-minute background limit. Nothing had landed, so I re-ran it in the foreground and it succeeded. Only one entry exists.
+- **Maintainer message:** delivered once, as `msg-claude-on-minion-town-completion-press-20261013-200507-expanded-window-c05f9de93eeb`. The first send was rejected because the bare PR number wasn't fully qualified. I replaced it with the full URL and resent.
+
+I made no changes to the board, workers or garden repo; this job only observes and reports.
+
+**Follow-up:** next window, check whether the pr167 panel-1 retry finishes or dooms again.
