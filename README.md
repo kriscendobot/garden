@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T06:08:42Z_
+_As of 2026-10-14T06:14:14Z_
 
 ## Latest
 
@@ -1345,10 +1343,9 @@ _Fleet token-unlock pace: 97317296 tokens/day lower bound._
 worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (14)
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`oros-health-checkup-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-045008.md) — ---
-- [`canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 320cfbed2828
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #183
 - [`minion-town-arc-press-20261014-035009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-035009.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-garden-book-pr15-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #15
@@ -1361,10 +1358,11 @@ worst fetch p95 3.990701s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-133505
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #186
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-045008.md) — Press the Claude-on-minion.town arc forward
-- [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (1)
+### doin (3)
+- [`canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 320cfbed2828
 - [`canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-242f944cdf7d-r3.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 242f944cdf7d
+- [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
 ### tada (12748)
 - [`kriscendobot-garden-book-pr15-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-garden-book-pr15-gauntlet-viability.md) — Cost
