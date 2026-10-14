@@ -294,5 +294,42 @@ else
   bad "recovery summary missing or latch not cleared (rec=$(printf '%s' "$rec" | tr '\n' ';'))"
 fi
 
+# Live clone-lock contention is also an observability outage: wait once for the
+# decision writer's short soft bound, then fail open through the same outage
+# latch.  It must never spend the producer default 3x60s ladder or emit FATAL.
+LOCK_STATE="$TEMPORARY_ROOT/lock-state"
+LOCK_CLONE="$TEMPORARY_ROOT/lock-clone"
+LOCK_READY="$TEMPORARY_ROOT/lock-ready"
+(
+  exec 9<>"$LOCK_CLONE.lock"
+  flock 9
+  printf '%s %s\n' "$BASHPID" "$(date +%s)" >&9
+  touch "$LOCK_READY"
+  sleep 10
+) &
+lock_holder=$!
+for _ in $(seq 1 100); do
+  [ -e "$LOCK_READY" ] && break
+  sleep 0.01
+done
+lock_started="$(date +%s%N)"
+lock_out="$(env GARDEN=lock-host GARDEN_STATE="$LOCK_STATE" \
+  JOURNAL_REMOTE="$REMOTE" GARDEN_DECISION_CLONE="$LOCK_CLONE" \
+  GARDEN_DECISION_LOCK_WAIT=0.1 \
+  "$JOBS/decision-append.sh" --loop fixture --input-json '{}' \
+    --decision lock-busy --reason contention --outcome fail-open-skipped 2>&1)"
+lock_elapsed_ms=$(( ($(date +%s%N) - lock_started) / 1000000 ))
+kill "$lock_holder" 2>/dev/null || true
+wait "$lock_holder" 2>/dev/null || true
+lock_count="$(cat "$LOCK_STATE/decisions/outage/lock-host.count" 2>/dev/null || echo missing)"
+if [ "$lock_elapsed_ms" -lt 3000 ] \
+   && printf '%s\n' "$lock_out" | grep -q 'journal outage latched' \
+   && ! printf '%s\n' "$lock_out" | grep -q 'FATAL:' \
+   && [ "$lock_count" = 1 ]; then
+  ok "live decision-clone contention fails open after one short wait through the outage latch"
+else
+  bad "live decision-clone contention was slow or bypassed fail-open latching (elapsed=${lock_elapsed_ms}ms count=$lock_count log=$(printf '%s' "$lock_out" | tr '\n' ';'))"
+fi
+
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

@@ -13,6 +13,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 export GARDEN_TAG=decision-append
 
+# A decision append is observability-only.  A live peer holding this clone must
+# not make the calling controller pay the default 3x60s clone-lock ladder.
+: "${GARDEN_DECISION_LOCK_WAIT:=$GARDEN_LOCK_SOFT_WAIT}"
+
 usage() {
   cat <<'EOF'
 Usage: decision-append.sh --loop NAME --input-json OBJECT --decision NAME
@@ -123,6 +127,13 @@ append_decision() {
     '{ts:$timestamp,loop:$loop,input:$input,decision:$decision,from:$from,to:$to,reason:$reason,outcome:$outcome,outcome_detail:$detail}')" \
     || return 1
 
+  # clone_lock exits directly on a soft give-up, so this runs inside the
+  # contained append_decision subshell below.  Its non-zero exit reaches the
+  # decision ledger's existing outage latch instead of delaying/failing the
+  # controller that already made its actuation decision.
+  export GARDEN_CLONE_LOCK_SOFT=1
+  export GARDEN_LOCK_SOFT_WAIT="$GARDEN_DECISION_LOCK_WAIT"
+  unset GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY
   ensure_clone "$directory"
   for attempt in $(seq 1 "${GARDEN_DECISION_ATTEMPTS:-8}"); do
     sync_clone "$directory"
