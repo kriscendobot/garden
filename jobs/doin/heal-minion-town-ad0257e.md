@@ -14,3 +14,13 @@ ad0257e18e2d050d2ed4b1728f8066f468357097, against base main. Put this marker on 
 Open it with scripts/jobs/gardening/ensure-pr.sh and stage the ordinary gauntlet; the
 proxy screens and merges a marked heal PR even while the delegation is paused. Never
 push to main directly and never force-revert main.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T18:14:39Z
