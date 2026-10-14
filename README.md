@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T08:10:22Z_
+_As of 2026-10-14T08:21:18Z_
 
 ## Latest
 
@@ -1345,23 +1343,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 248.4M | $1169.76 _(notional, rate-card)_ | 92% of 271.0M (ok) |
-| Codex | 21.3M _(+669.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 248.3M | $1168.31 _(notional, rate-card)_ | 92% of 271.0M (ok) |
+| Codex | 21.4M _(+671.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 99153082 tokens/day lower bound._
+_Fleet token-unlock pace: 99021796 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (13)
 - [`claude-on-minion-town-press-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-075034.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`oros-health-checkup-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-045008.md) — ---
-- [`kriscendobot-garden-book-pr15-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #15
+- [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-075034.md) — ---
 - [`claude-on-minion-town-completion-press-20261013-200507-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-200507-expanded-window.md) — Completion press: Claude-on-minion.town arc
-- [`minion-town-arc-press-20261013-182028-checklist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-checklist.md) — Refresh the minion.town arc objective evidence
 - [`claude-on-minion-town-press-20261014-015008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-015008.md) — Press the Claude-on-minion.town arc forward
 - [`claude-on-minion-town-completion-press-20261014-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261014-080513.md) — Completion press: Claude-on-minion.town arc
 - [`minion-town-pr180-panel9-pr184-panel5-resume-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-panel9-pr184-panel5-resume-20261014.md) — Resume two halted minion.town gauntlets (kriscendobot/minion.town #180, #184)
@@ -1370,19 +1367,20 @@ worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-045008.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (4)
-- [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #183
+### doin (5)
+- [`kriscendobot-garden-book-pr15-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr15-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #15
 - [`oros-health-watch-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261014-075034.md) — ---
+- [`minion-town-arc-press-20261013-182028-checklist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-182028-checklist.md) — Refresh the minion.town arc objective evidence
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-163508.md) — ---
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-133505.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-133505
 
-### tada (12758)
+### tada (12759)
+- [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-fix-2.md) — Cost
 - [`minion-town-arc-press-20261014-035009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-arc-press-20261014-035009.md) — Cost
 - [`minion-town-arc-press-20261014-070509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-arc-press-20261014-070509.md) — Cost
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-panel-2.md) — Cost
 - [`improve-orchestrate-lock-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/improve-orchestrate-lock-cooldown.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/canary-probe-oros-studio-garden-ce242c49-320cfbed2828-r3.md) — rolling-deploy canary probe — round trip OK
-- … and 12753 more
+- … and 12754 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
