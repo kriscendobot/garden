@@ -1,0 +1,20 @@
+<6>06:25:00 [monk/1] job 'kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1' call ceiling: tier=minion max-budget-usd=9.80 (scaled by fresh seven-day headroom when available)
+<4>06:25:01 [monk/1] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<3>07:00:39 [auto-gauntlet-handoff] FATAL: auto-gauntlet: could not establish panel-head freshness for https://github.com/kriscendobot/minion.town/pull/167 (rc=1)
+
+--- handler report (partial) ---
+The round-1 design panel on PR #167 passed, and I posted the verdict as a comment review. One loose end: panel.sh had not actually exited when I finished. Its exit code is already recorded as 0, but a background push of its run record was still retrying.
+
+- **Verdict:** `pass`. Seven of nine seats returned comment-only (critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice) and two approved (orthographer, thesaurus). No seat raised a must-fix.
+- **Review:** comment review 5514095077 on head `8368f8c6`, which is the commit the panel reviewed. It is the full panel output with a one-line header naming the gauntlet, the base and the disposition: https://github.com/kriscendobot/minion.town/pull/167#pullrequestreview-5514095077
+- **What I ran:** a separate project checkout of `kriscendobot/minion.town@design/root-canary-principal`, then `GARDEN_PANEL_SINGLE_ROUND=1 panel.sh <wt> 167 origin/main-a5a557a`. The diff is one file, `designs/root-canary-principal.md`. The panel ran as a detached process with output in `scratch/panel-run-pr167-r1/`. I made no fixes and did not un-draft the PR.
+- **Why panel.sh hadn't exited:** it printed its last line, `design-panel single-round — pass`, but its exit hook was still trying to push the run record to the journal. That push lost the race at least 7 times and kept waiting more than 60 seconds for the journal lock (`.garden-state/producer/journal.lock`). It allows up to 25 attempts. The hook had already written `exit_code=0` and `disposition=passed` to `record-meta`, the push is best-effort (`|| true`), and the hook exits with the saved code, so panel.sh will exit 0. The detached process will keep retrying after this session ends. If it runs out of attempts, the journal will be missing that one run record; the verdict is unaffected.
+- **Main advisory should-fix themes:**
+  - Spike premise A2: also record `username` and `identities`, not only `sub`.
+  - The A3 "stall" fallback seems out of proportion, and the A4 fallback widens the blast radius without the design saying so.
+  - The arming gate in §6 should require the audit log and the revocation drill first.
+  - Reuse or cite the existing `deploy-cognito-probe-client.sh` path, and drop the status-file side channel.
+  - Root-owned child processes keep running after the canary's access is revoked, until a human dismisses them.
+- **Other side effects:** the heavy journal-lock contention on oros-studio is also slowing other panel record pushes. I made no garden repo commits.
+
+<!-- gauntlet-stage-result: panel=pass -->
