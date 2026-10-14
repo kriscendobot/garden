@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T14:30:08Z_
+_As of 2026-10-14T14:37:25Z_
 
 ## Latest
 
@@ -1094,6 +1094,19 @@ Delegation: **active**
 >
 > The rest of the fleet is healthy: bdc2943 deployed, zero unit failures, quota ok. So this is a one-host degradation, and you can finish your health-watch job with the finding recorded.
 
+- `claude-on-minion-town-completion-press-20261014-080513-split-terminal-complete` — from orchestrator:claude-on-minion-town-completion-press-20261014-080513-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-on-minion-town-completion-press-20261014-080513-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: claude-on-minion-town-completion-press-20261014-080513-split
+> orchestration-status: complete
+> order: serial
+> children-total: 1
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration claude-on-minion-town-completion-press-20261014-080513-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
+
 - `kriscendobot-minion.town-pr181-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr181-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr181-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr181-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr181-gauntlet panel --add-rounds N
@@ -1180,10 +1193,6 @@ Delegation: **active**
 > minion.town screening PAUSED: merge 39867df7874 of [https://github.com/kriscendobot/minion.town/pull/169](https://github.com/kriscendobot/minion.town/pull/169) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/37868510874
 > Heal job heal-minion-town-39867df posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
 > Operations: context/operations/minion-town-screening.md
-
-- `watchdog-backend-degraded-endolin-garden-ece02cb4-cleric` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden-ece02cb4-cleric.md)
-
-> host endolin-garden-ece02cb4 declares clerics=1 but its cleric backend probe has failed ~10m (effective 0). It cannot run its declared clerics — codex is not authenticated on this host; cleric cannot run scaler-probe. Run codex login as the bot user..
 
 - `msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec` — from gardener:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec.md)
 
@@ -1392,7 +1401,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 252.6M | $1189.63 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
+| Claude | 252.7M | $1190.55 _(notional, rate-card)_ | 93% of 271.0M (ok) |
 | Codex | 22.6M _(+700.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101275236 tokens/day lower bound._
@@ -1401,14 +1410,12 @@ _Fleet token-unlock pace: 101275236 tokens/day lower bound._
 worst fetch p95 28.586589s/45s (unknown); 9 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (15)
+- [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #183
 - [`claude-on-minion-town-press-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-075034.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
-- [`claude-on-minion-town-completion-press-20261014-080513-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261014-080513-expanded-window.md) — Completion press: Claude-on-minion.town arc (expanded window)
-- [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261014-140506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-140506.md) — ---
 - [`oros-health-watch-20261014-140506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261014-140506.md) — ---
-- [`kriscendobot-garden-book-pr15-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/garden-book PR #15
 - [`minion-town-arc-press-20261014-130538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-130538.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-pr180-panel9-pr184-panel5-resume-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-panel9-pr184-panel5-resume-20261014.md) — Resume two halted minion.town gauntlets (kriscendobot/minion.town #180, #184)
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1442
@@ -1420,16 +1427,17 @@ worst fetch p95 28.586589s/45s (unknown); 9 open notice(s); checker healthy
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
 - [`claude-on-minion-town-press-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-110506.md) — Press the Claude-on-minion.town arc forward
 
-### doin (1)
+### doin (2)
+- [`kriscendobot-garden-book-pr15-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr15-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/garden-book PR #15
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-163508.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-163508
 
-### tada (12793)
+### tada (12796)
+- [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-clean.md) — Cost
+- [`claude-on-minion-town-completion-press-20261014-080513-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/claude-on-minion-town-completion-press-20261014-080513-expanded-window.md) — Cost
+- [`claude-on-minion-town-completion-press-20261014-080513-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/claude-on-minion-town-completion-press-20261014-080513-split.md) — orchestration claude-on-minion-town-completion-press-20261014-080513-split — ...
 - [`oros-health-checkup-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-checkup-20261014-075034.md) — Cost
 - [`kriscendobot-garden-book-pr15-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-garden-book-pr15-gauntlet-panel-3.md) — Cost
-- [`minion-town-arc-press-20261014-100533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-arc-press-20261014-100533.md) — Cost
-- [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/claude-on-minion-town-press-20261014-045008.md) — Cost
-- [`fu-kriscendobot-garden-book-pr15-gauntlet-fix-2-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/fu-kriscendobot-garden-book-pr15-gauntlet-fix-2-2.md) — Cost
-- … and 12788 more
+- … and 12791 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
