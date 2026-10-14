@@ -3,18 +3,18 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 1389,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/1389",
-  "head_oid": "2f4eabe5fc63312e494970a8748b8ff11ac1e2e4",
-  "ask": "approve",
+  "head_oid": "d64c99e92874fcce548266e9d6ce5589febf51ff",
+  "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "design(sturdyref): layer-1 SturdyRef shim contract (handler + enliven)",
+  "summary": "Panel reviewed 5f2f90ad364f, but the presented head is d64c99e92874",
   "unblocks": [],
-  "source": "native-review-request-endojs-endo-but-for-bots-pr1389",
-  "requested_at": "2026-10-09T06:13:25Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1389-5f2f90ad-d64c99e9",
+  "requested_at": "2026-10-14T22:40:17Z",
   "first_requested_at": "2026-10-09T06:13:25Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
-    "state": "green",
-    "observed_at": "2026-10-14T22:32:58Z"
+    "state": "pending",
+    "observed_at": "2026-10-14T22:40:19Z"
   }
 }
