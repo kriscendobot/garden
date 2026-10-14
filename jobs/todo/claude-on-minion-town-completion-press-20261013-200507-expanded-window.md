@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: claude-on-minion-town-completion-press-20261013-200507-split
+role: gardener
+tier: mentor
 handler-timeout: 7200
 split-indivisible-reason: 'The authoritative snapshot, exception interpretation, single journal entry, and conditional once-only alert must use one report window; splitting them would race schedule stamps and duplicate or contradict the press output.'
 split-lineage-root: claude-on-minion-town-completion-press-20261013-200507
 split-lineage-parent: claude-on-minion-town-completion-press-20261013-200507-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-10-14T00:05:38Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-14T00:08:08Z cleared=none -->
 
 ---
 role: gardener
