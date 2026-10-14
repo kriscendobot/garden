@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion.town-pr186-gauntlet-fix-1
-priority: normal
-posted_by: producer
-posted_at: 2026-10-14T13:52:13Z
+role: weaver
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-14T17:01:09Z cleared=none -->
 
 ---
 role: weaver
