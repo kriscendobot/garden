@@ -2,6 +2,32 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T09:45Z (oros-health-checkup-20261014-045008): degraded (deployed at 320cfbed; roll to 8eb6caec has been deferred all morning behind long jobs) → one fix on main2, one follow-up job posted
+
+- **Load/mem:** load 2.4/2.9/3.2; 13 GiB of 15 GiB available; no swap.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1%.
+- **Uptime:** 12d16h, no reboot.
+- **Deployed vs main2:** root at `320cfbed`; origin/main2 is `8eb6caec`, now `6c8c058b`. fleet/health: `roll_status: deferred`. It read `long-job monk 4 5068s` at 09:10Z and `long-job monk 6` (this run) at 09:30Z. 0 of 292 units failed.
+- **Units:** 0 failed; 6 monks. No drain marker; derotation untouched.
+- **Budget heartbeat:** claude-oros sampled at 09:03Z, status ok, 2% used. Pushes landed at 08:05, 08:19, 08:33, 08:59 and 09:03Z, all ok.
+- **rc=124:** 18 in the system journal over 3h, all self-heal 600s handler bounds: transcript-capture ×3, library-link-scan ×3, and one each for sysop, requirements-watch, reputation-reducer and journal-worktree-keeper.
+- **$GARDEN_STATE:** no pack-bloated clone (max 49 packs, no tmp_pack, no stale `.lock`). 4615 repo-lock key dirs (834 untouched for more than 2 days); inodes are not under pressure, so I left them.
+- **Finding 1 (fixed, main2 `6c8c058b`):**
+  - monk 4's busy time ran 07:45Z to about 09:40Z for a handler that died at 08:47Z.
+  - Classify took 08:47→09:00Z. The `handler-budget-overrun` maintainer alert (`watchdog-notice.sh`, up to 50 push retries on the contended producer clone) then ran from 09:02Z for more than 30 minutes, before the reaper hint was stamped (09:26Z).
+  - The gardener now stamps the hint first and sends the alert detached.
+  - `handler-budget-test` was also failing closed for every subtest: its pool was seeded for the retired `gardener` kind. Fixed, plus a slow-alert subtest; 14/14 pass.
+- **Finding 2 (posted `fix-reaper-supersede-stale-scheduled-recurrence`):**
+  - The stale check-up `oros-health-checkup-20261013-163508` (first run 00:26Z, reaped 04:33Z) was re-claimed at 07:27Z, long after three newer check-ups had been dispatched. It ran a full hour and hit its wall again.
+  - Its deadline-overrun stamp now makes it eligible for a split into an orchestration, which would be a third run of a superseded check-up.
+- **Changed (on-host):**
+  - removed 7 orphaned per-id inbox clones (8 remain);
+  - pruned 21 dead-pid repo-lock holder files older than 1h.
+- **Open:**
+  - oros needs a quiet window to roll to main2 (≥ `d43e3363` for the inbox-read fix; ≥ `6c8c058b` for this fix).
+  - The 3600s check-ups themselves keep the deploy deferred while they run.
+  - Claim to busy took 18 minutes (07:27→07:45Z) on monk 4, which is the pre-`d43e3363` inbox-read deepen.
+
 ## 2026-10-14T05:00Z (oros-health-checkup-20261014-015008): degraded (deployed at e1e898bd; roll to 320cfbed is deferring behind long jobs, not failing) → on-host pruning only, no code change
 
 - **Load/mem:** load 4.7/3.5/3.4; 13 GiB of 15 GiB available; swap 507 MiB used.
