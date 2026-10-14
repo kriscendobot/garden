@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: fixer
@@ -15,13 +16,5 @@ Open it with scripts/jobs/gardening/ensure-pr.sh and stage the ordinary gauntlet
 proxy screens and merges a marked heal PR even while the delegation is paused. Never
 push to main directly and never force-revert main.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-14T18:14:39Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-14T18:33:07Z -->
