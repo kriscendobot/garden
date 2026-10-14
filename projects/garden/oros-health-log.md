@@ -2,6 +2,26 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T19:20Z (oros-health-checkup-20261014-140506): degraded (journal/ falsely STALE for 2.5h; the root store's auto-gc was killed every tick) → repaired on-host; fix on main2 `f3fa2078`
+
+- **Load/mem:** load 2.4/2.6/2.6; 13 GiB of 15 GiB available; swap 532 MiB used.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1%.
+- **Uptime:** 13d01h, no reboot.
+- **Deployed vs main2:** root at `460f0598` = origin/main2 at claim. fleet/health (18:32Z): `roll_status: deployed`, 0 of 293 units failed.
+- **Units:** 0 failed; 7 monks running. No drain marker; derotation untouched.
+- **Budget heartbeat:** claude-oros sampled at 18:39Z, status ok, 3% used. Commit `77974c76` landed at 18:53Z.
+- **rc=124 (3h):** journal-worktree-keeper ×4 (600s handler bound, the finding), transcript-capture ×3, library-link-scan ×1, root-repo-guard gc ×1 (16:59Z), journal-contention-watch notice deferrals ×8.
+- **$GARDEN_STATE:** clones at ≤49 packs, no tmp_pack. Pruned 73 dead-pid repo-lock holder files.
+- **Finding (repaired on-host, fixed on main2 `f3fa2078`):**
+  - The root store had 59 packs (auto limit 50, 1.4M objects). Fleet git runs a foreground `gc --auto` on every non-fetch command, and the 120s GARDEN_REPO_GIT_TIMEOUT kills it every time, so the packs never consolidated.
+  - The keeper's fast-forward landed and was then killed inside auto-gc, so it logged `STALE` / `STALE-THRESHOLD` (behind=95) every tick from 16:15Z and overran its 600s handler bound.
+  - root-repo-guard's own 420s gc had failed with rc=124 on every attempt since at least 10-13 11:22Z.
+  - On-host: ran root-repo-guard with a 1800s gc budget. gc succeeded in 8m12s (19:05 to 19:13Z): 59 packs → 2, `OBJSTORE-REPAIRED`. The keeper then fast-forwarded cleanly (19:17Z, ~30s).
+  - Fix (`f3fa2078`): fleet git never auto-gcs the root store or its worktrees (root-repo-guard owns that gc; other repos unchanged). The guard's gc budget goes from 420s to 900s, and its unit's TimeoutStartSec from 1800s to 2700s. New test: root-store-auto-gc-test (passes, fails without the fix); root-repo-guard-test 76/76.
+- **Open:**
+  - oros rolls to `f3fa2078` through the normal deploy. The new TimeoutStartSec applies only after the unit re-render on deploy.
+  - Pre-existing, not mine: repo-locks-test fails `CAS writer process` on unmodified HEAD (when run inside a monk); systemd-unit-doc-completeness-test flags the undocumented `garden-namespace-clone-maintenance` units.
+
 ## 2026-10-14T15:55Z (oros-health-checkup-20261014-110506): healthy (deployed af3a8456, one behind main2 82fc050e; the roll is deferred behind a long job, as designed)
 
 - **Load/mem:** load 3.6/3.3/3.1; 13 GiB of 16 GiB available; swap 532 MiB used.
