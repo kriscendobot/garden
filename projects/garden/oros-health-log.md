@@ -2,6 +2,27 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T01:35Z (oros-health-checkup-20261013-163508): unhealthy (canary roll for 242f944c halted after 3/3 failed probes; host drained by rolling-deploy since 01:04) → one fix on main2; a peer landed the second
+
+- **Load/mem:** load 2.0/5.5/5.9; 13 GiB of 15 GiB available; no swap.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1%.
+- **Uptime:** 12d8h, no reboot.
+- **Deployed vs main2:** `242f944c` has been deployed since 00:18Z, and fleet/health said `deployed`. origin/main2 is now `e1e898bd`. `GARDEN_JOURNAL_CLONE_BASE` is still unset.
+- **Units:** 0 failed. After an ExecStart change on disk, monk units printed "changed on disk", so I ran `daemon-reload`. Only monk 3 (this run) is up; the others exit "fleet draining". No derotation marker for oros.
+- **Budget heartbeat:** claude-oros was sampled at 00:34Z: 0% used, status ok.
+- **rc=124:** 33 in the last 3h.
+- **$GARDEN_STATE:** 86 journal clones. I skipped the stale-lock scan because it times out on virtiofs.
+- **Finding:** the leader released oros as canary for `242f944c`. Probes r1, r2 and r3 each missed their 600s deadline, so the roll drained oros at 00:33 (retry) and again at 01:04 (final). The spine itself was healthy. Two causes:
+  1. **Probe posted mid-pass, never seen.** Probes go first only in the snapshot a claim pass takes when it starts. Five idle monks spent 00:18–00:42 in a single pass, losing every race on 12 aged jobs at about 2 min per attempt, so r1 and r2 were never tried.
+  2. **Every claim push lost its CAS.** At 00:52–00:55 all five monks did try r2 and r3. Every push lost its CAS to unrelated journal writes and nobody won. Each attempt leaves from a tip about 90s old, because `sync_clone` resets over the whole board on virtiofs.
+- **Changed (main2):**
+  - `aba64ba1` (this run): a canary probe that appears mid-pass preempts the claim pass at the next candidate boundary. New test `claim-late-canary-probe-test.sh`: 3/3 pass on the fix; the old code fails the 2 preemption cases.
+  - `e1e898bd` (the concurrent `oros-health-checkup-20261013-223508`): a lost probe-claim CAS is replayed onto the fresh tip. I had a broader version that replays every race claim (tested: 5/5 on the fix, 2 fails on the old code). I dropped it rather than override the peer's narrower choice.
+- **Open:**
+  - The roll for this target is halted and oros is roll-drained. The leader's next roll, to `e1e898bd` or later, should re-release it. I did not touch the drain.
+  - Ordinary claims still starve on oros: 00:18–00:42 had 1 win in about 60 attempts, every loss a CAS. To fix it, either replay every race claim (its check reads only the paths it writes, so the existing replay CAS covers it) or recreate the container with `GARDEN_JOURNAL_CLONE_BASE`. That is a maintainer decision.
+  - The deploy-gate test runs are slow and flaky here. `claim-aging-priority-test` lost one case to a virtiofs "hardlink different from source" error during a local clone, which is unrelated to the code.
+
 ## 2026-10-14T01:30Z (oros-health-checkup-20261013-223508): degraded (deployed at 242f944c, but the roll's canary probe was never claimed and the roll re-drained oros) → one fix on main2
 
 - **Load/mem:** load 3.9/3.1/2.9; 13 GiB of 15 GiB available; swap 449 MiB used.
