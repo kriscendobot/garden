@@ -819,15 +819,34 @@ if [ ! -d "$d" ]; then
   exit 0
 fi
 
-acted=0; refused=0
+acted=0; refused=0; reconciled=0
 for path in "$d"/*.md; do
   [ -e "$path" ] || continue
   f="${path##*/}"
   msgid="${f%.md}"
   idline="host/$GARDEN/$f"
-  # Exactly-once: skip if the out-of-journal cursor already surfaced it, OR the
-  # committed sysop-log belt already recorded it (survives a wiped seen-marker).
-  grep -qxF "$idline" "$GARDEN_SYSOP_SEEN" && continue
+  # Exactly-once: a seen marker proves an older tick consumed the operation, but
+  # old sysop versions could mark it seen even when their best-effort audit write
+  # failed.  Reconcile that gap with an explicit terminal outcome.  The original
+  # result is unknowable, so do NOT dispatch the operation again and do not claim
+  # that it was applied.  The durable record clears control-plane stale detection
+  # while preserving the uncertainty for audit consumers.
+  if grep -qxF "$idline" "$GARDEN_SYSOP_SEEN"; then
+    if [ ! -f "$CLONE/sysop-log/$GARDEN/$msgid.md" ] && [ ! -f "$GARDEN_SYSOP_PENDING/$msgid.rec" ]; then
+      MSGFILE="$d/$f"
+      if [ -n "$(field op)" ] && [ -z "$(field sysop_ack)" ]; then
+        from_host="$(field from_host)"
+        op="$(field op)"
+        reply_to="$(field reply_to)"
+        DETAIL="seen cursor proves prior consumption; original outcome unavailable; operation not re-executed"
+        spool_result "$msgid" "$op" "$from_host" "$reply_to" reconciled-seen "$DETAIL"
+        reconciled=$((reconciled+1))
+        log "RECONCILED op '$op' msgid=$msgid from seen cursor without re-execution"
+      fi
+    fi
+    continue
+  fi
+  # The committed sysop-log belt survives a wiped seen-marker.
   if [ -f "$CLONE/sysop-log/$GARDEN/$msgid.md" ] || [ -f "$GARDEN_SYSOP_PENDING/$msgid.rec" ]; then mark_seen "$idline"; continue; fi
 
   MSGFILE="$d/$f"
@@ -863,4 +882,4 @@ for path in "$d"/*.md; do
 done
 flush_pending
 
-log "sysop tick complete on $GARDEN (applied $acted; refused/failed $refused)"
+log "sysop tick complete on $GARDEN (applied $acted; refused/failed $refused; reconciled-seen $reconciled)"

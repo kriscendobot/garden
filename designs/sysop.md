@@ -370,8 +370,12 @@ arrived":**
 1. **Durable journal audit trail.** For each processed message the sysop writes
    `sysop-log/<GARDEN>/<msgid>.md` with structured, non-prose fields:
    `op`, `from_host`, `outcome ∈ accepted-and-applied | refused | parse-error |
-   failed`, a short `detail`, and `at`. This is the idempotency record (§6.3) *and*
-   the audit surface — a permanent, greppable "what did host Y do and why" that
+   failed | reconciled-seen`, a short `detail`, and `at`. `reconciled-seen` is the
+   terminal recovery outcome for a legacy gap where the host-local cursor proves
+   that an operation was consumed but its audit write is absent: the original
+   result is unknowable, so the sysop records that uncertainty and never
+   re-executes the operation. This is the idempotency record (§6.3) *and* the
+   audit surface — a permanent, greppable "what did host Y do and why" that
    outlives any process.
 2. **Bus ack back to the sender.** The sysop replies with a message the sender can
    read, distinguishing the outcomes above, so the failure mode is closed:
@@ -380,6 +384,8 @@ arrived":**
      `authorized_by`";
    - **parse-error** — "op `set-workers` missing/invalid `count`";
    - **failed** — the delegated tool exited non-zero; the ack carries its rc/tail.
+   - **reconciled-seen** — the operation was consumed in an earlier tick, but its
+     original outcome is unavailable; the operation was not re-executed.
 
    The ack is delivered to the **issuer host** as a `host/<from_host>` message (the
    issuer's own sysop-topic doubles as its ack inbox) or, when the op came from a

@@ -79,6 +79,10 @@ cat > "$TR/rec-setworkers.sh" <<'EOF'
 #!/bin/bash
 printf 'set-workers %s\n' "$*" >> "$REC_LOG"
 EOF
+cat > "$TR/rec-drain.sh" <<'EOF'
+#!/bin/bash
+printf 'drain %s\n' "$*" >> "$REC_LOG"
+EOF
 cat > "$TR/rec-reaper.sh" <<'EOF'
 #!/bin/bash
 printf 'reaper\n' >> "$REC_LOG"
@@ -344,6 +348,44 @@ rm -rf "$RS/seen"
 run_sysop "$RS"
 [ "$(grep -c 'set-workers' "$REC_LOG")" -eq 0 ] \
   && ok "a wiped seen-marker still skips (committed sysop-log belt)" || bad "belt idempotency failed"
+
+# Legacy-gap fixture: this is the stale oros operation reported on 2026-10-14,
+# byte-for-byte in the operation fields that matter.  Older sysop versions could
+# leave the message in the seen cursor without its durable sysop-log record.
+# Reconciliation must close the audit gap without applying drain off again or
+# falsely claiming the unknowable original outcome was successful.
+hr; echo "RECONCILE — a seen-but-unlogged operation gets a terminal audit record, not re-execution"; hr
+STALE_ID=20260926T134702Z-cc61bb
+git -C "$SEED" pull -q --rebase origin "$BRANCH"
+mkdir -p "$SEED/msgs/host/$TARGET"
+cat > "$SEED/msgs/host/$TARGET/$STALE_ID.md" <<EOF
+from_host: $ISSUER
+from: sysop-op@$ISSUER
+sent_at: 2026-09-26T13:47:03Z
+to: host/$TARGET
+---
+op: drain
+state: off
+reason: rolling-deploy: retry 1/3 — lifting roll-drain to re-validate 47b41af5a14d
+EOF
+git -C "$SEED" add "msgs/host/$TARGET/$STALE_ID.md"
+git -C "$SEED" "${git_id[@]}" commit -qm "fixture: stale seen sysop operation"
+git -C "$SEED" push -q origin "$BRANCH"
+RECON="$TR/s-reconcile"
+mkdir -p "$RECON/seen"
+printf 'host/%s/%s.md\n' "$TARGET" "$STALE_ID" > "$RECON/seen/sysop-$TARGET"
+: > "$REC_LOG"; : > "$ACK_LOG"; : > "$TR/mock-log"
+run_sysop "$RECON" GARDEN_SYSOP_DRAIN="$TR/rec-drain.sh"
+reconciled_record="$(from_bare "sysop-log/$TARGET/$STALE_ID.md")"
+{ grep -q '^op: drain$' <<<"$reconciled_record" \
+  && grep -q '^outcome: reconciled-seen$' <<<"$reconciled_record" \
+  && grep -q '^detail: seen cursor proves prior consumption; original outcome unavailable; operation not re-executed$' <<<"$reconciled_record" \
+  && ! grep -q '^drain ' "$REC_LOG"; } \
+  && ok "the stale 2026-09-26 seen operation is recorded as reconciled-seen without re-execution" \
+  || bad "seen reconciliation was unsafe or incomplete (record: $(tr '\n' ' ' <<<"$reconciled_record"); delegates: $(cat "$REC_LOG"))"
+grep -q 'sysop_ack: reconciled-seen' "$ACK_LOG" \
+  && ok "the reconciliation emits its terminal outcome to the original sender" \
+  || bad "the reconciled-seen outcome was not acked (acks: $(cat "$ACK_LOG"))"
 
 # ============================================================================
 hr; echo "AUDIT — every processed op leaves a committed sysop-log/<GARDEN>/ record"; hr
