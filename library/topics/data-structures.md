@@ -91,6 +91,7 @@
 | [atproto--specs-data-model--security-and-future-changes](../sections/atproto--specs-data-model--security-and-future-changes.md) | atproto specs/data-model | Untrusted CBOR parsing as a resource-exhaustion surface, and three open ends: floats may return, the legacy blob format may be removed, more hash types are likely. |
 | [Concurrent transform and the priority convention](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | cloudflare-os code-change.ts | The server-order priority pairing, the ChangeSet transform law, and per-path edit/set/remove transform rules. |
 | [gefs/betree-write-optimized-data-structure](../sections/papers--bernstein-gefs-good-enough-file-system-2023--betree-write-optimized-data-structure.md) | GEFS paper | The Bεtree: a write-optimized B+ tree with pivot-node write buffers and upsert messages; low write amplification under copy-on-write. |
+| [Scion changesets and derived data](../sections/web--anthropic-redesigning-source-control--changesets-and-derived-data.md) | Anthropic Scion | An append-only first-parent delta log feeds recursively computed blame, path-history, commit-graph, copy-detection, and search structures. |
 
 ## See also
 
