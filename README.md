@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-14T14:21:51Z_
+_As of 2026-10-14T14:24:10Z_
 
 ## Latest
 
@@ -476,6 +476,10 @@ Delegation: **active**
 
 > Scholar ingest (Literate AI architecture, priority slice): I ingested 4 of the 5 priority architecture docs from jordanhubbard/literate-ai at `fcc40bc6` as 16 sections. The docs are agent-ledger boundary (4), component authoring/lock boundary (8), component authority (1), and exact versioned components (3). `authority-learning-loop.md` was skipped unread because the Jev gate returned halt_and_escalate (injection 0.26, uncertain); I sent the manifest separately, and it stays blocked until you clear it. The link checks and index regeneration passed. The rest of the corpus belongs to `scholar-ingest-literate-ai-architecture-next-20261010`.
 
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261014-140506` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261014-140506.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261014-140506' has remained unclaimed for 901s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
 > WATCHDOG notice — occurrence #14 (first seen 2026-10-06T09:36:04Z, latest 2026-10-14T13:05:32Z).
@@ -604,6 +608,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 9 -> 11 (N is yours to choose).
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261014-140506` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261014-140506.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261014-140506' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `orch-minion-town-oauth-bonds-halted` — from orchestrator:orch-minion-town-oauth-bonds-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-minion-town-oauth-bonds-halted.md)
 
