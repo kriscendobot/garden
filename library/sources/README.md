@@ -1289,6 +1289,7 @@ because the specs are repository READMEs.
 | [ADR 0047: native CLI Component acceptance](literate-ai--docs-decisions-0047-native-cli-component-acceptance.md) | jordanhubbard/literate-ai | 2026-09-30 | Jordan Hubbard | 4 | current (file commit `fcc40bc6`; classifier `proceed`) |
 | [ADR 0048: retained-project Standard lifecycle](literate-ai--docs-decisions-0048-retained-project-standard-lifecycle.md) | jordanhubbard/literate-ai | 2026-10-02 | Jordan Hubbard | 4 | current (file commit `8fbe58f9`; classifier `proceed`) |
 | [ADR 0049: repository succession](literate-ai--docs-decisions-0049-repository-succession.md) | jordanhubbard/literate-ai | 2026-10-05 | Jordan Hubbard | 3 | current (file commit `e797acdd`; classifier `proceed`) |
+| [Redesigning source control at Anthropic](web--anthropic-redesigning-source-control.md) | https://www.anthropic.com/engineering/redesigning-source-control | 2026-10-13 | Anthropic source control team | 7 | current (direct fetch 2026-10-14, content SHA-256 `b3d05496`; strict TypeSafe classification `proceed_with_caveat`, mixed factual and persuasive framing) |
 
 ## Petname systems and Zooko's triangle
 
