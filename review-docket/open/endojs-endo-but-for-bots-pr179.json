@@ -4,17 +4,17 @@
   "pr": 179,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/179",
   "head_oid": "a9241aa8feec01f632b8f3ed5ec8abcc037af60d",
-  "ask": "decide",
+  "ask": "approve",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
+  "summary": "feat(daemon,chat): record host commands in chat transcript via commands-as-messages (re-opened from #45 under the bot)",
   "unblocks": [],
-  "source": "manual-gauntlet-handoff-endojs-endo-but-for-bots-pr179",
-  "requested_at": "2026-10-10T08:41:22Z",
+  "source": "native-review-request-endojs-endo-but-for-bots-pr179",
+  "requested_at": "2026-10-14T16:48:07Z",
   "first_requested_at": "2026-10-10T06:04:11Z",
-  "generation": 8,
+  "generation": 9,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-14T16:28:05Z"
+    "observed_at": "2026-10-14T16:48:09Z"
   }
 }
