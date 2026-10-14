@@ -77,3 +77,13 @@ This is the indivisible expanded-window successor of
 snapshot, its exception interpretation, the single journal entry, and any
 conditional alert must remain one run so the report window and once-only output
 discipline cannot race across children.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 5
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-14T01:09:45Z
