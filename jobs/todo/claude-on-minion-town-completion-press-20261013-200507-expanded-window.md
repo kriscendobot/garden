@@ -78,13 +78,5 @@ snapshot, its exception interpretation, the single journal entry, and any
 conditional alert must remain one run so the report window and once-only output
 discipline cannot race across children.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 5
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-14T01:09:45Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-14T02:33:34Z -->
