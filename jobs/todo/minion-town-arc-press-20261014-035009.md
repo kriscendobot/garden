@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Supervise the minion.town arc: carry its pull requests through review
@@ -77,13 +78,5 @@ This schedule is STANDING for the life of the arc; do not retire it.
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 `kriscendobot/garden` issue 58. No upstream `agoric/agoric-sdk` interaction.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-14T06:15:57Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-14T07:23:21Z -->
