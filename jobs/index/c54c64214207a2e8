@@ -1,2 +1,2 @@
-base: improve-decision-append-outage-dedup
+base: improve-decision-append-lock-contention
 identity: mentor:scripts/jobs/decision-append.sh
