@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-arc-press-20261013-182028-checklist minion-town-arc-press-20261013-182028-triage minion-town-arc-press-20261013-182028-carry
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-14T00:17:53Z
 ---
