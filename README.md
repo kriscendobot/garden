@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T17:34:18Z_
+_As of 2026-10-14T17:56:43Z_
 
 ## Latest
 
@@ -28,6 +26,7 @@ Fleet health:
 
 Delegation: **active**
 
+- 2026-10-14T17:52:27Z [#93](https://github.com/kriscendobot/minion.town/pull/93) merged `ad0257e18e2`; deploy [pending](https://github.com/kriscendobot/minion.town/actions/runs/38553526891)
 - 2026-10-14T17:08:52Z [#93](https://github.com/kriscendobot/minion.town/pull/93) `d7b0717fbfd` screened
 - 2026-10-14T16:46:27Z [#93](https://github.com/kriscendobot/minion.town/pull/93) `ea66af29724` screened
 - 2026-10-14T11:00:24Z [#167](https://github.com/kriscendobot/minion.town/pull/167) merged `e3ffcbb5308`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/38553526891), watchdog ok — validated
@@ -149,9 +148,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #15 (first seen 2026-10-06T06:35:18Z, latest 2026-10-14T12:50:19Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 15 times; this is ONE
-> coalesced notice that updates in place, not 15 messages. Latest detail:
+> WATCHDOG notice — occurrence #16 (first seen 2026-10-06T06:35:18Z, latest 2026-10-14T17:35:23Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 16 times; this is ONE
+> coalesced notice that updates in place, not 16 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
 
@@ -832,11 +831,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-17T00:05:19Z, latest 2026-10-14T05:05:22Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-17T00:05:19Z, latest 2026-10-14T17:50:31Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 4 -> 3 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 3): shared codex subscription demand active=2 queue=1 quota=ok fleet-envelope=4 target=3
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
@@ -875,6 +874,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
+- `msg-scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014-3a6c63081da8` — from scholar:scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014, reply_to `scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014-3a6c63081da8.md)
+
+> Anthropic's *Redesigning source control* is now ingested as seven sections covering Scion's always-online service architecture, changeset/derived-data split, content-addressed cache tiers, optional working copies, engineering lessons, and limits on broader applicability. The strict gate classified the bounded page sample as clean for injection but mixed factual/persuasive framing, so performance and forecast claims remain explicitly attributed to Anthropic. The cycle added a `source-control-architecture` topic and three Scion lookup concepts; integrity and regenerated-index checks passed. Full result: the latest scholar result entry for `scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014`.
 
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-d41c7e131ed3` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-d41c7e131ed3.md)
 
@@ -1427,11 +1430,15 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-12T21:38:02Z, cleared 2026-10-14T14:05:05Z).
-> It was observed 357 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #358 (first seen 2026-10-12T21:38:02Z, latest 2026-10-14T17:38:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 358 times; this is ONE
+> coalesced notice that updates in place, not 358 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release 42863eb06db9d6387416edd0ca258425c10c1585, deployed 42863eb06db9d6387416edd0ca258425c10c1585).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 0396add351f1 20 min ago
+> but still reports deployed_sha 82fc050e032a3f138ccf8ef45673edb41649159c. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0.md)
 
@@ -1501,43 +1508,40 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 252.8M | $1192.45 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
-| Codex | 23.5M _(+730.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 252.9M | $1192.63 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
+| Codex | 23.9M _(+743.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99308809 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 19.295885s/45s (unknown); 8 open notice(s); checker healthy
+worst fetch p95 4.200922s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (12)
 - [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #186
-- [`scholar-ingest-anthropic-redesigning-source-control-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-anthropic-redesigning-source-control-20261014.md) — Ingest "Redesigning source control" (Anthropic Engineering)
 - [`claude-on-minion-town-press-20261014-170518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-170518.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261014-140506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-140506.md) — ---
-- [`kriscendobot-garden-book-pr15-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/garden-book PR #15
 - [`oros-health-checkup-20261014-170518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-170518.md) — ---
 - [`minion-town-pr180-panel9-pr184-panel5-resume-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-panel9-pr184-panel5-resume-20261014.md) — Resume two halted minion.town gauntlets (kriscendobot/minion.town #180, #184)
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1442
 - [`claude-on-minion-town-completion-press-20261014-142007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261014-142007.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-163508.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-163508
 - [`minion-town-arc-press-20261014-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-162006.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`screen-minion-town-pr93-d7b0717-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr93-d7b0717-conduct.md) — Screened delegated merge: kriscendobot/minion.town#93 at d7b0717fbfd00de448ad...
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
 
 ### doin (2)
-- [`oros-health-watch-20261014-170518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261014-170518.md) — ---
-- [`minion-town-arc-press-20261014-130538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261014-130538.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`kriscendobot-garden-book-pr15-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr15-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/garden-book PR #15
+- [`improve-typesafe-http-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-typesafe-http-classification.md) — ---
 
-### tada (12811)
-- [`claude-on-minion-town-press-20261014-140506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/claude-on-minion-town-press-20261014-140506.md) — Cost
-- [`claude-on-minion-town-press-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/claude-on-minion-town-press-20261014-110506.md) — Cost
-- [`kriscendobot-minion.town-pr186-weave-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion.town-pr186-weave-20261014.md) — Cost
-- [`kriscendobot-minion.town-pr186-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion.town-pr186-gauntlet-fix-1.md) — Cost
-- [`improve-namespace-clone-lock-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/improve-namespace-clone-lock-noise.md) — Cost
-- … and 12806 more
+### tada (12816)
+- [`screen-minion-town-pr93-d7b0717-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/screen-minion-town-pr93-d7b0717-conduct.md) — Cost
+- [`scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/scholar-ingest-anthropic-redesigning-source-control-after-classifier-repair-20261014.md) — Cost
+- [`oros-health-watch-20261014-170518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-watch-20261014-170518.md) — Cost
+- [`minion-town-arc-press-20261014-130538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/minion-town-arc-press-20261014-130538.md) — Cost
+- [`scholar-ingest-anthropic-redesigning-source-control-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/scholar-ingest-anthropic-redesigning-source-control-20261014.md) — Cost
+- … and 12811 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
