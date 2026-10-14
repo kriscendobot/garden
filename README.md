@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T10:00:17Z_
+_As of 2026-10-14T10:08:42Z_
 
 ## Latest
 
@@ -138,18 +136,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-10-14T08:23:55Z, latest 2026-10-14T09:55:56Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-14T08:23:55Z, cleared 2026-10-14T10:00:57Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on oros-studio-garden-ce242c49: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.256662s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/screening-control/journal: p95=62.196343s, giveups=0, steals=1 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.176512s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.284732s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.168013s, giveups=1, steals=1 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=109.271875s, giveups=8, steals=1 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.184020s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -212,11 +203,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-7` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-7.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-10T04:35:17Z, latest 2026-10-13T23:35:20Z).
-> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-7`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-10-10T04:35:17Z, latest 2026-10-14T10:05:28Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-7`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
-> budget-level changed oros-studio-garden-ce242c49 monk workers 8 -> 7 (target 6): subscription claude-oros spend=981960 cap=180000000 pace-bias=0.070533 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=6 backoff=0.5404(ramp) target=6
+> budget-level changed oros-studio-garden-ce242c49 monk workers 6 -> 7 (target 7): subscription claude-oros spend=3091665 cap=180000000 pace-bias=0.125357 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=7 backoff=0.5717(ramp) target=7
 
 - `20261010T163620Z-5a3568` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261010T163620Z-5a3568.md)
 
@@ -377,12 +368,12 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T09:58:41Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T10:04:06Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1445](https://github.com/endojs/endo-but-for-bots/pull/1445)#issuecomment-6162342485 (age=12609s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1445](https://github.com/endojs/endo-but-for-bots/pull/1445)#issuecomment-6162342485 (age=12909s; heartbeat=full-poll)
 
 - `kriscendobot-minion.town-pr183-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr183-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr183-gauntlet-review-budget-reached.md)
 
@@ -569,10 +560,6 @@ Delegation: **active**
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-4.md)
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 4 (target 4): shared codex subscription demand active=3 queue=5 quota=ok fleet-envelope=4 target=4
-
-- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_requirements_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_requirements_watch_journal.md)
-
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/requirements-watch/journal: p95=37.198780s max=37.198780s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
 
 - `20261012T131856Z-a0b7b4` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261012T131856Z-a0b7b4.md)
 
@@ -1168,10 +1155,6 @@ Delegation: **active**
 > - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
 > - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
 
-- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_reducer_journal.md)
-
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/reducer/journal: p95=33.419412s max=33.419412s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-
 - `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #5 (first seen 2026-10-09T02:17:23Z, latest 2026-10-12T17:49:31Z).
@@ -1327,11 +1310,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #355 (first seen 2026-10-12T21:38:02Z, latest 2026-10-14T08:29:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 355 times; this is ONE
-> coalesced notice that updates in place, not 355 messages. Latest detail:
+> WATCHDOG notice — occurrence #356 (first seen 2026-10-12T21:38:02Z, latest 2026-10-14T10:02:04Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 356 times; this is ONE
+> coalesced notice that updates in place, not 356 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to faaa481f33b3 30 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 8eb6caecffd1 89 min ago
 > but still reports deployed_sha 320cfbed282856094ef3a4f88f6ea556f3d71d9d. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1411,10 +1394,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 98974017 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
+worst fetch p95 28.586589s/45s (unknown); 9 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (15)
 - [`claude-on-minion-town-press-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-075034.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #183
@@ -1429,6 +1412,7 @@ worst fetch p95 5.638148s/45s (/home/kris/garden/.garden-state/screening-control
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #186
 - [`claude-on-minion-town-press-20261014-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-045008.md) — Press the Claude-on-minion.town arc forward
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
+- [`minion-town-arc-press-20261014-100533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-100533.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### doin (0)
 (none)
@@ -1561,4 +1545,4 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 6 monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 7 monks
