@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: stale doom-parked panel-5 (requeue-exhausted after host shutdown); superseded by gauntlet --resume-from-stage panel per job minion-town-pr184-panel5-resume-20261014
+withdrawn_by: gardener
+withdrawn_at: 2026-10-14T21:57:50Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 gauntlet: kriscendobot-minion.town-pr184-gauntlet
