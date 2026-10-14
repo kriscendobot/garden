@@ -202,6 +202,13 @@ stage_due_messages() {
     # next transition and all cycle-marker accounting.
     grep -qxF "$REAP_NOW_MARKER" "$job_file" 2>/dev/null && continue
 
+    # A rolling-deploy canary probe runs no handler, and its 120s budget sits inside
+    # the two-tick floor, so it would be nudged at claim. Two nudges turn the probe's
+    # inbox drain into a commit+push on a fresh per-id clone, ~10 minutes on loaded
+    # virtiofs, which fails the leader's 600s canary window (oros 2026-10-14: four
+    # probes of 320cfbed nudged and failed, while an un-nudged probe took 70s).
+    [ "$(plan_field "$job_file" canary-probe)" = true ] && continue
+
     claimed_at="$(claim_field "$job_file" claimed_at)"
     host="$(claim_field "$job_file" host)"
     worker_kind="$(claim_field "$job_file" worker_kind)"

@@ -98,6 +98,8 @@ write_claim "$SEED" short "fixer" 100 100 90 \
 write_claim "$SEED" builder "builder" "" 7200 900
 write_claim "$SEED" reapnow "fixer" "" 2400 300 \
   '<!-- garden-reaped: 1 -->\n<!-- garden-deadline-overrun: 1 -->\n<!-- garden-reap-now -->'
+write_claim "$SEED" canary "" 120 120 100
+sed -i '2a canary-probe: true' "$SEED/jobs/doin/canary.md"
 write_claim "$SEED" badtime "fixer" "" 2400 300
 sed -i 's/^  claimed_at:.*/  claimed_at: not-a-time/' "$SEED/jobs/doin/badtime.md"
 mkdir -p "$SEED/jobs/todo" "$SEED/jobs/plan" "$SEED/jobs/tada" "$SEED/jobs/orch" "$SEED/usage" "$SEED/work" "$SEED/inbox/dead"
@@ -170,6 +172,7 @@ fi
 [ "$(nudge_paths builder | wc -l)" -eq 1 ] && ok 'builder warns at the 900s cap' || bad 'builder cap warning missing'
 [ -z "$(nudge_paths reapnow)" ] && ok 'reap-now claim is skipped' || bad 'reap-now claim was nudged'
 [ -z "$(nudge_paths badtime)" ] && ok 'malformed claim time is skipped' || bad 'malformed claim time was nudged'
+[ -z "$(git -C "$BARE" ls-tree -r --name-only "$BRANCH" -- inbox/canary | grep 'deadline-')" ] && ok 'canary probe is never nudged' || bad 'canary probe was nudged'
 due_message="$(nudge_paths due | head -1)"
 if tip_show "$due_message" | grep -q '^kind: deadline-nudge$' \
   && tip_show "$due_message" | grep -q '^remaining_seconds: 600$' \
