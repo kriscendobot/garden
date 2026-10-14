@@ -2,6 +2,13 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T19:30Z (oros-health-checkup-20261013-223508, reaper re-run): healthy (confirms the 19:20Z note; deployed 460f0598, one behind main2 f3fa2078, which is waiting for a leader release)
+
+- Load 3.8/3.5/2.9; 12 GiB available; disk 6%, inodes 1%; uptime 13d2h. 0 failed units; monks 1 to 7 running. No drain; derotation untouched.
+- Budget heartbeat sampled at 19:06Z, status ok, 3% used. fleet/health shows `roll_status: deployed` at `460f0598`.
+- `journal/` is current again (the keeper fast-forwarded 26 commits at 19:15Z). The root store has no `gc.log`, 17 packs, 468M, and one 12-byte `tmp_pack` from 15:23Z, which the guard's gc will reap after `f3fa2078`.
+- **Changed:** nothing; the 19:20Z run already did the repairs.
+
 ## 2026-10-14T19:20Z (oros-health-checkup-20261014-140506): degraded (journal/ falsely STALE for 2.5h; the root store's auto-gc was killed every tick) → repaired on-host; fix on main2 `f3fa2078`
 
 - **Load/mem:** load 2.4/2.6/2.6; 13 GiB of 15 GiB available; swap 532 MiB used.
