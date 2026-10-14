@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1460,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1460",
+  "head_oid": "9728449f4e33f172b4692a404fa8a35bb04fdd15",
+  "ask": "approve",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "design(parcel): rename the SturdyRef stack to Parcel; add the initial/shared authority split",
+  "unblocks": [],
+  "source": "native-review-request-endojs-endo-but-for-bots-pr1460",
+  "requested_at": "2026-10-14T23:30:13Z",
+  "first_requested_at": "2026-10-14T23:30:13Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-14T23:30:15Z"
+  }
+}
