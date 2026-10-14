@@ -59,6 +59,7 @@ run_nudge() {
   shift
   env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
       GARDEN_STATE="$STATE" GARDEN=leader-one GARDEN_NO_MAINTAINER_ALERT=1 \
+      GARDEN_JOURNAL_OUTAGE_DIR="$STATE/journal-outage-cooldown" \
       GARDEN_DEADLINE_NUDGE_CLONE="$STATE/$clone_name/journal" \
       GARDEN_DEADLINE_NUDGE_NOW="$NOW" "$@" "$NUDGE"
 }
@@ -345,9 +346,41 @@ lb_t0=$SECONDS
 run_nudge lock-busy-cold env GARDEN_DEADLINE_NUDGE_LOCK_WAIT=1 \
   > "$TEST_ROOT/lock-busy-cold.out" 2>&1
 lb_rc=$?
-kill "$LOCK_HOLDER" 2>/dev/null || true; wait "$LOCK_HOLDER" 2>/dev/null || true
 lock_busy_check 'clone stage under live clone-lock contention defers cleanly without the hard wait ladder' \
   clone "$TEST_ROOT/lock-busy-cold.out" "$lb_rc" "$(( SECONDS - lb_t0 ))"
+cooldown_marker="$STATE/journal-outage-cooldown/marker"
+if grep -q '^deadline-nudge$' "$cooldown_marker" \
+  && grep -q 'latched host cooldown' "$TEST_ROOT/lock-busy-cold.out"; then
+  ok 'clone-lock contention opens the stable deadline-nudge cooldown episode'
+else
+  bad 'clone-lock contention did not open the deadline-nudge cooldown episode'
+fi
+lb_t0=$SECONDS
+run_nudge lock-busy-cold env GARDEN_DEADLINE_NUDGE_LOCK_WAIT=3 \
+  > "$TEST_ROOT/lock-busy-cold-cooldown.out" 2>&1
+lb_rc=$?
+if [ "$lb_rc" -eq 0 ] && [ "$(( SECONDS - lb_t0 ))" -lt 3 ] \
+  && [ ! -s "$TEST_ROOT/lock-busy-cold-cooldown.out" ]; then
+  ok 'a repeated deadline-nudge tick skips quietly while the clone-lock cooldown is live'
+else
+  bad 'a repeated deadline-nudge tick retried or logged during the live clone-lock cooldown'
+  sed 's/^/    /' "$TEST_ROOT/lock-busy-cold-cooldown.out" | tail -8
+fi
+printf '0\ndeadline-nudge\n' > "$cooldown_marker"
+run_nudge lock-busy-cold env GARDEN_DEADLINE_NUDGE_LOCK_WAIT=1 \
+  GARDEN_JOURNAL_OUTAGE_COOLDOWN_SECS=30 \
+  > "$TEST_ROOT/lock-busy-cold-expired.out" 2>&1
+lb_rc=$?
+if [ "$lb_rc" -eq 0 ] \
+  && grep -q 'WARN: clone lock .* busy >1s' "$TEST_ROOT/lock-busy-cold-expired.out" \
+  && grep -q 'deadline-nudge: clone lock .* latched host cooldown' "$TEST_ROOT/lock-busy-cold-expired.out"; then
+  ok 'the first deadline-nudge tick after cooldown expiry probes and opens a fresh episode'
+else
+  bad 'deadline-nudge did not re-probe clone-lock contention after cooldown expiry'
+  sed 's/^/    /' "$TEST_ROOT/lock-busy-cold-expired.out" | tail -8
+fi
+kill "$LOCK_HOLDER" 2>/dev/null || true; wait "$LOCK_HOLDER" 2>/dev/null || true
+rm -f "$cooldown_marker"
 run_nudge lock-busy-warm > "$TEST_ROOT/lock-busy-warm-seed.out" 2>&1
 hold_clone_lock "$STATE/lock-busy-warm/journal" "$TEST_ROOT/lock-busy-warm.ready" \
   || bad 'lock-busy fixture could not take the warm clone lock'
@@ -360,6 +393,7 @@ kill "$LOCK_HOLDER" 2>/dev/null || true; wait "$LOCK_HOLDER" 2>/dev/null || true
 # normally the one that defers here; either stage deferring cleanly is the contract.
 lock_busy_check 'warm clone under live clone-lock contention defers cleanly without the hard wait ladder' \
   '(clone|journal-sync)' "$TEST_ROOT/lock-busy-warm.out" "$lb_rc" "$(( SECONDS - lb_t0 ))"
+rm -f "$cooldown_marker"
 
 stage_stub="$HERE/deadline-nudge-stage-git-stub.sh"
 stage_stub_bin="$TEST_ROOT/stage-stub-bin"

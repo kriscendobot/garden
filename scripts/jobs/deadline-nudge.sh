@@ -43,7 +43,10 @@ positive_integer() { [[ "${1:-}" =~ ^[1-9][0-9]*$ ]]; }
 # then clone_lock exits GARDEN_OFFLINE_RC (a retry-next-tick signal) instead of
 # the FATAL give-up. The callers below treat that rc as a clean deferral.
 soft_clone_lock() {
-  GARDEN_CLONE_LOCK_SOFT=1 GARDEN_LOCK_SOFT_WAIT="$GARDEN_DEADLINE_NUDGE_LOCK_WAIT" "$@"
+  GARDEN_CLONE_LOCK_SOFT=1 \
+    GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY=deadline-nudge \
+    GARDEN_LOCK_SOFT_WAIT="$GARDEN_DEADLINE_NUDGE_LOCK_WAIT" \
+    "$@"
 }
 
 # ensure_clone and sync_clone deliberately exit from several failure paths. Run
@@ -478,6 +481,10 @@ deadline_nudge_tick() {
       return 0
     fi
   done
+  # A prior soft clone-lock give-up owns the one warning for this host-wide
+  # cooldown window. Later timer ticks skip before touching the clone, quietly;
+  # the first tick after expiry probes again and can open a fresh episode.
+  journal_outage_active && return 0
   tick_stage init
   now="${GARDEN_DEADLINE_NUDGE_NOW:-$(date -u +%s)}"
   if ! [[ "$now" =~ ^[0-9]+$ ]]; then
