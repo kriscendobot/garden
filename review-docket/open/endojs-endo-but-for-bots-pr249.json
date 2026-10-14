@@ -4,17 +4,17 @@
   "pr": 249,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/249",
   "head_oid": "6c62eee08dcc587c3e90bddc660c82b0c10635eb",
-  "ask": "re-review",
+  "ask": "approve",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Panel reviewed 4424f3a9, but the presented head is 6c62eee08dcc",
+  "summary": "design(ses,module-source): top-level-await proposal (leads with the test suite)",
   "unblocks": [],
-  "source": "stale-panel-head-endojs-endo-but-for-bots-pr249-4424f3a9-6c62eee0",
-  "requested_at": "2026-10-10T12:28:51Z",
+  "source": "native-review-request-endojs-endo-but-for-bots-pr249",
+  "requested_at": "2026-10-14T16:48:57Z",
   "first_requested_at": "2026-10-10T12:28:51Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-14T16:28:11Z"
+    "observed_at": "2026-10-14T16:48:58Z"
   }
 }
