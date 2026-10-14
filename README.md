@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T00:01:09Z_
+_As of 2026-10-14T00:16:49Z_
 
 ## Latest
 
@@ -1291,7 +1289,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 242.2M | $1137.25 _(notional, rate-card)_ | 89% of 271.0M (backoff) |
-| Codex | 18.9M _(+596.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 19.0M _(+596.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99015439 tokens/day lower bound._
 
@@ -1299,12 +1297,13 @@ _Fleet token-unlock pace: 99015439 tokens/day lower bound._
 worst fetch p95 3.836864s/45s (/home/kris/garden/.garden-state/worker-derotate/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`claude-on-minion-town-press-unblocks-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-unblocks-20261013.md) — Post newly unblocked Claude-on-minion.town arc work
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1442
 - [`kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-78df7d85-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #183
 - [`kriscendobot-minion.town-pr186-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #186
+- [`claude-on-minion-town-completion-press-20261013-200507-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-200507-expanded-window.md) — Completion press: Claude-on-minion.town arc
 - [`claude-on-minion-town-press-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261013-223508.md) — Press the Claude-on-minion.town arc forward
 - [`claude-on-minion-town-completion-press-20261013-080506-publish`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261013-080506-publish.md) — Claude-on-minion.town completion press: reconcile and publish
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-163508.md) — ---
@@ -1312,18 +1311,17 @@ worst fetch p95 3.836864s/45s (/home/kris/garden/.garden-state/worker-derotate/j
 - [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-133505.md) — ---
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr167-gauntlet-20261013-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #167
 
-### doin (3)
-- [`minion-town-arc-press-20261013-182028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-182028.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (2)
+- [`minion-town-arc-press-20261013-182028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261013-182028.md) — Deliberate overrun decomposition for minion-town-arc-press-20261013-182028
 - [`claude-on-minion-town-press-20261013-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261013-193508.md) — Press the Claude-on-minion.town arc forward
-- [`claude-on-minion-town-completion-press-20261013-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261013-200507.md) — Completion press: Claude-on-minion.town arc
 
-### tada (12716)
+### tada (12717)
+- [`claude-on-minion-town-completion-press-20261013-200507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/claude-on-minion-town-completion-press-20261013-200507.md) — Cost
 - [`minion-town-arc-press-20261013-213517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/minion-town-arc-press-20261013-213517.md) — Cost
 - [`oros-health-watch-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/oros-health-watch-20261013-223508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/endojs-endo-but-for-bots-pr1442-gauntlet-clean.md) — Cost
 - [`claude-on-minion-town-press-20261013-072006-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-20261013-072006-split.md) — orchestration claude-on-minion-town-press-20261013-072006-split — HALTED
-- [`claude-on-minion-town-press-carry-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/13/claude-on-minion-town-press-carry-20261013.md) — Cost
-- … and 12711 more
+- … and 12712 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1445,4 +1443,4 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 7 monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 6 monks
