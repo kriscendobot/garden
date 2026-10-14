@@ -2,6 +2,23 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-14T20:35Z (oros-health-checkup-20261014-170518): degraded (garden-journal-contention-watch killed by TimeoutStartSec on every tick since 10-13 19:00Z) → fix on main2 `624ea1f3`; otherwise healthy
+
+- **Load/mem:** load 2.7/3.3/3.4; 13 GiB of 16 GiB available; swap 531 MiB used.
+- **Disk/inodes:** 6% of the overlay used; inodes 1% (165k).
+- **Uptime:** 13d2h, no reboot.
+- **Deployed vs main2:** root at `460f0598`, behind origin/main2. `upgrade-ready` was set at 19:47Z, for `f3fa2078`, now `624ea1f3`. fleet/health: `roll_status: deployed` at `460f0598`; no roll release names oros yet.
+- **Units:** 0 failed; monks 1 to 7 running. No drain. The derotate marker (`control-plane-unavailable`, 17:05Z, prior_monk 8) is untouched.
+- **Budget heartbeat:** claude-oros sampled at 19:33Z, status ok, 3% used; the file was updated at 19:45Z.
+- **Root store:** 7 packs, no `gc.log`. State clones are at ≤50 packs, with no tmp_pack.
+- **rc=124 (30m):** journal-contention-watch ×7 (the finding below), transcript-capture ×1 (self-heal 600s, recurring).
+- **Finding (fixed on main2 `624ea1f3`, not yet deployed):**
+  - `garden-journal-contention-watch` has hit `TimeoutStartSec=240` on every tick since 10-13 19:00Z, about 13 per hour. With `Restart=on-failure` it re-runs after 30s, so it runs almost continuously and never analyzes a clone. It last logged at 18:28Z.
+  - The cause is the clone index walk: `find $GARDEN_STATE -maxdepth 8 -type d -name .git -prune`. It prunes only `.git`, so it walks every journal checkout, dep-cache's node_modules, repo-locks, and the keeper's backups. That is about 4M entries and took 288s.
+  - Fix: `jc_list_repos` stops at repositories and skips those trees. On live state it finds the identical 52 repos in 19s. A test case was added; journal-contention-watch-test passes.
+- **Needs the maintainer:** `journal-worktree-keeper/backups` holds 104 lossless dirty-tree backups (since 2026-09-14, about 2.6M files) with no retention policy. Pruning them is your call.
+- **Changed:** nothing else on-host. The contention watch recovers when oros deploys `624ea1f3`.
+
 ## 2026-10-14T19:30Z (oros-health-checkup-20261013-223508, reaper re-run): healthy (confirms the 19:20Z note; deployed 460f0598, one behind main2 f3fa2078, which is waiting for a leader release)
 
 - Load 3.8/3.5/2.9; 12 GiB available; disk 6%, inodes 1%; uptime 13d2h. 0 failed units; monks 1 to 7 running. No drain; derotation untouched.
