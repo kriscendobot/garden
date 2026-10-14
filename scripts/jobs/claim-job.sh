@@ -353,15 +353,41 @@ done
 [ "${#aged[@]}" -gt 0 ] && log "${#aged[@]} job(s) in todo/ past the ${CLAIM_AGING_SECONDS}s aging threshold; trying them before the rotation"
 cand=("${probes[@]}" "${aged[@]}" "${rest[@]}")
 
-for ((k=0; k<n; k++)); do
+# A canary probe posted AFTER this pass took its snapshot preempts the rest of the
+# pass. Under journal contention each lost race costs minutes, so a pass over a dozen
+# aged jobs can run for half an hour while the probe's deadline expires unseen
+# (oros 2026-10-14: five idle monks spent 00:18-00:42 losing every race on 12 aged
+# jobs; probes r1 and r2 for 242f944c were never tried and the roll drained a
+# healthy canary). Checked after each re-sync, so the probe waits at most one attempt.
+declare -A in_pass=()
+for c in "${cand[@]}"; do in_pass["$c"]=1; done
+late_canary_probe() {
+  local f leaf
+  for f in "$DIR/$JOBS_TODO"/*.md; do
+    leaf="${f##*/}"
+    [ -z "${in_pass[$leaf]:-}" ] || continue
+    grep -q '^canary-probe: true' "$f" 2>/dev/null || continue
+    printf '%s\n' "$leaf"; return 0
+  done
+  return 1
+}
+
+while [ "${#cand[@]}" -gt 0 ]; do
   # candidates are leaf filenames (<base>.md); the spine key is extensionless.
-  base="${cand[$k]%.md}"
+  leaf="${cand[0]}"; cand=("${cand[@]:1}")
+  base="${leaf%.md}"
   if own_worker_stopping; then
     log "this worker's unit is stopping; abandoning the claim pass before '$base'"
     exit 3
   fi
   # re-sync each attempt: the board may have moved under us
   sync_clone "$DIR"
+  if late="$(late_canary_probe)"; then
+    in_pass["$late"]=1; n=$((n + 1))
+    cand=("$leaf" "${cand[@]}")
+    base="${late%.md}"
+    log "canary probe '$base' appeared mid-pass; trying it next"
+  fi
   [ -e "$DIR/$JOBS_TODO/$base.md" ] || { log "'$base' already taken; next"; continue; }
 
   retry_not_before="$(plain_retry_not_before "$DIR/$JOBS_TODO/$base.md" 2>/dev/null || true)"
