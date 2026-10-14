@@ -17,3 +17,13 @@ mandatory strict TypeSafe classifier returned HTTP 400 each time and emitted
 Re-check library idempotency, fetch and pre-classify before reading, then
 complete the requested library ingest only if the mandatory gate returns an
 allowed disposition. Do not bypass strict classification.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T17:38:23Z
