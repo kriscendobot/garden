@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T11:30:15Z_
+_As of 2026-10-14T11:41:29Z_
 
 ## Latest
 
@@ -371,12 +369,12 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #44 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T11:29:02Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 44 times; this is ONE
-> coalesced notice that updates in place, not 44 messages. Latest detail:
+> WATCHDOG notice — occurrence #46 (first seen 2026-10-14T06:48:44Z, latest 2026-10-14T11:38:54Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 46 times; this is ONE
+> coalesced notice that updates in place, not 46 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1445](https://github.com/endojs/endo-but-for-bots/pull/1445)#issuecomment-6162342485 (age=18012s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1445](https://github.com/endojs/endo-but-for-bots/pull/1445)#issuecomment-6162342485 (age=18613s; heartbeat=full-poll)
 
 - `kriscendobot-minion.town-pr183-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr183-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr183-gauntlet-review-budget-reached.md)
 
@@ -1392,9 +1390,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 252.5M | $1189.30 _(notional, rate-card)_ | 93% of 271.0M (backoff) |
-| Codex | 22.0M _(+690.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 22.0M _(+692.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 100299202 tokens/day lower bound._
+_Fleet token-unlock pace: 100347706 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 28.586589s/45s (unknown); 9 open notice(s); checker healthy
@@ -1415,20 +1413,19 @@ worst fetch p95 28.586589s/45s (unknown); 9 open notice(s); checker healthy
 - [`claude-on-minion-town-press-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-110506.md) — Press the Claude-on-minion.town arc forward
 - [`minion-town-arc-press-20261014-100533`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-100533.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (5)
-- [`canary-probe-oros-studio-garden-ce242c49-d82f327af50a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-d82f327af50a-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ d82f327af50a
+### doin (4)
 - [`oros-health-watch-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261014-110506.md) — ---
 - [`claude-on-minion-town-completion-press-20261014-080513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261014-080513.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261013-163508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-163508.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-163508
 - [`kriscendobot-garden-book-pr15-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr15-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/garden-book PR #15
 
-### tada (12781)
+### tada (12782)
+- [`canary-probe-oros-studio-garden-ce242c49-d82f327af50a-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/canary-probe-oros-studio-garden-ce242c49-d82f327af50a-r2.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-oros-studio-garden-ce242c49-d82f327af50a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/canary-probe-oros-studio-garden-ce242c49-d82f327af50a-r1.md) — rolling-deploy canary probe — round trip OK
 - [`screen-minion-town-pr167-8368f8c-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/screen-minion-town-pr167-8368f8c-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion.town-pr167-gauntlet-20261013.md) — gauntlet kriscendobot-minion.town-pr167-gauntlet-20261013 — complete
 - [`kriscendobot-minion.town-pr167-gauntlet-20261013-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion.town-pr167-gauntlet-20261013-undraft.md) — Completion report: kriscendobot/minion.town PR #167, gauntlet undraft stage
-- [`kriscendobot-minion.town-pr186-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/kriscendobot-minion.town-pr186-gauntlet-panel-1.md) — Cost
-- … and 12776 more
+- … and 12777 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
