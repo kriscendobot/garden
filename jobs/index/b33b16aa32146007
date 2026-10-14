@@ -1,0 +1,2 @@
+base: improve-watchman-detached-head
+identity: mentor:scripts/jobs/watchman.sh
