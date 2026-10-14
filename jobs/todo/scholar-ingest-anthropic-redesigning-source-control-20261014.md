@@ -1,7 +1,8 @@
 ---
 role: scholar
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Ingest "Redesigning source control" (Anthropic Engineering)
@@ -24,13 +25,6 @@ with library paths as fully qualified URLs. Say plainly where a connection is sp
 This job makes no external writes: no issue, comment, or post anywhere.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=110 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-14T16:54:02Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-14T17:13:11Z -->
