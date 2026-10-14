@@ -17,3 +17,13 @@ Evidence (oros journald, 2026-10-14):
 - The root repo is itself shallow (`.git/shallow` has 1 line), so the deepen can only reach the root's boundary anyway.
 
 **Ask.** Keep history-free readers off the deepen path: at minimum inbox-read's per-id clone and the canary-probe path. Options include an opt-out env honored by `sync_clone`, or deferring the deepen to a background or later sync. Add a test in scripts/jobs/test/ showing that a fresh inbox-read clone does not run `--unshallow`, and keep the existing history-walking readers correct. Land on main2.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-14T03:53:08Z
