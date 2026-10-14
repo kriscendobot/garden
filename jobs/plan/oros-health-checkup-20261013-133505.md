@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: orchestrator
+tier: mentor
+handler-timeout: 3600
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-14T16:13:13Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-14T16:13:13Z
+---
+
+---
 role: orchestrator
 split_eligible: true
 split_reason: deadline-overrun
@@ -66,17 +88,3 @@ Standing maintainer request (kriskowal, 2026-10-02). Background is in the 2026-1
 5. **Report:** one line of verdict (healthy / degraded / unhealthy), what you changed, and what needs a person at the machine or the maintainer. Keep the run under about 45 minutes. If it is healthy and there is nothing to fix, say so and finish quickly.
 
 Do not change drains, worker leveling, derotation markers, budget pools or schedules. The maintainer's 90% quota policy stands.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-14T08:43:17Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-14T14:56:30Z
