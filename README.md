@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T16:10:23Z_
+_As of 2026-10-14T16:15:09Z_
 
 ## Latest
 
@@ -634,6 +632,84 @@ Delegation: **active**
 >
 > ## Follow-ups
 > - Neither check has run on a live panel yet; the first code PR that adds a socket or formula type will be the first real exercise.
+
+- `doomed-oros-health-checkup-20261013-133505-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-checkup-20261013-133505-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/oros-health-checkup-20261013-133505; it stays HELD until a human promotes it
+> (promote-plan.sh oros-health-checkup-20261013-133505) or removes it, so nothing is lost.
+> Original job base: oros-health-checkup-20261013-133505
+>
+> --- original job body ---
+> ---
+> role: orchestrator
+> split_eligible: true
+> split_reason: deadline-overrun
+> split_source_role: fixer
+> split_source_handler_timeout: 3600
+> split_orchestration: oros-health-checkup-20261013-133505-split
+> reposted_by: reaper:endolin-garden-ece02cb4
+> reposted_at: 2026-10-14T04:53:20Z
+> ---
+>
+> # Deliberate overrun decomposition for `oros-health-checkup-20261013-133505`
+>
+> This ordinary job hit its applied 3600s handler wall once without productive progress. That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.
+>
+> Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:
+>
+> - **Divisible:** create at least two self-contained child jobs, park every child with `post-plan.sh --orchestrated --orchestrated-by oros-health-checkup-20261013-133505-split`, then record `oros-health-checkup-20261013-133505-split` with `post-orchestration.sh`.
+> - **Indivisible:** choose a concrete reason and a timeout strictly greater than 3600 and no greater than 14339; park exactly one child with `post-plan.sh --orchestrated --orchestrated-by oros-health-checkup-20261013-133505-split --split-indivisible-reason REASON --split-indivisible-handler-timeout SECONDS oros-health-checkup-20261013-133505-expanded-window BODY-FILE` so both child fields land atomically. Record the same reason as `split-indivisible-reason:` and the same timeout as `split-indivisible-handler-timeout:` in the orchestration description, then record the single-child orchestration. Do not hand-author the child fields; a generic "too large" assertion is not a reason.
+> - In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: oros-health-checkup-20261013-133505-split>>>` immediately before the completion signal so completion verifies the successor.
+> - Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.
+>
+> ## Original job specification
+>
+> ---
+> handler-timeout: 3600
+> ---
+>
+> ---
+> role: fixer
+> requires: host=oros-studio-garden-ce242c49
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> **Role: fixer.** **Recurring oros-studio host health check-up (every 3h, pinned to oros).** Assess and improve the health of **oros-studio-garden-ce242c49** from the inside. A sibling watcher, `oros-health-watch`, pinned to the leader and staggered after you, checks that you were claimed and are making progress. If you stall, it intervenes through the sysop bridge.
+>
+> Standing maintainer request (kriskowal, 2026-10-02). Background is in the 2026-10-01 diagnosis `fix-oros-heartbeat-canary-drain-20261001` (its tada report):
+> - heartbeat gaps come from journal CAS push losses under load;
+> - deploy-gate suites time out under load;
+> - self-deploy's leaderless fallback lifted a roll drain;
+> - fixes landed on main2 as `25e98fcd` and `2e8aedf5`, but oros still runs `e036bb8e`.
+>
+> **Each run (keep it bounded; this recurs):**
+> 1. **Snapshot health and record it** (one short note appended to `journal2:projects/garden/oros-health-log.md` via `scripts/jobs/land-journal-edit.sh`, newest first):
+>    - load average and memory;
+>    - disk and inodes;
+>    - container uptime and recent reboots;
+>    - deployed sha vs origin/main2;
+>    - unit failures;
+>    - the age of the last `budget/live/claude-oros/oros-studio-garden-ce242c49` snapshot and its last few push results;
+>    - the fleet/health roll_status;
+>    - the worker count, and drain/derotation state;
+>    - `$GARDEN_STATE` journal-clone sizes and stale locks;
+>    - recent rc=124 timeouts.
+> 2. **Improve what is safely fixable on-host:**
+>    - gc or re-clone bloated state clones;
+>    - clear stale locks;
+>    - `reset-failed`;
+>    - restart a stuck garden timer or service;
+>    - prune the inode leak (per-id journal clones);
+>    - restart the meter publication if it is stuck.
+> 3. **Help oros deploy.** If oros is behind main2 and a roll release names it, check why self-deploy is deferring or aborting (gate timeouts, long jobs). When safe, help the deploy along, for example by waiting for the gate during a quiet moment. Do not hand-edit drains or worker leveling; report what blocks the deploy.
+> 4. **Garden code bugs:** land them on main2 with tests. Don't post duplicates if a fix already exists.
+> 5. **Report:** one line of verdict (healthy / degraded / unhealthy), what you changed, and what needs a person at the machine or the maintainer. Keep the run under about 45 minutes. If it is healthy and there is nothing to fix, say so and finish quickly.
+>
+> Do not change drains, worker leveling, derotation markers, budget pools or schedules. The maintainer's 90% quota policy stands.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -1435,8 +1511,8 @@ worst fetch p95 19.295885s/45s (unknown); 9 open notice(s); checker healthy
 - [`minion-town-arc-press-20261013-182028-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261013-182028-carry.md) — Carry the next minion.town arc actions and validation gaps
 - [`claude-on-minion-town-press-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-110506.md) — Press the Claude-on-minion.town arc forward
 
-### doin (1)
-- [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261013-133505.md) — Deliberate overrun decomposition for oros-health-checkup-20261013-133505
+### doin (0)
+(none)
 
 ### tada (12802)
 - [`oros-health-checkup-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/14/oros-health-checkup-20261014-110506.md) — Cost
@@ -1492,6 +1568,7 @@ worst fetch p95 19.295885s/45s (unknown); 9 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1340-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1340
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
+- [`oros-health-checkup-20261013-133505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-checkup-20261013-133505.md) — _normal_ · Deliberate overrun decomposition for oros-health-checkup-20261013-133505
 - [`moddable-10-0-0-ironhorse-builtins-order-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-builtins-order-port.md) — _normal_ · Port three Moddable 10.0.0 built-in ordering corrections to IronHorse
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-press-20261010-133536.md) — _normal_ · Press the Claude-on-minion.town arc forward
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
