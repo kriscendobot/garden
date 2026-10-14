@@ -21,3 +21,13 @@ Otherwise run:
 `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --iteration 9 --add-rounds 1`
 
 Confirm the new panel child is on `jobs/todo/` and report the gauntlet record state: `state`, `stage`, `iteration`, `max_iterations`, and `current_child`. Leave PR #181 halted; the supervisor holds it until #180 converges.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-14T21:51:58Z
