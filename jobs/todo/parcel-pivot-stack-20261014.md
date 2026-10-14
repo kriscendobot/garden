@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: parcel-pivot-orchestration-20261014
-priority: normal
-posted_by: producer
-posted_at: 2026-10-14T22:27:34Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-14T23:34:04Z cleared=none -->
 
 ---
 role: builder
