@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-14T13:04:28Z_
+_As of 2026-10-14T13:11:41Z_
 
 ## Latest
 
@@ -480,9 +478,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-10-06T09:36:04Z, latest 2026-10-14T07:50:30Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> WATCHDOG notice — occurrence #14 (first seen 2026-10-06T09:36:04Z, latest 2026-10-14T13:05:32Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 14 times; this is ONE
+> coalesced notice that updates in place, not 14 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
 
@@ -622,23 +620,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #18 (first seen 2026-10-09T07:56:09Z, latest 2026-10-14T12:04:02Z).
-> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 18 times; this is ONE
-> coalesced notice that updates in place, not 18 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-09T07:56:09Z, cleared 2026-10-14T13:08:13Z).
+> It was observed 18 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling deploy HALTED on a failed canary.
-> canary host: oros-studio-garden-ce242c49
-> target sha:  d82f327af50a9b95a2c8f25e550132520910de7a
-> failing signal: probe 'canary-probe-oros-studio-garden-ce242c49-d82f327af50a-r3' did not reach tada within 600s (claim/spine broken on new code)
-> This canary was RETRIED 3 time(s) automatically and kept
-> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
-> confirmed regression, not a transient blip — treat it as higher severity than a
-> first-tick halt.
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
-> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
 
 - `followup-gate-review-improve-design-bespoke-mechanism-over-existing-path` — from followup-gate:review-improve-design-bespoke-mechanism-over-existing-path, reply_to `review-improve-design-bespoke-mechanism-over-existing-path` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-design-bespoke-mechanism-over-existing-path.md)
 
@@ -1411,13 +1397,14 @@ _Fleet token-unlock pace: 100236713 tokens/day lower bound._
 worst fetch p95 28.586589s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (16)
 - [`claude-on-minion-town-press-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261014-075034.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261013-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261013-223508.md) — ---
 - [`kriscendobot-garden-book-pr15-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/garden-book PR #15
 - [`claude-on-minion-town-completion-press-20261014-080513-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261014-080513-expanded-window.md) — Completion press: Claude-on-minion.town arc (expanded window)
 - [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #183
 - [`oros-health-checkup-20261014-075034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-075034.md) — ---
+- [`minion-town-arc-press-20261014-130538`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261014-130538.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`minion-town-pr180-panel9-pr184-panel5-resume-20261014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr180-panel9-pr184-panel5-resume-20261014.md) — Resume two halted minion.town gauntlets (kriscendobot/minion.town #180, #184)
 - [`endojs-endo-but-for-bots-pr1442-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1442-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1442
 - [`oros-health-checkup-20261014-110506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261014-110506.md) — ---
