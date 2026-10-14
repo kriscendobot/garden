@@ -16,6 +16,10 @@ source "$HERE/common.sh"
 
 doer="${1:?usage: inbox-read.sh <doer>}"
 export GARDEN_TAG="inbox-read/$doer"
+# Inbox delivery reads and moves paths at the current journal tip; it never walks
+# history. Keep its per-doer clone shallow, especially for rolling-deploy canaries
+# whose no-LLM path must finish inside the probe deadline.
+export GARDEN_JOURNAL_DEEPEN_ON_SYNC=0
 # The doer alone moves its own unread messages, so a lost CAS (a sender added a
 # new message) is replayed onto the fresh tip without the working tree first
 # (journal_replay_head); a sync_clone per retry lost 39 times on oros 2026-10-12.

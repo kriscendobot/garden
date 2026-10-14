@@ -700,6 +700,7 @@ GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 # empty stderr) every tick, the index never advanced, and the delta only grew
 # (oros worktree-sweeper journal, 2026-10-12, failing every 30 min since 02:15).
 : "${GARDEN_JOURNAL_RESET_TIMEOUT:=900}"
+: "${GARDEN_JOURNAL_DEEPEN_ON_SYNC:=1}" # 0 for readers that never walk journal history
 : "${GARDEN_JOURNAL_DEEPEN_ATTEMPTS:=3}"  # bounded local attempts when a Git lock contends
 : "${GARDEN_JOURNAL_DEEPEN_RETRY_BASE:=100}" # full-jitter retry base, in milliseconds
 # Worktree-free replays commit_and_push makes after a lost CAS before handing the
@@ -8937,8 +8938,11 @@ sync_clone() {
     fi
   fi
   # A clone seeded shallowly from the root repo is completed locally once it is in
-  # sync, so history-walking readers see the whole journal (journal_deepen_from_root).
-  journal_deepen_from_root "$dir" || true
+  # sync, so history-walking readers see the whole journal. Tip-only readers opt
+  # out: deepening a fresh per-id clone can take longer than their whole deadline.
+  if [ "$GARDEN_JOURNAL_DEEPEN_ON_SYNC" = 1 ]; then
+    journal_deepen_from_root "$dir" || true
+  fi
   git -C "$dir" clean -qfd jobs 2>/dev/null || true
 }
 

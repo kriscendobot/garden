@@ -11,6 +11,7 @@
 #   * with seeding disabled it still falls back to the network clone;
 #   * sync_clone re-seeds a stale clone whose capped fetch fails, then succeeds;
 #   * a seed never rewinds a clone that is ahead of the root;
+#   * a fresh inbox-read clone never requests --unshallow;
 #   * a seeded shallow clone is completed from the root after its first sync;
 #   * the seed's full-tree checkout runs under its own budget, not the 120s
 #     bin/git bound (oros 2026-10-12: monks 5-8 offline for hours);
@@ -174,6 +175,27 @@ if [ "$rc" -eq 0 ] && [ "$(git -C "$TR/c-net" rev-parse HEAD)" = "$(tip)" ] \
   ok "network clone still works when seeding is off; explicit non-production origin preserved"
 else
   bad "network fallback clone failed (rc=$rc)"
+fi
+
+hr; echo "CASE — a fresh inbox-read clone stays off the deepen path"; hr
+mkdir -p "$TR/inbox-shim"
+cat > "$TR/inbox-shim/git" <<SHIM
+#!/bin/bash
+for argument in "\$@"; do
+  [ "\$argument" != --unshallow ] || printf '%s\n' "\$*" >> "$TR/inbox-unshallow.calls"
+done
+exec "$REAL_GIT" "\$@"
+SHIM
+chmod +x "$TR/inbox-shim/git"
+: > "$TR/inbox-unshallow.calls"
+INBOX_CLONE="$TR/c-inbox-fresh"
+rc=0
+( export PATH="$TR/inbox-shim:$PATH" GARDEN_INBOX_CLONE="$INBOX_CLONE"
+  "$JOBS/inbox-read.sh" no-mail ) >/dev/null 2>"$TR/inbox-fresh.err" || rc=$?
+if [ "$rc" -eq 0 ] && [ ! -s "$TR/inbox-unshallow.calls" ]; then
+  ok "fresh inbox-read clone does not run --unshallow"
+else
+  bad "inbox deepen opt-out: rc=$rc calls=$(tr '\n' ' ' < "$TR/inbox-unshallow.calls") stderr=$(tr '\n' ' ' < "$TR/inbox-fresh.err")"
 fi
 
 hr; echo "CASE — the seeded shallow clone is completed from the root on sync"; hr
