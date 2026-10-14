@@ -70,6 +70,7 @@ Do not change drains, worker leveling, derotation markers, budget pools or sched
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-14T08:43:17Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
