@@ -371,6 +371,23 @@ elapsed=$(( SECONDS - start ))
 [ -e "$WATCH_STATE/notice-pending/journal-lock-contention-slow-notice.action" ] || { echo 'FAIL: timed-out notice was not recorded'; exit 1; }
 grep -q '^deferred_notices: 1$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: heartbeat omitted deferred notice'; exit 1; }
 
+# A notice that keeps failing cannot starve the sweep: delivery before and during
+# it stops at the sweep share, so the clones are still analyzed this tick.
+reset_case
+mkdir -p "$WATCH_STATE/notice-pending" "$WATCH_STATE/alerts"
+: > "$WATCH_STATE/alerts/journal-contention-storm-lock-contention"
+printf 'close\n' > "$WATCH_STATE/notice-pending/journal-contention-storm-lock-contention.action"
+printf 'cleared\n' > "$WATCH_STATE/notice-pending/journal-contention-storm-lock-contention.body"
+for s in starve-a starve-b starve-c; do sample lock-giveup 99 1 "$s"; done
+env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+  GARDEN_CONTENTION_NOTICE="$SLOW_NOTICE" GARDEN_CONTENTION_NOW_EPOCH=1000 \
+  GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+  GARDEN_CONTENTION_REMEDY=0 GARDEN_CONTENTION_TICK_BUDGET=6 GARDEN_CONTENTION_RESERVE=0 \
+  GARDEN_CONTENTION_KILL_AFTER=1 GARDEN_CONTENTION_TEST_SLUG_COST=1 "$JOBS/journal-contention-watch.sh"
+for s in starve-a starve-b starve-c; do
+  [ -e "$WATCH_STATE/stats/$s" ] || { echo "FAIL: pending notice starved analysis of $s"; exit 1; }
+done
+
 # A hung rebuild is likewise capped. The renamed clone is restored, the remedy
 # is marked for retry, and the heartbeat survives the timeout.
 reset_case
@@ -442,4 +459,4 @@ got="$(GARDEN_STATE="$STATE" bash -c '. "$1/common.sh"; . "$1/journal-contention
 want=".hidden/journal/.git monks/3/journal/.git real/r/.git svc/journal/.git "
 [ "$got" = "$want" ] || { echo "FAIL: clone discovery listed '$got', want '$want'"; exit 1; }
 
-echo 'PASS: contention recorder, thresholds, drift, outage latch, bounded notice/remedy work, recovery, tick deadline, bounded clone discovery, and quiet baseline'
+echo 'PASS: contention recorder, thresholds, drift, outage latch, bounded notice/remedy work, notice delivery cannot starve the sweep, recovery, tick deadline, bounded clone discovery, and quiet baseline'

@@ -53,6 +53,10 @@ GARDEN_CONTENTION_SLUG_PREFIX="${GARDEN_CONTENTION_SLUG_PREFIX-$(contention_clon
 : "${GARDEN_CONTENTION_RESERVE:=20}"
 : "${GARDEN_CONTENTION_REMEDY_MIN:=120}"
 : "${GARDEN_CONTENTION_KILL_AFTER:=2}"
+# Delivery that runs before or during the sweep stops while this much of the tick
+# remains, so a notice whose push keeps losing races cannot starve analysis
+# (oros, 2026-10-14: a pending storm close spent the whole budget on every tick).
+: "${GARDEN_CONTENTION_SWEEP_SHARE:=$(( GARDEN_CONTENTION_TICK_BUDGET / 2 ))}"
 # Inspection is optional read-side work: never queue behind a producer long
 # enough to consume the tick. A busy clone stays deferred until the next tick.
 : "${GARDEN_CONTENTION_INSPECTION_LOCK_WAIT:=2}"
@@ -88,12 +92,12 @@ notice_close() {
   printf -v body 'Journal contention condition `%s` cleared on %s.' "$key" "$GARDEN"
   notice_queue close "$key" "$body"
 }
-flush_notices() {
-  local af base key action remaining run_for rc
+flush_notices() { # [budget floor in seconds to leave unspent]
+  local floor="${1:-0}" af base key action remaining run_for rc
   for af in "$GARDEN_CONTENTION_STATE"/notice-pending/*.action; do
     [ -e "$af" ] || continue
     remaining="$(tick_remaining)"
-    run_for=$(( remaining - GARDEN_CONTENTION_KILL_AFTER ))
+    run_for=$(( remaining - floor - GARDEN_CONTENTION_KILL_AFTER ))
     [ "$run_for" -gt 0 ] || break
     base="${af%.action}"; key="${base##*/}"; action="$(cat "$af")"; rc=0
     if [ "$action" = close ]; then
@@ -362,7 +366,7 @@ analyze_clone() {
 # Trim every append-only ring before analysis. The recorder never pays this cost.
 # First retry delivery work that a previous tick durably deferred; otherwise a
 # consistently full clone sweep could starve its own diagnostics forever.
-flush_notices
+flush_notices "$GARDEN_CONTENTION_SWEEP_SHARE"
 flush_remedy_cleanups
 for signal_dir in "$GARDEN_CONTENTION_DIR"/*; do
   [ -d "$signal_dir" ] || continue
@@ -416,7 +420,7 @@ for slug in "${ordered[@]}"; do
   esac
   # Give conditions found for this clone a chance to report while its share of
   # the tick is still available. A timeout leaves the durable queue intact.
-  flush_notices
+  flush_notices "$GARDEN_CONTENTION_SWEEP_SHARE"
   tick_charged=$(( tick_charged + GARDEN_CONTENTION_TEST_SLUG_COST ))
 done
 
