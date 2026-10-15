@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-10-13T00:17:42Z
 arc: 
-stage: panel
+stage: fix
 iteration: 6
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr184-gauntlet-panel-6
+current_child: kriscendobot-minion.town-pr184-gauntlet-fix-6
 state: running
 resumed_at: 2026-10-14T21:57:56Z
 resumed_from_stage: panel
