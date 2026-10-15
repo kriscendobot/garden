@@ -688,6 +688,15 @@ if [ "$src_rc" -ne 0 ]; then
     # the watcher adopt it below so that captured owner warning reaches the unit
     # log.  Any already-attributed latch belongs to an earlier detector.
     if api_primary_quota_cooldown_active rest; then
+      # Admission can be refused because a different REST source opened a raw
+      # gh-api latch after our head-of-tick guard.  That refusal is collateral
+      # even though the latch is not attributed yet; adopting it would steal the
+      # actual detector's warning.  The source that opened its own latch reports
+      # the original API diagnostic instead, so preserve that adoption path.
+      if grep -Fq 'admission refused: host-shared gh-api cooldown live' "$ERRF" 2>/dev/null; then
+        issue_heartbeat_outcome=cooldown
+        exit 0
+      fi
       primary_owner="$(sed -n '2p' "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null || true)"
       if [[ "$primary_owner" != gh-api:* ]]; then
         issue_heartbeat_outcome=cooldown

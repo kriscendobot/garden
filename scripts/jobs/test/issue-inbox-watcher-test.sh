@@ -519,6 +519,54 @@ quota_race_expiry="$(sed -n '1p' "$quota_race_marker" 2>/dev/null || echo 0)"
   && ok "only the primary cooldown owner's warning is emitted" \
   || bad "collateral refusal repeated the warning (owner=$(cat "$QUOTA_RACE_OWNER_LOG") watcher=$(cat "$QUOTA_RACE_ERR"))"
 
+# A raw gh-api latch can likewise belong to a different REST source whose actual
+# detector has not adopted and announced it yet.  The admission-refusal
+# diagnostic, rather than the unattributed owner shape, identifies this as
+# collateral and must leave the latch available to that detector.
+QUOTA_GH_API_RACE_SOURCE="$TR/issue-gh-api-quota-race-source.sh"
+cat > "$QUOTA_GH_API_RACE_SOURCE" <<'EOF'
+#!/bin/bash
+source "$IIW_JOBS/common.sh"
+if start_api_cooldown 'gh-api:repos/kriscendobot/minion.town/pulls-review-metadata:primary-quota' 1200; then
+  sed -n '1p' "$GARDEN_API_COOLDOWN_MARKER" > "$IIW_OWNER_EXPIRY"
+fi
+echo 'gh api repos/kriscendobot/minion.town/issues admission refused: host-shared gh-api cooldown live (1200s left, tag gh-api:repos/kriscendobot/minion.town/pulls-review-metadata:primary-quota; API rate limit already exceeded for user); not issued' >&2
+exit 75
+EOF
+chmod +x "$QUOTA_GH_API_RACE_SOURCE"
+BARE_QUOTA_GH_API_RACE="$TR/quota-gh-api-race.git"; seed_bare "$BARE_QUOTA_GH_API_RACE"
+QUOTA_GH_API_RACE_STATE="$TR/state-quota-gh-api-race"
+QUOTA_GH_API_RACE_COOLDOWN="$TR/quota-gh-api-race-cooldown"
+QUOTA_GH_API_RACE_ERR="$TR/issue-watcher-gh-api-quota-race.err"
+QUOTA_GH_API_RACE_OWNER_EXPIRY="$TR/issue-watcher-gh-api-quota-race-owner.expiry"
+set +e
+env GARDEN_STATE="$QUOTA_GH_API_RACE_STATE" \
+    JOURNAL_REMOTE="$BARE_QUOTA_GH_API_RACE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_GARDEN_REPO="$REPO" GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
+    GARDEN_ISSUE_SOURCE="$QUOTA_GH_API_RACE_SOURCE" IIW_JOBS="$JOBS" \
+    IIW_OWNER_EXPIRY="$QUOTA_GH_API_RACE_OWNER_EXPIRY" \
+    GARDEN_ISSUE_REACTJI="$REACTSTUB" GARDEN_ISSUE_POST="$POSTSTUB" \
+    GARDEN_ISSUE_MSG="$MSGSTUB" GARDEN_ISSUE_MAINT_SEND="$MAINTSTUB" \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_API_COOLDOWN_SECS=300 \
+    GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    GARDEN_API_COOLDOWN_DIR="$QUOTA_GH_API_RACE_COOLDOWN" \
+    "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$QUOTA_GH_API_RACE_ERR"
+quota_gh_api_race_rc=$?
+set -e
+quota_gh_api_race_marker="$QUOTA_GH_API_RACE_COOLDOWN/marker"
+[ "$quota_gh_api_race_rc" -eq 0 ] \
+  && [ -z "$(cursor_seen "$QUOTA_GH_API_RACE_STATE" "$BARE_QUOTA_GH_API_RACE")" ] \
+  && ok "collateral refusal from a different gh-api source freezes the cursor" \
+  || bad "gh-api collateral refusal rc/cursor wrong (rc=$quota_gh_api_race_rc cursor=$(cursor_seen "$QUOTA_GH_API_RACE_STATE" "$BARE_QUOTA_GH_API_RACE"))"
+[ "$(sed -n '2p' "$quota_gh_api_race_marker")" = 'gh-api:repos/kriscendobot/minion.town/pulls-review-metadata:primary-quota' ] \
+  && [ "$(sed -n '3p' "$quota_gh_api_race_marker")" = primary-quota ] \
+  && [ "$(sed -n '1p' "$quota_gh_api_race_marker")" = "$(cat "$QUOTA_GH_API_RACE_OWNER_EXPIRY" 2>/dev/null)" ] \
+  && ok "collateral refusal preserves the different gh-api source's cooldown" \
+  || bad "gh-api collateral refusal adopted or changed the cooldown ($(tr '\n' ' ' < "$quota_gh_api_race_marker" 2>/dev/null))"
+[ "$(grep -Ec 'WARN:|admission refused|primary quota exhaustion|source:' "$QUOTA_GH_API_RACE_ERR" || true)" -eq 0 ] \
+  && ok "collateral refusal leaves the different gh-api detector's warning unclaimed" \
+  || bad "gh-api collateral refusal emitted a warning ($(cat "$QUOTA_GH_API_RACE_ERR"))"
+
 GHTRANSIENT="$TR/gh-transient-stub.sh"
 cat > "$GHTRANSIENT" <<'EOF'
 #!/bin/bash
