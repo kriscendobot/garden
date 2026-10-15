@@ -9957,6 +9957,33 @@ validate_job_frontmatter() {
   return 0
 }
 
+# job_has_execution_budget_declaration <job-file> — success iff the job's
+# leading frontmatter explicitly names the runtime shape that determines its
+# handler wall. Automatic/orchestrated work must not silently fall through to
+# the generic 2400-second default merely because routing metadata was present.
+# Read ONLY the leading frontmatter: prose that happens to contain `role:` is not
+# an execution declaration. A timeout counts only when the worker will honor it.
+job_has_execution_budget_declaration() {
+  awk '
+    NR == 1 {
+      if ($0 == "---") in_frontmatter=1
+      next
+    }
+    in_frontmatter && !closed && $0 == "---" { closed=1; next }
+    in_frontmatter && !closed {
+      line=$0
+      if (line ~ /^(role|handler-budget-role):/) {
+        value=line
+        sub(/^[^:]*:[ \t]*/, "", value)
+        sub(/[ \t\r]*$/, "", value)
+        if (value != "" && value != "\047\047" && value != "\"\"") found=1
+      }
+      if (line ~ /^handler-timeout:[ \t]*[1-9][0-9]*[ \t]*$/) found=1
+    }
+    END { exit (in_frontmatter && closed && found) ? 0 : 1 }
+  ' "$1"
+}
+
 # --- bounded qwen3.6 mentor-shaped trial -------------------------------------
 #
 # qwen3.6 remains classified `local/minion` in the closed inventory.  These

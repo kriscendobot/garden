@@ -25,9 +25,12 @@
 #   6. post-plan mirrors post-job: out-of-vocab tier WARNs (default) / refuses
 #      (strict); the parked body is what promote-plan later serves, so the mis-spec
 #      must be caught at park time too.
-#   7. job_tier logs ONE WARN on the silent rc-1 path (a non-empty tier outside
+#   7. An orchestrated post is REFUSED unless it declares role:,
+#      handler-budget-role:, or a positive handler-timeout:; each declaration
+#      form is accepted, while metadata-shaped prose is not.
+#   8. job_tier logs ONE WARN on the silent rc-1 path (a non-empty tier outside
 #      the vocabulary): rc is 1 AND a WARN was emitted (previously silent).
-#   8. job_tier stays SILENT and rc-1 for an EMPTY tier with an unknown model
+#   9. job_tier stays SILENT and rc-1 for an EMPTY tier with an unknown model
 #      (the empty-tier fall-through is NOT a mis-spec; no WARN there).
 #
 # Hermetic: a throwaway bare journal; no real garden, journal, or network.
@@ -156,18 +159,63 @@ err="$(GARDEN_JOB_FRONTMATTER_STRICT=1 "$JOBS/post-plan.sh" strict-plan-bad-tier
   && ok "6b post-plan STRICT refuses the out-of-vocab tier (non-zero, no job)" \
   || bad "6b post-plan STRICT did not refuse (rc=$rc)"
 
-# --- 7: job_tier logs ONE WARN on the silent rc-1 path ---------------------
+# --- 7: orchestrated children require an execution-budget declaration ------
+err="$("$JOBS/post-plan.sh" --orchestrated --orchestrated-by exec-orch \
+  missing-exec-budget "$(bodyfile "$BARE_BODY")" 2>&1 >/dev/null)"; rc=$?
+[ "$rc" -ne 0 ] && ! has plan/missing-exec-budget \
+  && printf '%s' "$err" | grep -q 'declare --role.*handler-budget-role:.*handler-timeout:' \
+  && ok "7a unclassified orchestrated child is refused before parking" \
+  || bad "7a unclassified orchestrated child was not refused clearly (rc=$rc; $err)"
+
+err="$("$JOBS/post-plan.sh" --orchestrated --orchestrated-by exec-orch \
+  --role fixer exec-by-option "$(bodyfile "$BARE_BODY")" 2>&1 >/dev/null)"; rc=$?
+[ "$rc" -eq 0 ] && has plan/exec-by-option \
+  && ok "7b --role supplies the orchestrated child's execution class" \
+  || bad "7b orchestrated child with --role did not park (rc=$rc; $err)"
+
+BUDGET_ROLE_BODY='---
+handler-budget-role: fixer
+---
+
+an orchestrated fixer-shaped child'
+err="$("$JOBS/post-plan.sh" --orchestrated --orchestrated-by exec-orch \
+  exec-by-budget-role "$(bodyfile "$BUDGET_ROLE_BODY")" 2>&1 >/dev/null)"; rc=$?
+[ "$rc" -eq 0 ] && has plan/exec-by-budget-role \
+  && ok "7c leading handler-budget-role supplies the execution class" \
+  || bad "7c child with handler-budget-role did not park (rc=$rc; $err)"
+
+TIMEOUT_BODY='---
+handler-timeout: 7200
+---
+
+an explicitly timed orchestrated child'
+err="$("$JOBS/post-plan.sh" --orchestrated --orchestrated-by exec-orch \
+  exec-by-timeout "$(bodyfile "$TIMEOUT_BODY")" 2>&1 >/dev/null)"; rc=$?
+[ "$rc" -eq 0 ] && has plan/exec-by-timeout \
+  && ok "7d positive handler-timeout supplies the execution budget" \
+  || bad "7d child with handler-timeout did not park (rc=$rc; $err)"
+
+PROSE_ROLE_BODY='role: fixer
+
+metadata-shaped prose is not frontmatter'
+err="$("$JOBS/post-plan.sh" --orchestrated --orchestrated-by exec-orch \
+  exec-prose-role "$(bodyfile "$PROSE_ROLE_BODY")" 2>&1 >/dev/null)"; rc=$?
+[ "$rc" -ne 0 ] && ! has plan/exec-prose-role \
+  && ok "7e metadata-shaped prose does not satisfy the execution contract" \
+  || bad "7e prose role was accepted as structured metadata (rc=$rc; $err)"
+
+# --- 8: job_tier logs ONE WARN on the silent rc-1 path ---------------------
 jt="$TR/jt-bad.md"; printf '%s\n' "$BAD_TIER_BODY" > "$jt"
 out="$(job_tier "$jt" 2>/dev/null)"; rc=$?
 [ "$rc" -ne 0 ] && [ -z "$out" ] \
-  && ok "7a job_tier still fails closed (rc-1, no stdout) on a bad tier" \
-  || bad "7a job_tier did not fail closed (rc=$rc out='$out')"
+  && ok "8a job_tier still fails closed (rc-1, no stdout) on a bad tier" \
+  || bad "8a job_tier did not fail closed (rc=$rc out='$out')"
 werr="$(job_tier "$jt" 2>&1 >/dev/null || true)"
 printf '%s' "$werr" | grep -qi "WARN.*tier 'builder'" \
-  && ok "7b job_tier logs a WARN on the previously-silent rc-1 path" \
-  || bad "7b job_tier did not WARN on the rc-1 path (got: $werr)"
+  && ok "8b job_tier logs a WARN on the previously-silent rc-1 path" \
+  || bad "8b job_tier did not WARN on the rc-1 path (got: $werr)"
 
-# --- 8: job_tier stays SILENT for an EMPTY tier (not a mis-spec) ------------
+# --- 9: job_tier stays SILENT for an EMPTY tier (not a mis-spec) ------------
 jt2="$TR/jt-empty.md"; printf '%s\n' '---
 model: no-such-model-xyz
 ---
@@ -175,8 +223,8 @@ model: no-such-model-xyz
 empty tier, unknown model' > "$jt2"
 werr="$(job_tier "$jt2" 2>&1 >/dev/null || true)"
 printf '%s' "$werr" | grep -qi 'WARN.*tier' \
-  && bad "8 job_tier wrongly WARNed on an EMPTY tier (empty is not a mis-spec)" \
-  || ok "8 job_tier stays silent on an empty tier (only the closed-vocab violation WARNs)"
+  && bad "9 job_tier wrongly WARNed on an EMPTY tier (empty is not a mis-spec)" \
+  || ok "9 job_tier stays silent on an empty tier (only the closed-vocab violation WARNs)"
 
 echo "----------------------------------------------------------------"
 echo "job-frontmatter-validation-test: PASS=$PASS FAIL=$FAIL"

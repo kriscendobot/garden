@@ -351,9 +351,9 @@ tada_failed "$bullet" \
 
 # ============================================================================
 hr; echo "SUBTEST 1 — SERIAL: promote one child at a time, in order"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-serial s-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-serial s-b >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-serial s-c >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-serial --role gardener s-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-serial --role gardener s-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-serial --role gardener s-c >/dev/null
 "$JOBS/post-orchestration.sh" --serial orch-serial s-a s-b s-c >/dev/null
 
 tick   # should promote s-a only
@@ -407,8 +407,8 @@ notice_with_fields 'orchestration-event: orchestration-terminal' \
 
 # ============================================================================
 hr; echo "SUBTEST 1b — BLOCKED SERIAL CHILD: wait for unblock.sh"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-blocked blocked-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-blocked blocked-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-blocked --role gardener blocked-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-blocked --role gardener blocked-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial orch-blocked blocked-a blocked-b >/dev/null
 tick
 block_child blocked-a upstream-merge
@@ -429,9 +429,9 @@ in_dir jobs/tada orch-blocked \
 
 # ============================================================================
 hr; echo "SUBTEST 2 — PARALLEL: promote all children at once"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par p-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par p-b >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par p-c >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par --role gardener p-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par --role gardener p-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par --role gardener p-c >/dev/null
 "$JOBS/post-orchestration.sh" --parallel orch-par p-a p-b p-c >/dev/null
 
 tick   # promote ALL three at once
@@ -457,8 +457,8 @@ tick   # all done → complete
 # A parallel failure is announced as soon as it appears, while another child is
 # still active. The persisted emission marker prevents routine ticks from
 # re-announcing the same unchanged failure after the inbox entry is drained.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par-fail pf-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par-fail pf-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par-fail --role gardener pf-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-par-fail --role gardener pf-b >/dev/null
 "$JOBS/post-orchestration.sh" --parallel --on-child-failure continue orch-par-fail pf-a pf-b >/dev/null
 tick
 complete_failed_child pf-a
@@ -486,9 +486,9 @@ in_dir jobs/tada orch-par-fail \
 
 # ============================================================================
 hr; echo "SUBTEST 3 — HALT: a serial child failure halts the run (policy=halt)"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-halt h-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-halt h-b >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-halt h-c >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-halt --role gardener h-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-halt --role gardener h-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-halt --role gardener h-c >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-halt h-a h-b h-c >/dev/null
 
 tick                      # promote h-a
@@ -561,8 +561,8 @@ n="$(grep -c '^SUPERSEDED ' "$sup" 2>/dev/null || echo 0)"
 
 # ============================================================================
 hr; echo "SUBTEST 4 — CONTINUE: a serial child failure proceeds (policy=continue)"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-cont c-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-cont c-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-cont --role gardener c-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-cont --role gardener c-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure continue orch-cont c-a c-b >/dev/null
 
 tick                      # promote c-a
@@ -604,8 +604,8 @@ doom_park_child() {  # doom_park_child <base>  — mimic the reaper's doom park
   rm -rf "$wt"
 }
 
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom x-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom x-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom --role gardener x-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom --role gardener x-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-doom x-a x-b >/dev/null
 
 tick                        # promote x-a
@@ -628,9 +628,9 @@ grep -qi '^orchestration-status: halted' "$(tada_report orch-doom)" 2>/dev/null 
 
 # A continue-policy run must omit the doomed predecessor from its tada requirements,
 # while still carrying the next successful predecessor into the promotion CAS.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont dc-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont dc-b >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont dc-c >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont --role gardener dc-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont --role gardener dc-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-doom-cont --role gardener dc-c >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure continue orch-doom-cont dc-a dc-b dc-c >/dev/null
 tick
 doom_park_child dc-a
@@ -701,8 +701,8 @@ claim_progressing() {  # claim_progressing <base> <reapcount>
   rm -rf "$wt"
 }
 
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-stall r-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-stall r-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-stall --role gardener r-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-stall --role gardener r-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-stall r-a r-b >/dev/null
 tick                            # promotes r-a and snapshots reaps=0
 claim_child r-a "$(date -u +%FT%TZ)"
@@ -729,8 +729,8 @@ grep -rqi 'stalled after 3 requeues on host stall-host' "$V/inbox/maintainer/unr
 
 # ============================================================================
 hr; echo "SUBTEST 7 — STALL: handler-timeout bounds claimed in-flight work"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-time t-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-time t-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-time --role gardener t-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-time --role gardener t-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-time t-a t-b >/dev/null
 tick
 claim_child t-a "$(date -u -d '2 minutes ago' +%FT%TZ)"
@@ -763,8 +763,8 @@ validation_ok=1
 
 # ============================================================================
 hr; echo "SUBTEST 9 — BUDGET FOLD: under cap promotes; epoch/outcome semantics"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-under u-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-under u-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-under --role gardener u-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-under --role gardener u-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --budget-tokens 100 orch-under u-a u-b >/dev/null
 append_usage u-a '{"ts":"2000-01-01T00:00:00Z","source":"result","outcome":"tada","input_tokens":900}'
 now="$(date -u +%FT%TZ)"
@@ -779,8 +779,8 @@ grep -q 'campaign spend 60/100' "$TR/tick.log" || fold_ok=0
 
 # ============================================================================
 hr; echo "SUBTEST 10 — EXACT CAP: stop terminally and preserve parked remainder"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-exact e-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-exact e-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-exact --role gardener e-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-exact --role gardener e-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --budget-tokens 100 orch-exact e-a e-b >/dev/null
 now="$(date -u +%FT%TZ)"
 append_usage e-a "{\"ts\":\"$now\",\"source\":\"result\",\"outcome\":\"tada\",\"input_tokens\":100,\"total_cost_usd\":2}"
@@ -797,8 +797,8 @@ grep -q '^campaign-parked-children: e-a e-b' "$(tada_report orch-exact)" 2>/dev/
 
 # ============================================================================
 hr; echo "SUBTEST 11 — OVERSHOOT: one admitted child may cross the cap"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-over o-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-over o-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-over --role gardener o-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-over --role gardener o-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --budget-tokens 100 orch-over o-a o-b >/dev/null
 tick
 complete_child o-a
@@ -817,7 +817,7 @@ grep -q '^campaign-unspent-tokens: 0' "$(tada_report orch-over)" 2>/dev/null || 
 hr; echo "SUBTEST 12 — COVERAGE: count unmetered rows; fail closed only on malformed rows"; hr
 for kind in unmetered malformed; do
   campaign="orch-$kind"; child="m-$kind"
-  "$JOBS/post-plan.sh" --orchestrated --orchestrated-by "$campaign" "$child" >/dev/null
+  "$JOBS/post-plan.sh" --orchestrated --orchestrated-by "$campaign" --role gardener "$child" >/dev/null
   "$JOBS/post-orchestration.sh" --serial --budget-tokens 100 "$campaign" "$child" >/dev/null
   if [ "$kind" = unmetered ]; then
     now="$(date -u +%FT%TZ)"; append_usage "$child" "{\"ts\":\"$now\",\"source\":\"none\",\"outcome\":\"fail\"}"
@@ -843,7 +843,7 @@ grep -q 'Recorded token spend excludes 1 unmetered engagement' "$(tada_report or
 
 # ============================================================================
 hr; echo "SUBTEST 13 — COMPLETION: report and notify unused budget"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-unspent n-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-unspent --role gardener n-a >/dev/null
 "$JOBS/post-orchestration.sh" --serial --budget-tokens 100 orch-unspent n-a >/dev/null
 tick
 complete_child n-a
@@ -877,8 +877,8 @@ in_dir jobs/plan e-b || resume_ok=0
 
 # ============================================================================
 hr; echo "SUBTEST 15 — PRODUCTIVE: a requeued child that advanced a HEAD stays active and advances its baseline"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-prod pr-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-prod pr-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-prod --role gardener pr-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-prod --role gardener pr-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-prod pr-a pr-b >/dev/null
 tick                              # promote pr-a, baseline reaps=0
 claim_child pr-a "$(date -u +%FT%TZ)"
@@ -898,8 +898,8 @@ rm -rf "$pview"
 
 # ============================================================================
 hr; echo "SUBTEST 16 — SERIAL GATE: N+1 is NOT promoted while N still occupies todo/doin"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-gate g-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-gate g-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-gate --role gardener g-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-gate --role gardener g-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure continue orch-gate g-a g-b >/dev/null
 tick                              # promote g-a
 in_dir jobs/todo g-a || bad "gate setup: g-a not promoted"
@@ -922,8 +922,8 @@ tick                              # disappearance is terminal failure evidence
 
 # ============================================================================
 hr; echo "SUBTEST 17 — GATED TADA: report the declared failure, never 'vanished'"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-decl d-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-decl d-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-decl --role gardener d-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-decl --role gardener d-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-decl d-a d-b >/dev/null
 tick
 complete_failed_child d-a
@@ -939,9 +939,9 @@ grep -q 'vanished from the board' "$(tada_report orch-decl)" 2>/dev/null && decl
 
 # ============================================================================
 hr; echo "SUBTEST 17b — AUTH PARK: interactive auth holds validation without deployment failure"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth auth-deploy >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth auth-root-canary >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth auth-rate-cap >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth --role gardener auth-deploy >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth --role gardener auth-root-canary >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-auth --role gardener auth-rate-cap >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-auth \
   auth-deploy auth-root-canary auth-rate-cap >/dev/null
 tick
@@ -975,8 +975,8 @@ grep -qx 'orchestrated_by: orch-auth-resume' "$V/jobs/plan/auth-rate-cap.md" 2>/
 
 # ============================================================================
 hr; echo "SUBTEST 18 — SNAPSHOT: completed child survives a half-applied checkout read"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-snapshot snap-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-snapshot snap-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-snapshot --role gardener snap-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-snapshot --role gardener snap-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-snapshot snap-a snap-b >/dev/null
 tick
 complete_child snap-a
@@ -994,8 +994,8 @@ in_dir jobs/plan snap-b && snapshot_ok=0
 
 # ============================================================================
 hr; echo "SUBTEST 19 — INCONSISTENT: duplicate board locations retry without failure"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-inconsistent dup-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-inconsistent dup-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-inconsistent --role gardener dup-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-inconsistent --role gardener dup-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-inconsistent dup-a dup-b >/dev/null
 dupwt="$(mktemp -d "$TR/edit.XXXXXX")"
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$dupwt"
@@ -1031,8 +1031,8 @@ hr; echo "SUBTEST 20 — GONE RECHECK: a completing child's transient gone read 
 # processed first would sync_clone the shared clone and discard the transient local
 # snapshot below before this orchestration ever reads it. Sorting first guarantees
 # aa-a is the first child_state read after the after-sync hook.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone aa-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone aa-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone --role gardener aa-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone --role gardener aa-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt aa-gone aa-a aa-b >/dev/null
 tick                       # promote aa-a
 complete_child aa-a        # aa-a's tada lands on origin
@@ -1058,8 +1058,8 @@ in_dir jobs/plan aa-b && gone_ok=0             # aa-b no longer parked
 
 # Negative control: a child that is GENUINELY gone (origin also has no record) must
 # still fail — the re-sync confirms the disposition rather than masking a real doom.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone2 aa2-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone2 aa2-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone2 --role gardener aa2-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone2 --role gardener aa2-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt aa-gone2 aa2-a aa2-b >/dev/null
 tick
 fail_child aa2-a                               # genuine doom-drop: gone on origin
@@ -1074,8 +1074,8 @@ in_dir jobs/plan aa2-b || gg_ok=0              # aa2-b remains parked
 
 # ============================================================================
 hr; echo "SUBTEST 21 — SHARDED TADA: a sharded child completion advances serial orchestration"; hr
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by zz-sharded zz-shard-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by zz-sharded zz-shard-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by zz-sharded --role gardener zz-shard-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by zz-sharded --role gardener zz-shard-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt zz-sharded zz-shard-a zz-shard-b >/dev/null
 tick
 complete_child_sharded zz-shard-a
@@ -1101,8 +1101,8 @@ hr; echo "SUBTEST 22 - SERIAL CAS: N+1 promotion revalidates N=tada in the autho
 #
 # This orchestration sorts first so no older record can re-sync the watcher clone
 # and erase the injected snapshot before this record is evaluated.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-serial-cas 00-cas-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-serial-cas 00-cas-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-serial-cas --role gardener 00-cas-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-serial-cas --role gardener 00-cas-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt 00-serial-cas 00-cas-a 00-cas-b >/dev/null
 stale_serial="$TR/stale-serial.sh"
 printf '%s\n' '#!/bin/sh' \
@@ -1176,7 +1176,7 @@ rc=0; "$JOBS/post-orchestration.sh" --serial val-orch-b vd-a >/dev/null 2>&1 || 
 [ "$rc" -ne 0 ] || { val_ok=0; echo "    deferred child was accepted"; }
 in_dir jobs/orch val-orch-b && { val_ok=0; echo "    record written for deferred child"; }
 # (c) a child already owned by ANOTHER orchestration is refused (no theft).
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by other-orch vo-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by other-orch --role gardener vo-a >/dev/null
 rc=0; "$JOBS/post-orchestration.sh" --serial val-orch-c vo-a >/dev/null 2>&1 || rc=$?
 [ "$rc" -ne 0 ] || { val_ok=0; echo "    foreign-owned child was accepted"; }
 in_dir jobs/orch val-orch-c && { val_ok=0; echo "    record written stealing a foreign child"; }
@@ -1266,8 +1266,8 @@ hr; echo "SUBTEST 25 — TADA AUTHORITY: an inferred in-flight stall re-checks t
 # completion lands). The base sorts FIRST among running orchestrations so its
 # child_state read happens immediately after the after-sync hook, before any sibling
 # sync_clone discards the transient snapshot (same discipline as SUBTEST 20).
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-a-tada ta-x >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-a-tada ta-y >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-a-tada --role gardener ta-x >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-a-tada --role gardener ta-y >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt 00-a-tada ta-x ta-y >/dev/null
 tick                        # promote ta-x
 complete_child ta-x         # ta-x's tada lands on origin (the fresh, authoritative state)
@@ -1313,8 +1313,8 @@ age_promotion() {  # age_promotion <base> <old-iso-ts> — backdate the promotio
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by fs-orch fs-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by fs-orch fs-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by fs-orch --role gardener fs-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by fs-orch --role gardener fs-b >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt fs-orch fs-a fs-b >/dev/null
 tick                        # promote fs-a (queued in todo, promotion marker at=now)
 age_promotion fs-a "$(date -u -d '2 hours ago' +%FT%TZ)"   # backdate WELL past the 2400s default
@@ -1339,9 +1339,9 @@ hr; echo "SUBTEST 27 — RESUME: a halt whose blamed child later completes resum
 # RECOVERED on a reaper requeue and completed — yet children 2-4 sat parked for two
 # weeks on a false "done" count. When the halt-blamed child is later observed complete,
 # the campaign must CONTINUE: re-post the parked remainder and correct the record.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch re-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch re-b >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch re-c >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch --role gardener re-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch --role gardener re-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by re-orch --role gardener re-c >/dev/null
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt re-orch re-a re-b re-c >/dev/null
 tick                        # promote re-a
 fail_child re-a             # re-a vanishes (doom-drop) → HALT next tick
@@ -1398,8 +1398,8 @@ unread_notice() {  # unread_notice <msg-subject> → path of the unread entry un
 }
 
 # (a) LIVE: doomed while a sibling is still running, re-promoted, then tadas cleanly.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rc-orch rc-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rc-orch rc-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rc-orch --role gardener rc-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rc-orch --role gardener rc-b >/dev/null
 "$JOBS/post-orchestration.sh" --parallel --on-child-failure continue rc-orch rc-a rc-b >/dev/null
 tick                                  # promote both
 doom_park_child rc-a
@@ -1434,8 +1434,8 @@ notice_with_fields 'orchestration-event: orchestration-terminal' 'orchestration:
 
 # (b) AFTER TERMINAL: the run finished complete-with-failures, then the blamed child
 # tadas cleanly (the incident's exact shape) → the record and pages are reconciled.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rp-orch rp-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rp-orch rp-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rp-orch --role gardener rp-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rp-orch --role gardener rp-b >/dev/null
 "$JOBS/post-orchestration.sh" --parallel --on-child-failure continue rp-orch rp-a rp-b >/dev/null
 tick
 doom_park_child rp-a; complete_child rp-b
@@ -1483,9 +1483,9 @@ r="$(tada_report lg-orch)"
   || bad "legacy reconcile wrong: $(tr '\n' '|' < "$r")"
 
 # (d) REAL failures still fail: a gated-failure tada and a vanished child.
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch rf-a >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch rf-b >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch rf-c >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch --role gardener rf-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch --role gardener rf-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch --role gardener rf-c >/dev/null
 "$JOBS/post-orchestration.sh" --parallel --on-child-failure continue rf-orch rf-a rf-b rf-c >/dev/null
 tick
 complete_failed_child rf-a; fail_child rf-b; complete_child rf-c
@@ -1502,7 +1502,7 @@ r="$(tada_report rf-orch)"
 # fleet default: a builder claimed 42 minutes ago (the incident) is still active.
 bb="$TR/builder-body.md"; printf '%s\n' '---' 'role: builder' '---' '# long build' > "$bb"
 "$JOBS/post-plan.sh" --orchestrated --orchestrated-by rb-orch rb-a "$bb" >/dev/null
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rb-orch rb-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rb-orch --role gardener rb-b >/dev/null
 "$JOBS/post-orchestration.sh" --parallel --on-child-failure continue rb-orch rb-a rb-b >/dev/null
 tick
 claim_child rb-a "$(date -u -d '2520 seconds ago' +%FT%TZ)"

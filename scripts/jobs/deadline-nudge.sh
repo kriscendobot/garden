@@ -337,7 +337,7 @@ stage_due_messages() {
       printf 'Deadline nudge: about %s minutes remain in this attempt. Wrap up now. ' "$minutes"
       printf 'Use the budget fields above to choose: continue only if the remaining unit fits; post a parked successor with `post-plan.sh --budget-hold` for quota refresh, `post-plan.sh --go-ahead` for maintainer authorization, or `post-plan.sh --deferred` for priority parking. '
       printf 'For one continuous, sequential unit, commit and push safe progress, post one successor with `post-job.sh <successor-base>` and an appropriate `handler-timeout:`, and do not fan it out across agents; then declare the evidenced handoff. '
-      printf 'For separable stages, park children with `post-plan.sh --orchestrated --orchestrated-by <orch>` and record them with `post-orchestration.sh`; use `--budget-tokens` to distribute a campaign cap. '
+      printf 'For separable stages, park children with `post-plan.sh --orchestrated --orchestrated-by <orch>` and an explicit `--role`, `handler-budget-role:`, or `handler-timeout:`, then record them with `post-orchestration.sh`; use `--budget-tokens` to distribute a campaign cap. '
       printf 'An unfinished deliverable must never claim clean completion. After the successor or orchestration is durably posted, report what is complete and what remains, then end with `<<<GARDEN-JOB-HANDED-OFF: <successor-base-or-orch>>>` immediately before the completion signal. '
       printf '%s\n' 'That records `handed-off:` and `deliverable-complete: false`; without a durable named successor the handoff is rejected.'
     } > "$DIR/$message_path"

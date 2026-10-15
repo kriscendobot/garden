@@ -248,32 +248,6 @@ read_body() {
 }
 BODY="$(read_body)"
 
-# Return success when a fresh atomic child explicitly identifies the runtime shape
-# that determines its handler wall. Atomic children are automatically routed, so a
-# body with no structured role/budget otherwise looks valid after routing but falls
-# through to the generic 2400s budget. Read ONLY the source's leading frontmatter:
-# a prose line such as `role: builder` must not accidentally satisfy the contract.
-atomic_child_has_handler_metadata() {
-  awk '
-    NR == 1 {
-      if ($0 == "---") in_frontmatter=1
-      next
-    }
-    in_frontmatter && !closed && $0 == "---" { closed=1; next }
-    in_frontmatter && !closed {
-      line=$0
-      if (line ~ /^(role|handler-budget-role):/) {
-        value=line
-        sub(/^[^:]*:[ \t]*/, "", value)
-        sub(/[ \t\r]*$/, "", value)
-        if (value != "" && value != "\047\047" && value != "\"\"") found=1
-      }
-      if (line ~ /^handler-timeout:[ \t]*[1-9][0-9]*[ \t]*$/) found=1
-    }
-    END { exit (in_frontmatter && closed && found) ? 0 : 1 }
-  ' "$1"
-}
-
 # Atomic-child bodies follow the same write-side pipeline as post-plan.sh: reject
 # malformed execution frontmatter in strict mode, require an explicit runtime
 # role/budget, normalize automatic routing, and clear stale reaper/gardener cycle
@@ -291,7 +265,7 @@ if [ "$atomic_children" -eq 1 ]; then
     if ! validate_job_frontmatter "$prepared"; then
       die "refusing to park child '${children[$i]}': job frontmatter failed validation (unset GARDEN_JOB_FRONTMATTER_STRICT to WARN and park anyway)"
     fi
-    if ! atomic_child_has_handler_metadata "$prepared"; then
+    if ! job_has_execution_budget_declaration "$prepared"; then
       die "refusing to park child '${children[$i]}': an atomic automatic child must declare a non-empty role:, handler-budget-role:, or positive handler-timeout: in leading frontmatter"
     fi
     routed="$atomic_tmp/$i.routed"
@@ -426,16 +400,16 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
         elif [ "$cgate" = orchestrated ]; then
           die "child '$c' is orchestrated but owned by '${cowner:-?}', not '$base'; a child cannot belong to two orchestrations"
         elif [ "$cgate" = go-ahead ]; then
-          die "child '$c' is parked gate=go-ahead; pass --adopt-go-ahead to adopt it into '$base', or re-park it with post-plan.sh --orchestrated --orchestrated-by $base $c"
+          die "child '$c' is parked gate=go-ahead; pass --adopt-go-ahead to adopt it into '$base', or re-park it with post-plan.sh --orchestrated --orchestrated-by $base plus an execution-budget declaration"
         else
-          die "child '$c' is parked gate=$cgate; an orchestration child must be gate=orchestrated owned by '$base' (park it with post-plan.sh --orchestrated --orchestrated-by $base $c)"
+          die "child '$c' is parked gate=$cgate; an orchestration child must be gate=orchestrated owned by '$base' (park it with post-plan.sh --orchestrated --orchestrated-by $base plus an execution-budget declaration)"
         fi
       elif job_in_lifecycle "$DIR" "$c"; then
         :   # already promoted (todo/doin/tada) — a restart-safe re-post
       elif [ "$atomic_children" -eq 1 ]; then
         :   # fresh child: composed and staged with the record below
       else
-        die "child '$c' is not parked in plan/ (or anywhere on the board); park it first with post-plan.sh --orchestrated --orchestrated-by $base $c"
+        die "child '$c' is not parked in plan/ (or anywhere on the board); park it first with post-plan.sh --orchestrated --orchestrated-by $base plus an execution-budget declaration"
       fi
     done
   fi

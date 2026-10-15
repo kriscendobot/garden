@@ -55,6 +55,10 @@
 #                            required with --awaiting-maintainer and illegal otherwise.
 #   --orchestrated-by ORCH   the owning orchestration base for an --orchestrated
 #                            child. Required with --orchestrated; illegal otherwise.
+#                            An orchestrated child must also declare its execution
+#                            budget through --role, leading `role:` or
+#                            `handler-budget-role:`, or a positive
+#                            `handler-timeout:` (including the indivisible option).
 #   --split-indivisible-reason REASON
 #   --split-indivisible-handler-timeout SECONDS
 #                            paired metadata for an indivisible --orchestrated
@@ -146,6 +150,8 @@ Usage:
   --not-before ISO-UTC     earliest foreman promotion instant; stored canonically.
   --blocked-on ARTIFACT    the blocker (PR URL or job basename); required with --blocked.
   --orchestrated-by ORCH   the owning orchestration base; required with --orchestrated.
+                           The child must also declare --role, leading role: or
+                           handler-budget-role:, or a positive handler-timeout:.
   --deployed-predecessor CHILD
                            hold until CHILD's landed SHA is deployed on the leader.
   --deployed-predecessor-sha SHA
@@ -343,6 +349,17 @@ printf '%s\n' "$BODY" > "$_fm_tmp"
 if ! validate_job_frontmatter "$_fm_tmp"; then
   rm -f "$_fm_tmp"
   die "refusing to park '$base': job frontmatter failed validation (unset GARDEN_JOB_FRONTMATTER_STRICT to WARN and park anyway)"
+fi
+# Orchestrated children are promoted by a deterministic watcher and become
+# runnable without a maintainer revisiting their runtime shape. Refuse an
+# unclassified child here, before it can consume a claim at the generic 2400s
+# default. --role and the indivisible timeout are composed outside BODY, so count
+# those explicit producer options alongside declarations in BODY frontmatter.
+if [ "$gate" = orchestrated ] && [ -z "$role" ] \
+   && [ -z "$split_indivisible_handler_timeout" ] \
+   && ! job_has_execution_budget_declaration "$_fm_tmp"; then
+  rm -f "$_fm_tmp"
+  die "refusing to park orchestrated child '$base': declare --role, a non-empty leading role: or handler-budget-role:, or a positive handler-timeout:"
 fi
 rm -f "$_fm_tmp"
 

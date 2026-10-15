@@ -150,7 +150,7 @@ grep -qx 'arc: beta' "$V/jobs/todo/p-beta.md" 2>/dev/null \
 
 # --- producers stamp and inherit ---------------------------------------------
 "$JOBS/post-plan.sh" --arc beta --role builder p-posted </dev/null >/dev/null 2>&1
-"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-a child-a </dev/null >/dev/null 2>&1
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-a --role gardener child-a </dev/null >/dev/null 2>&1
 "$JOBS/post-orchestration.sh" --arc alpha orch-a child-a >/dev/null 2>&1
 refresh
 grep -qx 'arc: beta' "$V/jobs/plan/p-posted.md" && ok "post-plan.sh --arc stamps arc:" || bad "post-plan --arc"
