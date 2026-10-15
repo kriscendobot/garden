@@ -461,6 +461,64 @@ quota_expiry="$(sed -n '1p' "$QUOTA_COOLDOWN/marker" 2>/dev/null || echo 0)"
   && ok "watcher arms the shared cooldown for the primary-quota window" \
   || bad "primary-quota cooldown expiry too short/missing ($quota_expiry)"
 
+# A sibling can open the primary-quota latch after this watcher passed its
+# head-of-tick guard but before its source obtains admission.  The resulting
+# synthetic refusal carries primary-rate-limit wording; it must be treated as
+# collateral, not adopted as a fresh outage that changes the owner's deadline or
+# repeats its warning (2026-10-15 06:08:26Z).
+QUOTA_RACE_SOURCE="$TR/issue-primary-quota-race-source.sh"
+cat > "$QUOTA_RACE_SOURCE" <<'EOF'
+#!/bin/bash
+source "$IIW_JOBS/common.sh"
+if start_api_cooldown 'comment:kriskowal-garden:primary-quota' 1200; then
+  echo 'WARN: primary quota owner opened the cooldown' >> "$IIW_OWNER_LOG"
+  sed -n '1p' "$GARDEN_API_COOLDOWN_MARKER" > "$IIW_OWNER_EXPIRY"
+fi
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  issue-comment 2026-10-15T06:08:26Z 15060826 10 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/10#issuecomment-15060826 \
+  'This partial row must not advance the cursor.'
+echo 'gh api repos/kriskowal/garden/issues admission refused: host-shared gh-api cooldown live (1200s left, tag comment:kriskowal-garden:primary-quota; API rate limit already exceeded for user); not issued' >&2
+exit 75
+EOF
+chmod +x "$QUOTA_RACE_SOURCE"
+BARE_QUOTA_RACE="$TR/quota-race.git"; seed_bare "$BARE_QUOTA_RACE"
+QUOTA_RACE_STATE="$TR/state-quota-race"
+QUOTA_RACE_COOLDOWN="$TR/quota-race-cooldown"
+QUOTA_RACE_ERR="$TR/issue-watcher-primary-quota-race.err"
+QUOTA_RACE_OWNER_LOG="$TR/issue-watcher-primary-quota-race-owner.log"
+QUOTA_RACE_OWNER_EXPIRY="$TR/issue-watcher-primary-quota-race-owner.expiry"
+: > "$QUOTA_RACE_OWNER_LOG"
+set +e
+env GARDEN_STATE="$QUOTA_RACE_STATE" \
+    JOURNAL_REMOTE="$BARE_QUOTA_RACE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_GARDEN_REPO="$REPO" GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
+    GARDEN_ISSUE_SOURCE="$QUOTA_RACE_SOURCE" IIW_JOBS="$JOBS" \
+    IIW_OWNER_LOG="$QUOTA_RACE_OWNER_LOG" \
+    IIW_OWNER_EXPIRY="$QUOTA_RACE_OWNER_EXPIRY" \
+    GARDEN_ISSUE_REACTJI="$REACTSTUB" GARDEN_ISSUE_POST="$POSTSTUB" \
+    GARDEN_ISSUE_MSG="$MSGSTUB" GARDEN_ISSUE_MAINT_SEND="$MAINTSTUB" \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_API_COOLDOWN_SECS=300 \
+    GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    GARDEN_API_COOLDOWN_DIR="$QUOTA_RACE_COOLDOWN" \
+    "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$QUOTA_RACE_ERR"
+quota_race_rc=$?
+set -e
+quota_race_marker="$QUOTA_RACE_COOLDOWN/marker"
+quota_race_expiry="$(sed -n '1p' "$quota_race_marker" 2>/dev/null || echo 0)"
+[ "$quota_race_rc" -eq 0 ] && [ -z "$(cursor_seen "$QUOTA_RACE_STATE" "$BARE_QUOTA_RACE")" ] \
+  && ok "collateral primary-quota refusal exits cleanly with the cursor frozen" \
+  || bad "collateral refusal rc/cursor wrong (rc=$quota_race_rc cursor=$(cursor_seen "$QUOTA_RACE_STATE" "$BARE_QUOTA_RACE"))"
+[ "$(sed -n '2p' "$quota_race_marker")" = 'comment:kriskowal-garden:primary-quota' ] \
+  && [ "$(sed -n '3p' "$quota_race_marker")" = primary-quota ] \
+  && [ "$quota_race_expiry" = "$(cat "$QUOTA_RACE_OWNER_EXPIRY" 2>/dev/null)" ] \
+  && ok "collateral refusal preserves the primary cooldown owner and deadline" \
+  || bad "collateral refusal replaced or extended the cooldown ($(tr '\n' ' ' < "$quota_race_marker" 2>/dev/null))"
+[ "$(grep -c 'WARN:' "$QUOTA_RACE_OWNER_LOG" || true)" -eq 1 ] \
+  && [ "$(grep -Ec 'WARN:|admission refused|primary quota exhaustion|source:' "$QUOTA_RACE_ERR" || true)" -eq 0 ] \
+  && ok "only the primary cooldown owner's warning is emitted" \
+  || bad "collateral refusal repeated the warning (owner=$(cat "$QUOTA_RACE_OWNER_LOG") watcher=$(cat "$QUOTA_RACE_ERR"))"
+
 GHTRANSIENT="$TR/gh-transient-stub.sh"
 cat > "$GHTRANSIENT" <<'EOF'
 #!/bin/bash

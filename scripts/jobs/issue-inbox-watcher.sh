@@ -679,6 +679,21 @@ if [ "$src_rc" -ne 0 ]; then
   # this parent owns the shared cooldown and its ONE warning. Keep this branch
   # before the text-only compatibility paths and before SRC is ever processed.
   if is_nonattributable_rc "$src_rc"; then
+    # The source can pass the head-of-tick guard and then lose REST admission after
+    # a sibling opens the primary-quota latch.  Its synthetic refusal contains
+    # primary-rate-limit wording, but it is collateral evidence, not a new outage.
+    # Honor the latch before reading that diagnostic: preserve its original owner,
+    # deadline, and sole warning while freezing this watcher's cursor.
+    # A raw `gh-api:` latch was opened by this source's own failed request; let
+    # the watcher adopt it below so that captured owner warning reaches the unit
+    # log.  Any already-attributed latch belongs to an earlier detector.
+    if api_primary_quota_cooldown_active rest; then
+      primary_owner="$(sed -n '2p' "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null || true)"
+      if [[ "$primary_owner" != gh-api:* ]]; then
+        issue_heartbeat_outcome=cooldown
+        exit 0
+      fi
+    fi
     source_diag="$(grep -v '^[[:space:]]*$' "$ERRF" 2>/dev/null | tail -1 \
       | sed -E 's/^<[0-9]>//; s/^[^[]*\[[^]]+\] WARN:[[:space:]]*//' \
       | tr '\n\t' '  ' | cut -c1-300 || true)"
