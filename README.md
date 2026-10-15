@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-15T08:24:43Z_
+_As of 2026-10-15T08:27:39Z_
 
 ## Latest
 
@@ -453,12 +453,12 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #167 (first seen 2026-10-14T06:48:44Z, latest 2026-10-15T08:20:34Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 167 times; this is ONE
-> coalesced notice that updates in place, not 167 messages. Latest detail:
+> WATCHDOG notice — occurrence #168 (first seen 2026-10-14T06:48:44Z, latest 2026-10-15T08:25:29Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 168 times; this is ONE
+> coalesced notice that updates in place, not 168 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1435](https://github.com/endojs/endo-but-for-bots/pull/1435)#issuecomment-6183694192 (age=17601s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1435](https://github.com/endojs/endo-but-for-bots/pull/1435)#issuecomment-6183694192 (age=17901s; heartbeat=full-poll)
 
 - `kriscendobot-minion.town-pr183-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr183-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr183-gauntlet-review-budget-reached.md)
 
@@ -1708,7 +1708,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 266.0M | $1261.78 _(notional, rate-card)_ | 98% of 271.0M (backoff) |
-| Codex | 33.5M _(+1153.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 33.5M _(+1153.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101435003 tokens/day lower bound._
 
@@ -1716,10 +1716,11 @@ _Fleet token-unlock pace: 101435003 tokens/day lower bound._
 worst fetch p95 45.001154s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 16 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (13)
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #186
 - [`kriscendobot-minion.town-pr188-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr188-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #188
 - [`kriscendobot-garden-book-pr15-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/garden-book PR #15
+- [`endojs-endo-but-for-bots-pr1392-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1392-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1392
 - [`improve-semantic-rejection-service-health`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-semantic-rejection-service-health.md) — ---
 - [`improve-require-execution-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-require-execution-role.md) — ---
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1391-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1391
