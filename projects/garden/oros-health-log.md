@@ -2,6 +2,25 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-15T07:05Z (oros-health-checkup-20261015-062034): degraded (producer-clone journal writes take ~45s per CAS attempt, so writes lose races at only ~2 commits/min) → one stuck close notice delivered by hand; follow-up posted
+
+- **Load/mem:** load 3.1/3.3/3.7; 12 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1% (165k).
+- **Uptime:** 13d13h, no reboot.
+- **Deployed vs main2:** root at `cbef9daa`; origin/main2 is `e646acc3`, one commit ahead. fleet/health (06:47Z): `roll_status: deferred`, `long-job monk 3` (1796s), with 0 of 292 units failed. Self-deploy should land once that job ends. Nothing blocks it, so no help was needed.
+- **Units:** 0 failed; monks 1 to 6 running (scaler-managed). Not draining. The only derotation marker is endolin-garden2's.
+- **Budget heartbeat:** claude-oros sampled at 06:32Z, status ok, 11% used. Pushes are on cadence (05:33, 05:49, 06:04, 06:19, 06:32 all landed).
+- **State clones:** 76 clones, each at or below about 50 packs (the threshold), with no tmp_pack and no `gc.log`. The transcript clone has no tmp_pack. The `*.lock` files are persistent flock inodes, not stale locks.
+- **rc=124 (3h):** monk/4 `pr1393-gauntlet-clean` hit its 7200s wall clock (×1, transient). journal-contention-watch deferred notice deliveries (below).
+- **Finding:**
+  - From 05:18Z, journal-contention-watch failed to deliver one notice on every tick (rc=124): the close for `journal-fetch-slow-_Users_dom_garden_journal`. It was still open in `inbox/maintainer/unread`.
+  - Cause: `watchdog-notice.sh` syncs the shared producer clone with `reset --hard origin/journal2`. Under current contention each reset takes 20–30s, and the resets run one at a time behind the producer repo lock. One push attempt costs about 45–60s, and a lost CAS race starts another. The watch's pre-sweep share (about 80s) cannot fit one losing round.
+  - A read-only index refresh of that clone takes 1.8s, so the cost is in the reset's write path or in waiting for the lock, not in stat'ing files.
+- **Same cause hits `post-job.sh`:** posting the follow-up job lost 7 races and hit its 300s deadline (rc=75) at 07:08Z, while journal2 took only 33 commits in 15 minutes. Posting succeeded with `GARDEN_POST_DEADLINE_SECS=540` (2 attempts). The bottleneck is how long each local attempt takes, not how many commits land on journal2. This is the same mechanism as the 10-01 diagnosis (heartbeat gaps from CAS losses under load). The budget heartbeat itself is unaffected, because it already uses the worktree-less CAS.
+- **Changed:** delivered the close by hand with a 900s bound; it took 188s and 3 attempts, and the notice is now marked RECOVERED. The watch's next tick cleared its own pending state. Killed one orphaned `git reset` of mine (left after an earlier timeout of mine; it held the producer `index.lock` briefly).
+- **Follow-up posted:** `watchdog-notice-worktreeless-cas`: port `watchdog-notice.sh` to the worktree-less CAS that `ec4cc369`, `0411ed9f`, `bdc2943c` and `ca5aa15d` used for the other producers.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-15T05:20Z (oros-health-checkup-20261015-032033): healthy (deployed = origin/main2 `cbef9daa`) → one orphaned tmp_pack removed
 
 - **Load/mem:** load 3.4/3.4/2.3; 13 GiB of 15 GiB available; swap 533 MiB used.
