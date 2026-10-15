@@ -1,0 +1,5 @@
+# Retired budget sources: tombstones that keep a dead subscription or host out
+# of the live registries. Written by retire-subscription.sh. Tab-separated:
+# kind	id	retired_at	authorized_by	message_id	reason
+subscription	claude-endolin2	2026-10-15T21:54:16Z	kriskowal	liaison-muster-20261015	endolin2 retired per maintainer (liaison muster 2026-10-15): no further tokens from that pool; host last reported 2026-10-09
+host	endolin-garden2-5bcdff64	2026-10-15T21:54:16Z	kriskowal	liaison-muster-20261015	endolin2 retired per maintainer (liaison muster 2026-10-15): no further tokens from that pool; host last reported 2026-10-09
