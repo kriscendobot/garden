@@ -83,3 +83,13 @@ Declined or deferred:
 - XS coverage (engine-realist, coverage-auditor). `marshal`'s `test:xs` is `exit 0` and pass-style and patterns have no XS harness, as the body already states. This stays deferred.
 - Changing the `makeParcel` test helpers to use the `@endo/parcel` export (procurer, should-fix), and adding fast-check properties (fast-checker, summary-fix). Both are left for a follow-up.
 =====END SUMMARY=====
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T14:29:02Z
