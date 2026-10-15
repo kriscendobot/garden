@@ -26,3 +26,13 @@ only #774's intended layer. Run affected tests and gates, drive CI green, reply
 to any applicable review threads, and post the required top-level summary.
 
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T02:36:41Z
