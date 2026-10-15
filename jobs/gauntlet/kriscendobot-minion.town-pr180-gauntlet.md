@@ -11,11 +11,11 @@ created_by: producer
 created_at: 2026-10-11T03:48:03Z
 arc: minion-town-git-remote
 added_rounds: 1
-stage: panel
+stage: fix
 iteration: 9
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr180-gauntlet-panel-9
+current_child: kriscendobot-minion.town-pr180-gauntlet-fix-9
 state: running
 resumed_at: 2026-10-14T21:52:23Z
 resumed_from_stage: fix
