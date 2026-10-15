@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1393-parcel-restack-20261015-r5527149922-split
+role: fixer
+tier: mentor
 handler-timeout: 10800
 split-indivisible-reason: 'The Parcel semantic adaptation changes the same commit range that must be rebased and conflict-resolved against PR #1392, so splitting would make either child operate on a non-final history and invalidate patch-identity and exact-head CI evidence.'
 split-lineage-root: endojs-endo-but-for-bots-pr1393-parcel-restack-20261015-r5527149922
 split-lineage-parent: endojs-endo-but-for-bots-pr1393-parcel-restack-20261015-r5527149922-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-10-15T13:25:34Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-15T13:26:41Z cleared=none -->
 
 ---
 role: fixer
