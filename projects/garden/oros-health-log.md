@@ -2,6 +2,24 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-15T02:30Z (oros-health-checkup-20261015-002013): degraded (transcript capture killed every hourly tick, 27 GB of orphaned tmp_packs) → repaired on-host; fix on main2 `7718822b`
+
+- **Load/mem:** load 3.2/3.3/3.5; 13 GiB of 16 GiB available; swap 532 MiB used.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (165k).
+- **Uptime:** 13d8h, no reboot.
+- **Deployed vs main2:** root at `8d47418e`. origin/main2 was `85389eda` at claim and is now `7718822b`. fleet/health (01:14Z): `roll_status: deployed`, 0 of 293 units failed. Self-deploy deferred at 01:58Z because monk 5 was mid-job for 1354s. That is the normal long-job rule; no drain was engaged.
+- **Units:** 0 failed; monks 1 to 6 running (the scaler wants 6; the cap row is 8). No drain; no oros derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 01:33Z, status ok, 3% used; the file was updated at 01:45Z.
+- **rc=124 (3h):** transcript-capture self-heal 600s kill on every tick (the finding below). journal-contention-watch finishes every tick but defers its notice delivery (`2s tick budget remaining`), which `85389eda` fixes when it deploys. deploy-garden ×1.
+- **Finding (repaired on-host, fixed on main2 `7718822b`):**
+  - Every hourly `garden-transcript-capture` tick hit the self-heal 600s handler bound before pushing, so the script's own 720s tick deadline never applied. oros has been archiving no transcripts, and 679 spool rows are backlogged.
+  - The cause: each `git add` in the sparse, blob:none capture clone spent about 14s in `clear_skip_worktree_from_present_files`, and a batch is 32 adds.
+  - Each kill left a 1-2 GB `tmp_pack` behind: 21 of them, 27 GB in `$GARDEN_STATE/transcripts/clone`. Earlier notes' "no tmp_pack" missed this clone.
+  - On-host: set `sparse.expectFilesOutsideOfPatterns=true` on the clone (one add now takes 0.08s) and deleted the stale tmp_packs (27G → 4.1G). Also removed a stray empty `$GARDEN_STATE/tmp.1m3H4IjAaE` from 10-12.
+  - Verified: the 02:20Z tick captured 32 sessions and pushed in 3 minutes. At 32 per hour, the backlog drains in about 21 hours.
+  - main2 `7718822b`: sets the config in code, stages a batch with one `git add`, and sets the unit's `SELF_HEAL_HANDLER_TIMEOUT=840` (tick 720 < 840, and 840 + 20 grace < TimeoutStartSec 900). Test scenario K was added; transcript-capture-test passes 31 of 31.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-15T01:45Z (oros-health-checkup-20261014-211624): healthy; the contention watch finishes inside its bound now but starved on a stuck notice → fix on main2 `85389eda`
 
 - **Load/mem:** load 3.1/3.9/3.4; 13 GiB of 15 GiB available.
