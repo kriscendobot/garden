@@ -32,7 +32,9 @@ BIN="$TR/bin"; mkdir -p "$BIN"
 # terminal token_count event on the --json stream, and take the prompt as the
 # final positional argument. FAKE_CODEX_MARKER_FROM_CALL=N makes every call
 # before the Nth end cleanly WITHOUT the marker (the stopped-not-finished shape);
-# FAKE_CODEX_NUDGE_FAIL=1 makes any `exec resume` call fail hard.
+# FAKE_CODEX_NUDGE_FAIL=1 makes any `exec resume` call fail hard;
+# FAKE_CODEX_INITIAL_FAIL=<rc> makes the fresh call write its report then return
+# that nonzero status.
 cat > "$BIN/codex" <<'EOF'
 #!/bin/bash
 set -euo pipefail
@@ -50,7 +52,9 @@ for a in "$@"; do
 done
 args=("$@")
 printf '%s' "${args[-1]}" > "$FAKE_CODEX_RECORD.prompt.$calls"
+is_resume=0
 if [ "${1:-}" = exec ] && [ "${2:-}" = resume ]; then
+  is_resume=1
   printf 'resume %s\n' "${3:-}" >> "$FAKE_CODEX_RECORD"
   if [ "${FAKE_CODEX_NUDGE_FAIL:-0}" = 1 ]; then
     printf '%s\n' '{"type":"error","message":"resume exploded"}'
@@ -67,6 +71,9 @@ if [ -n "$out" ]; then
   else
     printf 'codex did the work but stopped\n' > "$out"
   fi
+fi
+if [ "$is_resume" -eq 0 ] && [ "${FAKE_CODEX_INITIAL_FAIL:-0}" -ne 0 ]; then
+  exit "$FAKE_CODEX_INITIAL_FAIL"
 fi
 exit 0
 EOF
@@ -95,6 +102,7 @@ run_handler() { # <base>
     FAKE_CODEX_RECORD="$TR/calls" \
     FAKE_CODEX_MARKER_FROM_CALL="${FAKE_CODEX_MARKER_FROM_CALL:-}" \
     FAKE_CODEX_NUDGE_FAIL="${FAKE_CODEX_NUDGE_FAIL:-}" \
+    FAKE_CODEX_INITIAL_FAIL="${FAKE_CODEX_INITIAL_FAIL:-}" \
     GARDEN_COMPLETION_NUDGES="${GARDEN_COMPLETION_NUDGES:-}" \
     GARDEN_APPLIED_HANDLER_BUDGET="${GARDEN_APPLIED_HANDLER_BUDGET:-}" \
     "$HANDLER" "$base" "$JOB" "$TR/$base.report" > "$TR/$base.capture" 2>&1
@@ -161,6 +169,33 @@ FAKE_CODEX_MARKER_FROM_CALL=1 run_handler nudge-fail
 grep -q 'CONTINUING garden job' "$TR/calls.prompt.1" 2>/dev/null \
   && ok "requeued claim after a clean stop is framed as continue" || bad "continue framing missing on requeue"
 grep -q '^resume ' "$TR/calls" && ok "requeued claim resumes the session" || bad "requeue did not resume"
+
+echo 'NONZERO RESCUE: a substantive failed call gets one same-session verification turn'
+GARDEN_COMPLETION_NUDGES=0 FAKE_CODEX_NUDGE_FAIL=0 FAKE_CODEX_INITIAL_FAIL=3 FAKE_CODEX_MARKER_FROM_CALL=2 run_handler nonzero-rescue
+[ "$RUN_RC" -eq 0 ] && ok "clean marked rescue replaces the initial nonzero exit" \
+  || bad "successful rescue exited $RUN_RC"
+[ "$(cat "$TR/calls.calls" 2>/dev/null)" = 2 ] && ok "nonzero report receives exactly one rescue call" \
+  || bad "expected one rescue after the initial call, saw $(cat "$TR/calls.calls" 2>/dev/null)"
+grep -q '^resume 11111111-2222-4333-8444-555555555555$' "$TR/calls" \
+  && ok "nonzero rescue resumes the parsed session id" || bad "nonzero rescue did not resume"
+[ -e "$TR/nonzero-rescue.sentinel" ] && ok "only clean marked rescue writes the sentinel" \
+  || bad "nonzero rescue did not gate completion on the sentinel"
+if jq -e '.input_tokens==120 and .output_tokens==20 and .cache_read_tokens==80 and .nonzero_completion_rescues==1' \
+    "$TR/nonzero-rescue.usage" >/dev/null 2>&1; then
+  ok "nonzero rescue usage is summed and identified separately"
+else
+  bad "nonzero rescue usage wrong: $(cat "$TR/nonzero-rescue.usage" 2>/dev/null || echo MISSING)"
+fi
+
+echo 'FAILED NONZERO RESCUE: preserve the original failure unless rescue is clean and marked'
+GARDEN_COMPLETION_NUDGES=0 FAKE_CODEX_NUDGE_FAIL=1 FAKE_CODEX_INITIAL_FAIL=3 FAKE_CODEX_MARKER_FROM_CALL=99 run_handler nonzero-rescue-fail
+[ "$RUN_RC" -eq 3 ] && ok "failed nonzero rescue retains the initial rc=3" \
+  || bad "failed nonzero rescue changed failure rc to $RUN_RC"
+[ ! -e "$TR/nonzero-rescue-fail.sentinel" ] && ok "failed nonzero rescue withholds sentinel" \
+  || bad "failed nonzero rescue forged completion"
+grep -q 'codex did the work but stopped' "$TR/nonzero-rescue-fail.report" \
+  && grep -q 'nonzero completion rescue failed: rc=9' "$TR/nonzero-rescue-fail.report" \
+  && ok "failed rescue preserves the first report with diagnostic" || bad "failed rescue report was not preserved"
 
 echo "codex-completion-nudge-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

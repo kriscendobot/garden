@@ -443,6 +443,51 @@ while [ "$nudges" -lt "$GARDEN_COMPLETION_NUDGES" ] && [ -n "$sid" ] && codex_un
   rm -f "$report.pre-nudge" "$nudge_capture" 2>/dev/null || true
 done
 
+# A nonzero Codex exit normally remains a failure. There is one narrow exception:
+# Codex can finish the real work and write a substantive final report before its CLI
+# returns a transport/runtime failure (heal-minion-town-ad0257e, 2026-10-14). The
+# ordinary completion nudge above intentionally excludes that state because it is
+# for clean markerless turns. While the same session is still available, ask it
+# exactly once to verify the already-reported deliverable and emit the normal marker.
+# Only a clean rescue response with that marker changes the outcome; a failed or
+# markerless rescue restores the first report and original nonzero status.
+if [ "$rc" -ne 0 ] && [ -s "$report" ] && [ -n "$sid" ]; then
+  original_rc="$rc"
+  log "codex for '$base' exited rc=$original_rc with a nonempty report; resuming session $sid once for deterministic completion verification"
+  prior_usage=""
+  [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ] && prior_usage="$(cat "$GARDEN_USAGE_FILE" 2>/dev/null || true)"
+  cp "$report" "$report.pre-nonzero-rescue" 2>/dev/null || true
+  rescue_prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
+  rescue_capture="$(mktemp "${TMPDIR:-/tmp}/garden-codex-nonzero-rescue-$base.XXXXXX")"
+  set +e
+  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$sid" "${codex_args[@]}" "$rescue_prompt" ) > "$rescue_capture" 2>&1
+  rescue_rc=$?
+  set -e
+  if command -v jq >/dev/null 2>&1 && [ -n "${GARDEN_USAGE_FILE:-}" ]; then
+    rescue_usage="$(codex_terminal_usage "$rescue_capture")"
+    [ -n "$rescue_usage" ] && printf '%s\n' "$rescue_usage" > "$GARDEN_USAGE_FILE" 2>/dev/null || true
+    if [ -n "$prior_usage" ] && [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ]; then
+      jq --argjson p "$prior_usage" '
+        reduce ("input_tokens","output_tokens","cache_read_tokens") as $k (.;
+          if ($p[$k] != null) then .[$k] = ((.[$k] // 0) + $p[$k]) else . end)
+        + {nonzero_completion_rescues:1}' "$GARDEN_USAGE_FILE" > "$GARDEN_USAGE_FILE.tmp" 2>/dev/null \
+        && mv "$GARDEN_USAGE_FILE.tmp" "$GARDEN_USAGE_FILE" || rm -f "$GARDEN_USAGE_FILE.tmp"
+    fi
+  fi
+  if [ "$rescue_rc" -eq 0 ] && report_has_completion_marker "$report"; then
+    rc=0
+    log "codex nonzero completion rescue for '$base' verified the report and emitted the completion marker"
+  else
+    log "codex nonzero completion rescue for '$base' did not produce a clean completion marker (rc=$rescue_rc); retaining original rc=$original_rc"
+    printf 'codex nonzero completion rescue failed (rc=%s); first report and original failure retained.\n' "$rescue_rc" >&2
+    if ! $custom_openai_compat; then tail -n 20 "$rescue_capture" >&2 2>/dev/null || true; fi
+    { cat "$report.pre-nonzero-rescue" 2>/dev/null; printf '\n[nonzero completion rescue failed: rc=%s]\n' "$rescue_rc"; } > "$report.merged" \
+      && mv "$report.merged" "$report"
+    rc="$original_rc"
+  fi
+  rm -f "$report.pre-nonzero-rescue" "$rescue_capture" 2>/dev/null || true
+fi
+
 # Remember, in the worktree's private admin dir, that this attempt STOPPED without
 # completing (as opposed to being interrupted), so the next same-host claim resumes
 # with the honest `continue` framing rather than "you were interrupted".
