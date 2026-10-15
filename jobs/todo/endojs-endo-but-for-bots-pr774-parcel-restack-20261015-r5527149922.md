@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922
-priority: normal
-posted_by: fixer
-posted_at: 2026-10-15T02:19:58Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-15T02:22:42Z cleared=none -->
 
 ---
 tier: mentor
