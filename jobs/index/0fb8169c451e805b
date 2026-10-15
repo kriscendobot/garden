@@ -1,2 +1,2 @@
-base: improve-atomic-orchestration-post
+base: improve-orchestration-child-budget-metadata
 identity: mentor:scripts/jobs/post-orchestration.sh
