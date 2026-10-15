@@ -31,6 +31,7 @@ required summary.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-15T17:53:21Z -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
