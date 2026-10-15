@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-15T10:20Z (oros-health-checkup-20261015-093533): healthy (deploy deferred on long jobs only) → no changes
+
+- **Load/mem:** load 3.0/3.0/3.2; 12 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1% (165k).
+- **Uptime:** 13d17h, no reboot.
+- **Deployed vs main2:** root at `ff85753d`; origin/main2 is `2a58e858`, two commits ahead. fleet/health (09:43Z): `roll_status: deferred` (`long-job monk 5 1834s`), 0 of 292 units failed. At 10:1xZ self-deploy is still deferring on long jobs (monk 2 at 1006s, then monk 1 at 1432s). This is the normal long-job rule; nothing blocks it, and no help was needed.
+- **Units:** 0 failed; monks 1 to 4 running (scaler-managed). Not draining.
+- **Budget heartbeat:** claude-oros sampled at 10:05Z, status ok, 15% used. Pushes are on cadence (09:03, 09:18, 09:33, 09:48, 10:05 all landed).
+- **State clones:** 47 pack dirs scanned, none over 50 packs, no tmp_pack (the transcript clone included), no `gc.log`, no index.lock older than 10 minutes.
+- **rc=124 (3h):** garden-sysop self-heal 600s kill ×1 (08:15Z, isolated). dependabot-watcher stop-post timeout ×1 (09:56Z). journal-contention-watch deferred its worktree_sweeper close notice 07:14–07:34Z; that notice has since been marked recovered (07:35Z). The 2s repo-lock "timeout" lines are the watch's non-blocking probes, not failures.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. Several oros lock-contention notices are still open in `inbox/maintainer/unread` (fork_watch, repo_watcher, producer push-contention, last seen 08:2x–08:5xZ); the watch closes them itself. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-15T07:05Z (oros-health-checkup-20261015-062034): degraded (producer-clone journal writes take ~45s per CAS attempt, so writes lose races at only ~2 commits/min) → one stuck close notice delivered by hand; follow-up posted
 
 - **Load/mem:** load 3.1/3.3/3.7; 12 GiB of 15 GiB available.
