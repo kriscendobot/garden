@@ -1,33 +1,18 @@
 from_host: endolin-garden-ece02cb4
 from: gauntlet:kriscendobot-minion.town-pr186-gauntlet-review-budget-reached
 msg_key: kriscendobot-minion.town-pr186-gauntlet-review-budget-reached
-notice_count: 2
+notice_count: 3
 first_seen: 2026-10-15T06:53:21Z
-last_seen: 2026-10-15T13:14:20Z
-sent_at: 2026-10-15T13:14:20Z
+last_seen: 2026-10-15T17:41:32Z
+sent_at: 2026-10-15T17:41:32Z
 ---
-COALESCED message — occurrence #2 (first seen 2026-10-15T06:53:21Z, latest 2026-10-15T13:14:20Z).
-The SAME message (episode key `kriscendobot-minion.town-pr186-gauntlet-review-budget-reached`) has now been sent 2 times; this is
-ONE entry that updates in place, not 2 messages. Latest detail:
+COALESCED message — occurrence #3 (first seen 2026-10-15T06:53:21Z, latest 2026-10-15T17:41:32Z).
+The SAME message (episode key `kriscendobot-minion.town-pr186-gauntlet-review-budget-reached`) has now been sent 3 times; this is
+ONE entry that updates in place, not 3 messages. Latest detail:
 
-Gauntlet kriscendobot-minion.town-pr186-gauntlet REVIEW-BUDGET-REACHED: Applied 8 panel/fix round(s); fix round 8 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=8, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr186-gauntlet panel --add-rounds N
+Gauntlet kriscendobot-minion.town-pr186-gauntlet REVIEW-BUDGET-REACHED: Applied 10 panel/fix round(s); fix round 10 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=10, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr186-gauntlet panel --add-rounds N
 
-**Unaddressed must-fix: 11** · verdict: moving target · rounds spent: 8/8 · cost so far: $18.62
-Trend: r1 raised 20; r2 n/a; r3 raised 20; r4 n/a; r5 n/a; r6 n/a; r7 n/a; r8 raised 11
-Classes: 0 persistent, 11 new in last round, 0 addressed-then-reintroduced
-```text
-[new, since r8] archivist: (designs/root-canary-principal.md:483) designs/root-canary-principal.md:483 documents revocation as root-canary-revoke.sh, but the implemented script re...
-[new, since r8] archivist: (DEPLOYMENT.md:356) DEPLOYMENT.md:356-391 documents several scripts that create or update state, but does not identify the lifecycle of...
-[new, since r8] breaker: (deploy/aws/scripts/root-canary-status.sh:32) must-fix: deploy/aws/scripts/root-canary-status.sh:32 wraps the token helper in command substitution. On a succ...
-[new, since r8] breaker: (deploy/aws/scripts/root-canary-deploy-client.sh:79) must-fix: deploy/aws/scripts/root-canary-deploy-client.sh:79-96 reuses an existing reader role without checking...
-[new, since r8] corner-prober: runPrefix() claims its output is parseable by rootCanaryStart(), but a valid distant-future Date such as +0100...
-[new, since r8] engine-realist: (deploy/probe/root-canary.mjs:236) must-fix — deploy/probe/root-canary.mjs:236-244,286-294 treats every non-isError dismissal as successful. Howev...
-[new, since r8] locksmith: (src/endo/guest-tools.ts:83) must-fix: src/endo/guest-tools.ts:83 and :517 grant the audit callback the complete AuthInfo, including its...
-[new, since r8] purist: (deploy/aws/scripts/root-canary-token.sh:5) must-fix — deploy/aws/scripts/root-canary-token.sh:5-6,37 and root-canary-mint.sh:70 retain ambient authori...
-[new, since r8] saboteur: (root-canary-token.sh:25) Must-fix — real concern: root-canary-token.sh:25-43 invokes environment-resolved jq and curl; a hostile ...
-[new, since r8] typist: (src/mcp-audit.ts:1) must-fix src/mcp-audit.ts:1 — McpAuditEvent permits invalid event combinations: a "claude-tool-call" with...
-[new, since r8] wire-watcher: (deploy/aws/scripts/root-canary-common.sh:112) Must-fix: deploy/aws/scripts/root-canary-common.sh:112 merely base64-decodes JWT claims. It verifies neither th...
-```
+Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 10/10 · cost so far: $24.22
 
 To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr186-gauntlet panel --add-rounds 2
---add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
+--add-rounds 2 grants 2 more panel/fix round(s): max_iterations 10 -> 12 (N is yours to choose).
