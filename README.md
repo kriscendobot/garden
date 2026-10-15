@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-15T15:04:14Z_
+_As of 2026-10-15T15:07:31Z_
 
 ## Latest
 
@@ -164,11 +164,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-10-06T06:35:18Z, latest 2026-10-15T08:50:35Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-10-06T06:35:18Z, latest 2026-10-15T15:05:23Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 3): shared codex subscription demand active=1 queue=2 quota=ok fleet-envelope=4 target=3
+> budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 1): shared codex subscription demand active=0 queue=1 quota=backoff fleet-envelope=4 target=1
 
 - `kriscendobot-minion.town-pr186-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr186-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr186-gauntlet-review-budget-reached.md)
 
