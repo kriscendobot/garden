@@ -528,22 +528,23 @@ lock_holder_report() { # <lock>; who holds it, from our record and the kernel
   printf '%s\n' "$out"
 }
 
-run_transaction() { # <NOW> <operation> <args...>; the bounded CAS child
+run_transaction() { # <NOW> <deadline> <operation> <args...>; the bounded CAS child
   # The child gets its own session because every bin/git call runs under a
   # timeout that moves it to a fresh process group, out of reach of a plain
   # `timeout`. Killing the session reaps the whole tree, including a hung
   # push still holding an inherited repository-lock descriptor.
-  local now="$1" pid rc=0 killed=0 deadline=$lock_deadline; shift
+  local now="$1" deadline="$2" pid rc=0 killed=0; shift 2
   [ $(( deadline - $(date +%s) )) -gt 0 ] || return 124
   setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" \
     "$HERE/review-docket.sh" "$@" {transaction_fd}>&- &
   pid=$!
   while kill -0 "$pid" 2>/dev/null; do
     if [ "$(date +%s)" -ge "$deadline" ]; then
-      killed=1; pkill -TERM -s "$pid" 2>/dev/null || true
-      deadline=$(( deadline + 10 ))
-      [ "$(date +%s)" -lt "$deadline" ] || break
-      sleep 1; pkill -KILL -s "$pid" 2>/dev/null || true
+      # The deadline is a hard boundary. In particular, a spooled transaction
+      # must not spend the budget reserved for the operation that owns the lock.
+      killed=1
+      pkill -TERM -s "$pid" 2>/dev/null || true
+      pkill -KILL -s "$pid" 2>/dev/null || true
     fi
     sleep 0.2
   done
@@ -559,8 +560,9 @@ drain_spool() { # apply spooled intake in FIFO order before this operation
   while IFS= read -r entry; do
     [ -f "$entry" ] || continue
     n=$((n + 1)); [ "$n" -le "$GARDEN_REVIEW_DOCKET_SPOOL_BATCH" ] || break
-    # Keep at least half the window for the operation that took the lock.
-    [ $(( lock_deadline - $(date +%s) )) -ge $(( GARDEN_REPO_LOCK_WAIT / 2 )) ] || break
+    # Every drain attempt has a hard deadline before the reserved operation
+    # budget. A hung spool head therefore cannot consume the whole lock window.
+    [ "$(date +%s)" -lt "$spool_deadline" ] || break
     op="$(jq -r .operation "$entry" 2>/dev/null)" || op=""
     mapfile -t args < <(jq -r '.args[]' "$entry" 2>/dev/null)
     now="$(jq -r '.spooled_at // empty' "$entry" 2>/dev/null)"
@@ -569,7 +571,7 @@ drain_spool() { # apply spooled intake in FIFO order before this operation
       request="$(mktemp "${TMPDIR:-/tmp}/review-docket-spooled.XXXXXX")"
       jq '.request' "$entry" > "$request"; args[1]="$request"
     fi
-    rc=0; run_transaction "${now:-$GARDEN_REVIEW_DOCKET_NOW}" "$op" "${args[@]}" || rc=$?
+    rc=0; run_transaction "${now:-$GARDEN_REVIEW_DOCKET_NOW}" "$spool_deadline" "$op" "${args[@]}" || rc=$?
     [ -z "$request" ] || rm -f "$request"
     if [ "$rc" -eq 0 ]; then
       rm -f "$entry"; log "drained spooled $op ${args[0]:-} ($(basename "$entry"))"; continue
@@ -604,6 +606,10 @@ waited=$(( $(date +%s) - wait_started ))
 # Everything done under the lock, spool drain included, ends by this deadline,
 # so a waiter that entered when we did never outlasts its own wait.
 lock_deadline=$(( $(date +%s) + GARDEN_REPO_LOCK_WAIT ))
+# Reserve at least half the lock window (rounded up) for the operation that
+# acquired it. Spool draining may use only the preceding portion.
+operation_budget=$(( (GARDEN_REPO_LOCK_WAIT + 1) / 2 ))
+spool_deadline=$(( lock_deadline - operation_budget ))
 [ "$waited" -lt 30 ] || log "waited ${waited}s for the review-docket transaction lock"
 printf 'pid=%s op=%s target=%s since=%s\n' "$$" "$operation" "${ARGS[0]:--}" "$(date -u +%FT%TZ)" \
   > "$transaction_lock.holder"
@@ -615,7 +621,7 @@ release_holder() {
 }
 trap release_holder EXIT
 drain_spool
-rc=0; run_transaction "$GARDEN_REVIEW_DOCKET_NOW" "$operation" "${ARGS[@]}" || rc=$?
+rc=0; run_transaction "$GARDEN_REVIEW_DOCKET_NOW" "$lock_deadline" "$operation" "${ARGS[@]}" || rc=$?
 case "$rc" in
   0) exit 0 ;;
   124) lock_window_exit "the $operation transaction exceeded the ${GARDEN_REPO_LOCK_WAIT}s lock window and was killed" ;;

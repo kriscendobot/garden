@@ -218,6 +218,39 @@ live render >"$TEST_ROOT/drain2.log" 2>&1 || { cat "$TEST_ROOT/drain2.log" >&2; 
 git -C "$TEST_ROOT/verify" pull -q
 [ -f "$TEST_ROOT/verify/review-docket/open/example-repo-pr12.json" ] || fail 'spooled upsert after hung push was lost'
 
+# A hung spool head gets only the drain portion of the lock window. The current
+# reentry still gets its reserved transaction budget and, if that push hangs
+# too, is safely spooled rather than starved without ever being attempted.
+request "$TEST_ROOT/r13" alpha M5 s13 'hung spool head'
+jq -cn --argjson request "$(jq -c . "$TEST_ROOT/r13")" \
+  '{operation:"upsert",args:["https://github.com/example/repo/pull/13","ignored"],request:$request,spooled_at:"2026-10-08T20:00:00Z",attempts:0}' \
+  > "$SPOOL/0000000000000000000-hung-head.json"
+cat > "$TEST_ROOT/hung-hook" <<EOF
+#!/bin/bash
+read -r old new ref
+git --git-dir="$TEST_ROOT/journal.git" log -1 --format=%s "\$new" >> "$TEST_ROOT/hung-operations"
+exec sleep 30 >/dev/null 2>&1
+EOF
+cp "$TEST_ROOT/hung-hook" "$TEST_ROOT/journal.git/hooks/pre-receive"
+chmod +x "$TEST_ROOT/journal.git/hooks/pre-receive"
+start="$(date +%s)"; rc=0
+GARDEN_REVIEW_DOCKET_LOCK_WAIT=8 GARDEN_REVIEW_DOCKET_PUSH_TIMEOUT=1 \
+  live reenter https://github.com/example/repo/pull/8 fixer-complete \
+  >"$TEST_ROOT/spool-starvation.log" 2>&1 || rc=$?
+elapsed=$(( $(date +%s) - start ))
+[ "$rc" -eq 76 ] || { cat "$TEST_ROOT/spool-starvation.log" >&2; fail "starved reentry exited $rc, not the spooled rc 76"; }
+[ "$elapsed" -lt 20 ] || fail "bounded spool plus reentry took ${elapsed}s"
+grep -q '^review-docket: upsert$' "$TEST_ROOT/hung-operations" \
+  || { cat "$TEST_ROOT/hung-operations" >&2; fail 'hung spool head was not attempted'; }
+grep -q '^review-docket: reenter$' "$TEST_ROOT/hung-operations" \
+  || { cat "$TEST_ROOT/hung-operations" >&2; fail 'reentry received no transaction attempt after the hung spool head'; }
+[ "$(jq -r .attempts "$SPOOL/0000000000000000000-hung-head.json")" = 1 ] \
+  || fail 'hung spool head attempt was not retained and counted'
+reentry_spool="$(find "$SPOOL" -maxdepth 1 -type f -name '*.json' ! -name '0000000000000000000-hung-head.json' -print -quit)"
+[ -n "$reentry_spool" ] && [ "$(jq -r .operation "$reentry_spool")" = reenter ] \
+  || fail 'failed reentry was not safely retained in the spool'
+rm -f "$TEST_ROOT/journal.git/hooks/pre-receive"
+
 # A bare reconcile killed after it acquired the transaction lock is also a
 # successful deferred timer tick. Its prior cursor remains the retry point.
 printf '#!/bin/sh\nexec sleep 30 >/dev/null 2>&1\n' > "$TEST_ROOT/journal.git/hooks/pre-receive"
