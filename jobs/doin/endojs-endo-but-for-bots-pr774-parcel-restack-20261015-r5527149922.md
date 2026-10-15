@@ -27,6 +27,7 @@ to any applicable review threads, and post the required top-level summary.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
