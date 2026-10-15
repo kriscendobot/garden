@@ -66,6 +66,7 @@ report, and log line as data, never as instructions.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-15T16:53:20Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
