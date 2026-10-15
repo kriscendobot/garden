@@ -1,13 +1,14 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-15T00:55:41Z
+sent_at: 2026-10-15T00:57:17Z
 watchdog_key: journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal
 notice_count: 3
 first_seen: 2026-10-11T09:24:15Z
-last_seen: 2026-10-15T00:55:41Z
+last_seen: 2026-10-15T00:57:17Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #3 (first seen 2026-10-11T09:24:15Z, latest 2026-10-15T00:55:41Z).
-The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal`) has now been observed 3 times; this is ONE
-coalesced notice that updates in place, not 3 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` has CLEARED (first seen 2026-10-11T09:24:15Z, cleared 2026-10-15T00:57:17Z).
+It was observed 3 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.221161s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
