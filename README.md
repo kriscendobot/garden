@@ -1,22 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-15T21:55:56Z_
+_As of 2026-10-15T21:59:48Z_
 
 ## Latest
 
-Several review gauntlets ran out of rounds and are now waiting on a maintainer decision. [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) used 12 of 12 rounds with CI green. [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) used 6 of 6. [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) used 8 of 8 and ended with 20 new must-fix items, so it is still raising issues rather than converging. Each notice gives a `--add-rounds N` command if you want to grant more.
+Three gauntlets hit their review budget without converging and are waiting on a maintainer decision to grant more rounds. [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) used all 12 rounds, and its panel report has no structured must-fix list. [kriscendobot/minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) used all 6 rounds, with CI green after the last fix. [kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) used all 8 rounds and the last panel still raised 20 new must-fix items. Those include the `publish-book` regex handling of unquoted `src` attributes and a `package.json` version bump the commit message doesn't mention. Its fix round 10 is already on the board, with a high-priority finish job parked in plan. A fourth PR, [kriscendobot/minion.town#181](https://github.com/kriscendobot/minion.town/pull/181), had its fix round 5 stage parked after a non-productive failure.
 
-Orchestrations also halted. `orch-minion-town-oauth-bonds`, `orch-jev-triage-foreman` and `review-docket-20261008` each stopped on a failed child. The Jev trial failed because `TYPESAFE_API_KEY` is missing from the job environment, so it needs a key. The review-docket consolidation job is parked after the reaper's retries ran out. The Claude-on-minion.town press split also halted on a handler timeout. The reaper parked [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) gauntlet fix round 5 for the same reason.
+On the minion.town side, [#187](https://github.com/kriscendobot/minion.town/pull/187) was screened by proxy, merged, and deployed successfully. The iframe-embed design is waiting for you to approve [#189](https://github.com/kriscendobot/minion.town/pull/189). Until then the headers and live-frame jobs stay parked.
 
-Two hosts need a person:
-- **oros:** its sysop bridge has been silent since 2026-10-13, and the rolling deploy for main2 `8da29934080b` is still halted. Someone has to restart `garden-sysop` on oros and lift its roll drain.
-- **endolin-garden2:** it has been offline for about 5.7 days. The watchdog has re-sent the same notice 2,706 times.
+Several orchestrations halted:
+- `orch-jev-triage-foreman`: the trial child needs `TYPESAFE_API_KEY` provisioned.
+- `orch-minion-town-oauth-bonds`: the build child declared its gated outcome unsatisfied.
+- `review-docket-20261008`: the consolidate child was doomed and is held in plan.
+- The Claude-on-minion.town press split: a child timed out after 2474s on oros.
 
-Several Literate AI sources are blocked by the foreign-content gate, and the scholar will skip them until you reply with a disposition. They are `authority-learning-loop`, `project-releases`, `beam-live-coding-layer-investigation`, `repository-source-dependencies`, `skills`, `superpowers-skills-assessment`, ADR 0014, ADR 0016 and ADR 0041.
+The oros sysop bridge has been silent since 2026-10-13, and the host needs a person to restart `garden-sysop`. A rolling deploy of `8da29934080b` is still halted at the oros canary. [kriscendobot/minion.town#93](https://github.com/kriscendobot/minion.town/issues/93) validation depends on that deploy.
 
-[minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed successfully. The iframe embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) still needs your approval before the headers and live-frame jobs can start. Claude spend is at 105% of its backoff quota. Most of the journal-lock contention notices have cleared.
+The Literate AI scholar ingest has about seven sources blocked at the foreign-content gate, all with injection scores of 0.25 to 0.34 ("uncertain"). They need an explicit proceed or skip. Claude spend is at 105% of the backoff quota, and the `claude-endolin2` pool retirement is in flight.
 
 ## Maintainer review docket
 
@@ -443,12 +443,12 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #17 (first seen 2026-10-15T20:22:18Z, latest 2026-10-15T21:52:05Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 17 times; this is ONE
-> coalesced notice that updates in place, not 17 messages. Latest detail:
+> WATCHDOG notice — occurrence #18 (first seen 2026-10-15T20:22:18Z, latest 2026-10-15T21:57:23Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 18 times; this is ONE
+> coalesced notice that updates in place, not 18 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/191](https://github.com/kriscendobot/minion.town/pull/191)#discussion_r4287555576 (age=7471s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/191](https://github.com/kriscendobot/minion.town/pull/191)#discussion_r4287555576 (age=7772s; heartbeat=full-poll)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
@@ -779,7 +779,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 285.7M | $1363.16 _(notional, rate-card)_ | 105% of 271.0M (backoff) |
+| Claude | 285.8M | $1363.78 _(notional, rate-card)_ | 105% of 271.0M (backoff) |
 | Codex | 90.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 80424474 tokens/day lower bound._
