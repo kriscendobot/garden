@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-15T14:05Z (oros-health-checkup-20261015-125028): healthy (deploy deferred on long jobs only) → no changes
+
+- **Load/mem:** load 2.8/2.9/2.9; 11 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (165k).
+- **Uptime:** 13d20h, no reboot.
+- **Deployed vs main2:** root at `2a58e858`; origin/main2 is `0bb399c2`, one commit ahead. fleet/health (13:42Z): `roll_status: deferred` (`long-job monk 3 2301s`), 0 of 292 units failed. This is the normal long-job rule; nothing blocks it.
+- **Units:** 0 failed; monks 1 to 4 running (scaler-managed, pool scaled to 4 at 13:56Z). Not draining. The only derotation marker is endolin-garden2's.
+- **Budget heartbeat:** claude-oros sampled at 13:32Z, status ok, 17% used. Pushes are on cadence (12:47, 13:01, 13:17, 13:32, 13:47 all landed).
+- **State clones:** no pack dir over 50 packs, no tmp_pack, no `gc.log`, no index.lock older than 10 minutes.
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-15T10:20Z (oros-health-checkup-20261015-093533): healthy (deploy deferred on long jobs only) → no changes
 
 - **Load/mem:** load 3.0/3.0/3.2; 12 GiB of 15 GiB available.
