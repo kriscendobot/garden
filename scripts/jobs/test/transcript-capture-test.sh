@@ -341,6 +341,26 @@ else bad "wedged push escaped tick bound (elapsed=${j_elapsed}s rc=$rcJ)"; fi
   || bad "deadline stop advanced the ledger without a verified push"
 
 # ============================================================================
+hr; echo "SCENARIO K — SPARSE CLONE SKIPS THE SKIP-WORKTREE SCAN; BOUNDS NEST"; hr
+# Scenario J's clone went through ensure_clone_ready.  Without this setting every
+# `git add` lstat()s the whole fleet corpus (~14s each on oros), overrunning ticks.
+[ "$(git -C "$STATE/transcripts/clone" config --get sparse.expectFilesOutsideOfPatterns)" = "true" ] \
+  && ok "capture clone sets sparse.expectFilesOutsideOfPatterns" \
+  || bad "capture clone lacks sparse.expectFilesOutsideOfPatterns"
+# The tick deadline must fit inside the self-heal handler bound, and the handler
+# bound plus its kill grace inside the unit's TimeoutStartSec; the 600s default
+# handler bound killed every 720s tick on oros before it could push.
+UNIT="$REPO/scripts/systemd/garden-transcript-capture.service"
+tick=$(sed -n 's/^: "${GARDEN_TRANSCRIPT_TICK_SECS:=\([0-9]*\)}"$/\1/p' "$JOBS/transcript-capture.sh")
+handler=$(sed -n 's/^Environment=SELF_HEAL_HANDLER_TIMEOUT=\([0-9]*\)$/\1/p' "$UNIT")
+grace=$(sed -n 's/^: "${SELF_HEAL_HANDLER_KILL_AFTER:=\([0-9]*\)}".*/\1/p' "$JOBS/self-heal-run.sh")
+start=$(sed -n 's/^TimeoutStartSec=\([0-9]*\)$/\1/p' "$UNIT")
+if [ -n "$tick" ] && [ -n "$handler" ] && [ -n "$grace" ] && [ -n "$start" ] \
+   && [ "$tick" -lt "$handler" ] && [ $((handler + grace)) -lt "$start" ]; then
+  ok "tick ${tick}s < handler ${handler}s, handler+grace $((handler + grace))s < TimeoutStartSec ${start}s"
+else bad "transcript capture bounds do not nest (tick=$tick handler=$handler grace=$grace start=$start)"; fi
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ] && { rm -rf "$TR"; exit 0; } || exit 1

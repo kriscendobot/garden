@@ -18,3 +18,8 @@ ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-transcrip
 # generous headroom (also covers the self-heal responder on a failed tick, which
 # is itself hard-bounded by SELF_HEAL_RESPONDER_TIMEOUT).
 TimeoutStartSec=900
+# The script's own tick deadline (GARDEN_TRANSCRIPT_TICK_SECS, 720s) must fit
+# inside the self-heal handler bound, which in turn (plus its 20s kill grace)
+# must fit inside TimeoutStartSec. The 600s default killed every tick on oros
+# before it could push.
+Environment=SELF_HEAL_HANDLER_TIMEOUT=840

@@ -225,6 +225,11 @@ ensure_clone_ready() {
   fi
   git -C "$CLONE" config user.name  "$(bot_name)"
   git -C "$CLONE" config user.email "$(bot_email)"
+  # Nothing writes outside the sparse cone, so skip git's per-command scan that
+  # lstat()s every skip-worktree entry (the whole fleet corpus). Without this each
+  # `git add` cost ~14s on oros, so a 32-session batch overran the tick and every
+  # kill left a multi-GB tmp_pack behind.
+  git -C "$CLONE" config sparse.expectFilesOutsideOfPatterns true
 }
 
 # reset the working clone to the remote tip (best-effort). Returns 0 when ready.
@@ -388,7 +393,6 @@ apply_staged() {
     dest="$CLONE/${ST_DEST[$i]}"
     mkdir -p "$(dirname "$dest")"
     cp -f "${ST_BLOB[$i]}" "$dest"
-    git -C "$CLONE" add -- "${ST_DEST[$i]}" 2>/dev/null || true
   done
   # index rows are per-host (index/<GARDEN>.tsv), append-only, so a peer on another
   # host never conflicts; re-append onto the freshly-reset origin copy each retry.
@@ -396,7 +400,8 @@ apply_staged() {
   for (( i=0; i<n; i++ )); do
     printf '%s\n' "${ST_ROW[$i]}" >> "$CLONE/index/$GARDEN.tsv"
   done
-  git -C "$CLONE" add -- "index/$GARDEN.tsv" 2>/dev/null || true
+  # One index read/write for the whole batch, not one per session.
+  git -C "$CLONE" add -- "${ST_DEST[@]}" "index/$GARDEN.tsv" 2>/dev/null || true
 }
 
 # --- push with a fetch/reset/reapply CAS retry, verified ---------------------
