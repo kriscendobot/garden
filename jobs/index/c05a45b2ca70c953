@@ -1,2 +1,2 @@
-base: improve-review-docket-lock-timeout
+base: improve-review-docket-spool-starvation
 identity: mentor:scripts/jobs/review-docket.sh
