@@ -15,6 +15,14 @@ import re
 import subprocess
 import sys
 
+# The report walks journal2 history through the fleet git wrapper
+# (scripts/jobs/bin/git), which bounds every call by GARDEN_REPO_GIT_TIMEOUT
+# (default 120s in common.sh).  The path-limited `git log -- jobs` over the full
+# journal history is the slow call and has blown the 120s bound (rc 124), forcing
+# a manual rerun.  Give the report its own generous floor so it finishes
+# unattended; an explicit override from the caller still wins.
+os.environ.setdefault("GARDEN_REPO_GIT_TIMEOUT", "540")
+
 COST = {
     "cost": re.compile(r"^- Cost: \$([0-9.]+)", re.M),
     "input": re.compile(r"^- Input: (\d+) tokens(?: \((\d+) cached reads\))?", re.M),
@@ -101,8 +109,14 @@ def tree_jobs(repo, ref):
 
 
 def history_events(repo, ref, since, until):
+    # `--no-renames` is the cheapening: without it `--name-status` runs rename
+    # detection across every jobs/ churn commit in the window, the bulk of the
+    # 82s walk.  A job moving todo→doin→tada still surfaces as an Add of the new
+    # path (what the loop below keys on), so disabling rename pairing is
+    # behaviour-preserving here.
     out = git(repo, "log", ref, f"--since=@{since}", f"--until=@{until}",
-              "--format=C%x09%H%x09%ct", "--name-status", "--", "jobs")
+              "--no-renames", "--format=C%x09%H%x09%ct", "--name-status",
+              "--", "jobs")
     events, sha, stamp = [], None, None
     for line in out.splitlines():
         if line.startswith("C\t"):
