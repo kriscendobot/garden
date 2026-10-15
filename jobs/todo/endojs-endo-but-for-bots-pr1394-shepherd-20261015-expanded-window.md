@@ -1,16 +1,13 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1394-shepherd-20261015-split
+tier: mentor
 handler-timeout: 7200
 split-indivisible-reason: 'single PR head-branch CI loop: each fix/re-run must wait on the ~20min test-thixotrope-ironhorse leg serially on one branch; no independent parts to parallelize'
 split-lineage-root: endojs-endo-but-for-bots-pr1394-shepherd-20261015
 split-lineage-parent: endojs-endo-but-for-bots-pr1394-shepherd-20261015-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-10-15T18:10:18Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-15T18:13:28Z cleared=none -->
 
 ---
 tier: mentor
