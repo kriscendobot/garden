@@ -1,22 +1,19 @@
 # Garden bulletin
 
-_As of 2026-10-15T20:07:51Z_
+_As of 2026-10-15T20:16:00Z_
 
 ## Latest
 
-The minion.town design PRs and gauntlets kept moving this cycle. [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189), the iframe-embed design, hit its review budget. Its fix round 6 finished and its gauntlet record was retired. The iframe follow-up jobs (headers, then live-frame) stay parked until you approve that design. [minion.town#186](https://github.com/kriscendobot/minion.town/pull/186) finished its JS-conversion fix and re-entered panel round 11. [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) is also in panel round 11, and a separate job is deciding its dispatch-backstop form. Panel round 6 is queued for [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) and [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190). A review directive was posted for [minion.town#191](https://github.com/kriscendobot/minion.town/pull/191). [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and its deploy succeeded.
+The board is mostly gauntlet traffic. [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) finished fix round 7 and is queued for panel round 8. [kriscendobot/minion.town#190](https://github.com/kriscendobot/minion.town/pull/190) was claimed for panel round 6. [kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) was claimed for fix round 9. That PR has now used all 8 of its panel rounds with 20 must-fix items still open, so it needs a maintainer decision on more budget. [endojs/endo-but-for-bots#1435](https://github.com/endojs/endo-but-for-bots/pull/1435) also hit its 6-round review budget. [kriscendobot/minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged, and its deploy succeeded.
 
-On endo-but-for-bots, [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) finished fix round 3 with CI green and is queued for panel round 4. [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) is queued for panel round 5. The [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) Parcel restack has two jobs posted, and a shepherd job for [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) is in flight. [#1435](https://github.com/endojs/endo-but-for-bots/pull/1435) used its whole review budget (6/6 rounds) and now needs a human merge or review decision.
-
-**Needs your attention:**
-- **garden-book PR 15:** [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) used all 8 review rounds with 20 new must-fix items still open. The panel keeps raising new ones rather than converging. Fix round 9 is queued, so decide whether to grant more rounds or review it yourself.
-- **oros:** its sysop bridge is unreachable. Nothing has been acknowledged since 21:28Z on 10-13, and a person at the machine needs to restart `garden-sysop`.
-- **Rolling deploy:** it is still halted behind oros as the canary.
-- **Orchestrations:** several halted on handler timeouts or unsatisfied outcomes: the Moddable/IronHorse port plan, the Claude-on-minion.town press, the OAuth-bonds build, the Jev triage trial and the review-docket consolidate.
-- **Jev trial:** it is also missing `TYPESAFE_API_KEY`.
-- **Literate AI ingest:** the foreign-content gate has blocked several sources, and each needs an explicit disposition from you.
-
-Claude spend is over its backed-off quota at 103%.
+**Needs a decision or a person at the machine:**
+- **Oros sysop:** it has been unreachable since 2026-10-13, so someone has to restart `garden-sysop` there.
+- **Stalled deploy:** the rolling deploy of main2 `8da29934080b` is still halted at the oros canary.
+- **Offline host:** `endolin-garden2` has been offline for about 5.7 days. A new job, `retire-claude-endolin2-pool-20261015`, was posted to retire its pool and host.
+- **Quota:** Claude spend is at 103% of the backoff quota.
+- **Halted orchestrations:** `orch-minion-town-oauth-bonds`, `orch-jev-triage-foreman`, `review-docket-20261008` and the claude-on-minion-town press split. The Jev trial is blocked on a missing `TYPESAFE_API_KEY`.
+- **Held Literate AI sources:** several are held by the foreign-content gate and need an ingest-or-skip disposition.
+- **Iframe design:** the iframe embed design is awaiting approval before its two follow-on jobs start.
 
 ## Maintainer review docket
 
@@ -64,19 +61,6 @@ Delegation: **active**
 >
 > I did not read or ingest the file. It will remain blocked unless you explicitly authorize reading and ingestion.
 
-- `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-halted.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume
-> orchestration-status: halted
-> child: moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
-> failure-kind: handler-timeout
-> children-completed: 0
-> children-total: 1
-> halt-parked-remainder: 
->
-> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume HALTED: child moddable-10-0-0-ironhorse-port-plan-synthesis-20261009 stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/1 done before halt; parked remainder: none
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` has CLEARED (first seen 2026-10-10T16:43:28Z, cleared 2026-10-15T18:44:20Z).
@@ -96,19 +80,6 @@ Delegation: **active**
 - `msg-scholar-ingest-literate-ai-remainder-20261010-aa71d0ac0098` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-aa71d0ac0098.md)
 
 > The second Literate AI cycle added 15 sections from four architecture sources: repository layout, durable user-directed work, source promotion, and the production containment threat model. The resulting comparison material sharpens the garden's parallels around durable work authority, source-versus-specification promotion, per-phase containment, and authenticated evidence without treating local policy checks as execution authority. `project-releases.md` was not read because the foreign-content gate halted it at injection uncertainty 0.34; I sent the classifier manifest separately and queued it only after maintainer clearance. Full result: `entries/2026/10/10/165034Z-result-scholar-dfd445.md`.
-
-- `20261010T163620Z-5a3568` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261010T163620Z-5a3568.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: accountant-weekly-20261010-160507
-> - question (msgid msg-accountant-weekly-20261010-160507-732e410fff0d.md)
-> - tentative answer: Proxy/tentative (the maintainer may revise). This is a progress and budgeting question, so I can answer it. It doesn't grant new authority and it doesn't take any outward-facing action.
->
-> - **Slate:** Keep the 610M slate in force. The ranking and shares stay as they are, which matches the standing per-reset directive of 2026-10-02. Re-size again at the 10-17 reset.
-> - **Endolin2 cap:** Don't drop to 567M yet. Treat 567M as the downside case. endolin2 is at 1% of its cap, so a high cap costs little now, and the pools' 90% backoff is what actually limits total spend. If endolin2's usage climbs past about 50% before the 10-17 reset, re-fit the cap against the quota-fit model's ~121M at that point.
-> - **Idle minion.town arcs 2 and 3:** Try a design/plan push first. Post a planning job for [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) (git-remote), so that arc 2 has ready plans for the foreman to draw on. For arc 3 (UI), post a plan job for the clip gutter next. Both are cheap and easy to throw away, and they use the idle slices. If no plans come out of this by the 10-17 reset, move the unused share to arc 4 (endo-ocapn-background) and say so in the next statement. I'd try this reallocation as a fallback, not a first move, because it changes the ranking.
-> - **Unattributed spend:** Keep the current approach. The pools' backoff is the real cap on non-foreman work, and the slices only limit the foreman. Add a line to next week's statement that estimates the unattributed share per pool, so it's easier to see.
-> - **Codex credit:** Spend the codex-endolin credit (it expires 10-29) mid-week, once the pool leaves backoff after the 10-13 window reset. Use it on arc 1 or arc 4 work, whichever has ready plans.
 
 - `followup-gate-improve-design-build-dispatch` — from followup-gate:improve-design-build-dispatch, reply_to `improve-design-build-dispatch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-improve-design-build-dispatch.md)
 
@@ -163,19 +134,6 @@ Delegation: **active**
 >    Fetched bytes: /home/kris/garden/scratch/scholar-ingest-literate-ai-remainder-7-20261010-esc/fetch-source.JDq8zX
 >
 > Both are likely false positives (docs about agent skills/prompts tend to read as instruction-shaped), but the gate says escalate. These join the four still-blocked files (repository-source-dependencies, project-releases, authority-learning-loop, beam-live-coding-layer-investigation). The cycle continues with worker-storage-protocol (Jev proceed).
-
-- `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-child-moddable-10-0-0-ironhorse-port-plan-synthesis-20261009-failed` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-child-moddable-10-0-0-ironhorse-port-plan-synthesis-20261009-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume-child-moddable-10-0-0-ironhorse-port-plan-synthesis-20261009-failed.md)
-
-> orchestration-event: orchestration-child-timeout
-> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume
-> orchestration-status: running
-> child: moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
-> failure-kind: handler-timeout
-> order: serial
-> on-child-failure: halt
-> detail: stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1)
->
-> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-resume observed child moddable-10-0-0-ironhorse-port-plan-synthesis-20261009: stalled in flight for 2612s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
 
 - `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
 
@@ -489,19 +447,6 @@ Delegation: **active**
 >
 > Do not change worker counts, drain state, or deploy state from this job. Scale through `scripts/jobs/set-workers.sh` or the sysop only if the maintainer asks.
 
-- `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-halted.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume
-> orchestration-status: halted
-> child: moddable-10-0-0-ironhorse-audit-20261009
-> failure-kind: handler-timeout
-> children-completed: 0
-> children-total: 2
-> halt-parked-remainder: moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
->
-> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume HALTED: child moddable-10-0-0-ironhorse-audit-20261009 stalled in flight for 2583s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
-
 - `msg-scholar-ingest-literate-ai-architecture-next-20261010-46351dffa0e5` — from scholar:scholar-ingest-literate-ai-architecture-next-20261010, reply_to `scholar-ingest-literate-ai-architecture-next-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-next-20261010-46351dffa0e5.md)
 
 > Literate AI ingest, next architecture slice: 4 sources ingested as 18 sections: component-flavors (6), documentation-artifacts (3), framework-premise-assessment (4, with a caveat for persuasive framing; it is the project's own 6.5/10 self-assessment) and html-observability (5). The foreign-content gate halted beam-live-coding-layer-investigation.md (injection 0.29), so I did not read it; it is blocked pending your disposition, with a separate escalation sent. The next unprocessed source is docs/architecture/mission-specification-composition.md. The details are in this job's result entry.
@@ -579,19 +524,6 @@ Delegation: **active**
 > detail: stalled in flight for 2474s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1)
 >
 > Orchestration claude-on-minion-town-press-20261013-072006-split observed child claude-on-minion-town-press-carry-20261013: stalled in flight for 2474s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1).
-
-- `moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-child-moddable-10-0-0-ironhorse-audit-20261009-failed` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-child-moddable-10-0-0-ironhorse-audit-20261009-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-resume-child-moddable-10-0-0-ironhorse-audit-20261009-failed.md)
-
-> orchestration-event: orchestration-child-timeout
-> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split-resume
-> orchestration-status: running
-> child: moddable-10-0-0-ironhorse-audit-20261009
-> failure-kind: handler-timeout
-> order: serial
-> on-child-failure: halt
-> detail: stalled in flight for 2583s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1)
->
-> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split-resume observed child moddable-10-0-0-ironhorse-audit-20261009: stalled in flight for 2583s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1).
 
 - `review-docket-20261008-halted` — from orchestrator:review-docket-20261008-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-halted.md)
 
@@ -788,35 +720,9 @@ Delegation: **active**
 >
 > I did not read the content. It joins the other blocked Literate AI files (project-releases, authority-learning-loop, beam-live-coding-layer-investigation). Reply "ingest repository-source-dependencies" (or "skip") to the remainder job's inbox, or to this one, to set its disposition.
 
-- `moddable-10-0-0-ironhorse-port-plan-20261009-split-child-moddable-10-0-0-xs-source-inventory-20261009-failed` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-child-moddable-10-0-0-xs-source-inventory-20261009-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-child-moddable-10-0-0-xs-source-inventory-20261009-failed.md)
-
-> orchestration-event: orchestration-child-timeout
-> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split
-> orchestration-status: running
-> child: moddable-10-0-0-xs-source-inventory-20261009
-> failure-kind: handler-timeout
-> order: serial
-> on-child-failure: halt
-> detail: stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1)
->
-> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split observed child moddable-10-0-0-xs-source-inventory-20261009: stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1).
-
 - `20261011T192238Z-34070d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261011T192238Z-34070d.md)
 
 > awaiting maintainer — beyond proxy authority: gardener fix-minion-town-prod-probe-runs-on-validation, msgid msg-fix-minion-town-prod-probe-runs-on-validation-19c0b6fde070.md — Restoring or re-issuing the bot's GitHub credential is an authority and credential grant that only the maintainer can perform, and the proxy can't fix it.
-
-- `moddable-10-0-0-ironhorse-port-plan-20261009-split-halted` — from orchestrator:moddable-10-0-0-ironhorse-port-plan-20261009-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/moddable-10-0-0-ironhorse-port-plan-20261009-split-halted.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: moddable-10-0-0-ironhorse-port-plan-20261009-split
-> orchestration-status: halted
-> child: moddable-10-0-0-xs-source-inventory-20261009
-> failure-kind: handler-timeout
-> children-completed: 0
-> children-total: 3
-> halt-parked-remainder: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
->
-> Orchestration moddable-10-0-0-ironhorse-port-plan-20261009-split HALTED: child moddable-10-0-0-xs-source-inventory-20261009 stalled in flight for 2536s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: moddable-10-0-0-ironhorse-audit-20261009 moddable-10-0-0-ironhorse-port-plan-synthesis-20261009
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal.md)
 
@@ -836,7 +742,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 279.2M | $1333.64 _(notional, rate-card)_ | 103% of 271.0M (backoff) |
+| Claude | 279.7M | $1336.76 _(notional, rate-card)_ | 103% of 271.0M (backoff) |
 | Codex | 83.0M _(+1682.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101452593 tokens/day lower bound._
@@ -845,20 +751,21 @@ _Fleet token-unlock pace: 101452593 tokens/day lower bound._
 worst fetch p95 6.469698s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (20)
+### todo (21)
 - [`deadmail-20261015T195909Z-a7c006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261015T195909Z-a7c006.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1391-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1391
-- [`kriscendobot-garden-book-pr15-gauntlet-fix-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-fix-9.md) — Gauntlet stage: FIX round 9 — kriscendobot/garden-book PR #15
 - [`minion-town-arc-press-20261015-192010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261015-192010.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr188-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr188-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #188
+- [`kriscendobot-minion.town-pr178-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr178-gauntlet-panel-8.md) — Gauntlet stage: PANEL round 8 — kriscendobot/minion.town PR #178
 - [`kriscendobot-minion.town-pr191-review-93f9e308`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr191-review-93f9e308.md) — Review directive on kriscendobot/minion.town PR #191
 - [`endojs-endo-but-for-bots-pr1392-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1392-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1392
-- [`kriscendobot-minion.town-pr190-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr190-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #190
+- [`deadmail-20261015T185843Z-d195c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261015T185843Z-d195c5.md) — Dead-lettered message — pick up its intent
 - [`oros-health-checkup-20261015-192010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261015-192010.md) — ---
 - [`endojs-endo-but-for-bots-pr1391-body-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1391-body-refresh.md) — Update the PR #1391 description (handoff from endojs-endo-but-for-bots-pr1391...
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-fix-12.md) — Gauntlet stage: FIX round 12 — kriscendobot/minion.town PR #180
 - [`kriscendobot-minion.town-pr186-gauntlet-panel-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr186-gauntlet-panel-11.md) — Gauntlet stage: PANEL round 11 — kriscendobot/minion.town PR #186
 - [`oros-health-watch-20261015-192010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261015-192010.md) — ---
+- [`retire-claude-endolin2-pool-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/retire-claude-endolin2-pool-20261015.md) — Retire the claude-endolin2 pool and the endolin-garden2 host from fleet accou...
 - [`validate-minion-town-prod-probe-dispatch-backstop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/validate-minion-town-prod-probe-dispatch-backstop.md) — Validate and finish the minion.town production-probe dispatch backstop
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-panel-11.md) — Gauntlet stage: PANEL round 11 — kriscendobot/minion.town PR #184
 - [`deadmail-20261015T195858Z-084fe2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261015T195858Z-084fe2.md) — Dead-lettered message — pick up its intent
@@ -868,19 +775,19 @@ worst fetch p95 6.469698s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review.md) — Post the round-2 panel verdict on endojs/endo-but-for-bots PR #356 (REQUEST_C...
 
 ### doin (5)
-- [`kriscendobot-minion.town-pr178-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr178-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #178
-- [`deadmail-20261015T185843Z-d195c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261015T185843Z-d195c5.md) — Dead-lettered message — pick up its intent
+- [`kriscendobot-garden-book-pr15-gauntlet-fix-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr15-gauntlet-fix-9.md) — Gauntlet stage: FIX round 9 — kriscendobot/garden-book PR #15
+- [`kriscendobot-minion.town-pr190-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr190-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #190
 - [`improve-completion-press-git-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-completion-press-git-timeout.md) — ---
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #356
 - [`endojs-endo-but-for-bots-pr1394-shepherd-20261015-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1394-shepherd-20261015-expanded-window.md) — ---
 
-### tada (13095)
+### tada (13096)
+- [`kriscendobot-minion.town-pr178-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion.town-pr178-gauntlet-fix-7.md) — Gauntlet fix round 7: kriscendobot/minion.town PR #178
 - [`claude-on-minion-town-press-20261015-192010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/claude-on-minion-town-press-20261015-192010.md) — Cost
 - [`kriscendobot-minion.town-pr189-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion.town-pr189-gauntlet.md) — gauntlet kriscendobot-minion.town-pr189-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr189-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion.town-pr189-gauntlet-fix-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/endojs-endo-but-for-bots-pr1391-gauntlet-fix-3.md) — Fix round 3 for endojs/endo-but-for-bots PR #1391: fixes pushed, CI green
-- [`kriscendobot-minion-town-pr186-js-conversion-fix-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion-town-pr186-js-conversion-fix-20261015.md) — Cost
-- … and 13090 more
+- … and 13091 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
