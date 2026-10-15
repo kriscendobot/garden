@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-15T17:35Z (oros-health-checkup-20261015-160510): healthy (deployed = origin/main2 `bf605277`) → one daemon-reload
+
+- **Load/mem:** load 2.5/2.6/3.0; 12 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (165k).
+- **Uptime:** 14d0h, no reboot.
+- **Deployed vs main2:** root at `bf605277` = origin/main2. fleet/health (15:17Z): `roll_status: deployed`, 0 of 292 units failed.
+- **Units:** 0 failed; monks 1 to 4 running (scaler-managed). Not draining. The only derotation marker is endolin-garden2's.
+- **Budget heartbeat:** claude-oros sampled at 17:02Z, status ok, 19% used. Pushes are on cadence (16:18, 16:33, 16:47, 17:03, 17:17, 17:32 all landed).
+- **State clones:** 45 pack dirs scanned, none over 50 packs, no tmp_pack, no `gc.log`, no index.lock older than 10 minutes.
+- **rc=124 (3h):** the garden-sysop self-heal hit its 600s limit twice (16:30Z, 16:40Z). Later ticks finish in about 10–30s with nothing applied. monk/2 `endojs-endo-but-for-bots-pr1394-shepherd-20261015` overran its own 2400s budget at 17:10Z (classified transient, left for the reaper).
+- **Changed:** all 292 garden units reported `NeedDaemonReload=yes` ("changed on disk"), though no unit file under `~/.config/systemd/user` had changed in 12h. One `systemctl --user daemon-reload` cleared it. It restarted nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-15T14:05Z (oros-health-checkup-20261015-125028): healthy (deploy deferred on long jobs only) → no changes
 
 - **Load/mem:** load 2.8/2.9/2.9; 11 GiB of 15 GiB available.
