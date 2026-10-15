@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-15T16:55:01Z_
+_As of 2026-10-15T16:58:50Z_
 
 ## Latest
 
@@ -1810,8 +1808,7 @@ _Fleet token-unlock pace: 101211987 tokens/day lower bound._
 worst fetch p95 8.257404s/45s (/home/kris/garden/.garden-state/scheduler/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (15)
-- [`kriscendobot-minion.town-pr189-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr189-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #189
+### todo (14)
 - [`kriscendobot-minion.town-pr188-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr188-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #188
 - [`claude-on-minion-town-completion-press-20261015-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261015-155009.md) — Completion press: Claude-on-minion.town arc
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #356
@@ -1827,7 +1824,8 @@ worst fetch p95 8.257404s/45s (/home/kris/garden/.garden-state/scheduler/journal
 - [`endojs-endo-but-for-bots-pr1396-parcel-restack-20261015-r5527149922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1396-parcel-restack-20261015-r5527149922.md) — Reconcile and restack endojs/endo-but-for-bots PR #1396
 - [`minion-town-arc-press-20261015-160510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261015-160510.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (4)
+### doin (5)
+- [`kriscendobot-minion.town-pr189-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr189-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #189
 - [`endojs-endo-but-for-bots-pr1392-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1392-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1392
 - [`endojs-endo-but-for-bots-pr1394-shepherd-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1394-shepherd-20261015.md) — ---
 - [`kriscendobot-minion.town-pr190-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr190-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #190
