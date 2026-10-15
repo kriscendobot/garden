@@ -34,6 +34,7 @@ so a panel verifies the fixes. Do not un-draft or merge by hand; the gauntlet an
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-15T14:03:22Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
