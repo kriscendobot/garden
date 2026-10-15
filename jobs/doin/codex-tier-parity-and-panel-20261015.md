@@ -26,3 +26,13 @@ Garden repo (kriscendobot/garden), land directly on `main2` per the repo convent
 ## Tests and constraints
 
 Add tests under `scripts/jobs/test/` for: the inventory having all four tiers for anthropic and openai; `tier_model_for_provider` for each; `seat_model_flag`/runner selection for both providers; the foreperson schema enforcement on the Codex path using a stub `codex` on PATH (no real model calls in tests). Run the existing suites that touch these files. Do not post other jobs, do not touch the live board, and do not claim or modify any gauntlet job. Report what changed, test results, the evidence for the OpenAI tier assignments, and any other provider with a tier gap.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T04:08:21Z
