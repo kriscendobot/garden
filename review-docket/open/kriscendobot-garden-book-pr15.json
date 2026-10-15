@@ -3,18 +3,18 @@
   "repo": "kriscendobot/garden-book",
   "pr": 15,
   "url": "https://github.com/kriscendobot/garden-book/pull/15",
-  "head_oid": "df9e13a0c53d8370f4ab2d744fbd6db7f80ea35c",
+  "head_oid": "92124597e38790130bf737d7cce4e7d26221a39c",
   "ask": "re-review",
   "arc": "garden-book",
   "milestone": "-",
-  "summary": "Automated review rounds were exhausted after a green fix: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-garden-book-pr15-gauntlet panel --add-rounds N",
+  "summary": "Automated review rounds were exhausted after a green fix: Applied 8 panel/fix round(s); fix round 8 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=8, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-garden-book-pr15-gauntlet panel --add-rounds N",
   "unblocks": [],
   "source": "kriscendobot-garden-book-pr15-gauntlet-review-budget-reached",
-  "requested_at": "2026-10-15T10:17:05Z",
+  "requested_at": "2026-10-15T14:29:04Z",
   "first_requested_at": "2026-10-15T10:17:05Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "pending",
-    "observed_at": "2026-10-15T14:03:26Z"
+    "observed_at": "2026-10-15T14:29:56Z"
   }
 }
