@@ -19,3 +19,13 @@ The maintainer review of https://github.com/kriscendobot/minion.town/pull/191 (2
 Do NOT wait for the maintainer's GitHub login (not scheduled); it is needed only to run Flow A / the first formula-id reveal, not to land this change. Keep #186 a draft. Before editing, re-read #191 and its newest maintainer comments (e.g. issuecomment-6201208707, the formula-id/OCapN pivot, owned by job `kriscendobot-minion.town-pr191-9f800189`); if the maintainer has since redirected #186's scope, follow that and report rather than shrinking blindly.
 
 Provenance: dead-lettered maintainer message to `validate-minion-town-root-canary-login-20261013` (jobs deadmail-20261015T195858Z-084fe2 / deadmail-20261015T195909Z-a7c006).
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T22:47:25Z
