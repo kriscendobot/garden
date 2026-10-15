@@ -21,13 +21,6 @@ State at split time (2026-10-15T18:1xZ, head 6f3185b487c9ac92974533e9f50054d544d
 Provenance: split from `endojs-endo-but-for-bots-pr1394-shepherd-20261015` after one 2400s handler overrun (indivisible: single-PR CI loop).
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=5159 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-15T19:34:06Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-15T21:23:26Z -->
