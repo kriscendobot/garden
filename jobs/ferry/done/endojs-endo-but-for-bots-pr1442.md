@@ -101,3 +101,9 @@ from this directive, not delegated to the boatman.
 ferry_claim:
   host: kmkmbp2026
   claimed_at: 2026-10-15T02:48:56Z
+
+---
+ferry_done:
+  completed_at: 2026-10-15T02:51:46Z
+  exit: 0
+  log: /Users/kris/garden/.garden-ferry/logs/endojs-endo-but-for-bots-pr1442.20261015T024859Z.log
