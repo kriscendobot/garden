@@ -1,0 +1,42 @@
+<6>19:56:36 [monk/2] job 'deadmail-20261015T185843Z-d195c5' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>19:56:45 [monk/2] job 'deadmail-20261015T185843Z-d195c5' call ceiling: tier=mentor max-budget-usd=15.00 (scaled by fresh seven-day headroom when available)
+<4>19:56:45 [monk/2] WARN minion-mcp: token preflight failed; job 'deadmail-20261015T185843Z-d195c5' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+panel-head-freshness: stale target=kriscendobot/minion.town#184 reviewed_head=b4b70e2469500854d0e600f83daa29c0755c82d8 presented_head=4d0012bf8f7aaacaabca12754a280527d32cadf0 disposition=review-required
+<6>20:03:29 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/184 moved after a completed panel; deferring to the review-docket freshness disposition
+panel-head-freshness: stale target=kriscendobot/minion.town#184 reviewed_head=b4b70e2469500854d0e600f83daa29c0755c82d8 presented_head=4d0012bf8f7aaacaabca12754a280527d32cadf0 disposition=review-required
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>20:04:01 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/167; leaving docket unchanged
+<6>20:04:01 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/167 failed (rc=1, attempt 2); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=1508063 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>20:04:22 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/183; leaving docket unchanged
+<6>20:04:22 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/183 failed (rc=1, attempt 2); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=1513582 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>20:04:31 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/167; leaving docket unchanged
+<6>20:04:31 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/167 failed (rc=1, attempt 2); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=1518849 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>20:04:41 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/183; leaving docket unchanged
+<6>20:04:41 [review-docket] spooled reenter https://github.com/kriscendobot/minion.town/pull/183 failed (rc=1, attempt 2); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=1522478 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>20:05:02 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/184; leaving docket unchanged
+
+--- handler report (partial) ---
+I passed the maintainer's reply on to the job that now owns the work. The secret is in place, so the production validation for the minion.town dispatch backstop (draft PR https://github.com/kriscendobot/minion.town/pull/184) is now queued. The validation itself has not run yet.
+
+**Where the reply belonged:** `build-minion-town-prod-probe-dispatch-backstop` had finished on 2026-10-13. It handed the remaining production validation to `validate-minion-town-prod-probe-dispatch-backstop`, which sat parked waiting for the maintainer. Its question was: "Seed the repository-scoped Actions read/write PAT in AWS secret `minion/prod-probe-dispatch-token`, then promote this validation job." The dead-lettered reply says that secret now exists. That reply was the go-ahead the parked job was waiting for.
+
+**What I did:**
+1. **Restricted the parked job to AWS hosts.** I added `requires: aws` to the frontmatter of the job's work instructions, and confirmed it is still there after promotion. Steps 1–3 need SSM, Lambda and the secret, and this host (oros-studio) has no AWS credentials. Without the line, a host like this one could claim the job and get stuck. I also appended a note recording the maintainer's 2026-10-15T18:58:45Z reply.
+2. **Moved it into the live queue** with `promote-plan.sh --maintainer`, which cleared the maintainer gate on the strength of that reply. It is now in `jobs/todo/` at high priority as a builder job. Its instructions are unchanged:
+   - Reconcile the runner Lambda.
+   - Install the backstop service and timer through SSM.
+   - Force a dispatch and confirm a strict `prod-probe.yml` run is created.
+   - Check the timer and the default `main` behavior.
+   - Then finish PR #184 so its review chain runs normally.
+
+I made no changes to the garden repo and never read the secret's value.
+
+**Follow-up:** check that an AWS-capable host (for example endolin) claims the validation job. If no host in the fleet advertises the `aws` capability, the job will sit in the queue.
