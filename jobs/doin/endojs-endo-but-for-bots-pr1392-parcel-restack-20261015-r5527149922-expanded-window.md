@@ -44,3 +44,13 @@ report with these exact lines:
 
 `<<<GARDEN-ORCHESTRATION-FAILED>>>`
 `<<<GARDEN-JOB-COMPLETE>>>`
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T11:46:55Z
