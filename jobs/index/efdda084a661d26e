@@ -1,0 +1,2 @@
+base: improve-root-canary-noexec-helper
+identity: mentor:deploy/aws/scripts/root-canary-exec.sh
