@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-garden-book-pr15-gauntlet
-priority: high
 role: builder
+tier: mentor
 arc: garden-book
-posted_by: gardener
-posted_at: 2026-10-14T04:50:23Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-10-15T10:21:04Z cleared=none -->
 
 ---
 tier: mentor
