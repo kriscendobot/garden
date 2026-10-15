@@ -2,6 +2,23 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-15T01:45Z (oros-health-checkup-20261014-211624): healthy; the contention watch finishes inside its bound now but starved on a stuck notice → fix on main2 `85389eda`
+
+- **Load/mem:** load 3.1/3.9/3.4; 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1% (165k).
+- **Uptime:** 13d8h, no reboot.
+- **Deployed vs main2:** root at `8d47418e` = origin/main2 at claim. fleet/health (01:14Z): `roll_status: deployed`, 0 of 293 units failed. The 20:35Z fix `624ea1f3` is live.
+- **Units:** 0 failed; monks 1 to 6 running (scaler-managed). No drain; derotation untouched.
+- **Budget heartbeat:** claude-oros sampled at 01:18Z, status ok, 3% used, on a 15-minute cadence.
+- **Root store:** 28 packs, 469M, no `gc.log`, no tmp_pack; root-repo-guard is healthy every 30m. State clones are at ≤60 pack files with no tmp_pack, and there are 0 dead-pid repo-lock holders.
+- **rc=124 (4h):** journal-contention-watch TimeoutStartSec kills stopped at 23:30Z, after the deploy of `624ea1f3`. transcript-capture self-heal ×1/h is recurring.
+- **Finding (fixed on main2 `85389eda`, not yet deployed):**
+  - A pending `journal-contention-storm-lock-contention` close notice loses journal push races for about 200s on every tick.
+  - The pre-sweep and per-clone flushes spent the whole 210s budget on it. Most ticks logged `analyzed 0`, and the cursor sat at 325 of 496 clones from 23:44Z to 00:53Z. Progress came only on the odd tick where delivery was fast.
+  - Fix: delivery before and during the sweep stops at `GARDEN_CONTENTION_SWEEP_SHARE` (half the tick). A new test case fails without the fix; journal-contention-watch-test passes.
+- **Watch:** the open lock-contention alerts are real. The producer, sysop, unblock, repo-watcher and scaler clones are contending, which matches the 10-01 diagnosis (CAS losses under load).
+- **Changed:** nothing on-host.
+
 ## 2026-10-14T20:35Z (oros-health-checkup-20261014-170518): degraded (garden-journal-contention-watch killed by TimeoutStartSec on every tick since 10-13 19:00Z) → fix on main2 `624ea1f3`; otherwise healthy
 
 - **Load/mem:** load 2.7/3.3/3.4; 13 GiB of 16 GiB available; swap 531 MiB used.
