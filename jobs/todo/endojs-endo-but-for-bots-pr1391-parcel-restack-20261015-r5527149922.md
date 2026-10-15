@@ -24,17 +24,4 @@ conflicts without flattening or dropping either parent chain, force-push with
 lease, and update #1391's base. Run affected tests and gates, drive CI green,
 and post the required summary.
 
-
-
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-15T06:40:29Z
+<!-- garden-reaped: 0 -->
