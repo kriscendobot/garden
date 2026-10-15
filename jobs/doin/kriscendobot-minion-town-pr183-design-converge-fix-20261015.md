@@ -41,3 +41,13 @@ When the head is pushed and CI is green, resume review with
 (only if the record is not already running). Do not un-draft or merge by hand; the gauntlet and the
 proxy screen own that. If the PR's Endo pin needs an unmerged endojs/endo-but-for-bots change, do not
 touch Endo; report it.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T22:44:45Z
