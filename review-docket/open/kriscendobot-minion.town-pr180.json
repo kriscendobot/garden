@@ -3,18 +3,18 @@
   "repo": "kriscendobot/minion.town",
   "pr": 180,
   "url": "https://github.com/kriscendobot/minion.town/pull/180",
-  "head_oid": "2d14e79316622b44c043856bd5680d78002e4036",
+  "head_oid": "f9422e0afb87fa9302cc2e18020dbe848ea1adc2",
   "ask": "re-review",
   "arc": "minion-town-git-remote",
   "milestone": "-",
-  "summary": "Automated review rounds were exhausted after a green fix: Applied 7 panel/fix round(s); fix round 7 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=7, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds N",
+  "summary": "Automated review rounds were exhausted after a green fix: Applied 12 panel/fix round(s); fix round 12 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=12, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds N",
   "unblocks": [],
   "source": "kriscendobot-minion.town-pr180-gauntlet-review-budget-reached",
-  "requested_at": "2026-10-13T08:44:02Z",
+  "requested_at": "2026-10-15T21:14:04Z",
   "first_requested_at": "2026-10-13T02:14:03Z",
-  "generation": 2,
+  "generation": 3,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-15T20:48:09Z"
+    "observed_at": "2026-10-15T21:14:06Z"
   }
 }
