@@ -43,6 +43,7 @@ When the head is pushed and CI is green, resume the review with
 so a panel verifies the result. Do not un-draft or merge by hand; the gauntlet and the proxy
 screen own that.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2315 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
