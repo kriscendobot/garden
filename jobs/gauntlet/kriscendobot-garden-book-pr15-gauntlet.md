@@ -11,11 +11,11 @@ created_by: producer
 created_at: 2026-10-14T04:07:45Z
 arc: garden-book
 added_rounds: 2
-stage: panel
+stage: fix
 iteration: 10
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-garden-book-pr15-gauntlet-panel-10
+current_child: kriscendobot-garden-book-pr15-gauntlet-fix-10
 state: running
 resumed_at: 2026-10-15T18:23:13Z
 resumed_from_stage: fix
