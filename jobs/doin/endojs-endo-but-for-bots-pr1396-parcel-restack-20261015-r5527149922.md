@@ -25,3 +25,13 @@ update #1396's base. Run affected tests and gates, drive CI green, and post the
 required summary.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T20:25:59Z
