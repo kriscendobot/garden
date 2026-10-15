@@ -13,12 +13,12 @@ whenever a connection is lost. Job `build-minion-town-mcp-garden2-workers` built
 it. Later sessions keep it armed. The liaison lists it among its standing behaviors
 ([`roles/liaison/AGENT.md`](../../roles/liaison/AGENT.md)).
 
-**Current rollout scope: `endolin-garden2-5bcdff64` only.** Every job acts as the
-test client-credentials principal (`minion-mcp-test-cc`) on **production**
-minion.town, and that principal can mutate real daemon guest state. So the fleet
-stays scoped to the proving host until the maintainer approves a dedicated garden
-principal or a read-only scope (§ Open decisions). Widening is one command:
-`scripts/jobs/set-minion-mcp.sh hosts '*'`.
+**Rollout scope: every host.** Journal `config/minion-mcp` reads `hosts: *`.
+The original proving host, `endolin-garden2-5bcdff64`, was retired on 2026-10-15.
+Every job acts as the test client-credentials principal (`minion-mcp-test-cc`) on
+**production** minion.town, and that principal can mutate real daemon guest
+state (§ Open decisions). To narrow the scope again, run
+`scripts/jobs/set-minion-mcp.sh hosts <host>`.
 
 ## How it works
 

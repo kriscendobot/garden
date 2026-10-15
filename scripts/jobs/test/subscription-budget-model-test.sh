@@ -16,14 +16,18 @@ mkdir -p "$TEST_ROOT/config" "$TEST_ROOT/budget/reset-events" \
   "$TEST_ROOT/budget/manual-checkpoints" "$TEST_ROOT/budget/live/claude-oros/oros-studio-garden-ce242c49"
 cp "$JOBS/budget-pools-placeholder.tsv" "$TEST_ROOT/config/budget-pools"
 cp "$JOBS/subscription-mapping.tsv" "$TEST_ROOT/config/subscription-mapping"
+# claude-endolin2 was retired 2026-10-15; a fixture-only calendar subscription keeps
+# the planned-reset pacing coverage it used to carry.
+printf 'claude-fixture-calendar\tanthropic\tweekly-tokens\t5000000\tplaceholder\t-\n' >> "$TEST_ROOT/config/budget-pools"
+printf 'claude-fixture-calendar\tfixture-calendar-host\tmonk\n' >> "$TEST_ROOT/config/subscription-mapping"
 
 printf '%s\n' \
   '{"subscription_id":"claude-endolin1","event_type":"declared-schedule","cadence":"calendar","schedule_weekday":5,"schedule_time":"20:00","timezone":"America/Los_Angeles","reset_at_precision":"exact","reset_at":"2026-09-19T03:00:00Z"}' \
   '{"subscription_id":"claude-endolin1","event_type":"scheduled-weekly","cadence":"observed","reset_at_precision":"exact","reset_at":"2026-09-19T03:05:00Z","timezone":"UTC"}' \
   > "$TEST_ROOT/budget/reset-events/claude-endolin1.jsonl"
 printf '%s\n' \
-  '{"subscription_id":"claude-endolin2","event_type":"declared-schedule","cadence":"calendar","schedule_weekday":5,"schedule_time":"20:00","timezone":"America/Los_Angeles","reset_at_precision":"exact","reset_at":"2026-09-19T03:00:00Z"}' \
-  > "$TEST_ROOT/budget/reset-events/claude-endolin2.jsonl"
+  '{"subscription_id":"claude-fixture-calendar","event_type":"declared-schedule","cadence":"calendar","schedule_weekday":5,"schedule_time":"20:00","timezone":"America/Los_Angeles","reset_at_precision":"exact","reset_at":"2026-09-19T03:00:00Z"}' \
+  > "$TEST_ROOT/budget/reset-events/claude-fixture-calendar.jsonl"
 printf '%s\n' \
   '{"subscription_id":"claude-oros","event_type":"declared-schedule","cadence":"calendar","schedule_weekday":2,"schedule_time":"","timezone":"America/Los_Angeles","reset_at_precision":"day","reset_at":null}' \
   > "$TEST_ROOT/budget/reset-events/claude-oros.jsonl"
@@ -33,7 +37,7 @@ printf '%s\n' \
   > "$TEST_ROOT/budget/reset-events/codex-endolin.jsonl"
 
 [ "$(budget_subscription_for_host_kind endolin-garden-ece02cb4 cleric "$TEST_ROOT")" = codex-endolin ]
-[ "$(budget_subscription_for_host_kind endolin-garden2-5bcdff64 cleric "$TEST_ROOT")" = codex-endolin ]
+! budget_subscription_for_host_kind endolin-garden2-5bcdff64 cleric "$TEST_ROOT" >/dev/null
 [ "$(budget_subscription_for_host_kind endolin-garden-ece02cb4 gardener "$TEST_ROOT")" = claude-endolin1 ]
 ! budget_subscription_for_host_kind oros-studio-garden-ce242c49 cleric "$TEST_ROOT" >/dev/null
 [[ "$(pool_admission_refusal unknown:openai:oros:cleric "$TEST_ROOT")" == *"ask the maintainer"* ]]
@@ -75,48 +79,48 @@ awk -v weight="$oros_weight" 'BEGIN { exit !(weight >= 1200000000) }'
 # A pending maintainer-planned reset before the calendar reset becomes the
 # pacing deadline; the window start is unchanged. Past, later-than-calendar, and
 # already-executed plans leave calendar pacing exactly as before.
-endolin2_declared='{"subscription_id":"claude-endolin2","event_type":"declared-schedule","cadence":"calendar","schedule_weekday":5,"schedule_time":"20:00","timezone":"America/Los_Angeles","reset_at_precision":"exact","reset_at":"2026-09-19T03:00:00Z"}'
-endolin2_events="$TEST_ROOT/budget/reset-events/claude-endolin2.jsonl"
-planned_row() { printf '{"subscription_id":"claude-endolin2","event_type":"expected-next-scheduled","cadence":"observed","reset_at":"%s","reset_at_precision":"scheduled","recorded_at":"%s","timezone":"UTC"}\n' "$1" "$2"; }
-calendar_window="$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
-calendar_bias="$(subscription_pacing_bias claude-endolin2 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+calendar_declared='{"subscription_id":"claude-fixture-calendar","event_type":"declared-schedule","cadence":"calendar","schedule_weekday":5,"schedule_time":"20:00","timezone":"America/Los_Angeles","reset_at_precision":"exact","reset_at":"2026-09-19T03:00:00Z"}'
+calendar_events="$TEST_ROOT/budget/reset-events/claude-fixture-calendar.jsonl"
+planned_row() { printf '{"subscription_id":"claude-fixture-calendar","event_type":"expected-next-scheduled","cadence":"observed","reset_at":"%s","reset_at_precision":"scheduled","recorded_at":"%s","timezone":"UTC"}\n' "$1" "$2"; }
+calendar_window="$(subscription_pacing_window claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+calendar_bias="$(subscription_pacing_bias claude-fixture-calendar 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
 [ "$(cut -f2,3,4 <<<"$calendar_window")" = "calendar	$(date -u -d 2026-09-26T03:00:00Z +%s)	calendar" ]
 [ "$(cut -f1 <<<"$calendar_window")" = "$(date -u -d 2026-09-19T03:00:00Z +%s)" ]
 
-{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-22T03:00:00Z 2026-09-20T06:00:00Z; } > "$endolin2_events"
-planned_window="$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+{ printf '%s\n' "$calendar_declared"; planned_row 2026-09-22T03:00:00Z 2026-09-20T06:00:00Z; } > "$calendar_events"
+planned_window="$(subscription_pacing_window claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
 [ "$(cut -f1,2 <<<"$planned_window")" = "$(cut -f1,2 <<<"$calendar_window")" ]
 [ "$(cut -f3,4 <<<"$planned_window")" = "$(date -u -d 2026-09-22T03:00:00Z +%s)	planned" ]
-planned_bias="$(subscription_pacing_bias claude-endolin2 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+planned_bias="$(subscription_pacing_bias claude-fixture-calendar 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
 awk -v p="$planned_bias" -v c="$calendar_bias" 'BEGIN { exit !(p > c) }'
 awk -v p="$(subscription_allocation_weight 100000000 "$planned_bias")" \
     -v c="$(subscription_allocation_weight 100000000 "$calendar_bias")" 'BEGIN { exit !(p > c) }'
-[[ "$(subscription_pacing_summary claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" == *"deadline=2026-09-22T03:00Z(planned)"* ]]
+[[ "$(subscription_pacing_summary claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW")" == *"deadline=2026-09-22T03:00Z(planned)"* ]]
 # An offset-qualified plan (the 09-26 row's shape) parses to the same instant.
-{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-21T20:00:00-07:00 2026-09-20T06:00:00Z; } > "$endolin2_events"
-[ "$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f3)" = "$(date -u -d 2026-09-22T03:00:00Z +%s)" ]
+{ printf '%s\n' "$calendar_declared"; planned_row 2026-09-21T20:00:00-07:00 2026-09-20T06:00:00Z; } > "$calendar_events"
+[ "$(subscription_pacing_window claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f3)" = "$(date -u -d 2026-09-22T03:00:00Z +%s)" ]
 # The latest plan wins, even when an earlier plan was sooner.
-{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-21T00:00:00Z 2026-09-20T06:00:00Z; planned_row 2026-09-23T00:00:00Z 2026-09-20T07:00:00Z; } > "$endolin2_events"
-[ "$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f3)" = "$(date -u -d 2026-09-23T00:00:00Z +%s)" ]
+{ printf '%s\n' "$calendar_declared"; planned_row 2026-09-21T00:00:00Z 2026-09-20T06:00:00Z; planned_row 2026-09-23T00:00:00Z 2026-09-20T07:00:00Z; } > "$calendar_events"
+[ "$(subscription_pacing_window claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f3)" = "$(date -u -d 2026-09-23T00:00:00Z +%s)" ]
 
 # Once the planned instant passes, the calendar deadline returns.
-{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-20T11:00:00Z 2026-09-19T06:00:00Z; } > "$endolin2_events"
-[ "$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_window" ]
-[ "$(subscription_pacing_bias claude-endolin2 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_bias" ]
+{ printf '%s\n' "$calendar_declared"; planned_row 2026-09-20T11:00:00Z 2026-09-19T06:00:00Z; } > "$calendar_events"
+[ "$(subscription_pacing_window claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_window" ]
+[ "$(subscription_pacing_bias claude-fixture-calendar 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_bias" ]
 
 # A plan later than the calendar reset is ignored, and the reason says so.
-{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-28T03:00:00Z 2026-09-20T06:00:00Z; } > "$endolin2_events"
-[ "$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f1-4)" = "$(cut -f1-4 <<<"$calendar_window")" ]
-[ "$(subscription_pacing_bias claude-endolin2 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_bias" ]
-[[ "$(subscription_pacing_summary claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" == *"(calendar) [planned reset 2026-09-28T03:00:00Z not before calendar deadline; ignored]" ]]
+{ printf '%s\n' "$calendar_declared"; planned_row 2026-09-28T03:00:00Z 2026-09-20T06:00:00Z; } > "$calendar_events"
+[ "$(subscription_pacing_window claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f1-4)" = "$(cut -f1-4 <<<"$calendar_window")" ]
+[ "$(subscription_pacing_bias claude-fixture-calendar 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_bias" ]
+[[ "$(subscription_pacing_summary claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW")" == *"(calendar) [planned reset 2026-09-28T03:00:00Z not before calendar deadline; ignored]" ]]
 
 # The plan was executed early: the observed reset starts the new window and the
 # calendar deadline governs it, instead of a minutes-long window to the plan.
-{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-22T03:00:00Z 2026-09-20T06:00:00Z
-  printf '%s\n' '{"subscription_id":"claude-endolin2","event_type":"manual-reset","cadence":"observed","reset_at":"2026-09-20T11:00:00Z","reset_at_precision":"exact","timezone":"UTC"}'; } > "$endolin2_events"
-observed_window="$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+{ printf '%s\n' "$calendar_declared"; planned_row 2026-09-22T03:00:00Z 2026-09-20T06:00:00Z
+  printf '%s\n' '{"subscription_id":"claude-fixture-calendar","event_type":"manual-reset","cadence":"observed","reset_at":"2026-09-20T11:00:00Z","reset_at_precision":"exact","timezone":"UTC"}'; } > "$calendar_events"
+observed_window="$(subscription_pacing_window claude-fixture-calendar "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
 [ "$(cut -f1-4 <<<"$observed_window")" = "$(date -u -d 2026-09-20T11:00:00Z +%s)	observed	$(date -u -d 2026-09-26T03:00:00Z +%s)	calendar" ]
-printf '%s\n' "$endolin2_declared" > "$endolin2_events"
+printf '%s\n' "$calendar_declared" > "$calendar_events"
 
 fleet="$(budget_fleet_rate_json "$TEST_ROOT")"
 [ "$(jq -r '.tokens_per_day_lower_bound > 0' <<<"$fleet")" = true ]

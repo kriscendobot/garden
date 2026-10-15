@@ -44,6 +44,29 @@ rows, including when the correction reuses that timestamp.
 A checkpoint measures;
 it does not itself change a cap or worker count.
 
+### Retired budget sources
+
+A dead account leaves the live registries through
+[retire-subscription.sh](../../scripts/jobs/retire-subscription.sh), never by hand.
+One commit drops the pool row, its mapping rows, and the rows, leveling cap, and
+live snapshots of any host retired with it, then archives `hosts/<host>` to
+`hosts/.archived-<host>`.
+It refuses a result that would fail closed: a host mapped to a
+missing pool, a living host or shared pool left unmapped, or a broken leveling
+envelope.
+Tombstones in `config/retired-budget-sources` make `set-budget-pool.sh` and
+`set-worker-leveling.sh` refuse the retired ids.
+Reset events, checkpoints, quota fits, usage ledgers, and `fleet/` records stay as
+history.
+
+**2026-10-15: `claude-endolin2` (168M weekly cap) and host
+`endolin-garden2-5bcdff64` are retired.** The maintainer said that pool will issue
+no further tokens. The host's last fleet report was 2026-10-09.
+Living accounts are `claude-endolin1`, `claude-oros`, and the shared
+`codex-endolin`, which keeps only its `endolin-garden-ece02cb4` cleric mapping.
+The host's silence is not an outage, so do not restore it.
+Slates from 10-17 onward are derived from the living caps only.
+
 ## Fleet allocation and restraint
 
 The leader's [budget-level.sh](../../scripts/jobs/budget-level.sh) reads

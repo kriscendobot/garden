@@ -21,6 +21,12 @@ for spec in "$@";do IFS=: read -r host mc cc extra <<<"$spec";[[ "$host" =~ ^[A-
 [ "$mf" -ge "$#" ]&&[ "$mf" -le "$sum" ]||{ echo "monk fleet must fit between the one-per-host floor ($#) and physical capacity ($sum)" >&2;exit 2; }
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}";ensure_clone "$DIR"
 
+validate_not_retired() { # journal-dir
+ local row host
+ for row in "${rows[@]}";do host="${row%%$'\t'*}";budget_source_retired host "$host" "$1"&&{ echo "set-worker-leveling: host $host is tombstoned in config/retired-budget-sources; omit it" >&2;return 2; };done
+ return 0
+}
+
 validate_pool_hosts() { # proposed-worker-leveling budget-pools
  local proposed="$1" pools="$2" mapping
  mapping="$(dirname "$2")/subscription-mapping"
@@ -47,7 +53,7 @@ validate_pool_hosts() { # proposed-worker-leveling budget-pools
 for attempt in $(seq 1 8);do
  sync_clone "$DIR";mkdir -p "$DIR/config";f="$DIR/config/worker-leveling";tmp="$(mktemp)"
  { printf '# Fleet envelopes and per-host physical caps. Tab-separated.\n';printf '# kind/value or host/host-id/monk-cap/cleric-cap\n';printf 'monk-fleet-ceiling\t%s\ncleric-fleet-ceiling\t%s\n' "$mf" "$cf";for row in "${rows[@]}";do printf 'host\t%s\n' "$row";done; } >"$tmp"
- vrc=0;validate_pool_hosts "$tmp" "$DIR/config/budget-pools"||vrc=$?
+ vrc=0;validate_not_retired "$DIR"||vrc=$?;[ "$vrc" -ne 0 ]||validate_pool_hosts "$tmp" "$DIR/config/budget-pools"||vrc=$?
  if [ "$vrc" -eq 2 ];then rm -f "$tmp";exit 2;elif [ "$vrc" -ne 0 ];then rm -f "$tmp";backoff "$attempt";continue;fi
  mv "$tmp" "$f"
  git -C "$DIR" add config/worker-leveling

@@ -10,6 +10,5 @@
 # Columns, tab-separated:
 # subscription_id	provider	ceiling_kind	ceiling	calibrated_from	calibrated_at
 claude-endolin1	anthropic	weekly-tokens	5000000	placeholder	-
-claude-endolin2	anthropic	weekly-tokens	5000000	placeholder	-
 claude-oros	anthropic	weekly-tokens	5000000	placeholder	-
 codex-endolin	openai	percent	100	codex-cli-rate-limit	-

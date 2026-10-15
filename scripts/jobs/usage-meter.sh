@@ -796,6 +796,14 @@ budget_pool_row() {
   ' "$file" 2>/dev/null
 }
 
+# budget_source_retired <subscription|host> <id> <journal-dir> — true when
+# retire-subscription.sh tombstoned the id in config/retired-budget-sources. The
+# setters consult it so a retired account or host is never re-added to live config.
+budget_source_retired() {
+  awk -v k="$1" -v id="$2" '!/^[[:space:]]*(#|$)/ && $1==k && $2==id {f=1; exit} END{exit !f}' \
+    "$3/config/retired-budget-sources" 2>/dev/null
+}
+
 # budget_subscription_for_host_kind <host> <worker-kind> [journal-dir]
 # Mapping columns are subscription_id, host, worker_kind.  An exact worker-kind
 # row wins; '*' is an explicit catch-all.  With a registry present, no match is a

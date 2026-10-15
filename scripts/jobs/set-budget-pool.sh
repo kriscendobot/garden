@@ -21,7 +21,9 @@
 #
 #   set-budget-pool.sh <pool_id> <ceiling> <calibrated_from> [calibrated_at] [--kind KIND] [--monk-cap N] [--cleric-cap M]
 #
-#   <subscription_id>  one of the four canonical ids, for example claude-endolin1
+#   <subscription_id>  one of the canonical living ids, for example claude-endolin1
+#                      (a subscription tombstoned in config/retired-budget-sources by
+#                      retire-subscription.sh is refused)
 #   <ceiling>          integer token cap (weekly-tokens), or `-` for an unmetered pool
 #   <calibrated_from>  provenance, for example `manual-fit`, `usage-sample`, `placeholder`
 #   [calibrated_at]    ISO date/time (default: today, UTC)
@@ -63,7 +65,7 @@ pool="${1:-}"; ceiling="${2:-}"; calibrated_from="${3:-}"
 [ -n "$pool" ] && [ -n "$ceiling" ] && [ -n "$calibrated_from" ] || usage
 case "$pool" in
   claude-endolin1) provider=anthropic; host=endolin-garden-ece02cb4 ;;
-  claude-endolin2) provider=anthropic; host=endolin-garden2-5bcdff64 ;;
+  claude-endolin2) echo "subscription 'claude-endolin2' was retired 2026-10-15 (no further tokens; see context/operations/cybernetics.md § Retired budget sources)" >&2; exit 2;;
   claude-oros) provider=anthropic; host=oros-studio-garden-ce242c49 ;;
   codex-endolin) provider=openai; host=endolin-garden-ece02cb4 ;;
   *) echo "unknown subscription '$pool'; the registry is closed — ask the maintainer before adding a source" >&2; exit 2;;
@@ -178,6 +180,10 @@ _set_once() {
   local dir="$1"
   local file="$dir/config/budget-pools" tmp
   mkdir -p "$dir/config" || return 1
+  if budget_source_retired subscription "$pool" "$dir"; then
+    echo "set-budget-pool: subscription $pool is tombstoned in config/retired-budget-sources; it was retired and receives no tokens" >&2
+    return 3
+  fi
   # Couple the worker-leveling physical cap into the SAME commit. A hard reject (rc 3)
   # aborts before we touch config/budget-pools, so a bad promotion lands neither file.
   if [ "$require_leveling" -eq 1 ]; then
