@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1394-shepherd-20261015-expanded-window-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1394-shepherd-20261015-expanded-window
 on-child-failure: halt
