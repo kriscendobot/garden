@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-15T20:40Z (oros-health-checkup-20261015-192010): healthy (deployed = origin/main2 `bf605277`), no changes
+
+- **Load/mem:** load 2.3/2.1/2.3; 12 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (165k).
+- **Uptime:** 14d3h, no reboot.
+- **Deployed vs main2:** root at `bf605277`, same as origin/main2. fleet/health (15:17Z): `roll_status: deployed`, 0 of 292 units failed.
+- **Units:** 0 failed, 0 need a daemon-reload. monks 1 to 4 running (scaler-managed; leveling row `8 0`). Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 20:32Z, status ok, about 33% used (60.3M of 180M). Pushes are on cadence (19:02, 19:17, 19:32, 19:47, 20:02, 20:17, 20:32 all landed).
+- **State clones:** 33 pack dirs scanned. None has more than 50 packs, none has a tmp_pack, and none has a `gc.log`. No index.lock older than 10 minutes. The root repo has 3 packs and no `gc.log`.
+- **rc=124 (3h):** one. monk/1 `endojs-endo-but-for-bots-pr1396-parcel-restack-20261015-r5527149922` ran past its own wall-clock budget at 19:02Z. It was classified as transient and requeued.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-15T17:35Z (oros-health-checkup-20261015-160510): healthy (deployed = origin/main2 `bf605277`) → one daemon-reload
 
 - **Load/mem:** load 2.5/2.6/3.0; 12 GiB of 15 GiB available.
