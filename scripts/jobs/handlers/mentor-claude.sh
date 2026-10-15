@@ -52,6 +52,9 @@ JOB improve-<short-deterministic-slug>
 <what to change and why>
 ENDJOB
 
+\`JOB improve-<slug>\` and \`ENDJOB\` MUST each be on their own line. Never put
+body text on the \`JOB\` line or put \`ENDJOB\` after body text on the same line.
+
 The FIRST body line MUST be the one repo-relative script path the job addresses
 (e.g. \`scripts/jobs/foo.sh\`) and nothing else — it is parsed into a STABLE
 directive identity so re-detections of the SAME failure across ticks collapse
@@ -133,6 +136,37 @@ _mentor_first_path_acceptable() {
   git -C "$GARDEN_ROOT" cat-file -e "origin/main2:$first" 2>/dev/null
 }
 
+# Providers occasionally flatten a requested block onto one line, or append the
+# terminator to the final body line. Canonicalize those two harmless formatting
+# variations before applying the fail-closed semantic checks below:
+#
+#   JOB improve-x scripts/jobs/x.sh ENDJOB
+#
+# becomes a normal three-line block. ENDJOB is recognized only as a whitespace-
+# delimited token at the end of a line; text such as "no ENDJOB here" remains an
+# unterminated body. This pass deliberately does not repair interleaved JOBs or
+# trailing prose, which the validator must continue to reject.
+normalize_mentor_response() { # <response-file>
+  local f="${1:?response file}" line base rest prefix
+  while IFS= read -r line || [ -n "$line" ]; do
+    if [[ "$line" =~ ^[[:space:]]*JOB[[:space:]]+([a-z0-9][a-z0-9-]*)([[:space:]]+(.*))?[[:space:]]*$ ]]; then
+      base="${BASH_REMATCH[1]}"
+      rest="${BASH_REMATCH[3]-}"
+      printf 'JOB %s\n' "$base"
+      [ -n "$rest" ] || continue
+      line="$rest"
+    fi
+    if [[ "$line" =~ ^(.*[^[:space:]])[[:space:]]+ENDJOB[[:space:]]*$ ]]; then
+      prefix="${BASH_REMATCH[1]}"
+      printf '%s\nENDJOB\n' "$prefix"
+    elif [[ "$line" =~ ^[[:space:]]*ENDJOB[[:space:]]*$ ]]; then
+      printf 'ENDJOB\n'
+    else
+      printf '%s\n' "$line"
+    fi
+  done < "$f"
+}
+
 validate_mentor_response() {
   local f="${1:?response file}" line base="" body="" first bl norm
   local state=between emitted=0 nonblank=0 lineno=0
@@ -182,7 +216,7 @@ validate_mentor_response() {
       return 20
     fi
     body+="$line"$'\n'
-  done < "$f"
+  done < <(normalize_mentor_response "$f")
   # A block opened but not terminated at EOF is malformed.
   if [ "$state" != between ]; then
     mentor_reject_reason="EOF reached inside JOB '$base' with no closing ENDJOB (unterminated block)"

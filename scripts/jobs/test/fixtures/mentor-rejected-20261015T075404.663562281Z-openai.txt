@@ -1,0 +1,6 @@
+# 20261015T075404.663562281Z malformed mentor reply from provider openai
+# reject reason: EOF reached inside JOB 'improve-require-execution-role' with no closing ENDJOB (unterminated block)
+# raw output (first 4000 bytes):
+JOB improve-require-execution-role
+scripts/jobs/post-plan.sh
+scripts/jobs/post-plan.sh:385-406 permits an automatic orchestrated child with no structured execution role, so the PR #1391 restack ran under the 2400s default despite its fixer work and hit the wall at 2026-10-15T07:20:51Z. Require `role`, `handler-budget-role`, or an explicit handler timeout for runnable automatic/orchestrated plans, and preserve it as execution metadata; reject unclassified submissions before they consume a claim. ENDJOB

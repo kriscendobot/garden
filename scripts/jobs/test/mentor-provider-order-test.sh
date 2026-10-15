@@ -248,8 +248,36 @@ if [ -s "$PROMPT_LOG" ]; then
     || bad "prompt lacks the per-block brevity cap"
   grep -q 'do not enumerate' "$PROMPT_LOG" && ok "prompt forbids enumerating precedents in prose" \
     || bad "prompt lacks the cite-instead-of-enumerate constraint"
+  grep -q 'MUST each be on their own line' "$PROMPT_LOG" \
+    && ok "prompt requires standalone JOB and ENDJOB delimiters" \
+    || bad "prompt lacks the standalone-delimiter constraint"
 else
   bad "anthropic prompt was not captured"
+fi
+
+echo 'SUBTEST 25 -- the captured inline-ENDJOB rejection parses as exactly one named job'
+INLINE_FIXTURE="$HERE/fixtures/mentor-rejected-20261015T075404.663562281Z-openai.txt"
+INLINE_LOG="$TR/inline-fixture.log"
+if run_handler openai GARDEN_TEST_PROVIDER_LOG="$INLINE_LOG" \
+  GARDEN_TEST_OPENAI_OUTPUT="$(cat "$INLINE_FIXTURE")"; then
+  INLINE_VERIFY="$TR/verify-inline"; git clone -q --branch journal2 "$BARE" "$INLINE_VERIFY"
+  inline_count="$(find "$INLINE_VERIFY/jobs" -name 'improve-require-execution-role.md' 2>/dev/null | wc -l)"
+  [ "$inline_count" -eq 1 ] \
+    && ok "rejected capture produced exactly one improve-require-execution-role job" \
+    || bad "rejected capture produced $inline_count improve-require-execution-role jobs (want 1)"
+else
+  bad "rejected inline-ENDJOB capture was not accepted"
+fi
+[ "$(tr '\n' ' ' < "$INLINE_LOG")" = 'openai ' ] \
+  && ok "inline normalization stayed with the semantic-output provider" \
+  || bad "inline normalization unexpectedly traversed providers: $(tr '\n' ' ' < "$INLINE_LOG")"
+
+echo 'SUBTEST 26 -- a fully single-line JOB header, body, and terminator is normalized'
+if run_shape 'JOB improve-inline-all scripts/jobs/zzz-inline-all.sh ENDJOB\n' \
+  && posted improve-inline-all; then
+  ok "single-line JOB/body/ENDJOB is accepted and posted"
+else
+  bad "single-line JOB/body/ENDJOB was rejected"
 fi
 
 echo "RESULTS: $PASS passed, $FAIL failed"
