@@ -1,0 +1,2 @@
+base: fix-minion-town-pr186-host-local-canary-secrets
+identity: kriscendobot/minion.town#186:root-canary-host-local-secrets
