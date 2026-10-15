@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-15T12:50:10Z_
+_As of 2026-10-15T12:55:21Z_
 
 ## Latest
 
@@ -1755,7 +1753,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 266.3M | $1264.34 _(notional, rate-card)_ | 98% of 271.0M (backoff) |
-| Codex | 63.4M _(+1475.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Codex | 64.2M _(+1483.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101189828 tokens/day lower bound._
 
@@ -1763,10 +1761,14 @@ _Fleet token-unlock pace: 101189828 tokens/day lower bound._
 worst fetch p95 23.788754s/45s (/home/kris/garden/.garden-state/progress/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1391-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1391
 - [`kriscendobot-minion.town-pr188-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr188-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #188
+- [`oros-health-checkup-20261015-125028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261015-125028.md) — ---
+- [`minion-town-arc-press-20261015-125028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261015-125028.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #356
+- [`oros-health-watch-20261015-125028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261015-125028.md) — ---
+- [`claude-on-minion-town-press-20261015-125028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261015-125028.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1392-fix2-body-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1392-fix2-body-summary.md) — PR #1392: apply body fix + post fix-2 summary (endolin; oros PAT 403s on endo...
 
 ### doin (7)
