@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-15T18:55:20Z_
+_As of 2026-10-15T19:01:42Z_
 
 ## Latest
 
@@ -121,6 +119,32 @@ Delegation: **active**
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
 > The Jev triage/foreman trial is blocked because TYPESAFE_API_KEY is absent from the job environment. Please provision the maintainer-owned key for a re-run; per the trial specification I have not searched for or configured a credential.
+
+- `kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-review-budget-reached.md)
+
+> Gauntlet kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet REVIEW-BUDGET-REACHED: Applied 8 panel/fix round(s); fix round 8 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=8, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet panel --add-rounds N
+>
+> **Unaddressed must-fix: 20** · verdict: moving target · rounds spent: 8/8 · cost so far: $16.60
+> Trend: r1 n/a; r2 n/a; r3 n/a; r4 raised 20; r5 n/a; r6 n/a; r7 n/a; r8 raised 20
+> Classes: 0 persistent, 20 new in last round, 0 addressed-then-reintroduced
+> ```text
+> [new, since r8] archivist: (src/endo/claude/credentials.ts:4) must-fix: src/endo/claude/credentials.ts:4-12. The "PRODUCTION vs. THIS SLICE" paragraph says production "rides...
+> [new, since r8] archivist: (src/endo/claude/credentials.ts:36) comment-only: src/endo/claude/credentials.ts:36-38. The FAIL-CLOSED JSDoc has a dangling line break ("silentl...
+> [new, since r8] archivist: (designs/claude-agents-capability.md:1001) comment-only: designs/claude-agents-capability.md:1001. The open-question text still names "setup-token/apiK...
+> [new, since r8] archivist: DEPLOYMENT.md § Credentials: createBase64, the version: 1/version: 2 migration, and the "no downgrade" claim...
+> [new, since r8] archivist: DEPLOYMENT.md § Containment refusal: { type: "error", reason: "needs-containment" } matches NEEDS_CONTAINMENT ...
+> [new, since r8] archivist: tools/vendor-endo-claude.sh header ("one import rewrite and two truncations") matches the two truncate_at calls.
+> [new, since r8] archivist: Cross-references to DEPLOYMENT.md § Claude CLI backend, Credentials and secrets-credential-vault.ts, Invariants...
+> [new, since r8] breaker: should-fix: the token can reach a log line when migration fails on the readToken path. The module JSDoc at src...
+> [new, since r8] breaker: Attack: leave a version: 1 legacy record on disk and make (at)secrets create reject with a message that quotes i...
+> [new, since r8] breaker: (cli-provider.ts:526) Path: cli-provider.ts:526 calls readToken, which runs the migration, which rejects. The catch at cli-provide...
+> [new, since r8] breaker: storeNow has the same exposure: a createBlob rejection from putSecret reaches handleSetupToken's caller witho...
+> [new, since r8] breaker: Fix: wrap every daemon rejection that carries token bytes (createBlob, replaceBase64) in a scrubbed error tha...
+> … and 8 more
+> ```
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
 
 - `minion-town-pr-screening-gauntlet-halted-pr37-7e50eb2` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-gauntlet-halted-pr37-7e50eb2.md)
 
@@ -769,10 +793,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr181-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
-- `msg-build-minion-town-prod-probe-dispatch-backstop-772933737883` — from gardener:build-minion-town-prod-probe-dispatch-backstop, reply_to `build-minion-town-prod-probe-dispatch-backstop` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-prod-probe-dispatch-backstop-772933737883.md)
-
-> Production validation needs the one credential the fleet cannot mint: a fine-grained GitHub PAT scoped only to kriscendobot/minion.town with Actions: read and write (Metadata: read is implicit). Please create it and seed AWS Secrets Manager `minion/prod-probe-dispatch-token` in us-west-1 as JSON `{"token":"..."}` from a credentialed shell; do not send the token in chat. Reply when the secret exists. I am implementing and testing the backstop meanwhile.
-
 - `followup-gate-review-improve-builder-pr-gauntlet-bypass` — from followup-gate:review-improve-builder-pr-gauntlet-bypass, reply_to `review-improve-builder-pr-gauntlet-bypass` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-builder-pr-gauntlet-bypass.md)
 
 > Job "review-improve-builder-pr-gauntlet-bypass" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -973,13 +993,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 278.5M | $1325.50 _(notional, rate-card)_ | 103% of 271.0M (backoff) |
+| Claude | 278.7M | $1327.04 _(notional, rate-card)_ | 103% of 271.0M (backoff) |
 | Codex | 83.0M _(+1682.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 101695255 tokens/day lower bound._
+_Fleet token-unlock pace: 101365175 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 8.257404s/45s (/home/kris/garden/.garden-state/scheduler/journal); 8 open notice(s); checker healthy
+worst fetch p95 6.992811s/45s (/home/kris/garden/.garden-state/mentor/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (12)
@@ -987,8 +1007,8 @@ worst fetch p95 8.257404s/45s (/home/kris/garden/.garden-state/scheduler/journal
 - [`kriscendobot-minion-town-pr186-js-conversion-fix-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr186-js-conversion-fix-20261015.md) — Converge kriscendobot/minion.town#186 on its root cause: shell -> JavaScript
 - [`kriscendobot-minion.town-pr178-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr178-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #178
 - [`kriscendobot-minion.town-pr190-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr190-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #190
+- [`deadmail-20261015T185843Z-d195c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261015T185843Z-d195c5.md) — Dead-lettered message — pick up its intent
 - [`kriscendobot-garden-book-pr15-gauntlet-panel-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-panel-9.md) — Gauntlet stage: PANEL round 9 — kriscendobot/garden-book PR #15
-- [`kriscendobot-minion.town-pr188-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr188-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #188
 - [`kriscendobot-minion.town-pr189-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr189-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #189
 - [`endojs-endo-but-for-bots-pr1396-parcel-restack-20261015-finish-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1396-parcel-restack-20261015-finish-endolin.md) — Finish the endojs/endo-but-for-bots PR #1396 Parcel restack: base move, CI, s...
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1391-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1391
@@ -999,17 +1019,17 @@ worst fetch p95 8.257404s/45s (/home/kris/garden/.garden-state/scheduler/journal
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr1392-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1392-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1392
 - [`improve-completion-press-git-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-completion-press-git-timeout.md) — ---
-- [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #183
+- [`kriscendobot-minion.town-pr188-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr188-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #188
 - [`kriscendobot-minion-town-pr184-backstop-converge-fix-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr184-backstop-converge-fix-20261015.md) — Converge kriscendobot/minion.town#184: decide the dispatch-backstop form
 - [`endojs-endo-but-for-bots-pr1396-parcel-restack-20261015-r5527149922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1396-parcel-restack-20261015-r5527149922.md) — Reconcile and restack endojs/endo-but-for-bots PR #1396
 
-### tada (13084)
+### tada (13086)
+- [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet-fix-8.md) — Cost
+- [`kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet.md) — gauntlet kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet — review bud...
 - [`kriscendobot-minion.town-pr190-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion.town-pr190-gauntlet-fix-5.md) — Cost
 - [`minion-town-arc-press-20261015-160510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/minion-town-arc-press-20261015-160510.md) — Cost
 - [`claude-on-minion-town-completion-press-20261015-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/claude-on-minion-town-completion-press-20261015-155009.md) — Completion report
-- [`kriscendobot-minion.town-pr180-gauntlet-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion.town-pr180-gauntlet-fix-11.md) — Cost
-- [`endojs-endo-but-for-bots-pr1391-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/endojs-endo-but-for-bots-pr1391-gauntlet-panel-3.md) — Cost
-- … and 13079 more
+- … and 13081 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
