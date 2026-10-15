@@ -46,3 +46,13 @@ Snapshot that exact head as
 from its old frozen base onto the new one with an explicit `--onto`, honor both
 parent histories in conflicts, force-push with lease, and update #1392's base.
 Run affected tests and gates, drive CI green, and post the required summary.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T11:43:42Z
