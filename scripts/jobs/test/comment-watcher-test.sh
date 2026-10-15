@@ -43,6 +43,9 @@ BRANCH=journal2
 TEST_TMPDIR="$(garden_test_exec_tmpdir)"
 TR="$(mktemp -d "$TEST_TMPDIR/.garden-cw-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
+# Keep the new host-wide timeout-fanout detector inside this suite's fixture just
+# like every explicit cooldown case below; no timeout test may touch live host state.
+export GARDEN_COMMENT_TIMEOUT_FANOUT_DIR="$TR/default-source-timeout-fanout"
 # Every case that does not name its own GARDEN_API_COOLDOWN_DIR latches this fixture
 # dir, never the live host's (the 2026-10-06 RATE-section fleet latch).
 live_cooldown_guard_begin "$TR"
@@ -2232,6 +2235,7 @@ EOF
 chmod +x "$BACKOFF_SOURCE"
 run_timeout_backoff() {  # run_timeout_backoff <slug> <stderr-file>
   env GARDEN_STATE="$BACKOFF_STATE" GARDEN_API_COOLDOWN_DIR="$BACKOFF_COOL" \
+      GARDEN_COMMENT_TIMEOUT_FANOUT_DIR="$BACKOFF_STATE/comment-watcher/source-timeout-fanout" \
       GARDEN_API_COOLDOWN_SECS=10 GARDEN_API_COOLDOWN_MAX_SECS=80 \
       JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$BACKOFF_SOURCE" \
@@ -2309,6 +2313,53 @@ run_timeout_backoff kriscendobot-garden "$BACKOFF_LOG3"
 grep -q 'strike 2;.*20s' "$BACKOFF_LOG3" \
   && ok "the other slug retains and doubles its independent timeout streak" \
   || bad "the other slug lost its independent backoff ($(cat "$BACKOFF_LOG3"))"
+
+# Unclassified timeouts from several distinct sources in one rolling window are
+# host-wide evidence even though no individual stderr identifies the shared cause.
+# Repeats from one slug do not count twice, and every pre-threshold slug retains its
+# independent backoff record.
+FANOUT_STATE="$TR/state-timeout-fanout"
+FANOUT_COOL="$FANOUT_STATE/gh-api-cooldown"
+FANOUT_DIR="$FANOUT_STATE/comment-watcher/source-timeout-fanout"
+run_timeout_fanout() {  # run_timeout_fanout <slug> <stderr-file>
+  env GARDEN_STATE="$FANOUT_STATE" GARDEN_API_COOLDOWN_DIR="$FANOUT_COOL" \
+      GARDEN_COMMENT_TIMEOUT_FANOUT_DIR="$FANOUT_DIR" \
+      GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS=60 \
+      GARDEN_API_COOLDOWN_SECS=10 GARDEN_API_COOLDOWN_MAX_SECS=80 \
+      JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$BACKOFF_SOURCE" \
+      BACKOFF_MODE="$BACKOFF_MODE" GARDEN_COMMENT_SELFTEST=/bin/true \
+      GARDEN_NO_MAINTAINER_ALERT=1 \
+      "$JOBS/comment-watcher.sh" "$1" >/dev/null 2>"$2"
+}
+
+printf 'timeout\n' > "$BACKOFF_MODE"
+mkdir -p "$FANOUT_DIR"
+printf '%s\t%s\n' "$(( $(date +%s) - 61 ))" endojs-stale > "$FANOUT_DIR/events"
+run_timeout_fanout endojs-one "$TR/timeout-fanout-1.err"
+sed -i '2c 0' "$FANOUT_STATE/comment-watcher/source-timeout-backoff/endojs-one"
+run_timeout_fanout endojs-one "$TR/timeout-fanout-repeat.err"
+run_timeout_fanout endojs-two "$TR/timeout-fanout-2.err"
+run_timeout_fanout endojs-three "$TR/timeout-fanout-3.err"
+run_timeout_fanout endojs-four "$TR/timeout-fanout-4.err"
+[ ! -e "$FANOUT_COOL/marker" ] \
+  && [ "$(awk -F '\t' 'END { print NR }' "$FANOUT_DIR/events")" -eq 4 ] \
+  && ! grep -q 'endojs-stale' "$FANOUT_DIR/events" \
+  && ok "rolling timeout fanout prunes stale events and counts distinct slugs, not repeated strikes" \
+  || bad "rolling timeout fanout kept stale/repeated slugs ($(cat "$FANOUT_DIR/events" 2>/dev/null))"
+
+run_timeout_fanout endojs-five "$TR/timeout-fanout-5.err"
+[ -s "$FANOUT_COOL/marker" ] \
+  && [ "$(sed -n '2p' "$FANOUT_COOL/marker")" = 'comment:source-timeout-fanout' ] \
+  && [ -e "$FANOUT_STATE/comment-watcher/source-timeout-backoff/endojs-one" ] \
+  && [ -e "$FANOUT_STATE/comment-watcher/source-timeout-backoff/endojs-two" ] \
+  && [ -e "$FANOUT_STATE/comment-watcher/source-timeout-backoff/endojs-five" ] \
+  && ok "five distinct timeout sources open the host-wide cooldown and retain per-slug backoff" \
+  || bad "multi-slug timeout threshold did not open cooldown while retaining backoffs"
+[ "$(cat "$TR"/timeout-fanout-*.err | grep -c 'distinct comment sources timed out' || true)" -eq 1 ] \
+  && grep -q '5 distinct comment sources timed out within 60s' "$TR/timeout-fanout-5.err" \
+  && ok "multi-slug timeout episode emits one threshold warning" \
+  || bad "multi-slug timeout warning was missing or duplicated"
 
 # A timeout accompanied by a positive shared-network signature is the deliberate
 # exception: it opens the host latch and does not create a slug-local strike.

@@ -296,16 +296,56 @@ trap 'write_comment_heartbeat' EXIT
 # knob, so an operator who set the old name still tunes the (now shared) window.
 [ -n "${GARDEN_COMMENT_API_COOLDOWN_SECS:-}" ] && : "${GARDEN_API_COOLDOWN_SECS:=$GARDEN_COMMENT_API_COOLDOWN_SECS}"
 
-# A wall-clock source timeout proves only that THIS repo's enumeration exceeded its
-# tick budget. It does not prove that GitHub is unavailable to sibling repos. Keep
-# the exponential backoff in a per-slug record; only stderr that positively matches
-# a shared network/API/quota failure may open the host-wide gh-api cooldown below.
-# A successful source sweep clears this slug's streak. Other failures leave it in
-# place because they say nothing about whether this repo's slow-source episode has
+# A wall-clock source timeout usually proves only that THIS repo's enumeration
+# exceeded its tick budget. Keep the exponential backoff in a per-slug record. A
+# burst across distinct slugs is different evidence: several independent source
+# budgets expiring together points to a host/GitHub failure even when timeout killed
+# every source before it printed a classifiable diagnostic. Record those events in a
+# locked host-wide rolling window; the threshold owner opens the shared API cooldown.
+# A successful source sweep clears only this slug's streak. Other failures leave it
+# in place because they say nothing about whether this repo's slow-source episode has
 # recovered.
 : "${GARDEN_COMMENT_TIMEOUT_BACKOFF_DIR:=$GARDEN_STATE/comment-watcher/source-timeout-backoff}"
 COMMENT_SOURCE_TIMEOUT_BACKOFF="$GARDEN_COMMENT_TIMEOUT_BACKOFF_DIR/$slug"
 COMMENT_SOURCE_TIMEOUT_BACKOFF_LOCK="$COMMENT_SOURCE_TIMEOUT_BACKOFF.lock"
+
+: "${GARDEN_COMMENT_TIMEOUT_FANOUT_THRESHOLD:=5}"
+: "${GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS:=60}"
+: "${GARDEN_COMMENT_TIMEOUT_FANOUT_DIR:=$GARDEN_ROOT/.garden-state/comment-watcher/source-timeout-fanout}"
+COMMENT_SOURCE_TIMEOUT_FANOUT="$GARDEN_COMMENT_TIMEOUT_FANOUT_DIR/events"
+COMMENT_SOURCE_TIMEOUT_FANOUT_LOCK="$GARDEN_COMMENT_TIMEOUT_FANOUT_DIR/events.lock"
+
+comment_source_timeout_fanout_threshold_reached() {  # rc 0 = this caller crossed it
+  local threshold="$GARDEN_COMMENT_TIMEOUT_FANOUT_THRESHOLD"
+  local window="$GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS"
+  local now floor tmp count
+  case "$threshold" in ''|*[!0-9]*) threshold=5;; esac
+  case "$window" in ''|*[!0-9]*) window=60;; esac
+  [ "$threshold" -gt 1 ] && [ "$window" -gt 0 ] || return 1
+  mkdir -p "$GARDEN_COMMENT_TIMEOUT_FANOUT_DIR"
+  (
+    flock 9
+    now="$(date +%s)"
+    floor=$((now - window))
+    tmp="$COMMENT_SOURCE_TIMEOUT_FANOUT.$$.$RANDOM"
+    # Refresh this slug rather than counting repeated timeouts from one expensive
+    # repository as fanout. Malformed/stale rows are discarded while locked.
+    awk -F '\t' -v floor="$floor" -v current="$slug" \
+      '$1 ~ /^[0-9]+$/ && $1 >= floor && $2 != current { print $1 "\t" $2 }' \
+      "$COMMENT_SOURCE_TIMEOUT_FANOUT" 2>/dev/null > "$tmp" || true
+    printf '%s\t%s\n' "$now" "$slug" >> "$tmp"
+    count="$(awk -F '\t' '!seen[$2]++ { count++ } END { print count + 0 }' "$tmp")"
+    if [ "$count" -ge "$threshold" ]; then
+      # End this detector episode. Any already-running stragglers may seed the next
+      # window, but start_api_cooldown's own lock still grants only one warning owner.
+      rm -f "$tmp" "$COMMENT_SOURCE_TIMEOUT_FANOUT"
+      printf '%s %s\n' "$count" "$window"
+      return 0
+    fi
+    mv -f "$tmp" "$COMMENT_SOURCE_TIMEOUT_FANOUT"
+    return 1
+  ) 9>"$COMMENT_SOURCE_TIMEOUT_FANOUT_LOCK"
+}
 
 comment_source_timeout_backoff_active() {  # prints seconds remaining; rc 0 = active
   local now expiry
@@ -1914,6 +1954,14 @@ if [ "$src_rc" -ne 0 ]; then
       exit 0
     fi
     read -r timeout_strike timeout_cooldown_secs < <(comment_source_timeout_strike)
+    if read -r timeout_fanout_count timeout_fanout_window \
+        < <(comment_source_timeout_fanout_threshold_reached); then
+      comment_heartbeat_outcome=cooldown
+      if start_api_cooldown "comment:source-timeout-fanout"; then
+        log "WARN: $timeout_fanout_count distinct comment sources timed out within ${timeout_fanout_window}s — cooling REST gh-api watchers for $(_api_cooldown_secs)s"
+      fi
+      exit 0
+    fi
     log "WARN: comment source timed out (transient, rc=$src_rc) — strike $timeout_strike; backing off only $slug for ${timeout_cooldown_secs}s (never guess)"
     exit 0
   fi
