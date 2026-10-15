@@ -1,0 +1,36 @@
+gauntlet-status: review-budget-reached
+pr: https://github.com/kriscendobot/minion.town/pull/186
+repo: kriscendobot/minion.town
+pr_number: 186
+kind: feature
+stage: fix
+iteration: 8
+max_iterations: 8
+resumes: 0
+max_resumes: 6
+stage_retries: 0
+max_stage_retries: 2
+created_by: design-pr-gauntlet-coverage-audit
+created_at: 2026-10-13T17:32:31Z
+# gauntlet kriscendobot-minion.town-pr186-gauntlet — review budget reached
+
+Applied 8 panel/fix round(s); fix round 8 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=8, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr186-gauntlet panel --add-rounds N
+
+## Unaddressed must-fix
+
+**Unaddressed must-fix: 11** · verdict: moving target · rounds spent: 8/8 · cost so far: $18.62
+Trend: r1 raised 20; r2 n/a; r3 raised 20; r4 n/a; r5 n/a; r6 n/a; r7 n/a; r8 raised 11
+Classes: 0 persistent, 11 new in last round, 0 addressed-then-reintroduced
+```text
+[new, since r8] archivist: (designs/root-canary-principal.md:483) designs/root-canary-principal.md:483 documents revocation as root-canary-revoke.sh, but the implemented script re...
+[new, since r8] archivist: (DEPLOYMENT.md:356) DEPLOYMENT.md:356-391 documents several scripts that create or update state, but does not identify the lifecycle of...
+[new, since r8] breaker: (deploy/aws/scripts/root-canary-status.sh:32) must-fix: deploy/aws/scripts/root-canary-status.sh:32 wraps the token helper in command substitution. On a succ...
+[new, since r8] breaker: (deploy/aws/scripts/root-canary-deploy-client.sh:79) must-fix: deploy/aws/scripts/root-canary-deploy-client.sh:79-96 reuses an existing reader role without checking...
+[new, since r8] corner-prober: runPrefix() claims its output is parseable by rootCanaryStart(), but a valid distant-future Date such as +0100...
+[new, since r8] engine-realist: (deploy/probe/root-canary.mjs:236) must-fix — deploy/probe/root-canary.mjs:236-244,286-294 treats every non-isError dismissal as successful. Howev...
+[new, since r8] locksmith: (src/endo/guest-tools.ts:83) must-fix: src/endo/guest-tools.ts:83 and :517 grant the audit callback the complete AuthInfo, including its...
+[new, since r8] purist: (deploy/aws/scripts/root-canary-token.sh:5) must-fix — deploy/aws/scripts/root-canary-token.sh:5-6,37 and root-canary-mint.sh:70 retain ambient authori...
+[new, since r8] saboteur: (root-canary-token.sh:25) Must-fix — real concern: root-canary-token.sh:25-43 invokes environment-resolved jq and curl; a hostile ...
+[new, since r8] typist: (src/mcp-audit.ts:1) must-fix src/mcp-audit.ts:1 — McpAuditEvent permits invalid event combinations: a "claude-tool-call" with...
+[new, since r8] wire-watcher: (deploy/aws/scripts/root-canary-common.sh:112) Must-fix: deploy/aws/scripts/root-canary-common.sh:112 merely base64-decodes JWT claims. It verifies neither th...
+```
