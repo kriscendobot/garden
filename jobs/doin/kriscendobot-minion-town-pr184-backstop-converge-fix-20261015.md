@@ -44,6 +44,7 @@ so a panel verifies the result. Do not un-draft or merge by hand; the gauntlet a
 screen own that.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2315 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
