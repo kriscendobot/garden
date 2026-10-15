@@ -1,15 +1,15 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-10-15T05:10:09Z
+sent_at: 2026-10-15T05:20:18Z
 watchdog_key: comment-ack-blind-endojs-endo-but-for-bots
-notice_count: 146
+notice_count: 147
 first_seen: 2026-10-14T06:48:44Z
-last_seen: 2026-10-15T05:10:09Z
+last_seen: 2026-10-15T05:20:18Z
 ---
-WATCHDOG notice — occurrence #146 (first seen 2026-10-14T06:48:44Z, latest 2026-10-15T05:10:09Z).
-The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 146 times; this is ONE
-coalesced notice that updates in place, not 146 messages. Latest detail:
+WATCHDOG notice — occurrence #147 (first seen 2026-10-14T06:48:44Z, latest 2026-10-15T05:20:18Z).
+The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 147 times; this is ONE
+coalesced notice that updates in place, not 147 messages. Latest detail:
 
 Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-https://github.com/endojs/endo-but-for-bots/pull/1435#issuecomment-6183694192 (age=6190s; heartbeat=full-poll)
-https://github.com/endojs/endo-but-for-bots/pull/1460#discussion_r4278260654 (age=11082s; heartbeat=full-poll)
+https://github.com/endojs/endo-but-for-bots/pull/1435#issuecomment-6183694192 (age=6791s; heartbeat=full-poll)
+https://github.com/endojs/endo-but-for-bots/pull/1460#discussion_r4278260654 (age=11683s; heartbeat=full-poll)
