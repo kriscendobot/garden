@@ -111,6 +111,11 @@ fi
 # all retries re-race the same burst and lose together (2026-10-07..10-10).
 : "${GARDEN_BUDGET_PUBLISH_BACKOFF_BASE_MS:=1000}"
 : "${GARDEN_BUDGET_PUBLISH_BACKOFF_CAP_MS:=8000}"
+# After repeated CAS losses, spread the final retry across a wider, stable
+# host-keyed window. Jitter alone lets all publishers re-race a sustained burst;
+# this delay gives each host a different final slot, after which the replay path
+# fetches the winning tip immediately before constructing and pushing its commit.
+: "${GARDEN_BUDGET_PUBLISH_FINAL_STAGGER_SECS:=45}"
 # A session-log measurement slower than this (seconds) re-syncs the journal clone
 # before the first snapshot push; see budget_publish_local_pool.
 : "${GARDEN_BUDGET_PUBLISH_RESYNC_SECS:=5}"
@@ -1007,6 +1012,24 @@ budget_snapshot_offset() {
   printf '%s\n' $((sum % w))
 }
 
+# budget_snapshot_final_stagger_secs <host> — the delay before the last retry
+# after repeated lost CASes. Unlike the earlier full-jitter waits, this slot is
+# stable per host, so colliding publishers do not keep drawing the same short
+# retry window. Zero disables the extra stagger for tests or an operator pin.
+budget_snapshot_final_stagger_secs() {
+  local host="$1" width="$GARDEN_BUDGET_PUBLISH_FINAL_STAGGER_SECS" sum
+  [[ "$width" =~ ^[0-9]{1,4}$ ]] || width=45
+  [ "$width" -gt 0 ] || { printf '0\n'; return 0; }
+  sum="$(printf '%s' "$host" | cksum | cut -d' ' -f1)"
+  printf '%s\n' $((sum % width + 1))
+}
+
+budget_snapshot_final_stagger() {
+  local delay
+  delay="$(budget_snapshot_final_stagger_secs "$GARDEN")"
+  [ "$delay" -eq 0 ] || sleep "$delay"
+}
+
 # budget_snapshot_due <snapshot-file> <now> <snapshot-secs> — whether this host
 # should publish a new-bucket sample now. Due once the bucket phase reaches the
 # host's offset; also due at once when there is no prior sample, or when the
@@ -1215,8 +1238,20 @@ budget_publish_local_pool() {
   fi
 
   for attempt in $(seq "$attempt" "$attempts"); do
-    [ "$attempt" -eq 1 ] || GARDEN_BACKOFF_BASE_MS="$GARDEN_BUDGET_PUBLISH_BACKOFF_BASE_MS" \
-      GARDEN_BACKOFF_CAP_MS="$GARDEN_BUDGET_PUBLISH_BACKOFF_CAP_MS" backoff "$((attempt - 1))"
+    if [ "$attempt" -gt 1 ]; then
+      # A final retry after repeated CAS losses gets a wider deterministic host
+      # slot. _budget_publish_replay then fetches under the clone lock and builds
+      # directly on that tip, with no sleep or worktree reset between sync and
+      # push. Non-CAS failures retain the ordinary bounded jitter and fail-open
+      # exhaustion behavior.
+      if [ "$attempt" -eq "$attempts" ] \
+        && [ "$(cut -f3 "$context_file" 2>/dev/null || true)" = cas ]; then
+        budget_snapshot_final_stagger
+      else
+        GARDEN_BACKOFF_BASE_MS="$GARDEN_BUDGET_PUBLISH_BACKOFF_BASE_MS" \
+          GARDEN_BACKOFF_CAP_MS="$GARDEN_BUDGET_PUBLISH_BACKOFF_CAP_MS" backoff "$((attempt - 1))"
+      fi
+    fi
     if [ "$attempt" -gt 1 ]; then
       if ( _budget_publish_replay "$dir" "$context_file" ); then rc=0; else rc=$?; fi
       if [ "$rc" -eq 0 ]; then rm -f "$context_file"; return 0; fi
