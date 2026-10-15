@@ -1,11 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-10-15T20:17:14Z
+sent_at: 2026-10-15T20:22:13Z
 watchdog_key: comment-ack-latency-kriscendobot-minion.town
 notice_count: 1
 first_seen: 2026-10-15T20:17:14Z
-last_seen: 2026-10-15T20:17:14Z
+last_seen: 2026-10-15T20:22:13Z
+recovered: true
 ---
-Comment acknowledgment latency anomaly for kriscendobot/minion.town:
-https://github.com/kriscendobot/minion.town/pull/191#issuecomment-6201208707 (latency=653s; heartbeat=cooldown)
-https://github.com/kriscendobot/minion.town/pull/191#issuecomment-6201208707 (latency=653s; heartbeat=missing)
+RECOVERED — the watchdog condition `comment-ack-latency-kriscendobot-minion.town` has CLEARED (first seen 2026-10-15T20:17:14Z, cleared 2026-10-15T20:22:13Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Comment acknowledgment condition cleared.
