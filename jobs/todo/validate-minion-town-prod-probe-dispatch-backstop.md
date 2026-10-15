@@ -1,13 +1,9 @@
 ---
-gate: awaiting-maintainer
-maintainer_question: 'Seed the repository-scoped Actions read/write PAT in AWS secret minion/prod-probe-dispatch-token, then promote this validation job.'
-asked_at: https://github.com/kriscendobot/minion.town/pull/184
-priority: high
 role: builder
+tier: mentor
 arc: minion-town
-posted_by: gardener
-posted_at: 2026-10-13T00:20:52Z
 ---
+<!-- garden-promoted-from-plan: gate=awaiting-maintainer priority=high maintainer=true at=2026-10-15T19:57:54Z cleared=none -->
 
 ---
 tier: mentor
