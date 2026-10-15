@@ -39,3 +39,13 @@ Parcel semantic adaptation, history-preserving rebase, lease-protected ref/base
 updates, and exact-head validation in one coherent PR mutation. If the work is
 genuinely finished but a required gated outcome is not achieved, emit
 `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately before the completion signal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T13:27:05Z
