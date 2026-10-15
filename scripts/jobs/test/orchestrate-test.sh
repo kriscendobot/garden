@@ -41,8 +41,9 @@
 #                   successful or continued-failure predecessor outcome.
 #  12. NOTICES      - fresh active state is silent; child failure/timeout and
 #                   every terminal completion emit deterministic structured fields.
-#  24b. ATOMIC POST  - repeated --child NAME BODY-FILE arguments park every child
-#                   and record the orchestration in one idempotent CAS commit.
+#  24b. ATOMIC POST  - repeated --child NAME BODY-FILE arguments require structured
+#                   role/budget metadata, park every child, and record the
+#                   orchestration in one idempotent CAS commit.
 #  17b. AUTH PARK    - an auth-unavailable child parks downstream validation and
 #                   emits one maintainer action notice, not failure+halt notices.
 #  25. TADA AUTHORITY — an inferred in-flight stall re-checks jobs/tada/ before
@@ -1191,29 +1192,36 @@ hr; echo "SUBTEST 24b — ATOMIC POST: child plans and orchestration land in one
 atomic_ok=1
 atomic_a="$TR/atomic-a.md"
 atomic_b="$TR/atomic-b.md"
-printf '%s\n' 'role: builder' 'first atomic child' '<!-- garden-reaped: 2 -->' > "$atomic_a"
-printf '%s\n' 'role: shepherd' 'second atomic child' > "$atomic_b"
+atomic_c="$TR/atomic-c.md"
+printf '%s\n' '---' 'role: builder' '---' 'first atomic child' '<!-- garden-reaped: 2 -->' > "$atomic_a"
+printf '%s\n' '---' 'handler-budget-role: shepherd' '---' 'second atomic child' > "$atomic_b"
+printf '%s\n' '---' 'handler-timeout: 7200' '---' 'third atomic child' > "$atomic_c"
 atomic_before="$(git --git-dir="$BARE" rev-parse "$BRANCH")"
 "$JOBS/post-orchestration.sh" --serial \
-  --child atom-a "$atomic_a" --child atom-b "$atomic_b" atom-orch >/dev/null
+  --child atom-a "$atomic_a" --child atom-b "$atomic_b" \
+  --child atom-c "$atomic_c" atom-orch >/dev/null
 atomic_after="$(git --git-dir="$BARE" rev-parse "$BRANCH")"
 atomic_paths="$(git --git-dir="$BARE" diff-tree --no-commit-id --name-only -r "$atomic_after" | sort)"
-[ "$atomic_paths" = $'jobs/orch/atom-orch.md\njobs/plan/atom-a.md\njobs/plan/atom-b.md' ] \
+[ "$atomic_paths" = $'jobs/orch/atom-orch.md\njobs/plan/atom-a.md\njobs/plan/atom-b.md\njobs/plan/atom-c.md' ] \
   || { atomic_ok=0; echo "    atomic commit paths differ: [$atomic_paths]"; }
 atomic_view="$(mktemp -d "$TR/atomic-view.XXXXXX")"
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$atomic_view"
-grep -qx 'children: atom-a atom-b' "$atomic_view/jobs/orch/atom-orch.md" || atomic_ok=0
-for c in atom-a atom-b; do
+grep -qx 'children: atom-a atom-b atom-c' "$atomic_view/jobs/orch/atom-orch.md" || atomic_ok=0
+for c in atom-a atom-b atom-c; do
   grep -qx 'gate: orchestrated' "$atomic_view/jobs/plan/$c.md" || atomic_ok=0
   grep -qx 'orchestrated_by: atom-orch' "$atomic_view/jobs/plan/$c.md" || atomic_ok=0
 done
+grep -qx 'role: builder' "$atomic_view/jobs/plan/atom-a.md" || atomic_ok=0
+grep -qx 'handler-budget-role: shepherd' "$atomic_view/jobs/plan/atom-b.md" || atomic_ok=0
+grep -qx 'handler-timeout: 7200' "$atomic_view/jobs/plan/atom-c.md" || atomic_ok=0
 grep -qx 'cleared: reaped=2' "$atomic_view/jobs/plan/atom-a.md" || atomic_ok=0
 grep -q 'garden-reaped' "$atomic_view/jobs/plan/atom-a.md" \
   && { atomic_ok=0; echo "    stale cycle marker survived atomic park"; }
 rm -rf "$atomic_view"
 # A replay is a true no-op: no extra commit and no rewritten timestamps.
 "$JOBS/post-orchestration.sh" --serial \
-  --child atom-a "$atomic_a" --child atom-b "$atomic_b" atom-orch >/dev/null
+  --child atom-a "$atomic_a" --child atom-b "$atomic_b" \
+  --child atom-c "$atomic_c" atom-orch >/dev/null
 [ "$(git --git-dir="$BARE" rev-parse "$BRANCH")" = "$atomic_after" ] \
   || { atomic_ok=0; echo "    idempotent replay created a commit"; }
 [ "$atomic_before" != "$atomic_after" ] || atomic_ok=0
@@ -1225,14 +1233,29 @@ rc=0
   || { atomic_ok=0; echo "    atomic mode accepted a foreign-gated child"; }
 # Body validation happens before any board paths are staged.
 atomic_invalid="$TR/atomic-invalid.md"
-printf '%s\n' 'handler-timeout: nope' 'invalid body' > "$atomic_invalid"
+printf '%s\n' '---' 'handler-timeout: nope' '---' 'invalid body' > "$atomic_invalid"
 rc=0
 GARDEN_JOB_FRONTMATTER_STRICT=1 "$JOBS/post-orchestration.sh" \
   --child atom-invalid "$atomic_invalid" atom-invalid-orch >/dev/null 2>&1 || rc=$?
 [ "$rc" -ne 0 ] && ! in_dir jobs/plan atom-invalid && ! in_dir jobs/orch atom-invalid-orch \
   || { atomic_ok=0; echo "    invalid child body left board state"; }
+# Metadata-shaped prose is not structured execution metadata, and a frontmatter
+# block containing only routing fields leaves the handler budget ambiguous. Both
+# must fail before any child or orchestration path reaches the board.
+atomic_prose="$TR/atomic-prose.md"
+printf '%s\n' 'role: builder' 'prose-shaped metadata' > "$atomic_prose"
+rc=0
+"$JOBS/post-orchestration.sh" --child atom-prose "$atomic_prose" atom-prose-orch >/dev/null 2>&1 || rc=$?
+[ "$rc" -ne 0 ] && ! in_dir jobs/plan atom-prose && ! in_dir jobs/orch atom-prose-orch \
+  || { atomic_ok=0; echo "    prose role metadata was accepted"; }
+atomic_ambiguous="$TR/atomic-ambiguous.md"
+printf '%s\n' '---' "role: ''" 'tier: mentor' '---' 'no runtime shape' > "$atomic_ambiguous"
+rc=0
+"$JOBS/post-orchestration.sh" --child atom-ambiguous "$atomic_ambiguous" atom-ambiguous-orch >/dev/null 2>&1 || rc=$?
+[ "$rc" -ne 0 ] && ! in_dir jobs/plan atom-ambiguous && ! in_dir jobs/orch atom-ambiguous-orch \
+  || { atomic_ok=0; echo "    ambiguous atomic child was accepted"; }
 [ "$atomic_ok" -eq 1 ] \
-  && ok "child bodies were validated and child plans + record landed in one replay-safe commit" \
+  && ok "structured role/budget metadata was required before child plans + record landed in one replay-safe commit" \
   || bad "atomic orchestration posting mismatch"
 
 # ============================================================================

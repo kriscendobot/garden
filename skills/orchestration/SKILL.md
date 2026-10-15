@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-10-14
+updated: 2026-10-15
 author: gardener, builder
 ---
 
@@ -82,10 +82,15 @@ progress, and applies a failure policy rather than silently stalling.
      <orch-base>
    ```
 
-   The atomic path applies the same job-frontmatter validation, automatic model
-   routing, project-pause check, and stale cycle-marker cleanup as
-   `post-plan.sh`. A replay is idempotent on `<orch-base>`. If any named child is
-   already parked under the wrong gate or owner, the whole post is refused.
+   Every atomic child body must carry leading YAML frontmatter with at least one
+   non-empty `role:` or `handler-budget-role:` field, or a positive
+   `handler-timeout:`. This makes the runtime shape or explicit handler wall
+   unambiguous before automatic routing; a `role:`-shaped line in prose does not
+   count. The atomic path applies the same job-frontmatter validation, automatic
+   model routing, project-pause check, and stale cycle-marker cleanup as
+   `post-plan.sh`. A replay is idempotent on `<orch-base>`. If any body lacks the
+   required execution metadata, or any named child is already parked under the
+   wrong gate or owner, the whole post is refused.
    **Name a recurring-action child with a disambiguator.** A child that is a
    recurring verb against a target — `weave`/`shepherd`/`conduct`/restack/`retcon`
    of a specific PR — must carry an ISO-date `-YYYYMMDD` (or id-hash) suffix, because

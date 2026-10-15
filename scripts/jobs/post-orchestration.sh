@@ -61,8 +61,10 @@
 #   --child NAME BODY-FILE       atomically park this fresh orchestrated child and
 #                                record it in run order. Repeat for every child;
 #                                replaces positional <child> arguments. Each body
-#                                receives post-plan's validation, routing, and stale
-#                                cycle-marker cleanup before the single CAS push.
+#                                must declare a runtime role or handler budget in
+#                                leading frontmatter, then receives post-plan's
+#                                validation, routing, and stale cycle-marker cleanup
+#                                before the single CAS push.
 #   --arc ARC                    the arc the campaign draws from. Children inherit it
 #                                at promotion; a serial child is promoted only while
 #                                the arc slice has headroom (and, with
@@ -115,8 +117,10 @@ Usage:
                                     this orchestration (flip gate -> orchestrated
                                     and set orchestrated_by in the record commit).
   --child NAME BODY-FILE             atomically park a child from BODY-FILE and
-                                    record it in this orchestration. Repeat in run
-                                    order; do not also pass positional children.
+                                    record it in this orchestration. BODY-FILE must
+                                    declare role, handler-budget-role, or a positive
+                                    handler-timeout in leading frontmatter. Repeat in
+                                    run order; do not also pass positional children.
   --arc ARC                          arc the campaign draws from (children inherit).
   --by ROLE                          provenance (default $GARDEN_SENDER or producer).
   --no-validate                      skip child-gate validation (not with
@@ -244,10 +248,37 @@ read_body() {
 }
 BODY="$(read_body)"
 
+# Return success when a fresh atomic child explicitly identifies the runtime shape
+# that determines its handler wall. Atomic children are automatically routed, so a
+# body with no structured role/budget otherwise looks valid after routing but falls
+# through to the generic 2400s budget. Read ONLY the source's leading frontmatter:
+# a prose line such as `role: builder` must not accidentally satisfy the contract.
+atomic_child_has_handler_metadata() {
+  awk '
+    NR == 1 {
+      if ($0 == "---") in_frontmatter=1
+      next
+    }
+    in_frontmatter && !closed && $0 == "---" { closed=1; next }
+    in_frontmatter && !closed {
+      line=$0
+      if (line ~ /^(role|handler-budget-role):/) {
+        value=line
+        sub(/^[^:]*:[ \t]*/, "", value)
+        sub(/[ \t\r]*$/, "", value)
+        if (value != "" && value != "\047\047" && value != "\"\"") found=1
+      }
+      if (line ~ /^handler-timeout:[ \t]*[1-9][0-9]*[ \t]*$/) found=1
+    }
+    END { exit (in_frontmatter && closed && found) ? 0 : 1 }
+  ' "$1"
+}
+
 # Atomic-child bodies follow the same write-side pipeline as post-plan.sh: reject
-# malformed execution frontmatter in strict mode, normalize automatic routing,
-# and clear stale reaper/gardener cycle markers before parking. Keep prepared
-# bodies in private temporary files so arbitrary Markdown never enters shell argv.
+# malformed execution frontmatter in strict mode, require an explicit runtime
+# role/budget, normalize automatic routing, and clear stale reaper/gardener cycle
+# markers before parking. Keep prepared bodies in private temporary files so
+# arbitrary Markdown never enters shell argv.
 atomic_tmp=""
 child_body_files=()
 child_cleared=()
@@ -259,6 +290,9 @@ if [ "$atomic_children" -eq 1 ]; then
     cat "${child_body_sources[$i]}" > "$prepared"
     if ! validate_job_frontmatter "$prepared"; then
       die "refusing to park child '${children[$i]}': job frontmatter failed validation (unset GARDEN_JOB_FRONTMATTER_STRICT to WARN and park anyway)"
+    fi
+    if ! atomic_child_has_handler_metadata "$prepared"; then
+      die "refusing to park child '${children[$i]}': an atomic automatic child must declare a non-empty role:, handler-budget-role:, or positive handler-timeout: in leading frontmatter"
     fi
     routed="$atomic_tmp/$i.routed"
     automatic_route_body < "$prepared" > "$routed"
