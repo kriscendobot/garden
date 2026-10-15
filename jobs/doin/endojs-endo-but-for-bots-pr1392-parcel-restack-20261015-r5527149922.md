@@ -24,3 +24,13 @@ parent histories in conflicts, force-push with lease, and update #1392's base.
 Run affected tests and gates, drive CI green, and post the required summary.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T10:53:49Z
