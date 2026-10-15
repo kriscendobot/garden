@@ -23,3 +23,13 @@ Garden repo (kriscendobot/garden); tracked changes land directly on `main2` (no 
 4. Re-run the capacity math the accountant and foreman use and show that the total dispensable weekly tokens now excludes the 168M cap: living caps are 271M, 180M, plus the Codex percent pool, and the old 610M slate must be re-derived from them. Do NOT set a new slate yourself; that is the accountant's job at the 10-17 reset. Verify the accountant statement and foreman mandate computation run clean against the new registry (dry-run or test fixtures), and that `accountant-reslice-nudge.sh` and `accountant-statement.sh` do not mention endolin2 as capacity.
 5. Add a short note to `context/operations/` (cybernetics or scaling) that the pool is retired, with the date and why, so the next gardener does not rediscover it as an outage.
 6. Tests for the registry change; run the budget, claim-admission, accountant and foreman suites. Do not claim, drain or modify any other host. Report what changed, test results, and anything that still references endolin2 and why it was left.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T21:48:36Z
