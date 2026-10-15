@@ -1,0 +1,64 @@
+<6>22:45:25 [monk/2] job 'kriscendobot-minion-town-pr183-design-converge-fix-20261015' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>22:45:39 [monk/2] job 'kriscendobot-minion-town-pr183-design-converge-fix-20261015' call ceiling: tier=mentor max-budget-usd=14.00 (scaled by fresh seven-day headroom when available)
+<4>22:45:39 [monk/2] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion-town-pr183-design-converge-fix-20261015' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+panel-head-freshness: stale target=kriscendobot/minion.town#183 reviewed_head=3b4ce5cbd25028f0e31475647eb8d457a55dcca5 presented_head=dff1ff8f55077d7ad039f3ed9279c0b9b4e85b0e disposition=review-required
+<6>23:58:16 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/183 moved after a completed panel; deferring to the review-docket freshness disposition
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>23:58:31 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/167; leaving docket unchanged
+<6>23:58:32 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/167 failed (rc=1, attempt 4); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=830579 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>23:58:41 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/183; leaving docket unchanged
+<6>23:58:41 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/183 failed (rc=1, attempt 4); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=834067 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>23:58:46 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/167; leaving docket unchanged
+<6>23:58:46 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/167 failed (rc=1, attempt 4); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=836849 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>23:58:50 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/183; leaving docket unchanged
+<6>23:58:50 [review-docket] spooled reenter https://github.com/kriscendobot/minion.town/pull/183 failed (rc=1, attempt 4); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=838455 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+<6>23:58:54 [review-docket] upsert is an idempotent no-op
+<6>23:58:54 [review-docket] drained spooled upsert https://github.com/endojs/endo-but-for-bots/pull/1394 (1792098023388313712-c4f437ceabba103a.json)
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>23:58:58 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/183; leaving docket unchanged
+
+--- handler report (partial) ---
+## Completion report: kriscendobot/minion.town#183, the design-level leftovers
+
+The design-level fixes are pushed to https://github.com/kriscendobot/minion.town/pull/183 (head `2b7e8d1` → `d592bf7` → `dff1ff8`) and CI is green on `dff1ff8` (3/3 jobs, checked through the Actions runs API). I did **not** resume the gauntlet myself. This host was draining for a rolling deploy that was waiting on this job, and `gauntlet.sh` silently exits 0 under a drain. I posted a successor job to run the resume (see Follow-ups).
+
+**Item 1: correctness**
+- **Wire-watcher (old record overwriting a different active secret):** already fixed on the incoming head, so no code change. `migrateSecret` refuses the overwrite, and existing tests cover both active and pending records.
+- **Assessor's `.catch` on `open.closed`:** already handled. `.then(drop, drop)` covers both rejections; the round-8 assessor confirmed this.
+
+**Item 2: one-shot legacy migration (`secrets-credential-vault.ts`)**
+- A single pass moves every `version: 1` record onto `@secrets` and then writes a `migrated-to-secrets` marker. Reads now accept only `version: 2`, and the migrate-or-tolerate branch on every read (`tolerateMigrationFailure` / `TOLERANT`) is gone.
+- If the pass fails, the next operation runs it again. Read-only operations log the failure (error class only, never the message) and carry on.
+- **Security effect:** once the marker exists, a planted or restored v1 record mints nothing. This closes the locksmith's "unprobed active credential" finding.
+- A legacy record that conflicts with a different live secret is now removed rather than left on disk with its token.
+- I also dropped the redundant `secretName` field and its foreign-secret check (decomplector #3), and made the shape guards type predicates.
+- `DEPLOYMENT.md` now describes the one-shot pass and says: "No downgrade after the migration: the supported way back is to roll forward."
+
+**Item 3: simplifications**
+- **Refusal in one place:** `mintFacetExo` decides it, driven by a `containFacets` seam. The `refuseUncontained` wrapper, its WeakSet brand (`isRefusingExo`) and the second `rootProviderFor` provider seam are deleted. Facets no longer mint an exo at all when contained.
+- **Own result type:** `needs-containment` is now its own arm of the `infer` union instead of an `error` reason. That removes `isNeedsContainment`, and a harness error can no longer be mistaken for the refusal. The proxy caplet and inbox responder were updated, with a new test for exactly that case.
+- **WeakMap:** the head never had a WeakMap. `makeRootAuthoredInfer` already compares directly against `childRecord.agent`, so I kept that. Its returned function is now hardened.
+- **Integrator #2:** already done. Every importer takes `CredentialVault` from `types.ts`.
+
+**Item 4:** I skipped the commit regroup, as instructed.
+
+**Kept from rounds 6–8:** tokens stay out of error messages (`scrubbed` is unchanged and its test still passes), and a 403 is still not treated as an auth retry (`cli-launch.ts` untouched).
+
+**Checks**
+- Typecheck is clean, and the four affected test files passed 5 runs out of 5.
+- The full local suite has 1 failure, `test/git-remote/capability.test.ts`. It fails the same way on the unmodified head and passes in CI, so it comes from this host's environment.
+- `endo-daemon-integration.test.ts` was updated for the marker but needs a live daemon, so it was skipped here and not exercised.
+- My first push (`d592bf7`) failed CI because of a race I introduced: the migration pass started in the background and wrote its marker while a test's teardown was deleting the directory. `dff1ff8` fixes it by starting the pass on the first operation.
+- No Endo change was needed.
+
+**Follow-ups**
+- I posted and confirmed on journal2 **`kriscendobot-minion-town-pr183-gauntlet-resume-20261015`**. Any host that isn't draining will run `gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr183-screen-07e6a4d9-gauntlet panel --add-rounds 2`, skipping it if the record already exists.
+- I left the doom-parked `…-open-findings-fix-20261015` job alone.
+- Integrator #2 in round 8 (`DEPLOYMENT.md` cites "design phase 6 / gate 8" without naming the document) is still open, because I couldn't verify the correct reference.
