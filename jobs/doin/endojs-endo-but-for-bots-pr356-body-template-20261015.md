@@ -48,3 +48,13 @@ None; no published package surface changes.
 
 None for this PR. The packaging design describes the eventual upgrade path for installed gateways.
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T17:31:55Z
