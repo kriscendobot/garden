@@ -11,11 +11,11 @@ created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-10-11T01:59:41Z
 arc: 
 added_rounds: 2
-stage: panel
+stage: fix
 iteration: 7
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr178-gauntlet-panel-7
+current_child: kriscendobot-minion.town-pr178-gauntlet-fix-7
 state: running
 resumed_at: 2026-10-15T17:34:56Z
 resumed_from_stage: fix
