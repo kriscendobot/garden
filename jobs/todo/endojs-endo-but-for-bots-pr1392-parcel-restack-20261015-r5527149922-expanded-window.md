@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1392-parcel-restack-20261015-r5527149922-split
+role: fixer
+tier: mentor
 handler-timeout: 10800
 split-indivisible-reason: 'Parcel adaptation, explicit history-preserving rebase, lease-protected branch/base updates, and exact-head CI form one atomic PR mutation; splitting would expose an intermediate head and invalidate downstream verification.'
 split-lineage-root: endojs-endo-but-for-bots-pr1392-parcel-restack-20261015-r5527149922
 split-lineage-parent: endojs-endo-but-for-bots-pr1392-parcel-restack-20261015-r5527149922-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-10-15T11:45:17Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-15T11:46:43Z cleared=none -->
 
 ---
 role: fixer
