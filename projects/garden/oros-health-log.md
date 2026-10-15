@@ -2,6 +2,20 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-15T05:20Z (oros-health-checkup-20261015-032033): healthy (deployed = origin/main2 `cbef9daa`) → one orphaned tmp_pack removed
+
+- **Load/mem:** load 3.4/3.4/2.3; 13 GiB of 15 GiB available; swap 533 MiB used.
+- **Disk/inodes:** 6% of the overlay used (405G free); inodes 1% (165k).
+- **Uptime:** 13d12h, no reboot.
+- **Deployed vs main2:** root at `cbef9daa` = origin/main2. fleet/health (04:58Z): `roll_status: deployed`, 0 of 292 units failed. Self-deploy deferred at 04:42Z (monk 4 long job, 6408s), then deployed once the job ended. No help was needed.
+- **Units:** 0 failed; monks 1 to 6 running (scaler-managed). Not draining. The only derotation marker is endolin-garden2's, not oros's.
+- **Budget heartbeat:** claude-oros sampled at 05:03Z, status ok, 10% used. Pushes land every 15 minutes (04:01, 04:16, 04:31, 04:46, 05:03 all landed).
+- **State clones:** ≤50 packs each, no `gc.log`. Repo locks are flock files with no dead holders: the lock helper clears dead-holder metadata itself.
+- **Transcript capture:** the 02:30Z repair holds. Ticks at 03:21Z and 04:20Z each captured 32 sessions in about 13s, exit 0.
+- **rc=124 (3h):** journal-contention-watch notice deliveries deferred at the tick budget ×8. That is the designed behavior of `85389eda`, now deployed. monk/4 `endojs-endo-but-for-bots-pr1393-gauntlet-clean` hit its own 7214s wall clock (×1, classified transient, requeue cycle 0).
+- **Changed:** deleted an orphaned 1.3 GB `tmp_pack` (01:23Z, a leftover of a pre-fix kill) from `$GARDEN_STATE/transcripts/clone`. The pack dir went from 3.7G to 2.4G.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-15T02:30Z (oros-health-checkup-20261015-002013): degraded (transcript capture killed every hourly tick, 27 GB of orphaned tmp_packs) → repaired on-host; fix on main2 `7718822b`
 
 - **Load/mem:** load 3.2/3.3/3.5; 13 GiB of 16 GiB available; swap 532 MiB used.
