@@ -43,3 +43,13 @@ When the head is pushed and CI is green, resume the review with
 `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr186-gauntlet panel --add-rounds 2`
 so a panel verifies the convergence. Do not un-draft or merge by hand; the gauntlet and the
 proxy screen own that.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T19:45:33Z
