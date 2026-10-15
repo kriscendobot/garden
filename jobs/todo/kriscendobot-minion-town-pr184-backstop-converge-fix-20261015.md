@@ -1,8 +1,8 @@
 ---
 role: fixer
-tier: mentor
-model-burned: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Converge kriscendobot/minion.town#184: decide the dispatch-backstop form
@@ -44,13 +44,6 @@ so a panel verifies the result. Do not un-draft or merge by hand; the gauntlet a
 screen own that.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2315 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-15T18:43:24Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-15T19:33:23Z -->
