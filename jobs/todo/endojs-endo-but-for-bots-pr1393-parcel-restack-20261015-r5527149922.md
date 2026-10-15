@@ -25,17 +25,4 @@ honor both parent histories in conflicts, force-push with lease, and update
 #1393's base. Run affected tests and gates, drive CI green, and post the required
 summary.
 
-
-
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-15T11:50:57Z
+<!-- garden-reaped: 0 -->
