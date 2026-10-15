@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-15T04:34:52Z_
+_As of 2026-10-15T04:40:16Z_
 
 ## Latest
 
@@ -1614,8 +1614,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 258.8M | $1227.80 _(notional, rate-card)_ | 95% of 271.0M (ok) |
-| Codex | 30.7M _(+1026.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
+| Claude | 258.8M | $1227.84 _(notional, rate-card)_ | 95% of 271.0M (ok) |
+| Codex | 30.8M _(+1031.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101321915 tokens/day lower bound._
 
@@ -1636,19 +1636,18 @@ worst fetch p95 11.572981s/45s (/home/kris/garden/.garden-state/state-clone-keep
 - [`oros-health-checkup-20261015-032033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261015-032033.md) — ---
 - [`kriscendobot-garden-book-pr15-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr15-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/garden-book PR #15
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1391
 - [`endojs-endo-but-for-bots-pr774-parcel-restack-20261015-r5527149922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr774-parcel-restack-20261015-r5527149922.md) — Reconcile and restack endojs/endo-but-for-bots PR #774
-- [`codex-tier-parity-and-panel-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/codex-tier-parity-and-panel-20261015.md) — Codex tier parity: an OpenAI analog for every tier, and Codex-capable panel s...
 - [`endojs-endo-but-for-bots-pr1393-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1393-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1393
 
-### tada (12908)
+### tada (12909)
+- [`codex-tier-parity-and-panel-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/codex-tier-parity-and-panel-20261015.md) — Cost
 - [`improve-comment-timeout-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/improve-comment-timeout-fanout.md) — Cost
 - [`improve-budget-snapshot-cas-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/improve-budget-snapshot-cas-contention.md) — Cost
 - [`kriscendobot-minion.town-pr186-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/kriscendobot-minion.town-pr186-gauntlet-fix-5.md) — Cost
 - [`oros-health-watch-20261015-032033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/oros-health-watch-20261015-032033.md) — Cost
-- [`endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/15/endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922.md) — orchestration endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149...
-- … and 12903 more
+- … and 12904 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
