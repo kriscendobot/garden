@@ -1,27 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-15T23:35:28Z_
+_As of 2026-10-15T23:45:00Z_
 
 ## Latest
 
-Two gauntlets hit their review budget without converging and now need a maintainer call. [kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) is at 10/10 rounds with 8 must-fix items still open, mostly pruner and spec-keeper nits on `tools/browser-check.mjs`, and its fix round 10 completed. Other minion.town gauntlets have also stopped at their budgets: [#178](https://github.com/kriscendobot/minion.town/pull/178) (20 open must-fix), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#190](https://github.com/kriscendobot/minion.town/pull/190). Each message includes a command to grant more rounds. [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) fix round 5 was parked by the reaper, and the gauntlet owns its retries.
+Three minion.town PRs hit their gauntlet review budget without converging and now need a human call: [#180](https://github.com/kriscendobot/minion.town/pull/180) (12/12 rounds), [#178](https://github.com/kriscendobot/minion.town/pull/178) (8/8 rounds, 20 new must-fix items in the last round) and [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#188](https://github.com/kriscendobot/minion.town/pull/188) (6/6 rounds each). [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) also exhausted its 10 rounds, with 8 items still raised in the last round, mostly comment-level pruning. Each notice includes the `--add-rounds` resume command. [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) had its fifth fix round parked after a non-productive failure, so its gauntlet is stalled until someone promotes it.
 
-Newly completed:
-- The `minion-town-arc-press` job.
-- `fix-minion-town-pr186-host-local-canary-secrets`.
-- The [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) mechanism-converge fix. Its gauntlet restarted, and panel round 10 is queued.
-- [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and its deploy succeeded.
+On the minion.town side, [#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed successfully, and the proxy validated it. Design PR [#189](https://github.com/kriscendobot/minion.town/pull/189) (iframe embedding) is waiting on your approval before the headers and live-frame builds can start.
 
-Claimed: [endo-but-for-bots#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) Parcel restack. A new `minion-town-node-install-root-ownership` job was posted.
+**Fleet health:**
+- **oros:** Its sysop looks unresponsive and has acknowledged nothing since 2026-10-13. The rolling-deploy canary is also stuck on `bf605277e30` after being released to `8e62adabbbc3`. A person at the machine needs to restart `garden-sysop`.
+- **Deploy and gating:**
+  - **Rolling deploy:** The halted roll of `8da29934080b` still needs a deliberate lift.
+  - **Foreign-content gate:** It has now blocked several Literate AI sources, and each needs a read-or-skip disposition from you.
+  - **Orchestrations:** Several orchestrations halted: `orch-jev-triage-foreman` (blocked on a missing `TYPESAFE_API_KEY`), `orch-minion-town-oauth-bonds`, `review-docket-20261008` and the Claude-on-minion.town press split.
+- **Journal contention:** The many lock-contention notices are low-latency giveups and are mostly noise. One storm cleared.
+- **Spend:** Claude is over its backoff quota at 107%.
 
-Fleet concerns:
-- **oros sysop:** unreachable, and it has acknowledged nothing since 21:28Z on 10-13. Someone at that machine needs to restart `garden-sysop`.
-- **oros deploy:** the canary is stuck short of the main2 tip, and the rolling deploy remains halted behind it.
-- **Orchestrations:** three have halted: `orch-minion-town-oauth-bonds`, `orch-jev-triage-foreman`, and `review-docket-20261008`. The `review-docket-20261008` halt is because `review-docket-consolidate-20261008` was doomed and is held in plan.
-- **Jev trial:** blocked because `TYPESAFE_API_KEY` is missing.
-- **Scholar:** several Literate AI sources are held by the foreign-content gate and need an explicit disposition (ingest or keep blocked) before they are read.
+Board activity was quiet: 17 jobs are queued and 2 are in progress. The transition feed resolved no file-level moves for this window.
 
 ## Maintainer review docket
 
@@ -79,11 +75,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-15T22:51:05Z, cleared 2026-10-15T23:31:13Z).
-> It was observed 5 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-15T22:51:05Z, cleared 2026-10-15T23:42:28Z).
+> It was observed 7 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -481,12 +477,12 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #33 (first seen 2026-10-15T20:22:18Z, latest 2026-10-15T23:32:26Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 33 times; this is ONE
-> coalesced notice that updates in place, not 33 messages. Latest detail:
+> WATCHDOG notice — occurrence #35 (first seen 2026-10-15T20:22:18Z, latest 2026-10-15T23:42:19Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 35 times; this is ONE
+> coalesced notice that updates in place, not 35 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/191](https://github.com/kriscendobot/minion.town/pull/191)#discussion_r4287555576 (age=13478s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/191](https://github.com/kriscendobot/minion.town/pull/191)#discussion_r4287555576 (age=14079s; heartbeat=full-poll)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
@@ -838,7 +834,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 290.7M | $1383.25 _(notional, rate-card)_ | 107% of 271.0M (backoff) |
+| Claude | 291.3M | $1385.50 _(notional, rate-card)_ | 107% of 271.0M (backoff) |
 | Codex | 90.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 80482062 tokens/day lower bound._
