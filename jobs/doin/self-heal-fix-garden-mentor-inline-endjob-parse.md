@@ -9,3 +9,13 @@ The mentor's semantic-output parser (the code that emits "EOF reached inside JOB
 3. Tighten the mentor prompt to say that JOB and ENDJOB must each be on their own line.
 4. Add a regression test that uses the rejected capture above as a fixture and expects one parsed job named improve-require-execution-role. Also test that a genuinely unterminated block is still rejected.
 Keep the existing refusal to fall back to another provider after a real malformed reply.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T08:04:16Z
