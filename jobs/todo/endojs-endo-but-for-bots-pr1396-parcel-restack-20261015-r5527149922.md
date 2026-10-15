@@ -27,13 +27,6 @@ required summary.
 
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=46 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-15T17:37:24Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-15T17:53:21Z -->
