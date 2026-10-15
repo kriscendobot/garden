@@ -20,6 +20,8 @@
 
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=panel-llm.sh
+source "$HERE/panel-llm.sh"
 : "${GARDEN_ROOT:=$(cd "$HERE/../../.." && pwd)}"
 : "${JURORS_DIR:=$GARDEN_ROOT/roles/jurors}"
 GREP_PREPASS="${GARDEN_THESAURUS_GREP:-$HERE/thesaurus-cliche-grep.sh}"
@@ -101,9 +103,9 @@ esac
 
 digest="$("$GREP_PREPASS" report "$wt" "$base" 2>/dev/null || true)"
 
-# No seat brief or no claude: emit the deterministic summary-fix so the cliché is
+# No seat brief or provider CLI: emit the deterministic summary-fix so the cliché is
 # never lost (the seat is mandatory and must always surface a real hit).
-if [ ! -r "$brief" ] || ! command -v claude >/dev/null 2>&1; then
+if [ ! -r "$brief" ] || ! panel_llm_available; then
   fallback_block "$digest"; exit 0
 fi
 
@@ -139,9 +141,7 @@ EOF
 # tier when panel.sh passes GARDEN_PANEL_SEAT_MODEL (empty => inherit the ceiling),
 # the same per-seat tiering the other seat-gates honor. Best-effort: a decline falls
 # back to the digest.
-seat_model_args=(); [ -n "${GARDEN_PANEL_SEAT_MODEL:-}" ] && seat_model_args=(--model "$GARDEN_PANEL_SEAT_MODEL")
-seat_budget_args=(); [[ "${GARDEN_CLAUDE_CALL_BUDGET_USD:-}" =~ ^[0-9]+([.][0-9]+)?$ ]] && seat_budget_args=(--max-budget-usd "$GARDEN_CLAUDE_CALL_BUDGET_USD")
-out="$(cd "$wt" && claude -p "${seat_model_args[@]}" "${seat_budget_args[@]}" --dangerously-skip-permissions "$prompt" 2>/dev/null || true)"
+out="$(cd "$wt" && panel_llm "${GARDEN_PANEL_SEAT_MODEL:-}" "" "$prompt" 2>/dev/null || true)"
 if [ -n "$out" ]; then
   printf '%s\n' "$out"
 else

@@ -137,9 +137,10 @@ cmd_emit() {
   local rundir="${1:?usage: panel-run-record.sh emit <rundir>}"
   [ -d "$rundir" ] || { log "WARN: rundir '$rundir' absent; nothing to record"; return 0; }
 
-  local repo pr panel_kind base pr_body_hash disp exit_code app_ran app_count
+  local repo pr panel_kind provider base pr_body_hash disp exit_code app_ran app_count
   repo="$(meta "$rundir" repo)";           pr="$(meta "$rundir" pr)"
   panel_kind="$(meta "$rundir" panel_kind)"; base="$(meta "$rundir" base_ref)"
+  provider="$(meta "$rundir" provider)"
   pr_body_hash="$(meta "$rundir" pr_body_hash)"
   disp="$(meta "$rundir" disposition)"
   exit_code="$(meta "$rundir" exit_code)"
@@ -147,6 +148,7 @@ cmd_emit() {
   [ -n "$repo" ] || repo="$(basename "$rundir")"
   [ -n "$pr" ]   || pr="0"
   [ -n "$panel_kind" ] || panel_kind="code"
+  [ -n "$provider" ] || provider="unknown"
   [ -n "$disp" ] || disp="error"
   [ -n "$exit_code" ] || exit_code="unknown"
 
@@ -217,7 +219,7 @@ must-fix items ($mf_count):${mf_lines}
   slug="$(sanitize "$repo-$pr")"
   run_id="${GARDEN_PANEL_RUN_ID:-}"
   if [ -z "$run_id" ]; then
-    run_id="$(printf '%s|%s|%s|%s|%s|%s' "$repo" "$pr" "$base" "$pr_body_hash" "$disp" "$allheads" \
+    run_id="$(printf '%s|%s|%s|%s|%s|%s|%s' "$repo" "$pr" "$provider" "$base" "$pr_body_hash" "$disp" "$allheads" \
              | (sha1sum 2>/dev/null || shasum) | cut -c1-12)"
   fi
   run_id="$(sanitize "$run_id")"
@@ -233,6 +235,7 @@ kind: panel-run
 repo: $repo
 pr: $pr
 panel_kind: $panel_kind
+provider: $provider
 base_ref: $base
 pr_body_hash: $pr_body_hash
 rounds: $rounds

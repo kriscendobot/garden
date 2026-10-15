@@ -1,25 +1,24 @@
 #!/bin/bash
 # panel-seat-tiering-test.sh — panel.sh's per-seat model tiering resolves each seat to
-# the right `claude --model` value: opus/unmapped -> inherit (empty), sonnet/haiku ->
-# explicit alias, and per-tier/wholesale overrides are honored.
+# the right provider model: opus/unmapped -> inherit (empty), sonnet/haiku ->
+# Anthropic aliases or OpenAI minion/myrmidon models.
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"; ROOT="$(cd "$JOBS/../.." && pwd)"
-PANEL="$ROOT/scripts/jobs/gardening/panel.sh"
+PANEL_LLM="$ROOT/scripts/jobs/gardening/panel-llm.sh"
 TSV="$ROOT/scripts/jobs/gardening/seat-model-tiers.tsv"
 PASS=0; FAIL=0
 ok() { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 
-# Extract seat_model_flag out of panel.sh (sourcing panel.sh runs its main body).
-fn="$(awk '/^seat_model_flag\(\)/{p=1} p{print} p&&/^}/{exit}' "$PANEL")"
-[ -n "$fn" ] || { echo "could not extract seat_model_flag from panel.sh"; exit 1; }
-eval "$fn"
-# panel.sh sets these via `: "${VAR:=default}"` before the function; the extracted
-# function does not carry those lines, so seed them here (the resolver reads them).
+# The provider-aware resolver is a source-only library.
+# shellcheck source=../gardening/panel-llm.sh
+source "$PANEL_LLM"
 export GARDEN_PANEL_SEAT_TIERS="$TSV"
 export GARDEN_PANEL_MODEL_SONNET="${GARDEN_PANEL_MODEL_SONNET:-sonnet}"
 export GARDEN_PANEL_MODEL_HAIKU="${GARDEN_PANEL_MODEL_HAIKU:-haiku}"
+export GARDEN_MODEL_TIER_INVENTORY="$ROOT/scripts/jobs/model-tier-inventory.tsv"
+export GARDEN_PANEL_PROVIDER=anthropic
 
 check() { # <expected> <seat> [desc]
   local got; got="$(seat_model_flag "$2")"
@@ -47,6 +46,13 @@ alt="$(mktemp)"; printf 'typist\thaiku\nsaboteur\tsonnet\n' > "$alt"
 GARDEN_PANEL_SEAT_TIERS="$alt" check haiku  typist   "wholesale TSV: typist->haiku"
 GARDEN_PANEL_SEAT_TIERS="$alt" check sonnet saboteur "wholesale TSV: saboteur->sonnet"
 rm -f "$alt"
+
+# The same abstract seat tiers resolve within OpenAI. Opus remains the resolved
+# job ceiling; sonnet/haiku use the first minion/myrmidon inventory rows.
+export GARDEN_PANEL_PROVIDER=openai
+check ""              saboteur     "OpenAI opus seat inherits"
+check gpt-5.6-terra   typist       "OpenAI sonnet seat maps to minion"
+check gpt-5.6-luna    orthographer "OpenAI haiku seat maps to myrmidon"
 
 # every juror seat directory is present in the shipped map (no seat silently unmapped)
 missing=0

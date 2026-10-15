@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-09-29
+updated: 2026-10-15
 author: gardener
 ---
 
@@ -16,8 +16,23 @@ unclassified and cannot acquire an automatic route.
 | --- | --- | --- |
 | mentat | Anthropic Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled), OpenAI GPT-6 Astra (`gpt-6-astra`) | Manual by default; the scoped Ironhorse watcher exception is below. Use `post-manual-job.sh`; it stamps `dispatch: manual`. Multi-provider like mentor: a manual mentat job is claimable by whichever provider's worker is live (monk on Fable, cleric on GPT-6 Astra); the manual-dispatch gate is keyed on the tier string, not a provider, with only the journal-authorized Ironhorse watcher exception below. |
 | mentor | Anthropic Opus 5.5 (`claude-opus-5-5`; Opus 5 `claude-opus-5` stays selectable behind it), OpenAI Sol (`gpt-5.6-sol`), Moonshot Kimi K3 (`kimi-k3`), Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) and Kimi K3 (`fireworks/accounts/fireworks/models/kimi-k3`) | Default ceiling for ordinary automatic producers, and the anthropic automatic ceiling outside the scoped Ironhorse watcher. Multi-provider: a mentor job is claimable by whichever provider's worker is live (monk on Opus 5.5, cleric on Sol, mystic on Kimi, fireworker on Fireworks). Opus 5.5 is the first-match anthropic mentor row, so it is the anthropic mentor default; Opus 5 remains selectable by the `opus5` alias / concrete pin. See the collision note below: a Fireworks mentor job resolves to GLM 5.2, so the registered Fireworks K3 is not yet independently selectable. |
-| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen (`hermit` lane RETIRED 2026-09-13 — pool pinned 0, no worker claims it), Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`), Ollama Cloud Qwen 3.5 (`qwen3.5:cloud`) | The tier below mentor; the automatic fallback tier. |
-| myrmidon | Sonnet, Haiku, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
+| minion | Anthropic Opus 4.x, OpenAI Terra (`gpt-5.6-terra`) and GPT-5.5 (`gpt-5.5`), served local Qwen (`hermit` lane RETIRED 2026-09-13 — pool pinned 0, no worker claims it), Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`), Ollama Cloud Qwen 3.5 (`qwen3.5:cloud`) | The tier below mentor; the automatic fallback tier. OpenAI fallback remains `gpt-5.6-terra` (the first row). |
+| myrmidon | Anthropic Sonnet and Haiku, OpenAI Luna (`gpt-5.6-luna`) and Mini (`gpt-5.4-mini`), Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
+
+**OpenAI myrmidon evidence.** A live `codex debug models` query on codex-cli
+0.162.1 (2026-10-15) describes Terra as the older balanced model for straightforward
+work (picker priority 8) and Luna as the older fast and efficient model (priority 9).
+The prior live provider catalog transcribed in
+[`designs/provider-model-catalog.md`](../../designs/provider-model-catalog.md)
+likewise describes Luna as fast/affordable, Mini as small/fast/cost-efficient for
+simpler coding tasks, Terra as the balanced everyday default, and GPT-5.5 as the
+frontier option for complex work. That provider-authored ordering puts Luna/Mini
+on the expedient side of Terra/GPT-5.5. The existing reputation corpus has two
+accepted Mini documentation completions, but is explicitly too sparse for a
+comparative capability claim, and the ChatGPT-plan CLI exposes no per-token dollar
+rate. The classification therefore uses the catalog's intended-use ordering, not
+invented cost precision. Keeping Terra first at minion preserves the automatic
+OpenAI fallback.
 
 **Fireworks mentor collision (GLM 5.2 vs Kimi K3).** Both Fireworks mentor models
 are registered with wire ids verified against the provider's model pages, but the
@@ -171,12 +186,12 @@ Coverage: `scripts/jobs/test/reroute-role-floor-test.sh`.
 ## Panel juror seats (a separate, intra-panel tier map)
 
 The four-tier vocabulary above governs how a *job* is dispatched. The gardening
-review **panel** has its own, orthogonal per-seat tiering: each juror seat's
-`claude -p` runs at a seat-specific model rather than uniformly at the ceiling.
-The map is `scripts/jobs/gardening/seat-model-tiers.tsv` (`<seat> opus|sonnet|haiku`),
-resolved by `panel.sh`; because a seat's `claude -p` runs in the panel job's
-Anthropic environment the reachable models are Anthropic-only, so `opus` means
-"inherit the job's resolved ceiling model" and the map only ever downshifts. The
+review **panel** has its own, orthogonal per-seat tiering. The map is
+`scripts/jobs/gardening/seat-model-tiers.tsv` (`<seat> opus|sonnet|haiku`),
+resolved by `panel.sh` for the running worker's provider: `opus` inherits the
+job's resolved ceiling, `sonnet` maps to that provider's minion model, and `haiku`
+maps to its myrmidon model. Anthropic workers retain the historical Claude aliases;
+OpenAI workers run the same seats through `codex exec`. The map only downshifts. The
 per-seat justification (which seats keep Opus and why) and the coupled metering
 fix are in [`designs/panel-seat-metering-and-tiering.md`](../../designs/panel-seat-metering-and-tiering.md).
 This is deliberately NOT part of the closed fleet inventory: it is a cost lever

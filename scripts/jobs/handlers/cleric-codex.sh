@@ -207,6 +207,7 @@ fi
 # and every gh call it makes inherit this environment.
 export GARDEN_JOB_MODEL="$model"
 export GARDEN_JOB_ROLE="$requested_role"
+export GARDEN_JOB_PROVIDER="$provider"
 # Publish the job base too (see monk-claude.sh): per-job helpers key their
 # isolated state by THIS job's unique base, never one shared path.
 export GARDEN_JOB_BASE="$base"
@@ -245,6 +246,7 @@ case "$provider" in openrouter|openrouter-promo)
 # future reputation event (§2.3/§4.2) keys the arm on — apples-to-apples.
 effort_level="${requested_effort:-$(role_default_effort "$KIND" "$requested_role")}"
 effort="$(codex_effort_for_model "$model" "$effort_level")"
+export GARDEN_JOB_EFFORT="$effort"
 [ "$effort" != "$effort_level" ] \
   && log "job '$base' effort '$effort_level' normalized to '$effort' for $model (model's nearest supported level)"
 

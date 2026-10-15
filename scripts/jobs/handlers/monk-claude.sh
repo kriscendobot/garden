@@ -39,6 +39,7 @@ base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 # GARDEN_WORKER_KIND; default to monk for a standalone invocation.
 KIND="${GARDEN_WORKER_KIND:-monk}"
 provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo anthropic)"
+export GARDEN_JOB_PROVIDER="$provider"
 
 # --- per-job worktree (the HARD RULE: no development in the root tree) --------
 #

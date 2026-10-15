@@ -13,7 +13,7 @@
 # `claude -p` burned per cycle, up to the reaper's doom threshold.
 #
 # THE PRIMITIVE: in single-round mode, BEFORE the fan-out, panel.sh looks for a
-# durable record whose head, base ref, and PR-body hash equal the current values.
+# durable record whose head, provider, base ref, and PR-body hash equal the current values.
 # On an EXACT match with a parseable disposition it reconstructs a review-ready aggregate
 # into the rundir from the record's recorded disposition + must-fix titles, prints
 # the single-round terminal contract, and exits 0 WITHOUT dispatching any seats.
@@ -28,7 +28,8 @@
 # SUBTEST 3 — body MISMATCH does not resume even though HEAD is unchanged.
 # SUBTEST 4 — base MISMATCH does not resume even though HEAD/body are unchanged.
 # SUBTEST 5 — head MISMATCH does not resume.
-# SUBTEST 6 — classic mode (flag unset) never resumes even with a matching record.
+# SUBTEST 6 — provider MISMATCH does not replay a different model-family verdict.
+# SUBTEST 7 — classic mode (flag unset) never resumes even with a matching record.
 #
 # Hermetic: seats/decider are env-stubbed; the "durable store" is a scratch dir.
 # A real git worktree gives panel.sh a HEAD to match against.
@@ -72,6 +73,7 @@ kind: panel-run
 repo: $REPO
 pr: $PR
 panel_kind: code
+provider: anthropic
 base_ref: HEAD~1
 pr_body_hash: $BODY_HASH
 rounds: 1
@@ -93,13 +95,14 @@ EOF
 
 # run_panel <resume-flag-value|unset> <single?0|1> <rundir> [head-override]
 run_panel() {
-  local resume="$1" single="$2" rundir="$3" repo_over="${4:-$REPO}"
+  local resume="$1" single="$2" rundir="$3" repo_over="${4:-$REPO}" provider="${5:-anthropic}"
   local extra=()
   [ "$resume" != "unset" ] && extra=(GARDEN_PANEL_RESUME="$resume")
   env "${extra[@]}" \
     FAN_DIR="$rundir/fan" FAN_SLEEP=0 \
     DECIDE_VERDICT=pass \
     GARDEN_PANEL_SINGLE_ROUND="$single" \
+    GARDEN_PANEL_PROVIDER="$provider" \
     GARDEN_CODE_SEATS="$SEATS" \
     GARDEN_PANEL_CONCURRENCY=2 \
     GARDEN_PANEL_SEAT="$STUB_SEAT" \
@@ -171,12 +174,19 @@ out5="$(run_panel unset 1 "$TR/rd5" other/repo 2>&1)"; rc5=$?
   && ok "seats ran — a non-matching store did not resume (fail-open)" \
   || bad "resumed off a non-matching record: $out5"
 
-hr; echo "SUBTEST 6 — classic mode (flag unset) never resumes"; hr
-out6="$(run_panel unset 0 "$TR/rd6" 2>&1)"; rc6=$?
-[ "$rc6" -eq 0 ] && ok "classic run exits 0" || bad "exited $rc6: $out6"
+hr; echo "SUBTEST 6 — provider MISMATCH: an Anthropic record is not resumed by OpenAI"; hr
+out6="$(run_panel unset 1 "$TR/rd6" "$REPO" openai 2>&1)"; rc6=$?
+[ "$rc6" -eq 0 ] && ok "provider-mismatch run exits 0" || bad "exited $rc6: $out6"
 [ -f "$TR/rd6/round-1.assessor.md" ] \
+  && ok "seats ran — a different provider invalidated resume" \
+  || bad "resumed an Anthropic record from an OpenAI panel: $out6"
+
+hr; echo "SUBTEST 7 — classic mode (flag unset) never resumes"; hr
+out7="$(run_panel unset 0 "$TR/rd7" 2>&1)"; rc7=$?
+[ "$rc7" -eq 0 ] && ok "classic run exits 0" || bad "exited $rc7: $out7"
+[ -f "$TR/rd7/round-1.assessor.md" ] \
   && ok "seats ran in classic mode — resume is single-round-only" \
-  || bad "classic mode resumed off the record (should be single-round-only): $out6"
+  || bad "classic mode resumed off the record (should be single-round-only): $out7"
 
 hr
 echo "RESULT: $PASS passed, $FAIL failed"

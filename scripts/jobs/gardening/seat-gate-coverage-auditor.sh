@@ -30,6 +30,8 @@
 
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=panel-llm.sh
+source "$HERE/panel-llm.sh"
 : "${GARDEN_ROOT:=$(cd "$HERE/../../.." && pwd)}"
 : "${JURORS_DIR:=$GARDEN_ROOT/roles/jurors}"
 DIFF="${GARDEN_COVERAGE_DIFF:-$HERE/coverage-auditor-coverage-diff.sh}"
@@ -115,9 +117,9 @@ esac
 digest=""
 [ "$rc" -eq 0 ] && digest="$("$DIFF" report "$wt" "$base" 2>/dev/null || true)"
 
-# No seat brief or no claude: emit the deterministic block so the gap is never
+# No seat brief or provider CLI: emit the deterministic block so the gap is never
 # lost (the seat is mandatory and must always surface a real gap).
-if [ ! -r "$brief" ] || ! command -v claude >/dev/null 2>&1; then
+if [ ! -r "$brief" ] || ! panel_llm_available; then
   if [ "$rc" -eq 0 ]; then fallback_block "$digest"; else platform_block "$platform" "$cov_status"; fi
   exit 0
 fi
@@ -169,9 +171,7 @@ EOF
 # the fleet's claude dispatches. Run from the worktree so the digest's <path>:<line>
 # citations resolve when the juror opens the files. Best-effort: a decline falls
 # back to the digest.
-seat_model_args=(); [ -n "${GARDEN_PANEL_SEAT_MODEL:-}" ] && seat_model_args=(--model "$GARDEN_PANEL_SEAT_MODEL")
-seat_budget_args=(); [[ "${GARDEN_CLAUDE_CALL_BUDGET_USD:-}" =~ ^[0-9]+([.][0-9]+)?$ ]] && seat_budget_args=(--max-budget-usd "$GARDEN_CLAUDE_CALL_BUDGET_USD")
-out="$(cd "$wt" && claude -p "${seat_model_args[@]}" "${seat_budget_args[@]}" --dangerously-skip-permissions "$prompt" 2>/dev/null || true)"
+out="$(cd "$wt" && panel_llm "${GARDEN_PANEL_SEAT_MODEL:-}" "" "$prompt" 2>/dev/null || true)"
 if [ -n "$out" ]; then
   printf '%s\n' "$out"
 elif [ "$rc" -eq 0 ]; then

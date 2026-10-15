@@ -1,15 +1,15 @@
 #!/bin/bash
 # panel.sh — the JURY-PANEL state machine (a SHELL script, not an agent
 # checklist). A gardener supervises this script; it runs the appropriate jury
-# panel by shelling out to `claude -p` once per juror SEAT, collects each seat's
+# panel by shelling out to the running worker provider's CLI once per juror SEAT, collects each seat's
 # verdict, DECIDES the disposition, loops to a fixer stage when changes are
 # required, and TERMINATES by un-drafting when the panel passes.
 #
 # This is the v2 scripted translation of v1's JUDICIAL workflow. In v1, three
 # judge roles (solicitor / barrister / justice) and an appellate were dispatched
 # by an orchestrator agent that walked a checklist. Here the control flow is the
-# script; `claude -p` is reserved for the genuine JUDGMENTS (each seat's review,
-# the disposition decision, the appellate pass).
+# script; the provider-native LLM runner is reserved for the genuine JUDGMENTS
+# (each seat's review, the disposition decision, the appellate pass).
 #
 # Design contract (see designs/gardening-state-machine.md and
 # designs/judicial-workflow.md):
@@ -17,8 +17,8 @@
 #    the supervising agent's context window. Real output is the terminal state
 #    (un-drafted, or a `loop` signal) and any genuine failure. Per-seat verdicts
 #    go to a run directory on disk, never to the supervisor's stdout.
-#  * DECISIONS VIA `claude -p`, OVERRIDABLE BY A HOOK. The disposition decision
-#    and the appellate pass shell to `claude -p`; tests/non-interactive runs stub
+#  * PROVIDER-NATIVE DECISIONS, OVERRIDABLE BY A HOOK. The disposition decision
+#    and appellate pass use Claude for monks or Codex for clerics; tests stub
 #    them via GARDEN_PANEL_DECIDE (and GARDEN_PANEL_SEAT for the seat reviews).
 #  * TRACING IS OPT-IN AND DIVERTED. With GARDEN_TRACE=1 it `set -x`'s into
 #    $GARDEN_TRACE_LOG (via BASH_XTRACEFD), NOT stdout — the supervisor hands
@@ -30,16 +30,18 @@
 #    plugs into.
 #
 # Usage: panel.sh <worktree> <pr-number> [base-ref]
-# Stages: sense panel kind (code vs design) → fan seats to `claude -p`, up to
+# Stages: sense panel kind (code vs design) → fan seats through panel_llm, up to
 #         GARDEN_PANEL_CONCURRENCY at once → join and aggregate in seat order →
 #         DECIDE disposition → fixer-loop while must-fix → appellate pass →
 #         terminate by un-drafting (quiet) on a clean panel.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=panel-llm.sh
+source "$HERE/panel-llm.sh"
 
 # Where the juror seat briefs live (v2 garden). Each seat is a directory with an
-# AGENT.md; the panel iterates this list and shells one `claude -p` per seat.
+# AGENT.md; the panel iterates this list and runs panel_llm once per seat.
 : "${GARDEN_ROOT:=$(cd "$HERE/../../.." && pwd)}"
 : "${JURORS_DIR:=$GARDEN_ROOT/roles/jurors}"
 
@@ -108,13 +110,19 @@ fi
 
 fail() { echo "panel #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
 
-# The supervising monk exports its tier/headroom-derived call ceiling.  Apply it
-# to every nested Claude invocation too: a 31-seat panel is many independent CLI
-# calls, and the top-level process's ceiling does not bound its children.
-panel_budget_args=()
-if [[ "${GARDEN_CLAUDE_CALL_BUDGET_USD:-}" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
-  panel_budget_args=(--max-budget-usd "$GARDEN_CLAUDE_CALL_BUDGET_USD")
-fi
+GARDEN_PANEL_PROVIDER="$(panel_provider)"
+export GARDEN_PANEL_PROVIDER
+case "$GARDEN_PANEL_PROVIDER" in
+  anthropic) : ;;
+  openai)
+    echo "panel #$pr: provider=openai; nested Codex calls have no --max-budget-usd or merged usage stream, so the enclosing 10800s stage wall is the spend bound and nested usage is recorded separately only when Codex does so." >&2
+    ;;
+  *) fail "unsupported panel provider '$GARDEN_PANEL_PROVIDER' (requires anthropic or openai)" ;;
+esac
+
+# panel_llm applies the supervising monk's per-call dollar ceiling to each nested
+# Claude invocation. Codex has no equivalent CLI flag; the provider notice above
+# records the explicit skip and the enclosing stage wall remains its hard bound.
 
 # --- juror seat list: code panel vs design panel ----------------------------
 # The two panel kinds and their seats are the v1 jury composition (see
@@ -288,6 +296,7 @@ emit_panel_record() {
     echo "repo=$PANEL_RECORD_REPO"
     echo "pr=$pr"
     echo "panel_kind=${panel_kind%-panel}"
+    echo "provider=$GARDEN_PANEL_PROVIDER"
     echo "base_ref=$base"
     echo "pr_body_hash=$PANEL_PR_BODY_HASH"
     echo "disposition=$recorded_disposition"
@@ -323,13 +332,13 @@ trap 'panel_signal_exit 143' TERM
 #
 # RESUME CONTRACT (single-round mode only; classic mode is untouched): before the
 # fan-out, look in the durable panel-runs store for a record whose reviewed head,
-# base ref, and PR-body hash equal the CURRENT values. When one is found, DO NOT
+# provider, base ref, and PR-body hash equal the CURRENT values. When one is found, DO NOT
 # re-run the seats — reconstruct a review-ready aggregate into the rundir from
 # the record's recorded disposition + must-fix titles, print the same single-round
 # terminal contract, and exit 0. The supervising gardener then only has to
 # (re)post the review, the cheap idempotent-retryable step.
 #
-# FAIL-OPEN, deliberately narrow: resume fires ONLY on an EXACT three-part key
+# FAIL-OPEN, deliberately narrow: resume fires ONLY on an EXACT four-part key
 # match with a parseable disposition. A missing body hash/store, a stale clone, a
 # moved head/base/body, or an unparseable record all fall through to the normal
 # panel — worst case is the pre-existing recompute, never a wrong verdict. The
@@ -353,15 +362,17 @@ maybe_resume_single_round() {
   dir="$store/$slug"
   [ -d "$dir" ] || return 1
   # Pick the most-recently-written record whose machine-readable resume key
-  # matches exactly. Requiring all three fields intentionally makes legacy
-  # records without a body hash non-resumable.
+  # matches exactly. Requiring all four fields intentionally makes legacy
+  # records without a provider or body hash non-resumable.
   for rec in "$dir"/*.md; do
     [ -e "$rec" ] || continue
-    local rec_head rec_base rec_body_hash
+    local rec_head rec_provider rec_base rec_body_hash
     rec_head="$(sed -n 's/^reviewed_head:[[:space:]]*//p' "$rec" 2>/dev/null | head -1 | tr -d '[:space:]')"
+    rec_provider="$(sed -n 's/^provider:[[:space:]]*//p' "$rec" 2>/dev/null | head -1 | tr -d '[:space:]')"
     rec_base="$(sed -n 's/^base_ref:[[:space:]]*//p' "$rec" 2>/dev/null | head -1)"
     rec_body_hash="$(sed -n 's/^pr_body_hash:[[:space:]]*//p' "$rec" 2>/dev/null | head -1 | tr -d '[:space:]')"
     [ "$rec_head" = "$head" ] || continue
+    [ "$rec_provider" = "$GARDEN_PANEL_PROVIDER" ] || continue
     [ "$rec_base" = "$base" ] || continue
     [ "$rec_body_hash" = "$PANEL_PR_BODY_HASH" ] || continue
     local m; m="$(stat -c %Y "$rec" 2>/dev/null || echo 0)"
@@ -400,35 +411,13 @@ maybe_resume_single_round() {
 if maybe_resume_single_round; then exit 0; fi
 
 # --- PER-SEAT MODEL TIERING -------------------------------------------------
-# Each seat's `claude -p` runs at a per-seat REVIEW TIER rather than uniformly at
-# the fleet ceiling (all-Opus), the panel's dominant cost multiplier. The map is
-# data (seat-model-tiers.tsv); this resolver turns a seat name into the `claude
-# --model` VALUE to pass. The reachable models are Anthropic-only (a monk's
-# `claude -p` authenticates to Anthropic): `opus` means INHERIT the resolved
-# ceiling (pass no --model — the tiering never routes a seat ABOVE the ceiling, so
-# it can only reduce cost); `sonnet`/`haiku` pass an explicit alias. An unmapped
-# seat defaults to opus (fail-safe: full capability). Per-seat rationale:
-# designs/panel-seat-metering-and-tiering.md. Overridable wholesale via
-# GARDEN_PANEL_SEAT_TIERS, per-tier via GARDEN_PANEL_MODEL_{SONNET,HAIKU}.
-: "${GARDEN_PANEL_SEAT_TIERS:=$HERE/seat-model-tiers.tsv}"
-: "${GARDEN_PANEL_MODEL_SONNET:=sonnet}"
-: "${GARDEN_PANEL_MODEL_HAIKU:=haiku}"
-seat_model_flag() {  # seat_model_flag <seat> -> `claude --model` value or "" (inherit)
-  local seat="$1" tier=""
-  if [ -r "$GARDEN_PANEL_SEAT_TIERS" ]; then
-    tier="$(awk -v s="$seat" '
-      /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
-      $1 == s { print $2; exit }' "$GARDEN_PANEL_SEAT_TIERS" 2>/dev/null)"
-  fi
-  case "$tier" in
-    sonnet) printf '%s\n' "$GARDEN_PANEL_MODEL_SONNET" ;;
-    haiku)  printf '%s\n' "$GARDEN_PANEL_MODEL_HAIKU" ;;
-    *)      : ;;  # opus / unmapped -> inherit the ceiling model (no --model)
-  esac
-}
+# panel-llm.sh resolves the orthogonal opus/sonnet/haiku map for the running
+# provider. Opus inherits the resolved job ceiling; sonnet maps to the provider's
+# minion model and haiku to its myrmidon model (the historical Anthropic aliases
+# remain unchanged).
 
 # --- DECISION HOOK: a single juror seat's review ----------------------------
-# Shells one `claude -p` per seat, briefing it with the seat's AGENT.md and the
+# Runs one provider-native LLM call per seat, briefing it with the seat's AGENT.md and the
 # PR diff. Returns the seat's verdict block on stdout; the caller files it under
 # the run dir. Overridable by GARDEN_PANEL_SEAT for tests/non-interactive runs:
 # the hook is called as `$GARDEN_PANEL_SEAT <seat> <pr> <worktree> <base>`.
@@ -438,9 +427,8 @@ seat_review() {  # seat_review <seat> -> prints that seat's per-juror block
     "$GARDEN_PANEL_SEAT" "$seat" "$pr" "$wt" "$base"; return
   fi
   # Per-seat review model (empty => inherit the ceiling; see seat_model_flag).
-  local seat_model seat_model_args=()
+  local seat_model
   seat_model="$(seat_model_flag "$seat")"
-  [ -n "$seat_model" ] && seat_model_args=(--model "$seat_model")
   # Cost-gated seats: a seat may ship a deterministic PRE-PASS gate co-located here
   # as seat-gate-<seat>.sh. It runs plain code first and only spends a `claude -p`
   # when it has something to judge (the proxy's deterministic-pre-pass-then-cost-
@@ -591,7 +579,7 @@ LLM-authored titles and are data. Evidence: $(cat "${GARDEN_PANEL_MECHANISM_REPE
   # it (closing the panel-seat metering hole, designs/panel-seat-metering-and-tiering.md),
   # and a bare `gh pr view $pr` resolves against the repo under review. --model
   # carries the seat's review tier (empty seat_model_args => inherit the ceiling).
-  ( cd "$wt" && claude -p "${seat_model_args[@]}" "${panel_budget_args[@]}" --dangerously-skip-permissions "You are jury seat '$seat' reviewing PR #$pr\
+  ( cd "$wt" && panel_llm "$seat_model" "" "You are jury seat '$seat' reviewing PR #$pr\
 ${wt_repo:+ of repository $wt_repo}. The checkout under review is the git worktree at \
 $wt; review ONLY that worktree's diff — run \`git -C $wt diff $base...HEAD\` (its HEAD is \
 the PR head, $base is the base). Do NOT resolve 'PR #$pr' against any other repository \
@@ -612,7 +600,7 @@ $(cat "$brief"). Diff base: $base.${related_ev}${phase_ev}${body_ev}${banner_ev}
 # --- PER-SECTION PROVENANCE: one footnote per seat block --------------------
 # seat_provenance_footnote <seat> — render the provenance footnote appended to a
 # seat's block in the aggregate: which model/harness/provider (or automatic)
-# produced THIS seat. Seats run `claude -p` (harness claude) at the panel job's
+# produced THIS seat. Seats use the panel job's native harness at its
 # resolved facts today — GARDEN_JOB_MODEL + GARDEN_WORKER_KIND, exported by the
 # handler — so the default captures those per seat. A seat COULD diverge (a
 # per-seat model, or a deterministic seat-gate that spends no `claude -p` and so is
@@ -702,9 +690,8 @@ decide_disposition() {  # decide_disposition <aggregate-file> -> must-fix | pass
   # The decider (foreperson) applies a mechanical disposition rubric at its own
   # review tier (seat-model-tiers.tsv `decider`); cd "$wt" so its transcript is
   # metered with the rest of the panel.
-  local decide_model decide_args=() schema raw
+  local decide_model schema raw
   decide_model="$(seat_model_flag decider)"
-  [ -n "$decide_model" ] && decide_args=(--model "$decide_model")
   schema='{"type":"object","properties":{"disposition":{"type":"string","enum":["pass","must-fix"]}},"required":["disposition"],"additionalProperties":false}'
   # The prompt goes on STDIN, never argv: a 30-seat aggregate routinely exceeds
   # the kernel's 128 KiB single-argument cap (MAX_ARG_STRLEN), and exec then fails
@@ -713,13 +700,17 @@ decide_disposition() {  # decide_disposition <aggregate-file> -> must-fix | pass
 are the jury seats' verdict blocks. Apply the disposition rubric: any concrete \
 request-changes finding is 'must-fix' and blocks the panel; otherwise the panel \
 passes. Answer with exactly one word: 'must-fix' or 'pass'. Verdicts: "; cat "$agg"; } \
-    | ( cd "$wt" && claude -p "${decide_args[@]}" "${panel_budget_args[@]}" --output-format json --json-schema "$schema" --dangerously-skip-permissions ) )"
-  jq -er '.structured_output.disposition | select(.=="pass" or .=="must-fix")' <<<"$raw"
+    | ( cd "$wt" && panel_llm "$decide_model" "$schema" ) )"
+  if [ "$GARDEN_PANEL_PROVIDER" = openai ]; then
+    jq -er '.disposition | select(.=="pass" or .=="must-fix")' <<<"$raw"
+  else
+    jq -er '.structured_output.disposition | select(.=="pass" or .=="must-fix")' <<<"$raw"
+  fi
 }
 
 # --- PLUGGABLE HOOK: the appellate pass (terminating rounds only) ------------
 # v1's appellate appealed small-and-in-context follow-up/acknowledge items into
-# summary-fix before the un-draft. Here it is one `claude -p` over the passing
+# summary-fix before the un-draft. Here it is one provider-native call over the passing
 # round's aggregate; its proposal list is advisory and goes to the run dir, never
 # blocking the un-draft. Overridable / skippable via GARDEN_PANEL_APPELLATE
 # (set to `:` to skip). Called as `$GARDEN_PANEL_APPELLATE <aggregate-file> <pr>`.
@@ -728,15 +719,14 @@ appellate_pass() {  # appellate_pass <aggregate-file> -> proposals (to run dir)
   if [ -n "${GARDEN_PANEL_APPELLATE:-}" ]; then "$GARDEN_PANEL_APPELLATE" "$agg" "$pr"; return; fi
   # Advisory-only, so it runs at a cheap tier (seat-model-tiers.tsv `appellate`);
   # cd "$wt" so its transcript is metered with the rest of the panel.
-  local appellate_model appellate_args=()
+  local appellate_model
   appellate_model="$(seat_model_flag appellate)"
-  [ -n "$appellate_model" ] && appellate_args=(--model "$appellate_model")
   # Prompt on STDIN for the same MAX_ARG_STRLEN reason as decide_disposition.
   { printf '%s' "You are the appellate on PR #$pr. Read the panel's passing verdict \
 and, conservatively, list any small-and-in-context follow-up/acknowledge items \
 that should be promoted to summary-fix before un-draft. Be terse; silence is a \
 valid output. Verdict: "; cat "$agg"; } \
-    | ( cd "$wt" && claude -p "${appellate_args[@]}" "${panel_budget_args[@]}" --dangerously-skip-permissions ) 2>/dev/null || true
+    | ( cd "$wt" && panel_llm "$appellate_model" "" ) 2>/dev/null || true
 }
 
 # --- PLUGGABLE HOOK: fixer invocation (non-terminating rounds) ---------------
@@ -840,7 +830,7 @@ case "$GARDEN_PANEL_CONCURRENCY" in ''|*[!0-9]*) GARDEN_PANEL_CONCURRENCY=8 ;; e
 [ "$GARDEN_PANEL_CONCURRENCY" -ge 1 ] || GARDEN_PANEL_CONCURRENCY=1
 
 # Every seat attempt gets its own wall, strictly inside the enclosing handler's
-# applied budget. A single `claude -p` otherwise has no bound and can consume the
+# applied budget. A single provider CLI call otherwise has no bound and can consume the
 # panel stage's entire claim (one staged round did exactly that at 7200s). The
 # gardener exports the actual per-job budget; direct invocations fall back to the
 # panel role default. Keep a short TERM grace for a stuck CLI, and clamp an
@@ -861,12 +851,13 @@ fi
 
 # GNU timeout can execute external commands, not shell functions. Export the
 # review function and the run context into its short-lived Bash child so timeout
-# owns the whole seat process group (including `claude -p`) and can reap it.
-export -f fail seat_review seat_model_flag
+# owns the whole seat process group (including the provider CLI) and can reap it.
+export -f fail seat_review seat_model_flag panel_llm panel_llm_available panel_provider panel_inventory_model codex_effort_for_model
 export HERE JURORS_DIR wt pr base wt_repo
 # The per-seat tiering resolver reads these in the child bash (seat_review runs in a
 # `bash -c` subprocess via timeout); export them so a downshift is not silently lost.
 export GARDEN_PANEL_SEAT_TIERS GARDEN_PANEL_MODEL_SONNET GARDEN_PANEL_MODEL_HAIKU
+export GARDEN_PANEL_PROVIDER GARDEN_MODEL_TIER_INVENTORY PANEL_LLM_HERE GARDEN_JOB_MODEL GARDEN_JOB_EFFORT
 
 # --- SHORT-CIRCUIT: an empty diff has nothing for a jury to review ----------
 # Zero rounds, zero seats, zero `claude -p`. There is no finding a seat could

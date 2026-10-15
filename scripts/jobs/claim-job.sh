@@ -79,7 +79,7 @@ own_worker_stopping() {
 # NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
-  local jf="$1" tier pin constrained_provider role routed_model trial
+  local jf="$1" tier pin constrained_provider role routed_model trial budget_role
   if [ "$(plan_field "$jf" ratchet-arc)" = ironhorse-test262-ratchet ]; then
     python3 "$HERE/ratchet/policy.py" active "$DIR" >/dev/null 2>&1 || return 1
   fi
@@ -91,9 +91,15 @@ job_eligible_for_kind() {
   # tier-less `role: gardener` job (the automatic-dispatch default that would otherwise
   # fall through the unclassified-tier early-return below). Closes the
   # hermit-claims-gardener claim/die/requeue hot loop (2026-08-19).
+  budget_role="$(canonical_budget_role "$(plan_field "$jf" handler-budget-role)")"
   if [ "$KIND" != monk ] && [ "$KIND" != gardener ] \
      && role_requires_anthropic_posture "$(plan_field "$jf" role)"; then
-    return 1
+    # A staged panel deliberately wears the generic gardener role because the
+    # script, not the supervising agent, owns its workflow. Its provider-aware
+    # runner is the one safe exception to the historical Claude-posture fence.
+    # Only the native OpenAI cleric joins the Anthropic workers here; custom/local
+    # Codex and Claude-compatible lanes remain excluded.
+    [ "$budget_role" = panel ] && [ "$KIND" = cleric ] || return 1
   fi
   pin="$(plan_field "$jf" model)"
   trial="$(plan_field "$jf" trial)"

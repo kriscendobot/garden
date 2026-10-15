@@ -29,6 +29,7 @@ trap 'rm -rf "$TR"' EXIT
 mkdir -p "$TR/wt" "$TR/out"
 out="$(PATH="$HERE/panel-large-aggregate-bin:$PATH" \
   LARGE_AGG_OUT="$TR/out" LARGE_AGG_SEAT_BYTES=100000 \
+  GARDEN_PANEL_PROVIDER=anthropic \
   GARDEN_PANEL_SINGLE_ROUND=1 \
   GARDEN_CODE_SEATS="assessor typist" \
   GARDEN_PANEL_CONCURRENCY=2 \

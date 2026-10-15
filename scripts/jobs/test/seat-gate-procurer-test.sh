@@ -12,6 +12,7 @@ ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
 GATE="$ROOT/scripts/jobs/gardening/seat-gate-procurer.sh"
 T=$(mktemp -d "${TMPDIR:-/tmp}/procurer-test.XXXXXX"); trap 'rm -rf "$T"' EXIT
 export GARDEN_STATE="$T/state" STUB_LOG="$T/calls"
+export GARDEN_PANEL_PROVIDER=anthropic
 passes=0; failures=0
 ok() { echo "ok - $1"; passes=$((passes + 1)); }
 bad() { echo "not ok - $1"; failures=$((failures + 1)); }

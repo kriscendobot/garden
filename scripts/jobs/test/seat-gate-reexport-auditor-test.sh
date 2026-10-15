@@ -23,6 +23,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/../../.." && pwd)"
 GATE="$ROOT/scripts/jobs/gardening/seat-gate-reexport-auditor.sh"
 export GARDEN_ROOT="$ROOT"
+export GARDEN_PANEL_PROVIDER=anthropic
 TR="$(mktemp -d "${TMPDIR:-/tmp}/sgra-test.XXXXXX")"
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }

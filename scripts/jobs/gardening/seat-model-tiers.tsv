@@ -1,11 +1,11 @@
 # seat-model-tiers.tsv — per-seat review-model tier for the gardening panel.
-# panel.sh's seat_model_flag reads this to choose a `claude --model` per juror seat
-# (and for the decider/appellate decision calls). Columns: <seat>\t<tier>.
-# Tiers (Anthropic-only, the models a monk's `claude -p` can reach):
-#   opus    inherit the fleet's resolved ceiling model (NO --model passed) — the
+# panel-llm.sh's seat_model_flag reads this to choose a provider-specific model per
+# juror seat (and for the decider/appellate calls). Columns: <seat>\t<tier>.
+# Tiers (orthogonal review vocabulary, resolved within the running provider):
+#   opus    inherit the fleet's resolved ceiling model — the
 #           deepest reasoning; the tiering NEVER routes a seat above this.
-#   sonnet  a strong general reviewer; the default for a scoped-rubric seat.
-#   haiku   mechanical / narrow / deterministic-pre-pass-gated judgment.
+#   sonnet  provider minion model; default for a scoped-rubric seat.
+#   haiku   provider myrmidon model; mechanical / narrow / gated judgment.
 # An unmapped seat defaults to opus (fail-safe: full capability). Rationale and the
 # per-seat justification live in designs/panel-seat-metering-and-tiering.md.
 # Overridable wholesale via GARDEN_PANEL_SEAT_TIERS, per-tier via

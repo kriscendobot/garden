@@ -144,16 +144,13 @@ fi
 # cycle). Headroom above it covers the coverage/fix work that runs before the wait.
 : "${GARDEN_GAUNTLET_CI_DEADLINE_SECS:=3600}"
 
-# The panel stage fans juror seats that ALL authenticate to one provider — panel.sh
-# shells `claude -p` per seat, so the panel is Anthropic-only. Posting a panel stage
-# while that provider's weekly quota is exhausted spends a whole panel attempt that
-# aborts at a seat with NO verdict (the 2026-09 weekly-quota outages). Before posting
-# any panel stage the driver deterministically checks the provider's budget-pool
-# admission and DEFERS the stage — leaving the record at its current stage to
-# re-attempt every tick — until quota is usable again, exactly as a producer routes a
-# job to budget-hold when its pool is at high water. The provider whose configured
-# budget pools gate the panel (overridable for tests / a non-Anthropic panel):
-: "${GARDEN_GAUNTLET_PANEL_PROVIDER:=anthropic}"
+# A panel stage can run entirely on either native provider: the worker that claims
+# it determines whether every seat uses Claude or Codex. Before posting a round,
+# defer only when ALL eligible provider pools are confirmed at backoff. A usable
+# OpenAI pool therefore keeps the panel moving during an Anthropic quota event (and
+# vice versa); the eventual claim gate still chooses a worker whose own pool admits.
+# The legacy singular override remains a test/operations compatibility seam.
+: "${GARDEN_GAUNTLET_PANEL_PROVIDERS:=${GARDEN_GAUNTLET_PANEL_PROVIDER:-anthropic openai}}"
 
 # --- child state, read purely from the board (mirrors orchestrate.sh) --------
 child_state() {  # <stage-base> → done|active|failed
@@ -580,8 +577,8 @@ retry_terminal_pending() {
 # claim rather than the gauntlet silently stalling forever on it. Reuses the SAME
 # meter_quota_status the foreman gate and per-claim admission reason over, so the
 # panel pre-gate cannot drift from the number that actually declines a claim.
-panel_provider_admits() {
-  local provider="$GARDEN_GAUNTLET_PANEL_PROVIDER" file pool prov _rest status seen=0
+panel_one_provider_admits() { # <provider>
+  local provider="$1" file pool prov _rest status seen=0
   file="$(budget_pool_file "$DIR" 2>/dev/null)" || return 0   # no config → fail open
   [ -r "$file" ] || return 0
   while IFS=$'\t ' read -r pool prov _rest; do
@@ -595,18 +592,27 @@ panel_provider_admits() {
   return 1                                 # every configured provider pool is at backoff
 }
 
+panel_provider_admits() {
+  local provider
+  for provider in $GARDEN_GAUNTLET_PANEL_PROVIDERS; do
+    panel_one_provider_admits "$provider" && return 0
+  done
+  return 1
+}
+
 # Surface a panel-quota defer to the maintainer, coalesced per base so a gauntlet
 # stalled across many ticks AMENDS one entry (throttled to ~hourly by inbox-send)
 # instead of spamming — the same coalescing discipline halts use.
 notify_panel_deferred() {  # <base> <what>
   local base="$1" what="$2" reset_epoch reset_iso="" subscription
-  subscription="$(budget_pool_for_provider_host "$GARDEN_GAUNTLET_PANEL_PROVIDER" "$GARDEN" "$DIR" 2>/dev/null || true)"
+  local first_provider="${GARDEN_GAUNTLET_PANEL_PROVIDERS%% *}"
+  subscription="$(budget_pool_for_provider_host "$first_provider" "$GARDEN" "$DIR" 2>/dev/null || true)"
   reset_epoch="$(subscription_next_reset_epoch "$subscription" "$DIR" 2>/dev/null || true)"
   [[ "$reset_epoch" =~ ^[0-9]+$ ]] && reset_iso="$(date -u -d "@$reset_epoch" +%FT%TZ 2>/dev/null || true)"
   printf 'INFO: Gauntlet %s is DEFERRING its %s — the panel provider (%s) is at/over its weekly quota, so posting a panel round now would abort at a seat with NO verdict and burn the attempt. It will post automatically once quota is usable again%s.\n' \
-    "$base" "$what" "$GARDEN_GAUNTLET_PANEL_PROVIDER" "${reset_iso:+ (next reset ~$reset_iso)}" \
+    "$base" "$what" "$GARDEN_GAUNTLET_PANEL_PROVIDERS" "${reset_iso:+ (next reset ~$reset_iso)}" \
     | gauntlet_notify "$base-panel-quota-deferred"
-  log "gauntlet '$base': panel provider ($GARDEN_GAUNTLET_PANEL_PROVIDER) at quota backoff — deferring $what"
+  log "gauntlet '$base': all panel providers ($GARDEN_GAUNTLET_PANEL_PROVIDERS) at quota backoff — deferring $what"
 }
 
 finish_done() {  # <base> <reason>

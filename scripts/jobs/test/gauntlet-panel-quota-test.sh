@@ -1,12 +1,10 @@
 #!/bin/bash
 # gauntlet-panel-quota-test.sh — validate the gauntlet driver's PANEL-PROVIDER
 # quota/admission pre-gate (gauntlet.sh: panel_provider_admits + the advance/retry
-# guards). The panel stage fans juror seats that all authenticate to one provider
-# (Anthropic — panel.sh shells `claude -p` per seat), so posting a panel round while
-# that provider's weekly quota is exhausted spends a whole panel attempt that aborts
-# at a seat with NO verdict. The driver must DEFER the panel stage — leaving the
-# record at its current stage to re-attempt each tick — until quota is usable, and
-# post it automatically once it recovers.
+# guards). One panel run stays within the native provider of the worker that claims
+# it. The driver defers only when every eligible native provider is at backoff, so
+# it does not spend an attempt that will abort at a seat with no verdict and does
+# not strand a Codex-capable panel behind an Anthropic-only gate.
 #
 # Subtests (hermetic; no systemd, no network, no `claude -p` — a bare journal, a
 # seeded config/budget-pools, and fake Claude session logs that drive meter spend):
@@ -47,6 +45,7 @@ git_id=(-c user.name=test -c user.email=test@localhost)
 
 # A pool at high water: cap 1000. Fake Claude session logs supply the spend.
 POOLROW='anthropic:testhost anthropic testhost weekly-tokens 1000'
+OPENAI_POOLROW='openai:testhost openai testhost weekly-tokens 1000'
 # meter_window_total prunes session files by mtime >= the week anchor, so the files
 # (written now) are always in-window relative to this historical NOW; the JSON
 # `timestamp` (>= the Fri-20:00-Pacific anchor for this NOW) is what gets summed.
@@ -67,7 +66,7 @@ SEED="$TR/seed"; git init -q "$SEED"; git -C "$SEED" checkout -q -b "$BRANCH"
            inbox/maintainer/unread inbox/maintainer/read config
   for d in jobs/todo jobs/doin jobs/tada jobs/plan jobs/gauntlet jobs/index work \
            inbox/maintainer/unread inbox/maintainer/read; do touch "$d/.gitkeep"; done
-  printf '%s\n' "$POOLROW" > config/budget-pools )
+  printf '%s\n%s\n' "$POOLROW" "$OPENAI_POOLROW" > config/budget-pools )
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m "seed: board + budget-pools"
 git -C "$SEED" remote add origin "$BARE"
@@ -76,6 +75,9 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
+export GARDEN_GAUNTLET_PANEL_PROVIDERS=anthropic
+export GARDEN_CODEX_LOGDIR="$TR/codex-empty"
+mkdir -p "$GARDEN_CODEX_LOGDIR"
 export GARDEN_ASSERT_PINNED_BASE=/bin/true     # fixture PRs are not on GitHub
 export GARDEN_POST_ATTEMPTS=50
 export GARDEN_CLAIM_TTL=14400 GARDEN_HANDLER_KILL_AFTER=60
@@ -166,6 +168,18 @@ tick "$LOGS_OK"   # quota usable again → the held clean=done transition fires
     && [ "$(record_field g1 iteration)" = 1 ]; } \
   && ok "panel-1 posted automatically once the provider admitted (no manual step)" \
   || bad "panel not posted after recovery: todo=[$(board jobs/todo)] stage=$(record_field g1 stage) iter=$(record_field g1 iteration)"
+
+# A native-provider panel is admitted when either arm has room. Recreate the
+# transition with Anthropic still at backoff and OpenAI's empty fixture log under
+# its calibrated cap; the driver must post instead of waiting for Anthropic.
+post_gauntlet g2 https://github.com/testowner/testrepo/pull/2
+tick "$LOGS_OK"; complete_stage g2-viability viability=proceed
+tick "$LOGS_OK"; complete_stage g2-clean clean=done
+export GARDEN_GAUNTLET_PANEL_PROVIDERS='anthropic openai'
+tick "$LOGS_HI"
+{ in_dir jobs/todo g2-panel-1 && [ "$(record_field g2 stage)" = panel ]; } \
+  && ok "Anthropic backoff does not defer while the OpenAI panel arm admits" \
+  || bad "multi-provider panel remained deferred: todo=[$(board jobs/todo)] stage=$(record_field g2 stage)"
 
 # ============================================================================
 hr

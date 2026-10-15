@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-09-29
+updated: 2026-10-15
 author: gardener
 ---
 
@@ -15,11 +15,13 @@ This is the v2 translation of v1's **judicial** workflow. In v1 an orchestrator
 agent dispatched one of three judge roles (solicitor / barrister / justice) plus
 an appellate, each of which fanned out a jury of subagents and aggregated their
 verdicts by hand. In v2 the control flow is a shell script the gardener
-supervises; `claude -p` is reserved for the genuine judgments — each seat's
-review, the disposition decision, and the appellate pass. See
+supervises; provider-native LLM calls are reserved for the genuine judgments —
+each seat's review, the disposition decision, and the appellate pass. See
 `designs/judicial-workflow.md` for what was deterministically scripted versus
 left to `claude -p`, and `designs/gardening-state-machine.md` for the supervised-
-script discipline this skill follows.
+script discipline this skill follows. `panel-llm.sh` selects the native harness of
+the worker that claimed the stage: Anthropic monks use `claude -p`, and OpenAI
+clerics use `codex exec`.
 
 ## When to use
 
@@ -51,9 +53,9 @@ runnable non-interactively):
 | `GARDEN_ROOT` / `JURORS_DIR` | where the seat briefs live (`roles/jurors/<seat>/AGENT.md`). |
 | `GARDEN_CODE_SEATS` | the code-panel list from `panel.sh` (override for a reduced panel); cost-gated seats include `coverage-auditor`, `orthographer`, `thesaurus`, `procurer`, and `reexport-auditor`. |
 | `GARDEN_DESIGN_SEATS` | the 9-seat design-panel list (includes the cost-gated `orthographer` and `thesaurus`). |
-| `GARDEN_PANEL_SEAT` | hook: run one seat's review (default shells `claude -p` with the seat brief). |
-| `GARDEN_PANEL_DECIDE` | hook: aggregate verdicts → `must-fix` \| `pass` (default `claude -p`). |
-| `GARDEN_PANEL_APPELLATE` | hook: the terminating-round appellate pass (default `claude -p`; set `:` to skip). |
+| `GARDEN_PANEL_SEAT` | hook: run one seat's review (default uses the worker provider's CLI with the seat brief). |
+| `GARDEN_PANEL_DECIDE` | hook: aggregate verdicts → `must-fix` \| `pass` (default uses the provider-native runner with schema enforcement). |
+| `GARDEN_PANEL_APPELLATE` | hook: the terminating-round appellate pass (default uses the provider-native runner; set `:` to skip). |
 | `GARDEN_PANEL_FIXER` | pluggable: project fixer invocation on non-terminating rounds (default no-op `true`). |
 | `GARDEN_PANEL_UNDRAFT` | pluggable: the terminal un-draft call, e.g. `gh pr ready` (default no-op `true`). |
 | `GARDEN_PANEL_RUNDIR` | on-disk scratch for per-seat blocks + aggregates (kept OUT of the supervisor's context). |
@@ -64,7 +66,7 @@ runnable non-interactively):
 | `GARDEN_PANEL_SEAT_TIMEOUT` / `_KILL_AFTER` | wall-clock bound for each seat attempt (default 1200s) and TERM grace (default 30s). The bound is clamped below the enclosing handler budget. |
 | `GARDEN_PANEL_MAX_ROUNDS` | loop-exit safety bound (default 8); not a normal exit path. |
 | `GARDEN_PANEL_SEAT_TIERS` | per-seat review-model map (default `scripts/jobs/gardening/seat-model-tiers.tsv`): `<seat>	opus\|sonnet\|haiku`. `opus` inherits the fleet ceiling (no `--model`); tiering only ever DOWNSHIFTS. Also keys the `decider`/`appellate` decision calls. Rationale: `designs/panel-seat-metering-and-tiering.md`. |
-| `GARDEN_PANEL_MODEL_SONNET` / `GARDEN_PANEL_MODEL_HAIKU` | the concrete `claude --model` value for the sonnet / haiku seat tiers (default aliases `sonnet` / `haiku`). |
+| `GARDEN_PANEL_MODEL_SONNET` / `GARDEN_PANEL_MODEL_HAIKU` | Anthropic's concrete model values for the sonnet / haiku seat tiers (default aliases `sonnet` / `haiku`). OpenAI resolves those tiers from the closed inventory as minion / myrmidon. |
 | `GARDEN_TRACE` / `GARDEN_TRACE_LOG` | opt-in `set -x` diverted to a file via `BASH_XTRACEFD`. |
 
 Two hook hazards, each paid for once:
@@ -92,13 +94,21 @@ Follow
 [re-export-deprecation-policy](../re-export-deprecation-policy/SKILL.md).
 The `procurer` similarly reuses the export index/build-vs-buy detector.
 
-Seat tiers come from `seat-model-tiers.tsv`; nested seat calls are metered, and
-aggregate reports put seat prose behind disclosure blocks.
+Seat tiers come from `seat-model-tiers.tsv`: `opus` inherits the job's resolved
+ceiling, `sonnet` uses the running provider's minion model, and `haiku` uses its
+myrmidon model. This means a cleric-run panel intentionally uses a different model
+family from a monk-run panel while preserving the same seats and disposition bar.
+The compact run record includes `provider:` so reputation and later evaluation can
+separate those arms. Anthropic nested seat calls are metered and inherit the
+per-call dollar ceiling. Codex exposes no equivalent `--max-budget-usd` and its
+nested calls are not merged into the supervising call's event stream, so the panel
+logs that limitation and relies on the enclosing 10800-second stage wall. Aggregate
+reports put seat prose behind disclosure blocks.
 Ordinary producer PRs stay draft while their producer runs. Successful builder
 and design-PR completions stage the gauntlet automatically; the panel itself
 still runs only as a separately claimed gauntlet stage.
-The gauntlet also checks panel
-provider quota before spending on seats.
+The gauntlet checks both native panel providers' quota before spending on seats and
+defers only when neither arm admits work.
 
 ## State
 
@@ -112,9 +122,9 @@ case never flows into the supervisor's window.
 rundir is scratch — torn down with the job's worktree — so on termination (pass,
 the max-rounds bound, or a fail) the script BEST-EFFORT pushes ONE compact record
 per run to `panel-runs/<owner>-<repo>-<pr>/<run-id>.md` on `journal2`, via a
-separate deterministic writer (`scripts/jobs/panel-run-record.sh`; no `claude -p`,
+separate deterministic writer (`scripts/jobs/panel-run-record.sh`; no LLM call,
 single-writer CAS discipline like `reputation.sh`). The record carries only the
-`repo` / `pr` / `panel_kind` / `base_ref`, the round count and terminal
+`repo` / `pr` / `panel_kind` / `provider` / `base_ref`, the round count and terminal
 disposition, per round the seat list with a **verdict class only** (never the
 seat's prose) and the must-fix item count with a **truncated** title per item
 (≤120 chars, ≤20/round), whether the appellate ran and its proposal count, and a
@@ -165,7 +175,8 @@ panel round.
    diff, the same bias toward over-reviewing step 1 takes. Regression guard:
    `scripts/jobs/test/panel-empty-diff-test.sh`.
 3. **Fan the seats — concurrently, `GARDEN_PANEL_CONCURRENCY` (default 8) at a
-   time.** For each seat in the matching list, the script shells one `claude -p`
+   time.** For each seat in the matching list, the script shells one provider-native
+   runner call
    (the `seat_review` hook), briefing it with that seat's
    `roles/jurors/<seat>/AGENT.md` and the diff. Each seat returns one per-juror
    block, which the script files under the run dir; an empty or blank block is
@@ -181,9 +192,9 @@ panel round.
    construction*: sequentially, a 29-seat code panel over a ~1500-line diff ran
    ~1.5–2.5 hours against a default `GARDEN_HANDLER_TIMEOUT` of 2400s. Panel jobs
    therefore resolve the 7200s `GARDEN_PANEL_HANDLER_TIMEOUT` role/stage default;
-   the shared budget resolver enforces this instead of relying on every producer
-   to remember an explicit header.
-4. **Decide the disposition.** The script shells one `claude -p` (the
+   staged gauntlets stamp their dedicated 10800s panel wall explicitly. The shared
+   budget resolver enforces either value instead of relying on a supervising agent.
+4. **Decide the disposition.** The script shells one provider-native call (the
    `decide_disposition` hook) over the aggregate and reads back exactly
    `must-fix` or `pass`.
 5. **Fixer loop.** On `must-fix`, the script invokes the project fixer hook with
@@ -218,8 +229,8 @@ panel round.
 | **barrister** | first code-panel round on a source PR | the first iteration of the loop on the code panel |
 | **justice** | code-panel re-runs after a fixer push | the loop's subsequent iterations (re-review of the delta) |
 | **appellate** | promote small-and-in-context deferrals before un-draft | the `appellate_pass` hook on the terminating round |
-| the jury seats | one per-juror block each | the `seat_review` `claude -p` fan-out over `roles/jurors/<seat>/` |
-| disposition rubric | judge classifies findings | the `decide_disposition` `claude -p` (`must-fix` \| `pass`) |
+| the jury seats | one per-juror block each | the provider-native `seat_review` fan-out over `roles/jurors/<seat>/` |
+| disposition rubric | judge classifies findings | the provider-native `decide_disposition` call (`must-fix` \| `pass`) |
 
 The three v1 judge roles collapse into one loop because their *difference* was
 the briefing (first round vs delta re-review), which is now carried by the seat
@@ -238,12 +249,11 @@ prompt and the diff base rather than by a distinct dispatched role.
 - **Panel-kind sensing is exact-match, like v1 panel-hints.** One source change
   among many design docs makes it a code-panel PR. There is no design-only-with-
   typo escape.
-- **Seats are metered and tiered.** Each seat / decider / appellate `claude -p` runs
-  from `cd "$wt"` so its session transcript lands in the panel job's own worktree
-  session dir, where the handler's before/after delta counts it — closing the
-  nested-`claude -p` metering hole (the per-job ledger used to see only the top-level
-  session). Per-seat model is `seat-model-tiers.tsv` (only ever downshifts from the
-  ceiling). Both in `designs/panel-seat-metering-and-tiering.md`.
+- **Seats are tiered within their provider.** Each seat / decider / appellate runs
+  from `cd "$wt"`. Claude transcripts remain included in the handler's before/after
+  metering delta; nested Codex usage is not merged today and is called out at run
+  time. Per-seat model is `seat-model-tiers.tsv` (only ever downshifts from the
+  ceiling). See `designs/panel-seat-metering-and-tiering.md`.
 - _2026-08-01_: the empty-diff short-circuit (Procedure step 2) was added while
   running the gauntlet on `endojs/endo-but-for-bots#847`, a diagnostic baseline PR
   whose head is an empty commit on a frozen snapshot. Without the gate that PR
@@ -251,3 +261,7 @@ prompt and the diff base rather than by a distinct dispatched role.
   deliberately the `coverage-auditor` seat-gate's, promoted from one seat to the
   whole panel: ask a deterministic question first, spend an LLM only on a real
   answer.
+- _2026-10-15_: direct panel and seat-gate tests must pin
+  `GARDEN_PANEL_PROVIDER`; a cleric handler exports `GARDEN_JOB_PROVIDER=openai`,
+  so relying on the process environment can bypass a Claude stub and make an
+  unintended live Codex call.

@@ -25,9 +25,9 @@ anthropic	claude-mythos-5	mentat
 openai	gpt-6-astra	mentat
 openai	gpt-5.6-sol	mentor
 openai	gpt-5.6-terra	minion
-openai	gpt-5.6-luna	minion
 openai	gpt-5.5	minion
-openai	gpt-5.4-mini	minion
+openai	gpt-5.6-luna	myrmidon
+openai	gpt-5.4-mini	myrmidon
 moonshot	kimi-k3	mentor
 local	qwen3.6	minion	23938333577
 # Ollama Cloud (friar, provider ollama-cloud): Claude Code driven against the paid,

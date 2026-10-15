@@ -128,6 +128,7 @@ if [ -n "$REC1" ]; then
   grep -qE '^disposition: passed$'   "$REC1" && ok "disposition: passed" || bad "wrong/absent disposition"
   grep -qE '^rounds: 1$'             "$REC1" && ok "rounds: 1 for a clean pass" || bad "wrong round count"
   grep -qE '^panel_kind: code$'      "$REC1" && ok "panel_kind: code recorded" || bad "panel_kind absent"
+  grep -qE '^provider: anthropic$'   "$REC1" && ok "provider: anthropic recorded" || bad "provider absent"
   grep -qE '^kind: panel-run$'       "$REC1" && ok "record self-identifies (kind: panel-run)" || bad "kind field absent"
   grep -qE '^reviewed_head: [0-9a-f]{40}$' "$REC1" && ok "exact reviewed head is machine-readable" || bad "exact reviewed_head absent"
   grep -qE '^pr_body_hash: [0-9a-f]{64}$' "$REC1" && ok "PR body hash is machine-readable" || bad "PR body hash absent"

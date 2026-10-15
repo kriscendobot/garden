@@ -22,6 +22,8 @@
 
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=panel-llm.sh
+source "$HERE/panel-llm.sh"
 : "${GARDEN_ROOT:=$(cd "$HERE/../../.." && pwd)}"
 : "${GARDEN_STATE:=$GARDEN_ROOT/.garden-state}"
 : "${JURORS_DIR:=$HERE/../../../roles/jurors}"
@@ -90,12 +92,8 @@ find "$CACHE_DIR" -maxdepth 1 -type f -mtime +30 -delete 2>/dev/null
 judge_one() {  # judge_one <rank> <cache-file>
   local rank="$1" cache="$2" reply="$run/reply-$1" out="$run/verdicts/$1.json"
   if [ -s "$cache" ]; then touch "$cache"; cp "$cache" "$out"; return 0; fi
-  command -v claude >/dev/null 2>&1 || return 0
-  local model_args=() budget_args=()
-  [ -n "${GARDEN_PANEL_SEAT_MODEL:-}" ] && model_args=(--model "$GARDEN_PANEL_SEAT_MODEL")
-  [[ "${GARDEN_CLAUDE_CALL_BUDGET_USD:-}" =~ ^[0-9]+([.][0-9]+)?$ ]] && budget_args=(--max-budget-usd "$GARDEN_CLAUDE_CALL_BUDGET_USD")
   # cd "$wt" so the transcript is metered with the rest of the panel.
-  (cd "$wt" && claude -p "${model_args[@]}" "${budget_args[@]}" --dangerously-skip-permissions \
+  (cd "$wt" && panel_llm "${GARDEN_PANEL_SEAT_MODEL:-}" "" \
       "$("$NODE_BIN" "$PROCURE" prompt "$run/plan.jsonl" "$rank" "$brief")") >"$reply" 2>/dev/null || true
   if "$NODE_BIN" "$PROCURE" parse "$reply" >"$out.tmp" 2>/dev/null; then
     mv -f "$out.tmp" "$out"
