@@ -96,3 +96,8 @@ in the completion report. **Do not close `#3372` and do not comment on it.**
 The maintainer will handle closing #3372 once the new PR is confirmed healthy
 — this was discussed live with the maintainer and is being done separately
 from this directive, not delegated to the boatman.
+
+---
+ferry_claim:
+  host: kmkmbp2026
+  claimed_at: 2026-10-15T02:48:56Z
