@@ -27,6 +27,8 @@ and post the required summary.
 
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
