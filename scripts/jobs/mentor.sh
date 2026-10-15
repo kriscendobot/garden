@@ -237,6 +237,9 @@ else
       log "WARN: mentor digest $sha reached $reject_count semantic rejections; advanced markers and escalated to the maintainer"
       exit 0
     fi
+    printf '%s\n' "$out" >&2
+    log "WARN: mentor digest $sha was rejected semantically ($reject_count/$GARDEN_MENTOR_REJECT_THRESHOLD); leaving input markers unchanged for the next tick"
+    exit 0
   else
     rm -f "$REJECTION_STATE"
   fi
