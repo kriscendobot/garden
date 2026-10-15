@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1394-shepherd-20261015-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-15T18:10:37Z
 ---
