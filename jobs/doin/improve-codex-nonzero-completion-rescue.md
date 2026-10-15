@@ -9,3 +9,13 @@ scripts/jobs/handlers/cleric-codex.sh:400 only nudges an rc=0 markerless turn; t
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-15T01:53:08Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T01:53:33Z
