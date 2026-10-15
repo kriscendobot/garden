@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-15T11:32:00Z_
+_As of 2026-10-15T11:35:33Z_
 
 ## Latest
 
@@ -999,11 +997,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #2481 (first seen 2026-10-10T04:05:32Z, latest 2026-10-15T10:29:02Z).
-> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 2481 times; this is ONE
-> coalesced notice that updates in place, not 2481 messages. Latest detail:
+> WATCHDOG notice — occurrence #2502 (first seen 2026-10-10T04:05:32Z, latest 2026-10-15T11:32:02Z).
+> The SAME condition (`rolling-deploy-host-offline-endolin-garden2-5bcdff64`) has now been observed 2502 times; this is ONE
+> coalesced notice that updates in place, not 2502 messages. Latest detail:
 >
-> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 456945s (offline threshold 1800s; sampled_at_epoch=1791603197).
+> Host endolin-garden2-5bcdff64 is OFFLINE: heartbeat stale by 460725s (offline threshold 1800s; sampled_at_epoch=1791603197).
 > The authority is budget/live/<pool>/endolin-garden2-5bcdff64, refreshed periodically; fleet/health/endolin-garden2-5bcdff64 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1034,6 +1032,14 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1392-parcel-restack-20261015-r5527149922` — from watchdog:cleric/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1392-parcel-restack-20261015-r5527149922.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-15T09:58:19Z, latest 2026-10-15T11:34:23Z).
+> The SAME condition (`handler-budget-overrun-endojs-endo-but-for-bots-pr1392-parcel-restack-20261015-r5527149922`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> gardener job 'endojs-endo-but-for-bots-pr1392-parcel-restack-20261015-r5527149922' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2404s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `liaison-followup-c2f8e36699ac` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-c2f8e36699ac.md)
 
@@ -1738,9 +1744,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 266.4M | $1265.75 _(notional, rate-card)_ | 98% of 271.0M (ok) |
-| Codex | 54.7M _(+1376.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Codex | 54.8M _(+1378.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 101511643 tokens/day lower bound._
+_Fleet token-unlock pace: 101511111 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 23.788754s/45s (/home/kris/garden/.garden-state/progress/journal); 10 open notice(s); checker healthy
