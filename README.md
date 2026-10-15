@@ -1,29 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-15T21:51:56Z_
+_As of 2026-10-15T21:55:56Z_
 
 ## Latest
 
-Several gauntlets ran out of review budget without converging, and each now needs a maintainer decision. [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) stopped after 12 rounds, and [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) stopped after 6. [kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) stopped after 8 rounds with 20 new must-fix items, mostly around the publish-book regex and a version bump. Each message gives the `--add-rounds` resume command. Meanwhile, panel and fix rounds continue on [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [minion.town#186](https://github.com/kriscendobot/minion.town/pull/186) and [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190). [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) are also in panel, and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) is being restacked.
+Several review gauntlets ran out of rounds and are now waiting on a maintainer decision. [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) used 12 of 12 rounds with CI green. [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) used 6 of 6. [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) used 8 of 8 and ended with 20 new must-fix items, so it is still raising issues rather than converging. Each notice gives a `--add-rounds N` command if you want to grant more.
 
-Several orchestrations halted:
-- **`orch-minion-town-oauth-bonds`**: the build child declared its outcome unsatisfied.
-- **`orch-jev-triage-foreman`**: blocked because `TYPESAFE_API_KEY` is missing. It needs a maintainer-provisioned key.
-- **`review-docket-20261008`**: its consolidate step was doomed and parked.
-- **The Claude-on-minion.town press split**: the carry child timed out on oros.
+Orchestrations also halted. `orch-minion-town-oauth-bonds`, `orch-jev-triage-foreman` and `review-docket-20261008` each stopped on a failed child. The Jev trial failed because `TYPESAFE_API_KEY` is missing from the job environment, so it needs a key. The review-docket consolidation job is parked after the reaper's retries ran out. The Claude-on-minion.town press split also halted on a handler timeout. The reaper parked [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) gauntlet fix round 5 for the same reason.
 
-The iframe-embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) awaits your approval before the headers and live-frame jobs can run.
+Two hosts need a person:
+- **oros:** its sysop bridge has been silent since 2026-10-13, and the rolling deploy for main2 `8da29934080b` is still halted. Someone has to restart `garden-sysop` on oros and lift its roll drain.
+- **endolin-garden2:** it has been offline for about 5.7 days. The watchdog has re-sent the same notice 2,706 times.
 
-Hosts:
-- **oros:** its sysop bridge has been silent for days and needs someone at the machine.
-- **endolin-garden2:** it has been offline for about 5.7 days. Its pool was retired today, and the watchdog is still repeating the offline notice.
-- **Rolling deploy:** it is still held behind oros.
+Several Literate AI sources are blocked by the foreign-content gate, and the scholar will skip them until you reply with a disposition. They are `authority-learning-loop`, `project-releases`, `beam-live-coding-layer-investigation`, `repository-source-dependencies`, `skills`, `superpowers-skills-assessment`, ADR 0014, ADR 0016 and ADR 0041.
 
-Quota: Claude spend is at 105% of the backed-off cap.
-
-Seven Literate AI sources remain blocked at the foreign-content gate and need your read/skip disposition. One new ingest message, Zig ADR 0014, joined the list. [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed cleanly.
+[minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed successfully. The iframe embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) still needs your approval before the headers and live-frame jobs can start. Claude spend is at 105% of its backoff quota. Most of the journal-lock contention notices have cleared.
 
 ## Maintainer review docket
 
@@ -450,12 +441,12 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #16 (first seen 2026-10-15T20:22:18Z, latest 2026-10-15T21:47:10Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 16 times; this is ONE
-> coalesced notice that updates in place, not 16 messages. Latest detail:
+> WATCHDOG notice — occurrence #17 (first seen 2026-10-15T20:22:18Z, latest 2026-10-15T21:52:05Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 17 times; this is ONE
+> coalesced notice that updates in place, not 17 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/191](https://github.com/kriscendobot/minion.town/pull/191)#discussion_r4287555576 (age=7170s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/191](https://github.com/kriscendobot/minion.town/pull/191)#discussion_r4287555576 (age=7471s; heartbeat=full-poll)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
@@ -786,10 +777,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 285.4M | $1361.93 _(notional, rate-card)_ | 105% of 271.0M (backoff) |
-| Codex | 83.0M _(+1682.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Claude | 285.7M | $1363.16 _(notional, rate-card)_ | 105% of 271.0M (backoff) |
+| Codex | 90.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 101808343 tokens/day lower bound._
+_Fleet token-unlock pace: 80424474 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.759584s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ymax-stdio-mcp); 5 open notice(s); checker healthy
@@ -915,8 +906,8 @@ worst fetch p95 7.759584s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
+- [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
 - [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 3 monks
