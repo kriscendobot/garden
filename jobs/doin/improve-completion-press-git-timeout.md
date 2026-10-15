@@ -9,3 +9,13 @@ The completion-press first-pass report ran a path-limited `git log` that exceede
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-15T21:43:21Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T22:34:18Z
