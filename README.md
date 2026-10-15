@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-15T00:06:42Z_
+_As of 2026-10-15T00:12:00Z_
 
 ## Latest
 
@@ -391,14 +389,14 @@ Delegation: **paused** by proxy:screen since 2026-10-14T18:13:39Z: #93 merge ad0
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #92 (first seen 2026-10-14T06:48:44Z, latest 2026-10-15T00:02:23Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 92 times; this is ONE
-> coalesced notice that updates in place, not 92 messages. Latest detail:
+> WATCHDOG notice — occurrence #93 (first seen 2026-10-14T06:48:44Z, latest 2026-10-15T00:06:55Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 93 times; this is ONE
+> coalesced notice that updates in place, not 93 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=20986s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1460](https://github.com/endojs/endo-but-for-bots/pull/1460)#discussion_r4277118108 (age=4251s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1460](https://github.com/endojs/endo-but-for-bots/pull/1460)#discussion_r4277127802 (age=4161s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1442](https://github.com/endojs/endo-but-for-bots/pull/1442)#issuecomment-6175098905 (age=21286s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1460](https://github.com/endojs/endo-but-for-bots/pull/1460)#discussion_r4277118108 (age=4551s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1460](https://github.com/endojs/endo-but-for-bots/pull/1460)#discussion_r4277127802 (age=4461s; heartbeat=full-poll)
 
 - `kriscendobot-minion.town-pr183-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr183-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr183-gauntlet-review-budget-reached.md)
 
@@ -1547,7 +1545,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 254.6M | $1203.62 _(notional, rate-card)_ | 94% of 271.0M (backoff) |
-| Codex | 27.1M _(+847.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Codex | 27.2M _(+852.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 101497837 tokens/day lower bound._
 
@@ -1701,4 +1699,4 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 7 monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 6 monks
