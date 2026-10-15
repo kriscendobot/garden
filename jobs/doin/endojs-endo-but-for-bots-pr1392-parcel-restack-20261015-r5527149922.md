@@ -25,6 +25,7 @@ Run affected tests and gates, drive CI green, and post the required summary.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
