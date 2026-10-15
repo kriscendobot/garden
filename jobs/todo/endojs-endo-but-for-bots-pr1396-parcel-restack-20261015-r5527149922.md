@@ -24,22 +24,4 @@ Snapshot that exact head as `build/sturdyref-captp-wire-<short-sha>`, rebase onl
 update #1396's base. Run affected tests and gates, drive CI green, and post the
 required summary.
 
-
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=46 -->
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-15T17:53:21Z -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-15T18:19:54Z
+<!-- garden-reaped: 0 -->
