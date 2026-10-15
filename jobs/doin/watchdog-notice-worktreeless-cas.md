@@ -14,3 +14,13 @@ Done means:
 - the existing watchdog-notice tests pass, and a new test shows a lost race being replayed without touching the worktree.
 
 Land on main2.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T07:15:33Z
