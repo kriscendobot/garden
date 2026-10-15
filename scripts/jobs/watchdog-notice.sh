@@ -47,8 +47,10 @@
 # fleet-level condition (`provider-quota`); a host-specific condition keys its host
 # into the key.
 #
-# Posting is add-only / rewrite-in-place; a rejected push just re-syncs and retries
-# under backoff, exactly like inbox-send.sh and doom-notice.sh.
+# Posting is add-only / rewrite-in-place. Each attempt reads the fresh journal tip,
+# builds the new blob and tree in a scratch index, and pushes a commit-tree commit.
+# A rejected push repeats that derivation from the new tip without resetting or
+# otherwise touching the producer clone's worktree.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -92,6 +94,8 @@ else BODY="(no watchdog detail supplied)"; fi
 
 now="$(date -u +%FT%TZ)"
 [ -n "$first_seen" ] || first_seen="$now"
+WORK="$(mktemp -d "${TMPDIR:-/tmp}/garden-watchdog-notice.XXXXXX")"
+trap 'rm -rf "$WORK"' EXIT
 
 # Compose the message file. On a fresh post notice_count is the folded count (1
 # unless the caller suppressed occurrences before this delivery); on an amend the
@@ -122,44 +126,72 @@ compose() {  # compose <count> <first_seen>
   printf '%s\n' "$BODY"
 }
 
-for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
-  sync_clone "$DIR"
-  mkdir -p "$DIR/inbox/maintainer/unread"
-  if [ -e "$DIR/$REL" ]; then
-    # AMEND: an open (unread) notice for this exact condition already exists. Add
-    # this delivery's occurrences to its count, preserve first_seen, refresh
-    # last_seen, and replace the body with the latest detail. No new message.
-    prev="$(sed -n 's/^notice_count: *//p' "$DIR/$REL" | head -1)"
+# watchdog_notice_push — one worktree-less compare-and-swap attempt. The notice is
+# check-then-write state (unlike a host-owned journal_graft_push path), so an amend
+# that loses a race must re-read and re-compose from the winner's count. Hold the
+# clone lock across fetch/read/commit/push, but use only Git objects and a scratch
+# index: the producer checkout and its index remain untouched.
+watchdog_notice_push() {
+  local base idx tree commit blob prior="$WORK/prior" notice="$WORK/notice"
+  local prev prior_first total msg rc=0
+  WATCHDOG_ACTION=""; WATCHDOG_TOTAL=""
+  clone_lock "$DIR"
+  if ! journal_fetch "$DIR" 0 >/dev/null 2>&1; then
+    clone_unlock "$DIR"; return 1
+  fi
+  base="$(git -C "$DIR" rev-parse -q --verify "origin/$JOURNAL_BRANCH^{commit}")" || rc=1
+  if [ "$rc" -eq 0 ] && git -C "$DIR" cat-file -e "$base:$REL" 2>/dev/null; then
+    git -C "$DIR" show "$base:$REL" > "$prior" || rc=1
+    prev="$(sed -n 's/^notice_count: *//p' "$prior" | head -1)"
     [ -n "${prev:-}" ] && [ "$prev" -eq "$prev" ] 2>/dev/null || prev=1
-    prior_first="$(sed -n 's/^first_seen: *//p' "$DIR/$REL" | head -1)"
+    prior_first="$(sed -n 's/^first_seen: *//p' "$prior" | head -1)"
     [ -n "${prior_first:-}" ] || prior_first="$first_seen"
     if [ "$recovered" -eq 1 ]; then
-      # A recovery reports the episode, it does not add an occurrence to it. The
-      # count already on the entry is authoritative (it is the cross-host total);
-      # the caller's --count is only used when the open entry is gone.
       total="$prev"
       [ "$count" -gt "$total" ] && total="$count"
     else
       total=$(( prev + count ))
     fi
-    compose "$total" "$prior_first" > "$DIR/$REL"
-    git -C "$DIR" add "$REL"
-    if commit_and_push "$DIR" "watchdog-notice($skey) amended → #$total by $GARDEN"; then
-      log "amended maintainer watchdog notice '$skey' (occurrence #$total)"; exit 0
-    fi
-  else
+    WATCHDOG_ACTION=amended; WATCHDOG_TOTAL="$total"
+    msg="watchdog-notice($skey) amended → #$total by $GARDEN"
+    compose "$total" "$prior_first" > "$notice"
+  elif [ "$rc" -eq 0 ]; then
     if [ "$recovered" -eq 1 ] && [ "${GARDEN_WATCHDOG_RECOVERY_IF_OPEN_ONLY:-0}" = 1 ]; then
-      # The open notice was already archived and the caller only wants to close an
-      # entry that is still on the maintainer's desk: nothing to say.
-      log "watchdog recovery for '$skey': no open notice (already archived); staying quiet"; exit 0
+      WATCHDOG_ACTION=quiet
+      clone_unlock "$DIR"; return 2
     fi
-    compose "$count" "$first_seen" > "$DIR/$REL"
-    git -C "$DIR" add "$REL"
-    if commit_and_push "$DIR" "watchdog-notice($skey) posted by $GARDEN"; then
-      log "posted fresh maintainer watchdog notice '$skey' (count $count)"; exit 0
-    fi
+    WATCHDOG_ACTION=posted; WATCHDOG_TOTAL="$count"
+    msg="watchdog-notice($skey) posted by $GARDEN"
+    compose "$count" "$first_seen" > "$notice"
   fi
-  log "watchdog-notice '$skey' lost a push race (attempt $attempt); re-syncing"
+  idx="$(mktemp "${TMPDIR:-/tmp}/garden-watchdog-index.XXXXXX")" || rc=1
+  [ "$rc" -ne 0 ] || GIT_INDEX_FILE="$idx" git -C "$DIR" read-tree "$base" || rc=1
+  [ "$rc" -ne 0 ] || blob="$(git -C "$DIR" hash-object -w "$notice")" || rc=1
+  [ "$rc" -ne 0 ] || GIT_INDEX_FILE="$idx" git -C "$DIR" update-index \
+    --add --cacheinfo "100644,$blob,$REL" || rc=1
+  [ "$rc" -ne 0 ] || tree="$(GIT_INDEX_FILE="$idx" git -C "$DIR" write-tree)" || rc=1
+  rm -f "$idx"
+  [ "$rc" -ne 0 ] || commit="$(printf '%s\n' "$msg" | git -C "$DIR" commit-tree "$tree" -p "$base")" || rc=1
+  [ "$rc" -ne 0 ] || git -C "$DIR" update-ref HEAD "$commit" || rc=1
+  [ "$rc" -ne 0 ] || journal_push_head "$DIR" || rc=1
+  clone_unlock "$DIR"
+  return "$rc"
+}
+
+for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  rc=0; watchdog_notice_push || rc=$?
+  if [ "$rc" -eq 0 ]; then
+    if [ "$WATCHDOG_ACTION" = amended ]; then
+      log "amended maintainer watchdog notice '$skey' (occurrence #$WATCHDOG_TOTAL)"
+    else
+      log "posted fresh maintainer watchdog notice '$skey' (count $WATCHDOG_TOTAL)"
+    fi
+    exit 0
+  elif [ "$rc" -eq 2 ] && [ "$WATCHDOG_ACTION" = quiet ]; then
+    log "watchdog recovery for '$skey': no open notice (already archived); staying quiet"
+    exit 0
+  fi
+  log "watchdog-notice '$skey' lost a push race (attempt $attempt); replaying from the fresh tip"
   backoff "$attempt"
 done
 die "could not deliver watchdog notice '$skey' after retries"
