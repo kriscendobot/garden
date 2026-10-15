@@ -26,3 +26,13 @@ honor both parent histories in conflicts, force-push with lease, and update
 summary.
 
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T13:53:08Z
