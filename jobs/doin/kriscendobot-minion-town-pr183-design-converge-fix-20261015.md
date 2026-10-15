@@ -42,6 +42,7 @@ When the head is pushed and CI is green, resume review with
 proxy screen own that. If the PR's Endo pin needs an unmerged endojs/endo-but-for-bots change, do not
 touch Endo; report it.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
