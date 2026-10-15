@@ -1,0 +1,36 @@
+<6>14:06:31 [monk/3] requeued job 'kriscendobot-minion-town-pr183-open-findings-fix-20261015' has no local transcript on oros-studio-garden-ce242c49; prior session and worktree were lost — starting FRESH session f8dc41e0-3cba-5f97-8559-68077328f7ad with lost-state framing
+<6>14:06:31 [monk/3] job 'kriscendobot-minion-town-pr183-open-findings-fix-20261015' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>14:06:48 [monk/3] job 'kriscendobot-minion-town-pr183-open-findings-fix-20261015' call ceiling: tier=minion max-budget-usd=8.30 (scaled by fresh seven-day headroom when available)
+<4>14:06:48 [monk/3] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion-town-pr183-open-findings-fix-20261015' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>14:10:15 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/183 ledger says 'orchestrated-slice'; staging the code panel anyway (the driver withholds the un-draft)
+garden repo lock: cleared dead-holder metadata pid=4115643 after acquiring /Users/dom/garden/.garden-state/repo-locks/f835c9e858cdec6897c303af0fea6df460c702b1e33c9b064071a595a74e07d0/repo.lock
+<6>14:10:31 [post-gauntlet] gauntlet 'kriscendobot-minion.town-pr183-gauntlet' already recorded; nothing to do
+<6>14:10:31 [auto-gauntlet-handoff] auto-gauntlet: 'kriscendobot-minion-town-pr183-open-findings-fix-20261015' recorded gauntlet 'kriscendobot-minion.town-pr183-gauntlet' for https://github.com/kriscendobot/minion.town/pull/183
+<6>14:13:32 [review-docket] spooled upsert https://github.com/endojs/endo-but-for-bots/pull/1412 failed (rc=124, attempt 6); kept for the next transaction
+<6>14:13:32 [review-docket] reenter https://github.com/kriscendobot/minion.town/pull/183 is already spooled (119fdd677b146697)
+<6>14:13:32 [review-docket] the reenter transaction exceeded the 180s lock window and was killed; reenter spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+All six findings are verified as genuinely addressed in the pushed `fb68d7f`, CI is green, and the gauntlet resume is already in flight. No further action is needed from me — re-triggering the resume would double-dispatch the running panel-7. The job is complete.
+
+## Completion report
+
+**Job:** Fix the six structural findings left open on kriscendobot/minion.town#183 (item 4 phase 3 of arc garden#89).
+
+**State re-derivation:** This was a cross-host reaper requeue with no carried-forward session. I re-derived from committed history and the journal. A prior attempt of this job (on oros-studio) had already done the work and pushed before being reaped — the PR head moved from `ee31c6bc` (35 commits, per spec) to `fb68d7f` (4-commit series), authored 13:12–13:13Z, and the gauntlet was resumed at panel/7 at 13:43Z (journal `33597bae315`). Rather than trust that, I verified every finding against the pushed code.
+
+**Verification of each open finding on `fb68d7f`:**
+- **wire-watcher #1** (correctness) ✅ — `migrateSecret` in `secrets-credential-vault.ts` refuses to overwrite a *different* active `@secrets` blob (returns false → logged conflict, read as `needs-auth`); an identical-bytes blob stays idempotent.
+- **assessor #1** ✅ — `cli-deployment.ts:269` handles `open.closed` rejection via `.then(drop, drop)` (two-arg catch).
+- **decomplector #2 / purist #2** ✅ — refusal consolidated into one place, `containment.ts`'s `refuseUncontained`; wiring.ts:717 documents "there is no split: the root path refuses wherever the facets do."
+- **integrator #2** ✅ — the live `CredentialVault` interface now lives in `types.ts` and is imported from `./types.js` everywhere; the legacy `credentials.ts` no longer defines it.
+- **migrator #2** ✅ — the downgrade decision is made and documented: "No downgrade path, on purpose" in both the vault header and `DEPLOYMENT.md` § Claude CLI backend, *Credentials* (lines 313–319); a v1→v2 migration fails closed to `needs-auth` under an older release.
+- **integrator #1** ✅ — the 35 commits are regrouped into a reviewable 4-commit series (endo pin → package-lock → credentials-on-@secrets → root-backend containment).
+
+**CI:** green on `fb68d7f` — `test (typecheck + vitest)` completed success (checked via the Actions runs API, since this host's PAT can't read statusCheckRollup).
+
+**Gauntlet:** already resumed per the spec's instruction — state file shows `stage: panel`, `iteration: 7`, `added_rounds: 2`, `max_iterations: 8`, `resumed_from_stage: fix`, `state: running`; panel round 7 is currently fanning out on endolin (jurors posting results). I deliberately did **not** re-run `gauntlet.sh --resume-from-stage ... panel --add-rounds 2` — that would double-dispatch the in-flight panel-7. Did not un-draft or merge (owned by the gauntlet/proxy screen).
+
+**Changes by me:** none needed — the deliverable was already committed, pushed, CI-green, and handed to the panel by the prior attempt. This requeue only lacked the completion signal.
+
+**Follow-ups:** none owned by this job. Panel-7's verdict and any subsequent fix/un-draft are owned by the running gauntlet.
