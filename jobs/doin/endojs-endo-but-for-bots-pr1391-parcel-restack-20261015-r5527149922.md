@@ -25,3 +25,13 @@ lease, and update #1391's base. Run affected tests and gates, drive CI green,
 and post the required summary.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T08:13:24Z
