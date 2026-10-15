@@ -26,3 +26,13 @@ honor both parent histories in conflicts, force-push with lease, and update
 summary.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-15T15:43:46Z
