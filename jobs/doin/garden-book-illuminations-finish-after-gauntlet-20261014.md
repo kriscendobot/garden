@@ -31,3 +31,13 @@ Required remaining steps:
 6. Send the maintainer one concise message with the quality root cause, PR link(s), and verified new URL using `message-user.sh`.
 
 Do not republish the old edition, do not omit the history update, and do not end while CI or a staged gauntlet is merely pending. If another quota gate intervenes, post one new blocked successor owning everything still outstanding and use the honest handoff marker.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-15T10:21:26Z
