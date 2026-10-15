@@ -1,2 +1,2 @@
-base: improve-issue-inbox-collateral-primary-quota
+base: improve-issue-inbox-collateral-quota
 identity: mentor:scripts/jobs/issue-inbox-watcher.sh
