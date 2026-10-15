@@ -20,6 +20,7 @@ State at split time (2026-10-15T18:1xZ, head 6f3185b487c9ac92974533e9f50054d544d
 
 Provenance: split from `endojs-endo-but-for-bots-pr1394-shepherd-20261015` after one 2400s handler overrun (indivisible: single-PR CI loop).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=5159 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
