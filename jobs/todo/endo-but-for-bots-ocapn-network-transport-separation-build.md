@@ -8,13 +8,6 @@ dispatch: automatic
 Build step for endojs/endo-but-for-bots, design `ocapn-network-transport-separation` (milestone M4, status In Progress, no open dependencies). Implement the next unlanded increment: separate the network identity from the transport in `OcapnLocation` and the netlayer registry in `packages/ocapn`. Open a DRAFT PR on an in-repo branch based on `llm`.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=41 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-16T16:59:28Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-16T17:13:10Z -->
