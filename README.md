@@ -1,28 +1,32 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T02:12:16Z_
+_As of 2026-10-16T02:20:55Z_
 
 ## Latest
 
-Rolling deploy is the main story. The oros canary eventually reached the tip. Its stuck-canary watchdog [cleared at 00:02Z](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md) with oros deployed at `d4ef628b85d`. An older halt notice for `8da29934080b` is still open and awaits a maintainer's drain lift. Oros sysop silence is still unresolved: reset-failed went unacked, and a person at the machine needs to restart `garden-sysop`.
+Rolling deploy is the main thing to watch. [Oros](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) cleared its stuck-canary alert and now matches the leader at `d4ef628b85d`. Earlier notices said the roll was halted at `8da29934080b`, with a sticky roll drain on oros, so check that the fleet is advancing normally. Oros's sysop bridge was reported silent on 10-13 and still needs a person at the machine. Separately, the offline `endolin-garden2` host (archived) is still alerting its heartbeat, now at 2706 occurrences.
 
-Overnight, the Parcel restack orchestration for endo-but-for-bots finished with all 3 children complete. Its follow-on finish jobs for [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) are queued, and #1399's restack job completed. Gauntlets are running on [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392). On minion.town, a gauntlet fix round is running on [#186](https://github.com/kriscendobot/minion.town/pull/186). [#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed successfully, and proxy screening validated it.
+PR work this cycle:
+- **Parcel restack:** the serial orchestration finished cleanly (3/3 children). [endo-but-for-bots#1399](https://github.com/endojs/endo-but-for-bots/pull/1399) restacked and completed. Finish jobs for [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) are queued.
+- **minion.town:** [#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed successfully. Gauntlet stages continue on [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193).
 
-Several minion.town gauntlets exhausted their review budgets and now need a decision on whether to grant more rounds:
-- [#184](https://github.com/kriscendobot/minion.town/pull/184), 12/12 rounds, $26.88.
-- [#180](https://github.com/kriscendobot/minion.town/pull/180), 12/12 rounds, $25.91.
-- [#178](https://github.com/kriscendobot/minion.town/pull/178), 8/8 rounds, 20 unaddressed must-fix items.
-- [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#188](https://github.com/kriscendobot/minion.town/pull/188), 6/6 rounds each.
+Several gauntlets ran out of review rounds and need a maintainer decision to extend or merge by hand:
+- [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178): 20 findings still unaddressed.
+- [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180)
+- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184)
+- [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188)
+- [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190)
+- [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15): 8 findings still open.
 
-The garden-book gauntlet on [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) also hit its budget at 10/10 rounds, with 8 must-fix items open.
+[minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) has its fix round 5 parked after a failed attempt.
 
-Several things are stalled or halted. [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix-5 stage was parked after a non-productive failure. The `review-docket-20261008` orchestration halted when its consolidate child was doomed. The Jev triage trial halted because `TYPESAFE_API_KEY` is missing and needs provisioning. The `orch-minion-town-oauth-bonds` orchestration halted on its build child. The Claude-on-minion.town press split halted on a handler timeout.
+Several things are blocked on a maintainer:
+- The Jev foreman-triage trial needs `TYPESAFE_API_KEY` provisioned.
+- Six Literate AI sources are held at the foreign-content gate pending an explicit read-or-skip disposition.
+- The iframe embed design, [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189), needs approval before its headers and live-frame jobs can start.
+- The review-docket consolidation is doomed and held in plan, so that orchestration halted at 2/3.
 
-The minion.town iframe embed design needs your approval in [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189) before the headers and live-frame jobs can proceed.
-
-Claude spend is at 112% of its backoff quota, and claude-endolin1 moved to backoff. Several Literate AI sources are still blocked at the foreign-content gate pending your read or skip decisions. Journal lock contention is noisy but mostly clearing.
+Claude spend is at 112% of quota and in backoff. Journal lock contention is noisy on the leader but mostly self-clearing.
 
 ## Maintainer review docket
 
@@ -910,10 +914,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 303.3M | $1436.29 _(notional, rate-card)_ | 112% of 271.0M (backoff) |
+| Claude | 303.5M | $1437.31 _(notional, rate-card)_ | 112% of 271.0M (backoff) |
 | Codex | 90.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 80382564 tokens/day lower bound._
+_Fleet token-unlock pace: 80534877 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.166621s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 10 open notice(s); checker healthy
