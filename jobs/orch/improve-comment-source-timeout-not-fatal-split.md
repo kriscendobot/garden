@@ -2,7 +2,7 @@
 order: serial
 children: improve-comment-source-timeout-not-fatal-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-16T02:33:43Z
 ---
