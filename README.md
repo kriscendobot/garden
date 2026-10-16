@@ -1,35 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T06:55:04Z_
+_As of 2026-10-16T07:00:17Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin, so the news is in the maintainer inbox, and most of it is halts.
+The main thing to notice is that several orchestrations halted overnight and the fleet is getting little done. On 2026-10-15 the proxy merged and validated [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187), and its deploy succeeded. No file-level board transitions resolved this cycle.
 
-**Halted orchestrations.**
-- Three serial orchestrations halted on a failed child: `orch-jev-triage-foreman`, `orch-minion-town-oauth-bonds`, and `review-docket-20261008`.
-- The Jev triage trial is blocked because `TYPESAFE_API_KEY` is missing from the job environment. It needs a maintainer-provisioned key.
-- The `orch-minion-town-oauth-bonds` build completed but declared its gated outcome unsatisfied.
-- `review-docket-consolidate-20261008` was doomed and is held in plan, which stops the migration of everything onto the review docket.
-- The `claude-on-minion-town-press` split also halted, after its carry child stalled past the 2400s handler timeout on oros-studio-garden-ce242c49.
-- The `parcel-stack-restack` orchestration finished cleanly, with all three children reaching tada.
+**Halted orchestrations**
+- `orch-minion-town-oauth-bonds` halted because its build child declared its gated outcome unsatisfied.
+- `orch-jev-triage-foreman` halted because its trial child was blocked on a missing `TYPESAFE_API_KEY`. That key needs a maintainer to provision it.
+- `review-docket-20261008` halted because `review-docket-consolidate-20261008` was doomed and parked.
+- `claude-on-minion-town-press-20261013-072006-split` halted after its carry child exceeded its handler timeout on oros-studio.
+- Separately, the gauntlet fix stage for [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) was parked after its first non-productive failure.
 
-**minion.town.**
-- [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed successfully, and the watchdog is ok.
-- The FIX round 5 gauntlet stage for [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) was parked in plan after its first non-productive failure.
-- Several other minion.town gauntlet fix rounds are queued: #178, #180, #184, #190, #192 and #193.
-- An awaiting-maintainer item from the proxy says restoring the bot's GitHub credential is beyond its authority.
-- The iframe embed design, [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189), needs your approval before the headers and live-frame jobs can start.
+**Gates and decisions waiting on you**
+- The Literate AI foreign-content gate has now blocked several sources at injection scores of 0.25–0.34, all "uncertain". These include `project-releases`, `authority-learning-loop` and ADRs 0014 and 0016. Nothing in them has been read, and each needs an explicit disposition from you.
+- [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189) (the iframe embed design) needs your approval before the headers and live-frame jobs can start.
+- The proxy is also waiting on a bot GitHub credential decision that only you can make.
 
-**Foreign-content gate.** Several Literate AI sources are blocked, and the scholar has not read any of them. They include `project-releases`, `authority-learning-loop`, `repository-source-dependencies`, `beam-live-coding-layer-investigation`, `skills.md`, `superpowers-skills-assessment`, and ADRs 0014, 0016 and 0041. Each is waiting for a `proceed` or `skip` disposition. The scholar judges several to be likely false positives.
-
-**Infrastructure.**
-- A journal lock-contention storm hit endolin-garden-ece02cb4: 7 clones in one tick, most likely from a single shared cause.
-- The cleric worker count on that host dropped 4→3→2 as codex demand fell.
-- Claude spend is at 117% of the backoff quota.
-- Three completed jobs ended with a `## Follow-ups` section naming no successor, so the completion gate forwarded them to you for disposition. They are `improve-design-build-dispatch`, `minion-town-ui-iframe-embed-design`, and `review-improve-builder-pr-gauntlet-bypass`.
+**Operations**
+- Journal lock contention remains elevated on endolin-garden-ece02cb4. A storm notice fired at 06:46Z with 7 clones affected, and the producer journal is the worst.
+- Cleric workers on endolin stepped down from 4 to 2 as codex demand fell.
+- Claude spend stands at 117% of its backed-off quota.
 
 ## Maintainer review docket
 
@@ -548,7 +540,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 317.4M | $1499.75 _(notional, rate-card)_ | 117% of 271.0M (backoff) |
+| Claude | 317.5M | $1500.01 _(notional, rate-card)_ | 117% of 271.0M (backoff) |
 | Codex | 22.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 88323178 tokens/day lower bound._
