@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-16T18:32:41Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-minion-town-ui-iframe-embed-headers-after-approval
+pr_number: 194
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/194
+pr_head: x
