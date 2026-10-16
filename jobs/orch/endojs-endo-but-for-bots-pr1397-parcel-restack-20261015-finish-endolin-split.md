@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1397-parcel-restack-ci-20261016-failure-notified: true
 child-endojs-endo-but-for-bots-pr1397-parcel-restack-ci-20261016-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-pr1397-parcel-restack-ci-20261016-reap-count: 0
 child-endojs-endo-but-for-bots-pr1397-parcel-restack-metadata-20261016-host: endolin-garden-ece02cb4
