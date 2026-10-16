@@ -1,13 +1,9 @@
 ---
-gate: awaiting-maintainer
-maintainer_question: 'Approve or merge design PR #189 before implementation begins.'
-asked_at: https://github.com/kriscendobot/minion.town/pull/189
-priority: normal
 role: builder
+tier: mentor
 arc: minion-town-ui
-posted_by: gardener
-posted_at: 2026-10-15T06:43:17Z
 ---
+<!-- garden-promoted-from-plan: gate=awaiting-maintainer priority=normal maintainer=true at=2026-10-16T17:18:25Z cleared=none -->
 
 ---
 tier: mentor
