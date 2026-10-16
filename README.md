@@ -1,24 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T07:40:20Z_
+_As of 2026-10-16T07:44:24Z_
 
 ## Latest
 
-Fleet throughput is mostly going into minion.town PR gauntlets, and the main thing needing a maintainer decision is a policy impasse on them. The supervisor for the eight drafts ([#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190), and others) reports that verification panels keep returning must-fix on new nit-class items, such as renaming `fetchImpl` on #188. After 6–13 rounds at $10–28 each, these may never pass the proxy screen's panel-pass gate. It recommends narrowing the decider so prose and identifier-spelling findings count as should-fix. A fix round is queued or running for each of #178, #180, #184, #188, #190, #192 and #193. [#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix-5 stage was parked after a non-productive failure.
+The minion.town carry-eight supervisor reports an impasse that needs a policy call. Four verification panels ([#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190)) each returned must-fix again, on new nit-class items. The proxy screen merges only on a completed gauntlet with a panel pass, and these panels haven't converged in 6–13 rounds at $10–28 each. The supervisor recommends a narrow decider change that treats prose and identifier-spelling findings as should-fix, not must-fix. The other options are to review and approve the PRs yourself, or to keep paying for bounded rounds. Two more items are gated on you: the re-review on [#191](https://github.com/kriscendobot/minion.town/issues/191), which blocks [#186](https://github.com/kriscendobot/minion.town/issues/186) and [#183](https://github.com/kriscendobot/minion.town/issues/183), and [#171](https://github.com/kriscendobot/minion.town/pull/171)'s merge, which waits on operator IAM provisioning.
 
-Orchestration halts need disposition:
-- **review-docket-20261008:** halted when `review-docket-consolidate-20261008` was doomed and parked.
-- **orch-minion-town-oauth-bonds:** halted on an unsatisfied gated outcome.
-- **orch-jev-triage-foreman:** halted because `TYPESAFE_API_KEY` is missing from the job environment, so the Jev trial needs the maintainer-owned key.
-- **claude-on-minion-town-press:** halted after the carry child timed out.
+[minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged, its deploy succeeded, and it was validated.
 
-The parcel-stack restack orchestration completed cleanly. One design-gated item is waiting on you: [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189) (the iframe embed design) must be approved before the headers and live-frame jobs can run.
+The fix-stage jobs queued on the board are [#178](https://github.com/kriscendobot/minion.town/pull/178), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), and [#193](https://github.com/kriscendobot/minion.town/pull/193). [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#192](https://github.com/kriscendobot/minion.town/pull/192) are in flight. [#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix round 5 is parked in the plan queue after its first non-productive failure.
 
-Several Literate AI source files are still blocked by the foreign-content gate with injection scores around 0.25–0.34. They stay unread until you give an explicit disposition. The ingest has otherwise continued through the sources that passed.
+Three orchestrations halted:
+- **`review-docket-20261008`:** the consolidate child was doomed and held in plan, which stalls the migration onto the review docket.
+- **`orch-jev-triage-foreman`:** the trial child needs a `TYPESAFE_API_KEY` that isn't provisioned.
+- **`orch-minion-town-oauth-bonds`:** its build child completed with its gated outcome unsatisfied.
 
-On the infrastructure side, the journal-lock contention storm on endolin has recurred (7 clones in one tick, 2 occurrences). The cleric pool was throttled from 4 to 1 worker on Codex demand. A producer-lock deadmail fix landed on `main2`. Claude spend is at 118% of its backoff quota, while Codex is at 36%.
+A fourth, the Claude-on-minion.town press split, halted on a handler timeout. The parcel-stack restack completed cleanly.
+
+Seven Literate AI sources are blocked at the foreign-content gate (injection scores 0.25–0.34) and wait for a read-or-skip disposition from you: `authority-learning-loop`, `project-releases`, `beam-live-coding-layer-investigation`, `repository-source-dependencies`, `skills`, `superpowers-skills-assessment`, and ADRs 0014, 0016 and 0041. The scholar will not ingest any of them until you reply.
+
+Journal lock contention is recurring: a storm notice on the leader host covers 7 clones. Claude spend is at 118% of the backoff quota. Several follow-up-gate notices need disposition, including the iframe-embed design approval on [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189), which gates the headers and live-frame jobs.
 
 ## Maintainer review docket
 
@@ -565,7 +566,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 319.0M | $1507.48 _(notional, rate-card)_ | 118% of 271.0M (backoff) |
+| Claude | 319.1M | $1507.75 _(notional, rate-card)_ | 118% of 271.0M (backoff) |
 | Codex | 23.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 88063356 tokens/day lower bound._
