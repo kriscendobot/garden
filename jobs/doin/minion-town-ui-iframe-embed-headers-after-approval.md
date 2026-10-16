@@ -19,3 +19,13 @@ After a maintainer approves or merges design PR #189, implement its approved cli
 <!-- garden-annotation: key=2dc12df6532c by=producer at=2026-10-16T17:18:18Z -->
 
 Maintainer approved design PR #189 on 2026-10-16 (liaison session): approval comment posted on the PR; final wording is the branch head with the ocap.site shell-frame and same-clip-id revisions; static-only first frame confirmed.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T17:34:33Z
