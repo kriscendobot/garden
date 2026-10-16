@@ -1,11 +1,9 @@
 ---
-gate: go-ahead
-priority: high
 role: builder
+tier: mentor
 arc: garden-book
-posted_by: gardener
-posted_at: 2026-10-15T10:40:46Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=high at=2026-10-16T04:17:37Z cleared=none -->
 
 ---
 role: builder
