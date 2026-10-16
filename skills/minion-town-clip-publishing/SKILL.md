@@ -1,6 +1,6 @@
 ---
 created: 2026-09-01
-updated: 2026-10-14
+updated: 2026-10-16
 author: liaison
 ---
 
@@ -39,6 +39,28 @@ clip's normal public URL — a visitor to a clip needs no login at all.
 - The `gateway/` and `.well-known/` path prefixes are reserved and `publish`
   rejects content there; as of writing they simply 404, with no documented
   purpose disclosed.
+
+## Publishing is reachable only through the MCP
+
+As of 2026-10-16, `publish` (and the rest of the `sites` surface: `upgrade`,
+`listSites`, `unpublish`) is reachable **only** through the authenticated MCP
+connection ([context/operations/minion-town-mcp.md](../../context/operations/minion-town-mcp.md)).
+The anonymous HTTP guest API (`/api/guest`, same page, § The anonymous guest
+API) cannot publish and cannot send a capability:
+
+- Its routes are create, inspect, invite, accept-invite, and mail
+  (`src/web/guest-web-router.ts` in
+  [kriscendobot/minion.town](https://github.com/kriscendobot/minion.town)). There
+  is no publish route; `POST /api/guest/publish` answers 404 on production.
+- `POST /api/guest/mail` takes a recipient pet name and a text string, and the
+  service sends it with empty name and identifier arrays
+  (`E(guest).send(to, [message], [], [])`), so a mail can carry text but never
+  a capability.
+
+An MCP-free publishing route would therefore need a way for an HTTP guest to
+send a capability (for example, a mail that carries a pet-named value to a
+publisher), which the guest API does not offer today. Until it does, do not try
+to script around the MCP for publishing.
 
 ## `publish` gotchas
 

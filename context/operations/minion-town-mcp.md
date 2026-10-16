@@ -1,6 +1,6 @@
 ---
 created: 2026-09-29
-updated: 2026-09-29
+updated: 2026-10-16
 author: gardener
 ---
 
@@ -174,6 +174,58 @@ test covers:
 - the per-harness config shapes;
 - the watchdog's drift repair, edge-latched LOST and RECOVERED notices, and
   `disabled` heartbeat.
+
+## The anonymous guest API (not the MCP)
+
+minion.town also serves a first-party HTTP surface for anonymous guests, the
+one its `/guest` page drives (`deploy/aws/www/guest.js` documents it by
+example; routes in `src/web/guest-web-router.ts` of
+[kriscendobot/minion.town](https://github.com/kriscendobot/minion.town)). It
+needs no OAuth and is unrelated to the client-credentials principal above.
+Rechecked live on 2026-10-16:
+
+- **Create.** `POST /api/guest` with the JSON body `{}` answers 201 with
+  `formulaIdentifier`, `contacts` and `messages`.
+- **The formula identifier is the bearer.** Every other route reads it from
+  `Authorization: Bearer <formulaIdentifier>`. It is a password: anyone holding
+  it acts as that guest, there is no server-side rotation or revocation, and
+  no route deletes a guest. Never log, commit or print one.
+- **`GET /api/guest` echoes it.** The state answer carries `formulaIdentifier`
+  again, so a client that logs the state leaks its credential. The fix is the
+  builder job `minion-town-guest-state-stop-echoing-formula-identifier-20261016`;
+  until it lands, redact that field before logging any state answer.
+- **Other routes.** `POST /api/guest/invitations` (`{petName, kind}`),
+  `POST /api/guest/invitations/accept` (local invitations only) and
+  `POST /api/guest/mail` (`{to, message}`, text only). It cannot publish or send
+  a capability; see
+  [minion-town-clip-publishing](../../skills/minion-town-clip-publishing/SKILL.md)
+  § Publishing is reachable only through the MCP.
+
+### Remote invitations
+
+`POST /api/guest/invitations` with `kind: "remote"` asks the guest's own
+`EndoGuest.invite` to mint an invitation and returns its `endo://` locator.
+Two facts matter before anyone tries to use one:
+
+- **It carries no connection hints today, so it cannot be dialed.** A
+  locator's connection hints are the extra path components after the formula
+  number, filled from the issuing daemon's advertised network addresses. The
+  account daemon has only the `loop` network
+  ([minion-town-ocapn-dispatch](../../skills/minion-town-ocapn-dispatch/SKILL.md)
+  § Current status), and a live remote invitation on 2026-10-16 had a single
+  path component and only the `type`, `from` and `fromNode` query keys. A
+  daemon elsewhere has no address to reach it at.
+- **Accepting makes the accepting daemon the guest's correspondent, not the
+  holder of its powers.** `accept` binds the inviter's handle under a pet name
+  the acceptor chooses, and the inviter binds the acceptor in return (the
+  `invite`/`accept` doc comments in `packages/daemon/src/guest.js` on
+  [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots)
+  `llm`). The two can then exchange mail. The acceptor does not get the
+  guest's directory, its `sites` power, or anything else the guest holds. To
+  act *as* a guest remotely is the separate guest-locator federation route,
+  which is not activated.
+
+The locator is a single-use bearer secret, like the formula identifier.
 
 ## Open decisions (surfaced to the maintainer 2026-09-29)
 

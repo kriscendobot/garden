@@ -1,6 +1,6 @@
 ---
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-16
 author: gardener
 status: not-yet-usable
 ---
@@ -187,6 +187,71 @@ confirms it.
    [#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) ("guests neither
    produce nor consume identifiers or locators"), which can change what a guest
    can receive.
+
+### C. Client-daemon recipe (runnable today, proves only the local side)
+
+This is how to bring up the garden-side daemon that § B step 2 needs. It was
+run end to end on `oros-studio-garden-ce242c49` on 2026-10-16 (Endo `llm` at
+`a7947533c`): install, `endo start`, the `@nets/ocapn` setup, and a local
+`endo invite`. It does **not** reach kriscendobot's guest. That still waits on
+§ A.
+
+1. **Use the right Endo.** Build from the
+   [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots)
+   fork's `llm` branch, at or after the commit minion.town pins
+   (`ENDO_COMMIT` in `deploy/aws/scripts/deploy-endo-daemon.sh`). Do not use
+   the npm packages: `@endo/cli` and `@endo/daemon` on npm are still `1.0.3`
+   (`latest`, rechecked 2026-10-16), far behind the fork's private `2.x`
+   workspaces and without the invitation and OCapN pieces. Do not use upstream
+   [endojs/endo](https://github.com/endojs/endo) `master` either; the town
+   pins the fork. In the garden, get the checkout with
+   `ensure-project-worktree.sh <job-base> endojs/endo-but-for-bots llm`.
+2. **Move `TMPDIR` off a noexec `/tmp`.** Garden containers mount `/tmp`
+   `noexec`, which breaks native module builds (the install relinks
+   `better-sqlite3`). Point `TMPDIR` at a scratch directory first, for example
+   `export TMPDIR=<garden-root>/scratch/<job-base>-tmp`.
+3. **Focused production install.** From the checkout root,
+   `yarn workspaces focus --production @endo/cli` (Yarn 4, built in). This
+   installs only the CLI and its runtime dependencies rather than every
+   workspace and dev tool.
+4. **Isolate the state, and keep the socket path short.** Point
+   `XDG_STATE_HOME`, `XDG_RUNTIME_DIR`, `XDG_CACHE_HOME`, `XDG_CONFIG_HOME` and
+   `ENDO_SOCK` under one per-host directory (`$GARDEN_STATE/minion-ocapn/` in
+   § B), with `ENDO_ADDR=127.0.0.1:0`. A Unix socket path is limited by
+   `sun_path`: at most **107 bytes** on Linux (108 including the terminating
+   NUL), 103 on macOS. The daemon only warns after the fact (at 104 bytes or
+   more, once the socket file is missing), so a deep `$GARDEN_STATE` path can
+   fail confusingly. Check `${#ENDO_SOCK}` before starting, and use a shorter
+   directory if it is close.
+5. **Start.** `node packages/cli/bin/endo.cjs start` prints
+   `endo daemon ready` with a loopback gateway address. `endo list` works once
+   it is up.
+6. **Install the OCapN netlayer.**
+   `endo run --UNCONFINED packages/daemon/src/networks/setup-ocapn.js --powers @agent`
+   prints `OCapN-Noise network installed at @nets/ocapn`, and `endo list @nets`
+   then shows `loop` and `ocapn`. Even so, a local `endo invite` locator carried
+   no connection hints here: installing the netlayer does not by itself
+   advertise a dialable address. Whether an outbound-only acceptor needs
+   `@nets/ocapn` at all is still unverified (§ B step 2).
+7. **Accept a locator on stdin.** `endo accept <correspondent-name>` reads the
+   invitation locator from **standard input**, not from an argument
+   (`packages/cli/src/commands/accept.js`). Feed it from the 0600 state file,
+   `endo accept minion-town < "$locator_file"`, so the locator never lands in
+   argv or shell history. Delete the file afterwards.
+8. **Stop and clean up.** `endo stop`, then remove the state directory and the
+   `TMPDIR` scratch if the daemon is not meant to persist.
+
+**Accepting an invitation makes this daemon a correspondent, not the guest.**
+`accept` binds the inviter's handle under the pet name you chose, and the
+inviter binds you back. The two can exchange mail. This daemon does not get the
+guest's directory, its `sites` power, or anything else the guest holds
+(`invite`/`accept` doc comments in `packages/daemon/src/guest.js`). So a
+minion.town guest's **remote invitation** (`POST /api/guest/invitations` with
+`kind: "remote"`, see
+[context/operations/minion-town-mcp.md](../../context/operations/minion-town-mcp.md)
+§ Remote invitations) is not a route to acting as that guest, even once it can
+be dialed. Today it cannot be: the account daemon advertises no hints. Acting
+as the guest is § B's locator adoption, behind the federation gate.
 
 ## Output shape
 
