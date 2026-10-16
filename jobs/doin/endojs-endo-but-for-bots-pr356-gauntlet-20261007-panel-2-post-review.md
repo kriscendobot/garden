@@ -339,3 +339,13 @@ Self-improvement: the probe fired only on `designs/README.md`. The decisive evid
 - reexport-auditor — approve
 
 ----- END REVIEW BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T16:56:24Z
