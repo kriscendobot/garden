@@ -10,3 +10,13 @@ Fix: in `watchman.sh`'s local-HEAD resolution loop (~L43–52), tell lock conten
 - better, have the common.sh lock wrapper return a distinct exit code for lock timeout and check that code.
 
 Apply the same skip-on-busy treatment to the `origin/$GARDEN_MAIN_BRANCH` rev-parse on the next line. Extend the existing lock-timeout fixture in `scripts/jobs/test/wedge-resolve-test.sh` (~L200) so that persistent contention on every attempt yields rc 0 with the skip log line, not FATAL. Optionally, also log which command holds the lock so long-held exclusive locks (e.g. maintain/repack or deploy) can be identified.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T13:00:39Z
