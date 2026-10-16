@@ -129,7 +129,7 @@ mentor_reject_reason=""
 _mentor_first_path_acceptable() {
   local first="$1"
   # Preserve the historical cheap path for the common script/unit/brief shapes.
-  [[ "$first" =~ ^[A-Za-z0-9_@./-]+\.(sh|py|js|ts|md|service|timer)$ ]] && return 0
+  [[ "$first" =~ ^[A-Za-z0-9_@./-]+\.(sh|py|js|mjs|ts|md|service|timer)$ ]] && return 0
   # The fallback is deliberately still lexical before asking git: prose (spaces)
   # and revision/path punctuation cannot be interpreted as an ambiguous tree-ish.
   [[ "$first" =~ ^[A-Za-z0-9_@./-]+$ ]] || return 1

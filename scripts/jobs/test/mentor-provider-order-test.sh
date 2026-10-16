@@ -134,11 +134,13 @@ echo 'SUBTEST 12 — a decorated first-line path (- `path`) is normalized and po
 if run_shape 'JOB improve-shape-f\n- `scripts/jobs/zzz-shape-f.sh`\nr\nENDJOB\n' && posted improve-shape-f; then
   ok "list/backtick-decorated path is accepted"; else bad "decorated path was rejected"; fi
 
-echo 'SUBTEST 13 — a widened first-line extension (.service/.timer/.md) is accepted'
+echo 'SUBTEST 13 — widened first-line extensions (.service/.timer/.md/.mjs) are accepted'
 if run_shape 'JOB improve-shape-g\nscripts/systemd/zzz-shape-g.service\nr\nENDJOB\n' && posted improve-shape-g; then
   ok ".service first-line path is accepted"; else bad ".service path was rejected"; fi
 if run_shape 'JOB improve-shape-i\nroles/zzz-shape/AGENT.md\nr\nENDJOB\n' && posted improve-shape-i; then
   ok ".md first-line path is accepted"; else bad ".md path was rejected"; fi
+if run_shape 'JOB improve-ocapn-canary-mjs\ndeploy/probe/ocapn-canary.mjs\nr\nENDJOB\n' && posted improve-ocapn-canary-mjs; then
+  ok "deploy/probe/ocapn-canary.mjs is accepted"; else bad ".mjs path was rejected"; fi
 
 echo 'SUBTEST 14 — leading/trailing whitespace on the JOB line is tolerated'
 if run_shape '  JOB improve-shape-h  \nscripts/jobs/zzz-shape-h.sh\nr\nENDJOB\n' && posted improve-shape-h; then
