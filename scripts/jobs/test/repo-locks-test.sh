@@ -243,4 +243,32 @@ touch "$TR/fail"
 grep -q 'not fresh' "$TR/leader-error" || fail 'leader fallback not logged'
 rm "$TR/fail"
 echo 'PASS: leader outage retains fallback without refreshing its age'
+
+# Idle lock keys are pruned; fresh, held, and live-holder keys survive, and an
+# opener waiting on a pruned inode reopens the recreated file.
+LR="$GARDEN_STATE/repo-locks"
+for k in idle held live fresh; do mkdir -p "$LR/test-$k"; : > "$LR/test-$k/repo.lock"; done
+: > "$LR/test-idle/fetch.lock"; printf '99999999 1\n' > "$LR/test-idle/repo.lock.holder.99999999"
+printf '%s 1\n' "$$" > "$LR/test-live/repo.lock.holder.$$"
+( exec {h}<>"$LR/test-held/repo.lock"; flock -x "$h"; touch "$TR/prune-held"; sleep 2 ) & holder=$!
+for n in {1..100}; do [ -f "$TR/prune-held" ] && break; sleep 0.01; done
+for k in idle held live; do touch -d '10 days ago' "$LR/test-$k"; done
+[ "$(garden_repo_locks_prune 7)" = 1 ] || fail 'prune count'
+[ ! -e "$LR/test-idle" ] || fail 'idle key survived'
+for k in held live fresh; do [ -d "$LR/test-$k" ] || fail "$k key pruned"; done
+[ -d "$LR/$key" ] || fail 'active repository key pruned'
+wait "$holder"
+touch -d '10 days ago' "$LR/test-held"
+[ "$(garden_repo_locks_prune 7 0)" = 0 ] || fail 'prune cap ignored'
+mkdir -p "$LR/race"; : > "$LR/race/repo.lock"
+exec {old}<>"$LR/race/repo.lock"; flock -x "$old"
+( exec {old}>&-; _garden_lock_open exclusive "$LR/race/repo.lock"; [ "/proc/$BASHPID/fd/$_GARDEN_LOCK_FD" -ef "$LR/race/repo.lock" ] || exit 9; touch "$TR/race-ok"; sleep 1 ) & waiter=$!
+sleep 0.3; rm -rf "$LR/race"; exec {old}>&-
+for n in {1..100}; do [ -f "$TR/race-ok" ] && break; sleep 0.02; done
+[ -f "$TR/race-ok" ] || fail 'waiter did not reacquire'
+exec {fresh}<>"$LR/race/repo.lock"
+! flock -n -x "$fresh" || fail 'waiter held an unlinked inode, not the recreated lock'
+exec {fresh}>&-
+wait "$waiter" || fail 'waiter failed'
+echo 'PASS: idle lock keys pruned; held, live, fresh, and active keys kept; racing openers reopen'
 echo 'All repository lock tests passed.'

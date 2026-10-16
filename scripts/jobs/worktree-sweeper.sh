@@ -233,6 +233,12 @@ fi
 # Repair relocation-staled live root registrations before pruning dead ones.
 prune_worktrees_preserving_live "$GARDEN_ROOT"
 
+# Idle repository-lock keys are the same kind of per-host residue.
+if ! past_deadline; then
+  pruned="$(garden_repo_locks_prune)" || pruned=0
+  [ "${pruned:-0}" = 0 ] || log "pruned $pruned idle repository lock key(s)"
+fi
+
 if past_deadline; then
   log "sweep deadline (${GARDEN_WORKTREE_SWEEP_DEADLINE_SECS}s) reached after $removed removal(s); remaining candidates wait for the next tick"
 elif [ "$removed" -ge "$GARDEN_WORKTREE_SWEEP_MAX" ] && [ "$GARDEN_WORKTREE_SWEEP_MAX" -gt 0 ]; then

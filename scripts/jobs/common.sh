@@ -82,6 +82,54 @@ _garden_lock_wait() { # <fd> <shared|exclusive> <lock-path>
   return 124
 }
 
+# Open <path> and flock it into _GARDEN_LOCK_FD. garden_repo_locks_prune may
+# unlink an idle key while an opener waits on the old inode; holding that inode
+# would not exclude a newcomer on the recreated file, so reopen until they match.
+_garden_lock_open() { # <shared|exclusive> <path>
+  local mode="$1" path="$2" fd
+  for _ in 1 2 3 4 5; do
+    mkdir -p "${path%/*}" || return
+    exec {fd}<>"$path" || return
+    _garden_lock_wait "$fd" "$mode" "$path" || { exec {fd}>&-; return 124; }
+    if [ "/proc/$BASHPID/fd/$fd" -ef "$path" ]; then _GARDEN_LOCK_FD="$fd"; return 0; fi
+    exec {fd}>&-
+  done
+  printf 'garden repo lock: lock file kept being replaced: %s\n' "$path" >&2
+  return 124
+}
+
+# Lock keys are per git common-dir, so every repository the fleet wrapper ever
+# touched (test fixtures, per-id clones) leaves a directory behind (oros
+# 2026-10-16: 7687 keys, ~2500 new per day). Remove keys idle for <days>: every
+# lock file must be free under flock -n and no holder record may name a live pid.
+# The flocks are held across the unlink; _garden_lock_open re-validates.
+garden_repo_locks_prune() { # [days] [max]; prints the number removed
+  local days="${1:-${GARDEN_REPO_LOCKS_PRUNE_DAYS:-7}}" max="${2:-${GARDEN_REPO_LOCKS_PRUNE_MAX:-5000}}"
+  local root="$GARDEN_STATE/repo-locks" dir f fd pid ok n=0
+  local -a fds
+  [ -d "$root" ] || { echo 0; return 0; }
+  while IFS= read -r -d '' dir; do
+    [ "$n" -lt "$max" ] || break
+    ok=1; fds=()
+    for f in "$dir"/*.lock; do
+      [ -f "$f" ] || continue
+      exec {fd}<>"$f" || { ok=0; break; }
+      fds+=("$fd")
+      flock -n -x "$fd" || { ok=0; break; }
+    done
+    if [ "$ok" = 1 ]; then
+      for f in "$dir"/*.holder.*; do
+        [ -f "$f" ] || continue
+        read -r pid _ < "$f" || continue
+        if [[ "$pid" =~ ^[0-9]+$ ]] && kill -0 "$pid" 2>/dev/null; then ok=0; break; fi
+      done
+    fi
+    if [ "$ok" = 1 ] && rm -rf -- "$dir"; then n=$((n + 1)); fi
+    for fd in "${fds[@]}"; do exec {fd}>&-; done
+  done < <(find "$root" -mindepth 1 -maxdepth 1 -type d -mtime "+$days" -print0 2>/dev/null)
+  echo "$n"
+}
+
 garden_repo_lock() { # <repo> <shared|exclusive>; held until unlock or process exit
   local key marker held mode="${2:-exclusive}" fd path
   key="$(garden_repo_key "$1")" || return
@@ -95,9 +143,8 @@ garden_repo_lock() { # <repo> <shared|exclusive>; held until unlock or process e
       return 1
     fi
   fi
-  mkdir -p "${path%/*}" || return
-  exec {fd}<>"$path" || return
-  if ! _garden_lock_wait "$fd" "$mode" "$path"; then exec {fd}>&-; return 124; fi
+  _garden_lock_open "$mode" "$path" || return
+  fd="$_GARDEN_LOCK_FD"
   # Metadata is advisory. Only remove records for exited processes, never the
   # flock inode, even if a surviving child still inherited the descriptor.
   local record old_pid
@@ -145,8 +192,8 @@ _garden_repo_fetch() {
   [[ "$max_age" =~ ^[0-9]+$ ]] || { echo 'garden fetch: invalid max age' >&2; return 2; }
   key="$(garden_repo_key "$repo")" || return
   path="$GARDEN_STATE/repo-locks/$key/fetch.lock"
-  exec {fd}<>"$path" || return
-  _garden_lock_wait "$fd" exclusive "$path" || { exec {fd}>&-; return 124; }
+  _garden_lock_open exclusive "$path" || return
+  fd="$_GARDEN_LOCK_FD"
   printf '%s %s\n' "$BASHPID" "$(date +%s)" > "$path.holder.$BASHPID"
   # Only the unambiguous garden branch fetch form is cacheable. Options with
   # different semantics (--refetch, --prune, refspecs, filters) always run.
