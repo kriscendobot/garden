@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-16T09:50Z (oros-health-checkup-20261016-080509): healthy (deployed = `a130d814`, two behind) → meter undercount found; fix job posted
+
+- **Load/mem:** load 1.1/1.5/1.8; 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (166k).
+- **Uptime:** 14d16h, no reboot.
+- **Deployed vs main2:** root at `a130d814`; origin/main2 is `79cde1aa` (two ahead: `20ce5180`, `79cde1aa`). fleet/health (09:12Z): `roll_status: deferred`, reason `long-job monk 1`, 0 of 288 units failed. The leader released the roll, and self-deploy retries every 3 minutes. At 09:18Z the candidate gate passed in 2 minutes. Then, at 09:20:27Z, monk 1 crossed the 300s long-job threshold mid-drain, so the drain was lifted cleanly and the deploy aborted. Since then every attempt has been deferred behind a monk past 300s (gauntlet-fix jobs declare 7200s). The deploy is working as designed and needs a quiet moment. Nothing to unblock by hand, and the long-job threshold policy is not ours to change.
+- **Units:** 0 failed, 0 need a daemon-reload. monks 1 and 2 running (leveling row `4 0`). Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 09:32Z, status ok. Utilization is 39% per the rate_limit ledger. Pushes are on cadence (06:47 through 09:32, all 12 landed).
+- **State clones:** namespace journal clones scanned. None has more than 50 packs, a tmp_pack, a `gc.log`/`gc.log.lock`, or a stale lock older than 10 minutes. The root repo has 40 packs and no `gc.log`. `repo-locks/` holds 8,486 keys, which the 7-day pruner is aging out.
+- **rc=124 (3h):** none.
+- **Changed:** nothing on-host. **Found a meter defect:** live `spend:` stayed flat at about 85.5M (±0.1M, not monotone) from 06:47Z to 09:32Z, while two monks ran and utilization rose 0.38 → 0.39. Cause: `monk-claude.sh` `rm`s each completed job's top-level transcript (for resume safety), and `_meter_session_total` counts only the `.jsonl` files still in `~/.claude/projects`. So finished jobs drop out of the host spend. The claim gate is unaffected because it reads utilization, but calibration, the arc and pace read a biased spend. Posted `fix-usage-meter-retired-transcript-undercount` (fixer): retire the transcripts to a meter-visible dir instead of deleting them, with tests.
+- **Needs the maintainer:** nothing new. The fix will make spend figures rise toward the truth, so expect calibration inputs to shift. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-16T08:50Z (oros-health-checkup-20261016-045011): healthy (deployed = `a130d814`) → spurious NeedDaemonReload root-caused; fix landed
 
 - **Load/mem:** load 2.9/2.7/2.0; 13 GiB of 15 GiB available.
