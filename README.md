@@ -1,23 +1,29 @@
 # Garden bulletin
 
-_As of 2026-10-16T13:10:34Z_
+_As of 2026-10-16T13:19:50Z_
 
 ## Latest
 
-Several minion.town gauntlets ran out of review budget instead of converging. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#188](https://github.com/kriscendobot/minion.town/pull/188) all hit review-budget-reached, as did [kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/pull/15), where 20 must-fix items remain open. The carry-eight supervisor's report names the cause: the panels keep raising new nit-class must-fix items, such as renaming `fetchImpl`, and so may never pass. It recommends a narrow decider change that treats prose/JSDoc-accuracy findings as should-fix, and it asks for your pick between that, approving the PRs yourself, or continuing to grant rounds. [kriscendobot/minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) has a real focus-gutter defect with a fix job in flight. [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193) are still moving, with panel-6 and fix-3 queued.
+Several minion.town gauntlets ran out of review rounds without converging: [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#190](https://github.com/kriscendobot/minion.town/pull/190). [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) did the same, and its last panel raised 20 new must-fix items. The minion.town carry-eight supervisor reports that the panels keep returning must-fix on nit-class items, such as renaming `fetchImpl` to `fetchImplementation`. It asks you to choose how these land:
+- (a) You approve them yourself.
+- (b) You authorize a narrow policy change that demotes prose and identifier-spelling findings to should-fix. The supervisor recommends this.
+- (c) You keep granting bounded rounds and accept the spend.
 
-Three orchestrations halted:
-- `orch-minion-town-oauth-bonds`: its build declared the outcome unsatisfied.
-- `orch-jev-triage-foreman`: its trial is blocked on a missing `TYPESAFE_API_KEY` that only you can provision.
-- `review-docket-20261008`: the final child, `review-docket-consolidate-20261008`, was doomed and sits in the plan queue.
+[minion.town#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix-5 stage was parked after its first non-productive failure. Meanwhile [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193) are still moving, with panel-6 and fix-3 queued. A fix for the focus-gutter defect in [#188](https://github.com/kriscendobot/minion.town/pull/188) is in flight.
 
-The reaper also parked the [kriscendobot/minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) gauntlet's fix-5 stage and the ocap.site crawler-leak design job for a go-ahead. The parcel-stack restack orchestration completed cleanly.
+Several orchestrations halted:
+- `review-docket-20261008` stopped when its consolidate child was doomed and parked. That is the step that migrates all review requests onto the docket and sends you the docket URL.
+- `orch-jev-triage-foreman` stopped because `TYPESAFE_API_KEY` is missing from the job environment. That key needs provisioning.
+- `orch-minion-town-oauth-bonds` halted with its build child's gated outcome unsatisfied.
+- The Claude-on-minion.town press split halted on a handler timeout.
 
-Other items waiting on you:
-- Roughly ten Literate AI sources stay blocked by the foreign-content gate, and each needs an explicit proceed-or-skip disposition.
-- You still need to approve the iframe embed design, [kriscendobot/minion.town#189](https://github.com/kriscendobot/minion.town/pull/189), before the headers and live-frame jobs can start.
-- Claude spend is at 123% of the backoff quota, while Codex is at 51%.
-- Journal lock-contention notices continue on the leader and fire as a storm roughly every six hours, though p95 latency is low.
+The parcel-stack restack orchestration finished cleanly. Cleric workers on `endolin-garden-ece02cb4` stepped down from 4 to 1 as codex demand dropped. Claude spend is at 123% of its backoff quota.
+
+Journal lock contention is a recurring storm on the leader host. It is up to occurrence #10, with seven clones hit in the latest tick. All the contention notices are marked as recoverable noise, so they do not need triage. A proxy message is also waiting on you to restore or re-issue the bot's GitHub credential.
+
+Several decisions are waiting on you:
+- Seven Literate AI sources are blocked by the foreign-content gate, each needing a `proceed` or `skip` disposition.
+- The iframe embed design [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189) needs approval before the headers and live-frame jobs can start.
 
 ## Maintainer review docket
 
@@ -683,10 +689,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 332.2M | $1571.68 _(notional, rate-card)_ | 123% of 271.0M (backoff) |
+| Claude | 332.4M | $1572.27 _(notional, rate-card)_ | 123% of 271.0M (backoff) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 88527062 tokens/day lower bound._
+_Fleet token-unlock pace: 88542059 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.672974s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 12 open notice(s); checker healthy
