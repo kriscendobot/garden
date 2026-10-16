@@ -1,4 +1,5 @@
 ---
+child-improve-comment-source-timeout-not-fatal-expanded-window-reap-count: 0
 order: serial
 children: improve-comment-source-timeout-not-fatal-expanded-window
 on-child-failure: halt
