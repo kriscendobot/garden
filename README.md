@@ -1,22 +1,32 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T11:35:28Z_
+_As of 2026-10-16T11:40:27Z_
 
 ## Latest
 
-Little moved on the board this cycle: [kriscendobot/minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) finished gauntlet fix round 7 and went straight to panel round 8, which is now queued. [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) was claimed for panel round 5, and [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) is still in fix round 14.
+The board moved no jobs at the file level since the last bulletin. The signal is in the maintainer inbox, where several arcs have stalled and need a decision.
 
-The main thing for the maintainer is a pattern of gauntlets running out of review budget without converging: [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (14/14), [#178](https://github.com/kriscendobot/minion.town/pull/178) (10/10), [#190](https://github.com/kriscendobot/minion.town/pull/190) (8/8) and garden-book#15 (12/12, 20 unaddressed must-fix items) have each stopped for a human decision. The carry-eight supervisor reports that the verification panels keep raising new nit-class must-fix items (for example a `fetchImpl` rename). It recommends changing the panel decider to treat prose and identifier-spelling findings as should-fix. That is a policy decision only you can make. The same report notes that the [#180](https://github.com/kriscendobot/minion.town/pull/180) decomplector wants you to choose between keeping the HTTP control plane and retention key or moving to a daemon-registry design.
+**minion.town review gauntlets.** Several panels ran out of rounds without converging.
+- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used 14/14 rounds ($29.95), and [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) used 10/10 ($28.88).
+- [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190) used 8/8 ($18.07). [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) used 12/12 ($25.11) and still has 20 new must-fix items.
+- The carry-eight supervisor says the panels keep returning nit-class must-fix findings, such as renaming `fetchImpl`, and may never pass. It recommends changing the panel decider so prose, JSDoc and identifier-spelling findings count as should-fix. Your other options are to approve the PRs yourself or keep funding bounded rounds.
+- On [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180), the decomplector seat wants you to choose between keeping the loopback HTTP control plane and `retentionKey`, or reworking to a daemon-hosted registry. It also flags the bearer `retentionKey` as conflicting with the approved design in [minion.town#41](https://github.com/kriscendobot/minion.town/pull/41).
+- [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix-5 stage was parked after a non-productive failure.
+- The iframe embed headers job is waiting on your approval of design PR [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189).
 
-Other items waiting on you:
-- The scholar ingest has several Literate AI sources blocked by the foreign-content gate, each needing an explicit ingest or skip disposition.
-- The review-docket consolidation and the Jev triage orchestrations halted after child failures.
-- The minion.town iframe embed design is waiting for approval.
-- The Jev trial needs a `TYPESAFE_API_KEY` provisioned.
+**Halted orchestrations.**
+- `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` both halted when a child declared its gated outcome unsatisfied. The Jev trial is blocked because `TYPESAFE_API_KEY` is missing from the job environment.
+- `review-docket-20261008` halted at 2/3 children: the consolidate child was doomed, so the migration onto the review docket hasn't happened.
+- The Claude-on-minion.town press split halted after its carry child stalled for 2474s on the oros host.
+- A parcel-stack restack orchestration finished cleanly, with all 3 children done.
 
-Journal lock contention is recurring on the leader host (a storm notice has been updated in place nine times), so it is worth a look if it persists. Claude spend is at 121% of its backoff quota.
+**Foreign-content holds.** The Jev gate has blocked seven more Literate AI sources and one more is awaiting disposition. They are `authority-learning-loop`, `project-releases`, `beam-live-coding-layer-investigation`, `repository-source-dependencies`, `skills`, `superpowers-skills-assessment`, ADR 0014 and ADR 0016. Each needs an explicit ingest or skip. ADR 0041 is also halted. Meanwhile 16 sections of priority architecture and 18 of the next slice were ingested.
+
+**Operations.**
+- Journal lock-contention notices are open on the leader. The latest storm hit 8 clones in one tick, and the same condition has now recurred 9 times.
+- The leader's Claude spend sits at 121% of its backoff quota.
+- Cleric workers on the leader stepped down from 4 to 1.
+- The proxy needs the bot's GitHub credential restored, which only you can do.
 
 ## Maintainer review docket
 
@@ -635,7 +645,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 328.8M | $1555.46 _(notional, rate-card)_ | 121% of 271.0M (backoff) |
+| Claude | 328.9M | $1556.13 _(notional, rate-card)_ | 121% of 271.0M (backoff) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 88329486 tokens/day lower bound._
