@@ -208,3 +208,13 @@ Every peer must run the Phase 3 wire (the hello exchange). Among such peers, hea
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END BODIES -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T19:59:35Z
