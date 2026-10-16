@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Converge kriscendobot/minion.town#183: land the design-level leftovers the panel keeps raising
@@ -42,13 +43,5 @@ When the head is pushed and CI is green, resume review with
 proxy screen own that. If the PR's Endo pin needs an unmerged endojs/endo-but-for-bots change, do not
 touch Endo; report it.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-15T22:44:45Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-16T00:13:19Z -->
