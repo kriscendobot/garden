@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-16T11:25Z (oros-health-checkup-20261016-110509): healthy (deployed = `79cde1aa`, one behind), no changes
+
+- **Load/mem:** load 2.1/2.1/1.7; 12 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (166k).
+- **Uptime:** 14d18h, no reboot.
+- **Deployed vs main2:** root at `79cde1aa` (self-deployed 10:23Z); origin/main2 is `9fc0f740` (the usage-meter retired-transcript fix), one ahead. fleet/health (11:15Z): `roll_status: deferred`, `long-job monk 2 315s` (this check-up's own claim; earlier `long-job monk 1 1889s`), 0 of 288 units failed. Working as designed; it needs a quiet moment. Nothing to unblock by hand.
+- **Units:** 0 failed, 0 need a daemon-reload. monks 1 and 2 running (leveling row `4 0`). Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 11:02Z, status ok, 40% used (87.3M of 180M). Pushes on cadence (08:17 through 11:02, all 12 landed). Spend still dips slightly between samples (87.18M → 87.12M at 10:47Z) because the meter fix `9fc0f740` is not deployed yet; expect it to become monotone after the next roll.
+- **State clones:** 37 namespace journal clones. None has more than 50 packs, a tmp_pack, or a `gc.log`/stale lock older than 10 minutes. The root repo has 47 packs and no `gc.log`. `repo-locks/` holds 8,746 keys, which the 7-day pruner is aging out.
+- **rc=124 (3h):** none found.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-16T09:50Z (oros-health-checkup-20261016-080509): healthy (deployed = `a130d814`, two behind) → meter undercount found; fix job posted
 
 - **Load/mem:** load 1.1/1.5/1.8; 13 GiB of 15 GiB available.
