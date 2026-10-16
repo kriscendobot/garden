@@ -73,3 +73,13 @@ None. The capability bit, heartbeats on by default, and the daemon wiring stay w
 
 
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T22:28:14Z
