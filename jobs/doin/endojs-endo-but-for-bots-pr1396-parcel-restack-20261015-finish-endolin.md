@@ -36,6 +36,8 @@ Remaining:
    Cover the new base, the one rebased commit, the conflict resolution, the test
    strengthening, and the design-conformance note above.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
