@@ -89,6 +89,7 @@ arc=""
 canary_provider=""
 canary_tier=""
 qwen_trial_slot=""
+automatic_dispatch=false
 while [ $# -gt 0 ]; do
   case "$1" in
     --identity)   identity="${2:?--identity needs a value}"; shift 2;;
@@ -205,6 +206,7 @@ elif [ "${GARDEN_MANUAL_DISPATCH:-}" = 1 ]; then
   [ "$manual_tier" = mentat ] || die "manual dispatch may select only tier: mentat"
 else
   BODY="$(printf '%s\n' "$BODY" | automatic_route_body)"
+  automatic_dispatch=true
 fi
 
 # Manual jobs commonly use the canonical prose template `**Role: fixer.** ...`.
@@ -240,6 +242,21 @@ if [ -n "$role" ]; then
   else
     BODY="$(printf -- '---\nrole: %s\n---\n\n%s' "$role" "$BODY")"
   fi
+fi
+
+# Build work routinely needs the existing 7200s builder wall, but automatic
+# producers do not always carry a performing role or an explicit handler wall.
+# Infer only from the narrow terminal basename convention used by build jobs and
+# retries. An explicit execution declaration always wins, including a performing
+# role whose own default selects the budget.
+if $automatic_dispatch && [[ "$base" =~ -build(-[0-9]+)?$ ]]; then
+  _budget_tmp="$(mktemp "${TMPDIR:-/tmp}/garden-post-job-budget.XXXXXX")"
+  printf '%s\n' "$BODY" > "$_budget_tmp"
+  if ! job_has_execution_budget_declaration "$_budget_tmp"; then
+    BODY="$(printf '%s\n' "$BODY" | sed '1a handler-budget-role: builder')"
+    log "inferred builder handler budget from automatic job basename '$base'"
+  fi
+  rm -f "$_budget_tmp"
 fi
 
 # --arc stamps arc membership the same way (the foreman stamps the arc it drew a
