@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1398-parcel-restack-20261015-align-pr-20261016-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1398-parcel-restack-20261015-align-pr-20261016 endojs-endo-but-for-bots-pr1398-parcel-restack-20261015-ci-20261016 endojs-endo-but-for-bots-pr1398-parcel-restack-20261015-summary-20261016
 on-child-failure: halt
