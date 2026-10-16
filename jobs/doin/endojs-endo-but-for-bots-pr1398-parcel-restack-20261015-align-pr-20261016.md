@@ -53,3 +53,13 @@ Required work:
 PR writes and any necessary branch push are explicitly authorized by the parent
 job. Do not drive the full CI matrix or post the final completion-summary
 comment; later orchestration children own those stages.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T05:45:25Z
