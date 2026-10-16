@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-16T14:35Z (oros-health-checkup-20261016-140509): healthy (deployed = `9fc0f740`, one behind); cleared one stale lock
+
+- **Load/mem:** load 3.2/2.9/3.0; 13 GiB of 15 GiB available (594 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (169k).
+- **Uptime:** 14d21h, no reboot.
+- **Deployed vs main2:** root at `9fc0f740`, so the meter fix is live. origin/main2 is `9bad5343` (the watchman lock-busy skip), one ahead. fleet/health (14:21Z): `roll_status: deferred`, reason `long-job monk 1 1336s`, target `9bad5343`, 0 of 288 units failed. Working as designed; it needs a quiet moment. Nothing to unblock by hand.
+- **Units:** 0 failed. monks 1 and 2 running (leveling row `4 0`, scaler hold effective 2). Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 14:18Z, status ok, 42% used (95.4M of 180M). Spend is now monotone after the meter fix (91.9M → 95.4M across 13:02–14:18Z). One sample is missing at about 14:02Z (a 27-minute gap from 13:47 to 14:14Z), and it recovered on its own. That gap matches the one rc=124 below.
+- **State clones:** 30 namespace journal clones. None has more than 50 packs, a tmp_pack, or a `gc.log`. The root repo has 6 packs and no `gc.log`. `repo-locks/` holds 9,201 keys, which the 7-day pruner is aging out.
+- **rc=124 (3h):** one. The `garden-gardener-scaler` tick that started at 14:01:41Z went silent and was bounded by self-heal at 14:11:39Z (600s). The next tick cleared the dead holder's repo-lock metadata cleanly. The same self-heal bound fired twice yesterday (16:30Z, 16:40Z). It is rare and self-recovering, so no fix this run. Watch for it to recur.
+- **Changed:** removed a 0-byte `gc.log.lock` dated 2026-10-01 from `.git/worktrees/gardener-wt-design-minion-town-mcp-resources-getting-started/`. No process held it.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-16T11:25Z (oros-health-checkup-20261016-110509): healthy (deployed = `79cde1aa`, one behind), no changes
 
 - **Load/mem:** load 2.1/2.1/1.7; 12 GiB of 15 GiB available.
