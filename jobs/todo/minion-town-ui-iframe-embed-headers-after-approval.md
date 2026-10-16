@@ -21,13 +21,6 @@ After a maintainer approves or merges design PR #189, implement its approved cli
 Maintainer approved design PR #189 on 2026-10-16 (liaison session): approval comment posted on the PR; final wording is the branch head with the ocap.site shell-frame and same-clip-id revisions; static-only first frame confirmed.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=1712 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-16T17:34:33Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-16T18:23:12Z -->
