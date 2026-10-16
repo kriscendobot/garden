@@ -1,29 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T07:00:17Z_
+_As of 2026-10-16T07:04:43Z_
 
 ## Latest
 
-The main thing to notice is that several orchestrations halted overnight and the fleet is getting little done. On 2026-10-15 the proxy merged and validated [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187), and its deploy succeeded. No file-level board transitions resolved this cycle.
+Several minion.town draft PRs are mid-gauntlet: fix rounds are queued for [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193), and panel round 7 is running on [#188](https://github.com/kriscendobot/minion.town/pull/188). A supervisor job is carrying eight minion.town drafts toward merge and production deploy. The fix-5 stage for [#181](https://github.com/kriscendobot/minion.town/pull/181) was parked in plan after a non-productive failure. It needs a human promotion, or the gauntlet owns the retry. [#187](https://github.com/kriscendobot/minion.town/pull/187) merged and its deploy succeeded and was validated. On endo-but-for-bots, the parcel-stack restack orchestration finished with no failed children. Panel and fix stages are also queued for [#356](https://github.com/endojs/endo-but-for-bots/pull/356).
 
-**Halted orchestrations**
-- `orch-minion-town-oauth-bonds` halted because its build child declared its gated outcome unsatisfied.
-- `orch-jev-triage-foreman` halted because its trial child was blocked on a missing `TYPESAFE_API_KEY`. That key needs a maintainer to provision it.
-- `review-docket-20261008` halted because `review-docket-consolidate-20261008` was doomed and parked.
-- `claude-on-minion-town-press-20261013-072006-split` halted after its carry child exceeded its handler timeout on oros-studio.
-- Separately, the gauntlet fix stage for [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) was parked after its first non-productive failure.
+Three orchestrations halted and need a decision:
+- The Jev triage/foreman trial is blocked because `TYPESAFE_API_KEY` is missing from the job environment. It needs a maintainer-provisioned key.
+- The oauth-bonds build declared its gated outcome unsatisfied.
+- The review-docket consolidation child was doomed and held in plan, so the migration onto the docket has not happened.
 
-**Gates and decisions waiting on you**
-- The Literate AI foreign-content gate has now blocked several sources at injection scores of 0.25–0.34, all "uncertain". These include `project-releases`, `authority-learning-loop` and ADRs 0014 and 0016. Nothing in them has been read, and each needs an explicit disposition from you.
-- [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189) (the iframe embed design) needs your approval before the headers and live-frame jobs can start.
-- The proxy is also waiting on a bot GitHub credential decision that only you can make.
+The Claude-on-minion.town press carry child also timed out at 2400s and halted.
 
-**Operations**
-- Journal lock contention remains elevated on endolin-garden-ece02cb4. A storm notice fired at 06:46Z with 7 clones affected, and the producer journal is the worst.
-- Cleric workers on endolin stepped down from 4 to 2 as codex demand fell.
-- Claude spend stands at 117% of its backed-off quota.
+Several items wait on you:
+- Approve or reject the iframe embed design in [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189). The headers and live-frame jobs stay parked until you do.
+- Several Literate AI sources are blocked by the foreign-content gate (injection scores 0.25–0.34, all "uncertain"). Reply with a disposition for each: ingest or keep blocked.
+- The proxy needs the bot's GitHub credential restored or re-issued, which only you can do.
+
+Operationally, journal lock contention tripped a storm notice (7 clones in one tick), and the cleric pool stepped down to 2 workers for the shared codex quota. Claude spend is at 117% of its backed-off quota.
 
 ## Maintainer review docket
 
@@ -542,10 +537,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 317.5M | $1500.01 _(notional, rate-card)_ | 117% of 271.0M (backoff) |
-| Codex | 22.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 317.6M | $1500.54 _(notional, rate-card)_ | 117% of 271.0M (backoff) |
+| Codex | 22.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 88323178 tokens/day lower bound._
+_Fleet token-unlock pace: 88336120 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 14.595765s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
