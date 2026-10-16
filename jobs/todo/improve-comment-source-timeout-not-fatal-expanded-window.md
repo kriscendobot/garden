@@ -1,16 +1,13 @@
 ---
-gate: orchestrated
-orchestrated_by: improve-comment-source-timeout-not-fatal-split
+tier: mentor
 handler-timeout: 5400
 split-indivisible-reason: 'the fix is already implemented as one tested commit on a side branch, and what remains is a single serial land-and-verify; comment-watcher-test.sh alone runs more than 10 minutes on oros-studio'
 split-lineage-root: improve-comment-source-timeout-not-fatal
 split-lineage-parent: improve-comment-source-timeout-not-fatal-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-10-16T02:30:19Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-16T02:34:45Z cleared=none -->
 
 ---
 tier: mentor
