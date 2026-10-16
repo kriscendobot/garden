@@ -50,6 +50,7 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3739 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
