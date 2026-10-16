@@ -11,3 +11,13 @@ dispatch: automatic
 **Impact.** The claim gate is not affected: `status` reads `used_percent` from the utilization ledger, which is correct at 39%. Spend-based consumers do read a biased, non-monotone figure: `fit-quota-calibration.sh`, the accountant arc, `triager-pace.sh`, and the `spend/cap` status fallback when no utilization ledger row exists.
 
 **Suggested fix (verify first).** Retire rather than delete. Move the finished transcript, keeping its mtime, to a meter-visible directory outside Claude's projects tree, for example `$GARDEN_STATE/retired-transcripts/<base>-<sid>.jsonl`. Have `_meter_session_total` scan it alongside the logdir; message-id dedupe already handles overlap. Prune retired files older than the longest window, about 8 days. Resume safety holds because `<sid>.jsonl` no longer exists under the project dir. Mention in the commit message that spend figures will rise toward the truth, since it shifts calibration inputs. Land on main2 with a test: a retired transcript is still counted inside the window and pruned outside it.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T10:47:51Z
