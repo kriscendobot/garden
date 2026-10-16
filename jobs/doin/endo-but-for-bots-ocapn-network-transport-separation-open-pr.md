@@ -74,3 +74,13 @@ None. Location IDs are in-memory session keys and are not persisted.
 <!-- garden-job: endo-but-for-bots-ocapn-network-transport-separation-build -->
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T18:48:51Z
