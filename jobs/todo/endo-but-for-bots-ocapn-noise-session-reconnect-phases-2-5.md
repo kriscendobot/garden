@@ -1,9 +1,9 @@
 ---
-gate: deferred
-priority: normal
-posted_by: builder
-posted_at: 2026-10-16T18:12:56Z
+role: builder
+tier: mentor
+arc: minion-town-mcp-ocapn
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-16T18:44:14Z cleared=none -->
 
 ---
 arc: minion-town-mcp-ocapn
