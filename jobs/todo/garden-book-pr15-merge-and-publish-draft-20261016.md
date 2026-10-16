@@ -1,10 +1,9 @@
 ---
-gate: blocked
-blocked_on: garden-book-pr15-fix-final-panel-defects-20261016
-priority: normal
-posted_by: producer
-posted_at: 2026-10-16T21:05:08Z
+role: builder
+tier: mentor
+arc: garden-book
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-16T21:06:03Z cleared=none -->
 
 ---
 role: builder
