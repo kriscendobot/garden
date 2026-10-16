@@ -27,16 +27,25 @@ UNITS_CHANGED=0
 # Replace a rendered unit only when its content changed. Besides avoiding needless
 # writes, this gives daemon-reload an exact predicate: systemd is reloaded only
 # after a unit was added, changed, or removed.
+#
+# The comparison render lives OUTSIDE $DEST: creating and deleting even a scratch
+# file there bumps the directory's mtime, and systemd >= 255 then flags every unit
+# NeedDaemonReload=yes ("changed on disk") although nothing changed and the reload
+# was rightly skipped. $DEST is touched only when a unit really changes, and the
+# final rename still happens within $DEST, so the swap stays atomic.
 render_unit_file() {
-  local destination="${1:?render_unit_file: destination required}" temporary
+  local destination="${1:?render_unit_file: destination required}" temporary staged
   shift
-  temporary="$(mktemp "$DEST/.garden-unit.XXXXXX")"
+  temporary="$(mktemp "${TMPDIR:-/tmp}/.garden-unit.XXXXXX")"
   "$@" > "$temporary"
-  chmod 0644 "$temporary"
   if [ -e "$destination" ] && cmp -s "$temporary" "$destination"; then
     rm -f "$temporary"
   else
-    mv -f "$temporary" "$destination"
+    staged="$(mktemp "$DEST/.garden-unit.XXXXXX")"
+    cat "$temporary" > "$staged"
+    rm -f "$temporary"
+    chmod 0644 "$staged"
+    mv -f "$staged" "$destination"
     UNITS_CHANGED=1
   fi
 }

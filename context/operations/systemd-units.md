@@ -77,6 +77,7 @@ systemd `%i` value described in the detailed entry.
 | `garden-journal-worktree-keeper` | every 30 minutes at `:15` | host | Keep the shared journal read worktree current and recover divergence. |
 | `garden-clone-keeper` | every 30 minutes at `:00` | host | Fetch and fast-forward standing bare clones. |
 | `garden-state-clone-keeper` | hourly at `:22` | host | Reclaim leaked state clones. |
+| `garden-namespace-clone-maintenance` | every 2 hours at `:37`, plus jitter | host | Prune `tmp_pack` debris and repack per-namespace state journal clones. |
 | `garden-worktree-sweeper` | every 30 minutes at `:12` | host | Reclaim terminal and orphaned worktrees. |
 | `garden-transcript-capture` | hourly at `:20` | host | Archive redacted session transcripts. |
 | `garden-sysop` | every 20 seconds | host | Execute closed-vocabulary operations addressed to this host. |
@@ -605,6 +606,15 @@ Foreman brake affects none. Inspect and mask the matching pair. See
   after checking for active writers. State and backups are under
   `$GARDEN_STATE/journal-worktree-keeper`; defaults include three-second settle,
   self-heal enabled, and two-hour freshness threshold.
+- **`garden-namespace-clone-maintenance.timer`,
+  `garden-namespace-clone-maintenance.service`:** every host every two hours at
+  `:37`, plus the script's own `GARDEN_NS_CLONE_JITTER`; runs
+  `scripts/jobs/namespace-clone-maintenance.sh` through self-heal with no
+  handler bound (`TimeoutStartSec=3600`), at idle I/O priority. It prunes
+  stale `tmp_pack` files and repacks any per-namespace `$GARDEN_STATE/<ns>/journal`
+  clone over `GARDEN_NS_CLONE_PACK_THRESHOLD` (50) packs. It is not
+  leader-gated, because each host can maintain only its own
+  `$GARDEN_STATE`.
 - **`garden-clone-keeper.timer`, `garden-clone-keeper.service`:** every host at
   `:00/30`; runs `scripts/jobs/clone-keeper.sh` and continues under drain. It
   fetches and fast-forwards the configured standing bare clones under
