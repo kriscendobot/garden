@@ -1,9 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: claude-on-minion-town-press
-posted_at: 2026-10-16T17:09:57Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-10-16T21:05:44Z cleared=none -->
 
 ---
 role: builder
