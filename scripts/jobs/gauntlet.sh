@@ -249,6 +249,7 @@ finish_gauntlet() {  # <base> <summary-file> [pending-receipt-file]
 # unparseable report yields no output, never a non-zero return, so it can never
 # wedge a tick or drop the terminal state. Capped in lines; an odd fence count from
 # the cut is closed so the block cannot swallow the markdown after it.
+GAUNTLET_SEVERITY_NOTE='Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).'
 gauntlet_mustfix_block() {  # <base> <iteration> [max-iterations]
   local out
   [[ "${2:-}" =~ ^[0-9]+$ ]] && [ "$2" -gt 0 ] || return 0
@@ -257,6 +258,9 @@ gauntlet_mustfix_block() {  # <base> <iteration> [max-iterations]
   [ -n "$out" ] || return 0
   printf '%s\n' "$out"
   [ $(( $(printf '%s\n' "$out" | grep -c '^```') % 2 )) -eq 0 ] || printf '```\n'
+  # The list is every request-changes seat's bullets, so it can include nits the
+  # decider does not block on; say so, so the maintainer weighs only real defects.
+  printf '%s\n' "$GAUNTLET_SEVERITY_NOTE"
   return 0
 }
 

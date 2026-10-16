@@ -196,7 +196,9 @@ panel round.
    budget resolver enforces either value instead of relying on a supervising agent.
 4. **Decide the disposition.** The script shells one provider-native call (the
    `decide_disposition` hook) over the aggregate and reads back exactly
-   `must-fix` or `pass`.
+   `must-fix` or `pass`. The decider grades each finding's severity itself
+   under § Finding severity; a seat's `request-changes` label alone does not
+   block.
 5. **Fixer loop.** On `must-fix`, the script invokes the project fixer hook with
    the must-fix items and re-runs the panel against the new head — the same loop
    v1 ran between a judge's request-changes verdict and the justice's re-review.
@@ -207,6 +209,41 @@ panel round.
 7. **Terminate by un-drafting.** The script calls the un-draft hook (v1's
    `gh pr ready <N>`) and prints one terminal line. That line — passed + un-
    drafted — is the only thing the supervisor normally sees.
+
+## Finding severity
+
+The decider (`decider_rubric` in `scripts/jobs/gardening/panel.sh`) classifies
+every finding itself and ignores the seat's own label, because seats routinely
+mark prose and naming nits `request-changes`. Maintainer-authorized (kriskowal,
+liaison session 2026-10-16): a 34-seat panel finds a fresh nit every round, so
+treating every `request-changes` as blocking never converged. Eight minion.town
+PRs (#178, #180, #184, #188, #190, and others) spent 6 to 14 rounds each, about
+$220 in total, without a pass.
+
+- **Must-fix (blocks):** wrong behavior; a security, capability, or authority
+  error; data loss; a broken contract (public API, emitted types, wire or storage
+  format, CLI, config surface; JSDoc *type annotations* the type checker reads
+  count as contract); failing tests, or missing tests for behavior the change adds
+  or alters; a comment or doc that is factually false in a way that would mislead
+  a future change into unsafe behavior.
+- **Should-fix (never blocks):** comment or JSDoc wording or accuracy that does
+  not change behavior; identifier renames for spelling, abbreviation, or style;
+  commit-history tidiness; PR title or description completeness; test-style
+  preferences where the changed behavior is already tested.
+- **When unsure, must-fix.** The disposition is `must-fix` if any finding is
+  must-fix, else `pass`, even with should-fix findings outstanding. Those stay
+  in the posted review and the appellate's advisory pass (`summary-fix`); they
+  are never a reason to loop.
+
+The deterministic pre-passes are separate gates and unaffected: a `BLOCKED`
+phase/evidence result or a nonconforming PR-body template still binds the
+disposition to `must-fix` before the decider runs. The seat-level
+`must-fix items (N):` list in the panel-run record (and the gauntlet's
+"Unaddressed must-fix" summary built from it) still counts every
+`request-changes` seat's bullets, so it can include should-fix nits; the
+gauntlet summary says so. Test: `scripts/jobs/test/panel-decider-severity-test.sh`
+(fixtures per class; `GARDEN_PANEL_DECIDER_LIVE=1` runs them against the real
+decider model).
 
 ## Output
 

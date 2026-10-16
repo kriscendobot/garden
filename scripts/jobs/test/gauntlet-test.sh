@@ -404,6 +404,10 @@ printf '%s' "$g3_summary" | grep -Fq '## Unaddressed must-fix' \
   && printf '%s' "$g3_summary" | grep -Fq 'fixture item one' \
   && ok "review-budget terminal journal report records the unaddressed must-fix summary" \
   || bad "nonconverge: terminal report lacks the summary: [$g3_summary]"
+{ printf '%s' "$g3_comment" | grep -Fq 'skills/panel/SKILL.md § Finding severity' \
+    && printf '%s' "$g3_summary" | grep -Fq 'are should-fix and never block'; } \
+  && ok "terminal comment and report note that nit-class items are should-fix, not blocking" \
+  || bad "nonconverge: severity note missing: [$g3_comment] [$g3_summary]"
 board inbox/maintainer/unread >/dev/null
 g3_note="$(grep -rl 'g3' "$V/inbox/maintainer/unread" 2>/dev/null | xargs cat 2>/dev/null)"
 { printf '%s' "$g3_note" | grep -Fq 'REVIEW-BUDGET-REACHED' \

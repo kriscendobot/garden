@@ -1,0 +1,8 @@
+#!/bin/bash
+# A fake `claude` for panel-decider-severity-test.sh. It stands in for the
+# foreperson decider: it saves the prompt it read on stdin and answers `pass` in
+# the --output-format json shape panel.sh parses. Kept as a committed file because
+# the test scratch is a noexec mount.
+set -uo pipefail
+cat > "$DECIDER_SEVERITY_OUT/prompt"
+printf '{"structured_output":{"disposition":"pass"}}\n'

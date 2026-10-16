@@ -46,7 +46,7 @@ Each seat returns the block below. Do **not** re-title it: the aggregator alread
 - ... [rule: <path>] OR [proposed-rule: ...]
 ```
 
-Each block under ~400 words. "Comment-only" is for taste; anything that warrants a code change is "request-changes". Every finding carries either a `[rule: <path>]` citation or a `[proposed-rule: ...]` tag (see *Cite-or-propose discipline*); the decide step drops findings that carry neither at aggregation.
+Each block under ~400 words. "Comment-only" is for taste; anything that warrants a code change is "request-changes". A seat may still raise a nit as "request-changes", but the decider grades severity itself: comment or JSDoc wording that does not change behavior, identifier spelling or style renames, commit-history tidiness, PR-description completeness, and test-style preferences are should-fix and never block ([panel](../panel/SKILL.md) § Finding severity). Every finding carries either a `[rule: <path>]` citation or a `[proposed-rule: ...]` tag (see *Cite-or-propose discipline*); the decide step drops findings that carry neither at aggregation.
 
 ## Aggregation
 
@@ -54,8 +54,8 @@ The decide step groups findings into three buckets, then assigns one **dispositi
 
 The three buckets:
 
-- **Must fix before merge** (any "request-changes" with concrete code / test / doc impact). Default disposition: `must-fix-loop`; these drive the panel's fixer loop.
-- **Should fix in this PR** (taste or clarity items raised independently by at least two seats; on the code panel the deliberate inquiry-area overlap means routine duplicate flagging is expected and is the signal "promote to should-fix"). Default disposition: `summary-fix`.
+- **Must fix before merge** (any "request-changes" finding in a real-defect class: wrong behavior, security or authority error, data loss, broken contract, failing or missing tests for changed behavior, or a comment false enough to invite an unsafe change; see [panel](../panel/SKILL.md) § Finding severity). Default disposition: `must-fix-loop`; these drive the panel's fixer loop. Nit-class findings go to the next bucket even when a seat labeled them "request-changes".
+- **Should fix in this PR** (nit-class findings, plus taste or clarity items raised independently by at least two seats; on the code panel the deliberate inquiry-area overlap means routine duplicate flagging is expected and is the signal "promote to should-fix"). Default disposition: `summary-fix`.
 - **Out of scope / follow-up** (useful but not blocking this round). Default disposition: `follow-up`.
 
 Dedupe overlapping findings. Where seats disagree, present both views and pick the side most consistent with the project's `CLAUDE.md` (or `AGENTS.md`); make the disagreement explicit so the supervisor can act.

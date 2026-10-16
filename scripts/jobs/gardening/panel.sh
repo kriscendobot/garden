@@ -679,6 +679,37 @@ strip_seat_self_heading() {  # strip_seat_self_heading <seat> <block-file>
   fi
 }
 
+# --- DECIDER RUBRIC: finding severity (maintainer-authorized 2026-10-16) -----
+# The foreperson classifies every finding by severity itself rather than trusting
+# a seat's own label: seats routinely mark prose and naming nits request-changes,
+# and a 34-seat panel always finds a fresh one, so treating every request-changes
+# as blocking never converged (minion.town #178/#180/#184/#188/#190: 6-14 rounds,
+# ~$220, no pass). Nit classes are should-fix and never block; real defects stay
+# must-fix, and doubt resolves to must-fix. Full statement: skills/panel/SKILL.md
+# § Finding severity. Kept in one function so the prompt and its test agree.
+decider_rubric() {
+  cat <<'RUBRIC'
+Classify every concrete finding by severity yourself. Ignore the label the seat put on it: a seat may call a nit request-changes or must-fix.
+
+MUST-FIX (blocks the panel):
+- wrong behavior: the change does something other than what it should;
+- a security, capability, or authority error;
+- data loss or corruption;
+- a broken contract: a public API, exported or emitted type, wire or storage format, CLI, or config surface changes incompatibly or not as documented (JSDoc type annotations that the type checker reads are a contract, not prose);
+- failing tests, or missing tests for behavior the change adds or alters;
+- a comment or doc that is factually false in a way that would mislead a future change into unsafe behavior.
+
+SHOULD-FIX (never blocks the panel, however the seat labeled it):
+- comment or JSDoc wording or accuracy that does not change behavior;
+- identifier renames for spelling, abbreviation, or style;
+- commit-history tidiness (grouping, messages, squashing, ordering);
+- PR title or description completeness;
+- test-style preferences (structure, naming, assertion style, helper use) where the changed behavior is already tested.
+
+When you are unsure whether a finding is a real defect, treat it as MUST-FIX. The disposition is 'must-fix' if any finding is MUST-FIX; otherwise it is 'pass', even when should-fix findings remain.
+RUBRIC
+}
+
 # --- DECISION HOOK: aggregate the seat verdicts into one disposition ---------
 # Reads every seat's block and decides the round's disposition. Echoes one of
 # `must-fix` (changes required; loop to the fixer) or `pass` (no must-fix items;
@@ -696,10 +727,9 @@ decide_disposition() {  # decide_disposition <aggregate-file> -> must-fix | pass
   # The prompt goes on STDIN, never argv: a 30-seat aggregate routinely exceeds
   # the kernel's 128 KiB single-argument cap (MAX_ARG_STRLEN), and exec then fails
   # with "Argument list too long" on every retry (endo-but-for-bots#1419, 194 KB).
-  raw="$( { printf '%s' "You are the gardener acting as panel foreperson on PR #$pr. Below \
-are the jury seats' verdict blocks. Apply the disposition rubric: any concrete \
-request-changes finding is 'must-fix' and blocks the panel; otherwise the panel \
-passes. Answer with exactly one word: 'must-fix' or 'pass'. Verdicts: "; cat "$agg"; } \
+  raw="$( { printf '%s\n\n' "You are the gardener acting as panel foreperson on PR #$pr. Below \
+are the jury seats' verdict blocks. Apply the disposition rubric."; decider_rubric
+             printf '\n%s' "Answer with exactly one word: 'must-fix' or 'pass'. Verdicts: "; cat "$agg"; } \
     | ( cd "$wt" && panel_llm "$decide_model" "$schema" ) )"
   if [ "$GARDEN_PANEL_PROVIDER" = openai ]; then
     jq -er '.disposition | select(.=="pass" or .=="must-fix")' <<<"$raw"
