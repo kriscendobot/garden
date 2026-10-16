@@ -37,3 +37,13 @@ If the gated outcome cannot be achieved, finish with the orchestrated-failure
 signal. If every fleet-available check is complete and the sole remaining barrier
 is interactive maintainer login/MFA, use the orchestrated-auth-unavailable signal
 instead.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T05:10:13Z
