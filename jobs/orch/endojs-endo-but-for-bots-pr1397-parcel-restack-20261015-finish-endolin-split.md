@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1397-parcel-restack-metadata-20261016-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1397-parcel-restack-metadata-20261016 endojs-endo-but-for-bots-pr1397-parcel-restack-ci-20261016 endojs-endo-but-for-bots-pr1397-parcel-restack-summary-20261016
 on-child-failure: halt
