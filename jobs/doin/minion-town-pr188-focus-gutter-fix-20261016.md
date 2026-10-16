@@ -12,3 +12,13 @@ Repo and PR: https://github.com/kriscendobot/minion.town/pull/188 (draft; the ga
 Fix ONLY this defect, from the final panel (engine-realist, should-fix): `deploy/aws/www/shell.js:375` wires a gutter refresh on window `focus`. In Chromium, WebKit and Gecko the top-level window regains focus when focus moves back from an iframe, and the refresh hides the gutter (`visibility: hidden`) before `mouseup`, so the click is swallowed. The tests miss it because they dispatch a synthetic focus on a bare EventTarget, which has no hit-testing. Fix: drop the focus trigger and rely on `visibilitychange`, or keep focus from concealing the gutter. Add a regression test that would fail on the old behavior (cover the hide-before-mouseup path, not a synthetic focus on a bare EventTarget). Also fix, if trivial, the design listing mismatch (`designs/clip-shell-framework.md:7`) and add the user-visible behavior to the PR body. Run the repo's CI-equivalent checks locally before pushing.
 
 Report: the commit, what changed, and any remaining panel findings you saw but did not fix.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T13:00:06Z
