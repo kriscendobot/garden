@@ -54,6 +54,7 @@ fleet_draining && exit 0
 
 DIR="${GARDEN_DEADMAIL_CLONE:-$GARDEN_STATE/deadmail/journal}"
 POST_JOB="${GARDEN_DEADMAIL_POST_JOB:-$HERE/post-job.sh}"
+: "${GARDEN_DEADMAIL_POST_LOCK_WAIT:=5}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
@@ -201,28 +202,33 @@ for f in $(list_jobs "$DIR" inbox/dead); do
   } > "$body"
 
   # Promote (idempotent by basename). post-job uses its own producer clone.
-  # Wrap in `timeout`: post-job.sh can hang indefinitely on a stale producer
-  # journal.lock (see feedback_stale_producer_lock_wedges_posts.md); without a
-  # bound, a single stale lock wedges the whole tick and, under Restart=always,
-  # can crash-loop into systemd's start-limit. Capture stderr to a temp file so a
-  # wedged or failing promote self-diagnoses instead of being swallowed by 2>&1.
+  # The producer clone is shared by many journal writers. This timer's promotion
+  # is optional until the next tick, so give its clone lock one short SOFT wait
+  # instead of spending the tick's full timeout behind a live producer. Keep the
+  # outer timeout for non-lock hangs and stale-lock recovery failures. Capture
+  # stderr so an actual failure self-diagnoses instead of being swallowed by 2>&1.
   # The if/else (not `if ! …`) captures post-job's REAL exit in the else branch:
   # `! cmd` would clobber $? to the negation, losing timeout's 124.
   err="$(mktemp "${TMPDIR:-/tmp}/garden-deadmail-err.XXXXXX")"
-  if timeout "${GARDEN_POST_TIMEOUT:-120}" "$POST_JOB" "$base" "$body" >/dev/null 2>"$err"; then
+  if GARDEN_CLONE_LOCK_SOFT=1 \
+    GARDEN_LOCK_SOFT_WAIT="$GARDEN_DEADMAIL_POST_LOCK_WAIT" \
+    timeout "${GARDEN_POST_TIMEOUT:-120}" "$POST_JOB" "$base" "$body" >/dev/null 2>"$err"; then
     rm -f "$body" "$err"
   else
     rc=$?
-    if [ "$rc" -eq 124 ] || [ "$rc" -eq 75 ]; then
-      if [ "$rc" -eq 124 ]; then
-        failure="timed out after ${GARDEN_POST_TIMEOUT:-120}s (likely a stale producer journal.lock)"
-      else
-        failure="temporarily failed (rc=$rc)"
-      fi
+    if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+      # A live producer lock or another temporary journal outage is routine for
+      # this courtesy timer. Leave the entry queued, stop this tick, and retry
+      # quietly next time. In particular, do not promote clone_lock's captured
+      # soft-contention diagnostic into a deadmail timeout warning.
+      rm -f "$body" "$err"
+      break
+    elif [ "$rc" -eq 124 ]; then
+      failure="timed out after ${GARDEN_POST_TIMEOUT:-120}s (likely a stale producer journal.lock)"
       detail=""
       [ -s "$err" ] && detail="; stderr: $(tr '\n' ' ' < "$err")"
       log "WARN post of '$base' $failure; leaving dead-mail $msgid for the next tick and stopping this tick$detail"
-      tick_rc=75
+      tick_rc="$GARDEN_OFFLINE_RC"
       rm -f "$body" "$err"
       break
     else
