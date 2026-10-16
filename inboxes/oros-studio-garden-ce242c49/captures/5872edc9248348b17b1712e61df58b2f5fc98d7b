@@ -1,0 +1,40 @@
+<6>13:00:28 [monk/1] job 'minion-town-pr188-focus-gutter-fix-20261016' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>13:00:34 [monk/1] job 'minion-town-pr188-focus-gutter-fix-20261016' call ceiling: tier=mentor max-budget-usd=11.60 (scaled by fresh seven-day headroom when available)
+<4>13:00:34 [monk/1] WARN minion-mcp: token preflight failed; job 'minion-town-pr188-focus-gutter-fix-20261016' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+panel-head-freshness: stale target=kriscendobot/minion.town#188 reviewed_head=4a452a7b0eeca01688e87f856d1deb89f4494142 presented_head=b4455441267ee5d5cd01a4e6176de744f5de7628 disposition=review-required
+<6>13:18:28 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/188 moved after a completed panel; deferring to the review-docket freshness disposition
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>13:19:32 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/167; leaving docket unchanged
+<6>13:19:32 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/167 failed (rc=1, attempt 7); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=4000357 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+<6>13:19:59 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/183 failed (rc=124, attempt 7); kept for the next transaction
+GraphQL: Resource not accessible by personal access token (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)
+<3>13:20:33 [review-docket] FATAL: GitHub metadata unavailable for https://github.com/kriscendobot/minion.town/pull/188; leaving docket unchanged
+
+--- handler report (partial) ---
+The focus defect was already fixed on the PR before this job started. I added the regression test it was missing and pushed it as `b445544` to `clip-gutter-live-refresh` on kriscendobot/minion.town#188. CI for `b445544` passed (`test (typecheck + vitest)`).
+
+**What I found.** The last panel reviewed `4a452a7`. The PR's own fix round 8 (`927047c`) had already responded to it:
+- **Focus trigger:** removed. `wireClipRefreshTriggers` now refreshes only on `visibilitychange` and the ↻ control. That also covers engine-realist #2, the network read on every focus return from the frame.
+- **Design listing:** fixed. The `createClipGutter` listing in `designs/clip-shell-framework.md` now includes `setConcealed`, and § 2 names the module's exports and the refresh contract. The job pointed at line 7, but the mismatch the panel flagged was at line 70.
+- **PR body:** already describes the hide-while-pending behavior and says window focus is not a trigger.
+
+The one gap was the test: the only guard against the focus trigger coming back was a regex over the source text.
+
+**What changed.** One new test in `test/shell-clip.test.ts`: "keeps a gutter click when focus returns from the clip frame mid-click". It runs the real gutter, refresher and trigger wiring over a minimal fake DOM, with hit-testing modelled: a hidden element can't receive `mouseup`, and `click` fires only if `mouseup` lands on the pressed element. During the clip's `mousedown` it fires the focus events a return from the frame produces, then checks that the clip stayed visible and was selected.
+- Against `4a452a7`'s `shell.js` the test fails (`expected 'hidden' to be ''`). On the current head it passes, as do all 56 tests in the file.
+- No production code changed. I didn't restart the gauntlet, un-draft or merge, and I left a PR comment noting the new head.
+
+**Local checks.** These all passed:
+- `npm run typecheck`
+- `npm run build`
+- both `node --test` suites (16/16 each)
+- `npm test`, apart from one failure in `test/git-remote/capability.test.ts` ("propagates a git failure…"). That test isn't part of this PR, and it passes when the fleet's git wrapper is taken off PATH, so the failure comes from this host's setup.
+
+**Panel findings I saw but didn't fix:**
+- **Commit history (integrator #3 / packager), should-fix:** the PR is a long run of `fix(shell)` review-churn commits. They need a retcon into logical commits before un-draft. That's for the supervisor `minion-town-carry-eight-prs-to-merge-20261016` to schedule.
+- **`sameClipRecord` (engine-realist #3, purist #4), comment-only:** compares records with `JSON.stringify`, so it depends on key order.
+- **Timer handle type (engine-realist #4), comment-only:** typed as `number`, which is browser-specific.
+- **Ctrl/⌘+digit quick-switch (purist #2), comment-only:** still acts on the previous listing while the clips are hidden.
+- **`onRequest` (purist #3), comment-only:** fires twice per debounced refresh, while the JSDoc implies once.
+- **Smaller items (purist #5, #6), comment-only:** `clearClipListing` is a thin wrapper; capability injection is inconsistent across the module's factories.
