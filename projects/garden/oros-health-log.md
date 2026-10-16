@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-16T03:25Z (oros-health-checkup-20261016-013510): healthy (deployed = `2845917b`) → repo-locks leak found; pruner landed
+
+- **Load/mem:** load 1.9/2.7/2.9; 13 GiB of 15 GiB available. IO pressure is low (avg300 2.4%).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (165k).
+- **Uptime:** 14d9h, no reboot.
+- **Deployed vs main2:** root at `2845917b`, which was origin/main2 until this run's fix. fleet/health (01:31Z): `roll_status: deployed`, 0 of 290 units failed. main2 is now one commit ahead (`1e8ccd58`, this run's fix); the next roll will pick it up.
+- **Units:** 0 failed. monks 1 to 3 running (scaler-managed; leveling row `8 0`). Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 02:48Z, status ok, about 43% used (77.9M of 180M). Pushes are on cadence (01:02, 01:17, 01:32, 01:47, 02:04, 02:19, 02:33, 02:48 all landed).
+- **State clones:** 43 pack dirs scanned. None has more than 50 packs, a tmp_pack, a `gc.log`, or a `gc.log.lock`. No stale index/HEAD/packed-refs lock and no gc.pid. The root repo has 23 packs and no `gc.log`.
+- **rc=124 (3h):** one. monk/3 `improve-comment-source-timeout-not-fatal` overran its own 2400s budget at 01:17Z. It was classified as transient and left for the reaper.
+- **Changed:** `$GARDEN_STATE/repo-locks/` held **7,687** per-repo lock-key dirs that nothing ever removed. They grow by about 2,500 a day (one per git common-dir the fleet wrapper touches, such as test fixtures and per-id clones), and they made any `*/*` scan of the state dir take about 100s on virtiofs. Landed `1e8ccd58` on main2: worktree-sweeper prunes keys idle for 7 days (every lock file free under `flock -n`, no live holder), and `_garden_lock_open` reopens a lock whose inode was pruned while it waited. Tests: repo-locks-test new case passes, worktree-sweeper-follower 6/6, namespace-clone-orphan-sweep pass. Pruned the 67 keys already older than 7 days by hand; the rest will age out over the week.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands. Separately, `repo-locks-test.sh`'s "parallel CAS writers" case already fails on main2 under oros load (a writer subshell exits non-zero while every write still lands). It is a test flake, not a regression from this run.
+
 ## 2026-10-16T00:30Z (oros-health-checkup-20261015-223508): healthy (deployed = origin/main2 `d4ef628b`) → stale root gc.log.lock removed; guard fix landed
 
 - **Load/mem:** load 2.2/2.5/2.1; 13 GiB of 15 GiB available.
