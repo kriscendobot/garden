@@ -26,3 +26,13 @@ Do not edit the PR, un-draft it, or merge it. The gauntlet and the proxy screen 
 <!-- garden-transient-elapsed: kind=signature through=1 values=330,219 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T04:04:17Z
