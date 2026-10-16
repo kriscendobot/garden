@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1398-parcel-restack-20261015-finish-endolin
-priority: normal
-posted_by: shepherd
-posted_at: 2026-10-16T01:59:58Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-16T05:11:03Z cleared=none -->
 
 ---
 tier: mentor
