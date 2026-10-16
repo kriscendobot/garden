@@ -1,2 +1,2 @@
-base: improve-deadmail-tempfail-short-circuit
+base: improve-deadmail-producer-lock-contention
 identity: mentor:scripts/jobs/deadmail.sh
