@@ -26,6 +26,7 @@ Do not edit the PR, un-draft it, or merge it. The gauntlet and the proxy screen 
 <!-- garden-plain-retry-not-before: 2026-10-16T02:03:20Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=330,219 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
