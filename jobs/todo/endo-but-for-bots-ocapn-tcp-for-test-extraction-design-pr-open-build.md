@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1480-gauntlet
-priority: normal
 role: builder
+tier: mentor
 arc: endo-ocapn-background
-posted_by: design-build-handoff
-posted_at: 2026-10-16T19:41:40Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-16T22:26:20Z cleared=none -->
 
 ---
 role: builder
