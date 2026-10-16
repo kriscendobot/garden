@@ -212,10 +212,10 @@ ensure_clone "$DIR"
 sync_clone "$DIR"
 
 # The claim is the universal admission surface: it knows the actual worker host
-# and provider that will pay for the job. Decline the whole claim tick only on a
-# confirmed high-water reading for that pool. Missing config or an unreadable
-# meter is off/unknown and therefore proceeds (fail-open); the handler retains its
-# own final backstop for deploy races and usage accrued after this check.
+# and provider that will pay for the job. Decline the whole claim tick on a
+# confirmed high-water reading, or when its meter has stayed unreadable beyond a
+# short grace period. The grace preserves fail-open behavior for a brief sensor
+# blip without letting a dead meter admit unbounded new work indefinitely.
 if ! CLAIM_POOL="$(budget_subscription_for_host_kind "$GARDEN" "$KIND" "$DIR" 2>/dev/null)"; then
   if [ "${GARDEN_TEST:-0}" = 1 ] && ! budget_pool_file "$DIR" >/dev/null 2>&1; then
     # Legacy hermetic board fixtures intentionally omit all budget state. Their
@@ -240,6 +240,38 @@ fi
 # the admission decision for this host's worker kind changes, plus the ledger's
 # heartbeat, and forget it when the pool admits again.
 CLAIM_DECISION_KEY="claim-admission-$KIND"
+CLAIM_SENSOR_GRACE="${GARDEN_BUDGET_SENSOR_OUTAGE_GRACE_SECS:-300}"
+case "$CLAIM_SENSOR_GRACE" in
+  ''|*[!0-9]*) log "WARNING: GARDEN_BUDGET_SENSOR_OUTAGE_GRACE_SECS='$CLAIM_SENSOR_GRACE' is not a count of seconds; using 300"; CLAIM_SENSOR_GRACE=300 ;;
+esac
+# All workers charged to one pool share this host-local episode timer. Include a
+# digest after the readable prefix so two pool names that sanitize alike cannot
+# share an outage. noclobber below makes the first observation win when sibling
+# claimers discover the outage concurrently.
+CLAIM_SENSOR_KEY="${CLAIM_POOL//[^A-Za-z0-9._-]/_}-$(printf '%s' "$CLAIM_POOL" | sha256sum | cut -c1-12)"
+CLAIM_SENSOR_DIR="$GARDEN_STATE/budget-sensor-outages/$CLAIM_SENSOR_KEY"
+CLAIM_SENSOR_SINCE="$CLAIM_SENSOR_DIR/since"
+claim_sensor_now() {
+  local now="${GARDEN_BUDGET_SENSOR_NOW:-$(date -u +%s)}"
+  case "$now" in ''|*[!0-9]*) now="$(date -u +%s)" ;; esac
+  printf '%s\n' "$now"
+}
+claim_sensor_outage_age() { # prints the persistent episode age
+  local now since
+  now="$(claim_sensor_now)"
+  mkdir -p "$CLAIM_SENSOR_DIR"
+  if [ ! -s "$CLAIM_SENSOR_SINCE" ]; then
+    ( set -o noclobber; printf '%s\n' "$now" > "$CLAIM_SENSOR_SINCE" ) 2>/dev/null || true
+  fi
+  since="$(cat "$CLAIM_SENSOR_SINCE" 2>/dev/null || echo "$now")"
+  case "$since" in ''|*[!0-9]*) since="$now"; printf '%s\n' "$since" > "$CLAIM_SENSOR_SINCE" ;; esac
+  [ "$now" -ge "$since" ] || since="$now"
+  printf '%s\n' "$(( now - since ))"
+}
+clear_claim_sensor_outage() {
+  rm -f -- "$CLAIM_SENSOR_SINCE"
+  rmdir -- "$CLAIM_SENSOR_DIR" 2>/dev/null || true
+}
 record_claim_budget_decision() { # status decision outcome reason detail
   local status="$1" decision_name="$2" decision_outcome="$3"
   local decision_reason="$4" decision_detail="$5" decision_input_json
@@ -255,14 +287,26 @@ record_claim_budget_decision() { # status decision outcome reason detail
 }
 if claim_budget_status="$(pool_admits "$CLAIM_POOL" "$DIR")"; then
   if [ "$claim_budget_status" = unknown ]; then
-    log "WARN: budget pool '$CLAIM_POOL' unreadable; claims remain open (fail-open)"
+    claim_sensor_age="$(claim_sensor_outage_age)"
+    if [ "$claim_sensor_age" -ge "$CLAIM_SENSOR_GRACE" ]; then
+      log "budget pool '$CLAIM_POOL' sensor has been unreadable for ${claim_sensor_age}s; declining this claim tick (grace ${CLAIM_SENSOR_GRACE}s exhausted)"
+      alert_maintainer "budget-sensor-outage-$CLAIM_SENSOR_KEY" \
+        "claim gate is FAIL-CLOSED on $GARDEN after budget pool '$CLAIM_POOL' stayed unreadable for ${claim_sensor_age}s (grace ${CLAIM_SENSOR_GRACE}s). No new job will be claimed from this pool until its budget sensor recovers. Check the pool's usage logs/live snapshots and budget-pools mapping."
+      record_claim_budget_decision unknown decline-claim applied \
+        "budget sensor outage exceeded its fail-open grace period" \
+        "sensor unreadable for ${claim_sensor_age}s; claim tick stopped before candidate selection"
+      exit 3
+    fi
+    log "WARN: budget pool '$CLAIM_POOL' unreadable for ${claim_sensor_age}s; claims remain open during ${CLAIM_SENSOR_GRACE}s grace"
     record_claim_budget_decision unknown allow-claim fail-open-skipped \
-      "budget sensor unreadable; admission fails open" \
-      "budget guard skipped; candidate selection continues"
+      "budget sensor briefly unreadable; admission grace remains" \
+      "sensor unreadable for ${claim_sensor_age}s; candidate selection continues"
   else
+    clear_claim_sensor_outage
     clear_decision_change "$CLAIM_DECISION_KEY"
   fi
 elif [ "$claim_budget_status" = refuse ]; then
+  clear_claim_sensor_outage
   # FAIL CLOSED: an unknown source, or a configured subscription with no trustworthy
   # ceiling, halts claims rather than admitting unbounded spend. This CAN
   # silently wedge a host, so make the halt LOUD and the remedy OBVIOUS: page the
@@ -277,6 +321,7 @@ elif [ "$claim_budget_status" = refuse ]; then
     "${remedy:-claim tick stopped before candidate selection}"
   exit 3
 else
+  clear_claim_sensor_outage
   log "budget pool '$CLAIM_POOL' is at its high-water mark; declining this claim tick"
   record_claim_budget_decision backoff decline-claim applied \
     "budget pool is at its configured high-water mark" \

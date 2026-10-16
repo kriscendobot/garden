@@ -259,6 +259,62 @@ set -e
   && ok "claim gate declines confirmed-backoff host without moving the job" \
   || bad "claim gate rc=$crc or moved todo: $COUT"
 
+# An unreadable sensor stays fail-open only for a bounded grace interval. The
+# outage start is shared by all claimers of the pool; after the boundary, the
+# gate leaves todo untouched and emits one stable-key alert. A readable sample
+# clears the episode so a later blip receives a fresh grace interval.
+OBARE="$TR/claim-outage.git"; seed_board "$OBARE"
+OSEED="$OBARE-seed"
+OMISSING="$TR/claim-outage-missing-logs"
+OSTATE="$TR/claim-outage-state"
+OALERT="$TR/claim-outage-alerts.log"; : > "$OALERT"
+outage_claim() { # now worker-id
+  env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$OSTATE" JOURNAL_REMOTE="$OBARE" \
+    GARDEN_WORKER_CLONE="$OSTATE/worker-$2/journal" \
+    GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$OMISSING" GARDEN_USAGE_LEDGER="$TR/no-outage-ledger" \
+    GARDEN_WORKER_KIND=monk GARDEN_BUDGET_SENSOR_NOW="$1" GARDEN_BUDGET_SENSOR_OUTAGE_GRACE_SECS=300 \
+    GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh" GARDEN_ALERT_RECORD="$OALERT" \
+    "$JOBS/claim-job.sh" "$2" 2>&1
+}
+set +e
+OBLIP="$(outage_claim 1000 1)"; obrc=$?
+set -e
+if [ "$obrc" -eq 3 ] && [[ "$OBLIP" == *"claims remain open during 300s grace"* ]]; then
+  ok "brief budget-sensor outage remains fail-open during the bounded grace"
+else
+  bad "brief outage did not retain grace: rc=$obrc out=$OBLIP"
+fi
+printf '# claim me after outage\n' > "$OSEED/jobs/todo/claim-me.md"
+git -C "$OSEED" pull -q --rebase
+git -C "$OSEED" add jobs/todo/claim-me.md; git -C "$OSEED" "${git_id[@]}" commit -qm outage-todo; git -C "$OSEED" push -q
+set +e
+OOUT="$(outage_claim 1300 2)"; orc=$?
+OOUT2="$(outage_claim 1400 3)"; orc2=$?
+set -e
+if [ "$orc" -eq 3 ] && [ "$orc2" -eq 3 ] && view_has "$OBARE" jobs/todo/claim-me.md \
+   && [ "$(grep -c '^KEY=budget-sensor-outage-' "$OALERT")" -eq 1 ] \
+   && grep -q "FAIL-CLOSED.*stayed unreadable" "$OALERT"; then
+  ok "sustained budget-sensor outage stops claims with one deduplicated alert"
+else
+  bad "sustained outage admission: rc=$orc/$orc2 alerts=$(tr '\n' ';' < "$OALERT") out=$OOUT / $OOUT2"
+fi
+
+# Restore a trustworthy reading for one tick; even though backoff declines, it
+# closes the blindness episode. The next unknown reading starts at age zero.
+set +e
+env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$OSTATE" JOURNAL_REMOTE="$OBARE" \
+  GARDEN_WORKER_CLONE="$OSTATE/worker-4/journal" GARDEN_USAGE_NOW="$NOW" \
+  GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_WORKER_KIND=monk GARDEN_BUDGET_SENSOR_NOW=1500 \
+  "$JOBS/claim-job.sh" 4 >/dev/null 2>&1
+recover_rc=$?
+OREOPEN="$(outage_claim 1600 5)"; reopen_rc=$?
+set -e
+if [ "$recover_rc" -eq 3 ] && [ "$reopen_rc" -eq 0 ] && [[ "$OREOPEN" == *"claims remain open during 300s grace"* ]]; then
+  ok "a readable budget sample resets the outage timer for a later blip"
+else
+  bad "outage timer did not reset: recovery=$recover_rc reopen=$reopen_rc out=$OREOPEN"
+fi
+
 # Claim gate FAILS CLOSED on an unmetered pool: it declines the tick (rc 3), leaves
 # the job in todo, and pages the maintainer ONCE with the set-budget-pool.sh remedy.
 RBARE="$TR/claim-refuse.git"; seed_board "$RBARE"
