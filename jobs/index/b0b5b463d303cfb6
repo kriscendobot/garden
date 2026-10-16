@@ -1,0 +1,2 @@
+base: improve-review-docket-rollup-permission-fallback
+identity: mentor:scripts/jobs/handlers/review-docket-pr-gh.sh
