@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1397-parcel-restack-metadata-20261016 endojs-endo-but-for-bots-pr1397-parcel-restack-ci-20261016 endojs-endo-but-for-bots-pr1397-parcel-restack-summary-20261016
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-16T03:54:40Z
 ---
