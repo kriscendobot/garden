@@ -7,7 +7,7 @@
 # brief just evolved. The watchman role brief lives at roles/watchman/AGENT.md.
 #
 # Contract with claude: emit each message as a block
-#     MSG <address>            (role/<name> | job/<base> | broadcast)
+#     MSG <address>            (role/<name> | role/jurors-<seat> | job/<base> | broadcast)
 #     <body lines...>
 #     ENDMSG
 # This handler sends each via send-msg.sh. Test harness overrides
@@ -32,6 +32,10 @@ zero or more message blocks in EXACTLY this format and nothing else:
 MSG <address: role/<name> | job/<base> | broadcast>
 <body lines for the recipients>
 ENDMSG
+
+An address is ONE segment after its kind. A role is the directory name under
+roles/ (roles/<name>/AGENT.md → role/<name>); a juror seat under
+roles/jurors/<seat>/ is addressed role/jurors-<seat>, never role/jurors/<seat>.
 
 ----- ROLE/SKILL CHANGES -----
 $diff

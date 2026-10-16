@@ -4,6 +4,8 @@
 # Usage: send-msg.sh <address> [<body-file>]
 #   <address> is one of:
 #     role/<role>     — every agent currently working in <role>
+#                       (a juror seat is role/jurors-<seat>; the nested
+#                       role/jurors/<seat> is mapped to it)
 #     job/<basename>  — whoever holds job <basename>
 #     host/<GARDEN>   — the addressed host's standing sysop daemon (host operations)
 #     broadcast       — everyone
@@ -56,6 +58,22 @@ case "$addr" in
     ;;
 esac
 
+# Juror seats live under roles/jurors/<seat>/, so a caller deriving the address
+# from that path (the watchman, reading a roles/jurors/<seat>/AGENT.md diff)
+# naturally produces the nested 'role/jurors/<seat>'. The single-segment guard
+# below rightly refuses nested slashes, so map exactly this one shape to the
+# canonical flat seat address 'role/jurors-<seat>' (warning, so the caller's
+# defect stays visible). Any other nesting still fails hard below.
+case "$addr" in
+  role/jurors/*)
+    seat="${addr#role/jurors/}"; seat="${seat%/}"
+    case "$seat" in
+      */*|'') :;;   # deeper nesting or no seat: leave for the guard to reject
+      *) log "mapped nested juror address '$addr' → 'role/jurors-$seat' (address juror seats as role/jurors-<seat>)"
+         addr="role/jurors-$seat";;
+    esac;;
+esac
+
 case "$addr" in
   role/?*|job/?*|host/?*|broadcast) :;;
   *) die "illegal address '$addr' (use role/<name>, job/<base>, host/<GARDEN>, or broadcast)";;
@@ -69,7 +87,7 @@ case "$addr" in
   broadcast) :;;
   *) seg="${addr#*/}"
      case "$seg" in
-       *[!A-Za-z0-9._-]*|.*|'') die "illegal address segment '$seg' (one [A-Za-z0-9._-]+ segment, no leading dot)";;
+       *[!A-Za-z0-9._-]*|.*|'') die "illegal address segment '$seg' (one [A-Za-z0-9._-]+ segment, no leading dot; a juror seat is role/jurors-<seat>)";;
      esac;;
 esac
 

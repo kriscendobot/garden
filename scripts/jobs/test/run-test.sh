@@ -185,6 +185,17 @@ out2="$("$JOBS/read-msgs.sh" probe-agent role/gardener broadcast)"; c2=$?
 set -e
 { [ "$c1" -eq 1 ] && grep -q "hello gardeners" <<<"$out1"; } && ok "role/gardener message delivered once" || bad "role delivery (count=$c1)"
 [ "$c2" -eq 0 ] && ok "message not redelivered (seen-marker works)" || bad "message redelivered (count=$c2)"
+# A juror seat addressed by its nested roles/ path (the watchman reading a
+# roles/jurors/<seat>/AGENT.md diff) maps to the flat role/jurors-<seat> address
+# instead of dying on the single-segment guard; deeper nesting still fails.
+set +e
+echo "seat brief changed" | "$JOBS/send-msg.sh" role/jurors/archivist >/dev/null 2>&1; cj=$?
+outj="$("$JOBS/read-msgs.sh" probe-juror role/jurors-archivist)"; cj2=$?
+"$JOBS/send-msg.sh" role/jurors/archivist/x </dev/null >/dev/null 2>&1; cj3=$?
+set -e
+{ [ "$cj" -eq 0 ] && [ "$cj2" -eq 1 ] && grep -q "seat brief changed" <<<"$outj"; } \
+  && ok "nested role/jurors/<seat> delivered as role/jurors-<seat>" || bad "nested juror address (send=$cj count=$cj2)"
+[ "$cj3" -ne 0 ] && ok "deeper nested role address still rejected" || bad "role/jurors/archivist/x accepted"
 
 # ============================================================================
 hr; echo "SUBTEST 4 — GARDENER-SCALER: reconcile pool to journal host count"; hr
