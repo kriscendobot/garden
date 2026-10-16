@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: cleric
-claimed_at: 2026-10-16T06:03:37Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-improve-node22-acl-verification
