@@ -21,3 +21,13 @@ This job owns the remaining work, one draft PR per phase or a stack, each with t
 - Phase 5: crossed-hellos tiebreaker on reconnect.
 - The heartbeat capability bit from § Upgrade Considerations, after which heartbeats can default on, and daemon wiring (`packages/daemon/src/networks/ocapn.js`) that enables heartbeats.
 When every phase has evidence, update the Phase 1 PR's ledger to `deliverable`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T18:50:09Z
