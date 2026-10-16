@@ -31,3 +31,13 @@ The one interactive step (a sign-in to reveal an existing guest's formula id via
 `GET /account/guest-formula-id`, or an invitation acceptance) is out of scope for the build; document it
 and make the canary report `not-provisioned` cleanly until the ids exist. Root-only checks are out of
 scope (Section 6 "What it does not cover yet").
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T01:37:22Z
