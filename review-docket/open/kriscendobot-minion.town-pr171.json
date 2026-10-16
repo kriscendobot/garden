@@ -3,18 +3,18 @@
   "repo": "kriscendobot/minion.town",
   "pr": 171,
   "url": "https://github.com/kriscendobot/minion.town/pull/171",
-  "head_oid": "8b727deb187375caf04facadb5221e194c13254f",
+  "head_oid": "8185717312d4aaa59026faf42c20d3b3371d60b8",
   "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Panel reviewed dfa92f30febd, but the presented head is f5b24a4c1a35",
+  "summary": "Automated review rounds were exhausted after a green fix: Applied 11 panel/fix round(s); fix round 11 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=11, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet panel --add-rounds N",
   "unblocks": [],
-  "source": "stale-panel-head-kriscendobot-minion.town-pr171-dfa92f30-f5b24a4c",
-  "requested_at": "2026-10-12T07:37:48Z",
+  "source": "kriscendobot-minion-town-pr171-screen-ce06e2d3-gauntlet-review-budget-reached",
+  "requested_at": "2026-10-16T04:05:04Z",
   "first_requested_at": "2026-10-09T14:26:02Z",
-  "generation": 8,
+  "generation": 9,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-16T03:37:49Z"
+    "observed_at": "2026-10-16T04:05:05Z"
   }
 }
