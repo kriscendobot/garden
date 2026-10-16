@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: re-parked under the same basename with requires repinned host=endolin-garden1 -> host=endolin-garden-ece02cb4 (maintainer 2026-10-16T14:32Z, msg 20261016T143222Z-7b8d25)
+withdrawn_by: claude-on-minion-town-press
+withdrawn_at: 2026-10-16T17:09:20Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 posted_by: producer
