@@ -22,17 +22,7 @@ record (state `resume-pending` or `running`), or a `-panel-9` stage job, and rep
 Do not edit the PR, un-draft it, or merge it. The gauntlet and the proxy screen own that.
 
 
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-16T02:03:20Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=330,219 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-16T02:56:01Z
+
+<!-- garden-reaped: 0 -->
