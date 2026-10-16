@@ -1,20 +1,17 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T19:13:32Z_
+_As of 2026-10-16T19:21:02Z_
 
 ## Latest
 
-Quiet window: no board transitions resolved since the last bulletin, so the changes come from the dashboard. The main one is on minion.town. [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged at 18:48Z and its deploy succeeded. The canary now adopts each guest from a durable `endo://` locator (`GET /account/guest-locator`) instead of an invitation. `minion-town-ocapn-canary-live-run` is repinned to `endolin-garden-ece02cb4` and stays parked until you say go ahead. Before you do, put the two guest locators in `~/.garden-state/ocapn-canary/guests.json`.
+Little moved on the board this cycle: no file-level transitions resolved, though the dashboard shows gauntlet work in flight. [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged (`51ad067684b`). Its deploy succeeded and the watchdog passed, so the proxy marks it validated. On the gauntlet side, [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) finished its clean stage and is queued for panel round 1. [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) is waiting on fix round 16. The endo-but-for-bots PRs [#1476](https://github.com/endojs/endo-but-for-bots/pull/1476), [#1477](https://github.com/endojs/endo-but-for-bots/pull/1477) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) are queued for clean. [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) is in panel round 1, and [#1479](https://github.com/endojs/endo-but-for-bots/pull/1479) is queued for pre-spend viability.
 
-Gauntlet work is queued for [endo-but-for-bots#1476](https://github.com/endojs/endo-but-for-bots/pull/1476), [#1477](https://github.com/endojs/endo-but-for-bots/pull/1477), [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1479](https://github.com/endojs/endo-but-for-bots/pull/1479). [Endo-but-for-bots#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) is in panel round 1. On minion.town, [#194](https://github.com/kriscendobot/minion.town/pull/194) is queued for panel round 1 and [#184](https://github.com/kriscendobot/minion.town/pull/184) for fix round 16.
-
-The six-stage parcel-stack restack orchestration finished with all three children done and none failed.
-
-The journal-contention storm on the leader cleared at 19:12Z. The oros-studio host still has three lock-contention notices (one giveup each, none steals), which look minor.
-
-Claude spend is at 129% of its quota estimate, while Codex is at 52%.
+Things to notice:
+- **Unclaimable job:** `endo-but-for-bots-ocapn-tcp-for-test-extraction-design-pr-open` has sat unclaimed for over 900s because it requires `host=endolin-garden-ece02cb4`. The watchdog says no live host currently meets that requirement.
+- **Journal contention:** The watchdog's journal-contention notice on `endolin-garden-ece02cb4` has now fired 9 times. The latest tick hit lock contention on 6 clones at once, which points to one shared cause rather than six separate faults. `oros-studio-garden-ce242c49` also logged single-giveup contention notices.
+- **Parked canary:** The gardener repinned `minion-town-ocapn-canary-live-run` to `endolin-garden-ece02cb4`. It stays parked until you say go ahead. Before you provision, note that since [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) the canary adopts guests from durable `endo://` locators, so `~/.garden-state/ocapn-canary/guests.json` needs the two guest locators.
+- **Quota:** Claude spend is at 129% of its quota estimate, while Codex is at 52%.
+- **Orchestration:** The parcel-stack restack orchestration finished with all 3 children complete and none failed.
 
 ## Maintainer review docket
 
@@ -23,18 +20,24 @@ Claude spend is at 129% of its quota estimate, while Codex is at 52%.
 
 Delegation: **active**
 
-- 2026-10-16T18:48:25Z [#193](https://github.com/kriscendobot/minion.town/pull/193) merged `51ad067684b`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/38950151588)
+- 2026-10-16T18:48:25Z [#193](https://github.com/kriscendobot/minion.town/pull/193) merged `51ad067684b`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/38950151588), watchdog ok — validated
 - 2026-10-16T18:18:39Z [#193](https://github.com/kriscendobot/minion.town/pull/193) `2b88eaacaf8` screened
 
 ## Messages to the maintainer
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-16T19:12:12Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-10-16T17:37:14Z, latest 2026-10-16T19:17:14Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.012504s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.013965s, giveups=2, steals=1 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.013768s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.012651s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: p95=0.013485s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.013819s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df` — from gardener:claude-on-minion-town-press-20261016-170509, reply_to `claude-on-minion-town-press-20261016-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df.md)
 
@@ -47,6 +50,10 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.221496s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-unclaimable-host-requirements-endo-but-for-bots-ocapn-tcp-for-test-extraction-design-pr-open` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-endo-but-for-bots-ocapn-tcp-for-test-extraction-design-pr-open.md)
+
+> Host-requirements gate: job 'endo-but-for-bots-ocapn-tcp-for-test-extraction-design-pr-open' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete.md)
 
@@ -71,13 +78,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 348.8M | $1646.40 _(notional, rate-card)_ | 129% of 271.0M (ok) |
+| Claude | 349.0M | $1647.27 _(notional, rate-card)_ | 129% of 271.0M (ok) |
 | Codex | 34.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 95521568 tokens/day lower bound._
+_Fleet token-unlock pace: 95563151 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
+worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
