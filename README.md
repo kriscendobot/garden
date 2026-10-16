@@ -1,33 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T14:20:42Z_
+_As of 2026-10-16T14:45:40Z_
 
 ## Latest
 
-Board activity since the last bulletin was light: one gauntlet stage turned over on [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/pull/193). Panel round 4 finished and fix round 4 is now queued. The minion.town arc press (`minion-town-arc-press-20261016-140509`) was claimed. [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) is in fix round 6.
+The minion.town gauntlets are the main story: [PR 178](https://github.com/kriscendobot/minion.town/pull/178), [PR 180](https://github.com/kriscendobot/minion.town/pull/180), [PR 184](https://github.com/kriscendobot/minion.town/pull/184), [PR 188](https://github.com/kriscendobot/minion.town/pull/188), [PR 190](https://github.com/kriscendobot/minion.town/pull/190) and [PR 192](https://github.com/kriscendobot/minion.town/pull/192) have all hit their review-budget ceilings (6 to 14 rounds, roughly $13 to $31 each). The panels keep returning new nit-class must-fix items, such as prose accuracy and identifier spelling, so they may never converge. The carry-eight supervisor asks you to pick a policy: (a) review and approve the PRs yourself, (b) change the panel decider so nits don't block merges, which it recommends, or (c) keep granting bounded rounds. A job to implement (b) is already on the board (`garden-panel-decider-nit-severity-20261016`). [PR 192](https://github.com/kriscendobot/minion.town/pull/192) finished its last fix round and its gauntlet closed. [PR 193](https://github.com/kriscendobot/minion.town/pull/193) is now in fix round 4. [PR 181](https://github.com/kriscendobot/minion.town/pull/181)'s fix-5 stage was parked after a non-productive failure.
 
-**Needs a maintainer decision**
-- The carry-eight supervisor says the minion.town panels may never converge. Four resumed verification panels ([#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190)) came back must-fix again, each time on nit-class items. Its recommended fix is to have the panel decider treat prose/JSDoc-accuracy and identifier-spelling findings as should-fix, not must-fix. The alternatives are a human approval or continued spend.
-- Five more minion.town gauntlets hit their review budgets: [#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#188](https://github.com/kriscendobot/minion.town/pull/188). Garden-book [kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) did too, with 20 new must-fix items in its last round. Each message includes the `--add-rounds` command to grant more.
-- [kriscendobot/minion.town#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix round 5 was parked by the reaper after a non-productive failure. The gauntlet owns its retries.
+Garden Book [PR 15](https://github.com/kriscendobot/garden-book/pull/15) also exhausted its 12 rounds, with 20 new must-fix items in the last round. A scope-cut and final-panel job is now running on it.
 
-**Stalled or halted orchestrations**
-- `orch-minion-town-oauth-bonds` halted because its build child declared its gated outcome unsatisfied.
-- `orch-jev-triage-foreman` halted because the Jev trial lacks a `TYPESAFE_API_KEY`, which only you can provision.
-- `review-docket-20261008` halted at 2 of 3 children: the consolidate step was doomed and is held in plan.
-- The Claude-on-minion.town press split halted after a handler timeout on the oros host.
-- The parcel-stack restack orchestration completed cleanly.
+Several orchestrations halted:
+- **Jev triage/foreman trial:** the trial needs `TYPESAFE_API_KEY`, which you must provision.
+- **`orch-minion-town-oauth-bonds`:** its build child finished with its gated outcome unsatisfied, so the orchestration halted.
+- **`review-docket-20261008`:** the consolidate child was doomed and is held in plan.
+- **Claude-on-minion.town press split:** its carry child stalled past its timeout on the Oros host.
 
-**Foreign-content blocks**
-- Roughly eight Literate AI sources are still blocked by the Jev gate, each at injection probability 0.25–0.34 (uncertain). They need an explicit read/ingest or keep-blocked disposition from you.
+Other items need your decision:
+- Two minion.town design jobs are parked or waiting on you: the iframe embed design is waiting for your approval before its headers and live-frame follow-ups can run, and the ocap.site crawler-leak rotation design was parked after its retry was exhausted.
+- The proxy needs the bot's GitHub credential restored, which only you can do.
+- Two new diagnostic jobs are queued: the Parcel stack's thixotrope-ironhorse timeouts and PR 356's base move.
 
-**Infrastructure**
-- The proxy is waiting on a restored bot GitHub credential, which only you can grant.
-- Watchdog notices show journal lock contention on the leader. One storm notice has now fired 10 times, and the contention notices are mostly single give-ups at about 13 ms p95.
-- The Codex pool was stepped down to 1 worker.
-- Claude spend is at 123% of its backoff quota.
+The journal-contention storm cleared. Cleric workers throttled from 4 to 1 on the codex budget, and several follow-up-gate notices need disposition.
 
 ## Maintainer review docket
 
@@ -40,38 +32,13 @@ Delegation: **active**
 
 ## Messages to the maintainer
 
-- `msg-scholar-ingest-literate-ai-architecture-next-20261010-12ee24e1dba4` — from scholar:scholar-ingest-literate-ai-architecture-next-20261010, reply_to `scholar-ingest-literate-ai-architecture-next-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-next-20261010-12ee24e1dba4.md)
-
-> Foreign-content gate halted a Literate AI source; I did not read or ingest it.
->
-> - Source: https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/beam-live-coding-layer-investigation.md (file commit fcc40bc6)
-> - Jev jev-1.13.0: policy=halt_and_escalate, injection=0.29 (uncertain), slant=advocacy (0.32), usage 8,932 / 73 tokens.
-> - Fetched bytes: /home/kris/garden/scratch/tmpexec/fetch-source.dyo9tN (sha256 a72e60db…fadb7; scratch, may be GC'd)
->
-> It joins authority-learning-loop.md and project-releases.md on the blocked list. Reply with an explicit disposition (read/ingest or keep blocked) if you want it ingested; otherwise the ingest skips it.
-
-- `msg-scholar-ingest-literate-ai-remainder-17-20261011-d7ab9843a4f4` — from scholar:scholar-ingest-literate-ai-remainder-17-20261011, reply_to `scholar-ingest-literate-ai-remainder-17-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-17-20261011-d7ab9843a4f4.md)
-
-> Foreign-content gate halt for `jordanhubbard/literate-ai` `docs/decisions/0041-production-containment-runners.md` at file commit `fcc40bc617a2bc2455627db7396a1e016ebfbab6`.
->
-> Jev 1.13.0 returned `halt_and_escalate`: injection 0.30 (`uncertain`), slant `neutral` at confidence 0.35, usage 2,591 input and 71 output tokens. Fetched bytes are `/tmp/scholar-ingest-literate-ai-remainder-17-20261011/0041-production-containment-runners.md` on `endolin-garden-ece02cb4`, SHA-256 `671ac8edb4f316712cf68a629dec667220155036445e60e26d3777cff5181fd0`.
->
-> I did not read or ingest the file. It will remain blocked unless you explicitly authorize reading and ingestion.
-
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-10-16T06:01:40Z, latest 2026-10-16T12:01:50Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T06:01:40Z, cleared 2026-10-16T14:42:27Z).
+> It was observed 11 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.012905s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.012694s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=0.012821s, giveups=7, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.013070s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.014512s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.012844s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014110s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -87,11 +54,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.013866s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `msg-scholar-ingest-literate-ai-remainder-20261010-aa71d0ac0098` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-aa71d0ac0098.md)
-
-> The second Literate AI cycle added 15 sections from four architecture sources: repository layout, durable user-directed work, source promotion, and the production containment threat model. The resulting comparison material sharpens the garden's parallels around durable work authority, source-versus-specification promotion, per-phase containment, and authenticated evidence without treating local policy checks as execution authority. `project-releases.md` was not read because the foreign-content gate halted it at injection uncertainty 0.34; I sent the classifier manifest separately and queued it only after maintainer clearance. Full result: `entries/2026/10/10/165034Z-result-scholar-dfd445.md`.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` has CLEARED (first seen 2026-10-16T08:51:49Z, cleared 2026-10-16T14:40:36Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
 
 - `kriscendobot-minion.town-pr184-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr184-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr184-gauntlet-review-budget-reached.md)
 
@@ -124,22 +91,6 @@ Delegation: **active**
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.012844s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `msg-scholar-ingest-literate-ai-remainder-7-20261010-6ad6331200c6` — from scholar:scholar-ingest-literate-ai-remainder-7-20261010, reply_to `scholar-ingest-literate-ai-remainder-7-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-7-20261010-6ad6331200c6.md)
-
-> Literate AI ingest: the foreign-content gate halted two more sources, so I did not read or ingest either. Please reply `proceed`, `proceed-with-caveat`, or `skip` for each (reply to this job's inbox or post a fresh disposition).
->
-> 1. `docs/architecture/skills.md` @ `08ff70273a5462cf4d205b730f445a296cb3f067`
->    https://raw.githubusercontent.com/jordanhubbard/literate-ai/08ff70273a5462cf4d205b730f445a296cb3f067/docs/architecture/skills.md
->    Jev jev-1.13.0: `halt_and_escalate`, injection 0.32 (uncertain), slant neutral 1.0. 24,123 bytes, sha256 59af4642.
->    Fetched bytes: /home/kris/garden/scratch/scholar-ingest-literate-ai-remainder-7-20261010-esc/fetch-source.GxmBTn
->
-> 2. `docs/architecture/superpowers-skills-assessment.md` @ `fcc40bc617a2bc2455627db7396a1e016ebfbab6`
->    https://raw.githubusercontent.com/jordanhubbard/literate-ai/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/superpowers-skills-assessment.md
->    Jev: `halt_and_escalate`, injection 0.31 (uncertain), slant advocacy 0.61. 7,928 bytes, sha256 babe8d75.
->    Fetched bytes: /home/kris/garden/scratch/scholar-ingest-literate-ai-remainder-7-20261010-esc/fetch-source.JDq8zX
->
-> Both are likely false positives (docs about agent skills/prompts tend to read as instruction-shaped), but the gate says escalate. These join the four still-blocked files (repository-source-dependencies, project-releases, authority-learning-loop, beam-live-coding-layer-investigation). The cycle continues with worker-storage-protocol (Jev proceed).
-
 - `kriscendobot-minion.town-pr180-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr180-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr180-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr180-gauntlet REVIEW-BUDGET-REACHED: Applied 14 panel/fix round(s); fix round 14 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=14, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds N
@@ -148,16 +99,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 14 -> 16 (N is yours to choose).
-
-- `msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3` — from scholar:scholar-ingest-literate-ai-remainder-20261010, reply_to `scholar-ingest-literate-ai-remainder-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-20261010-0337ecf511b3.md)
-
-> Foreign-content gate halted ingestion of `docs/architecture/project-releases.md` from https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/project-releases.md.
->
-> Classifier manifest: `classify_status=classified`, `classify_policy=halt_and_escalate`, `classify_injection=0.34`, `classify_injection_verdict=uncertain`, `classify_slant=neutral`, `classify_slant_confidence=1.0`, `classify_caveat=prompt-injection equipoise (p=0.34); uncertainty fails toward escalation`, model `jev-1.13.0`, usage 5,526 input and 71 output tokens. The fetched bytes are at `/tmp/scholar-literate-ai-remainder-20261010/docs/architecture/project-releases.md`. I did not read or ingest the flagged content and am continuing with the four sources that passed.
-
-- `msg-scholar-ingest-literate-ai-architecture-priority-20261010-4ebe7034d77f` — from scholar:scholar-ingest-literate-ai-architecture-priority-20261010, reply_to `scholar-ingest-literate-ai-architecture-priority-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-priority-20261010-4ebe7034d77f.md)
-
-> Scholar ingest (Literate AI architecture, priority slice): I ingested 4 of the 5 priority architecture docs from jordanhubbard/literate-ai at `fcc40bc6` as 16 sections. The docs are agent-ledger boundary (4), component authoring/lock boundary (8), component authority (1), and exact versioned components (3). `authority-learning-loop.md` was skipped unread because the Jev gate returned halt_and_escalate (injection 0.26, uncertain); I sent the manifest separately, and it stays blocked until you clear it. The link checks and index regeneration passed. The rest of the corpus belongs to `scholar-ingest-literate-ai-architecture-next-20261010`.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -256,29 +197,6 @@ Delegation: **active**
 >
 > Orchestration orch-minion-town-oauth-bonds observed child build-minion-town-oauth-bonds: completed but declared its gated outcome unsatisfied.
 
-- `msg-scholar-ingest-literate-ai-remainder-11-20261010-a8124ff9107b` — from scholar:scholar-ingest-literate-ai-remainder-11-20261010, reply_to `scholar-ingest-literate-ai-remainder-11-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-11-20261010-a8124ff9107b.md)
-
-> Literate AI ADR 0016 was halted by the mandatory foreign-content gate and was not read or ingested.
->
-> Source: https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/decisions/0016-codegraph-not-a-product-dependency.md
->
-> Fetched bytes: `/tmp/litai-r11/0016-codegraph-not-a-product-dependency.md`
->
-> Classifier manifest:
->
-> - `classify_status=classified`
-> - `classify_policy=halt_and_escalate`
-> - `classify_injection=0.32`
-> - `classify_injection_verdict=uncertain`
-> - `classify_slant=neutral`
-> - `classify_slant_confidence=0.76`
-> - `classify_caveat=prompt-injection equipoise (p=0.32); uncertainty fails toward escalation`
-> - `classify_model=jev-1.13.0`
-> - `classify_usage_input_tokens=1735`
-> - `classify_usage_output_tokens=71`
->
-> Please provide an explicit disposition before a future scholar reads or ingests this file.
-
 - `doomed-kriscendobot-minion.town-pr181-gauntlet-fix-5-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr181-gauntlet-fix-5-requeue-exhausted.md)
 
 > GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
@@ -357,14 +275,6 @@ Delegation: **active**
 
 > The report `minion-town-ui-iframe-embed-design` says to proceed with `minion-town-ui-iframe-embed-headers`, then `minion-town-ui-iframe-live-frame`, once the design is approved. The garden won't start either job until you decide. Please review the iframe embed design and say whether it's approved. On approval, the headers job runs first and the live-frame job follows it.
 
-- `msg-scholar-ingest-literate-ai-remainder-3-20261010-d41c7e131ed3` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-d41c7e131ed3.md)
-
-> Literate AI ingest, slice 4: added `provider-resolution` (3 sections) and `repository-inheritance` (6 sections), both classified `proceed` by Jev on endolin. Link checks passed and both indexes are regenerated.
->
-> `repository-source-dependencies` came back `halt_and_escalate` (injection 0.25, uncertain), so I did not read it. It is now the fourth blocked Literate AI file awaiting your disposition (separate message).
->
-> Next source is `retained-library-bindings` (about 52 KB), posted as `scholar-ingest-literate-ai-remainder-4-20261010`. Result: entries/2026/10/10/222041Z-result-scholar-f3560a.md.
-
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
 > RECOVERED — the watchdog condition `comment-ack-blind-kriscendobot-minion.town` has CLEARED (first seen 2026-10-15T20:22:18Z, cleared 2026-10-16T01:52:37Z).
@@ -376,10 +286,6 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014110s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `msg-scholar-ingest-literate-ai-architecture-next-20261010-46351dffa0e5` — from scholar:scholar-ingest-literate-ai-architecture-next-20261010, reply_to `scholar-ingest-literate-ai-architecture-next-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-next-20261010-46351dffa0e5.md)
-
-> Literate AI ingest, next architecture slice: 4 sources ingested as 18 sections: component-flavors (6), documentation-artifacts (3), framework-premise-assessment (4, with a caveat for persuasive framing; it is the project's own 6.5/10 self-assessment) and html-observability (5). The foreign-content gate halted beam-live-coding-layer-investigation.md (injection 0.29), so I did not read it; it is blocked pending your disposition, with a separate escalation sent. The next unprocessed source is docs/architecture/mission-specification-composition.md. The details are in this job's result entry.
 
 - `kriscendobot-minion.town-pr190-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr190-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr190-gauntlet-review-budget-reached.md)
 
@@ -485,16 +391,6 @@ Delegation: **active**
 >
 > Comment acknowledgment condition cleared.
 
-- `msg-scholar-ingest-literate-ai-architecture-priority-20261010-f0105bede3c8` — from scholar:scholar-ingest-literate-ai-architecture-priority-20261010, reply_to `scholar-ingest-literate-ai-architecture-priority-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-architecture-priority-20261010-f0105bede3c8.md)
-
-> Foreign-content gate halt: `jordanhubbard/literate-ai` `docs/architecture/authority-learning-loop.md` (file commit `fcc40bc617a2bc2455627db7396a1e016ebfbab6`, https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/authority-learning-loop.md).
->
-> Jev manifest: classify_policy=halt_and_escalate, classify_injection=0.26 (uncertain), classify_slant=neutral (0.96), model jev-1.13.0, usage 1,946 in / 71 out. Caveat: "prompt-injection equipoise (p=0.26); uncertainty fails toward escalation".
->
-> Fetched bytes (unread by the scholar): /tmp/la-IHia/authority-learning-loop.md on endolin-garden-ece02cb4 (ephemeral; re-fetch at the commit above).
->
-> I skipped this source without reading it. It stays blocked, like `project-releases.md`, until you give an explicit disposition that permits reading it. The other four priority architecture sources passed the gate and are being ingested.
-
 - `endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -520,17 +416,14 @@ Delegation: **active**
 
 > Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: p95=20.028983s max=20.028983s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
-- `msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec` — from gardener:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec.md)
+- `kriscendobot-minion.town-pr192-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr192-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr192-gauntlet-review-budget-reached.md)
 
-> Foreign-content gate halted another Literate AI source; I did not read or ingest it and need an explicit disposition.
+> Gauntlet kriscendobot-minion.town-pr192-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr192-gauntlet panel --add-rounds N
 >
-> - Source: https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/decisions/0014-zig-language-and-c-cpp-cross-compilation.md
-> - File commit: `fcc40bc617a2bc2455627db7396a1e016ebfbab6`
-> - Jev `jev-1.13.0`: `halt_and_escalate`; injection 0.29 (`uncertain`); slant `advocacy`, confidence 0.25; usage 4,791 input / 73 output tokens.
-> - Caveat: prompt-injection equipoise; uncertainty fails toward escalation; openly argued advocacy would require explicit attribution if released.
-> - Fetched bytes: `/tmp/literate-ai-r12.35xz9Q/0014/source.md` (18,563 bytes; sha256 `07f6153b9cefb5f8544451c2897c27b4777427bb4a1f704f77d311ab57221633`).
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $16.48
 >
-> Reply with an explicit disposition to ingest or keep blocked. This cycle is continuing with ADR 0015, skipping already-blocked ADR 0016, then ADRs 0017 and 0018.
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr192-gauntlet panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `doomed-design-minion-town-ocap-site-crawler-leak-rotation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-design-minion-town-ocap-site-crawler-leak-rotation-requeue-exhausted.md)
 
@@ -648,17 +541,6 @@ Delegation: **active**
 >
 > Orchestration claude-on-minion-town-press-20261013-072006-split HALTED: child claude-on-minion-town-press-carry-20261013 stalled in flight for 2474s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: claude-on-minion-town-press-unblocks-20261013
 
-- `msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0` — from scholar:scholar-ingest-literate-ai-remainder-3-20261010, reply_to `scholar-ingest-literate-ai-remainder-3-20261010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-3-20261010-12137af2a6c0.md)
-
-> Scholar foreign-content gate: halt_and_escalate on a Literate AI source. Not ingested; disposition needed.
->
-> - Source: https://github.com/jordanhubbard/literate-ai/blob/fcc40bc617a2bc2455627db7396a1e016ebfbab6/docs/architecture/repository-source-dependencies.md (file commit fcc40bc6, main)
-> - Job: scholar-ingest-literate-ai-remainder-3-20261010 (host endolin-garden-ece02cb4)
-> - Manifest: classify_status=classified, classify_policy=halt_and_escalate, classify_injection=0.25 (verdict uncertain), classify_slant=neutral (0.89), caveat "prompt-injection equipoise (p=0.25); uncertainty fails toward escalation", model jev-1.13.0, usage 2303 in / 71 out.
-> - Fetched bytes: 7435 B, sha256 563b035fa4577787503d628d8b45b53f086897aa19bf97fee12a6f683380edc4 (local copy /tmp/la3/repository-source-dependencies.md on endolin, ephemeral; refetchable at the pinned commit URL above).
->
-> I did not read the content. It joins the other blocked Literate AI files (project-releases, authority-learning-loop, beam-live-coding-layer-investigation). Reply "ingest repository-source-dependencies" (or "skip") to the remainder job's inbox, or to this one, to set its disposition.
-
 - `20261011T192238Z-34070d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261011T192238Z-34070d.md)
 
 > awaiting maintainer — beyond proxy authority: gardener fix-minion-town-prod-probe-runs-on-validation, msgid msg-fix-minion-town-prod-probe-runs-on-validation-19c0b6fde070.md — Restoring or re-issuing the bot's GitHub credential is an authority and credential grant that only the maintainer can perform, and the proxy can't fix it.
@@ -693,35 +575,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 334.1M | $1580.48 _(notional, rate-card)_ | 123% of 271.0M (backoff) |
+| Claude | 335.2M | $1586.10 _(notional, rate-card)_ | 124% of 271.0M (backoff) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 88743180 tokens/day lower bound._
+_Fleet token-unlock pace: 88779436 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.548980s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 12 open notice(s); checker healthy
+worst fetch p95 6.298883s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (7)
-- [`oros-health-checkup-20261016-140509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261016-140509.md) — ---
+### todo (6)
 - [`oros-health-watch-20261016-140509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261016-140509.md) — ---
-- [`kriscendobot-minion.town-pr193-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr193-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #193
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2-pr-edit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2-pr-edit.md) — Move PR #356's base to llm-863a995 and replace its body (mechanical)
-- [`claude-on-minion-town-press-20261016-140509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261016-140509.md) — Press the Claude-on-minion.town arc forward
+- [`garden-panel-decider-nit-severity-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-panel-decider-nit-severity-20261016.md) — Panel decider: stop nit-class findings from blocking merges (maintainer-autho...
 - [`oros-health-watch-20261016-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261016-110509.md) — ---
+- [`endo-parcel-base-thixotrope-timeout-diagnose-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-parcel-base-thixotrope-timeout-diagnose-20261016.md) — Diagnose and fix test-thixotrope-ironhorse timeouts on the Parcel stack's fro...
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review.md) — Post the round-2 panel verdict on endojs/endo-but-for-bots PR #356 (REQUEST_C...
 
 ### doin (2)
-- [`minion-town-arc-press-20261016-140509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261016-140509.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`kriscendobot-minion.town-pr192-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr192-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #192
+- [`kriscendobot-minion.town-pr193-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr193-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #193
+- [`garden-book-pr15-cut-scope-final-panel-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-pr15-cut-scope-final-panel-20261016.md) — Garden Book PR #15: cut tooling scope, fix real bugs, one final panel (mainta...
 
-### tada (13270)
-- [`kriscendobot-minion.town-pr193-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-panel-4.md) — Cost
-- [`kriscendobot-minion.town-pr192-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr192-gauntlet-panel-6.md) — Cost
-- [`minion-town-pr188-focus-gutter-fix-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/minion-town-pr188-focus-gutter-fix-20261016.md) — Completion report
-- [`self-heal-fix-garden-watchman-root-repo-lock-timeout-fatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/self-heal-fix-garden-watchman-root-repo-lock-timeout-fatal.md) — Cost
-- [`kriscendobot-minion.town-pr193-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-fix-3.md) — Cost
-- … and 13265 more
+### tada (13275)
+- [`claude-on-minion-town-press-20261016-140509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/claude-on-minion-town-press-20261016-140509.md) — Cost
+- [`oros-health-checkup-20261016-140509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/oros-health-checkup-20261016-140509.md) — Cost
+- [`kriscendobot-minion.town-pr192-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr192-gauntlet-fix-6.md) — Cost
+- [`kriscendobot-minion.town-pr192-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr192-gauntlet.md) — gauntlet kriscendobot-minion.town-pr192-gauntlet — review budget reached
+- [`minion-town-arc-press-20261016-140509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/minion-town-arc-press-20261016-140509.md) — Cost
+- … and 13270 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
