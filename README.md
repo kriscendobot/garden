@@ -1,31 +1,29 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T16:45:18Z_
+_As of 2026-10-16T17:11:18Z_
 
 ## Latest
 
-Only one job moved this cycle. The [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) gauntlet (OCapN canary) finished fix round 6 with CI green and then terminated at its 6-round review budget. It is left for a human decision, and the maintainer inbox has a message offering `--add-rounds 2`. The board has two todo jobs, both for the [endo-but-for-bots#356](https://github.com/endojs/endo-but-for-bots/pull/356) gauntlet: re-basing the PR and posting the round-2 verdict.
+Several minion.town PRs hit their review-round caps, and the supervisor is asking you to settle a policy question. [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193) all ended "review budget reached", having spent $13–31 each. [#184](https://github.com/kriscendobot/minion.town/pull/184) is in a fix round, and the [#181](https://github.com/kriscendobot/minion.town/pull/181) fix-5 stage was parked after its first failure. The supervisor's report argues that the remaining must-fix items are nit-class, such as prose accuracy and renaming `fetchImpl`. It says the proxy screen won't merge without a passing panel, so these may never land. It recommends (b), a decider change that treats those findings as should-fix. Choose (a), (b) or (c) in that message. [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) also hit its cap, with 20 must-fix items still open.
 
-**Needs a decision:**
-- **Gauntlet panels are not converging.** Review-budget-reached notices are open for minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193), plus [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15). Each has spent $13–31 over 6–14 rounds, and #188 and garden-book#15 report 20 new must-fix items in their last round.
-- **The carry-eight supervisor says the panels may never pass.** It reports that the 34 bias-to-fire seats keep raising nit-class must-fix items. It asks which of three options you want and recommends narrowing the panel decider so prose, JSDoc and identifier-spelling findings count as should-fix. Its other options are that you approve the PRs by hand, or that the garden keeps granting rounds and accepts the spend.
-- **Held and halted work:**
-  - [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix round 5 is parked in plan.
-  - The `orch-minion-town-oauth-bonds` orchestration halted when its build child declared its gated outcome unsatisfied.
-  - The `review-docket-20261008` orchestration halted because its consolidate child was doomed.
-  - The `claude-on-minion-town-press` split halted on a handler timeout.
-  - The Jev triage/foreman trial is blocked until you provision `TYPESAFE_API_KEY`.
-- **Design approvals.** The iframe embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) is waiting on your approval before the headers and live-frame jobs can start. [Endo#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) is blocking milestone M2 until you choose whether to close it or split out its test coverage.
+Several orchestrations halted and need disposition:
+- `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` each halted when a child declared its gated outcome unsatisfied. The Jev trial is blocked because `TYPESAFE_API_KEY` is missing, and only you can provision it.
+- `review-docket-20261008` halted because `review-docket-consolidate-20261008` was doomed and parked in plan.
+- The claude-on-minion-town press split halted after its carry child stalled past its handler timeout.
+- The parcel-stack restack orchestration completed cleanly.
 
-**Quota:** Claude spend is at 125% of its backoff quota, and the cleric pool has stepped down to 1 worker as codex demand fell.
+Maintainer questions waiting on you:
+- Whether the [iframe embed design](https://github.com/kriscendobot/minion.town/pull/189) is approved, including open question #4 on static-only content. The headers and live-frame jobs wait on that.
+- The crawler-leak design, which was parked after a retry also failed.
+- Several follow-up notices that name no successor job.
 
-**Journal lock contention:** it is mostly noise. Several watchdog notices recovered, including the lock-contention storm on the leader host.
+Completions since the last bulletin: the iframe-embed design revision, a rolling-deploy canary probe (round trip OK), and the panel-2 and fix-2 stages for [endo-but-for-bots#356](https://github.com/endojs/endo-but-for-bots/pull/356). Two new endo-but-for-bots builds are queued: ocapn network-transport separation and daemon agent network identity. The OCapN canary live-run job was withdrawn from plan.
+
+Claude spend is at 126% of the 271.0M quota. The zone is "ok" and cleric workers have scaled down to 1. Journal lock-contention notices are mostly transient and already cleared.
 
 ## Maintainer review docket
 
-143 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+144 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -33,6 +31,10 @@ Delegation: **active**
 (no screening activity in the last 24 h)
 
 ## Messages to the maintainer
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.012498s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
@@ -61,6 +63,10 @@ Delegation: **active**
 - `msg-trial-jev-triage-foreman-classification-af360d7b85fb` — from gardener:trial-jev-triage-foreman-classification, reply_to `trial-jev-triage-foreman-classification` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-trial-jev-triage-foreman-classification-af360d7b85fb.md)
 
 > The Jev triage/foreman trial is blocked because TYPESAFE_API_KEY is absent from the job environment. Please provision the maintainer-owned key for a re-run; per the trial specification I have not searched for or configured a credential.
+
+- `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
+
+> subscription claude-endolin1 changed zone backoff -> ok at spend=341135840/271000000.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
@@ -116,7 +122,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal.md)
 
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.012694s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` has CLEARED (first seen 2026-10-16T11:57:03Z, cleared 2026-10-16T16:47:23Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` cleared on endolin-garden-ece02cb4.
 
 - `orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed` — from orchestrator:orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-jev-triage-foreman-child-trial-jev-triage-foreman-classification-failed.md)
 
@@ -271,6 +281,14 @@ Delegation: **active**
 >   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
 >   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 >   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
+
+- `followup-gate-minion-town-ui-iframe-embed-design-rev-ocap-site-20261016` — from followup-gate:minion-town-ui-iframe-embed-design-rev-ocap-site-20261016, reply_to `minion-town-ui-iframe-embed-design-rev-ocap-site-20261016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-minion-town-ui-iframe-embed-design-rev-ocap-site-20261016.md)
+
+> Job "minion-town-ui-iframe-embed-design-rev-ocap-site-20261016" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
+>
+> ## Follow-ups
+> - The maintainer needs to confirm the static-only assumption (open question #4).
+> - As instructed, I did not start the header or live-frame implementation jobs; the liaison posts those once this revision lands.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
@@ -452,6 +470,10 @@ Delegation: **active**
 > - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
 > - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reaper_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: p95=0.013485s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `watchdog-journal-fetch-slow-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden_journal.md)
 
 > Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: p95=20.028983s max=20.028983s; hard guard=31.500000s (70% of 45s cap); remedy=none.
@@ -581,6 +603,10 @@ Delegation: **active**
 >
 > Orchestration claude-on-minion-town-press-20261013-072006-split HALTED: child claude-on-minion-town-press-carry-20261013 stalled in flight for 2474s on host oros-studio-garden-ce242c49 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: claude-on-minion-town-press-unblocks-20261013
 
+- `liaison-followup-c88b9c6205e9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-c88b9c6205e9.md)
+
+> Report minion-town-ui-iframe-embed-design-rev-ocap-site-20261016 (the iframe-embed design revision for minion.town UI): the design needs your answer on open question #4, whether the embed can assume static-only content. The designer deliberately did not start the header or live-frame implementation jobs. Once you confirm or correct the static-only assumption, the liaison can post those jobs after the revision lands.
+
 - `20261011T192238Z-34070d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261011T192238Z-34070d.md)
 
 > awaiting maintainer — beyond proxy authority: gardener fix-minion-town-prod-probe-runs-on-validation, msgid msg-fix-minion-town-prod-probe-runs-on-validation-19c0b6fde070.md — Restoring or re-issuing the bot's GitHub credential is an authority and credential grant that only the maintainer can perform, and the proxy can't fix it.
@@ -619,29 +645,32 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 339.9M | $1604.46 _(notional, rate-card)_ | 125% of 271.0M (backoff) |
+| Claude | 341.7M | $1612.76 _(notional, rate-card)_ | 126% of 271.0M (ok) |
 | Codex | 34.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 88848088 tokens/day lower bound._
+_Fleet token-unlock pace: 95949884 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 8 open notice(s); checker healthy
+worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2-pr-edit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2-pr-edit.md) — Move PR #356's base to llm-863a995 and replace its body (mechanical)
-- [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review.md) — Post the round-2 panel verdict on endojs/endo-but-for-bots PR #356 (REQUEST_C...
+### todo (3)
+- [`oros-health-checkup-20261016-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261016-170509.md) — ---
+- [`endo-but-for-bots-ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-network-transport-separation-build.md) — ---
+- [`endo-but-for-bots-daemon-agent-network-identity-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-daemon-agent-network-identity-build.md) — ---
 
-### doin (0)
-(none)
+### doin (3)
+- [`claude-on-minion-town-press-20261016-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261016-170509.md) — Press the Claude-on-minion.town arc forward
+- [`oros-health-watch-20261016-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261016-170509.md) — ---
+- [`minion-town-arc-press-20261016-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261016-170509.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (13292)
+### tada (13296)
+- [`minion-town-ui-iframe-embed-design-rev-ocap-site-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/minion-town-ui-iframe-embed-design-rev-ocap-site-20261016.md) — Follow-ups
+- [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2-pr-edit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2-pr-edit.md) — Panel-head freshness
+- [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review.md) — Panel-head freshness
+- [`canary-probe-oros-studio-garden-ce242c49-b8abbe644129`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/canary-probe-oros-studio-garden-ce242c49-b8abbe644129.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr193-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet.md) — gauntlet kriscendobot-minion.town-pr193-gauntlet — review budget reached
-- [`kriscendobot-minion.town-pr193-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-fix-6.md) — Gauntlet fix round 6: kriscendobot/minion.town PR #193
-- [`endojs-endo-but-for-bots-pr1348-confined-command-grammar-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endojs-endo-but-for-bots-pr1348-confined-command-grammar-fix.md) — Cost
-- [`claude-on-minion-town-completion-press-20261016-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/claude-on-minion-town-completion-press-20261016-162012.md) — Cost
-- [`improve-review-docket-rollup-permission-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/improve-review-docket-rollup-permission-fallback.md) — Cost
-- … and 13287 more
+- … and 13291 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
