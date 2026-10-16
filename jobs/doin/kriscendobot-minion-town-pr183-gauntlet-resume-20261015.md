@@ -20,6 +20,7 @@ already exists on journal2 (already resumed or running). Confirm that journal2 t
 record (state `resume-pending` or `running`), or a `-panel-9` stage job, and report which.
 Do not edit the PR, un-draft it, or merge it. The gauntlet and the proxy screen own that.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=330 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
