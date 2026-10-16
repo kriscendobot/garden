@@ -38,6 +38,8 @@ Remaining:
    note above, and test status. The PR body's "stacked on ... b0778fa" line is stale.
    Update it to `build/sturdyref-captp-construct-609821f`.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
