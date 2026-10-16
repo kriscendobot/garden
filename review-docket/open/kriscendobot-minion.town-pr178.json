@@ -3,7 +3,7 @@
   "repo": "kriscendobot/minion.town",
   "pr": 178,
   "url": "https://github.com/kriscendobot/minion.town/pull/178",
-  "head_oid": "c46036e768df029f3c553c8dd0071de888ac8d69",
+  "head_oid": "d1e89c9c56f72feefd1c568c2a3b09e4c12f4885",
   "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
@@ -14,7 +14,7 @@
   "first_requested_at": "2026-10-11T17:50:03Z",
   "generation": 1,
   "ci": {
-    "state": "green",
-    "observed_at": "2026-10-16T10:32:54Z"
+    "state": "pending",
+    "observed_at": "2026-10-16T10:57:37Z"
   }
 }
