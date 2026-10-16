@@ -1,9 +1,0 @@
-host: oros-studio-garden-ce242c49
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-10-16T00:14:55Z
-worktree_dir: /Users/dom/garden/scratch/gardener-wt-kriscendobot-minion-town-node-install-root-ownership
-pr_number: 192
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/192
-pr_head: fix/node-install-root-ownership
