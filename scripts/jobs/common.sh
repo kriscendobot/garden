@@ -6310,6 +6310,26 @@ _gh_api_stderr_is_transient() {
   grep -qiE "$GARDEN_TRANSIENT_GH_API_SIGNATURES" <<<"$1"
 }
 
+# The fleet gh wrapper (scripts/jobs/bin/gh) bounds every real-gh call with
+# `timeout`, which exits 124 on expiry (137 when --kill-after had to SIGKILL). gh
+# itself never uses those codes, and the expiry leaves no stderr, so the stderr
+# classifier above cannot see it. A timeout says nothing about the repo or the
+# request, so the retry helpers below treat it as TRANSIENT: retry ONCE under
+# backoff (each attempt can cost a full wrapper bound, so a deeper ladder would
+# eat the caller's own tick budget), then fail with a WARN carrying the stable
+# GARDEN_GH_CALL_TIMEOUT_MARKER so a caller can tell "timed out" from
+# "definitively refused" without re-deriving the rc.
+GARDEN_GH_CALL_TIMEOUT_MARKER="gh-call-timeout"
+_gh_rc_is_timeout() {
+  [ "${1:-}" = 124 ] || [ "${1:-}" = 137 ]
+}
+# is_gh_call_timeout_text <text> — true when <text> carries the retry helpers'
+# give-up-after-timeout WARN.
+is_gh_call_timeout_text() {
+  case "${1:-}" in *"($GARDEN_GH_CALL_TIMEOUT_MARKER,"*) return 0 ;; esac
+  return 1
+}
+
 # --- gh-api single-flight admission ------------------------------------------
 # Every watcher tick calls api_cooldown_active before its API work, but that check
 # and the later start_api_cooldown are two separate critical sections: when the
@@ -6389,7 +6409,7 @@ _gh_api_admit() {
 # rc with empty stdout on a definitive error (no retry) or after the transient
 # retries are exhausted. See the block comment above for the full contract.
 gh_api_retry() {
-  local attempt=1 out rc errf stderr label gh_bin a need=rest latch=all admit=0 lockfd pq emit=1 marker
+  local attempt=1 out rc errf stderr label gh_bin a need=rest latch=all admit=0 lockfd pq emit=1 marker timeout_retried=0
   # The gh binary is "${GARDEN_GH:-gh}" — the same test seam gh_pr_view_retry and
   # ci-wait-merge.sh use to inject a stub, so a handler's GraphQL/REST read can be
   # exercised hermetically (e.g. mirror-closer-test.sh's large-PR 422 case) without
@@ -6465,6 +6485,18 @@ gh_api_retry() {
       rm -f "$errf"
       return "$rc"
     fi
+    if _gh_rc_is_timeout "$rc"; then
+      if [ "$timeout_retried" -eq 0 ]; then
+        timeout_retried=1
+        log "gh api $label timed out (rc=$rc); retrying once after backoff"
+        backoff "$attempt"
+        attempt=$((attempt+1))
+        continue
+      fi
+      log "WARN: gh api $label timed out again ($GARDEN_GH_CALL_TIMEOUT_MARKER, rc=$rc); giving up on this call (transient, not definitive)"
+      rm -f "$errf"
+      return "$rc"
+    fi
     # Definitive failure (no transient signature): do NOT retry — fail now so the
     # caller dies fast and loud, preserving "never guess a state".
     if ! _gh_api_stderr_is_transient "$stderr"; then
@@ -6494,7 +6526,7 @@ gh_api_retry() {
 # through its automatic retry.
 gh_read_retry() {
   local need="$1" label="$2"; shift 2
-  local attempt=1 out rc errf stderr gh_bin admit=0 lockfd latch marker pq emit=1
+  local attempt=1 out rc errf stderr gh_bin admit=0 lockfd latch marker pq emit=1 timeout_retried=0
   case "$need" in
     rest) latch=all ;;
     graphql) latch=graphql ;;
@@ -6543,6 +6575,18 @@ gh_read_retry() {
       fi
       rm -f "$errf"
       return "${GARDEN_TRANSIENT_RC:-75}"
+    fi
+    if _gh_rc_is_timeout "$rc"; then
+      if [ "$timeout_retried" -eq 0 ]; then
+        timeout_retried=1
+        log "gh read $label timed out (rc=$rc); retrying once after backoff"
+        backoff "$attempt"
+        attempt=$((attempt+1))
+        continue
+      fi
+      log "WARN: gh read $label timed out again ($GARDEN_GH_CALL_TIMEOUT_MARKER, rc=$rc); giving up on this call (transient, not definitive)"
+      rm -f "$errf"
+      return "$rc"
     fi
     if ! _gh_api_stderr_is_transient "$stderr"; then
       log "WARN: gh read $label failed (definitive, rc=$rc); not retrying: ${stderr:-<no stderr>}"
@@ -6646,7 +6690,7 @@ classify_fetch_failure() {
 # "${GARDEN_GH:-gh}" (the same test seam
 # ci-wait-merge.sh uses to inject a stub).
 gh_pr_view_retry() {
-  local attempt=1 out rc errf stderr label gh_bin a
+  local attempt=1 out rc errf stderr label gh_bin a timeout_retried=0
   gh_bin="${GARDEN_GH:-gh}"
   # Label the logs with the first positional (the PR number/URL), skipping flags.
   label="gh pr view"
@@ -6663,6 +6707,18 @@ gh_pr_view_retry() {
     # As above, a primary hourly quota refusal is not a useful retry candidate.
     if is_gh_primary_rate_limit_text "$stderr"; then
       log "WARN: $label RATE LIMITED by GitHub primary quota (rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
+    if _gh_rc_is_timeout "$rc"; then
+      if [ "$timeout_retried" -eq 0 ]; then
+        timeout_retried=1
+        log "$label timed out (rc=$rc); retrying once after backoff"
+        backoff "$attempt"
+        attempt=$((attempt+1))
+        continue
+      fi
+      log "WARN: $label timed out again ($GARDEN_GH_CALL_TIMEOUT_MARKER, rc=$rc); giving up on this call (transient, not definitive)"
       rm -f "$errf"
       return "$rc"
     fi

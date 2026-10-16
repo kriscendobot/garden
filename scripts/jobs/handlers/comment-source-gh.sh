@@ -238,6 +238,12 @@ repo_issues_disabled() {  # repo_issues_disabled <errfile>
 # which is a permanent systemd failure loop, not a recoverable enumeration gap.
 fetch_failed=""
 fetch_primary_quota=""
+# A surface whose gh call hit the wrapper's timeout bound twice (gh_api_retry's
+# gh-call-timeout WARN) is a lost fetch too, but not a definitive one: the timeout
+# says nothing about the repo. fetch_definitive records any OTHER failure, so the
+# tail can tell a timeout-only tick apart from one that also hit a real fault.
+fetch_timeout=""
+fetch_definitive=""
 # ISSUES-DISABLED mode: set when the repo-wide issues/comments endpoint returns a
 # definitive 404 AND `repos/<repo>` reports has_issues=false — a fork with Issues
 # turned off (the default). The repo-wide surface is then structurally ABSENT, not
@@ -245,9 +251,14 @@ fetch_primary_quota=""
 # conversation comments per-PR in section 3. See the surface-1 degrade below.
 issues_disabled=""
 note_fetch_failure() {  # note_fetch_failure <label> <errfile>
+  local err; err="$(cat "$2" 2>/dev/null || true)"
   fetch_failed=1
-  if is_gh_primary_rate_limit_text "$(cat "$2" 2>/dev/null || true)"; then
+  if is_gh_primary_rate_limit_text "$err"; then
     fetch_primary_quota=1
+  elif is_gh_call_timeout_text "$err"; then
+    fetch_timeout=1
+  else
+    fetch_definitive=1
   fi
   # Echo the captured gh stderr (carrying gh_api_retry's WARN with the underlying
   # 5xx/rate-limit/network signature) to fd 2 so the watcher can classify the tick
@@ -804,6 +815,16 @@ if [ -n "$fetch_failed" ]; then
     alert_maintainer "comment-watch-repo-gone-${slug//[^A-Za-z0-9._-]/_}" \
       "comment-watcher: $repo no longer exists (or is unreadable) on GitHub — gh api repos/$repo returns a definitive error: ${REPO_GONE_REASON:-<no stderr>}. The watcher is armed by journal comment-repos/$slug, so every tick would otherwise fail forever; it now exits 0 and watches nothing. To close this out: delete journal comment-repos/$slug (and any repos/$slug / ci-repos/$slug siblings), add a journal watch-optout/$slug tombstone so fork-watch-provisioner.sh never re-arms it, and remove the stale bare clone worktrees/$slug.git that likely triggered the arming. If instead the repo was RENAMED or TRANSFERRED, re-key the arming record to the new <owner>-<name> slug rather than dropping the watch."
     exit 0
+  fi
+  # Every failed surface timed out at the gh wrapper's bound (each already retried
+  # once by gh_api_retry). Report it with timeout's own rc 124, the same code the
+  # watcher sees when the whole source overruns its bound, so the watcher takes
+  # its transient source-timeout path: WARN, freeze the cursor, back off this slug,
+  # exit 0. Exiting 1 here made the watcher die FATAL and fail the unit
+  # (2026-10-15 18:28, "pulls?state=open ... failed (definitive, rc=124)").
+  if [ -n "$fetch_timeout" ] && [ -z "$fetch_definitive" ]; then
+    log "WARN: FETCH TIMEOUT for $repo: a comment surface's gh call timed out twice — exiting 124 so the watcher freezes the cursor and backs off (transient, not definitive)"
+    exit 124
   fi
   log "FETCH INCOMPLETE for $repo: one or more comment surfaces failed to enumerate — exiting nonzero so the watcher freezes the cursor and re-polls (never advance past un-enumerated comments)"
   exit 1

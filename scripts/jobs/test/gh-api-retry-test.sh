@@ -140,6 +140,13 @@ gh() {
       echo "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" >&2; return 1 ;;
     definitive)
       echo "gh: Not Found (HTTP 404)" >&2; return 22 ;;
+    # The fleet gh wrapper's `timeout` expiry: rc 124 (137 after --kill-after),
+    # no stderr at all.
+    timeout-always)
+      return "${GH_STUB_TIMEOUT_RC:-124}" ;;
+    timeout-then-succeed)
+      if [ "$n" -lt 2 ]; then return 124; fi
+      printf '%s\n' "${GH_STUB_PAYLOAD:-OK}"; return 0 ;;
   esac
 }
 ok "gh shadowed by a test function (no PATH/exec dependency)"
@@ -266,6 +273,48 @@ set +e; guarded >/dev/null; grc=$?; set -e
 [ "$grc" -eq 7 ] \
   && ok "caller's '|| die' branch fires on a definitive failure (state never guessed)" \
   || bad "caller guard did not fire on definitive failure (rc=$grc)"
+
+# (f) a gh-wrapper timeout (rc 124, no stderr) is TRANSIENT, not definitive: it is
+#     retried exactly ONCE (2026-10-15 18:28: a comment source's open-PR list
+#     timed out, was logged "definitive; not retrying", and failed the unit).
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=timeout-then-succeed GH_STUB_PAYLOAD=SECOND gh_api_retry "repos/o/r/pulls?state=open" 2>"$TR/to1.err")"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = SECOND ] && [ "$n" -eq 2 ] && ! grep -qF "(definitive" "$TR/to1.err"; } \
+  && ok "timeout then success: retried once, payload returned (2 calls), never 'definitive'" \
+  || bad "timeout-then-success path wrong (rc=$rc out='$out' calls=$n want 2)"
+for to_rc in 124 137; do
+  : > "$GH_STUB_CALLS"; set +e
+  out="$(GH_STUB_MODE=timeout-always GH_STUB_TIMEOUT_RC=$to_rc gh_api_retry "repos/o/r/pulls?state=open" 2>"$TR/to2.err")"; rc=$?
+  set -e
+  n=$(wc -l < "$GH_STUB_CALLS")
+  { [ "$rc" -eq "$to_rc" ] && [ -z "$out" ] && [ "$n" -eq 2 ] \
+      && is_gh_call_timeout_text "$(cat "$TR/to2.err")" && ! grep -qF "(definitive" "$TR/to2.err"; } \
+    && ok "persistent timeout rc=$to_rc: exactly one retry, rc preserved, gh-call-timeout WARN" \
+    || bad "persistent timeout rc=$to_rc wrong (rc=$rc out='$out' calls=$n want 2): $(cat "$TR/to2.err")"
+done
+# The give-up marker must not satisfy the host-shared transient classifiers: a
+# slug-local timeout must not open the fleet-wide gh-api cooldown.
+if is_transient_net_error "$TR/to2.err" || _gh_api_stderr_is_transient "$(cat "$TR/to2.err")"; then
+  bad "gh-call-timeout WARN matched a shared transient signature"
+else
+  ok "gh-call-timeout WARN stays out of the shared transient signatures"
+fi
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=timeout-always gh_read_retry rest "pr list" pr list 2>"$TR/to3.err")"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 124 ] && [ "$n" -eq 2 ] && is_gh_call_timeout_text "$(cat "$TR/to3.err")"; } \
+  && ok "gh_read_retry: persistent timeout retried once, gh-call-timeout WARN" \
+  || bad "gh_read_retry timeout wrong (rc=$rc calls=$n want 2)"
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=timeout-always gh_pr_view_retry 999 --json state 2>"$TR/to4.err")"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 124 ] && [ "$n" -eq 2 ] && is_gh_call_timeout_text "$(cat "$TR/to4.err")"; } \
+  && ok "gh_pr_view_retry: persistent timeout retried once, gh-call-timeout WARN" \
+  || bad "gh_pr_view_retry timeout wrong (rc=$rc calls=$n want 2)"
 
 # ============================================================================
 hr; echo "SUBTEST 3 — gh_pr_view_retry: same retry loop over the \`gh pr view\` transport"; hr

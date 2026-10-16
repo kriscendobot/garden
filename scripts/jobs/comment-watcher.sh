@@ -1932,7 +1932,10 @@ if [ "$src_rc" -ne 0 ]; then
   fi
   # `timeout` reports its own wall-clock expiry as rc 124, or rc 137 when the
   # source ignores TERM and --kill-after escalates to SIGKILL. The rc alone says
-  # only that THIS slug exceeded its tick budget. Open the host-shared latch only
+  # only that THIS slug exceeded its tick budget. The source also exits 124 itself
+  # when its only failures were inner gh calls that hit the gh wrapper's timeout
+  # bound twice (gh_api_retry's gh-call-timeout give-up). That is the same
+  # transient condition, so it takes this same path. Open the host-shared latch only
   # when captured stderr positively identifies a shared network/API/quota failure;
   # otherwise back off this slug and leave every sibling free to poll.
   if [ "$src_rc" -eq 124 ] || [ "$src_rc" -eq 137 ]; then

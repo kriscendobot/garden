@@ -2214,6 +2214,74 @@ for timeout_rc in 124 137; do
     || ok "source rc $timeout_rc did not emit FATAL"
 done
 
+# An INNER gh call that hits the gh wrapper's timeout bound (rc 124, no stderr) is
+# transient, not definitive. 2026-10-15 18:28: the real source's open-PR list timed
+# out, gh_api_retry logged it "definitive; not retrying", the source exited 1, and
+# the watcher died FATAL, failing the unit. Now gh_api_retry retries the call once,
+# and a timeout-only lost fetch exits 124 so the watcher takes the slug-local
+# source-timeout path above. A timeout mixed with a definitive failure still fails.
+if [ "$have_jq_rate" -eq 1 ]; then
+  GHINTO="$TR/gh-inner-timeout"; mkdir -p "$GHINTO"
+  cat > "$GHINTO/gh" <<'EOF'
+#!/bin/bash
+args="$*"
+case "$args" in
+  *"/pulls?state=open"*) echo x >> "$INTO_CALLS"; exit 124;;
+  *"/pulls/comments"*)
+    if [ "${INTO_MIXED:-0}" = 1 ]; then echo "gh: Forbidden (HTTP 403)" >&2; exit 1; fi
+    printf '[]\n'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHINTO/gh"
+  INTO_CALLS="$TR/inner-timeout.calls"; : > "$INTO_CALLS"
+  set +e
+  env PATH="$GHINTO:$PATH" INTO_CALLS="$INTO_CALLS" GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0 \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-inner-timeout-src" \
+    GARDEN_API_COOLDOWN_DIR="$TR/state-inner-timeout-src/gh-api-cooldown" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    >/dev/null 2>"$TR/inner-timeout-src.err"
+  into_src_rc=$?
+  set -e
+  [ "$into_src_rc" -eq 124 ] && [ "$(wc -l < "$INTO_CALLS")" -eq 2 ] \
+    && grep -q 'gh-call-timeout' "$TR/inner-timeout-src.err" \
+    && ! grep -qF '(definitive' "$TR/inner-timeout-src.err" \
+    && ok "inner gh timeout: retried once, never 'definitive', source exits 124" \
+    || bad "inner gh timeout misclassified (rc=$into_src_rc calls=$(wc -l < "$INTO_CALLS")): $(cat "$TR/inner-timeout-src.err")"
+
+  : > "$INTO_CALLS"
+  set +e
+  env PATH="$GHINTO:$PATH" INTO_CALLS="$INTO_CALLS" INTO_MIXED=1 GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0 \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-inner-timeout-mixed" \
+    GARDEN_API_COOLDOWN_DIR="$TR/state-inner-timeout-mixed/gh-api-cooldown" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    >/dev/null 2>"$TR/inner-timeout-mixed.err"
+  into_mixed_rc=$?
+  set -e
+  [ "$into_mixed_rc" -eq 1 ] && grep -q 'FETCH INCOMPLETE' "$TR/inner-timeout-mixed.err" \
+    && ok "inner gh timeout plus a definitive failure still exits 1 (fails loud)" \
+    || bad "mixed timeout+definitive failure was softened (rc=$into_mixed_rc): $(cat "$TR/inner-timeout-mixed.err")"
+
+  : > "$INTO_CALLS"
+  INTO_STATE="$TR/state-inner-timeout-watch"; INTO_ERR="$TR/inner-timeout-watch.err"
+  set +e
+  env PATH="$GHINTO:$PATH" INTO_CALLS="$INTO_CALLS" GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0 \
+    GARDEN_STATE="$INTO_STATE" GARDEN_API_COOLDOWN_DIR="$INTO_STATE/gh-api-cooldown" \
+    GARDEN_API_COOLDOWN_SECS=300 JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$JOBS/handlers/comment-source-gh.sh" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$INTO_ERR"
+  into_watch_rc=$?
+  set -e
+  [ "$into_watch_rc" -eq 0 ] && ! grep -q 'FATAL:' "$INTO_ERR" \
+    && grep -q 'WARN: comment source timed out (transient, rc=124)' "$INTO_ERR" \
+    && [ -f "$INTO_STATE/comment-watcher/source-timeout-backoff/$SLUG" ] \
+    && [ ! -e "$INTO_STATE/gh-api-cooldown/marker" ] \
+    && [ -z "$(cursor_seen "$INTO_STATE" "$BARE_RATE")" ] \
+    && ok "inner gh timeout: watcher WARNs, freezes the cursor, backs off only its slug, exits 0" \
+    || bad "inner gh timeout escaped the transient path (rc=$into_watch_rc): $(cat "$INTO_ERR")"
+fi
+
 # Consecutive source timeouts keep independent per-slug strike counts. Each slug's
 # timeout after its own expired backoff doubles only that slug's next window; only a
 # successful sweep of that same slug resets its streak.
