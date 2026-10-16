@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-16T08:50Z (oros-health-checkup-20261016-045011): healthy (deployed = `a130d814`) → spurious NeedDaemonReload root-caused; fix landed
+
+- **Load/mem:** load 2.9/2.7/2.0; 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (166k).
+- **Uptime:** 14d15h, no reboot.
+- **Deployed vs main2:** root at `a130d814`, which was origin/main2 until this run's fix. fleet/health (07:25Z): `roll_status: deployed`, 0 of 290 units failed. main2 is now one commit ahead (`20ce5180`, this run's fix); the next roll will pick it up.
+- **Units:** 0 failed. monks 1 and 2 running (scaler-managed; leveling row is now `4 0`). Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 08:01Z, status ok, 39% used (85.5M of 180M). Pushes are on cadence (06:47, 07:02, 07:17, 07:31, 07:46, 08:01 all landed).
+- **State clones:** 38 namespace journal clones scanned. None has more than 50 packs, a tmp_pack, a `gc.log`/`gc.log.lock`, or a lock older than 10 minutes. The root repo has 37 packs and no `gc.log`. `repo-locks/` holds 8,202 keys, which the 7-day pruner from `1e8ccd58` will age out.
+- **rc=124 (3h):** none.
+- **Changed:** all 290 units again showed `NeedDaemonReload=yes`, the same as on 10-15. Root cause: `install-units.sh` created and deleted its comparison temp file inside `~/.config/systemd/user` on every deploy, so the directory mtime changed (07:25:50, the deploy) and systemd 255 marked every unit stale. Ran `systemctl --user daemon-reload` to clear it; it restarted nothing. Landed `20ce5180` on main2: renders are staged in `$TMPDIR`, and the unit dir is touched only when a unit really changes. Added a new `install-units-noop-mtime-test` (8/8; it fails on the old code); deploy-garden 224/0, enable-services 40/0 and paused-disable 11/0 also pass. The same commit documents `garden-namespace-clone-maintenance` in `context/operations/systemd-units.md`, which `systemd-unit-doc-completeness-test` had been failing on since `1c65522f`.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-16T03:25Z (oros-health-checkup-20261016-013510): healthy (deployed = `2845917b`) → repo-locks leak found; pruner landed
 
 - **Load/mem:** load 1.9/2.7/2.9; 13 GiB of 15 GiB available. IO pressure is low (avg300 2.4%).
