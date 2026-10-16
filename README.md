@@ -1,27 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T10:40:56Z_
+_As of 2026-10-16T10:45:28Z_
 
 ## Latest
 
-The board barely moved this cycle. The minion.town [PR #180](https://github.com/kriscendobot/minion.town/pull/180) gauntlet finished panel round 14 and queued fix round 14. [PR #178](https://github.com/kriscendobot/minion.town/pull/178) is in fix round 10. [PR #188](https://github.com/kriscendobot/minion.town/pull/188) is queued for fix round 7. [PR #192](https://github.com/kriscendobot/minion.town/pull/192) finished fix round 4 and is queued for panel round 5. The rolling-deploy canary on oros-studio passed its round trip, and the [PR #190](https://github.com/kriscendobot/minion.town/pull/190) gauntlet closed out at its review budget.
+Several minion.town gauntlets hit their review-round limits without converging. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) stopped after 14 rounds ($29.95) and [kriscendobot/minion.town#190](https://github.com/kriscendobot/minion.town/pull/190) after 8 ($18.07). Both are left for a human merge or review decision. The carry-eight supervisor reports that the verification panels on [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#190](https://github.com/kriscendobot/minion.town/pull/190) keep returning new nit-class must-fix items. One example is renaming `fetchImpl` to `fetchImplementation`. The proxy screen merges only on a panel pass, so these may never land on their own. The supervisor needs a policy decision and recommends demoting prose, JSDoc and identifier-spelling findings to should-fix. Fix and panel rounds are still queued on #178, #180, #188, [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193). [#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix round 5 is parked after a first failure.
 
-**What needs a maintainer decision:**
-- **Gauntlet panels not converging.** [PR #184](https://github.com/kriscendobot/minion.town/pull/184) (14/14 rounds, about $30) and [PR #190](https://github.com/kriscendobot/minion.town/pull/190) (8/8, about $18) both ran out of review rounds, and the supervisor reports the same pattern on #178, #180, #188 and #190. Each new panel round finds a new nit-class must-fix, such as renaming `fetchImpl`, so the proxy's merge gate (a completed panel pass at the PR head) may never be met. The supervisor recommends a narrow policy change that treats prose and identifier-spelling findings as should-fix, and asks you to choose between that, approving the PRs yourself, or paying for more rounds.
-- **Orchestrations that halted or were parked:**
-  - `orch-minion-town-oauth-bonds`: its build declared its gated outcome unsatisfied.
-  - `orch-jev-triage-foreman`: its trial child failed because `TYPESAFE_API_KEY` is missing from the job environment and needs your key.
-  - `review-docket-20261008`: the consolidate step was doomed and is held in plan.
-  - `claude-on-minion-town-press-20261013-072006-split`: its carry child timed out after 2474s.
-  - [PR #181](https://github.com/kriscendobot/minion.town/pull/181): the gauntlet's fix round 5 was parked.
-  - The `design-minion-town-ocap-site-crawler-leak-rotation` job was parked after requeue exhaustion.
-- **Design approval blocking work.** Design [PR #189](https://github.com/kriscendobot/minion.town/pull/189) (iframe embed) is awaiting approval. The embed-headers job and then the live-frame job wait behind it.
-- **Quarantined Literate AI sources.** Several `jordanhubbard/literate-ai` documents were quarantined unread by the foreign-content gate (injection scores 0.25–0.34, all "uncertain"). They stay blocked until you say ingest or skip. The blocked list is `project-releases`, `authority-learning-loop`, `beam-live-coding-layer-investigation`, `repository-source-dependencies`, `skills`, `superpowers-skills-assessment`, ADR 0014, ADR 0016 and ADR 0041.
-- **Credential.** The proxy flagged a bot GitHub credential restore or re-issue as beyond its authority.
+Three orchestrations halted:
+- **`review-docket-20261008`:** its final consolidation child is doomed and parked.
+- **`orch-minion-town-oauth-bonds`:** its build child reported an unsatisfied gated outcome.
+- **`orch-jev-triage-foreman`:** its trial is blocked because `TYPESAFE_API_KEY` is missing from the job environment.
 
-**Infrastructure.** The journal lock-contention storm cleared. Lock contention on the follow-up, producer and deadmail journals triggered notices, and the producer journal's p95 reached about 4.4s. The cleric pool on endolin was stepped down to 1 worker by the budget watchdog. Claude spend is at 121% of its backed-off quota. The Claude comment-ack alarm on minion.town cleared after about 5 hours.
+A fourth orchestration, the Claude-on-minion.town press split, halted after a child exceeded its 2400s handler timeout on the oros host. The parcel-stack restack orchestration completed cleanly.
+
+Your input is requested on:
+- Several Literate AI sources are blocked by the foreign-content gate and need a read/ingest or keep-blocked disposition.
+- The iframe embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) needs approval before the headers and live-frame jobs can start.
+- Restoring the bot's GitHub credential needs the maintainer.
+
+Journal lock-contention and comment-ack alerts cleared. The cleric pool dropped to 1–2 workers on low demand. Claude spend is at 121% of the backoff quota.
 
 ## Maintainer review docket
 
@@ -275,6 +272,10 @@ Delegation: **active**
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 4 -> 3 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
+
+- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
+
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.029627s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -586,13 +587,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 326.6M | $1544.45 _(notional, rate-card)_ | 121% of 271.0M (backoff) |
+| Claude | 326.7M | $1545.10 _(notional, rate-card)_ | 121% of 271.0M (backoff) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 88311139 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 14.595765s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 8 open notice(s); checker healthy
+worst fetch p95 14.595765s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
