@@ -1,25 +1,33 @@
 # Garden bulletin
 
-_As of 2026-10-16T03:05:08Z_
+_As of 2026-10-16T03:08:28Z_
 
 ## Latest
 
-Gauntlet traffic is the main movement, nearly all of it on minion.town. [minion.town#171](https://github.com/kriscendobot/minion.town/pull/171) finished panel round 11 and its fix round 10 follow-up, and fix round 11 is now queued. [minion.town#183](https://github.com/kriscendobot/minion.town/pull/183) finished panel round 9 and is in fix round 9. A resume job for #183 (2 more rounds) is waiting on the board. [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) went back to `todo` for panel round 6 after a claim was released. A health check-up on oros was claimed.
+No file-level board transitions resolved this cycle, so the news is in the maintainer inbox, not the board.
 
-**Needs your attention:**
-- Several minion.town gauntlets exhausted their review budget without converging: [#190](https://github.com/kriscendobot/minion.town/pull/190), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#186](https://github.com/kriscendobot/minion.town/pull/186), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#178](https://github.com/kriscendobot/minion.town/pull/178). Each is waiting on your merge or extend decision. [#178](https://github.com/kriscendobot/minion.town/pull/178) still has about 20 unaddressed must-fix items.
-- The gauntlet for [kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) also ran out of rounds, with 8 unaddressed must-fix items. This is the third notice for it.
-- Gauntlet fix round 5 for [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) was parked in plan after a non-productive failure.
-- Oros's sysop bridge has been unresponsive, and the proxy says restarting it needs a person at the machine.
-- The rolling-deploy canary stuck alert for oros has since cleared.
-- A rolling deploy of main2 `8da29934080b` is still halted at the oros canary. Oros later reached that sha, so the stall looks like a slow deploy rather than a bad tip. The leader's deploy is held until someone lifts oros's roll drain and re-triggers the roll.
-- Three orchestrations halted: `orch-minion-town-oauth-bonds`, `orch-jev-triage-foreman` and `review-docket-20261008`. `orch-jev-triage-foreman` is blocked on a missing `TYPESAFE_API_KEY`. The `review-docket-20261008` consolidation job is parked after repeated non-productive exits.
-- The Claude-on-minion.town press split halted after a child timed out.
-- Several Literate AI sources are blocked at the foreign-content gate and wait for your disposition.
-- Claude spend is at 113% of its backoff threshold, so the scaler dropped endolin1 into backoff, and oros was trimmed to 3 monks.
-- Journal-contention watchdog notices are mostly clearing, with a few still open.
+**Review budgets exhausted.** The gauntlet hit its round cap on several minion.town PRs: [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#186](https://github.com/kriscendobot/minion.town/pull/186), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#190](https://github.com/kriscendobot/minion.town/pull/190), plus [#178](https://github.com/kriscendobot/minion.town/pull/178). #178 is a "moving target" with 20 new findings in the last round. Garden-book PR #15 also hit its cap with 8 unaddressed items. Each message offers `--add-rounds 2` to resume, or you can review the PRs as they stand. Separately, the gauntlet stage `kriscendobot-minion.town-pr181-gauntlet-fix-5` for [#181](https://github.com/kriscendobot/minion.town/pull/181) is parked in plan after a non-productive failure.
 
-On the positive side, [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) was merged and its deploy validated. The Parcel restack orchestration for endo-but-for-bots completed all 3 children.
+**Halted orchestrations.**
+- `orch-minion-town-oauth-bonds`: its build child declared its gated outcome unsatisfied.
+- `orch-jev-triage-foreman`: the trial child is blocked because `TYPESAFE_API_KEY` is missing. You need to provision that key.
+- `review-docket-20261008`: the consolidate step was doomed and is held in plan.
+- The Claude-on-minion.town press split: the carry child timed out on oros.
+
+The Parcel restack orchestration for endo-but-for-bots completed all 3 children.
+
+**Oros.**
+- Its sysop bridge has been unresponsive and needs someone at the machine.
+- The canary-stuck alert has since recovered, and oros now reports the same release as the leader.
+- The oros health check-up job is split-eligible and parked in plan.
+
+**Needs a maintainer decision.**
+- The Literate AI ingest has several sources blocked at the foreign-content gate. They stay unread until you reply with a disposition.
+- The iframe-embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) awaits approval before the headers and live-frame jobs can run.
+- Two other design-review questions are open on [endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383).
+- Claude spend is at 113% of quota, in backoff.
+
+Most of the journal-contention watchdog notices are recoveries, with no action needed. Minion.town [#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed cleanly.
 
 ## Maintainer review docket
 
@@ -914,10 +922,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 306.3M | $1448.12 _(notional, rate-card)_ | 113% of 271.0M (backoff) |
+| Claude | 306.4M | $1448.46 _(notional, rate-card)_ | 113% of 271.0M (backoff) |
 | Codex | 90.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 80512529 tokens/day lower bound._
+_Fleet token-unlock pace: 80594011 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.166621s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 10 open notice(s); checker healthy
