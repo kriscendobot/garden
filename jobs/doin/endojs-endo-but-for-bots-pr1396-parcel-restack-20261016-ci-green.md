@@ -41,3 +41,13 @@ conclusion, the final head SHA, and any changes made.
 If CI cannot be made green, finish with the orchestrated-failure signal. If every
 fleet-available check is complete and the sole remaining barrier is interactive
 maintainer login/MFA, use the orchestrated-auth-unavailable signal instead.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T05:21:04Z
