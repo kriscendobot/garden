@@ -17,3 +17,13 @@ This job owns the remaining work, one draft PR per phase stacked on the Phase 2 
 - Phase 5: crossed-hellos tiebreaker on reconnect (designator comparison per § 3; fault injector forcing simultaneous loss).
 - The heartbeat capability bit from § Upgrade Considerations, after which heartbeats can default on, and daemon wiring (`packages/daemon/src/networks/ocapn.js`) that enables heartbeats.
 When every phase has evidence (or a maintainer-settled deferral), update the Phase 1 PR #1476 ledger (and the Phase 2 PR's) to `deliverable`.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T19:05:26Z
