@@ -50,6 +50,8 @@ Remaining:
 4. Post the required PR completion summary comment (skills/pr-completion-summary-comment). Cover the new base,
    the rebased commits, the alias conflict resolution, the design-conformance note, and test status.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
