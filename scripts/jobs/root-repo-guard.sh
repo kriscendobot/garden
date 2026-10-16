@@ -475,6 +475,19 @@ sweep_pack_garbage() {
   log "OBJSTORE-SWEPT: removed $n orphaned temp pack file(s) (~$(( bytes / 1048576 )) MiB) from $packdir — stranded by pack writes (repacks, incoming fetches) that died, which git reports as garbage but never reclaims"
 }
 
+# C.1b — sweep a stale gc.log.lock. A daemonized `git gc --auto` holds gc.log.lock
+# for its whole run and dies on startup ("Unable to create gc.log.lock: File
+# exists") when one is already present, so a lock left by a killed background gc
+# silently disables background auto-gc on this shared store. Unlike gc.log, nothing
+# else reports it. Age-gated like the tmp_* sweep, so a live gc's lock is safe.
+# (oros 2026-10-16: one dated 2026-09-23.)
+sweep_stale_gc_log_lock() {
+  local lock="$1/gc.log.lock" mins=$(( GARDEN_ROOT_GUARD_TMP_AGE_HOURS * 60 ))
+  [ -n "$(find "$lock" -maxdepth 0 -type f -mmin "+$mins" 2>/dev/null)" ] || return 0
+  rm -f "$lock" 2>/dev/null || true
+  log "OBJSTORE-SWEPT: removed a stale $lock (older than ${GARDEN_ROOT_GUARD_TMP_AGE_HOURS}h) left by a killed background gc; it made every daemonized 'git gc --auto' die on startup"
+}
+
 # Clear the stale gc.log(s) — the common one AND each worktree's own copy, since any
 # one of them keeps git's automatic cleanup disabled for commands run from there.
 # ONLY ever called after a gc has actually succeeded.
@@ -541,6 +554,7 @@ guard_object_store() {
   mkdir -p "$GUARD_STATE" 2>/dev/null || true
 
   sweep_pack_garbage "$gd"
+  sweep_stale_gc_log_lock "$gd"
 
   # Does the store need maintenance at all? Quiet no-op when it does not.
   local gclogs packs loose reason=""

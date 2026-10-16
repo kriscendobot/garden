@@ -296,6 +296,16 @@ run_guard
 [ ! -e "$GD/worktrees/somejob/gc.log" ] && ok "per-worktree gc.log cleared too (each one disables auto-gc on its own)" || bad "per-worktree gc.log survived"
 ! alerted "root-repo-objstore" && ok "a repairable store does not page the maintainer" || bad "spurious objstore alert on a repairable store"
 
+# A stale gc.log.lock (a killed background gc's leftover) is swept; a fresh one is
+# left alone because a live daemonized gc owns it.
+: > "$GD/gc.log.lock"; touch -d '3 days ago' "$GD/gc.log.lock"
+run_guard
+[ ! -e "$GD/gc.log.lock" ] && ok "aged gc.log.lock swept (it makes every daemonized gc --auto die)" || bad "aged gc.log.lock left behind"
+: > "$GD/gc.log.lock"
+run_guard
+[ -e "$GD/gc.log.lock" ] && ok "fresh gc.log.lock left alone (a live background gc owns it)" || bad "fresh gc.log.lock swept — could break a live gc"
+rm -f "$GD/gc.log.lock"
+
 # ============================================================================
 hr; echo "CASE 8 — HEALTHY STORE: no gc.log, few packs → no gc, no noise"; hr
 fresh_root
