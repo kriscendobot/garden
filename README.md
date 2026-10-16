@@ -1,25 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T20:40:15Z_
+_As of 2026-10-16T20:44:51Z_
 
 ## Latest
 
-The big news is that [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged and deployed successfully, with the watchdog reporting ok. The proxy screened it before the merge. The follow-up OCapN canary live run is repinned to `endolin-garden-ece02cb4` and stays parked until you say go ahead. That canary now adopts guests from durable `endo://` locators, so `~/.garden-state/ocapn-canary/guests.json` should hold the two guest locators before you provision.
+[minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged at 18:48Z, and its deploy succeeded and was validated. The canary live-run job is now pinned to `endolin-garden-ece02cb4` and parked until you say go ahead. Before you provision, note that the canary now adopts guests from durable `endo://` locators, so `~/.garden-state/ocapn-canary/guests.json` should hold the two guest locators.
 
-The gauntlet for `kriscendobot/minion.town` PR 184 hit its review budget. It used all 16 panel/fix rounds ($34.02) and left 19 unaddressed must-fix items, mostly breaker findings on the CI-runner provisioning script. The main one is that the seed-token check accepts JSON the Lambda's parser rejects. The verdict is "moving target," and the PR is left for your merge or review decision. You can grant more rounds with `gauntlet.sh --resume-from-stage … panel --add-rounds N`.
+The gauntlet for [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) hit its review budget after 16 panel/fix rounds ($34.02). It still has 19 unaddressed must-fix findings, mostly breaker items on the CI-runner provisioning script. They include a seed check that accepts secrets the Lambda's parser rejects, and a policy-reconcile loop that removes statements by Sid. The verdict is "moving target." Granting more rounds is your call. The message gives the resume command, and `--add-rounds 2` is its example.
 
-Other board movement:
-- The ocapn-noise session-reconnect build jobs and the TCP-for-test-extraction design PR job finished. Both now have build follow-ups parked behind their gauntlets: [endo-but-for-bots#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) and [endo-but-for-bots#1480](https://github.com/endojs/endo-but-for-bots/pull/1480).
-- Gauntlets are moving on [endo-but-for-bots#1334](https://github.com/endojs/endo-but-for-bots/pull/1334), [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475), [#1476](https://github.com/endojs/endo-but-for-bots/pull/1476), [#1477](https://github.com/endojs/endo-but-for-bots/pull/1477), [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), [#1479](https://github.com/endojs/endo-but-for-bots/pull/1479), [#1480](https://github.com/endojs/endo-but-for-bots/pull/1480), [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481), [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1483](https://github.com/endojs/endo-but-for-bots/pull/1483). Four are mid fix round 1, one is mid panel round 1, and the rest are queued at clean or viability.
-- [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) finished fix round 1 and is queued for panel round 2.
-- The parcel-stack restack orchestration completed, with all 3 children done and no failures.
+The parcel-stack restack orchestration finished with all 3 children done and none failed.
 
-Things to watch:
-- Two health jobs on the board, `oros-health-checkup-20261016-202040` and `oros-health-watch-20261016-202040`, sat unclaimed for 900s. Their host-requirements gate failed, because no live host met their `requires: host=` pins.
-- Claude spend on `claude-endolin1` is 133% of cap, so the budget watchdog cut `endolin-garden-ece02cb4` from 3 monks to 1.
-- The journal contention storm on `oros-studio-garden-ce242c49` has cleared. Three single-giveup lock-contention notices remain open and are low severity.
+Gauntlet work continues across the endo-but-for-bots PRs. Fix round 1 is in progress for [#1476](https://github.com/endojs/endo-but-for-bots/pull/1476), [#1477](https://github.com/endojs/endo-but-for-bots/pull/1477), [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1479](https://github.com/endojs/endo-but-for-bots/pull/1479). Panel round 1 is running on [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475). [#1480](https://github.com/endojs/endo-but-for-bots/pull/1480) is queued for panel round 1, [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) for clean, [#1483](https://github.com/endojs/endo-but-for-bots/pull/1483) for viability, and [#1334](https://github.com/endojs/endo-but-for-bots/pull/1334) for fix round 1. [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) has finished fix round 1 and is queued for panel round 2.
+
+Claude spend is well over the weekly cap, at 133% of the 271.0M quota. The budget watchdog cut the `endolin-garden-ece02cb4` host from 3 monks to 1, so throughput there is thin until the window resets at 2026-10-17T03:00Z. The journal-contention storm cleared at 20:38Z, and the remaining lock-contention notices are single give-ups with low p95.
 
 ## Maintainer review docket
 
@@ -84,10 +77,6 @@ Delegation: **active**
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.221496s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261016-202040` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261016-202040.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261016-202040' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -105,10 +94,6 @@ Delegation: **active**
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=360342341 cap=271000000 pace-bias=0 window-start=2026-10-10T03:00Z(calendar) deadline=2026-10-17T03:00Z(calendar) ceiling=4 backoff=0.9809(ramp) target=1
 
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261016-202040` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261016-202040.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261016-202040' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.045811s, giveups=1, steals=0 (max 3/window), wait floor=60s.
@@ -119,7 +104,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 360.6M | $1698.52 _(notional, rate-card)_ | 133% of 271.0M (ok) |
+| Claude | 360.7M | $1698.95 _(notional, rate-card)_ | 133% of 271.0M (ok) |
 | Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94936930 tokens/day lower bound._
