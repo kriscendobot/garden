@@ -52,3 +52,13 @@ reported clipping, overlap, or CSP violation.
 
 Never publish or merge while the gauntlet is failed, draft, red, conflicted, or
 not exact-head fresh. Never republish an old edition or omit the history PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T04:50:06Z
