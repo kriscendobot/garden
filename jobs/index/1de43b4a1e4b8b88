@@ -1,0 +1,2 @@
+base: improve-node22-acl-verification
+identity: mentor:deploy/aws/scripts/lib/install-node22.sh
