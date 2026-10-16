@@ -20,3 +20,13 @@ Authorization: kriskowal, liaison session 2026-10-16: "I encourage merging the g
 2. Fetch the merged `main` and run `npm ci`, `npm test`, `npm run test:browser`, the 27-file build, and the real-Chromium checks (`tools/browser-check.mjs` at 390x844 and 1440x900, light and dark: 25 illuminations, placements, nine charts, glyph sprite, layout). Stop and report if any fails.
 3. Publish a NEW immutable DRAFT edition of the book with the checked `build/publish.mjs` and an inert `garden-book-*` power, never republishing an old edition. The maintainer wants the draft reachable on ocap.site: determine from the repo, `build/README.md`, and the minion.town publish tool how an edition is addressed on ocap.site versus minion.town, and publish accordingly. If publishing to ocap.site needs a credential or domain step you do not have, publish the draft to the existing mechanism and report exactly what remains. Compare all 27 served bytes and the immutable headers against the build output. Mark it clearly as a draft edition.
 4. Record the edition in `build/README.md` (a small commit to `main`). SKIP the history PR and its staged gauntlet for now; the maintainer will retcon main later. Report: the merge commit, the verified immutable URL on ocap.site (or what is missing), the check results, and the list of deliberately skipped steps (history PR and gauntlet).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T22:06:32Z
