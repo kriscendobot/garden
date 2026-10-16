@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-16T22:05Z (oros-health-checkup-20261016-202040): healthy (deployed = origin/main2 `7ff6f44c`), no changes
+
+- **Load/mem:** load 1.5/1.2/1.0; 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k).
+- **Uptime:** 15d4h, no reboot.
+- **Deployed vs main2:** root at `7ff6f44c` (the builder-budget inference fix), the origin/main2 tip. Self-deploy advanced the host at 21:57Z via leader release; the 21:42Z fleet/health deferral (`long-job monk 1 3101s`, target `7ff6f44c`) has cleared. 0 of 288 units failed.
+- **Units:** 0 failed. monks 1 and 2 running (leveling row `4 0`). Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 21:46Z, status ok, 48% used (109.3M of 180M). All 12 pushes from 19:03 to 21:46Z landed, and spend is monotone. The longest gap was 21 minutes (20:02 to 20:23Z).
+- **State clones:** 31 namespace journal clones. The largest has 50 packs (producer). None has a tmp_pack or a `gc.log`. The root repo has 28 packs and no `gc.log`. Locks older than 30 minutes are only persistent flock files. `repo-locks/` holds 9,357 keys, which the 7-day pruner is aging out.
+- **rc=124 (3h):** none outside the expected 2s repo-lock skips.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-16T17:25Z (oros-health-checkup-20261016-170509): healthy (deployed = origin/main2 `b8abbe64`), no changes
 
 - **Load/mem:** load 2.4/2.2/2.1; 13 GiB of 15 GiB available.
