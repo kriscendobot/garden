@@ -25,3 +25,13 @@ that can write PRs.
 The advisory appellate pass is already done (non-blocking). It suggested checking for stale `@endo/syrups`
 references in other designs, and that the default `tcp-testing-only` framing is incompatible with
 spec-draft netstring peers, which the README "Complete" row does not mention. Both are follow-up material only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T23:34:57Z
