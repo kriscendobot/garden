@@ -1,2 +1,2 @@
-base: improve-comment-timeout-fanout
+base: improve-comment-source-timeout-not-fatal
 identity: mentor:scripts/jobs/comment-watcher.sh
