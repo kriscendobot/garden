@@ -36,3 +36,13 @@ fleet-available validation is complete and only interactive maintainer auth is
 missing, use the orchestration auth-unavailable completion signal. If the gated
 green outcome genuinely cannot be achieved for another reason, use the
 orchestration failure signal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T04:58:38Z
