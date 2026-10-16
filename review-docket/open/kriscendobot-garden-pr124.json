@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/garden",
+  "pr": 124,
+  "url": "https://github.com/kriscendobot/garden/pull/124",
+  "head_oid": "caafdc6df810352702e4c2fc21526283365102d9",
+  "ask": "decide",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Answer the design's open questions before its dependent build proceeds",
+  "unblocks": [],
+  "source": "design-ocapn-bootstrap-package-20261016-design-open-questions",
+  "requested_at": "2026-10-16T18:27:38Z",
+  "first_requested_at": "2026-10-16T18:27:38Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-16T18:29:21Z"
+  }
+}
