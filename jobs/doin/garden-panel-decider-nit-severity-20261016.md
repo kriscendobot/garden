@@ -13,3 +13,13 @@ Problem: the 34-seat panel treats prose/JSDoc accuracy and identifier-spelling f
 Change (smallest that works): in the panel decider's disposition instruction (find it: `scripts/jobs/gardening/panel.sh`, `skills/panel/SKILL.md`, the provider-native `decide_disposition` rubric, and `gauntlet-mustfix-summary.sh`), classify these as should-fix, never must-fix: comment/JSDoc wording or accuracy that does not change behavior, identifier renames for spelling or style, commit-history tidiness, PR-description completeness, and test-style preferences. Real defects stay must-fix: wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, and a comment that is factually false in a way that would mislead a future change to unsafe behavior. When unsure, keep must-fix.
 
 Requirements: (1) edit the decider instruction and the juror seat briefs only where they conflict; (2) add or extend tests (see scripts/jobs/test/) with fixtures for each nit class and for a real-defect class that must still block; (3) document the rule in skills/panel/SKILL.md and note it in the gauntlet completion report text; (4) commit directly to main2 per the garden's no-PR convention for its own repo, then report what changed. Do NOT touch minion.town PRs or restart any gauntlet; the supervisor job owns those and will re-run verification panels after the deploy.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T14:59:37Z
