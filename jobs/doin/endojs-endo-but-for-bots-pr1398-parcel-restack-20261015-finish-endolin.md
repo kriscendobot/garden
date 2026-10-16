@@ -49,3 +49,13 @@ Remaining:
    `packages/patterns/test/rankCover.test.js`, and a macOS timeout in the daemon `provider-listener-runtime` test.
 4. Post the required PR completion summary comment (skills/pr-completion-summary-comment). Cover the new base,
    the rebased commits, the alias conflict resolution, the design-conformance note, and test status.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T04:16:36Z
