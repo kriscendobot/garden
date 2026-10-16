@@ -5,14 +5,14 @@ repo: kriscendobot/minion.town
 pr_number: 195
 build_job: minion-town-guest-state-stop-echoing-formula-identifier-20261016
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr195-gauntlet-panel-1
+current_child: kriscendobot-minion.town-pr195-gauntlet-undraft
 state: running
 created_by: producer
 arc: claude-on-minion-town
