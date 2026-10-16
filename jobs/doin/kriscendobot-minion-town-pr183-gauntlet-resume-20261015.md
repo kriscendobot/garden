@@ -19,3 +19,13 @@ Skip it if the record `jobs/gauntlet/kriscendobot-minion-town-pr183-screen-07e6a
 already exists on journal2 (already resumed or running). Confirm that journal2 then has the
 record (state `resume-pending` or `running`), or a `-panel-9` stage job, and report which.
 Do not edit the PR, un-draft it, or merge it. The gauntlet and the proxy screen own that.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T01:36:58Z
