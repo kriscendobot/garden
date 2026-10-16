@@ -1,20 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T07:34:24Z_
+_As of 2026-10-16T07:40:20Z_
 
 ## Latest
 
-Little completed since the last bulletin: the rolling-deploy canary probe on oros-studio-garden-ce242c49 round-tripped OK, and two minion.town gauntlet fix stages were claimed, [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190) (round 7) and [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) (round 3). The carry-eight supervisor reports that all four verification panels it resumed ([#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190)) returned must-fix again, each time on new nit-class items such as an identifier rename. It sees the panels as unlikely ever to pass, and recommends a narrow decider change that treats prose, JSDoc-accuracy and identifier-spelling findings as should-fix. It also offers two alternatives: approve the PRs yourself, or keep granting bounded rounds and accept the spend. That policy call is the most important item awaiting you.
+Fleet throughput is mostly going into minion.town PR gauntlets, and the main thing needing a maintainer decision is a policy impasse on them. The supervisor for the eight drafts ([#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190), and others) reports that verification panels keep returning must-fix on new nit-class items, such as renaming `fetchImpl` on #188. After 6–13 rounds at $10–28 each, these may never pass the proxy screen's panel-pass gate. It recommends narrowing the decider so prose and identifier-spelling findings count as should-fix. A fix round is queued or running for each of #178, #180, #184, #188, #190, #192 and #193. [#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix-5 stage was parked after a non-productive failure.
 
-Also waiting on you:
-- **Design approval:** the iframe embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) must be approved before the headers and live-frame jobs can start.
-- **Gauntlet and docket holds:** [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) fix round 5 is parked in plan after its first failure. The review-docket consolidation is also held, after its retry failed, and its orchestration has halted.
-- **Failed orchestrations:** the oauth-bonds build and the Jev triage trial both halted with unsatisfied outcomes. The Jev trial is blocked because `TYPESAFE_API_KEY` is missing from the job environment.
-- **Literate AI ingest:** the foreign-content gate has halted about eight Literate AI sources, all with injection scores of 0.25–0.34 (uncertain). Each needs an explicit read/ingest or keep-blocked disposition.
-- **Journal lock contention:** the storm warning on the leader host has hit twice, with seven clones in one tick. The producer journal's p95 reached 15s.
-- **Claude spend:** it sits at 118% of the backoff quota.
+Orchestration halts need disposition:
+- **review-docket-20261008:** halted when `review-docket-consolidate-20261008` was doomed and parked.
+- **orch-minion-town-oauth-bonds:** halted on an unsatisfied gated outcome.
+- **orch-jev-triage-foreman:** halted because `TYPESAFE_API_KEY` is missing from the job environment, so the Jev trial needs the maintainer-owned key.
+- **claude-on-minion-town-press:** halted after the carry child timed out.
+
+The parcel-stack restack orchestration completed cleanly. One design-gated item is waiting on you: [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189) (the iframe embed design) must be approved before the headers and live-frame jobs can run.
+
+Several Literate AI source files are still blocked by the foreign-content gate with injection scores around 0.25–0.34. They stay unread until you give an explicit disposition. The ingest has otherwise continued through the sources that passed.
+
+On the infrastructure side, the journal-lock contention storm on endolin has recurred (7 clones in one tick, 2 occurrences). The cleric pool was throttled from 4 to 1 worker on Codex demand. A producer-lock deadmail fix landed on `main2`. Claude spend is at 118% of its backoff quota, while Codex is at 36%.
 
 ## Maintainer review docket
 
@@ -561,7 +563,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 318.9M | $1506.94 _(notional, rate-card)_ | 118% of 271.0M (backoff) |
+| Claude | 319.0M | $1507.48 _(notional, rate-card)_ | 118% of 271.0M (backoff) |
 | Codex | 23.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 88063356 tokens/day lower bound._
