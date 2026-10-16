@@ -612,7 +612,11 @@ if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL
   # marker emitted" under a prompt asserting its old worktree still exists is
   # primed to re-emit the report and completion marker WITHOUT doing the newly
   # requested work — a silent false completion. A re-posted base must start a
-  # fresh session against its fresh worktree.
+  # fresh session against its fresh worktree. RETIRE rather than delete: the move
+  # out of the projects tree gives the same resume safety, while the retired copy
+  # (mtime preserved) keeps this job's tokens in the host meter's window spend.
+  meter_retire_transcript "$proj_dir/$session_id.jsonl" "$base"
+  meter_retire_transcript "$proj_dir_alt/$session_id.jsonl" "$base"
   rm -f "$proj_dir/$session_id.jsonl" "$proj_dir_alt/$session_id.jsonl" 2>/dev/null || true
 fi
 # Prune the pty lane's per-job context state file on completion, whether or not this job

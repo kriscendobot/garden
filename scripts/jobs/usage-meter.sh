@@ -95,6 +95,14 @@ fi
 # PRIMARY SOURCE: Claude Code's session-log directory (per-host). Overridable for
 # tests and for a non-default ~/.claude location.
 : "${GARDEN_CCUSAGE_LOGDIR:=${HOME:-/home/$(id -un 2>/dev/null || echo kris)}/.claude/projects}"
+# RETIRED transcripts: a finished monk job's top-level session transcript must leave
+# the Claude projects tree (its deterministic session id must never be --resume'd by
+# a re-posted base), but its tokens still count against this host's window. The
+# handler moves it here (meter_retire_transcript, mtime preserved) and the window
+# scans read it alongside GARDEN_CCUSAGE_LOGDIR. Files older than the max age
+# (default 8 days, past the longest seven-day window) are pruned on retirement.
+: "${GARDEN_RETIRED_TRANSCRIPTS:=$GARDEN_STATE/retired-transcripts}"
+: "${GARDEN_RETIRED_TRANSCRIPT_MAX_AGE:=691200}"
 # Set to 1 to also count cache_read_input_tokens as billable (default: excluded).
 : "${GARDEN_TOKEN_COUNT_CACHE_READ:=0}"
 # FALLBACK SOURCE: the host-local rolling ledger. Outside any reset-prone worktree.
@@ -378,6 +386,56 @@ meter_window_cutoff() {
   fi
 }
 
+# _meter_scan_roots <logdir> — print the directories a window scan reads, one per
+# line: <logdir> itself, then the retired-transcript directory when it exists and
+# is readable. Message-id dedupe makes any overlap harmless.
+_meter_scan_roots() {
+  printf '%s\n' "$1"
+  local r="$GARDEN_RETIRED_TRANSCRIPTS"
+  [ -n "$r" ] && [ "$r" != "$1" ] && [ -d "$r" ] && [ -r "$r" ] && [ -x "$r" ] && printf '%s\n' "$r"
+  return 0
+}
+
+# _meter_find_jsonl <logdir> [find-predicates...] — find session *.jsonl under the
+# scan roots. Exit status is find's, so an unreadable logdir still reads as unknown.
+_meter_find_jsonl() {
+  local logdir="$1" roots=(); shift
+  mapfile -t roots < <(_meter_scan_roots "$logdir")
+  find "${roots[@]}" -maxdepth 6 -type f -name '*.jsonl' "$@" 2>/dev/null
+}
+
+# meter_retire_transcript <jsonl-path> <job-base> — move a finished session
+# transcript out of Claude's projects tree into GARDEN_RETIRED_TRANSCRIPTS as
+# <base>-<sid>.jsonl, preserving its mtime, so it can no longer be --resume'd but
+# its in-window tokens still reach the host's spend. Falls back to deletion when
+# the move fails (resume safety wins over metering). Then prunes retired files
+# older than GARDEN_RETIRED_TRANSCRIPT_MAX_AGE. Never fails the caller.
+meter_retire_transcript() {
+  local src="$1" base="${2:-job}" dir="$GARDEN_RETIRED_TRANSCRIPTS" dest key
+  if [ -f "$src" ]; then
+    key="${base//[^A-Za-z0-9._-]/-}"
+    dest="$dir/$key-$(basename "$src")"
+    if ! { mkdir -p "$dir" 2>/dev/null && cp -p "$src" "$dest.tmp.$$" 2>/dev/null &&
+           mv -f "$dest.tmp.$$" "$dest" 2>/dev/null; }; then
+      rm -f "$dest.tmp.$$" 2>/dev/null
+    fi
+    rm -f "$src" 2>/dev/null
+  fi
+  meter_prune_retired_transcripts
+  return 0
+}
+
+# meter_prune_retired_transcripts — delete retired transcripts whose mtime is older
+# than GARDEN_RETIRED_TRANSCRIPT_MAX_AGE seconds. Best-effort.
+meter_prune_retired_transcripts() {
+  local dir="$GARDEN_RETIRED_TRANSCRIPTS" age="$GARDEN_RETIRED_TRANSCRIPT_MAX_AGE" now
+  [ -d "$dir" ] || return 0
+  [[ "$age" =~ ^[0-9]+$ ]] || return 0
+  now="$(meter_now)"; [[ "$now" =~ ^[0-9]+$ ]] || return 0
+  find "$dir" -maxdepth 1 -type f -name '*.jsonl' ! -newermt "@$((now - age))" -delete 2>/dev/null || true
+  return 0
+}
+
 # _meter_entitlement_cutoff <logdir> <anchor> — detect a quota/account boundary
 # inside the nominal week. A seven-day rejection followed by a successful paid
 # turn before the scheduled reset proves that the server began a fresh
@@ -390,7 +448,7 @@ _meter_entitlement_cutoff() {
   local logdir="$1" anchor="$2" listing rc boundary
   command -v jq >/dev/null 2>&1 || return 1
   [ -d "$logdir" ] && [ -r "$logdir" ] && [ -x "$logdir" ] || return 1
-  listing="$(find "$logdir" -maxdepth 6 -type f -name '*.jsonl' -newermt "@$anchor" 2>/dev/null)"; rc=$?
+  listing="$(_meter_find_jsonl "$logdir" -newermt "@$anchor")"; rc=$?
   [ "$rc" -eq 0 ] || return 1
   [ -n "$listing" ] || { printf '%s\n' "$anchor"; return 0; }
   boundary="$(printf '%s\n' "$listing" | tr '\n' '\0' | xargs -0 jq -Rr '
@@ -455,7 +513,7 @@ meter_prune() {
 }
 
 # _meter_session_total <logdir> <cutoff-epoch> — sum BILLABLE tokens from Claude
-# Code session JSONL under <logdir>, deduped by message id (first occurrence
+# Code session JSONL under <logdir> and the retired-transcript directory, deduped by message id (first occurrence
 # wins), counting only assistant turns whose timestamp epoch is >= <cutoff>.
 # Prints the integer sum on stdout. Returns:
 #   0 with <sum>  on a successful scan (sum may legitimately be 0 for a GENUINELY
@@ -475,7 +533,7 @@ _meter_session_total() {
   # append-only with monotonically increasing timestamps), so prune by mtime to
   # bound the scan over what may be thousands of session files. find exits non-zero
   # if the dir is unreadable or -newermt is unsupported → treat as unknown.
-  listing="$(find "$logdir" -maxdepth 6 -type f -name '*.jsonl' -newermt "@$cutoff" 2>/dev/null)"; rc=$?
+  listing="$(_meter_find_jsonl "$logdir" -newermt "@$cutoff")"; rc=$?
   [ "$rc" -ne 0 ] && return 1
   if [ -z "$listing" ]; then
     # No session file is newer than the cutoff. That is a GENUINE 0 for a host that
@@ -489,7 +547,7 @@ _meter_session_total() {
     # (the file just holds no in-window turn). With no session file at all the sensor
     # is unproven → return unknown (rc 1) so the caller fails open and SKIPS, never
     # maximizes (the safe skip path, e.g. budget-level.sh's pool_failure→continue).
-    if [ -n "$(find "$logdir" -maxdepth 6 -type f -name '*.jsonl' -print -quit 2>/dev/null)" ]; then
+    if [ -n "$(_meter_find_jsonl "$logdir" -print -quit)" ]; then
       printf '0\n'; return 0   # session history present, none in-window → genuine idle
     fi
     return 1                    # no session files at all → sensor blind → unknown
