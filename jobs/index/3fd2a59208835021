@@ -1,2 +1,2 @@
-base: improve-mentor-provider-order-reject-retired-local
+base: improve-mentor-accept-mjs-paths
 identity: mentor:scripts/jobs/handlers/mentor-claude.sh
