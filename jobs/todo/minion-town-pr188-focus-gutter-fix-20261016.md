@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 arc: minion-town
 ---
@@ -13,13 +14,5 @@ Fix ONLY this defect, from the final panel (engine-realist, should-fix): `deploy
 
 Report: the commit, what changed, and any remaining panel findings you saw but did not fix.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-16T13:00:06Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-16T13:33:17Z -->
