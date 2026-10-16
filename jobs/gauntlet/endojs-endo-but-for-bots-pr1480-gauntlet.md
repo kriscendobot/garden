@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1480
 build_job: endo-but-for-bots-ocapn-tcp-for-test-extraction-design-pr-open
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1480-gauntlet-clean
+current_child: endojs-endo-but-for-bots-pr1480-gauntlet-panel-1
 state: running
 created_by: producer
 arc: endo-ocapn-background
