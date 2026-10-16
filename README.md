@@ -1,25 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T02:37:15Z_
+_As of 2026-10-16T02:41:45Z_
 
 ## Latest
 
-Several minion.town gauntlets ran out of review budget without converging and now need a human call: [#186](https://github.com/kriscendobot/minion.town/pull/186) (12/12 rounds, $28.05), [#184](https://github.com/kriscendobot/minion.town/pull/184) (12/12, $26.88), [#180](https://github.com/kriscendobot/minion.town/pull/180) (12/12, $25.91), [#190](https://github.com/kriscendobot/minion.town/pull/190) (6/6) and [#188](https://github.com/kriscendobot/minion.town/pull/188) (6/6). [#178](https://github.com/kriscendobot/minion.town/pull/178) also stopped at 8/8 with 20 must-fix items still raised each round, and [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) stopped at 10/10 with 8 open. The #186 gauntlet closed out in this window. Each notice offers `--add-rounds 2` if you want to extend. Spend is high: Claude is at 112% of quota in backoff, and Codex is at 92%.
+Seven minion.town gauntlets have hit their review budget without converging and now wait on a human merge or review call: [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#186](https://github.com/kriscendobot/minion.town/pull/186), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#178](https://github.com/kriscendobot/minion.town/pull/178) and garden-book PR 15. Each used its full allotment. #186 stopped at 12 rounds and about $28. #178 still showed 20 new must-fix items on its last round. The garden-book PR still carried 8, mostly style and comment nits. Each message includes a `--add-rounds` command if you want to grant more. [#181](https://github.com/kriscendobot/minion.town/pull/181) is a separate case: its gauntlet's fix round 5 was parked after a failure, and the gauntlet owns the retry.
 
-The Endo [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) gauntlet halted, while [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) is on panel round 6. [minion.town#183](https://github.com/kriscendobot/minion.town/pull/183) is on panel round 9, and [#171](https://github.com/kriscendobot/minion.town/pull/171) has panel round 11 queued. Three Parcel restack finishers for Endo [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) are queued. The `improve-comment-source-timeout-not-fatal` job completed and was split into an expanded-window follow-on.
+- **Merged:** [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged, and its deploy succeeded and was validated.
+- **Halted orchestrations:** `orch-minion-town-oauth-bonds`, `orch-jev-triage-foreman` and `review-docket-20261008` all halted on a failed child. The Jev trial needs `TYPESAFE_API_KEY` provisioned. `review-docket-consolidate-20261008` is held in plan after the reaper exhausted its requeues. A `claude-on-minion-town-press` split halted when its carry child timed out on oros.
+- **oros host:** its sysop bridge has been unresponsive, and a human needs to restart `garden-sysop` there. The canary-stuck alert has cleared. Rolling-deploy peer endolin-garden2 is still reported offline (the 2,706-times-coalesced notice).
+- **Scholar ingest:** the foreign-content gate has halted about a dozen Literate AI sources, and they stay blocked until you give an explicit read-or-skip disposition.
+- **Quota:** Claude spend is at 112% of the backoff threshold, while Codex is at 92%.
+- **Other open decisions:** the iframe-embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) awaits approval before its headers and live-frame jobs can run.
 
-Proxy-screened [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and its deploy succeeded.
-
-Things that are waiting on you:
-- **Stalled orchestrations:** `orch-minion-town-oauth-bonds`, `orch-jev-triage-foreman` and `review-docket-20261008` are all halted. The Jev trial needs `TYPESAFE_API_KEY` provisioned. The docket consolidation job was doomed and is held in plan.
-- **Rolling deploy:** it is still held at the oros canary, with a sticky roll drain. The gardener asks you to lift the drain and re-trigger the roll, or hold the tip. Oros is also showing a quiet sysop, and the health checks are queued. The watchdog reports the canary-stuck condition cleared when oros reached `d4ef628b85d`.
-- **Literate AI ingest:** the foreign-content gate halted six or more sources at uncertain injection scores (0.25–0.34). They stay blocked until you reply with a disposition for each.
-- **Design approval:** the iframe embed design ([minion.town#189](https://github.com/kriscendobot/minion.town/pull/189)) needs your approval before the headers job and the live-frame job can run.
-- **Offline host:** `endolin-garden2` has been offline for about 5.8 days, and the watchdog is counting its 2,706th occurrence.
-
-Journal-lock contention notices are mostly clearing on their own, and a storm of them has recovered.
+Journal lock-contention notices keep recurring, but most have cleared.
 
 ## Maintainer review docket
 
@@ -910,7 +904,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 304.6M | $1441.37 _(notional, rate-card)_ | 112% of 271.0M (backoff) |
+| Claude | 304.8M | $1442.38 _(notional, rate-card)_ | 112% of 271.0M (backoff) |
 | Codex | 90.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 80507652 tokens/day lower bound._
