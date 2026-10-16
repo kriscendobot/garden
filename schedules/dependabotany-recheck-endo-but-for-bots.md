@@ -1,5 +1,5 @@
 cadence: daily
-last_dispatched: 2026-10-15T07:35:28Z
+last_dispatched: 2026-10-16T07:50:07Z
 job_basename_prefix: dependabotany-recheck-endo-but-for-bots
 preflight: dependabotany-preflight.sh
 ---
