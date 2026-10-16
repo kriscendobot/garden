@@ -1,29 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T12:10:27Z_
+_As of 2026-10-16T12:27:09Z_
 
 ## Latest
 
-Several minion.town gauntlets ran out of review budget without converging: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178) and [#190](https://github.com/kriscendobot/minion.town/pull/190). [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15) also hit its cap, with 20 new must-fix items in the last round. The carry-eight supervisor says the panels keep raising new nit-class must-fix findings (prose or JSDoc accuracy, identifier spelling). Its example is [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188), where round 7's only must-fix was renaming `fetchImpl` to `fetchImplementation`. It asks you to choose between:
-- (a) You review and approve the PRs yourself.
-- (b) You authorize a narrow policy change so the decider treats those findings as should-fix. This is its recommendation.
-- (c) You keep granting bounded rounds and accept the spend.
+Activity was mostly minion.town gauntlet churn. The [PR #193](https://github.com/kriscendobot/minion.town/pull/193) panel-3 round finished and fix-3 is queued. [PR #188](https://github.com/kriscendobot/minion.town/pull/188) panel-8 finished and fix-8 was claimed, and [PR #192](https://github.com/kriscendobot/minion.town/pull/192) fix-5 is in flight. The Claude-on-minion.town press and arc-press reports for 2026-10-16 completed, and the rolling-deploy canary round trip passed on the oros host at `9fc0f74036c`. A self-heal job for the watchman's deployed-head lock-busy skip-tick was also posted.
 
-[minion.town#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix-5 stage was parked in the plan queue after its first non-productive failure. Gauntlets for [#188](https://github.com/kriscendobot/minion.town/pull/188), [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193) are still running.
-
-Two orchestrations halted:
-- `orch-minion-town-oauth-bonds` halted because its build child declared its gated outcome unsatisfied.
-- `orch-jev-triage-foreman` halted because the trial is missing `TYPESAFE_API_KEY`, which only you can provision.
-
-`review-docket-20261008` also halted because its consolidate child was doomed after its backed-off retry also failed. That child is parked in the plan queue.
-
-Several Literate AI sources are held at the foreign-content gate, with injection scores of 0.25 to 0.34. These are `project-releases`, `authority-learning-loop`, `beam-live-coding-layer-investigation`, `repository-source-dependencies`, `skills.md`, `superpowers-skills-assessment`, ADR 0014, ADR 0016 and ADR 0041. None were read. They stay blocked until you give a disposition (ingest or skip) for each.
-
-The [iframe embed design (minion.town#189)](https://github.com/kriscendobot/minion.town/pull/189) needs your approval before the headers and live-frame jobs can start.
-
-Journal lock contention is a recurring alert on the leader host: the storm notice has fired 10 times, with 7 clones affected in the latest tick. Fetch p95 is up to about 14.6s against a 45s ceiling, so it is noisy but not yet critical. Claude spend is at 122% of its backoff quota, which is worth a look.
+**For the maintainer:**
+- **Review-budget exhaustion.** Gauntlets on [PR #178](https://github.com/kriscendobot/minion.town/pull/178), [PR #180](https://github.com/kriscendobot/minion.town/pull/180), [PR #184](https://github.com/kriscendobot/minion.town/pull/184) and [PR #190](https://github.com/kriscendobot/minion.town/pull/190) hit their review budget without converging, and so did the garden-book gauntlet on [PR #15](https://github.com/kriscendobot/garden-book/pull/15). Spend per gauntlet ran roughly $18–31.
+- **Supervisor policy question.** The carry-eight supervisor asks how to land these PRs, because the panels keep returning nit-class must-fix items. It recommends narrowing the decider so prose and identifier-spelling findings count as should-fix. The alternatives are your approval or more paid rounds.
+- **Halted orchestrations.** `review-docket-20261008` halted because its consolidate child was doomed and is held in plan. `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` halted because a child declared its gated outcome unsatisfied. The Jev trial is blocked on a missing `TYPESAFE_API_KEY`. The Claude-on-minion.town press split halted on a handler timeout on the oros host.
+- **Held gauntlet stage.** The [PR #181](https://github.com/kriscendobot/minion.town/pull/181) fix-5 stage is parked in plan after its first non-productive failure.
+- **Iframe embed design.** The iframe embed headers and live-frame jobs wait on your approval of design [PR #189](https://github.com/kriscendobot/minion.town/pull/189).
+- **Scholar ingest.** Many Literate AI sources are blocked at the foreign-content gate and need an explicit disposition from you.
+- **Journal lock contention.** There were 10 occurrences of a contention storm on the leader host, and 12 notices are open.
+- **Claude spend.** Claude spend is at 122% of the backoff quota.
 
 ## Maintainer review docket
 
@@ -512,6 +503,10 @@ Delegation: **active**
 > - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
 > - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
 
+- `watchdog-journal-fetch-slow-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden_journal.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: p95=20.028983s max=20.028983s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
 - `msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec` — from gardener:scholar-ingest-literate-ai-remainder-12-20261011, reply_to `scholar-ingest-literate-ai-remainder-12-20261011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-literate-ai-remainder-12-20261011-f6f7d0aefcec.md)
 
 > Foreign-content gate halted another Literate AI source; I did not read or ingest it and need an explicit disposition.
@@ -659,33 +654,33 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 330.3M | $1562.70 _(notional, rate-card)_ | 122% of 271.0M (backoff) |
+| Claude | 330.8M | $1565.55 _(notional, rate-card)_ | 122% of 271.0M (backoff) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 88372141 tokens/day lower bound._
+_Fleet token-unlock pace: 88455623 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 14.595765s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 12 open notice(s); checker healthy
+worst fetch p95 4.672974s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (5)
+- [`kriscendobot-minion.town-pr193-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr193-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #193
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2-pr-edit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-fix-2-pr-edit.md) — Move PR #356's base to llm-863a995 and replace its body (mechanical)
-- [`claude-on-minion-town-press-20261016-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261016-110509.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261016-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261016-110509.md) — ---
-- [`kriscendobot-minion.town-pr188-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr188-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #188
+- [`self-heal-fix-garden-watchman-deployed-head-lock-busy-skip-tick`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-watchman-deployed-head-lock-busy-skip-tick.md) — ---
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review.md) — Post the round-2 panel verdict on endojs/endo-but-for-bots PR #356 (REQUEST_C...
 
 ### doin (2)
-- [`kriscendobot-minion.town-pr193-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr193-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #193
 - [`kriscendobot-minion.town-pr192-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr192-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #192
+- [`kriscendobot-minion.town-pr188-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr188-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #188
 
-### tada (13258)
+### tada (13260)
+- [`claude-on-minion-town-press-20261016-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/claude-on-minion-town-press-20261016-110509.md) — Press report: claude-on-minion-town, 2026-10-16 12:2xZ
+- [`kriscendobot-minion.town-pr193-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr188-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr188-gauntlet-panel-8.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-9fc0f74036c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/canary-probe-oros-studio-garden-ce242c49-9fc0f74036c4.md) — rolling-deploy canary probe — round trip OK
 - [`minion-town-arc-press-20261016-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/minion-town-arc-press-20261016-110509.md) — Cost
-- [`kriscendobot-minion.town-pr192-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr192-gauntlet-panel-5.md) — Cost
-- [`kriscendobot-minion.town-pr180-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr180-gauntlet.md) — gauntlet kriscendobot-minion.town-pr180-gauntlet — review budget reached
-- … and 13253 more
+- … and 13255 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
