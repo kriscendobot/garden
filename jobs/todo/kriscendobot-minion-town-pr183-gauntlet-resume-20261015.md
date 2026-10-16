@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Resume the kriscendobot/minion.town#183 screen gauntlet for 2 more rounds
@@ -21,13 +22,6 @@ record (state `resume-pending` or `running`), or a `-panel-9` stage job, and rep
 Do not edit the PR, un-draft it, or merge it. The gauntlet and the proxy screen own that.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=330 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-16T01:36:58Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-16T02:03:20Z -->
