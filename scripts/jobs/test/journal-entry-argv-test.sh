@@ -10,7 +10,9 @@
 # write/push NOTHING); reject a dash-led or otherwise malformed kind with a
 # non-zero die BEFORE the clone/push loop; and reject an inline body STRING passed
 # where a body-FILE path is expected (the same stdin-hang class as
-# garden-harden-producer-body-read-hang) rather than silently reading stdin.
+# garden-harden-producer-body-read-hang) rather than silently reading stdin; and
+# reject an empty or whitespace-only result before it can become durable false
+# completion evidence.
 #
 # Hermetic: a throwaway bare journal origin stands in for the shared journal. No
 # real journal and no network are touched.
@@ -122,6 +124,30 @@ grep -qi 'not a readable file' <<<"$OUT" && ok "names the body-source refusal" |
 [ "$(origin_head)" = "$H2" ] && ok "inline-body refusal wrote no journal entry" || bad "inline-body advanced the journal head"
 
 # ============================================================================
+hr; echo "REJECT — an empty or whitespace-only result writes NOTHING"; hr
+H3="$(origin_head)"
+for empty_result in '' '   ' $' \t\n\r '; do
+  BODY="$empty_result"
+  run_entry result
+  [ "$RC" -ne 0 ] && ok "blank result exits non-zero" || bad "blank result exit $RC (want non-zero): $OUT"
+  grep -qi 'result body is empty or whitespace-only' <<<"$OUT" \
+    && ok "blank result names the refusal" || bad "no blank-result refusal: $OUT"
+done
+blank_file="$TR/blank-result.md"; printf ' \t\n\r\n' > "$blank_file"
+BODY="ignored because a body file was supplied"
+run_entry result "$blank_file"
+[ "$RC" -ne 0 ] && ok "whitespace-only result file exits non-zero" || bad "blank result file exit $RC (want non-zero): $OUT"
+[ "$(origin_head)" = "$H3" ] && ok "blank-result refusals wrote no journal entry" || bad "a blank result advanced the journal head"
+
+# Preserve the narrower contract: empty communication entries are not completion
+# evidence and continue to be accepted.
+BODY=""
+run_entry progress
+[ "$RC" -eq 0 ] && [ "$(count_kind progress)" -eq 1 ] \
+  && ok "an empty non-result entry remains accepted" \
+  || bad "empty progress entry was unexpectedly rejected (rc=$RC): $OUT"
+
+# ============================================================================
 hr; echo "ACCEPT — a valid kind still posts a real entry"; hr
 # body on stdin (the common producer path)
 BODY="$(printf '%s\n' "a real progress note")"
@@ -146,7 +172,7 @@ hr; echo "REFUSE — writing into the live \$GARDEN_ROOT/journal worktree"; hr
 setup_fixture
 # Make $GARDEN_ROOT/journal a real checkout so the guard's -d test fires.
 git clone -q --branch journal2 "$BARE" "$TR/journal"
-H3="$(origin_head)"
+H4="$(origin_head)"
 set +e
 OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
            GARDEN_STATE="$STATE" GARDEN_ROOT="$TR" \
@@ -158,7 +184,7 @@ RC=$?
 set -e
 [ "$RC" -ne 0 ] && ok "live-worktree target exits non-zero" || bad "live-worktree target exit $RC (want non-zero): $OUT"
 grep -qi 'live worktree' <<<"$OUT" && ok "names the live-worktree refusal" || bad "no live-worktree message: $OUT"
-[ "$(origin_head)" = "$H3" ] && ok "live-worktree refusal wrote no entry" || bad "advanced the journal head"
+[ "$(origin_head)" = "$H4" ] && ok "live-worktree refusal wrote no entry" || bad "advanced the journal head"
 [ -z "$(git -C "$TR/journal" status --porcelain)" ] && ok "the live worktree stayed clean (never dirtied)" || bad "the live worktree was dirtied"
 
 # ============================================================================

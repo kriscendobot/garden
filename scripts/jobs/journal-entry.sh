@@ -115,6 +115,17 @@ if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"
 else BODY="(no body)"; fi
 
+# A result is durable evidence that a job finished. An empty provider response
+# must fail loudly rather than landing a blank result that completion recovery
+# can mistake for a real report. Other entry kinds retain their existing empty-
+# body behavior.
+if [ "$kind" = result ]; then
+  case "$BODY" in
+    *[![:space:]]*) : ;;
+    *) die "result body is empty or whitespace-only; refusing to post blank completion evidence" ;;
+  esac
+fi
+
 day="$(date -u +%Y/%m/%d)"
 stamp="$(date -u +%H%M%SZ)"
 sid="$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')"
