@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-10-16T01:50:30Z
+sent_at: 2026-10-16T01:52:37Z
 watchdog_key: comment-ack-blind-kriscendobot-minion.town
 notice_count: 53
 first_seen: 2026-10-15T20:22:18Z
-last_seen: 2026-10-16T01:50:30Z
+last_seen: 2026-10-16T01:52:37Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #53 (first seen 2026-10-15T20:22:18Z, latest 2026-10-16T01:50:30Z).
-The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 53 times; this is ONE
-coalesced notice that updates in place, not 53 messages. Latest detail:
+RECOVERED — the watchdog condition `comment-ack-blind-kriscendobot-minion.town` has CLEARED (first seen 2026-10-15T20:22:18Z, cleared 2026-10-16T01:52:37Z).
+It was observed 53 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-https://github.com/kriscendobot/minion.town/pull/191#discussion_r4287555576 (age=21585s; heartbeat=full-poll)
+Comment acknowledgment condition cleared.
