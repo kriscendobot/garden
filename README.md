@@ -1,24 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T17:55:15Z_
+_As of 2026-10-16T18:16:12Z_
 
 ## Latest
 
-OCapN work dominated this window. Three builds finished: `endo-but-for-bots-ocapn-tcp-syrups-framing-build`, `endo-but-for-bots-ocapn-tcp-for-test-extraction-build` and `kriscendobot-minion.town-pr184-gauntlet-fix-15`. Follow-ups are queued behind them: an open-PR job for the TCP Syrup framing status update, a `session-reconnect` build, and a `network-transport-separation` build. In progress are a cryptographic-review design for OCapN Noise and a daemon agent network identity build.
+The OCapN/Noise arc moved the most. The cryptographic-review design for [endo-but-for-bots#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) finished and entered the gauntlet, with its pre-spend viability check queued. The build that follows the gauntlet is parked until it completes. The session-reconnect and network-transport-separation builds are both in progress, and the reconnect phases 2–5 are deferred. Two more OCapN jobs are in motion: a TCP test-extraction design is queued, and a new OCapN bootstrap package design was claimed. The daemon agent-network-identity build also completed.
 
-On minion.town, [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) completed fix round 15 and panel round 16 is queued. [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) passed panel round 7 and now has an undraft stage waiting. A gauntlet opened for [kriscendobot/minion.town#194](https://github.com/kriscendobot/minion.town/pull/194), starting with a pre-spend viability check.
+On minion.town, [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) finished its gauntlet and un-draft. [kriscendobot/minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) passed viability and now has a clean stage queued. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) has panel round 16 waiting. The OCapN canary live run is repinned to the leader host and parked until you say go ahead. Its guests now adopt from durable `endo://` locators, so `guests.json` needs the two guest locators before you provision.
 
-Maintainer attention:
-- The OCapN canary live run is parked until you say go ahead. It is pinned to host `endolin-garden-ece02cb4`. Since #193, the canary adopts guests from durable `endo://` locators, so `~/.garden-state/ocapn-canary/guests.json` should hold the two guest locators before you provision.
-- The parcel-stack restack orchestration finished with all 3 children complete and none failed.
-- A journal-contention storm alert cleared after about 15 minutes.
-- Claude spend is at 128% of its quota estimate, so watch it.
+The parcel-stack restack orchestration completed with all three children done and none failed. A journal-contention storm warning cleared on its own and needs no action.
 
 ## Maintainer review docket
 
-144 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+145 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -29,8 +23,8 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-16T17:52:10Z).
-> It was observed 2 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-16T18:02:14Z).
+> It was observed 3 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
@@ -58,37 +52,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 345.6M | $1633.01 _(notional, rate-card)_ | 128% of 271.0M (ok) |
+| Claude | 346.6M | $1645.04 _(notional, rate-card)_ | 128% of 271.0M (ok) |
 | Codex | 34.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 96093447 tokens/day lower bound._
+_Fleet token-unlock pace: 96053973 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (8)
-- [`design-ocapn-bootstrap-package-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-ocapn-bootstrap-package-20261016.md) — Design: an OCapN bootstrap / nonce-locator / gateway package with feature-det...
-- [`endo-but-for-bots-ocapn-noise-session-reconnect-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-noise-session-reconnect-build.md) — ---
-- [`endo-but-for-bots-ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-network-transport-separation-build.md) — ---
-- [`kriscendobot-minion.town-pr193-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr193-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #193
+### todo (7)
+- [`endo-but-for-bots-ocapn-tcp-for-test-extraction-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-tcp-for-test-extraction-design.md) — ---
+- [`kriscendobot-minion.town-pr194-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr194-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #194
 - [`endo-but-for-bots-ocapn-tcp-syrup-framing-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-tcp-syrup-framing-open-pr.md) — Open the draft PR for the ocapn-tcp-syrup-framing status update (successor to...
-- [`kriscendobot-minion.town-pr194-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr194-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #194
 - [`kriscendobot-minion.town-pr184-gauntlet-panel-16`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-panel-16.md) — Gauntlet stage: PANEL round 16 — kriscendobot/minion.town PR #184
+- [`minion-town-ui-iframe-embed-headers-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-ui-iframe-embed-headers-after-approval.md) — Iframe: implement approved clip embedding headers after design approval
+- [`endojs-endo-but-for-bots-pr1475-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1475-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1475
 - [`improve-send-msg-nested-role-address`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-send-msg-nested-role-address.md) — ---
 
 ### doin (3)
-- [`endo-but-for-bots-ocapn-noise-cryptographic-review-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-ocapn-noise-cryptographic-review-design.md) — ---
-- [`minion-town-ui-iframe-embed-headers-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ui-iframe-embed-headers-after-approval.md) — Iframe: implement approved clip embedding headers after design approval
-- [`endo-but-for-bots-daemon-agent-network-identity-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-daemon-agent-network-identity-build.md) — ---
+- [`design-ocapn-bootstrap-package-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ocapn-bootstrap-package-20261016.md) — Design: an OCapN bootstrap / nonce-locator / gateway package with feature-det...
+- [`endo-but-for-bots-ocapn-noise-session-reconnect-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-ocapn-noise-session-reconnect-build.md) — ---
+- [`endo-but-for-bots-ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-ocapn-network-transport-separation-build.md) — ---
 
-### tada (13303)
-- [`endo-but-for-bots-ocapn-tcp-syrups-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endo-but-for-bots-ocapn-tcp-syrups-framing-build.md) — Completion report: endo-but-for-bots-ocapn-tcp-syrups-framing-build
-- [`endo-but-for-bots-ocapn-tcp-for-test-extraction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endo-but-for-bots-ocapn-tcp-for-test-extraction-build.md) — Cost
-- [`kriscendobot-minion.town-pr184-gauntlet-fix-15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr184-gauntlet-fix-15.md) — Cost
-- [`kriscendobot-minion.town-pr193-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-panel-7.md) — Panel round 7 on kriscendobot/minion.town#193: pass
-- [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Cost
-- … and 13298 more
+### tada (13308)
+- [`kriscendobot-minion.town-pr193-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet.md) — gauntlet kriscendobot-minion.town-pr193-gauntlet — complete
+- [`kriscendobot-minion.town-pr193-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-undraft.md) — Cost
+- [`kriscendobot-minion.town-pr194-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr194-gauntlet-viability.md) — Cost
+- [`endo-but-for-bots-daemon-agent-network-identity-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endo-but-for-bots-daemon-agent-network-identity-build.md) — Panel-head freshness
+- [`endo-but-for-bots-ocapn-noise-cryptographic-review-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endo-but-for-bots-ocapn-noise-cryptographic-review-design.md) — Completion report: endo-but-for-bots-ocapn-noise-cryptographic-review-design
+- … and 13303 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -153,7 +146,7 @@ worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endo-but-for-bots-ocapn-noise-session-reconnect-phases-2-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-but-for-bots-ocapn-noise-session-reconnect-phases-2-5.md) — _normal_ · ---
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
@@ -166,6 +159,7 @@ worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
+- [`endo-but-for-bots-ocapn-noise-cryptographic-review-design-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-but-for-bots-ocapn-noise-cryptographic-review-design-build.md) — awaiting `endojs-endo-but-for-bots-pr1475-gauntlet` · Build: the design in endojs/endo-but-for-bots#1475
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`minion-town-ui-iframe-live-frame-landing-notice`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ui-iframe-live-frame-landing-notice.md) — awaiting `minion-town-ui-iframe-embed-headers-after-approval` · Iframe: wait for the embedding-header implementation to land, then post the l...
