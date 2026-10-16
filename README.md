@@ -1,20 +1,26 @@
 # Garden bulletin
 
-_As of 2026-10-16T23:10:03Z_
+_As of 2026-10-16T23:15:26Z_
 
 ## Latest
 
-Several gauntlets moved on Endo and minion.town. [kriscendobot/minion.town#195](https://github.com/kriscendobot/minion.town/pull/195) and [endojs/endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) finished their clean stages and now have panel round 1 queued. Panel round 1 for [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) was claimed, and fix round 2 is running on [#1476](https://github.com/endojs/endo-but-for-bots/pull/1476) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). A new gauntlet started for [#1485](https://github.com/endojs/endo-but-for-bots/pull/1485), beginning with a pre-spend viability check. The OCapN TCP test-extraction design PR-open build completed.
+The board has no file-level transitions since the last bulletin, so the news is in the messages and in-flight gauntlets.
 
-**Needs a maintainer decision:**
-- The gauntlet on [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used all 16 panel/fix rounds without converging. Its last round still raised 19 must-fix items, mostly from the breaker seat. The main one is that the seed-token check in `provision-ci-runner.sh` accepts secrets the Lambda's parser rejects. It cost $34.02, and its un-draft job is queued. You can grant more rounds with `--add-rounds`, or decide on the PR as it stands.
-- The `minion-town-docs-tower-report-20261016` job left one anonymous guest on production minion.town. There is no delete route and the guest's id wasn't recorded. The source note was also missing on the host that ran the job.
+**Needs a decision**
+- The gauntlet for [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used all 16 panel/fix rounds without converging and stopped on its review budget. 19 must-fix items remain, mostly `breaker` findings on `provision-ci-runner.sh`. The main one is that the seed check accepts secrets the Lambda's `tokenFromSecret` later rejects. The PR is left for a human to merge or review, or you can grant more rounds with `--add-rounds`. Its un-draft stage is still queued on the board.
+- The `minion-town-docs-tower-report-20261016` job left two items. A live probe left one anonymous guest on production minion.town, and the API has no delete route, so you would have to remove it by hand. The source note `note-from-tower.md` was also not on the host that ran the job, so the report was never checked against it.
+- The OCapN canary job (`minion-town-ocapn-canary-live-run`) is repinned to `endolin-garden-ece02cb4` and stays parked until you say go ahead. Before you provision, note that as of [minion.town#193](https://github.com/kriscendobot/minion.town/issues/193) the canary adopts guests from durable `endo://` locators. `~/.garden-state/ocapn-canary/guests.json` should therefore hold the two guest locators.
 
-Other items:
-- [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged and its deploy succeeded. [#188](https://github.com/kriscendobot/minion.town/pull/188) was screened twice, and a screened conduct job is queued for it.
-- The parcel-stack restack orchestration finished with all 3 children complete.
-- The monk pool on `endolin-garden-ece02cb4` was throttled from 4 to 1 and then raised back to 3. The `claude-endolin1` subscription is at 89% of its quota, and its window ends 2026-10-17T03:00Z.
-- The journal lock-contention notices on both hosts are low-p95 give-ups. The storm notice and one fetch-slow notice have already recovered.
+**Moving**
+- [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged and its deploy succeeded.
+- [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) was re-screened twice and has a conduct job queued.
+- The `parcel-stack-restack` orchestration finished serially, with all 3 children done and none failed.
+- Active gauntlets include [endo-but-for-bots#1476](https://github.com/endojs/endo-but-for-bots/pull/1476) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) in fix round 2, and [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) and [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) in panel rounds.
+- Un-draft stages are queued for [endo-but-for-bots#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) and [#1479](https://github.com/endojs/endo-but-for-bots/pull/1479).
+
+**Capacity and infrastructure**
+- The leader host's `claude-endolin1` spend is past its cap, so the budget watchdog throttled monks from 4 to 1 and then back up to 3. Spend is at 89% of quota.
+- The watchdog has now reported 15 occurrences of a journal lock-contention storm on the leader. Six clones were affected in the latest tick, and `producer/journal` had the most give-ups. It looks like one shared cause. The oros-studio host also logged a few contention notices and one fetch-slow condition that cleared.
 
 ## Maintainer review docket
 
@@ -32,11 +38,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-16T20:38:37Z).
-> It was observed 14 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #15 (first seen 2026-10-16T17:37:14Z, latest 2026-10-16T23:12:12Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 15 times; this is ONE
+> coalesced notice that updates in place, not 15 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.014765s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=3.584890s, giveups=5, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.017225s, giveups=2, steals=1 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.017692s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.013684s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013678s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -146,13 +158,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 381.9M | $1787.92 _(notional, rate-card)_ | 89% of 430.0M (ok) |
+| Claude | 382.1M | $1789.16 _(notional, rate-card)_ | 89% of 430.0M (ok) |
 | Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 93902005 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.020616s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 8 open notice(s); checker healthy
+worst fetch p95 7.020616s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
