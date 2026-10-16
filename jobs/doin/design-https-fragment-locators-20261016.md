@@ -32,3 +32,13 @@ with these properties, in the maintainer's words:
 9. Verification plan: tests and a small real-browser check for the fragment-capture page (history erasure, storage, no network leakage of the fragment).
 
 End with `## Open questions` (concrete, maintainer-facing, each with your recommendation). Report the design location, the verified versus unverified platform facts, and the inventory counts.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T21:56:16Z
