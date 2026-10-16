@@ -123,6 +123,7 @@ jobs:
           bash scripts/jobs/test/classify-foreign-content-test.sh
           bash scripts/jobs/test/ironhorse-test262-ratchet-gate-test.sh
           bash scripts/jobs/test/token-backoff-ramp-test.sh
+          bash scripts/jobs/test/review-docket-pr-gh-test.sh
           python3 scripts/jobs/test/ci-wait-merge-ratchet-test.py
           python3 scripts/jobs/test/ci-wait-merge-screening-test.py
           python3 scripts/jobs/test/minion-town-screening-test.py
