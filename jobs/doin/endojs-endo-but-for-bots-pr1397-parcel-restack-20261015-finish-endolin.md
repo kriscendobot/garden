@@ -37,3 +37,13 @@ Remaining:
    Cover the new base, the restacked commits, the lookup refactor, the design-conformance
    note above, and test status. The PR body's "stacked on ... b0778fa" line is stale.
    Update it to `build/sturdyref-captp-construct-609821f`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T00:53:53Z
