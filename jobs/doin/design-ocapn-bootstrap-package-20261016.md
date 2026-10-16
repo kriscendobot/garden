@@ -25,3 +25,13 @@ Can a sandboxed iframe load assets from its own site or origin, and connect a We
 5. A verification plan: the browser test matrix (sandbox with and without `allow-same-origin`; assets, `fetch`, module scripts, WebSocket, storage, port transfer; CORP/COEP combinations) as a probe job spec the liaison can post. If you can run a small throwaway real-Chromium check inside this job, do, and report results; otherwise specify it.
 
 End with `## Open questions` (concrete, maintainer-facing, with your recommendation for each). Do not start implementation. Report the design location, the verified-versus-unverified platform facts, and the proposed probe.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T18:10:12Z
