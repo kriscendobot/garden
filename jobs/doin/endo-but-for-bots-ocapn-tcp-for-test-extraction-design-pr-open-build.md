@@ -22,3 +22,13 @@ Dispatched by design-build-handoff.sh from the design report's follow-ups:
 
 > - build `ocapn-tcp-for-test-extraction` (one builder job, implementation PR rooted at `master`)
 > - The completion machinery stages the design gauntlet and the build handoff; I did not post either by hand.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T22:38:35Z
