@@ -24,3 +24,13 @@ Maintainer approved design PR #189 on 2026-10-16 (liaison session): approval com
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-16T18:23:12Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T18:32:41Z
