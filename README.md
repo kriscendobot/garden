@@ -1,25 +1,31 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T15:55:29Z_
+_As of 2026-10-16T16:04:58Z_
 
 ## Latest
 
-Several minion.town gauntlets hit their review budget without converging: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#188](https://github.com/kriscendobot/minion.town/pull/188). So did [garden-book#15](https://github.com/kriscendobot/garden-book/pull/15). The #188 and garden-book#15 residue is nit-class must-fix, with a moving target of about 20 new items per round. [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181)'s fix-5 stage was parked after its first failure.
+The garden-book illumination gauntlet ([kriscendobot/garden-book#15](https://github.com/kriscendobot/garden-book/pull/15)) finished this cycle. Its fix round 13 and final panel completed, and it stopped at the review budget with 13 of 13 rounds spent and about $27.65 in cost. The last panel still raised 20 new must-fix items, mostly doc-accuracy notes with a few should-fix items. It is now a human merge-or-extend decision. The garden also queued a plan job to finish the illuminations after the quota refresh.
 
-The carry-eight supervisor asks for your decision on how to land these. It recommends a narrow change so the panel decider treats prose/JSDoc-accuracy and identifier-spelling findings as should-fix instead of must-fix. Your other options are to approve the PRs yourself or keep granting bounded rounds. Four gauntlets are resumed with +2 rounds and each has one more budgeted panel round.
+Across minion.town, four more gauntlets hit their review budgets:
+- [#178](https://github.com/kriscendobot/minion.town/pull/178), 10 rounds.
+- [#180](https://github.com/kriscendobot/minion.town/pull/180), 14 rounds.
+- [#188](https://github.com/kriscendobot/minion.town/pull/188), 8 rounds.
+- [#190](https://github.com/kriscendobot/minion.town/pull/190), 8 rounds.
 
-Three orchestrations halted, all needing a decision:
-- `orch-minion-town-oauth-bonds`: its build child declared its gated outcome unsatisfied.
-- `orch-jev-triage-foreman`: its trial child is blocked on a missing `TYPESAFE_API_KEY`, which you need to provision.
-- `claude-on-minion-town-press-20261013-072006-split`: its carry child hit the handler timeout.
+[#184](https://github.com/kriscendobot/minion.town/pull/184) also reached its limit at 14 rounds, and [#192](https://github.com/kriscendobot/minion.town/pull/192) at 6. Each has spent roughly $16–31.
 
-`review-docket-20261008` also halted, because its consolidate child was doomed and is held in plan. The `parcel-stack-restack` orchestration completed cleanly.
+The carry-eight supervisor asks for a policy decision. Its recommendation is to have the panel decider treat prose, JSDoc and identifier-spelling findings as should-fix instead of must-fix. It reports that the panels keep finding new nit-class must-fix items, so they may never pass. [#193](https://github.com/kriscendobot/minion.town/pull/193) is the only gauntlet still moving: fix 5 is done and panel 6 is running.
 
-The design iframe-embed report is waiting on you to approve [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189) before the headers job and then the live-frame job can run.
+Several orchestrations halted or failed:
+- **`orch-minion-town-oauth-bonds`:** halted because the build child declared its gated outcome unsatisfied.
+- **`orch-jev-triage-foreman`:** halted. The trial needs a `TYPESAFE_API_KEY` that only you can provision.
+- **`review-docket-20261008`:** halted. Its consolidate step was doomed and is held in plan.
+- **`claude-on-minion-town-press-20261013-072006-split`:** halted on a handler timeout.
+- **[#181](https://github.com/kriscendobot/minion.town/pull/181):** its fix-5 stage was parked after a non-productive failure.
 
-The journal lock-contention storms cleared, and the remaining contention notices are single give-ups with small p95 values. The cleric worker count stepped down to 1 and Claude spend is over its backoff quota.
+Two of the earlier-listed items need your answer: approval of the iframe embed design, and the ocap-site crawler-leak design job, which is held for go-ahead.
+
+On the fleet side, the journal lock-contention storm cleared and the Codex worker pool was stepped down to 1. Claude spend is at 125% of its backoff quota. The board is quiet apart from one in-flight panel and four queued jobs.
 
 ## Maintainer review docket
 
@@ -125,6 +131,10 @@ Delegation: **active**
 >
 > Orchestration orch-jev-triage-foreman observed child trial-jev-triage-foreman-classification: completed but declared its gated outcome unsatisfied.
 
+- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: p95=5.485514s max=31.654158s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `review-docket-20261008-child-review-docket-consolidate-20261008-failed` — from orchestrator:review-docket-20261008-child-review-docket-consolidate-20261008-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-docket-20261008-child-review-docket-consolidate-20261008-failed.md)
 
 > orchestration-event: orchestration-child-failure
@@ -140,29 +150,33 @@ Delegation: **active**
 
 - `kriscendobot-garden-book-pr15-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-garden-book-pr15-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-garden-book-pr15-gauntlet-review-budget-reached.md)
 
-> Gauntlet kriscendobot-garden-book-pr15-gauntlet REVIEW-BUDGET-REACHED: Applied 12 panel/fix round(s); fix round 12 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=12, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-garden-book-pr15-gauntlet panel --add-rounds N
+> COALESCED message — occurrence #2 (first seen 2026-10-16T11:08:13Z, latest 2026-10-16T15:59:17Z).
+> The SAME message (episode key `kriscendobot-garden-book-pr15-gauntlet-review-budget-reached`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
 >
-> **Unaddressed must-fix: 20** · verdict: moving target · rounds spent: 12/12 · cost so far: $25.11
-> Trend: r1 n/a; r2 n/a; r3 n/a; r4 n/a; r5 n/a; r6 n/a; r7 n/a; r8 raised 20; r9 n/a; r10 raised 8; r11 n/a; r12 raised 20
+> Gauntlet kriscendobot-garden-book-pr15-gauntlet REVIEW-BUDGET-REACHED: Applied 13 panel/fix round(s); fix round 13 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=13, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-garden-book-pr15-gauntlet panel --add-rounds N
+>
+> **Unaddressed must-fix: 20** · verdict: moving target · rounds spent: 13/13 · cost so far: $27.65
+> Trend: r1 n/a; r2 n/a; r3 n/a; r4 n/a; r5 n/a; r6 n/a; r7 n/a; r8 raised 20; r9 n/a; r10 raised 8; r11 n/a; r12 raised 20; r13 raised 20 (fixed 20, carried 0)
 > Classes: 0 persistent, 20 new in last round, 0 addressed-then-reintroduced
 > ```text
-> [new, since r12] breaker: (build/publish-book.mjs:35) Must-fix: build/publish-book.mjs:35 accepts a 20-byte container containing RIFF, length 12, WEBP, VP8 , a...
-> [new, since r12] breaker: (build/publish-book.mjs:161) Must-fix: build/publish-book.mjs:161-184 treats the caller-controlled garden-book- prefix as proof that a pe...
-> [new, since r12] breaker: Comment-only, mitigated: Missing plates and oversized requests fail before writeText; arbitrary binary values r...
-> [new, since r12] corner-prober: (build/publish-book.mjs:35) must-fix-loop build/publish-book.mjs:35 accepts empty VP8X and VP8L chunks as “well-formed WebP” (is...
-> [new, since r12] corner-prober: (tools/browser-check.mjs:48) summary-fix tools/browser-check.mjs:48 adds Darwin and Windows executable-path branches to exported findChro...
-> [new, since r12] coverage-auditor: (tools/browser-check.mjs:43) tools/browser-check.mjs:43-53, 56-62, 81-83 adds platform-specific Chromium paths for Linux ARM64, macOS, and Windo...
-> [new, since r12] decomplector: (tools/browser-check.mjs:22) Must-fix: tools/browser-check.mjs:22-33,210-267 couples visual inspection to publisher internals by reconstruct...
-> [new, since r12] decomplector: (build/publish-book.mjs:21) Must-fix: build/publish-book.mjs:21-51,73-83 adds a partial RIFF/WebP parser to a publisher that only needs to ...
-> [new, since r12] fast-checker: (test/browser-check.test.mjs:214) summary-fix test/browser-check.test.mjs:214 spot-checks only one cache ordering. Add fc.assert(fc.property(f...
-> [new, since r12] fast-checker: (test/build.test.mjs:374) summary-fix test/build.test.mjs:374 validates committed files and a one-chunk generated container, but isWeb...
-> [new, since r12] locksmith: (build/publish-book.mjs:66) Should-fix: build/publish-book.mjs:66 requires builtTree.list() merely to detect missing declared plates. Thi...
-> [new, since r12] packager: (package.json:21) must-fix: bbfed50 adds fast-check in package.json:21-23, but leaves package-lock.json unchanged; the matc...
+> [new, since r13] archivist: (art/MANIFEST.md:3) should-fix: art/MANIFEST.md:3 says "The illuminated set is committed as same-origin WebP images with explicit d...
+> [new, since r13] archivist: should-fix: art/MANIFEST.md:line 40 (the "Illuminated chapter and section set" intro) says OPENAI-ILLUMINATIO...
+> [new, since r13] archivist: comment-only: build/README.md (test paragraph) says test/browser-check-chromium.test.mjs "is skipped otherwis...
+> [new, since r13] archivist: comment-only: build/README.md says publish.mjs publishes with garden-book-inert (POWERS_NAME). The consta...
+> [new, since r13] archivist: comment-only: build/README.md says publishing "refuses any declared plate that is not a .webp file in the out...
+> [new, since r13] archivist: comment-only: art/chapter-illustrations-brief.md:line 484 still reads as pre-integration ("The proposal contai...
+> [new, since r13] archivist: comment-only: art/OPENAI-ILLUMINATIONS.md records process details (the Chromium Canvas WebP encode at quality 0...
+> [new, since r13] breaker: should-fix: an MCP tool error from writeText doesn't stop the publish. The new comment at build/publish-book.m...
+> [new, since r13] breaker: comment-only: pythonJson doesn't quite mirror Python's json.dumps for DEL. The comment says it "mirrors the ...
+> [new, since r13] breaker: comment-only, mitigated: plate dimensions and ratios. illuminations.mjs declares width/height/ratio, and ...
+> [new, since r13] breaker: comment-only, out of scope: a caller-supplied plates list can omit a referenced plate. makePublishContent pub...
+> [new, since r13] breaker: comment-only, mitigated: plate names can't escape the output directory. The plate-name regex ^A-Za-z0-9A-Za-z...
 > … and 8 more
 > ```
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-garden-book-pr15-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 12 -> 14 (N is yours to choose).
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 13 -> 15 (N is yours to choose).
 
 - `orch-minion-town-oauth-bonds-halted` — from orchestrator:orch-minion-town-oauth-bonds-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-minion-town-oauth-bonds-halted.md)
 
@@ -587,10 +601,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 337.8M | $1596.36 _(notional, rate-card)_ | 125% of 271.0M (backoff) |
+| Claude | 338.1M | $1597.70 _(notional, rate-card)_ | 125% of 271.0M (backoff) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 88708366 tokens/day lower bound._
+_Fleet token-unlock pace: 88725186 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 8 open notice(s); checker healthy
@@ -602,17 +616,16 @@ worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-watch-20261016-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261016-110509.md) — ---
 - [`endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-20261007-panel-2-post-review.md) — Post the round-2 panel verdict on endojs/endo-but-for-bots PR #356 (REQUEST_C...
 
-### doin (2)
-- [`kriscendobot-garden-book-pr15-gauntlet-fix-13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr15-gauntlet-fix-13.md) — Gauntlet stage: FIX round 13 — kriscendobot/garden-book PR #15
+### doin (1)
 - [`kriscendobot-minion.town-pr193-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr193-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #193
 
-### tada (13281)
+### tada (13283)
+- [`kriscendobot-garden-book-pr15-gauntlet-fix-13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-garden-book-pr15-gauntlet-fix-13.md) — Cost
+- [`kriscendobot-garden-book-pr15-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-garden-book-pr15-gauntlet.md) — gauntlet kriscendobot-garden-book-pr15-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr193-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-fix-5.md) — Fix round 5 for kriscendobot/minion.town PR #193: the panel-5 fixes are pushe...
 - [`garden-book-pr15-cut-scope-final-panel-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/garden-book-pr15-cut-scope-final-panel-20261016.md) — Completion report: garden-book-pr15-cut-scope-final-panel-20261016
 - [`kriscendobot-garden-book-pr15-gauntlet-panel-13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-garden-book-pr15-gauntlet-panel-13.md) — Cost
-- [`garden-panel-decider-nit-severity-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/garden-panel-decider-nit-severity-20261016.md) — Cost
-- [`kriscendobot-minion.town-pr193-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-panel-5.md) — Cost
-- … and 13276 more
+- … and 13278 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
