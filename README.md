@@ -1,20 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T17:41:37Z_
+_As of 2026-10-16T17:55:15Z_
 
 ## Latest
 
-The minion.town gauntlets kept moving. [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) passed panel round 7, and an undraft stage is now queued for it. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) finished panel round 15 and is now in fix round 15. A fix round on [kriscendobot/minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) also completed.
+OCapN work dominated this window. Three builds finished: `endo-but-for-bots-ocapn-tcp-syrups-framing-build`, `endo-but-for-bots-ocapn-tcp-for-test-extraction-build` and `kriscendobot-minion.town-pr184-gauntlet-fix-15`. Follow-ups are queued behind them: an open-PR job for the TCP Syrup framing status update, a `session-reconnect` build, and a `network-transport-separation` build. In progress are a cryptographic-review design for OCapN Noise and a daemon agent network identity build.
 
-The press jobs for minion.town and Claude-on-minion.town completed, and the Oros health checkup and watch jobs also finished. The press job left a message: the parked `minion-town-ocapn-canary-live-run` is now pinned to the leader host and waits for your go-ahead. Since #193, the canary adopts guests from durable `endo://` locators rather than invitations. Before provisioning, `~/.garden-state/ocapn-canary/guests.json` needs to hold the two guest locators.
+On minion.town, [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) completed fix round 15 and panel round 16 is queued. [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) passed panel round 7 and now has an undraft stage waiting. A gauntlet opened for [kriscendobot/minion.town#194](https://github.com/kriscendobot/minion.town/pull/194), starting with a pre-spend viability check.
 
-On the Endo side, the OCapN TCP Syrup framing build is in progress, and an OCapN TCP test-extraction build and a daemon agent-network-identity build are queued. A design job for an OCapN bootstrap package is also queued. The embed-headers iframe job was promoted from the plan queue and claimed. The parcel-stack restack orchestration finished with all 3 children done and none failed.
-
-Two things need your attention:
-- **Journal contention:** The watchdog reported a lock-contention storm on the leader host, with 6 clones hitting it in one tick. Its guess is a single shared cause. The producer clone had the most give-ups, at 7.
-- **Quota:** Claude spend sits at 127% of the quota estimate.
+Maintainer attention:
+- The OCapN canary live run is parked until you say go ahead. It is pinned to host `endolin-garden-ece02cb4`. Since #193, the canary adopts guests from durable `endo://` locators, so `~/.garden-state/ocapn-canary/guests.json` should hold the two guest locators before you provision.
+- The parcel-stack restack orchestration finished with all 3 children complete and none failed.
+- A journal-contention storm alert cleared after about 15 minutes.
+- Claude spend is at 128% of its quota estimate, so watch it.
 
 ## Maintainer review docket
 
@@ -29,13 +27,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.012498s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=0.018134s, giveups=7, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.013768s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.012326s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: p95=0.012955s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.013524s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-16T17:52:10Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df` — from gardener:claude-on-minion-town-press-20261016-170509, reply_to `claude-on-minion-town-press-20261016-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df.md)
 
@@ -60,35 +56,37 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 344.8M | $1629.39 _(notional, rate-card)_ | 127% of 271.0M (ok) |
+| Claude | 345.6M | $1633.01 _(notional, rate-card)_ | 128% of 271.0M (ok) |
 | Codex | 34.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 96146205 tokens/day lower bound._
+_Fleet token-unlock pace: 96093447 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
+worst fetch p95 7.787930s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (8)
 - [`design-ocapn-bootstrap-package-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-ocapn-bootstrap-package-20261016.md) — Design: an OCapN bootstrap / nonce-locator / gateway package with feature-det...
-- [`endo-but-for-bots-ocapn-tcp-for-test-extraction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-tcp-for-test-extraction-build.md) — ---
+- [`endo-but-for-bots-ocapn-noise-session-reconnect-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-noise-session-reconnect-build.md) — ---
 - [`endo-but-for-bots-ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-network-transport-separation-build.md) — ---
 - [`kriscendobot-minion.town-pr193-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr193-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #193
-- [`endo-but-for-bots-daemon-agent-network-identity-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-daemon-agent-network-identity-build.md) — ---
+- [`endo-but-for-bots-ocapn-tcp-syrup-framing-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-tcp-syrup-framing-open-pr.md) — Open the draft PR for the ocapn-tcp-syrup-framing status update (successor to...
+- [`kriscendobot-minion.town-pr194-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr194-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #194
+- [`kriscendobot-minion.town-pr184-gauntlet-panel-16`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr184-gauntlet-panel-16.md) — Gauntlet stage: PANEL round 16 — kriscendobot/minion.town PR #184
 - [`improve-send-msg-nested-role-address`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-send-msg-nested-role-address.md) — ---
 
 ### doin (3)
-- [`kriscendobot-minion.town-pr184-gauntlet-fix-15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr184-gauntlet-fix-15.md) — Gauntlet stage: FIX round 15 — kriscendobot/minion.town PR #184
-- [`endo-but-for-bots-ocapn-tcp-syrups-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-ocapn-tcp-syrups-framing-build.md) — ---
+- [`endo-but-for-bots-ocapn-noise-cryptographic-review-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-ocapn-noise-cryptographic-review-design.md) — ---
 - [`minion-town-ui-iframe-embed-headers-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ui-iframe-embed-headers-after-approval.md) — Iframe: implement approved clip embedding headers after design approval
+- [`endo-but-for-bots-daemon-agent-network-identity-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-daemon-agent-network-identity-build.md) — ---
 
-### tada (13300)
+### tada (13303)
+- [`endo-but-for-bots-ocapn-tcp-syrups-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endo-but-for-bots-ocapn-tcp-syrups-framing-build.md) — Completion report: endo-but-for-bots-ocapn-tcp-syrups-framing-build
+- [`endo-but-for-bots-ocapn-tcp-for-test-extraction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/endo-but-for-bots-ocapn-tcp-for-test-extraction-build.md) — Cost
+- [`kriscendobot-minion.town-pr184-gauntlet-fix-15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr184-gauntlet-fix-15.md) — Cost
 - [`kriscendobot-minion.town-pr193-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr193-gauntlet-panel-7.md) — Panel round 7 on kriscendobot/minion.town#193: pass
 - [`kriscendobot-minion.town-pr181-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr181-gauntlet-fix-5.md) — Cost
-- [`kriscendobot-minion.town-pr184-gauntlet-panel-15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/kriscendobot-minion.town-pr184-gauntlet-panel-15.md) — Cost
-- [`oros-health-checkup-20261016-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/oros-health-checkup-20261016-170509.md) — Cost
-- [`oros-health-watch-20261016-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/oros-health-watch-20261016-170509.md) — Cost
-- … and 13295 more
+- … and 13298 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
