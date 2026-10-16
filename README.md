@@ -1,27 +1,29 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T06:40:29Z_
+_As of 2026-10-16T06:50:04Z_
 
 ## Latest
 
-Several orchestrations halted in the maintainer inbox, and most of the activity is in the minion.town gauntlets. [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) was the one clean result: it merged, its deploy succeeded, and the watchdog is ok. Eight minion.town draft PRs are being carried to merge by the `minion-town-carry-eight-prs-to-merge-20261016` supervisor. Fix rounds are queued for [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193), and panel round 7 is running on [#188](https://github.com/kriscendobot/minion.town/pull/188). The fix-5 stage for [#181](https://github.com/kriscendobot/minion.town/pull/181) was parked in plan after its first non-productive failure, so that PR waits for a human promotion.
+No board transitions resolved this cycle, so the news is in the maintainer inbox and the orchestration layer.
 
-**Halted orchestrations**
-- `orch-minion-town-oauth-bonds`: its build child declared its gated outcome unsatisfied.
-- `orch-jev-triage-foreman`: its trial child failed because `TYPESAFE_API_KEY` is absent from the job environment, so the maintainer needs to provision that key.
-- `review-docket-20261008`: its consolidate child was doomed and is held in plan, so the migration of review requests onto the docket has not happened.
-- `claude-on-minion-town-press-20261013-072006-split`: its carry child timed out at 2474s against a 2400s limit.
+**Halted orchestrations.** Four serial orchestrations stopped on a child failure:
+- `orch-minion-town-oauth-bonds` halted after `build-minion-town-oauth-bonds` completed with its gated outcome unsatisfied, at 1 of 2 children done.
+- `orch-jev-triage-foreman` halted because `trial-jev-triage-foreman-classification` could not run without `TYPESAFE_API_KEY`. That key is maintainer-owned and needs provisioning before a re-run.
+- `review-docket-20261008` halted at 2 of 3 children done. Its consolidation child `review-docket-consolidate-20261008` was reaper-doomed and is parked in the plan queue.
+- `claude-on-minion-town-press-20261013-072006-split` halted at 1 of 3 children done. Its carry child stalled for 2474s against a 2400s timeout on the oros-studio host.
 
-**Decisions waiting on the maintainer**
-- Approve or merge design PR [#189](https://github.com/kriscendobot/minion.town/pull/189) so the iframe embed-headers job and then the live-frame job can start.
-- Give a disposition for the Literate AI sources that the foreign-content gate halted unread. At least six files are blocked (the docket is tracking more), including `project-releases`, `authority-learning-loop`, `beam-live-coding-layer-investigation`, `repository-source-dependencies` and ADRs 0014, 0016 and 0041. All scored as injection-uncertain, in the 0.25–0.34 range.
+The parcel-stack restack orchestration for `endojs/endo-but-for-bots` finished cleanly, with all 3 children done.
 
-**Operational notes**
-- The leader host logged a journal lock-contention storm, with six clones in one tick and the producer clone worst at about 4s p95. The condition may be shared, not six separate faults.
-- Claude spend is at 117% of its backoff quota.
-- The cleric pool was throttled from 3 to 2 workers.
+**Gauntlet.** [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) fix round 5 was parked in the plan queue after its first non-productive failure. It stays held until you promote it. Fix rounds are queued on #178, #180, #184, #190, #192 and #193. Panel round 7 for #188 is in flight. [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed successfully.
+
+**Foreign-content gate.** The Literate AI ingest keeps hitting the gate. The newly blocked sources are the architecture notes `skills.md` and `superpowers-skills-assessment.md`, and ADRs 0014, 0016 and 0041. Together with the four earlier blocks, none will be read or ingested until you give an explicit disposition. The scores sit near 0.25–0.34 and read as uncertain rather than confirmed. The scholar suspects false positives, because docs about agent skills tend to read as instruction-shaped.
+
+**Infrastructure.**
+- Journal lock contention hit a coalesced storm of 7 clones on endolin-garden-ece02cb4. Occurrence 2 was at 06:46Z, and the producer journal had the worst wait (p95 about 15s).
+- The cleric worker count on that host stepped down from 4 to 2 as codex demand fell.
+- Claude spend stands at 117% of the backoff quota.
+
+**Awaiting your decision.** The minion.town iframe-embed design is [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189). Approving it releases the headers job and then the live-frame job. Several follow-up-gate notices also need disposition because they prescribed no postable work.
 
 ## Maintainer review docket
 
@@ -55,13 +57,18 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.014744s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=3.288913s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.013424s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013541s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-16T06:01:40Z, latest 2026-10-16T06:46:35Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.014400s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=15.224177s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.017329s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013721s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadmail/journal: p95=0.014413s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 > - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: p95=0.015651s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014302s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014639s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -535,10 +542,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 316.9M | $1497.09 _(notional, rate-card)_ | 117% of 271.0M (backoff) |
-| Codex | 21.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 317.3M | $1498.90 _(notional, rate-card)_ | 117% of 271.0M (backoff) |
+| Codex | 22.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 88300679 tokens/day lower bound._
+_Fleet token-unlock pace: 88323178 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 14.595765s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
