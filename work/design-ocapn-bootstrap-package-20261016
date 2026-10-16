@@ -1,9 +1,0 @@
-host: oros-studio-garden-ce242c49
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-10-16T18:10:12Z
-worktree_dir: /Users/dom/garden/scratch/gardener-wt-design-ocapn-bootstrap-package-20261016
-pr_number: 124
-pr_repo: kriscendobot/garden
-pr_url: https://github.com/kriscendobot/garden/pull/124
-pr_head: design/ocapn-bootstrap-package
