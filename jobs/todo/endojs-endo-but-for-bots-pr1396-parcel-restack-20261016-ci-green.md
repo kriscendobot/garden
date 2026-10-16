@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1396-parcel-restack-20261015-finish-endolin-split
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-10-16T05:05:37Z
+role: shepherd
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-16T05:12:32Z cleared=none -->
 
 ---
 role: shepherd
