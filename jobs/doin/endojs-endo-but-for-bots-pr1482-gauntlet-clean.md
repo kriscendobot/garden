@@ -53,3 +53,13 @@ completion signal; the completion signal itself stays the very last line:
 <!-- garden-transient-elapsed: kind=signature through=0 values=3739 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T22:12:28Z
