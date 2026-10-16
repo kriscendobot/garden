@@ -40,17 +40,52 @@ fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null || log "fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?)"
 
+# Resolve <ref> in the root through the fleet git wrapper. A shared-lock timeout
+# there is contention (a deploy, maintain/repack, or journal keeper holding the
+# repository exclusively), not an unresolvable ref: record it in rev_lock_busy so
+# the tick can skip instead of dying. The broadcast is keyed on HEAD changing
+# between ticks, so a skipped tick loses nothing.
+rev_lock_busy=0
+watchman_rev_parse() { # <var> <ref>; sets <var> to the oid (empty on failure)
+  local err rc=0 line pid cmd oid=''
+  err="$(mktemp)"
+  oid="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$2" 2>"$err")" || rc=$?
+  [ "$rc" = 0 ] || oid=''
+  printf -v "$1" '%s' "$oid"
+  rev_lock_busy=0
+  if grep -q '^garden repo lock: \(timeout after\|lock file kept being replaced\)' "$err"; then
+    rev_lock_busy=1
+    while IFS= read -r line; do
+      log "$line"
+      [[ "$line" =~ ^garden\ repo\ lock:\ [a-z-]+\ pid=([0-9]+) ]] || continue
+      pid="${BASH_REMATCH[1]}"
+      cmd="$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null || true)"
+      [ -z "$cmd" ] || log "root repo lock holder pid=$pid: ${cmd% }"
+    done < "$err"
+  else
+    cat "$err" >&2
+  fi
+  rm -f "$err"
+}
+
 local_sha=''
 for ((attempt = 1; attempt <= GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS; attempt += 1)); do
-  local_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet HEAD || true)"
+  watchman_rev_parse local_sha HEAD
   [ -z "$local_sha" ] || break
   if [ "$attempt" -lt "$GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS" ]; then
     log "WARN: cannot resolve deployed HEAD in $GARDEN_ROOT (attempt $attempt/$GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS); retrying after ${GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP}s"
     sleep "$GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP"
   fi
 done
-[ -n "$local_sha" ] || die "cannot resolve deployed HEAD in $GARDEN_ROOT"
-up_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || echo "$local_sha")"
+if [ -z "$local_sha" ]; then
+  [ "$rev_lock_busy" = 0 ] || { log "WARN: root repo lock busy; skipping tick"; exit 0; }
+  die "cannot resolve deployed HEAD in $GARDEN_ROOT"
+fi
+watchman_rev_parse up_sha "origin/$GARDEN_MAIN_BRANCH"
+if [ -z "$up_sha" ]; then
+  [ "$rev_lock_busy" = 0 ] || { log "WARN: root repo lock busy; skipping tick"; exit 0; }
+  up_sha="$local_sha"
+fi
 
 # Aggressively converge local main2 onto upstream when behind (and clean).
 if [ "$up_sha" != "$local_sha" ] && [ "$GARDEN_AGGRESSIVE_CHECKOUT" = "1" ]; then

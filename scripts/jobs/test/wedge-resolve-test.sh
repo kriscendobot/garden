@@ -38,7 +38,7 @@ hr()  { echo "----------------------------------------------------------------";
 # own GARDEN_*/JOURNAL_* state underneath the fixture (mirrors deploy-sync-test).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 
-TR=/home/kris/.garden-wedge-test
+TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-wedge-test.XXXXXX")"
 rm -rf "$TR"; mkdir -p "$TR"
 BARE="$TR/origin.git"
 git_id=(-c user.name=test -c user.email=test@localhost)
@@ -54,7 +54,7 @@ setup_fixture() {
   printf 'base\n' > "$SEED/bar.txt"
   git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m seed
   git -C "$SEED" remote add origin "$BARE"; git -C "$SEED" push -q -u origin main2
-  git clone -q --branch main2 "$BARE" "$TR/root"
+  git clone -q --no-hardlinks --branch main2 "$BARE" "$TR/root"
   git -C "$TR/root" config user.name test; git -C "$TR/root" config user.email test@localhost
   mkdir -p "$TR/scratch"
 }
@@ -62,7 +62,7 @@ setup_fixture() {
 # Push a commit to origin/main2 (advancing it ahead of ROOT).
 origin_commit() {  # origin_commit <relpath> <content> <msg>
   local wt; wt="$(mktemp -d "$TR/push.XXXXXX")"
-  git clone -q --branch main2 "$BARE" "$wt"
+  git clone -q --no-hardlinks --branch main2 "$BARE" "$wt"
   mkdir -p "$(dirname "$wt/$1")"; printf '%s\n' "$2" > "$wt/$1"
   git -C "$wt" add -A; git -C "$wt" "${git_id[@]}" commit -q -m "$3"
   git -C "$wt" push -q origin main2
@@ -189,7 +189,13 @@ run_watchman
 
 hr; echo "WATCHMAN/LOCAL-SHA-RETRY — a transient lock failure does not kill the tick"; hr
 setup_fixture; rm -rf "$TR/state"
-REAL_GIT="$(command -v git)"
+# The shim must exec a real git: the fleet bin/git wrapper on a gardener's PATH
+# would call GARDEN_REAL_GIT (the shim) again and recurse forever.
+REAL_GIT=''
+while IFS= read -r cand; do
+  case "$(readlink -f "$cand")" in */scripts/jobs/bin/git) continue ;; esac
+  REAL_GIT="$cand"; break
+done < <(type -ap git)
 mkdir -p "$TR/git-shim"
 cat > "$TR/git-shim/git" <<'EOF'
 #!/bin/bash
@@ -217,6 +223,52 @@ unset WATCHMAN_REAL_GIT WATCHMAN_TEST_ROOT WATCHMAN_TEST_COUNT WATCHMAN_TEST_REA
   && ok "deployed HEAD resolution made three bounded attempts" \
   || bad "deployed HEAD resolution attempt count was $(cat "$TR/local-sha-count" 2>/dev/null || echo 0)"
 grep -q 'attempt 2/3' <<<"$OUT" && ok "retry attempts were logged" || bad "retry attempts were not logged"
+
+hr; echo "WATCHMAN/LOCK-BUSY-SKIP — persistent lock contention skips the tick, not FATAL"; hr
+setup_fixture; rm -rf "$TR/state"
+cat > "$TR/git-shim/git" <<'EOF'
+#!/bin/bash
+if [ "$1" = -C ] && [ "$2" = "$WATCHMAN_TEST_ROOT" ] && [ "$3" = rev-parse ] \
+   && [ "$4" = --verify ] && [ "$5" = --quiet ] && [ "$6" = "$WATCHMAN_TEST_BUSY_REF" ]; then
+  count="$(cat "$WATCHMAN_TEST_COUNT" 2>/dev/null || echo 0)"
+  printf '%s\n' "$((count + 1))" > "$WATCHMAN_TEST_COUNT"
+  printf 'garden repo lock: timeout after 10s: fixture (shared)\n' >&2
+  printf 'garden repo lock: busy pid=%s since=fixture; retaining lock inode\n' "$WATCHMAN_TEST_HOLDER" >&2
+  exit 124
+fi
+exec "$WATCHMAN_TEST_REAL_GIT" "$@"
+EOF
+chmod +x "$TR/git-shim/git"
+export WATCHMAN_TEST_ROOT="$TR/root" WATCHMAN_TEST_COUNT="$TR/busy-count" \
+       WATCHMAN_TEST_REAL_GIT="$REAL_GIT" WATCHMAN_TEST_BUSY_REF=HEAD WATCHMAN_TEST_HOLDER=$$
+WATCHMAN_REAL_GIT="$TR/git-shim/git"
+run_watchman
+[ "$RC" -eq 0 ] && ok "watchman exits 0 when HEAD resolution is lock-busy on every attempt" || bad "watchman exit $RC: $OUT"
+grep -q 'WARN: root repo lock busy; skipping tick' <<<"$OUT" && ok "lock-busy skip was logged" || bad "lock-busy skip not logged: $OUT"
+grep -q 'FATAL' <<<"$OUT" && bad "lock contention was reported as FATAL" || ok "lock contention is not FATAL"
+[ "$(cat "$TR/busy-count" 2>/dev/null)" -eq 3 ] && ok "all bounded attempts ran before skipping" || bad "attempt count was $(cat "$TR/busy-count" 2>/dev/null || echo 0)"
+grep -q "root repo lock holder pid=$$: .*wedge-resolve-test" <<<"$OUT" && ok "the lock holder command was logged" || bad "lock holder command not logged"
+
+setup_fixture; rm -rf "$TR/state"; rm -f "$TR/busy-count"
+export WATCHMAN_TEST_BUSY_REF=origin/main2
+run_watchman
+[ "$RC" -eq 0 ] && ok "watchman exits 0 when origin/main2 resolution is lock-busy" || bad "watchman exit $RC: $OUT"
+grep -q 'WARN: root repo lock busy; skipping tick' <<<"$OUT" && ok "origin lock-busy skip was logged" || bad "origin lock-busy skip not logged: $OUT"
+
+setup_fixture; rm -rf "$TR/state"
+cat > "$TR/git-shim/git" <<'EOF'
+#!/bin/bash
+if [ "$1" = -C ] && [ "$2" = "$WATCHMAN_TEST_ROOT" ] && [ "$3" = rev-parse ] \
+   && [ "$4" = --verify ] && [ "$5" = --quiet ] && [ "$6" = HEAD ]; then
+  exit 1
+fi
+exec "$WATCHMAN_TEST_REAL_GIT" "$@"
+EOF
+run_watchman
+unset WATCHMAN_REAL_GIT WATCHMAN_TEST_ROOT WATCHMAN_TEST_COUNT WATCHMAN_TEST_REAL_GIT WATCHMAN_TEST_BUSY_REF WATCHMAN_TEST_HOLDER
+[ "$RC" -ne 0 ] && grep -q 'FATAL: cannot resolve deployed HEAD' <<<"$OUT" \
+  && ok "an unresolvable HEAD without lock contention is still FATAL" \
+  || bad "uncontended unresolvable HEAD did not die (rc $RC): $OUT"
 
 hr; echo "WATCHMAN/TRACKED-WEDGE — posts a resolve-wedge job, no maintainer message"; hr
 setup_fixture; : > "$POSTLOG"; rm -rf "$TR/state"
