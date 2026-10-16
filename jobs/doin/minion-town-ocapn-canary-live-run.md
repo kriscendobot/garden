@@ -41,3 +41,13 @@ journal message 20261016T143222Z-7b8d25). Do not start before then.
 <!-- garden-annotation: key=367c3131123e by=producer at=2026-10-16T21:05:39Z -->
 
 MAINTAINER OVERRIDE 2026-10-16 (kriskowal, liaison session): you may obtain the two guest locators yourself instead of waiting for the maintainer to provision guests.json. Method: visit https://minion.town in a disposable Playwright profile (see skills/minion-town-mcp-playwright-login for the Cognito/PKCE flow facts; never reuse a personal profile), let the site create a guest account, capture that guest's durable endo:// locator from GET /account/guest-locator, then forget the account by discarding the profile; repeat for a second guest. Write both locators to /home/kris/garden/.garden-state/ocapn-canary/guests.json (create the directory, mode 0600) in the shape the canary at the PR head reads. Do NOT print, log, commit, or paste a locator anywhere (journal, PR, report). If creating a guest needs a login, email verification, or any credential you do not have, STOP and message the maintainer inbox; never use anyone's personal credentials. Later, when guest creation is locked down, guests will come from invitations redeemed from the root account or a blessed account; this shortcut is temporary and the maintainer asked for it. The maintainer has now said go ahead.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T22:10:21Z
