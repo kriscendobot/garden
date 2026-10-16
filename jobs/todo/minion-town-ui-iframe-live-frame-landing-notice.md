@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: minion-town-ui-iframe-embed-headers-after-approval
-priority: normal
 role: gardener
+tier: mentor
 arc: minion-town-ui
-posted_by: gardener
-posted_at: 2026-10-15T06:49:48Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-16T18:41:14Z cleared=none -->
 
 ---
 tier: mentor
