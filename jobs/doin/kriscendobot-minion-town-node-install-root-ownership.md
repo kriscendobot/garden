@@ -15,3 +15,13 @@ Task:
 2. Once #171 has merged, add `/usr/local/bin/node`, `/usr/local/bin` and `/usr/local` to the observed set in `deploy/probe/claude-harness-layout.cjs`. The interpreter's file rule is root-owned with no group/other write, not the 0444 rule. Then remove the "trusted rather than observed" paragraph from `DEPLOYMENT.md` § AWS/SSM.
 
 Block step 2 on #171 merging. Open a draft PR on a frozen base.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-16T00:14:55Z
