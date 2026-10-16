@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-16T00:30Z (oros-health-checkup-20261015-223508): healthy (deployed = origin/main2 `d4ef628b`) → stale root gc.log.lock removed; guard fix landed
+
+- **Load/mem:** load 2.2/2.5/2.1; 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (165k).
+- **Uptime:** 14d7h, no reboot.
+- **Deployed vs main2:** self-deploy moved the root to `d4ef628b` at 00:01Z, which was origin/main2 then. The 23:42Z deferral (`long-job monk 2 3420s`) cleared by itself. fleet/health (00:01Z): `roll_status: deployed`, 0 failed units. main2 is now one commit ahead (`2845917b`, this run's fix); the next roll will pick it up.
+- **Units:** 0 failed. monks 1 to 3 running (scaler-managed; leveling row `8 0`). Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 00:01Z, status ok, 31% used (68.0M of 180M). Pushes are on cadence (22:47, 23:01, 23:17, 23:32, 23:46, 00:01 all landed). The live `journal/` checkout lagged origin by about 15 minutes, which is benign.
+- **State clones:** 33 pack dirs scanned. None has more than 50 packs, a tmp_pack, a `gc.log`, or an aged `gc.log.lock`. The only old `.lock` files are persistent flock files (ci-watcher verify-*, decisions, review-docket), which is normal. The root repo had 13 packs and no `gc.log`, but did have an empty **`.git/gc.log.lock` dated 2026-09-23**.
+- **rc=124 (3h):** none.
+- **Changed:** removed the stale root `gc.log.lock`; no gc was running and there was no gc.pid. While it was there, every daemonized `git gc --auto` on the shared store died on startup, so only the guard's bounded gc was maintaining the store. Landed `2845917b` on main2: root-repo-guard now sweeps a `gc.log.lock` older than `GARDEN_ROOT_GUARD_TMP_AGE_HOURS` (6h), with tests (root-repo-guard-test 78/78).
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-15T20:40Z (oros-health-checkup-20261015-192010): healthy (deployed = origin/main2 `bf605277`), no changes
 
 - **Load/mem:** load 2.3/2.1/2.3; 12 GiB of 15 GiB available.
