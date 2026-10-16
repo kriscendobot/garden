@@ -36,3 +36,13 @@ prompt.
 PR/Actions writes and head-branch fixes needed to fulfill this shepherding stage
 are explicitly authorized by the parent job. Do not post the final PR completion
 summary comment; the next serial child owns that after CI has settled.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T05:57:12Z
