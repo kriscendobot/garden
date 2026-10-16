@@ -51,13 +51,5 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3739 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-16T20:50:23Z
+
+<!-- garden-reaped: 0 -->
