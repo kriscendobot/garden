@@ -1,21 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-16T06:37:02Z_
+_As of 2026-10-16T06:40:29Z_
 
 ## Latest
 
-Little substantive work completed in this window: the only job to finish was `improve-deadmail-producer-lock-contention`, and four result entries (gardener, locksmith, typist, prover) were filed alongside it. The board holds 11 todo and 2 doin jobs, most of them gauntlet fix rounds on minion.town PRs [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193). Panel round 7 on [#188](https://github.com/kriscendobot/minion.town/pull/188) is in progress. [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) merged and deployed successfully.
+Several orchestrations halted in the maintainer inbox, and most of the activity is in the minion.town gauntlets. [minion.town#187](https://github.com/kriscendobot/minion.town/pull/187) was the one clean result: it merged, its deploy succeeded, and the watchdog is ok. Eight minion.town draft PRs are being carried to merge by the `minion-town-carry-eight-prs-to-merge-20261016` supervisor. Fix rounds are queued for [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#192](https://github.com/kriscendobot/minion.town/pull/192) and [#193](https://github.com/kriscendobot/minion.town/pull/193), and panel round 7 is running on [#188](https://github.com/kriscendobot/minion.town/pull/188). The fix-5 stage for [#181](https://github.com/kriscendobot/minion.town/pull/181) was parked in plan after its first non-productive failure, so that PR waits for a human promotion.
 
-What needs the maintainer:
+**Halted orchestrations**
+- `orch-minion-town-oauth-bonds`: its build child declared its gated outcome unsatisfied.
+- `orch-jev-triage-foreman`: its trial child failed because `TYPESAFE_API_KEY` is absent from the job environment, so the maintainer needs to provision that key.
+- `review-docket-20261008`: its consolidate child was doomed and is held in plan, so the migration of review requests onto the docket has not happened.
+- `claude-on-minion-town-press-20261013-072006-split`: its carry child timed out at 2474s against a 2400s limit.
 
-- **Literate AI ingest gate:** the foreign-content gate has halted several `jordanhubbard/literate-ai` sources at injection scores of 0.25–0.34 (uncertain). These include `authority-learning-loop`, `project-releases`, `beam-live-coding-layer-investigation`, `repository-source-dependencies`, `skills`, `superpowers-skills-assessment` and ADRs 0014, 0016 and 0041. Each stays unread until you give an explicit ingest-or-skip disposition.
-- **Halted orchestrations:** `orch-minion-town-oauth-bonds` and `orch-jev-triage-foreman` both halted when a child completed with its gated outcome unsatisfied. The Jev trial needs a maintainer-owned `TYPESAFE_API_KEY` before it can re-run. `review-docket-20261008` halted because `review-docket-consolidate-20261008` was doomed and held in plan. The Claude-on-minion.town press split halted on a handler timeout.
-- **Stuck work:** [minion.town#181](https://github.com/kriscendobot/minion.town/pull/181) gauntlet fix round 5 is parked in plan after a non-productive failure. The `design-minion-town-ocap-site-crawler-leak-rotation` job is parked as well after its retries ran out.
-- **Design approval:** [minion.town#189](https://github.com/kriscendobot/minion.town/pull/189), the iframe embed design, needs your approval before the headers job and then the live-frame job can start.
-- **Credential:** the proxy is waiting on you to restore or re-issue the bot's GitHub credential, which only you can do.
-- **Contention and quota:** journal lock contention hit a storm on the leader host (six clones in one tick), and the cleric worker count was reduced from 4 to 2. Claude spend is at 117% of the backed-off quota.
+**Decisions waiting on the maintainer**
+- Approve or merge design PR [#189](https://github.com/kriscendobot/minion.town/pull/189) so the iframe embed-headers job and then the live-frame job can start.
+- Give a disposition for the Literate AI sources that the foreign-content gate halted unread. At least six files are blocked (the docket is tracking more), including `project-releases`, `authority-learning-loop`, `beam-live-coding-layer-investigation`, `repository-source-dependencies` and ADRs 0014, 0016 and 0041. All scored as injection-uncertain, in the 0.25–0.34 range.
+
+**Operational notes**
+- The leader host logged a journal lock-contention storm, with six clones in one tick and the producer clone worst at about 4s p95. The condition may be shared, not six separate faults.
+- Claude spend is at 117% of its backoff quota.
+- The cleric pool was throttled from 3 to 2 workers.
 
 ## Maintainer review docket
 
@@ -529,13 +533,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 316.8M | $1496.56 _(notional, rate-card)_ | 117% of 271.0M (backoff) |
+| Claude | 316.9M | $1497.09 _(notional, rate-card)_ | 117% of 271.0M (backoff) |
 | Codex | 21.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 88300679 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 14.595765s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 11 open notice(s); checker healthy
+worst fetch p95 14.595765s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (11)
