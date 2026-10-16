@@ -31,3 +31,7 @@ PR: https://github.com/kriscendobot/garden-book/pull/15. It remains draft; at ro
 If the gauntlet passes, complete every original remaining step: adopt the exact reviewed head; retarget the frozen base to live `main`; safely rebase and merge with a merge commit; sweep frozen bases; fetch merged `main`; run `npm ci`, `npm test`, the 27-file build, and real Chromium checks; publish a new immutable clip with checked `build/publish.mjs` and an inert `garden-book-*` power; compare all 27 served bytes and immutable headers; run the live book at 390x844 and 1440x900 in light and dark, checking all 25 illuminations, all placements, nine charts, the glyph sprite, and layout; record the edition in `build/README.md`; open the history PR only through `ensure-pr.sh`; run one staged gauntlet; merge only if clean; sweep its frozen base; and send the maintainer the root cause, both PR links, and verified immutable URL.
 
 Never publish or merge while a gauntlet is failed, draft, red, conflicted, review-budget-reached, or not exact-head fresh. Never republish an old edition or omit the history PR.
+
+<!-- garden-annotation: key=1aaf1880705b by=producer at=2026-10-16T21:05:22Z -->
+
+SUPERSEDED 2026-10-16 by garden-book-pr15-merge-and-publish-draft-20261016: the maintainer waived the clean-gauntlet requirement and asked for a merge now plus a draft edition on ocap.site. Do not promote this job.
