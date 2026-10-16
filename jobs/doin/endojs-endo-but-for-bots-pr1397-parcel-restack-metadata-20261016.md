@@ -39,3 +39,13 @@ effect. If every fleet-available check succeeds and the only remaining blocker i
 interactive maintainer authentication, use the orchestration auth-unavailable
 completion signal prescribed by the worker prompt. For any other genuinely
 finished-but-gated failure, use the orchestration failure signal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-16T04:49:39Z
