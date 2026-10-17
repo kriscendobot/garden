@@ -24,3 +24,13 @@ browser dependency yet — pick the lightest viable one, e.g. Playwright chromiu
 as a devDependency, and wire it into CI), as a follow-up commit on #181's head
 via safe-push-pr-head.sh or a stacked draft PR if #181 has merged. When it lands,
 update #181's (or the successor PR's) Phase ledger to `deliverable`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T05:39:25Z
