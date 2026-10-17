@@ -1,34 +1,23 @@
 # Garden bulletin
 
-_As of 2026-10-17T16:10:08Z_
+_As of 2026-10-17T16:14:02Z_
 
 ## Latest
 
-Seven [minion.town](https://github.com/kriscendobot/minion.town) PRs were screened and merged this window: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#196](https://github.com/kriscendobot/minion.town/pull/196). Each deployed successfully and passed the watchdog. The `mt-beta-product-pass-20261017` orchestration also finished with all 4 children complete, and so did the parcel-stack restack orchestration.
+Three gauntlets hit their review budget without converging and are left for a human merge/review call: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds), [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16), and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6). Each still shows about 20 new "should-fix"-class findings from the breaker seat per round, which looks like a moving target rather than real convergence. Three more hit the budget with no structured findings list: [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192), and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). Each message gives the `--add-rounds` command if you want to grant more.
 
-**Needs your decision**
-- **Gauntlets out of review budget.** Five gauntlets used all their panel/fix rounds without converging. The PRs are left improved, awaiting your call on `--add-rounds`.
-  - [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), 16/16 rounds, 19 must-fix.
-  - [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180), 16/16 rounds, 20 must-fix.
-  - [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), 12/12 rounds.
-  - [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192), 10/10 rounds.
-  - [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482), 6/6 rounds, 20 must-fix.
-  - [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), 6/6 rounds.
-  - The must-fix counts keep being replaced by new findings each round, so these look like moving targets rather than near-done work.
-- **[minion.town#197](https://github.com/kriscendobot/minion.town/pull/197).** Three conductors finished without merging it, so the delegated merge is stalled. A clean-stage gauntlet job is queued.
-- **Settings simplification.** `mt-beta-settings-simplify` needs `deploy-accounts-store.sh` run before merge. Until then, Log out stays hidden and account deletion answers 503. Four design choices also stand unless you veto them.
-- **Production guest.** The live probe left one anonymous guest on production minion.town, and the garden has no way to delete it.
-- **Proxy ruling on [#180](https://github.com/kriscendobot/minion.town/pull/180).** The proxy tentatively said to keep the owner credential as is, because it designates one quota-bounded allocator and not an identity. It also said to record the shared read-facet behavior in [#203](https://github.com/kriscendobot/minion.town/pull/203). Both rulings are provisional until you confirm.
-- **Claude login on endolin.** The `claude-endolin1` cap was restored to 271M. If endolin2 is still logged in on this host, its spend will be charged to endolin1. The claim gate would then refuse work again, so confirm which login is active.
+Screened minion.town merges went through cleanly overnight: #193, #188, #195, #184, #194, #190 and #196 all merged with successful deploys and a clean watchdog. [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) is the exception: three conductors finished without merging it. A likely cause is the CI-read gap described next.
 
-**Infrastructure**
-- **CI read blocked on oros.** The oros host's token gets 403 reading CI status, which blocks delegated merges there. Fix this by granting `checks:read`, `statuses:read` and `actions:read` to the bot token. A separate report says minion.town CI is stalled, with 5 runs queued and none in progress since about 14:52Z. That blocks the gauntlet fix round for [#201](https://github.com/kriscendobot/minion.town/pull/201).
-- **oros journal worktree.** The journal worktree on oros has failed to fast-forward 20 times since 10-09.
-- **Journal lock contention.** Most contention alerts cleared, and a few new ones opened.
-- **Monk scaling.** Monk counts followed the quota ramp, and the endolin1 weekly window reset at 03:00Z. Endolin now runs 2 monks and oros 1.
-- **Spend.** Claude is at 38% of quota and Codex at 60%.
+Two infrastructure items need you:
+- The oros host's token gets HTTP 403 reading CI status on minion.town (4 occurrences, #196 among them). It needs checks:read, statuses:read and actions:read. A new todo job, `minion-town-screen-conductor-ci-read-host`, would route conductors to a host that can read CI.
+- [minion.town#201](https://github.com/kriscendobot/minion.town/pull/201)'s fix round is waiting on a queued Actions run. Runners appear stalled, with nothing in progress since about 14:52Z.
 
-The board has 11 jobs in todo and 3 in progress.
+Decisions waiting on you:
+- **`mt-beta-settings-simplify`:** run `deploy-accounts-store.sh` before merging, or Log out stays hidden and deletion answers 503. Veto any of the four listed choices.
+- **Claude login on endolin-garden-ece02cb4:** the claude-endolin1 cap was restored to 271M after the reset. Please confirm the host is logged in as endolin1, or its spend will be charged against that cap alongside endolin2's.
+- **Stray production guest:** one anonymous guest from the docs-tower probe is on production minion.town, and the garden can't remove it. Leave it or remove it by hand.
+
+Two orchestrations completed with no failed children: `mt-beta-product-pass-20261017` and the endo parcel-stack restack. Journal-lock contention notices cleared on both hosts. The one still open is a stuck journal fast-forward on the oros host, now seen 20 times.
 
 ## Maintainer review docket
 
@@ -414,27 +403,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr192-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 10 -> 12 (N is yours to choose).
 
-- `20261017T160841Z-4e4969` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T160841Z-4e4969.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: fix-minion-town-pr180-ocap-key-audit-20261017
-> - question (msgid msg-fix-minion-town-pr180-ocap-key-audit-20261017-4ec00f1b0ec0.md)
-> - tentative answer: Proxy/tentative reply. The maintainer may revise.
->
-> Direction: keep your classification and don't change the code. Confirm that the owner credential designates an object, namely one owner's quota-bounded `create` allocator. It doesn't designate an identity.
->
-> Reasons:
-> - The maintainer's standing test is that a bearer token is fine if it designates a specific object and not an identity. The owner credential reaches only `create` on a quota-bounded allocator. It can't open, mint from, or revoke any existing partition, and its `/hello` proof authorizes nothing. The worst a leaked copy can do is spend that owner's partition quota.
-> - No guest or caplet can reach it, because it sits in a host-held caplet formula. That makes the per-owner derivation an implementation detail with a bounded blast radius.
-> - The per-guest or per-caplet re-keying is a small change, so it can wait. If the maintainer later reads the credential as identity-shaped, you can do it then. Don't do it speculatively.
->
-> Smaller note (shared read facet key): leave it as is. The key still designates one object, the partition's read facet. Record the shared revoke and mint-budget behavior in § 7 of [https://github.com/kriscendobot/minion.town/pull/203](https://github.com/kriscendobot/minion.town/pull/203) as a known property. If it ever matters, the fix is a per-holder read facet.
->
-> Next steps:
-> - Keep [https://github.com/kriscendobot/minion.town/pull/203](https://github.com/kriscendobot/minion.town/pull/203) as a draft docs-only PR. Phrase the owner-credential ruling there as "provisional, pending maintainer confirmation".
-> - Keep [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/issues/180) as a draft, pending [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/issues/178). Don't un-draft, merge, or close anything. Those actions stay with the maintainer.
-> - Optionally, add a short follow-up note or plan describing the per-caplet keying alternative, so it's ready if the maintainer overrules.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014231s, giveups=1, steals=0 (max 3/window), wait floor=60s.
@@ -461,7 +429,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.4M | $435.65 _(notional, rate-card)_ | 38% of 271.0M (ok) |
+| Claude | 102.5M | $436.02 _(notional, rate-card)_ | 38% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 95088402 tokens/day lower bound._
