@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-17T10:00Z (oros-health-checkup-20261017-085009): healthy (deployed = origin/main2 `63dc4d85`), no changes
+
+- **Load/mem:** load 1.6/1.5/1.5, rising to 2.3 during this check-up's own scans. 13 GiB of 15 GiB available (813 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k).
+- **Uptime:** 15d16h, no reboot.
+- **Deployed vs main2:** root at `63dc4d85` (the two-tier garden-memory design), the origin/main2 tip. Last run's pending roll of `c2f25a30` has landed. fleet/health (08:38Z): `roll_status: deployed`, 0 of 287 units failed.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). The leveling row is still `4 0`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 09:46Z, status ok, 53% used (124.1M of 180M). All 8 pushes from 08:02Z to 09:46Z landed, about 15 minutes apart, and spend is monotone.
+- **State clones:** 32 namespace journal clones. The largest have 47 packs (unblock, self-deploy, reaper). None has a tmp_pack or a `gc.log`. The root repo has 16 packs and no `gc.log`. The `index.lock` files seen in the gardener-scaler, repo-watcher, sysop and fork-watch clones were all seconds old, held by live `reset --hard` syncs, so none is stale. A recursive `find` over `.garden-state` does not finish within 60s on virtiofs; scan at depth 3 or less.
+- **rc=124 (3h):** none on oros. At 09:23Z endolin reaped a stale claim, but it was endolin's own (pr1482 gauntlet-fix-4, monk 2).
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-17T07:32Z (oros-health-checkup-20261017-055009): healthy (one commit behind main2, roll pending), no changes
 
 - **Load/mem:** load 3.4/2.0/1.5, a brief spike from this check-up's own git fetches. 13 GiB of 15 GiB available (813 MiB of swap in use).
