@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # kriscendobot/minion.town PR #180: audit the control-plane keys against the ocap test, record the §7 ruling, regroup the commits
@@ -16,13 +17,5 @@ Do:
 3. **Regroup** #180's 28 commits into a reviewable sequence (retcon discipline; net diff invariant), force-push the head, and leave it DRAFT; do not un-draft ahead of #178.
 Report the audit table to the maintainer inbox.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-17T15:45:32Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-17T16:13:08Z -->
