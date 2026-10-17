@@ -15,3 +15,13 @@ Do:
 2. **Record the ruling** in the parent design's §7 (a PR to the design in the minion.town repo, or an edit on #180 if that is where §7 lives), stating the identity-vs-object test and how #180's keys meet it.
 3. **Regroup** #180's 28 commits into a reviewable sequence (retcon discipline; net diff invariant), force-push the head, and leave it DRAFT; do not un-draft ahead of #178.
 Report the audit table to the maintainer inbox.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T15:45:32Z
