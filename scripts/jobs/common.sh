@@ -11250,6 +11250,33 @@ extract_pr_refs_from_text() {
   done | awk '!seen[$0]++'
 }
 
+# fixer_reentry_pr <jobfile> <report> [base] — the ONE pull request a completing
+# fixer's review-docket re-entry belongs to: the job's own PR, never merely the
+# first URL its report happens to cite. A fixer report routinely names sibling or
+# context PRs (fix-minion-town-pr180-ocap-key-audit-20261017 cited docs-only draft
+# #203 first, re-entered it against non-green CI, and failed a finished job).
+# Order: a PR the job file names that the report also names (report order); else
+# the job file's first PR; else, when the base embeds `pr<N>`, the single report PR
+# with that number. Prints nothing (rc 0) when no PR is attributable to the job.
+fixer_reentry_pr() {
+  local jobfile="$1" report="$2" base="${3:-}" job_prs report_prs url matches
+  job_prs="$(extract_pr_refs_from_text "$jobfile")"
+  report_prs="$(extract_pr_refs_from_text "$report")"
+  if [ -n "$job_prs" ]; then
+    while IFS= read -r url; do
+      [ -n "$url" ] || continue
+      if grep -qxF "$url" <<<"$job_prs"; then printf '%s\n' "$url"; return 0; fi
+    done <<<"$report_prs"
+    head -1 <<<"$job_prs"
+    return 0
+  fi
+  if [[ "$base" =~ (^|-)pr([0-9]+)(-|$) ]]; then
+    matches="$(grep -E "/pull/${BASH_REMATCH[2]}\$" <<<"$report_prs" || true)"
+    [ -z "$matches" ] || [ "$(wc -l <<<"$matches")" -ne 1 ] || printf '%s\n' "$matches"
+  fi
+  return 0
+}
+
 # design_only_paths <path>...  — rc 0 iff there is at least one path AND every path
 # names a design document. Mirrors the panel-kind predicate in
 # scripts/jobs/gardening/panel.sh (designs/*.md, */designs/*.md, DESIGN*.md) and

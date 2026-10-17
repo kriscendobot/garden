@@ -887,19 +887,30 @@ while :; do
   # A substantive fixer owns the next request after maintainer feedback. Once its
   # pushed head is green, recreate the retired generation with inherited
   # arc/milestone/unblock evidence. The clerk itself enforces green CI and exact
-  # head metadata; a failure leaves this completion retryable.
+  # head metadata: a non-green head is parked as a pending re-entry that the
+  # leader's periodic reconcile applies once CI turns green, so it never fails a
+  # finished job. The PR is the job's own (fixer_reentry_pr), not the report's
+  # first citation. rc 2 (nothing to re-enter) and rc 3 (CI not green, from a
+  # clerk that predates the pending path) are deferrals; any other nonzero rc is
+  # a hard error that leaves this completion retryable.
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ] \
      && [ "$(plan_role "$jobfile" 2>/dev/null || true)" = fixer ]; then
-    fixer_pr="$(extract_pr_refs_from_text "$report" | head -1 || true)"
+    fixer_pr="$(fixer_reentry_pr "$jobfile" "$report" "$base" || true)"
     if [ -n "$fixer_pr" ]; then
       set +e
       "${GARDEN_GARDENER_DOCKET_CORE:-$HERE/review-docket.sh}" reenter "$fixer_pr" "$base-fixer-complete" >>"$capture" 2>&1
       fixer_docket_rc=$?
       set -e
-      if [ "$fixer_docket_rc" -ne 0 ]; then
-        hrc=$fixer_docket_rc
-        log "fixer review-docket re-entry FAILED for '$base' (rc=$hrc); leaving in doin for retry"
-      fi
+      case "$fixer_docket_rc" in
+        0) ;;
+        2|3) log "fixer review-docket re-entry for '$base' ($fixer_pr) deferred (rc=$fixer_docket_rc); completing the job" ;;
+        *)
+          hrc=$fixer_docket_rc
+          log "fixer review-docket re-entry FAILED for '$base' ($fixer_pr, rc=$hrc); leaving in doin for retry"
+          ;;
+      esac
+    else
+      log "fixer '$base' names no PR of its own; skipping review-docket re-entry"
     fi
   fi
 

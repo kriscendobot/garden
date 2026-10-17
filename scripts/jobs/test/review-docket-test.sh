@@ -84,6 +84,39 @@ run reenter https://github.com/example/repo/pull/3 fixer-complete
 [ "$(jq -r .generation "$JOURNAL/review-docket/open/example-repo-pr3.json")" = 3 ]
 [ "$(jq -r .ask "$JOURNAL/review-docket/open/example-repo-pr3.json")" = re-review ]
 
+# A fixer that finishes before its CI defers re-entry instead of failing; the
+# leader's reconcile applies it once green, and drops it for a terminal PR.
+P30=https://github.com/example/repo/pull/30; P31=https://github.com/example/repo/pull/31
+PENDING="$JOURNAL/review-docket/pending-reenter"
+for pr in 30 31; do
+  request "$TEST_ROOT/r$pr" alpha M2 "s$pr" "deferred $pr"
+  run upsert "https://github.com/example/repo/pull/$pr" "$TEST_ROOT/r$pr"
+  run retire-review "https://github.com/example/repo/pull/$pr" kriskowal CHANGES_REQUESTED 2026-10-08T13:00:00Z "$pr"
+done
+printf '%s\n' '{"head_oid":"eeeeeeeeeeeeeeee","state":"OPEN","ci":{"state":"pending","observed_at":"2026-10-08T16:00:00Z"},"reviews":[]}' > "$META"
+run reenter "$P30" fix-pr30-fixer-complete || fail 'non-green reenter failed instead of deferring'
+run reenter "$P31" fix-pr31-fixer-complete || fail 'non-green reenter failed instead of deferring'
+[ ! -f "$JOURNAL/review-docket/open/example-repo-pr30.json" ] || fail 'non-green reenter opened a request'
+[ "$(jq -r .source "$PENDING/example-repo-pr30.json")" = fix-pr30-fixer-complete ] || fail 'non-green reenter was not parked'
+run reenter "$P30" fix-pr30-fixer-complete || fail 'repeated deferral failed'
+run reenter https://github.com/example/repo/pull/99 nothing-retired || fail 'reenter with nothing to inherit failed'
+[ ! -f "$PENDING/example-repo-pr99.json" ] || fail 'parked a re-entry with nothing to inherit'
+printf '%s\n' '{"head_oid":"eeeeeeeeeeeeeeee","state":"OPEN","ci":{"state":"red","observed_at":"2026-10-08T17:00:00Z"},"reviews":[]}' > "$META"
+run reconcile "$P30"
+[ -f "$PENDING/example-repo-pr30.json" ] && [ ! -f "$JOURNAL/review-docket/open/example-repo-pr30.json" ] \
+  || fail 'reconcile applied a deferred re-entry on red CI'
+printf '%s\n' '{"head_oid":"eeeeeeeeeeeeeeee","state":"OPEN","ci":{"state":"green","observed_at":"2026-10-08T18:00:00Z"},"reviews":[]}' > "$META"
+run reconcile "$P30"
+[ ! -f "$PENDING/example-repo-pr30.json" ] || fail 'green reconcile left the deferred re-entry parked'
+[ "$(jq -r '.ask + " " + (.generation|tostring) + " " + .source' "$JOURNAL/review-docket/open/example-repo-pr30.json")" = 're-review 2 fix-pr30-fixer-complete' ] \
+  || fail 'green reconcile did not apply the deferred re-entry'
+printf '%s\n' '{"head_oid":"eeeeeeeeeeeeeeee","state":"MERGED","completed_at":"2026-10-08T18:00:00Z","ci":{"state":"green","observed_at":"2026-10-08T18:00:00Z"},"reviews":[]}' > "$META"
+run reconcile "$P31"
+[ ! -f "$PENDING/example-repo-pr31.json" ] && [ ! -f "$JOURNAL/review-docket/open/example-repo-pr31.json" ] \
+  || fail 'a terminal PR kept or applied its deferred re-entry'
+run retire-terminal "$P30" MERGED 2026-10-08T18:30:00Z
+printf '%s\n' '{"head_oid":"cccccccccccccccc","state":"OPEN","ci":{"state":"green","observed_at":"2026-10-08T16:00:00Z"},"reviews":[]}' > "$META"
+
 request "$TEST_ROOT/r8" beta M4 s8 'closed terminal'
 run upsert https://github.com/example/repo/pull/8 "$TEST_ROOT/r8"
 run retire-terminal https://github.com/example/repo/pull/8 CLOSED 2026-10-08T17:00:00Z

@@ -6,6 +6,8 @@
 #   review-docket.sh retire-review <PR-URL> <author> <state> <submitted-at> [review-id]
 #   review-docket.sh retire-terminal <PR-URL> <MERGED|CLOSED> [completed-at]
 #   review-docket.sh reenter <PR-URL> <source-id>
+#     (a non-green head is parked in review-docket/pending-reenter/ and applied
+#     by a later reconcile once CI is green; terminal PRs drop the parked entry)
 #   review-docket.sh reconcile [PR-URL...]
 #   review-docket.sh render
 #
@@ -315,8 +317,37 @@ retire_file() { # <root> <open-file> <evidence-json>
   rm -f "$open"
 }
 
+has_retired() { # <root> <slug>
+  [ -n "$(find "$1/review-docket/retired" -type f -name "$2-g*.json" -print -quit 2>/dev/null)" ]
+}
+
+reenter_record() { # <root> <url> <slug> <source> <metadata>; rc 2 means no mutation
+  local root="$1" url="$2" slug="$3" source_id="$4" meta="$5" open latest
+  open="$root/review-docket/open/$slug.json"
+  latest="$(find "$root/review-docket/retired" -type f -name "$slug-g*.json" -print 2>/dev/null | sort -V | tail -1)"
+  [ -n "$latest" ] || { log "$url has no retired request to inherit"; return 2; }
+  if [ -f "$open" ] && [ "$(jq -r .head_oid "$open")" = "$(jq -r .head_oid <<<"$meta")" ] \
+     && [ "$(jq -r .ask "$open")" = re-review ]; then return 2; fi
+  jq --argjson metadata "$meta" --arg source "$source_id" --arg now "$GARDEN_REVIEW_DOCKET_NOW" '
+    del(.retirement) | .head_oid=$metadata.head_oid | .ask="re-review" | .source=$source
+    | .requested_at=$now | .generation=(.generation+1) | .ci=$metadata.ci
+  ' "$latest" > "$open"
+}
+
+pending_reenter_targets() { # <root>; deferred re-entries this reconcile visits
+  local root="$1" url repo number
+  if [ "${#ARGS[@]}" -gt 0 ]; then
+    for url in "${ARGS[@]}"; do
+      IFS=$'\t' read -r repo number < <(parse_url "$url")
+      printf '%s\n' "$root/review-docket/pending-reenter/$(slug_for "$repo" "$number").json"
+    done
+    return 0
+  fi
+  find "$root/review-docket/pending-reenter" -maxdepth 1 -type f -name '*.json' 2>/dev/null | LC_ALL=C sort
+}
+
 apply_operation() { # <root>; rc 2 means no mutation
-  local root="$1" url repo number slug open meta prior normalized same author author_lc state at review_id req_epoch event_epoch rc
+  local root="$1" url repo number slug open meta prior normalized same author author_lc state at review_id req_epoch event_epoch rc pending changed
   mkdir -p "$root/review-docket/open" "$root/review-docket/retired"
   case "$operation" in
     upsert)
@@ -343,18 +374,26 @@ apply_operation() { # <root>; rc 2 means no mutation
     reenter)
       url="${ARGS[0]:-}"; source_id="${ARGS[1]:-}"
       [[ "$source_id" =~ ^[A-Za-z0-9._:-]+$ ]] || die "reenter needs a stable source id"
-      IFS=$'\t' read -r repo number < <(parse_url "$url"); slug="$(slug_for "$repo" "$number")"; open="$root/review-docket/open/$slug.json"
+      IFS=$'\t' read -r repo number < <(parse_url "$url"); slug="$(slug_for "$repo" "$number")"
       meta="$(metadata "$url")" || die "GitHub metadata unavailable for $url; leaving docket unchanged"
       valid_metadata "$meta" || die "metadata handler returned invalid or incomplete JSON"
-      [ "$(jq -r '.ci.state // "unknown"' <<<"$meta")" = green ] || { log "$url is not green; refusing fixer re-entry"; return 3; }
-      latest="$(find "$root/review-docket/retired" -type f -name "$slug-g*.json" -print 2>/dev/null | sort -V | tail -1)"
-      [ -n "$latest" ] || { log "$url has no retired request to inherit"; return 2; }
-      if [ -f "$open" ] && [ "$(jq -r .head_oid "$open")" = "$(jq -r .head_oid <<<"$meta")" ] \
-         && [ "$(jq -r .ask "$open")" = re-review ]; then return 2; fi
-      jq --argjson metadata "$meta" --arg source "$source_id" --arg now "$GARDEN_REVIEW_DOCKET_NOW" '
-        del(.retirement) | .head_oid=$metadata.head_oid | .ask="re-review" | .source=$source
-        | .requested_at=$now | .generation=(.generation+1) | .ci=$metadata.ci
-      ' "$latest" > "$open"
+      pending="$root/review-docket/pending-reenter/$slug.json"
+      if [ "$(jq -r '.ci.state // "unknown"' <<<"$meta")" != green ]; then
+        # A fixer finishes before its CI does. Park the re-entry; reconcile
+        # applies it once the head is green, so the fixer job never fails on it.
+        has_retired "$root" "$slug" || { log "$url has no retired request to inherit"; return 2; }
+        [ ! -f "$pending" ] || [ "$(jq -r .source "$pending")" != "$source_id" ] || return 2
+        mkdir -p "$(dirname "$pending")"
+        jq -n --arg url "$url" --arg source "$source_id" --arg now "$GARDEN_REVIEW_DOCKET_NOW" \
+          --argjson metadata "$meta" '{schema:1,url:$url,source:$source,deferred_at:$now,
+            head_oid:$metadata.head_oid,ci:$metadata.ci}' > "$pending"
+        log "$url CI is $(jq -r '.ci.state // "unknown"' <<<"$meta"); fixer re-entry deferred until green"
+      else
+        changed=0
+        [ ! -f "$pending" ] || { rm -f "$pending"; changed=1; }
+        reenter_record "$root" "$url" "$slug" "$source_id" "$meta" && changed=1
+        [ "$changed" -eq 1 ] || return 2
+      fi
       ;;
     retire-review)
       url="${ARGS[0]:-}"; author="${ARGS[1]:-}"; state="${ARGS[2]:-}"; at="${ARGS[3]:-}"; review_id="${ARGS[4]:--}"
@@ -409,6 +448,22 @@ apply_operation() { # <root>; rc 2 means no mutation
         updated="$(jq --argjson metadata "$meta" '.head_oid=$metadata.head_oid | .ci=$metadata.ci' "$open")"
         if ! cmp -s "$open" <(printf '%s\n' "$updated"); then printf '%s\n' "$updated" > "$open"; changed=1; fi
       done < <(reconcile_targets "$root")
+      # Deferred fixer re-entries: apply each once its head is green, drop it
+      # when the PR is terminal or has nothing left to inherit.
+      while IFS= read -r pending; do
+        [ -f "$pending" ] || continue
+        url="$(jq -r .url "$pending")"; slug="$(basename "$pending" .json)"
+        rc=0; meta="$(reconcile_metadata "$url" "$slug")" || rc=$?
+        [ "$rc" -ne 124 ] || break
+        [ "$rc" -eq 0 ] && valid_metadata "$meta" || continue
+        state="$(jq -r '.state // "UNKNOWN"' <<<"$meta")"
+        if [ "$state" = MERGED ] || [ "$state" = CLOSED ]; then
+          rm -f "$pending"; changed=1; log "dropped deferred re-entry for $state $url"; continue
+        fi
+        [ "$(jq -r '.ci.state // "unknown"' <<<"$meta")" = green ] || continue
+        reenter_record "$root" "$url" "$slug" "$(jq -r .source "$pending")" "$meta" || true
+        rm -f "$pending"; changed=1; log "applied deferred fixer re-entry for $url"
+      done < <(pending_reenter_targets "$root")
       [ "$changed" -eq 1 ] || return 2
       ;;
     render) : ;;
