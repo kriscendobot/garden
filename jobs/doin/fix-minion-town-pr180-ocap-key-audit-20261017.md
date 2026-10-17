@@ -16,6 +16,7 @@ Do:
 3. **Regroup** #180's 28 commits into a reviewable sequence (retcon discipline; net diff invariant), force-push the head, and leave it DRAFT; do not un-draft ahead of #178.
 Report the audit table to the maintainer inbox.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
