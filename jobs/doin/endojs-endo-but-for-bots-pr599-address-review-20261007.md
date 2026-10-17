@@ -16,3 +16,13 @@ Partly applied request from review https://github.com/endojs/endo-but-for-bots/p
 - A browser integration test file was added in `8843bc3b1037`, but all four retention-path cases in `packages/chat/test/e2e/formula-inspector.spec.ts` are `test.fixme`, so no browser integration test executes.
 
 Make the shared browser harness support the retention-path fixture, enable the cases, and run them in a real browser with rendered-DOM evidence. Preserve the row classification: arc unallocated, milestone M9.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T22:08:59Z
