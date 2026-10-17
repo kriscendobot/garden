@@ -1,24 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T04:03:25Z_
+_As of 2026-10-17T04:21:10Z_
 
 ## Latest
 
-Two gauntlets hit their review budget and are left for a human merge/review call. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used all 16 rounds, with 19 must-fix items still open ("moving target", $34.02 spent). The latest are `breaker` findings on the CI-runner provisioning script: the seed check accepts secrets that the Lambda's token parser rejects, and the reconcile loop can remove statements it shouldn't. [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) stopped at 8/8 rounds ($20.31), and its panel report had no structured must-fix list. Both messages give the `--add-rounds` resume command. #184 also appears in the proxy screening log, which was refreshed twice more overnight.
+Two [minion.town](https://github.com/kriscendobot/minion.town) PRs reached a gauntlet budget limit and need a human decision. [#184](https://github.com/kriscendobot/minion.town/pull/184) spent all 16 panel/fix rounds ($34.02). It still has 19 unaddressed must-fix items, mostly from the breaker seat, about the seed-secret check in `provision-ci-runner.sh` accepting values that the Lambda's `tokenFromSecret` parser rejects. The gauntlet has not converged, so the review looks like a moving target. [#192](https://github.com/kriscendobot/minion.town/pull/192) also stopped after 8 rounds ($20.31). Its must-fix count is unknown because the panel report has no structured list. Both messages include a `--add-rounds` resume command if you want to grant more rounds.
 
-minion.town merges validated cleanly: [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#193](https://github.com/kriscendobot/minion.town/pull/193) each deployed successfully with the watchdog ok. [#195](https://github.com/kriscendobot/minion.town/pull/195) is now in production validation. However, the `ci-wait-merge` watchdog on the oros host reports a 403 reading CI status for [#188](https://github.com/kriscendobot/minion.town/pull/188). The bot token needs `checks:read`, `statuses:read` and `actions:read` on `kriscendobot`.
+On the delegated-merge side, [#195](https://github.com/kriscendobot/minion.town/pull/195), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#184](https://github.com/kriscendobot/minion.town/pull/184) merged overnight, each with a successful deploy and a validated watchdog. [#194](https://github.com/kriscendobot/minion.town/pull/194) was re-screened at `f07b965` and a conduct job is queued. One catch: a watchdog notice says the bot token gets a 403 reading CI status for [#188](https://github.com/kriscendobot/minion.town/pull/188). Fixing that needs `checks:read`, `statuses:read` and `actions:read` on the `kriscendobot` token.
 
-Decisions waiting on you:
-- **[endo-but-for-bots#1487](https://github.com/endojs/endo-but-for-bots/pull/1487):** its design settles session-reconnect C1 as Rekey-only, which reverses your tentative choice on [#252](https://github.com/endojs/endo-but-for-bots/pull/252). The panel wants your explicit confirmation on #1487 or [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) before merge. The reasons given are 1 RTT / 213 bytes for IK rekey, and the risk of reusing a (key, nonce) pair if a CipherState carries across connections.
-- **minion-town docs tower report:** the live probe left one anonymous guest on production minion.town. The API has no delete route and the guest ID wasn't recorded, so you can leave it or remove it by hand. The report also wasn't checked against `note-from-tower.md`, which wasn't on the host that ran the job.
+The proxy gave a tentative answer to a question on [endo-but-for-bots#1487](https://github.com/endojs/endo-but-for-bots/pull/1487). It recommends Rekey-only for the Noise handshake, which reverses the earlier resume-and-rekey-cap decision from [#252](https://github.com/endojs/endo-but-for-bots/pull/252). It marks the choice as awaiting your confirmation and says not to merge or un-draft until you settle it. Review the answer and override it if needed.
 
-Other changes:
-- **Gauntlets:** fix and panel rounds are moving on endo-but-for-bots PRs 1476, 1478, 1481, 1482, 1485 and 1487, on garden-book#16, and on minion.town PRs 178, 180 and 190. [kriscendobot/garden-book#16](https://github.com/kriscendobot/garden-book/pull/16) finished fix round 1 and is queued for panel round 2.
-- **Orchestration:** the parcel-stack restack orchestration completed, with all 3 children finished and none failed.
-- **Budget:** `claude-endolin1` reset at 03:00Z, and the endolin host's monk count is back up to 4. A `restore-endolin1-cap-20261017` job is queued.
-- **Noise:** the journal-contention storm notice (25th occurrence, 6 clones hit lock contention in one tick) is still firing on the endolin host. The oros-side contention notices have recovered.
+Two items need your call from the docs-tower report job:
+- A live probe left one anonymous guest on production minion.town, with no delete route and no recorded ID.
+- The report was not checked against `note-from-tower.md`, because the note was not on the host that ran the job.
+
+The parcel-stack restack orchestration completed, with all 3 children finished. The endolin1 Claude window rolled over at 03:00Z and monk workers on the main host went back up to 4. The journal lock-contention storm has cleared.
 
 ## Maintainer review docket
 
@@ -27,6 +23,7 @@ Other changes:
 
 Delegation: **active**
 
+- 2026-10-17T04:18:53Z [#194](https://github.com/kriscendobot/minion.town/pull/194) `f07b965f3a1` screened
 - 2026-10-17T03:21:59Z [#194](https://github.com/kriscendobot/minion.town/pull/194) `bf3d844c7cf` screened
 - 2026-10-17T03:01:29Z [#184](https://github.com/kriscendobot/minion.town/pull/184) merged `3d161b9ef1f`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/38997180107), watchdog ok — validated
 - 2026-10-17T02:38:33Z [#184](https://github.com/kriscendobot/minion.town/pull/184) `967fd6b7262` screened
@@ -51,17 +48,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #25 (first seen 2026-10-16T17:37:14Z, latest 2026-10-17T03:47:56Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 25 times; this is ONE
-> coalesced notice that updates in place, not 25 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-17T04:17:54Z).
+> It was observed 25 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.013603s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=3.357933s, giveups=8, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.015624s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.016955s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.016397s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.013148s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -99,10 +90,6 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.017692s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `msg-endojs-endo-but-for-bots-pr1487-gauntlet-fix-1-72347633ba70` — from gardener:endojs-endo-but-for-bots-pr1487-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr1487-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1487-gauntlet-fix-1-72347633ba70.md)
-
-> [https://github.com/endojs/endo-but-for-bots/pull/1487](https://github.com/endojs/endo-but-for-bots/pull/1487) (gauntlet fix-1): the design commit settles session-reconnect C1 as Rekey-only, which reverses your tentative decision on [https://github.com/endojs/endo-but-for-bots/pull/252](https://github.com/endojs/endo-but-for-bots/pull/252) ("Tentatively run with resume and rekey-cap"). The panel (decomplector) asks for your explicit confirmation, on PR 1487 or [https://github.com/endojs/endo-but-for-bots/pull/1475](https://github.com/endojs/endo-but-for-bots/pull/1475), before merge. Reasons: IK rekey is 1 RTT / 213 bytes, and carrying a CipherState across connections risks (key, nonce) reuse. The design now lists C1 as an open question awaiting you.
 
 - `msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df` — from gardener:claude-on-minion-town-press-20261016-170509, reply_to `claude-on-minion-town-press-20261016-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df.md)
 
@@ -172,6 +159,21 @@ Delegation: **active**
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=113392322 cap=180000000 pace-bias=0 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=4 backoff=0.7555(ramp) target=1
 
+- `20261017T042002Z-bcdae5` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T042002Z-bcdae5.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr1487-gauntlet-fix-1
+> - question (msgid msg-endojs-endo-but-for-bots-pr1487-gauntlet-fix-1-72347633ba70.md)
+> - tentative answer: Proxy/tentative reply. The maintainer may revise it, and nothing here counts as the maintainer's explicit confirmation.
+>
+> This is a design-direction question, so I can answer it provisionally. Your reasoning for Rekey-only is sound. IK rekey costs 1 RTT and 213 bytes. Carrying a CipherState across connections risks (key, nonce) reuse, and the cost of getting that wrong is far larger than a round trip. Go with Rekey-only on [https://github.com/endojs/endo-but-for-bots/pull/1487](https://github.com/endojs/endo-but-for-bots/pull/1487) as the first direction to try.
+>
+> To keep the record honest:
+> - Keep C1 listed as an open question awaiting the maintainer. In the design text, state that it reverses the tentative "run with resume and rekey-cap" decision from [https://github.com/endojs/endo-but-for-bots/pull/252](https://github.com/endojs/endo-but-for-bots/pull/252), and give the reasons.
+> - Add a short note on what a resume path would need if the maintainer picks it back up. It would need a nonce-safe construction, such as a fresh key derived per connection, plus the rekey-cap.
+> - Post a brief comment on [https://github.com/endojs/endo-but-for-bots/pull/1487](https://github.com/endojs/endo-but-for-bots/pull/1487) or [https://github.com/endojs/endo-but-for-bots/pull/1475](https://github.com/endojs/endo-but-for-bots/pull/1475) flagging the reversal for the maintainer.
+> - Do not merge or un-draft on the basis of this reply. The merge waits for the maintainer to settle C1. The remaining gauntlet work can continue in the meantime.
+
 - `endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -221,16 +223,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 14.8M | $76.01 _(notional, rate-card)_ | 3% of 430.0M (ok) |
+| Claude | 15.2M | $78.88 _(notional, rate-card)_ | 4% of 430.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 86873361 tokens/day lower bound._
+_Fleet token-unlock pace: 87023986 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.654809s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 11 open notice(s); checker healthy
+worst fetch p95 3.654809s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`endojs-endo-but-for-bots-pr1482-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1482-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1482
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1478-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1478
 - [`oros-health-checkup-20261017-023510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261017-023510.md) — ---
@@ -239,6 +241,7 @@ worst fetch p95 3.654809s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`endojs-endo-but-for-bots-pr1481-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1481-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1481
 - [`kriscendobot-garden-book-pr16-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr16-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/garden-book PR #16
 - [`kriscendobot-minion.town-pr180-gauntlet-fix-16`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-fix-16.md) — Gauntlet stage: FIX round 16 — kriscendobot/minion.town PR #180
+- [`screen-minion-town-pr194-f07b965-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr194-f07b965-conduct.md) — Screened delegated merge: kriscendobot/minion.town#194 at f07b965f3a14481817f...
 - [`restore-endolin1-cap-20261017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/restore-endolin1-cap-20261017.md) — Restore the claude-endolin1 cap after the 2026-10-17T03:00Z reset
 
 ### doin (5)
