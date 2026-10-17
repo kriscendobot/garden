@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-17T07:32Z (oros-health-checkup-20261017-055009): healthy (one commit behind main2, roll pending), no changes
+
+- **Load/mem:** load 3.4/2.0/1.5, a brief spike from this check-up's own git fetches. 13 GiB of 15 GiB available (813 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (171k).
+- **Uptime:** 15d14h, no reboot.
+- **Deployed vs main2:** root at `3adb1686` (the git-wrapper passthrough). origin/main2 is `c2f25a30` (the safe-rebase throwaway worktree), which landed at 07:12Z. `upgrade-ready` already names it; the leader roll has not reached this host yet. fleet/health (06:51Z): `roll_status: deployed`, 0 of 287 units failed.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). The leveling row is still `4 0`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 07:17Z, status ok, 50% used (123.3M of 180M). All 8 pushes from 05:32Z to 07:17Z landed, about 15 minutes apart, and spend is monotone.
+- **State clones:** 32 namespace journal clones. The largest has 47 packs (reaper). None has a tmp_pack or a `gc.log`. The root repo has 9 packs and no `gc.log`. Locks older than 30 minutes are only persistent flock files.
+- **rc=124 (3h):** none on oros. At 06:33Z endolin reaped a stale claim, but it was endolin's own (minion.town pr178 fix-12).
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-17T05:20Z (oros-health-checkup-20261017-023510): healthy (deployed = origin/main2 `776cdbee`), no changes
 
 - **Load/mem:** load 1.3/1.2/1.1; 13 GiB of 15 GiB available.
