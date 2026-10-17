@@ -15,3 +15,13 @@ deploy/probe/prod-objectives.mjs, src/endo/gateway/isolation-headers.ts, test/sh
 snapshot main's tip to a frozen main-<sha>, rebase the head onto it resolving conflicts, force-push, move the PR base.
 Do not merge; the proxy re-screens the new head and posts a fresh conductor. Weave is authorized under the delegation
 (designs/minion-town-pr-screening.md); no maintainer approval needed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T02:25:57Z
