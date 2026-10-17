@@ -9,6 +9,8 @@
 #      commit and leaving exactly one `chore: Update yarn.lock` at the tip;
 #   4. a base that conflicts on a CODE file is REFUSED (rc 3) and the worktree is
 #      left unchanged (no half-applied rebase) — the endo-but-for-bots #868 fail-safe.
+#   8. a worktree whose freshly written files read back as modified (virtiofs stat
+#      churn, minion.town#190) still rebases, because the replay runs elsewhere.
 
 set -euo pipefail
 export GARDEN_TEST=1
@@ -210,5 +212,51 @@ if [ "$rc" -ne 0 ]; then
 else
   ok "zero-conflict-stop case skipped (this host auto-detects a committer identity)"
 fi
+
+# ── 8. False dirt in the caller's tree cannot stop the replay (#190) ────────
+# On the virtiofs scratch mount a just-written file reads back as modified for about
+# a second, so an in-place rebase stopped on its next pick with "would be
+# overwritten" and no conflicted paths (kriscendobot/minion.town#190). Stand-in: a
+# post-checkout hook that dirties code.txt whenever it runs in the CALLER's tree —
+# exactly where the in-place rebase checked out the base before picking. The replay
+# must happen elsewhere and land clean.
+D="$TR/churn"; new_repo "$D"
+git_c "$D" checkout -q -b pr
+printf 'code v2\n' > "$D/code.txt"; git -C "$D" add -A; git_c "$D" commit -q -m "feat: change code"
+git_c "$D" checkout -q main
+printf 'other v2\n' > "$D/other.txt"; git -C "$D" add -A; git_c "$D" commit -q -m "chore: base move"
+git_c "$D" checkout -q pr
+mkdir -p "$TR/churn-scratch"
+cat > "$D/.git/hooks/post-checkout" <<HOOK
+#!/bin/sh
+[ "\$(pwd -P)" = "$(cd "$D" && pwd -P)" ] && printf 'stat churn\\n' >> code.txt
+exit 0
+HOOK
+chmod +x "$D/.git/hooks/post-checkout"
+rc=0; out="$(GARDEN_REBASE_SCRATCH="$TR/churn-scratch" "$SR" "$D" main 2>&1)" || rc=$?
+[ "$rc" -eq 0 ] || die "false dirt in the caller's tree must not stop the rebase, got $rc: $out"
+git -C "$D" merge-base --is-ancestor main HEAD || die "replayed rebase did not land on the base"
+[ "$(git -C "$D" symbolic-ref --short HEAD)" = pr ] || die "replay result not moved onto the caller's branch"
+[ "$(cat "$D/code.txt")" = 'code v2' ] || die "caller's tree does not match the rebased commit"
+[ -f "$D/other.txt" ] || die "base's new file missing after replayed rebase"
+git -C "$D" diff --quiet && git -C "$D" diff --cached --quiet || die "worktree left dirty"
+[ -z "$(ls -A "$TR/churn-scratch")" ] || die "replay worktree not cleaned up"
+[ "$(git -C "$D" worktree list | wc -l)" -eq 1 ] || die "replay worktree still registered"
+ok "a tree that reads back falsely dirty still rebases: the replay runs off-tree (#190)"
+
+# ── 9. A genuinely dirty caller tree is refused (rc 1) and left alone ───────
+D="$TR/dirty"; new_repo "$D"
+git_c "$D" checkout -q -b pr
+printf 'code v2\n' > "$D/code.txt"; git -C "$D" add -A; git_c "$D" commit -q -m "feat: change code"
+PR_TIP="$(git -C "$D" rev-parse HEAD)"
+git_c "$D" checkout -q main
+printf 'other v2\n' > "$D/other.txt"; git -C "$D" add -A; git_c "$D" commit -q -m "chore: base move"
+git_c "$D" checkout -q pr
+printf 'uncommitted\n' >> "$D/pkg.txt"
+rc=0; out="$("$SR" "$D" main 2>&1)" || rc=$?
+[ "$rc" -eq 1 ] || die "a dirty caller tree must be rc 1 (tooling), got $rc: $out"
+[ "$(git -C "$D" rev-parse HEAD)" = "$PR_TIP" ] || die "dirty-tree refusal moved HEAD"
+grep -q uncommitted "$D/pkg.txt" || die "dirty-tree refusal discarded the uncommitted edit"
+ok "a genuinely dirty caller tree is refused (rc 1) and its edits are kept"
 
 echo "PASS: safe-rebase recovers stale branches deterministically and fails closed on real conflicts ($pass checks)"

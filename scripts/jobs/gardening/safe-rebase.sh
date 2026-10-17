@@ -24,7 +24,9 @@
 #        * HEAD is an ancestor of base  -> branch is strictly behind with no unique
 #          commits; `git rebase` fast-forwards it. (Unusual for a PR; handled anyway.)
 #        * base moved ahead + branch has its own commits -> rebase.
-#   2. REBASE. `git rebase <base>` replays the reviewed commits onto the fresh base.
+#   2. REBASE. `git rebase <base>` replays the reviewed commits onto the fresh base,
+#      in a throwaway detached worktree on local scratch (see REPLAY below), never in
+#      the caller's worktree; only the finished result is moved back.
 #        * clean            -> done (exit 0).
 #        * conflict         -> the deterministic lockfile-recovery loop (step 3).
 #   3. LOCKFILE-ONLY RECOVERY. While the rebase is stopped on a conflict: if EVERY
@@ -52,6 +54,8 @@
 #     lockfile; defaults to a package-manager-detected install (corepack yarn/pnpm/npm).
 #   GARDEN_LOCKFILES  space-separated lockfile basenames to treat as regenerable
 #     (default: yarn.lock package-lock.json pnpm-lock.yaml npm-shrinkwrap.json).
+#   GARDEN_REBASE_SCRATCH  directory for the throwaway replay worktree (default:
+#     /tmp, the container's local filesystem, never the virtiofs scratch mount).
 # Exit: 0 fresh / rebased (clean or via deterministic lockfile recovery);
 #       3 REFUSED — a non-deterministic conflict or a failed regeneration; the caller
 #         must weave/rebase by hand (a weaver/fixer job), never force past it;
@@ -80,12 +84,14 @@ _n="$(command git -C "$wt" config user.name 2>/dev/null || true)"
 _e="$(command git -C "$wt" config user.email 2>/dev/null || true)"
 [ -n "$_n" ] && _ident+=(-c "user.name=$_n")
 [ -n "$_e" ] && _ident+=(-c "user.email=$_e")
+# $gwt is the tree git() acts on: the caller's worktree, except during the replay.
+gwt="$wt"
 git() {
   if [ "${GARDEN_INHERIT_GITCONFIG:-}" = "1" ] || [ "${1:-}" = fetch ]; then
-    command git -C "$wt" "$@"
+    command git -C "$gwt" "$@"
   else
     GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null GIT_CONFIG_NOSYSTEM=1 \
-      command git -C "$wt" "${_ident[@]}" \
+      command git -C "$gwt" "${_ident[@]}" \
         -c rebase.autostash=false -c rebase.autosquash=false -c rerere.enabled=false \
         "$@"
   fi
@@ -110,7 +116,10 @@ all_lockfiles() {  # all_lockfiles <<< newline-separated paths; 0 iff non-empty 
 }
 
 GITDIR="$(git rev-parse --absolute-git-dir)" || { echo "safe-rebase: no git dir in $wt" >&2; exit 1; }
-rebase_in_progress() { [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ]; }
+rebase_in_progress() {  # in the tree git() currently acts on
+  local d; d="$(git rev-parse --absolute-git-dir 2>/dev/null)" || return 1
+  [ -d "$d/rebase-merge" ] || [ -d "$d/rebase-apply" ]
+}
 
 # A rebase left over from a crashed prior run would make every step below lie. Refuse
 # rather than silently entangle with it.
@@ -144,8 +153,51 @@ if git merge-base --is-ancestor "$base" "$head"; then
   exit 0
 fi
 
-# --- 2. rebase the reviewed commits onto the fresh base ---------------------
+# A dirty caller worktree would have made `git rebase` refuse; keep that refusal,
+# since moving the result back (reset --hard) would otherwise discard the edits.
+# `git status` re-checks content on a stat mismatch, so it does not see the false
+# dirt described below.
+if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+  echo "safe-rebase: $wt has uncommitted changes to tracked files; refusing to rebase (tooling error, not a weave)" >&2
+  exit 1
+fi
+
+# --- 2. REPLAY: rebase in a throwaway worktree on local scratch -------------
+# The fleet's scratch tree on a macOS host is a virtiofs bind mount, where a file
+# git just wrote reads back as modified for about a second (stat churn). A rebase
+# writes files and checks them on the very next pick, so in place it stops with
+# "Your local changes ... would be overwritten" and NO conflicted paths on a clean
+# tree. Observed: kriscendobot/minion.town#190 (2026-10-17), whose rebase onto main
+# was clean on tmpfs and failed every time on virtiofs; core.checkStat=minimal and
+# core.trustctime=false only made it intermittent. So the replay runs in a detached
+# worktree on local disk, and the caller's worktree is written once, by
+# `reset --hard` to the result (which runs no up-to-date check). A refused or
+# failed replay leaves the caller's worktree untouched.
+scratch="${GARDEN_REBASE_SCRATCH:-/tmp}"
+rw="$(mktemp -d "$scratch/garden-safe-rebase.XXXXXX")" \
+  || { echo "safe-rebase: cannot create a replay dir under $scratch" >&2; exit 1; }
+rmdir "$rw"
+cleanup_replay() {
+  gwt="$rw"; rebase_in_progress && git rebase --abort >/dev/null 2>&1 || true
+  gwt="$wt"
+  git worktree remove --force "$rw" >/dev/null 2>&1 || rm -rf "$rw"
+  git worktree prune >/dev/null 2>&1 || true
+}
+trap cleanup_replay EXIT
+git worktree add --quiet --detach "$rw" "$head" \
+  || { echo "safe-rebase: cannot add the replay worktree $rw" >&2; exit 1; }
+gwt="$rw"
+
+# Move the replayed result back into the caller's worktree (its branch, if any).
+adopt_replay() {
+  local new; new="$(git rev-parse HEAD)" || { echo "safe-rebase: cannot read the replay result" >&2; exit 1; }
+  gwt="$wt"
+  git reset --quiet --hard "$new" \
+    || { echo "safe-rebase: cannot move $wt to the rebased ${new:0:11}" >&2; exit 1; }
+}
+
 if git rebase "$base"; then
+  adopt_replay
   echo "safe-rebase: rebased ${head:0:11} onto ${base:0:11} (${base_ref})"
   exit 0
 fi
@@ -194,6 +246,8 @@ $(printf '%s\n' "$conflicted" | sed 's/^/    /')
 EOF
   exit 3
 done
+
+adopt_replay
 
 # --- 4. regenerate the dropped lockfile against the new base ----------------
 if [ "$skipped_lock" = 1 ]; then
