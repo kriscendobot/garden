@@ -1,24 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T07:37:07Z_
+_As of 2026-10-17T07:40:12Z_
 
 ## Latest
 
-Four gauntlets hit their review-round budget without converging and are waiting on you to extend them or decide by hand. [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 of 16 rounds and still has 19 unaddressed must-fix items, mostly new breaker findings about the CI-runner provisioning script's seed check. [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) also used 16 of 16 and has 20, including a read-only holder exhausting the mint cap. [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) stopped at 12 of 12 and [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) at 8 of 8; neither report carries a structured must-fix list. [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) stopped at 6 of 6 with no list either. Each message gives the `--add-rounds` command to resume.
+Several delegated merges to minion.town landed and deployed cleanly overnight: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#194](https://github.com/kriscendobot/minion.town/pull/194). Each had a successful deploy and an ok watchdog. [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#196](https://github.com/kriscendobot/minion.town/pull/196) have been re-screened and have conduct jobs queued.
 
-On the board, the only new post is an un-draft job for [endo-but-for-bots#1485](https://github.com/endojs/endo-but-for-bots/pull/1485). Its gauntlet undraft stage is already in progress. The parcel-stack restack orchestration finished with all 3 children complete and none failed.
+**Needs your call**
+- **Review budgets exhausted.** The gauntlets for minion.town [#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix still raised), [#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16, 20 raised), [#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) and [#192](https://github.com/kriscendobot/minion.town/pull/192) (8/8) stopped without converging. So did endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6/6). #184 merged anyway. The #184 and #180 panel reports are "moving target": each round raises about 20 new findings rather than carrying old ones. Each message gives the `--add-rounds` command if you want to extend a gauntlet.
+- **Claude login on the leader host.** The endolin1 cap was restored to 271M after the 03:00Z window reset. The host may still be logged into endolin2, in which case its spend would be charged to endolin1. That would hit the cap and block claims again. Please confirm which login the host uses, or re-login to endolin1.
+- **CI token gap.** The bot token gets a 403 reading CI status on the oros host, which blocked the CI wait on [minion.town#188](https://github.com/kriscendobot/minion.town/issues/188). It needs checks:read, statuses:read and actions:read.
+- **Tower report follow-ups.** The live probe left one anonymous guest on production minion.town, and the API has no delete route. The source note `note-from-tower.md` was not on the host that ran the job, so the report was not checked against it.
 
-minion.town delegation merged [#194](https://github.com/kriscendobot/minion.town/pull/194), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#188](https://github.com/kriscendobot/minion.town/pull/188) overnight. Each deploy succeeded and the watchdog passed. [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#196](https://github.com/kriscendobot/minion.town/pull/196) were screened and have conduct jobs queued.
-
-Items that need an answer:
-- **Claude login on endolin-garden:** the restore job reset the `claude-endolin1` cap to 271M after the 03:00Z window roll and asks whether this host's workers are logged in as endolin1 or endolin2. If it is endolin2, that spend is charged to endolin1 and will trip the claim gate again.
-- **Stray production guest:** the docs-tower probe left one anonymous guest on production minion.town, and the API has no delete route. The same job's source note was not on the host that ran it, so the report went unchecked against it.
-- **CI-read permission:** the watchdog reports that the bot token gets HTTP 403 reading CI status for [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188). It needs checks:read, statuses:read and actions:read granted.
-- **Canary repin:** the minion.town OCapN canary is repinned to endolin-garden and stays parked until you say go ahead. It now expects two guest locators in `~/.garden-state/ocapn-canary/guests.json`.
-
-The journal-lock contention notices from earlier are mostly cleared. The endolin-garden monk count moved between 1 and 4 with the quota reset and is at 4 per the latest budget message.
+**Fleet.** Monk counts on the leader host moved between 1 and 4 as the budget ramp followed the reset, and are at 3 now. Journal-lock contention notices mostly cleared, and 7 stay open.
 
 ## Maintainer review docket
 
@@ -289,7 +283,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.9M | $249.83 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 55.1M | $252.55 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 99616032 tokens/day lower bound._
