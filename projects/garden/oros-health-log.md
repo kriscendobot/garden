@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-17T13:00Z (oros-health-checkup-20261017-115010): healthy (deployed = origin/main2 `63dc4d85`), no changes
+
+- **Load/mem:** load 1.4/1.8/1.8. 13 GiB of 15 GiB available (810 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k).
+- **Uptime:** 15d19h, no reboot.
+- **Deployed vs main2:** root at `63dc4d85` (two-tier garden-memory design), still the origin/main2 tip. fleet/health (08:38Z): `roll_status: deployed`, 0 of 287 units failed.
+- **Units:** 0 failed, none flagged `NeedDaemonReload`. Only monk 1 is running (this check-up). The leveling row is still `4 0`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 12:48Z, status ok, 54% used (125.6M of 180M). All 12 pushes from 10:03Z to 12:48Z landed, about 15 minutes apart, and spend is monotone.
+- **State clones:** 32 namespace journal clones. The largest have 47 packs (self-deploy, reaper). None has a tmp_pack or a `gc.log`. The root repo has 24 packs and no `gc.log`. Every `.lock` file older than 30 minutes is a persistent flock file. No `index.lock` is older than 5 minutes.
+- **rc=124 (3h):** none on oros. At 12:47Z endolin's monk-3 hit a transient handler kill on `minion-town-ci-runner-stall-20261017` (oros posted the job), and endolin reaped it. That job runs on endolin, so it is not an oros fault.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-17T10:00Z (oros-health-checkup-20261017-085009): healthy (deployed = origin/main2 `63dc4d85`), no changes
 
 - **Load/mem:** load 1.6/1.5/1.5, rising to 2.3 during this check-up's own scans. 13 GiB of 15 GiB available (813 MiB of swap in use).
