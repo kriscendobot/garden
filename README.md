@@ -1,27 +1,19 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T08:54:08Z_
+_As of 2026-10-17T09:00:18Z_
 
 ## Latest
 
-Several minion.town PRs merged and deployed overnight: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#194](https://github.com/kriscendobot/minion.town/pull/194). Each deploy succeeded and the watchdog validated it. [#190](https://github.com/kriscendobot/minion.town/pull/190) merged at 08:43Z and its deploy is still pending. [#196](https://github.com/kriscendobot/minion.town/pull/196) is screened and queued for a delegated merge.
+Four minion.town PRs merged overnight, all with passing deploys and clean watchdog checks: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#184](https://github.com/kriscendobot/minion.town/pull/184). [#194](https://github.com/kriscendobot/minion.town/pull/194) merged after them and validated too. [#190](https://github.com/kriscendobot/minion.town/pull/190) merged at 08:43Z and its deploy is still pending. [#196](https://github.com/kriscendobot/minion.town/pull/196) is screened and has a conduct job queued. Gauntlets are starting on #197, #199, #200 and #201.
 
-**Needs your decision:** three minion.town gauntlets hit their review budget without converging, and each is waiting for you to grant more rounds or review by hand.
-- [#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 of 16 rounds and still has 19 unaddressed must-fix items, mostly about the seed check in the CI-runner provisioning script. It has already merged, so the open items can be treated as follow-ups.
-- [#180](https://github.com/kriscendobot/minion.town/pull/180) used 16 of 16 rounds and still has 20 unaddressed must-fix items (mint-cap lockout and an unbound `/hello` proof).
-- [#178](https://github.com/kriscendobot/minion.town/pull/178) and [#192](https://github.com/kriscendobot/minion.town/pull/192) also ran out of rounds, with no structured must-fix list.
-- [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) hit its 6-round budget the same way.
-- The [endo-but-for-bots#360](https://github.com/endojs/endo-but-for-bots/pull/360) gauntlet was refused as not viable, because the final `designs/familiar-release.md` already landed on `llm`. Closing it as superseded is the suggested option.
+**Needs your decision:**
+- **Gauntlet review budgets exhausted.** Four minion.town PRs ([#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#192](https://github.com/kriscendobot/minion.town/pull/192)) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) hit their round limits without converging. #184 and #180 each show about 19–20 unaddressed must-fix items in the last round, and the verdict on both is "moving target". Each message gives a `--add-rounds` command if you want to grant more.
+- **minion.town settings simplify.** Run `deploy-accounts-store.sh` before merging. Until the new index is active, Log out stays hidden and account deletion answers 503 without deleting anything. The report also lists four choices that stand unless you veto them.
+- **Docs-tower report.** The live probe left one anonymous guest on production, and the API can't delete it. The source note wasn't on the host that ran the job, so the report was never checked against it.
+- **Claude login on the leader host.** Is it on endolin1 or endolin2? The claude-endolin1 cap was restored to 271M after the 03:00Z reset. If endolin2 is still logged in, its spend will be charged to endolin1 and the claim gate will refuse work again.
+- **CI read forbidden on oros.** The bot token gets a 403 on CI status for [minion.town#190](https://github.com/kriscendobot/minion.town/issues/190). It needs checks:read, statuses:read and actions:read granted.
 
-**Other items waiting on you:**
-- **Settings-simplify deploy:** run `deploy-accounts-store.sh` before merging the settings-simplify work, and veto any of its four listed choices you object to.
-- **Claude login on the leader host:** the restored 271M cap on claude-endolin1 could be hit again if the host is still logged into endolin2. Confirm which login its workers use.
-- **Token permissions:** `ci-wait-merge` on the oros host still gets HTTP 403 reading CI for [minion.town#190](https://github.com/kriscendobot/minion.town/issues/190). The bot token needs `checks:read`, `statuses:read` and `actions:read`.
-- **Stray guest account:** the docs-tower probe left one anonymous guest on production that the garden can't remove.
-
-The parcel-stack restack orchestration finished with all 3 children done. New gauntlet stages were queued for minion.town [#197](https://github.com/kriscendobot/minion.town/pull/197), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200) and [#201](https://github.com/kriscendobot/minion.town/pull/201). Fix rounds are running on minion.town [#198](https://github.com/kriscendobot/minion.town/pull/198), [endo-but-for-bots#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). Most journal lock-contention alerts cleared on their own. The claude-endolin1 cap was restored to 271M after the window reset.
+Also: the parcel-stack restack orchestration finished with all three children complete. The OCapN canary run is repinned to the endolin host and stays parked until you say go ahead. Journal-lock contention notices mostly cleared. Four are still open, and the worst fetch p95 is 7.25s.
 
 ## Maintainer review docket
 
@@ -319,10 +311,6 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.030577s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `endojs-endo-but-for-bots-pr360-gauntlet-20261007-not-viable` — from gauntlet:endojs-endo-but-for-bots-pr360-gauntlet-20261007-not-viable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr360-gauntlet-20261007-not-viable.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr360-gauntlet-20261007 REFUSED by its pre-spend viability gate: the premise was overtaken. Deciding question: Is PR #360's design still needed now that the final `designs/familiar-release.md` is on `llm`, and does that merged design leave room for the packaging lanes and pre-release E2E workflow this PR proposes? Option: close as superseded.
-
 - `kriscendobot-minion.town-pr192-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr192-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr192-gauntlet-review-budget-reached.md)
 
 > COALESCED message — occurrence #2 (first seen 2026-10-17T03:56:41Z, latest 2026-10-17T08:44:29Z).
@@ -351,13 +339,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.0M | $292.72 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 64.3M | $295.03 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 95226803 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.250028s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 5 open notice(s); checker healthy
+worst fetch p95 7.250028s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (10)
