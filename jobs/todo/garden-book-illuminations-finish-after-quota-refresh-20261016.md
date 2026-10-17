@@ -1,16 +1,10 @@
 ---
-gate: go-ahead
-budget_hold: true
-park_reason: over-token-budget
-parked_for_budget_at: 2026-10-16T05:44:09Z
-budget_window_seconds: 604800
-budget_resets_at: 2026-10-17T03:00:00Z
-priority: high
 role: builder
+tier: mentor
 arc: garden-book
-posted_by: producer
-posted_at: 2026-10-16T05:44:09Z
+token-budget-epoch: 2026-10-17T03:02:05Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=high at=2026-10-17T03:02:05Z cleared=none -->
 
 ---
 role: builder
