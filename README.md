@@ -1,18 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-17T05:23:48Z_
+_As of 2026-10-17T05:25:06Z_
 
 ## Latest
 
-Three minion.town PRs merged and deployed overnight: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), followed by [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#194](https://github.com/kriscendobot/minion.town/pull/194). Each deploy succeeded and its watchdog check passed. The board shows no file-level transitions since the last bulletin.
+The proxy merged four minion.town PRs overnight, each deploy succeeding with the watchdog ok: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#194](https://github.com/kriscendobot/minion.town/pull/194). Two gauntlets ran out of review budget and need your call. [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used all 16 rounds with 19 must-fix items still raised, and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) used all 16 with 20 raised. Both lists are fresh findings each round rather than persistent ones, so the review looks like a moving target. [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) also hit its 8-round cap with no structured list. Each message gives the `--add-rounds` command to continue.
 
-**Needs your call:**
-- **Gauntlet review budgets exhausted.** [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) each used all 16 panel/fix rounds without converging (19 and 20 unaddressed must-fix items). Both are labeled "moving target": each round raises a fresh set of breaker findings rather than repeating old ones. [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) hit its 8-round limit as well. Each message gives a `--add-rounds` command if you want to grant more.
-- **Claude login on the leader host.** The `claude-endolin1` cap was restored to 271M after the 03:00Z reset. The restoring gardener can't tell whether the host's workers are on the endolin1 or endolin2 login. If endolin2 is still active, its spend will be charged to endolin1 and the claim gate will refuse work again. Please re-login the host to endolin1 or say to raise the cap.
-- **Token permission gap.** The oros host cannot read CI for [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) because the bot token gets a 403 on `statusCheckRollup`. It needs checks:read, statuses:read and actions:read on `kriscendobot`.
-- **Docs tower report.** The live probe left one anonymous guest on production minion.town, and the API has no way to delete it. The source note was also missing on the host that ran the job, so the report went unchecked.
+Items that need an answer from you:
+- **Claude login on this host:** the `claude-endolin1` cap was restored to 271M after the 03:00Z reset. Is this host logged in as endolin1 or endolin2? If it's endolin2, its spend will be charged to endolin1 and the claim gate will stall again.
+- **Production guest:** the minion.town docs report's live probe left one anonymous guest on production, and the API can't delete it. The job also couldn't check the report against `note-from-tower.md`, because the note wasn't on the host that ran the job.
+- **CI read access:** the bot token gets a 403 reading CI rollups for [minion.town#188](https://github.com/kriscendobot/minion.town/issues/188). It needs `checks:read`, `statuses:read` and `actions:read` on `kriscendobot`.
 
-**Worker counts and journal locks.** The leader host's monk count moved between 1 and 4 as the window rolled. It is now at 3 under the restored cap. The journal-contention storm has cleared, and a few single-giveup lock notices remain open.
+The canary live-run job is repinned to this host and still parked until you say go ahead. The restack orchestration for the parcel stack finished, with all three children done. Journal lock-contention alerts on both hosts are mostly recovered or routine, and the board is moving through gauntlet stages on endo-but-for-bots PRs [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), [#1487](https://github.com/endojs/endo-but-for-bots/pull/1487), [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482), [#1485](https://github.com/endojs/endo-but-for-bots/pull/1485), [#1476](https://github.com/endojs/endo-but-for-bots/pull/1476) and [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481).
 
 ## Maintainer review docket
 
@@ -220,6 +219,10 @@ Delegation: **active**
 
 > ci-wait-merge on oros-studio-garden-ce242c49 cannot read CI for [kriscendobot/minion.town#188](https://github.com/kriscendobot/minion.town/issues/188): the GitHub token is forbidden (HTTP 403) from statusCheckRollup, and delegated merges do not accept the Actions-only fallback. This is a token permission gap, not pending CI. Grant the bot token checks:read and statuses:read (and actions:read) on 'kriscendobot', then rerun the stage.
 
+- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_regenerate_topics_counts_journal.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-topics-counts/journal: p95=16.547930s max=16.547930s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-16T18:43:57Z, latest 2026-10-17T04:39:00Z).
@@ -244,7 +247,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.1M | $146.29 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.1M | $146.54 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 95665614 tokens/day lower bound._
