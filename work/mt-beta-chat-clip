@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-17T09:23:57Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-mt-beta-chat-clip
+pr_number: 202
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/202
+pr_head: feat/chat-clip
