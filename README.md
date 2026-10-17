@@ -1,22 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-17T20:59:45Z_
+_As of 2026-10-17T21:04:05Z_
 
 ## Latest
 
-Several gauntlets hit their review budget without converging and now need a maintainer call. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#192](https://github.com/kriscendobot/minion.town/pull/192) were left improved after 16, 16 and 10 rounds, with about 19–20 unaddressed must-fix bullets on #184 and #180, mostly new breaker findings each round. [#178](https://github.com/kriscendobot/minion.town/pull/178) stopped at 12 rounds with an unknown must-fix list. On the endo side, [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6 of 6 rounds, 20 must-fix) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6 of 6 rounds, unknown list) also stopped without converging. Each message offers `--add-rounds 2` to resume.
+Three review-budget stops need a maintainer decision: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) each spent their full panel/fix rounds (16, 16 and 6) with CI green but about 20 unaddressed items still open. The panel's last round raised new items each time, so these are moving targets, not stuck ones. [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) also hit their budgets, with no structured must-fix list available. Each message carries a `--add-rounds` command if you want to grant more.
 
-Merges on minion.town went through the proxy screen. [#184](https://github.com/kriscendobot/minion.town/pull/184), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#196](https://github.com/kriscendobot/minion.town/pull/196) merged today, and each deploy succeeded with the watchdog ok. [#197](https://github.com/kriscendobot/minion.town/pull/197) stalled after three conductors finished without merging it. A separate watchdog notice says the CI read for [#192](https://github.com/kriscendobot/minion.town/pull/192) is forbidden (HTTP 403). The bot token needs checks:read, statuses:read and actions:read before that merge can proceed.
+Other maintainer actions:
+- **minion.town settings simplification (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging, or Log out stays hidden and account deletion answers 503. Four removals or leave-as-is choices also stand unless you veto them.
+- **Access gap:** CI reads on [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) are failing with 403 on the bot token, so the oros host's delegated merges can't proceed. It needs `checks:read`, `statuses:read` and `actions:read`.
+- **Stalled merge:** [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) was screened, but three conductors finished without merging it.
+- **Quota question:** the restored `claude-endolin1` cap of 271M is at risk if endolin2's login is still active on that host, since its spend would be charged to endolin1. Say which login is active, or re-login the host to endolin1.
+- **Probe leftovers:** the live probe left one anonymous guest on production minion.town, and the tower report wasn't checked against its source note.
 
-Two orchestrations completed cleanly: `mt-beta-product-pass-20261017` and the endo parcel-stack restack.
+Merged and deployed (watchdog ok) on minion.town: #184, #188, #190, #194, #195 and #196. The restack orchestrations for `mt-beta-product-pass-20261017` and the endo parcel stack both completed with no failed children.
 
-Items waiting on you:
-- **Settings simplification:** Run `deploy-accounts-store.sh` before merging it. The veto list (no-bond hint, removed guest-URL/forget-browser controls, removed mail, daemon state left on disk) stands unless you object.
-- **Docs tower report:** One anonymous guest from the live probe is still on production. The source note was not on the host that ran the job, so the report was not checked against it.
-- **Claude login on endolin-garden:** The `claude-endolin1` cap was restored to 271M after the reset. Please say whether this host is logged into endolin1 or endolin2. If it is still endolin2, the ledger will charge its spend to endolin1 again and the claim gate will refuse work.
-- **Accountant weekly:** The proxy's tentative answer is to keep the slate and leave the reserve at 18M. It does not confirm the claude-oros reset credits, so treat oros as having none.
-
-Monk counts on endolin-garden moved between 4 and 2 as the budget ramp reacted to the window roll. Claude spend is at 43% of quota. The oros journal worktree still cannot fast-forward (29 occurrences); it is untouched and needs a look at that host. The journal lock-contention notices have mostly recovered.
+Three of the journal-contention watchdog notices on endolin-garden-ece02cb4 and the oros host have cleared, so those need no action. Worker counts on endolin-garden-ece02cb4 moved up to 4 after the weekly reset. The oros journal worktree still can't fast-forward (29 occurrences).
 
 ## Maintainer review docket
 
@@ -451,10 +450,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.9M | $486.29 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 116.1M | $486.91 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92976090 tokens/day lower bound._
+_Fleet token-unlock pace: 93060930 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 15.954417s/45s (/home/kris/garden/.garden-state/accountant/journal); 4 open notice(s); checker healthy
