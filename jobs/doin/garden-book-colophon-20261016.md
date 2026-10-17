@@ -16,3 +16,13 @@ What NOT to move: prose whose subject is the garden itself (how the fleet, journ
 Build the colophon as back matter: one new page after the last chapter, linked from the navigation and the contents, styled consistently with the book (including dark and light themes and phone width). Organize it under plain headings (for example: Editions, Illuminations, Text and editing, Build and publication, Colophon notes). Keep the title page to the title and a minimal edition identifier, or propose in the report what stays; flag that choice as a question for the maintainer. Do not generate or alter illustrations. Do not change the book's meaning.
 
 Checks: update the build's expected file counts, manifests, link checks and tests for the new page (the build wrote 27 files before; say what it writes now), and keep the real-Chromium checks (`tools/browser-check.mjs` at 390x844 and 1440x900, light and dark) passing, including the 25-plate and placement checks. Run `npm ci`, `npm test`, `npm run test:browser`, and the build locally. Open a DRAFT PR through `ensure-pr.sh`; the usual staged gauntlet follows. Do NOT merge, un-draft by hand, or publish an edition: the liaison will bring the merge-and-publish decision to the maintainer. Report: the PR, a table of every passage moved (source location, a short quote, destination), the borderline passages left in place, the title-page decision, and the new file count.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T00:38:48Z
