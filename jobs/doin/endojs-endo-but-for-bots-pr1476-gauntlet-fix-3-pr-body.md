@@ -76,3 +76,13 @@ None until the successor adds the handshake capability bit that lets heartbeats 
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 -----END BODY-----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T03:02:09Z
