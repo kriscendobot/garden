@@ -16,3 +16,13 @@ Repo: https://github.com/kriscendobot/minion.town (private). Part of the maintai
 
 Build a **New Clip** clip: the default blank clip a user opens from the shell. It must be able to **metamorphose itself** into a **petname inventory browser** (the user's guest pet-name directory: browse names, drill into directories, see each value's kind). The browser has a **big plus button** for creating new entries through various means (at least: new directory, new text value, import by locator/invitation, and a clip/app from the existing clip types; leave a clear extension point for more). Draw heavily from the existing Chat/inventory UI in the Endo repo (endojs/endo-but-for-bots, branch llm: packages/chat and the daemon's petname/directory APIs) as a reference for flows and UX, but **do not import upstream code yet**; these are expected to diverge. Keep the metamorphosis honest: one clip id before and after (see designs/shell clip iframe embedding, PR #189), fail closed on errors, respect the gateway rule that only the Minion Town shell frames a clip (#194). Browser-test it with a real guest.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T08:14:18Z
