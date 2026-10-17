@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: mt-beta-product-pass-20261017
-priority: normal
-posted_by: producer
-posted_at: 2026-10-17T06:01:31Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-17T08:06:28Z cleared=none -->
 
 ---
 role: builder
