@@ -2,6 +2,20 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-17T00:40Z (oros-health-checkup-20261016-233509): healthy (deployed = origin/main2 `591671f0`); ran a user daemon-reload
+
+- **Load/mem:** load 1.5/1.3/1.3; 13 GiB of 15 GiB available (789 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k).
+- **Uptime:** 15d7h, no reboot.
+- **Deployed vs main2:** root at `591671f0` (the minion-town guest-state doc), the origin/main2 tip. fleet/health (23:25Z): `roll_status: deployed`, 0 of 288 units failed.
+- **Units:** 0 failed. After the deploy, the monk@2 enable/disable at 23:59Z touched `default.target.wants`, and systemd then flagged every garden unit `NeedDaemonReload`. Ran `systemctl --user daemon-reload`, which restarts nothing and cleared the flag.
+- **Workers:** only monk 1 is running (this check-up). The host declared `monks: 1` itself at 23:51Z (budget leveling; the leveling row is still `4 0`). Not draining. No derotation markers.
+- **Budget heartbeat:** claude-oros sampled at 00:32Z, status ok, 49% used (113.6M of 180M). All 15 pushes from 20:47Z to 00:32Z landed, about 15 minutes apart. The root `journal/` worktree trails by up to 30 minutes (the keeper cadence), so read the snapshot age from origin. There was one small dip, 109.73M to 109.70M (−33k) between 22:46Z and 23:03Z. Otherwise spend is monotone. Watch whether the dip recurs.
+- **State clones:** 32 namespace journal clones (one new: `worker-derotate`). The largest has 47 packs (reaper). None has a tmp_pack or a `gc.log`. The root repo has 37 packs and no `gc.log`. Old `.lock` files are only persistent flock files. `repo-locks/` holds 9,399 keys.
+- **rc=124 (3h):** none.
+- **Changed:** `systemctl --user daemon-reload`.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-16T22:05Z (oros-health-checkup-20261016-202040): healthy (deployed = origin/main2 `7ff6f44c`), no changes
 
 - **Load/mem:** load 1.5/1.2/1.0; 13 GiB of 15 GiB available.
