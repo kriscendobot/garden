@@ -11,3 +11,13 @@ The screened delegated conductor (screen-minion-town-pr197-f55f6a2-conduct-r2) w
 non-deterministic content conflict in designs/clip-shell-framework.md rebasing onto main 3a2c1200d5f.
 Rebase the head onto current main, resolving the design-doc conflict (keep both sides' intent), run tests,
 and force-push the head. The proxy re-screens the new head and posts a fresh conductor; do not merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T11:48:45Z
