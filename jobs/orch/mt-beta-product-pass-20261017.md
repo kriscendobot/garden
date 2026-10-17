@@ -1,4 +1,5 @@
 ---
+child-mt-beta-new-clip-inventory-reap-count: 0
 child-mt-beta-settings-simplify-host: endolin-garden-ece02cb4
 child-mt-beta-settings-simplify-reap-count: 0
 child-mt-beta-home-splash-waitlist-host: endolin-garden-ece02cb4
