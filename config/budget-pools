@@ -3,6 +3,6 @@
 # config/subscription-mapping.
 # Columns, tab-separated:
 # subscription_id	provider	ceiling_kind	ceiling	calibrated_from	calibrated_at
-claude-endolin1	anthropic	weekly-tokens	430000000	temp-raise-endolin2-login-headroom-20261016-maintainer	2026-10-16
+claude-endolin1	anthropic	weekly-tokens	271000000	manual-implied-301M-90pct-20261006-maintainer	2026-10-06
 claude-oros	anthropic	weekly-tokens	180000000	manual-utilization-13pct-at-24.7M-20261002-maintainer-rebalance	2026-10-02
 codex-endolin	openai	percent	95	manual-maintainer-squeeze-pre-reset-20261006	2026-10-06
