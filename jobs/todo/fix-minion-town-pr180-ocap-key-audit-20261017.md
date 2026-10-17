@@ -17,16 +17,4 @@ Do:
 3. **Regroup** #180's 28 commits into a reviewable sequence (retcon discipline; net diff invariant), force-push the head, and leave it DRAFT; do not un-draft ahead of #178.
 Report the audit table to the maintainer inbox.
 
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-17T16:13:08Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-17T17:24:29Z
+<!-- garden-reaped: 0 -->
