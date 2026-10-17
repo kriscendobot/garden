@@ -17,3 +17,13 @@ Design (spec only, in `designs/`; apply the carve-out in CLAUDE.md § Convention
 6. **First shared entry candidate** (safe): the ruling that bearer tokens are coherent with object capabilities; the test is whether the token designates a specific object or an identity (memory `bearer-tokens-vs-ocaps`).
 
 Also decide whether the shared tier should be a private repo instead if the secret-scan cannot be made trustworthy, and list that as an open question if unsettled.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T08:04:07Z
