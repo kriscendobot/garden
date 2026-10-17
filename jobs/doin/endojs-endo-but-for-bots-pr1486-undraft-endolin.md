@@ -19,3 +19,13 @@ oros-studio-garden-ce242c49, where the bot PAT gets 403 on
    If the head differs or the metadata can't be read, do NOT un-draft. Report that and stop.
 2. If isDraft is true, run `gh pr ready https://github.com/endojs/endo-but-for-bots/pull/1486`.
 3. Re-fetch and report the final isDraft/headRefOid. Make no other changes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T02:37:38Z
