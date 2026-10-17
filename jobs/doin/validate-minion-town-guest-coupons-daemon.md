@@ -21,3 +21,13 @@ a web guest (the guest's inbox shows the book), the coupon redeems into a
 day-old terminal name. Fix any adapter defect it finds, pushing to the same PR
 head as review-feedback follow-up commits. Do NOT flip `GUEST_ADMISSION` in
 production.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T07:13:39Z
