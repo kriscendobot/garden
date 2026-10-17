@@ -1,29 +1,19 @@
 # Garden bulletin
 
-_As of 2026-10-17T01:07:46Z_
+_As of 2026-10-17T01:14:30Z_
 
 ## Latest
 
-Gauntlet work on minion.town moved most. [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190) and [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) both completed their gauntlets and were un-drafted. [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged, and its deploy succeeded with the watchdog ok. Screening continued on [#184](https://github.com/kriscendobot/minion.town/pull/184), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#195](https://github.com/kriscendobot/minion.town/pull/195). A second screened-merge job for #184 is queued, and [#192](https://github.com/kriscendobot/minion.town/pull/192) is in fix round 7.
+The OCapN-Noise cryptographic-review design build finished. Its follow-on job to open the draft PR is now on the todo board. The session-id R2 build is parked on a question for you: for R2, should the `np` sessionId bind to the Noise handshake hash, or should handoff replay state persist per stable sessionId? The question is on [endo-but-for-bots#1475](https://github.com/endojs/endo-but-for-bots/pull/1475).
 
-**Needs a decision: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) hit its review budget.** It used all 16 panel/fix rounds with CI green but still has 19 unaddressed must-fix items. The latest round raised a new set from the breaker seat, centered on `provision-ci-runner.sh`. One item is that the seed check accepts secrets that the Lambda's `tokenFromSecret` rejects. The message gives the `--add-rounds N` resume command if you want to grant more rounds.
+On minion.town, the gauntlets for [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#194](https://github.com/kriscendobot/minion.town/pull/194) completed and both PRs were un-drafted. [#193](https://github.com/kriscendobot/minion.town/pull/193) merged and its deploy succeeded. The [#184](https://github.com/kriscendobot/minion.town/pull/184) gauntlet used all 16 review rounds with 19 must-fix items still open, mostly breaker findings on the CI-runner provisioning script. Say if you want more rounds, for example `--add-rounds 2`. The CI watchdog also can't read CI status on [#188](https://github.com/kriscendobot/minion.town/pull/188). The bot token gets a 403 and needs checks:read, statuses:read and actions:read before that merge can proceed.
 
-On endo-but-for-bots:
-- [#1485](https://github.com/endojs/endo-but-for-bots/pull/1485) finished its clean stage and is queued for panel round 1.
-- [#1486](https://github.com/endojs/endo-but-for-bots/pull/1486) finished panel round 1 and is queued for un-draft.
-- [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) finished fix round 1 and is queued for panel round 2.
-- [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) is queued for panel round 2.
-- [#1476](https://github.com/endojs/endo-but-for-bots/pull/1476) is queued for panel round 3.
-- [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) is in fix round 3.
-- The build of the [ocapn-noise cryptographic review design](https://github.com/endojs/endo-but-for-bots/pull/1475) is in progress.
-- The parcel-stack restack orchestration completed, with all 3 children done and none failed.
+Other items need your call:
+- **Orphan guest:** the docs-tower live probe left one anonymous guest on production minion.town. There is no delete route and the guest's id wasn't recorded.
+- **Missing source note:** the report wasn't checked against `note-from-tower.md`, because the host that ran the job didn't have the note.
+- **Canary:** the live canary job is repinned to `endolin-garden-ece02cb4` and parked until you say go ahead. It now expects the two guest locators in `guests.json`.
 
-Also notable:
-- A CI-read permission gap is blocking the delegated merge of [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188). The bot token gets a 403 on `statusCheckRollup`, so it needs checks:read, statuses:read and actions:read.
-- A docs-tower report job left one anonymous guest on production minion.town. There is no delete route, so you can leave it or remove it by hand. The source note was also missing on the host that ran the job, so the report wasn't checked against it.
-- The minion.town OCapN canary live run is pinned to `endolin-garden-ece02cb4` and parked until you say go ahead. The canary now adopts guests from durable locators, so `guests.json` there should hold the two guest locators.
-- A journal lock-contention storm is ongoing on the leader host, now on its 17th occurrence. The latest tick hit 6 clones, led by the producer journal with 6 giveups. Several contention notices on the oros-studio host have cleared.
-- The budget watchdog throttled monks on both the leader host and oros-studio as claude-endolin1 and claude-oros spend approached their caps.
+The leader host is seeing journal lock contention: one coalesced storm notice is at 17 occurrences, and several individual notices are open. Claude spend is at 93% of quota, and the watchdog throttled monk workers on `endolin-garden-ece02cb4` (3→2, then to 1) and on `oros-studio-garden-ce242c49` (2→1). The `endo-but-for-bots` parcel-stack restack orchestration finished with all 3 children complete.
 
 ## Maintainer review docket
 
@@ -195,7 +185,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 398.0M | $1861.43 _(notional, rate-card)_ | 93% of 430.0M (ok) |
+| Claude | 398.2M | $1862.11 _(notional, rate-card)_ | 93% of 430.0M (ok) |
 | Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94132740 tokens/day lower bound._
@@ -204,27 +194,27 @@ _Fleet token-unlock pace: 94132740 tokens/day lower bound._
 worst fetch p95 5.890382s/45s (/home/kris/garden/.garden-state/screening-control/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1476-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1476
 - [`endojs-endo-but-for-bots-pr1485-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1485-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1485
 - [`kriscendobot-garden-book-pr16-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr16-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #16
+- [`endo-but-for-bots-ocapn-noise-cryptographic-review-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-noise-cryptographic-review-open-pr.md) — Open the draft PR for the OCapN-Noise cryptographic-review build (endojs/endo...
 - [`endojs-endo-but-for-bots-pr1486-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1486-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1486
 - [`endojs-endo-but-for-bots-pr1482-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1482-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1482
 - [`screen-minion-town-pr184-63f7edb-conduct-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr184-63f7edb-conduct-r2.md) — Screened delegated merge: kriscendobot/minion.town#184 at 63f7edb8a24567762ea...
 - [`endojs-endo-but-for-bots-pr1481-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1481-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1481
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1478-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1478
 - [`kriscendobot-minion.town-pr192-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr192-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #192
-- [`endo-but-for-bots-ocapn-noise-cryptographic-review-design-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-ocapn-noise-cryptographic-review-design-build.md) — Build: the design in endojs/endo-but-for-bots#1475
 
-### tada (13443)
+### tada (13444)
+- [`endo-but-for-bots-ocapn-noise-cryptographic-review-design-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endo-but-for-bots-ocapn-noise-cryptographic-review-design-build.md) — Completion report: endo-but-for-bots-ocapn-noise-cryptographic-review-design-...
 - [`kriscendobot-minion.town-pr190-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-minion.town-pr190-gauntlet.md) — gauntlet kriscendobot-minion.town-pr190-gauntlet — complete
 - [`kriscendobot-minion.town-pr194-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-minion.town-pr194-gauntlet.md) — gauntlet kriscendobot-minion.town-pr194-gauntlet — complete
 - [`kriscendobot-minion.town-pr190-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-minion.town-pr190-gauntlet-undraft.md) — Gauntlet UNDRAFT: kriscendobot/minion.town PR #190 ("feat(shell): persist cli...
 - [`kriscendobot-minion.town-pr194-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-minion.town-pr194-gauntlet-undraft.md) — Gauntlet un-draft: kriscendobot/minion.town PR #194
-- [`kriscendobot-garden-book-pr16-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-garden-book-pr16-gauntlet-viability.md) — Cost
-- … and 13438 more
+- … and 13439 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -284,6 +274,7 @@ worst fetch p95 5.890382s/45s (/home/kris/garden/.garden-state/screening-control
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) - [Reconcile the historical floor with current verdict/resource policy, or restore all 901 genuinely under unchanged pins and policy?](https://github.com/kriscendobot/garden/issues/51#issuecomment-5877917421)
 - [`minion-town-public-browser-caddy-gate-smoke-after-mfa-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-public-browser-caddy-gate-smoke-after-mfa-20261006.md) - [When can you promptly relay the one-time GitHub SMS code for kriscendobot so the final public-browser gate smoke can run?](https://github.com/kriscendobot/garden/issues/89#issuecomment-6019568536)
 - [`endo-daemon-orphan-safe-stop-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-daemon-orphan-safe-stop-build.md) - [Design OQ2: should run-daemon run the manager in-process, or keep the child process and forward signals?](https://github.com/endojs/endo-but-for-bots/pull/1383)
+- [`endo-but-for-bots-ocapn-noise-session-id-r2-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-but-for-bots-ocapn-noise-session-id-r2-build.md) - [Q2 of designs/ocapn-noise-cryptographic-review.md: for R2, bind np sessionId to the Noise handshake hash, or persist handoff replay state per stable sessionId?](https://github.com/endojs/endo-but-for-bots/pull/1475)
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
