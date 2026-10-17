@@ -24,3 +24,13 @@ Repo: https://github.com/kriscendobot/minion.town (private). Part of the maintai
 
 Remove or redirect the duplicate page so there is exactly one canonical landing. Keep existing guest URLs, OAuth callbacks, and the /mcp surface working.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T06:16:15Z
