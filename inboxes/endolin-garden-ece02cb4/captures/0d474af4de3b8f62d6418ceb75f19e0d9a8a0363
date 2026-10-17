@@ -1,0 +1,31 @@
+<6>17:24:39 [monk/2] requeued job 'fix-minion-town-pr180-ocap-key-audit-20261017' has no local transcript on endolin-garden-ece02cb4; prior session and worktree were lost — starting FRESH session 71ece0a6-6d58-51f3-8d2e-18b137f9c34c with lost-state framing
+<6>17:24:39 [monk/2] job 'fix-minion-town-pr180-ocap-key-audit-20261017' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>17:24:39 [monk/2] job 'fix-minion-town-pr180-ocap-key-audit-20261017' call ceiling: tier=minion max-budget-usd=7.90 (scaled by fresh seven-day headroom when available)
+<6>17:24:40 [monk/2] job 'fix-minion-town-pr180-ocap-key-audit-20261017' attaching minion.town MCP (stdio bridge)
+garden repo lock: cleared dead-holder metadata pid=3690927 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+<6>17:28:04 [post-gauntlet] gauntlet 'kriscendobot-minion.town-pr203-gauntlet' already recorded; nothing to do
+<6>17:28:04 [auto-gauntlet-handoff] auto-gauntlet: 'fix-minion-town-pr180-ocap-key-audit-20261017' recorded gauntlet 'kriscendobot-minion.town-pr203-gauntlet' for https://github.com/kriscendobot/minion.town/pull/203
+<6>17:28:15 [review-docket] https://github.com/kriscendobot/minion.town/pull/203 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+All three job deliverables are complete, and I finished the one piece the prior attempt had not: the proxy's 16:08 follow-up direction, which arrived after §7 was first committed.
+
+## Completion report
+
+**Job**: audit minion.town #180's control-plane keys against the ocap identity-vs-object test, record the §7 ruling, regroup the commits.
+
+This was a reaper requeue. Re-deriving from committed history, the two PRs, and the journal showed the prior attempt had already landed the three core deliverables before it was reaped:
+
+- **Audit** — done. All six control-plane secrets classified (capability-URL token, retention key, facet key, owner credential, `/hello` proof, root secret). Only the root secret is identity-shaped, and it is held only by `minion-git-remote`/`minion-mcp` — never by the Endo daemon or any formula, so no guest or caplet can reach an identity-shaped secret. No code fix needed; #180's net diff unchanged. Table posted to the maintainer inbox (`msg-fix-…-4ec00f1b0ec0`).
+- **Ruling recorded** — PR [kriscendobot/minion.town#203](https://github.com/kriscendobot/minion.town/pull/203) (draft, docs-only) states the identity-vs-object test in `designs/git-remote-capability.md` §7 with the classification table and qualifies the two "not a bearer token" lines to "not an identity-shaped bearer token".
+- **Regroup** — #180 retconned 28→7 commits, net tree byte-identical to d9b9dd0, each commit typechecking on its own, force-pushed (head 3b5fd6e), left DRAFT.
+
+**What I added this attempt** — applied the proxy's 16:08 follow-up (which post-dated the first §7 commit) to PR #203's §7 and pushed (head `78bbbfd`), gates clean (0 Botese / 0 orthography candidates):
+1. Marked the owner-credential classification **provisional, pending maintainer confirmation**, noting the per-guest/per-caplet re-keying fallback (§12) if it is later read as identity-shaped.
+2. Recorded the **shared read-facet key** as a known property (two read holders share one revoke/mint budget) inside the test — a property, not a violation; fix is a per-holder read facet if it ever matters.
+
+Also updated the #203 body with a Status note and posted a follow-up to the maintainer inbox.
+
+**Final state**: #180 and #203 both remain DRAFT; nothing un-drafted, merged, or closed (#180 still pends the #178 gauntlet). The sole open item for the maintainer is confirming/overruling the owner-credential object-vs-identity reading.
+
+**Follow-ups**: none required; the per-caplet keying alternative is documented and ready should the maintainer overrule.
