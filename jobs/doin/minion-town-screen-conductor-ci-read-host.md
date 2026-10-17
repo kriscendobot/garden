@@ -27,3 +27,13 @@ Alternative: a probed `ci-read` capability token, if that is cleaner. Also consi
 `ci-wait-merge.sh --screened-delegated-merge` probe CI readability BEFORE it rebases and
 force-pushes, so a host without the scope cannot move the head. Cover the fix in the
 screening driver's tests. Push to main2.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T17:02:41Z
