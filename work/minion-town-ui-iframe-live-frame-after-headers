@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-10-17T05:11:10Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-ui-iframe-live-frame-after-headers
+pr_number: 197
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/197
+pr_head: feat/clip-live-frame
