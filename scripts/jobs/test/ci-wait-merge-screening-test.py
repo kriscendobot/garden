@@ -90,6 +90,9 @@ elif columns == 'state,baseRefName,headRefName':
     base = 'main' if (root / 'unfrozen').exists() else configuration['metadata']['baseRefName']
     print(json.dumps(dict(state='OPEN', baseRefName=base, headRefName='crank')))
 elif columns == 'state,mergeable,statusCheckRollup,reviewDecision,headRefOid':
+    if configuration.get('rollup_forbidden'):
+        print('GraphQL: Resource not accessible by personal access token (statusCheckRollup)', file=sys.stderr)
+        sys.exit(1)
     head = configuration['head']
     if configuration['mode'] == 'rebase' and (root / 'rebased').exists(): head = 'c'*40
     print(json.dumps(dict(state='OPEN', headRefOid=head, mergeable='MERGEABLE', reviewDecision='',
@@ -172,6 +175,14 @@ else: print(configuration['head'])
         self.information['baseRefName'] = 'main-1234abcd'
         self.run_merge(0)
         self.assertTrue((self.directory / 'unfrozen').exists())
+
+    def test_forbidden_ci_read_leaves_the_head_and_base_untouched(self):
+        self.information['baseRefName'] = 'main-1234abcd'
+        self.configuration['rollup_forbidden'] = True
+        result = self.run_merge()
+        self.assertIn('ci-read-forbidden repo=kriscendobot/minion.town pr=17', result.stdout)
+        self.assertFalse((self.directory / 'count').exists(), 'rebase ran on a CI-blind host')
+        self.assertFalse((self.directory / 'unfrozen').exists(), 'base moved on a CI-blind host')
 
     def test_draft_or_probe_is_never_mutated(self):
         for key, value in (('isDraft', True), ('body', 'gap-revealing prototype')):

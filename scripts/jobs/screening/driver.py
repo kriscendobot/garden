@@ -247,8 +247,14 @@ def conductor(number, head, heal):
                f'screened, but {CONDUCTOR_ATTEMPTS} conductors finished without merging it. '
                'Read their reports under jobs/tada/ (base ' + first + '*).')
         return
+    host = os.environ.get('GARDEN', '')
+    if not re.fullmatch(r'[A-Za-z0-9._-]+', host):
+        return note(f'#{number}: no valid GARDEN identity to pin the conductor to')
+    # Pin the conductor to this host: the screen just read the CI rollup here, while
+    # another host's token may be forbidden from it (and its rebase would move the head).
     body = f'''role: conductor
 delegation: {IDENTITY}
+requires: host={host}
 # Screened delegated merge: {REPOSITORY}#{number} at {head}
 The proxy's screen attested {SCREENINGS}/{number}/{head}.json on journal2
 (delegation {CONFIGURATION}; designs/minion-town-pr-screening.md). No maintainer

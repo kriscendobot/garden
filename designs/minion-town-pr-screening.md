@@ -149,6 +149,9 @@ and the heartbeat timestamp. It is CAS-pushed, then the screener posts a delegat
 conductor job, base `screen-minion-town-pr<N>-<short-sha>-conduct`. The base is
 deterministic, so a re-screen of the same head is a no-op post. The conductor job
 runs `ci-wait-merge.sh kriscendobot/minion.town <N> --screened-delegated-merge`.
+It carries `requires: host=<GARDEN>` naming the screener's own host, which has just
+read the CI rollup; a host whose token is forbidden from `statusCheckRollup` must
+never claim it, because its rebase would move the head before the read fails.
 
 On a gate that is not yet satisfied (pending CI, gauntlet in flight), the
 screener does nothing, and the next tick re-evaluates. It is idempotent and holds
@@ -159,6 +162,8 @@ no state beyond the attestation files.
 `ci-wait-merge.sh --screened-delegated-merge` is a sibling of
 `--ratchet-delegated-merge` and runs the same stages:
 
+- **CI readability before any mutation.** A forbidden `statusCheckRollup` read
+  exits 1 `ci-read-forbidden` before the base is unfrozen or the head rebased.
 - **Scope gate before any mutation.** Delegation active, repository and author
   match, the base is readable, and the PR is not a probe. Anything else exits 1 with `merge blocked: outside
   screening delegation`.

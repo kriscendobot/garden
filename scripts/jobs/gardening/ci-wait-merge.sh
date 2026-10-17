@@ -583,6 +583,25 @@ unfreeze_base_if_frozen() {
   return 1
 }
 
+ci_read_forbidden_exit() {
+  alert_maintainer "ci-read-forbidden-$(hostname -s 2>/dev/null || echo host)-${repo%%/*}" \
+    "ci-wait-merge on $(hostname -s 2>/dev/null || echo this host) cannot read CI for $repo#$pr: the GitHub token is forbidden (HTTP 403) from statusCheckRollup$([ "$ratchet_delegated_merge" -eq 1 ] && echo ', and delegated merges do not accept the Actions-only fallback' || echo ' and from the Actions runs API fallback'). This is a token permission gap, not pending CI. Grant the bot token checks:read and statuses:read (and actions:read) on '${repo%%/*}', then rerun the stage."
+  echo "ci-read-forbidden repo=$repo pr=$pr → token lacks CI read permission (403); NOT pending — fix the token, then rerun"
+  exit 1
+}
+
+# --- conductor step 1b: prove CI is readable before any mutation -------------
+# A delegated merge accepts no Actions-only fallback, so a host whose token is
+# forbidden from statusCheckRollup would otherwise unfreeze the base and force-push a
+# rebase, then stop at the first rollup read: the head moves, invalidating the screen
+# or panel, and nothing merges. Probe first so such a host leaves the PR untouched.
+# A transient read failure falls through to the loop.
+if [ "$do_merge" -eq 1 ] && [ "$ratchet_delegated_merge" -eq 1 ]; then
+  probe_rc=0
+  read_pr_with_rollup state,mergeable,statusCheckRollup,reviewDecision,headRefOid >/dev/null || probe_rc=$?
+  [ "$probe_rc" -ne 6 ] || ci_read_forbidden_exit
+fi
+
 # --- conductor step 2: unfreeze before the wait/merge -----------------------
 # Re-point a frozen-base PR at the live trunk now, so any base-change-triggered CI
 # is awaited by the loop below and the eventual merge lands on the trunk. Skipped
@@ -617,12 +636,7 @@ fi
 # --- block until CI is terminal (or the deadline passes) --------------------
 while :; do
   read_rc=0; rollup="$(read_rollup)" || read_rc=$?
-  if [ "$read_rc" -eq 6 ]; then
-    alert_maintainer "ci-read-forbidden-$(hostname -s 2>/dev/null || echo host)-${repo%%/*}" \
-      "ci-wait-merge on $(hostname -s 2>/dev/null || echo this host) cannot read CI for $repo#$pr: the GitHub token is forbidden (HTTP 403) from statusCheckRollup$([ "$ratchet_delegated_merge" -eq 1 ] && echo ', and delegated merges do not accept the Actions-only fallback' || echo ' and from the Actions runs API fallback'). This is a token permission gap, not pending CI. Grant the bot token checks:read and statuses:read (and actions:read) on '${repo%%/*}', then rerun the stage."
-    echo "ci-read-forbidden repo=$repo pr=$pr → token lacks CI read permission (403); NOT pending — fix the token, then rerun"
-    exit 1
-  fi
+  [ "$read_rc" -ne 6 ] || ci_read_forbidden_exit
   if [ "$read_rc" -ne 0 ]; then
     if past_deadline; then
       echo "ci-wait-timeout repo=$repo pr=$pr (gh read kept failing) after ${deadline_secs}s — STILL UNMERGED, re-enqueue"

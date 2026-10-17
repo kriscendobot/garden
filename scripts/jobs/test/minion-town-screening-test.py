@@ -118,7 +118,7 @@ class Screening(unittest.TestCase):
             GARDEN_GH=str(self.directory / 'gh'), GARDEN_SCREEN_HEARTBEAT=str(self.heartbeat),
             GARDEN_SCREEN_POST_JOB=str(self.directory / 'post-job'),
             GARDEN_SCREEN_POST_GAUNTLET=str(self.directory / 'post-gauntlet'),
-            SCREEN_FIXTURE=str(self.directory))
+            SCREEN_FIXTURE=str(self.directory), GARDEN='screen-host-1')
         self.pull = dict(number=17, state='OPEN', isDraft=False, baseRefName='main',
                          author=dict(login='kriscendobot'), headRefOid=HEAD, reviewDecision='',
                          statusCheckRollup=[dict(name='test', status='COMPLETED', conclusion='SUCCESS')],
@@ -217,6 +217,7 @@ class Screening(unittest.TestCase):
         body = (self.directory / f'body-{base}').read_text()
         self.assertIn('--screened-delegated-merge', body)
         self.assertIn('role: conductor', body)
+        self.assertIn('requires: host=screen-host-1\n', body)
         self.tick()
         self.assertEqual(self.posts(), [f'post-job {base}'])
 

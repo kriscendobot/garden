@@ -92,6 +92,8 @@ without blocking the proxy. Logic lives in `scripts/jobs/screening/`
    base, gauntlet record, panel head and match kind, CI check links, deploy run, and
    heartbeat time) and posts the conductor `screen-minion-town-pr<N>-<sha7>-conduct`,
    which runs `ci-wait-merge.sh kriscendobot/minion.town <N> --screened-delegated-merge`.
+   The conductor carries `requires: host=<screener's GARDEN>`, so only the host that
+   just read the CI rollup claims it.
    That spine unfreezes a `main-<sha>` base and rebases onto live `main`.
    Its final policy read requires `baseRefName: main`, so a stale frozen or
    still-stacked base cannot merge even if an earlier attestation exists.
