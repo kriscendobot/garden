@@ -1,11 +1,9 @@
 ---
-gate: deferred
-priority: normal
 role: builder
+tier: mentor
 arc: minion-town-git-remote
-posted_by: gardener
-posted_at: 2026-10-11T18:36:18Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-17T05:38:22Z cleared=none -->
 
 ---
 tier: mentor
