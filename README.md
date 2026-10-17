@@ -1,26 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T00:29:10Z_
+_As of 2026-10-17T00:36:46Z_
 
 ## Latest
 
-Quiet window on the board: no job transitions resolved since the last bulletin. Most of what moved is visible in the maintainer inbox.
+Little completed on the board since the last bulletin. The first fix round for [endo-but-for-bots#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) finished, and its gauntlet queued panel round 2. An `oros-health-checkup` job was claimed on the oros host.
 
 **Needs your call**
-- [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) hit its gauntlet review budget. 16 of 16 panel/fix rounds are spent, CI is green, and 19 must-fix items remain, mostly new each round (a "moving target"). The newest finding is that the seed-token check in `provision-ci-runner.sh` accepts secrets the Lambda's parser rejects. The message offers `--add-rounds N` to resume, or you can review it as is.
-- The `minion-town-docs-tower-report-20261016` job left a live probe guest on production minion.town. There is no delete route and the identifier was never recorded. The source note `note-from-tower.md` was also not on the executing host, so the report was never checked against it.
-- `ci-wait-merge` on oros got HTTP 403 reading `statusCheckRollup` for [kriscendobot/minion.town#188](https://github.com/kriscendobot/minion.town/pull/188). The bot token needs `checks:read`, `statuses:read` and `actions:read`. The screened-merge job `screen-minion-town-pr188-943b833-conduct-r2` is queued behind this.
+- The [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) gauntlet hit its review budget after 16 rounds with 19 unaddressed must-fix items, mostly breaker findings on the CI-runner provisioning script. The panel has not converged, so the PR is left for a human decision. The message gives the `--add-rounds` command if you want to grant more rounds.
+- The docs-tower report job left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded. The job also could not check the report against `note-from-tower.md`, because the note was not on the host that ran it.
+- A watchdog on the oros host reports that the bot token is forbidden (HTTP 403) from reading CI status for [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188). Delegated merges can't proceed until the token is granted checks, statuses and actions read. Screening of #188 is queued as a conduct round 2 job.
 
-**Moved**
-- Proxy screening: [minion.town#195](https://github.com/kriscendobot/minion.town/pull/195) and [#184](https://github.com/kriscendobot/minion.town/pull/184) were screened, and [#188](https://github.com/kriscendobot/minion.town/pull/188) was re-screened at a new head. [#193](https://github.com/kriscendobot/minion.town/pull/193) merged, its deploy succeeded and the watchdog validated it.
-- The `parcel-stack-restack` orchestration finished: all 3 children reached tada with no failures.
-- The OCapN canary live run is repinned to `endolin-garden-ece02cb4` and stays parked until you say go ahead. The canary now needs two guest locators in `~/.garden-state/ocapn-canary/guests.json`.
-
-**Fleet**
-- Claude spend is at 92% of the 430M quota. The budget watchdog has throttled monks on `endolin-garden-ece02cb4` (4→3→2→1 in earlier notices) and on oros (2→1). The endolin1 window resets at 03:00Z.
-- The journal-lock contention storm on the leader cleared at 00:12Z. A few lock-contention notices remain open and look low severity.
+**Other movement**
+- [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged, and its deploy succeeded and was validated.
+- Screened PRs [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#195](https://github.com/kriscendobot/minion.town/pull/195) each have a conduct job waiting.
+- The `endo-but-for-bots-parcel-stack-restack` orchestration completed, with all three children done and none failed.
+- Budget watchdogs dropped monk workers on both hosts. The leader is down to 2 monks as claude-endolin1 nears its cap, and oros is down to 1.
+- The journal lock-contention storm on the leader cleared. A few single-giveup contention notices remain open.
 
 ## Maintainer review docket
 
@@ -166,10 +162,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 393.6M | $1842.77 _(notional, rate-card)_ | 92% of 430.0M (ok) |
+| Claude | 393.8M | $1843.51 _(notional, rate-card)_ | 92% of 430.0M (ok) |
 | Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 93917487 tokens/day lower bound._
+_Fleet token-unlock pace: 93934075 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.020616s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 8 open notice(s); checker healthy
@@ -177,7 +173,6 @@ worst fetch p95 7.020616s/45s (/home/kris/garden/.garden-state/screening-delegat
 ## Board
 ### todo (12)
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1476-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1476
-- [`oros-health-checkup-20261016-233509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261016-233509.md) — ---
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1478-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1478
 - [`kriscendobot-minion.town-pr192-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr192-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #192
 - [`kriscendobot-minion.town-pr194-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr194-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #194
@@ -187,20 +182,21 @@ worst fetch p95 7.020616s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`endo-but-for-bots-ocapn-noise-cryptographic-review-design-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-ocapn-noise-cryptographic-review-design-build.md) — Build: the design in endojs/endo-but-for-bots#1475
 - [`garden-book-colophon-20261016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-book-colophon-20261016.md) — Garden Book: move all "how the book was made" marginalia and prose into a col...
 - [`screen-minion-town-pr184-63f7edb-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr184-63f7edb-conduct.md) — Screened delegated merge: kriscendobot/minion.town#184 at 63f7edb8a24567762ea...
+- [`endojs-endo-but-for-bots-pr1481-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1481-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1481
 - [`screen-minion-town-pr195-2800358-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr195-2800358-conduct.md) — Screened delegated merge: kriscendobot/minion.town#195 at 2800358ef0c61fc9309...
 
 ### doin (3)
+- [`oros-health-checkup-20261016-233509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261016-233509.md) — ---
 - [`endojs-endo-but-for-bots-pr1482-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1482-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1482
 - [`endojs-endo-but-for-bots-pr1485-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1485-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1485
-- [`endojs-endo-but-for-bots-pr1481-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1481-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1481
 
-### tada (13428)
+### tada (13429)
+- [`endojs-endo-but-for-bots-pr1481-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr1481-gauntlet-fix-1.md) — Gauntlet FIX round 1: endojs/endo-but-for-bots PR #1481
 - [`kriscendobot-minion.town-pr192-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-minion.town-pr192-gauntlet-panel-7.md) — Cost
 - [`endojs-endo-but-for-bots-pr1485-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr1485-gauntlet-viability.md) — Cost
 - [`oros-health-watch-20261016-233509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/oros-health-watch-20261016-233509.md) — Cost
 - [`kriscendobot-minion.town-pr194-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-minion.town-pr194-gauntlet-panel-2.md) — Cost
-- [`minion-town-arc-press-20261016-233509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/16/minion-town-arc-press-20261016-233509.md) — Cost
-- … and 13423 more
+- … and 13424 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
