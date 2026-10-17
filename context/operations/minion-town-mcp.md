@@ -194,10 +194,10 @@ Rechecked live on 2026-10-16:
   [kriscendobot/minion.town#195](https://github.com/kriscendobot/minion.town/pull/195)
   (deployed 2026-10-17), the state answers (`GET /api/guest` and
   `POST /api/guest/invitations/accept`) carry only `contacts` and `messages`.
-  Production was verified on 2026-10-17, and the prod probe's
+  Production was verified on 2026-10-17. The prod probe's
   `guest-state-omits-bearer` check
-  ([#196](https://github.com/kriscendobot/minion.town/pull/196)) asserts it on
-  every run.
+  ([#196](https://github.com/kriscendobot/minion.town/pull/196), draft) will
+  assert it on every run once it merges.
 - **Other routes.** `POST /api/guest/invitations` (`{petName, kind}`),
   `POST /api/guest/invitations/accept` (local invitations only) and
   `POST /api/guest/mail` (`{to, message}`, text only). It cannot publish or send
