@@ -20,6 +20,7 @@ Report the audit table to the maintainer inbox.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-17T16:13:08Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
