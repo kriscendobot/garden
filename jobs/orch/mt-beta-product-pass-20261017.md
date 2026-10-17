@@ -1,4 +1,5 @@
 ---
+child-mt-beta-chat-clip-host: oros-studio-garden-ce242c49
 child-mt-beta-chat-clip-reap-count: 0
 child-mt-beta-new-clip-inventory-host: endolin-garden-ece02cb4
 child-mt-beta-new-clip-inventory-reap-count: 0
