@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-17T07:23:14Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-mt-beta-settings-simplify
+pr_number: 200
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/200
+pr_head: feat/beta-settings-simplify
