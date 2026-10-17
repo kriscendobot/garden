@@ -37,6 +37,7 @@ supervisor (job minion-town-arc-press-20261017-180508), tracker kriscendobot/gar
 Open the PR through ensure-pr.sh as a DRAFT; the gauntlet and the proxy screen carry it.
 Done when the PR is open and green, and a docs-only PR run shows the harness jobs skipped.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
