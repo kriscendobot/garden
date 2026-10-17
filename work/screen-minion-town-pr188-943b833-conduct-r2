@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-10-17T00:59:51Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-screen-minion-town-pr188-943b833-conduct-r2
