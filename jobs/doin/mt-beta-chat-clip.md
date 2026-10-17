@@ -16,3 +16,13 @@ Repo: https://github.com/kriscendobot/minion.town (private). Part of the maintai
 
 Build a **chat clip** for the clip shell: a guest's message inbox/conversation view (read messages, reply, send to a petname'd peer, handle requests/invitations as the Endo daemon exposes them via the guest's mailbox). Draw heavily from the existing Chat application in endojs/endo-but-for-bots (branch llm, packages/chat) for interaction design and flows, but **do not reuse upstream code yet**; the two are expected to diverge, so build it natively in minion.town's clip stack. Same constraints as the New Clip clip (one clip id, fail closed, only-the-shell-may-frame). Coordinate with the ocap-mailboxes job (build-minion-town-ocap-mailboxes) so the two do not diverge on the message model: read its design/state first and say how you align. Browser-test with two real guests exchanging a message.
 
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T09:23:57Z
