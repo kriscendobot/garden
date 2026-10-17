@@ -1,30 +1,18 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T05:22:34Z_
+_As of 2026-10-17T05:23:48Z_
 
 ## Latest
 
-Three minion.town PRs merged and deployed cleanly overnight: [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#184](https://github.com/kriscendobot/minion.town/pull/184). [#194](https://github.com/kriscendobot/minion.town/pull/194) merged at 04:54Z, and each deploy passed its watchdog.
+Three minion.town PRs merged and deployed overnight: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), followed by [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#194](https://github.com/kriscendobot/minion.town/pull/194). Each deploy succeeded and its watchdog check passed. The board shows no file-level transitions since the last bulletin.
 
-Three minion.town gauntlets hit their review budget without converging, and each needs a maintainer decision:
-- [#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 of 16 rounds and still has 19 unaddressed must-fix items. It merged anyway, so these are leftovers.
-- [#180](https://github.com/kriscendobot/minion.town/pull/180) used 16 of 16 rounds and still has 20 must-fix items. Examples are a read-only holder exhausting the mint cap and an unbound `/hello` proof.
-- [#192](https://github.com/kriscendobot/minion.town/pull/192) used 8 of 8 rounds, and its panel report carried no structured must-fix list.
+**Needs your call:**
+- **Gauntlet review budgets exhausted.** [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) each used all 16 panel/fix rounds without converging (19 and 20 unaddressed must-fix items). Both are labeled "moving target": each round raises a fresh set of breaker findings rather than repeating old ones. [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) hit its 8-round limit as well. Each message gives a `--add-rounds` command if you want to grant more.
+- **Claude login on the leader host.** The `claude-endolin1` cap was restored to 271M after the 03:00Z reset. The restoring gardener can't tell whether the host's workers are on the endolin1 or endolin2 login. If endolin2 is still active, its spend will be charged to endolin1 and the claim gate will refuse work again. Please re-login the host to endolin1 or say to raise the cap.
+- **Token permission gap.** The oros host cannot read CI for [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) because the bot token gets a 403 on `statusCheckRollup`. It needs checks:read, statuses:read and actions:read on `kriscendobot`.
+- **Docs tower report.** The live probe left one anonymous guest on production minion.town, and the API has no way to delete it. The source note was also missing on the host that ran the job, so the report went unchecked.
 
-Each message offers `--add-rounds 2` to resume.
-
-Other items for the maintainer:
-- The `claude-endolin1` cap was restored to 271M after the 03:00Z reset. The restore gardener asks whether this host's workers are logged in as endolin1 or endolin2. If it is still endolin2, endolin2's spend gets charged to endolin1 and the claim gate will refuse work again.
-- A watchdog reports that `ci-wait-merge` on oros got HTTP 403 reading CI for [minion.town#188](https://github.com/kriscendobot/minion.town/issues/188). The bot token needs checks, statuses and actions read permissions.
-- The tower docs report left one anonymous guest on production minion.town. The garden can't clean it up, because the API has no delete route and the guest's identifier was never recorded. The source note was also missing on the host that ran the job, so the report was never checked against it.
-- The `minion-town-ocapn-canary-live-run` job is pinned to this host. It expects two guest locators in `~/.garden-state/ocapn-canary/guests.json`.
-- The `endojs-endo-but-for-bots-parcel-stack-restack-20261015` orchestration finished with all 3 children complete.
-
-The only board movement since the last bulletin was a claim of the gauntlet FIX round 3 job for [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482).
-
-Journal lock-contention notices have mostly cleared. Several still show single give-ups on the endolin host, and the monk count there moved between 1 and 4 with the budget ramp.
+**Worker counts and journal locks.** The leader host's monk count moved between 1 and 4 as the window rolled. It is now at 3 under the restored cap. The journal-contention storm has cleared, and a few single-giveup lock notices remain open.
 
 ## Maintainer review docket
 
@@ -256,7 +244,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.0M | $145.69 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.1M | $146.29 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 95665614 tokens/day lower bound._
