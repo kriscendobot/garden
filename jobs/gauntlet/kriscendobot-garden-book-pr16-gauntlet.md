@@ -4,14 +4,14 @@ repo: kriscendobot/garden-book
 pr_number: 16
 build_job: garden-book-colophon-20261016
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-garden-book-pr16-gauntlet-viability
+current_child: kriscendobot-garden-book-pr16-gauntlet-clean
 state: running
 created_by: producer
 arc: garden-book
