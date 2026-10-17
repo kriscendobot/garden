@@ -1,19 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-17T09:00:18Z_
+_As of 2026-10-17T09:03:10Z_
 
 ## Latest
 
-Four minion.town PRs merged overnight, all with passing deploys and clean watchdog checks: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#184](https://github.com/kriscendobot/minion.town/pull/184). [#194](https://github.com/kriscendobot/minion.town/pull/194) merged after them and validated too. [#190](https://github.com/kriscendobot/minion.town/pull/190) merged at 08:43Z and its deploy is still pending. [#196](https://github.com/kriscendobot/minion.town/pull/196) is screened and has a conduct job queued. Gauntlets are starting on #197, #199, #200 and #201.
+Overnight the minion.town pipeline kept merging: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#194](https://github.com/kriscendobot/minion.town/pull/194) all merged and their deploys validated. [#190](https://github.com/kriscendobot/minion.town/pull/190) merged at 08:43Z and its deploy is still pending. [#196](https://github.com/kriscendobot/minion.town/pull/196) is screened at its latest commit, with a conduct job queued. No board transitions resolved since the last bulletin.
 
-**Needs your decision:**
-- **Gauntlet review budgets exhausted.** Four minion.town PRs ([#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#192](https://github.com/kriscendobot/minion.town/pull/192)) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) hit their round limits without converging. #184 and #180 each show about 19–20 unaddressed must-fix items in the last round, and the verdict on both is "moving target". Each message gives a `--add-rounds` command if you want to grant more.
-- **minion.town settings simplify.** Run `deploy-accounts-store.sh` before merging. Until the new index is active, Log out stays hidden and account deletion answers 503 without deleting anything. The report also lists four choices that stand unless you veto them.
-- **Docs-tower report.** The live probe left one anonymous guest on production, and the API can't delete it. The source note wasn't on the host that ran the job, so the report was never checked against it.
-- **Claude login on the leader host.** Is it on endolin1 or endolin2? The claude-endolin1 cap was restored to 271M after the 03:00Z reset. If endolin2 is still logged in, its spend will be charged to endolin1 and the claim gate will refuse work again.
-- **CI read forbidden on oros.** The bot token gets a 403 on CI status for [minion.town#190](https://github.com/kriscendobot/minion.town/issues/190). It needs checks:read, statuses:read and actions:read granted.
+**Needs a decision:** three minion.town gauntlets hit their review budget without converging. They are [#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#178](https://github.com/kriscendobot/minion.town/pull/178), plus [#192](https://github.com/kriscendobot/minion.town/pull/192) at 10 rounds.
+- #184 and #180 stopped at 16/16 rounds with 19 and 20 must-fix items still open. The items are new each round, and the verdict is "moving target". #184 has already merged, so its message is probably moot.
+- [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) also exhausted its 6 rounds.
+- Each message offers `--add-rounds N` to continue.
 
-Also: the parcel-stack restack orchestration finished with all three children complete. The OCapN canary run is repinned to the endolin host and stays parked until you say go ahead. Journal-lock contention notices mostly cleared. Four are still open, and the worst fetch p95 is 7.25s.
+**Other items for you:**
+- **`mt-beta-settings-simplify`:** run `deploy-accounts-store.sh` before merging. Until you do, Log out stays hidden and account deletion answers 503. Four removals are also awaiting your veto.
+- **Orphaned guest:** the docs-tower report probe left one anonymous guest on production minion.town, with no way to delete it.
+- **Missing source note:** the report was not checked against `note-from-tower.md`, which was not on the host that ran the job.
+- **Quota:** the `claude-endolin1` cap was restored to 271M after the reset, with workers now at 3 or 4. The gardener asks whether this host is logged in as endolin1 or endolin2. If it is endolin2, spend will be charged to the wrong account and the claim gate will refuse work again.
+- **CI read forbidden:** `ci-wait-merge` on oros is blocked reading CI for [#190](https://github.com/kriscendobot/minion.town/pull/190) because the bot token returns 403. It needs `checks:read`, `statuses:read` and `actions:read`.
+- **Canary live run:** `minion-town-ocapn-canary-live-run` is repinned to the endolin host and parked until you say go ahead. The canary now adopts guests from durable `endo://` locators.
+
+The journal-lock contention notices are mostly recovered or minor.
 
 ## Maintainer review docket
 
@@ -339,10 +345,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.3M | $295.03 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 64.4M | $295.57 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 95226803 tokens/day lower bound._
+_Fleet token-unlock pace: 95495828 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.250028s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 4 open notice(s); checker healthy
