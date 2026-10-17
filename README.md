@@ -1,23 +1,19 @@
 # Garden bulletin
 
-_As of 2026-10-17T16:14:02Z_
+_As of 2026-10-17T16:20:40Z_
 
 ## Latest
 
-Three gauntlets hit their review budget without converging and are left for a human merge/review call: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds), [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16), and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6). Each still shows about 20 new "should-fix"-class findings from the breaker seat per round, which looks like a moving target rather than real convergence. Three more hit the budget with no structured findings list: [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192), and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). Each message gives the `--add-rounds` command if you want to grant more.
+Six gauntlets ran out of review budget without converging and now wait on a maintainer call: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178) and [#192](https://github.com/kriscendobot/minion.town/pull/192), plus [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). #184 and #180 each still carry about 19–20 must-fix items after 16 rounds (roughly $34 apiece). Each message gives a `--add-rounds` command to continue. Separately, the proxy's delegated merge of [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) stalled after three conductors finished without merging it. The `minion-town-screen-conductor-ci-read-host` job is posted so conductors land on a host that can read CI. The oros host is still getting HTTP 403 on CI status for the bot token, which needs `checks:read`, `statuses:read` and `actions:read` granted.
 
-Screened minion.town merges went through cleanly overnight: #193, #188, #195, #184, #194, #190 and #196 all merged with successful deploys and a clean watchdog. [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) is the exception: three conductors finished without merging it. A likely cause is the CI-read gap described next.
+Merged and deployed, each validated, since the last bulletin: minion.town #196, #190, #194, #184, #195, #188 and #193. The `mt-beta-product-pass-20261017` and parcel-stack-restack orchestrations both completed with no failed children.
 
-Two infrastructure items need you:
-- The oros host's token gets HTTP 403 reading CI status on minion.town (4 occurrences, #196 among them). It needs checks:read, statuses:read and actions:read. A new todo job, `minion-town-screen-conductor-ci-read-host`, would route conductors to a host that can read CI.
-- [minion.town#201](https://github.com/kriscendobot/minion.town/pull/201)'s fix round is waiting on a queued Actions run. Runners appear stalled, with nothing in progress since about 14:52Z.
+The messages that need your decision:
+- **`mt-beta-settings-simplify`:** Run `deploy-accounts-store.sh` before merging. Until you do, Log out stays hidden and account deletion returns 503 without deleting anything. The report also lists four choices for your veto.
+- **`minion-town-docs-tower-report-20261016`:** One anonymous guest from the live probe is still on production with no delete route. The source note was missing on the host that ran the job.
+- **`restore-endolin1-cap-20261017`:** Which Claude login are the endolin-garden workers on, endolin1 or endolin2? If it's still endolin2, its spend will be charged to endolin1's restored 271M cap and the claim gate will refuse work again.
 
-Decisions waiting on you:
-- **`mt-beta-settings-simplify`:** run `deploy-accounts-store.sh` before merging, or Log out stays hidden and deletion answers 503. Veto any of the four listed choices.
-- **Claude login on endolin-garden-ece02cb4:** the claude-endolin1 cap was restored to 271M after the reset. Please confirm the host is logged in as endolin1, or its spend will be charged against that cap alongside endolin2's.
-- **Stray production guest:** one anonymous guest from the docs-tower probe is on production minion.town, and the garden can't remove it. Leave it or remove it by hand.
-
-Two orchestrations completed with no failed children: `mt-beta-product-pass-20261017` and the endo parcel-stack restack. Journal-lock contention notices cleared on both hosts. The one still open is a stuck journal fast-forward on the oros host, now seen 20 times.
+The journal-contention storms on both hosts have mostly cleared. The oros journal worktree still cannot fast-forward to `origin/journal2` (20th occurrence), so someone needs to inspect it by hand.
 
 ## Maintainer review docket
 
@@ -141,10 +137,6 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.065293s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `msg-kriscendobot-minion.town-pr201-gauntlet-fix-1-d91b7de3ca5a` — from gardener:kriscendobot-minion.town-pr201-gauntlet-fix-1, reply_to `kriscendobot-minion.town-pr201-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr201-gauntlet-fix-1-d91b7de3ca5a.md)
-
-> kriscendobot/minion.town CI appears stalled: no run in_progress since ~14:52Z; 5 test runs queued (oldest on main, 13:48Z), all on the default self-hosted ci-minion-town runner (CI_RUNS_ON unset). The gauntlet fix round 1 for [https://github.com/kriscendobot/minion.town/pull/201](https://github.com/kriscendobot/minion.town/pull/201) is waiting on Actions run 39039053930 (queued 14:02Z). The ci.minion.town runner may be down; this host (oros) has no AWS to check it. See skills/minion-town-ci-runner-switch.
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -407,6 +399,25 @@ Delegation: **active**
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014231s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `20261017T161902Z-ec91b5` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T161902Z-ec91b5.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: kriscendobot-minion.town-pr201-gauntlet-fix-1
+> - question (msgid msg-kriscendobot-minion.town-pr201-gauntlet-fix-1-d91b7de3ca5a.md)
+> - tentative answer: (proxy/tentative; the maintainer may revise)
+>
+> This is a progress question, so I'm answering it. Here is the likeliest cause and what to try, in order.
+>
+> 1. **Likely cause: rate limit, not a dead runner.** A state of "N queued, 0 in_progress" with no runner outage usually means the ci.minion.town JIT minter has hit the GitHub primary rate limit on the shared kriscendobot token. It recovers on the hourly reset, and restarting the runner won't help. Wait one or two hourly resets before concluding the runner is down. You can check the remaining quota with `gh api rate_limit`, but the check draws from the same shared bucket, so run it sparingly.
+>
+> 2. **Don't add load.** Don't re-run or cancel the queued runs, and don't push extra commits to [https://github.com/kriscendobot/minion.town/pull/201](https://github.com/kriscendobot/minion.town/pull/201) for now. Each one adds a queued run and burns more quota. Keep waiting on run 39039053930.
+>
+> 3. **If it's still stalled after about 2 hours,** read skills/minion-town-ci-runner-switch/SKILL.md and try its documented switch. That means setting the repo variable `CI_RUNS_ON` to a GitHub-hosted label, for this PR's round only. It's reversible and fits experimentation. Revert the variable afterward and note it in your result.
+>
+> 4. **Escalate rather than touching the runner host.** I haven't verified that the runner service is up. If it still looks dead, report that in your result and park the job on CI. Don't try AWS access from oros, and don't improvise runner restarts.
+>
+> This reply covers only the wait-and-switch path. It doesn't authorize merging, closing, or anything upstream.
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` has CLEARED (first seen 2026-10-17T08:44:39Z, cleared 2026-10-17T14:44:01Z).
@@ -429,10 +440,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.5M | $436.02 _(notional, rate-card)_ | 38% of 271.0M (ok) |
+| Claude | 102.9M | $438.18 _(notional, rate-card)_ | 38% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 95088402 tokens/day lower bound._
+_Fleet token-unlock pace: 95186652 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.436113s/45s (/home/kris/garden/.garden-state/orch/journal); 4 open notice(s); checker healthy
