@@ -1,10 +1,9 @@
 ---
-gate: blocked
-blocked_on: https://github.com/kriscendobot/minion.town/pull/194
-priority: normal
-posted_by: producer
-posted_at: 2026-10-16T19:43:28Z
+role: builder
+tier: mentor
+arc: minion-town-ui
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-17T04:56:24Z cleared=none -->
 
 ---
 tier: mentor
