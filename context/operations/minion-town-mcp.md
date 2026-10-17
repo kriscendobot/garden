@@ -190,12 +190,14 @@ Rechecked live on 2026-10-16:
   `Authorization: Bearer <formulaIdentifier>`. It is a password: anyone holding
   it acts as that guest, there is no server-side rotation or revocation, and
   no route deletes a guest. Never log, commit or print one.
-- **`GET /api/guest` echoes it.** The state answer (and the
-  `POST /api/guest/invitations/accept` answer) carries `formulaIdentifier`
-  again, so a client that logs the state leaks its credential. The fix, which
-  returns it only from creation, is
-  [kriscendobot/minion.town#195](https://github.com/kriscendobot/minion.town/pull/195);
-  until it merges and deploys, redact that field before logging any state answer.
+- **Only creation discloses it.** Since
+  [kriscendobot/minion.town#195](https://github.com/kriscendobot/minion.town/pull/195)
+  (deployed 2026-10-17), the state answers (`GET /api/guest` and
+  `POST /api/guest/invitations/accept`) carry only `contacts` and `messages`.
+  Production was verified on 2026-10-17, and the prod probe's
+  `guest-state-omits-bearer` check
+  ([#196](https://github.com/kriscendobot/minion.town/pull/196)) asserts it on
+  every run.
 - **Other routes.** `POST /api/guest/invitations` (`{petName, kind}`),
   `POST /api/guest/invitations/accept` (local invitations only) and
   `POST /api/guest/mail` (`{to, message}`, text only). It cannot publish or send
