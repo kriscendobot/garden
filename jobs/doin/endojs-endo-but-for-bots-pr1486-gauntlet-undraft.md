@@ -36,3 +36,13 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: undraft=done -->
   <!-- gauntlet-stage-result: undraft=head-mismatch -->
   <!-- gauntlet-stage-result: undraft=metadata-unreadable -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T01:34:47Z
