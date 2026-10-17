@@ -55,14 +55,41 @@
 # Exit: 0 fresh / rebased (clean or via deterministic lockfile recovery);
 #       3 REFUSED — a non-deterministic conflict or a failed regeneration; the caller
 #         must weave/rebase by hand (a weaver/fixer job), never force past it;
-#       1 usage / operational error.
+#       1 usage / operational error — including a rebase that fails or stops with
+#         NO conflicted paths (a tooling fault, never reported as needs-weave).
 
 set -euo pipefail
 
 wt="${1:?usage: safe-rebase.sh <worktree> [base-ref]}"
 base_ref="${2:-HEAD~1}"
 
-git() { command git -C "$wt" "$@"; }   # every git op is against the worktree
+# Every git op is against the worktree, and HERMETIC: the inherited global/system
+# config (the host user's ~/.config/git/config is bind-mounted into the container)
+# carries semantics-changing knobs — rebase.autostash, rebase.autosquash,
+# rerere.enabled/autoupdate, diff.renames=copies, apply.whitespace=fix — that make a
+# rebase behave differently from the clean replay this helper claims to test.
+# Observed: kriscendobot/minion.town#194 (2026-10-17), where rebase.autostash=true
+# made a CLEAN worktree's rebase stop with "Your local changes ... would be
+# overwritten by merge" and an EMPTY conflict list, which was then reported as a
+# non-deterministic conflict (needs-weave); the same rebase with autostash off was
+# clean. The committer identity is resolved from the inherited config FIRST and
+# pinned with -c, so blanking the global layer never loses it. The base `fetch` alone
+# keeps the inherited config, since remote auth/url rewriting may live there.
+_ident=()
+_n="$(command git -C "$wt" config user.name 2>/dev/null || true)"
+_e="$(command git -C "$wt" config user.email 2>/dev/null || true)"
+[ -n "$_n" ] && _ident+=(-c "user.name=$_n")
+[ -n "$_e" ] && _ident+=(-c "user.email=$_e")
+git() {
+  if [ "${GARDEN_INHERIT_GITCONFIG:-}" = "1" ] || [ "${1:-}" = fetch ]; then
+    command git -C "$wt" "$@"
+  else
+    GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null GIT_CONFIG_NOSYSTEM=1 \
+      command git -C "$wt" "${_ident[@]}" \
+        -c rebase.autostash=false -c rebase.autosquash=false -c rerere.enabled=false \
+        "$@"
+  fi
+}
 
 : "${GARDEN_LOCKFILES:=yarn.lock package-lock.json pnpm-lock.yaml npm-shrinkwrap.json}"
 
@@ -123,10 +150,24 @@ if git rebase "$base"; then
   exit 0
 fi
 
+# A failed rebase that never started (or already rolled back) is a tooling error,
+# not a conflict: there is nothing for a weaver to resolve.
+if ! rebase_in_progress; then
+  echo "safe-rebase: rebase onto ${base:0:11} (${base_ref}) failed without stopping on a conflict; tooling error, not a weave" >&2
+  exit 1
+fi
+
 # --- 3. deterministic lockfile-only recovery loop ---------------------------
 skipped_lock=0
 while rebase_in_progress; do
   conflicted="$(git diff --name-only --diff-filter=U || true)"
+  if [ -z "$conflicted" ]; then
+    # Stopped with NO conflicted paths (e.g. a dirty-worktree / autostash refusal):
+    # a tooling error, never a needs-weave verdict.
+    git rebase --abort >/dev/null 2>&1 || true
+    echo "safe-rebase: rebase onto ${base:0:11} (${base_ref}) stopped with no conflicted paths; aborted as a tooling error, not a weave" >&2
+    exit 1
+  fi
   stopped="$(git rev-parse --verify --quiet REBASE_HEAD || true)"
   stopped_files=""
   [ -n "$stopped" ] && stopped_files="$(git diff-tree --no-commit-id --name-only -r "$stopped" 2>/dev/null || true)"

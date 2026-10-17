@@ -143,4 +143,72 @@ rc=0; out="$("$SR" "$D" HEAD~1 2>&1)" || rc=$?
 [ "$(git -C "$D" rev-parse HEAD)" = "$SOLE" ] || die "skip changed HEAD"
 ok "an unresolvable local base ref skips quietly (rc 0), never wedges the gauntlet"
 
+# ── 6. Inherited global git config must not change the verdict (#194) ───────
+# The container bind-mounts the host user's ~/.config/git/config, which sets
+# semantics-changing knobs. kriscendobot/minion.town#194 (2026-10-17): with
+# rebase.autostash=true inherited, a CLEAN rebase stopped with an empty conflict
+# list and was misreported as needs-weave. rebase.backend=apply + apply.whitespace
+# =error is a deterministic stand-in that FAILS a clean replay under the inherited
+# config; safe-rebase must be hermetic and still rebase clean. The identity lives
+# ONLY in the global file, so this also proves blanking the layer keeps it.
+GC="$TR/inherited.gitconfig"
+cat > "$GC" <<'CFG'
+[user]
+	name = Global Bot
+	email = global-bot@example.invalid
+[rebase]
+	autostash = true
+	autosquash = true
+	stat = true
+	backend = apply
+[rerere]
+	enabled = true
+	autoupdate = true
+[apply]
+	whitespace = error
+[diff]
+	renames = copies
+CFG
+D="$TR/inherited"; git init -q -b main "$D"; git -C "$D" config commit.gpgsign false
+printf 'base\n' > "$D/a.txt"; printf 'b\n' > "$D/b.txt"; git -C "$D" add -A; git_c "$D" commit -q -m base
+git_c "$D" checkout -q -b pr
+printf 'base\npr line   \n' > "$D/a.txt"; git -C "$D" add -A; git_c "$D" commit -q -m "feat: trailing ws"
+printf 'b2\n' > "$D/b.txt"; git -C "$D" add -A; git_c "$D" commit -q -m "feat: second"
+git_c "$D" checkout -q main
+printf 'c\n' > "$D/c.txt"; git -C "$D" add -A; git_c "$D" commit -q -m "chore: base move"
+git_c "$D" checkout -q pr
+# Sanity: the inherited config really does break a bare rebase of this fixture.
+if GIT_CONFIG_GLOBAL="$GC" command git -C "$D" rebase main >/dev/null 2>&1; then
+  die "fixture premise broken: inherited config should fail a bare rebase"
+fi
+command git -C "$D" rebase --abort >/dev/null 2>&1 || true
+git_c "$D" checkout -q -f pr
+rc=0; out="$(GIT_CONFIG_GLOBAL="$GC" "$SR" "$D" main 2>&1)" || rc=$?
+[ "$rc" -eq 0 ] || die "inherited global config must not break a clean rebase, got $rc: $out"
+git -C "$D" merge-base --is-ancestor main HEAD || die "hermetic rebase did not land on the base"
+[ "$(git -C "$D" log -1 --format=%ce)" = global-bot@example.invalid ] \
+  || die "hermetic rebase lost the inherited committer identity"
+git -C "$D" diff --quiet && git -C "$D" diff --cached --quiet || die "worktree left dirty"
+ok "inherited global config (autostash/apply backend/rerere) cannot fail a clean rebase (#194)"
+
+# ── 7. Stopped with ZERO conflicted paths: tooling error (rc 1), not weave ───
+# No committer identity anywhere makes the replay stop with nothing conflicted —
+# the same signature #194 showed. That is never a needs-weave (rc 3) verdict.
+D="$TR/noident"; git init -q -b main "$D"; git -C "$D" config commit.gpgsign false
+printf 'a\n' > "$D/a.txt"; git -C "$D" add -A; git_c "$D" commit -q -m base
+git_c "$D" checkout -q -b pr; printf 'a2\n' > "$D/a.txt"; git_c "$D" commit -q -am "feat: pr"
+PR_TIP="$(git -C "$D" rev-parse HEAD)"
+git_c "$D" checkout -q main; printf 'z\n' > "$D/z.txt"; git -C "$D" add -A; git_c "$D" commit -q -m move
+git_c "$D" checkout -q pr
+rc=0; out="$(GIT_CONFIG_GLOBAL=/dev/null GIT_COMMITTER_EMAIL='' EMAIL='' "$SR" "$D" main 2>&1)" || rc=$?
+if [ "$rc" -ne 0 ]; then
+  [ "$rc" -eq 1 ] || die "a rebase stopped with no conflicted paths must be rc 1 (tooling), got $rc: $out"
+  printf '%s\n' "$out" | grep -qi 'non-deterministic' && die "zero-conflict stop misreported as a weave: $out"
+  [ "$(git -C "$D" rev-parse HEAD)" = "$PR_TIP" ] || die "tooling-error abort left HEAD moved"
+  [ ! -d "$D/.git/rebase-merge" ] && [ ! -d "$D/.git/rebase-apply" ] || die "tooling-error left a rebase in progress"
+  ok "a rebase stopped with zero conflicted paths is a tooling error (rc 1), never needs-weave"
+else
+  ok "zero-conflict-stop case skipped (this host auto-detects a committer identity)"
+fi
+
 echo "PASS: safe-rebase recovers stale branches deterministically and fails closed on real conflicts ($pass checks)"
