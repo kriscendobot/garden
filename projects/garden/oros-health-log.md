@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-17T20:55Z (oros-health-checkup-20261017-180508): healthy (one commit behind main2, roll pending), no changes
+
+- **Load/mem:** load 2.0/2.6/1.8 (a panel job on monk 1 just finished). 13 GiB of 15 GiB available (814 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k).
+- **Uptime:** 16d3h, no reboot.
+- **Deployed vs main2:** root at `f5477a65` (pin delegated conductors to the CI-reading host), deployed 18:10Z. origin/main2 is `5b93a4d2` (defer fixer review-docket re-entry on non-green CI), which landed at 20:36Z. `upgrade-ready` names it as of 20:47Z, and self-deploy is ticking while it waits for the leader's roll release. fleet/health (18:10Z): `roll_status: deployed`, 0 of 287 units failed.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). The leveling row is still `4 0`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 20:47Z, status ok, 56% used (134.0M of 180M). All 6 pushes from 19:32Z to 20:47Z landed, about 15 minutes apart. The spend dip came back, larger: 132.57M fell to 132.47M (−103k) between 19:32Z and 19:47Z, after the −33k dip on 10-16. This is probably a meter re-derivation rather than a host fault, but if it keeps recurring, someone should look at the claude-oros meter.
+- **State clones:** 32 namespace journal clones. The largest has 47 packs (reaper). None has a tmp_pack or a `gc.log`. The root repo has 46 packs and no `gc.log`. The `.lock` files older than 30 minutes (receipt-watcher, verify, cursors, scholar-staging) are persistent flock files.
+- **rc=124 (3h):** none. Three gauntlet jobs ran on monk 1 under their declared handler timeouts.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands. The claude-oros spend dip (above) is a watch item.
+
 ## 2026-10-17T15:25Z (oros-health-checkup-20261017-150508): healthy (deployed = origin/main2 `0359b614`), no changes
 
 - **Load/mem:** load 1.9/2.0/2.0; 13 GiB of 15 GiB available (815 MiB of swap in use).
