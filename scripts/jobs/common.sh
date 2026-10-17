@@ -255,6 +255,11 @@ garden_git() (
   # Repository discovery is read-only and has to precede flock. init/clone own a
   # new destination (the caller's clone lock covers publication).
   case "$cmd" in init|clone|--version|version|--help|'') _garden_real_git "${original[@]}"; return ;; esac
+  # Server-side commands a project's own server or tests spawn serve the repo
+  # named by GIT_PROJECT_ROOT or their argument, not the one enclosing $PWD,
+  # and live as long as a client connection. Locking (and bounding) them by
+  # $PWD serialized unrelated pushes on one exclusive lock (minion.town #178).
+  case "$cmd" in http-backend|receive-pack|upload-pack|upload-archive|daemon) _garden_real_git "${original[@]}"; return ;; esac
   # Preserve clone/init's existing caller-owned budgets. Bound operations on
   # existing repositories, including both the lock wait and the Git process tree.
   if [ "${GARDEN_GIT_BOUNDED:-0}" != 1 ]; then

@@ -149,6 +149,23 @@ git -C "$TR/linked" update-ref refs/heads/unblocked HEAD
 (garden_repo_lock "$TR/repo" exclusive; GARDEN_REPO_LOCK_WAIT=0.1 git -C "$TR/linked" rev-parse HEAD >/dev/null) || fail 'nested lock deadlocked'
 echo 'PASS: shared reads, exclusive timeout, independent repos, release and reentrancy'
 
+# Server-side commands are not locked by the repository enclosing $PWD.
+(
+  garden_repo_lock "$TR/repo" exclusive
+  touch "$TR/server-held"
+  sleep 1
+) & holder=$!
+for n in {1..100}; do [ -f "$TR/server-held" ] && break; sleep 0.01; done
+(cd "$TR/linked" && GARDEN_REPO_LOCK_WAIT=0.1 git upload-pack --advertise-refs "$TR/upstream.git" >/dev/null) \
+  || fail 'upload-pack waited on the enclosing repository lock'
+(cd "$TR/linked" && GARDEN_REPO_LOCK_WAIT=0.1 GIT_PROJECT_ROOT="$TR" GIT_HTTP_EXPORT_ALL=1 \
+  PATH_INFO=/upstream.git/info/refs QUERY_STRING=service=git-upload-pack REQUEST_METHOD=GET \
+  git http-backend > "$TR/advertisement") \
+  || fail 'http-backend waited on the enclosing repository lock'
+grep -q 'git-upload-pack-advertisement' "$TR/advertisement" || fail 'http-backend advertisement'
+wait "$holder"
+echo 'PASS: server-side commands bypass the enclosing repository lock'
+
 # A live repository-lock holder is ordinary fleet contention for clone users.
 # Both acquisition sites must translate only rc=124 to EX_TEMPFAIL; any other
 # repository-lock failure remains fatal.
