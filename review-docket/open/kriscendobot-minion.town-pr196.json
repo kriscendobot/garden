@@ -7,14 +7,14 @@
   "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Panel reviewed 82eb58857652, but the presented head is 9866fe617827",
+  "summary": "Panel reviewed 82eb58857652, but the presented head is 6a1dffa9e037",
   "unblocks": [],
-  "source": "stale-panel-head-kriscendobot-minion.town-pr196-82eb5885-9866fe61",
-  "requested_at": "2026-10-17T08:01:54Z",
+  "source": "stale-panel-head-kriscendobot-minion.town-pr196-82eb5885-6a1dffa9",
+  "requested_at": "2026-10-17T09:23:30Z",
   "first_requested_at": "2026-10-17T08:01:54Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "pending",
-    "observed_at": "2026-10-17T09:24:47Z"
+    "observed_at": "2026-10-17T09:25:08Z"
   }
 }
