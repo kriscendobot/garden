@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 requires: aws
 ---
@@ -28,13 +29,5 @@ is waiting on it, so the proxy screen can't merge anything.
 
 Done when a queued minion.town run reaches `in_progress` on the self-hosted runner.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-17T12:46:57Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-17T13:03:08Z -->
