@@ -588,3 +588,13 @@ The package's public surface is coherent across the four sources. The PR touches
 Elided for GitHub's size limit: duality-auditor, scribe, corner-prober, fast-checker.
 
 ----- END REVIEW BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T13:55:54Z
