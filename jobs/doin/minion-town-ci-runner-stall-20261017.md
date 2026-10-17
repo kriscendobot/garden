@@ -27,3 +27,13 @@ is waiting on it, so the proxy screen can't merge anything.
    (`skills/minion-town-ci-runner-switch/SKILL.md`).
 
 Done when a queued minion.town run reaches `in_progress` on the self-hosted runner.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T12:46:57Z
