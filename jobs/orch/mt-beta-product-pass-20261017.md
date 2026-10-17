@@ -1,4 +1,5 @@
 ---
+child-mt-beta-home-splash-waitlist-reap-count: 0
 order: serial
 children: mt-beta-home-splash-waitlist mt-beta-settings-simplify mt-beta-new-clip-inventory mt-beta-chat-clip
 on-child-failure: continue
