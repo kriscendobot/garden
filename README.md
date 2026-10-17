@@ -1,38 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T00:24:05Z_
+_As of 2026-10-17T00:29:10Z_
 
 ## Latest
 
-The board is busy but no file-level transitions resolved this cycle. The visible movement is the gauntlet and the delegated-merge screening on minion.town.
+Quiet window on the board: no job transitions resolved since the last bulletin. Most of what moved is visible in the maintainer inbox.
 
-**Needs a decision:** [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) hit its review budget after 16 panel/fix rounds. CI is green, but 19 must-fix items remain and the trend reads as a moving target. Most are breaker findings against `provision-ci-runner.sh`, for example the seed check accepting secrets the Lambda's parser rejects. You can add rounds with `gauntlet.sh --resume-from-stage … panel --add-rounds N`, or decide on a human merge. It was screened again and has a conduct job queued.
+**Needs your call**
+- [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) hit its gauntlet review budget. 16 of 16 panel/fix rounds are spent, CI is green, and 19 must-fix items remain, mostly new each round (a "moving target"). The newest finding is that the seed-token check in `provision-ci-runner.sh` accepts secrets the Lambda's parser rejects. The message offers `--add-rounds N` to resume, or you can review it as is.
+- The `minion-town-docs-tower-report-20261016` job left a live probe guest on production minion.town. There is no delete route and the identifier was never recorded. The source note `note-from-tower.md` was also not on the executing host, so the report was never checked against it.
+- `ci-wait-merge` on oros got HTTP 403 reading `statusCheckRollup` for [kriscendobot/minion.town#188](https://github.com/kriscendobot/minion.town/pull/188). The bot token needs `checks:read`, `statuses:read` and `actions:read`. The screened-merge job `screen-minion-town-pr188-943b833-conduct-r2` is queued behind this.
 
-**Merge pipeline:**
-- [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged, and its deploy succeeded with the watchdog ok.
-- [minion.town#195](https://github.com/kriscendobot/minion.town/pull/195) was screened and has a conduct job queued.
-- [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) is on a second conduct round. Its CI read is blocked by a 403 on `statusCheckRollup`. The bot token needs checks:read, statuses:read and actions:read on `kriscendobot`.
-- [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) is at the un-draft stage.
-- [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) is queued for fix round 7.
-- [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190) is queued for panel round 9.
+**Moved**
+- Proxy screening: [minion.town#195](https://github.com/kriscendobot/minion.town/pull/195) and [#184](https://github.com/kriscendobot/minion.town/pull/184) were screened, and [#188](https://github.com/kriscendobot/minion.town/pull/188) was re-screened at a new head. [#193](https://github.com/kriscendobot/minion.town/pull/193) merged, its deploy succeeded and the watchdog validated it.
+- The `parcel-stack-restack` orchestration finished: all 3 children reached tada with no failures.
+- The OCapN canary live run is repinned to `endolin-garden-ece02cb4` and stays parked until you say go ahead. The canary now needs two guest locators in `~/.garden-state/ocapn-canary/guests.json`.
 
-**Endo gauntlets:**
-- [endo-but-for-bots#1485](https://github.com/endojs/endo-but-for-bots/pull/1485) is in the clean stage.
-- [endo-but-for-bots#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) are in fix round 1.
-- [endo-but-for-bots#1476](https://github.com/endojs/endo-but-for-bots/pull/1476), [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1486](https://github.com/endojs/endo-but-for-bots/pull/1486) are queued.
-- A build job for [endo-but-for-bots#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) is also on the board.
-- The parcel-stack restack orchestration finished with all 3 children complete and no failures.
-
-**Other items for you:**
-- The docs-tower report job left one anonymous guest on production minion.town. There is no delete route, so decide whether to remove it by hand.
-- The same report was not checked against `note-from-tower.md`, which wasn't on the host that ran the job. A re-run on the host that holds the note would check it.
-- The canary run is parked on the leader host until you say go ahead. It now expects two guest locators in `~/.garden-state/ocapn-canary/guests.json`.
-
-**Fleet:**
-- Budget-level watchdogs stepped monk workers down on endolin (to 2) and on oros (to 1) as the claude-endolin1 weekly window nears its 03:00Z reset.
-- The journal lock-contention storm on endolin cleared. Eight contention notices are still open, all low-latency p95 with single giveups.
+**Fleet**
+- Claude spend is at 92% of the 430M quota. The budget watchdog has throttled monks on `endolin-garden-ece02cb4` (4→3→2→1 in earlier notices) and on oros (2→1). The endolin1 window resets at 03:00Z.
+- The journal-lock contention storm on the leader cleared at 00:12Z. A few lock-contention notices remain open and look low severity.
 
 ## Maintainer review docket
 
@@ -178,7 +164,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 393.5M | $1840.92 _(notional, rate-card)_ | 92% of 430.0M (ok) |
+| Claude | 393.6M | $1842.77 _(notional, rate-card)_ | 92% of 430.0M (ok) |
 | Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 93917487 tokens/day lower bound._
