@@ -1,6 +1,3 @@
-once: 2026-10-17T03:30:00Z
-job_basename_prefix: restore-endolin1-cap-20261017
----
 ---
 role: gardener
 tier: mentor
