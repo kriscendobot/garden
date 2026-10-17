@@ -1,21 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-17T21:04:05Z_
+_As of 2026-10-17T21:10:04Z_
 
 ## Latest
 
-Three review-budget stops need a maintainer decision: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) each spent their full panel/fix rounds (16, 16 and 6) with CI green but about 20 unaddressed items still open. The panel's last round raised new items each time, so these are moving targets, not stuck ones. [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) also hit their budgets, with no structured must-fix list available. Each message carries a `--add-rounds` command if you want to grant more.
+Five gauntlets hit their review budget without converging and now need a maintainer call to grant more rounds or review by hand. They are [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix items open), [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16, 20 open), [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) (10/10), [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) and [endojs/endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6, 20 open). [endojs/endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) also exhausted its 6 rounds. Most of the open items come from one juror seat (`breaker`), and each round raised a mostly new batch of findings. In #1482 the main finding is that the deference window resets on every redial, so a winner whose dials keep failing can hold the session indefinitely.
 
-Other maintainer actions:
-- **minion.town settings simplification (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging, or Log out stays hidden and account deletion answers 503. Four removals or leave-as-is choices also stand unless you veto them.
-- **Access gap:** CI reads on [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) are failing with 403 on the bot token, so the oros host's delegated merges can't proceed. It needs `checks:read`, `statuses:read` and `actions:read`.
-- **Stalled merge:** [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) was screened, but three conductors finished without merging it.
-- **Quota question:** the restored `claude-endolin1` cap of 271M is at risk if endolin2's login is still active on that host, since its spend would be charged to endolin1. Say which login is active, or re-login the host to endolin1.
-- **Probe leftovers:** the live probe left one anonymous guest on production minion.town, and the tower report wasn't checked against its source note.
+Delegated merge of [kriscendobot/minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled. Three conductors finished without merging it. The screener also merged and validated #196, #190, #194, #184, #195 and #188, each with a successful deploy. Meanwhile [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) was re-screened twice.
 
-Merged and deployed (watchdog ok) on minion.town: #184, #188, #190, #194, #195 and #196. The restack orchestrations for `mt-beta-product-pass-20261017` and the endo parcel stack both completed with no failed children.
+Questions waiting on you:
+- **Settings simplification (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging, or Log out stays hidden and account deletion returns 503. Veto any of the four listed choices you object to.
+- **`claude-endolin1` cap:** it was restored to 271M after the 03:00Z reset. The garden needs to know whether this host's workers are logged in as endolin1 or endolin2, or the ledger will charge endolin2's spend to endolin1 and the claim gate will refuse work again.
+- **Anonymous guest:** the live probe left one on production minion.town, and the API has no delete route.
+- **Missing source note:** the tower report was never checked against `note-from-tower.md`, because that file wasn't on the host that ran the job.
+- **Proxy-answered accountant question:** this answer is tentative and awaits your review.
 
-Three of the journal-contention watchdog notices on endolin-garden-ece02cb4 and the oros host have cleared, so those need no action. Worker counts on endolin-garden-ece02cb4 moved up to 4 after the weekly reset. The oros journal worktree still can't fast-forward (29 occurrences).
+Watch these:
+- **CI read forbidden:** `ci-wait-merge` on the oros host gets HTTP 403 reading CI for #192 (6 occurrences). The bot token needs `checks:read`, `statuses:read` and `actions:read`.
+- **Journal worktree on oros:** it cannot fast-forward (29 occurrences).
+
+The monk count on the endolin host went 1→2→3→4 as the new window opened, and the oros host dropped to 1 monk. Most of the journal-contention notices recovered, and two orchestrations (`mt-beta-product-pass-20261017` and the parcel-stack restack) finished with all children complete.
 
 ## Maintainer review docket
 
@@ -450,13 +454,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.1M | $486.91 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 116.2M | $487.19 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 93060930 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 15.954417s/45s (/home/kris/garden/.garden-state/accountant/journal); 4 open notice(s); checker healthy
+worst fetch p95 15.954417s/45s (/home/kris/garden/.garden-state/accountant/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
