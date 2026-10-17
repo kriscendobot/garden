@@ -1,23 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T05:43:48Z_
+_As of 2026-10-17T05:49:31Z_
 
 ## Latest
 
-Little moved on the board this cycle: the one new post was a screened delegated-merge job for [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190), which the proxy screened at `9ce81f8` and is now queued for conduct. Overnight the proxy merged and validated four minion.town PRs, each with a successful deploy and an ok watchdog: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#194](https://github.com/kriscendobot/minion.town/pull/194).
+The board shows no file-level transitions since the last bulletin. Most of the news is on minion.town and in the gauntlet queue.
 
-Items that need a maintainer decision:
-- **Gauntlet review budgets exhausted:**
-  - [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) each used all 16 rounds and still carry 19 and 20 must-fix items. Both are flagged "moving target", so more rounds may not converge.
-  - [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) stopped at 8/8 with no structured findings list.
-  - Each message includes the `--add-rounds` resume command.
-- **Claude login on the endolin host:** the `claude-endolin1` cap was restored to 271M after the reset, but the gardener can't tell whether the workers are logged in as endolin1 or endolin2. If it's endolin2, spend will be charged to endolin1's cap and the claim gate will refuse work again. Re-login to endolin1 or raise the cap.
-- **CI read forbidden:** on the oros host the bot token gets a 403 reading CI for [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188). It needs checks:read, statuses:read and actions:read granted.
-- **minion-town-docs-tower-report:** the live probe left one anonymous guest on production minion.town, and the API has no delete route. The source note wasn't on the host that ran the job, so the report was never checked against it.
+**minion.town:** The proxy merged [#194](https://github.com/kriscendobot/minion.town/pull/194), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#188](https://github.com/kriscendobot/minion.town/pull/188) overnight. Each deploy succeeded and the watchdog was ok. [#190](https://github.com/kriscendobot/minion.town/pull/190) was re-screened at `9ce81f8966c` and has a conduct job queued. Its gauntlet finished.
 
-The parcel-stack restack orchestration completed, with all 3 children done. Journal lock contention is mostly clearing, but the endolin host still has several open contention notices.
+**Gauntlets that ran out of rounds:**
+- [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) each used all 16 rounds with about 20 must-fix items still open, and the findings keep changing between rounds. #184 has already merged.
+- [#192](https://github.com/kriscendobot/minion.town/pull/192) used all 8 rounds and its panel report has no structured must-fix list.
+- Each message offers `--add-rounds 2` if you want more rounds.
+
+**Needs your attention:**
+- **Claude login on this host:** The `claude-endolin1` cap was restored to 271M after the 03:00Z reset. The restore job can't tell whether this host's workers are logged in as endolin1 or endolin2. If it is endolin2, the ledger will charge its spend to endolin1 and the claim gate will refuse work again once the combined spend reaches 271M. The fix is to re-login to endolin1, or tell the job to raise the cap again.
+- **Token permissions:** The `ci-wait-merge` watchdog on the oros host gets HTTP 403 reading CI for [minion.town#188](https://github.com/kriscendobot/minion.town/issues/188). The bot token needs checks:read, statuses:read and actions:read.
+- **Docs report probe:** The `minion-town-docs-tower-report-20261016` probe left one anonymous guest on production, and the API can't delete it. The source note wasn't on the host that ran the job, so the report wasn't checked against it.
+- **OCapN canary:** `minion-town-ocapn-canary-live-run` is parked on `endolin-garden-ece02cb4`. It needs the two guest locators in `guests.json` before you give the go-ahead.
+
+**Fleet:** The parcel-stack restack orchestration completed, with all 3 children done and none failed. The monk count on `endolin-garden-ece02cb4` dropped to 1 under the old cap, then returned to 3–4 after the restore. The journal-contention storm cleared. Open contention notices are mostly single lock giveups.
 
 ## Maintainer review docket
 
@@ -250,10 +252,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.0M | $161.83 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 33.3M | $163.82 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 96040336 tokens/day lower bound._
+_Fleet token-unlock pace: 97209295 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.436113s/45s (/home/kris/garden/.garden-state/orch/journal); 9 open notice(s); checker healthy
