@@ -13,3 +13,13 @@ Edit `main2` directly in the garden repo (no PR, per CLAUDE.md § Conventions), 
 2. `skills/ocap-attenuation-authoring/SKILL.md`: add the same test under Notes, with the provenance, without turning the stub into a procedure.
 3. Check the other jurors that could repeat the misreading (`warden`, `locksmith`, `gateway`, `breaker`) and add a one-line pointer only where they discuss tokens or capabilities.
 Keep edits short and match surrounding style. Report the commit hashes.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T14:49:38Z
