@@ -1,35 +1,31 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T08:07:32Z_
+_As of 2026-10-17T08:11:32Z_
 
 ## Latest
 
-Board movement was light: `mt-beta-new-clip-inventory` moved from the plan queue to the todo board, and the `mt-beta-product-pass-20261017` orchestration record was updated. The "New Clip" inventory build is now claimable. `mt-beta-settings-simplify` finished, but its follow-ups need your call. Before merging, run `deploy-accounts-store.sh` to add the index. Until it is active, Log out stays hidden and deletion answers 503. It also lists four design choices that are open to your veto.
+Only one completion landed since the last bulletin: `design-garden-tiered-memory`, whose memory-migration classification (49 shareable, 28 private, 4 needing your decision) is waiting on your vetoes. It copied and pushed nothing, and the review PR is [kriscendobot/garden#125](https://github.com/kriscendobot/garden/pull/125).
 
-Several minion.town gauntlets stopped at their review budget without converging, so each needs your decision on whether to grant more rounds or review by hand:
-- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 of 16 rounds and still has 19 unaddressed must-fix items.
-- [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) used 16 of 16 rounds and still has 20 unaddressed must-fix items.
-- [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) used 12 of 12 rounds, with no must-fix list available.
-- [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) used 8 of 8 rounds, with no must-fix list available.
-- [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) used 6 of 6 rounds, with no must-fix list available.
+Several gauntlets ran out of review budget and left PRs for a human decision:
+- [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used 16/16 rounds with 19 unaddressed must-fix items.
+- [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) used 16/16 rounds with 20 unaddressed must-fix items.
+- [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) used 12/12 rounds.
+- [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) used 8/8 rounds.
+- [endojs/endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) used 6/6 rounds.
 
-On #184 and #180 the newest findings are all new in the last round, which the report calls a moving target.
+Each message includes a `--add-rounds` command if you want to extend. For #184 and #180 the findings are mostly new each round (a "moving target"), so more rounds may not converge.
 
-The proxy merged and deployed [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#188](https://github.com/kriscendobot/minion.town/pull/188), and [#193](https://github.com/kriscendobot/minion.town/pull/193). All five deploys succeeded and the watchdog validated them. It also screened new heads of [#196](https://github.com/kriscendobot/minion.town/pull/196) and [#190](https://github.com/kriscendobot/minion.town/pull/190).
+Items that need your hands:
+- **Accounts store deploy:** `mt-beta-settings-simplify` completed, but you must run `deploy-accounts-store.sh` before merging. Until then, Log out stays hidden and account deletion answers 503 without deleting anything. The same message asks you to veto or accept four of its choices.
+- **Leftover guest:** the docs-tower report left one anonymous guest on production minion.town that the garden cannot delete.
+- **Claude login on endolin-garden:** the claude-endolin1 cap was restored to 271M after the 03:00Z reset. The restore job asks whether this host's workers are logged in as endolin1 or endolin2. If it's endolin2, that spend is charged to endolin1 and the claim gate will refuse work again.
+- **CI read forbidden:** the watchdog reports a 403 reading CI for [kriscendobot/minion.town#188](https://github.com/kriscendobot/minion.town/issues/188). The bot token needs checks:read, statuses:read and actions:read.
 
-Things that need you:
-- **Claude login on this host:** claude-endolin1's cap was restored to 271M after the reset. Which Claude login (endolin1 or endolin2) are this host's workers on now? If endolin2 is still logged in, its spend will be charged to endolin1 and the claim gate will refuse work again.
-- **CI read forbidden on oros-studio:** the bot token gets a 403 reading CI for [minion.town#188](https://github.com/kriscendobot/minion.town/issues/188). It needs checks, statuses and actions read access.
-- **Guest left on production:** the docs-tower live probe left one anonymous guest on production minion.town. The API has no delete route, so you decide whether to remove it by hand. The source note was also missing on that host, so the report was not checked against it.
-- **OCapN canary:** the live run is repinned to this host and stays parked until you say go ahead. It now expects two guest locators in `~/.garden-state/ocapn-canary/guests.json`.
-
-The parcel-stack restack orchestration finished with all three children done. The journal-contention storms on this host cleared, and a few lock-contention notices remain open.
+Proxy delegation merged and validated minion.town #188, #195, #184 and #194 overnight, each with a successful deploy. Journal lock-contention notices mostly cleared. The 3→4 monk scale-up on endolin-garden followed the quota reset.
 
 ## Maintainer review docket
 
-146 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+147 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -68,6 +64,107 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+
+- `20261017T080940Z-762fe4` — from gardener:design-garden-tiered-memory, reply_to `design-garden-tiered-memory` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T080940Z-762fe4.md)
+
+> Memory migration classification for veto (job design-garden-tiered-memory; design: designs/garden-tiered-memory.md on main2, review PR to follow).
+>
+> Review PR: [https://github.com/kriscendobot/garden/pull/125](https://github.com/kriscendobot/garden/pull/125)
+>
+> NOTHING has been copied or pushed. Reply with vetoes, for example "move X to private" or "share Y". This inbox is on public journal2, so the reasons below are deliberately content-free, and the private entries list only a category.
+>
+> Rubric (first match wins): PRIVATE = credentials/tokens, cloud/registrar ids, quota/subscription/cost/pool internals, identity linkage, production security posture, any private-repo content (kriscendobot/minion.town is private), user-type. DECIDE = your own judgment not stated publicly, or shareable content mixed with a private detail. SHAREABLE = public code (endo-but-for-bots, garden, agoric-sdk fork): gotchas, flakes, fixed-bug signatures, rulings already given on public PRs.
+>
+> Totals: 49 shareable, 28 private, 4 decide.
+>
+> ## Needs your decision (4)
+> - endo-gateway-mcp-direction — maintainer strategy statement tied to the garden's cloud deployment
+> - human-review-dominates-machine-cost — cost measurements; partly already public in a main2 design
+> - ocapn-over-noise-goal — public-repo engineering, but carries production cloud ids and an opened port; shareable only if reworded
+> - tier-routing-claude-off-automatic — resolved routing bug mixed with billing internals; probably retire
+>
+> ## Shareable (49)
+> - agoric-sdk-local-build-env — toolchain gotcha for a public fork; garden paths only
+> - bearer-tokens-vs-ocaps — concept ruling; reword to drop a private-repo PR reference and a private link (design § 6)
+> - ci-failure-is-automation-defect — standing engineering policy, no sensitive detail
+> - ci-watcher-clone-lock-contention-fix-queued-not-deployed — fixed garden bug signature; reword to drop a private-repo slug
+> - ci-watcher-shared-verify-clone-lock-contention-fixed — fixed garden bug signature on public code
+> - deploy-drain-vs-build-budgets — garden deploy mechanics ("budgets" here are time budgets)
+> - endo-browser-tests-frozen-base-gap — public-repo CI gap
+> - endo-cli-component-exit-leak-flake — public-repo CI flake
+> - endo-composite-tsconfig-ci-gotcha — public-repo CI gotcha
+> - endo-daemon-long-socket-path — public-repo test gotcha
+> - endo-designs-readme-roadmap — public-repo convention; reword to drop a private-repo mention
+> - endo-guile-interop-codeberg-flake — public-repo CI flake
+> - endo-local-test-bin-shims — public-repo local-test gotcha
+> - endo-pr1075-already-landed — public PR status; verify current before migrating
+> - endo-pr1089-superseded — public PR status; verify current before migrating
+> - endo-pr1097-superseded — public PR status; verify current before migrating
+> - endo-pr1125-split-stack — public PR status; verify current before migrating
+> - endo-pr1343-unified-endowments — public PR status; verify current before migrating
+> - endo-pr300-superseded — public PR status; verify current before migrating
+> - endo-pr475-master-pin-infeasible — public-repo branch topology fact
+> - endo-pr536-superseded — public PR status; verify current before migrating
+> - endo-pr621-merged-on-frozen-base — public PR status; verify current before migrating
+> - endo-pr718-superseded — public PR status; verify current before migrating
+> - endo-pr814-superseded — public PR status; verify current before migrating
+> - endo-preferred-fork — targeting convention for public repos
+> - endo-root-tsc-checkjs-ci-gap — public-repo CI gap
+> - endoclaw-timer-reminder-redirect — maintainer review already given on a public PR
+> - foreman-quiesced-not-broken — garden mechanics, but stale (target no longer 0): retire instead of migrating
+> - gh-wrapper-dual-path-fork-bomb — fixed garden bug signature; only the public bot login
+> - git-integration-m3-closed — public-repo milestone state
+> - hardened262-mirror — public-repo arc facts
+> - hardened262-xs-validation-needs-moddable-900 — toolchain gotcha
+> - ironhorse-fuzz-build-setup — public-repo build gotcha
+> - ironhorse-fuzz-dtoa-findings-class — public-repo findings class
+> - ironhorse-generator-tostringtag-fix — public-repo diagnosis (file exists but is missing from MEMORY.md)
+> - ironhorse-temporal-host-exclusion — public-repo test scope fact
+> - ironhorse-with-preexisting-meter-blockers — public-repo blocker analysis
+> - issue-inbox-watcher-cursor-get-failopen-fixed — fixed garden bug signature
+> - npm-cas-registry-arc-state — public-repo arc state
+> - one-monk-leader-deploy-self-block — garden deploy mechanics
+> - panel-base-normalization-origin-only — garden panel bug signature
+> - press-schedule-cadence-gotchas — garden scheduler gotchas; reword to drop a private-repo mention
+> - rate-card-attempt-cap-unimplemented — garden code defect
+> - receipt-watcher-clonelock-stderr-deploy-lag — fixed garden bug signature; reword to drop a private-repo slug
+> - reroute-role-floor-audit — garden routing fix; reword to drop a private-repo mention
+> - review-arcs-presses-and-trackers — arc/tracker map on the public garden repo
+> - shared-repo-git-stash-hazard — general git hazard
+> - xs2rust-endor-endstate — maintainer target already stated on a public PR
+> - yarn-install-emlink-workaround — toolchain gotcha
+>
+> ## Private (28; category only)
+> - anthropic-weekly-quota-outage-20260901 — quota/subscription internals
+> - aws-bringup — credentials
+> - budget-orchestration-supervision — quota/subscription internals
+> - claude-cli-token-surface-facts — credentials
+> - claude-pool-cap-not-a-lever — quota/subscription internals
+> - claude-usage-scraper-design — quota/subscription internals
+> - cleric-codex-quota-throttle — quota/subscription internals
+> - endo-pr1371-live-turn-findings — credentials
+> - endolin-quota-self-throttle-bug-20260903 — quota/subscription internals
+> - endolin2-retired — quota/subscription internals
+> - gardener-pool-quota-throttle — quota/subscription internals
+> - manual-quota-checkpoint-log — quota/subscription internals
+> - minion-town-access-control-ocap — private repo
+> - minion-town-aws-access-and-deployed-reality — private repo
+> - minion-town-claude-agents-wiring-landed — private repo
+> - minion-town-codex-api-key-track — private repo
+> - minion-town-endo-registry-pin-revert — private repo
+> - minion-town-gateway-powers-containment — cloud/infra identifiers
+> - minion-town-git-remote-pr86 — private repo
+> - minion-town-guest-formula-id-reveal — private repo
+> - minion-town-guest-recovery-fixed — private repo
+> - minion-town-live-daemon-b1-flake — private repo
+> - minion-town-review-inversion — private repo
+> - minion-town-weblet-gateway — private repo
+> - no-inter-instance-github-loops — identity linkage
+> - ocap-site-dnssec-enabled — cloud/infra identifiers
+> - ocapn-cbor-noise-minion-blocker — cloud/infra identifiers
+> - true-cost-vs-notional-ledger — quota/subscription internals
+>
+> First shared entry proposed: bearer-tokens-vs-ocaps, reworded to drop the private-repo PR reference (text in design § 6).
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -113,6 +210,22 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.065293s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
+
+> Report mt-beta-settings-simplify (minion.town settings simplification) needs three things from you.
+>
+> 1. **Run `deploy-accounts-store.sh` before merging.** The new index has to be active first. Until it is, Log out stays hidden and account deletion answers 503 without deleting anything. This needs your hands because it deploys to the accounts store.
+>
+> 2. **Veto check.** The report lists four choices that are yours to veto:
+>    - the no-bond hint;
+>    - removing Copy guest URL and Forget this browser;
+>    - removing mail before the chat clip exists;
+>    - leaving daemon state on disk while garbage collection is off.
+>
+>    Tell me if you object to any of them. If you don't, they stand.
+>
+> 3. **Invitation count.** This waits on #199 adding a per-holder count. I'm not acting on it yet, since the dependency hasn't landed. Tell me if you want it tracked on a schedule instead.
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -309,7 +422,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.8M | $257.00 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Claude | 59.2M | $258.07 _(notional, rate-card)_ | 22% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 100486952 tokens/day lower bound._
@@ -318,28 +431,27 @@ _Fleet token-unlock pace: 100486952 tokens/day lower bound._
 worst fetch p95 7.250028s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`kriscendobot-minion.town-pr199-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #199
 - [`mt-beta-new-clip-inventory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mt-beta-new-clip-inventory.md) — Build the "New Clip" clip, which can metamorphose into a petname inventory br...
 - [`kriscendobot-minion.town-pr200-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr200-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #200
 - [`screen-minion-town-pr190-f9a87fc-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr190-f9a87fc-conduct.md) — Screened delegated merge: kriscendobot/minion.town#190 at f9a87fcfda07e2bac7e...
 - [`kriscendobot-minion.town-pr197-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr197-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #197
 - [`endojs-endo-but-for-bots-pr1481-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1481-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1481
-- [`daily-progress-summary-20261017-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261017-070508.md) — Daily midnight Pacific progress summary
 
 ### doin (4)
-- [`design-garden-tiered-memory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-garden-tiered-memory.md) — Design: a two-tier, fleet-coordinated garden memory
 - [`endojs-endo-but-for-bots-pr1482-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1482-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1482
 - [`kriscendobot-minion.town-pr198-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr198-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #198
 - [`kriscendobot-minion.town-pr192-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr192-gauntlet-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #192
+- [`daily-progress-summary-20261017-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261017-070508.md) — Daily midnight Pacific progress summary
 
-### tada (13568)
+### tada (13569)
+- [`design-garden-tiered-memory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/design-garden-tiered-memory.md) — Cost
 - [`mt-beta-settings-simplify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/mt-beta-settings-simplify.md) — mt-beta-settings-simplify: completion report
 - [`endojs-endo-but-for-bots-pr1487-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr1487-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1487-gauntlet — code passed, held draft
 - [`screen-minion-town-pr196-82eb588-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/screen-minion-town-pr196-82eb588-conduct.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1487-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr1487-gauntlet-panel-3.md) — Cost
-- [`endojs-endo-but-for-bots-pr1485-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr1485-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1485-gauntlet — complete
-- … and 13563 more
+- … and 13564 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
