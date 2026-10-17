@@ -19,3 +19,13 @@ Diagnosis: the scratch tree (/Users/dom/garden/scratch, the virtiofs bind mount)
 Candidate fixes (pick, prove on virtiofs, add a regression test): run the replay in a temporary worktree on tmpfs and then move the branch; or have safe-rebase refresh the index (`git update-index -q --refresh`) and retry the pick/--continue a bounded number of times after a short sleep when a stop has zero conflicted paths. Also note: the safe-rebase test is itself red on virtiofs TMPDIR (/Users/dom/garden/scratch/tmpexec).
 
 After it lands and deploys, re-conduct kriscendobot/minion.town#190 (the proxy re-screens and posts a fresh conductor; or the liaison can re-post).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T07:10:07Z
