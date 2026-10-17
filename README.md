@@ -1,29 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T21:23:58Z_
+_As of 2026-10-17T21:29:55Z_
 
 ## Latest
 
-Board activity since the last bulletin is light: four routine jobs were posted (the Claude-on-minion.town and minion.town arc presses, plus an oros health checkup and watch), with no claims or completions in this window. The more important changes are in the maintainer inbox and the minion.town queue.
+Four more gauntlets ran out of review budget without converging and now need a human call to merge or grant rounds. [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) stopped at 16/16 rounds with 19 unaddressed must-fix items, [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) at 16/16 with 20, [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) at 6/6 with 20, and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) at 6/6 with an unknown count. Earlier budget stops for [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) and [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) (10/10) are still unanswered. Each message includes the `--add-rounds` command. The breaker seat's latest findings read as new each round rather than persistent, so more rounds may not converge.
 
-**Gauntlets that ran out of review budget.** Gauntlets on [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (19 unaddressed must-fix after 16 rounds) and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) (20 after 16 rounds) stopped without converging. So did [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (20 after 6 rounds), [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). #178 and #1478 report no structured list, and [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) reported the same limit earlier. Each is left for you to decide whether to merge or grant more rounds with `--add-rounds`. The reported findings on #184 and #1482 look like new ones each round rather than recurring ones.
+The minion.town screening pipeline merged and deployed [#196](https://github.com/kriscendobot/minion.town/pull/196), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#188](https://github.com/kriscendobot/minion.town/pull/188). Every deploy succeeded and the watchdog was clean. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it, though a gauntlet clean stage is queued for it. The CI-read watchdog also keeps reporting, now 6 times, that the bot token gets a 403 reading CI for [#192](https://github.com/kriscendobot/minion.town/pull/192). It needs checks:read, statuses:read and actions:read granted on `kriscendobot`.
 
-**Stalled merge.** The proxy reports that three conductors finished without merging [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197). A watchdog also reports repeated 403 errors reading CI for [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192). The bot token needs `checks:read`, `statuses:read` and `actions:read`.
+Board activity was light. [#202](https://github.com/kriscendobot/minion.town/pull/202) fix round 1 was claimed, and [#200](https://github.com/kriscendobot/minion.town/pull/200) fix round 2 went back to todo.
 
-**Needs your call.**
-- **Settings simplification (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging. Until then Log out stays hidden and account deletion returns 503. Four choices stand unless you veto them.
-- **Docs tower report:** a live probe left one anonymous guest on production, and the source note was not on the host that ran it.
-- **Claude login on endolin:** the restored endolin1 cap is 271M. Please say whether this host's workers are on endolin1 or endolin2. Otherwise endolin2's spend lands on endolin1 and the claim gate refuses work again.
-
-**Shipped.** Five minion.town PRs merged with successful deploys and passing watchdogs: [#184](https://github.com/kriscendobot/minion.town/pull/184), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#196](https://github.com/kriscendobot/minion.town/pull/196). The `mt-beta-product-pass-20261017` orchestration and the endo parcel-stack restack orchestration both completed with no failed children.
-
-**Fleet health.**
-- The `claude-endolin1` window rolled and its cap was restored.
-- Budget pacing is moving the endolin monk count between 1 and 4 workers.
-- Several journal-contention notices cleared.
-- The watchdog still reports the oros journal worktree failing to fast-forward, now 29 occurrences.
+Other items for you:
+- **`mt-beta-settings-simplify` needs `deploy-accounts-store.sh` run before merge.** Until then Log out stays hidden and account deletion answers 503 without deleting anything. The same message asks you to veto or accept four settings choices.
+- **The `claude-endolin1` cap was restored to 271M after the window reset.** The gardener asks whether this host's workers are logged in as endolin1 or endolin2. If endolin2 is still active, its spend will be charged to the restored cap and the claim gate will refuse work again.
+- **The minion-town-docs report left one anonymous guest on production.** The API has no way to delete it. The source note was also missing from the host that ran the job.
+- **The oros host's journal worktree still can't fast-forward.** That watchdog notice is now at occurrence 29.
+- **A proxy-drafted answer on the weekly quota slate is waiting for your review.** It keeps the slate and the 18M reserve, treats `claude-oros` as having no reset credits, and flags a stale `reset-credits.md` entry for you to correct.
+- **Two orchestrations completed cleanly.** `mt-beta-product-pass-20261017` and the parcel-stack restack both finished with no failed children.
 
 ## Maintainer review docket
 
@@ -458,7 +451,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.6M | $489.21 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 116.8M | $489.78 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 93084980 tokens/day lower bound._
@@ -471,9 +464,9 @@ worst fetch p95 15.954417s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`kriscendobot-minion.town-pr199-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #199
 - [`endojs-endo-but-for-bots-pr599-address-review-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr599-address-review-20261007.md) — ---
 - [`oros-health-checkup-20261017-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261017-212007.md) — ---
-- [`kriscendobot-minion.town-pr202-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr202-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #202
 - [`minion-town-ci-harness-path-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-ci-harness-path-gate.md) — minion.town: stop the Claude-harness image builds from starving the single CI...
 - [`minion-town-arc-press-20261017-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261017-212007.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`kriscendobot-minion.town-pr200-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr200-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #200
 - [`kriscendobot-minion.town-pr201-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr201-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #201
 - [`claude-on-minion-town-press-20261017-212007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261017-212007.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion-town-pr197-screen-2f63c521-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr197-screen-2f63c521-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #197
@@ -482,7 +475,7 @@ worst fetch p95 15.954417s/45s (/home/kris/garden/.garden-state/accountant/journ
 
 ### doin (3)
 - [`kriscendobot-minion.town-pr198-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr198-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #198
-- [`kriscendobot-minion.town-pr200-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr200-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #200
+- [`kriscendobot-minion.town-pr202-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr202-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #202
 - [`kriscendobot-minion.town-pr203-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr203-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #203
 
 ### tada (13677)
