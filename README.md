@@ -1,25 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T09:42:23Z_
+_As of 2026-10-17T09:43:56Z_
 
 ## Latest
 
-The minion.town beta product pass wrapped up: orchestration `mt-beta-product-pass-20261017` finished all 4 children with no failures, including the chat clip and the settings simplification. Proxy-screened PRs [#190](https://github.com/kriscendobot/minion.town/pull/190), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#188](https://github.com/kriscendobot/minion.town/pull/188) all merged overnight, each with a successful deploy and an ok watchdog. [#196](https://github.com/kriscendobot/minion.town/pull/196) was screened again. Gauntlet work continues on [#198](https://github.com/kriscendobot/minion.town/pull/198) (fix round 1 done, panel round 2 queued), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200) and [#201](https://github.com/kriscendobot/minion.town/pull/201) (clean stage), [#202](https://github.com/kriscendobot/minion.town/pull/202) (viability check queued), [#197](https://github.com/kriscendobot/minion.town/pull/197) (un-draft queued), and endo-but-for-bots [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (fix rounds).
+Minion.town was the busy front. [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#194](https://github.com/kriscendobot/minion.town/pull/194) merged overnight, each with a successful deploy and an ok watchdog. [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#188](https://github.com/kriscendobot/minion.town/pull/188) merged earlier, and [#193](https://github.com/kriscendobot/minion.town/pull/193) merged the previous evening, all validated. The `mt-beta-product-pass-20261017` orchestration finished with all four children complete, and so did the parcel-stack restack orchestration on endo-but-for-bots.
 
-**Needs your decision:**
-- **Gauntlet budgets:** Five gauntlets hit their round limit without converging and are left for a human call.
-  - [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) each have about 20 unaddressed items after 16 rounds. The latest findings are mostly should-fix hardening.
-  - [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) stopped at 12 rounds and [#192](https://github.com/kriscendobot/minion.town/pull/192) at 10. A panel round 11 is already queued for #192.
-  - [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) stopped at 6 rounds.
-  - Each message gives the `--add-rounds` resume command.
-- **Settings simplification:** run `deploy-accounts-store.sh` before merging. Until you do, Log out stays hidden and account deletion answers 503 without deleting anything. Four choices stand unless you veto them: the no-bond hint, removing Copy guest URL and Forget this browser, removing mail before the chat clip exists, and leaving daemon state on disk. The invitation count waits on [#199](https://github.com/kriscendobot/minion.town/pull/199).
-- **Docs report:** the live probe left one anonymous guest on production minion.town, and the API has no way to delete it. The source note wasn't on the host that ran the job, so the report was not checked against it.
-- **Claude account on the leader host:** the `claude-endolin1` cap was restored to 271M after the reset, with 4 monks running. Which Claude login is active here, endolin1 or endolin2? If it is endolin2, its spend gets charged to endolin1 and the claim gate will block work once that total reaches 271M.
-- **Token permissions:** `ci-wait-merge` on the oros host still can't read CI for [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190). The bot token needs checks:read, statuses:read and actions:read on `kriscendobot`.
+**Needs your decision**
+- **Review budget exhausted.** Gauntlets ran out of rounds without converging on [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16, 19 must-fix still raised), [#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16, 20 raised), [#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) and [#192](https://github.com/kriscendobot/minion.town/pull/192) (10/10), plus [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6/6). Each message carries the `--add-rounds` command if you want to grant more. For #184 and #180 the findings keep changing between rounds, so more budget may not converge.
+- **Settings simplification (`mt-beta-settings-simplify`).** Run `deploy-accounts-store.sh` before merging. Until the new index is active, Log out stays hidden and account deletion answers 503 without deleting anything. The job also lists four choices for your veto, and they stand unless you object.
+- **Docs report (`minion-town-docs-tower-report-20261016`).** The live probe left one anonymous guest on production minion.town, and the garden has no way to delete it. The report was also never checked against the source note, because that note wasn't on the host that ran the job.
+- **Claude login on the leader host.** The `claude-endolin1` cap was restored to 271M after the 03:00Z reset. The leader host's workers may still be logged in as endolin2, in which case spend lands on the wrong ledger and will gate claims again. Re-login to endolin1, or say so and the cap gets raised.
+- **CI read forbidden on oros.** The oros host's bot token gets HTTP 403 reading CI status on [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190). It needs checks:read, statuses:read and actions:read on `kriscendobot`.
+- **Canary prerequisite.** The OCapN canary live run is parked until you say go ahead. Before provisioning, `~/.garden-state/ocapn-canary/guests.json` should hold the two guest locators.
 
-Journal-contention notices mostly cleared. A few new lock-contention warnings on both hosts are minor, with one give-up each.
+**Background**
+- The leader's monk count moved 4 → 3 as the new window's pacing ramped.
+- The journal-lock contention storm cleared, and the remaining notices are low-level lock warnings.
 
 ## Maintainer review docket
 
@@ -358,7 +355,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.0M | $303.04 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.1M | $303.56 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94258214 tokens/day lower bound._
