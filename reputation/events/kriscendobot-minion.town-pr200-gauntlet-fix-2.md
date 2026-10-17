@@ -7,17 +7,17 @@ thoughtfulness: medium
 work_class: gardener:m
 target: main2
 accepted: true
-agentic_dollars: 1.726723
+agentic_dollars: 2.060776
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.243915
+estimated_dollars: 0.354522
 attempts: 1
-duration_secs: 3535
+duration_secs: 5138
 awarded_bid: 
 bidders: 0
 source: live
 recorded_by: endolin-garden-ece02cb4/monk-2
-recorded_at: 2026-10-17T18:54:41Z
+recorded_at: 2026-10-17T21:28:39Z
 ---
 reputation event for kriscendobot-minion.town-pr200-gauntlet-fix-2: arm anthropic/claude-default/medium work_class gardener:m target main2 accepted true
