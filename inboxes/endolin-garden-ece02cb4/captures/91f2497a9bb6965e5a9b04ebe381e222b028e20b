@@ -1,0 +1,48 @@
+<6>06:05:36 [monk/3] job 'kriscendobot-minion.town-pr178-gauntlet-fix-12' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>06:05:36 [monk/3] job 'kriscendobot-minion.town-pr178-gauntlet-fix-12' call ceiling: tier=mentor max-budget-usd=19.40 (scaled by fresh seven-day headroom when available)
+<6>06:05:36 [monk/3] job 'kriscendobot-minion.town-pr178-gauntlet-fix-12' attaching minion.town MCP (stdio bridge)
+panel-head-freshness: stale target=kriscendobot/minion.town#178 reviewed_head=991f49a587f82990daa338f199f703cba6136125 presented_head=1d4ae1364d4c7793627b2f4a841024257fc725a9 disposition=review-required
+<6>06:27:06 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/178 moved after a completed panel; deferring to the review-docket freshness disposition
+panel-head-freshness: managed target=kriscendobot-minion.town-pr178-gauntlet-fix-12 disposition=gauntlet-driver-owns-next-panel
+garden repo lock: cleared dead-holder metadata pid=1192749 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+message REJECTED — apparently partially-qualified issue/PR reference(s):
+  line 7: #174
+remedy: fully-qualify each as `owner/repo#N` or a full https://github.com/owner/repo/issues/N (or /pull/N) URL.
+(references inside code fences (``` / ~~~) or inline `code` spans, and jury-seat item labels like `prover #3`, are exempt.)
+<3>06:27:07 [inbox-send] FATAL: message not posted — fully-qualify the issue/PR reference(s) reported above, then retry
+
+--- handler report (partial) ---
+# Fix round 12 for kriscendobot/minion.town#178: done, CI green
+
+The round's one must-fix was the prover's two failing concurrency tests. The PR code was fine. The garden's fleet `git` wrapper caused the failures on our review hosts. I fixed it on both sides, pushed to the PR head, and CI is green on `1d4ae13`, all 3 checks (ci-wait-merge rc 0).
+
+## Root cause
+- **Two things combined:**
+  - The PR spawned `git http-backend` without setting `cwd`, so the CGI ran in whatever directory the test runner was in.
+  - On fleet hosts that directory is a per-job worktree, and `scripts/jobs/bin/git` is first on PATH. The wrapper took an exclusive lock on that worktree's repo for every CGI.
+- **Effect:** pushes to unrelated partitions waited on each other (the cross-partition push took 5022 ms), and queued CGIs stayed alive (`runningBackends()` returned 3).
+- **Evidence:** with `/usr/bin/git` first on PATH, all 42 tests pass and that push takes 7 ms. CI never uses the wrapper, which is why CI stayed green.
+
+## Changes
+- **PR commit `958200c`:** the CGI now runs with `cwd: projectRoot`. The limits suite passes 42/42 even with the old wrapper on PATH.
+- **Garden `main2` commit `3adb16860b2`:**
+  - `garden_git` in `scripts/jobs/common.sh` now runs server-side commands (`http-backend`, `receive-pack`, `upload-pack`, `upload-archive`, `daemon`) without the lock. They serve the repo named in their environment or argument, not the one around the cwd, and live as long as a client connection.
+  - New regression case in `scripts/jobs/test/repo-locks-test.sh`. It fails on the old code and passes on the new.
+  - On its own, this fix also takes the suite from 40/42 to 42/42.
+- **PR commit `1d4ae13`, the pruner's cuts:**
+  - DEPLOYMENT.md now points to the design doc's env table instead of repeating the defaults.
+  - The design doc's `limits.ts` and test-inventory bullets are shortened to a line or two each.
+  - Six comments that only restated their line or test name are gone.
+  - I kept both "filler is not a pack" comments. They are not duplicates: one says "size", the other "room".
+- **PR body:** the four per-cap bullets under "## What" are now one sentence linking the env table.
+- **PR comment:** I posted the root cause and how each panel item was handled, for panel 13 (https://github.com/kriscendobot/minion.town/pull/178#issuecomment-6230561953).
+
+## Follow-ups
+- **Should-fix items not taken.** They change how the cap is measured and how pushes are admitted, so they belong in a follow-up slice rather than a fix round:
+  - prover: the fixed 1500 ms sleep.
+  - breaker: ref-only pushes can inflate a partition without tripping the cap, and thin packs can overshoot it.
+  - decomplector: route the probe through the CGI, use one admission function, and move the cap to storage or metering (#174).
+- **Second wrapper problem.** `test/git-remote/capability.test.ts` "propagates a git failure rather than reporting the ref absent" fails only under the wrapper; with real git, all 115 git-remote tests pass. The wrapper changes git's exit code in that case. The test predates this PR and the PR doesn't touch it, so I didn't fix it here.
+- **Deploy lag.** The garden fix takes effect on a host only after that host deploys. Until then, the PR's own `cwd` fix is what keeps panel 13's prover runs green.
+
+<!-- gauntlet-stage-result: fix=done -->
