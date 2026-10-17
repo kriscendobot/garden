@@ -1,0 +1,48 @@
+<6>15:45:38 [monk/2] job 'fix-minion-town-pr180-ocap-key-audit-20261017' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>15:45:38 [monk/2] job 'fix-minion-town-pr180-ocap-key-audit-20261017' call ceiling: tier=mentor max-budget-usd=16.40 (scaled by fresh seven-day headroom when available)
+<6>15:45:38 [monk/2] job 'fix-minion-town-pr180-ocap-key-audit-20261017' attaching minion.town MCP (stdio bridge)
+<6>16:02:12 [auto-gauntlet-handoff] auto-gauntlet: 'fix-minion-town-pr180-ocap-key-audit-20261017' named several PRs; treating the first, https://github.com/kriscendobot/minion.town/pull/203, as its artifact
+garden repo lock: cleared dead-holder metadata pid=2460155 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+<6>16:02:17 [post-gauntlet] gauntlet 'kriscendobot-minion.town-pr203-gauntlet' already recorded; nothing to do
+<6>16:02:17 [auto-gauntlet-handoff] auto-gauntlet: 'fix-minion-town-pr180-ocap-key-audit-20261017' recorded gauntlet 'kriscendobot-minion.town-pr203-gauntlet' for https://github.com/kriscendobot/minion.town/pull/203
+<6>16:02:19 [review-docket] https://github.com/kriscendobot/minion.town/pull/203 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+## Completion report: fix-minion-town-pr180-ocap-key-audit-20261017
+
+All three steps are done. The audit found no identity-shaped secret that a guest or caplet can reach, so #180's code is unchanged. I regrouped its commits and recorded the ruling in §7 through a new design PR.
+
+**1. Audit.** I applied the identity-vs-object test to every secret in the control plane, including rotation, the `/hello` check, open-by-id and the mint-cap paths.
+
+| Secret | What it designates | Can a guest reach it? |
+| --- | --- | --- |
+| Capability-URL token | One partition at one attenuation; each attenuation has its own live-URL cap | Yes, as the minted URL |
+| Retention key (`open`) | One partition, read+write; `open` checks nothing else, not even the owner | Yes, as `create`'s result; it is kept inside the guest's `open` formula |
+| Facet key (`mint`/`revoke`) | One partition at one attenuation; a read facet can revoke only read URLs | No, it is closed over inside the partition object |
+| Owner credential (`create`) | One owner's partition allocator, capped by quota; it reaches no existing partition | No, it sits in the caplet formula the host holds |
+| `/hello` proof | Nothing; it only lets the caller tell the real listener from a squatter, and is bound to the port | It is only ever an answer |
+| Root secret | Master authority; owner credentials and facet keys derive from it | No; only the `minion-git-remote` and `minion-mcp` processes load it, never the Endo daemon or any formula |
+
+Rotating the root secret strands no partition: stale owner credentials stop working, and `open` re-derives facet keys under the current secret.
+
+Two things for the maintainer, both sent to the inbox:
+- **Owner credential (needs a ruling):** it is derived from the owner's name and shared by all of that owner's guests. I classed it as designating one object, because it only allows `create` on that owner's allocator. A leaked copy can at worst use up the owner's partition quota. If the maintainer reads it as identity-shaped, the fix is small: key it per guest or per caplet instead of per owner.
+- **Read facet key (left alone):** all read-only copies of one partition share a single read key. Holders of different read copies can therefore revoke each other's read URLs and draw on one mint budget. I made no change, since the job said no further hardening.
+
+**2. Ruling recorded.** §7 lives in `designs/git-remote-capability.md` on `main`, not in #180. So I opened draft design PR https://github.com/kriscendobot/minion.town/pull/203 on a new frozen base, `main-945aaaa`. It:
+- states the identity-vs-object test, with its provenance;
+- changes both "not a bearer token" statements to "not an identity-shaped bearer token";
+- adds the classification table above.
+
+The Botese and spelling grep gates found nothing.
+
+**3. Regrouped #180.** I collapsed the 28 commits into 7: partition-store caps → loopback control plane → guest caplet (plus `@endo/pass-style`) → `chore: Update package-lock.json` → Endo guest endowment and MCP tools → deploy → docs.
+- The final tree is byte-identical to the old head `d9b9dd0`, and each commit typechecks on its own.
+- I force-pushed with lease; the new head is `3b5fd6e` and the PR is still DRAFT, waiting on #178.
+- The `test` CI job passed on the new head. The two Claude harness jobs were still queued on the ci.minion.town runner when I stopped; they passed on the identical tree before.
+- Run locally, one existing `projectPartition` test fails. This PR doesn't touch that code; it's the known git-wrapper false failure, and it passes in CI.
+- I posted a summary comment on #180: https://github.com/kriscendobot/minion.town/pull/180#issuecomment-6236096348
+
+**Follow-ups**
+- The maintainer's decision on the owner credential.
+- #203 needs review or merge; it is docs only.
