@@ -31,3 +31,13 @@ Done when a queued minion.town run reaches `in_progress` on the self-hosted runn
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-17T13:03:08Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T13:53:26Z
