@@ -1,25 +1,22 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T15:48:51Z_
+_As of 2026-10-17T15:54:28Z_
 
 ## Latest
 
-Several minion.town PRs landed and deployed cleanly since the last bulletin: [#196](https://github.com/kriscendobot/minion.town/pull/196), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#193](https://github.com/kriscendobot/minion.town/pull/193). Each deploy succeeded and the watchdog validated it. Two orchestrations also finished with no failed children: the `mt-beta-product-pass-20261017` product pass and the parcel-stack restack.
+Board activity since the last bulletin was thin: one new gauntlet record and its pre-spend viability job for [minion.town#203](https://github.com/kriscendobot/minion.town/pull/203), the draft docs-only PR that records the ocap key-audit ruling. On the proxy side, minion.town [#196](https://github.com/kriscendobot/minion.town/pull/196), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#193](https://github.com/kriscendobot/minion.town/pull/193) were screened, merged and deployed successfully, with watchdog checks passing.
 
-Several gauntlets ran out of review budget and need your call on whether to grant more rounds:
-- minion.town [#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16), [#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16), [#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) and [#192](https://github.com/kriscendobot/minion.town/pull/192) (10/10).
-- endo-but-for-bots [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6/6 each).
+**Needs your call:**
+- **Review budgets exhausted without convergence.** Gauntlets for minion.town [#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178) and [#192](https://github.com/kriscendobot/minion.town/pull/192), and for endo-but-for-bots [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), stopped at their round limits. Each message gives an `--add-rounds` resume command. The remaining findings are mostly should-fix hardening, not clear defects.
+- **minion.town #197 stalled.** Three conductors finished without merging [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197). The likely cause is a CI-read 403 on the host that ran them, because the bot token lacks checks, statuses and actions read access. A todo job exists to steer screener conductors to a host that can read CI.
+- **Settings simplification (mt-beta-settings-simplify).**
+  - Run `deploy-accounts-store.sh` before merging. Until then, Log out stays hidden and account deletion answers 503.
+  - Veto any of the four listed choices you object to.
+- **Docs-tower report.** The live probe left one anonymous guest on production minion.town. The source note was not on the host that ran the job, so the report was not checked against it.
+- **Ocap key audit.** Confirm or overrule the call that the owner credential is object-designating. No code fix was needed for [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180), which was retconned to 7 commits with the same net tree.
+- **Claude account question.** After the endolin1 cap was restored to 271M, the gardener asks which login (endolin1 or endolin2) the workers on that host are using. If it is endolin2, spend will be charged to the wrong account and the claim gate will refuse work again once combined spend reaches 271M.
 
-#184, #180 and #1482 still carry about 19–20 unaddressed must-fix items from the last round. Breaker findings on those include a read-only holder exhausting the mint cap and a deference window in `network.js` that resets on every redial. The panel is not converging on those three, so more rounds may just chase new findings. [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it. [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) was re-screened at `ed7255bbebf`. The CI read-forbidden notice for the oros host (4th occurrence) is tied to this: the bot token is getting 403s on `statusCheckRollup`, which blocks delegated merges. The `minion-town-screen-conductor-ci-read-host` job is queued to route conductors to a host that can read CI. The permanent fix is granting `kriscendobot` checks:read, statuses:read and actions:read.
-
-Things that need a decision from you:
-- **`mt-beta-settings-simplify`:** run `deploy-accounts-store.sh` before merging. Until then, Log out stays hidden and account deletion answers 503. Also veto or accept the four listed removals.
-- **`minion-town-docs-tower-report-20261016`:** one anonymous guest from the live probe remains on production and can't be deleted through the API. The source note was also missing on the host that ran it.
-- **Claude login on `endolin-garden-ece02cb4`:** it is unclear whether workers run as endolin1 or endolin2. If it is endolin2, the ledger charges its spend to endolin1 again and the claim gate will refuse work at the 271M cap.
-
-The endolin1 cap was restored to 271M after the 03:00Z reset. Monks on that host went from 3 to 4 and then back down to 2 as spend reached about 71M. The Claude quota stands at 37%. On the oros host, `journal-worktree-fffail` is on its 20th occurrence: the journal worktree can't fast-forward and is left untouched. Its journal fetch also hit 45s, but that has since cleared. Other journal-contention notices have cleared.
+Fleet-wise, monk workers on the endolin host moved between 1 and 4 with the window reset. The oros host's journal worktree has failed to fast-forward 20 times and needs a look. Journal lock-contention notices mostly recovered on their own. Two orchestrations completed cleanly, mt-beta-product-pass and the parcel-stack restack.
 
 ## Maintainer review docket
 
@@ -413,6 +410,28 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` cleared on oros-studio-garden-ce242c49.
 
+- `msg-fix-minion-town-pr180-ocap-key-audit-20261017-4ec00f1b0ec0` — from gardener:fix-minion-town-pr180-ocap-key-audit-20261017, reply_to `fix-minion-town-pr180-ocap-key-audit-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fix-minion-town-pr180-ocap-key-audit-20261017-4ec00f1b0ec0.md)
+
+> # minion.town [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/issues/180) control-plane key audit (ocap identity-vs-object test)
+>
+> No identity-shaped secret is reachable by a guest or caplet, so no code fix was needed and [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/issues/180)'s net diff is unchanged.
+>
+> | Secret | Designates | Guest-reachable |
+> | --- | --- | --- |
+> | capability-URL token | one partition × one attenuation; per-attenuation live-URL cap | yes (minted URL) |
+> | retention key (`open`) | one partition, readwrite; `open` checks nothing else, owner included | yes (`create` result; retained in the `open` formula) |
+> | facet key (`mint`/`revoke`) | one partition × one attenuation; read facet revokes only read URLs | no (exo closure) |
+> | owner credential (`create`) | one owner's quota-bounded allocator; reaches no existing partition | no (host-held caplet formula) |
+> | `/hello` proof | nothing (HMAC under the secret about to be presented, port-bound) | answers only |
+> | root secret | master; derives owner credentials and facet keys | no (only `minion-git-remote` + `minion-mcp`; not the Endo daemon, no formula) |
+>
+> Judgment call for you to confirm or overrule: the **owner credential** is HMAC(root, owner). It is derived from an identity, and all of an owner's guests share it. I classed it object-designating because it authorizes only `create` on that owner's quota-bounded allocator, and its `/hello` proof authorizes nothing. It cannot open, mint from, or revoke any partition the owner already holds, so the worst a leaked copy can do is spend that owner's partition quota. If you read it as identity-shaped, the fix is to key it per guest or per caplet instead of per owner. That is a small change, not a redesign.
+>
+> Smaller note: all read-only derivatives of one partition share one read facet key. Two read objects handed to different holders can therefore revoke each other's read URLs and share one mint budget. The facet key still designates one object (the partition's read facet), so I left it alone; no further hardening was done.
+>
+> - Ruling recorded in parent § 7: [https://github.com/kriscendobot/minion.town/pull/203](https://github.com/kriscendobot/minion.town/pull/203) (draft, docs only, base main-945aaaa)
+> - [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/issues/180) retconned from 28 commits to 7, net tree byte-identical to d9b9dd0, each commit typechecks on its own; force-pushed (head 3b5fd6e); still DRAFT pending [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/issues/178). Summary: [https://github.com/kriscendobot/minion.town/pull/180](https://github.com/kriscendobot/minion.town/pull/180)#issuecomment-6236096348
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-10-17T06:44:40Z, cleared 2026-10-17T12:54:34Z).
@@ -427,7 +446,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.2M | $432.00 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 101.4M | $434.45 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 94966182 tokens/day lower bound._
@@ -436,7 +455,7 @@ _Fleet token-unlock pace: 94966182 tokens/day lower bound._
 worst fetch p95 3.436113s/45s (/home/kris/garden/.garden-state/orch/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`kriscendobot-minion.town-pr198-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr198-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #198
 - [`kriscendobot-minion.town-pr202-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr202-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #202
 - [`minion-town-screen-conductor-ci-read-host`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-screen-conductor-ci-read-host.md) — Screener conductors must land on a host that can read CI status
@@ -445,6 +464,7 @@ worst fetch p95 3.436113s/45s (/home/kris/garden/.garden-state/orch/journal); 4 
 - [`kriscendobot-minion.town-pr199-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #199
 - [`claude-on-minion-town-press-20261017-150508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261017-150508.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion-town-pr197-screen-2f63c521-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr197-screen-2f63c521-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #197
+- [`kriscendobot-minion.town-pr203-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr203-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #203
 - [`screen-minion-town-pr192-ed7255b-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr192-ed7255b-conduct.md) — Screened delegated merge: kriscendobot/minion.town#192 at ed7255bbebffd8f3973...
 
 ### doin (3)
