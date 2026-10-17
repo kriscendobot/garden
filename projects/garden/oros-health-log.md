@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-17T05:20Z (oros-health-checkup-20261017-023510): healthy (deployed = origin/main2 `776cdbee`), no changes
+
+- **Load/mem:** load 1.3/1.2/1.1; 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k).
+- **Uptime:** 15d12h, no reboot.
+- **Deployed vs main2:** root at `776cdbee` (the #196 probe-draft doc), the origin/main2 tip. fleet/health (05:04Z): `roll_status: deployed`, 0 of 287 units failed.
+- **Units:** 0 failed, none flagged `NeedDaemonReload`. Only monk 1 is running (this check-up). The leveling row is still `4 0`. Not draining. No derotation markers.
+- **Budget heartbeat:** claude-oros sampled at 05:02Z, status ok, 50% used (119.45M of 180M). All 8 pushes from 03:16Z to 05:02Z landed, about 15 minutes apart, and spend is monotone. Last run's −33k dip has not recurred.
+- **State clones:** 32 namespace journal clones. The largest has 49 packs (gardener-scaler). None has a tmp_pack or a `gc.log`. The root repo has 50 packs, no tmp_pack and no `gc.log`. Locks older than 30 minutes are only persistent flock files. `repo-locks/` holds 9,402 keys.
+- **rc=124 (3h):** one handler overrun. At 02:15Z `endojs-endo-but-for-bots-pr1486-gauntlet-undraft` hit its 2400s handler budget on monk 1 (2414s). It was classified transient, stamped for early doom, and reaped at 02:33Z by endolin. It is now parked in `plan/`. This is job-level, not a host fault.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands. The pr1486 undraft job is parked after a wall-clock overrun if someone wants to look.
+
 ## 2026-10-17T00:40Z (oros-health-checkup-20261016-233509): healthy (deployed = origin/main2 `591671f0`); ran a user daemon-reload
 
 - **Load/mem:** load 1.5/1.3/1.3; 13 GiB of 15 GiB available (789 MiB of swap in use).
