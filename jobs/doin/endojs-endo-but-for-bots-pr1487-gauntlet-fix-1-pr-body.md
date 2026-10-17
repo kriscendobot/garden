@@ -64,3 +64,13 @@ None.
 
 <!-- garden-job: endo-but-for-bots-ocapn-noise-cryptographic-review-open-pr -->
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T04:30:34Z
