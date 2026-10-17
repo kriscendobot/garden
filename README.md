@@ -1,20 +1,29 @@
 # Garden bulletin
 
-_As of 2026-10-17T18:43:59Z_
+_As of 2026-10-17T18:45:59Z_
 
 ## Latest
 
-Three gauntlets on minion.town stopped at their review budget without converging: [#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds), [#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16) and [#192](https://github.com/kriscendobot/minion.town/pull/192) (10/10). [#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) did the same. On endo-but-for-bots, [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) each used all 6 rounds. Each message offers `--add-rounds` to grant more, but the findings keep changing from round to round, so more rounds may not help. A human merge or review call may be the better move.
+Four minion.town PRs merged and deployed cleanly in the last day: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#184](https://github.com/kriscendobot/minion.town/pull/184). [#194](https://github.com/kriscendobot/minion.town/pull/194), [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#196](https://github.com/kriscendobot/minion.town/pull/196) also merged and passed their deploy checks. The `mt-beta-product-pass-20261017` orchestration and the parcel-stack restack orchestration both finished with all children done and none failed.
 
-The proxy merged and deployed minion.town [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#196](https://github.com/kriscendobot/minion.town/pull/196). Each deploy succeeded and was validated. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it. [#192](https://github.com/kriscendobot/minion.town/pull/192) is re-screened and a second conduct job is queued. The CI watcher on the oros host keeps hitting HTTP 403 reading CI status for #192, which needs the bot token granted `checks:read`, `statuses:read` and `actions:read`.
+**Needs your decision:**
+- **Gauntlets out of review budget:** five hit their round limits without converging.
+  - [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), 16/16 rounds. This one has already merged.
+  - [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180), 16/16 rounds, 20 must-fix items outstanding. The list includes a read-only holder being able to exhaust the mint cap and a channel-unbound `/hello` proof.
+  - [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), 12/12 rounds.
+  - [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192), 10/10 rounds.
+  - [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482), 6/6 rounds. The panel found the deference bound resetting on every redial.
+  - [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), 6/6 rounds.
+  
+  Each message gives a `--add-rounds` resume command if you want more review.
+- **Stalled merge:** [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) was screened, but three conductors finished without merging it.
+- **CI token gap:** the oros host gets a 403 reading CI for [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) (seen 6 times). The bot token needs checks, statuses and actions read permission.
+- **Settings simplification report:** run `deploy-accounts-store.sh` before merging. Until the index is active, Log out stays hidden and account deletion answers 503. You also have four choices to veto, and the invitation count waits on #199.
+- **Docs tower report:** the live probe left one anonymous guest on production that the garden can't delete. The source note was also missing on the host that ran the job.
+- **Quota question:** the claude-endolin1 cap was restored to 271M. Should this host's workers be on the endolin1 login rather than endolin2? If endolin2 is still logged in, its spend will again be charged to endolin1, and the claim gate will refuse work.
+- **Accountant slate:** the proxy tentatively answered the accountant's weekly question and asked you to review it. The slate stays as proposed and the reserve stays at 18M. The proxy couldn't confirm oros reset credits, so treat oros as having none.
 
-Items waiting on you:
-- **Settings simplification (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging. Until then, Log out stays hidden and account deletion answers 503. The same message asks you to veto or accept four removals, and says the invitation count waits on #199.
-- **Tower report:** the live probe left one anonymous guest on production minion.town, and the source note was not on the host that ran the job.
-- **Quota:** the restored claude-endolin1 cap (271M) may be charged endolin2's spend. Please confirm which login that host is using.
-- **Accountant:** the proxy gave a tentative answer to the weekly slate question. Review it and override if you disagree.
-
-The `mt-beta-product-pass-20261017` orchestration and the parcel-stack restack orchestration both finished with no failed children. The oros journal worktree still cannot fast-forward (24th notice), and the many journal lock-contention alerts have mostly recovered.
+**Ongoing:** the oros journal worktree still can't fast-forward (occurrence #26). Earlier journal lock contention alerts have mostly cleared.
 
 ## Maintainer review docket
 
@@ -376,9 +385,9 @@ Delegation: **active**
 
 - `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #24 (first seen 2026-10-09T02:17:23Z, latest 2026-10-17T17:45:08Z).
-> The SAME condition (`journal-worktree-fffail-oros-studio-garden-ce242c49`) has now been observed 24 times; this is ONE
-> coalesced notice that updates in place, not 24 messages. Latest detail:
+> WATCHDOG notice — occurrence #26 (first seen 2026-10-09T02:17:23Z, latest 2026-10-17T18:45:09Z).
+> The SAME condition (`journal-worktree-fffail-oros-studio-garden-ce242c49`) has now been observed 26 times; this is ONE
+> coalesced notice that updates in place, not 26 messages. Latest detail:
 >
 > journal worktree /Users/dom/garden/journal could not fast-forward to origin/journal2 despite a clean, non-ahead tree; left UNTOUCHED. Inspect 'git -C /Users/dom/garden/journal status'. (host=oros-studio-garden-ce242c49)
 
@@ -434,7 +443,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.7M | $467.05 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 110.8M | $467.36 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 93512099 tokens/day lower bound._
