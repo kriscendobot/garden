@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-17T01:30:53Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endo-but-for-bots-ocapn-noise-cryptographic-review-open-pr
+pr_number: 1487
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1487
+pr_head: build/ocapn-noise-cryptographic-review
