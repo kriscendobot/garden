@@ -28,6 +28,7 @@ is waiting on it, so the proxy screen can't merge anything.
 
 Done when a queued minion.town run reaches `in_progress` on the self-hosted runner.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
