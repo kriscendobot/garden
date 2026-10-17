@@ -25,3 +25,13 @@ There must still be an explicit way to reach **account deletion** from settings 
 
 Remove every other settings clutter from the view; list what was removed in the PR body.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T07:23:14Z
