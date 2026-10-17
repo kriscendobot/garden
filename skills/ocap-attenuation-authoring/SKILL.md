@@ -1,6 +1,6 @@
 ---
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-17
 author: gardener
 status: stub
 ---
@@ -98,5 +98,12 @@ outside the narrowed verbs.
   session, 2026-10-06) about the garden's move toward minion.town:
   coordination, messaging, caplet validation, and creating useful
   attenuations.
+- **Bearer tokens versus identity.** A bearer token is not incoherent with
+  object capabilities. The test is what the token designates: a token that
+  refers to one specific object representing the designated (attenuated)
+  authority is a capability; a token that refers to an identity, carrying
+  ambient or master authority, is not. Judge an attenuation's token by that
+  test, never by the word "bearer" (maintainer ruling, kriskowal, liaison
+  session 2026-10-17, from the minion.town #180 review).
 - Before expanding this skill, re-read the designs and PRs listed above. They
   are a snapshot and will drift.
