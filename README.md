@@ -1,22 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T17:49:31Z_
+_As of 2026-10-17T18:01:12Z_
 
 ## Latest
 
-Four gauntlets ran out of review budget without converging and now need a maintainer decision (grant more rounds or review by hand). They are [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix items open), [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16, 20 open), [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6, 20 open) and [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12). Notices also fired for [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). The first three read as "moving target": each round surfaces new breaker findings rather than repeating old ones.
+Three gauntlets ran out of review budget without converging, and each needs a decision from you on whether to grant more rounds or review by hand. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 of 16 rounds and has 19 unaddressed must-fix items. [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) used 16 of 16 and has 20. [endojs/endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) used 6 of 6 and has 20. Each round raises a fresh batch of findings, mostly from the breaker seat, so the review is not converging. Budget-reached notices also arrived for [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) and [endojs/endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), each with no structured must-fix list.
 
-On minion.town, delegated merges validated and deployed cleanly for #190, #193, #194, #195, #184, #188 and #196. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it. A separate watchdog notice says the CI host's GitHub token gets a 403 reading the status-check rollup on [#196](https://github.com/kriscendobot/minion.town/pull/196), and needs checks/statuses/actions read permission.
+**minion.town delegation:** [#196](https://github.com/kriscendobot/minion.town/pull/196), [#190](https://github.com/kriscendobot/minion.town/pull/190), [#194](https://github.com/kriscendobot/minion.town/pull/194), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#195](https://github.com/kriscendobot/minion.town/pull/195), [#188](https://github.com/kriscendobot/minion.town/pull/188) and [#193](https://github.com/kriscendobot/minion.town/pull/193) all merged, deployed successfully and were validated today. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it, so their reports under `jobs/tada/` need a read.
 
-Maintainer items:
-- **Settings simplification:** run `deploy-accounts-store.sh` before merging, because until then Log out stays hidden and account deletion answers 503. Four choices are up for veto.
-- **Claude login on the leader host:** confirm whether it is on endolin1 or endolin2. If it is endolin2, the ledger will charge its spend to endolin1 and the claim gate will refuse work again.
-- **Stray guest on production:** a live probe left one anonymous guest on production minion.town, and it can't be deleted through the API.
-- **Weekly accountant statement:** the pool total was re-sized from 610M to 460M after endolin2's retirement. The accountant also asks whether claude-oros has any reset credits.
+**Needs your call:**
+- Run `deploy-accounts-store.sh` before merging the settings-simplification work. Until then, Log out stays hidden and account deletion answers 503 without deleting anything. The same report asks you to veto or accept four choices: the no-bond hint, removing Copy guest URL and Forget this browser, removing mail before the chat clip exists, and leaving daemon state on disk while garbage collection is off.
+- The docs-tower report's live probe left one anonymous guest on production minion.town, and the API has no delete route. The source note was also not on the host that ran the job, so the report was not checked against it.
+- `claude-endolin1`'s cap was restored to 271M. The gardener asks whether this host is logged in as endolin1 or endolin2. If it is endolin2, that spend is charged to endolin1 and the claim gate will refuse work again.
 
-Both the `mt-beta-product-pass-20261017` and parcel-stack restack orchestrations completed with no failed children. Most journal-contention watchdog notices have recovered. The oros journal worktree still can't fast-forward (24 occurrences) and needs inspection.
+**Fleet health:**
+- Monk counts on both hosts are throttled by quota pacing, and the endolin1 pool is at 40% of its cap.
+- On oros, the journal worktree has failed to fast-forward 24 times since 2026-10-09.
+- On oros, the CI watcher still cannot read CI for [kriscendobot/minion.town#196](https://github.com/kriscendobot/minion.town/pull/196) because the bot token needs `checks:read`, `statuses:read` and `actions:read`.
+- Most journal-contention notices recovered on their own.
+
+Two orchestrations completed cleanly: the minion.town beta product pass, and the parcel-stack restack for endo-but-for-bots.
 
 ## Maintainer review docket
 
@@ -331,33 +334,18 @@ Delegation: **active**
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=113392322 cap=180000000 pace-bias=0 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=4 backoff=0.7555(ramp) target=1
 
-- `msg-accountant-weekly-20261017-160509-976689992b4e` — from gardener:accountant-weekly-20261017-160509, reply_to `accountant-weekly-20261017-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261017-160509-976689992b4e.md)
+- `20261017T175349Z-6b9fd0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T175349Z-6b9fd0.md)
 
-> # Accountant weekly statement: week of 2026-10-17 (reset 03:00Z)
+> proxy answered a gating question (tentative — review and override):
+> - gardener: accountant-weekly-20261017-160509
+> - question (msgid msg-accountant-weekly-20261017-160509-976689992b4e.md)
+> - tentative answer: **Proxy / tentative. The maintainer may revise.**
 >
-> **Applied under your standing 2026-10-02 directive:** I carried the slate forward, then re-sized the total from **610M to 460M** for endolin2's retirement. The figure is 90% of the living capacity (endolin1 271M + oros 180M + provisional codex fit 60.7M = 511.7M → 460.5M, rounded down). The ranking and shares are unchanged: 30/20/15/20/8/5/2 over 95%, garden-book keeps its standing 5M, and the reserve is 18M.
->
-> | rank | arc | slice | spent so far |
-> | ---: | --- | ---: | ---: |
-> | 1 | minion-town-mcp-ocapn | 131.1M | 1.3M |
-> | 2 | minion-town-git-remote | 87.4M | 0.5M |
-> | 3 | minion-town-ui | 65.55M | 0.04M |
-> | 4 | endo-ocapn-background | 87.4M | 0.8M |
-> | 5 | moonshots | 34.96M | 0 |
-> | 6 | garden-upkeep | 21.85M | 0 |
-> | 7 | garden-book | 5M | 0.2M |
-> | 8 | endo-backlog | 8.74M | 0 |
-> | - | unallocated (reserve) | 18M | 0.5M |
->
-> **Pools (as of 17:34Z):** claude-endolin1 is at 22% (~60M), and 95% of it is not arc-tagged. claude-oros is at 56% (~101M), and 91% of it is not arc-tagged; its window resets Tue 04:00 MT. codex-endolin is at 60% and in backoff. The next endolin reset is 2026-10-24T03:00Z.
->
-> **Observation:** arc-tagged spend is only about 5–9% of pool use. The rest comes from auto-staged gauntlets, watchers, the liaison, and untagged jobs. Five gauntlet `review-budget-reached` notices fired this morning ([kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/issues/180), [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/issues/178), [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/issues/192), [endojs/endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/issues/1478), [endojs/endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/issues/1482)). So the slices are not the binding constraint this week. Pacing comes from admission and backoff.
->
-> **Reset credits:** Claude has none. codex-endolin has 2 (expire 10-29 and 11-06). `reset-credits.md` still lists claude-oros as "offline since 09-28", but its pool shows active use. Please confirm whether oros has any credits.
->
-> **No open budget requests.**
->
-> **Proposal for next week:** keep the same ranking and shares, re-sized at the 10-24 roll to whatever the living pools are. If you'd rather have the reserve absorb the untagged gauntlet spend (e.g. lift unallocated from 18M), or change any share, reply with the change and I'll apply it. If you don't reply, the slate above stays in force.
+> - **Slate:** Keep it as proposed. The 2026-10-02 directive covers the carry-forward, and re-sizing 610M to 460M for endolin2's retirement follows from it. Ranking and shares stay unchanged. Re-size again at the 10-24 roll to whatever the living pools are.
+> - **Reserve:** Leave unallocated at 18M for now. You say the slices aren't the binding constraint this week, so raising the reserve wouldn't change pacing. Try the current slate for one more week. If untagged gauntlet spend still dominates, propose a larger reserve or an explicit gauntlet line item then, with the week's numbers.
+> - **Untagged spend:** The 5–9% arc-tagged figure is worth a follow-up. Tagging auto-staged gauntlets with their parent arc would make the slices meaningful. Record that as a parked improvement. Don't block the statement on it.
+> - **claude-oros reset credits:** I can't confirm these. Treat oros as having none until the maintainer says otherwise. Don't plan around credits that may not exist. Leave `reset-credits.md` unchanged and flag the stale "offline since 09-28" entry for the maintainer to correct.
+> - **Next steps:** No other action is needed from this reply.
 
 - `endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-parcel-stack-restack-20261015-r5527149922-resume-resume-resume-resume-resume-resume-terminal-complete.md)
 
@@ -452,7 +440,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.8M | $456.31 _(notional, rate-card)_ | 40% of 271.0M (ok) |
+| Claude | 108.8M | $459.33 _(notional, rate-card)_ | 40% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 93168191 tokens/day lower bound._
@@ -461,13 +449,12 @@ _Fleet token-unlock pace: 93168191 tokens/day lower bound._
 worst fetch p95 15.954417s/45s (/home/kris/garden/.garden-state/accountant/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (9)
 - [`kriscendobot-minion.town-pr198-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr198-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #198
+- [`improve-fixer-docket-reenter-nongreen-defers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-fixer-docket-reenter-nongreen-defers.md) — ---
 - [`kriscendobot-minion.town-pr201-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr201-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #201
 - [`endojs-endo-but-for-bots-pr546-gauntlet-20261007-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr546-gauntlet-20261007-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #546
 - [`fix-minion-town-pr180-ocap-key-audit-20261017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-minion-town-pr180-ocap-key-audit-20261017.md) — kriscendobot/minion.town PR #180: audit the control-plane keys against the oc...
-- [`claude-on-minion-town-completion-press-20261017-163509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261017-163509.md) — Completion press: Claude-on-minion.town arc
-- [`kriscendobot-minion.town-pr200-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr200-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #200
 - [`kriscendobot-minion.town-pr199-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #199
 - [`claude-on-minion-town-press-20261017-150508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261017-150508.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr203-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr203-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #203
@@ -475,16 +462,16 @@ worst fetch p95 15.954417s/45s (/home/kris/garden/.garden-state/accountant/journ
 
 ### doin (3)
 - [`kriscendobot-minion.town-pr202-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr202-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #202
-- [`accountant-weekly-20261017-160509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-weekly-20261017-160509.md) — Weekly arc apportionment
+- [`kriscendobot-minion.town-pr200-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr200-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #200
 - [`kriscendobot-minion-town-pr197-screen-2f63c521-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr197-screen-2f63c521-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #197
 
-### tada (13661)
+### tada (13663)
+- [`claude-on-minion-town-completion-press-20261017-163509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/claude-on-minion-town-completion-press-20261017-163509.md) — Cost
+- [`accountant-weekly-20261017-160509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/accountant-weekly-20261017-160509.md) — Accountant weekly: week of 2026-10-17T03:00Z
 - [`oros-health-watch-20261017-150508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/oros-health-watch-20261017-150508.md) — Cost
 - [`endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-1.md) — Cost
 - [`minion-town-screen-conductor-ci-read-host`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/minion-town-screen-conductor-ci-read-host.md) — Cost
-- [`kriscendobot-minion-town-pr197-screen-2f63c521-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-minion-town-pr197-screen-2f63c521-gauntlet-viability.md) — Cost
-- [`minion-town-arc-press-20261017-150508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/minion-town-arc-press-20261017-150508.md) — minion.town arc supervisor tick, 2026-10-17 15:25Z
-- … and 13656 more
+- … and 13658 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
