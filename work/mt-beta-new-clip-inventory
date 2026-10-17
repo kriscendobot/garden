@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-17T08:14:18Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-mt-beta-new-clip-inventory
+pr_number: 201
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/201
+pr_head: feat/new-clip-inventory
