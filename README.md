@@ -1,26 +1,19 @@
 # Garden bulletin
 
-_As of 2026-10-17T06:11:47Z_
+_As of 2026-10-17T06:15:20Z_
 
 ## Latest
 
-Four minion.town PRs merged and deployed cleanly in the window, each validated by the deploy watchdog: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#184](https://github.com/kriscendobot/minion.town/pull/184). [#194](https://github.com/kriscendobot/minion.town/pull/194) also merged and deployed, and [#190](https://github.com/kriscendobot/minion.town/pull/190) is screened with a delegated-merge job queued. The Claude-on-minion.town press and the served-clip browser-coherence job both completed, and a new minion.town arc press is now running.
+Minion.town merges and gauntlet stalls dominated the night. Four screened PRs merged and deployed cleanly, each with the watchdog reporting ok: [#193](https://github.com/kriscendobot/minion.town/pull/193), [#188](https://github.com/kriscendobot/minion.town/pull/188), [#195](https://github.com/kriscendobot/minion.town/pull/195) and [#184](https://github.com/kriscendobot/minion.town/pull/184). [#194](https://github.com/kriscendobot/minion.town/pull/194) also merged and deployed, and [#190](https://github.com/kriscendobot/minion.town/pull/190) has a conduct job queued after its latest screen. On the board, the minion.town arc press and the endo-but-for-bots [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) gauntlet fix round 3 finished. Panel round 4 for #1481 is queued, and [#180](https://github.com/kriscendobot/minion.town/pull/180) has been claimed for panel round 17.
 
-Several gauntlets hit their review budget without converging, and each is waiting on your call to add rounds:
-- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) stopped at 16 of 16 rounds, with 19 and 20 must-fix items outstanding. Most of those are `breaker` seat findings that the report itself classes as should-fix.
-- [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) stopped at 8 of 8 rounds with no structured must-fix list.
+**Needs your call:**
+- **Review budgets exhausted.** Gauntlets for minion.town [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) each used all 16 rounds and still raised about 20 must-fix items. The reviews are "moving target" and not converging, so you could extend them or merge on your own judgment. [#192](https://github.com/kriscendobot/minion.town/pull/192) hit its 8-round cap, but its must-fix list is unavailable. A convergence investigation for #180 is queued.
+- **Credentials and token access.** The CI-wait watchdog gets HTTP 403 reading CI for [minion.town#188](https://github.com/kriscendobot/minion.town/issues/188). The bot token needs checks:read, statuses:read and actions:read.
+- **Claude login.** The `claude-endolin1` cap was restored to 271M after the reset. It's unclear whether this host's workers are logged in as endolin1 or endolin2. If it's endolin2, the combined spend will hit the cap and the claim gate will refuse work again, so please re-login this host to endolin1 or tell the garden to raise the cap.
+- **Production guest.** The docs-tower probe left one anonymous guest on production minion.town. There's no delete route and its identifier wasn't recorded, so leave it or remove it by hand. The source note was also missing from the host that ran the job.
+- **OCapN canary.** The live canary is parked on this host and needs `guests.json` to hold two guest locators.
 
-PR #180 already has a panel round 17 and a convergence investigation queued.
-
-On the Endo side, gauntlet rounds are moving on [#1478](https://github.com/kriscendobot/endo-but-for-bots/pull/1478), [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). The parcel-stack restack orchestration finished with all three children done.
-
-Decisions and notices for you:
-- **Claude login on endolin-garden:** the host's login is unconfirmed (endolin1 or endolin2). If it is endolin2, its spend will be charged to endolin1's restored 271M cap and the claim gate will stall.
-- **CI token permissions:** `ci-wait-merge` on the Oros host is blocked by a 403 reading CI for [minion.town#188](https://github.com/kriscendobot/minion.town/issues/188). The bot token needs checks, statuses and actions read.
-- **Anonymous guest on production:** the docs tower report's live probe left an anonymous guest on production minion.town. The API has no delete route, so it's yours to leave or remove by hand. The source note was also missing on the host that ran the job.
-- **OCapN canary:** the job is repinned to the endolin host and stays parked until you say go ahead. Since [minion.town#193](https://github.com/kriscendobot/minion.town/issues/193) it adopts guests from durable locators, so `guests.json` needs the two guest locators.
-- **Journal lock contention:** the storm on the endolin host is at 33 occurrences, with seven clones hitting contention in one tick. Individual fetch p95s are low, so a shared cause looks likelier than seven separate faults.
-- **Monk count:** monks on that host moved between 1 and 4 as the new quota window opened.
+Journal-contention notices mostly cleared. Monk counts on the budget ramp moved between 1 and 4 as the quota window rolled.
 
 ## Maintainer review docket
 
@@ -56,18 +49,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #33 (first seen 2026-10-16T17:37:14Z, latest 2026-10-17T06:08:00Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 33 times; this is ONE
-> coalesced notice that updates in place, not 33 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-17T06:12:54Z).
+> It was observed 33 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=1.422102s, giveups=6, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.015379s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.015376s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.015095s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013120s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.013190s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.013605s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
@@ -260,18 +246,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.7M | $168.27 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 38.3M | $171.25 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 37.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106048490 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.436113s/45s (/home/kris/garden/.garden-state/orch/journal); 10 open notice(s); checker healthy
+worst fetch p95 3.873615s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (13)
 - [`kriscendobot-minion.town-pr196-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr196-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #196
-- [`kriscendobot-minion.town-pr180-gauntlet-panel-17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr180-gauntlet-panel-17.md) — Gauntlet stage: PANEL round 17 — kriscendobot/minion.town PR #180
 - [`mt-beta-home-splash-waitlist`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mt-beta-home-splash-waitlist.md) — Consolidate the minion.town home page into one root route, with a closed-beta...
 - [`endojs-endo-but-for-bots-pr1485-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1485-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1485
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1478-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1478
@@ -282,22 +267,22 @@ worst fetch p95 3.436113s/45s (/home/kris/garden/.garden-state/orch/journal); 10
 - [`build-minion-town-guest-coupons-closed-beta`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-guest-coupons-closed-beta.md) — Build: closed beta for minion.town via guest coupons (maintainer-authorized, ...
 - [`endojs-endo-but-for-bots-pr1487-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1487-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1487
 - [`screen-minion-town-pr190-9ce81f8-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr190-9ce81f8-conduct.md) — Screened delegated merge: kriscendobot/minion.town#190 at 9ce81f8966ca40c5d1a...
+- [`endojs-endo-but-for-bots-pr1481-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1481-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1481
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1476-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1476
 
-### doin (5)
-- [`minion-town-arc-press-20261017-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261017-055009.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (4)
+- [`kriscendobot-minion.town-pr180-gauntlet-panel-17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr180-gauntlet-panel-17.md) — Gauntlet stage: PANEL round 17 — kriscendobot/minion.town PR #180
 - [`oros-health-watch-20261017-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261017-055009.md) — ---
-- [`endojs-endo-but-for-bots-pr1481-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1481-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1481
 - [`endojs-endo-but-for-bots-pr1482-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1482-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1482
 - [`kriscendobot-minion.town-pr178-gauntlet-fix-12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr178-gauntlet-fix-12.md) — Gauntlet stage: FIX round 12 — kriscendobot/minion.town PR #178
 
-### tada (13527)
+### tada (13529)
+- [`minion-town-arc-press-20261017-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/minion-town-arc-press-20261017-055009.md) — Cost
+- [`endojs-endo-but-for-bots-pr1481-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr1481-gauntlet-fix-3.md) — Cost
 - [`claude-on-minion-town-press-20261017-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/claude-on-minion-town-press-20261017-055009.md) — Cost
 - [`minion-town-git-remote-served-clip-browser-coherence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/minion-town-git-remote-served-clip-browser-coherence.md) — Cost
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr1478-gauntlet-panel-6.md) — Cost
-- [`endojs-endo-but-for-bots-pr1482-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/endojs-endo-but-for-bots-pr1482-gauntlet-fix-3.md) — PR #1482 gauntlet fix round 3: panel fixes pushed, CI green
-- [`kriscendobot-minion.town-pr196-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/17/kriscendobot-minion.town-pr196-gauntlet-clean.md) — Cost
-- … and 13522 more
+- … and 13524 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
