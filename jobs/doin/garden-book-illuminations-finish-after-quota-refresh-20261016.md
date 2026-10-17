@@ -29,3 +29,13 @@ Never publish or merge while a gauntlet is failed, draft, red, conflicted, revie
 <!-- garden-annotation: key=1aaf1880705b by=producer at=2026-10-16T21:05:22Z -->
 
 SUPERSEDED 2026-10-16 by garden-book-pr15-merge-and-publish-draft-20261016: the maintainer waived the clean-gauntlet requirement and asked for a merge now plus a draft edition on ocap.site. Do not promote this job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-17T03:03:01Z
