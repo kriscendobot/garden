@@ -1,27 +1,36 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-17T00:21:46Z_
+_As of 2026-10-17T00:24:05Z_
 
 ## Latest
 
-Gauntlet work on minion.town and endo-but-for-bots kept moving, but one review hit its budget and needs a decision from you.
+The board is busy but no file-level transitions resolved this cycle. The visible movement is the gauntlet and the delegated-merge screening on minion.town.
 
-**Needs your call**
-- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used all 16 panel/fix rounds without converging. 19 must-fix findings remain, mostly the breaker seat on the CI-runner provisioning script. The last fix round pushed with CI green. You can merge it as is, or grant more rounds with `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr184-gauntlet panel --add-rounds 2`. A screened-merge job for #184 is already queued.
-- The `ci-wait-merge` watchdog on the oros host got HTTP 403 reading CI for [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188). The bot token needs `checks:read`, `statuses:read` and `actions:read`. A second screened-merge job for #188 is queued, and the 403 may block it.
-- The docs-tower report job left one anonymous guest on production minion.town. The API has no delete route, so cleanup is manual. The source note `note-from-tower.md` wasn't on the host that ran the job, so the report was never checked against it.
+**Needs a decision:** [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) hit its review budget after 16 panel/fix rounds. CI is green, but 19 must-fix items remain and the trend reads as a moving target. Most are breaker findings against `provision-ci-runner.sh`, for example the seed check accepting secrets the Lambda's parser rejects. You can add rounds with `gauntlet.sh --resume-from-stage … panel --add-rounds N`, or decide on a human merge. It was screened again and has a conduct job queued.
 
-**Moved**
-- [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) finished panel round 7 and is queued for fix round 7. [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) passed panel round 2 and is queued for un-draft. [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190) is queued for panel round 9.
-- On endo-but-for-bots, [#1485](https://github.com/endojs/endo-but-for-bots/pull/1485) passed its viability check and is now in clean. [#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) are in fix round 1. [#1486](https://github.com/endojs/endo-but-for-bots/pull/1486) is queued for panel round 1, [#1476](https://github.com/endojs/endo-but-for-bots/pull/1476) for panel round 3, and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) for fix round 3.
-- The parcel-stack restack orchestration finished: all 3 children completed with no failures.
-- minion.town#193 merged and its deploy succeeded. The canary job is pinned to the leader host and parked until you say go ahead. It now needs two guest locators in `guests.json`.
+**Merge pipeline:**
+- [minion.town#193](https://github.com/kriscendobot/minion.town/pull/193) merged, and its deploy succeeded with the watchdog ok.
+- [minion.town#195](https://github.com/kriscendobot/minion.town/pull/195) was screened and has a conduct job queued.
+- [minion.town#188](https://github.com/kriscendobot/minion.town/pull/188) is on a second conduct round. Its CI read is blocked by a 403 on `statusCheckRollup`. The bot token needs checks:read, statuses:read and actions:read on `kriscendobot`.
+- [minion.town#194](https://github.com/kriscendobot/minion.town/pull/194) is at the un-draft stage.
+- [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) is queued for fix round 7.
+- [minion.town#190](https://github.com/kriscendobot/minion.town/pull/190) is queued for panel round 9.
 
-**Fleet**
-- Claude spend is at 92% of quota, and the monk pool on the leader host dropped to 2 workers.
-- The leader's journal lock-contention storm cleared. Several lock-contention notices remain open on both hosts.
+**Endo gauntlets:**
+- [endo-but-for-bots#1485](https://github.com/endojs/endo-but-for-bots/pull/1485) is in the clean stage.
+- [endo-but-for-bots#1481](https://github.com/endojs/endo-but-for-bots/pull/1481) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) are in fix round 1.
+- [endo-but-for-bots#1476](https://github.com/endojs/endo-but-for-bots/pull/1476), [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1486](https://github.com/endojs/endo-but-for-bots/pull/1486) are queued.
+- A build job for [endo-but-for-bots#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) is also on the board.
+- The parcel-stack restack orchestration finished with all 3 children complete and no failures.
+
+**Other items for you:**
+- The docs-tower report job left one anonymous guest on production minion.town. There is no delete route, so decide whether to remove it by hand.
+- The same report was not checked against `note-from-tower.md`, which wasn't on the host that ran the job. A re-run on the host that holds the note would check it.
+- The canary run is parked on the leader host until you say go ahead. It now expects two guest locators in `~/.garden-state/ocapn-canary/guests.json`.
+
+**Fleet:**
+- Budget-level watchdogs stepped monk workers down on endolin (to 2) and on oros (to 1) as the claude-endolin1 weekly window nears its 03:00Z reset.
+- The journal lock-contention storm on endolin cleared. Eight contention notices are still open, all low-latency p95 with single giveups.
 
 ## Maintainer review docket
 
@@ -167,7 +176,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 393.5M | $1840.70 _(notional, rate-card)_ | 92% of 430.0M (ok) |
+| Claude | 393.5M | $1840.92 _(notional, rate-card)_ | 92% of 430.0M (ok) |
 | Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 93917487 tokens/day lower bound._
