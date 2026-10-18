@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-18T01:20Z (oros-health-checkup-20261017-212007): healthy (one commit behind main2, deploy deferred behind long jobs), no changes
+
+- **Load/mem:** load 1.3/1.1/1.0. 13 GiB of 15 GiB available (812 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k).
+- **Uptime:** 16d8h, no reboot.
+- **Deployed vs main2:** root at `5b93a4d2`, deployed 21:58Z. origin/main2 is `46215da0` (gate panels on deterministic probes), which landed at 00:56Z. `upgrade-ready` names it as of 01:12Z. fleet/health/oros (01:12Z): `roll_status: deferred`, `deferred_reason: long-job monk 1 3992s`, 0 of 287 units failed. The long job was `kriscendobot-minion.town-pr201-gauntlet-fix-2`, which ran from 00:05Z to about 01:13Z. It has finished, but this check-up claimed monk 1 right after it. Once this check-up passes 300s it trips the same long-job deferral, so it is finishing quickly to let self-deploy proceed on its next tick. The deferral is designed behavior (the conductor waits rather than failing), not a gate fault.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). The leveling row is still `4 0`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 01:02Z, status ok, 57% used (136.29M of 180M). All 8 pushes from 23:17Z to 01:02Z landed, about 15 minutes apart, and spend is monotone (no repeat of the 10-17 dip). The root `journal/` worktree copy was 30 minutes behind origin, which is normal sync lag.
+- **State clones:** 32 namespace journal clones. The largest have 49 packs (leader) and 47 (reaper, regenerate-sections-index). None has a tmp_pack or a `gc.log`. The root repo has 9 packs and no `gc.log`. No `index.lock` or root `.lock` is older than 5 minutes.
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands. Watch item: the 3-hourly check-up always lands on an otherwise idle monk and runs for more than 300s, so it can defer a pending deploy for its whole run. That costs minutes, not hours.
+
 ## 2026-10-17T20:55Z (oros-health-checkup-20261017-180508): healthy (one commit behind main2, roll pending), no changes
 
 - **Load/mem:** load 2.0/2.6/1.8 (a panel job on monk 1 just finished). 13 GiB of 15 GiB available (814 MiB of swap in use).
