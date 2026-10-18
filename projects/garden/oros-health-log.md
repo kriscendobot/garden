@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-18T09:58Z (oros-health-checkup-20261018-093508): healthy on-host; deploy held because the leader stopped releasing, no changes
+
+- **Load/mem:** load 1.4/1.8/1.8. 13 GiB of 15 GiB available (815 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k). The virtiofs garden mount is 47% used.
+- **Uptime:** 16d16h, no reboot.
+- **Deployed vs main2:** root at `6348060b`; origin/main2 is `05d833a2` (docs-only), and `upgrade-ready` has named it since 08:29Z. The leader (endolin-garden-ece02cb4) has not written a release token for it in about 85 minutes. The last release was 6348060b at 05:41Z, and its canary passed at 06:32Z. Since 09:33Z self-deploy has logged `leaderless ... target 05d833a2 is AHEAD of last-known-good b8abbe64; HOLDING`. That hold is correct: it never runs ahead of a leader-validated sha. **Root cause is on the leader:** endolin has been at `b8abbe64` since 2026-10-16 16:52Z. Its own advance has not landed since then, so `deploy/leader-sha` and `roll-completed` are frozen at b8abbe64, even though oros passed 4 canary releases afterwards (5b93a4d2, 46215da0, b1c49fea, 6348060b). Oros is fine; it is the leader that is about 41h behind.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 09:47Z, status ok, 57% used (142.37M of 180M). All 5 pushes from 08:48Z to 09:47Z landed, about 15 minutes apart, and spend is monotone.
+- **State clones:** the largest have 48 packs (regenerate-topics-counts) and 47 (state-clone-keeper, reaper, fleet-health), below the threshold of 50. No tmp_pack, no `gc.log`. The two `index.lock` files were seconds old (live commits).
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** someone at endolin should check why `rolling-deploy.sh`'s leader self-advance has not landed since 10-16 16:52Z (look for a "REJECTED" marker or a long-job "did not land" loop in endolin's `garden-rolling-deploy` journal). It is also not releasing 05d833a2. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-18T08:50Z (oros-health-checkup-20261018-063508): healthy (one docs commit behind main2, roll pending), no changes
 
 - **Load/mem:** load 1.8/1.5/1.1. 13 GiB of 15 GiB available (815 MiB of swap in use).
