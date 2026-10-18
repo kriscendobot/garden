@@ -28,3 +28,13 @@ PR: https://github.com/kriscendobot/minion.town/pull/197
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-18T11:23:11Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-18T12:13:37Z
