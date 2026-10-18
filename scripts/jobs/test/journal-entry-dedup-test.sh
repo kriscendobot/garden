@@ -12,7 +12,8 @@
 # script must therefore refuse the re-post itself: within the suppression window,
 # an identical kind+role+host entry whose BODY is byte-identical (frontmatter, and
 # so the differing `at:` stamp, excluded) means log `duplicate of <path>, not
-# posting` and exit 0 having written nothing.
+# posting` and exit 0 having written nothing. Claimed results instead match on
+# kind+host+job+claim, irrespective of role attribution.
 #
 # Also asserts the escape hatches (--allow-duplicate, GARDEN_ENTRY_DUP_WINDOW=0,
 # window expiry) and the negative cases that must STILL post (different body,
@@ -90,6 +91,22 @@ run_entry_with_roles() {  # run_entry_with_roles <explicit-or-> <claimed-or-> [a
   set -e
 }
 
+# Run a claim-stamped result with the selected role attribution.
+run_claimed_result() {  # run_claimed_result <role> <job> <claim>
+  local claimed_role="$1" job="$2" claim="$3"
+  set +e
+  OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+             GARDEN_STATE="$STATE" GARDEN_ROOT="$TR" \
+             GARDEN_PRODUCER_CLONE="$CLONE" GARDEN=testhost \
+             GARDEN_JOB_ROLE="$claimed_role" GARDEN_JOB_BASE="$job" \
+             GARDEN_JOB_CLAIM_BASE="$job" GARDEN_JOB_CLAIM_FP="$claim" \
+             GARDEN_ENTRY_DUP_WINDOW=900 GARDEN_TEST=1 \
+             GARDEN_NO_MAINTAINER_ALERT=1 \
+             bash "$ENTRY" result <<<"$BODY" 2>&1)"
+  RC=$?
+  set -e
+}
+
 # Entries of a given kind at the origin tip (the serialization point: only what
 # actually landed counts).
 count_kind() { git -C "$BARE" ls-tree -r --name-only journal2 -- entries 2>/dev/null | grep -cE "Z-$1-" || true; }
@@ -139,6 +156,28 @@ run_entry_with_roles - scholar result
 [ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 1 ] && [ "$(origin_head)" = "$ROLE_HEAD" ] \
   && ok "explicit and claimed scholar attribution deduplicate as equivalent reports" \
   || bad "equivalent explicit/claimed scholar reports did not deduplicate: $OUT"
+
+# A retry can post the same claimed result under a different role. Job+claim,
+# not role, identifies that durable completion record. A different claim (or a
+# different job reusing a claim fingerprint) must still get its own result.
+setup_fixture
+BODY="$REPORT"
+run_claimed_result gardener improve-dedup fe06a439bbcf99ad
+[ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 1 ] \
+  || bad "first claim-stamped result did not land: $OUT"
+CLAIM_HEAD="$(origin_head)"
+run_claimed_result stylist improve-dedup fe06a439bbcf99ad
+[ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 1 ] && [ "$(origin_head)" = "$CLAIM_HEAD" ] \
+  && ok "same job and claim deduplicate across mismatched role attribution" \
+  || bad "mismatched roles duplicated one claimed result: $OUT"
+run_claimed_result stylist improve-dedup another-claim
+[ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 2 ] \
+  && ok "different claims retain distinct results" \
+  || bad "different claim result was suppressed: $OUT"
+run_claimed_result stylist another-job fe06a439bbcf99ad
+[ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 3 ] \
+  && ok "different jobs retain distinct results even when claim text matches" \
+  || bad "different job result was suppressed: $OUT"
 
 # ============================================================================
 hr; echo "SUPPRESS — a second invocation with the same report posts nothing"; hr

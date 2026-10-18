@@ -23,8 +23,10 @@
 # remember it already posted. So the guard lives HERE: before committing, scan
 # the recently landed entries for one with the same kind, role and host whose
 # BODY is byte-identical (frontmatter is excluded, so the differing `at:` stamp
-# cannot defeat the match); within the suppression window that is a re-post, and
-# we log `duplicate of <path>, not posting` and exit 0.
+# cannot defeat the match). A claim-stamped result uses job+claim in place of
+# role, since retry paths can attribute the same durable result to different
+# roles. Within the suppression window that is a re-post, and we log `duplicate
+# of <path>, not posting` and exit 0.
 #
 # Knobs:
 #   GARDEN_ENTRY_DUP_WINDOW    suppression window in seconds (default 900 = 15m).
@@ -160,13 +162,14 @@ case "$GARDEN_ENTRY_DUP_WINDOW$GARDEN_ENTRY_DUP_MAX_DAYS" in
 esac
 
 # entry_matches <blob-text> — true when a landed entry is a re-post of the one we
-# are about to write: same kind, role and host in the frontmatter, and a
-# byte-identical BODY. The frontmatter is parsed and then DISCARDED, so the
+# are about to write: same kind and host, the same role (or job+claim for a
+# claim-stamped result), and a byte-identical BODY. The frontmatter is parsed and
+# then DISCARDED, so the
 # per-invocation `at:` stamp — the one field two invocations of the same report
 # are guaranteed to disagree on — cannot defeat the match. Parsing in-shell
 # (rather than piping to sed/awk) keeps the per-candidate cost to zero forks.
 entry_matches() {
-  local line n=0 fk="" fr="" fh="" fc="" body=""
+  local line n=0 fk="" fr="" fh="" fj="" fc="" body=""
   while IFS= read -r line; do
     if [ "$n" -lt 2 ]; then
       if [ "$line" = "---" ]; then n=$(( n + 1 )); continue; fi
@@ -174,16 +177,22 @@ entry_matches() {
         kind:*) [ -n "$fk" ] || { fk="${line#kind:}"; fk="${fk# }"; } ;;
         role:*) [ -n "$fr" ] || { fr="${line#role:}"; fr="${fr# }"; } ;;
         host:*) [ -n "$fh" ] || { fh="${line#host:}"; fh="${fh# }"; } ;;
+        job:*) [ -n "$fj" ] || { fj="${line#job:}"; fj="${fj# }"; } ;;
         claim:*) [ -n "$fc" ] || { fc="${line#claim:}"; fc="${fc# }"; } ;;
       esac
       continue
     fi
     body+="$line"$'\n'
   done <<< "$1"
-  [ "$fk" = "$kind" ] && [ "$fr" = "$role" ] && [ "$fh" = "$GARDEN" ] || return 1
-  # A claim-stamped result is a re-post only of the SAME claim's result: an
-  # identical body from an earlier claim must not swallow this claim's record.
-  [ "$fc" = "$claim_fp" ] || return 1
+  [ "$fk" = "$kind" ] && [ "$fh" = "$GARDEN" ] || return 1
+  if [ "$kind" = result ] && [ -n "$claim_fp" ]; then
+    # Role attribution can differ across retry/recovery paths. The durable
+    # identity of a claimed result is its job and claim, so suppress that same
+    # result irrespective of which role happened to post it.
+    [ "$fj" = "$GARDEN_JOB_CLAIM_BASE" ] && [ "$fc" = "$claim_fp" ] || return 1
+  else
+    [ "$fr" = "$role" ] && [ "$fc" = "$claim_fp" ] || return 1
+  fi
   # `$(git cat-file …)` already stripped the blob's trailing newlines and so did
   # the `$(cat …)` that produced $BODY; drop the one newline the accumulation
   # above re-added so the two sides are comparable.
@@ -224,7 +233,11 @@ find_duplicate() {
     # frontmatter check in entry_matches — not the filename — that decides.
     while IFS= read -r p; do
       base="${p##*/}"
-      case "$base" in *-"$kind"-"$role"-*.md) : ;; *) continue ;; esac
+      if [ "$kind" = result ] && [ -n "$claim_fp" ]; then
+        case "$base" in *-"$kind"-*.md) : ;; *) continue ;; esac
+      else
+        case "$base" in *-"$kind"-"$role"-*.md) : ;; *) continue ;; esac
+      fi
       fstamp="${base%%-*}"; fstamp="${fstamp%Z}"
       case "$fstamp" in [0-9][0-9][0-9][0-9][0-9][0-9]) ck="$daykey$fstamp" ;; *) continue ;; esac
       [ $(( 10#$ck )) -lt $(( 10#$cutoff )) ] && continue
