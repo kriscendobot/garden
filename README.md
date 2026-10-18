@@ -1,27 +1,30 @@
 # Garden bulletin
 
-_As of 2026-10-18T19:08:49Z_
+_As of 2026-10-18T19:19:56Z_
 
 ## Latest
 
-The headline is that [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) merged as `cfafabea5a9` and its deploy failed. Proxy screening has paused delegation and posted the heal job `heal-minion-town-cfafabe`, which is still parked. Three conductors also finished without merging the earlier head of that PR, so a stalled-merge notice is open. Screening resumes on its own once a later main deploy succeeds and the watchdog is ok.
+Production minion.town is the main thing to notice. [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) merged as `cfafabea5a9` and its [deploy failed](https://github.com/kriscendobot/minion.town/actions/runs/39126464564). Proxy screening is paused until a later main deploy succeeds. `heal-minion-town-cfafabe` is parked in the plan queue (it was posted, not yet claimed), and a separate stalled-merge notice says 3 conductors finished without merging #197 at head `f55f6a2`. [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) merged earlier and deployed cleanly.
 
-Several gauntlets hit their review budget and need your call on adding rounds:
-- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix still open)
-- [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16 rounds, 20 open)
-- [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12)
-- [minion.town#198](https://github.com/kriscendobot/minion.town/pull/198) (6/6)
-- [minion.town#200](https://github.com/kriscendobot/minion.town/pull/200) (6/6)
-- [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6, 20 open)
-- [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6/6)
+Review budgets ran out on several PRs, so each needs a human decision to merge, resume with `--add-rounds`, or drop:
+- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), 16 of 16 rounds, 19 unaddressed items
+- [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180), 16 of 16 rounds, 20 unaddressed items
+- [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), 12 of 12 rounds
+- [minion.town#198](https://github.com/kriscendobot/minion.town/pull/198), 6 of 6 rounds
+- [minion.town#200](https://github.com/kriscendobot/minion.town/pull/200), 6 of 6 rounds
+- [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482), 6 of 6 rounds, 20 unaddressed items
+- [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), 6 of 6 rounds
 
-The two with long must-fix lists look like moving targets: each round raised a fresh batch rather than leaving a persistent set.
+[endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) is still blocking milestone M2. Its review fixes are pushed and CI is green, so it needs your approval or further changes.
 
-The fleet deploy is stalled on the leader. `endolin-garden-ece02cb4` has stayed at `b8abbe64` since 2026-10-16 even though the oros canary passed four rolls. Someone should check its rolling-deploy journal for a rejected-candidate marker or a "did not land" loop. The oros host recovered after a monk restart, and its health check-up job was claimed.
+**Questions for you:**
+- **Oros monk:** a health watcher found that the Oros monk had stopped claiming jobs, and a sysop restart brought it back at 14:02Z. Nothing more is needed there.
+- **Leader deploy:** Oros reported earlier that the leader, `endolin-garden-ece02cb4`, has sat at `b8abbe64` since 10-16 and has not rolled forward to `05d833a2`. It asked someone to check the leader's rolling-deploy journal for a rejected-candidate marker.
+- **claude-endolin1 cap:** the cap is restored to 271M, but the host may still be logged in as endolin2. If so, the claim gate will refuse work once combined spend reaches the cap. Say which account the host is on, or raise the cap.
+- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging the settings simplification. Until the index is active, Log out stays hidden and account deletion answers 503 without deleting anything. Veto any of the four listed choices you object to.
+- **Tower report:** the live probe left one anonymous guest on production minion.town, and the source note wasn't on the host that ran the job. Decide whether to leave the guest or remove it by hand, and whether to re-run the job on the host that holds the note.
 
-Two decisions are waiting on you. The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merge, plus a veto check on four product choices. The `claude-endolin1` cap was restored to 271M, and the restore job asks which Claude login that host is on, since a leftover endolin2 login would again charge its spend to endolin1.
-
-The `mt-beta-product-pass-20261017` and parcel-stack restack orchestrations both completed cleanly. The journal-contention notices are mostly self-clearing recoveries. The exception is the `oros-studio-garden-ce242c49` journal worktree, which has failed to fast-forward 36 times.
+Everything else in the inbox is routine watchdog traffic, mostly journal-contention notices that recovered on their own.
 
 ## Maintainer review docket
 
@@ -659,10 +662,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 182.9M | $741.72 _(notional, rate-card)_ | 68% of 271.0M (ok) |
+| Claude | 183.1M | $742.42 _(notional, rate-card)_ | 68% of 271.0M (ok) |
 | Codex | 77.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92309247 tokens/day lower bound._
+_Fleet token-unlock pace: 92337908 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 11.011281s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 6 open notice(s); checker healthy
