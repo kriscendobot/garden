@@ -38,16 +38,3 @@ Open the PR through ensure-pr.sh as a DRAFT; the gauntlet and the proxy screen c
 Done when the PR is open and green, and a docs-only PR run shows the harness jobs skipped.
 
 <!-- garden-reaped: 0 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-18T00:24:10Z
