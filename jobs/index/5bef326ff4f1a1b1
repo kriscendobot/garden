@@ -1,2 +1,2 @@
-base: improve-dedup-claimed-result-attribution
+base: improve-journal-entry-project-slug-alias
 identity: mentor:scripts/jobs/journal-entry.sh
