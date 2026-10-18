@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-18T14:13:15Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-18T14:13:15Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -15,17 +36,3 @@ cfafabea5a93f0d270980d4b468841c0565b3a3a, against base main. Put this marker on 
 Open it with scripts/jobs/gardening/ensure-pr.sh and stage the ordinary gauntlet; the
 proxy screens and merges a marked heal PR even while the delegation is paused. Never
 push to main directly and never force-revert main.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-18T13:53:13Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-18T13:53:45Z
