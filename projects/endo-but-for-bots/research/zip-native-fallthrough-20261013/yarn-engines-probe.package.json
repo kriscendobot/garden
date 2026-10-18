@@ -1,0 +1,10 @@
+{
+  "name": "app",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "yarn@4.13.0",
+  "optionalDependencies": {
+    "zip-arch-variant": "file:../zip-arch-variant-1.0.0.tgz",
+    "zip-native-variant": "file:../zip-native-variant-1.0.0.tgz"
+  }
+}
