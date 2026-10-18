@@ -1,5 +1,5 @@
 ---
-role: sysop
+role: gardener
 requires: aws
 tier: mentor
 fallback-tier: minion
