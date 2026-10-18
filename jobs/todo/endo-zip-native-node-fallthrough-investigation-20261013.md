@@ -1,9 +1,9 @@
 ---
-gate: deferred
-priority: normal
-posted_by: liaison
-posted_at: 2026-10-13T16:57:45Z
+role: researcher
+tier: mentor
+arc: unallocated
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-18T18:14:14Z cleared=none -->
 
 ---
 role: researcher
