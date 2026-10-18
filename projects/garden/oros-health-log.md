@@ -2,6 +2,21 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-18T14:21Z (oros-health-checkup-20261018-123528): healthy; claimed 1.5h late behind long gauntlet jobs; fixed a sysop wedge on main2
+
+- **Load/mem:** load 1.8/2.3/2.2. 13 GiB of 15 GiB available.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k). The virtiofs garden mount is 47% used.
+- **Uptime:** 16d21h, no reboot.
+- **Deployed vs main2:** root at `05d833a2`, which was the origin/main2 tip when this run started. fleet/health/oros (10:25Z): `roll_status: deployed`, 0 of 287 units failed. This run's fix moved main2 to `3a743ca7`, so the next roll will pick it up. The journal `deploy/leader-sha` still reads `b8abbe64`; the leader issue from the previous note may be unresolved.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 14:02:48Z (producer clones), status ok, 57% used. The live worktree copy (13:32Z) is lagging, but the meter itself is not.
+- **State clones:** repo-watcher has 50 packs, right at the threshold; the next largest are reaper (47) and screening-control (46). No tmp_pack, no `gc.log`. The `.lock` files older than 30 minutes are persistent flock files.
+- **rc=124 (3h):** three, all `garden-sysop` at 13:33, 13:43 and 13:53Z (see below). No deploy-gate timeouts.
+- **Why this run was late:** the only monk ran `minion.town-pr200-gauntlet-fix-5` (11:05 to 12:57Z) and then `pr201-gauntlet-fix-4` (12:57 to 14:02Z), so the 12:35Z slot sat in todo. At 13:21Z oros-health-watch sent `reset-failed` and then `unit restart garden-monk@1`. The restart is graceful, so it waited for fix-4 to finish (14:02Z) and this check-up was claimed at 14:03Z.
+- **Bug found and fixed:** the sysop ran `unit restart` as a *blocking* `systemctl restart`. It sat out the monk's 40-minute drain, every tick was killed at the 600s self-heal bound, and the same op re-ran each time. During that window no other host op (`drain off` included) could be processed. Landed `3a743ca7` on main2: unit ops are now queued with `--no-block` (sysop-test 65/65).
+- **Changed:** the main2 fix above. Nothing on-host.
+- **Needs the maintainer:** with `monks: 1`, any long gauntlet job delays this check-up, and a watcher restart cannot preempt it. Raising oros's monk count is the maintainer's call. The leader-sha / endolin self-advance question from the 09:58Z note still stands.
+
 ## 2026-10-18T09:58Z (oros-health-checkup-20261018-093508): healthy on-host; deploy held because the leader stopped releasing, no changes
 
 - **Load/mem:** load 1.4/1.8/1.8. 13 GiB of 15 GiB available (815 MiB of swap in use).
