@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-18T23:45Z (oros-health-checkup-20261018-220508): healthy; deployed = origin/main2 `3c5843b8`; removed one stale tmp_pack
+
+- **Load/mem:** load 1.4/1.8/1.5. 13 GiB of 15 GiB available. Swap is 860 MiB of 1 GiB used (it was 0 at 21:05Z), but there is no memory pressure.
+- **Disk/inodes:** 6% of the overlay used (404G free). The virtiofs garden mount is 49% used (238G free); inodes 1% (8.3M).
+- **Uptime:** 17d6h, no reboot.
+- **Deployed vs main2:** root HEAD and `deploy/deployed-sha` are `3c5843b8`, the origin/main2 tip, deployed at 23:28Z. Before that, self-deploy deferred every 3 minutes from about 22:50Z, behind a long job on monk 1 (over 2900s). That is the designed wait, not a failure. fleet/health/oros was last written at 23:09Z (`roll_status: deferred`, target `3c5843b8`, 0 of 287 units failed), so it had not caught up with the deploy yet.
+- **Units:** 0 failed, 144 garden units active. Only monk 1 is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 23:02:12Z in the live worktree, 33 minutes before this check (the known live-copy lag), status ok, 65% used.
+- **State clones:** the largest are sysop (49 packs), screening-control (48) and reaper (47). screening-control had an orphaned 96 MB `tmp_pack` from 21:04Z, which I deleted; the sysop `tmp_pack` was from a fetch in progress. No `gc.log`. The root repo has 18 packs and no `gc.log`. No stale `.lock` files in the clone `.git` dirs.
+- **rc=124 (3h):** none new. The only one in the window is the 20:38Z `garden-gardener-scaler` self-heal bound, already noted at 21:05Z.
+- **Changed:** deleted the stale screening-control `tmp_pack`.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question still stands: a single monk slot running a long job blocks both the deploy and this check-up.
+
 ## 2026-10-18T21:05Z (oros-health-checkup-20261018-190508): healthy; deployed = origin/main2 `8c13456a`, no changes
 
 - **Load/mem:** load 1.8/2.2/2.0. 13 GiB of 15 GiB available, no swap in use.
