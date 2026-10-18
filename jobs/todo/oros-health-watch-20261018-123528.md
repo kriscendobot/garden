@@ -1,4 +1,28 @@
 ---
+role: orchestrator
+split_eligible: true
+split_reason: deadline-overrun
+split_source_role: fixer
+split_source_handler_timeout: 3600
+split_orchestration: oros-health-watch-20261018-123528-split
+reposted_by: reaper:endolin-garden-ece02cb4
+reposted_at: 2026-10-18T13:43:15Z
+---
+
+# Deliberate overrun decomposition for `oros-health-watch-20261018-123528`
+
+This ordinary job hit its applied 3600s handler wall once without productive progress. That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.
+
+Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:
+
+- **Divisible:** create at least two self-contained child jobs, declare each child execution budget with `--role`, leading `role:` / `handler-budget-role:`, or a positive `handler-timeout:`, park every child with `post-plan.sh --orchestrated --orchestrated-by oros-health-watch-20261018-123528-split`, then record `oros-health-watch-20261018-123528-split` with `post-orchestration.sh`.
+- **Indivisible:** choose a concrete reason and a timeout strictly greater than 3600 and no greater than 14339; park exactly one child with `post-plan.sh --orchestrated --orchestrated-by oros-health-watch-20261018-123528-split --split-indivisible-reason REASON --split-indivisible-handler-timeout SECONDS oros-health-watch-20261018-123528-expanded-window BODY-FILE` so both child fields land atomically. Record the same reason as `split-indivisible-reason:` and the same timeout as `split-indivisible-handler-timeout:` in the orchestration description, then record the single-child orchestration. Do not hand-author the child fields; a generic "too large" assertion is not a reason.
+- In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: oros-health-watch-20261018-123528-split>>>` immediately before the completion signal so completion verifies the successor.
+- Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.
+
+## Original job specification
+
+---
 handler-timeout: 3600
 ---
 
@@ -33,15 +57,3 @@ Standing maintainer request (kriskowal, 2026-10-02).
 5. **Report:** one line of verdict (OK / intervened / unreachable), the ops sent and their acks, and what still needs a person. Message the maintainer inbox (`message-user.sh`) **only** when you intervened with an attested op or oros is unreachable. Otherwise stay quiet.
 
 Do not change worker leveling, derotation markers, budget pools or schedules. Do not post duplicate oros jobs; the checkup schedule handles recurrence.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-18T12:35:52Z
