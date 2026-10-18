@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: conductor
@@ -25,13 +26,5 @@ reached the board after 35+ minutes of proxy ticks. This body is the screen's ow
 conductor body, pinned to the leader, whose token reads the CI rollup.
 PR: https://github.com/kriscendobot/minion.town/pull/197
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-18T10:57:20Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-18T11:23:11Z -->
