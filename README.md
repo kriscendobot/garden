@@ -1,20 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-18T01:04:03Z_
+_As of 2026-10-18T01:07:04Z_
 
 ## Latest
 
-Several minion.town gauntlets ran out of review budget without converging and now need a maintainer decision to grant more rounds. These are [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix open), [#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16, 20 open), [#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) and [#192](https://github.com/kriscendobot/minion.town/pull/192) (10/10). Two Endo gauntlets did the same: [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6, 20 open) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6/6). The open lists keep turning over with new findings each round rather than repeating, so more rounds may not help. #192 merged anyway through the proxy screening path at 00:23Z, and its deploy is still pending. Earlier delegated merges #196, #190, #194, #184 and #195 deployed and validated. [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it.
+Several gauntlets hit their review budget without converging and now need a human call. [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#178](https://github.com/kriscendobot/minion.town/pull/178) are out of rounds, and so are [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). #184, #180 and #1482 each still show roughly 19–20 new breaker findings in the last round, which the report labels a moving target. Each message gives the `--add-rounds` command if you want to extend. [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) hit its budget earlier, then merged at 00:23Z; its deploy is pending.
 
-**Waiting on you:**
-- The settings-simplify report needs `deploy-accounts-store.sh` run before merge, plus your veto check on four choices.
-- The docs-tower report left one anonymous guest on production that the API can't delete, and the source note wasn't on the host that ran the job.
-- Please confirm whether this host's workers are on the endolin1 or endolin2 Claude login. The wrong answer will re-trigger the claim-gate refusal.
-- The proxy's tentative accountant answer needs your review.
-- The bot token lacks `checks:read`, `statuses:read` and `actions:read`, so ci-wait-merge on oros can't read CI for #192 (HTTP 403).
-- The oros journal worktree has failed to fast-forward 36 times now.
+The minion.town screening proxy merged #196, #190, #194, #184 and #195 yesterday, and those deploys validated. The proxy flagged [#197](https://github.com/kriscendobot/minion.town/pull/197) as stalled: three conductors finished without merging it. Separately, the CI watchdog keeps reporting HTTP 403 on `statusCheckRollup` for #192. The bot token needs checks:read, statuses:read and actions:read granted.
 
-The monk count on the main host moved between 1 and 4 as the weekly window rolled and the endolin1 cap was restored to 271M. Journal-lock contention notices mostly cleared. The board is busy with minion.town gauntlet fix and clean stages, and no file-level job transitions resolved in this window.
+Other items for the maintainer:
+- **Settings simplification (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging. Until the index is active, Log out stays hidden and account deletion answers 503 without deleting anything. Four design choices are also waiting for your veto.
+- **claude-endolin1 cap:** it is restored to 271M, and the fleet question is which Claude login this host is on. If it is still endolin2, that spend will be charged to endolin1 and the claim gate will refuse work again.
+- **Tower-report job:** it left one anonymous guest on production minion.town, and the source note was missing on the host that ran it.
+- **Accountant slate:** the proxy tentatively answered the weekly slate question: keep the slate as proposed and the reserve at 18M. It could not confirm the claude-oros reset credits.
+
+Two orchestrations completed cleanly: `mt-beta-product-pass-20261017` and the parcel-stack restack.
+
+Journal lock-contention notices have mostly cleared. The oros journal worktree still cannot fast-forward (occurrence #36).
 
 ## Maintainer review docket
 
@@ -400,7 +402,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=360342341 cap=271000000 pace-bias=0 window-start=2026-10-10T03:00Z(calendar) deadline=2026-10-17T03:00Z(calendar) ceiling=4 backoff=0.9809(ramp) target=1
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-18T05:51:21Z, latest 2026-10-18T01:05:22Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-1`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=128571691 cap=271000000 pace-bias=0 window-start=2026-10-17T03:00Z(calendar) deadline=2026-10-24T03:00Z(calendar) ceiling=4 backoff=0.5657(ramp) target=1
 
 - `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot.md)
 
@@ -474,7 +480,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.6M | $536.83 _(notional, rate-card)_ | 47% of 271.0M (ok) |
+| Claude | 128.8M | $537.41 _(notional, rate-card)_ | 48% of 271.0M (ok) |
 | Codex | 45.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92928044 tokens/day lower bound._
@@ -617,7 +623,7 @@ worst fetch p95 6.357044s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
