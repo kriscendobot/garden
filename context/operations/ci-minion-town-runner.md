@@ -44,6 +44,17 @@ the $50 line that needs maintainer approval.
   runs). For host detail, find the instance with
   `aws ec2 describe-instances --region us-west-1 --filters Name=tag:Name,Values=minion-town-ci`,
   then run `systemctl status ci-runner` and `journalctl -u ci-runner` over SSM.
+- **Tell saturation from an outage before you restart.** The single runner
+  runs one job at a time, so a burst of pushes queues runs for hours even
+  when nothing is broken. One `Claude harness (arm64)` job takes about
+  17 minutes under emulation, and one `test` job takes about 10 minutes.
+  If the runner shows `online` and `busy`, and
+  `journalctl -u ci-runner | grep -E 'Running job|completed with result'`
+  shows jobs completing back to back, the queue is draining. A restart
+  would only kill the in-flight job (incident 2026-10-18: six runs were
+  reported as stuck, but all of them were running serially and passed).
+  Restart only when the runner is offline or missing, or when the log
+  stops advancing.
 - **Prove it end to end.** Actions → *ci-runner selftest* → Run workflow. Tick
   *fail* to also see a red job. Alternatively, push any commit to branch
   `ci-runner-selftest`.
