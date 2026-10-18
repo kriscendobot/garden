@@ -97,13 +97,79 @@ note_transient_recovery() {
   log "mentor transient provider outage cleared after $count consecutive tick(s) (last digest $sha)"
 }
 
-# 1. new journal entries since last run
+# A panel's ordinary "approve / no findings" result is progress, not a failure
+# surface.  Keep this classifier deliberately narrow: only a result entry with an
+# explicit approve verdict and an explicit empty-findings statement qualifies.
+# Any warning/error language makes the entry actionable even when the author also
+# wrote "approve".  Unknown formats fail open into the mentor digest.
+is_routine_approval_result() { # <entry-file>
+  awk '
+    BEGIN {
+      kind = ""; verdicts = 0; approvals = 0; in_findings = 0
+      finding_bullets = 0; clear_bullets = 0; inline_clear = 0; hazard = 0
+    }
+    {
+      raw = $0
+      line = tolower(raw)
+      if (line ~ /^kind:[[:space:]]*/) {
+        sub(/^kind:[[:space:]]*/, "", line)
+        gsub(/[[:space:]]/, "", line)
+        kind = line
+      }
+
+      # Markdown emphasis is decoration around the protocol labels, not data.
+      plain = line
+      gsub(/\*/, "", plain)
+      sub(/^[[:space:]]+/, "", plain)
+      sub(/[[:space:]]+$/, "", plain)
+      if (plain ~ /^verdict:[[:space:]]*/) {
+        verdict = plain
+        sub(/^verdict:[[:space:]]*/, "", verdict)
+        sub(/[.[:space:]]+$/, "", verdict)
+        verdicts++
+        if (verdict == "approve") approvals++
+      }
+      if (plain ~ /^findings:[[:space:]]*/) {
+        in_findings = 1
+        if (plain ~ /^findings:[[:space:]]*none[.[:space:]]*$/) inline_clear = 1
+        next
+      }
+      if (in_findings && plain ~ /^-[[:space:]]*/) {
+        finding_bullets++
+        if (plain ~ /^-[[:space:]]*none([.[:space:]]|$)/ ||
+            plain ~ /^-[[:space:]]*no[[:space:]].*findings?([.[:space:]]|$)/) clear_bullets++
+      }
+
+      # Conservative by design: even "no warnings" stays in the digest.  It is
+      # safer to wake the mentor for an unusual result than to hide a real alarm.
+      if (line ~ /(^|[^[:alnum:]_])(error|errors|warning|warnings|fatal|failure|failed)([^[:alnum:]_]|$)/) hazard = 1
+    }
+    END {
+      empty_findings = inline_clear ||
+        (finding_bullets > 0 && clear_bullets == finding_bullets)
+      exit !(kind == "result" && verdicts > 0 && approvals == verdicts &&
+             empty_findings && !hazard)
+    }
+  ' "$1"
+}
+
+# 1. new journal entries since last run. Routine clean panel approvals are
+# consumed here and never enter the digest; actionable and unrecognized results
+# retain the existing retry-on-handler-failure semantics below.
 new=()
+routine=()
 while IFS= read -r f; do
   rel="${f#"$DIR"/}"
   grep -qxF "$rel" "$SEEN" && continue
-  new+=("$f")
+  if is_routine_approval_result "$f"; then
+    routine+=("$rel")
+  else
+    new+=("$f")
+  fi
 done < <(find "$DIR/entries" -type f -name '*.md' 2>/dev/null | sort)
+# These entries need no agent outcome, so their consumption is independent of a
+# handler/provider outage affecting a different, actionable entry in this tick.
+for rel in "${routine[@]}"; do printf '%s\n' "$rel" >> "$SEEN"; done
 
 # 2. recent service failures from journalctl across all garden-* units
 #    (production path; tolerant when systemd/journalctl is absent)
