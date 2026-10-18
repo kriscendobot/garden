@@ -91,6 +91,22 @@ complete_viability() { # <base> <result> [report-prefix]
   git -C "$edit" push -q origin "HEAD:$BRANCH"
 }
 
+complete_stage() { # <child-base> <stage=result> [report-prefix]
+  local child="$1" result="$2" prefix="${3:-}" edit="$TEST_ROOT/complete-$1" shard
+  rm -rf "$edit"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$edit"
+  git -C "$edit" rm -q "jobs/todo/$child.md"
+  shard=$(date -u +%Y/%m/%d)
+  mkdir -p "$edit/jobs/tada/$shard"
+  {
+    [ -z "$prefix" ] || printf '%s\n' "$prefix"
+    printf '<!-- gauntlet-stage-result: %s -->\n' "$result"
+  } > "$edit/jobs/tada/$shard/$child.md"
+  git -C "$edit" add "jobs/tada/$shard/$child.md"
+  git -C "$edit" "${git_id[@]}" commit -q -m "complete $child ($result)"
+  git -C "$edit" push -q origin "HEAD:$BRANCH"
+}
+
 post_gauntlet viable testowner/testrepo#201
 tick
 if exists jobs/todo viable-viability && ! exists jobs/todo viable-clean; then
@@ -112,6 +128,34 @@ if exists jobs/todo viable-clean; then
   ok "a viable PR advances to clean"
 else
   ko "a viable PR advances to clean"
+fi
+complete_stage viable-clean clean=done
+tick
+refresh
+panel_body=$(cat "$VERIFY/jobs/todo/viable-panel-1.md")
+if printf '%s\n' "$panel_body" | grep -F 'Before dispatching any juror' >/dev/null \
+  && printf '%s\n' "$panel_body" | grep -F -- 'pre-push-gates.sh --no-auto-fix --probes-only' >/dev/null \
+  && printf '%s\n' "$panel_body" | grep -F -- '--base-ref <base-object-id> <worktree>' >/dev/null \
+  && printf '%s\n' "$panel_body" | grep -F 'headRefOid' >/dev/null \
+  && printf '%s\n' "$panel_body" | grep -F 'run panel.sh and do NOT post a PR review' >/dev/null; then
+  ok "panel stage gates juror dispatch on read-only probes against pinned base/head"
+else
+  ko "panel stage gates juror dispatch on read-only probes against pinned base/head"
+fi
+prepass_output='probe spell-out-identifiers     fail (exit 1)
+  packages/example.js:17: identifier `runCmd` contains abbreviated segment `Cmd`; spell it out
+result: 1 failing stage(s); address and re-run.'
+complete_stage viable-panel-1 panel=prepass-failed "<!-- gauntlet-style-prepass-output-begin -->
+$prepass_output
+<!-- gauntlet-style-prepass-output-end -->"
+tick
+refresh
+fix_body=$(cat "$VERIFY/jobs/todo/viable-fix-1.md")
+if printf '%s\n' "$fix_body" | grep -F "$prepass_output" >/dev/null \
+  && printf '%s\n' "$fix_body" | grep -F 'no PR review for this round' >/dev/null; then
+  ok "a deterministic failure routes its exact output to the fixer without a panel review"
+else
+  ko "a deterministic failure routes its exact output to the fixer without a panel review"
 fi
 
 post_gauntlet overtaken testowner/testrepo#202

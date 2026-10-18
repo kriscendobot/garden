@@ -1,6 +1,7 @@
 #!/bin/bash
 # gauntlet.sh — the deterministic STAGED-GAUNTLET driver: walk a PR through the
-# viability -> clean -> panel -> fix-loop -> un-draft chain ONE claim-sized stage at a time, so no
+# viability -> clean -> deterministic style pre-pass -> panel -> fix-loop ->
+# un-draft chain ONE claim-sized stage at a time, so no
 # single handler ever spans the (unbounded) loop.
 #
 # Usage:
@@ -46,11 +47,12 @@
 #     | viability | proceed       | clean                                           |
 #     | viability | closed/merged | refuse and report; no budgeted loop             |
 #     | viability | overtaken     | report deciding question + close-as-superseded  |
-#     | clean     | done          | panel-1                                         |
+#     | clean     | done          | panel-1 (which runs the style pre-pass first)   |
 #     | clean     | still-pending | re-post <g>-clean (bounded by max_resumes)      |
 #     | clean     | ci-billing-blocked | park (resumable; maintainer alerted)       |
 #     | panel-k   | pass          | undraft (feature) / done (probe never un-drafts)|
 #     |           |               | / held-draft (ledger says probe or slice)       |
+#     | panel-k   | prepass-failed| fix-k, carrying exact deterministic output      |
 #     | panel-k   | must-fix      | fix-k                                           |
 #     | fix-k     | done          | panel-(k+1); if k+1 > max_iterations → REVIEW   |
 #     | fix-k     | still-pending | re-post <g>-fix-k (bounded by max_resumes)      |
@@ -182,6 +184,18 @@ parse_stage_result() {  # <tada-file>
   grep -oE '<!--[[:space:]]*gauntlet-stage-result:[[:space:]]*[a-z]+=[a-z-]+[[:space:]]*-->' "$1" 2>/dev/null \
     | tail -1 \
     | sed -E 's/.*gauntlet-stage-result:[[:space:]]*([a-z]+)=([a-z-]+)[[:space:]]*-->.*/\1 \2/'
+}
+
+# A pre-pass failure is actionable only when its report carries the exact captured
+# probe stream between the two stable delimiters. Refuse an empty/malformed block
+# rather than sending a fixer an LLM paraphrase or asking it to guess.
+prepass_output_valid() {  # <tada-file>
+  awk '
+    /^<!--[[:space:]]*gauntlet-style-prepass-output-begin[[:space:]]*-->$/ { inside=1; begin++; next }
+    /^<!--[[:space:]]*gauntlet-style-prepass-output-end[[:space:]]*-->$/ { if (inside) end++; inside=0; next }
+    inside && NF { content=1 }
+    END { exit !(begin == 1 && end == 1 && content) }
+  ' "$1"
 }
 
 # --- record field update (CAS retry, like set_orch_state) -------------------
@@ -896,7 +910,7 @@ finish_held_draft() {  # <base> <disposition> <successor-or-empty>
 # stage-result marker this driver greps. The driver itself runs NO `claude -p`.
 compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
   local base="$1" rec="$2" stage="$3" iter="$4" child="$5"
-  local pr repo prnum kind panel_head
+  local pr repo prnum kind panel_head prior_panel_report prepass_block=""
   pr="$(gauntlet_pr "$rec")"; repo="$(gauntlet_repo "$rec")"
   prnum="$(gauntlet_pr_number "$rec")"; kind="$(gauntlet_kind "$rec")"
 
@@ -1008,26 +1022,48 @@ EOF
       cat <<EOF
 # Gauntlet stage: PANEL round $iter — $repo PR #$prnum
 
-You are ONE stage of a staged gauntlet ($base). Run EXACTLY ONE panel round, post the
-verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
+You are ONE stage of a staged gauntlet ($base). Run the deterministic read-only
+style pre-pass against the pinned base/head. Only if it passes, run EXACTLY ONE
+panel round and post the verdict. Then STOP — do NOT fix, do NOT un-draft, do not
+loop.
 
 Garden script names below are repo-relative. Resolve them against THIS claiming
 worker's \`\$GARDEN_ROOT\` (known by \`scripts/jobs/common.sh\`), never against the
 posting host's garden root.
 
-1. Get an ISOLATED project checkout of the PR head:
+1. Before dispatching any juror, retain the PR's immutable baseRefOid and
+   headRefOid (both full 40-hex commit IDs), along with its head owner and branch.
+   Get an ISOLATED project checkout of that head:
    \`scripts/jobs/ensure-project-worktree.sh $child <pr-head-owner>/<repo-name> <pr-head-branch>\`.
-   Resolve the head owner and branch with \`gh pr view $pr --json headRepositoryOwner,headRefName\`;
+   Resolve all four retained fields with \`gh pr view $pr --json baseRefOid,headRefOid,headRepositoryOwner,headRefName\`;
    do not pass the base repo when the PR head belongs to a fork.
-2. Run the panel in SINGLE-ROUND mode against that worktree:
+   Fetch the retained objects if necessary, check out the retained head object ID
+   detached, and verify git rev-parse HEAD equals it. A missing/malformed object ID
+   or head mismatch is a sensor failure: do not run probes or panel; emit
+   panel=panel-error.
+2. Run the deterministic probes read-only against that exact pinned pair with
+   \`scripts/jobs/gardening/pre-push-gates.sh --no-auto-fix --probes-only \\
+     --base-ref <base-object-id> <worktree>\`.
+   Capture combined stdout/stderr byte-for-byte. On non-zero, do NOT
+   run panel.sh and do NOT post a PR review. Put the exact captured output between
+   these lines in the completion report, then emit panel=prepass-failed:
+
+   <!-- gauntlet-style-prepass-output-begin -->
+   <exact combined stdout/stderr, unchanged>
+   <!-- gauntlet-style-prepass-output-end -->
+
+   This is a deterministic finding, not a panel verdict. The driver routes that
+   exact block to fix-$iter and only spends juror seats after the probes pass.
+3. Only after the probes exit 0, run the panel in SINGLE-ROUND mode against that
+   same worktree and retained base object ID:
    \`GARDEN_PANEL_SINGLE_ROUND=1 \\
-     scripts/jobs/gardening/panel.sh <worktree> $prnum <base-ref>\`
+     scripts/jobs/gardening/panel.sh <worktree> $prnum <base-object-id>\`
    It fans the seats, aggregates, and prints its disposition as the terminal line's
    last token: \`pass\` or \`must-fix\`. It does NOT fix or un-draft in this mode.
-3. Post the aggregate (in \$GARDEN_PANEL_RUNDIR) as a \`gh pr review\` on $pr — the
+4. Post the aggregate (in \$GARDEN_PANEL_RUNDIR) as a \`gh pr review\` on $pr — the
    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
    review on must-fix, a comment/approve on pass).
-4. If panel.sh exits NON-ZERO it did NOT return a review verdict. A seat error, a
+5. If panel.sh exits NON-ZERO it did NOT return a review verdict. A seat error, a
    decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
    failure, not a pass/must-fix decision. Do NOT report \`orchestration-failed:
    true\` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
@@ -1040,10 +1076,16 @@ Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
 completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
+  <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 EOF
       ;;
     fix)
+      prior_panel_report="$(tada_find "$DIR" "$base-panel-$iter" || true)"
+      if [ -n "$prior_panel_report" ] \
+        && grep -q '<!-- gauntlet-stage-result: panel=prepass-failed -->' "$DIR/$prior_panel_report"; then
+        prepass_block="$(sed -n '/^<!-- gauntlet-style-prepass-output-begin -->$/,/^<!-- gauntlet-style-prepass-output-end -->$/p' "$DIR/$prior_panel_report")"
+      fi
       cat <<EOF
 # Gauntlet stage: FIX round $iter — $repo PR #$prnum
 
@@ -1058,8 +1100,14 @@ posting host's garden root.
    \`scripts/jobs/ensure-project-worktree.sh $child <pr-head-owner>/<repo-name> <pr-head-branch>\`.
    Resolve the head owner and branch with \`gh pr view $pr --json headRepositoryOwner,headRefName\`;
    do not pass the base repo when the PR head belongs to a fork.
-2. Read the LATEST panel verdict on $pr (the request-changes \`gh pr review\` the
-   panel-$iter stage just posted) for its must-fix items. Apply them.
+2. If an exact deterministic pre-pass output block appears below, apply every
+   finding in that block; panel-$iter stopped before dispatching jurors and there
+   is no PR review for this round. If no block appears, read the LATEST panel
+   verdict on $pr (the request-changes \`gh pr review\` panel-$iter posted) and apply
+   its must-fix items. A prepass-failed report with an absent/empty block is missing
+   evidence: fail closed rather than guessing.
+
+$prepass_block
 3. Push the fix as review-feedback follow-up commits to the PR head with
    \`scripts/jobs/gardening/safe-push-pr-head.sh\`.
 4. Watch CI to terminal, BOUNDED (same as the clean stage):
@@ -1614,6 +1662,12 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
             advance_stage "$base" "$f" undraft "$iter" "$base-undraft"
           fi;;
         must-fix)      advance_stage "$base" "$f" fix "$iter" "$base-fix-$iter";;
+        prepass-failed)
+          if prepass_output_valid "$DIR/$child_tada_path"; then
+            advance_stage "$base" "$f" fix "$iter" "$base-fix-$iter"
+          else
+            halt_gauntlet "$base" "panel stage reported prepass-failed without one non-empty exact-output block; refusing to dispatch a fixer without deterministic evidence."
+          fi;;
         panel-error)
           # A panel that could not return a verdict — a seat error, a decider
           # error, or a supervisor interruption (panel.sh exited non-zero) — is a
