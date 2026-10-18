@@ -1,2 +1,2 @@
-base: improve-semantic-rejection-service-health
+base: improve-mentor-filter-routine-results
 identity: mentor:scripts/jobs/mentor.sh
