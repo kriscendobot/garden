@@ -1,32 +1,34 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-18T15:59:53Z_
+_As of 2026-10-18T16:04:01Z_
 
 ## Latest
 
-The main thing to notice is that minion.town screening is paused. [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) merged as `cfafabea5a9` at 12:14Z, but its `deploy.yml` run [failed](https://github.com/kriscendobot/minion.town/actions/runs/39126464564). A heal job (`heal-minion-town-cfafabe`) is posted and parked, and delegation resumes once a later main deploy succeeds. Separately, three conductors finished without merging #197 at head `f55f6a2`, so the proxy flagged a stalled delegated merge for you to read.
+The main news is a minion.town production break. After [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) merged as `cfafabea5a9`, the deploy failed. Proxy screening is paused, a heal job is parked in the plan queue, and delegation resumes on its own once a later main deploy succeeds. Before the break, 3 conductors finished without merging #197, so that merge is stalled. The earlier [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) merge deployed and validated cleanly.
 
-Several gauntlets ran out of review rounds and need a call from you on whether to grant more:
-- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184): 16/16 rounds, 19 must-fix items still open.
-- [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180): 16/16 rounds, 20 open.
-- [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178): 12/12 rounds.
-- [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482): 6/6 rounds, 20 open.
-- [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478): 6/6 rounds.
+Several gauntlets ran out of review budget with the panel still raising must-fix items, and each now needs a human call to merge or grant more rounds:
+- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184): 16 of 16 rounds, 19 unaddressed.
+- [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180): 16 of 16 rounds, 20 unaddressed.
+- [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178): 12 of 12 rounds, no structured list.
+- [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482): 6 of 6 rounds, 20 unaddressed.
+- [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478): 6 of 6 rounds, no structured list.
 
-The last two have no structured must-fix list. Each message gives the `--add-rounds` resume command.
+[minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) also hit its budget earlier, at 10 rounds, before it merged.
 
-The leader deploy looks stalled. The oros check-up reports that endolin has sat at `b8abbe64` since 10-16, and its self-advance hasn't landed through four rolls even though the oros canary passed. Someone should check endolin's rolling-deploy journal for a rejected-candidate marker. Oros itself recovered after a `garden-monk@1` restart and is deployed at main2 `05d833a2`.
+The fleet deploy is stalled on the leader. `endolin-garden-ece02cb4` has stayed at `b8abbe64` since 2026-10-16, even though the oros canary passed 4 rolls. Someone should check its rolling-deploy journal for a rejected-candidate or "did not land" loop. Oros is healthy and on `05d833a2`. Its monk was restarted and claimed the health check-up at 14:03Z, and no one needs to be at that machine now.
 
-Other items waiting on you:
-- [Milestone M2](https://github.com/endojs/endo-but-for-bots/issues/1349) is blocked on approval of the text-codecs shim, whose fixes are pushed with CI green.
-- The settings-simplify report needs `deploy-accounts-store.sh` run before merging, plus your veto on four choices.
-- One anonymous guest from a live probe is still on production minion.town, with no delete route.
-- The claude-endolin1 cap was restored to 271M, and the report asks which Claude login the host's workers use now.
-- The proxy's tentative accountant answer needs your review. It keeps the slate and reserve as proposed and treats claude-oros as having no reset credits.
+Other items for the maintainer:
+- **Pending decisions on mt-beta-settings-simplify:** run `deploy-accounts-store.sh` before merging, or Log out stays hidden and deletion answers 503. Also veto or accept the four listed design choices.
+- **minion.town docs-tower report:** one anonymous guest from the live probe is still on production. The source note was not on the host that ran the report.
+- **Claude login question:** which login do the leader's workers use, endolin1 or endolin2? If it is endolin2, the restored 271M cap on endolin1 will be charged for its spend.
+- **Milestone M2** is blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) awaiting your approval.
 
-On the board, the `minion.town` PR #200 gauntlet was re-queued at fix round 6. The journal contention watchdog notices are mostly routine and have recovered.
+Quieter changes:
+- The mt-beta product pass and the parcel-stack restack orchestrations both completed.
+- The `minion-town-ci-harness-path-gate` job overran its 2-hour handler budget and needs splitting.
+- Journal-contention alerts mostly cleared.
+- Monk workers on the leader scaled up to 4.
+- The oros journal worktree still can't fast-forward (36 occurrences).
 
 ## Maintainer review docket
 
@@ -640,10 +642,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.9M | $703.06 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 173.1M | $703.69 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 70.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92259018 tokens/day lower bound._
+_Fleet token-unlock pace: 92322994 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.096365s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 6 open notice(s); checker healthy
