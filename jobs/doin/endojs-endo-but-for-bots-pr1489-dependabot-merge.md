@@ -37,3 +37,13 @@ Steps:
 - **CI:** all 39 check-runs on head `aa54da387187e944ec6e48a2eb7d8566f83221b5` succeeded. I cross-checked this against `/commits/<sha>/check-runs` and the Actions runs API, where all 6 workflows completed with success.
 
 Disposition: conduct with `ci-wait-merge.sh --dependabot-auto-merge`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-18T22:34:23Z
