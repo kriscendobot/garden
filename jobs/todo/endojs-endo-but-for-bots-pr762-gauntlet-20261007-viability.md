@@ -1,33 +1,10 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: endojs-endo-but-for-bots-pr762-gauntlet-20261007
-role: gardener
-tier: mentor
-token-budget: 100000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-10-18T08:33:15Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-10-18T08:33:15Z
----
-
----
 role: gardener
 arc: unallocated
 gauntlet: endojs-endo-but-for-bots-pr762-gauntlet-20261007
 gauntlet_stage: viability
 gauntlet_iteration: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/762
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #762
