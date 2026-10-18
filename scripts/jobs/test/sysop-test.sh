@@ -312,7 +312,7 @@ run_sysop "$TR/s-selfpreserve"
 : > "$ACK_LOG"; : > "$TR/mock-log"
 seed_op "$ISSUER" "$TARGET" op=unit action=restart name=garden-foreman.timer authorized_by=nobody
 run_sysop "$TR/s-badauth"
-{ grep -q 'sysop_ack: refused' "$ACK_LOG" && ! grep -q 'restart garden-foreman.timer' "$TR/mock-log"; } \
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && ! grep -q 'garden-foreman.timer' "$TR/mock-log"; } \
   && ok "authorized_by not on maintainers/allowlist → refused" || bad "forged attestation accepted"
 
 # ============================================================================
@@ -320,12 +320,12 @@ hr; echo "APPLY — attested unit + deploy (destructive tier, ack before self-re
 : > "$REC_LOG"; : > "$ACK_LOG"; : > "$TR/mock-log"
 seed_op "$ISSUER" "$TARGET" op=unit action=restart name=garden-foreman.timer authorized_by="$MAINTAINER"
 run_sysop "$TR/s-unit"
-{ grep -q 'restart garden-foreman.timer' "$TR/mock-log" && grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG"; } \
-  && ok "attested unit restart applied + acked" || bad "attested unit restart not applied (mock: $(cat "$TR/mock-log"))"
+{ grep -q 'restart --no-block garden-foreman.timer' "$TR/mock-log" && grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG"; } \
+  && ok "attested unit restart queued --no-block + acked" || bad "attested unit restart not applied (mock: $(cat "$TR/mock-log"))"
 : > "$ACK_LOG"; : > "$TR/mock-log"
 seed_op "$ISSUER" "$TARGET" op=unit action=restart name=garden-monk@4.service authorized_by="$MAINTAINER"
 run_sysop "$TR/s-unit-instance"
-{ grep -q 'restart garden-monk@4.service' "$TR/mock-log" && grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG"; } \
+{ grep -q 'restart --no-block garden-monk@4.service' "$TR/mock-log" && grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG"; } \
   && ok "attested template instance restart applied + acked" || bad "template instance restart not applied (mock: $(cat "$TR/mock-log"))"
 : > "$REC_LOG"; : > "$ACK_LOG"
 seed_op "$ISSUER" "$TARGET" op=deploy authorized_by="$MAINTAINER"

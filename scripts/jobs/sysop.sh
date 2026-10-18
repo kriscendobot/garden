@@ -636,8 +636,13 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
           OUTCOME="refused"; DETAIL="unit: '$name' is not an installed garden unit"; return
         fi
       fi
-      local rc=0; unit_ctl "$action" "$name" >/dev/null 2>&1 || rc=$?
-      if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="unit $action $name"; else OUTCOME="failed"; DETAIL="unit $action $name rc=$rc"; fi
+      # --no-block: queue the systemd job and return. A blocking stop/restart of
+      # a worker waits out its graceful drain (the whole in-flight job, hours),
+      # and every sysop tick dies at its 600s self-heal bound meanwhile, so no
+      # other op for this host (drain off included) is processed until the job
+      # ends (oros 2026-10-18: a monk@1 restart wedged the sysop for 40 min).
+      local rc=0; unit_ctl "$action" --no-block "$name" >/dev/null 2>&1 || rc=$?
+      if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="unit $action $name (queued)"; else OUTCOME="failed"; DETAIL="unit $action $name rc=$rc"; fi
       ;;
     local-model)
       # ASYNC provisioning (designs/sysop-local-model.md). Attestation is already
