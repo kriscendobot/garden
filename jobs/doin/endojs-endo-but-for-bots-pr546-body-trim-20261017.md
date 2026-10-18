@@ -56,3 +56,13 @@ Published `@endo/eventual-send` and `@endo/patterns` keep the same `.js` entrypo
 Publishing `.ts` source and `.d.ts.map` files so that "Go to definition" lands on `.ts` is deferred until `ts-node-pack` can emit them.
 
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-18T00:57:54Z
