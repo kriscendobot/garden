@@ -51,6 +51,7 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
