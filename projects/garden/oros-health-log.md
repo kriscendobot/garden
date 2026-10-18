@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-18T21:05Z (oros-health-checkup-20261018-190508): healthy; deployed = origin/main2 `8c13456a`, no changes
+
+- **Load/mem:** load 1.8/2.2/2.0. 13 GiB of 15 GiB available, no swap in use.
+- **Disk/inodes:** 6% of the overlay used (404G free). The virtiofs garden mount is 48% used (240G free); inodes 1% (8.3M).
+- **Uptime:** 17d3h, no reboot.
+- **Deployed vs main2:** root HEAD is `8c13456a`, the origin/main2 tip. deploy-garden recorded it at 19:25:58Z, with a coherent release boundary (143 units active, 0 restarts deferred). fleet/health/oros (19:26Z): `roll_status: deployed`, 0 of 287 units failed.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 20:41:30Z, 16 minutes before this check, status ok, 64% used (155.0M of 180M).
+- **State clones:** transcripts and gardener-scaler have 50 packs and screening-control has 48, right at the threshold. A manual `git gc` left the counts unchanged, because the fleet git wrapper lock was busy. No tmp_pack, no `gc.log`. The root repo has 9 packs and no `gc.log`.
+- **rc=124 (3h):** one, `garden-gardener-scaler` at 20:28 to 20:38Z: a silent 10-minute hang (32s CPU) that the self-heal bound cut off. The ticks before and after ran in about 10s. It happened once; no action taken.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question still stands.
+
 ## 2026-10-18T17:10Z (oros-health-checkup-20261018-155009): healthy; deployed = origin/main2 `3a743ca7`, no changes
 
 - **Load/mem:** load 2.0/1.2/1.1. 12 GiB of 15 GiB available, no swap in use.
