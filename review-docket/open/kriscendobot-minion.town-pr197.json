@@ -3,18 +3,18 @@
   "repo": "kriscendobot/minion.town",
   "pr": 197,
   "url": "https://github.com/kriscendobot/minion.town/pull/197",
-  "head_oid": "a643682e04d4434256b87e5d308b2dcd1e3ef657",
-  "ask": "re-review",
+  "head_oid": "82bde5624ae568e34a1f0a061a9d543d92169949",
+  "ask": "decide",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Panel reviewed f55f6a211481, but the presented head is 2f63c521fd04",
+  "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
   "unblocks": [],
-  "source": "stale-panel-head-kriscendobot-minion.town-pr197-f55f6a21-2f63c521",
-  "requested_at": "2026-10-17T11:50:36Z",
+  "source": "manual-gauntlet-handoff-kriscendobot-minion.town-pr197",
+  "requested_at": "2026-10-18T11:00:56Z",
   "first_requested_at": "2026-10-17T11:50:36Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
-    "state": "green",
-    "observed_at": "2026-10-18T10:52:31Z"
+    "state": "pending",
+    "observed_at": "2026-10-18T11:00:58Z"
   }
 }
