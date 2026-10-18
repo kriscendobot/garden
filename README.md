@@ -1,35 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-18T19:35:09Z_
+_As of 2026-10-18T19:42:18Z_
 
 ## Latest
 
-Production is the main thing to watch: minion.town [#197](https://github.com/kriscendobot/minion.town/pull/197) merged at `cfafabea5a9`, its deploy failed, and proxy screening is paused. A heal job (`heal-minion-town-cfafabe`) is parked, and delegation resumes once a later main deploy succeeds and the watchdog is ok. Before that, the proxy also reported that three conductors finished without merging #197 at head `f55f6a2`. Earlier, [#192](https://github.com/kriscendobot/minion.town/pull/192) merged and its deploy was validated.
+Board movement was light: the only transition was the research job `endo-zip-native-node-fallthrough-investigation-20261013`, which finished. Its finding is to **not** pursue a native-Node ZIP fall-through for `@endo/zip`. Node 26's ZIP API is still early-stage, it doesn't produce byte-identical output, and it accepts hostile inputs that Endo rejects. The full report is in the maintainer inbox.
 
-The fleet deploy is stalled on the leader. Oros reported that endolin-garden-ece02cb4 has sat at `b8abbe64` since 2026-10-16, and its self-advance hasn't landed through four rolls. Someone should check endolin's rolling-deploy journal for a rejected-candidate marker or a "did not land" loop. Oros itself recovered after the sysop-applied monk restart and is on `05d833a2`.
+**Needs a maintainer decision:**
+- **Gauntlet review budgets exhausted.** [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) each used 16 of 16 rounds and still carry about 20 unaddressed must-fix items from the `breaker` seat. [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192), [minion.town#198](https://github.com/kriscendobot/minion.town/pull/198) and [minion.town#200](https://github.com/kriscendobot/minion.town/pull/200) also hit their caps. So did [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). Each can be resumed with `--add-rounds`, or merged or reviewed by hand.
+- **minion.town delegation is paused.** The merge of [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) (`cfafabea5a9`) failed its deploy. A heal job is parked, and screening resumes on its own once a later main deploy succeeds. Separately, three conductors finished without merging that PR.
+- **Leader deploy is stalled.** The oros health check-up reports that endolin has been on `b8abbe64` since 2026-10-16 and has not advanced to `05d833a2`, so oros is correctly holding. Someone should look at endolin's rolling-deploy journal. Oros itself recovered after a monk restart.
+- **Credentials and cleanup.**
+  - Whether the Claude login on endolin is endolin1 or endolin2 is unconfirmed, and the answer affects quota accounting.
+  - The `ci-wait-merge` watchdog (last seen 2026-10-17) reports a 403 reading CI for `kriscendobot`; the bot token needs `checks:read`, `statuses:read` and `actions:read`.
+  - A probe left an anonymous guest on production minion.town that the API can't delete.
+- **Before merging the minion.town settings simplification.** Run `deploy-accounts-store.sh` first. The report also lists four choices open to veto.
+- **M2 is blocked.** The foreman reports [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) as the one remaining item. It is waiting on your review.
 
-Several gauntlets hit their review budget without converging and need a human merge or review call or more rounds:
-- minion.town [#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix)
-- minion.town [#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16, 20)
-- minion.town [#198](https://github.com/kriscendobot/minion.town/pull/198) (6/6)
-- minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12)
-- minion.town [#200](https://github.com/kriscendobot/minion.town/pull/200) (6/6)
-- endo-but-for-bots [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6, 20 must-fix)
-- endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6/6)
-
-In the board transitions, the gauntlet for endo-but-for-bots [#825](https://github.com/endojs/endo-but-for-bots/pull/825) halted at its clean stage because CI is red on Node 24. An endo zip native-Node fallthrough investigation was claimed.
-
-Decisions waiting on the maintainer:
-- The minion.town settings-simplify report needs `deploy-accounts-store.sh` run before merge, plus a veto check on four design choices.
-- The docs-tower report left one anonymous guest on production minion.town that the API can't delete.
-- Foreman milestone M2 is blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), whose review fixes are pushed with CI green.
-- The cap-restore message asks which Claude login (endolin1 or endolin2) the leader host's workers use now. If it's endolin2, the ledger will charge its spend to endolin1's restored 271M cap and the claim gate will refuse work.
-- The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs splitting or a detached run.
-- The oros GitHub token is forbidden from reading CI status on delegated minion.town merges, and needs checks, statuses and actions read permission.
-
-The rest of the inbox is watchdog journal-contention notices, mostly recovered, and routine budget-level worker changes. Claude quota use stands at 68%.
+The journal-contention watchdog notices are mostly routine recoveries. The job `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs to be split.
 
 ## Maintainer review docket
 
@@ -505,6 +493,24 @@ Delegation: **paused** by proxy:screen since 2026-10-18T12:39:07Z: #197 merge cf
 >
 > Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
+- `msg-endo-zip-native-node-fallthrough-investigation-20261013-baa30a00edee` — from gardener:endo-zip-native-node-fallthrough-investigation-20261013, reply_to `endo-zip-native-node-fallthrough-investigation-20261013` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endo-zip-native-node-fallthrough-investigation-20261013-baa30a00edee.md)
+
+> Finding: @endo/zip native-Node ZIP fall-through (endojs/endo-but-for-bots @ llm). Recommendation: DO NOT proceed.
+>
+> - Node 20, 22, and 24 have no native ZIP archive API. Node 26.8.0+ (2026-08-26) adds `zlib.ZipBuffer`/`ZipFile`/`ZipEntry`/`createZipArchive*`. It is at "Stability 1.0 Early development", prints an ExperimentalWarning, and has received hardening fixes in each of 26.9–26.12.
+> - @endo/zip's deflate layer already uses native code on Node: CompressionStream is backed by zlib, and its output is byte-identical to `deflateRawSync` on 22, 24, and 26.
+> - Parity harness, measured on Node 26.12.0:
+>   - Write: 0/9 cases byte-identical. Every case differs at the version-needed field. Node also adds a UT extra field for odd-second timestamps, falls back to store automatically, and defaults the timestamp to "now", so its output is non-deterministic.
+>   - Read: native accepts 5 hostile or malformed inputs that Endo deliberately rejects: an archive comment, trailing data, a local/central name mismatch, and the encrypted flag at open. 7 inputs succeed on both but give different results (timestamps, CP437 names, symlinks, directories, zstd, size cap). Error shapes always differ (ERR_ZIP_* codes vs prose messages).
+> - Engine recognition:
+>   - An `engines`-gated optionalDependency is not enforced by Yarn 4.13 (measured: the lockfile gets no `conditions`, unlike `cpu`). It also describes the install-time Node, not the runtime one.
+>   - The only reliable selector is the `node` export condition plus a runtime feature/version check, which falls back safely to pure JS.
+>   - The native API works under SES lockdown.
+> - Revisit only when the API is Stable and the oldest supported Node ships it, and then only as an opt-in.
+> - Possible small follow-up (not posted): an opt-in `@endo/zip/node.js` exporting `inflateNow`/`deflateNow` via `zlib.*RawSync`.
+>
+> Full report, harness, and results: journal2 `projects/endo-but-for-bots/research/zip-native-fallthrough-20261013/` (README.md, parity.mjs, results-node26.jsonl).
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=113392322 cap=180000000 pace-bias=0 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=4 backoff=0.7555(ramp) target=1
@@ -667,7 +673,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.9M | $745.59 _(notional, rate-card)_ | 68% of 271.0M (ok) |
+| Claude | 184.2M | $746.93 _(notional, rate-card)_ | 68% of 271.0M (ok) |
 | Codex | 77.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92380096 tokens/day lower bound._
@@ -689,17 +695,16 @@ worst fetch p95 11.011281s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`kriscendobot-minion.town-pr199-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #199
 - [`kriscendobot-minion.town-pr201-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr201-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #201
 
-### doin (2)
-- [`endo-zip-native-node-fallthrough-investigation-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-zip-native-node-fallthrough-investigation-20261013.md) — Investigate: let @endo/zip fall through to Node.js's native Zip implementatio...
+### doin (1)
 - [`kriscendobot-minion-town-pr206-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr206-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #206
 
-### tada (13827)
+### tada (13828)
+- [`endo-zip-native-node-fallthrough-investigation-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/18/endo-zip-native-node-fallthrough-investigation-20261013.md) — Completion report: endo-zip-native-node-fallthrough-investigation-20261013
 - [`canary-probe-oros-studio-garden-ce242c49-8c13456a5e7f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/18/canary-probe-oros-studio-garden-ce242c49-8c13456a5e7f.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr825-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/18/endojs-endo-but-for-bots-pr825-gauntlet-20261007-clean.md) — PR #825 clean stage: CI is red on Node 24, so this stage fails
 - [`endojs-endo-but-for-bots-pr825-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/18/endojs-endo-but-for-bots-pr825-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr825-gauntlet-20261007 — HALTED
 - [`kriscendobot-minion.town-pr202-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/18/kriscendobot-minion.town-pr202-gauntlet-fix-4.md) — Cost
-- [`kriscendobot-endo-pr2-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/18/kriscendobot-endo-pr2-gauntlet-20261007-viability.md) — Cost
-- … and 13822 more
+- … and 13823 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
