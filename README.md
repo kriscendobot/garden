@@ -1,20 +1,24 @@
 # Garden bulletin
 
-_As of 2026-10-18T07:18:59Z_
+_As of 2026-10-18T07:20:18Z_
 
 ## Latest
 
-Four minion.town gauntlets ran out of review budget without converging: [#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix findings left), [#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16, 20 left), [#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) and [#192](https://github.com/kriscendobot/minion.town/pull/192) (10/10). On the endo-but-for-bots side, [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6, 20 findings, including a deference-timer reset bug) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6/6) hit the same limit. Each message carries the `--add-rounds` command if you want to grant more rounds, but the late-round finding counts suggest the panel is raising new items faster than fixes remove them.
+Several minion.town gauntlets ran out of review budget without converging and are now waiting on a human merge/review call: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix items outstanding), [#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16, 20 outstanding), [#178](https://github.com/kriscendobot/minion.town/pull/178) (12/12) and [#192](https://github.com/kriscendobot/minion.town/pull/192) (10/10). [#192](https://github.com/kriscendobot/minion.town/pull/192) has since merged and deployed cleanly, as did [#196](https://github.com/kriscendobot/minion.town/pull/196) and [#190](https://github.com/kriscendobot/minion.town/pull/190). On the Endo side, [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6/6, 20 outstanding) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6/6) hit the same budget limit. Each message includes a `--add-rounds` command if you want to grant more rounds.
 
-Proxy-screened merges on minion.town went through: [#192](https://github.com/kriscendobot/minion.town/pull/192) merged and deployed, validated. [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#196](https://github.com/kriscendobot/minion.town/pull/196) merged earlier. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it, and a fix round is queued. Separately, the CI watcher still can't read CI on #192 because the bot token gets HTTP 403 on `statusCheckRollup`; granting `checks:read`, `statuses:read` and `actions:read` on `kriscendobot` fixes it. A job to recover the `ci-minion-town` runner is also queued.
+**Needs a decision**
+- **[minion.town#197](https://github.com/kriscendobot/minion.town/pull/197):** the proxy's delegated merge stalled after three conductors finished without merging it.
+- **mt-beta-settings-simplify:** run `deploy-accounts-store.sh` before merging, because until the new index is active, Log out stays hidden and account deletion answers 503 without deleting. It also lists four choices you can veto.
+- **Production guest:** the minion.town docs report left one anonymous guest on production minion.town that can't be deleted through the API.
+- **claude-endolin1 login:** the cap was restored to 271M, and a gardener asks whether this host's workers are logged in as endolin1 or endolin2. If it's endolin2, the combined spend will hit the cap and the claim gate will refuse work again.
 
-Things waiting on you:
-- **Settings simplification (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging, because until then Log out is hidden and account deletion answers 503. Also veto or accept four listed choices.
-- **Tower report:** one anonymous guest was left on production and can't be deleted through the API. Decide whether to leave it or remove it by hand.
-- **Claude login on endolin:** the `claude-endolin1` cap was restored to 271M. Please confirm whether this host's workers are on endolin1 or endolin2, or the ledger will charge endolin2's spend to endolin1 and the claim gate may refuse work again.
-- **Accountant answer:** the proxy gave a tentative answer to the accountant's question. It keeps the current slate and the 18M reserve, treats oros as having no reset credits, and flags the stale "offline since 09-28" entry.
-
-Capacity moved a little: monk workers on endolin went 1 → 4 after the weekly reset, and oros dropped to 1 monk at 113M of 180M spend. The job `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting. The oros journal worktree still can't fast-forward (36 occurrences), and the many journal-contention notices are mostly recovered.
+**Smaller items**
+- **Orchestrations:** `mt-beta-product-pass-20261017` and the Endo parcel-stack restack both completed with no failed children.
+- **CI read on oros:** the oros host can't read CI for [minion.town#192](https://github.com/kriscendobot/minion.town/issues/192) because the bot token gets 403 on `statusCheckRollup`. It needs `checks:read`, `statuses:read` and `actions:read`.
+- **Overrun job:** `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting.
+- **Oros journal worktree:** it still can't fast-forward (36 occurrences).
+- **Journal contention:** several conditions recovered. One fetch-slow notice is still open on `clerics/1`.
+- **Worker counts:** monks on the main host went from 3 to 4, and codex clerics are flexing between 1 and 4 with demand.
 
 ## Maintainer review docket
 
@@ -33,7 +37,6 @@ Delegation: **active**
 - 2026-10-17T08:43:56Z [#190](https://github.com/kriscendobot/minion.town/pull/190) merged `3a2c1200d5f`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/39018464539), watchdog ok — validated
 - 2026-10-17T08:22:50Z [#196](https://github.com/kriscendobot/minion.town/pull/196) `9866fe61782` screened
 - 2026-10-17T07:24:50Z [#196](https://github.com/kriscendobot/minion.town/pull/196) `82eb5885765` screened
-- 2026-10-17T07:19:42Z [#190](https://github.com/kriscendobot/minion.town/pull/190) `f9a87fcfda0` screened
 
 ## Messages to the maintainer
 
@@ -387,7 +390,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_producer_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=1.656859s max=48.784277s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` has CLEARED (first seen 2026-10-18T07:14:56Z, cleared 2026-10-18T07:19:20Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` cleared on endolin-garden-ece02cb4.
 
 - `20261017T175349Z-6b9fd0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T175349Z-6b9fd0.md)
 
@@ -507,13 +514,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.2M | $601.09 _(notional, rate-card)_ | 54% of 271.0M (ok) |
+| Claude | 145.3M | $601.44 _(notional, rate-card)_ | 54% of 271.0M (ok) |
 | Codex | 58.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 93456503 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.826076s/45s (/home/kris/garden/.garden-state/transcripts/journal); 9 open notice(s); checker healthy
+worst fetch p95 6.826076s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (17)
