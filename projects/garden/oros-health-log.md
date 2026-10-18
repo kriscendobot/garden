@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-18T08:45Z (oros-health-checkup-20261018-033508): healthy (one docs commit behind main2, roll pending), no changes
+
+- **Load/mem:** load 1.7/1.1/1.0. 13 GiB of 15 GiB available (815 MiB of swap in use).
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1% (167k).
+- **Uptime:** 16d15h, no reboot.
+- **Deployed vs main2:** root at `6348060b`. origin/main2 is `05d833a2` (a docs-only ci-runner note), which landed at 08:29Z, about 13 minutes before this check. fleet/health/oros (06:29Z): `roll_status: deployed`, 0 of 287 units failed. The next roll should pick up the new commit; this check-up is finishing quickly so it does not hold the long-job deferral.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). The leveling row is still `4 0`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 08:31Z, status ok, 57% used (136.96M of 180M). All 6 pushes from 07:17Z to 08:31Z landed, about 15 minutes apart, and spend is monotone.
+- **State clones:** 32 namespace journal clones. The largest have 49 packs (repo-watcher) and 47 (reaper, regenerate-topics-counts). None has a tmp_pack or a `gc.log`. The root repo has 30 packs and no `gc.log`. The `.lock` files older than 30 minutes are persistent flock files.
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `journal-worktree-keeper/backups` retention question from 10-14 still stands.
+
 ## 2026-10-18T01:30Z (oros-health-checkup-20261018-002033): healthy (deployed = origin/main2 `46215da0`), no changes
 
 - **Load/mem:** load 1.2/1.6/1.4. 13 GiB of 15 GiB available (812 MiB of swap in use).
