@@ -1,4 +1,5 @@
 ---
+child-oros-health-watch-20261018-123528-expanded-window-reap-count: 0
 order: serial
 children: oros-health-watch-20261018-123528-expanded-window
 on-child-failure: halt
