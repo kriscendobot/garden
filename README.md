@@ -1,26 +1,31 @@
 # Garden bulletin
 
-_As of 2026-10-18T03:11:11Z_
+_As of 2026-10-18T03:18:51Z_
 
 ## Latest
 
-Several minion.town PRs moved through the proxy and the gauntlet. [#192](https://github.com/kriscendobot/minion.town/pull/192) merged at 00:23Z and [#196](https://github.com/kriscendobot/minion.town/pull/196) merged on 10-17. Both deploys succeeded and validated. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it, and it is back in a gauntlet fix round. On the board, fix and panel rounds are queued or running for minion.town PRs #198 through #204, plus [endo-but-for-bots#546](https://github.com/endojs/endo-but-for-bots/pull/546) at panel round 4.
+Three minion.town PRs ([#192](https://github.com/kriscendobot/minion.town/pull/192), [#196](https://github.com/kriscendobot/minion.town/pull/196), [#190](https://github.com/kriscendobot/minion.town/pull/190)) and [#194](https://github.com/kriscendobot/minion.town/pull/194) merged through proxy screening. Each deploy succeeded and was validated. [#197](https://github.com/kriscendobot/minion.town/pull/197) is the exception. It was screened, but three conductors finished without merging it, so the delegated merge is stalled and needs a look. Its gauntlet fix round 1 is still running.
 
-**Needs a maintainer decision:**
-- **Review budgets exhausted:** gauntlets for [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) stopped at their round limits without converging. #184, #180 and #1482 still carry about 20 unaddressed must-fix items each, and the panel keeps finding new ones. Each can be resumed with `--add-rounds`.
-- **Settings simplification (mt-beta-settings-simplify):** run `deploy-accounts-store.sh` before merging. Until then, Log out stays hidden and account deletion answers 503. The report also lists four changes for your veto.
-- **claude-endolin1 cap:** the cap was restored to 271M after the 10-17 reset. It asks which Claude login that host is using, endolin1 or endolin2. If it is still endolin2, the ledger will charge endolin2's spend to endolin1 and the claim gate will refuse work again.
-- **Anonymous guest on production minion.town:** the live probe left one anonymous guest on production, and the API has no way to delete it.
-- **Proxy's tentative accountant answer:** the proxy answered the accountant's gating question tentatively and wants your review. It kept the budget slate and reserve unchanged, and it treats claude-oros as having no reset credits.
+Several gauntlets hit their review budget without converging and are left for a human decision. Each message gives the `--add-rounds` command to grant more.
+- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184): 19 unaddressed must-fix items after 16/16 rounds.
+- [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180): 20 unaddressed must-fix items after 16/16 rounds.
+- [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482): 20 unaddressed must-fix items after 6/6 rounds.
+- [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192): budget reached with no structured must-fix list.
 
-The orchestrations `mt-beta-product-pass-20261017` and the endo parcel-stack restack both completed cleanly. The job `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting into smaller stages.
+Decisions waiting on you:
+- **Settings simplify:** the `mt-beta-settings-simplify` job needs you to run `deploy-accounts-store.sh` before merging. It also lists four choices you can veto.
+- **Tower report:** the job left one anonymous guest on production minion.town, and the garden can't remove it. The source note wasn't on the host that ran it.
+- **Claude login on endolin:** the bot asks whether that host's workers are on endolin1 or endolin2. If it's endolin2, the restored 271M endolin1 cap will be charged for endolin2's spend, and the claim gate will refuse work again.
+- **Proxy answer:** the proxy gave a tentative answer on the weekly accountant slate. Review it and override if you disagree.
 
-**Infrastructure noise:**
-- **Journal lock contention:** a storm on the leader host is on its 36th occurrence, and several other contention notices recovered.
-- **oros fast-forward failure:** oros has failed 36 times to fast-forward its journal worktree.
-- **ci-wait-merge 403:** ci-wait-merge on oros cannot read CI for minion.town#192 because the token gets a 403. The bot token needs `checks:read`, `statuses:read` and `actions:read`.
-
-Claude spend is at 50% of the 271M quota. The leader's monk count has been stepping down as spend rises.
+Operational notes:
+- **Orchestrations:** `mt-beta-product-pass-20261017` finished with 4 children and no failures. The parcel-stack restack orchestration also finished with 3 children and no failures.
+- **Handler overrun:** `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting into smaller stages.
+- **CI read permission:** `ci-wait-merge` on the oros host still can't read CI for [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192). The bot token needs checks, statuses and actions read permission.
+- **Journal worktree on oros:** it has failed to fast-forward 36 times since 2026-10-09.
+- **Journal lock contention:** a storm hit seven clones on the leader host.
+- **Claude quota:** the pool is at 50% of the 271M cap, and monk workers stepped between 1 and 4 over the window.
+- **Board:** six gauntlet stages are queued on minion.town PRs 198–204 (except 199, which is running).
 
 ## Maintainer review docket
 
@@ -496,10 +501,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.8M | $559.41 _(notional, rate-card)_ | 50% of 271.0M (ok) |
-| Codex | 51.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 134.9M | $560.05 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Codex | 51.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92465569 tokens/day lower bound._
+_Fleet token-unlock pace: 92501558 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.826076s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
