@@ -1,29 +1,32 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-18T21:40:32Z_
+_As of 2026-10-18T21:44:21Z_
 
 ## Latest
 
-Several gauntlets hit their review budget without converging and are waiting on a human call: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) after 16 rounds each (19 and 20 new must-fix items in the last round), and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) after 6 rounds with 20 new items. The bounded gauntlets on [minion.town#198](https://github.com/kriscendobot/minion.town/pull/198), [#200](https://github.com/kriscendobot/minion.town/pull/200) and [#178](https://github.com/kriscendobot/minion.town/pull/178), and on [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), also ran out of rounds. Their panel reports carry no structured must-fix list. Each message offers `--add-rounds` to resume.
+The board is quiet: the only transition is a claim, where the botanist took [endo-but-for-bots#1492](https://github.com/endojs/endo-but-for-bots/pull/1492) (Dependabot) from todo into doin. Several other Dependabot PRs (#1489–#1496) are also moving through the botanist queue.
 
-minion.town delegation is **paused**. The merge of [#197](https://github.com/kriscendobot/minion.town/pull/197) (`cfafabea5a9`) broke the production deploy, and the heal job `heal-minion-town-cfafabe` is parked. The proxy also reports that three conductors finished without merging #197's later head (`f55f6a2`).
+**Needs a decision**
+- **minion.town production:** delegation is paused after the merge of [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) (`cfafabea5a9`) failed its deploy. A heal job is parked in the plan queue. Separately, three conductors finished without merging the later head `f55f6a2`, so that merge is stalled.
+- **Review-budget gauntlets:** six gauntlets hit their review-round cap and now wait for a human merge or review call, or for more rounds:
+  - [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) used 16 of 16 rounds. Each still has about 20 unaddressed must-fix findings, and each is judged a moving target.
+  - [minion.town#198](https://github.com/kriscendobot/minion.town/pull/198), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#178](https://github.com/kriscendobot/minion.town/pull/178) and [#192](https://github.com/kriscendobot/minion.town/pull/192) also hit their caps. Each has an unknown must-fix list, because the panel report had no structured list.
+  - [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) used 6 of 6 rounds with 20 unaddressed must-fix findings. Its main complaint is that the deference bound resets on every redial.
+  - [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) used 6 of 6 rounds and has an unknown must-fix list.
+- **Fleet deploy:** the oros health check-up says the leader (endolin) has sat at `b8abbe64` since 10-16 and has not advanced. It has not released oros for `05d833a2`, so someone should inspect endolin's rolling-deploy journal. Oros itself recovered. Its monk was restarted at 14:02Z and it is deployed at `05d833a2`.
+- **Minion.town settings simplify:** the maintainer must run `deploy-accounts-store.sh` before merging. Until the new index is active, Log out stays hidden and account deletion answers 503. Four choices are also open to your veto.
+- **Claude login on endolin:** the endolin1 cap was restored to 271M. The restore job needs to know whether this host's workers are on endolin1 or endolin2, or endolin2's spend will be charged to endolin1 and the claim gate will refuse work again.
+- **Foreman M2:** the milestone is blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), the remaining hardened text-codecs shim, and waits on your approval.
+- **Other open items:**
+  - One anonymous guest is left on production minion.town and cannot be deleted through the API.
+  - `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting.
+  - A host-requirements watchdog flagged [endo-but-for-bots#1489](https://github.com/endojs/endo-but-for-bots/pull/1489), which sat unclaimed.
 
-The leader's deploy looks stalled. Per the oros health check-up, `endolin-garden-ece02cb4` has stayed at `b8abbe64` since 2026-10-16, and its self-advance has not landed through four rolls. Oros is correctly holding at `05d833a2`. The stuck oros monk was cleared at 14:02Z with a reset-failed and a service restart, and oros is now healthy.
+**Finished**
+- Three orchestrations completed with no failed children: the beta product pass, the oros health-watch split, and the parcel-stack restack.
+- The investigation of a native Node ZIP fall-through for @endo/zip recommended **not** proceeding, because Node's ZIP API is still experimental and not byte-compatible.
 
-Things that need your input:
-- **Accounts store:** run `deploy-accounts-store.sh` before merging the settings simplification ([liaison follow-up](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)). Until then, Log out stays hidden and account deletion answers 503.
-- **Veto list:** the same follow-up lists four choices that stand unless you object.
-- **Claude login:** confirm whether the endolin host is on the endolin1 or endolin2 login. If it is on endolin2, its spend will be charged to endolin1's restored 271M cap.
-- **Guest and tower note:** one anonymous probe guest is left on production minion.town, and `note-from-tower.md` was not on the host that ran the report job.
-- **M2 milestone:** blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), which awaits your approval.
-
-One job overran its handler budget: `minion-town-ci-harness-path-gate` hit its 7200s limit and needs splitting.
-
-The research finding on native-Node ZIP in `@endo/zip` is to not proceed. Node's API is still early-stage and does not match Endo's output or its rejection of hostile inputs.
-
-On the board, the `mt-beta-product-pass` and oros-health-watch orchestrations completed, and the 12 queued jobs are mostly gauntlet rounds and dependabot botanist jobs. Only one transition landed in this window: the botanist job for [endo-but-for-bots#1489](https://github.com/endojs/endo-but-for-bots/pull/1489) finished, and its merge conductor is queued. The rest of the journal-contention watchdog traffic is recovery notices.
+Most of the remaining notices are journal-contention conditions that cleared on their own.
 
 ## Maintainer review docket
 
@@ -173,6 +176,10 @@ Delegation: **paused** by proxy:screen since 2026-10-18T12:39:07Z: #197 merge cf
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-unclaimable-host-requirements-endojs-endo-but-for-bots-pr1489-dependabot-merge` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-endojs-endo-but-for-bots-pr1489-dependabot-merge.md)
+
+> Host-requirements gate: job 'endojs-endo-but-for-bots-pr1489-dependabot-merge' has remained unclaimed for 1180s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df` — from gardener:claude-on-minion-town-press-20261016-170509, reply_to `claude-on-minion-town-press-20261016-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df.md)
 
@@ -683,7 +690,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 192.4M | $776.49 _(notional, rate-card)_ | 71% of 271.0M (ok) |
+| Claude | 192.6M | $777.14 _(notional, rate-card)_ | 71% of 271.0M (ok) |
 | Codex | 77.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92376692 tokens/day lower bound._
@@ -692,8 +699,7 @@ _Fleet token-unlock pace: 92376692 tokens/day lower bound._
 worst fetch p95 11.011281s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (12)
-- [`endojs-endo-but-for-bots-pr1492-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1492-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1492
+### todo (11)
 - [`kriscendobot-minion.town-pr202-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr202-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #202
 - [`dependabot-node-proof-outgoing-baseline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabot-node-proof-outgoing-baseline.md) — Garden fix: the dependabot Node-engine preflight must ignore a mismatch the o...
 - [`kriscendobot-minion.town-pr203-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr203-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #203
@@ -706,7 +712,8 @@ worst fetch p95 11.011281s/45s (/home/kris/garden/.garden-state/fleet-health/jou
 - [`endojs-endo-but-for-bots-pr1491-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1491-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1491
 - [`endojs-endo-but-for-bots-pr1495-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1495-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1492-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1492-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1492
 - [`endojs-endo-but-for-bots-pr1496-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1496-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
 - [`endojs-endo-but-for-bots-pr1490-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1490-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1490
 
