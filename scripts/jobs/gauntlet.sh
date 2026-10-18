@@ -1058,12 +1058,14 @@ posting host's garden root.
    same worktree and retained base object ID:
    \`GARDEN_PANEL_SINGLE_ROUND=1 \\
      scripts/jobs/gardening/panel.sh <worktree> $prnum <base-object-id>\`
-   It fans the seats, aggregates, and prints its disposition as the terminal line's
-   last token: \`pass\` or \`must-fix\`. It does NOT fix or un-draft in this mode.
-4. Post the aggregate (in \$GARDEN_PANEL_RUNDIR) as a \`gh pr review\` on $pr — the
-   panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
-   review on must-fix, a comment/approve on pass).
-5. If panel.sh exits NON-ZERO it did NOT return a review verdict. A seat error, a
+   It fans the seats, aggregates, preflights the PR author against the authenticated
+   login, and posts its own formal review. A must-fix result normally requests
+   changes; on a self-authored PR it posts the same aggregate as a comment review,
+   retaining the \`Must-fix before merge\` heading. It does NOT fix or un-draft.
+   Only after the review post succeeds does it print the existing stage-result
+   marker followed by a terminal line whose last token is \`pass\` or \`must-fix\`.
+   Copy that marker into your completion report; do not post the aggregate yourself.
+4. If panel.sh exits NON-ZERO it did NOT return a posted review verdict. A seat error, a
    decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
    failure, not a pass/must-fix decision. Do NOT report \`orchestration-failed:
    true\` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
@@ -1103,8 +1105,9 @@ posting host's garden root.
 2. If an exact deterministic pre-pass output block appears below, apply every
    finding in that block; panel-$iter stopped before dispatching jurors and there
    is no PR review for this round. If no block appears, read the LATEST panel
-   verdict on $pr (the request-changes \`gh pr review\` panel-$iter posted) and apply
-   its must-fix items. A prepass-failed report with an absent/empty block is missing
+   verdict on $pr (a request-changes review, or a comment review headed
+   \`Must-fix before merge\` when the bot authored the PR) and apply its must-fix
+   items. A prepass-failed report with an absent/empty block is missing
    evidence: fail closed rather than guessing.
 
 $prepass_block

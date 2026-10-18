@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-10-15
+updated: 2026-10-18
 author: gardener
 ---
 
@@ -60,6 +60,8 @@ runnable non-interactively):
 | `GARDEN_PANEL_UNDRAFT` | pluggable: the terminal un-draft call, e.g. `gh pr ready` (default no-op `true`). |
 | `GARDEN_PANEL_RUNDIR` | on-disk scratch for per-seat blocks + aggregates (kept OUT of the supervisor's context). |
 | `GARDEN_PANEL_RECORD` | the durable-record writer (default `scripts/jobs/panel-run-record.sh`; set `:` to skip the journal push). |
+| `GARDEN_PANEL_GH` | `gh` command used for single-round author/login preflight and formal-review submission (default `gh`; test-stubbable). |
+| `GARDEN_PANEL_REVIEW_SUBMIT` | single-round review-submission hook. The default submits with `gh`; `:` skips only in tests, and another command receives `<aggregate> <disposition> <pr> <repo>`. |
 | `GARDEN_PANEL_REPO` | `<owner>/<repo>` for the record's store key (default: derived from the worktree's `origin`, else the worktree basename). Every remote-URL form git accepts reduces to the same key (`scripts/jobs/test/panel-repo-slug-test.sh`), so a run is keyed the same whether or not a caller passes this. |
 | `GARDEN_PANEL_CONCURRENCY` | how many seats review at once (default 8); bounded parallelism within the handler budget. |
 | `GARDEN_PANEL_SEAT_ATTEMPTS` / `_BACKOFF` | per-seat retry-on-empty attempts (default 3) and backoff step in seconds (default 5). |
@@ -199,14 +201,23 @@ panel round.
    `must-fix` or `pass`. The decider grades each finding's severity itself
    under § Finding severity; a seat's `request-changes` label alone does not
    block.
-5. **Fixer loop.** On `must-fix`, the script invokes the project fixer hook with
+5. **Submit a single-round review.** In `GARDEN_PANEL_SINGLE_ROUND=1` mode, the
+   script owns the formal review post before it emits the gauntlet stage marker.
+   It resolves the authenticated login and PR author first. A must-fix aggregate
+   gets a `Must-fix before merge` heading and normally uses
+   `gh pr review --request-changes`; when the authenticated identity authored the
+   PR, GitHub forbids that review state, so the script submits the unchanged full
+   aggregate with `--comment`. A clean result uses `--approve`, with the same
+   self-authored `--comment` fallback. A failed preflight or post emits no success
+   marker and fails the panel stage for retry.
+6. **Fixer loop.** On `must-fix`, the script invokes the project fixer hook with
    the must-fix items and re-runs the panel against the new head — the same loop
    v1 ran between a judge's request-changes verdict and the justice's re-review.
    The loop iterates until a `pass` (or the safety bound trips).
-6. **Appellate pass.** On `pass`, the script shells the appellate hook over the
+7. **Appellate pass.** On `pass`, the script shells the appellate hook over the
    passing aggregate; its conservative promotion proposals land in the run dir
    and are advisory (they do not block the un-draft).
-7. **Terminate by un-drafting.** The script calls the un-draft hook (v1's
+8. **Terminate by un-drafting.** The script calls the un-draft hook (v1's
    `gh pr ready <N>`) and prints one terminal line. That line — passed + un-
    drafted — is the only thing the supervisor normally sees.
 

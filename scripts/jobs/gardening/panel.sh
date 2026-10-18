@@ -320,7 +320,9 @@ trap 'panel_signal_exit 143' TERM
 # --- SINGLE-ROUND RESUME: reuse a durable panel-run record for THIS head -----
 # The staged gauntlet's panel stage is agent-supervised: the gardener runs this
 # script (a 29-seat fan-out that can take 20-45+ minutes) and then posts the
-# aggregate as a `gh pr review`. If the gardener dies AFTER the seats aggregated
+# aggregate as a `gh pr review`. Single-round mode owns that submission itself so
+# its stage marker cannot be emitted before GitHub has accepted the review. If the
+# gardener dies AFTER the seats aggregated
 # and emit_panel_record pushed the durable `panel-runs/<slug>/<run-id>.md` record
 # but BEFORE the review posted (a mid-post GitHub rate-limit, an exit-0-unsatisfying
 # cut, a reap), the stage requeues — and a fresh claim re-runs the ENTIRE 29-seat
@@ -347,6 +349,87 @@ trap 'panel_signal_exit 143' TERM
 # prompt as instruction.
 # Disable with GARDEN_PANEL_RESUME=0.
 resume_slug() { printf '%s' "${1:-}" | tr -c 'A-Za-z0-9._-' '-'; }
+
+# GitHub renders App logins in either classic (`name[bot]`) or modern
+# (`app/name`) form depending on the API/CLI surface. Normalize both before the
+# self-review comparison so a representation difference cannot send a forbidden
+# request-changes review.
+canonical_review_login() {  # canonical_review_login <login>
+  printf '%s' "$1" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed -e 's,^app/,,' -e 's,\[bot\]$,,'
+}
+
+# panel_submit_review <aggregate> <disposition>
+#
+# Submit the single-round aggregate as a formal review. GitHub forbids both
+# request-changes and approve reviews on a PR authored by the authenticated
+# identity. Preflight that relation deterministically and preserve a must-fix
+# verdict as a COMMENTED review whose visible heading remains the downstream
+# automation signal.
+panel_submit_review() {
+  local agg="$1" disposition="$2" auth_login author_login review_flag tmp
+  local gh_cmd="${GARDEN_PANEL_GH:-gh}"
+
+  [ -n "$wt_repo" ] || fail "review submission (cannot derive repository from worktree origin)"
+  auth_login="$("$gh_cmd" api user --jq .login 2>/dev/null)" \
+    || fail "review submission preflight (cannot resolve authenticated login)"
+  author_login="$("$gh_cmd" pr view "$pr" -R "$wt_repo" --json author --jq '.author.login' 2>/dev/null)" \
+    || fail "review submission preflight (cannot resolve PR author)"
+  [ -n "$auth_login" ] || fail "review submission preflight (authenticated login is empty)"
+  [ -n "$author_login" ] || fail "review submission preflight (PR author login is empty)"
+
+  case "$disposition" in
+    must-fix)
+      # The exact heading is the self-authored fallback's machine-readable and
+      # human-visible verdict. Add it once, ahead of the complete aggregate, and
+      # use the same body for request-changes and comment submissions.
+      if ! grep -qiE '^#{1,6}[[:space:]]+Must-fix before merge([[:space:]]|$)' "$agg"; then
+        tmp="$agg.heading.$$"
+        { printf '## Must-fix before merge\n\n'; cat "$agg"; } > "$tmp"
+        mv "$tmp" "$agg"
+      fi
+      review_flag=--request-changes
+      if [ "$(canonical_review_login "$auth_login")" = "$(canonical_review_login "$author_login")" ]; then
+        review_flag=--comment
+      fi
+      ;;
+    pass)
+      # An author cannot approve its own PR either. A comment records the clean
+      # aggregate without asking GitHub for a forbidden self-approval.
+      review_flag=--approve
+      if [ "$(canonical_review_login "$auth_login")" = "$(canonical_review_login "$author_login")" ]; then
+        review_flag=--comment
+      fi
+      ;;
+    *) fail "review submission (unknown disposition '$disposition')" ;;
+  esac
+
+  "$gh_cmd" pr review "$pr" -R "$wt_repo" "$review_flag" --body-file "$agg" \
+    || fail "review submission (gh pr review failed)"
+}
+
+# finish_single_round <aggregate> <disposition>
+# Posting is part of the state transition. The stage marker is deliberately
+# emitted only after the submit hook returns success, so a failed GitHub write is
+# retried as panel-error instead of falsely advancing the gauntlet.
+finish_single_round() {
+  local agg="$1" disposition="$2" submit_hook
+  if [ -n "${GARDEN_PANEL_REVIEW_SUBMIT+x}" ]; then
+    submit_hook="$GARDEN_PANEL_REVIEW_SUBMIT"
+  elif [ "${GARDEN_TEST:-0}" = 1 ]; then
+    submit_hook=:
+  else
+    submit_hook=panel_submit_review
+  fi
+  case "$submit_hook" in
+    :) ;;
+    panel_submit_review) panel_submit_review "$agg" "$disposition" ;;
+    *) "$submit_hook" "$agg" "$disposition" "$pr" "$wt_repo" ;;
+  esac
+  printf '<!-- gauntlet-stage-result: panel=%s -->\n' "$disposition"
+  echo "panel #$pr: $panel_kind single-round — $disposition"
+}
 
 maybe_resume_single_round() {
   [ "${GARDEN_PANEL_SINGLE_ROUND:-0}" = 1 ] || return 1
@@ -402,8 +485,8 @@ maybe_resume_single_round() {
   # it never pollutes the last token.
   echo "panel #$pr: $panel_kind single-round — RESUMED from durable record $(basename "$best" .md) (seats not re-run)" >&2
   case "$disp" in
-    must-fix) PANEL_DISPOSITION="must-fix"; echo "panel #$pr: $panel_kind single-round — must-fix" ;;
-    *)        PANEL_DISPOSITION="passed";   echo "panel #$pr: $panel_kind single-round — pass" ;;
+    must-fix) PANEL_DISPOSITION="must-fix"; finish_single_round "$GARDEN_PANEL_RUNDIR/round-1.md" must-fix ;;
+    *)        PANEL_DISPOSITION="passed";   finish_single_round "$GARDEN_PANEL_RUNDIR/round-1.md" pass ;;
   esac
   return 0
 }
@@ -902,7 +985,9 @@ if [ "$no_review_surface" = true ]; then
   PANEL_DISPOSITION="passed-no-review-surface"
   echo "panel #$pr: no review surface — the diff against $base is empty; no seats dispatched." >&2
   if [ "${GARDEN_PANEL_SINGLE_ROUND:-0}" = 1 ]; then
-    echo "panel #$pr: $panel_kind single-round — pass"
+    printf '## Panel verdict: pass\n\nNo review surface: the diff against `%s` is empty.\n' "$base" \
+      > "$GARDEN_PANEL_RUNDIR/round-0.md"
+    finish_single_round "$GARDEN_PANEL_RUNDIR/round-0.md" pass
     exit 0
   fi
   undraft
@@ -1332,7 +1417,7 @@ while :; do
     if [ "$PHASE_EVIDENCE_HOLD_DRAFT" -eq 1 ] && [ "$disposition" = pass ]; then
       echo "panel #$pr: code passed; the phase ledger withholds the un-draft (the gauntlet driver holds the PR draft)." >&2
     fi
-    echo "panel #$pr: $panel_kind single-round — $disposition"
+    finish_single_round "$agg" "$disposition"
     exit 0
   fi
 
