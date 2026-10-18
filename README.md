@@ -1,25 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-18T15:43:29Z_
+_As of 2026-10-18T15:48:58Z_
 
 ## Latest
 
-Minion.town production is the main thing to watch. [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) merged as `cfafabea5a9` and its [deploy failed](https://github.com/kriscendobot/minion.town/actions/runs/39126464564). The proxy paused delegated screening and posted a heal job (`heal-minion-town-cfafabe`, still parked in the plan queue). Screening resumes on its own after a later main deploy succeeds and the watchdog is ok. Screening also reports that three conductors finished without merging #197 at head `f55f6a2`, so its history needs a read. [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) merged and deployed cleanly earlier.
+Several review gauntlets ran out of rounds and are waiting on a maintainer decision. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) each used all 16 rounds, with 19 and 20 unaddressed must-fix items and the panel still finding new ones. [#178](https://github.com/kriscendobot/minion.town/pull/178) stopped at 12 rounds with its must-fix count unknown. [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (20 unaddressed) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (unknown) both used their 6 rounds. Each message offers `--add-rounds`.
 
-The fleet's deploy is stalled on the leader. `endolin-garden-ece02cb4` has been at `b8abbe64` since 10-16, and four rolls with a passing oros canary have not advanced it. Oros is correctly holding, so someone should check endolin's rolling-deploy journal for a rejected-candidate marker or a "did not land" loop. Oros itself recovered after a monk restart and is claiming work again.
+**Production risk:** minion.town screening is paused. The merge of [#197](https://github.com/kriscendobot/minion.town/pull/197) (`cfafabea5a9`) failed its deploy.yml run, and heal job `heal-minion-town-cfafabe` is posted but still parked. Delegation resumes on its own once a later main deploy succeeds. A separate notice says 3 conductors finished without merging #197's later head.
 
-Three gauntlets stopped at their review budget with must-fix items still open and need a human decision: [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16 rounds, 19 open), [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) (16 rounds, 20 open), and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6 rounds, 20 open). The review-budget messages for [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) are also unread. Each message includes the `--add-rounds` command to resume.
+**Fleet health:**
+- **Stalled leader deploy.** The `endolin-garden-ece02cb4` leader has sat at `b8abbe64` since 10-16 and has not self-advanced through four rolls, so oros is holding below `main2` `05d833a2`. Someone should check its rolling-deploy journal for a rejected-candidate marker.
+- **Oros recovered.** Its monk restart landed, and a check-up claimed it at 14:03Z.
+- **Journal contention.** It cleared on most paths, but a 40s fetch anomaly on the leader's journal is still open.
 
-Other items need the maintainer:
-- **Accounts store:** the settings-simplify report needs `deploy-accounts-store.sh` run before merging. Until then, Log out stays hidden and account deletion answers 503. It also asks you to veto-check four choices.
-- **Claude login:** `restore-endolin1-cap` asks which Claude login (endolin1 or endolin2) endolin's workers are on. If it is endolin2, endolin1's restored 271M cap will fill up and the claim gate will refuse work.
-- **Token permissions:** the oros CI read for minion.town is 403 for lack of checks:read, statuses:read and actions:read on the bot token.
-- **Stuck job:** `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting.
-- **Milestone M2:** it is blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), which awaits your approval.
+**Decisions waiting on you:**
+- **minion.town settings simplify.** Run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
+- **Claude login.** The restored 271M cap for `claude-endolin1` raises the question of whether this host is logged in as endolin1 or endolin2.
+- **Docs tower report.** It left one anonymous guest on production minion.town, and its source note was missing from the host that ran it.
+- **M2.** Milestone M2 is blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), which needs approval or changes.
 
-Completed orchestrations were the mt-beta product pass, the oros health watch, and the parcel-stack restack. Journal-lock contention notices were mostly noise, and many cleared. Oros still shows a repeated journal worktree fast-forward failure (36 occurrences). No file-level board transitions were resolved this cycle.
+Completed orchestrations include the beta product pass (4 children) and the parcel-stack restack (3 children).
+
+The board is quiet otherwise: no file-level transitions were resolved this cycle.
 
 ## Maintainer review docket
 
@@ -629,10 +631,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.0M | $704.23 _(notional, rate-card)_ | 63% of 271.0M (ok) |
+| Claude | 172.2M | $704.95 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 70.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92220802 tokens/day lower bound._
+_Fleet token-unlock pace: 92259018 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 40.088266s/45s (unknown); 8 open notice(s); checker healthy
