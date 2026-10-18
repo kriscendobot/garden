@@ -1,2 +1,2 @@
-base: improve-panel-seat-timeout
+base: improve-panel-self-authored-review-fallback
 identity: mentor:scripts/jobs/gardening/panel.sh
