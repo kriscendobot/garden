@@ -21,7 +21,7 @@ dependabot-close-proof-a: '20.17.0'
 dependabot-close-proof-project: '^20.17.0 || >=22.9.0'
 dependabot-close-proof-required: '>=22.19.0'
 dependabot-close-proof-path: 'package.json'
-dependabot-close-project: endo-but-for-bots
+dependabot-close-project: endojs-endo-but-for-bots
 ---
 EOF
 cat > "$TR/gh" <<'EOF'
@@ -64,7 +64,9 @@ grep -q '^comment-status: failed$' "$TR/report"
 grep -q '^close-status: closed$' "$TR/report"
 grep -q '^comment-status: failed$' "$TR/journal.body"
 grep -q '^close-status: closed$' "$TR/journal.body"
+grep -q '^project: endo-but-for-bots$' "$TR/journal.body"
 echo 'PASS: terminal close is attempted after a 403 verdict-comment failure, with partial failure recorded separately'
+echo 'PASS: the watcher repo-watch slug is normalized to the journal project slug'
 
 cat > "$TR/superseded-job" <<'EOF'
 ---

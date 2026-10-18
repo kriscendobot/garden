@@ -14,6 +14,10 @@ repo="$(field dependabot-close-repo)"; pr="$(field dependabot-close-pr)"
 pkg="$(field dependabot-close-package)"; old="$(field dependabot-close-old)"
 new="$(field dependabot-close-new)"; kind="$(field dependabot-close-kind)"
 project="$(field dependabot-close-project)"
+# The watcher stamps its repo-watch slug (`<owner>-<name>`), but journal
+# projects are keyed by the repo name with dots dashed (`minion.town` ->
+# `minion-town`); journal-entry.sh refuses the former, wedging every close.
+[ "$project" != "${repo%%/*}-${repo#*/}" ] || { project="${repo#*/}"; project="${project//./-}"; }
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_DEPENDABOT_LOGIN:=dependabot[bot]}"
 : "${GARDEN_DEP_CLOSE_COMPAT:=$HERE/dep-compat-gh.sh}"
