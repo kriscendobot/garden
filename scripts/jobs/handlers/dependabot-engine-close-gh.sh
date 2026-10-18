@@ -38,7 +38,7 @@ title="$(printf '%s' "$doc" | jq -r '.title // empty')"
 [[ "$title" =~ ^[Bb]ump[[:space:]]+([^[:space:]]+)[[:space:]]+from[[:space:]]+([^[:space:]]+)[[:space:]]+to[[:space:]]+([^[:space:]]+)([[:space:]].*)?$ ]] || exit 1
 [ "${BASH_REMATCH[1]}" = "$pkg" ] && [ "${BASH_REMATCH[2]}" = "$old" ] && [ "${BASH_REMATCH[3]}" = "$new" ] || exit 1
 
-proof="$("$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$new" 2>/dev/null)" || exit 1
+proof="$("$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$old" "$new" 2>/dev/null)" || exit 1
 [ "$proof" = "incompatible"$'\t'"node"$'\t'"$floor"$'\t'"$declared"$'\t'"$required"$'\t'"$path" ] || exit 1
 }
 

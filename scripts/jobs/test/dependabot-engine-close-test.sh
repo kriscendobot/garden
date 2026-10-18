@@ -26,6 +26,7 @@ fi
 EOF
 cat > "$TR/compat" <<'EOF'
 #!/bin/bash
+[ "$*" = "endojs/endo-but-for-bots 1174 better-sqlite3 12.4.1 13.0.0" ] || exit 1
 printf '%s\n' "${COMPAT_PROOF:?}"
 EOF
 cat > "$TR/journal" <<'EOF'

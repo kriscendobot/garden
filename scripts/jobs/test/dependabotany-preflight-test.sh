@@ -67,7 +67,7 @@ printf '#!/bin/bash\nprintf started > "${HANG_MARKER:?}"\nexec sleep 300\n' > "$
 COMPSTUB="$TR/compat-stub.sh"
 cat > "$COMPSTUB" <<'EOF'
 #!/bin/bash
-[ -n "${COMP_LOG:-}" ] && printf '%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "$4" >> "$COMP_LOG"
+[ -n "${COMP_LOG:-}" ] && printf '%s\t%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "$4" "$5" >> "$COMP_LOG"
 [ -n "${COMP_FIXTURE:-}" ] && [ -f "$COMP_FIXTURE" ] || exit 1
 awk -F '\t' -v pr="$2" '$1 == pr { $1=""; sub(/^\t/, ""); print; found=1; exit } END { exit(found ? 0 : 1) }' OFS='\t' "$COMP_FIXTURE"
 EOF
@@ -308,8 +308,8 @@ COMP_LOG="$TR/compat.log"; : > "$COMP_LOG"
 CLOSE_LOG="$TR/close.log"; : > "$CLOSE_LOG"; CLOSE_RC=0
 run_pre "$FIX_COMPAT"
 [ "$RC" -eq 2 ] && ok "reverified runtime-engine conflict closes without dispatch" || bad "exit $RC (want 2); OUT=$OUT"
-grep -q $'^endojs/endo-but-for-bots\t1174\tbetter-sqlite3\t13.0.0$' "$COMP_LOG" \
-  && ok "existing oracle ran against the live PR and exact proposed package version" \
+grep -q $'^endojs/endo-but-for-bots\t1174\tbetter-sqlite3\t12.4.1\t13.0.0$' "$COMP_LOG" \
+  && ok "existing oracle ran against the live PR and exact outgoing and proposed package versions" \
   || bad "oracle arguments were wrong: $(cat "$COMP_LOG")"
 grep -q 'unchanged Node-engine conflict reverified, closed, and journaled without botanist dispatch' <<<"$OUT" \
   && ok "log records the deterministic terminal route" || bad "terminal-route log missing; OUT=$OUT"

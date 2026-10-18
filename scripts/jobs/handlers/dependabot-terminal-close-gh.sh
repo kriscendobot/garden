@@ -65,7 +65,7 @@ if [ "$state" = open ]; then
     declared="$(field dependabot-close-proof-project)"
     required="$(field dependabot-close-proof-required)"
     path="$(field dependabot-close-proof-path)"
-    proof="$("$GARDEN_DEP_CLOSE_COMPAT" "$repo" "$pr" "$pkg" "$new" 2>/dev/null)" || exit 1
+    proof="$("$GARDEN_DEP_CLOSE_COMPAT" "$repo" "$pr" "$pkg" "$old" "$new" 2>/dev/null)" || exit 1
     [ "$proof" = "incompatible"$'\t'"$kind"$'\t'"$a"$'\t'"$declared"$'\t'"$required"$'\t'"$path" ] || exit 1
   fi
 elif [ "$state" != closed ]; then

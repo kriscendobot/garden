@@ -1,7 +1,9 @@
 #!/bin/bash
 # dep-compat-gh.sh -- prove declaration-level incompatibility for one npm bump.
 #
-# Invoked as: dep-compat-gh.sh <owner/repo> <pr-number> <package> <new-version>
+# Invoked as: dep-compat-gh.sh <owner/repo> <pr-number> <package> <old-version> <new-version>
+# The outgoing version's manifest is the baseline: a conflict it already has is
+# not proven against the bump, and an unreadable baseline proves nothing.
 # Emits one TSV proof from dep-compat-check.mjs, or exits non-zero with no stdout
 # when the declarations are compatible, incomplete, unsupported, or unreadable.
 # The caller therefore falls open to a full botanist review on every uncertainty.
@@ -12,10 +14,11 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 export GARDEN_TAG=dep-compat
 
-repo="${1:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <new-version>}"
-pr="${2:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <new-version>}"
-pkg="${3:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <new-version>}"
-newv="${4:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <new-version>}"
+repo="${1:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <old-version> <new-version>}"
+pr="${2:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <old-version> <new-version>}"
+pkg="${3:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <old-version> <new-version>}"
+oldv="${4:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <old-version> <new-version>}"
+newv="${5:?usage: dep-compat-gh.sh <owner/repo> <pr> <package> <old-version> <new-version>}"
 : "${GARDEN_NPM_REGISTRY:=https://registry.npmjs.org}"
 : "${GARDEN_DEP_COMPAT_HTTP_TIMEOUT:=20}"
 : "${GARDEN_DEP_COMPAT_MAX_MANIFESTS:=24}"
@@ -28,6 +31,7 @@ esac
 case "$pr" in ''|*[!0-9]*) exit 1;; esac
 case "$pkg" in *[!A-Za-z0-9._@/-]*|'') exit 1;; esac
 case "$pkg" in @*/*|[A-Za-z0-9._-]*) ;; *) exit 1;; esac
+case "$oldv" in *[!A-Za-z0-9.+_-]*|'') exit 1;; esac
 case "$newv" in *[!A-Za-z0-9.+_-]*|'') exit 1;; esac
 # owner/repo-looking names are GitHub Actions, not npm packages.
 case "$pkg" in @*/*) ;; */*) exit 1;; esac
@@ -50,6 +54,9 @@ enc_pkg="${pkg//\//%2f}"
 target="$(curl -fsSL --max-time "$GARDEN_DEP_COMPAT_HTTP_TIMEOUT" \
   "$GARDEN_NPM_REGISTRY/$enc_pkg/$newv" 2>/dev/null)" || exit 1
 printf '%s' "$target" | jq -e 'type == "object"' >/dev/null || exit 1
+baseline="$(curl -fsSL --max-time "$GARDEN_DEP_COMPAT_HTTP_TIMEOUT" \
+  "$GARDEN_NPM_REGISTRY/$enc_pkg/$oldv" 2>/dev/null)" || exit 1
+printf '%s' "$baseline" | jq -e 'type == "object"' >/dev/null || exit 1
 
 # Root plus package manifests changed by the PR, and manifests alongside changed
 # lockfiles. This bounded set covers root projects and Dependabot update directories
@@ -78,8 +85,8 @@ while IFS= read -r path; do
 done < "$tmp/bounded-paths"
 [ -s "$tmp/manifests" ] || exit 1
 
-jq -sc --arg packageName "$pkg" --argjson target "$target" \
-  '{packageName:$packageName, target:$target, manifests:.}' "$tmp/manifests" \
+jq -sc --arg packageName "$pkg" --argjson baseline "$baseline" --argjson target "$target" \
+  '{packageName:$packageName, baseline:$baseline, target:$target, manifests:.}' "$tmp/manifests" \
   | GARDEN_NPM_ROOT="$(npm root -g)" node "$HERE/dep-compat-check.mjs" \
   | head -1 > "$tmp/result"
 [ -s "$tmp/result" ] || exit 1

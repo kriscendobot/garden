@@ -62,11 +62,13 @@
 #
 # ── Compatibility preflight (declarations only, bounded and fail-open) ───────
 # For each remaining parseable npm bump, handlers/dep-compat-gh.sh reads the npm
-# manifest for the exact target plus at most 24 project package manifests from the
+# manifests for the exact outgoing and target versions plus at most 24 project package manifests from the
 # PR head (root, changed manifests, and manifests beside changed lockfiles). It can
 # prove two terminal conflicts without an install: the target's peer range has an
 # empty intersection with the project's declared peer version, or the target's
-# Node engine excludes the project's declared floor. A proof yields a cheap
+# Node engine excludes the project's declared floor — each only when the outgoing
+# version did not already have the same conflict, so a bump that makes nothing
+# worse is never proven incompatible. A proof yields a cheap
 # reverify-and-close botanist job. Missing/unsupported declarations, malformed API
 # data, registry/API failure, and the timeout all fall open to the full review.
 #
@@ -121,7 +123,7 @@
 #   GARDEN_DEP_PR_SOURCE <owner/name> <bot-login>  -> TSV: number author head_repo updated_at title
 #   GARDEN_DEP_COMPARE   <pkg> <old-ver> <new-ver> -> TSV: status ahead behind upstream old_ref new_ref
 #                                                     (non-zero exit = containment NOT established)
-#   GARDEN_DEP_COMPAT    <repo> <pr> <pkg> <new-ver> -> TSV proof of a declared
+#   GARDEN_DEP_COMPAT    <repo> <pr> <pkg> <old-ver> <new-ver> -> TSV proof of a declared
 #                                                     peer/Node incompatibility
 #                                                     (non-zero = no proof)
 #   GARDEN_DEP_POST      <basename> <body-file>    (post-job.sh)
@@ -553,25 +555,25 @@ preflight
 # peer range intersection, or a target package whose Node engine excludes the
 # project's declared floor. Unsupported ranges, absent declarations, API errors,
 # and timeouts all fall open to the full review.
-run_compat() {  # run_compat <pr> <pkg> <new> -> TSV on stdout; rc 1 = no proof
+run_compat() {  # run_compat <pr> <pkg> <old> <new> -> TSV on stdout; rc 1 = no proof
   local out rc=0
   if command -v timeout >/dev/null 2>&1; then
     out="$(timeout --signal=TERM --kill-after="$GARDEN_DEP_KILL_AFTER" \
              "${GARDEN_DEP_COMPAT_TIMEOUT_SECS}s" \
-             "$GARDEN_DEP_COMPAT" "$repo" "$1" "$2" "$3")" || rc=$?
+             "$GARDEN_DEP_COMPAT" "$repo" "$1" "$2" "$3" "$4")" || rc=$?
   else
-    out="$("$GARDEN_DEP_COMPAT" "$repo" "$1" "$2" "$3")" || rc=$?
+    out="$("$GARDEN_DEP_COMPAT" "$repo" "$1" "$2" "$3" "$4")" || rc=$?
   fi
   [ "$rc" -eq 0 ] && [ -n "$out" ] || return 1
   printf '%s' "$out" | head -1
 }
 
 compat_preflight() {
-  local pr pkg _old new proof verdict kind a project required path checked=0
+  local pr pkg old new proof verdict kind a project required path checked=0
   case "$GARDEN_DEP_COMPAT_MAX_CHECKS" in
     ''|*[!0-9]*) die "GARDEN_DEP_COMPAT_MAX_CHECKS must be a non-negative integer" ;;
   esac
-  while IFS=$'\t' read -r pr pkg _old new; do
+  while IFS=$'\t' read -r pr pkg old new; do
     [ -n "$pr" ] && [ -n "$pkg" ] && [ -z "${DOM_PEER[$pr]:-}" ] || continue
     posted_anywhere "$slug-pr$pr-dependabot" && continue
     if [ "$checked" -ge "$GARDEN_DEP_COMPAT_MAX_CHECKS" ]; then
@@ -579,7 +581,7 @@ compat_preflight() {
       break
     fi
     checked=$((checked+1))
-    if ! proof="$(run_compat "$pr" "$pkg" "$new")"; then
+    if ! proof="$(run_compat "$pr" "$pkg" "$old" "$new")"; then
       continue
     fi
     IFS=$'\t' read -r verdict kind a project required path <<< "$proof"

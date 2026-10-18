@@ -45,6 +45,7 @@ fi
 EOF
 cat > "$TR/compat" <<'EOF'
 #!/bin/bash
+[ "$*" = "endojs/endo-but-for-bots 1439 @earendil-works/pi-ai 0.87.1 1.0.2" ] || exit 1
 printf 'incompatible\tnode\t20.17.0\t^20.17.0 || >=22.9.0\t>=22.19.0\tpackage.json\n'
 EOF
 cat > "$TR/journal" <<'EOF'

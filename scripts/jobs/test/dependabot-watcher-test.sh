@@ -113,7 +113,7 @@ chmod +x "$CMPSTUB"
 COMPSTUB="$TR/compat-stub.sh"
 cat > "$COMPSTUB" <<'EOF'
 #!/bin/bash
-[ -n "${COMP_LOG:-}" ] && printf '%s %s %s %s\n' "$1" "$2" "$3" "$4" >> "$COMP_LOG"
+[ -n "${COMP_LOG:-}" ] && printf '%s %s %s %s %s\n' "$1" "$2" "$3" "$4" "$5" >> "$COMP_LOG"
 [ -n "${COMP_FIXTURE:-}" ] && [ -f "$COMP_FIXTURE" ] || exit 1
 awk -F'\t' -v OFS='\t' -v pr="$2" '$1 == pr {$1=""; sub(/^\t/, ""); print; found=1; exit} END {if (!found) exit 1}' "$COMP_FIXTURE"
 EOF
@@ -386,7 +386,11 @@ BARE_O="$TR/o.git"; seed_bare "$BARE_O"
 FIX_O="$TR/fix-o.tsv"; depline 801 'Bump @babel/core from 7.28.0 to 8.0.0' > "$FIX_O"
 COMP_O="$TR/comp-o.tsv"
 printf '801\tincompatible\tnode\t18.0.0\t>=18\t^20.19.0 || >=22.12.0\tpackage.json\n' > "$COMP_O"
-COMP_FIXTURE="$COMP_O" run_dep "$TR/state-o" "$BARE_O" "$FIX_O"
+COMP_LOG_O="$TR/comp-o.log"; : > "$COMP_LOG_O"
+COMP_FIXTURE="$COMP_O" COMP_LOG="$COMP_LOG_O" run_dep "$TR/state-o" "$BARE_O" "$FIX_O"
+grep -q ' 801 @babel/core 7.28.0 8.0.0$' "$COMP_LOG_O" \
+  && ok "oracle receives the outgoing version as its baseline" \
+  || bad "oracle arguments lacked the outgoing version: $(cat "$COMP_LOG_O")"
 has_in_body "$BARE_O" "$SLUG-pr801-dependabot" 'INCOMPATIBLE by preflight' \
   && ok "Node-floor conflict got the cheap incompatible body" || bad "Node conflict did not get the cheap body"
 has_in_body "$BARE_O" "$SLUG-pr801-dependabot" 'excludes the project-supported floor' \

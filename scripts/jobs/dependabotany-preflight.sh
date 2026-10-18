@@ -51,7 +51,7 @@
 # The two external I/O legs are indirected so the test substitutes deterministic
 # stubs, exactly like dependabot-watcher.sh:
 #   GARDEN_DEPB_PR_SOURCE <owner/name> <bot-login> -> TSV: number author head updated title
-#   GARDEN_DEPB_COMPAT   <repo> <pr> <pkg> <new-ver> -> TSV declaration proof
+#   GARDEN_DEPB_COMPAT   <repo> <pr> <pkg> <old-ver> <new-ver> -> TSV declaration proof
 #   GARDEN_DEPB_ENGINE_CLOSE <repo> <pr> <pkg> <old> <new> <floor> <declared>
 #                            <required> <path> <project> -> 0 closed+recorded,
 #                            1 proof changed, 75 action temporarily unavailable
@@ -426,7 +426,7 @@ case "$GARDEN_DEPB_COMPAT_MAX_CHECKS" in
       fi
       proof="$(timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" \
         "${STAGE_TIMEOUT}s" \
-        "$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$new")" || compat_rc=$?
+        "$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$old" "$new")" || compat_rc=$?
       if [ "$compat_rc" -ne 0 ] || [ -z "$proof" ]; then continue; fi
       IFS=$'\t' read -r verdict kind floor declared required path _extra <<< "$(printf '%s' "$proof" | head -1)"
       if [ "$verdict" != incompatible ] || [ "$kind" != node ]; then continue; fi
