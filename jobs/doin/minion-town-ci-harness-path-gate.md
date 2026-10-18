@@ -40,6 +40,8 @@ Done when the PR is open and green, and a docs-only PR run shows the harness job
 <!-- garden-reaped: 0 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
