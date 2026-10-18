@@ -1,0 +1,14 @@
+<6>13:53:51 [cleric/2] requeued job 'heal-minion-town-cfafabe' has no local codex sidecar on endolin-garden-ece02cb4; prior session and worktree were lost — starting fresh with lost-state framing
+<6>13:53:51 [cleric/2] job 'heal-minion-town-cfafabe' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>13:53:51 [cleric/2] job 'heal-minion-town-cfafabe' attaching minion.town MCP (stdio bridge as minion-town)
+garden repo lock: cleared dead-holder metadata pid=355650 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+<6>13:57:23 [post-gauntlet] gauntlet 'kriscendobot-minion.town-pr206-gauntlet' already recorded; nothing to do
+<6>13:57:23 [auto-gauntlet-handoff] auto-gauntlet: 'heal-minion-town-cfafabe' recorded gauntlet 'kriscendobot-minion.town-pr206-gauntlet' for https://github.com/kriscendobot/minion.town/pull/206
+<6>13:57:36 [review-docket] https://github.com/kriscendobot/minion.town/pull/206 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+Heal PR [#206](https://github.com/kriscendobot/minion.town/pull/206) is open with the required marker and a pinned `main-cfafabe` base. It forward-fixes oversized deployment payload chunking.
+
+Verified the pin and staged gauntlet are live; CI is queued and the staged gauntlet will proceed once checks complete. Proxy screening can merge after a passing gauntlet.
+
+Self-improvement: nothing this time.
