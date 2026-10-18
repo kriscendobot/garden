@@ -1,21 +1,26 @@
 # Garden bulletin
 
-_As of 2026-10-18T03:04:53Z_
+_As of 2026-10-18T03:11:11Z_
 
 ## Latest
 
-Several minion.town PRs hit their gauntlet review budget without converging, and each now needs your call on whether to grant more rounds. [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 of 16 rounds with 19 must-fix items still open. [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) used 16 of 16 with 20 open. [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/pull/178) used 12 of 12, and its must-fix list is unavailable. [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) used 10 of 10, also with no list. Two endo-but-for-bots PRs did the same: [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6 of 6, 20 open) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) (6 of 6, list unavailable). In the lists that exist, every open item is new in the last round, so the panel is still finding fresh issues each time.
+Several minion.town PRs moved through the proxy and the gauntlet. [#192](https://github.com/kriscendobot/minion.town/pull/192) merged at 00:23Z and [#196](https://github.com/kriscendobot/minion.town/pull/196) merged on 10-17. Both deploys succeeded and validated. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it, and it is back in a gauntlet fix round. On the board, fix and panel rounds are queued or running for minion.town PRs #198 through #204, plus [endo-but-for-bots#546](https://github.com/endojs/endo-but-for-bots/pull/546) at panel round 4.
 
-Merged and deployed on minion.town: [#192](https://github.com/kriscendobot/minion.town/pull/192), [#196](https://github.com/kriscendobot/minion.town/pull/196), [#190](https://github.com/kriscendobot/minion.town/pull/190) and [#194](https://github.com/kriscendobot/minion.town/pull/194). Deploys succeeded and the watchdog was ok each time. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled: three conductors finished without merging it, and it is back in a fix round. The `mt-beta-product-pass-20261017` orchestration and the endo-but-for-bots parcel-stack restack orchestration both finished with no failed children.
+**Needs a maintainer decision:**
+- **Review budgets exhausted:** gauntlets for [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) stopped at their round limits without converging. #184, #180 and #1482 still carry about 20 unaddressed must-fix items each, and the panel keeps finding new ones. Each can be resumed with `--add-rounds`.
+- **Settings simplification (mt-beta-settings-simplify):** run `deploy-accounts-store.sh` before merging. Until then, Log out stays hidden and account deletion answers 503. The report also lists four changes for your veto.
+- **claude-endolin1 cap:** the cap was restored to 271M after the 10-17 reset. It asks which Claude login that host is using, endolin1 or endolin2. If it is still endolin2, the ledger will charge endolin2's spend to endolin1 and the claim gate will refuse work again.
+- **Anonymous guest on production minion.town:** the live probe left one anonymous guest on production, and the API has no way to delete it.
+- **Proxy's tentative accountant answer:** the proxy answered the accountant's gating question tentatively and wants your review. It kept the budget slate and reserve unchanged, and it treats claude-oros as having no reset credits.
 
-Items waiting on you:
-- **Settings-simplify (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging. Until then, Log out stays hidden and account deletion answers 503 without deleting anything. Four choices stand unless you veto them, and the invitation count waits on #199.
-- **Docs tower report:** the live probe left one anonymous guest on production minion.town, and the garden has no way to delete it. The source note wasn't on that host, so the report was never checked against it.
-- **Claude login:** the endolin1 cap was restored to 271M after the reset. The restore job asks whether this host's workers are on endolin1 or endolin2. If they are on endolin2, its spend will be charged to endolin1 and the claim gate will refuse work again.
-- **CI read on oros:** the bot token gets a 403 reading CI status for minion.town#192. It needs checks, statuses and actions read permissions. The oros journal worktree also still can't fast-forward (36 occurrences).
-- **`minion-town-ci-harness-path-gate`:** it overran its 2-hour handler budget and needs splitting or a detached run.
+The orchestrations `mt-beta-product-pass-20261017` and the endo parcel-stack restack both completed cleanly. The job `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting into smaller stages.
 
-Capacity moves around quota: endolin monks went 3→4 early on, then dropped to 1 as spend reached 128M of 271M, and clerics rose to 3. Journal lock-contention notices have mostly cleared, and the rest are routine. Six gauntlet stages are queued on minion.town.
+**Infrastructure noise:**
+- **Journal lock contention:** a storm on the leader host is on its 36th occurrence, and several other contention notices recovered.
+- **oros fast-forward failure:** oros has failed 36 times to fast-forward its journal worktree.
+- **ci-wait-merge 403:** ci-wait-merge on oros cannot read CI for minion.town#192 because the token gets a 403. The bot token needs `checks:read`, `statuses:read` and `actions:read`.
+
+Claude spend is at 50% of the 271M quota. The leader's monk count has been stepping down as spend rises.
 
 ## Maintainer review docket
 
@@ -73,11 +78,18 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-17T06:43:05Z).
-> It was observed 35 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #36 (first seen 2026-10-16T17:37:14Z, latest 2026-10-18T03:09:23Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 36 times; this is ONE
+> coalesced notice that updates in place, not 36 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.014764s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.014838s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.012995s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=0.013669s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadmail/journal: p95=0.014124s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013680s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.015276s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -484,13 +496,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.6M | $558.83 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Claude | 134.8M | $559.41 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 51.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92465569 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.826076s/45s (/home/kris/garden/.garden-state/transcripts/journal); 7 open notice(s); checker healthy
+worst fetch p95 6.826076s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (6)
