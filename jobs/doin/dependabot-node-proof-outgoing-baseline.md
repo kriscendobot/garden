@@ -16,3 +16,13 @@ Evidence:
 - endojs/endo-but-for-bots#1441 (`pi-tui` 0.87.1 -> 1.0.2) was closed on the same proof, with the same already-present mismatch.
 
 Fix: pass the outgoing version through (`dep-compat-gh.sh <repo> <pr> <pkg> <old> <new>`). Fetch the outgoing registry manifest too, and emit the `node` proof only when the outgoing version SATISFIES the floor and the incoming one does not, i.e. the bump itself raises the floor. If the outgoing manifest can't be read, emit no proof, so the PR gets the full review. Consider the same baseline rule for the `peer` kind: emit a peer proof only if the outgoing version's peer range DID intersect. Add tests covering the case where the outgoing version already excludes the floor. Keep the terminal-close handler's revalidation in sync with the new signature.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-18T22:27:35Z
