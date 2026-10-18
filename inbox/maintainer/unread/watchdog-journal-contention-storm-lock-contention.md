@@ -1,14 +1,19 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-18T03:29:35Z
+sent_at: 2026-10-18T03:39:32Z
 watchdog_key: journal-contention-storm-lock-contention
-notice_count: 36
+notice_count: 37
 first_seen: 2026-10-16T17:37:14Z
-last_seen: 2026-10-18T03:29:35Z
-recovered: true
+last_seen: 2026-10-18T03:39:32Z
 ---
-RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-18T03:29:35Z).
-It was observed 36 time(s) while open. Nothing further is required;
-this notice closes the loop so the end of the condition is on the record.
+WATCHDOG notice — occurrence #37 (first seen 2026-10-16T17:37:14Z, latest 2026-10-18T03:39:32Z).
+The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 37 times; this is ONE
+coalesced notice that updates in place, not 37 messages. Latest detail:
 
-Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+- Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.014838s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+- Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.013672s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+- Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=0.057794s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+- Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadmail/journal: p95=0.014124s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+- Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014268s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+- Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.017044s, giveups=1, steals=0 (max 3/window), wait floor=60s.
