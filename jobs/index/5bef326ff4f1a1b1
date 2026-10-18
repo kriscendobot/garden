@@ -1,2 +1,2 @@
-base: improve-reject-empty-result
+base: improve-dedup-claimed-result-attribution
 identity: mentor:scripts/jobs/journal-entry.sh
