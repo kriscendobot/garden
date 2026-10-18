@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-18T08:50Z (oros-health-checkup-20261018-063508): healthy (one docs commit behind main2, roll pending), no changes
+
+- **Load/mem:** load 1.8/1.5/1.1. 13 GiB of 15 GiB available (815 MiB of swap in use).
+- **Disk/inodes:** 7% of the overlay used (404G free); inodes 1% (167k). The virtiofs garden mount is 46% used.
+- **Uptime:** 16d15h, no reboot.
+- **Deployed vs main2:** root still at `6348060b` (`deploy/roll-completed`); origin/main2 is `05d833a2`, the docs-only commit noted by the previous run. fleet/health/oros (06:29Z): `roll_status: deployed`, 0 of 287 units failed.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). `hosts/oros` declares `monks: 1`. Not draining. No derotation marker for oros.
+- **Budget heartbeat:** claude-oros sampled at 08:31Z in the scaler clone (08:02Z in the live worktree), status ok, 57% used (136.95M of 180M). The scaler ticked cleanly at 08:45Z.
+- **State clones:** 32 namespace clones. The largest have 47 `.pack` files (fleet-health, reaper, regenerate-topics-counts), below the threshold of 50. No tmp_pack, no `gc.log`. The three `index.lock` files seen were seconds old (live commits). `self-deploy/settle` holds 348 per-target marker files: a slow leak, one tiny file per main2 tip, not urgent.
+- **rc=124 (3h):** none.
+- **Changed:** nothing. The scheduler claimed this run right after the 03:35Z slot's late note (08:45Z), so the two notes are near-duplicates.
+- **Needs the maintainer:** nothing new.
+
 ## 2026-10-18T08:45Z (oros-health-checkup-20261018-033508): healthy (one docs commit behind main2, roll pending), no changes
 
 - **Load/mem:** load 1.7/1.1/1.0. 13 GiB of 15 GiB available (815 MiB of swap in use).
