@@ -1,0 +1,37 @@
+<6>17:29:59 [monk/1] job 'endojs-endo-but-for-bots-pr825-gauntlet-20261007-clean' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>17:30:00 [monk/1] job 'endojs-endo-but-for-bots-pr825-gauntlet-20261007-clean' call ceiling: tier=mentor max-budget-usd=12.00 (scaled by fresh seven-day headroom when available)
+<6>17:30:00 [monk/1] job 'endojs-endo-but-for-bots-pr825-gauntlet-20261007-clean' attaching minion.town MCP (stdio bridge)
+<6>18:07:55 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/825 is already non-draft; leaving it untouched for the completion guard
+panel-head-freshness: managed target=endojs-endo-but-for-bots-pr825-gauntlet-20261007-clean disposition=gauntlet-driver-owns-next-panel
+<6>18:08:09 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-pr825-gauntlet-20261007-clean' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+orchestration-failed: true
+
+# Clean stage report: endojs/endo-but-for-bots#825 (`daemon-store-phase4-sorted`)
+
+**CI came back red (rc=3), so this stage fails and no `clean=done` marker is written.** The failures are in the Node 24 legs, and the evidence points to the stale July frozen base rather than this PR's diff.
+
+## What I did
+- **Coverage pass on the touched daemon package.** The guest `makeSortedMapStore` / `makeSortedSetStore` entry points were never exercised, and neither were `set`/`delete`/`snapshot` on sorted stores or scans that decode remotable key/value slots. I added two tests in `packages/daemon/test/endo.test.js` to cover them, as commit `5ad5dbadae`, pushed with `safe-push-pr-head.sh` (fast-forward from `eb5fa1e602`).
+- Locally, all 7 sorted-store tests pass, prettier and eslint are clean on the new lines, and the root `tsc` check reports nothing for this file. A c8 run confirmed the new code paths are covered.
+- **Dead code:** the change orphaned none.
+- To run the tests locally I rebuilt better-sqlite3 for Node 22 in this worktree only. Its copy had been built for Node 24 and was hardlinked to the shared cache, so I broke the link first. I also patched `sockPath` temporarily for the socket-path length limit and reverted it before the commit.
+
+## CI result at `5ad5dbadae`: RED, 19 of 21 green
+- **`test (24.x, ubuntu-latest)`:** `@endo/cli` demo `counter-example` fails at `endo restart` with "Daemon failed to spawn … exited null".
+- **`test (24.x, macos-15)`:** demo `doubler-agent` fails the same way at `endo restart`. turbo also reports `@endo/genie#test` as failed in that run.
+- On the previous head (`eb5fa1e602`) the same `endo restart` failure hit ubuntu-24, plus a chat component failure on macos-22 and a genie failure on macos-24.
+
+## Why I think the base is the cause
+- Base #823 (`74931b9`) and PR commits `686d8b98f8`/`2b51d90748` passed every Node 24 leg, including these demos. Those runs were on **Node 24.18.0 in July**.
+- Today's runners use **Node 24.21.0 (ubuntu) and 24.20.0 (macOS)**. Current `llm` passes the same demos on those versions.
+- The only runtime change since the last green PR commit is the sorted-scan bounds logic in `collection-store.js`, which these CLI demos never call.
+
+So the most likely cause is the July frozen base `daemon-store-phase3-weak-ertp-74931b9` meeting the newer Node 24. I could not confirm this locally because only Node 22 is installed here.
+
+## Follow-ups
+- Re-pin the base (weave) of the #823 → #825 stack onto current `llm`, which passes on Node 24.21. Alternatively, find the `llm` fix for `endo restart` under newer Node 24.
+- Once the weave is done, re-run the gauntlet's clean stage.
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
