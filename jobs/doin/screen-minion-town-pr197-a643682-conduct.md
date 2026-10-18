@@ -25,6 +25,7 @@ reached the board after 35+ minutes of proxy ticks. This body is the screen's ow
 conductor body, pinned to the leader, whose token reads the CI rollup.
 PR: https://github.com/kriscendobot/minion.town/pull/197
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
