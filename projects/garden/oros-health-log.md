@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-18T17:10Z (oros-health-checkup-20261018-155009): healthy; deployed = origin/main2 `3a743ca7`, no changes
+
+- **Load/mem:** load 2.0/1.2/1.1. 12 GiB of 15 GiB available, no swap in use.
+- **Disk/inodes:** the virtiofs garden mount is 48% used (244G free); inodes 1%. /tmp is 10% used.
+- **Uptime:** 16d23h, no reboot.
+- **Deployed vs main2:** root HEAD is `3a743ca7` (the sysop `--no-block` fix from the previous run), which is the origin/main2 tip. fleet/health/oros (15:31Z): `roll_status: deployed`. One `deploy-garden DEFERRED` at 14:45Z (monk 1 mid-job); the roll completed afterwards.
+- **Units:** 0 failed. Only monk 1 is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 16:32:28Z in the live worktree (30 minutes before this check, the known live-copy lag), status ok, 63% used (152.3M of 180M).
+- **State clones:** the largest have 48 packs (screening-control) and 47 (self-deploy, reaper), below the threshold of 50. No tmp_pack, no `gc.log`, no stale `.lock` in the clone `.git` dirs. The root repo has 48 packs and no `gc.log`.
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question from the 14:21Z note still stands.
+
 ## 2026-10-18T14:21Z (oros-health-checkup-20261018-123528): healthy; claimed 1.5h late behind long gauntlet jobs; fixed a sysop wedge on main2
 
 - **Load/mem:** load 1.8/2.3/2.2. 13 GiB of 15 GiB available.
