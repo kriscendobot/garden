@@ -1,31 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-18T16:15:21Z_
+_As of 2026-10-18T16:19:13Z_
 
 ## Latest
 
-Little board movement this cycle: [minion.town#199](https://github.com/kriscendobot/minion.town/pull/199) fix round 4 was claimed, and the CLEAN stage for [endo-but-for-bots#825](https://github.com/endojs/endo-but-for-bots/pull/825) was updated. A new gardener error entry was also logged.
+Production on minion.town is the main thing to watch. After [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) merged (`cfafabea5a9`), its deploy failed. Proxy screening is paused and a heal job (`heal-minion-town-cfafabe`) is posted. Delegation resumes by itself once a later main deploy succeeds. A separate stall notice says three conductors finished without merging the screened head `f55f6a2`. The earlier merge of [#192](https://github.com/kriscendobot/minion.town/pull/192) deployed cleanly.
 
-**Needs a decision:**
-- **minion.town production is unhealthy and delegation is paused.** The merge of [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) (`cfafabea5a9`) failed `deploy.yml`. Screening paused and `heal-minion-town-cfafabe` is parked on the plan queue. Separately, the screener reports that 3 conductors finished without merging that PR.
-- **Gauntlets hit their review budgets without converging:**
-  - [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184): 16/16 rounds, 19 must-fix items.
-  - [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180): 16/16 rounds, 20 must-fix items.
-  - [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178): 12/12 rounds.
-  - [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192): 10/10 rounds.
-  - [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482): 6/6 rounds, 20 must-fix items.
-  - [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478): 6/6 rounds.
+Four gauntlets hit their review budget without converging and now need a human decision. They are [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) hit its budget too. Each message carries a ready `--add-rounds` resume command.
 
-  Each message gives the `--add-rounds` command if you want to grant more.
-- **The fleet deploy is stalled on the leader.** `endolin-garden-ece02cb4` has stayed at `b8abbe64` since 2026-10-16, through 4 rolls in which the oros canary passed. Oros is correctly holding at `05d833a2`. Someone should check endolin's rolling-deploy journal for a rejected-candidate marker.
-- **Settings-simplify follow-ups.** The maintainer must run `deploy-accounts-store.sh` before merging, because until then Log out stays hidden and account deletion answers 503 without deleting. Four choices are also open for veto.
-- **Quota attribution question.** It is unclear whether this host's workers are logged in as endolin1 or endolin2. If endolin2, its spend will be charged to the restored 271M endolin1 cap.
+The fleet deploy is stalled on the leader. endolin has sat at `b8abbe64` since 10-16, and its own advance has not landed through four rolls, even though the oros canary passed each time. Someone should check endolin's rolling-deploy journal for a rejected-candidate marker or a "did not land" loop. Oros itself recovered. The health watcher restarted its monk, the check-up was claimed, and no one needs to be at that machine.
 
-**Smaller items:**
-- The oros monk stall (unclaimed check-up) was resolved by a service restart, and oros is healthy.
-- The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs splitting.
-- [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) is still blocking milestone M2.
-- The journal-contention watchdogs are mostly recovering on their own.
+Three questions are waiting for you:
+- **`deploy-accounts-store.sh`:** run it before merging the settings simplification. Until the index is active, Log out stays hidden and account deletion answers 503. Four choices in that change are open to your veto.
+- **endolin login:** confirm which Claude login the workers use. If it is still endolin2, its spend will be charged to endolin1's restored 271M cap, and the claim gate will refuse work.
+- **Stray guest:** one anonymous guest from a live probe is still on production minion.town. The API has no delete route.
+
+[endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) is blocking milestone M2 and needs your approval or further requested changes. The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs to be split. The `ci-wait-merge` watchdog is also still reporting 403s reading CI on the bot's PRs, which needs a token permission grant. The journal-contention notices were mostly self-clearing noise.
 
 ## Maintainer review docket
 
@@ -109,7 +99,11 @@ Delegation: **paused** by proxy:screen since 2026-10-18T12:39:07Z: #197 merge cf
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=25.454481s max=25.454481s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-10-18T10:30:31Z, cleared 2026-10-18T16:15:55Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
 
 - `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
 
@@ -639,10 +633,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.4M | $705.01 _(notional, rate-card)_ | 64% of 271.0M (ok) |
+| Claude | 173.6M | $705.95 _(notional, rate-card)_ | 64% of 271.0M (ok) |
 | Codex | 70.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92322994 tokens/day lower bound._
+_Fleet token-unlock pace: 92359845 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.096365s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 6 open notice(s); checker healthy
