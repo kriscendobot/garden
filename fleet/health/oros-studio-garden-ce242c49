@@ -1,8 +1,11 @@
 host: oros-studio-garden-ce242c49
 deployed_sha: 05d833a236ad3c893de71515a54fa2edcee83663
-roll_status: deployed
+roll_status: deferred
 unit_failures: 0
 unit_total: 287
 first_bad_unit: -
 advisory_failures: 0
-at: 2026-10-18T10:25:45Z
+at: 2026-10-18T14:36:21Z
+deferred_reason: long-job monk 1 579s
+deferred_target: 3a743ca74564d2935d73fd0dd7649572da347c01
+deferred_at_epoch: 1792334160
