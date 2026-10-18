@@ -1,0 +1,40 @@
+<6>13:15:17 [monk/1] job 'endojs-endo-but-for-bots-pr764-gauntlet-20261007-fix-1' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>13:15:17 [monk/1] job 'endojs-endo-but-for-bots-pr764-gauntlet-20261007-fix-1' call ceiling: tier=mentor max-budget-usd=12.60 (scaled by fresh seven-day headroom when available)
+<6>13:15:17 [monk/1] job 'endojs-endo-but-for-bots-pr764-gauntlet-20261007-fix-1' attaching minion.town MCP (stdio bridge)
+<6>13:38:43 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/764 is already non-draft; leaving it untouched for the completion guard
+panel-head-freshness: managed target=endojs-endo-but-for-bots-pr764-gauntlet-20261007-fix-1 disposition=gauntlet-driver-owns-next-panel
+garden repo lock: cleared dead-holder metadata pid=2764516 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+message REJECTED — apparently partially-qualified issue/PR reference(s):
+  line 5: #2780
+remedy: fully-qualify each as `owner/repo#N` or a full https://github.com/owner/repo/issues/N (or /pull/N) URL.
+(references inside code fences (``` / ~~~) or inline `code` spans, and jury-seat item labels like `prover #3`, are exempt.)
+<3>13:38:49 [inbox-send] FATAL: message not posted — fully-qualify the issue/PR reference(s) reported above, then retry
+
+--- handler report (partial) ---
+# Fix round 1 for endojs/endo-but-for-bots#764: must-fix items applied, CI green
+
+I applied the panel-1 must-fix items, pushed three follow-up commits to `mirror/endo-2780-cache-globals` (head is now `320266286f`), and CI is green: all 15 checks passed and `ci-wait-merge` returned rc 0. I did not autosquash the fixup commits.
+
+## Must-fix items
+- **`URL` was still looked up live in `node-powers.js`** (raised by assessor, locksmith, saboteur, breaker, spec-keeper, engine-realist, corner-prober, and integrator's history-claim item). `node-powers.js` now captures `const { Function, Promise, URL } = globalThis;`, so both fallback URL conversions use the captured `URL`.
+- **No regression tests** (prover, and several jurors). New `packages/compartment-mapper/test/cached-intrinsics.test.js`, 5 tests. Each one replaces the captured global after the module has loaded with a value that throws on any use, then runs the code that uses it. They cover:
+  - the fallback URL conversions in `node-powers` (`URL`);
+  - `node-powers` `read` (`Function`, `Promise`);
+  - `getModulePaths` (`URL`);
+  - the CommonJS export wrapper `wrap` (`Proxy`, `Set`);
+  - the import hook, through `loadFromMap` and `import()` (`URL`).
+
+  I removed each captured binding one at a time and confirmed the matching test fails every time. The full compartment-mapper suite passes (907 passed, 12 known failures).
+- **No changeset** (packager, migrator, changeset-auditor, releaser). Added `.changeset/cache-compartment-mapper-intrinsics.md` as a `patch` for `@endo/compartment-mapper`.
+- **PR body didn't follow the upstream template** (integrator), plus pruner's trims. I rewrote it section by section from the template. The per-file list and the "faithfully reproduces / no scope beyond" note are gone.
+
+## Two CI failures fixed along the way
+- **`lint`:** the docs type check (`yarn docs`) found type errors in my new test. Fixed them in a `fixup!` commit. I couldn't get typedoc to run locally, so CI going green is the only check on that fix.
+- **`zizmor`:** it passed on the previous head and failed on mine, though this PR doesn't touch `ci.yml`. Upstream moved the `dorny/paths-filter` `v3` tag to v3.0.4, while the pinned commit is v3.0.3. I changed the comment to `# v3.0.3` in a separate `chore(ci)` commit, so this one-line workflow change is now part of the PR.
+
+## Follow-ups
+- **Fixup commits not squashed** (packager, integrator, should-fix). The branch still has two `fixup!` commits: the original `02b806d2f4` and my type-check fix. They need an autosquash and force-push before merge. I left that out because this stage asks for follow-up commits only.
+- **Other ambient `Map`/`Set` uses in `import-hook.js`** (purist, should-fix): not addressed. That audit goes beyond what upstream #2780 changes.
+- **Coverage report** (coverage-auditor, comment-only): still no c8 report produced.
+
+<!-- gauntlet-stage-result: fix=done -->
