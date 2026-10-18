@@ -53,6 +53,7 @@ completion signal; the completion signal itself stays the very last line:
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
