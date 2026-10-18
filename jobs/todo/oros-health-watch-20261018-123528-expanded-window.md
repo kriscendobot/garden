@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: oros-health-watch-20261018-123528-split
+role: fixer
+tier: mentor
 handler-timeout: 7200
 split-indivisible-reason: 'The health verdict and any sysop intervention form one stateful observation-and-escalation cycle; separate workers could duplicate operations or act on inconsistent host state.'
 split-lineage-root: oros-health-watch-20261018-123528
 split-lineage-parent: oros-health-watch-20261018-123528-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-10-18T13:46:10Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-18T13:48:34Z cleared=none -->
 
 ---
 role: fixer
