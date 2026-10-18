@@ -33,3 +33,13 @@ Can `@endo/zip` defer to the native Node.js implementation of Zip when running o
 ## Deliverable
 
 A design-style report committed as a draft PR only if the finding is positive; otherwise post the finding as a journal message and stop. State a clear recommendation: proceed, proceed behind a flag, or do not. Include the parity harness location and results. Be economical with quota; one concise pass per question, no speculative implementation.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-18T19:30:49Z
