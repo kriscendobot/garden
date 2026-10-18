@@ -2,22 +2,22 @@
 base: kriscendobot-minion.town-pr199-gauntlet-fix-4
 kind: monk
 provider: anthropic
-model: claude-opus-5-5
+model: claude-default
 thoughtfulness: medium
 work_class: gardener:m
 target: main2
 accepted: true
-agentic_dollars: 3.494319
+agentic_dollars: 4.046750
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.267168
+estimated_dollars: 0.069690
 attempts: 1
-duration_secs: 3872
+duration_secs: 1010
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/monk-1
-recorded_at: 2026-10-18T14:43:56Z
+recorded_by: oros-studio-garden-ce242c49/monk-1
+recorded_at: 2026-10-18T16:31:03Z
 ---
-reputation event for kriscendobot-minion.town-pr199-gauntlet-fix-4: arm anthropic/claude-opus-5-5/medium work_class gardener:m target main2 accepted true
+reputation event for kriscendobot-minion.town-pr199-gauntlet-fix-4: arm anthropic/claude-default/medium work_class gardener:m target main2 accepted true
