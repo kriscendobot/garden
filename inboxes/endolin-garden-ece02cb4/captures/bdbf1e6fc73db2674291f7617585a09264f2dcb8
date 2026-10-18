@@ -1,0 +1,16 @@
+<6>13:22:38 [cleric/3] job 'heal-minion-town-cfafabe' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>13:22:38 [cleric/3] job 'heal-minion-town-cfafabe' attaching minion.town MCP (stdio bridge as minion-town)
+garden repo lock: cleared dead-holder metadata pid=1542971 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+<6>13:34:53 [post-gauntlet] gauntlet 'kriscendobot-minion.town-pr206-gauntlet' already recorded; nothing to do
+<6>13:34:53 [auto-gauntlet-handoff] auto-gauntlet: 'heal-minion-town-cfafabe' recorded gauntlet 'kriscendobot-minion.town-pr206-gauntlet' for https://github.com/kriscendobot/minion.town/pull/206
+<6>13:34:55 [review-docket] https://github.com/kriscendobot/minion.town/pull/206 is not green; refusing fixer re-entry
+
+--- handler report (partial) ---
+Forward-fix PR opened: https://github.com/kriscendobot/minion.town/pull/206
+
+- Commit `269a86c7` chunks oversized landing assets into safe SSM payloads and atomically installs the completed file.
+- Added regression assertions for chunked deployment.
+- Verified targeted 99 tests, typecheck, shell syntax, ShellCheck, and pre-push probes.
+- Retargeted to frozen `main-cfafabe` after the gauntlet rejected floating `main`; the conductor will restore live `main` before merge.
+- Ordinary gauntlet is staged and running; GitHub checks are queued. Broader local verification exposed unrelated environment-sensitive failures, so final green evidence remains with CI.
+- Reported the heal-job/live-base policy mismatch to the liaison.
