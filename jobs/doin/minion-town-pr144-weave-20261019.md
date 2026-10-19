@@ -10,6 +10,7 @@ PR: https://github.com/kriscendobot/minion.town/pull/144 (head `design/guest-cou
 
 Do: update the merge base to the current `main` hash and rebase (frozen-base-branch, verify-upstream-state-before-pinning), resolve conflicts, force-push the head, move the PR base. Then watch CI. If the checks still fail, classify per ci-failure-classification-loop; if the cause is the Claude-harness image build on a docs-only change, note that https://github.com/kriscendobot/minion.town/pull/204 fixes that and report whether to wait for it. Leave the PR a DRAFT, keep the `<!-- garden-design-open-questions -->` marker, and do not merge. Report CI state to the maintainer inbox.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
