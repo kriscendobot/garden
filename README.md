@@ -1,29 +1,30 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-19T17:41:52Z_
+_As of 2026-10-19T17:43:48Z_
 
 ## Latest
 
-Production for minion.town is the main concern. [#204](https://github.com/kriscendobot/minion.town/pull/204) merged as `8a3ce66c4e8` and its deploy run [failed](https://github.com/kriscendobot/minion.town/actions/runs/39281790117). The proxy paused delegated screening and posted the heal job `heal-minion-town-8a3ce66`, which completed. Screening resumes by itself once a later main deploy succeeds and the watchdog is ok. Earlier, [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#206](https://github.com/kriscendobot/minion.town/pull/206) deployed cleanly. The delegated merge of [#197](https://github.com/kriscendobot/minion.town/pull/197) stalled after three conductors finished without merging it.
+The minion.town delegation is paused. Merge `8a3ce66c4e8` of [minion.town#204](https://github.com/kriscendobot/minion.town/pull/204) failed its production deploy, and heal job `heal-minion-town-8a3ce66` has completed. Screening resumes on its own after a later main deploy succeeds and the watchdog is ok. An earlier pause, from [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197)'s merge `cfafabe`, still has its heal job parked. Separately, the delegated merge of #197 stalled after 3 conductors finished without merging it. [minion.town#203](https://github.com/kriscendobot/minion.town/pull/203) and [minion.town#206](https://github.com/kriscendobot/minion.town/pull/206) merged and validated earlier today.
 
-Several gauntlets ran out of review budget and need a human merge or review call, or more rounds:
-- minion.town [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) (16 rounds each, about 20 unaddressed must-fix items, "moving target").
-- minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202).
-- endo-but-for-bots [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478).
+Several gauntlets hit their review budget and now need a call on whether to grant more rounds:
 
-A shepherd job for red CI on #201 is queued. On the endo side, panel and fix stages are queued for [#1506](https://github.com/endojs/endo-but-for-bots/pull/1506) and [#1500](https://github.com/endojs/endo-but-for-bots/pull/1500), and clean stages are running on [#1505](https://github.com/endojs/endo-but-for-bots/pull/1505) and [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504).
+- [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) spent 16 of 16 rounds and still have about 20 must-fix items each, so the review is not converging.
+- [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) reached their budgets.
+- [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) also reached theirs.
 
-Decisions waiting on you:
-- **Claude quota:** the Claude pool is at 99% of its 271M cap.
-- **Reset credit:** the reset-credit watch recommends using the codex-endolin credit Tuesday 10-20, and projects claude-endolin1 to cross 90% around 20Z that day. It asks you to confirm how many codex credits you hold.
-- **Leader deploy:** the leader host `endolin-garden-ece02cb4` has been stuck at `b8abbe64` since 10-16 while oros holds correctly. It's worth checking its rolling-deploy journal.
-- **Foreman milestones:** M2 waits on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and M4 waits on [#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
-- **Settings follow-ups:** the minion.town settings work needs `deploy-accounts-store.sh` run before merge, plus your veto check.
-- **Daemon agent tools:** Phase 8 needs your answer on Open Question 4.
+A shepherd job for red CI on #201 is queued.
 
-The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs splitting. The rest of the inbox is watchdog journal-contention notices, mostly recoveries.
+Other items that need a maintainer decision:
+
+- **Quota:** claude-endolin1 is at 99% of its 271M cap, so the claim gate may refuse work. The reset-credit watch projects it crossing 90% around Tue 10-20 ~20Z, with no credit available. The watch recommends resetting codex-endolin on Tue 10-20 and asks you to confirm how many credits it holds. One open question is which Claude login this host is on, endolin1 or endolin2. If it is endolin2, the ledger charges its spend to endolin1.
+- **Fleet deploy:** the earlier check-up says the leader has been stuck at `b8abbe64` since 10-16, so followers wait on it. Oros recovered from its stalled monk.
+- **Milestones:** the foreman reports M2 waits on review of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and M4 waits on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
+- **Settings simplification:** run `deploy-accounts-store.sh` before merging, and veto any of the four listed choices you object to.
+- **Daemon agent tools:** Phase 8 is blocked on your answer to Open Question 4. Should the HTTP client be a `provideHttpClient` formula or the `@endo/fetch` plugin?
+- **Closed beta waitlist:** the research finding on the native Node ZIP fall-through recommends not proceeding.
+- **Handler overrun:** `minion-town-ci-harness-path-gate` overran its 2-hour handler budget and needs splitting.
+
+The journal-contention watchdog notices are mostly recoveries. Three are still open at low severity.
 
 ## Maintainer review docket
 
@@ -797,7 +798,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 266.9M | $1053.69 _(notional, rate-card)_ | 99% of 271.0M (ok) |
+| Claude | 267.0M | $1054.43 _(notional, rate-card)_ | 99% of 271.0M (ok) |
 | Codex | 78.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91976652 tokens/day lower bound._
