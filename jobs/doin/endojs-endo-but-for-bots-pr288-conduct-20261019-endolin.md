@@ -14,3 +14,13 @@ Follow roles/conductor/AGENT.md. From the isolated project checkout, run
 It unfreezes the base to `llm`, rebases, waits for fresh CI on the rebased head, re-checks approval, then merges with `--merge`. Before merging, re-confirm that the approval still stands. Afterwards, sweep frozen bases with `sweep-frozen-bases.sh endojs/endo-but-for-bots 288`.
 
 Job `endojs-endo-but-for-bots-pr288-weave-20261019-move-base` (also pinned to endolin) is now moot: the base is already `llm-330cf99`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T16:56:19Z
