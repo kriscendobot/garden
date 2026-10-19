@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-19T14:45Z (oros-health-checkup-20261019-133509): healthy; deployed = origin/main2 `becf30d3`, no changes
+
+- **Load/mem:** load 1.4/1.1/1.0. 13 GiB of 15 GiB available. Swap is 939 MiB of 1 GiB used (896 MiB at 12:10Z), with no memory pressure.
+- **Disk/inodes:** 6% of the overlay used (404G free). The virtiofs garden mount is 49% used (236G free); inodes 1%.
+- **Uptime:** 17d21h, no reboot.
+- **Deployed vs main2:** root HEAD and `deploy/deployed-sha` are `becf30d3`, the origin/main2 tip (0 commits behind). fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed garden units. Only `garden-monk@1` is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 14:31:54Z (about 10 minutes before this check, in the fresher state clones; the live worktree shows 14:02:50Z), status ok, 72% used (derived).
+- **State clones:** the largest are self-deploy (48 packs), reaper (47) and repo-watcher (46), below the threshold of 50. No tmp_pack, no `gc.log`, no `.lock` files over an hour old. The root repo's auto-gc has run: it is down to 6 packs (49 at 12:10Z), with no `gc.log`.
+- **rc=124 (3h):** one. At 13:03Z `endojs-endo-but-for-bots-pr1498-gauntlet-undraft` ran past its own 2400s handler budget (`term-at-wall`, elapsed 2409s). It was classified as transient, and the job is now parked in `jobs/plan/`. This is a job-level deadline overrun, not a host fault.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question still stands. Quota is at 72% of the weekly window, below the 90% policy line. The pr1498 undraft job, now parked, may need someone to look at why it outruns its 2400s budget.
+
 ## 2026-10-19T12:10Z (oros-health-checkup-20261019-103508): healthy; deployed = origin/main2 `becf30d3`, no changes
 
 - **Load/mem:** load 1.8/1.4/1.1. 13 GiB of 15 GiB available. Swap is 896 MiB of 1 GiB used (flat since 09:45Z), with no memory pressure.
