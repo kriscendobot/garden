@@ -1,33 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-19T08:09:07Z_
+_As of 2026-10-19T08:20:10Z_
 
 ## Latest
 
-Several minion.town PRs finished their gauntlet review budgets without converging, so each now needs a human decision on merging or granting more rounds. These are [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#192](https://github.com/kriscendobot/minion.town/pull/192), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202). #180 and #184 spent 16 rounds each and still show about 20 new must-fix items per round, so more rounds are unlikely to help there. Two endo-but-for-bots PRs, [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482), also hit their 6-round budget. #1482's last round raised 20 new items, including a deference-window reset that a failing winner dial can exploit.
+Several minion.town PRs hit their gauntlet review-round limit, and each now needs a human decision on whether to add rounds. These are [#201](https://github.com/kriscendobot/minion.town/pull/201), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#202](https://github.com/kriscendobot/minion.town/pull/202), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180). The endo-but-for-bots PRs [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) are in the same state. #184, #180 and #1482 show roughly 20 new must-fix bullets each in the last round (19, 20 and 20), so their reviews are not converging. The board has since queued more work on #201 (undraft) and #198 (fix round 2).
 
-**Fleet health**
-- **Stalled leader deploy:** The leader (endolin-garden-ece02cb4) is still on b8abbe64 from 2026-10-16. Its self-advance has not landed through four rolls in which the oros canary passed, and it has not released oros for main2 05d833a2. Someone should check endolin's rolling-deploy journal for a rejected-candidate marker or a "did not land" loop.
-- **Oros recovery:** The oros monk was restarted and is claiming work again, with no person-at-machine action needed.
-- **Journal contention:** The contention storm cleared after 46 observations. Several individual lock notices recovered, and a few are still open.
+Proxy screening of minion.town is active again. [#206](https://github.com/kriscendobot/minion.town/pull/206) merged and its deploy succeeded, which healed the failed deploy from the earlier [#197](https://github.com/kriscendobot/minion.town/pull/197) merge. #197 itself is flagged as a stalled delegated merge. [#204](https://github.com/kriscendobot/minion.town/pull/204) was screened again and its conduct job is queued.
 
-**minion.town screening**
-- Heal [#206](https://github.com/kriscendobot/minion.town/pull/206) merged and its deploy succeeded, which ended the pause caused by the failed [#197](https://github.com/kriscendobot/minion.town/pull/197) deploy.
-- #197 itself is still marked as a stalled delegated merge: three conductors finished without merging it.
-- [#204](https://github.com/kriscendobot/minion.town/pull/204) has a conduct job waiting on the board.
+Needs your attention:
+- **Leader deploy stall:** the leader (endolin-garden) has been deployed at b8abbe64 since 2026-10-16, so rolling deploys are not landing.
+- **Milestones:** M2 waits on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). M4 waits on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124), which blocks the federation release-gate and the OCapN canary live run.
+- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging it, and veto any of its four listed choices you object to.
+- **Quota:** claude-endolin1 is at 86% of its 271M cap. Separately, the ledger will charge endolin2's spend to endolin1 if that host is still logged in as endolin2.
+- **ci-wait-merge on oros:** it cannot read CI on kriscendobot/minion.town because the bot token lacks checks:read, statuses:read and actions:read.
 
-**Questions for the maintainer**
-- **Claude login:** Which Claude login are this host's workers on, endolin1 or endolin2? If it is endolin2, its spend will be charged to endolin1's restored 271M cap and the claim gate will refuse work again.
-- **Settings simplification:** Run `deploy-accounts-store.sh` before merging the minion.town settings simplification. Until you do, Log out stays hidden and account deletion answers 503. You can also veto any of the four listed choices.
-- **Tower report:** The tower-report job left an anonymous guest on production that the garden cannot remove. It also could not check the report against `note-from-tower.md`, because that file was not on the host that ran it.
-- **Unreadable CI:** The oros host cannot read CI for kriscendobot/minion.town because its token gets 403 on statusCheckRollup. It needs checks:read, statuses:read and actions:read.
-
-**Blocked work**
-- M2 waits on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
-- M4 federation waits on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124), which is open and unmerged.
-- The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs splitting.
-
-**Research finding:** The @endo/zip native-Node ZIP investigation recommends not proceeding. Node's native ZIP API is early-stage and its output differs from Endo's, and it accepts hostile inputs that Endo rejects.
+On the recovery side, oros's monk was restarted and is claiming jobs again. Most of the journal-lock-contention watchdog notices have cleared. The orchestrations `mt-beta-product-pass-20261017` and the parcel-stack restack completed with no failed children.
 
 ## Maintainer review docket
 
@@ -728,10 +716,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 233.1M | $929.76 _(notional, rate-card)_ | 86% of 271.0M (ok) |
+| Claude | 233.3M | $930.48 _(notional, rate-card)_ | 86% of 271.0M (ok) |
 | Codex | 78.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92510506 tokens/day lower bound._
+_Fleet token-unlock pace: 92533425 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.482055s/45s (/home/kris/garden/.garden-state/mentor/journal); 4 open notice(s); checker healthy
