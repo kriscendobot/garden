@@ -1,27 +1,24 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-19T14:15:38Z_
+_As of 2026-10-19T14:20:39Z_
 
 ## Latest
 
-Board activity was light. [endojs/endo-but-for-bots#1503](https://github.com/endojs/endo-but-for-bots/pull/1503) entered the gauntlet, and its pre-spend viability stage is queued. The `build-daemon-agent-network-identity` build job finished. An oros health-watch job was claimed and is in progress.
+Several gauntlets ran out of review budget without converging and now need a human call. [minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) each used 16 of 16 rounds and still carry about 20 must-fix items. [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) used 6 of 6 and carries 20 items. Also at their round caps are minion.town [#201](https://github.com/kriscendobot/minion.town/pull/201), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#202](https://github.com/kriscendobot/minion.town/pull/202) and [#178](https://github.com/kriscendobot/minion.town/pull/178), and [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). Each can be resumed with `--add-rounds`. Many of the 20-item lists are tagged "new since last round", so more rounds may only churn.
 
-**Needs a decision:**
-- **Review budgets exhausted without convergence.** The gauntlets for minion.town PRs [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) stopped at their round limits. So did [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). Each is left for a human merge or review decision, or more rounds via `--add-rounds`.
-- **Reviews that never settled.** #180, #184 and #1482 report about 20 new must-fix items in their last round, a "moving target". A second gauntlet on #198 hit its 3-round limit with 20 new items.
-- **Stalled minion.town merge.** Three conductors finished without merging [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197). Screening is otherwise active: [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#206](https://github.com/kriscendobot/minion.town/pull/206) merged and deployed cleanly, and [#207](https://github.com/kriscendobot/minion.town/pull/207) is screened with a conduct job queued.
-- **Settings-simplify follow-ups.** Run `deploy-accounts-store.sh` before merging. Until then Log out stays hidden and account deletion returns 503 without deleting anything. There are also four items open to your veto.
-- **Foreman milestones.** M2 waits on your review of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). M4 waits on [#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) being merged.
-- **Unanswered question from the restore job.** Which Claude login the leader host's workers are on, endolin1 or endolin2. If it is endolin2, the ledger charges its spend to endolin1 and the claim gate will refuse work again.
+minion.town screening is active again. [#206](https://github.com/kriscendobot/minion.town/pull/206) and [#203](https://github.com/kriscendobot/minion.town/pull/203) merged and deployed, with the watchdog ok. [#207](https://github.com/kriscendobot/minion.town/pull/207) is screened, and its conduct job is queued. [#197](https://github.com/kriscendobot/minion.town/pull/197) stalled after three conductors finished without merging it.
 
-**Fleet health:**
-- A job, `minion-town-ci-harness-path-gate`, overran its 7200s handler budget and needs splitting.
-- `ci-wait-merge` on the oros host still cannot read CI for the `kriscendobot` token (HTTP 403).
-- Oros's journal worktree repeatedly fails to fast-forward.
+Fleet health:
+- **Leader deploy:** The leader has been stuck at b8abbe64 since 10-16. Oros reports that endolin never released it for main2 05d833a2.
+- **Oros:** Oros recovered after a sysop restart of its monk and is on 05d833a2.
+- **Quota:** Claude is at 94% of quota, so monk counts are being throttled.
+- **CI token:** The CI-read token for kriscendobot still returns 403 on minion.town#192.
 
-Most journal-contention notices have recovered. Claude spend is at 94% of the 271M quota.
+Decisions and checks waiting on you:
+- **M2:** [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) is ready for approval.
+- **M4:** The federation work is blocked on [#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) being merged.
+- **Settings change:** `deploy-accounts-store.sh` must run before the settings-simplify change merges, and four choices there are open to your veto.
+- **claude-endolin1 cap:** The restored cap may be charged against the wrong Claude login, so check which one this host is on.
 
 ## Maintainer review docket
 
@@ -755,10 +752,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 255.2M | $1011.34 _(notional, rate-card)_ | 94% of 271.0M (ok) |
+| Claude | 255.5M | $1012.42 _(notional, rate-card)_ | 94% of 271.0M (ok) |
 | Codex | 78.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92187244 tokens/day lower bound._
+_Fleet token-unlock pace: 92219704 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.551962s/45s (/home/kris/garden/.garden-state/reaper/journal); 4 open notice(s); checker healthy
