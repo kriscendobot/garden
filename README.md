@@ -1,28 +1,23 @@
 # Garden bulletin
 
-_As of 2026-10-19T06:23:41Z_
+_As of 2026-10-19T06:26:43Z_
 
 ## Latest
 
-The minion.town proxy merged [#206](https://github.com/kriscendobot/minion.town/pull/206) at 04:18Z. That was the heal for the broken [#197](https://github.com/kriscendobot/minion.town/pull/197) deploy. The deploy succeeded and the watchdog is ok, so delegated screening has resumed. [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#204](https://github.com/kriscendobot/minion.town/pull/204) were screened at 05:08Z, and a conduct job for #203 is queued. #197 itself still has a stalled-merge notice: three conductors finished without merging it.
+Little moved on the board itself: the only new post since the last bulletin is a weave of [minion.town#144](https://github.com/kriscendobot/minion.town/pull/144), the guest coupons design, onto the current base. The delegated minion.town merge flow is healthy again. [#206](https://github.com/kriscendobot/minion.town/pull/206), the heal for the failed [#197](https://github.com/kriscendobot/minion.town/pull/197) deploy, merged and its deploy succeeded with the watchdog ok. [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#204](https://github.com/kriscendobot/minion.town/pull/204) have been screened, and a conduct job is queued for #203.
 
-Six gauntlets hit their review budget without converging and now need a decision on more rounds or a human merge. Each message carries the exact `--add-rounds` command.
-- **minion.town:** [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201), [#202](https://github.com/kriscendobot/minion.town/pull/202) and [#192](https://github.com/kriscendobot/minion.town/pull/192).
-- **endo-but-for-bots:** [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482).
+What needs a maintainer decision:
 
-[#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) still carry about 20 new must-fix bullets each. [#201](https://github.com/kriscendobot/minion.town/pull/201) has since gone back into panel round 2.
+- **Review budgets exhausted.** The review-budget gauntlets for minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) have all stopped at their round limits without converging. The gauntlets for endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) did the same. Each needs a human merge call or more rounds via `--add-rounds`.
+- **Gating question.** The proxy gave a tentative answer on [#198](https://github.com/kriscendobot/minion.town/pull/198): accept should require a guest bearer, and guest creation stays open until the coupon work in [#199](https://github.com/kriscendobot/minion.town/pull/199).
+- **Conductors stalled.** Three conductors finished without merging [#197](https://github.com/kriscendobot/minion.town/pull/197).
+- **Settings simplification report.** The `mt-beta-settings-simplify` report has you run `deploy-accounts-store.sh` before merging. It also lists four choices open to your veto.
+- **Milestones.** M2 waits on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). M4 waits on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
+- **Leader deploy stall.** Oros reported that the leader, endolin-garden-ece02cb4, has been stuck at b8abbe64 since 10-16, so the fleet deploy is stalled.
+- **Claude login.** The restore job asks whether endolin1 or endolin2 is the active Claude login on that host. If it is endolin2, spend will be charged to endolin1's restored cap.
+- **Overrun and token gap.** `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting. The watchdog also reports that the bot token lacks checks:read on minion.town (HTTP 403), which blocks reading CI for delegated merges.
 
-Several items need a maintainer decision:
-- **#198 invitation flow:** fix round 2 now requires the guest bearer to accept an invitation. This reverses the one-step admission and responds to your earlier review on [#56](https://github.com/kriscendobot/minion.town/pull/56). Say so if you want the one-step flow back.
-- **Settings simplification:** before merging, run `deploy-accounts-store.sh`. Until then, Log out stays hidden and account deletion answers 503 without deleting anything. The report also lists four choices for you to veto.
-- **Leader deploy:** oros reports that the leader (`endolin-garden-ece02cb4`) has sat at `b8abbe64` since 10-16, with its own advance failing through four rolls. Oros is healthy and holding correctly.
-- **Claude login:** the restore job asks whether the endolin host is logged in as endolin1 or endolin2. If it is endolin2, spend is charged to endolin1's restored 271M cap and could block claims.
-- **Milestones:** M2 is blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and M4 is blocked on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
-- **Tower report:** the probe left one anonymous guest on production, and the source note wasn't on the host that ran the job.
-- **CI token:** the oros bot token still gets 403 reading CI for the minion.town delegated merges. It needs `checks:read`, `statuses:read` and `actions:read`.
-- **Overrun:** `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting.
-
-The journal-lock-contention notices have mostly cleared, with one new producer notice and one new bulletin notice. Claude spend is at 83% of the 271M cap.
+Most of the rest of the inbox is journal-contention watchdog recoveries and budget-level notices that need no action.
 
 ## Maintainer review docket
 
@@ -142,6 +137,15 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
 
+- `20261019T062428Z-a2e4bb` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261019T062428Z-a2e4bb.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: kriscendobot-minion.town-pr198-gauntlet-20261019-fix-2
+> - question (msgid msg-kriscendobot-minion.town-pr198-gauntlet-20261019-fix-2-4709dd37a40e.md)
+> - tentative answer: Proxy/tentative (the maintainer may revise): this is a progress/direction call, so I'm answering it. Your fix-2 direction is right. It follows the maintainer's earlier review on [https://github.com/kriscendobot/minion.town/pull/56](https://github.com/kriscendobot/minion.town/pull/56), "they need to first create a guest account". Accept should require the guest bearer, and the invitation card should create the guest with POST /api/guest first and then accept as that guest ("Create a guest and accept"). Don't restore the one-step unauthenticated admission. It contradicts that review, and a reviewer would likely flag it again.
+>
+> Keeping POST /api/guest open on this branch is fine for now. Gating it is the job of the coupon in [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199), so leave it out of [https://github.com/kriscendobot/minion.town/pull/198](https://github.com/kriscendobot/minion.town/pull/198). Treat all of this as provisional until the maintainer reviews it.
+
 - `kriscendobot-minion.town-pr184-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr184-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr184-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr184-gauntlet REVIEW-BUDGET-REACHED: Applied 16 panel/fix round(s); fix round 16 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=16, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr184-gauntlet panel --add-rounds N
@@ -168,10 +172,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr184-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 16 -> 18 (N is yours to choose).
-
-- `msg-kriscendobot-minion.town-pr198-gauntlet-20261019-fix-2-4709dd37a40e` — from gardener:kriscendobot-minion.town-pr198-gauntlet-20261019-fix-2, reply_to `kriscendobot-minion.town-pr198-gauntlet-20261019-fix-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr198-gauntlet-20261019-fix-2-4709dd37a40e.md)
-
-> [https://github.com/kriscendobot/minion.town/pull/198](https://github.com/kriscendobot/minion.town/pull/198) (closed-beta landing), FYI, no reply needed: the panel's decomplector flagged that unauthenticated invitation acceptance creating the guest reversed your review on [https://github.com/kriscendobot/minion.town/pull/56](https://github.com/kriscendobot/minion.town/pull/56) ("they need to first create a guest account"). Fix-2 (f18f25ec) removes that server branch. Accept again requires the guest bearer, and the invitation card now creates a guest with POST /api/guest first, then accepts as it ("Create a guest and accept"). POST /api/guest stays open on this branch; the coupon in [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199) is what would gate it. Tell me if you wanted the one-step admission kept instead.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal.md)
 
@@ -726,19 +726,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 226.1M | $903.05 _(notional, rate-card)_ | 83% of 271.0M (ok) |
+| Claude | 226.3M | $904.07 _(notional, rate-card)_ | 83% of 271.0M (ok) |
 | Codex | 78.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92302489 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.264289s/45s (/home/kris/garden/.garden-state/screening-control/journal); 3 open notice(s); checker healthy
+worst fetch p95 5.051926s/45s (/home/kris/garden/.garden-state/maintainer/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (13)
 - [`endojs-endo-but-for-bots-pr1499-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1499-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1499
 - [`kriscendobot-minion.town-pr201-gauntlet-20261019-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr201-gauntlet-20261019-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #201
 - [`endojs-endo-but-for-bots-pr1501-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1501-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1501
+- [`minion-town-pr144-weave-20261019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr144-weave-20261019.md) — Weave kriscendobot/minion.town PR #144 (guest coupons design) onto the curren...
 - [`claude-on-minion-town-completion-press-20261019-052010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261019-052010.md) — Completion press: Claude-on-minion.town arc
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1500-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1500-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1500
