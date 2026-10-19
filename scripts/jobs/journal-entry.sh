@@ -249,28 +249,53 @@ find_duplicate() {
   return 1
 }
 
+# project_tree_exists — true when projects/<slug>/ is a tree at the synced ref.
+project_tree_exists() {
+  [ "$(git -C "$DIR" cat-file -t "origin/$JOURNAL_BRANCH:projects/$1" 2>/dev/null || true)" = tree ]
+}
+
 # validate_projects — refuse a body that names a project absent from the
 # authoritative journal. Project tags are an indexing contract: consumers grep
 # them to find every entry for a project, so a typo silently files the entry in
 # a ledger no consumer reads. Validate against the just-synced remote ref, not a
 # potentially stale working tree.
+#
+# A repo-derived `<owner>-<repo>` slug (what a unit gets handed, e.g.
+# `endojs-endo-but-for-bots`) is mapped onto the canonical `<repo>` directory
+# rather than losing the entry: each leading `<owner>-` split (owners may hold
+# '-') is tried, and the tag is rewritten in BODY only when exactly one such
+# projects/<dir>/ exists. A slug matching nothing, or more than one candidate,
+# still fails hard.
 validate_projects() {
-  local line slug object_type ref="origin/$JOURNAL_BRANCH"
+  local line slug rest cand match nmatch out=""
   while IFS= read -r line || [ -n "$line" ]; do
-    [[ "$line" =~ ^project:[[:space:]]*([^[:space:]]+)[[:space:]]*$ ]] || continue
-    slug="${BASH_REMATCH[1]}"
-    case "$slug" in
-      [a-z0-9]*[a-z0-9]) : ;;
-      [a-z0-9]) : ;;
-      *) die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal" ;;
-    esac
-    case "$slug" in
-      *[!a-z0-9-]*) die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal" ;;
-    esac
-    object_type="$(git -C "$DIR" cat-file -t "$ref:projects/$slug" 2>/dev/null || true)"
-    [ "$object_type" = tree ] \
-      || die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal"
+    if [[ "$line" =~ ^project:[[:space:]]*([^[:space:]]+)[[:space:]]*$ ]]; then
+      slug="${BASH_REMATCH[1]}"
+      case "$slug" in
+        [a-z0-9]*[a-z0-9]) : ;;
+        [a-z0-9]) : ;;
+        *) die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal" ;;
+      esac
+      case "$slug" in
+        *[!a-z0-9-]*) die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal" ;;
+      esac
+      if ! project_tree_exists "$slug"; then
+        match=""; nmatch=0; rest="$slug"
+        while [[ "$rest" == *-* ]]; do
+          rest="${rest#*-}"
+          cand="$rest"
+          [ -n "$cand" ] || break
+          if project_tree_exists "$cand"; then match="$cand"; nmatch=$(( nmatch + 1 )); fi
+        done
+        [ "$nmatch" -eq 1 ] \
+          || die "unknown project slug '$slug': no projects/$slug/ directory in the synced journal"
+        log "normalized project slug '$slug' to canonical '$match' (projects/$match/)"
+        line="project: $match"
+      fi
+    fi
+    out+="$line"$'\n'
   done <<< "$BODY"
+  BODY="${out%$'\n'}"
 }
 
 ensure_clone "$DIR"
