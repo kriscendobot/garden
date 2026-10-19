@@ -15,8 +15,8 @@ stage: panel
 iteration: 4
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: kriscendobot-minion.town-pr198-gauntlet-20261019-panel-4
+state: running
 resumed_at: 2026-10-19T23:30:44Z
 resumed_from_stage: fix
 ---
