@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/minion.town",
+  "pr": 204,
+  "url": "https://github.com/kriscendobot/minion.town/pull/204",
+  "head_oid": "e4e8f5341e7b684d691041a0181261c0836736c0",
+  "ask": "re-review",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Panel reviewed 3fdab3ae9e7d, but the presented head is e4e8f5341e7b",
+  "unblocks": [],
+  "source": "stale-panel-head-kriscendobot-minion.town-pr204-3fdab3ae-e4e8f534",
+  "requested_at": "2026-10-19T09:44:59Z",
+  "first_requested_at": "2026-10-19T09:44:59Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-19T09:45:01Z"
+  }
+}
