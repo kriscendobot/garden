@@ -48,3 +48,13 @@ No upstream prose (changelog, release body, README, PR body) was read. Only meta
 
 <!-- garden-job: endojs-endo-but-for-bots-pr1491-dependabot -->
 ----- END VERDICT -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T01:40:37Z
