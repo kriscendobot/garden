@@ -21,6 +21,7 @@ improved_by: 05e02d8f4d1 (scripts/jobs/assert-panel-head-fresh.sh, scripts/jobs/
 
 
 
+
 A substantive fixer change lands after the last panel reviewed the PR and reaches maintainer review without a fresh correctness pass over the new head, leaving newly introduced state invariants for the maintainer to reconstruct.
 
 **Threshold rationale:** Held below the dispatch floor. The cluster now has count=2 across PRs #475 and
@@ -48,3 +49,5 @@ cluster is already in flight. Dispatch one builder job to generalize prevention
 to all PR-touching producer roles and add a deterministic reviewed-head freshness
 check. The job preserves the manual-gauntlet-trigger policy and requires a
 re-litigation demonstration against all three historical sequences.
+
+**Threshold rationale:** Held, not dispatched (2026-10-19, retro of endojs-endo-but-for-bots-pr1349-review-a794b43f). This is a GENUINE post-fix recurrence (review_at 2026-10-08 postdates improvement 05e02d8f4d1, 2026-09-27); the writer reopened the cluster and alerted the maintainer under review-miss-recurrence-post-gauntlet-fixer-change-unreviewed. Per skill § 6 a second improvement round does not proceed on autopilot. Diagnosis for the maintainer's decision: the improvement's SENSING worked (assert-panel-head-fresh stamped "review required" on the mentat completion) but its disposition is advisory (maintainer stale-review docket action), and the 2026-09-29 restored automatic handoff stages only builder/design completions that name a PR, not a manual (mentat) or fixer push of substantive new code onto an already-panelled PR. Candidate fix for a sanctioned round: when the freshness check reports unreviewed and the post-panel diff is substantive (new src files / non-test code), stage a scoped panel over the post-panel range instead of only docketing it.
