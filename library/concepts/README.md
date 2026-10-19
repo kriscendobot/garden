@@ -16,6 +16,8 @@ This index is a third axis next to [`sources/`](../sources/README.md) (by proven
 
 ## Seed inventory (bootstrap, 2026-05-14)
 
+- [endo-gateway](endo-gateway.md) — the host-scoped HTTP/WebSocket/OCapN boundary that accepts proof-of-possession registration from per-user daemons and routes public keys and weblets without acquiring user authority (drafted 2026-10-19 by builder library lookup; topics daemon, ocapn, networking, capability-security).
+
 - [token-subspace-topology](token-subspace-topology.md) — an LLM vocabulary's learned embedding as a sampled topological subspace; empirical stratification and negative curvature; response-based recovery up to homeomorphism; a model diagnostic that complements but does not replace Endo capability confinement (added 2026-09-08 from Robinson-Dey-Sweet 2024 and Robinson-Dey-Kushner 2025; topic llm-token-space-geometry).
 
 - [guest-special-names](guest-special-names.md) - daemon-provided read-only names that resolve through ordinary guest naming, persist with guest formulas, and cannot be removed or rebound (drafted 2026-08-31 by designer library lookup).
