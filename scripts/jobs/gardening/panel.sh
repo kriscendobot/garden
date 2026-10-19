@@ -360,6 +360,44 @@ canonical_review_login() {  # canonical_review_login <login>
     | sed -e 's,^app/,,' -e 's,\[bot\]$,,'
 }
 
+# panel_qualify_bare_refs <file> <owner/repo>
+#
+# Rewrite every bare `#N` the reader would see as a link into `<owner/repo>#N`.
+# The aggregate is LLM-authored seat prose that often names another repository
+# (nodejs/node, tc39/…) beside bare PR numbers, and the gh wrapper's bare-ref guard
+# then refuses the post (scripts/jobs/comment-body-guard.sh). A scripted submitter
+# cannot read that refusal and repost, so qualify here instead. The rewrite keeps
+# GitHub's existing link target (a bare #N already means <owner/repo>#N) and skips
+# every region GitHub does not autolink in: fenced and inline code, HTML comments,
+# <code>/<pre>/<a> elements, markdown links, and URLs. Fails open without perl.
+panel_qualify_bare_refs() {
+  local file="$1" repo="$2" tmp
+  [ -n "$repo" ] && [ -f "$file" ] || return 0
+  command -v perl >/dev/null 2>&1 || return 0
+  tmp="$file.qualify.$$"
+  PANEL_QUALIFY_REPO="$repo" perl -e '
+    local $/; my $b = <STDIN>; $b = "" unless defined $b;
+    my $r = $ENV{PANEL_QUALIFY_REPO};
+    my $prot = qr{
+        ^[ \t]*(```+|~~~+).*?^[ \t]*\g{-1}[^\n]*$
+      | (`+).*?\g{-1}
+      | <!--.*?-->
+      | <(code|pre|a)\b.*?</\g{-1}>
+      | \[[^\]]*\]\([^)]*\)
+      | https?://\S+
+    }msix;
+    my $out = "";
+    while ($b =~ /\G(.*?)($prot|\z)/gcs) {
+      my ($text, $keep) = ($1, $2);
+      $text =~ s{(?<![\w/&#.-])#(\d+)\b}{$r#$1}g;
+      $out .= $text . $keep;
+      last if $keep eq "" && pos($b) >= length $b;
+    }
+    print $out;
+  ' < "$file" > "$tmp" || { rm -f "$tmp"; return 0; }
+  mv "$tmp" "$file"
+}
+
 # panel_submit_review <aggregate> <disposition>
 #
 # Submit the single-round aggregate as a formal review. GitHub forbids both
@@ -405,6 +443,7 @@ panel_submit_review() {
     *) fail "review submission (unknown disposition '$disposition')" ;;
   esac
 
+  panel_qualify_bare_refs "$agg" "$wt_repo"
   "$gh_cmd" pr review "$pr" -R "$wt_repo" "$review_flag" --body-file "$agg" \
     || fail "review submission (gh pr review failed)"
 }
