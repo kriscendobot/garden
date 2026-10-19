@@ -1,0 +1,9 @@
+from_host: endolin-garden-ece02cb4
+from: watchdog:requirements-watch
+sent_at: 2026-10-19T11:42:03Z
+watchdog_key: unclaimable-host-requirements-screen-minion-town-pr204-e4e8f53-conduct
+notice_count: 1
+first_seen: 2026-10-19T11:42:03Z
+last_seen: 2026-10-19T11:42:03Z
+---
+Host-requirements gate: job 'screen-minion-town-pr204-e4e8f53-conduct' has remained unclaimed for 902s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
