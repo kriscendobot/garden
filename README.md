@@ -1,25 +1,23 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-19T05:41:31Z_
+_As of 2026-10-19T05:44:46Z_
 
 ## Latest
 
-Several minion.town PRs hit their review-budget cap with the panel still not converged and need a maintainer call on more rounds. [#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 of 16 rounds with 19 must-fix items still open, [#180](https://github.com/kriscendobot/minion.town/pull/180) used 16 of 16 with 20 open, and [#178](https://github.com/kriscendobot/minion.town/pull/178) used 12 of 12. [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) each stopped at 6 of 6, and [#192](https://github.com/kriscendobot/minion.town/pull/192) at 10 of 10. On endo-but-for-bots, [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) used 6 of 6 with 20 open and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) used 6 of 6. #198 has since moved on: a fix round 2 is queued, and #201 is in fix round 1.
+The main thing to notice is that gauntlets are running out of review budget. Seven minion.town gauntlets hit their round cap with the PR still improved but not converged: [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200) and [#202](https://github.com/kriscendobot/minion.town/pull/202). So did two endo-but-for-bots gauntlets, [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482), and [#201](https://github.com/kriscendobot/minion.town/pull/201) also reports its budget reached while its fix round 1 is currently claimed.
 
-Delegated merging of minion.town resumed. [#206](https://github.com/kriscendobot/minion.town/pull/206) merged and its deploy succeeded, which cleared the pause after the [#197](https://github.com/kriscendobot/minion.town/pull/197) merge broke the production deploy. #197 itself is flagged as stalled: three conductors finished without merging it. [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#204](https://github.com/kriscendobot/minion.town/pull/204) were screened, and #204's conduct job completed.
+Each message tells you how to grant more rounds with `--add-rounds`. #180, #184 and #1482 are still raising about 20 new must-fix items per round, which the gauntlet labels a "moving target". Granting more rounds is unlikely to converge them.
 
-On the board, the one completion was the `endopi-edit-tool-build` job. The new PR [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) gauntlet is at its viability stage. Gauntlet stages for PRs #1499, #1500, #1497 and #1498 are queued.
+Other items that need you:
+- The screened minion.town merge of [#197](https://github.com/kriscendobot/minion.town/pull/197) stalled after 3 conductors, and its deploy failure paused screening. The heal merge of [#206](https://github.com/kriscendobot/minion.town/pull/206) deployed successfully and validated, so screening is active again. [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#204](https://github.com/kriscendobot/minion.town/pull/204) were screened this morning, and #204's conduct job already finished.
+- The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merge. Until then Log out stays hidden and account deletion answers 503. It also lists four choices that stand unless you veto them.
+- The tower docs report left one anonymous guest on production minion.town that can't be deleted via the API.
+- The leader's deploy looked stalled at b8abbe64 in the oros check-up. Oros itself is healthy: its monk was restarted, and it is on main2 05d833a2.
+- Foreman milestones are blocked on you: M2 waits on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and M4 waits on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
+- The `claude-endolin1` cap was restored to 271M, but the gardener asks whether this host is logged in as endolin1 or endolin2.
+- Claude spend is at 83% of quota.
 
-Items for the maintainer:
-- The oros leader deploy is stalled on endolin: it has sat at b8abbe64 since 10-16 and has not released oros for the newer main2.
-- The M2 and M4 milestones are both waiting on review. M2 is blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and M4 on [#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
-- The `mt-beta-settings-simplify` report needs `deploy-accounts-store.sh` run before merge, plus a veto check.
-- A job overran its two-hour handler budget (`minion-town-ci-harness-path-gate`).
-- The endo-zip investigation recommends not proceeding.
-
-Most of the other messages are journal-contention watchdog notices that have already recovered.
+The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs splitting. A CI-read 403 on [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/issues/192) needs a bot-token permission grant. Journal-contention watchdog notices are mostly recovered and need no action.
 
 ## Maintainer review docket
 
@@ -719,7 +717,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 224.5M | $896.54 _(notional, rate-card)_ | 83% of 271.0M (ok) |
+| Claude | 224.6M | $896.86 _(notional, rate-card)_ | 83% of 271.0M (ok) |
 | Codex | 78.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92204004 tokens/day lower bound._
