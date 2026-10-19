@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-19T15:13:16Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-daemon-agent-tools-design-build
+pr_number: 1504
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1504
+pr_head: build/daemon-agent-tools-sandbox-shell
