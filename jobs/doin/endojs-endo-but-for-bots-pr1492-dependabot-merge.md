@@ -60,3 +60,13 @@ All 37 check-runs at `e703982dd2` completed, each `success` or `skipped`, cross-
 ### Disposition
 Every MERGE-NOW gate is met: past the maturity floor, CI green, the source read surfaced nothing, and the transitive set is benign. Conducting via `ci-wait-merge.sh --dependabot-auto-merge`.
 ----- END VERDICT COMMENT -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T01:00:13Z
