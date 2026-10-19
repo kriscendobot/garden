@@ -23,3 +23,13 @@ Dispatched by design-build-handoff.sh from the design report's follow-ups:
 > - Build: Phase 2c, the sandbox shell engine, as specified in § Next Slice of `designs/daemon-agent-tools.md`. That is the next builder job once the design gauntlet passes.
 > - Open Question 4 (daemon `provideHttpClient` formula or `@endo/fetch` plugin) needs a maintainer decision before Phase 8 can proceed.
 > - Unrelated to this job: the "Not Started" status that produced this job's prompt must come from somewhere other than the `designs/README.md` M3 row, which already said In Progress. Whatever produced it may need correcting.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T15:13:16Z
