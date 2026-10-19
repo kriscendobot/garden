@@ -16,5 +16,11 @@
   "ci": {
     "state": "green",
     "observed_at": "2026-10-19T04:07:38Z"
+  },
+  "retirement": {
+    "kind": "terminal",
+    "repo": "kriscendobot/minion.town",
+    "at": "2026-10-19T04:18:09Z",
+    "state": "MERGED"
   }
 }
