@@ -2,6 +2,7 @@
 
 Daily generated snapshots; git history retains same-day revisions.
 
+- [2026-10-19](2026-10-19.md)
 - [2026-10-18](2026-10-18.md)
 - [2026-10-17](2026-10-17.md)
 - [2026-10-16](2026-10-16.md)
