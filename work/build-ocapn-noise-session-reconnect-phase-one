@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-19T20:58:02Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-ocapn-noise-session-reconnect-phase-one
+pr_number: 1508
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1508
+pr_head: llm-ocapn-session-heartbeat-phase-1
