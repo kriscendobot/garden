@@ -1,4 +1,5 @@
 ---
+panel_head: 80bc745d8801b7ee7247d5854fff7b1c3af5d390
 pr: https://github.com/kriscendobot/minion.town/pull/207
 repo: kriscendobot/minion.town
 pr_number: 207
