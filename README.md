@@ -1,26 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-19T07:01:31Z_
+_As of 2026-10-19T07:04:30Z_
 
 ## Latest
 
-The only board movement since the last bulletin is a new job in `todo`: a screened conduct job for [minion.town#204](https://github.com/kriscendobot/minion.town/pull/204) at `bea6f71`, which the proxy screened at 06:58Z. The proxy's screening of [minion.town#206](https://github.com/kriscendobot/minion.town/pull/206) healed the earlier break. That PR merged at 04:18Z and its deploy succeeded with the watchdog ok, so delegation is active again after the [#197](https://github.com/kriscendobot/minion.town/pull/197) deploy failure. A separate message says three conductors finished without merging #197 at `f55f6a2`, so that PR is stalled.
+Nothing resolved at the board level this cycle, so the news is in the maintainer inbox. Six minion.town gauntlets ([#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199) and [#200](https://github.com/kriscendobot/minion.town/pull/200)) have hit their review budget. So have [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202), plus [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). Each stopped with CI green but review not converged. #180 and #184 carry about 20 new must-fix items per round, which looks like a moving target, and #1482 does too. Each message gives a `--add-rounds` command if you want to grant more.
 
-Items that need a maintainer decision:
+Other items that need a decision:
+- **Leader deploy:** The leader (endolin) has sat at b8abbe64 since 2026-10-16, so the fleet deploy is stalled, per the oros health check.
+- **Milestones:** M2 waits on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). M4 waits on [#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
+- **Claude account:** The restore job asks which Claude login (endolin1 or endolin2) this host is on. If it is endolin2, the claim gate could refuse work again.
+- **Settings simplification:** `mt-beta-settings-simplify` needs you to run `deploy-accounts-store.sh` before merging, and wants your veto on four choices.
+- **Probe guest:** The docs report job left an anonymous guest on production minion.town, and the garden can't delete it.
+- **Handler timeout:** `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs splitting.
+- **Screening:** [minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) merged and broke the production deploy, which paused screening. The heal merge of [#206](https://github.com/kriscendobot/minion.town/pull/206) succeeded and validated at 04:18Z, and [#204](https://github.com/kriscendobot/minion.town/pull/204) is now screened with its conduct job queued. A "merge stalled" notice for #197 is still open.
 
-- **Review-budget-reached gauntlets.** Seven minion.town PRs ([#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#202](https://github.com/kriscendobot/minion.town/pull/202)) and two endo-but-for-bots PRs ([#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482)) ran out of panel rounds without converging. #180, #184 and #1482 still show about 19–20 new must-fix findings each, so they look like a moving target rather than near-done. Each message gives the `--add-rounds` command to grant more rounds. [minion.town#201](https://github.com/kriscendobot/minion.town/pull/201) also hit its budget, but a panel round 2 is already queued for it.
-- **Leader deploy stall.** The oros health check-up reported that the leader `endolin-garden-ece02cb4` has stayed at `b8abbe64` since 10-16 and has not released oros for `05d833a2`. Someone should check its rolling-deploy journal.
-- **Other notices:**
-  - Foreman milestone M2 is blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
-  - Foreman milestone M4 is blocked on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
-  - The settings-simplify follow-up needs you to run `deploy-accounts-store.sh` before merging, plus a veto check on four product choices.
-  - The docs-tower report left one anonymous guest on production minion.town that can't be cleaned up from the garden.
-  - A restore message asks which Claude login endolin is on.
-  - One job, `minion-town-ci-harness-path-gate`, overran its 7200s handler budget and needs splitting.
-
-Claude quota use is at 85% of its cap. Most other messages are routine journal-contention recoveries.
+The oros host recovered from a stuck monk after a restart, and most journal-contention notices have cleared.
 
 ## Maintainer review docket
 
@@ -721,10 +716,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 229.9M | $916.06 _(notional, rate-card)_ | 85% of 271.0M (ok) |
+| Claude | 230.0M | $916.71 _(notional, rate-card)_ | 85% of 271.0M (ok) |
 | Codex | 78.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92250110 tokens/day lower bound._
+_Fleet token-unlock pace: 92284404 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.482055s/45s (/home/kris/garden/.garden-state/mentor/journal); 4 open notice(s); checker healthy
