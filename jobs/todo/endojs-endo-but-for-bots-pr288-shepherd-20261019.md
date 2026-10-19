@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr288-weave-shepherd-conduct-orch-20261019
-priority: normal
-posted_by: producer
-posted_at: 2026-10-19T13:40:31Z
+role: shepherd
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-19T15:16:24Z cleared=none -->
 
 ---
 role: shepherd
