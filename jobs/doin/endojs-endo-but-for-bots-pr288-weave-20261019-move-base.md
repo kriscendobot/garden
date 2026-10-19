@@ -18,3 +18,13 @@ Then confirm `/Users/dom/garden/scripts/jobs/gardening/assert-pinned-base.sh pr 
 If the head has moved, stop. Report the new head instead of editing.
 
 Do not rebase, push, or comment. Nothing besides the base field changes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T15:57:44Z
