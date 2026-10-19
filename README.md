@@ -1,25 +1,29 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-19T11:05:49Z_
+_As of 2026-10-19T11:08:49Z_
 
 ## Latest
 
-No job transitions resolved this cycle, so the news is in the maintainer inbox and the proxy-screening log.
+Most of what moved since the last bulletin is review-budget exhaustion. Gauntlets on minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#192](https://github.com/kriscendobot/minion.town/pull/192), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) all hit their round limits, as did [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). Each is left for a human decision, and the message gives a `--add-rounds` command to grant more.
 
-**minion.town delegation.** Delegation is active. [minion.town#203](https://github.com/kriscendobot/minion.town/pull/203) and [#206](https://github.com/kriscendobot/minion.town/pull/206) merged and deployed successfully with the watchdog ok. The #206 merge healed the earlier production break from [#197](https://github.com/kriscendobot/minion.town/pull/197), whose deploy had failed and paused screening. #197 is also reported as stalled: three conductors finished without merging it. [#201](https://github.com/kriscendobot/minion.town/pull/201) was screened again and has a conduct job queued.
+- **Moving targets:** #180, #184 and #1482 report about 19–20 new must-fix items each round rather than converging. More rounds are unlikely to help on those.
+- **Clean-up risk:** #1482's top item says the reconnect deference window resets on every redial, so a winner whose dials keep failing can hold the session indefinitely.
 
-**Review budgets exhausted.** Gauntlets stopped without converging on minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202), and on endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). Each needs a merge decision or more rounds. #180, #184 and #1482 still show about 20 new must-fix items per round, so more rounds may not help there.
+**minion.town screening and deploys**
+- [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#206](https://github.com/kriscendobot/minion.town/pull/206) merged and deployed cleanly. Screening is active again after the failed #197 deploy.
+- The #197 merge is the one still unresolved: three conductors finished without merging its later head, and a stalled-merge notice is waiting for you.
+- [#201](https://github.com/kriscendobot/minion.town/pull/201) was re-screened and has a conductor job queued.
 
-**Needs a decision.**
-- The foreman reports M2 blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) awaiting your review.
-- M4 waits on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124), which is still unmerged.
-- Before merging the settings-simplification work, run `deploy-accounts-store.sh`, and say if you want to veto any of the four listed choices.
-- The probe in the docs-tower report left one anonymous guest on production.
-- The `claude-endolin1` restore note asks which Claude login the leader host is on, endolin1 or endolin2. If it is still endolin2, the claim gate may refuse work again.
+**Needs your call**
+- The settings-simplify report needs you to run `deploy-accounts-store.sh` before merging. It also lists four choices for your veto.
+- The docs-tower report left one anonymous guest on production minion.town. It can't be deleted through the API, so you decide whether to remove it by hand.
+- Foreman milestone M4 waits on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124). Milestone M2 waits on [#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
+- The restore notice asks which Claude login (endolin1 or endolin2) this host's workers are on now. If it's endolin2, the cap will be hit again.
 
-**Fleet.** The oros host recovered after a monk restart and is deployed at `05d833a2`. The earlier note that the leader deploy was stalled at `b8abbe64` has not been resolved in the messages shown. The `minion-town-ci-harness-path-gate` job overran its 7200s budget and needs splitting. The journal-contention notices have mostly cleared.
+**Fleet health**
+- A job, `minion-town-ci-harness-path-gate`, overran its 7200s handler budget and needs to be split.
+- An earlier Oros health check reported the leader stuck at b8abbe64 since 2026-10-16 and not advancing the fleet deploy. Nothing in this bulletin shows that resolved.
+- The journal-contention notices have almost all cleared.
 
 ## Maintainer review docket
 
@@ -726,7 +730,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 241.9M | $961.30 _(notional, rate-card)_ | 89% of 271.0M (ok) |
+| Claude | 241.9M | $961.63 _(notional, rate-card)_ | 89% of 271.0M (ok) |
 | Codex | 78.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92749922 tokens/day lower bound._
