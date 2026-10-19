@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-19T12:10Z (oros-health-checkup-20261019-103508): healthy; deployed = origin/main2 `becf30d3`, no changes
+
+- **Load/mem:** load 1.8/1.4/1.1. 13 GiB of 15 GiB available. Swap is 896 MiB of 1 GiB used (flat since 09:45Z), with no memory pressure.
+- **Disk/inodes:** 6% of the overlay used (404G free); inodes 1%.
+- **Uptime:** 17d19h, no reboot.
+- **Deployed vs main2:** root HEAD and `deploy/deployed-sha` are `becf30d3`, the origin/main2 tip (0 commits behind). fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed garden units. Only `garden-monk@1` is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 11:32:28Z (33 minutes before this check, in the live worktree), status ok, 72% used (derived). The raw `spend` (181.4M) now exceeds the nominal `cap` (180M) while `used_percent` stays 72%, so the cap figure is not the binding limit; informational only.
+- **State clones:** the largest are producer (49 packs), self-deploy (48), reaper and worktree-sweeper (47 each), below the threshold of 50. No tmp_pack, no `gc.log`, no `.lock` files over an hour old in the clone `.git` dirs. The root repo has 49 packs (43 at 09:45Z) and no `gc.log`; git's auto-gc should trigger at 50.
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question still stands. Quota is at 72% of the weekly window, below the 90% policy line.
+
 ## 2026-10-19T09:45Z (oros-health-checkup-20261019-073508): healthy; deployed = origin/main2 `becf30d3`, no changes
 
 - **Load/mem:** load 2.6/2.0/1.9. 13 GiB of 15 GiB available. Swap is 895 MiB of 1 GiB used (up slightly from 880 MiB at 06:00Z), with no memory pressure.
