@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-19T04:24:39Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endo-daemon-locator-terminology-build
+pr_number: 1498
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1498
+pr_head: build/daemon-locator-terminology
