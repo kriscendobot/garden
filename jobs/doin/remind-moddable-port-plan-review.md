@@ -26,3 +26,13 @@ Reminder (scheduled 2026-10-15): review the Moddable SDK 10.0.0 IronHorse port p
   - https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-typedarray-port.md
   - https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-oracle-validation.md
 - The ports run the full corpus and a five-host matrix, so hold the go-ahead until the pools can afford them.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T17:37:08Z
