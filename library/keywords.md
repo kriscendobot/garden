@@ -169,3 +169,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - Scion, Anthropic Scion, agent-scale source control, always-online source control, asymmetric source-control server -> scion-source-control
 - Scion changeset, Scion derived data, changeset log, derived repository index, recursively derived source-control data -> scion-changeset-derived-data
 - sparse checkout, virtualized checkout, optional working copy, demand-materialized working copy, sparse working tree -> sparse-virtualized-working-copy
+- Endo Gateway, host gateway, gateway bootstrap registrar, public-key-keyed routing table, `@endo/gateway` -> endo-gateway
