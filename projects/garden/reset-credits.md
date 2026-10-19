@@ -4,14 +4,14 @@ The durable inventory of **manual mid-week quota resets** the maintainer can app
 
 Standing policy (kriskowal 2026-09-30): spend a subscription to **90%**, never 100%, before a reset; the last 10% is maintainer discretion. Use credits **mid-week, before they expire**.
 
-## Inventory (reconciled 2026-10-12 by reset-credit-watch; credits per kriskowal 2026-10-10/11)
+## Inventory (reconciled 2026-10-19 by reset-credit-watch; credits per kriskowal 2026-10-10/11)
 
 | Subscription | Credits available | Expires | Notes |
 | --- | --- | --- | --- |
 | claude-endolin1 ("endolin-claude1") | **none** | n/a | Last credit used 2026-09-30T19:40Z. 44% at 2026-10-11T06:19Z (kriskowal: "no available resets; we need to slow down"); window from 10-10T03:00Z, next natural reset 10-17T03:00Z. |
 | claude-endolin2 ("endolin-claude2") | **none** | n/a | Only credit (exp 10-22) used 2026-10-06T18:39Z. Retired for now (kriskowal 2026-10-11). |
-| codex-endolin ("endolin-codex1") | **2** | 2026-10-29 and 2026-11-06 | Per kriskowal 2026-10-10: "resets expire Oct 29 and Nov 6, no hurry". 74% at 2026-10-10T16:08Z, dashboard natural reset ~2026-10-14T05:08Z (event log says 10-13T18:39Z). |
-| claude-oros | unknown | | Host offline and derotated since 2026-09-28. |
+| codex-endolin ("endolin-codex1") | **1** (inferred; confirm) | 2026-11-06 | Per kriskowal 2026-10-10: "resets expire Oct 29 and Nov 6, no hurry". Natural reset ~2026-10-13; maintainer manual reset 2026-10-16T03:50:59Z recorded as use of the 10-29 credit (see use log). Window from 10-16T03:51Z, next natural reset 10-23T03:51Z; meter 72% at 10-19T16:32Z. |
+| claude-oros | unknown (treat as none) | | Listed "offline and derotated since 2026-09-28", but its pool shows active use (meter 74% at 10-19T16:32Z, window from 10-13T10:00Z). Maintainer asked to confirm status and credits (accountant-weekly 2026-10-17). |
 
 Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00 America/Los_Angeles** (Sat 03:00Z). codex-endolin resets on a rolling 7 days from its last reset. claude-oros ("claude-oros-studio1") resets **Tuesday 04:00 America/Denver** (corrected 2026-10-01 per the oros operator).
 
@@ -22,6 +22,8 @@ Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00
 - codex-endolin: maintainer also plans to spend one codex credit this week once it is spent (kriskowal 2026-10-05: "I plan to reset endolin-claude2 and endolin-codex1 this week, whenever they're spent"). Readings 2026-10-05T05:15Z: claude1 61%, claude2 70%, codex 44% (natural reset in 4d16h, ~2026-10-09T21:10Z).
 
 ## Use log
+
+- 2026-10-19 (reset-credit-watch): codex-endolin manual reset at 2026-10-16T03:50:59Z (reset-events, maintainer-reported, 3 days after its ~10-13 natural reset) recorded as credit use; assumed earliest-expiring (10-29), leaving the 11-06 credit. Maintainer to confirm.
 
 - 2026-10-12 (reset-credit-watch): reconciled to maintainer statements of 10-10/10-11. codex-endolin credits now expire 10-29 and 11-06 (maintainer-stated; supersedes the 10-22/10-29 pair). claude-endolin2 retired for now with no credits.
 
