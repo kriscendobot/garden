@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/minion.town",
+  "pr": 204,
+  "url": "https://github.com/kriscendobot/minion.town/pull/204",
+  "head_oid": "cb3d8d70cde1791686f9bde187584d1cde971fc8",
+  "ask": "re-review",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Panel reviewed 3fdab3ae9e7d, but the presented head is cb3d8d70cde1",
+  "unblocks": [],
+  "source": "heal-minion-town-8a3ce66-fixer-complete",
+  "requested_at": "2026-10-19T16:55:54Z",
+  "first_requested_at": "2026-10-19T09:44:59Z",
+  "generation": 3,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-19T16:55:56Z"
+  }
+}
