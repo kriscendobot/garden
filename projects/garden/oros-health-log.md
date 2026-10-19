@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-19T06:00Z (oros-health-checkup-20261019-043508): healthy; deployed = origin/main2 `becf30d3`, no changes
+
+- **Load/mem:** load 1.1/0.9/0.8. 13 GiB of 15 GiB available. Swap is 880 MiB of 1 GiB used (steady since 23:45Z), with no memory pressure.
+- **Disk/inodes:** 6% of the overlay used (404G free). The virtiofs garden mount is 48% used (240G free); inodes 1%.
+- **Uptime:** 17d12h, no reboot.
+- **Deployed vs main2:** root HEAD and `deploy/deployed-sha` are `becf30d3`, the origin/main2 tip (0 commits behind). fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed. `hosts/oros` says `monks: 1` (this check-up is the running job). Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 05:32:11Z (28 minutes before this check), status ok, 68% used (170.7M of 180M).
+- **State clones:** the largest are self-deploy (48 packs) and reaper (47), below the threshold of 50. No tmp_pack, no `gc.log`, no stale `.lock` files over an hour old in the clone `.git` dirs.
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question still stands.
+
 ## 2026-10-19T01:50Z (oros-health-checkup-20261019-012009): healthy; deployed = origin/main2 `becf30d3`, no changes
 
 - **Load/mem:** load 2.4/1.4/1.1. 13 GiB of 15 GiB available. Swap is 868 MiB of 1 GiB used (unchanged since 23:45Z), with no memory pressure.
