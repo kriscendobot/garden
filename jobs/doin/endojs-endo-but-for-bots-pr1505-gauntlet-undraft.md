@@ -38,6 +38,7 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: undraft=head-mismatch -->
   <!-- gauntlet-stage-result: undraft=metadata-unreadable -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=1940 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
