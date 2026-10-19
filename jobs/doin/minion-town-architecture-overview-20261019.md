@@ -15,3 +15,13 @@ Maintainer request (kriskowal, liaison session 2026-10-19): produce an architect
 **Publish:** follow skills/minion-town-clip-publishing exactly: static files only; the CSP is `script-src/style-src/connect-src 'self'`, so ship sibling `styles.css`/JS, no inline script or style, no cross-origin loads; never publish with `powers: "sites"` or `"@agent"`, use a purpose-specific inert pet name with empty `writeText`; drive the stdio bridge from a script for a clip of this size; `curl` the returned `<hash>.ocap.site` URL and `cmp` against the local files. Make it readable on a phone and in light and dark. Use `minion-town-architecture-*` for pet names and clean up any smoke clip with `unpublish`.
 
 **Report** to the maintainer inbox: the published URL, the file list, the scrub checklist, and the source commit hash of `main` the overview describes (state it on the page too, with the date). A clip is immutable, so a later refresh publishes a new hash.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T23:34:24Z
