@@ -12,3 +12,13 @@ dispatch: automatic
 ---
 Conduct (merge) https://github.com/endojs/endo-but-for-bots/pull/288 (`@endo/cbor-frame`) once it is woven onto a frozen base and CI is green. kriskowal approved it with "Please rebase, shepherd, and conduct." Before merging, re-confirm that the approval still stands on the current head.
 
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T15:51:00Z
