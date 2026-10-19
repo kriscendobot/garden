@@ -18,3 +18,13 @@ The PR's `test.yml` uses the self-hosted default. Host oros-studio has no AWS an
 1. Follow context/operations/ci-minion-town-runner.md § Operate: check the runner (API + `journalctl -u ci-runner` over SSM). Tell saturation from an outage. If the runner is offline or missing, or its log has stopped advancing, run `systemctl restart ci-runner` over SSM.
 2. Confirm the queued runs start. Then drive run 39172800433 (PR #199 head 085c7445c33504b0c7e67682491b298917fd114d) to green per roles/shepherd/AGENT.md. If the same test times out again, treat it as real and investigate.
 3. Don't flip `CI_RUNS_ON` to hosted: the billing block runs until about 2026-10-30.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T02:31:14Z
