@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr288-weave-20261019 endojs-endo-but-for-bots-pr288-shepherd-20261019 endojs-endo-but-for-bots-pr288-conduct-20261019
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-19T13:40:31Z
 ---
