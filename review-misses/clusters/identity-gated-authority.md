@@ -1,14 +1,16 @@
 ---
 slug: identity-gated-authority
 category: security-hardening
-status: closed
-count: 1
+status: open
+count: 2
 members:
   - kriscendobot-minion.town-pr85-review-9f17a419
-prs: [85]
+  - kriscendobot-minion.town-pr191-review-93f9e308
+prs: [85, 191]
 improvement_job: review-improve-identity-gated-authority
 improved_by: 2782d6294d86452b1b2bb3181c1e1d514a96461d: roles/builder/AGENT.md, roles/designer/AGENT.md, roles/jurors/locksmith/AGENT.md, skills/panel-hints/SKILL.md, skills/panel-hints/probes/C-locksmith.sh, scripts/jobs/test/identity-gated-authority-probe-test.sh
 ---
+
 
 
 
