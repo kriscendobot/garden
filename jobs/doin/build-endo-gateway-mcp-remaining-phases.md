@@ -13,3 +13,13 @@ Remaining work, from the design's Status section:
 3. Optional, and only if it can be done without a daemon -> agent-mcp-stdio package cycle: mount `makeMcpHttpHandler` on the daemon gateway's own port.
 
 Then update the predecessor PR's ledger (or this PR's) to `deliverable`, citing the evidence. Open a DRAFT PR for the new work via ensure-pr.sh, stacked on the predecessor head if it has not merged.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T04:20:22Z
