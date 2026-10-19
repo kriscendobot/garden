@@ -1,26 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-19T00:34:17Z_
+_As of 2026-10-19T00:39:55Z_
 
 ## Latest
 
-Several gauntlets ran out of review budget without converging and now need a call from you: [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [endojs/endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). #184 and #180 each used 16 of 16 rounds and still have about 20 unaddressed breaker findings; #1482 used 6 of 6 and also has about 20. Each message carries the `--add-rounds` command if you want to grant more rounds.
+Fleet deploy is the main thing to look at. Oros reports (09:58Z) that the leader, endolin-garden-ece02cb4, has sat at b8abbe64 since 2026-10-16. Its own self-advance hasn't landed through four rolls in which the oros canary passed, so oros is correctly holding at 05d833a2. Someone should check the leader's rolling-deploy journal for a rejected-candidate marker or a "did not land" loop. Oros itself recovered from a stuck monk at 14:03Z after a sysop reset-failed and restart.
 
-**minion.town delegation is paused.** The merge of [#197](https://github.com/kriscendobot/minion.town/pull/197) (`cfafabea5a9`) broke production, with a failed deploy.yml run. A heal job is parked in the plan queue. Before the pause, 3 conductors finished without merging the PR, so that is flagged as stalled.
+minion.town delegation is **paused**. The merge of [kriscendobot/minion.town#197](https://github.com/kriscendobot/minion.town/pull/197) (`cfafabea5a9`) failed its deploy.yml run, and a heal job is parked. A separate notice says three conductors finished without merging #197 at head f55f6a2, so that PR is stalled as well.
 
-**Fleet deploy is stalled on the leader.** The oros check-up found `endolin-garden-ece02cb4` still deployed at `b8abbe64` since 2026-10-16, with its self-advance not landing through 4 rolls. Oros is healthy and correctly holding. Someone should check endolin's rolling-deploy journal for a rejected-candidate marker.
+Several gauntlets hit their review budget without converging and now need a human merge or review call, or more rounds:
+- [kriscendobot/minion.town#184](https://github.com/kriscendobot/minion.town/pull/184) (16/16 rounds, 19 must-fix open)
+- [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/pull/180) (16/16 rounds, 20 must-fix open)
+- [kriscendobot/minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199) and [#200](https://github.com/kriscendobot/minion.town/pull/200)
+- [endojs/endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (20 open must-fix) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478)
 
-**Other items waiting on you:**
-- The `claude-endolin1` cap was restored to 271M after the reset. The restore job asks which Claude login (endolin1 or endolin2) this host is on, because the wrong one would charge spend to the wrong cap.
-- The `mt-beta-settings-simplify` follow-ups need you to run `deploy-accounts-store.sh` before merging and to veto-check four choices.
-- Foreman milestone M2 is blocked on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
-- The oros monk wedge was cleared by a service restart.
-- The `minion-town-ci-harness-path-gate` job overran its 2-hour handler budget and needs splitting.
-- CI reads for `kriscendobot` on oros are still 403.
+Your decisions are needed on these:
+- **claude-endolin1 cap:** it was restored to 271M. Confirm whether this host's workers are logged in as endolin1 or endolin2. If it's endolin2, its spend will be charged to endolin1 and the claim gate will refuse work again.
+- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging. Until then Log out stays hidden and account deletion returns 503. Also veto or accept the four listed choices.
+- **Docs-tower report:** one anonymous probe guest was left on production, and the source note wasn't on the host that ran the job.
+- **ci-wait-merge:** it gets HTTP 403 reading CI on `kriscendobot`. The bot token needs checks, statuses and actions read access.
+- **[endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349):** it blocks milestone M2. Its fixes are pushed and CI is green, so it needs approval or changes.
 
-Journal-contention notices have mostly recovered, and the storm cleared at 00:00Z. Several notices are still open, including one on the producer journal with p95 about 3s.
+The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs splitting. Two orchestrations completed cleanly: the mt-beta product pass (4 children) and the oros health-watch split. The @endo/zip native-Node finding recommends not proceeding. Journal contention is mostly noise: nearly all the watchdog notices are RECOVERED closures. One new producer-journal lock notice (p95 about 3s) is open, and the oros journal worktree still fails to fast-forward (36 occurrences).
 
 ## Maintainer review docket
 
@@ -688,7 +689,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 202.0M | $815.59 _(notional, rate-card)_ | 75% of 271.0M (ok) |
+| Claude | 202.1M | $816.44 _(notional, rate-card)_ | 75% of 271.0M (ok) |
 | Codex | 77.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92255705 tokens/day lower bound._
