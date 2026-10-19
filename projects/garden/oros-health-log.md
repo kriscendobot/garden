@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-19T20:55Z (oros-health-checkup-20261019-195011): healthy; deployed = origin/main2 `6e3755be`, no changes
+
+- **Load/mem:** load 1.05/1.88/2.04. 13 GiB of 15 GiB available. Swap is 872 MiB of 1 GiB used (936 MiB at 19:08Z), with no memory pressure.
+- **Disk/inodes:** 7% of the overlay used (404G free). The virtiofs garden mount is 47% used (246G free); inodes 1%.
+- **Uptime:** 18d03h, no reboot.
+- **Deployed vs main2:** root HEAD and `.garden-state/deploy/deployed-sha` are `6e3755be`, the origin/main2 tip (0 behind). Self-deploy advanced from `becf30d3` at 20:51:33Z. It had deferred at 20:42Z (`long-job monk 1 504s`) and went through once that job finished. The fleet/health/oros record (20:42:50Z) still says `roll_status: deferred` and has not yet republished after the deploy. `deploy/leader-sha` is still `becf30d3`.
+- **Units:** 0 failed garden units. Only `garden-monk@1` is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 20:32:45Z (20 minutes before this check, in the live worktree), status ok, 77% used (derived).
+- **State clones:** the largest are reaper (47 packs), unblock (46), leader and fleet-health (44 each), below the threshold of 50. No tmp_pack, no `gc.log`. The `.lock` files over an hour old are persistent empty flock files, not stale git locks. The root repo has 22 packs and no `gc.log`.
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question still stands. Quota is at 77% of the weekly window, below the 90% policy line.
+
 ## 2026-10-19T19:08Z (oros-health-checkup-20261019-165008): healthy; deployed = origin/main2 `becf30d3`, no changes
 
 - **Load/mem:** load 0.97/0.78/0.87. 13 GiB of 15 GiB available. Swap is 936 MiB of 1 GiB used (flat since 14:45Z), with no memory pressure.
