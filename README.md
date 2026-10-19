@@ -1,29 +1,21 @@
 # Garden bulletin
 
-_As of 2026-10-19T23:10:38Z_
+_As of 2026-10-19T23:13:46Z_
 
 ## Latest
 
-Quiet window on the board: the transitions are all new postings, with no completions. New jobs are a minion.town arc press, a Claude-on-minion.town press, an architecture-overview clip for ocap.site, a design job for OCapN-Noise session reconnect, and the Oros health check-up and watch. A conduct job was also posted for the screened [minion.town#207](https://github.com/kriscendobot/minion.town/pull/207). Proxy delegation is active. [#209](https://github.com/kriscendobot/minion.town/pull/209) merged and was validated (deploy success, watchdog ok), which healed the failed deploy from [#204](https://github.com/kriscendobot/minion.town/pull/204).
+Several minion.town PRs have hit their gauntlet review budget without converging and now need your call: [#201](https://github.com/kriscendobot/minion.town/pull/201), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200) and [#202](https://github.com/kriscendobot/minion.town/pull/202). So have [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478). #184, #180 and #1482 each still show about 20 new must-fix items per round, so the review is not converging. The board's only movement since the last bulletin was a pre-spend viability stage posted for #201.
 
-Several gauntlets ran out of review rounds and now need a maintainer decision to grant more or to merge by hand:
-- minion.town [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) stopped at 16 of 16 rounds, each with about 20 unaddressed must-fix items that keep shifting from round to round.
-- minion.town [#201](https://github.com/kriscendobot/minion.town/pull/201), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#202](https://github.com/kriscendobot/minion.town/pull/202) and [#178](https://github.com/kriscendobot/minion.town/pull/178) also stopped, with no structured must-fix list.
-- endo-but-for-bots [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) also stopped.
+On minion.town, proxy screening merged [#209](https://github.com/kriscendobot/minion.town/pull/209), a heal of the #204 merge, and its deploy succeeded and was validated. That clears the screening pause that the broken #204 deploy caused. [#207](https://github.com/kriscendobot/minion.town/pull/207) was screened again and has a conduct job waiting.
 
-Quota decisions are needed soon:
-- Claude is at 106% of the cap, and the reset-credit watch projects claude-endolin1 crossing 90% around Tue 10-20 ~20Z, with no credit available.
-- The same watch recommends resetting codex-endolin on Tuesday 10-20 and asks you to confirm how many credits remain. The note says the decision is needed within about 24 hours.
+Decisions waiting on you:
+- **Claude quota:** claude-endolin1 is at about 106% of its 271M cap. The reset-credit watch projects 90% by Tue 10-20 ~20Z. The watch also recommends using the codex-endolin reset credit on Tue 10-20.
+- **Leader deploy:** the leader has been stuck at b8abbe64 since 10-16, and oros is holding for its release.
+- **OCapN-Noise:** Q2 (sessionId binding vs. replay state) blocks R2 and milestone M4. The Phase 4 build was refused as contradicting the Rekey-only contract in [endo-but-for-bots#1487](https://github.com/endojs/endo-but-for-bots/pull/1487).
+- **Daemon agent tools:** Open Question 4 blocks Phase 8.
+- **minion.town settings:** you need to run `deploy-accounts-store.sh` before merging, and the follow-up message lists four choices you can veto.
 
-Other items awaiting an answer:
-- The leader's self-deploy has been stuck at b8abbe64 since 10-16, per the Oros health check-up.
-- OCapN-Noise Phase 4 was not built because it contradicts the Rekey-only contract in [endo-but-for-bots#1487](https://github.com/endojs/endo-but-for-bots/issues/1487).
-- Foreman milestone M4 is waiting on your answer to Q2 on [endo-but-for-bots#1475](https://github.com/endojs/endo-but-for-bots/pull/1475).
-- Milestone M2 is waiting on approval of the remaining text-codecs shim, [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
-- The settings-simplify report needs `deploy-accounts-store.sh` run before merging.
-- The daemon agent tools design needs your call on Open Question 4.
-
-Most of the rest of the inbox is journal-contention watchdog notices, which have recovered or are coalesced.
+The journal-contention watchdog notices are mostly recoveries and need no action.
 
 ## Maintainer review docket
 
@@ -809,7 +801,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 288.4M | $1136.88 _(notional, rate-card)_ | 106% of 271.0M (ok) |
+| Claude | 288.5M | $1137.58 _(notional, rate-card)_ | 106% of 271.0M (ok) |
 | Codex | 79.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91998089 tokens/day lower bound._
@@ -818,13 +810,14 @@ _Fleet token-unlock pace: 91998089 tokens/day lower bound._
 worst fetch p95 5.406642s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (13)
 - [`endojs-endo-but-for-bots-pr1507-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1507-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1507
 - [`claude-on-minion-town-press-20261019-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261019-230509.md) — Press the Claude-on-minion.town arc forward
 - [`screen-minion-town-pr207-d5c9216-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr207-d5c9216-conduct.md) — Screened delegated merge: kriscendobot/minion.town#207 at d5c921606bb41beb950...
 - [`minion-town-arc-press-20261019-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261019-230509.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261019-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261019-230509.md) — ---
 - [`minion-town-architecture-overview-20261019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-architecture-overview-20261019.md) — Architecture overview of minion.town, published as a clip on ocap.site
+- [`kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #201
 - [`design-endo-but-for-bots-ocapn-noise-session-reconnect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endo-but-for-bots-ocapn-noise-session-reconnect.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`shepherd-endo-but-for-bots-pr1483-ocapn-noise-heartbeat-capability-negotiation-20261019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/shepherd-endo-but-for-bots-pr1483-ocapn-noise-heartbeat-capability-negotiation-20261019.md) — ---
