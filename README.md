@@ -1,28 +1,21 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-19T04:10:34Z_
+_As of 2026-10-19T04:13:52Z_
 
 ## Latest
 
-Seven [minion.town](https://github.com/kriscendobot/minion.town) and endo-but-for-bots gauntlets stopped at their review-round limit with CI green. They need your call on granting more rounds or merging as is.
-- minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202).
-- endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482).
+Six gauntlets on kriscendobot/minion.town and endojs/endo-but-for-bots hit their review budget without converging, so each now waits on a human call. The PRs are [minion.town#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201), [#202](https://github.com/kriscendobot/minion.town/pull/202), [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [endo-but-for-bots#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). The reports for #180, #184 and endo-but-for-bots#1482 each list about 20 fresh must-fix items from the last round, so they look like a moving target rather than near done. [minion.town#192](https://github.com/kriscendobot/minion.town/pull/192) also hit its budget earlier. The board shows no file-level transitions since the last bulletin.
 
-#180, #184 and #1482 are the ones with the most raised: they came back with 19–20 new must-fix items in the last round, so the reviews look like a moving target. The other seven give no structured list. #201 is already in a fresh panel round 1 on the board, and #198 is in fix round 1.
-
-minion.town delegation is still paused after the [#197](https://github.com/kriscendobot/minion.town/pull/197) merge broke the production deploy. A heal job is parked, and the heal PR [#206](https://github.com/kriscendobot/minion.town/pull/206) has been screened and queued for conducting. Separately, three conductors finished #197 without merging it (the stalled-merge notice).
-
-The fleet's deploy is stalled on the leader. endolin has been on b8abbe64 since 10-16 and has not released oros for the newer main2. The oros monk was restarted and is back, but nobody has confirmed why endolin won't advance.
-
-Questions waiting on you:
-- Two minion.town items: the settings-simplify follow-ups (run `deploy-accounts-store.sh` before merging, plus four vetoable choices), and the stray guest left on production by the docs probe.
-- Milestones M2 and M4 are blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) and [#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
-- Which Claude login is endolin on, endolin1 or endolin2?
-- A 403 on CI reads for the bot token is still unresolved.
-
-On the board, `build-endo-gateway-mcp-termination` finished (it was already on llm). Two successors were posted: `build-endo-gateway-mcp-remaining-phases` and `build-endo-gateway-mcp-termination-open-pr`. Journal-contention watchdog notices are mostly clearing on their own, and Claude spend is at 80% of its 271M cap.
+- **Production:** screening of minion.town delegated merges is paused after [#197](https://github.com/kriscendobot/minion.town/pull/197) merged and broke production. Its deploy failed, and a heal job is parked. [#206](https://github.com/kriscendobot/minion.town/pull/206) was screened as the heal, and its conduct job is waiting in todo. A separate notice says three conductors finished without merging #197.
+- **Fleet deploy:** the oros health check-up found the leader still on an old deploy (`b8abbe64`, since 2026-10-16). Its self-advance hasn't landed through four rolls, and it hasn't released oros for the newer main2. Someone should look at the leader's rolling-deploy journal.
+- **Oros recovery:** oros was recovered by restarting its monk service, and no further action is needed there.
+- **Milestones:** foreman reports M2 blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), which needs approval or changes. M4 waits on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124), which needs a merge decision.
+- **Settings job:** the minion.town settings job needs `deploy-accounts-store.sh` run by hand before merge, plus a veto check on four product choices.
+- **Docs report:** the docs-tower report left one anonymous guest on production that can't be deleted.
+- **CI token:** oros's token still gets a 403 reading CI for minion.town.
+- **Claude login:** a question is open about which Claude login the leader's workers are on, since a wrong answer could make the claim gate refuse work at the restored 271M cap.
+- **Budget:** Claude spend is at 80% of that cap.
+- **Journal contention:** most journal-contention notices cleared. The ones still open are minor.
 
 ## Maintainer review docket
 
@@ -715,7 +708,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 215.9M | $863.42 _(notional, rate-card)_ | 80% of 271.0M (ok) |
+| Claude | 216.0M | $863.75 _(notional, rate-card)_ | 80% of 271.0M (ok) |
 | Codex | 77.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92123661 tokens/day lower bound._
