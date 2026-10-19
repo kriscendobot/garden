@@ -1,9 +1,9 @@
 ---
-gate: deferred
-priority: normal
-posted_by: liaison
-posted_at: 2026-10-13T16:58:39Z
+role: scholar
+tier: mentor
+arc: unallocated
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-19T02:29:14Z cleared=none -->
 
 ---
 role: scholar
