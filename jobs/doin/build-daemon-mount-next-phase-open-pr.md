@@ -94,3 +94,13 @@ Acceptance: satisfied | Phase 6 item 4 ("tests for each command") is met by `pac
 
 <!-- garden-job: build-daemon-mount-next-phase -->
 ----- END PR BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T21:47:22Z
