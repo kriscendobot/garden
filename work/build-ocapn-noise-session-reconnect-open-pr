@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-10-19T11:56:16Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-ocapn-noise-session-reconnect-open-pr
-pr_number: 1502
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1502
-pr_head: llm-ocapn-session-heartbeat
