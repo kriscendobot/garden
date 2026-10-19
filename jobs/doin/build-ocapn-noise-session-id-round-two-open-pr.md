@@ -70,3 +70,13 @@ Upgrade both peers of an `np` link together. A handoff certificate that is still
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T15:59:03Z
