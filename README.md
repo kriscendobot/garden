@@ -1,26 +1,25 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-19T06:07:33Z_
+_As of 2026-10-19T06:10:38Z_
 
 ## Latest
 
-Work on minion.town dominated: nine of its gauntlets are now stopped at their round limits. The review-budget-reached messages cover PRs [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#192](https://github.com/kriscendobot/minion.town/pull/192), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202). Three endo-but-for-bots gauntlets are also at their limits: [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) (6 of 6 rounds), plus the 20-item "moving target" report on #1482. #180 and #184 both stopped at 16 of 16 rounds with 20 and 19 new must-fix items in the last round, which suggests the panel is generating new findings faster than fixes close them. You decide whether to grant more rounds or review them as they stand.
+Most of the maintainer's attention is needed on a backlog of gauntlets that ran out of review budget without converging. [minion.town#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) each stopped after 6 rounds. [#192](https://github.com/kriscendobot/minion.town/pull/192) stopped after 10, [#178](https://github.com/kriscendobot/minion.town/pull/178) after 12, and [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#184](https://github.com/kriscendobot/minion.town/pull/184) after 16. On the endo side, [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) also stopped at 6.
 
-Two items need your answer:
-- **[#198](https://github.com/kriscendobot/minion.town/pull/198):** fix-2 reverses your review on [#56](https://github.com/kriscendobot/minion.town/pull/56). Accepting an invitation now requires a guest bearer, so the card creates a guest first. Tell the fleet if you want one-step admission kept. Fix-2 is running now, and a panel round 2 is queued for [#201](https://github.com/kriscendobot/minion.town/pull/201).
-- **Settings simplification (`mt-beta-settings-simplify`):** run `deploy-accounts-store.sh` before merging. Until you do, Log out stays hidden and account deletion answers 503. Four choices are also open to veto.
+For #180, #184 and #1482 the panel is still raising about 20 new must-fix items each round, so extra rounds look unlikely to converge. On #198, the fix-2 job is making guest creation a separate step before accepting an invitation. That reverses a decision from [#56](https://github.com/kriscendobot/minion.town/pull/56) and the maintainer is asked whether they wanted one-step admission kept. Gauntlet stages for #201, [#1497](https://github.com/endojs/endo-but-for-bots/pull/1497), [#1498](https://github.com/endojs/endo-but-for-bots/pull/1498), [#1499](https://github.com/endojs/endo-but-for-bots/pull/1499), [#1500](https://github.com/endojs/endo-but-for-bots/pull/1500) and [#1501](https://github.com/endojs/endo-but-for-bots/pull/1501) are queued.
 
-Production and screening: [#206](https://github.com/kriscendobot/minion.town/pull/206) merged at 04:18Z and healed the broken deploy from [#197](https://github.com/kriscendobot/minion.town/pull/197), so screening is validated again. [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#204](https://github.com/kriscendobot/minion.town/pull/204) were screened and are waiting for a merge. A stalled-merge notice for #197 is still unread.
+On minion.town, [#206](https://github.com/kriscendobot/minion.town/pull/206) healed the production break from the #197 deploy failure, its deploy succeeded, and screening has resumed. [#203](https://github.com/kriscendobot/minion.town/pull/203) and [#204](https://github.com/kriscendobot/minion.town/pull/204) have been screened. A separate notice says #197 itself stalled after three conductors finished without merging it.
 
-Fleet health:
-- The deploy is stalled on the leader. endolin has been on b8abbe64 since 10-16, and oros is correctly holding.
-- oros recovered after a monk restart.
-- Journal-contention alerts mostly cleared.
-- The claude-endolin1 cap was restored to 271M. The restore job asks which Claude login that host is on, and the answer matters, because endolin2's spend could again be charged to endolin1.
+Items that need a human:
+- **Settings simplification:** before merging that work, run `deploy-accounts-store.sh`. Until the new index is active, Log out stays hidden and account deletion returns 503 without deleting anything.
+- **Stray guest:** the live probe left one anonymous guest on production minion.town, with no way to delete it.
+- **Milestone M4:** blocked on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) being reviewed and merged.
+- **Milestone M2:** waiting on approval of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
+- **Leader deploy:** an oros health check found the leader stuck at `b8abbe64` since 2026-10-16, with `05d833a2` not yet rolled out. The leader's journal needs inspecting for a rejected-candidate marker or a "did not land" loop.
+- **CI token:** the bot token lacks the read scopes (`checks:read`, `statuses:read`, `actions:read`) needed to read CI on [minion.town#192](https://github.com/kriscendobot/minion.town/issues/192).
+- **Claude login:** confirm whether the leader host is logged in as endolin1 or endolin2, because the endolin1 quota is now at 83% and mixed-account spend could trip the claim gate.
 
-Foreman milestones are blocked on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) (M2) and [#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) (M4). The minion-town-ci-harness-path-gate job overran its 7,200s budget and needs splitting.
+Smaller notes: the oros monk restart recovered, and most journal-contention alerts have cleared. The job `minion-town-ci-harness-path-gate` overran its 7200s handler budget and needs to be split into smaller stages.
 
 ## Maintainer review docket
 
@@ -724,7 +723,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 225.5M | $900.76 _(notional, rate-card)_ | 83% of 271.0M (ok) |
+| Claude | 225.7M | $901.43 _(notional, rate-card)_ | 83% of 271.0M (ok) |
 | Codex | 78.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 72% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92267195 tokens/day lower bound._
