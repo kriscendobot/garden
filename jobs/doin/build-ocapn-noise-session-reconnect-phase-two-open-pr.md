@@ -69,3 +69,13 @@ None. The queue is per session and in memory only, with no persisted state.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END PR BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T22:41:18Z
