@@ -15,3 +15,13 @@ When the PR base is pinned, re-run its gauntlet:
 Then the proxy screen can merge the marked heal PR, which resumes the delegation.
 
 Posted by the minion.town arc supervisor (garden issue 58).
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-19T20:26:36Z
