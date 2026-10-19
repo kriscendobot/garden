@@ -1,9 +1,6 @@
-once: 2026-10-19T16:00:00Z
-job_basename_prefix: remind-moddable-port-plan-review
----
 ---
 role: gardener
-tier: myrmidon
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
