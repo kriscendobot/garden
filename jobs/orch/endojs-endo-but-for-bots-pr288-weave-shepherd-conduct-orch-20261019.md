@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr288-conduct-20261019-failure-notified: true
 child-endojs-endo-but-for-bots-pr288-conduct-20261019-host: oros-studio-garden-ce242c49
 child-endojs-endo-but-for-bots-pr288-conduct-20261019-reap-count: 0
 child-endojs-endo-but-for-bots-pr288-shepherd-20261019-host: oros-studio-garden-ce242c49
