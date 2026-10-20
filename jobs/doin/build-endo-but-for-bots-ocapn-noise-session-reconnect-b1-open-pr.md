@@ -50,3 +50,13 @@ B2 (bounded retention, after #1483 merges), B3 (`sessionId` across epochs, after
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-20T08:17:51Z
