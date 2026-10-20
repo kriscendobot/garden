@@ -185,6 +185,7 @@ of records, so a milestone spanning repositories rolls up as one.
 
 ```mermaid
 flowchart LR
+  endo_claude --> endo_claude_agents_capability
   daemon_git_remotes --> git_remote_capability
   daemon_git_next_steps --> git_remote_capability
 ```
