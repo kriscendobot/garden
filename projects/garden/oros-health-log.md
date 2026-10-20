@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-20T08:30Z (oros-health-checkup-20261020-082008): healthy; deployed = origin/main2 `d68ce6d0`, no changes
+
+- **Load/mem:** load 2.05/2.43/2.57. 13 GiB of 15 GiB available. Swap is 1023 MiB of 1 GiB used (1018 MiB at 05:35Z). It is full but flat, with no memory pressure (13 GiB available, mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (404G free). The virtiofs garden mount is 50% used (232G free); inodes 1%.
+- **Uptime:** 18d15h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `d68ce6d0`, the origin/main2 tip (0 behind). fleet/health/oros (07:19:59Z): `roll_status: deployed` at `d68ce6d0`.
+- **Units:** 0 failed garden units. Only `garden-monk@1` is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 08:02:52Z (about 23 minutes before this check; the live file was rewritten at 08:15Z), status ok, 81% used (derived), the same as at 05:35Z.
+- **State clones:** the largest are reaper (47 packs), regenerate-topics-counts (46), and state-clone-keeper and gardener-scaler (45 each), below the threshold of 50. The 50-pack clones from 05:35Z have been repacked. No tmp_pack and no `gc.log`. Three `index.lock` files (gardener-scaler, repo-watcher, sysop) belonged to `reset --hard` processes that were still running, so none were stale. The root repo is down to 2 packs (44 at 05:35Z) and has no `gc.log`.
+- **rc=124 (3h):** none in the system journal.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question still stands. Quota is flat at 81% of the weekly window, below the 90% policy line.
+
 ## 2026-10-20T05:35Z (oros-health-checkup-20261020-050509): healthy; deployed = origin/main2 `6761cdb0`, no changes
 
 - **Load/mem:** load 0.90/1.56/1.84. 13 GiB of 15 GiB available. Swap is 1018 MiB of 1 GiB used (1023 MiB at 02:40Z). It is effectively full but flat, with no memory pressure (13 GiB available, mostly page cache).
