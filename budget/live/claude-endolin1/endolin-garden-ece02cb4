@@ -1,11 +1,11 @@
 subscription: claude-endolin1
 host: endolin-garden-ece02cb4
 window_start_epoch: 1792206000
-spend: 334295387
+spend: 335125061
 cap: 271000000
 status: ok
-sampled_at_epoch: 1792500440
-sampled_at: 2026-10-20T12:47:20Z
-sample_bucket: 1991667
+sampled_at_epoch: 1792501344
+sampled_at: 2026-10-20T13:02:24Z
+sample_bucket: 1991668
 used_percent: 75
 used_percent_source: derived
