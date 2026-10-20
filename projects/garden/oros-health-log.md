@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-20T14:30Z (oros-health-checkup-20261020-142008): healthy; deployed `8a2b6a63`, 1 behind origin/main2 `3bab9998` (deploy deferring behind a long job), no changes
+
+- **Load/mem:** load 3.30/2.99/3.13 with 4 monks running. 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 52% used (225G free); inodes 1%.
+- **Uptime:** 18d21h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `8a2b6a63` (self-deploy advanced at 13:13Z). origin/main2 is `3bab9998`, 1 commit ahead (the weaver handler-timeout default). `upgrade-ready` was refreshed at 14:22Z. Self-deploy is deferring behind `long-job monk 3` (631s elapsed at 14:24Z). This is the normal wait, with no gate timeouts. fleet/health/oros (13:14:41Z): `roll_status: deployed`, 0 of 290 units failed.
+- **Units:** 0 failed garden units. `garden-monk@1..4` are running. `hosts/oros` says `monks: 4`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 14:02:59Z (about 25 minutes before this check). Status ok, 5.82M of 180M (2%). The last 5 pushes were all ok, at 13:03, 13:18, 13:32, 13:48 and 14:03Z. There is no publish-outage latch.
+- **State clones:** the largest are repo-watcher (50 packs), gardener-scaler (48) and reaper (47). That is at or below the threshold of 50. No tmp_pack, no `gc.log`, and no git `.lock` files older than an hour. The root repo has 15 packs and no `gc.log`.
+- **rc=124 (3h):** none. There are no error-priority entries in the system journal.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-20T11:30Z (oros-health-checkup-20261020-112008): healthy; deployed = origin/main2 `d68ce6d0`, no changes
 
 - **Load/mem:** load 2.78/3.02/2.84 (higher than at 08:30Z because 4 monks are now running). 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
