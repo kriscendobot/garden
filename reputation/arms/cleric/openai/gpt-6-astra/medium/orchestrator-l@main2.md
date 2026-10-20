@@ -1,0 +1,13 @@
+kind: cleric
+provider: openai
+model: gpt-6-astra
+thoughtfulness: medium
+work_class: orchestrator:l
+target: main2
+attempts: 3
+accepts: 3
+censored: 3
+estimated: 3
+mean_dollars: 1.276474
+m2: 0.115623
+acceptance_rate: 1.0000
