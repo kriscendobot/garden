@@ -7,7 +7,7 @@ thoughtfulness: medium
 work_class: gardener:l
 target: main2
 accepted: true
-agentic_dollars: 0.974498
+agentic_dollars: 1.378147
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
@@ -18,6 +18,6 @@ awarded_bid:
 bidders: 0
 source: live
 recorded_by: oros-studio-garden-ce242c49/monk-1
-recorded_at: 2026-10-20T03:38:26Z
+recorded_at: 2026-10-20T04:08:29Z
 ---
 reputation event for endo-but-for-bots-pr1478-gauntlet-panel-2: arm anthropic/claude-default/medium work_class gardener:l target main2 accepted true
