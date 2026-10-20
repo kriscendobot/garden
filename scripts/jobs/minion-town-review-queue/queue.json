@@ -61,12 +61,6 @@
       "trend": "churning"
     },
     {
-      "id": "pr:207",
-      "unblocks": "fewer Firefox flakes in the browser gate that every PR runs",
-      "action": "None needed: the screening conductor has it queued. A 23-line diff if you want to look.",
-      "topics": ["the storage-probe race fix in the clip-frame gate test"]
-    },
-    {
       "id": "pr:201",
       "unblocks": "#202 Chat, which is stacked on it",
       "action": "Merge, or grant 2 rounds for the name-rule cleanup.",
