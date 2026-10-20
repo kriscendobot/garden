@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1515
 build_job: build-endo-but-for-bots-ocapn-noise-session-reconnect-b1-open-pr
 kind: feature
-stage: fix
-iteration: 1
+stage: panel
+iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1515-gauntlet-fix-1
+current_child: endojs-endo-but-for-bots-pr1515-gauntlet-panel-2
 state: running
 created_by: producer
 created_at: 2026-10-20T08:19:22Z
