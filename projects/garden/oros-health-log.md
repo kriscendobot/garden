@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-20T02:40Z (oros-health-checkup-20261020-020509): healthy; deployed `aca90c21`, 2 behind origin/main2 `6761cdb0` (deploy pending behind this job), no changes
+
+- **Load/mem:** load 1.50/0.94/1.11. 13 GiB of 15 GiB available. Swap is 1023 MiB of 1 GiB used (874 MiB at 00:45Z), with no memory pressure (13 GiB available, mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (404G free). The virtiofs garden mount is 48% used (240G free); inodes 1%.
+- **Uptime:** 18d09h, no reboot.
+- **Deployed vs main2:** root HEAD and `.garden-state/deploy/deployed-sha` are `aca90c21` (self-deploy advanced at 01:42Z after deferring at 01:31Z behind `long-job monk 1`). origin/main2 is now `6761cdb0`, 2 commits ahead (minion-town clip changes only). `upgrade-ready` was refreshed at 02:32Z. The deploy will wait behind this check-up (monk 1) as before, with no gate timeouts. fleet/health/oros (01:42:09Z): `roll_status: deployed`, 0 of 287 units failed.
+- **Units:** 0 failed garden units. Only `garden-monk@1` is running (this check-up). `hosts/oros` says `monks: 1`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 02:02:52Z (about 35 minutes before this check), status ok, 77% used (derived).
+- **State clones:** the largest are regenerate-sections-index, reaper and fleet-health (47 packs each), below the threshold of 50. No tmp_pack, no `gc.log`, and no git `.lock` files older than an hour. The root repo has 37 packs and no `gc.log`.
+- **rc=124 (3h):** none.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The `monks: 1` latency question still stands. Quota is at 77% of the weekly window, below the 90% policy line.
+
 ## 2026-10-20T00:45Z (oros-health-checkup-20261019-230509): healthy; deployed = origin/main2 `6e3755be`, no changes
 
 - **Load/mem:** load 2.00/1.95/1.41. 13 GiB of 15 GiB available. Swap is 874 MiB of 1 GiB used (872 MiB at 20:55Z), with no memory pressure.
