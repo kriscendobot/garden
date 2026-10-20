@@ -2,22 +2,22 @@
 base: endojs-endo-but-for-bots-pr1514-gauntlet-panel-1
 kind: monk
 provider: anthropic
-model: claude-opus-5-5
+model: claude-default
 thoughtfulness: medium
 work_class: gardener:l
 target: main2
 accepted: true
-agentic_dollars: 0.870094
+agentic_dollars: 1.493740
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.037260
+estimated_dollars: 0.045678
 attempts: 1
-duration_secs: 540
+duration_secs: 662
 awarded_bid: 
 bidders: 0
 source: live
 recorded_by: oros-studio-garden-ce242c49/monk-1
-recorded_at: 2026-10-20T05:58:07Z
+recorded_at: 2026-10-20T06:16:39Z
 ---
-reputation event for endojs-endo-but-for-bots-pr1514-gauntlet-panel-1: arm anthropic/claude-opus-5-5/medium work_class gardener:l target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr1514-gauntlet-panel-1: arm anthropic/claude-default/medium work_class gardener:l target main2 accepted true
