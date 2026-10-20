@@ -1,28 +1,20 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-20T04:35:23Z_
+_As of 2026-10-20T04:39:09Z_
 
 ## Latest
 
-The board transitions file shows no file-level changes, so this summary draws on the dashboard and inbox.
+Several minion.town PRs hit their gauntlet review budget without converging and now need your call on more rounds. [#184](https://github.com/kriscendobot/minion.town/pull/184) and [#180](https://github.com/kriscendobot/minion.town/pull/180) each spent 16 rounds and are still churning, with about 19–20 new must-fix items in the last round. [#178](https://github.com/kriscendobot/minion.town/pull/178) used 12 rounds. [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) each used their full 6. Two endo-but-for-bots gauntlets did the same: [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) with 20 new must-fix items, and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478), both at 6 of 6.
 
-The biggest change is on minion.town, where [#207](https://github.com/kriscendobot/minion.town/pull/207) merged at 01:26Z and its deploy succeeded. [#209](https://github.com/kriscendobot/minion.town/pull/209) merged the evening before. It healed the [#204](https://github.com/kriscendobot/minion.town/pull/204) merge, whose deploy failed and paused screening for a while. Delegation is active again. The proxy has also flagged that three conductors finished without merging [#197](https://github.com/kriscendobot/minion.town/pull/197).
-
-Eight gauntlets have hit their review budgets and need a decision to grant more rounds or merge by hand:
-- minion.town [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 rounds each and still show about 20 new must-fix items per round, so the review is not converging.
-- minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) are also at budget.
-- endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) are also at budget.
+On the screening side, [#207](https://github.com/kriscendobot/minion.town/pull/207) merged at 01:26Z and its deploy succeeded. [#209](https://github.com/kriscendobot/minion.town/pull/209) healed the earlier [#204](https://github.com/kriscendobot/minion.town/pull/204) deploy failure, so delegation is active again. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled after three conductors finished without merging it. A fresh review-queue clip is published, with coupons design [#144](https://github.com/kriscendobot/minion.town/pull/144) ranked first, then [#199](https://github.com/kriscendobot/minion.town/pull/199) and [#198](https://github.com/kriscendobot/minion.town/pull/198). The closed-beta flip is still waiting for your go-ahead.
 
 Decisions waiting on you:
-- **Claude quota:** Claude spend is over the backed-off cap, at 114% of 271M. The reset-credit watch projects claude-endolin1 to cross 90% around Tue 10-20 ~20Z, with no credit available. It recommends resetting codex-endolin on Tuesday daytime PT and asks you to confirm how many credits you hold.
-- **Ocapn Noise M4:** Q2 on [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) is open (bind the `np` sessionId to the handshake hash, or persist replay state). The Phase 4 resume build was refused because it contradicts the Rekey-only design in #1487.
-- **minion.town settings simplify:** run `deploy-accounts-store.sh` before merging, and veto-check four choices.
-- **Daemon agent tools:** Phase 8 needs your answer on Open Question 4.
-- **M2 milestone:** blocked on the text-codecs shim, [#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
+- **Resume build (endo-but-for-bots).** The Noise reconnect Phase 4 resume build was refused because the job contradicts the Rekey-only design in [#1487](https://github.com/endojs/endo-but-for-bots/pull/1487). Reply "build nonce-safe resume" if you want it anyway.
+- **M2 and M4 milestones.** M2 is blocked on [#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and M4's R2 step is waiting on your Q2 answer on [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475).
+- **Deploy and cleanup.** Before merging the settings-simplify work, run `deploy-accounts-store.sh`. One leftover anonymous guest remains on production from a docs probe.
+- **Quota.** claude-endolin1 shows 114% of its 271M backoff cap and is projected to cross 90% of its window around Tue 10-20 ~20Z, with no reset credit. The codex-endolin credit should be spent Tuesday if you confirm the credit count. Separately, the claude-endolin1 cap-restore note asks which Claude login (endolin1 or endolin2) this host is on.
 
-Operationally, the leader (endolin) has been stuck at deploy `b8abbe64` since 10-16, and oros is correctly holding behind it. Journal lock contention is recurring but self-clearing. The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs splitting.
+The fleet leader, endolin-garden-ece02cb4, has been stuck at deploy b8abbe64 since 10-16. Oros is healthy and holding. Journal lock-contention notices continue but are low-severity, and none reports data loss.
 
 ## Maintainer review docket
 
@@ -869,7 +861,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 309.3M | $1214.75 _(notional, rate-card)_ | 114% of 271.0M (backoff) |
+| Claude | 309.4M | $1215.11 _(notional, rate-card)_ | 114% of 271.0M (backoff) |
 | Codex | 79.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91855899 tokens/day lower bound._
