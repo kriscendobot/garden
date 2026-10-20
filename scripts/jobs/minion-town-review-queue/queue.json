@@ -1,0 +1,140 @@
+{
+  "_comment": "Curated half of the minion.town review-queue clip. build.py joins this with live GitHub and journal state; every field here is publishable (topics only, no finding text). Edit and re-run build.py for a fresh snapshot.",
+  "repo": "kriscendobot/minion.town",
+  "deps": [
+    {"from": "pr:144", "to": "pr:199", "why": "the coupons build implements the coupons design"},
+    {"from": "pr:199", "to": "job:minion-town-coupon-admission-flip-20261019", "why": "flip precondition 1"},
+    {"from": "pr:198", "to": "job:minion-town-coupon-admission-flip-20261019", "why": "flip precondition 1"},
+    {"from": "pr:144", "to": "job:minion-town-coupon-admission-flip-20261019", "why": "flip precondition 1"},
+    {"from": "cmd:deploy-accounts-store", "to": "pr:200", "why": "the app refuses to start without the new index"},
+    {"from": "pr:200", "to": "job:minion-town-coupon-admission-flip-20261019", "why": "flip precondition 2 (soft: the flip may report it as not done)", "soft": true},
+    {"from": "pr:177", "to": "pr:181", "why": "design for the build"}
+  ],
+  "commands": {
+    "cmd:deploy-accounts-store": {
+      "title": "Run the accounts-store migration (adds the fingerprint index and its Query grant)",
+      "command": "bash deploy/aws/scripts/deploy-accounts-store.sh   # as the fleet admin, from #200's branch, before #200 deploys"
+    }
+  },
+  "ranked": [
+    {
+      "id": "pr:144",
+      "unblocks": "#199 coupons, the parked coupons phase-1 remainder build, and the closed-beta flip",
+      "action": "Approve the design: mark ready and merge (or say \"merge #144\").",
+      "command": "gh pr ready 144 -R kriscendobot/minion.town && gh pr merge 144 -R kriscendobot/minion.town --merge",
+      "topics": ["lease-sweep cadence equal to the stale-lease timeout", "no operator verb to enumerate outstanding books", "what coupon.describe() should reveal"],
+      "trend": "converging"
+    },
+    {
+      "id": "pr:199",
+      "unblocks": "the closed-beta flip and the parked coupons phase-1 remainder build (auto-unblocks on merge)",
+      "action": "After #144: merge (default-off, so low blast radius), or grant 2 rounds.",
+      "command": "gh pr ready 199 -R kriscendobot/minion.town && gh pr merge 199 -R kriscendobot/minion.town --merge\n# or: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet panel --add-rounds 2",
+      "topics": ["operator docs for the inviter-side behavior", "root-host script help vs. documented coupon verbs", "PR body and module-header length"],
+      "trend": "converging"
+    },
+    {
+      "id": "pr:198",
+      "unblocks": "the closed-beta flip, and #200, which is stacked on it",
+      "action": "Merge or revise. Decide whether the waitlist CLI keeps its CSV mode (the panel asks to drop it).",
+      "command": "gh pr merge 198 -R kriscendobot/minion.town --merge\n# or: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds 2",
+      "topics": ["waitlist CLI CSV export: keep or drop", "waitlist design doc vs. code (dedupe, limiter)", "redirects and headers on the one landing"],
+      "trend": "churning on wording (every finding new each round, none persistent); no repeated defect"
+    },
+    {
+      "id": "job:minion-town-coupon-admission-flip-20261019",
+      "unblocks": "the closed beta itself: pool of 25, two coupons air-dropped per existing guest",
+      "action": "Go ahead once #144, #199, #198 are merged and the main deploy is green.",
+      "command": "scripts/jobs/promote-plan.sh minion-town-coupon-admission-flip-20261019   # or tell the liaison: go ahead on minion-town-coupon-admission-flip-20261019"
+    },
+    {
+      "id": "cmd:deploy-accounts-store",
+      "unblocks": "deploying #200 (and flip precondition 2)",
+      "action": "Run the migration as the fleet admin. Only you can; it touches production IAM and the table."
+    },
+    {
+      "id": "pr:200",
+      "unblocks": "flip precondition 2 (soft); Log out and account deletion in the shell",
+      "action": "Revise, not merge: findings are real and still multiplying. Grant 2 rounds after the migration, or post a fix job.",
+      "command": "scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr200-gauntlet panel --add-rounds 2",
+      "topics": ["account deletion when one step fails partway", "recovery-bond removal on a transient error", "a host method the pinned Endo may not have", "audit identity derivation for deleted accounts", "shell settings vs. the clip-shell design doc"],
+      "trend": "churning"
+    },
+    {
+      "id": "pr:207",
+      "unblocks": "fewer Firefox flakes in the browser gate that every PR runs",
+      "action": "None needed: the screening conductor has it queued. A 23-line diff if you want to look.",
+      "topics": ["the storage-probe race fix in the clip-frame gate test"]
+    },
+    {
+      "id": "pr:201",
+      "unblocks": "#202 Chat, which is stacked on it",
+      "action": "Merge, or grant 2 rounds for the name-rule cleanup.",
+      "command": "gh pr merge 201 -R kriscendobot/minion.town --merge\n# or: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr201-gauntlet panel --add-rounds 2",
+      "topics": ["reserved pet-name list vs. the rule it states", "the name grammar admits lone surrogates", "duplicated constants and two tests for \"is an app\""],
+      "trend": "converging (latest full panel passed; remaining items are should-fix)"
+    },
+    {
+      "id": "pr:202",
+      "unblocks": "nothing downstream (leaf)",
+      "action": "Revise after #201: one must-fix concurrency defect remains. Grant 2 rounds.",
+      "command": "scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr202-gauntlet panel --add-rounds 2",
+      "topics": ["an accept that hangs holds the power's lock", "a sent message reported as \"Not sent\"", "stale-generation writes after awaits"],
+      "trend": "churning"
+    },
+    {
+      "id": "pr:37",
+      "unblocks": "the parked ocap-mailboxes build",
+      "action": "Approve or reject the design (open since August, ready for review).",
+      "command": "gh pr merge 37 -R kriscendobot/minion.town --merge"
+    },
+    {
+      "id": "pr:142",
+      "unblocks": "the parked gutter build (the + button mints a real clip)",
+      "action": "Approve or reject the design.",
+      "command": "gh pr ready 142 -R kriscendobot/minion.town && gh pr merge 142 -R kriscendobot/minion.town --merge"
+    },
+    {
+      "id": "pr:151",
+      "unblocks": "the JavaScript-only scripts stack #152, #153, #154 (merge bottom-up)",
+      "action": "Decide the stack: land bottom-up starting here, or close all four.",
+      "command": "gh pr ready 151 -R kriscendobot/minion.town && gh pr merge 151 -R kriscendobot/minion.town --merge"
+    },
+    {
+      "id": "pr:180",
+      "unblocks": "#181 serving pushed content as a clip (with #177, #178)",
+      "action": "Decide: 16 rounds spent, still churning. Grant rounds, revise by hand, or park the git-remote line.",
+      "command": "scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds 2",
+      "topics": ["attenuated facets and per-resource caps", "revocation of facet keys", "authority handling on the git-remote endpoints"],
+      "trend": "churning"
+    },
+    {
+      "id": "pr:178",
+      "unblocks": "resource caps for the git-remote line",
+      "action": "Same decision as #180: 12 rounds spent.",
+      "command": "scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2",
+      "trend": "churning"
+    },
+    {
+      "id": "pr:171",
+      "unblocks": "the parked node-interpreter harness probe",
+      "action": "Review and merge, or close.",
+      "command": "gh pr ready 171 -R kriscendobot/minion.town && gh pr merge 171 -R kriscendobot/minion.town --merge"
+    },
+    {
+      "id": "pr:183",
+      "unblocks": "the Endo pin and credentials on the root backend",
+      "action": "Decide: its parked open-findings fix job exhausted its retries. Re-scope that fix, merge as is, or close."
+    }
+  ],
+  "plan_notes": {
+    "heal-minion-town-cfafabe": {"decision": "Withdraw: doomed, and production has deployed green since.", "command": "scripts/jobs/withdraw-plan.sh heal-minion-town-cfafabe"},
+    "kriscendobot-minion-town-pr148-gauntlet-viability": {"decision": "Withdraw: #148 already merged.", "command": "scripts/jobs/withdraw-plan.sh kriscendobot-minion-town-pr148-gauntlet-viability"},
+    "open-signup-gate-flip-minion-town": {"decision": "Keep parked or withdraw: the coupon flip supersedes open signup for now."},
+    "minion-town-claude-cli-production-canary-after-connection-20261004": {"decision": "Needs you to connect the Claude account first; likely a duplicate of the next row, keep one."},
+    "minion-town-claude-kriscendobot-canary-after-connect-20261006": {"decision": "Needs you to connect the Claude account first, then go ahead."},
+    "minion-town-public-browser-caddy-gate-smoke-after-mfa-20261006": {"decision": "Needs your interactive login (MFA), then go ahead."},
+    "minion-town-ocapn-canary-live-run-2": {"decision": "Waits on the federation live acceptance; go ahead when you want the canary."},
+    "build-minion-town-guest-coupons-phase1-rest": {"decision": "No action: promotes itself when #199 merges."}
+  }
+}
