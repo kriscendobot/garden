@@ -74,16 +74,17 @@
 # and cannot recover until it resets, so once ONE mapping's call is refused, every
 # remaining call this tick — and every five-minute timer tick in the same quota
 # window — is equally doomed. The first refusal stops the loop and arms the shared
-# host-wide gh-api latch (common.sh start_api_cooldown, requesting the full
-# primary-quota hour via api_primary_quota_secs) so this watcher AND every OTHER
-# gh-api watcher on the host is protected; symmetrically, this watcher checks that
-# same latch (api_cooldown_active) before its per-mapping loop, so a quota/rate-
-# limit hit by ANY sibling — or by this watcher on an earlier tick — skips this
-# tick before a doomed call. Subsequent ticks exit before cloning the journal or
-# calling GitHub; the first tick after the latch expires retries every unresolved
-# mapping. The one-hour window is conservative: a primary bucket cannot remain
-# exhausted longer than one hour from the refusal, and the failing response does
-# not reliably expose the reset header. This service formerly kept its OWN private
+# gh-api latch (common.sh start_api_cooldown, requesting the full primary-quota
+# hour via api_primary_quota_secs) in the scope of the failed handler. The default
+# state reader is GraphQL-only, so its refusal must not silence REST-only sibling
+# watchers; the close handler uses the host-wide REST latch. Symmetrically, this
+# watcher checks both latches (api_cooldown_active) before its per-mapping loop,
+# so a quota/rate-limit hit by ANY sibling — or by this watcher on an earlier tick
+# — skips this tick before a doomed call. Subsequent ticks exit before cloning the
+# journal or calling GitHub; the first tick after the latch expires retries every
+# unresolved mapping. The one-hour window is conservative: a primary bucket
+# cannot remain exhausted longer than one hour from the refusal, and the failing
+# response does not reliably expose the reset header. This service formerly kept its OWN private
 # one-hour cooldown marker (mirror_quota_*); that duplicated the shared helper and
 # is retired — the shared latch is now the single throttle, so the operator's
 # GARDEN_API_COOLDOWN_SECS=0 escape hatch disables it here too. Every unresolved
@@ -212,6 +213,7 @@ acted=0
 failed=0
 quota_blocked=0
 quota_break=0
+quota_scope=all
 repeated_failure_break=0
 out=''
 mout=''
@@ -225,11 +227,12 @@ declare -a FAILURE_FINGERPRINTS=()
 # aggregate error is emitted after the loop. A primary-quota refusal is counted
 # without relaying its captured diagnostic or the per-mapping warning; the
 # aggregate cooldown report after the loop is the sole warning for that event.
-count_handler_failure() {  # count_handler_failure <per-mapping-warning>
-  local warning="$1" fingerprint prior seen=0
+count_handler_failure() {  # count_handler_failure <all|graphql> <per-mapping-warning>
+  local scope="$1" warning="$2" fingerprint prior seen=0
   if is_gh_primary_rate_limit_text "$HANDLER_STDERR"; then
     quota_blocked=$((quota_blocked+1))
     quota_break=1
+    quota_scope="$scope"
   else
     failed=$((failed+1))
     fingerprint="$HANDLER_FINGERPRINT"
@@ -262,7 +265,7 @@ for i in $(seq 0 $((n-1))); do
   # re-handles it. A non-quota failure still reports unhealthy at the end; an
   # all-primary-quota failure set reports degraded but healthy to systemd.
   if ! run_handler_captured out "$GARDEN_MIRROR_PR_STATE" "$up_repo" "$up_num"; then
-    count_handler_failure "WARN: reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
+    count_handler_failure graphql "WARN: reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
     { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
     continue
   fi
@@ -278,7 +281,7 @@ for i in $(seq 0 $((n-1))); do
 
   # Look at our mirror. Only close it if it is still open; otherwise reconcile.
   if ! run_handler_captured mout "$GARDEN_MIRROR_PR_STATE" "$mir_repo" "$mir_num"; then
-    count_handler_failure "WARN: reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
+    count_handler_failure graphql "WARN: reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
     { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
     continue
   fi
@@ -298,7 +301,7 @@ for i in $(seq 0 $((n-1))); do
   } > "$cbody"
   if ! run_handler_captured - "$GARDEN_MIRROR_CLOSE" "$mir_repo" "$mir_num" "$cbody"; then
     rm -f "$cbody"
-    count_handler_failure "WARN: closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); skipping this mapping; will retry next tick"
+    count_handler_failure all "WARN: closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); skipping this mapping; will retry next tick"
     { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
     continue
   fi
@@ -317,17 +320,18 @@ log "tick complete: closed $acted mirror(s) this run"
 if [ "$quota_break" -eq 1 ]; then
   skipped=$(( n - 1 - i )); [ "$skipped" -lt 0 ] && skipped=0
   pending=$(( quota_blocked + skipped ))
-  # Arm the shared host-wide gh-api latch for the full primary-quota hour so this
-  # watcher AND every sibling skips the doomed retries until the bucket resets. A
-  # nonzero result can also mean a sibling won the race and already armed a live
-  # window, so verify that state before diagnosing a persistence failure.
+  # Arm the matching gh-api latch for the full primary-quota hour. State reads are
+  # GraphQL-only, so their refusal must leave the independently metered REST bucket
+  # available to comment and issue watchers. A nonzero result can also mean a
+  # sibling won the race and already armed a live window in this scope, so verify
+  # that state before diagnosing a persistence failure.
   cooldown_secs="$(api_primary_quota_secs)"
-  if ! start_api_cooldown "mirror-closer:primary-quota" "$cooldown_secs" \
-     && ! api_cooldown_active; then
-    log "ERROR: GitHub primary quota exhausted, but the shared gh-api cooldown latch could not be persisted; failing this tick so self-healing can diagnose the unavailable cooldown state"
+  if ! start_api_cooldown "mirror-closer:primary-quota" "$cooldown_secs" "$quota_scope" \
+     && ! api_cooldown_active "$quota_scope"; then
+    log "ERROR: GitHub primary quota exhausted, but the $quota_scope gh-api cooldown latch could not be persisted; failing this tick so self-healing can diagnose the unavailable cooldown state"
     exit 1
   fi
-  log "WARN: GitHub primary quota exhausted this tick; stopped querying after the first doomed call and armed a ${cooldown_secs}s shared gh-api cooldown — $pending mapping(s) left unresolved ($quota_blocked quota-refused + $skipped unqueried) and will retry after the cooldown"
+  log "WARN: GitHub primary quota exhausted this tick; stopped querying after the first doomed call and armed a ${cooldown_secs}s $quota_scope gh-api cooldown — $pending mapping(s) left unresolved ($quota_blocked quota-refused + $skipped unqueried) and will retry after the cooldown"
   # A non-quota failure seen BEFORE the circuit break still keeps the tick
   # unhealthy: a real (404/etc.) failure must never be masked by the degrade.
   if [ "$failed" -gt 0 ]; then

@@ -313,20 +313,20 @@ for k in up-repo-171 up-repo-172 up-repo-173; do
     && bad "$k stamped despite being quota-blocked/unqueried" || ok "$k left unresolved (preserved for retry after quota reset)"
 done
 [ ! -s "$CL_H1C" ] && ok "no mirror was closed during a quota-exhausted tick" || bad "closed a mirror despite quota exhaustion: $(cat "$CL_H1C")"
-# The quota trip must have armed the SHARED host-wide latch for the full hour (this
-# is the single throttle that replaced the service's retired private marker), not
-# the short 300s default.
-[ -e "$CD_H1C/marker" ] && ok "quota trip armed the shared gh-api latch" || bad "shared latch not armed on quota trip"
-cd_expiry_h1c="$(sed -n '1p' "$CD_H1C/marker" 2>/dev/null || echo 0)"
+# The quota trip came from the GraphQL-only state reader, so it must arm only the
+# GraphQL latch for the full hour, not the short 300s default or the REST latch.
+[ -e "$CD_H1C/marker-graphql" ] && ok "quota trip armed the GraphQL gh-api latch" || bad "GraphQL latch not armed on quota trip"
+[ ! -e "$CD_H1C/marker" ] && ok "GraphQL quota trip left the REST latch clear" || bad "GraphQL quota trip armed the REST latch"
+cd_expiry_h1c="$(sed -n '1p' "$CD_H1C/marker-graphql" 2>/dev/null || echo 0)"
 cd_remaining_h1c=$(( cd_expiry_h1c - $(date +%s) ))
 if [ "$cd_remaining_h1c" -gt 900 ] && [ "$cd_remaining_h1c" -le 3600 ]; then
-  ok "shared latch armed for the full primary-quota hour (${cd_remaining_h1c}s), not the 300s default"
+  ok "GraphQL latch armed for the full primary-quota hour (${cd_remaining_h1c}s), not the 300s default"
 else
-  bad "shared latch window was ${cd_remaining_h1c}s (expected >900 and <=3600)"
+  bad "GraphQL latch window was ${cd_remaining_h1c}s (expected >900 and <=3600)"
 fi
 
 # A second timer tick inside the same primary window must stop at the persisted
-# SHARED latch, before even invoking the handler that made the first doomed request.
+# GraphQL latch, before even invoking the handler that made the first doomed request.
 LOG_H1C_2="$TR/closer-h1c-second.log"
 env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_QUOTA_COUNT="$CNT_H1C" \
@@ -337,11 +337,11 @@ env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRA
   && ok "persisted cooldown: the next timer tick made ZERO additional GraphQL calls" \
   || bad "cooldown tick issued another request (rc=$rch1c2, calls=$(cat "$CNT_H1C"))"
 grep -q 'shared gh-api cooldown active; skipping tick' "$LOG_H1C_2" \
-  && ok "cooldown tick skips on the shared latch without another warning" \
-  || bad "shared-cooldown skip diagnostic missing/wrong: $(cat "$LOG_H1C_2")"
+  && ok "cooldown tick skips on the GraphQL latch without another warning" \
+  || bad "GraphQL-cooldown skip diagnostic missing/wrong: $(cat "$LOG_H1C_2")"
 
-# At expiry the shared latch is removed and unresolved mappings become eligible
-# again. The shared latch uses the real wall clock (start_api_cooldown/date +%s) so
+# At expiry the GraphQL latch is removed and unresolved mappings become eligible
+# again. The GraphQL latch uses the real wall clock (start_api_cooldown/date +%s) so
 # we cannot freeze it — force expiry by rewriting the marker with a past timestamp,
 # then switch to the healthy state stub: all three upstreams are open, so the retry
 # is observable as exactly three state calls without changing any mapping.
@@ -353,7 +353,7 @@ printf '%s' "$n" > "${MC_EXPIRY_COUNT}"
 printf 'open\tfalse\n'
 EOF
 chmod +x "$EXPIRYSTATE"
-printf '%s\nexpired\n' 1 > "$CD_H1C/marker"       # force the shared latch to have expired
+printf '%s\nexpired\n' 1 > "$CD_H1C/marker-graphql" # force the GraphQL latch to have expired
 EXPIRY_COUNT="$TR/expiry-calls.count"; : > "$EXPIRY_COUNT"
 env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_EXPIRY_COUNT="$EXPIRY_COUNT" \
@@ -363,13 +363,13 @@ env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRA
 [ "$rch1c3" -eq 0 ] && [ "$(cat "$EXPIRY_COUNT")" -eq 3 ] \
   && ok "cooldown expiry retries all 3 unresolved mappings" \
   || bad "post-expiry retry wrong (rc=$rch1c3, calls=$(cat "$EXPIRY_COUNT"))"
-[ ! -e "$CD_H1C/marker" ] \
-  && ok "expired shared latch marker is removed" || bad "expired cooldown marker survived"
+[ ! -e "$CD_H1C/marker-graphql" ] \
+  && ok "expired GraphQL latch marker is removed" || bad "expired cooldown marker survived"
 
-hr; echo "H1d — SHARED gh-api latch: a primary-quota hit arms common.sh's host-wide cooldown, and an already-active shared cooldown skips the whole tick before any doomed call"; hr
-# Part A: a quota-refused tick must ALSO arm the shared host-wide latch (common.sh
-# start_api_cooldown), so a rate-limit hit HERE protects every other gh-api watcher
-# on the host instead of each one re-discovering exhaustion through its own call.
+hr; echo "H1d — SCOPED gh-api latch: a state-read quota hit arms only GraphQL cooldown, leaving REST watchers unsuppressed"; hr
+# Part A: a quota-refused state read must arm the GraphQL-only latch (common.sh
+# start_api_cooldown), protecting GraphQL callers without suppressing independently
+# metered REST-only watchers such as the comment and issue-inbox watchers.
 BARE_H1D="$TR/h1d.git"; seed_bare "$BARE_H1D"
 CL_H1D="$TR/close-h1d.log"; LOG_H1D="$TR/closer-h1d.log"; : > "$CL_H1D"
 CD_DIR_A="$TR/h1d-cd-arm"                       # per-test shared-cooldown dir (isolated)
@@ -380,22 +380,30 @@ env GARDEN_STATE="$TR/state-h1d" JOURNAL_REMOTE="$BARE_H1D" JOURNAL_BRANCH="$BRA
     GARDEN_MIRROR_PR_STATE="$QUOTASTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
     "$JOBS/mirror-closer.sh" >"$LOG_H1D" 2>&1; rch1d=$?
 [ "$rch1d" -eq 0 ] && ok "quota tick still exits 0 (degraded, healthy) with the shared latch enabled" || bad "H1d arming tick exited $rch1d"
-[ -e "$CD_DIR_A/marker" ] \
-  && ok "primary-quota hit ALSO armed the shared host-wide gh-api cooldown marker" \
-  || bad "shared gh-api cooldown was NOT armed on a primary-quota hit"
-grep -q 'mirror-closer:primary-quota' "$CD_DIR_A/marker" 2>/dev/null \
-  && ok "shared cooldown marker is tagged to mirror-closer's primary-quota trip" \
-  || bad "shared cooldown marker missing the mirror-closer tag: $(cat "$CD_DIR_A/marker" 2>/dev/null)"
-# The shared latch must be armed for the FULL primary-quota hour (api_primary_quota_secs)
+[ -e "$CD_DIR_A/marker-graphql" ] \
+  && ok "primary-quota state read armed the GraphQL gh-api cooldown marker" \
+  || bad "GraphQL gh-api cooldown was NOT armed on a state-read primary-quota hit"
+[ ! -e "$CD_DIR_A/marker" ] \
+  && ok "GraphQL state-read quota did not arm the REST cooldown marker" \
+  || bad "GraphQL state-read quota incorrectly armed the REST cooldown marker"
+env GARDEN_ROOT="$TR" GARDEN_API_COOLDOWN_DIR="$CD_DIR_A" \
+  bash -c 'source "$1"; ! api_cooldown_active rest' _ "$JOBS/common.sh" \
+  && ok "a mirror-closer GraphQL latch does not suppress REST-only watchers" \
+  || bad "a mirror-closer GraphQL latch suppressed REST-only watchers"
+grep -q 'mirror-closer:primary-quota' "$CD_DIR_A/marker-graphql" 2>/dev/null \
+  && ok "GraphQL cooldown marker is tagged to mirror-closer's primary-quota trip" \
+  || bad "GraphQL cooldown marker missing the mirror-closer tag: $(cat "$CD_DIR_A/marker-graphql" 2>/dev/null)"
+# The GraphQL latch must be armed for the FULL primary-quota hour (api_primary_quota_secs)
 # — NOT the short 300s default — so it outlives a doomed retry by a sibling watcher
-# inside the same quota hour (the ci-watcher regression). The shared marker's expiry
-# is on the real wall clock (start_api_cooldown uses date +%s), so compare against `now`.
-cd_expiry_a="$(sed -n '1p' "$CD_DIR_A/marker" 2>/dev/null || echo 0)"
+# inside the same quota hour (the ci-watcher regression). The GraphQL marker's
+# expiry is on the real wall clock (start_api_cooldown uses date +%s), so compare
+# against `now`.
+cd_expiry_a="$(sed -n '1p' "$CD_DIR_A/marker-graphql" 2>/dev/null || echo 0)"
 cd_remaining_a=$(( cd_expiry_a - $(date +%s) ))
 if [ "$cd_remaining_a" -gt 900 ] && [ "$cd_remaining_a" -le 3600 ]; then
-  ok "shared latch armed for the full primary-quota hour (${cd_remaining_a}s), not the 300s default"
+  ok "GraphQL latch armed for the full primary-quota hour (${cd_remaining_a}s), not the 300s default"
 else
-  bad "shared latch window was ${cd_remaining_a}s (expected >900 and <=3600)"
+  bad "GraphQL latch window was ${cd_remaining_a}s (expected >900 and <=3600)"
 fi
 
 # Part A2: if the quota refusal is real but the shared cooldown state becomes
