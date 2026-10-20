@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-20T08:06:45Z_
+_As of 2026-10-20T08:13:10Z_
 
 ## Latest
 
@@ -56,6 +54,23 @@ Delegation: **active**
 - 2026-10-19T08:24:01Z [#203](https://github.com/kriscendobot/minion.town/pull/203) `7595435e6f6` screened
 
 ## Messages to the maintainer
+
+- `msg-kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3-5ac7df1f6ed1` — from gardener:kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3, reply_to `kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3-5ac7df1f6ed1.md)
+
+> kriscendobot/minion.town [https://github.com/kriscendobot/minion.town/pull/201](https://github.com/kriscendobot/minion.town/pull/201) (New Clip) needs your ruling. The gauntlet is halted until you give it.
+>
+> The panel's only must-fix (decomplector, review [https://github.com/kriscendobot/minion.town/pull/201](https://github.com/kriscendobot/minion.town/pull/201)#pullrequestreview-5582108243) is not a code defect:
+> - The PR gives every holder of the clip URL a writable clip power.
+> - That reverses your [https://github.com/kriscendobot/minion.town/pull/85](https://github.com/kriscendobot/minion.town/pull/85) direction: a nonce locator, so that holding the HTTP GET does not grant a live backend.
+> - designs/new-clip.md § 3 says this interim departure "awaits the maintainer's confirmation before merge". You have not commented on [https://github.com/kriscendobot/minion.town/pull/201](https://github.com/kriscendobot/minion.town/pull/201).
+> - Most of new-clip.ts's complexity exists only because visitors can write: the quota, the measure walk, the usage cache, the serial queue, and the rollback.
+>
+> The juror asks us to stop hardening rounds until you decide. Your options:
+>   (a) Accept the interim departure. The fleet then applies the remaining should-fixes and finishes the gauntlet.
+>   (b) "Not yet". Ship only the blank/metamorphose form with no visitor-writable creators, so the quota and queue machinery can be dropped.
+>   (c) Wait for the [https://github.com/kriscendobot/minion.town/pull/88](https://github.com/kriscendobot/minion.town/pull/88) nonce work before merging.
+>
+> The head is 2a04ab51 and CI is green. I pushed nothing in this round.
 
 - `kriscendobot-minion.town-pr201-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr201-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr201-gauntlet-review-budget-reached.md)
 
@@ -139,6 +154,16 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
+
+- `kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-halted` — from gauntlet:kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-halted.md)
+
+> Gauntlet kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet HALTED: stage 'kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 3/6 · cost so far: $4.06
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet panel --iteration 3 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
 
@@ -865,35 +890,33 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 321.0M | $1260.58 _(notional, rate-card)_ | 118% of 271.0M (backoff) |
+| Claude | 321.4M | $1262.03 _(notional, rate-card)_ | 119% of 271.0M (backoff) |
 | Codex | 80.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92154722 tokens/day lower bound._
+_Fleet token-unlock pace: 92107957 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 17.605826s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (8)
-- [`kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #201
+### todo (6)
 - [`endojs-endo-but-for-bots-pr1513-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1513-gauntlet-fix-2-pr-body.md) — Update the PR body of endojs/endo-but-for-bots#1513 (gauntlet fix-2 hand-off)
 - [`endojs-endo-but-for-bots-pr1483-gauntlet-20261020-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1483-gauntlet-20261020-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1483
 - [`build-endo-but-for-bots-ocapn-noise-session-reconnect-b1-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-but-for-bots-ocapn-noise-session-reconnect-b1-open-pr.md) — What it adds
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`screen-minion-town-pr198-f4c29e6-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr198-f4c29e6-conduct.md) — Screened delegated merge: kriscendobot/minion.town#198 at f4c29e6c52032d099a8...
 - [`endojs-endo-but-for-bots-pr1507-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1507-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1507
-- [`endojs-endo-but-for-bots-pr1513-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1513-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1513
 
 ### doin (1)
-- [`daily-progress-summary-20261020-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261020-070508.md) — Daily midnight Pacific progress summary
+- [`endojs-endo-but-for-bots-pr1513-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1513-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1513
 
-### tada (14203)
+### tada (14206)
+- [`kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-fix-3.md) — Fix round 3 for kriscendobot/minion.town#201: halted for a maintainer ruling
+- [`kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet.md) — gauntlet kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet — HALTED
+- [`daily-progress-summary-20261020-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/daily-progress-summary-20261020-070508.md) — Daily progress summary, 2026-10-19 (Pacific): landed
 - [`kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion-town-pr198-screen-f4c29e6c-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr198-screen-f4c29e6c-gauntlet.md) — gauntlet kriscendobot-minion-town-pr198-screen-f4c29e6c-gauntlet — complete
-- [`kriscendobot-minion-town-pr198-screen-f4c29e6c-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr198-screen-f4c29e6c-gauntlet-undraft.md) — Gauntlet UNDRAFT: kriscendobot/minion.town PR #198 (no-op)
-- [`canary-probe-oros-studio-garden-ce242c49-d68ce6d0317a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/canary-probe-oros-studio-garden-ce242c49-d68ce6d0317a.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1514-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/endojs-endo-but-for-bots-pr1514-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1514-gauntlet — HALTED
-- … and 14198 more
+- … and 14201 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
