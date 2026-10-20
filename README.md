@@ -1,22 +1,26 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-20T04:29:27Z_
+_As of 2026-10-20T04:35:23Z_
 
 ## Latest
 
-minion.town is the busiest front. [#207](https://github.com/kriscendobot/minion.town/pull/207) merged at 01:26Z and its deploy succeeded. [#209](https://github.com/kriscendobot/minion.town/pull/209) healed the failed deploy of [#204](https://github.com/kriscendobot/minion.town/pull/204), so screening is no longer paused for that merge. The review-queue clip was published, ranking 15 open PRs by what each unblocks. The architecture overview clip is also up. The top asks are approving or merging the coupons design [#144](https://github.com/kriscendobot/minion.town/pull/144), then the coupons build [#199](https://github.com/kriscendobot/minion.town/pull/199).
+The board transitions file shows no file-level changes, so this summary draws on the dashboard and inbox.
 
-Several gauntlets ran out of review budget and need a decision to grant more rounds, revise by hand, or park. These are minion.town [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#184](https://github.com/kriscendobot/minion.town/pull/184) (16 rounds each, still raising about 20 must-fix items per round), [#178](https://github.com/kriscendobot/minion.town/pull/178), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201), [#202](https://github.com/kriscendobot/minion.town/pull/202), and endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). Delegated merge of [#197](https://github.com/kriscendobot/minion.town/pull/197) also stalled after 3 conductors.
+The biggest change is on minion.town, where [#207](https://github.com/kriscendobot/minion.town/pull/207) merged at 01:26Z and its deploy succeeded. [#209](https://github.com/kriscendobot/minion.town/pull/209) merged the evening before. It healed the [#204](https://github.com/kriscendobot/minion.town/pull/204) merge, whose deploy failed and paused screening for a while. Delegation is active again. The proxy has also flagged that three conductors finished without merging [#197](https://github.com/kriscendobot/minion.town/pull/197).
 
-Other items:
-- **Reset credit:** the reset-credit watch recommends using the codex-endolin credit today, Tuesday 10-20, in the daytime Pacific Time. claude-endolin1 is projected to cross 90% around 20Z today with no credit available.
-- **Oros:** an earlier fleet-deploy stall on the leader was reported, and oros recovered after a monk restart.
-- **Phase 4 resume:** the Phase 4 resume build for OCapN-Noise reconnect was declined as self-contradictory. It needs your reply of "build nonce-safe resume" or a retirement of that phase.
-- **Zip research:** the native-Node ZIP fall-through research concluded not to proceed.
+Eight gauntlets have hit their review budgets and need a decision to grant more rounds or merge by hand:
+- minion.town [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#184](https://github.com/kriscendobot/minion.town/pull/184) used 16 rounds each and still show about 20 new must-fix items per round, so the review is not converging.
+- minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) are also at budget.
+- endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) are also at budget.
 
-Journal-lock contention notices are mostly recovered or low-severity noise. The 55-occurrence contention storm on the leader is still open.
+Decisions waiting on you:
+- **Claude quota:** Claude spend is over the backed-off cap, at 114% of 271M. The reset-credit watch projects claude-endolin1 to cross 90% around Tue 10-20 ~20Z, with no credit available. It recommends resetting codex-endolin on Tuesday daytime PT and asks you to confirm how many credits you hold.
+- **Ocapn Noise M4:** Q2 on [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475) is open (bind the `np` sessionId to the handshake hash, or persist replay state). The Phase 4 resume build was refused because it contradicts the Rekey-only design in #1487.
+- **minion.town settings simplify:** run `deploy-accounts-store.sh` before merging, and veto-check four choices.
+- **Daemon agent tools:** Phase 8 needs your answer on Open Question 4.
+- **M2 milestone:** blocked on the text-codecs shim, [#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
+
+Operationally, the leader (endolin) has been stuck at deploy `b8abbe64` since 10-16, and oros is correctly holding behind it. Journal lock contention is recurring but self-clearing. The `minion-town-ci-harness-path-gate` job overran its 7200s handler budget and needs splitting.
 
 ## Maintainer review docket
 
@@ -863,10 +867,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 309.1M | $1214.03 _(notional, rate-card)_ | 114% of 271.0M (backoff) |
+| Claude | 309.3M | $1214.75 _(notional, rate-card)_ | 114% of 271.0M (backoff) |
 | Codex | 79.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 91829486 tokens/day lower bound._
+_Fleet token-unlock pace: 91855899 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 17.605826s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 10 open notice(s); checker healthy
