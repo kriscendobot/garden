@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-20T11:30Z (oros-health-checkup-20261020-112008): healthy; deployed = origin/main2 `d68ce6d0`, no changes
+
+- **Load/mem:** load 2.78/3.02/2.84 (higher than at 08:30Z because 4 monks are now running). 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (404G free). The virtiofs garden mount is 52% used (226G free); inodes 1%.
+- **Uptime:** 18d18h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `d68ce6d0`, the origin/main2 tip (0 behind). fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed garden units. `garden-monk@1..4` are running. `hosts/oros` says `monks: 4` (updated 10:50:34Z by oros itself, after the weekly window reset at 10:00Z). Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 11:02:20Z (about 25 minutes before this check). Status ok. The new weekly window started at 10:00Z, and spend is 1.74M of 180M (about 1%). The last 5 pushes were all ok, at 10:02, 10:17, 10:35, 10:47 and 11:02Z.
+- **State clones:** the largest are regenerate-topics-counts (49 packs), state-clone-keeper (48) and reaper (47), below the threshold of 50. No tmp_pack and no `gc.log`. The `index.lock` files in fork-watch and gardener-scaler are less than an hour old, so they are live, not stale. The root repo has 9 packs and no `gc.log`.
+- **rc=124 (3h):** none. There are also no garden errors in the system journal.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing. The weekly quota reset at 10:00Z, so the 81% from the earlier runs is cleared.
+
 ## 2026-10-20T08:30Z (oros-health-checkup-20261020-082008): healthy; deployed = origin/main2 `d68ce6d0`, no changes
 
 - **Load/mem:** load 2.05/2.43/2.57. 13 GiB of 15 GiB available. Swap is 1023 MiB of 1 GiB used (1018 MiB at 05:35Z). It is full but flat, with no memory pressure (13 GiB available, mostly page cache).
