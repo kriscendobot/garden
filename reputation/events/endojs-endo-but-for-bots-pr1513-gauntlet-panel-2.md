@@ -1,22 +1,23 @@
 ---
 base: endojs-endo-but-for-bots-pr1513-gauntlet-panel-2
-kind: cleric
-provider: openai
-model: gpt-5.6-terra
+kind: monk
+provider: anthropic
+model: claude-default
 thoughtfulness: medium
 work_class: gardener:l
 target: main2
 accepted: true
-agentic_dollars: 0.506195
+agentic_dollars: 0.719673
 human_dollars: 0
-aggregate_dollars: 0.506195
-cost_source: ledger
+aggregate_dollars: censored
+cost_source: wallclock
+estimated_dollars: 0.002553
 attempts: 1
-duration_secs: 524
+duration_secs: 37
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-1
-recorded_at: 2026-10-20T05:18:06Z
+recorded_by: endolin-garden-ece02cb4/monk-1
+recorded_at: 2026-10-20T05:26:44Z
 ---
-reputation event for endojs-endo-but-for-bots-pr1513-gauntlet-panel-2: arm openai/gpt-5.6-terra/medium work_class gardener:l target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr1513-gauntlet-panel-2: arm anthropic/claude-default/medium work_class gardener:l target main2 accepted true
