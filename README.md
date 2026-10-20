@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-20T23:05:12Z_
+_As of 2026-10-20T23:09:01Z_
 
 ## Latest
 
@@ -37,7 +35,6 @@ Delegation: **active**
 - 2026-10-20T01:26:46Z [#207](https://github.com/kriscendobot/minion.town/pull/207) merged `ea08cf05508`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/39353467173), watchdog ok — validated
 - 2026-10-19T23:44:37Z [#207](https://github.com/kriscendobot/minion.town/pull/207) `97ae2e6604f` screened
 - 2026-10-19T23:44:37Z [#198](https://github.com/kriscendobot/minion.town/pull/198) `5ea626915dd` screened
-- 2026-10-19T23:07:50Z [#207](https://github.com/kriscendobot/minion.town/pull/207) `d5c921606bb` screened
 
 ## Messages to the maintainer
 
