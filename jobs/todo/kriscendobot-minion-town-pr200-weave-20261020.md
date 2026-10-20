@@ -14,15 +14,4 @@ conflicts, force-push the head, and retarget the PR base. Leave it draft. Afterw
 green, run the gauntlet on it (its earlier gauntlet hit its review budget on a pre-merge base).
 Posted by the minion.town arc supervisor (job minion-town-arc-press-20261020-142008).
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-20T14:42:03Z
+<!-- garden-reaped: 0 -->
