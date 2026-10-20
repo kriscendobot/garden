@@ -1,2 +1,2 @@
-base: improve-persist-mirror-quota-cooldown
+base: improve-mirror-closer-graphql-cooldown-scope
 identity: mentor:scripts/jobs/mirror-closer.sh
