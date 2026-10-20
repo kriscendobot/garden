@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-20T21:24:59Z_
+_As of 2026-10-20T21:41:34Z_
 
 ## Latest
 
@@ -773,6 +771,16 @@ Delegation: **active**
 >
 > ci-wait-merge on oros-studio-garden-ce242c49 cannot read CI for [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/issues/192): the GitHub token is forbidden (HTTP 403) from statusCheckRollup, and delegated merges do not accept the Actions-only fallback. This is a token permission gap, not pending CI. Grant the bot token checks:read and statuses:read (and actions:read) on 'kriscendobot', then rerun the stage.
 
+- `kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached.md)
+
+> Gauntlet kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $13.03
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-10-18T14:45:48Z, latest 2026-10-20T08:44:24Z).
@@ -895,10 +903,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 354.8M | $1393.77 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
-| Codex | 106.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 355.2M | $1395.61 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
+| Codex | 106.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 93515790 tokens/day lower bound._
+_Fleet token-unlock pace: 93583433 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.809940s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 8 open notice(s); checker healthy
@@ -907,17 +915,16 @@ worst fetch p95 2.809940s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #201
+### doin (1)
 - [`kriscendobot-minion-town-pr200-gauntlet-20261020-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr200-gauntlet-20261020-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #200
 
-### tada (14288)
+### tada (14290)
+- [`kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet.md) — gauntlet kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet — review bud...
+- [`kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-fix-6.md) — Cost
 - [`oros-health-checkup-20261020-203519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/oros-health-checkup-20261020-203519.md) — Cost
 - [`oros-health-watch-20261020-203519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/oros-health-watch-20261020-203519.md) — Cost
 - [`kriscendobot-minion-town-pr200-gauntlet-20261020-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr200-gauntlet-20261020-panel-6.md) — Cost
-- [`kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-panel-6.md) — Cost
-- [`minion-town-arc-press-20261020-203519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/minion-town-arc-press-20261020-203519.md) — Cost
-- … and 14283 more
+- … and 14285 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
