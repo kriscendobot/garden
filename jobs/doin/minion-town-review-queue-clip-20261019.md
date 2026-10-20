@@ -17,3 +17,13 @@ Maintainer request (kriscendobot's maintainer, liaison session 2026-10-19): post
 **Privacy.** The repo is private and a clip is world-readable by anyone holding its URL; the hash is not access control. Publish: PR numbers and titles, state, dependency order, actions, and topic-level review hints. Do NOT publish: secrets, tokens, account ids, hostnames, vulnerability or exploit detail, unfixed security findings beyond their topic ("authority handling in the control plane"), maintainer-private matters, or text copied from comments by outside parties. Do a scrub pass and list what you checked.
 
 **Publish** per skills/minion-town-clip-publishing: static only, sibling `styles.css`/JS (no inline), no `powers: "sites"` or `"@agent"`, inert pet name, publish from a script via the stdio bridge, `curl` and `cmp` the URL. Mobile-readable, light and dark. Pet names `minion-town-review-queue-*`; `unpublish` any smoke clip. Report the URL, the ranking with one-line reasons, and the scrub checklist to the maintainer inbox.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-20T01:09:01Z
