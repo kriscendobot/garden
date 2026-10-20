@@ -11,3 +11,13 @@ Two screened conductor attempts (screen-minion-town-pr198-5ea6269-conduct, -r2) 
 Commit 1/23 (bbf6c15f feat(web): one landing at /, closed-beta splash and waitlist) conflicts in:
   DEPLOYMENT.md, deploy/aws/www/index.html, designs/clip-shell-framework.md
 Rebase onto current main, resolve conflicts preserving both sides' intent, force-push the head. The proxy re-screens the new head and posts a fresh conductor; do not merge.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-20T02:38:00Z
