@@ -1,8 +1,9 @@
 #!/bin/bash
-# mentor-transient-backoff-test.sh — a sustained transient provider outage retries
-# every tick but WARNs on a bounded exponential backoff, then emits ONE recovery
-# notice when it clears. Guards the silent-until-error contract against the old
-# every-tick WARN loop.
+# mentor-transient-backoff-test.sh — a sustained transient provider outage defers
+# the handler on a persisted exponential retry deadline (fewer provider calls than
+# timer ticks), WARNs on a bounded exponential backoff, keeps the input markers
+# unadvanced, then emits ONE recovery notice and resets the deadline when a real
+# verdict lands. Guards silent-until-error against the old every-tick retry loop.
 set -euo pipefail
 export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -43,34 +44,56 @@ chmod +x "$BIN/journalctl" "$TR/transient-handler" "$TR/ok-handler"
 export CALL_LOG="$TR/calls"
 
 MLOG="$TR/mentor.log"
+OSTATE="$TR/state/mentor/transient-outage"
+NOW=1000000
 run_mentor() {  # <handler> ; appends this run's stderr to $MLOG
   local handler="$1"
   env PATH="$BIN:$PATH" GARDEN=testhost GARDEN_ROOT="$(cd "$JOBS/../.." && pwd)" \
     GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
     GARDEN_MENTOR_HANDLER="$handler" GARDEN_MENTOR_OUTAGE_BACKOFF_CAP=8 \
+    GARDEN_MENTOR_OUTAGE_RETRY_BASE_SECS=1500 GARDEN_MENTOR_OUTAGE_RETRY_MAX_SECS=6000 \
+    GARDEN_MENTOR_NOW="$NOW" \
     "$JOBS/mentor.sh" >/dev/null 2>>"$MLOG"
 }
+calls() { wc -l < "$CALL_LOG" 2>/dev/null || echo 0; }
 
-# --- 10 consecutive transient ticks ------------------------------------------
+# --- 10 consecutive transient timer ticks, 30 minutes apart --------------------
+# Deadlines after attempts 1..4: +1500, +3000, +6000, +6000 (capped). With ticks
+# at t=0,1800,…,16200 the handler is attempted at t=0, 1800, 5400, 12600 only.
 for _ in $(seq 1 10); do
   rc=0; run_mentor "$TR/transient-handler" || rc=$?
   [ "$rc" -eq 0 ] || { echo "FAIL: transient tick exited nonzero (rc=$rc)"; exit 1; }
+  NOW=$((NOW + 1800))
 done
 
-# Retry behavior retained: the handler ran every tick and markers never advanced.
-[ "$(wc -l < "$CALL_LOG")" -eq 10 ] \
-  || { echo "FAIL: handler did not run on all 10 transient ticks"; exit 1; }
+# Provider calls are reduced: 4 handler attempts over 10 ticks, not 10.
+[ "$(calls)" -eq 4 ] \
+  || { echo "FAIL: expected 4 handler attempts over 10 outage ticks, got $(calls)"; exit 1; }
 if grep -qx 'entries/failure.md' "$TR/state/mentor/seen" 2>/dev/null; then
   echo 'FAIL: transient outage wrongly advanced the seen marker'; exit 1
 fi
+[ -e "$TR/state/mentor/journalctl-since" ] \
+  && { echo 'FAIL: transient outage wrongly advanced the journalctl marker'; exit 1; }
+# The persisted deadline is the last attempt (t0+12600) plus the capped 6000s.
+read -r _ ocount odeadline < "$OSTATE"
+[ "$ocount" -eq 4 ] && [ "$odeadline" -eq $((1000000 + 12600 + 6000)) ] \
+  || { echo "FAIL: unexpected outage state: $(cat "$OSTATE")"; exit 1; }
 
-# Backoff: with cap=8, warnings fire at ticks 1,2,4,8 → exactly 4, not 10.
+# Backoff: with cap=8, warnings fire at attempts 1,2,4 → exactly 3.
 warns="$(grep -c 'transient outage tick #' "$MLOG" || true)"
-[ "$warns" -eq 4 ] \
-  || { echo "FAIL: expected 4 backed-off warnings over 10 ticks, got $warns"; sed -n '/transient outage tick/p' "$MLOG"; exit 1; }
+[ "$warns" -eq 3 ] \
+  || { echo "FAIL: expected 3 backed-off warnings over 4 attempts, got $warns"; sed -n '/transient outage tick/p' "$MLOG"; exit 1; }
+
+# Even a healthy provider is not called before the deadline (NOW is t0+18000).
+run_mentor "$TR/ok-handler"
+[ "$(calls)" -eq 4 ] || { echo 'FAIL: handler invoked before its retry deadline'; exit 1; }
+grep -qx 'entries/failure.md' "$TR/state/mentor/seen" 2>/dev/null \
+  && { echo 'FAIL: deferred tick advanced the seen marker'; exit 1; }
 
 # --- recovery -----------------------------------------------------------------
+NOW=$((1000000 + 12600 + 6000))
 run_mentor "$TR/ok-handler"
+[ "$(calls)" -eq 5 ] || { echo 'FAIL: handler not retried once the deadline elapsed'; exit 1; }
 rec="$(grep -c 'transient provider outage cleared' "$MLOG" || true)"
 [ "$rec" -eq 1 ] \
   || { echo "FAIL: expected exactly 1 recovery notice, got $rec"; exit 1; }
@@ -115,5 +138,23 @@ grep -q 'transient outage tick #' "$MLOG" \
 if grep -qx 'entries/third.md' "$TR/state/mentor/seen" 2>/dev/null; then
   echo 'FAIL: all-providers-unavailable wrongly advanced the seen marker'; exit 1
 fi
+# The recovery's real verdict reset the episode: this fresh outage starts over at
+# attempt 1 with the base delay, not the previous episode's capped one.
+read -r _ ocount odeadline < "$OSTATE"
+[ "$ocount" -eq 1 ] && [ "$odeadline" -eq $((NOW + 1500)) ] \
+  || { echo "FAIL: outage deadline not reset after a real verdict: $(cat "$OSTATE")"; exit 1; }
 
-echo 'PASS: sustained transient outage retries every tick, warns on bounded backoff, and recovers once'
+# --- a real (non-transient) verdict also clears the deadline ---------------------
+cat > "$TR/real-handler" <<'EOH'
+#!/bin/sh
+printf '%s\n' "$1" >> "$CALL_LOG"
+echo "TypeError: cannot read property of undefined at line 42" >&2
+exit 1
+EOH
+chmod +x "$TR/real-handler"
+NOW=$((NOW + 1500))
+rc=0; run_mentor "$TR/real-handler" || rc=$?
+[ "$rc" -ne 0 ] || { echo 'FAIL: genuine handler defect did not die'; exit 1; }
+[ -f "$OSTATE" ] && { echo 'FAIL: a real verdict left the outage deadline armed'; exit 1; }
+
+echo 'PASS: sustained transient outage defers handler retries on an exponential deadline, warns on bounded backoff, and recovers once'

@@ -1228,7 +1228,8 @@ seen_after="$(wc -l < "$SEENF" 2>/dev/null || echo 0)"
   && ok "transient handler outage → exit 0, markers unadvanced (retry next tick)" \
   || bad "transient outage not absorbed (rc=$trc seen $seen_before→$seen_after)"
 # The same still-unseen entry now hits a real defect → mentor must die (exit 1).
-rrc=0; env GARDEN_MENTOR_HANDLER="$TR/mentor-real.sh" "$JOBS/mentor.sh" >/dev/null 2>&1 || rrc=$?
+# The transient tick armed a next-retry deadline; step past it so this tick runs.
+rrc=0; env GARDEN_MENTOR_NOW="$(( $(date -u +%s) + 86400 ))" GARDEN_MENTOR_HANDLER="$TR/mentor-real.sh" "$JOBS/mentor.sh" >/dev/null 2>&1 || rrc=$?
 [ "$rrc" -ne 0 ] && ok "genuine handler defect → non-zero exit (self-heal path)" \
   || bad "real defect did not die (rc=$rrc)"
 # An EMPTY-output SIGKILL/OOM (rc=137) — a `claude -p` handler killed mid-call

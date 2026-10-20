@@ -30,6 +30,19 @@ export GARDEN_TAG="mentor"
 : "${GARDEN_MENTOR_OUTAGE_BACKOFF_CAP:=32}"
 [[ "$GARDEN_MENTOR_OUTAGE_BACKOFF_CAP" =~ ^[1-9][0-9]*$ ]] \
   || die "GARDEN_MENTOR_OUTAGE_BACKOFF_CAP must be a positive integer"
+# Retry backoff for the HANDLER itself under a transient outage: after the Nth
+# consecutive transient attempt the next attempt waits BASE*2^(N-1) seconds,
+# capped at MAX. Ticks before that deadline skip the provider call entirely. The
+# 1500s base sits under the 30-minute timer period, so the first retry is the
+# very next tick and later retries thin out (1, 2, 4, … ticks) to the 4h cap.
+: "${GARDEN_MENTOR_OUTAGE_RETRY_BASE_SECS:=1500}"
+: "${GARDEN_MENTOR_OUTAGE_RETRY_MAX_SECS:=14400}"
+[[ "$GARDEN_MENTOR_OUTAGE_RETRY_BASE_SECS" =~ ^[1-9][0-9]*$ ]] \
+  || die "GARDEN_MENTOR_OUTAGE_RETRY_BASE_SECS must be a positive integer"
+[[ "$GARDEN_MENTOR_OUTAGE_RETRY_MAX_SECS" =~ ^[1-9][0-9]*$ ]] \
+  || die "GARDEN_MENTOR_OUTAGE_RETRY_MAX_SECS must be a positive integer"
+# Clock seam for tests; production reads the wall clock.
+_mentor_now() { printf '%s\n' "${GARDEN_MENTOR_NOW:-$(date -u +%s)}"; }
 
 fleet_draining && exit 0
 
@@ -53,7 +66,11 @@ mkdir -p "$(dirname "$SEEN")"; touch "$SEEN"
 # silent-until-error and buries the eventual real signal. These helpers persist
 # the episode (a consecutive-transient-tick counter, in $OUTAGE_STATE) and rate-
 # limit the WARN on a bounded exponential backoff, then emit ONE recovery notice
-# when the outage clears. Retry behavior is unchanged — only the noise is.
+# when the outage clears. The episode also carries a next-retry deadline
+# (epoch seconds, exponential in the attempt count): ticks before it skip the
+# handler entirely, so a sustained outage stops costing one provider call per
+# tick (2026-10-20: the same outage was re-hit at 08:50, 09:20, and 10:20Z).
+# State line: "<last-sha> <consecutive-transient-attempts> <next-retry-epoch>".
 
 # _outage_should_warn <count> — true on a doubling schedule (1,2,4,8,…) until the
 # gap reaches GARDEN_MENTOR_OUTAGE_BACKOFF_CAP, then once every cap ticks. Bounded
@@ -75,14 +92,29 @@ _outage_should_warn() {
 # retained only for the human-readable line. Leaves the input markers untouched;
 # the caller's `exit 0` performs the retry.
 note_transient_outage() {
-  local sha="$1" msg="$2" count=0 _prev
-  read -r _prev count 2>/dev/null < "$OUTAGE_STATE" || true
+  local sha="$1" msg="$2" count=0 _prev _deadline delay i
+  read -r _prev count _deadline 2>/dev/null < "$OUTAGE_STATE" || true
   [[ "$count" =~ ^[0-9]+$ ]] || count=0
   count=$((count + 1))
-  printf '%s %s\n' "$sha" "$count" > "$OUTAGE_STATE"
+  delay="$GARDEN_MENTOR_OUTAGE_RETRY_BASE_SECS"
+  for (( i = 1; i < count && delay < GARDEN_MENTOR_OUTAGE_RETRY_MAX_SECS; i++ )); do
+    delay=$((delay * 2))
+  done
+  [ "$delay" -le "$GARDEN_MENTOR_OUTAGE_RETRY_MAX_SECS" ] || delay="$GARDEN_MENTOR_OUTAGE_RETRY_MAX_SECS"
+  printf '%s %s %s\n' "$sha" "$count" "$(( $(_mentor_now) + delay ))" > "$OUTAGE_STATE"
   if _outage_should_warn "$count"; then
-    log "WARN: $msg (transient outage tick #$count; further duplicate warnings suppressed with exponential backoff)"
+    log "WARN: $msg (transient outage tick #$count; next handler retry in ${delay}s; further duplicate warnings suppressed with exponential backoff)"
   fi
+}
+
+# outage_retry_deferred — true while an open outage episode's next-retry deadline
+# is still in the future. A missing/legacy (deadline-less) state is eligible.
+outage_retry_deferred() {
+  [ -f "$OUTAGE_STATE" ] || return 1
+  local _sha _count deadline=""
+  read -r _sha _count deadline 2>/dev/null < "$OUTAGE_STATE" || true
+  [[ "$deadline" =~ ^[0-9]+$ ]] || return 1
+  [ "$(_mentor_now)" -lt "$deadline" ]
 }
 
 # note_transient_recovery — close an open transient-outage episode with a SINGLE
@@ -90,8 +122,8 @@ note_transient_outage() {
 # (handler success, semantic rejection, a real defect) can call it unconditionally.
 note_transient_recovery() {
   [ -f "$OUTAGE_STATE" ] || return 0
-  local sha="" count=0
-  read -r sha count 2>/dev/null < "$OUTAGE_STATE" || true
+  local sha="" count=0 _deadline
+  read -r sha count _deadline 2>/dev/null < "$OUTAGE_STATE" || true
   [[ "$count" =~ ^[0-9]+$ ]] || count=0
   rm -f "$OUTAGE_STATE"
   log "mentor transient provider outage cleared after $count consecutive tick(s) (last digest $sha)"
@@ -203,6 +235,11 @@ fi
 # 3. nothing to look at → stay silent
 if [ "${#new[@]}" -eq 0 ] && [ -z "$jlog" ]; then exit 0; fi
 
+# 3b. an open transient outage whose retry deadline has not elapsed → skip the
+#     handler silently. $SEEN/$JSINCE stay unadvanced, so the first eligible tick
+#     sees everything that accrued meanwhile.
+outage_retry_deferred && exit 0
+
 # 4. build the combined digest
 digest="$(mktemp "${TMPDIR:-/tmp}/garden-improve.XXXXXX")"
 for f in "${new[@]}"; do
@@ -227,7 +264,8 @@ rm -f "$digest"   # the blob now lives in $DIR's object DB; the temp file is spe
 #    outage — a `claude` quota/usage cut, an Anthropic overload/5xx, or an
 #    api.github.com/network blip — is not mistaken for a real handler defect. On
 #    a transient the intent this branch already carries (retry next tick) is
-#    satisfied simply by leaving $SEEN/$JSINCE unadvanced, so we WARN and exit 0.
+#    satisfied by leaving $SEEN/$JSINCE unadvanced (and arming the next-retry
+#    deadline), so we WARN and exit 0.
 #    A `die` (exit 1) here is doubly wrong on a transient: it (a) marks
 #    garden-mentor.service Failed and (b) fires self-heal-run.sh into a `claude -p`
 #    diagnosis that fails identically in the SAME outage (2026-07-02 01:20:07 and
@@ -265,7 +303,7 @@ elif [ ! -s "$capture" ] && is_transient_empty_failure "$rc"; then
   # SAME common.sh helper so the two handlers stay aligned: WARN + exit 0, leaving
   # $SEEN/$JSINCE unadvanced so the next tick retries.
   rm -f "$capture" "$REJECTION_STATE"
-  note_transient_outage "$sha" "improve handler killed with empty output (rc=$rc); leaving markers, retrying next tick"
+  note_transient_outage "$sha" "improve handler killed with empty output (rc=$rc); leaving markers, retrying after backoff"
   exit 0
 else
   out="$(tail -c 65536 "$capture" 2>/dev/null || true)"
@@ -278,7 +316,7 @@ else
   if is_transient_claude_signature "$out" || _fetch_stderr_is_offline "$out" \
      || printf '%s' "$out" | grep -qF 'no configured mentor inference provider was available'; then
     rm -f "$REJECTION_STATE"
-    note_transient_outage "$sha" "improve handler hit a transient outage; leaving markers, retrying next tick"
+    note_transient_outage "$sha" "improve handler hit a transient outage; leaving markers, retrying after backoff"
     exit 0
   fi
   # Past the transient checks: this tick reached the provider and got a real
