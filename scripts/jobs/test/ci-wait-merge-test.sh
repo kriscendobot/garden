@@ -70,6 +70,9 @@
 #   T43 rollup 403 + an in-progress Actions run → still waits (exit 4 at deadline)
 #   T44 rollup 403 AND Actions runs 403 → exit 1 ci-read-forbidden, never rc 4
 #   T45 a secondary-rate-limit 403 stays on the transient retry path (exit 4)
+#   T46 a concurrency-cancelled workflow run whose check names the later green run
+#      of the same workflow never emits (bare `test` vs `test (22.x, …)`) → green;
+#      a cancelled check in the NEWEST run still reads red
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -528,6 +531,16 @@ grep -q "ci-read-forbidden repo=o/r pr=93" "$STUBDIR/output" && ok "T44 names th
 echo "T45 secondary-rate-limit 403 → transient, keeps retrying to the deadline"
 reset_seq; seq_add "$PEND"; touch "$STUBDIR/rollup_ratelimited"
 GARDEN_CI_DEADLINE_SECS=1 run o/r 93 --no-merge; chk "$rc" 4 T45
+
+# endo-but-for-bots#1483 (2026-10-20): run 1 was cancelled before its matrix
+# expanded and reports a bare `test`; run 2 of the same workflow is green.
+in_run() { printf '{"__typename":"CheckRun","name":"%s","workflowName":"CI","status":"COMPLETED","conclusion":"%s","startedAt":"2026-10-20T00:25:42Z","detailsUrl":"https://github.com/o/r/actions/runs/%s/job/%s"}' "$1" "$2" "$3" "$4"; }
+echo "T46 superseded cancelled run with names the newer run never emits → green"
+reset_seq; seq_add "$(printf '{"state":"OPEN","mergeable":"MERGEABLE","headRefOid":"%s","statusCheckRollup":[%s,%s,%s]}' "$HEAD" "$(in_run test CANCELLED 1 401)" "$(in_run 'test (22.x, ubuntu-latest)' SUCCESS 2 402)" "$(in_run lint SUCCESS 2 403)")"
+run o/r 1483 --no-merge; chk "$rc" 0 T46
+echo "T46b cancelled check in the newest run still reads red"
+reset_seq; seq_add "$(printf '{"state":"OPEN","mergeable":"MERGEABLE","headRefOid":"%s","statusCheckRollup":[%s,%s]}' "$HEAD" "$(in_run lint SUCCESS 1 404)" "$(in_run test CANCELLED 2 405)")"
+run o/r 1483 --no-merge; chk "$rc" 3 T46b
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"

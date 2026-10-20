@@ -257,10 +257,27 @@ start="$(date +%s)"
 # the latest (a queued rerun reports a zero startedAt), then startedAt,
 # completedAt, and the Actions job id break ties. The ratchet shape check in
 # read_rollup still validates every entry.
+#
+# A concurrency group can also cancel a whole workflow run that a later run of the
+# same workflow on the same head replaced. The cancelled run may hold check names
+# the later run never emits (a matrix job cancelled before it expanded reports as
+# bare `test`, the later run as `test (22.x, ubuntu-latest)`), so dedup by name
+# alone keeps it red (endo-but-for-bots#1483, 2026-10-20). A CANCELLED check run
+# whose Actions run is older than another run of the same workflow in the rollup
+# is therefore dropped as superseded.
 # shellcheck disable=SC2016  # jq program — the $vars are jq's, not the shell's.
 LATEST_CHECKS_JQ='
+  def run_id:
+    ((.detailsUrl // .targetUrl // "") | capture("/actions/runs/(?<id>[0-9]+)").id // "0") | tonumber;
   def latest_checks:
-    [ .statusCheckRollup[]? ] | to_entries
+    [ .statusCheckRollup[]? ]
+    | (reduce (.[] | select(.workflowName != null)) as $e ({};
+        .[$e.workflowName] = ([(.[$e.workflowName] // 0), ($e | run_id)] | max))) as $newest
+    | map(select(
+        ((.conclusion // "") | ascii_upcase) != "CANCELLED"
+        or .workflowName == null
+        or run_id >= ($newest[.workflowName] // 0)))
+    | to_entries
     | group_by(.value
         | if (.__typename == "StatusContext") or (.name == null and .context != null)
           then ["status", (.context // "")]
