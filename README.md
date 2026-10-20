@@ -1,32 +1,27 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-20T03:31:23Z_
+_As of 2026-10-20T03:36:46Z_
 
 ## Latest
 
-Several minion.town merges landed: [#209](https://github.com/kriscendobot/minion.town/pull/209) merged and its deploy succeeded. [#207](https://github.com/kriscendobot/minion.town/pull/207) then merged and deployed green. The earlier [#204](https://github.com/kriscendobot/minion.town/pull/204) merge broke production, so the proxy paused screening and posted a heal job. The #209 merge was that heal, and its green deploy should clear the pause. The proxy also stalled on [#197](https://github.com/kriscendobot/minion.town/pull/197): three conductors finished without merging it, so it needs a look.
+Board activity was light this cycle: [endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) went into gauntlet panel round 2, and [endo-but-for-bots#1512](https://github.com/endojs/endo-but-for-bots/pull/1512) bounced its panel round 2 back to todo. Nothing completed.
 
-Several gauntlets ran out of review budget and need a human call: grant more rounds or merge by hand.
-- minion.town [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#184](https://github.com/kriscendobot/minion.town/pull/184) each spent 16 rounds, with 20 and 19 must-fix items still raised and no convergence.
-- minion.town [#178](https://github.com/kriscendobot/minion.town/pull/178) spent 12 rounds.
-- minion.town [#198](https://github.com/kriscendobot/minion.town/pull/198) is also out of budget. A fresh gauntlet on it stopped at 3 rounds with 20 must-fix items, and its CI is red, so a shepherd is queued.
-- minion.town [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202) each hit the 6-round cap.
-- endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) also hit the 6-round cap. #1478 has a panel round 2 queued, and a gauntlet for #1482 was just posted.
+The more important change is on [minion.town](https://github.com/kriscendobot/minion.town). [#207](https://github.com/kriscendobot/minion.town/pull/207) merged and its deploy succeeded, so proxy screening is active again after the earlier pause on [#204](https://github.com/kriscendobot/minion.town/pull/204). A fresh review-queue clip is published, ranking what to merge first. It puts the [#144](https://github.com/kriscendobot/minion.town/pull/144) coupons design first, then [#199](https://github.com/kriscendobot/minion.town/pull/199) and [#198](https://github.com/kriscendobot/minion.town/pull/198), which together gate the closed-beta flip.
 
-Open questions for the maintainer:
-- **Reconnect resume build:** the build for phase 4 of the OCapN-Noise session reconnect design refused to run. It contradicts [#1487](https://github.com/endojs/endo-but-for-bots/issues/1487), which retires Resume in favor of Rekey. Reply "build nonce-safe resume" if you still want a Resume path.
-- **Milestone M4:** the cryptographic review R2 awaits your answer to Q2 on [#1475](https://github.com/endojs/endo-but-for-bots/pull/1475).
-- **Milestone M2:** it waits on approval of [#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
-- **Daemon agent tools:** Phase 8 needs your answer to Open Question 4.
-- **Settings simplification:** the maintainer must run `deploy-accounts-store.sh` before merging it, and the four veto items stand unless you object.
-- **minion.town closed beta:** the review-queue clip is published and ranks [#144](https://github.com/kriscendobot/minion.town/pull/144) (coupons design), then [#199](https://github.com/kriscendobot/minion.town/pull/199) and [#198](https://github.com/kriscendobot/minion.town/pull/198), as the path to the coupon admission flip.
+Several gauntlets hit their review budget without converging and need a decision on granting more rounds:
+- minion.town [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#184](https://github.com/kriscendobot/minion.town/pull/184), 16 rounds each
+- minion.town [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202), 6 rounds each
+- endo-but-for-bots [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482), 6 rounds each
 
-Operations:
-- **Quota:** claude-endolin1 is over its 271M cap. The reset-credit watch expects codex-endolin to be reset Tuesday, and the claude-endolin1 projection is about 20Z that day.
-- **Rolling deploy:** it is stalled on the leader. endolin has sat at `b8abbe64` since 10-16, so check its rolling-deploy journal.
-- **Journal lock contention:** it is still noisy but recovering.
+**Other items waiting on the maintainer:**
+- Claude spend is at 113% of the endolin1 cap, and the reset-credit watch expects it to cross 90% around Tue 10-20 ~20Z.
+- The codex-endolin credit decision is also due within about a day.
+- The OCapN-Noise Phase 4 build was declined as self-contradictory. It needs your answer on the nonce-safe resume question, and R2 is blocked on Q2.
+- Phase 8 of the daemon agent tools design needs your call on Open Question 4.
+- Running `deploy-accounts-store.sh` is a precondition for merging the settings simplification.
+- An earlier message reported the leader deploy stalled on endolin at b8abbe64. Check whether it has since advanced.
+
+Journal lock-contention notices continue but mostly self-clear.
 
 ## Maintainer review docket
 
@@ -870,10 +865,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 306.1M | $1204.80 _(notional, rate-card)_ | 113% of 271.0M (ok) |
+| Claude | 306.4M | $1205.90 _(notional, rate-card)_ | 113% of 271.0M (ok) |
 | Codex | 79.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 91783539 tokens/day lower bound._
+_Fleet token-unlock pace: 91876572 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.406642s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 9 open notice(s); checker healthy
@@ -884,15 +879,15 @@ worst fetch p95 5.406642s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endojs-endo-but-for-bots-pr1514-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1514-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1514
 - [`screen-minion-town-pr198-5ea6269-conduct-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr198-5ea6269-conduct-r3.md) — Screened delegated merge: kriscendobot/minion.town#198 at 5ea626915dd62e50e5e...
 - [`endojs-endo-but-for-bots-pr1513-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1513-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1513
+- [`endojs-endo-but-for-bots-pr1512-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1512-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1512
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`build-endo-but-for-bots-endoclaw-timer-reminder-plugin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-but-for-bots-endoclaw-timer-reminder-plugin.md) — ---
-- [`endo-but-for-bots-pr1478-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-but-for-bots-pr1478-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1478
 - [`run-gauntlet-endo-but-for-bots-pr1482`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/run-gauntlet-endo-but-for-bots-pr1482.md) — ---
 - [`kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr201-screen-2a490c1d-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #201
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1507-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1507-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1507
-- [`endojs-endo-but-for-bots-pr1512-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1512-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1512
+- [`endo-but-for-bots-pr1478-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr1478-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1478
 
 ### tada (14167)
 - [`endojs-endo-but-for-bots-pr1513-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/endojs-endo-but-for-bots-pr1513-gauntlet-panel-1.md) — Cost
