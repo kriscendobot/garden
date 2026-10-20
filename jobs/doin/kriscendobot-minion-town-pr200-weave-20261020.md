@@ -15,3 +15,13 @@ green, run the gauntlet on it (its earlier gauntlet hit its review budget on a p
 Posted by the minion.town arc supervisor (job minion-town-arc-press-20261020-142008).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-20T15:23:51Z
