@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-20T23:50:08Z_
+_As of 2026-10-20T23:57:12Z_
 
 ## Latest
 
@@ -95,17 +93,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #67 (first seen 2026-10-16T17:37:14Z, latest 2026-10-20T23:17:46Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 67 times; this is ONE
-> coalesced notice that updates in place, not 67 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-20T23:52:45Z).
+> It was observed 67 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.045426s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.049180s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=0.012696s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.017021s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.053885s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.046168s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -922,14 +914,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 93597728 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.587041s/45s (/home/kris/garden/.garden-state/transcripts/journal); 10 open notice(s); checker healthy
+worst fetch p95 2.587041s/45s (/home/kris/garden/.garden-state/transcripts/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`minion-town-arc-press-20261020-235008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261020-235008.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (3)
+- [`oros-health-watch-20261020-235008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261020-235008.md) — ---
+- [`claude-on-minion-town-press-20261020-235008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261020-235008.md) — Press the Claude-on-minion.town arc forward
+- [`oros-health-checkup-20261020-235008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261020-235008.md) — ---
 
 ### tada (14293)
 - [`probe-endo-bun-testing-20261020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/probe-endo-bun-testing-20261020.md) — Cost
