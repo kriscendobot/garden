@@ -20,3 +20,13 @@ Blockers to investigate and report (the main deliverable is the gap report):
 - Rough economics: how many packages run green under Bun with minimal effort, and what the per-package conversion cost looks like.
 
 Stop once the picture is clear; deliver a structured gap report in the PR description.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-20T22:54:45Z
