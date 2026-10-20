@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1513-gauntlet-viability
+state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-10-20T01:42:11Z
 ---
