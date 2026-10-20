@@ -73,6 +73,7 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
