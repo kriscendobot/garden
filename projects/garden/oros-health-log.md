@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-20T17:45Z (oros-health-checkup-20261020-173518): healthy; deployed = origin/main2 `e2d0a90b`, no changes
+
+- **Load/mem:** load 2.60/2.57/2.83 with 4 monks running. 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 53% used (221G free); inodes 1%.
+- **Uptime:** 19d0h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `e2d0a90b`, the origin/main2 tip (0 behind). Self-deploy advanced at 16:56Z. fleet/health/oros (16:57:18Z): `roll_status: deployed`.
+- **Units:** 0 failed garden units. `garden-monk@1..4` are running. `hosts/oros` says `monks: 4`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros was last pushed at 17:32Z (about 13 minutes before this check). Status ok, 6.48M of 180M (about 4%). The last 5 pushes were all ok, at 16:32, 16:47, 17:03, 17:18 and 17:32Z.
+- **State clones:** the largest are gardener-scaler (48 packs), reaper (47) and transcripts (46), below the threshold of 50. No tmp_pack, no `gc.log`, and no git `.lock` files older than an hour. The root repo has 24 packs and no `gc.log`.
+- **rc=124 (3h):** none. There are no error-priority entries in the system journal.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-20T14:30Z (oros-health-checkup-20261020-142008): healthy; deployed `8a2b6a63`, 1 behind origin/main2 `3bab9998` (deploy deferring behind a long job), no changes
 
 - **Load/mem:** load 3.30/2.99/3.13 with 4 monks running. 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
