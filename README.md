@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-20T23:20:34Z_
+_As of 2026-10-20T23:24:59Z_
 
 ## Latest
 
@@ -928,16 +928,16 @@ worst fetch p95 2.809940s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`probe-endo-bun-testing-20261020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/probe-endo-bun-testing-20261020.md) — ---
+### doin (0)
+(none)
 
-### tada (14292)
+### tada (14293)
+- [`probe-endo-bun-testing-20261020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/probe-endo-bun-testing-20261020.md) — Cost
 - [`kriscendobot-minion-town-pr200-gauntlet-20261020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr200-gauntlet-20261020.md) — gauntlet kriscendobot-minion-town-pr200-gauntlet-20261020 — review budget rea...
 - [`kriscendobot-minion-town-pr200-gauntlet-20261020-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr200-gauntlet-20261020-fix-6.md) — Fix round 6 for kriscendobot/minion.town PR #200: pushed, CI green
 - [`kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet.md) — gauntlet kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet — review bud...
 - [`kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-fix-6.md) — Cost
-- [`oros-health-checkup-20261020-203519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/oros-health-checkup-20261020-203519.md) — Cost
-- … and 14287 more
+- … and 14288 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
