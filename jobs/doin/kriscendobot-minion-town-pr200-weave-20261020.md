@@ -13,3 +13,13 @@ Its base `feat/beta-home-splash-waitlist-bbf6c15` is #198's head; #198 merged to
 conflicts, force-push the head, and retarget the PR base. Leave it draft. Afterwards, if CI is
 green, run the gauntlet on it (its earlier gauntlet hit its review budget on a pre-merge base).
 Posted by the minion.town arc supervisor (job minion-town-arc-press-20261020-142008).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-20T14:42:03Z
