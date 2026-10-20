@@ -91,6 +91,23 @@ esac
 # remoteless worktree leaves it empty and the prompt falls back to the path alone.
 wt_repo="$(git -C "$wt" remote get-url origin 2>/dev/null \
   | sed -E 's#(git@|ssh://git@|https://)github\.com[:/]+##; s#\.git$##; s#/$##' || true)"
+# A fork-head PR's worktree has the FORK as origin (ensure-project-worktree keys
+# the checkout on the head owner), but the PR lives on the fork's parent: on
+# endo-but-for-bots#1514 every `gh pr view 1514 -R kriscendobot/...` failed, so
+# the PR-body probes ran blind, seats could not resolve sibling PRs, and the
+# review post died at the author preflight after the seats had all run.
+# GARDEN_PANEL_PR_REPO pins the PR's repo explicitly; otherwise, when the PR is
+# not on origin, fall back to origin's parent if the PR exists there.
+if [ -n "${GARDEN_PANEL_PR_REPO:-}" ]; then
+  wt_repo="$GARDEN_PANEL_PR_REPO"
+elif [ -n "$wt_repo" ] && ! "${GARDEN_PANEL_GH:-gh}" pr view "$pr" -R "$wt_repo" --json number >/dev/null 2>&1; then
+  wt_parent="$("${GARDEN_PANEL_GH:-gh}" repo view "$wt_repo" --json parent \
+    --jq '.parent | if . then "\(.owner.login)/\(.name)" else "" end' 2>/dev/null || true)"
+  if [ -n "$wt_parent" ] \
+    && "${GARDEN_PANEL_GH:-gh}" pr view "$pr" -R "$wt_parent" --json number >/dev/null 2>&1; then
+    wt_repo="$wt_parent"
+  fi
+fi
 
 # Per-run scratch: per-seat verdicts and the aggregated body land here on disk,
 # OUT of the supervisor's context window. The supervisor reads this dir only when
@@ -218,7 +235,9 @@ fi
 # BEST-EFFORT: a failed journal push WARNs and never fails the panel or blocks an
 # un-draft. Set GARDEN_PANEL_RECORD=: to skip it (tests that do not want a push).
 PANEL_RECORD_WRITER="${GARDEN_PANEL_RECORD:-$HERE/../panel-run-record.sh}"
-PANEL_RECORD_REPO="${GARDEN_PANEL_REPO:-}"
+# Key on the PR's repo (wt_repo, parent-resolved for a fork head) so a fork-head
+# PR's runs land beside its base repo's, not under the fork's slug.
+PANEL_RECORD_REPO="${GARDEN_PANEL_REPO:-$wt_repo}"
 if [ -z "$PANEL_RECORD_REPO" ]; then
   # Every remote-URL form git accepts must reduce to the SAME `<owner>/<repo>`,
   # because that string is the record's store key: a form the strip misses keys
