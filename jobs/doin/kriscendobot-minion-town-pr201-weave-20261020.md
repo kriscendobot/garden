@@ -23,3 +23,13 @@ reworked `minion-town.caddy`.
 
 Do NOT merge, and do not touch the open maintainer ruling (#85 direction, `designs/new-clip.md`
 Open questions). Watch CI to green with `scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 201 --no-merge`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-20T12:57:07Z
