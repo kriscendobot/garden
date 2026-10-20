@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-20T21:54:09Z_
+_As of 2026-10-20T22:01:14Z_
 
 ## Latest
 
@@ -388,6 +386,16 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > heartbeat and sysop control plane are available for oros-studio-garden-ce242c49 (heartbeat fresh (136s old; sampled_at_epoch=1792332168); no unlogged sysop operations); its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
+
+- `kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached.md)
+
+> Gauntlet kriscendobot-minion-town-pr200-gauntlet-20261020 REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr200-gauntlet-20261020 panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $14.79
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr200-gauntlet-20261020 panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
@@ -924,16 +932,16 @@ worst fetch p95 2.809940s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`kriscendobot-minion-town-pr200-gauntlet-20261020-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr200-gauntlet-20261020-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #200
+### doin (0)
+(none)
 
-### tada (14290)
+### tada (14292)
+- [`kriscendobot-minion-town-pr200-gauntlet-20261020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr200-gauntlet-20261020.md) — gauntlet kriscendobot-minion-town-pr200-gauntlet-20261020 — review budget rea...
+- [`kriscendobot-minion-town-pr200-gauntlet-20261020-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr200-gauntlet-20261020-fix-6.md) — Fix round 6 for kriscendobot/minion.town PR #200: pushed, CI green
 - [`kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet.md) — gauntlet kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet — review bud...
 - [`kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-fix-6.md) — Cost
 - [`oros-health-checkup-20261020-203519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/oros-health-checkup-20261020-203519.md) — Cost
-- [`oros-health-watch-20261020-203519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/oros-health-watch-20261020-203519.md) — Cost
-- [`kriscendobot-minion-town-pr200-gauntlet-20261020-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/20/kriscendobot-minion-town-pr200-gauntlet-20261020-panel-6.md) — Cost
-- … and 14285 more
+- … and 14287 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
