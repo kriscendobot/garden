@@ -10801,6 +10801,7 @@ role_default_handler_timeout() {
     review)              printf '%s\n' "${GARDEN_REVIEW_HANDLER_TIMEOUT:-7200}" ;;
     panel)               printf '%s\n' "${GARDEN_PANEL_HANDLER_TIMEOUT:-7200}" ;;
     botanist)            printf '%s\n' "${GARDEN_BOTANIST_HANDLER_TIMEOUT:-7200}" ;;
+    weaver)              printf '%s\n' "${GARDEN_WEAVER_HANDLER_TIMEOUT:-7200}" ;;
     *)                   printf '%s\n' "${GARDEN_HANDLER_TIMEOUT:-2400}" ;;
   esac
 }

@@ -43,6 +43,7 @@ mk review      'handler-budget-role: review'
 mk panel       'role: gardener
 gauntlet_stage: panel'
 mk botanist    'role: botanist'
+mk weaver      'role: weaver'
 mk shepherd    'role: shepherd'
 
 [ "$(job_handler_budget_base "$TMP/builder.md")" = 7200 ] \
@@ -63,6 +64,15 @@ mk shepherd    'role: shepherd'
   && ok "panel stage defaults to 7200s" || bad "panel base wrong"
 [ "$(job_handler_budget_base "$TMP/botanist.md")" = 7200 ] \
   && ok "botanist defaults to 7200s" || bad "botanist base wrong"
+# A weave rebases, resolves conflicts, and re-verifies a whole PR stack; the
+# generic 2400s wall deterministically killed the PR #201 weave (2026-10-20).
+[ "$(job_handler_budget_base "$TMP/weaver.md")" = 7200 ] \
+  && ok "weaver defaults to 7200s" || bad "weaver base = $(job_handler_budget_base "$TMP/weaver.md")"
+[ "$(GARDEN_WEAVER_HANDLER_TIMEOUT=5000 job_handler_budget_base "$TMP/weaver.md")" = 5000 ] \
+  && ok "GARDEN_WEAVER_HANDLER_TIMEOUT configures the weaver default" || bad "weaver knob ignored"
+[ "$(applied_handler_budget "$TMP/weaver.md")" = 7200 ] \
+  && ok "weaver applied budget (gardener/reaper/nudge) is 7200s" \
+  || bad "weaver applied budget = $(applied_handler_budget "$TMP/weaver.md")"
 [ "$(job_handler_budget_base "$TMP/shepherd.md")" = 7200 ] \
   && ok "shepherd defaults to 7200s" || bad "shepherd base wrong"
 

@@ -169,6 +169,7 @@ The canonical table is `role_default_handler_timeout` in `common.sh`:
 | review directive | `GARDEN_REVIEW_HANDLER_TIMEOUT` | 7200 s |
 | panel / repanel | `GARDEN_PANEL_HANDLER_TIMEOUT` | 7200 s |
 | `botanist` | `GARDEN_BOTANIST_HANDLER_TIMEOUT` | 7200 s |
+| `weaver` | `GARDEN_WEAVER_HANDLER_TIMEOUT` | 7200 s |
 | every other role/stage | `GARDEN_HANDLER_TIMEOUT` | 2400 s |
 
 Review directives carry `handler-budget-role: review`; gauntlet stage jobs carry
