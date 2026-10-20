@@ -25,3 +25,13 @@ Do NOT merge, and do not touch the open maintainer ruling (#85 direction, `desig
 Open questions). Watch CI to green with `scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 201 --no-merge`.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-20T13:43:17Z
