@@ -1,23 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-20T19:16:16Z_
+_As of 2026-10-20T19:30:39Z_
 
 ## Latest
 
-Several minion.town PRs hit their review budget without converging and now need a maintainer call: [#201](https://github.com/kriscendobot/minion.town/pull/201), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#202](https://github.com/kriscendobot/minion.town/pull/202), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#180](https://github.com/kriscendobot/minion.town/pull/180) and [#178](https://github.com/kriscendobot/minion.town/pull/178). #180 and #184 are the most worrying, with 16 rounds spent and about 20 must-fix items still raised each time. Each message offers `--add-rounds 2`. Two of these are in more fix and panel rounds right now (#200 and #201). Endo [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482) and [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) also exhausted 6 rounds.
+Several minion.town PRs hit the gauntlet's review budget with the panel still not converging, so they now wait on a maintainer decision to grant more rounds or review by hand. They are [#178](https://github.com/kriscendobot/minion.town/pull/178), [#180](https://github.com/kriscendobot/minion.town/pull/180), [#184](https://github.com/kriscendobot/minion.town/pull/184), [#198](https://github.com/kriscendobot/minion.town/pull/198), [#199](https://github.com/kriscendobot/minion.town/pull/199), [#200](https://github.com/kriscendobot/minion.town/pull/200), [#201](https://github.com/kriscendobot/minion.town/pull/201) and [#202](https://github.com/kriscendobot/minion.town/pull/202). Two endo-but-for-bots PRs did the same: [#1478](https://github.com/endojs/endo-but-for-bots/pull/1478) and [#1482](https://github.com/endojs/endo-but-for-bots/pull/1482). Rounds spent run from 3 to 16, and the #180 and #184 panels are still turning up about 20 new must-fix items each round. Fix round 4 is in flight for #200 and #201.
 
-The proxy merged and deployed minion.town [#198](https://github.com/kriscendobot/minion.town/pull/198), [#207](https://github.com/kriscendobot/minion.town/pull/207) and [#209](https://github.com/kriscendobot/minion.town/pull/209). Each deploy succeeded and was validated. Screening resumed after the earlier #204 deploy break. [#197](https://github.com/kriscendobot/minion.town/pull/197) is stalled, because three conductors finished without merging it.
+Proxy screening kept moving: [#198](https://github.com/kriscendobot/minion.town/pull/198) merged and its deploy was validated. [#207](https://github.com/kriscendobot/minion.town/pull/207) also merged and validated. [#197](https://github.com/kriscendobot/minion.town/pull/197) is flagged stalled after three conductors finished without merging it.
 
-Decisions waiting on the maintainer:
-- **Claude quota:** claude-endolin1 is projected to cross 90% around Tue 10-20 ~20Z, and it has no reset credit. The dashboard shows 130% of the backoff cap. The reset-credit watch also asks you to confirm codex's credit count and use one Tuesday.
-- **Endo ocapn-noise Phase 4:** the build refused to run because the job contradicts the Rekey-only design. Reply "build nonce-safe resume" if you want a Resume path.
-- **Endo daemon agent tools:** Phase 8 is blocked on your answer to Open Question 4, `provideHttpClient` formula or `@endo/fetch` plugin.
-- **Endo M2:** [#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) may be superseded by the upstream fix #3372.
-- **minion.town settings simplification:** run `deploy-accounts-store.sh` before merging, and say if you veto any of the four listed choices.
-- **Endo zip:** an investigation recommends not adding native-Node ZIP fall-through.
-- **Oros:** the oros monk was restarted and is claiming work again. The earlier leader-deploy stall report (endolin held at b8abbe64) was never confirmed resolved.
+Messages that need a decision:
+- **Beta deploy step:** `deploy-accounts-store.sh` must run before the settings-simplify work merges. Until then, Log out stays hidden and account deletion answers 503.
+- **Reset credit:** the reset-credit watch asks you to use the codex-endolin credit today. It also expects claude-endolin1 to cross 90% around 20Z with no credit available.
+- **Resume build:** the Noise session-reconnect Phase 4 build was declined as contradicting the Rekey-only contract in [#1487](https://github.com/endojs/endo-but-for-bots/issues/1487). The reply "build nonce-safe resume" would post a new build job.
+- **Daemon HTTP client:** Phase 8 of the daemon agent tools design waits on your answer to Open Question 4, `provideHttpClient` or `@endo/fetch`.
+- **Foreman milestone M2:** it is still blocked on [#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), where an approved upstream fix (#3372) may supersede it.
+- **Oros leader deploy:** an earlier health check found the leader stuck at an old deploy.
 
-The remaining messages are routine watchdog notices. Most are journal-contention recoveries, plus budget-level worker changes.
+The board is quiet: one job in todo and two gauntlet fix rounds in doin. The Claude pool is at 130% of its backoff quota. Journal lock-contention notices from oros keep recurring, but almost all of them are low-latency and self-clearing.
 
 ## Maintainer review docket
 
@@ -90,11 +89,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-20T18:39:19Z).
-> It was observed 62 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #63 (first seen 2026-10-16T17:37:14Z, latest 2026-10-20T19:29:09Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 63 times; this is ONE
+> coalesced notice that updates in place, not 63 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.256174s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.045351s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.059830s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.030560s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=33.274682s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.049285s, giveups=1, steals=1 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -873,11 +878,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-10-17T06:44:40Z, latest 2026-10-20T12:49:31Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-10-17T06:44:40Z, cleared 2026-10-20T19:18:39Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.117565s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` cleared on oros-studio-garden-ce242c49.
 
 
 ## Spend & quota
@@ -885,10 +890,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 352.5M | $1384.82 _(notional, rate-card)_ | 130% of 271.0M (backoff) |
-| Codex | 98.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Claude | 352.9M | $1386.65 _(notional, rate-card)_ | 130% of 271.0M (backoff) |
+| Codex | 99.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 94173710 tokens/day lower bound._
+_Fleet token-unlock pace: 94192817 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 14.072175s/45s (unknown); 8 open notice(s); checker healthy
