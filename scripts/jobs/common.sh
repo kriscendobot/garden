@@ -491,6 +491,9 @@ export GARDEN
 # GARDEN_LEADER, when set in the environment, short-circuits the journal read
 # (operator/test override).
 : "${GARDEN_LEADER_MARKER_PATH:=leader}"
+# The leader clone is fetch-only (read via origin/journal2:<path>); its working
+# tree stays at clone time, so tree-reading config lookups must never fall back to
+# it (oros 2026-10-21: three days and 5,792 commits stale).
 : "${GARDEN_LEADER_CLONE:=$GARDEN_STATE/leader/journal}"
 : "${GARDEN_LEADER_CACHE:=$GARDEN_STATE/leader/cached}"
 # Seconds the cached leader identity is trusted before a fresh journal read; keeps
@@ -9905,7 +9908,7 @@ _openrouter_promos_file() {
   if [ -n "${GARDEN_OPENROUTER_PROMOS_FILE:-}" ]; then printf '%s\n' "$GARDEN_OPENROUTER_PROMOS_FILE"; return 0; fi
   local d f
   for d in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
-           "${GARDEN_LEADER_CLONE:-}" "$GARDEN_ROOT/journal"; do
+           "$GARDEN_ROOT/journal"; do
     [ -n "$d" ] || continue
     f="$d/$GARDEN_OPENROUTER_PROMOS_PATH"
     [ -s "$f" ] && { printf '%s\n' "$f"; return 0; }
@@ -10390,7 +10393,7 @@ _model_routing_table() {
   #    tree (no new clone/fetch — whichever the current caller kept fresh).
   local d f
   for d in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
-           "${GARDEN_LEADER_CLONE:-}" "$GARDEN_ROOT/journal"; do
+           "$GARDEN_ROOT/journal"; do
     [ -n "$d" ] || continue
     f="$d/$GARDEN_MODEL_ROUTING_PATH"
     [ -s "$f" ] && { cat "$f" 2>/dev/null && return 0; }
@@ -10971,7 +10974,7 @@ kimi_fallback_enabled() {
     v="$GARDEN_KIMI_FALLBACK_ENABLED"
   else
     for d in "${1:-}" "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
-             "${GARDEN_LEADER_CLONE:-}" "${GARDEN_REAPER_CLONE:-}" "$GARDEN_ROOT/journal"; do
+             "${GARDEN_REAPER_CLONE:-}" "$GARDEN_ROOT/journal"; do
       [ -n "$d" ] || continue
       f="$d/$GARDEN_KIMI_FALLBACK_PATH"
       [ -s "$f" ] && { v="$(head -1 "$f" 2>/dev/null || true)"; break; }
