@@ -17,3 +17,13 @@ Task:
 5. Decide whether the execution-only Bun CI job should stay required, advisory (non-blocking), or be gated to the green packages. Recommend with evidence.
 
 Time-boxed; the deliverable is evidence and a recommendation.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-21T05:28:49Z
