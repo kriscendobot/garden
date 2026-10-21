@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T11:35:23Z_
+_As of 2026-10-21T11:40:38Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-155 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+156 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -59,22 +57,6 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration mt-beta-product-pass-20261017 complete (serial): all 4 children reached tada without a machine-readable failure declaration.
-
-- `msg-kriscendobot-minion.town-pr210-gauntlet-fix-6-1e7ba574eb28` — from gardener:kriscendobot-minion.town-pr210-gauntlet-fix-6, reply_to `kriscendobot-minion.town-pr210-gauntlet-fix-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr210-gauntlet-fix-6-1e7ba574eb28.md)
-
-> [kriscendobot/minion.town#210](https://github.com/kriscendobot/minion.town/issues/210) (guest-agent last-active) needs a design decision before another gauntlet round.
->
-> The panel-6 decomplector raised a must-fix that the fix stage can't settle on its own. Your [kriscendobot/minion.town#199](https://github.com/kriscendobot/minion.town/issues/199) ask was "based on any use of the agent/guest exo". The PR instead stamps at the app's two seams (GuestService for MCP, GuestWebService for /api/guest) and stores the stamps in a reserved partition of the shared DynamoDB accounts table. Two consequences:
-> - A guest used directly through its OCapN locator is never stamped.
-> - Sharing the accounts table has cost several rounds of IAM Deny hardening.
->
-> The options it gives:
->   (1) Record activity inside the daemon, on the guest formula the root agent already enumerates (EndoHost.provideGuest). This drops the DynamoDB writer and the IAM migration, and the [kriscendobot/minion.town#144](https://github.com/kriscendobot/minion.town/issues/144) sealed guest query can read the stamps directly. It is the biggest rewrite.
->   (2) Move the stamps to a dedicated DynamoDB table whose app grant is UpdateItem only.
->   (3) Keep the current design and accept the seam-only coverage.
->
-> Fix-6 applied the other panel items (filtered `set-account-role.sh list`, trimmed docs and the PR body). It did not redesign anything. Which option do you want?
-> Review: [https://github.com/kriscendobot/minion.town/pull/210](https://github.com/kriscendobot/minion.town/pull/210)#pullrequestreview-5598603906
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
@@ -244,6 +226,16 @@ Delegation: **active**
 >    Tell me if you object to any of them. If you don't, they stand.
 >
 > 3. **Invitation count.** This waits on #199 adding a per-holder count. I'm not acting on it yet, since the dependency hasn't landed. Tell me if you want it tracked on a schedule instead.
+
+- `kriscendobot-minion.town-pr210-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr210-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr210-gauntlet-review-budget-reached.md)
+
+> Gauntlet kriscendobot-minion.town-pr210-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr210-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $10.14
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr210-gauntlet panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -957,16 +949,16 @@ worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegat
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`kriscendobot-minion.town-pr210-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr210-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #210
+### doin (0)
+(none)
 
-### tada (14380)
+### tada (14382)
+- [`kriscendobot-minion.town-pr210-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet.md) — gauntlet kriscendobot-minion.town-pr210-gauntlet — review budget reached
+- [`kriscendobot-minion.town-pr210-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-fix-6.md) — Cost
 - [`shepherd-endo-but-for-bots-pr1483-heartbeat-capability-bit-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/shepherd-endo-but-for-bots-pr1483-heartbeat-capability-bit-ci.md) — Cost
 - [`endojs-endo-but-for-bots-pr1519-gauntlet-fix-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1519-gauntlet-fix-1-pr-body.md) — Cost
 - [`oros-health-watch-20261021-092010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/oros-health-watch-20261021-092010.md) — Cost
-- [`screen-minion-town-pr200-088b84a-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/screen-minion-town-pr200-088b84a-conduct.md) — Cost
-- [`kriscendobot-minion.town-pr210-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-panel-6.md) — Panel round 6 on kriscendobot/minion.town PR #210: must-fix
-- … and 14375 more
+- … and 14377 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
