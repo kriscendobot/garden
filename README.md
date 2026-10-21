@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T02:29:15Z_
+_As of 2026-10-21T02:35:41Z_
 
 ## Latest
 
@@ -920,7 +918,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 355.3M | $1395.89 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
-| Codex | 113.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
+| Codex | 114.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92613286 tokens/day lower bound._
 
