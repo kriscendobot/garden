@@ -34,6 +34,8 @@ https://github.com/kriscendobot/minion.town/pull/144#discussion_r4333035650
 https://github.com/kriscendobot/minion.town/pull/144#pullrequestreview-5594963376.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
