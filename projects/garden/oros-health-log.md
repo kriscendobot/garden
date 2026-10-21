@@ -2,6 +2,20 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-21T19:25Z (oros-health-checkup-20261021-183508): healthy; deployed = origin/main2 `b577f3cd`; a fix for one-tick live-spend undercounts landed (`f9d731f5`)
+
+- **Load/mem:** load 2.83/3.21/3.21 at 18:56Z. 3 monks are running. 12.4 GiB of 15.6 GiB available. Swap is 1 GiB of 1 GiB used, full but flat (page cache).
+- **Disk/inodes:** 7% of the overlay used (403G free); inodes 1%.
+- **Uptime:** 20d01h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `b577f3cd` (deployed 16:50Z), which is the origin/main2 tip at the check. It includes the previous run's `4d57b792` and `1205fd4b`. fleet/health/oros (16:51:39Z): `roll_status: deployed`, 0 of 289 units failed. This run's `f9d731f5` is pending a roll.
+- **Units:** 0 failed garden units and 0 `NeedDaemonReload=yes` (289 checked). `garden-monk@1..3` are running. `hosts/oros` says `monks: 3`. No drain and no derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 18:48:07Z and pushed at 18:48:21Z. Status ok. Every 15-minute push since 17:18Z succeeded. **Anomaly:** the 18:32Z snapshot published spend **20.3M** between 33.4M (18:18Z) and 35.0M (18:48Z). The 2026-10-20 21:03Z snapshot published **0** between 9.0M and 11.1M. Each is a single-tick undercount of a total that only grows within the window. There is no seven-day rejection in the logs, so the entitlement cutoff did not move. A manual scan now reads 35.1M in 5.5s over 620 files, with jq/xargs exit 0. The undercount is in the permissive direction (more headroom). The root cause was not isolated; a suspect is an incomplete virtiofs readdir or a killed scan under load. 18:32Z was also when `garden-library-link-scan` hit its 600s self-heal bound. That fix is `f9d731f5`, with a test: a reading below the last published spend for the same window is re-measured once, and the larger reading is published.
+- **State clones:** 81 journal clones. The largest are fork-watch and reaper (47 packs each) and regenerate-sections-index (40), all below the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. The transcripts clone has no tmp_pack.
+- **rc=124 (3h):** one, `garden-library-link-scan` at 18:32Z (exceeded SELF_HEAL_HANDLER_TIMEOUT=600s). That is isolated: hourly runs since 08:27Z finished in about 1 minute of CPU. None in the journal.
+- **Changed:** landed `f9d731f5`. Nothing else needed on the host.
+- **Pre-existing test failures (same on unmodified main2):** `budget-live-percent-label-test.sh` (the weekly-tokens commit message reads `ok` where the test expects `backoff`) and `live-budget-admission-test.sh` (4 FAILs). `budget-snapshot-publish-retry-test.sh` passes but takes 7m10s under load.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-21T16:30Z (oros-health-checkup-20261021-153508): healthy; deployed = `fd6f8a87` (origin/main2 tip at the check); transcripts clone repacked 75 → 2 packs; two maintenance and config fixes landed (`4d57b792`, `1205fd4b`)
 
 - **Load/mem:** load 3.80/3.28/3.38 at 15:40Z, and 4.25/4.14/3.94 by 16:30Z. 3 monks are running. 11 to 13 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat (page cache).
