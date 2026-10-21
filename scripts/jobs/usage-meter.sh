@@ -1152,6 +1152,27 @@ _budget_publish_legacy_local_pool_once() {
   return 1
 }
 
+# _budget_spend_regression_recheck <snapshot> <window-start> <spend> <pool> <dir>
+# — print the spend to publish. Within one window the session-log total only
+# grows (retired transcripts outlive the window), so a reading below the last
+# published spend for the same window_start_epoch is suspect: oros published
+# 0 (2026-10-20 21:03Z) and 20.3M between 33.4M and 35.0M (2026-10-21 18:32Z),
+# one-tick undercounts that the next tick erased. Re-measure once and publish the
+# larger reading; a scan can miss files but never invents tokens, and a genuine
+# drop (an entitlement boundary) reads low both times and still publishes.
+_budget_spend_regression_recheck() {
+  local file="$1" cutoff="$2" spend="$3" pool="$4" dir="$5" old_window old_spend again
+  old_window="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+  old_spend="$(sed -n 's/^spend:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+  if [ "$old_window" = "$cutoff" ] && [[ "$old_spend" =~ ^[0-9]+$ ]] \
+    && [[ "$spend" =~ ^[0-9]+$ ]] && [ "$spend" -lt "$old_spend" ]; then
+    again="$(meter_subscription_window_total "$pool" "$dir" 2>/dev/null)" || again=""
+    log "WARN: $pool spend reading $spend is below the published $old_spend for window $cutoff; re-measured ${again:-unknown}"
+    if [[ "$again" =~ ^[0-9]+$ ]] && [ "$again" -gt "$spend" ]; then spend="$again"; fi
+  fi
+  printf '%s\n' "$spend"
+}
+
 _budget_publish_local_pool_once() {
   local dir="$1" context_file="${2:-}" pool row provider kind cap mapping root
   local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs label
@@ -1191,6 +1212,7 @@ _budget_publish_local_pool_once() {
       case "$provider:$kind" in
         anthropic:weekly-tokens)
           spend="$(meter_subscription_window_total "$pool" "$dir")" || continue
+          spend="$(_budget_spend_regression_recheck "$file" "$cutoff" "$spend" "$pool" "$dir")"
           used_percent="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
           ;;
         openai:percent)
