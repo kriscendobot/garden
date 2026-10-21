@@ -16,5 +16,11 @@
   "ci": {
     "state": "pending",
     "observed_at": "2026-10-21T05:19:00Z"
+  },
+  "retirement": {
+    "kind": "terminal",
+    "repo": "kriscendobot/minion.town",
+    "at": "2026-10-21T05:32:22Z",
+    "state": "MERGED"
   }
 }
