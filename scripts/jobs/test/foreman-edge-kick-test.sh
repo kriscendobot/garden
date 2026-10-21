@@ -66,11 +66,11 @@ run_complete() {
   printf '%s\n' "$rc"
 }
 
-verify_tada() {  # verify_tada <bare> <base> → 0 if job is in tada/ and gone from doin/
+verify_tada() {  # verify_tada <bare> <base> → 0 if job is in (date-sharded) tada/ and gone from doin/
   local bare="$1" base="$2" v; v="$(mktemp -d)"
   git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
   local r=1
-  [ -f "$v/jobs/tada/$base.md" ] && [ ! -e "$v/jobs/doin/$base.md" ] && r=0
+  [ -n "$(find "$v/jobs/tada" -name "$base.md" -type f 2>/dev/null | head -1)" ] && [ ! -e "$v/jobs/doin/$base.md" ] && r=0
   rm -rf "$v"; return "$r"
 }
 

@@ -276,14 +276,21 @@ for attempt in $(seq 1 100); do
   # git rm below), because rep_resolve_arm/work_class/target read it.
   record_reputation_event || true
 
-  [ -e "$DIR/$JOBS_DOIN/$base.md" ] && git -C "$DIR" rm -q "$JOBS_DOIN/$base.md"
-  [ -e "$DIR/work/$base" ]       && git -C "$DIR" rm -q "work/$base"
+  # Every `git rm` here forces (-f). These paths belong to this base alone and end
+  # with the job; their durable content is on origin/$JOURNAL_BRANCH, and the
+  # sync_clone above just hard-reset them to it. Without -f, git refuses a path
+  # whose work-tree copy it judges modified, and on the virtiofs-backed worker
+  # clone it can misjudge a file the reset has just rewritten (an unchanged empty
+  # inbox .gitkeep on oros 2026-10-21) — rc=1 here crashed garden-monk and
+  # stranded the job in doin.
+  [ -e "$DIR/$JOBS_DOIN/$base.md" ] && git -C "$DIR" rm -qf "$JOBS_DOIN/$base.md"
+  [ -e "$DIR/work/$base" ]       && git -C "$DIR" rm -qf "work/$base"
   # Sweep this base's transient bid files: the auction is decided, the job is done.
   # The winning/losing bid summary is already folded into the reputation event's
   # audit fields (§3.2 cleanup), so the raw bid files are no longer needed.
-  [ -d "$DIR/$(auction_bid_dir "$base")" ] && git -C "$DIR" rm -rq "$(auction_bid_dir "$base")" 2>/dev/null || true
+  [ -d "$DIR/$(auction_bid_dir "$base")" ] && git -C "$DIR" rm -rqf "$(auction_bid_dir "$base")" 2>/dev/null || true
   # destroy this job doer's inbox; its lifetime ends with the job.
-  [ -d "$DIR/inbox/$base" ]      && git -C "$DIR" rm -rq "inbox/$base"
+  [ -d "$DIR/inbox/$base" ]      && git -C "$DIR" rm -rqf "inbox/$base"
   # Capture the return with `|| rc=$?` (NOT `rc=$?` after an `if`): a false `if`
   # with no `else` has exit status 0, which would swallow commit_and_push's rc=2
   # "nothing to commit" (the idempotent re-run) and burn the whole retry loop.
