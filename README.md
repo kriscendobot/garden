@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T18:05:00Z_
+_As of 2026-10-21T18:10:46Z_
 
 ## Latest
 
@@ -1005,17 +1003,16 @@ worst fetch p95 4.771410s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`screen-minion-town-pr213-c511a23-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr213-c511a23-conduct.md) — Screened delegated merge: kriscendobot/minion.town#213 at c511a23fd7c917fbc56...
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1524-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1524
-- [`endojs-endo-but-for-bots-pr1523-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1523-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1523
 
-### tada (14437)
+### tada (14438)
+- [`endojs-endo-but-for-bots-pr1523-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1523-gauntlet-clean.md) — Gauntlet CLEAN stage: endojs/endo-but-for-bots#1523, done with CI green
 - [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-undraft.md) — Cost
 - [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet.md) — gauntlet kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet — complete
 - [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1524-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1524-gauntlet-viability.md) — Cost
-- … and 14432 more
+- … and 14433 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
