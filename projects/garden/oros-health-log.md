@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-21T06:20Z (oros-health-checkup-20261021-060521): healthy; deployed = origin/main2 `e2d0a90b`, no changes
+
+- **Load/mem:** load 3.22/3.13/3.10 with 4 monks (5 live `claude -p` including this job). 9.6 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 51% used (230G free); inodes 1%.
+- **Uptime:** 19d13h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `e2d0a90b`, the origin/main2 tip (0 behind). fleet/health/oros (2026-10-20 16:57:18Z): `roll_status: deployed`.
+- **Units:** 0 failed garden units. `NeedDaemonReload=no`. `garden-monk@1..4` are running. `hosts/oros` says `monks: 4`. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros was last pushed at 06:01:52Z (about 10 minutes before this check). Status ok, 13.6M of 180M (about 8%). The pushes at 05:02, 05:17, 05:32, 05:47 and 06:01Z were all ok.
+- **State clones:** the largest are monks/3 and gauntlet (49 packs each) and reaper (47), below the threshold of 50. No tmp_pack and no `gc.log`. The `.lock` files older than 10 minutes are persistent flock files, not git locks. The root repo is down to 9 packs (48 at 03:20Z), so git's automatic gc ran, and there is no `gc.log`.
+- **rc=124 (3h):** two, both benign. At 04:09Z the triager for kriscendobot/endo-but-for-bots hit its 600s self-heal bound once. At 05:05Z monk/3's posted-follow-up gate blocked `build-minion-town-agent-last-active` after 930s, because the job described a follow-up but did not post it. The gate reports that as rc=124 so the job requeues. It did, and endolin claimed it at 05:43Z. There are no error-priority entries.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-21T03:20Z (oros-health-checkup-20261021-030508): healthy; deployed = origin/main2 `e2d0a90b`, no changes
 
 - **Load/mem:** load 3.62/3.19/3.17 with 4 monks (3 live `claude -p`). 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
