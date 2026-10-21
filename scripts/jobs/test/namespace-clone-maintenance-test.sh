@@ -102,4 +102,36 @@ GARDEN_STATE="$TR/state" \
 ! grep -q 'notrepo' "$TR/transcripts.err" \
   || { echo 'FAIL: a non-repo */journal dir was treated as a clone'; cat "$TR/transcripts.err"; exit 1; }
 
+# The repack must not inherit the fleet git wrapper's short per-call bound
+# (GARDEN_REPO_GIT_TIMEOUT): a big clone's repack outlives it and was killed on
+# every pass. Model it with a 1s bound and a real git that takes 3s to repack.
+# hash -r: once git is hashed, type -aP reports only the hashed (wrapper) path.
+hash -r
+real_git=""
+while IFS= read -r candidate; do
+  case "$candidate" in */scripts/jobs/bin/git) continue ;; esac
+  real_git="$candidate"; break
+done < <(type -aP git)
+printf '#!/bin/bash\ncase " $* " in *" repack "*) sleep 3 ;; esac\nexec %q "$@"\n' \
+  "$real_git" > "$TR/slow-git"
+chmod +x "$TR/slow-git"
+for i in 4 5; do
+  echo "$i" > "$TR/state/transcripts/clone/f$i"
+  git -C "$TR/state/transcripts/clone" add "f$i"
+  git -C "$TR/state/transcripts/clone" -c user.name=t -c user.email=t@t commit -qm "$i"
+  git -C "$TR/state/transcripts/clone" repack -q
+done
+[ "$(find "$tpack" -name 'pack-*.pack' | wc -l)" -ge 2 ] \
+  || { echo 'FAIL: slow-repack fixture did not build multiple packs'; exit 1; }
+GARDEN_REAL_GIT="$TR/slow-git" \
+  GARDEN_REPO_GIT_TIMEOUT=1 \
+  GARDEN_STATE="$TR/state" \
+  GARDEN_NS_CLONE_JITTER=0 \
+  GARDEN_NS_CLONE_PACK_THRESHOLD=1 \
+  GARDEN_NS_CLONE_NOTICE=/bin/true \
+  GARDEN_CONTENTION_INSTRUMENT=0 \
+  "$JOBS/namespace-clone-maintenance.sh" 2>"$TR/slow.err"
+[ "$(find "$tpack" -name 'pack-*.pack' | wc -l)" -eq 1 ] \
+  || { echo 'FAIL: repack was cut off by the per-call git bound'; cat "$TR/slow.err"; exit 1; }
+
 echo 'PASS: soft clone-lock contention is coalesced and maintenance failures stay visible'

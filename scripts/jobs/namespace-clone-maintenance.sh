@@ -65,7 +65,13 @@ maintain_one() {
   n="$(pack_count "$gitdir")"
   if [ "$n" -gt "$GARDEN_NS_CLONE_PACK_THRESHOLD" ]; then
     log "$clone: $n packs > $GARDEN_NS_CLONE_PACK_THRESHOLD; repacking"
-    if timeout "$GARDEN_NS_CLONE_REPACK_TIMEOUT" nice -n 19 ionice -c3 \
+    # The fleet git wrapper (scripts/jobs/bin/git, on PATH via common.sh) bounds
+    # each call by GARDEN_REPO_GIT_TIMEOUT (120s), which capped this repack well
+    # under the outer timeout: oros's 3.7 GB transcripts clone failed every
+    # hourly pass at exactly 120s (2026-10-21). Raise the inner bound to match.
+    if timeout "$GARDEN_NS_CLONE_REPACK_TIMEOUT" \
+         env GARDEN_REPO_GIT_TIMEOUT="$GARDEN_NS_CLONE_REPACK_TIMEOUT" \
+         nice -n 19 ionice -c3 \
          git -C "$clone" repack -a -d -q >/dev/null 2>&1; then
       log "$clone: repacked $n -> $(pack_count "$gitdir") pack(s)"
     else
