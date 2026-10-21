@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-21T09:50Z (oros-health-checkup-20261021-092010): healthy; deployed = origin/main2 `e2d0a90b`; one daemon-reload, one stale tmp_pack removed
+
+- **Load/mem:** load 2.01/1.78/2.28 with 3 monks (2 live `claude -p` including this job). 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (404G free). The virtiofs garden mount is 51% used (227G free); inodes 1%.
+- **Uptime:** 19d16h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `e2d0a90b`, the origin/main2 tip (0 behind). fleet/health/oros (2026-10-20 16:57:18Z): `roll_status: deployed`, 0 of 290 units failed.
+- **Units:** 0 failed garden units. `hosts/oros` went from `monks: 4` to `monks: 3` at 08:21Z (a bot commit, not this job). The scaler applied it at 08:58Z and stopped `garden-monk@4` at 09:01Z. That left 151 garden units flagged `NeedDaemonReload=yes`. One `systemctl --user daemon-reload` cleared the flag. Not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros was last pushed at 09:32:06Z (about 12 minutes before this check). Status ok, 19.7M of 180M (about 11%). The pushes at 08:18, 08:33, 08:47, 09:02, 09:18 and 09:32Z were all ok.
+- **State clones:** leader/journal is at 50 packs, which equals the threshold of 50 but does not exceed it. The 10:37Z namespace-clone-maintenance pass will repack it once it goes over. monks/1 has 48 and reaper has 47. No `gc.log`. There was one stale `tmp_pack` (45 MB, from 2026-10-16) in `transcripts/clone`, which namespace-clone-maintenance does not scan. No git process was using it, so it was removed. The `.lock` files older than 10 minutes are persistent flock files. The root repo has 20 packs and no `gc.log`.
+- **rc=124 (3h):** none. There are no error-priority entries.
+- **Changed:** ran one daemon-reload and removed the stale transcripts `tmp_pack`.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-21T06:20Z (oros-health-checkup-20261021-060521): healthy; deployed = origin/main2 `e2d0a90b`, no changes
 
 - **Load/mem:** load 3.22/3.13/3.10 with 4 monks (5 live `claude -p` including this job). 9.6 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
