@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T03:30:57Z_
+_As of 2026-10-21T03:39:21Z_
 
 ## Latest
 
@@ -615,6 +613,16 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-21T03:31:02Z, latest 2026-10-21T03:35:35Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> Comment acknowledgment blind anomaly for kriscendobot/minion.town:
+> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332645090 (age=1447s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332668779 (age=1181s; heartbeat=full-poll)
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-10-18T02:49:32Z, latest 2026-10-20T19:00:25Z).
@@ -914,12 +922,12 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 355.3M | $1395.89 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
-| Codex | 114.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Codex | 115.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92682093 tokens/day lower bound._
+_Fleet token-unlock pace: 92700051 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.357236s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 8 open notice(s); checker healthy
+worst fetch p95 4.305709s/45s (/home/kris/garden/.garden-state/comment-watcher/verify); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
