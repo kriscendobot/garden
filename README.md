@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T15:14:47Z_
+_As of 2026-10-21T15:26:04Z_
 
 ## Latest
 
@@ -973,28 +971,30 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 356.4M | $1399.88 _(notional, rate-card)_ | 132% of 271.0M (ok) |
+| Claude | 357.3M | $1405.32 _(notional, rate-card)_ | 132% of 271.0M (ok) |
 | Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92189485 tokens/day lower bound._
+_Fleet token-unlock pace: 92200388 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (3)
+- [`build-endor-run-expanded-phase-3-directory-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endor-run-expanded-phase-3-directory-input.md) — ---
+- [`endojs-endo-but-for-bots-pr1520-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1520-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1520
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr211-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr211-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #211
+- [`kriscendobot-minion.town-pr211-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr211-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #211
 
-### tada (14398)
+### tada (14400)
+- [`design-status-endor-npm-registry-proxy-implemented`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/design-status-endor-npm-registry-proxy-implemented.md) — Cost
+- [`kriscendobot-minion.town-pr211-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr211-gauntlet-clean.md) — Cost
 - [`build-endor-npm-registry-proxy-phase-five-offline-mode-and-npmrc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/build-endor-npm-registry-proxy-phase-five-offline-mode-and-npmrc.md) — Cost
 - [`build-endor-npm-registry-proxy-phase-four-compartment-mapper-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/build-endor-npm-registry-proxy-phase-four-compartment-mapper-integration.md) — Cost
 - [`heal-minion-town-f6fe2b5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/heal-minion-town-f6fe2b5.md) — Cost
-- [`kriscendobot-minion.town-pr211-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr211-gauntlet-viability.md) — Cost
-- [`build-endor-npm-registry-proxy-phase-two-http-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/build-endor-npm-registry-proxy-phase-two-http-fetch.md) — Cost
-- … and 14393 more
+- … and 14395 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
