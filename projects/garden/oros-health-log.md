@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-21T13:00Z (oros-health-checkup-20261021-123508): healthy; deployed = origin/main2 `e2d0a90b`; stale transcripts tmp_pack removed, 10 leaked test daemons killed, maintenance fix landed (`fd6f8a87`)
+
+- **Load/mem:** load 2.69/2.92/3.11 at 12:40Z, and 1.77/2.41/2.88 by 13:00Z. 3 monks are running. 12 GiB of 15 GiB available. Swap reads 0 GiB, which is no pressure.
+- **Disk/inodes:** 7% of the overlay used (404G free); inodes 1%.
+- **Uptime:** 19d19h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `e2d0a90b`, which was the origin/main2 tip at the check. fleet/health/oros (2026-10-20 16:57:18Z): `roll_status: deployed`. This run's `fd6f8a87` is now the new tip and is pending a roll.
+- **Units:** 0 failed garden units and 0 `NeedDaemonReload=yes`. `garden-monk@1..3` are running. `hosts/oros` says `monks: 3`. No drain and no derotation marker.
+- **Budget heartbeat:** the claude-oros snapshot sampled at 12:33:00Z was written at 12:39:34Z. Status ok, 26.3M of 180M (about 7%).
+- **State clones:** the largest journal clones are worktree-sweeper and reaper (47 packs each) and leader (46), below the threshold of 50. The monk clones are 11 to 49 packs, and git's auto-gc keeps cycling them. `transcripts/clone` was at **67 packs / 3.1 GB** and held another stale 171 MB `tmp_pack` (from 11:28Z, with no open fd). That is the second one in two runs, so it is recurring. I removed it. The cause is that `namespace-clone-maintenance.sh` only globbed `*/journal`. That is fixed on main2 in `fd6f8a87`, with a test. The fix adds the transcripts clone and requires each candidate to have its own `.git`. After the next roll, the hourly pass will repack this clone. The full-tree `find` for gc.log and stale locks did not finish within 10 minutes on virtiofs and was killed, so that check is incomplete this run.
+- **rc=124 / errors (3h):** none in the journal.
+- **Changed:** removed the stale transcripts `tmp_pack`. Killed 10 orphaned `bun` endo-daemon processes (`packages/daemon` `failure-to-start` test, 5 daemon+worker pairs, about 210 MB RSS, started 05:39 to 06:30Z). Their build worktree `project-wt-build-e-93b096c7c63f-5d2f8844` had already been torn down. Landed `fd6f8a87`.
+- **Needs the maintainer:** nothing. Optional: the endo-but-for-bots daemon `failure-to-start` test leaks its daemon under bun when the test or job is killed.
+
 ## 2026-10-21T09:50Z (oros-health-checkup-20261021-092010): healthy; deployed = origin/main2 `e2d0a90b`; one daemon-reload, one stale tmp_pack removed
 
 - **Load/mem:** load 2.01/1.78/2.28 with 3 monks (2 live `claude -p` including this job). 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
