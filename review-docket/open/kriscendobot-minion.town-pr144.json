@@ -4,17 +4,17 @@
   "pr": 144,
   "url": "https://github.com/kriscendobot/minion.town/pull/144",
   "head_oid": "35087cc600d75d80d340f3412f699abefe121c82",
-  "ask": "re-review",
+  "ask": "approve",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Panel reviewed 8de865b3c550, but the presented head is d6c20a6ee3c8",
+  "summary": "design: guest-account coupons carried by invitations (growth governance)",
   "unblocks": [],
-  "source": "stale-panel-head-kriscendobot-minion.town-pr144-8de865b3-d6c20a6e",
-  "requested_at": "2026-10-19T09:26:53Z",
+  "source": "native-review-request-kriscendobot-minion.town-pr144",
+  "requested_at": "2026-10-21T04:00:24Z",
   "first_requested_at": "2026-10-19T09:26:53Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
-    "state": "pending",
-    "observed_at": "2026-10-21T03:42:32Z"
+    "state": "green",
+    "observed_at": "2026-10-21T04:00:25Z"
   }
 }
