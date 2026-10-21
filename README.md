@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T16:17:36Z_
+_As of 2026-10-21T17:01:45Z_
 
 ## Latest
 
@@ -27,12 +25,12 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-155 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+156 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
-Delegation: **paused** by proxy:screen since 2026-10-21T14:39:47Z: #200 merge f6fe2b522ca: deploy.yml failure
+Delegation: **active**
 
-- 2026-10-21T16:03:26Z [#211](https://github.com/kriscendobot/minion.town/pull/211) merged `a84d6d6d8ce`; deploy pending
+- 2026-10-21T16:03:26Z [#211](https://github.com/kriscendobot/minion.town/pull/211) merged `a84d6d6d8ce`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/39631291159), watchdog ok — validated
 - 2026-10-21T15:39:50Z [#211](https://github.com/kriscendobot/minion.town/pull/211) `87cebebffcd` screened (heal of `f6fe2b522ca`)
 - 2026-10-21T14:33:03Z [#200](https://github.com/kriscendobot/minion.town/pull/200) merged `f6fe2b522ca`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/39617782849) — failed
 - 2026-10-21T11:46:45Z [#200](https://github.com/kriscendobot/minion.town/pull/200) `81f21805913` screened
@@ -113,11 +111,11 @@ Delegation: **paused** by proxy:screen since 2026-10-21T14:39:47Z: #200 merge f6
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #3 (first seen 2026-10-18T09:20:28Z, latest 2026-10-20T14:39:27Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 3 times; this is
-> ONE entry that updates in place, not 3 messages. Latest detail:
+> COALESCED message — occurrence #4 (first seen 2026-10-18T09:20:28Z, latest 2026-10-21T16:35:30Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 4 times; this is
+> ONE entry that updates in place, not 4 messages. Latest detail:
 >
-> Milestone M2 is blocked at [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): its conditional text-codec taming is green and awaiting review, but an approved competing upstream fix (#3372) may supersede it. Decide whether to retain this PR’s approach or close it as superseded.
+> M2 is blocked at hardened-text-codecs-shim: [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) has addressed its review findings with green CI and awaits maintainer re-review/merge. Decide whether to accept it as complete or require the remaining Phase 3 downstream audit before merge.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -144,6 +142,10 @@ Delegation: **paused** by proxy:screen since 2026-10-21T14:39:47Z: #200 merge f6
 > Report minion-town-docs-tower-report-20261016: two items need your call.
 > 1. The live probe left one anonymous guest on production minion.town. The API has no delete route and the guest's identifier was never recorded, so the garden can't clean it up. Decide whether to leave it or remove it by hand.
 > 2. The source note `/home/kris/garden/note-from-tower.md` was not on the host that ran the job, so the report was not checked against it. If you want that check, re-run the job on the host that holds the note.
+
+- `liaison-followup-66809801db8c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-66809801db8c.md)
+
+> Report build-endor-run-expanded-phase-4-entry-point-input (follow-up 3): [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279) (on `llm`) is a separate Phase 4 attempt. It builds the archive in Rust instead of running the mapper in XS, which overlaps the new Phase 4 work. Decision needed: close #279, or reconcile it with the new PR once that PR is opened. Also note that archives with files more than one level deep now ingest to a different, correct root hash. Any hash recorded earlier for such an archive will no longer match a fresh ingest.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
@@ -980,35 +982,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 358.7M | $1409.27 _(notional, rate-card)_ | 132% of 271.0M (ok) |
-| Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 361.0M | $1418.48 _(notional, rate-card)_ | 133% of 271.0M (ok) |
+| Codex | 133.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92362374 tokens/day lower bound._
+_Fleet token-unlock pace: 92471579 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`endojs-endo-but-for-bots-pr1521-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1521-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1521
-- [`improve-completion-window-report-git-timeout-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-completion-window-report-git-timeout-floor.md) — ---
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1520-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1520-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1520
-- [`minion-town-pr200-reland-accounts-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr200-reland-accounts-migration.md) — Re-land kriscendobot/minion.town#200: run the accounts-store migration, then ...
 
-### doin (4)
-- [`build-endor-run-expanded-phase-4-entry-point-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-run-expanded-phase-4-entry-point-input.md) — ---
-- [`oros-health-watch-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261021-153508.md) — ---
-- [`oros-health-checkup-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261021-153508.md) — ---
-- [`build-endor-npm-registry-proxy-phase-2-package-fetching`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-npm-registry-proxy-phase-2-package-fetching.md) — ---
+### doin (1)
+- [`build-daemon-debug-worker-restart-phase-1-rust-supervisor-debug-flag`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-debug-worker-restart-phase-1-rust-supervisor-debug-flag.md) — ---
 
-### tada (14410)
-- [`build-endor-run-expanded-phase-5-entry-point-with-dependencies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/build-endor-run-expanded-phase-5-entry-point-with-dependencies.md) — Phase 5 of endor run is already on llm, so I opened no PR
-- [`screen-minion-town-pr211-87cebeb-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/screen-minion-town-pr211-87cebeb-conduct.md) — Cost
-- [`build-endor-run-expanded-phase-3-directory-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/build-endor-run-expanded-phase-3-directory-input.md) — Cost
-- [`minion-town-arc-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/minion-town-arc-press-20261021-153508.md) — Cost
-- [`claude-on-minion-town-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/claude-on-minion-town-press-20261021-153508.md) — Cost
-- … and 14405 more
+### tada (14428)
+- [`endojs-endo-but-for-bots-pr1521-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1521-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1521-gauntlet — complete
+- [`endojs-endo-but-for-bots-pr1521-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1521-gauntlet-undraft.md) — Cost
+- [`canary-probe-oros-studio-garden-ce242c49-b577f3cdf03e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/canary-probe-oros-studio-garden-ce242c49-b577f3cdf03e.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-pr1521-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1521-gauntlet-panel-1.md) — PANEL round 1 — endojs/endo-but-for-bots#1521: pass
+- [`endojs-endo-but-for-bots-pr1522-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1522-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1522-gauntlet - not viable
+- … and 14423 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
