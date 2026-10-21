@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T03:57:13Z_
+_As of 2026-10-21T04:14:46Z_
 
 ## Latest
 
@@ -617,13 +615,13 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-21T03:31:02Z, latest 2026-10-21T03:55:49Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #9 (first seen 2026-10-21T03:31:02Z, latest 2026-10-21T04:12:08Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332645090 (age=2649s; heartbeat=full-poll)
-> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332668779 (age=2383s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332645090 (age=3550s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332668779 (age=3284s; heartbeat=full-poll)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
@@ -924,28 +922,27 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 355.3M | $1395.89 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
-| Codex | 115.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Codex | 115.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92701294 tokens/day lower bound._
+_Fleet token-unlock pace: 92702188 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.305709s/45s (/home/kris/garden/.garden-state/comment-watcher/verify); 8 open notice(s); checker healthy
+worst fetch p95 2.357236s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`kriscendobot-minion.town-pr144-review-ad16ad1a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr144-review-ad16ad1a.md) — Review directive on kriscendobot/minion.town PR #144
-- [`kriscendobot-minion-town-pr200-gauntlet-20261020-fix-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr200-gauntlet-20261020-fix-9.md) — Gauntlet stage: FIX round 9 — kriscendobot/minion.town PR #200
+### doin (1)
+- [`kriscendobot-minion-town-pr200-gauntlet-20261020-panel-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr200-gauntlet-20261020-panel-10.md) — Gauntlet stage: PANEL round 10 — kriscendobot/minion.town PR #200
 
-### tada (14306)
+### tada (14308)
+- [`kriscendobot-minion-town-pr200-gauntlet-20261020-fix-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr200-gauntlet-20261020-fix-9.md) — Cost
+- [`kriscendobot-minion.town-pr144-review-ad16ad1a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr144-review-ad16ad1a.md) — Cost
 - [`kriscendobot-minion-town-pr200-gauntlet-20261020-panel-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr200-gauntlet-20261020-panel-9.md) — Cost
 - [`minion-town-arc-press-20261021-030508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/minion-town-arc-press-20261021-030508.md) — Cost
 - [`oros-health-watch-20261021-030508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/oros-health-watch-20261021-030508.md) — Cost
-- [`oros-health-checkup-20261021-030508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/oros-health-checkup-20261021-030508.md) — Cost
-- [`claude-on-minion-town-press-20261021-030508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/claude-on-minion-town-press-20261021-030508.md) — Cost
-- … and 14301 more
+- … and 14303 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
