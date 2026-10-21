@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: malformed header (requires: aws not in leading position); re-posted as minion-town-pr200-reland-2-dynamodb-validation
+withdrawn_by: gardener
+withdrawn_at: 2026-10-21T21:54:45Z
+withdrawn_from_gate: blocked
+---
+
+---
 gate: blocked
 blocked_on: https://github.com/kriscendobot/minion.town/pull/214
 priority: normal
