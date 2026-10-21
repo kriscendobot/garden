@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-21T03:44:20Z_
+_As of 2026-10-21T03:47:07Z_
 
 ## Latest
 
@@ -615,13 +615,13 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-10-21T03:31:02Z, latest 2026-10-21T03:40:41Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-21T03:31:02Z, latest 2026-10-21T03:45:42Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332645090 (age=1748s; heartbeat=full-poll)
-> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332668779 (age=1482s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332645090 (age=2048s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/144](https://github.com/kriscendobot/minion.town/pull/144)#discussion_r4332668779 (age=1782s; heartbeat=full-poll)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
