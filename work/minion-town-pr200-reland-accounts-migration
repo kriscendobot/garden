@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-21T16:36:16Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-pr200-reland-accounts-migration
+pr_number: 213
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/213
+pr_head: reland/pr200-settings
