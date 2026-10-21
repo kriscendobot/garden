@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-21T23:04:59Z_
+_As of 2026-10-21T23:07:25Z_
 
 ## Latest
 
@@ -1004,8 +1004,9 @@ _Fleet token-unlock pace: 92224838 tokens/day lower bound._
 worst fetch p95 3.056047s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`oros-health-watch-20261021-213508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261021-213508.md) — ---
+- [`self-heal-fix-garden-monk-complete-job-inbox-rm-local-mods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-monk-complete-job-inbox-rm-local-mods.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`screen-minion-town-pr214-0e644c0-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr214-0e644c0-conduct.md) — Screened delegated merge: kriscendobot/minion.town#214 at 0e644c0c2a57f4c9549...
 
