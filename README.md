@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T13:30:25Z_
+_As of 2026-10-21T13:37:30Z_
 
 ## Latest
 
@@ -946,7 +944,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 355.6M | $1396.92 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
 | Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 93240651 tokens/day lower bound._
+_Fleet token-unlock pace: 93241440 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 8 open notice(s); checker healthy
@@ -958,15 +956,15 @@ worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`screen-minion-town-pr200-81f2180-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr200-81f2180-conduct.md) — Screened delegated merge: kriscendobot/minion.town#200 at 81f21805913b03cc1d0...
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr210-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr210-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #210
+- [`kriscendobot-minion.town-pr210-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr210-gauntlet-panel-8.md) — Gauntlet stage: PANEL round 8 — kriscendobot/minion.town PR #210
 
-### tada (14386)
+### tada (14387)
+- [`kriscendobot-minion.town-pr210-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-fix-7.md) — Cost
 - [`kriscendobot-minion.town-pr210-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-panel-7.md) — Cost
 - [`minion-town-arc-press-20261021-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/minion-town-arc-press-20261021-123508.md) — Cost
 - [`oros-health-checkup-20261021-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/oros-health-checkup-20261021-123508.md) — Cost
 - [`claude-on-minion-town-completion-press-20261021-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/claude-on-minion-town-completion-press-20261021-123508.md) — Cost
-- [`claude-on-minion-town-press-20261021-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/claude-on-minion-town-press-20261021-123508.md) — Cost
-- … and 14381 more
+- … and 14382 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
