@@ -11,11 +11,11 @@ created_by: kriscendobot-minion-town-pr200-weave-20261020
 created_at: 2026-10-20T15:43:42Z
 arc: 
 added_rounds: 2
-stage: panel
+stage: fix
 iteration: 10
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion-town-pr200-gauntlet-20261020-panel-10
+current_child: kriscendobot-minion-town-pr200-gauntlet-20261020-fix-10
 state: running
 resumed_at: 2026-10-21T03:22:29Z
 resumed_from_stage: fix
