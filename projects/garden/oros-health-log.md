@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-21T21:45Z (oros-health-checkup-20261021-213508): healthy; deployed = origin/main2 `f9d731f5`, no changes
+
+- **Load/mem:** load 3.17/3.17/3.04 at 21:41Z. 3 monks are running. 12.9 GiB of 15.6 GiB available. Swap is 1 GiB of 1 GiB used, full but flat (page cache).
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 53% used; inodes 1%.
+- **Uptime:** 20d04h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `f9d731f5` (deployed 20:17Z), the origin/main2 tip. The previous run's fix has rolled. fleet/health/oros (20:17:26Z): `roll_status: deployed`, 0 of 289 units failed.
+- **Units:** 0 failed garden units and 0 `NeedDaemonReload=yes`. `garden-monk@1..3` are running. `hosts/oros` says `monks: 3`. No drain and no derotation marker.
+- **Budget heartbeat:** claude-oros pushed at 21:21:35Z and 21:32:25Z on origin/journal2. Status ok, 37.5M of 180M. Every push since 19:47Z succeeded, and spend rose monotonically, with no undercount ticks since `f9d731f5` rolled. The root `journal/` worktree read 21:02Z only because `garden-journal-worktree-keeper` syncs it every 30 minutes (last 21:15Z). That is expected.
+- **State clones:** 33 `*/journal` clones. The largest are reaper, producer and leader (47 packs each), below the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes.
+- **rc=124 (3h):** none in the system journal.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-21T19:25Z (oros-health-checkup-20261021-183508): healthy; deployed = origin/main2 `b577f3cd`; a fix for one-tick live-spend undercounts landed (`f9d731f5`)
 
 - **Load/mem:** load 2.83/3.21/3.21 at 18:56Z. 3 monks are running. 12.4 GiB of 15.6 GiB available. Swap is 1 GiB of 1 GiB used, full but flat (page cache).
