@@ -1,9 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:budget-level
-sent_at: 2026-10-20T10:35:20Z
+sent_at: 2026-10-21T08:20:27Z
 watchdog_key: budget-level-monk-oros-studio-garden-ce242c49-3
-notice_count: 1
+notice_count: 2
 first_seen: 2026-09-25T03:35:47Z
-last_seen: 2026-10-20T10:35:20Z
+last_seen: 2026-10-21T08:20:27Z
 ---
-budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 3 (target 4): subscription claude-oros spend=1456495 cap=180000000 pace-bias=0 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.5017(ramp) target=4
+WATCHDOG notice — occurrence #2 (first seen 2026-09-25T03:35:47Z, latest 2026-10-21T08:20:27Z).
+The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-3`) has now been observed 2 times; this is ONE
+coalesced notice that updates in place, not 2 messages. Latest detail:
+
+budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 3 (target 3): subscription claude-oros spend=18402533 cap=180000000 pace-bias=0.030204 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.5665(ramp) target=3
