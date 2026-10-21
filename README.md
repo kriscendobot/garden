@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T17:30:25Z_
+_As of 2026-10-21T17:42:26Z_
 
 ## Latest
 
@@ -32,6 +30,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 Delegation: **active**
 
+- 2026-10-21T17:38:35Z [#213](https://github.com/kriscendobot/minion.town/pull/213) `c511a23fd7c` screened
 - 2026-10-21T16:03:26Z [#211](https://github.com/kriscendobot/minion.town/pull/211) merged `a84d6d6d8ce`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/39631291159), watchdog ok — validated
 - 2026-10-21T15:39:50Z [#211](https://github.com/kriscendobot/minion.town/pull/211) `87cebebffcd` screened (heal of `f6fe2b522ca`)
 - 2026-10-21T14:33:03Z [#200](https://github.com/kriscendobot/minion.town/pull/200) merged `f6fe2b522ca`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/39617782849) — failed
@@ -97,11 +96,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-21T17:16:37Z).
-> It was observed 95 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #96 (first seen 2026-10-16T17:37:14Z, latest 2026-10-21T17:35:59Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 96 times; this is ONE
+> coalesced notice that updates in place, not 96 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/screening-control/journal: p95=3.516053s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.054072s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.050312s, giveups=4, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.058589s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.072221s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.057221s, giveups=3, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -987,27 +992,27 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 361.5M | $1418.79 _(notional, rate-card)_ | 133% of 271.0M (backoff) |
 | Codex | 133.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92117169 tokens/day lower bound._
+_Fleet token-unlock pace: 92344041 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.771410s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`screen-minion-town-pr213-c511a23-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr213-c511a23-conduct.md) — Screened delegated merge: kriscendobot/minion.town#213 at c511a23fd7c917fbc56...
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
-- [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #213
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1524-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1524
 - [`endojs-endo-but-for-bots-pr1523-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1523-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1523
 
-### tada (14434)
+### tada (14437)
+- [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-undraft.md) — Cost
+- [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet.md) — gauntlet kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet — complete
+- [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1524-gauntlet-viability.md) — Cost
-- [`kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion-town-pr213-screen-c511a23f-gauntlet-viability.md) — Cost
-- [`build-daemon-debug-worker-restart-phase-2-js-manager-debug-worker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/build-daemon-debug-worker-restart-phase-2-js-manager-debug-worker.md) — Cost
-- [`endojs-endo-but-for-bots-pr1523-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1523-gauntlet-viability.md) — Cost
-- … and 14429 more
+- … and 14432 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
