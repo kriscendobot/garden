@@ -9,6 +9,15 @@ git init -q "$repo"
 git -C "$repo" config user.email test@example.invalid
 git -C "$repo" config user.name test
 
+report_timeout() {
+  GARDEN_REPO_GIT_TIMEOUT="$1" python3 -c \
+    'import os, runpy, sys; runpy.run_path(sys.argv[1]); print(os.environ["GARDEN_REPO_GIT_TIMEOUT"])' \
+    "$HERE/completion-window-report.py"
+}
+
+[ "$(report_timeout 120)" = 540 ]
+[ "$(report_timeout 600)" = 600 ]
+
 commit_at() {
   local at="$1" message="$2"
   GIT_AUTHOR_DATE="$at" GIT_COMMITTER_DATE="$at" git -C "$repo" add -A

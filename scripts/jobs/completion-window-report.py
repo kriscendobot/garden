@@ -20,8 +20,11 @@ import sys
 # (default 120s in common.sh).  The path-limited `git log -- jobs` over the full
 # journal history is the slow call and has blown the 120s bound (rc 124), forcing
 # a manual rerun.  Give the report its own generous floor so it finishes
-# unattended; an explicit override from the caller still wins.
-os.environ.setdefault("GARDEN_REPO_GIT_TIMEOUT", "540")
+# unattended.  common.sh exports its 120s default before this script starts, so
+# raise inherited values below the report floor while preserving larger caller
+# overrides.
+git_timeout = int(os.environ.get("GARDEN_REPO_GIT_TIMEOUT") or 0)
+os.environ["GARDEN_REPO_GIT_TIMEOUT"] = str(max(git_timeout, 540))
 
 COST = {
     "cost": re.compile(r"^- Cost: \$([0-9.]+)", re.M),
