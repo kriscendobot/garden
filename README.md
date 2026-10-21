@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-21T16:14:29Z_
+_As of 2026-10-21T16:17:36Z_
 
 ## Latest
 
@@ -95,17 +95,11 @@ Delegation: **paused** by proxy:screen since 2026-10-21T14:39:47Z: #200 merge f6
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #94 (first seen 2026-10-16T17:37:14Z, latest 2026-10-21T16:10:50Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 94 times; this is ONE
-> coalesced notice that updates in place, not 94 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-21T16:16:08Z).
+> It was observed 94 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/screening-control/journal: p95=3.516053s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.058679s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.056449s, giveups=4, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.056763s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.077949s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.046252s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -734,6 +728,10 @@ Delegation: **paused** by proxy:screen since 2026-10-21T14:39:47Z: #200 merge f6
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 1 -> 2 (target 4): subscription claude-oros spend=1456495 cap=180000000 pace-bias=0 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.5010(ramp) target=4
 
+- `20261021T161440Z-f4b7c7` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T161440Z-f4b7c7.md)
+
+> foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=113392322 cap=180000000 pace-bias=0 window-start=2026-10-13T10:00Z(calendar) deadline=2026-10-20T10:00Z(calendar) ceiling=4 backoff=0.7555(ramp) target=1
@@ -980,7 +978,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 358.6M | $1408.91 _(notional, rate-card)_ | 132% of 271.0M (ok) |
+| Claude | 358.7M | $1409.27 _(notional, rate-card)_ | 132% of 271.0M (ok) |
 | Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 92362374 tokens/day lower bound._
@@ -989,18 +987,18 @@ _Fleet token-unlock pace: 92362374 tokens/day lower bound._
 worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1521-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1521-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1521
 - [`improve-completion-window-report-git-timeout-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-completion-window-report-git-timeout-floor.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1520-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1520-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1520
 - [`minion-town-pr200-reland-accounts-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr200-reland-accounts-migration.md) — Re-land kriscendobot/minion.town#200: run the accounts-store migration, then ...
-- [`build-endor-npm-registry-proxy-phase-2-package-fetching`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endor-npm-registry-proxy-phase-2-package-fetching.md) — ---
 
-### doin (3)
+### doin (4)
 - [`build-endor-run-expanded-phase-4-entry-point-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-run-expanded-phase-4-entry-point-input.md) — ---
 - [`oros-health-watch-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261021-153508.md) — ---
 - [`oros-health-checkup-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261021-153508.md) — ---
+- [`build-endor-npm-registry-proxy-phase-2-package-fetching`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-npm-registry-proxy-phase-2-package-fetching.md) — ---
 
 ### tada (14410)
 - [`build-endor-run-expanded-phase-5-entry-point-with-dependencies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/build-endor-run-expanded-phase-5-entry-point-with-dependencies.md) — Phase 5 of endor run is already on llm, so I opened no PR
