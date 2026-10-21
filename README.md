@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T15:56:19Z_
+_As of 2026-10-21T16:01:06Z_
 
 ## Latest
 
@@ -993,19 +991,18 @@ worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`endojs-endo-but-for-bots-pr1520-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1520-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1520
 - [`build-endor-run-expanded-phase-5-entry-point-with-dependencies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endor-run-expanded-phase-5-entry-point-with-dependencies.md) — ---
 
-### doin (4)
-- [`minion-town-arc-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261021-153508.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (3)
 - [`build-endor-run-expanded-phase-3-directory-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-run-expanded-phase-3-directory-input.md) — ---
 - [`build-endor-run-expanded-phase-4-entry-point-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-run-expanded-phase-4-entry-point-input.md) — ---
 - [`oros-health-checkup-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261021-153508.md) — ---
 
-### tada (14406)
+### tada (14407)
+- [`minion-town-arc-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/minion-town-arc-press-20261021-153508.md) — Cost
 - [`claude-on-minion-town-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/claude-on-minion-town-press-20261021-153508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1520-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1520-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr211-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr211-gauntlet.md) — gauntlet kriscendobot-minion.town-pr211-gauntlet — complete
 - [`kriscendobot-minion.town-pr211-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr211-gauntlet-undraft.md) — Cost
-- [`endojs-endo-but-for-bots-pr1520-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1520-gauntlet-viability.md) — Cost
-- … and 14401 more
+- … and 14402 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
