@@ -1,7 +1,9 @@
 #!/bin/bash
 # namespace-clone-maintenance.sh — prune and repack the per-namespace journal
 # clones ($GARDEN_STATE/<ns>/journal: leader, sysop, repo-watcher, unblock,
-# fork-watch, ...), on EVERY host. NO LLM.
+# fork-watch, ...) plus the transcript-capture clone
+# ($GARDEN_TRANSCRIPTS_CLONE, default $GARDEN_STATE/transcripts/clone), on EVERY
+# host. NO LLM.
 #
 # Why: nothing ever ran gc/repack on these clones. Interrupted or timed-out fetches
 # leave objects/pack/tmp_pack_* behind and every fetch adds a pack, so on
@@ -27,6 +29,9 @@
 #      runs that long). ctime, not mtime: the budget swap renames an old clone,
 #      which keeps its mtime but refreshes its ctime. (oros-studio 2026-10-12: 12
 #      such dirs, 3.0 GB / 193k inodes, the oldest from 2026-10-01.)
+# The transcript-capture clone (a blob:none partial clone) was outside that glob,
+# so nothing maintained it: on oros-studio (2026-10-21) it held 67 packs / 3.1 GB plus a
+# 171 MB tmp_pack from a killed fetch, recurring between health check-ups.
 # A clone still over the threshold after the pass (repack failed or was skipped)
 # raises a coalesced watchdog-notice; a healthy pass clears it.
 #
@@ -116,8 +121,10 @@ lock_err="$(mktemp)"
 body="$(mktemp)"
 trap 'rm -f "$lock_err" "$body"' EXIT
 soft_lock_warning_re='WARN: clone lock .* busy >[0-9]+s; abandoning this OPTIONAL refresh \(fail-open, no retry ladder\)'
-for clone in "$GARDEN_STATE"/*/journal; do
-  [ -d "$clone" ] || continue
+TRANSCRIPTS_CLONE="${GARDEN_TRANSCRIPTS_CLONE:-$GARDEN_STATE/transcripts/clone}"
+for clone in "$GARDEN_STATE"/*/journal "$TRANSCRIPTS_CLONE"; do
+  # Require the clone's own .git: rev-parse in a non-repo dir would ascend.
+  [ -e "$clone/.git" ] || continue
   # Subshell: soft clone_lock EXITS (not returns) when the clone is busy, which
   # must skip only this clone, and the lock is released with the subshell's fds.
   : > "$lock_err"

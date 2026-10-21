@@ -74,4 +74,32 @@ PATH="$TR/fail-bin:$PATH" \
 ! grep -q 'clone lock contention:' "$TR/failure.err" \
   || { echo 'FAIL: repack failures were misclassified as contention'; cat "$TR/failure.err"; exit 1; }
 
+# The transcript-capture clone lives at transcripts/clone, not */journal; it
+# must still get the stale-tmp prune and the over-threshold repack.
+rm -rf "$TR/state"
+mkdir -p "$TR/state/transcripts" "$TR/state/notrepo/journal"
+git init -q "$TR/state/transcripts/clone"
+tpack="$TR/state/transcripts/clone/.git/objects/pack"
+for i in 1 2 3; do
+  echo "$i" > "$TR/state/transcripts/clone/f$i"
+  git -C "$TR/state/transcripts/clone" add "f$i"
+  git -C "$TR/state/transcripts/clone" -c user.name=t -c user.email=t@t commit -qm "$i"
+  git -C "$TR/state/transcripts/clone" repack -q
+done
+touch -d '-5 hours' "$tpack/tmp_pack_stale"
+[ "$(find "$tpack" -name 'pack-*.pack' | wc -l)" -ge 2 ] \
+  || { echo 'FAIL: transcripts fixture did not build multiple packs'; exit 1; }
+GARDEN_STATE="$TR/state" \
+  GARDEN_NS_CLONE_JITTER=0 \
+  GARDEN_NS_CLONE_PACK_THRESHOLD=1 \
+  GARDEN_NS_CLONE_NOTICE=/bin/true \
+  GARDEN_CONTENTION_INSTRUMENT=0 \
+  "$JOBS/namespace-clone-maintenance.sh" 2>"$TR/transcripts.err"
+[ ! -e "$tpack/tmp_pack_stale" ] \
+  || { echo 'FAIL: stale tmp_pack in the transcripts clone was not pruned'; cat "$TR/transcripts.err"; exit 1; }
+[ "$(find "$tpack" -name 'pack-*.pack' | wc -l)" -eq 1 ] \
+  || { echo 'FAIL: transcripts clone was not repacked'; cat "$TR/transcripts.err"; exit 1; }
+! grep -q 'notrepo' "$TR/transcripts.err" \
+  || { echo 'FAIL: a non-repo */journal dir was treated as a clone'; cat "$TR/transcripts.err"; exit 1; }
+
 echo 'PASS: soft clone-lock contention is coalesced and maintenance failures stay visible'
