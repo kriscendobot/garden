@@ -55,3 +55,13 @@ On Node and XS, behavior is unchanged: the Bun-only members are absent, and the 
 
 None. All changes are patch-level.
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-21T11:12:08Z
