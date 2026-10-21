@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-21T00:05Z (oros-health-checkup-20261020-235008): healthy; deployed = origin/main2 `e2d0a90b`; cleared a host-wide stale unit-config flag with one daemon-reload
+
+- **Load/mem:** load 3.01/2.96/3.04. 13 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (404G free). The virtiofs garden mount is 51% used (228G free); inodes 1%.
+- **Uptime:** 19d6h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `e2d0a90b`, the origin/main2 tip (0 behind). fleet/health/oros (16:57:18Z): `roll_status: deployed`, 0 of 290 units failed.
+- **Units:** 0 failed garden units. `garden-monk@1..4` are running. `hosts/oros` says `monks: 4`. Not draining. No derotation marker. Only this job's `claude -p` was live; the other monks were idle.
+- **Budget heartbeat:** claude-oros was last pushed at 23:32:26Z (about 23 minutes before this check). Status ok, 11.15M of 180M (about 6%). The last 5 pushes were all ok, at 22:33, 22:48, 23:03, 23:18 and 23:32Z. Spend has been flat since 22:33 because the monks are idle, not because the meter is stuck.
+- **State clones:** the largest are sysop (48 packs), reaper (47), monitors/monk-4 (46) and fork-watch (46), below the threshold of 50. No tmp_pack and no `gc.log`. The six `index.lock` files are all under 2 minutes old, so they are live. The root repo has 41 packs (up from 9 at 11:30Z) and no `gc.log`. Git's automatic gc should repack it at 50.
+- **rc=124 (3h):** one, journal-contention-watch's notice delivery at 22:45Z (`action=close rc=124`, deferred). It is benign. There are no error-priority entries.
+- **Changed:** every garden unit showed `NeedDaemonReload=yes` from 10:21Z. The scaler re-enabled `garden-monk@2..4` with `enable --no-reload` after the weekly window reset, and that changed the unit-directory mtime. Since then each status probe has logged 4 "changed on disk" warnings (about 2.9k lines in 24h). One `systemctl --user daemon-reload` took 15.5s and cleared the flag. I did not change the code: `--no-reload` is intentional (install-units.sh scale; run-test.sh asserts no reload per tick), so the flag will come back after the next scale-up.
+- **Needs the maintainer:** nothing. Optional: decide whether the scaler should do one bounded daemon-reload after a tick that newly enables a unit. This only happens on scale-up, not every tick.
+
 ## 2026-10-20T20:40Z (oros-health-checkup-20261020-203519): healthy; deployed = origin/main2 `e2d0a90b`, no changes
 
 - **Load/mem:** load 4.33/3.04/2.79 with 4 monks running. 12 GiB of 15 GiB available. Swap is 1023 MiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
