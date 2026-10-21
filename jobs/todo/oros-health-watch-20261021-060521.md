@@ -35,13 +35,6 @@ Standing maintainer request (kriskowal, 2026-10-02).
 Do not change worker leveling, derotation markers, budget pools or schedules. Do not post duplicate oros jobs; the checkup schedule handles recurrence.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=73 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-21T06:06:14Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-21T06:23:06Z -->
