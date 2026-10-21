@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T21:00:35Z_
+_As of 2026-10-21T21:06:37Z_
 
 ## Latest
 
@@ -999,17 +997,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 361.5M | $1419.08 _(notional, rate-card)_ | 133% of 271.0M (backoff) |
 | Codex | 135.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92138786 tokens/day lower bound._
+_Fleet token-unlock pace: 92139089 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.675619s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`heal-minion-town-a2d2426`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/heal-minion-town-a2d2426.md) — Heal minion.town production after merge a2d2426951de58a0a3e953f24af7a7ea74c39a81
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`heal-minion-town-a2d2426`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/heal-minion-town-a2d2426.md) — Heal minion.town production after merge a2d2426951de58a0a3e953f24af7a7ea74c39a81
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1524-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1524
 
 ### tada (14452)
