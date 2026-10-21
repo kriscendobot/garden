@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 3
+worker_kind: monk
+claimed_at: 2026-10-21T16:15:20Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-build-endor-npm-registry-proxy-phase-2-package-fetching
