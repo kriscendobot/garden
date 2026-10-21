@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T13:37:30Z_
+_As of 2026-10-21T14:00:06Z_
 
 ## Latest
 
@@ -94,8 +92,8 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-21T13:26:07Z).
-> It was observed 92 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-21T13:46:59Z).
+> It was observed 93 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
@@ -917,6 +915,14 @@ Delegation: **active**
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014231s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49` — from watchdog:monk/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49.md)
+
+> RECOVERED — the watchdog condition `worker-agent-bin-monk-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-21T13:46:58Z, cleared 2026-10-21T13:48:29Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> monk workers on oros-studio-garden-ce242c49 resolved their agent CLI again (/usr/local/bin/claude); the pool has UN-parked and is claiming normally. Closing the self-disqualification episode.
+
 - `watchdog-handler-budget-overrun-minion-town-ci-harness-path-gate` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-minion-town-ci-harness-path-gate.md)
 
 > gardener job 'minion-town-ci-harness-path-gate' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7208s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -943,10 +949,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 355.6M | $1396.92 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
+| Claude | 355.7M | $1397.07 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
 | Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 93241440 tokens/day lower bound._
+_Fleet token-unlock pace: 93466204 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 8 open notice(s); checker healthy
@@ -958,15 +964,15 @@ worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`screen-minion-town-pr200-81f2180-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr200-81f2180-conduct.md) — Screened delegated merge: kriscendobot/minion.town#200 at 81f21805913b03cc1d0...
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr210-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr210-gauntlet-panel-8.md) — Gauntlet stage: PANEL round 8 — kriscendobot/minion.town PR #210
+- [`kriscendobot-minion.town-pr210-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr210-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #210
 
-### tada (14387)
+### tada (14389)
+- [`canary-probe-oros-studio-garden-ce242c49-fd6f8a870fe4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/canary-probe-oros-studio-garden-ce242c49-fd6f8a870fe4.md) — rolling-deploy canary probe — round trip OK
+- [`kriscendobot-minion.town-pr210-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-panel-8.md) — Cost
 - [`kriscendobot-minion.town-pr210-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-fix-7.md) — Cost
 - [`kriscendobot-minion.town-pr210-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-panel-7.md) — Cost
 - [`minion-town-arc-press-20261021-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/minion-town-arc-press-20261021-123508.md) — Cost
-- [`oros-health-checkup-20261021-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/oros-health-checkup-20261021-123508.md) — Cost
-- [`claude-on-minion-town-completion-press-20261021-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/claude-on-minion-town-completion-press-20261021-123508.md) — Cost
-- … and 14382 more
+- … and 14384 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
