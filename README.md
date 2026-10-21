@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T04:37:24Z_
+_As of 2026-10-21T04:40:46Z_
 
 ## Latest
 
@@ -932,12 +930,12 @@ _Fleet token-unlock pace: 91854803 tokens/day lower bound._
 worst fetch p95 2.357236s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`kriscendobot-minion-town-pr144-conduct-20261021-5594963376`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr144-conduct-20261021-5594963376.md) — Conduct kriscendobot/minion.town PR #144
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr199-8bc23828`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-8bc23828.md) — attention directive on kriscendobot/minion.town PR #199
+- [`kriscendobot-minion-town-pr144-conduct-20261021-5594963376`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr144-conduct-20261021-5594963376.md) — Conduct kriscendobot/minion.town PR #144
 - [`kriscendobot-minion-town-pr200-gauntlet-20261020-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr200-gauntlet-20261020-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #200
 - [`design-endo-invitation-enclosures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-invitation-enclosures.md) — Design generic invitation enclosures for Endo
 
