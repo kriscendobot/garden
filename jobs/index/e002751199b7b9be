@@ -1,2 +1,2 @@
-base: improve-arc-completion-press-report
+base: improve-completion-window-report-git-timeout-floor
 identity: mentor:scripts/jobs/completion-window-report.py
