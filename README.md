@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T11:45:25Z_
+_As of 2026-10-21T11:51:12Z_
 
 ## Latest
 
@@ -32,6 +30,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 Delegation: **active**
 
+- 2026-10-21T11:46:45Z [#200](https://github.com/kriscendobot/minion.town/pull/200) `81f21805913` screened
 - 2026-10-21T10:07:45Z [#200](https://github.com/kriscendobot/minion.town/pull/200) `088b84ab702` screened
 - 2026-10-20T12:12:53Z [#198](https://github.com/kriscendobot/minion.town/pull/198) merged `6c66c2f5792`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/39420564369), watchdog ok — validated
 
@@ -94,17 +93,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #87 (first seen 2026-10-16T17:37:14Z, latest 2026-10-21T11:43:23Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 87 times; this is ONE
-> coalesced notice that updates in place, not 87 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-21T11:48:21Z).
+> It was observed 87 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.040588s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.039835s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=0.046898s, giveups=5, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.031067s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadmail/journal: p95=0.040155s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.026290s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -948,14 +941,15 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 355.6M | $1396.92 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
 | Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92942137 tokens/day lower bound._
+_Fleet token-unlock pace: 92942722 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 11 open notice(s); checker healthy
+worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`screen-minion-town-pr200-81f2180-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr200-81f2180-conduct.md) — Screened delegated merge: kriscendobot/minion.town#200 at 81f21805913b03cc1d0...
 
 ### doin (0)
 (none)
