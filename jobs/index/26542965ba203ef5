@@ -1,0 +1,2 @@
+base: improve-accounts-store-transaction-permission
+identity: mentor:deploy/aws/scripts/deploy-accounts-store.sh
