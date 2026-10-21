@@ -1,8 +1,9 @@
 ---
 role: conductor
 handler-budget-role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -20,13 +21,6 @@ all three current checks were green. Re-establish all conductor gates against
 the live head/base and carry the merge to a terminal outcome.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3279 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-21T04:38:52Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-21T05:53:06Z -->
