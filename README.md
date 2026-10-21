@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T11:09:53Z_
+_As of 2026-10-21T11:21:53Z_
 
 ## Latest
 
@@ -59,6 +57,22 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration mt-beta-product-pass-20261017 complete (serial): all 4 children reached tada without a machine-readable failure declaration.
+
+- `msg-kriscendobot-minion.town-pr210-gauntlet-fix-6-1e7ba574eb28` — from gardener:kriscendobot-minion.town-pr210-gauntlet-fix-6, reply_to `kriscendobot-minion.town-pr210-gauntlet-fix-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr210-gauntlet-fix-6-1e7ba574eb28.md)
+
+> [kriscendobot/minion.town#210](https://github.com/kriscendobot/minion.town/issues/210) (guest-agent last-active) needs a design decision before another gauntlet round.
+>
+> The panel-6 decomplector raised a must-fix that the fix stage can't settle on its own. Your [kriscendobot/minion.town#199](https://github.com/kriscendobot/minion.town/issues/199) ask was "based on any use of the agent/guest exo". The PR instead stamps at the app's two seams (GuestService for MCP, GuestWebService for /api/guest) and stores the stamps in a reserved partition of the shared DynamoDB accounts table. Two consequences:
+> - A guest used directly through its OCapN locator is never stamped.
+> - Sharing the accounts table has cost several rounds of IAM Deny hardening.
+>
+> The options it gives:
+>   (1) Record activity inside the daemon, on the guest formula the root agent already enumerates (EndoHost.provideGuest). This drops the DynamoDB writer and the IAM migration, and the [kriscendobot/minion.town#144](https://github.com/kriscendobot/minion.town/issues/144) sealed guest query can read the stamps directly. It is the biggest rewrite.
+>   (2) Move the stamps to a dedicated DynamoDB table whose app grant is UpdateItem only.
+>   (3) Keep the current design and accept the seam-only coverage.
+>
+> Fix-6 applied the other panel items (filtered `set-account-role.sh list`, trimmed docs and the PR body). It did not redesign anything. Which option do you want?
+> Review: [https://github.com/kriscendobot/minion.town/pull/210](https://github.com/kriscendobot/minion.town/pull/210)#pullrequestreview-5598603906
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
@@ -929,31 +943,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 355.4M | $1396.63 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
+| Claude | 355.6M | $1396.92 _(notional, rate-card)_ | 131% of 271.0M (backoff) |
 | Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 93075841 tokens/day lower bound._
+_Fleet token-unlock pace: 92941125 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.877128s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 10 open notice(s); checker healthy
+worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (4)
-- [`oros-health-watch-20261021-092010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261021-092010.md) — ---
-- [`screen-minion-town-pr200-088b84a-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr200-088b84a-conduct.md) — Screened delegated merge: kriscendobot/minion.town#200 at 088b84ab70233fc40a0...
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1519-gauntlet-fix-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1519-gauntlet-fix-1-pr-body.md) — Refresh PR #1519 title and body (integrator must-fix, gauntlet fix-1)
 
 ### doin (1)
 - [`kriscendobot-minion.town-pr210-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr210-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #210
 
-### tada (14376)
+### tada (14380)
+- [`shepherd-endo-but-for-bots-pr1483-heartbeat-capability-bit-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/shepherd-endo-but-for-bots-pr1483-heartbeat-capability-bit-ci.md) — Cost
+- [`endojs-endo-but-for-bots-pr1519-gauntlet-fix-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1519-gauntlet-fix-1-pr-body.md) — Cost
+- [`oros-health-watch-20261021-092010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/oros-health-watch-20261021-092010.md) — Cost
+- [`screen-minion-town-pr200-088b84a-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/screen-minion-town-pr200-088b84a-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr210-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-panel-6.md) — Panel round 6 on kriscendobot/minion.town PR #210: must-fix
-- [`kriscendobot-minion.town-pr210-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-fix-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1519-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1519-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1519-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1519-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1519-gauntlet-panel-3.md) — Cost
-- [`kriscendobot-minion.town-pr210-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-panel-5.md) — Cost
-- … and 14371 more
+- … and 14375 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
