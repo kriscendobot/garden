@@ -16,6 +16,7 @@ proxy screens and merges a marked heal PR even while the delegation is paused. N
 push to main directly and never force-revert main.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=531 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
