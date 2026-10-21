@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T15:02:29Z_
+_As of 2026-10-21T15:06:48Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-156 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+155 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **paused** by proxy:screen since 2026-10-21T14:39:47Z: #200 merge f6fe2b522ca: deploy.yml failure
@@ -973,20 +971,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 356.3M | $1399.25 _(notional, rate-card)_ | 131% of 271.0M (ok) |
+| Claude | 356.4M | $1399.51 _(notional, rate-card)_ | 132% of 271.0M (ok) |
 | Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 93494937 tokens/day lower bound._
+_Fleet token-unlock pace: 93500527 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`build-endor-npm-registry-proxy-phase-five-offline-mode-and-npmrc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endor-npm-registry-proxy-phase-five-offline-mode-and-npmrc.md) — ---
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`build-endor-npm-registry-proxy-phase-five-offline-mode-and-npmrc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-npm-registry-proxy-phase-five-offline-mode-and-npmrc.md) — ---
 - [`kriscendobot-minion.town-pr211-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr211-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #211
 
 ### tada (14397)
