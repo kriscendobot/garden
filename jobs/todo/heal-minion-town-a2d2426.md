@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: fixer
@@ -16,13 +17,6 @@ proxy screens and merges a marked heal PR even while the delegation is paused. N
 push to main directly and never force-revert main.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=531 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-21T20:42:13Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-21T21:03:12Z -->
