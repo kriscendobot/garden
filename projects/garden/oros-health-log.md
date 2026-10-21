@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-21T03:20Z (oros-health-checkup-20261021-030508): healthy; deployed = origin/main2 `e2d0a90b`, no changes
+
+- **Load/mem:** load 3.62/3.19/3.17 with 4 monks (3 live `claude -p`). 12 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
+- **Disk/inodes:** 7% of the overlay used (404G free). The virtiofs garden mount is 51% used (227G free); inodes 1%.
+- **Uptime:** 19d9h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `e2d0a90b`, the origin/main2 tip (0 behind). fleet/health/oros (2026-10-20 16:57:18Z): `roll_status: deployed`.
+- **Units:** 0 failed garden units. `NeedDaemonReload=no`, so the 00:05Z daemon-reload held. `garden-monk@1..4` are running. `hosts/oros` says `monks: 4`. Not draining. No derotation marker.
+- **Budget heartbeat:** the newest claude-oros snapshot is 03:03:07Z in the state clones. The root `journal/` worktree still showed 02:32:45Z, which made it look 37 minutes stale, but that worktree only lags behind origin. Status ok, about 11.7M of 180M (about 6%). The pushes at 01:32, 01:47, 02:02, 02:18 and 02:32Z were all ok, and the scaler logged no publish warnings.
+- **State clones:** the largest are monks/4 (49 packs), sysop, reaper and monitors/monk-2 (47 each), below the threshold of 50. No tmp_pack and no `gc.log`. The `index.lock` files were all live. The oldest, screening-control at about 4.5 minutes, belonged to a running `reset --hard` behind a peer's concurrent `minion-town-screening.sh status` calls, and it cleared on its own. The root repo has 48 packs (41 at 00:05Z) and no `gc.log`. Git's automatic gc should repack it at 50. `repo-locks` holds 10.4k keys, with about 700 new per day. The 7-day pruner is working: only 6 keys are older than 7 days.
+- **rc=124 (3h):** none. There are no error-priority entries.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-21T00:05Z (oros-health-checkup-20261020-235008): healthy; deployed = origin/main2 `e2d0a90b`; cleared a host-wide stale unit-config flag with one daemon-reload
 
 - **Load/mem:** load 3.01/2.96/3.04. 13 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat, with no memory pressure (mostly page cache).
