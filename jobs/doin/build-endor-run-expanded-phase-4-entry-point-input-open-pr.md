@@ -95,3 +95,13 @@ Building `endor` now also requires `node packages/daemon/scripts/bundle-endor-ru
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- PR BODY END -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-21T16:38:38Z
