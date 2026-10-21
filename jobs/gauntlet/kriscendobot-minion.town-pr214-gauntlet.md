@@ -12,11 +12,11 @@ created_by: producer
 created_at: 2026-10-21T20:48:34Z
 arc: 
 added_rounds: 2
-stage: panel
+stage: undraft
 iteration: 1
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr214-gauntlet-panel-1
+current_child: kriscendobot-minion.town-pr214-gauntlet-undraft
 state: running
 resumed_at: 2026-10-21T21:26:59Z
 resumed_from_stage: viability
