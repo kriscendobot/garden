@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T20:39:05Z_
+_As of 2026-10-21T20:45:40Z_
 
 ## Latest
 
@@ -30,9 +28,9 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 155 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
-Delegation: **active**
+Delegation: **paused** by proxy:screen since 2026-10-21T20:39:44Z: #213 merge a2d2426951d: deploy.yml failure
 
-- 2026-10-21T20:14:05Z [#213](https://github.com/kriscendobot/minion.town/pull/213) merged `a2d2426951d`; deploy [pending](https://github.com/kriscendobot/minion.town/actions/runs/39631291159)
+- 2026-10-21T20:14:05Z [#213](https://github.com/kriscendobot/minion.town/pull/213) merged `a2d2426951d`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/39668538848) — failed
 - 2026-10-21T17:38:35Z [#213](https://github.com/kriscendobot/minion.town/pull/213) `c511a23fd7c` screened
 - 2026-10-21T16:03:26Z [#211](https://github.com/kriscendobot/minion.town/pull/211) merged `a84d6d6d8ce`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/39631291159), watchdog ok — validated
 - 2026-10-21T15:39:50Z [#211](https://github.com/kriscendobot/minion.town/pull/211) `87cebebffcd` screened (heal of `f6fe2b522ca`)
@@ -79,11 +77,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-10-18T00:44:50Z, cleared 2026-10-21T12:43:34Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-18T00:44:50Z, latest 2026-10-21T20:43:57Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_unblock_journal`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.014348s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-oros-health-checkup-20261018-093508-f054cd1e7164` — from gardener:oros-health-checkup-20261018-093508, reply_to `oros-health-checkup-20261018-093508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261018-093508-f054cd1e7164.md)
 
@@ -766,6 +764,12 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr200-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
+- `minion-town-pr-screening-paused-a2d2426` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-a2d2426.md)
+
+> minion.town screening PAUSED: merge a2d2426951d of [https://github.com/kriscendobot/minion.town/pull/213](https://github.com/kriscendobot/minion.town/pull/213) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/39668538848
+> Heal job heal-minion-town-a2d2426 posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
+> Operations: context/operations/minion-town-screening.md
+
 - `liaison-followup-d31d9dcee79e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-d31d9dcee79e.md)
 
 > daemon-agent-tools-design-build (endojs/endo-but-for-bots): Phase 8 of the daemon agent tools design needs your decision on Open Question 4. Should the HTTP client be a daemon `provideHttpClient` formula, or the `@endo/fetch` plugin? Phase 8 is blocked until you answer. Separately, the Phase 2c checkbox in the design document should be ticked once #1497 lands. Phase 7 (the endo-claude acceptance loop) is unblocked for its build step whenever you want it posted.
@@ -996,13 +1000,14 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 92120481 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.675619s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 7 open notice(s); checker healthy
+worst fetch p95 3.675619s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`heal-minion-town-a2d2426`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/heal-minion-town-a2d2426.md) — Heal minion.town production after merge a2d2426951de58a0a3e953f24af7a7ea74c39a81
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1524-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1524
 
 ### tada (14451)
