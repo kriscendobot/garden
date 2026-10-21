@@ -50,6 +50,7 @@ Tests: the stamp advances on each kind of use (socket, REST, MCP), coalescing
 holds, the value survives a restart with the durable store, and the operator
 read shows it.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
