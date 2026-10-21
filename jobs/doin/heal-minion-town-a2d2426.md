@@ -15,6 +15,7 @@ Open it with scripts/jobs/gardening/ensure-pr.sh and stage the ordinary gauntlet
 proxy screens and merges a marked heal PR even while the delegation is paused. Never
 push to main directly and never force-revert main.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=531 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
