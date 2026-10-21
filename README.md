@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T14:09:19Z_
+_As of 2026-10-21T14:16:13Z_
 
 ## Latest
 
@@ -231,13 +229,17 @@ Delegation: **active**
 
 - `kriscendobot-minion.town-pr210-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr210-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr210-gauntlet-review-budget-reached.md)
 
-> Gauntlet kriscendobot-minion.town-pr210-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr210-gauntlet panel --add-rounds N
+> COALESCED message — occurrence #2 (first seen 2026-10-21T11:38:35Z, latest 2026-10-21T14:14:14Z).
+> The SAME message (episode key `kriscendobot-minion.town-pr210-gauntlet-review-budget-reached`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
 >
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $10.14
+> Gauntlet kriscendobot-minion.town-pr210-gauntlet REVIEW-BUDGET-REACHED: Applied 8 panel/fix round(s); fix round 8 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=8, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr210-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 8/8 · cost so far: $13.20
 > Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr210-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -965,16 +967,16 @@ worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`screen-minion-town-pr200-81f2180-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr200-81f2180-conduct.md) — Screened delegated merge: kriscendobot/minion.town#200 at 81f21805913b03cc1d0...
 
-### doin (1)
-- [`kriscendobot-minion.town-pr210-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr210-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #210
+### doin (0)
+(none)
 
-### tada (14389)
+### tada (14391)
+- [`kriscendobot-minion.town-pr210-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet.md) — gauntlet kriscendobot-minion.town-pr210-gauntlet — review budget reached
+- [`kriscendobot-minion.town-pr210-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-fix-8.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-fd6f8a870fe4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/canary-probe-oros-studio-garden-ce242c49-fd6f8a870fe4.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr210-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-panel-8.md) — Cost
 - [`kriscendobot-minion.town-pr210-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-fix-7.md) — Cost
-- [`kriscendobot-minion.town-pr210-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr210-gauntlet-panel-7.md) — Cost
-- [`minion-town-arc-press-20261021-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/minion-town-arc-press-20261021-123508.md) — Cost
-- … and 14384 more
+- … and 14386 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
