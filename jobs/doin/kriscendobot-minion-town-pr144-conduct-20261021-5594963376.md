@@ -20,6 +20,7 @@ all three current checks were green. Re-establish all conductor gates against
 the live head/base and carry the merge to a terminal outcome.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3279 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
