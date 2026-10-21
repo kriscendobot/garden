@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T23:35:12Z_
+_As of 2026-10-21T23:40:07Z_
 
 ## Latest
 
@@ -1006,14 +1004,14 @@ _Fleet token-unlock pace: 92234569 tokens/day lower bound._
 worst fetch p95 3.056047s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`oros-health-watch-20261021-213508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261021-213508.md) — ---
+- [`endojs-endo-but-for-bots-pr1524-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1524-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1524
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`screen-minion-town-pr214-0e644c0-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr214-0e644c0-conduct.md) — Screened delegated merge: kriscendobot/minion.town#214 at 0e644c0c2a57f4c9549...
 
-### doin (2)
+### doin (1)
 - [`self-heal-fix-garden-monk-complete-job-inbox-rm-local-mods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-monk-complete-job-inbox-rm-local-mods.md) — ---
-- [`endojs-endo-but-for-bots-pr1524-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1524-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1524
 
 ### tada (14461)
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1524-gauntlet-fix-3.md) — Cost
