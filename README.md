@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T12:09:18Z_
+_As of 2026-10-21T12:14:52Z_
 
 ## Latest
 
@@ -34,7 +32,6 @@ Delegation: **active**
 
 - 2026-10-21T11:46:45Z [#200](https://github.com/kriscendobot/minion.town/pull/200) `81f21805913` screened
 - 2026-10-21T10:07:45Z [#200](https://github.com/kriscendobot/minion.town/pull/200) `088b84ab702` screened
-- 2026-10-20T12:12:53Z [#198](https://github.com/kriscendobot/minion.town/pull/198) merged `6c66c2f5792`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/39420564369), watchdog ok — validated
 
 ## Messages to the maintainer
 
@@ -95,18 +92,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #88 (first seen 2026-10-16T17:37:14Z, latest 2026-10-21T11:53:19Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 88 times; this is ONE
-> coalesced notice that updates in place, not 88 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-21T12:13:28Z).
+> It was observed 88 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.040588s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.039835s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=0.026380s, giveups=4, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.033296s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadmail/journal: p95=0.040155s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.026290s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.039513s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -115,6 +105,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 7 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
+
+- `watchdog-unclaimable-host-requirements-screen-minion-town-pr200-81f2180-conduct` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-screen-minion-town-pr200-81f2180-conduct.md)
+
+> Host-requirements gate: job 'screen-minion-town-pr200-81f2180-conduct' has remained unclaimed for 1200s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
@@ -953,7 +947,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 92942722 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 11 open notice(s); checker healthy
+worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
