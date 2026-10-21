@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-21T00:21:33Z_
+_As of 2026-10-21T00:24:35Z_
 
 ## Latest
 
@@ -923,11 +923,11 @@ _Fleet token-unlock pace: 93666300 tokens/day lower bound._
 worst fetch p95 2.587041s/45s (/home/kris/garden/.garden-state/transcripts/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`claude-on-minion-town-completion-press-20261021-002009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261021-002009.md) — Completion press: Claude-on-minion.town arc
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`claude-on-minion-town-completion-press-20261021-002009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261021-002009.md) — Completion press: Claude-on-minion.town arc
 - [`minion-town-arc-press-20261020-235008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261020-235008.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (14296)
