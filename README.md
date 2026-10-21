@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T15:46:16Z_
+_As of 2026-10-21T15:56:19Z_
 
 ## Latest
 
@@ -460,20 +458,21 @@ Delegation: **paused** by proxy:screen since 2026-10-21T14:39:47Z: #200 merge f6
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` cleared on endolin-garden-ece02cb4.
 
-- `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
+- `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
 
-> Per-namespace journal clones on oros-studio-garden-ce242c49 are still over the 50-pack threshold after maintenance:
->   /Users/dom/garden/.garden-state/transcripts/clone: 71 packs
+> RECOVERED — the watchdog condition `namespace-clone-packs-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-21T14:40:21Z, cleared 2026-10-21T15:53:55Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> A pack/tmp_pack buildup makes every git read slow (2026-10-08: 57 s leader read wedged ~100 leader-gated units). Inspect by hand: `nice ionice -c3 git -C <clone> repack -a -d`.
+> Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-10-16T18:44:04Z, cleared 2026-10-21T06:45:49Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-16T18:44:04Z, latest 2026-10-21T15:50:50Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.078314s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `oros-health-watch-20261018-123528-split-terminal-complete` — from orchestrator:oros-health-watch-20261018-123528-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/oros-health-watch-20261018-123528-split-terminal-complete.md)
 
@@ -974,10 +973,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 358.4M | $1410.64 _(notional, rate-card)_ | 132% of 271.0M (ok) |
+| Claude | 358.5M | $1410.95 _(notional, rate-card)_ | 132% of 271.0M (ok) |
 | Codex | 132.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92264173 tokens/day lower bound._
+_Fleet token-unlock pace: 92324248 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 7 open notice(s); checker healthy
@@ -985,26 +984,26 @@ worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegat
 ## Board
 ### todo (7)
 - [`endojs-endo-but-for-bots-pr1521-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1521-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1521
-- [`minion-town-arc-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261021-153508.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`screen-minion-town-pr211-87cebeb-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr211-87cebeb-conduct.md) — Screened delegated merge: kriscendobot/minion.town#211 at 87cebebffcdef56038c...
 - [`oros-health-watch-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261021-153508.md) — ---
+- [`improve-completion-window-report-git-timeout-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-completion-window-report-git-timeout-floor.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1520-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1520-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1520
 - [`build-endor-run-expanded-phase-5-entry-point-with-dependencies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endor-run-expanded-phase-5-entry-point-with-dependencies.md) — ---
 
 ### doin (4)
+- [`minion-town-arc-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261021-153508.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`build-endor-run-expanded-phase-3-directory-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-run-expanded-phase-3-directory-input.md) — ---
 - [`build-endor-run-expanded-phase-4-entry-point-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endor-run-expanded-phase-4-entry-point-input.md) — ---
 - [`oros-health-checkup-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261021-153508.md) — ---
-- [`claude-on-minion-town-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261021-153508.md) — Press the Claude-on-minion.town arc forward
 
-### tada (14405)
+### tada (14406)
+- [`claude-on-minion-town-press-20261021-153508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/claude-on-minion-town-press-20261021-153508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1520-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1520-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr211-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr211-gauntlet.md) — gauntlet kriscendobot-minion.town-pr211-gauntlet — complete
 - [`kriscendobot-minion.town-pr211-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr211-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1520-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1520-gauntlet-viability.md) — Cost
-- [`kriscendobot-minion.town-pr211-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/kriscendobot-minion.town-pr211-gauntlet-panel-1.md) — Cost
-- … and 14400 more
+- … and 14401 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1089,6 +1088,7 @@ worst fetch p95 5.216529s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`minion-town-pr200-reland-accounts-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr200-reland-accounts-migration.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/211` · Re-land kriscendobot/minion.town#200: run the accounts-store migration, then ...
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`build-minion-town-guest-coupons-phase1-rest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-guest-coupons-phase1-rest.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/199` · Build the rest of guest-coupons phase 1 on kriscendobot/minion.town
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
