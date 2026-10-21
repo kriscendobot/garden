@@ -2,6 +2,20 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-21T16:30Z (oros-health-checkup-20261021-153508): healthy; deployed = `fd6f8a87` (origin/main2 tip at the check); transcripts clone repacked 75 → 2 packs; two maintenance and config fixes landed (`4d57b792`, `1205fd4b`)
+
+- **Load/mem:** load 3.80/3.28/3.38 at 15:40Z, and 4.25/4.14/3.94 by 16:30Z. 3 monks are running. 11 to 13 GiB of 15 GiB available. Swap is 1 GiB of 1 GiB used. It is full but flat (page cache).
+- **Disk/inodes:** 7% of the overlay used (404G free). The virtiofs garden mount is 51% used; inodes 1%.
+- **Uptime:** 19d22h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `fd6f8a87` (deployed 13:47Z). fleet/health/oros (13:47:55Z): `roll_status: deployed`, 0 of 289 units failed. This run's `4d57b792` and `1205fd4b` are pending a roll.
+- **Units:** 0 failed garden units and 0 `NeedDaemonReload=yes`. `garden-monk@1..3` are running. `hosts/oros` says `monks: 3`. No drain and no derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 15:32:59Z and pushed at 15:33:09Z. Status ok, 29.9M of 180M (7%). The pushes at 14:47, 15:02, 15:17 and 15:33Z were all ok.
+- **State clones:** `transcripts/clone` was at **75 packs / 3.7 GB** even after `fd6f8a87` deployed. Its repack was being killed at exactly 120s on every hourly pass. The cause is that the fleet git wrapper's `GARDEN_REPO_GIT_TIMEOUT=120` silently overrode the script's 1800s repack timeout. That is fixed in `4d57b792`, with a test. I ran the pass once by hand with the bound raised: 75 → 2 packs in 95s, now 3.5 GB. The other clones are at or below 50 packs (monitors/monk-1 is at 50). There is no tmp_pack and no `gc.log`. The leader clone's working tree is frozen at its 2026-10-18 clone, 5,792 commits behind, because that clone is only read through refs. That is expected, but three config readers fell back to that tree ahead of the root journal. That is fixed in `1205fd4b`, with a test. The current values match, so nothing was misread.
+- **rc=124 (3h):** none in the journal.
+- **Changed:** landed `4d57b792` and `1205fd4b`, and repacked the transcripts clone. Operator slip: I removed an `index.lock` in `decisions/journal` that had just been recreated by a live `reset --hard`. The interrupted plan-queue decision re-landed at 15:56:47Z, and the clone is clean at the tip.
+- **Pre-existing test failures (not from this run, same on unmodified main2):** `kimi-opus-fallback-test.sh` (B1 re-route assertions) and `worker-spine-kinds-test.sh` (3 FAILs including `pinnedclaude_m` monk eligibility, and it exceeds 580s under load).
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-21T13:00Z (oros-health-checkup-20261021-123508): healthy; deployed = origin/main2 `e2d0a90b`; stale transcripts tmp_pack removed, 10 leaked test daemons killed, maintenance fix landed (`fd6f8a87`)
 
 - **Load/mem:** load 2.69/2.92/3.11 at 12:40Z, and 1.77/2.41/2.88 by 13:00Z. 3 monks are running. 12 GiB of 15 GiB available. Swap reads 0 GiB, which is no pressure.
