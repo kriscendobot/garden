@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T20:10:03Z_
+_As of 2026-10-21T20:16:11Z_
 
 ## Latest
 
@@ -998,21 +996,19 @@ _Fleet token-unlock pace: 91918527 tokens/day lower bound._
 worst fetch p95 3.675619s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`screen-minion-town-pr213-c511a23-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr213-c511a23-conduct.md) — Screened delegated merge: kriscendobot/minion.town#213 at c511a23fd7c917fbc56...
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1524-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1524
-- [`oros-health-watch-20261021-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261021-183508.md) — ---
 
-### tada (14447)
+### tada (14449)
+- [`screen-minion-town-pr213-c511a23-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/screen-minion-town-pr213-c511a23-conduct.md) — Cost
+- [`oros-health-watch-20261021-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/oros-health-watch-20261021-183508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1524-gauntlet-fix-1.md) — Cost
 - [`oros-health-checkup-20261021-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/oros-health-checkup-20261021-183508.md) — Cost
 - [`claude-on-minion-town-completion-press-20261021-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/claude-on-minion-town-completion-press-20261021-183508.md) — Cost
-- [`endojs-endo-but-for-bots-pr1523-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1523-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1523-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1523-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1523-gauntlet-panel-1.md) — Cost
-- … and 14442 more
+- … and 14444 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
