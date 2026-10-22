@@ -1,16 +1,13 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-no-any-typecheck-split
+tier: mentor
 handler-timeout: 3600
 split-indivisible-reason: 'pr-open-needs-endojs-pr-write-pat-on-endolin-host-implementation-already-pushed'
 split-lineage-root: endojs-endo-but-for-bots-no-any-typecheck
 split-lineage-parent: endojs-endo-but-for-bots-no-any-typecheck-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-10-22T11:18:08Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-22T11:20:07Z cleared=none -->
 
 ---
 requires: host=endolin-garden-ece02cb4
