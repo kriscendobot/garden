@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T08:50:38Z_
+_As of 2026-10-22T08:56:27Z_
 
 ## Latest
 
@@ -256,16 +254,16 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #33 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T08:47:51Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 33 times; this is ONE
-> coalesced notice that updates in place, not 33 messages. Latest detail:
+> WATCHDOG notice — occurrence #34 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T08:52:47Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 34 times; this is ONE
+> coalesced notice that updates in place, not 34 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1484](https://github.com/endojs/endo-but-for-bots/pull/1484)#discussion_r4344892435 (age=11511s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1477](https://github.com/endojs/endo-but-for-bots/pull/1477)#discussion_r4344979384 (age=10559s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1392](https://github.com/endojs/endo-but-for-bots/pull/1392)#discussion_r4345265068 (age=7727s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345298532 (age=7410s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345304671 (age=7354s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1484](https://github.com/endojs/endo-but-for-bots/pull/1484)#discussion_r4344892435 (age=11811s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1477](https://github.com/endojs/endo-but-for-bots/pull/1477)#discussion_r4344979384 (age=10859s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1392](https://github.com/endojs/endo-but-for-bots/pull/1392)#discussion_r4345265068 (age=8027s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345298532 (age=7710s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345304671 (age=7654s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -472,11 +470,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-10-18T06:45:14Z, latest 2026-10-22T00:46:40Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-10-18T06:45:14Z, cleared 2026-10-22T08:51:51Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.095716s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal.md)
 
