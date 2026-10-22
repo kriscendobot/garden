@@ -22,3 +22,13 @@ Dispatched by design-build-handoff.sh from the design report's follow-ups:
 
 > - The design-panel gauntlet for #1528, which the completion machinery stages from the URL above.
 > - Once that gauntlet passes: the build of endor-bus-tui Phase 1 (daemon region store and text/buffer verbs).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T04:40:15Z
