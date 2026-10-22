@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-22T00:20:19Z_
+_As of 2026-10-22T00:24:58Z_
 
 ## Latest
 
@@ -1004,14 +1004,14 @@ _Fleet token-unlock pace: 92254421 tokens/day lower bound._
 worst fetch p95 3.056047s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`oros-health-watch-20261021-213508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261021-213508.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`screen-minion-town-pr214-0e644c0-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr214-0e644c0-conduct.md) — Screened delegated merge: kriscendobot/minion.town#214 at 0e644c0c2a57f4c9549...
+- [`kriscendobot-minion.town-pr201-review-f2094d04`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr201-review-f2094d04.md) — Review directive on kriscendobot/minion.town PR #201
 
-### doin (2)
+### doin (1)
 - [`kriscendobot-minion-town-pr201-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr201-freeze.md) — Fix kriscendobot/minion.town#201: New Clip can rewrite itself AND freeze itself
-- [`kriscendobot-minion.town-pr201-review-f2094d04`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr201-review-f2094d04.md) — Review directive on kriscendobot/minion.town PR #201
 
 ### tada (14465)
 - [`canary-probe-oros-studio-garden-ce242c49-91030eca6d69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/canary-probe-oros-studio-garden-ce242c49-91030eca6d69.md) — rolling-deploy canary probe — round trip OK
