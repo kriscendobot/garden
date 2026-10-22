@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-22T08:05Z (oros-health-checkup-20261022-063509): healthy; deployed = origin/main2 `91030eca`, no changes
+
+- **Load/mem:** load 3.83/3.45/3.49 at 07:52Z. 3 monks are running. 12 GiB of 15 GiB available; swap reads 0.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 54% used; inodes 1%.
+- **Uptime:** 20d14h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `91030eca`, still the origin/main2 tip. fleet/health/oros (2026-10-21 23:58:16Z): `roll_status: deployed`.
+- **Units:** 0 failed garden units. `garden-monk@1..3` are running. `hosts/oros` says `monks: 3`. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 07:48:36Z and pushed at 07:48:47Z. Status ok, 55.7M of 180M (19% derived). The pushes at 06:32, 06:48, 07:03, 07:20, 07:33 and 07:48Z were all ok, and spend rose monotonically.
+- **State clones:** 33 `*/journal` clones. The largest are repo-watcher (49 packs), reaper (47) and self-deploy (46), all below the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. No leaked bun/node test daemons. The full `find` over `.garden-state` took about 3 minutes on virtiofs.
+- **rc=124 (3h):** one, a job-level timeout and not a host fault. `endojs-endo-but-for-bots-pr1529-gauntlet-undraft` on monk/2 at 05:44Z hit its own 2400s handler budget (`term-at-wall`) and was classified as transient. It now sits in `jobs/plan/`. No `garden-library-link-scan` timeout this window.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-22T05:10Z (oros-health-checkup-20261022-033508): healthy; deployed = origin/main2 `91030eca`, no changes
 
 - **Load/mem:** load 2.52/2.36/2.08 at 04:50Z. 3 monks are running. 13 GiB of 15 GiB available; swap reads 0.
