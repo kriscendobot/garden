@@ -22,7 +22,7 @@ of records, so a milestone spanning repositories rolls up as one.
 |---|---|---|---|---|
 | M1 | 8 | 8 | 100% | 0 |
 | M2 | 8 | 7 | 87% | 0 |
-| M3 | 31 | 7 | 22% | 70 |
+| M3 | 31 | 8 | 25% | 70 |
 | M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
@@ -122,7 +122,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | endopi-provider-registry-and-oauth | endo-but-for-bots | M3 | Proposed | M | — |
 | endopi-stdio-rpc-bridge | endo-but-for-bots | M3 | Proposed | M | — |
 | filesystem-watchers | endo-but-for-bots | M3 | Complete | S | — |
-| fs-interface-consolidation | endo-but-for-bots | M3 | In Progress | — | — |
+| fs-interface-consolidation | endo-but-for-bots | M3 | Complete | — | endo-but-for-bots#467 |
 | fs-interface-reconciliation | endo-but-for-bots | M3 | In Progress | — | — |
 | gateway-bearer-token-auth | endo-but-for-bots | M3 | Complete | — | — |
 | mvs-resolver | endo-but-for-bots | M3 | Proposed | M | — |
