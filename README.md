@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T17:59:32Z_
+_As of 2026-10-22T18:10:45Z_
 
 ## Latest
 
@@ -111,11 +109,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #5 (first seen 2026-10-18T09:20:28Z, latest 2026-10-22T17:25:15Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 5 times; this is
-> ONE entry that updates in place, not 5 messages. Latest detail:
+> COALESCED message — occurrence #6 (first seen 2026-10-18T09:20:28Z, latest 2026-10-22T18:00:30Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 6 times; this is
+> ONE entry that updates in place, not 6 messages. Latest detail:
 >
-> M2 is blocked on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). Please decide whether to retain and complete this now-clean PR or close it as superseded by the preferred upstream approach (with its XS tests extracted if desired).
+> Milestone M2 is blocked on its sole remaining step, `hardened-text-codecs-shim` in [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). Decide whether the now-green conditional codec-taming implementation should proceed for approval after upstream [endojs/endo#3372](https://github.com/endojs/endo/issues/3372) closed unmerged.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -969,6 +967,13 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden_journal` cleared on oros-studio-garden-ce242c49.
 
+- `endojs-endo-but-for-bots-pr1537-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1537-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1537-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1537-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1537-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1537-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `kriscendobot-minion.town-pr192-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr192-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr192-gauntlet-review-budget-reached.md)
 
 > COALESCED message — occurrence #2 (first seen 2026-10-17T03:56:41Z, latest 2026-10-17T08:44:29Z).
@@ -1049,7 +1054,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 371.9M | $1454.70 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 137.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Codex | 137.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 
@@ -1062,17 +1067,16 @@ worst fetch p95 5.881385s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1537-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1537-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1537
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1538
+### doin (0)
+(none)
 
-### tada (14630)
+### tada (14634)
+- [`endojs-endo-but-for-bots-pr1537-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1537-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1537-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1537-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1537-gauntlet-clean.md) — Gauntlet CLEAN stage for endojs/endo-but-for-bots PR #1537: CI is red, and th...
+- [`endojs-endo-but-for-bots-pr1538-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1538-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1538-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1538-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1538-gauntlet-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1537-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1537-gauntlet-viability.md) — Cost
-- [`conduct-endojs-endo-but-for-bots-pr1389-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/conduct-endojs-endo-but-for-bots-pr1389-endolin.md) — Cost
-- [`endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies.md) — Cost
-- [`fu-design-daemon-git-clone-provide-git-clone-bootstrap-1-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/fu-design-daemon-git-clone-provide-git-clone-bootstrap-1-open-pr.md) — Cost
-- … and 14625 more
+- … and 14629 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
