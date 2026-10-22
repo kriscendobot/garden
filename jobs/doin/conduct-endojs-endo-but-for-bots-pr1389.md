@@ -12,6 +12,7 @@ Authorization: kriskowal APPROVED review https://github.com/endojs/endo-but-for-
 At dispatch (2026-10-22): not draft, MERGEABLE, checks 6 success / 24 skipped.
 Task: finalize and merge per the conductor role (you own the merge method).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
