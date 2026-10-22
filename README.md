@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-22T12:53:23Z_
+_As of 2026-10-22T12:57:26Z_
 
 ## Latest
 
@@ -314,13 +314,6 @@ Delegation: **active**
 >
 > Orchestration minion-town-arc-press-20261022-003508-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
 
-- `endojs-endo-but-for-bots-pr1534-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1534-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1534-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1534-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1534-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1534-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_leader_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_leader_journal` has CLEARED (first seen 2026-10-18T11:52:37Z, cleared 2026-10-18T12:12:24Z).
@@ -581,11 +574,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_producer_journal` has CLEARED (first seen 2026-10-18T01:24:31Z, cleared 2026-10-22T12:44:44Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-18T01:24:31Z, latest 2026-10-22T12:54:45Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_producer_journal`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_producer_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=0.012642s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_regenerate_topics_counts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_regenerate_topics_counts_journal.md)
 
@@ -1026,13 +1019,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 370.8M | $1448.78 _(notional, rate-card)_ | 137% of 271.0M (ok) |
+| Claude | 370.8M | $1448.78 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
 | Codex | 136.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 91813295 tokens/day lower bound._
+_Fleet token-unlock pace: 84711664 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.906968s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 7 open notice(s); checker healthy
+worst fetch p95 5.906968s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (14)
