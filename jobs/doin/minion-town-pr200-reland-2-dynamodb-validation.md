@@ -40,3 +40,13 @@ only `error.name`, so the invalid request is unknown.
    the maintainer for that one step via `message-user.sh` and change nothing.
 
 Note: https://github.com/kriscendobot/minion.town/pull/210 also touches the accounts store; it is not in scope.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T01:05:07Z
