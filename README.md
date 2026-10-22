@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T19:10:09Z_
+_As of 2026-10-22T19:14:56Z_
 
 ## Latest
 
@@ -1057,17 +1055,17 @@ _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 worst fetch p95 5.881385s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`oros-health-checkup-20261022-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261022-190509.md) — ---
 - [`claude-on-minion-town-press-20261022-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261022-190509.md) — Press the Claude-on-minion.town arc forward
-- [`endojs-endo-but-for-bots-pr1539-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1539-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1539
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 - [`oros-health-watch-20261022-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261022-190509.md) — ---
 
-### doin (2)
+### doin (3)
 - [`minion-town-arc-press-20261022-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261022-190509.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`endojs-endo-but-for-bots-pr1539-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1539-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1539
 - [`endo-handwritten-types-ibis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-handwritten-types-ibis.md) — Research hand-written type-definition policy, publish an IBIS issue, and appl...
 
 ### tada (14643)
