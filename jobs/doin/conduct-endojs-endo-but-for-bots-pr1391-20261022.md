@@ -13,3 +13,13 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1391 (head `build/sturdyref
 kriskowal APPROVED with "@kriscendobot conduct" (https://github.com/endojs/endo-but-for-bots/pull/1391#pullrequestreview-5610135879). No inline comments or other asks. At dispatch the PR was MERGEABLE / CLEAN with all checks passing or skipped.
 
 Un-draft and merge per the conductor role (you choose the merge method). Note the base is a frozen stacked base branch; handle the stack per the conductor's norms.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T07:09:56Z
