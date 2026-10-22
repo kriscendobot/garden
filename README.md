@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-22T23:25:12Z_
+_As of 2026-10-22T23:28:23Z_
 
 ## Latest
 
@@ -1055,14 +1055,14 @@ _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 worst fetch p95 8.780281s/45s (/home/kris/garden/.garden-state/maintainer/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup.md) — ---
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-clean-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1542-gauntlet-clean-1-pr-body.md) — Description
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (1)
+### doin (2)
+- [`fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup.md) — ---
 - [`endojs-endo-but-for-bots-pr1394-review-fa16249a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1394-review-fa16249a.md) — Review directive on endojs/endo-but-for-bots PR #1394
 
 ### tada (14679)
