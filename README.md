@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T18:10:45Z_
+_As of 2026-10-22T18:15:29Z_
 
 ## Latest
 
@@ -969,13 +967,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden_journal` cleared on oros-studio-garden-ce242c49.
 
-- `endojs-endo-but-for-bots-pr1537-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1537-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1537-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1537-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1537-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1537-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `kriscendobot-minion.town-pr192-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr192-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr192-gauntlet-review-budget-reached.md)
 
 > COALESCED message — occurrence #2 (first seen 2026-10-17T03:56:41Z, latest 2026-10-17T08:44:29Z).
@@ -1069,8 +1060,8 @@ worst fetch p95 5.881385s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (0)
-(none)
+### doin (1)
+- [`design-fs-interface-consolidation-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-fs-interface-consolidation-status.md) — ---
 
 ### tada (14634)
 - [`endojs-endo-but-for-bots-pr1537-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1537-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1537-gauntlet — HALTED
