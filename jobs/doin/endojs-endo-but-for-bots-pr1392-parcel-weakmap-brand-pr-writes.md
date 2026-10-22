@@ -89,3 +89,13 @@ Open question on the line-1 thread: should the WeakMap live in pass-style itself
 
 Verification: `yarn test` for pass-style, marshal, and patterns passes in every ses-ava profile. Three unrelated marshal/patterns files exited non-zero under host load and passed when rerun. `yarn lint` shows 0 errors, and prettier and the pre-push probes pass. The one probe failure is the `spell-out-identifiers` flag on fast-check's `numRuns` option, which this PR already had and which is that library's API name.
 ===== END =====
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-22T13:46:09Z
