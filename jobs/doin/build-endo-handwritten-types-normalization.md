@@ -18,3 +18,13 @@ Do the conversion package by package, with separate commits where that helps rev
 Successful completion stages the gauntlet automatically, which covers "run the gauntlet". The shepherd-through-CI step follows after it. Reply on issue #1540 with the PR URL.
 
 Context: the comment-watcher's attempt to run "run the gauntlet" directly against #1540 (`endojs-endo-but-for-bots-pr1540-gauntlet`) stopped at viability, because #1540 is an issue, not a PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-22T20:14:20Z
