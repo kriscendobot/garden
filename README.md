@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T13:39:14Z_
+_As of 2026-10-22T13:54:38Z_
 
 ## Latest
 
@@ -521,6 +519,19 @@ Delegation: **active**
 >
 > Orchestration oros-health-watch-20261018-123528-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
 
+- `endojs-endo-but-for-bots-no-any-typecheck-split-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-no-any-typecheck-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-no-any-typecheck-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: endojs-endo-but-for-bots-no-any-typecheck-split
+> orchestration-status: complete
+> order: serial
+> children-total: 1
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration endojs-endo-but-for-bots-no-any-typecheck-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
+
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-09-17T00:05:19Z, latest 2026-10-21T05:50:24Z).
@@ -1022,7 +1033,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 370.8M | $1448.78 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 136.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Codex | 136.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 
@@ -1030,32 +1041,31 @@ _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 worst fetch p95 5.906968s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (11)
 - [`conduct-endojs-endo-but-for-bots-pr1389-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1389-endolin.md) — Conduct endojs/endo-but-for-bots PR #1389 (endolin relay)
 - [`claude-on-minion-town-press-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261022-125008.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261022-125008.md) — ---
-- [`endojs-endo-but-for-bots-pr1535-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1535-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1535
-- [`kriscendobot-minion.town-pr216-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr216-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #216
-- [`endojs-endo-but-for-bots-no-any-typecheck-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-no-any-typecheck-expanded-window.md) — endojs/endo-but-for-bots: open the draft no-explicit-any PR (pushed branch, P...
-- [`endojs-endo-but-for-bots-pr1433-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-close.md) — Close endojs/endo-but-for-bots PR #1433 (maintainer directive)
-- [`claude-on-minion-town-completion-press-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261022-125008.md) — Completion press: Claude-on-minion.town arc
+- [`endojs-endo-but-for-bots-pr1536-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1536-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1536
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`kriscendobot-minion.town-pr216-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr216-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #216
 - [`minion-town-arc-press-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261022-125008.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand-pr-writes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand-pr-writes.md) — Relay PR-write steps for endojs/endo-but-for-bots PR #1392 (parcel WeakMap br...
+- [`canary-probe-oros-studio-garden-ce242c49-b526b1d84d8f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-b526b1d84d8f.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ b526b1d84d8f
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`oros-health-checkup-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261022-125008.md) — ---
 - [`endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies.md) — Post the drafted RSVP replies on endojs/endo-but-for-bots PR #1477
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1533-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1533-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1533
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1535-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1535-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1535
+- [`claude-on-minion-town-completion-press-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261022-125008.md) — Completion press: Claude-on-minion.town arc
+- [`endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand-pr-writes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand-pr-writes.md) — Relay PR-write steps for endojs/endo-but-for-bots PR #1392 (parcel WeakMap br...
 
-### tada (14593)
-- [`endojs-endo-but-for-bots-pr1531-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1531-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1531-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1531-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1531-gauntlet-fix-1.md) — Fix round 1 for PR #1531: fixes pushed, CI red only from the known ubuntu-26....
-- [`endojs-endo-but-for-bots-pr1534-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1534-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1534-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1534-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1534-gauntlet — HALTED
-- [`improve-completion-report-lock-wait`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/improve-completion-report-lock-wait.md) — Cost
-- … and 14588 more
+### tada (14599)
+- [`endojs-endo-but-for-bots-pr1533-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1533-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1533-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-no-any-typecheck-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-no-any-typecheck-split.md) — orchestration endojs-endo-but-for-bots-no-any-typecheck-split — complete
+- [`endojs-endo-but-for-bots-pr1433-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1433-close.md) — Cost
+- [`endojs-endo-but-for-bots-pr1533-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1533-gauntlet-fix-1.md) — Cost
+- [`endojs-endo-but-for-bots-no-any-typecheck-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-no-any-typecheck-expanded-window.md) — Cost
+- … and 14594 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
