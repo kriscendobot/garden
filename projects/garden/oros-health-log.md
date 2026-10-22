@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-22T14:05Z (oros-health-checkup-20261022-125008): healthy; deployed = origin/main2 `b526b1d8`, no changes
+
+- **Load/mem:** load 1.84/2.00/1.70 at 13:59Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 0.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 58% used; inodes 1%.
+- **Uptime:** 20d20h, no reboot.
+- **Deployed vs main2:** oros self-deployed `b526b1d8`, the origin/main2 tip, at 13:50Z. Before that it was on `91030eca`. From 12:46Z the roll was `deferred` with `long-job monk 2 2891s`, which is the gate waiting for a long job as designed, and it proceeded once that job ended. fleet/health/oros (13:50:03Z): `roll_status: deployed`, 0 of 289 units failed.
+- **Units:** 0 failed garden units. No `Failed with result` lines in the system journal for the last 3h. `garden-monk@1..2` are running and `hosts/oros` says `monks: 2`. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** the last claude-oros push was at 13:47:26Z. Status ok, 62.86M of 180M (about 35%). The pushes at 12:02, 12:18, 12:32, 12:47, 13:02, 13:18, 13:31 and 13:47Z were all ok, roughly every 15 minutes, and spend rose monotonically.
+- **State clones:** 33 `*/journal` clones. The largest are worktree-sweeper and state-clone-keeper (50 packs, at the threshold), fork-watch (49) and reaper (47). No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. No leaked bun/node processes.
+- **rc=124 (3h):** none in the system journal.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-22T11:15Z (oros-health-checkup-20261022-093509): healthy; deployed = origin/main2 `91030eca`, no changes
 
 - **Load/mem:** load 1.56/1.79/2.23 at 11:09Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 0.
