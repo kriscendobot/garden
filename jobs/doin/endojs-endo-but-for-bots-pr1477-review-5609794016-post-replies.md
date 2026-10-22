@@ -49,3 +49,13 @@ I have **not** renamed anything in this PR, because your premise was the thing i
 
 I made no rename here. The `{network, peer, at}` reshape you sketched is parked as `endojs-endo-but-for-bots-pr1477-location-reshape` until you answer the two questions in the inline thread.
 ===== END TOP-LEVEL BODY =====
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-22T17:23:54Z
