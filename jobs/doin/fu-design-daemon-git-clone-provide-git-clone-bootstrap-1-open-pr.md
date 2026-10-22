@@ -53,3 +53,13 @@ This is a breaking change to a host-only method. Every in-tree caller is migrate
 
 Existing clone formulas are unaffected. Only the call shape and the default policy of newly minted `origin` remotes change.
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-22T17:21:19Z
