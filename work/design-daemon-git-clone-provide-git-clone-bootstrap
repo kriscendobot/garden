@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-22T14:57:15Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-design-daemon-git-clone-provide-git-clone-bootstrap
+pr_number: 709
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/709
+pr_head: design/daemon-git-clone
