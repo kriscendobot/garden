@@ -101,3 +101,13 @@ This is additive. Existing commands are unchanged.
 None. `@endo/chat` and `@endo/spaces-util` are private, so this PR has no
 changeset.
 -----END BODY-----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T03:14:11Z
