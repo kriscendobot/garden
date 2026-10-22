@@ -58,3 +58,13 @@ A run that passed `--cas-dir` now uses that store, or exits 2 under the registry
 
 None.
 -----END BODY-----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T04:24:03Z
