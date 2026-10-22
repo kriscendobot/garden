@@ -24,3 +24,13 @@ Task (only this; no code changes, no new PRs):
 Do NOT delete the head branch `design/formula-identifier-indirection`. Do NOT
 post a follow-up design for the revocable-proxy approach (the maintainer said
 "if we want", which is not a directive to build it).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-22T13:44:59Z
