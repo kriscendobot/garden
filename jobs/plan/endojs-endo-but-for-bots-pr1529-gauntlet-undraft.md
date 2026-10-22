@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: endojs-endo-but-for-bots-pr1529-gauntlet
+role: gardener
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-22T05:53:15Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-22T05:53:15Z
+---
+
+---
 role: gardener
 arc: moonshots
 gauntlet: endojs-endo-but-for-bots-pr1529-gauntlet
@@ -37,15 +57,3 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: undraft=done -->
   <!-- gauntlet-stage-result: undraft=head-mismatch -->
   <!-- gauntlet-stage-result: undraft=metadata-unreadable -->
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-22T05:03:53Z
