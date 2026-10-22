@@ -162,8 +162,9 @@ case "$GARDEN_ENTRY_DUP_WINDOW$GARDEN_ENTRY_DUP_MAX_DAYS" in
 esac
 
 # entry_matches <blob-text> — true when a landed entry is a re-post of the one we
-# are about to write: same kind and host, the same role (or job+claim for a
-# claim-stamped result), and a byte-identical BODY. The frontmatter is parsed and
+# are about to write: same kind and host, and either job+claim (a claim-stamped
+# result, whose body is then irrelevant) or the same role and a byte-identical
+# BODY. The frontmatter is parsed and
 # then DISCARDED, so the
 # per-invocation `at:` stamp — the one field two invocations of the same report
 # are guaranteed to disagree on — cannot defeat the match. Parsing in-shell
@@ -189,7 +190,12 @@ entry_matches() {
     # Role attribution can differ across retry/recovery paths. The durable
     # identity of a claimed result is its job and claim, so suppress that same
     # result irrespective of which role happened to post it.
-    [ "$fj" = "$GARDEN_JOB_CLAIM_BASE" ] && [ "$fc" = "$claim_fp" ] || return 1
+    # One claim produces exactly one terminal result, so a landed result for
+    # the same job and claim is the duplicate whatever its body says: a retry
+    # whose self-improvement suffix differed double-posted on 2026-10-22
+    # (19:01:47Z and 19:02:10Z) while this still demanded identical bodies.
+    [ "$fj" = "$GARDEN_JOB_CLAIM_BASE" ] && [ "$fc" = "$claim_fp" ]
+    return
   else
     [ "$fr" = "$role" ] && [ "$fc" = "$claim_fp" ] || return 1
   fi

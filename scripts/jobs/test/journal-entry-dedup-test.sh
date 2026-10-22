@@ -13,7 +13,7 @@
 # an identical kind+role+host entry whose BODY is byte-identical (frontmatter, and
 # so the differing `at:` stamp, excluded) means log `duplicate of <path>, not
 # posting` and exit 0 having written nothing. Claimed results instead match on
-# kind+host+job+claim, irrespective of role attribution.
+# kind+host+job+claim, irrespective of role attribution and body.
 #
 # Also asserts the escape hatches (--allow-duplicate, GARDEN_ENTRY_DUP_WINDOW=0,
 # window expiry) and the negative cases that must STILL post (different body,
@@ -170,6 +170,14 @@ run_claimed_result stylist improve-dedup fe06a439bbcf99ad
 [ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 1 ] && [ "$(origin_head)" = "$CLAIM_HEAD" ] \
   && ok "same job and claim deduplicate across mismatched role attribution" \
   || bad "mismatched roles duplicated one claimed result: $OUT"
+# A retry of the same claim whose report body differs (2026-10-22: only the
+# self-improvement suffix changed between 19:01:47Z and 19:02:10Z) is still the
+# same terminal result and must not land a second record.
+BODY="$REPORT"$'\n\n''## Self-improvement'$'\n''a different suffix on retry'
+run_claimed_result gardener improve-dedup fe06a439bbcf99ad
+[ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 1 ] && [ "$(origin_head)" = "$CLAIM_HEAD" ] \
+  && ok "same job and claim deduplicate even when the result body differs" \
+  || bad "a differing body duplicated one claimed result: $OUT"
 run_claimed_result stylist improve-dedup another-claim
 [ "$RC" -eq 0 ] && [ "$(count_kind result)" -eq 2 ] \
   && ok "different claims retain distinct results" \
