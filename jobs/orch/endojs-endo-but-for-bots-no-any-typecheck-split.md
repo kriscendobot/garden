@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-no-any-typecheck-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-22T11:19:46Z
 ---
