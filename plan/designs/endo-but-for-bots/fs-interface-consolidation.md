@@ -1,11 +1,12 @@
 ---
 slug: fs-interface-consolidation
 repository: endo-but-for-bots
-status: In Progress
+status: Complete
 milestone: M3
 depends_on: []
+pr: endo-but-for-bots#467
 created: 2026-06-18
-updated: 2026-06-29
+updated: 2026-10-22
 source: imported from origin/llm designs/README.md
 ---
 
@@ -14,15 +15,16 @@ source: imported from origin/llm designs/README.md
 | | |
 |---|---|
 | **Created** | 2026-06-18 |
-| **Updated** | 2026-06-19 |
+| **Updated** | 2026-10-22 |
 | **Author** | Aaron (prompted) |
-| **Status** | In Progress |
+| **Status** | **Complete** |
 
 ## Status
 
-This document proposes reducing the overlap in the ~30 filesystem-shaped and
-name-hub-shaped `M.interface` guards that now exist across `@endo/platform`,
-`@endo/platform/fs/extended` (formerly `@endo/endo-fs`), and `@endo/daemon`.
+This document records the completed reduction of overlap in the ~30
+filesystem-shaped and name-hub-shaped `M.interface` guards that existed across
+`@endo/platform`, `@endo/platform/fs/extended` (formerly `@endo/endo-fs`), and
+`@endo/daemon`.
 It builds directly on
 [fs-interface-reconciliation.md](fs-interface-reconciliation.md) (which unified
 the method *names and signatures* across the three live tree surfaces) and on
@@ -34,14 +36,14 @@ question: now that `lookup` / `move` / `copy` / `makeDirectory` / `remove` /
 `subView` mean the same thing on every tree surface, **which of the duplicated
 guards can be collapsed, and what blocks each one.**
 
-Each phase below touches core exo guards and therefore needs its own
-daemon-test validation pass.
+All five consolidation candidates (C1–C5) shipped through
+[PR #467](https://github.com/endojs/endo-but-for-bots/pull/467), merged on
+2026-06-19. Optional adjacent enhancements belong to their own designs and do
+not keep this plan record open.
 
-### Implemented so far
+### Shipped scope
 
-The low-risk, shape-identical portions of C1–C5 have landed on this PR; the
-parts that need a maintainer canonical-shape decision or that are blocked on
-another design are called out below and left as follow-ups.
+The implementation delivered C1–C5 as follows:
 
 - **C2 (done).** `@endo/platform/fs` now exports `readableBlobMethodGuards`
   (help / streamBase64 / text / json) and `readableTreeMethodGuards`
