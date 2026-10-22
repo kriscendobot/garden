@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T02:00:59Z_
+_As of 2026-10-22T02:23:31Z_
 
 ## Latest
 
@@ -1011,36 +1009,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 363.2M | $1426.02 _(notional, rate-card)_ | 134% of 271.0M (ok) |
+| Claude | 363.6M | $1424.41 _(notional, rate-card)_ | 134% of 271.0M (ok) |
 | Codex | 135.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92089305 tokens/day lower bound._
+_Fleet token-unlock pace: 92044361 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.102928s/45s (/home/kris/garden/.garden-state/screening-control/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (6)
-- [`endojs-endo-but-for-bots-pr1525-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1525-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1525
-- [`design-endor-bus-tui-phase-breakdown-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endor-bus-tui-phase-breakdown-open-pr.md) — Description
-- [`kriscendobot-minion.town-pr216-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr216-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #216
+### todo (7)
+- [`endojs-endo-but-for-bots-pr1528-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1528-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1528
+- [`design-endor-tui-phase-breakdown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endor-tui-phase-breakdown.md) — ---
+- [`endojs-endo-but-for-bots-pr1527-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1527
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`build-daemon-debug-worker-restart-phase-3-chat-integration-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-debug-worker-restart-phase-3-chat-integration-open-pr.md) — Description
 - [`build-endor-run-expanded-archives-directories-entry-points`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endor-run-expanded-archives-directories-entry-points.md) — ---
+- [`endojs-endo-but-for-bots-pr1526-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1526-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1526
 
-### doin (4)
-- [`design-endor-tui-phase-breakdown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endor-tui-phase-breakdown.md) — ---
-- [`endojs-endo-but-for-bots-pr1526-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1526-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1526
-- [`build-daemon-xs-worker-snapshot-supervisor-round-trip-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-xs-worker-snapshot-supervisor-round-trip-test.md) — ---
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1525-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1525-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1525
+- [`kriscendobot-minion.town-pr216-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr216-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #216
 - [`build-daemon-xs-worker-debugger-next-phase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-xs-worker-debugger-next-phase.md) — ---
 
-### tada (14485)
-- [`design-endor-tui-phase-breakdown-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/design-endor-tui-phase-breakdown-open-pr.md) — Completion report: design-endor-tui-phase-breakdown-open-pr
-- [`endojs-endo-but-for-bots-pr1525-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1525-gauntlet-clean.md) — Clean stage report: endojs/endo-but-for-bots#1525 (endor tui Phase 1)
-- [`kriscendobot-minion.town-pr216-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet-clean.md) — Cost
-- [`build-daemon-debug-worker-restart-phase-3-chat-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/build-daemon-debug-worker-restart-phase-3-chat-integration.md) — Cost
-- [`minion-town-arc-press-20261022-003508-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-arc-press-20261022-003508-split.md) — orchestration minion-town-arc-press-20261022-003508-split — complete
-- … and 14480 more
+### tada (14493)
+- [`endojs-endo-but-for-bots-pr1528-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1528-gauntlet-clean.md) — Cost
+- [`endojs-endo-but-for-bots-pr1527-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1527-gauntlet-viability.md) — Cost
+- [`build-daemon-xs-worker-snapshot-round-trip-segfault`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/build-daemon-xs-worker-snapshot-round-trip-segfault.md) — Cost
+- [`endojs-endo-but-for-bots-pr1528-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1528-gauntlet-viability.md) — Cost
+- [`kriscendobot-minion.town-pr216-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet-panel-1.md) — Cost
+- … and 14488 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1118,6 +1116,7 @@ worst fetch p95 5.102928s/45s (/home/kris/garden/.garden-state/screening-control
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
+- [`build-endor-bus-tui-phase-breakdown-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-bus-tui-phase-breakdown-open-pr.md) — awaiting `endojs-endo-but-for-bots-pr1528-gauntlet` · Build: the design in endojs/endo-but-for-bots#1528
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
 - [`build-endor-tui-phase-breakdown-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-breakdown-open-pr.md) — awaiting `endojs-endo-but-for-bots-pr1526-gauntlet` · Build: the design in endojs/endo-but-for-bots#1526
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
