@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-10-22T10:23:17Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-endor-run-unit-tests-ci-lane-open-pr
+pr_number: 1534
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1534
+pr_head: llm-endor-run-unit-tests-ci-lane
