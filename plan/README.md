@@ -5,7 +5,7 @@ hand-edit. Edit a design by editing its record; this view recomputes. The
 per-design files are the single source of truth (design: garden#4,
 designs/plan-in-journal.md)._
 
-This roadmap aggregates **144** design record(s) across all plan repositories.
+This roadmap aggregates **145** design record(s) across all plan repositories.
 Milestone totals, completion, and the dependency graph are computed over the union
 of records, so a milestone spanning repositories rolls up as one.
 
@@ -29,7 +29,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | M8 | 4 | 0 | 0% | 9 |
 | M9 | 33 | 17 | 51% | 44 |
 | M10 | 9 | 0 | 0% | 53 |
-| M11 | 12 | 4 | 33% | 30 |
+| M11 | 13 | 4 | 30% | 33 |
 | (unfiled) | 18 | 11 | 61% | 0 |
 
 ## Designs
@@ -83,6 +83,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | endor-npm-registry-proxy | endo-but-for-bots | M11 | In Progress | — | — |
 | endor-run-expanded | endo-but-for-bots | M11 | In Progress | — | — |
 | endor-tui | endo-but-for-bots | M11 | Not Started | XL | — |
+| endor-tui-phase-1 | endo-but-for-bots | M11 | In Progress | M | endo-but-for-bots#1525 |
 | base64-native-fallthrough | endo-but-for-bots | M2 | Complete | S | — |
 | break-dev-dependency-cycles | endo-but-for-bots | M2 | Complete | M | — |
 | chat-playwright-smoke | endo-but-for-bots | M2 | Complete | S | — |
