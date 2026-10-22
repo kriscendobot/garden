@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-22T23:14:14Z_
+_As of 2026-10-22T23:17:36Z_
 
 ## Latest
 
@@ -1055,7 +1055,8 @@ _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 worst fetch p95 8.780281s/45s (/home/kris/garden/.garden-state/maintainer/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
+- [`fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup.md) — ---
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-clean-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1542-gauntlet-clean-1-pr-body.md) — Description
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
