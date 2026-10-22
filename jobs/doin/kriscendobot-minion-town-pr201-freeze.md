@@ -45,3 +45,13 @@ freeze should also be holdable separately from write authority. Do NOT add a new
 endpoint, channel, or per-entity resource beyond the freeze method and its persisted
 flag; if a real design fork appears, park it with `post-plan.sh --awaiting-maintainer`
 citing the review URL. Leave the PR draft/undraft state to the gauntlet.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T00:12:18Z
