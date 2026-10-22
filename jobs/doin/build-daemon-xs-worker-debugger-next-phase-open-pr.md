@@ -74,3 +74,13 @@ The host interface only gains methods. The `attachDebugger` / `detachDebugger` c
 
 Nothing to migrate: debug sessions are ephemeral and nothing persists.
 -----END BODY-----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T03:58:43Z
