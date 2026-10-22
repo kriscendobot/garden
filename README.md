@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T01:41:41Z_
+_As of 2026-10-22T02:00:59Z_
 
 ## Latest
 
@@ -101,8 +99,8 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-22T01:17:02Z).
-> It was observed 98 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-22T01:51:14Z).
+> It was observed 99 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
@@ -296,6 +294,19 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 16 -> 18 (N is yours to choose).
+
+- `minion-town-arc-press-20261022-003508-split-terminal-complete` — from orchestrator:minion-town-arc-press-20261022-003508-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-arc-press-20261022-003508-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: minion-town-arc-press-20261022-003508-split
+> orchestration-status: complete
+> order: serial
+> children-total: 1
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration minion-town-arc-press-20261022-003508-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -998,33 +1009,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 362.9M | $1424.13 _(notional, rate-card)_ | 134% of 271.0M (ok) |
+| Claude | 363.2M | $1426.02 _(notional, rate-card)_ | 134% of 271.0M (ok) |
 | Codex | 135.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92063587 tokens/day lower bound._
+_Fleet token-unlock pace: 92089305 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.102928s/45s (/home/kris/garden/.garden-state/screening-control/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (6)
+- [`endojs-endo-but-for-bots-pr1525-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1525-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1525
 - [`design-endor-bus-tui-phase-breakdown-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endor-bus-tui-phase-breakdown-open-pr.md) — Description
+- [`kriscendobot-minion.town-pr216-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr216-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #216
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`build-daemon-xs-worker-debugger-next-phase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-xs-worker-debugger-next-phase.md) — ---
+- [`build-daemon-debug-worker-restart-phase-3-chat-integration-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-debug-worker-restart-phase-3-chat-integration-open-pr.md) — Description
+- [`build-endor-run-expanded-archives-directories-entry-points`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endor-run-expanded-archives-directories-entry-points.md) — ---
 
 ### doin (4)
 - [`design-endor-tui-phase-breakdown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endor-tui-phase-breakdown.md) — ---
-- [`endojs-endo-but-for-bots-pr1525-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1525-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1525
-- [`minion-town-arc-press-20261022-003508-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261022-003508-expanded-window.md) — Supervise the minion.town arc (expanded window for tick minion-town-arc-press...
-- [`build-daemon-debug-worker-restart-phase-3-chat-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-debug-worker-restart-phase-3-chat-integration.md) — ---
+- [`endojs-endo-but-for-bots-pr1526-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1526-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1526
+- [`build-daemon-xs-worker-snapshot-supervisor-round-trip-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-xs-worker-snapshot-supervisor-round-trip-test.md) — ---
+- [`build-daemon-xs-worker-debugger-next-phase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-xs-worker-debugger-next-phase.md) — ---
 
-### tada (14480)
-- [`minion-town-arc-press-20261022-003508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-arc-press-20261022-003508.md) — Cost
-- [`design-endor-bus-tui-phase-breakdown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/design-endor-bus-tui-phase-breakdown.md) — design-endor-bus-tui-phase-breakdown: completion report
-- [`kriscendobot-minion.town-pr216-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet.md) — gauntlet kriscendobot-minion.town-pr216-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1525-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1525-gauntlet-viability.md) — Cost
-- [`minion-town-pr200-reland-2-dynamodb-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-pr200-reland-2-dynamodb-validation.md) — Cost
-- … and 14475 more
+### tada (14485)
+- [`design-endor-tui-phase-breakdown-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/design-endor-tui-phase-breakdown-open-pr.md) — Completion report: design-endor-tui-phase-breakdown-open-pr
+- [`endojs-endo-but-for-bots-pr1525-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1525-gauntlet-clean.md) — Clean stage report: endojs/endo-but-for-bots#1525 (endor tui Phase 1)
+- [`kriscendobot-minion.town-pr216-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet-clean.md) — Cost
+- [`build-daemon-debug-worker-restart-phase-3-chat-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/build-daemon-debug-worker-restart-phase-3-chat-integration.md) — Cost
+- [`minion-town-arc-press-20261022-003508-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-arc-press-20261022-003508-split.md) — orchestration minion-town-arc-press-20261022-003508-split — complete
+- … and 14480 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1103,6 +1117,7 @@ worst fetch p95 5.102928s/45s (/home/kris/garden/.garden-state/screening-control
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
+- [`build-endor-tui-phase-breakdown-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-breakdown-open-pr.md) — awaiting `endojs-endo-but-for-bots-pr1526-gauntlet` · Build: the design in endojs/endo-but-for-bots#1526
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
