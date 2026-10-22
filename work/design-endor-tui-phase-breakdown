@@ -1,9 +1,0 @@
-host: oros-studio-garden-ce242c49
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-10-22T01:31:09Z
-worktree_dir: /Users/dom/garden/scratch/gardener-wt-design-endor-tui-phase-breakdown
-pr_number: 1526
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1526
-pr_head: design/endor-tui-phases
