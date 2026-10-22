@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T11:50:19Z_
+_As of 2026-10-22T11:56:59Z_
 
 ## Latest
 
@@ -254,15 +252,14 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #66 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T11:48:01Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 66 times; this is ONE
-> coalesced notice that updates in place, not 66 messages. Latest detail:
+> WATCHDOG notice — occurrence #67 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T11:53:11Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 67 times; this is ONE
+> coalesced notice that updates in place, not 67 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1477](https://github.com/endojs/endo-but-for-bots/pull/1477)#discussion_r4344979384 (age=21370s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1392](https://github.com/endojs/endo-but-for-bots/pull/1392)#discussion_r4345265068 (age=18538s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345298532 (age=18221s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345304671 (age=18165s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1392](https://github.com/endojs/endo-but-for-bots/pull/1392)#discussion_r4345265068 (age=18839s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345298532 (age=18522s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345304671 (age=18466s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
