@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-22T22:20Z (oros-health-checkup-20261022-220533): healthy; deployed = origin/main2 `e93718f2`, no changes
+
+- **Load/mem:** load 2.54/2.36/2.13 at 22:10Z. 2 monks are running. 13 GiB of 15 GiB available. Swap reads 662M of 1.0 GiB used, down from the full 1.0 GiB at 19:45Z; with 13 GiB available this is not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 59% used; inodes 1%. The `/tmp` tmpfs is at 744M (10%): 2205 small scratch files plus the `/tmp/mmcheck` cache (224M) and `/tmp/jchk` (118M).
+- **Uptime:** 21d04h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `e93718f2`, the origin/main2 tip. fleet/health/oros (20:17:39Z): `roll_status: deployed`, 0 of 289 units failed.
+- **Units:** 0 failed garden units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 22:02:11Z and pushed at 22:02:12Z. Status ok, 71.49M of 180M. The pushes at 20:18, 20:32, 20:48, 21:02, 21:17, 21:32, 21:46 and 22:02Z were all ok, about every 15 minutes, and spend rose monotonically.
+- **State clones:** 33 `*/journal` clones. The largest are transcripts (50 packs, at the threshold), reaper (47) and screening-control (43). No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. No bun/node processes older than 3h.
+- **rc=124 (3h):** none in the system journal, and no `Failed with result` lines either.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-22T19:45Z (oros-health-checkup-20261022-190509): healthy; deployed `edac084d` (main2 tip `e93718f2` landed after it), cleared 677M of leaked /tmp scratch
 
 - **Load/mem:** load 2.76/2.65/2.66 at 19:40Z. 2 monks are running. 12 GiB of 15 GiB available. Swap reads 1.0 of 1.0 GiB used, but processes in this container hold only about 40 MB of it (the largest is a `claude` at 32 MB). The rest is VM-level pressure, possibly tmpfs pages. Not a problem with 12 GiB available, but worth noting because earlier runs read 0.
