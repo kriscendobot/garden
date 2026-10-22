@@ -34,3 +34,13 @@ Also note: `rust/endo/tests/endor_run_cli.rs` (added on #1531) runs the built
 `endor` binary through XS. No CI lane runs it, and on aarch64 Linux any `endor run`
 segfaults, including the pre-existing `--no-cas` ZIP path. Do not wire it into CI
 until the xsnap `txJump`/`c_setjmp` guard named in the build-xsnap comment lands.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T07:49:37Z
