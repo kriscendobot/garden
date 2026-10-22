@@ -44,3 +44,13 @@ equivalent-shape impostor object (same prototype, frozen, empty, not made by the
 constructor) is NOT a parcel, and fix PR-body prose (Description / Security
 Considerations) that describes the shape checks. Run the pass-style, marshal and patterns
 tests and lint before pushing. Reply to both inline comments with the commit SHA.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T10:02:14Z
