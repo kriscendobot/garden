@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-22T04:40:15Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-endor-bus-tui-phase-breakdown-open-pr
+pr_number: 1533
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1533
+pr_head: endor-bus-tui/phase-1-region-store
