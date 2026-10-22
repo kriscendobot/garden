@@ -31,3 +31,13 @@ These changes open two new questions for you:
 ## Reply to comment 4344935804
 
 Recorded in 28725a3e7, § 3.4. `se` is reserved as the live-reference alternative to `id`. For now a parser rejects `se` alone, and rejects `se` together with `id`, with a fixed "unsupported locator" message. Adding it later is a versioned, incompatible change. The section keeps your caveat that `se` presumes the peer never restarts and never reuses a kernel slot identifier.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T10:45:20Z
