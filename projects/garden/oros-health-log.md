@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-22T05:10Z (oros-health-checkup-20261022-033508): healthy; deployed = origin/main2 `91030eca`, no changes
+
+- **Load/mem:** load 2.52/2.36/2.08 at 04:50Z. 3 monks are running. 13 GiB of 15 GiB available; swap reads 0.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 53% used; inodes 1%.
+- **Uptime:** 20d11h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `91030eca` (deployed 2026-10-21 23:57Z), still the origin/main2 tip. fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed garden units and 0 `NeedDaemonReload=yes`. `garden-monk@1..3` are running. `hosts/oros` says `monks: 3`. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 04:48:08Z and pushed at 04:49:10Z. Status ok, 52.4M of 180M (19% derived). The pushes at 04:02, 04:17, 04:32 and 04:49Z were all ok, and spend rose monotonically.
+- **State clones:** 33 `*/journal` clones. The largest are regenerate-sections-index (50 packs, at the threshold), repo-watcher (49) and library-link-check (48). No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes inside a clone. The flock files under `receipt-watcher/`, `ci-watcher/` and similar are persistent lockfiles, not stale git locks. No leaked bun/node test daemons.
+- **rc=124 (3h):** one, `garden-library-link-scan` at 02:32Z (exceeded SELF_HEAL_HANDLER_TIMEOUT=600s with only 40s of CPU, so it stalled on I/O rather than computing). The same thing happened at 18:32Z yesterday. That is 2 of 12 hourly runs in 12h, and both self-cleared on the next run. Watch it; it does not need a fix yet.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-22T00:55Z (oros-health-checkup-20261022-003508): healthy; deployed = origin/main2 `91030eca`, no changes
 
 - **Load/mem:** load 2.26/2.78/2.78 at 00:53Z. 3 monks are running. 12 GiB of 15 GiB available; swap reads 0.
