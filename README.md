@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-22T23:28:23Z_
+_As of 2026-10-22T23:31:27Z_
 
 ## Latest
 
@@ -1061,17 +1061,16 @@ worst fetch p95 8.780281s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (2)
-- [`fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup.md) — ---
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1394-review-fa16249a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1394-review-fa16249a.md) — Review directive on endojs/endo-but-for-bots PR #1394
 
-### tada (14679)
+### tada (14680)
+- [`fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/fix-endojs-endo-but-for-bots-pr1542-bwrap-cancel-cleanup.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1542-gauntlet-clean-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/fu-endojs-endo-but-for-bots-pr1542-gauntlet-clean-1.md) — Completion report: fu-endojs-endo-but-for-bots-pr1542-gauntlet-clean-1
 - [`kriscendobot-minion.town-pr216-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet.md) — gauntlet kriscendobot-minion.town-pr216-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr216-gauntlet-fix-9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet-fix-9.md) — Cost
 - [`fix-endojs-endo-but-for-bots-pr1349-text-codec-encapsulation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/fix-endojs-endo-but-for-bots-pr1349-text-codec-encapsulation.md) — Cost
-- [`endojs-endo-but-for-bots-pr1542-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1542-gauntlet-clean.md) — Clean stage report: endojs/endo-but-for-bots PR #1542 (gauntlet iteration 0)
-- … and 14674 more
+- … and 14675 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
