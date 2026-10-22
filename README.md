@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-21T23:57:22Z_
+_As of 2026-10-22T00:10:42Z_
 
 ## Latest
 
@@ -997,30 +995,31 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 361.5M | $1419.08 _(notional, rate-card)_ | 133% of 271.0M (backoff) |
+| Claude | 361.6M | $1419.23 _(notional, rate-card)_ | 133% of 271.0M (backoff) |
 | Codex | 135.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92240497 tokens/day lower bound._
+_Fleet token-unlock pace: 92236800 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.056047s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`oros-health-watch-20261021-213508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261021-213508.md) — ---
+- [`kriscendobot-minion-town-pr201-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr201-freeze.md) — Fix kriscendobot/minion.town#201: New Clip can rewrite itself AND freeze itself
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`screen-minion-town-pr214-0e644c0-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr214-0e644c0-conduct.md) — Screened delegated merge: kriscendobot/minion.town#214 at 0e644c0c2a57f4c9549...
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr201-review-f2094d04`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr201-review-f2094d04.md) — Review directive on kriscendobot/minion.town PR #201
 
-### tada (14464)
+### tada (14465)
+- [`canary-probe-oros-studio-garden-ce242c49-91030eca6d69`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/canary-probe-oros-studio-garden-ce242c49-91030eca6d69.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1524-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1524-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1524-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1524-gauntlet-panel-4.md) — Cost
 - [`self-heal-fix-garden-monk-complete-job-inbox-rm-local-mods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/self-heal-fix-garden-monk-complete-job-inbox-rm-local-mods.md) — Completion report: self-heal-fix-garden-monk-complete-job-inbox-rm-local-mods
 - [`endojs-endo-but-for-bots-pr1524-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/endojs-endo-but-for-bots-pr1524-gauntlet-fix-3.md) — Cost
-- [`minion-town-arc-press-20261021-213508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/21/minion-town-arc-press-20261021-213508.md) — Cost
-- … and 14459 more
+- … and 14460 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
