@@ -4,10 +4,10 @@ model: gpt-5.6-terra
 thoughtfulness: medium
 work_class: gardener:l
 target: main2
-attempts: 1
-accepts: 1
-censored: 1
-estimated: 1
-mean_dollars: 2.649156
-m2: 0.000000
+attempts: 6
+accepts: 6
+censored: 3
+estimated: 3
+mean_dollars: 0.748302
+m2: 4.386486
 acceptance_rate: 1.0000
