@@ -3,18 +3,18 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 1389,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/1389",
-  "head_oid": "c0b14bfb642e1bb362c7b74455f8a26f05c779bc",
-  "ask": "approve",
+  "head_oid": "8881c6d939a86a947850ada3d447fd89dc7de107",
+  "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "design(parcel): layer 1 Parcel shim contract and authority split",
+  "summary": "Panel reviewed 5f2f90ad364f, but the presented head is 8881c6d939a8",
   "unblocks": [],
-  "source": "native-review-request-endojs-endo-but-for-bots-pr1389",
-  "requested_at": "2026-10-21T15:07:09Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1389-5f2f90ad-8881c6d9",
+  "requested_at": "2026-10-22T06:55:28Z",
   "first_requested_at": "2026-10-09T06:13:25Z",
-  "generation": 3,
+  "generation": 4,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-22T06:38:43Z"
+    "observed_at": "2026-10-22T06:55:30Z"
   }
 }
