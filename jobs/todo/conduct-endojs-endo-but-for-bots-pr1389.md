@@ -1,7 +1,8 @@
 ---
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Conduct endojs/endo-but-for-bots PR #1389
@@ -12,13 +13,5 @@ Authorization: kriskowal APPROVED review https://github.com/endojs/endo-but-for-
 At dispatch (2026-10-22): not draft, MERGEABLE, checks 6 success / 24 skipped.
 Task: finalize and merge per the conductor role (you own the merge method).
 
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-22T07:33:48Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-22T08:03:03Z -->
