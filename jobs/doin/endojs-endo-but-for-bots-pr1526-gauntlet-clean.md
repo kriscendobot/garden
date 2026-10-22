@@ -50,3 +50,13 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T02:34:59Z
