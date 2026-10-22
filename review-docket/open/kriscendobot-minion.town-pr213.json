@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/minion.town",
+  "pr": 213,
+  "url": "https://github.com/kriscendobot/minion.town/pull/213",
+  "head_oid": "c511a23fd7c917fbc56a15cc916f9d31f041ddaa",
+  "ask": "re-review",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
+  "unblocks": [],
+  "source": "heal-minion-town-a2d2426-fixer-complete",
+  "requested_at": "2026-10-21T20:48:38Z",
+  "first_requested_at": "2026-10-21T16:46:47Z",
+  "generation": 2,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-21T20:51:21Z"
+  }
+}
