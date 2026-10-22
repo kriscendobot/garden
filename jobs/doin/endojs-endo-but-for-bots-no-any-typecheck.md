@@ -19,6 +19,8 @@ baseline of existing violations to burn down) rather than a single huge rewrite,
 the PR body. Do not weaken existing checks. If the right mechanism is a genuine design fork,
 write it up and ask the maintainer rather than guessing.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
