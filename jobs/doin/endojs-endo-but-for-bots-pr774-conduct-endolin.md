@@ -39,3 +39,13 @@ The plan half is DONE: `jobs/plan/ebfb-parcel-layer2-build-20261022.md` (Parcel 
 4. Note: downstream draft #1391 is stacked on a snapshot of #774's head. The spine keeps the
    head branch if an open PR uses it as base. The parked layer-2 plan rebases #1391 after
    the merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T10:51:34Z
