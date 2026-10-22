@@ -18,3 +18,13 @@ One layering question: your comment at line 1 seems to expect the WeakMap inside
 
 The fix is queued as garden job `endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand`.
 ----- END REPLY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T10:47:00Z
