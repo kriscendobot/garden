@@ -20,3 +20,13 @@ this job.
    `gh pr ready https://github.com/endojs/endo-but-for-bots/pull/1526`.
    If the head differs, do NOT un-draft; report head-mismatch. If already ready, no-op.
 3. Re-read `isDraft,headRefOid` and report the result. Do nothing else.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T04:50:37Z
