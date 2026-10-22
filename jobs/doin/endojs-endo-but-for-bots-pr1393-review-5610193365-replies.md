@@ -49,3 +49,13 @@ I also went through the rest of the PR's diff for newly added `any` and fixed th
 
 The other `any`s in the diff were already there before this PR and only moved (the `Value = any` defaults on `ConvertValToSlot`/`ConvertSlotToVal`, `RankCompare`, `PartialCompare`, and the `marshal-stringify.js` `<any>` uses).
 They are left for the separate no-any type-checking job (`endojs-endo-but-for-bots-no-any-typecheck`).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T10:43:19Z
