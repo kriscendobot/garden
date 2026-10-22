@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-22T11:15Z (oros-health-checkup-20261022-093509): healthy; deployed = origin/main2 `91030eca`, no changes
+
+- **Load/mem:** load 1.56/1.79/2.23 at 11:09Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 0.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 57% used; inodes 1%.
+- **Uptime:** 20d17h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `91030eca`, still the origin/main2 tip. fleet/health/oros (2026-10-21 23:58:16Z): `roll_status: deployed`, 0 of 289 units failed.
+- **Units:** 0 failed garden units. The three `activating` units (repo-watcher, sysop, worktree-sweeper) had all started within the last 2 minutes. `garden-monk@1..2` are running. `hosts/oros` now says `monks: 2`, written by oros itself at 09:06:55Z (it was 3). This run did not change it. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 11:02:14Z and pushed at 11:02:19Z. Status ok, 61.9M of 180M (22% derived). The pushes at 09:53, 10:03, 10:18, 10:32, 10:48 and 11:02Z were all ok. At 10:03Z the reading dipped by 24k (59.86M to 59.83M, 0.04%). The `f9d731f5` re-measure still published it, so the drop was confirmed on re-measure. It is tiny and spend grew again afterwards. This is not the undercount class `f9d731f5` targets.
+- **State clones:** 33 `*/journal` clones. The largest are regenerate-topics-counts (48 packs), state-clone-keeper and reaper (47), all below the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes in a clone's `.git`. No leaked bun/node processes.
+- **rc=124 (3h):** one, a job-level timeout and not a host fault. `endojs-endo-but-for-bots-no-any-typecheck` on monk/1 at 09:16Z hit its own 2400s handler budget (`term-at-wall`, elapsed 2466s) and was classified as transient. The reaper will requeue it.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-22T08:05Z (oros-health-checkup-20261022-063509): healthy; deployed = origin/main2 `91030eca`, no changes
 
 - **Load/mem:** load 3.83/3.45/3.49 at 07:52Z. 3 monks are running. 12 GiB of 15 GiB available; swap reads 0.
