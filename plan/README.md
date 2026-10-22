@@ -5,7 +5,7 @@ hand-edit. Edit a design by editing its record; this view recomputes. The
 per-design files are the single source of truth (design: garden#4,
 designs/plan-in-journal.md)._
 
-This roadmap aggregates **145** design record(s) across all plan repositories.
+This roadmap aggregates **152** design record(s) across all plan repositories.
 Milestone totals, completion, and the dependency graph are computed over the union
 of records, so a milestone spanning repositories rolls up as one.
 
@@ -29,7 +29,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | M8 | 4 | 0 | 0% | 9 |
 | M9 | 33 | 17 | 51% | 44 |
 | M10 | 9 | 0 | 0% | 53 |
-| M11 | 13 | 4 | 30% | 33 |
+| M11 | 20 | 4 | 20% | 54 |
 | (unfiled) | 18 | 11 | 61% | 0 |
 
 ## Designs
@@ -82,8 +82,15 @@ of records, so a milestone spanning repositories rolls up as one.
 | endor-bus-tui | endo-but-for-bots | M11 | Not Started | XL | — |
 | endor-npm-registry-proxy | endo-but-for-bots | M11 | In Progress | — | — |
 | endor-run-expanded | endo-but-for-bots | M11 | In Progress | — | — |
-| endor-tui | endo-but-for-bots | M11 | Not Started | XL | — |
+| endor-tui | endo-but-for-bots | M11 | Not Started | — | — |
 | endor-tui-phase-1 | endo-but-for-bots | M11 | In Progress | M | endo-but-for-bots#1525 |
+| endor-tui-phase-2 | endo-but-for-bots | M11 | Not Started | L | — |
+| endor-tui-phase-3 | endo-but-for-bots | M11 | Not Started | M | — |
+| endor-tui-phase-4 | endo-but-for-bots | M11 | Not Started | L | — |
+| endor-tui-phase-5 | endo-but-for-bots | M11 | Not Started | L | — |
+| endor-tui-phase-6 | endo-but-for-bots | M11 | Not Started | M | — |
+| endor-tui-phase-7 | endo-but-for-bots | M11 | Not Started | M | — |
+| endor-tui-phase-8 | endo-but-for-bots | M11 | Not Started | M | — |
 | base64-native-fallthrough | endo-but-for-bots | M2 | Complete | S | — |
 | break-dev-dependency-cycles | endo-but-for-bots | M2 | Complete | M | — |
 | chat-playwright-smoke | endo-but-for-bots | M2 | Complete | S | — |
@@ -186,6 +193,24 @@ of records, so a milestone spanning repositories rolls up as one.
 
 ```mermaid
 flowchart LR
+  endor_tui_phase_1 --> endor_tui
+  endor_tui_phase_2 --> endor_tui
+  endor_tui_phase_3 --> endor_tui
+  endor_tui_phase_4 --> endor_tui
+  endor_tui_phase_5 --> endor_tui
+  endor_tui_phase_6 --> endor_tui
+  endor_tui_phase_7 --> endor_tui
+  endor_tui_phase_8 --> endor_tui
+  endor_tui_phase_1 --> endor_tui_phase_2
+  endor_tui_phase_2 --> endor_tui_phase_3
+  endor_tui_phase_2 --> endor_tui_phase_4
+  endor_tui_phase_2 --> endor_tui_phase_5
+  daemon_xs_worker_debugger --> endor_tui_phase_5
+  endor_tui_phase_5 --> endor_tui_phase_6
+  endor_tui_phase_5 --> endor_tui_phase_7
+  endor_tui_phase_3 --> endor_tui_phase_8
+  endor_tui_phase_4 --> endor_tui_phase_8
+  endor_tui_phase_6 --> endor_tui_phase_8
   endo_claude --> endo_claude_agents_capability
   daemon_git_remotes --> git_remote_capability
   daemon_git_next_steps --> git_remote_capability
