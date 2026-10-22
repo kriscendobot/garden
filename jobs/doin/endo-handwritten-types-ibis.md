@@ -22,3 +22,13 @@ Deliver all of the following as one coherent feedback response:
 5. Reply on the source review thread with the new issue URL and the addressing commit SHA, then post the required top-level completion summary on PR #1393 with head SHA and real verification evidence. The repository-wide normalization is intentionally left to be driven from the new issue; do not pre-emptively post that follow-up job unless the issue or maintainer directs it.
 
 Before acting, rediscover any already-created issue by its durable marker and re-run the PR feedback preflight for comment `4352299587`. Existing garden evidence includes several prior `.d.ts` conversions, but it is precedent to evaluate, not a substitute for the requested cross-repository research.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-22T19:03:33Z
