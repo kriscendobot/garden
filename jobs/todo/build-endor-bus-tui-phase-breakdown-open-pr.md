@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1528-gauntlet
-priority: normal
 role: builder
+tier: mentor
 arc: moonshots
-posted_by: design-build-handoff
-posted_at: 2026-10-22T02:06:16Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-22T04:36:04Z cleared=none -->
 
 ---
 role: builder
