@@ -6,3 +6,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Fix the requested changes on endojs/endo-but-for-bots PR #1349, `build/hardened-text-codecs-shim`, to bring the active M2 hardened-text-codecs-shim implementation into compliance with its review.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-22T22:35:17Z
