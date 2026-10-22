@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T18:40:57Z_
+_As of 2026-10-22T19:00:43Z_
 
 ## Latest
 
@@ -595,11 +593,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-10-16T18:43:50Z, cleared 2026-10-22T12:41:39Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-10-16T18:43:50Z, latest 2026-10-22T18:43:17Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.041971s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -920,11 +918,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` has CLEARED (first seen 2026-10-18T14:45:48Z, cleared 2026-10-22T14:41:48Z).
-> It was observed 5 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #6 (first seen 2026-10-18T14:45:48Z, latest 2026-10-22T18:43:07Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.040830s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `followup-gate-daemon-agent-tools-design-build` — from followup-gate:daemon-agent-tools-design-build, reply_to `daemon-agent-tools-design-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-daemon-agent-tools-design-build.md)
 
@@ -1049,7 +1047,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 371.9M | $1454.70 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 138.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 139.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 
@@ -1062,16 +1060,17 @@ worst fetch p95 5.881385s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1539-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1539-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1539
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1393-46944e07`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1393-46944e07.md) — attention directive on endojs/endo-but-for-bots PR #1393
+- [`endojs-endo-but-for-bots-pr1539-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1539-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1539
 
-### tada (14637)
+### tada (14641)
+- [`endojs-endo-but-for-bots-pr1393-a3077604`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1393-a3077604.md) — Cost
+- [`claude-on-minion-town-completion-press-20261022-185008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/claude-on-minion-town-completion-press-20261022-185008.md) — Cost
+- [`improve-completed-design-link-status-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/improve-completed-design-link-status-audit.md) — Cost
+- [`endojs-endo-but-for-bots-pr1539-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1539-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1539-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1539-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1539-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1539-gauntlet-viability.md) — Cost
-- [`design-fs-interface-consolidation-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/design-fs-interface-consolidation-status.md) — Cost
-- [`endojs-endo-but-for-bots-pr1537-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1537-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1537-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1537-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1537-gauntlet-clean.md) — Gauntlet CLEAN stage for endojs/endo-but-for-bots PR #1537: CI is red, and th...
-- … and 14632 more
+- … and 14636 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
