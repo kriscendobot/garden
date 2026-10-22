@@ -42,3 +42,13 @@ type check that rejects `{any}`), wired into the shared lint config and CI. Inve
 baseline of existing violations to burn down) rather than a single huge rewrite, and say so in
 the PR body. Do not weaken existing checks. If the right mechanism is a genuine design fork,
 write it up and ask the maintainer rather than guessing.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T11:15:24Z
