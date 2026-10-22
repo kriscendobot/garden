@@ -20,3 +20,13 @@ approval is required; do not request one.
    fall back to an ordinary merge, never queue --auto, never ask for approval.
 This PR heals production after merge a2d2426951de58a0a3e953f24af7a7ea74c39a81.
 PR: https://github.com/kriscendobot/minion.town/pull/214
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T00:37:20Z
