@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-22T19:45Z (oros-health-checkup-20261022-190509): healthy; deployed `edac084d` (main2 tip `e93718f2` landed after it), cleared 677M of leaked /tmp scratch
+
+- **Load/mem:** load 2.76/2.65/2.66 at 19:40Z. 2 monks are running. 12 GiB of 15 GiB available. Swap reads 1.0 of 1.0 GiB used, but processes in this container hold only about 40 MB of it (the largest is a `claude` at 32 MB). The rest is VM-level pressure, possibly tmpfs pages. Not a problem with 12 GiB available, but worth noting because earlier runs read 0.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 59% used; inodes 1%. The `/tmp` tmpfs (RAM-backed) was at 1.4G; see Changed.
+- **Uptime:** 21d02h, no reboot.
+- **Deployed vs main2:** oros self-deployed `edac084d` at 19:35Z. Before that, from 19:13Z, the roll was `deferred` with `long-job monk 1 368s`, which is the gate waiting for a long job as designed. fleet/health/oros on origin (19:35:41Z): `roll_status: deployed`, 0 of 289 units failed. Origin/main2 has since moved to `e93718f2` (one commit, a journal-entry fix), so the next roll will pick it up.
+- **Units:** 0 failed garden units. `garden-monk@1..2` are running and `hosts/oros` says `monks: 2`. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 19:32:44Z and pushed at 19:32:53Z. Status ok, 70.08M of 180M. The pushes at 18:18, 18:32, 18:48, 19:02, 19:18 and 19:32Z were all ok, about every 15 minutes, and spend rose monotonically. The local `journal/` worktree showed the 19:02 sample only because its keeper runs every 30 minutes (last fresh 19:15Z). That is expected lag, not a missed push.
+- **State clones:** 33 `*/journal` clones. The largest are transcripts and gardener-scaler (48 packs) and reaper (47), all below the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. No bun/node processes older than 3h.
+- **rc=124 (3h):** none in the system journal, and no `Failed with result` lines either.
+- **Changed:** removed three leaked mermaid-validation scratch dirs from `/tmp`: `mmcheck.rIxe` (from 10-01), `mmcheck.A9VcKz` (10-16) and `mmcheck-2299346` (10-19), about 224M of node_modules each, none in use. The tmpfs went from 1.4G to 731M. The canonical `/tmp/mmcheck` cache that `skills/mermaid-validation` reuses was left in place. `/tmp/jchk` (118M, 05:06Z, owner unknown, not in use) was also left in place.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-22T16:06Z (oros-health-checkup-20261022-155009): healthy; deployed = origin/main2 `b526b1d8`, no changes
 
 - **Load/mem:** load 3.21/2.47/2.34 at 16:04Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 0.
