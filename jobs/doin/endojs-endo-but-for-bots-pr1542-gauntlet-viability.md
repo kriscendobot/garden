@@ -40,3 +40,13 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: viability=closed -->
   <!-- gauntlet-stage-result: viability=merged -->
   <!-- gauntlet-stage-result: viability=overtaken -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T22:26:45Z
