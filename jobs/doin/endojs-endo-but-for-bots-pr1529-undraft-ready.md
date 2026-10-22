@@ -17,3 +17,13 @@ The panel passed for head `5ce8d6ea121cbb5531e482ac64e4ee49e30e9e24` only.
    If it differs or is unreadable, do NOTHING and report it.
 2. If isDraft is true, run `gh pr ready https://github.com/endojs/endo-but-for-bots/pull/1529`.
 3. Re-fetch `isDraft,headRefOid` and report the result. Do nothing else.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T07:20:31Z
