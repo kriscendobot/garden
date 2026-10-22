@@ -5,14 +5,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1526
 build_job: design-endor-tui-phase-breakdown-open-pr
 kind: feature
-stage: panel
+stage: undraft
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-stage_retries: 1
+stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1526-gauntlet-panel-2
+current_child: endojs-endo-but-for-bots-pr1526-gauntlet-undraft
 state: running
 created_by: producer
 arc: moonshots
