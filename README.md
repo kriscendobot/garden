@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-22T16:15:03Z_
+_As of 2026-10-22T16:20:07Z_
 
 ## Latest
 
@@ -709,10 +709,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal` cleared on endolin-garden-ece02cb4.
 
-- `watchdog-handler-budget-overrun-fu-design-daemon-git-clone-provide-git-clone-bootstrap-1` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-fu-design-daemon-git-clone-provide-git-clone-bootstrap-1.md)
-
-> gardener job 'fu-design-daemon-git-clone-provide-git-clone-bootstrap-1' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2434s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
 > RECOVERED — the watchdog condition `comment-ack-blind-kriscendobot-minion.town` has CLEARED (first seen 2026-10-21T03:31:02Z, cleared 2026-10-21T10:33:27Z).
@@ -967,10 +963,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden_journal` cleared on oros-studio-garden-ce242c49.
-
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261022-155009` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261022-155009.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261022-155009' has remained unclaimed for 1199s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `kriscendobot-minion.town-pr192-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr192-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr192-gauntlet-review-budget-reached.md)
 
