@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-arc-press-20261022-003508-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-22T01:33:42Z
 ---
