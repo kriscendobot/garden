@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-no-any-typecheck-expanded-window-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-no-any-typecheck-expanded-window
 on-child-failure: halt
