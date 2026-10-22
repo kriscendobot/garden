@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T01:25:41Z_
+_As of 2026-10-22T01:41:41Z_
 
 ## Latest
 
@@ -998,10 +996,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 362.7M | $1423.31 _(notional, rate-card)_ | 134% of 271.0M (ok) |
+| Claude | 362.9M | $1424.13 _(notional, rate-card)_ | 134% of 271.0M (ok) |
 | Codex | 135.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92328236 tokens/day lower bound._
+_Fleet token-unlock pace: 92063587 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.102928s/45s (/home/kris/garden/.garden-state/screening-control/journal); 6 open notice(s); checker healthy
@@ -1009,20 +1007,22 @@ worst fetch p95 5.102928s/45s (/home/kris/garden/.garden-state/screening-control
 ## Board
 ### todo (3)
 - [`design-endor-bus-tui-phase-breakdown-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endor-bus-tui-phase-breakdown-open-pr.md) — Description
-- [`minion-town-arc-press-20261022-003508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261022-003508.md) — Deliberate overrun decomposition for minion-town-arc-press-20261022-003508
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`build-daemon-xs-worker-debugger-next-phase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-xs-worker-debugger-next-phase.md) — ---
 
-### doin (2)
+### doin (4)
+- [`design-endor-tui-phase-breakdown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endor-tui-phase-breakdown.md) — ---
 - [`endojs-endo-but-for-bots-pr1525-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1525-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1525
+- [`minion-town-arc-press-20261022-003508-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261022-003508-expanded-window.md) — Supervise the minion.town arc (expanded window for tick minion-town-arc-press...
 - [`build-daemon-debug-worker-restart-phase-3-chat-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-debug-worker-restart-phase-3-chat-integration.md) — ---
 
-### tada (14479)
+### tada (14480)
+- [`minion-town-arc-press-20261022-003508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-arc-press-20261022-003508.md) — Cost
 - [`design-endor-bus-tui-phase-breakdown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/design-endor-bus-tui-phase-breakdown.md) — design-endor-bus-tui-phase-breakdown: completion report
 - [`kriscendobot-minion.town-pr216-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet.md) — gauntlet kriscendobot-minion.town-pr216-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1525-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1525-gauntlet-viability.md) — Cost
 - [`minion-town-pr200-reland-2-dynamodb-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-pr200-reland-2-dynamodb-validation.md) — Cost
-- [`build-endor-tui-phase-1-skeleton-and-chat-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/build-endor-tui-phase-1-skeleton-and-chat-transcript.md) — Cost
-- … and 14474 more
+- … and 14475 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
