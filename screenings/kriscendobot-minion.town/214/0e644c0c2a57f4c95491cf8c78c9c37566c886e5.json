@@ -9,8 +9,9 @@
     "https://github.com/kriscendobot/minion.town/actions/runs/39673162325/job/119478214759",
     "https://github.com/kriscendobot/minion.town/actions/runs/39673162325/job/119478214625"
   ],
-  "deploy": "pending",
-  "deploy_run": null,
+  "deploy": "success",
+  "deploy_run": 39700868753,
+  "deploy_url": "https://github.com/kriscendobot/minion.town/actions/runs/39700868753",
   "gauntlet": "jobs/tada/2026/10/21/kriscendobot-minion.town-pr214-gauntlet.md",
   "head": "0e644c0c2a57f4c95491cf8c78c9c37566c886e5",
   "heal": "a2d2426951de58a0a3e953f24af7a7ea74c39a81",
