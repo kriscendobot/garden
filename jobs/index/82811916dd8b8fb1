@@ -1,0 +1,2 @@
+base: improve-completion-report-lock-wait
+identity: mentor:scripts/jobs/claude-on-minion-town-completion-report.sh
