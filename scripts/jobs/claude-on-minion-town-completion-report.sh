@@ -4,6 +4,15 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# The report's git calls go through the fleet git wrapper, which waits only
+# GARDEN_REPO_LOCK_WAIT (default 10s in common.sh) for the shared journal clone
+# lock. A briefly contended lock failed the scheduled report twice with rc 124;
+# a 240s wait succeeded in 26s. Raise inherited values (a caller that sourced
+# common.sh may export the 10s default) to a 240s floor, keeping larger overrides.
+lock_wait="${GARDEN_REPO_LOCK_WAIT:-0}"
+[[ "$lock_wait" =~ ^[0-9]+$ ]] || lock_wait=0
+export GARDEN_REPO_LOCK_WAIT=$(( lock_wait > 240 ? lock_wait : 240 ))
+
 window=(--schedule claude-on-minion-town-completion-press)
 for arg in "$@"; do
   case "$arg" in --since|--since=*|--schedule|--schedule=*) window=(); break;; esac
@@ -36,4 +45,16 @@ args=("${window[@]}" "$@" --format json --expand-job-references
   --select-text https://github.com/endojs/endo-but-for-bots/pull/1227
   --select-text https://github.com/endojs/endo-but-for-bots/pull/1228)
 
-exec "$HERE/completion-window-report.py" "${args[@]}"
+# Retry once on rc 124 (a lock or git timeout) so a scheduled report needs no
+# human rerun. Buffer stdout so a failed attempt's partial output never precedes
+# the retry's report.
+out="$(mktemp)"
+trap 'rm -f "$out"' EXIT
+for attempt in 1 2; do
+  rc=0
+  "$HERE/completion-window-report.py" "${args[@]}" > "$out" || rc=$?
+  [ "$rc" -eq 124 ] && [ "$attempt" -eq 1 ] || break
+  printf 'claude-on-minion-town-completion-report: rc 124; retrying once\n' >&2
+done
+cat "$out"
+exit "$rc"
