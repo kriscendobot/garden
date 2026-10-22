@@ -17,6 +17,7 @@ Task: finalize and merge per the conductor role (you own the merge method).
 <!-- garden-plain-retry-not-before: 2026-10-22T08:03:03Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=910 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
