@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T21:49:54Z_
+_As of 2026-10-22T21:56:35Z_
 
 ## Latest
 
@@ -249,13 +247,13 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #85 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T21:48:08Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 85 times; this is ONE
-> coalesced notice that updates in place, not 85 messages. Latest detail:
+> WATCHDOG notice — occurrence #86 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T21:53:24Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 86 times; this is ONE
+> coalesced notice that updates in place, not 86 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1394](https://github.com/endojs/endo-but-for-bots/pull/1394)#discussion_r4353073478 (age=5432s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1394](https://github.com/endojs/endo-but-for-bots/pull/1394)#discussion_r4353347418 (age=3677s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1394](https://github.com/endojs/endo-but-for-bots/pull/1394)#discussion_r4353073478 (age=5732s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1394](https://github.com/endojs/endo-but-for-bots/pull/1394)#discussion_r4353347418 (age=3977s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1058,25 +1056,24 @@ _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 worst fetch p95 8.780281s/45s (/home/kris/garden/.garden-state/maintainer/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`endojs-endo-but-for-bots-pr1539-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1539-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1539
+### todo (4)
 - [`build-ubuntu-twenty-six-sandbox-test-compatibility-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ubuntu-twenty-six-sandbox-test-compatibility-open-pr.md) — Description
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr1538-fix-git-clone-test-hang`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-fix-git-clone-test-hang.md) — ---
+- [`endojs-endo-but-for-bots-pr1539-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1539-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1539
 - [`build-ubuntu-twenty-six-sandbox-test-compatibility`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ubuntu-twenty-six-sandbox-test-compatibility.md) — ---
 - [`endojs-endo-but-for-bots-pr1394-review-fa16249a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1394-review-fa16249a.md) — Review directive on endojs/endo-but-for-bots PR #1394
 
-### tada (14663)
+### tada (14664)
+- [`endojs-endo-but-for-bots-pr1538-fix-git-clone-test-hang`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1538-fix-git-clone-test-hang.md) — Cost
 - [`endojs-endo-but-for-bots-pr1541-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1541-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1541-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1541-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1541-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1541-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1541-gauntlet-viability.md) — Cost
 - [`build-endo-handwritten-types-normalization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/build-endo-handwritten-types-normalization.md) — Cost
-- [`endojs-endo-but-for-bots-pr1539-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1539-gauntlet-fix-3.md) — Cost
-- … and 14658 more
+- … and 14659 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
