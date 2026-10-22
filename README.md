@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-22T15:15:46Z_
+_As of 2026-10-22T15:20:45Z_
 
 ## Latest
 
@@ -1035,7 +1035,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 371.5M | $1452.40 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
+| Claude | 371.6M | $1452.76 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
 | Codex | 136.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84711664 tokens/day lower bound._
@@ -1047,14 +1047,15 @@ worst fetch p95 5.906968s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### todo (7)
 - [`conduct-endojs-endo-but-for-bots-pr1389-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1389-endolin.md) — Conduct endojs/endo-but-for-bots PR #1389 (endolin relay)
 - [`oros-health-watch-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261022-125008.md) — ---
+- [`fu-design-daemon-git-clone-provide-git-clone-bootstrap-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-design-daemon-git-clone-provide-git-clone-bootstrap-1.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 - [`endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies.md) — Post the drafted RSVP replies on endojs/endo-but-for-bots PR #1477
-- [`build-endo-fs-from-git-remaining-phases`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-fs-from-git-remaining-phases.md) — ---
 
-### doin (1)
+### doin (2)
 - [`kriscendobot-minion.town-pr216-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr216-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #216
+- [`build-endo-fs-from-git-remaining-phases`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-fs-from-git-remaining-phases.md) — ---
 
 ### tada (14613)
 - [`design-daemon-git-clone-provide-git-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/design-daemon-git-clone-provide-git-clone-bootstrap.md) — Completion report: design-daemon-git-clone-provide-git-clone-bootstrap
