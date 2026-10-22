@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T16:44:28Z_
+_As of 2026-10-22T16:49:54Z_
 
 ## Latest
 
@@ -721,11 +719,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-18T02:49:32Z, latest 2026-10-22T10:49:47Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-10-18T02:49:32Z, cleared 2026-10-22T16:48:21Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.013384s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
 
 - `minion-town-pr-screening-paused-8a3ce66` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-8a3ce66.md)
 
@@ -1051,13 +1049,14 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.881385s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 7 open notice(s); checker healthy
+worst fetch p95 5.881385s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`conduct-endojs-endo-but-for-bots-pr1389-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1389-endolin.md) — Conduct endojs/endo-but-for-bots PR #1389 (endolin relay)
 - [`oros-health-watch-20261022-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261022-155009.md) — ---
 - [`oros-health-watch-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261022-125008.md) — ---
+- [`kriscendobot-minion.town-pr216-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr216-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #216
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`build-endo-fs-from-git-remaining-phases-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-fs-from-git-remaining-phases-open-pr.md) — Open the DRAFT PR for build-endo-fs-from-git-remaining-phases
@@ -1065,16 +1064,16 @@ worst fetch p95 5.881385s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`fu-design-daemon-git-clone-provide-git-clone-bootstrap-1-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-design-daemon-git-clone-provide-git-clone-bootstrap-1-open-pr.md) — Open the DRAFT PR for fu-design-daemon-git-clone-provide-git-clone-bootstrap-...
 - [`endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies.md) — Post the drafted RSVP replies on endojs/endo-but-for-bots PR #1477
 
-### doin (1)
-- [`kriscendobot-minion.town-pr216-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr216-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — kriscendobot/minion.town PR #216
+### doin (0)
+(none)
 
-### tada (14619)
+### tada (14620)
+- [`kriscendobot-minion.town-pr216-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet-panel-7.md) — Cost
 - [`fu-design-daemon-git-clone-provide-git-clone-bootstrap-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/fu-design-daemon-git-clone-provide-git-clone-bootstrap-1.md) — Cost
 - [`oros-health-checkup-20261022-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/oros-health-checkup-20261022-155009.md) — Cost
 - [`minion-town-arc-press-20261022-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-arc-press-20261022-155009.md) — Cost
 - [`claude-on-minion-town-press-20261022-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/claude-on-minion-town-press-20261022-155009.md) — Cost
-- [`build-endo-fs-from-git-remaining-phases`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/build-endo-fs-from-git-remaining-phases.md) — Report: build-endo-fs-from-git-remaining-phases
-- … and 14614 more
+- … and 14615 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
