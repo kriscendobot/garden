@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T14:36:08Z_
+_As of 2026-10-22T14:41:44Z_
 
 ## Latest
 
@@ -430,6 +428,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > heartbeat and sysop control plane are available for oros-studio-garden-ce242c49 (heartbeat fresh (136s old; sampled_at_epoch=1792332168); no unlogged sysop operations); its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
+
+- `foreman-milestone-M11` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M11.md)
+
+> Milestone M11 (the endo-but-for-bots designs in progress, such as daemon-xs-worker-snapshot, endor-tui-phase-1 and endor-npm-registry-proxy) has no step I can post. The arcs those designs draw from are out of budget: minion-town-mcp-ocapn, endo-ocapn-background and moonshots show 0 tokens remaining. The arcs that still have headroom are outside my bounds: the minion-town ones are in other repos, garden-upkeep and garden-book are garden work, and endo-backlog is limited to gauntlets already staged. Decision needed: re-slice the apportionment toward an endo arc, or approve drawing the next M11 step from the unallocated reserve (also 0 remaining).
 
 - `kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached.md)
 
@@ -1033,7 +1035,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 371.1M | $1450.23 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
+| Claude | 371.1M | $1450.52 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
 | Codex | 136.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84711664 tokens/day lower bound._
