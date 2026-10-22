@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T17:14:29Z_
+_As of 2026-10-22T17:40:00Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-159 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+158 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -35,7 +33,6 @@ Delegation: **active**
 - 2026-10-22T00:38:08Z [#214](https://github.com/kriscendobot/minion.town/pull/214) merged `68c3960bbe8`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/39700868753), watchdog ok — validated
 - 2026-10-21T22:00:04Z [#214](https://github.com/kriscendobot/minion.town/pull/214) `0e644c0c2a5` screened (heal of `a2d2426951d`)
 - 2026-10-21T20:14:05Z [#213](https://github.com/kriscendobot/minion.town/pull/213) merged `a2d2426951d`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/39668538848) — failed
-- 2026-10-21T17:38:35Z [#213](https://github.com/kriscendobot/minion.town/pull/213) `c511a23fd7c` screened
 
 ## Messages to the maintainer
 
@@ -112,11 +109,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #4 (first seen 2026-10-18T09:20:28Z, latest 2026-10-21T16:35:30Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 4 times; this is
-> ONE entry that updates in place, not 4 messages. Latest detail:
+> COALESCED message — occurrence #5 (first seen 2026-10-18T09:20:28Z, latest 2026-10-22T17:25:15Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 5 times; this is
+> ONE entry that updates in place, not 5 messages. Latest detail:
 >
-> M2 is blocked at hardened-text-codecs-shim: [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) has addressed its review findings with green CI and awaits maintainer re-review/merge. Decide whether to accept it as complete or require the remaining Phase 3 downstream audit before merge.
+> M2 is blocked on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). Please decide whether to retain and complete this now-clean PR or close it as superseded by the preferred upstream approach (with its XS tests extracted if desired).
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -503,13 +500,17 @@ Delegation: **active**
 
 - `kriscendobot-minion.town-pr216-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr216-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr216-gauntlet-review-budget-reached.md)
 
-> Gauntlet kriscendobot-minion.town-pr216-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr216-gauntlet panel --add-rounds N
+> COALESCED message — occurrence #2 (first seen 2026-10-22T15:29:32Z, latest 2026-10-22T17:20:19Z).
+> The SAME message (episode key `kriscendobot-minion.town-pr216-gauntlet-review-budget-reached`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
 >
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $11.32
+> Gauntlet kriscendobot-minion.town-pr216-gauntlet REVIEW-BUDGET-REACHED: Applied 7 panel/fix round(s); fix round 7 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=7, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr216-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 7/7 · cost so far: $14.25
 > Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr216-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 7 -> 9 (N is yours to choose).
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
@@ -1046,7 +1047,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 371.9M | $1454.70 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 136.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Codex | 137.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 
@@ -1054,27 +1055,22 @@ _Fleet token-unlock pace: 84711664 tokens/day lower bound._
 worst fetch p95 5.881385s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (9)
-- [`conduct-endojs-endo-but-for-bots-pr1389-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1389-endolin.md) — Conduct endojs/endo-but-for-bots PR #1389 (endolin relay)
-- [`oros-health-watch-20261022-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261022-155009.md) — ---
-- [`oros-health-watch-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261022-125008.md) — ---
+### todo (3)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
-- [`build-endo-fs-from-git-remaining-phases-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-fs-from-git-remaining-phases-open-pr.md) — Open the DRAFT PR for build-endo-fs-from-git-remaining-phases
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
-- [`fu-design-daemon-git-clone-provide-git-clone-bootstrap-1-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-design-daemon-git-clone-provide-git-clone-bootstrap-1-open-pr.md) — Open the DRAFT PR for fu-design-daemon-git-clone-provide-git-clone-bootstrap-...
-- [`endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies.md) — Post the drafted RSVP replies on endojs/endo-but-for-bots PR #1477
 
-### doin (1)
-- [`kriscendobot-minion.town-pr216-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr216-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #216
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1537-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1537-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1537
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1538
 
-### tada (14620)
-- [`kriscendobot-minion.town-pr216-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/kriscendobot-minion.town-pr216-gauntlet-panel-7.md) — Cost
-- [`fu-design-daemon-git-clone-provide-git-clone-bootstrap-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/fu-design-daemon-git-clone-provide-git-clone-bootstrap-1.md) — Cost
-- [`oros-health-checkup-20261022-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/oros-health-checkup-20261022-155009.md) — Cost
-- [`minion-town-arc-press-20261022-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-arc-press-20261022-155009.md) — Cost
-- [`claude-on-minion-town-press-20261022-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/claude-on-minion-town-press-20261022-155009.md) — Cost
-- … and 14615 more
+### tada (14630)
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1538-gauntlet-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1537-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1537-gauntlet-viability.md) — Cost
+- [`conduct-endojs-endo-but-for-bots-pr1389-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/conduct-endojs-endo-but-for-bots-pr1389-endolin.md) — Cost
+- [`endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies.md) — Cost
+- [`fu-design-daemon-git-clone-provide-git-clone-bootstrap-1-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/fu-design-daemon-git-clone-provide-git-clone-bootstrap-1-open-pr.md) — Cost
+- … and 14625 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
