@@ -29,6 +29,7 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/774
 Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=371 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
