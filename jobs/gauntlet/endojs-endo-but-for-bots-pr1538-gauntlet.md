@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1538-gauntlet-viability
+state: running
 created_by: producer
 arc: daemon-git
 created_at: 2026-10-22T17:23:30Z
