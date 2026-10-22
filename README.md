@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T12:57:26Z_
+_As of 2026-10-22T13:26:36Z_
 
 ## Latest
 
@@ -1046,17 +1044,16 @@ worst fetch p95 5.906968s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`oros-health-checkup-20261022-125008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261022-125008.md) — ---
 - [`endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies.md) — Post the drafted RSVP replies on endojs/endo-but-for-bots PR #1477
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1533-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1533-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1533
-- [`endojs-endo-but-for-bots-pr1531-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1531-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1531
 
-### tada (14591)
+### tada (14593)
+- [`endojs-endo-but-for-bots-pr1531-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1531-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1531-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1531-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1531-gauntlet-fix-1.md) — Fix round 1 for PR #1531: fixes pushed, CI red only from the known ubuntu-26....
 - [`endojs-endo-but-for-bots-pr1534-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1534-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1534-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1534-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1534-gauntlet — HALTED
 - [`improve-completion-report-lock-wait`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/improve-completion-report-lock-wait.md) — Cost
-- [`endojs-endo-but-for-bots-pr1530-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1530-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1530-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1530-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1530-gauntlet-panel-1.md) — Cost
-- … and 14586 more
+- … and 14588 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
