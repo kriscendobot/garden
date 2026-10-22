@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1533
 build_job: build-endor-bus-tui-phase-breakdown-open-pr
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-stage_retries: 1
+stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1533-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr1533-gauntlet-fix-1
 state: running
 created_by: producer
 arc: moonshots
