@@ -1,0 +1,45 @@
+<6>01:31:38 [monk/2] job 'design-endor-tui-phase-breakdown' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>01:31:47 [monk/2] job 'design-endor-tui-phase-breakdown' call ceiling: tier=mentor max-budget-usd=17.20 (scaled by fresh seven-day headroom when available)
+<4>01:31:47 [monk/2] WARN minion-mcp: token preflight failed; job 'design-endor-tui-phase-breakdown' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+garden repo lock: cleared dead-holder metadata pid=114627 after acquiring /Users/dom/garden/.garden-state/repo-locks/f835c9e858cdec6897c303af0fea6df460c702b1e33c9b064071a595a74e07d0/repo.lock
+<6>02:07:59 [post-gauntlet] gauntlet 'endojs-endo-but-for-bots-pr1526-gauntlet' already recorded; nothing to do
+<6>02:07:59 [auto-gauntlet-handoff] auto-gauntlet: 'design-endor-tui-phase-breakdown' recorded gauntlet 'endojs-endo-but-for-bots-pr1526-gauntlet' for https://github.com/endojs/endo-but-for-bots/pull/1526
+panel-head-freshness: unreviewed target=endojs/endo-but-for-bots#1526 disposition=manual-gauntlet-not-triggered
+<6>02:08:37 [assert-followup-posted] gate: BLOCK — 'design-endor-tui-phase-breakdown' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+I've broken the endor-tui design into 8 phases and recorded them in the journal plan, each with a size and `depends_on` edges. The design change is up for review as draft PR https://github.com/endojs/endo-but-for-bots/pull/1526.
+
+## What I did
+
+- **Design file** (`designs/endor-tui.md`, branch `design/endor-tui-phases`, commit `2f2b2e4cd`, frozen base `llm-f02cd81`). It follows the same shape as the sibling endor-bus-tui breakdown:
+  - **New `## Ownership map`.** The Rust supervisor only forwards the client's socket frames (`socket.rs`) to the JS manager, which speaks CapTP. So chat and debugger state belong to the manager. The `endor tui` client owns the terminal, layout and modes, and only keeps a cache it rebuilds on reconnect.
+  - **`## Phased Implementation` re-cut into 8 phases**, with a size table and a mermaid graph. The mermaid fence passes the parse check.
+
+    | Phase | Size | Depends on |
+    |---|---|---|
+    | 1 Skeleton and chat transcript (#1525, in flight) | M | — |
+    | 2 Chat data path | L | 1 |
+    | 3 Spaces and per-space themes | M | 2 |
+    | 4 Value inspection and forms | L | 2 |
+    | 5 XS debugger baseline | L | 2 and `daemon-xs-worker-debugger` |
+    | 6 Debugger richness | M | 5 |
+    | 7 Durable breakpoints and controller claim | M | 5 |
+    | 8 Polish and escape valves | M | 3, 4, 6 |
+
+    Phases 2 to 7 each list acceptance tests. Focus mode and the pending-commands region now sit in Phase 1, because #1525 already builds them.
+  - **New `## Open questions`** (see below), and Known Gaps entries now point to the phases that close them.
+- **Phase 2 is the gating phase.** #1525 talks to the daemon using placeholder message formats. Nothing in the daemon understands them, and the chat messages it uses are not defined in endor-bus-tui, although endor-tui says they are. Every phase that shows real chat or debugger data therefore waits on Phase 2.
+- **Journal plan.** I added records `endor-tui-phase-1` through `-8` with sizes and edges; phase 1 links `pr: endo-but-for-bots#1525`. The umbrella `endor-tui` record now depends on all eight phases and no longer carries a size, so its old XL isn't counted on top of the phases. Its body mirrors the new design. M11's estimate goes from 30 to 54 remaining days. I checked the records on the remote, and `validate.sh` on a copy shows no new errors; its one error is an old record (`daemon-docker-selfhost`, status `Declined`).
+- **The PR.** This host's bot token got a 403 opening the PR on endojs. I posted `design-endor-tui-phase-breakdown-open-pr`, pinned to the endolin host, and it opened #1526 under this job's marker. I checked it is draft and its only file is the design.
+
+## Open questions for the maintainer (on #1526)
+
+- **Phase 2:** should `endor tui` use a minimal Rust CapTP client over the existing socket, the same path the `endo` CLI uses (my recommendation)? Or should the manager serve the bus-verb table, which would first need its own spec?
+- Should the debugger phases use the same path?
+
+## Follow-ups
+
+- The design-panel gauntlet for #1526 is handled automatically. I did not post a gauntlet by hand.
+- The Phase 2 build is already on the board, parked as `build-endor-tui-phase-breakdown-open-pr` (posted by `design-build-handoff`) and blocked on the #1526 gauntlet. Its auto-generated text said "build exactly the design", which would mean all eight phases. I added a note limiting it to Phase 2 only. The note also tells the builder to confirm the maintainer has answered the Phase 2 question, and to message them and stop if not. Phases 3 to 8 get their own builds later. No other build needs posting.
+- The sibling endor-bus-tui breakdown has no per-phase plan records yet, so its Phase 2 → endor-tui Phase 1 dependency appears only in the design diagrams, not in the plan.

@@ -419,3 +419,14 @@ Inspect via `git -C journal cat-file -p 5872edc9248348b17b1712e61df58b2f5fc98d7b
 
 Inspect via `git -C journal cat-file -p 6f84a3f64ae7ec1ec41b4f1d11eb3c0342529780` (or read
 `journal/inboxes/oros-studio-garden-ce242c49/captures/6f84a3f64ae7ec1ec41b4f1d11eb3c0342529780`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-10-22T02:09:31Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7553805435760f61569a6c3e66c2ce18adf53ddd
+- Context: gardener-2 on oros-studio-garden-ce242c49: job 'design-endor-tui-phase-breakdown' handler exited rc=1
+- Capture: inboxes/oros-studio-garden-ce242c49/captures/7553805435760f61569a6c3e66c2ce18adf53ddd
+
+Inspect via `git -C journal cat-file -p 7553805435760f61569a6c3e66c2ce18adf53ddd` (or read
+`journal/inboxes/oros-studio-garden-ce242c49/captures/7553805435760f61569a6c3e66c2ce18adf53ddd`) -- both work off-host after a plain `journal2` fetch.
