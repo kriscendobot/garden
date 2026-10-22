@@ -19,3 +19,13 @@ artifact, never from the log. Reproduce with
 the decoder has an unbounded loop or a quadratic path on malformed input. If it is a
 real defect, fix it with a regression seed in a draft PR. If it is a harness
 artifact, record that and stop.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T06:32:00Z
