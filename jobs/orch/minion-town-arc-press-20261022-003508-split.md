@@ -1,4 +1,5 @@
 ---
+child-minion-town-arc-press-20261022-003508-expanded-window-reap-count: 0
 order: serial
 children: minion-town-arc-press-20261022-003508-expanded-window
 on-child-failure: halt
