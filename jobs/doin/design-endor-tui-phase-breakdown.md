@@ -9,3 +9,13 @@ Design step for endojs/endo-but-for-bots: break the XL `endor-tui` design (M11, 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-22T02:23:14Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T03:15:34Z
