@@ -67,3 +67,13 @@ Never state in your report that a peer did work you did not verify.
 <!-- garden-transient-elapsed: kind=signature through=1 values=474,317 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-22T00:56:03Z
