@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T08:15:18Z_
+_As of 2026-10-22T08:41:16Z_
 
 ## Latest
 
@@ -256,16 +254,16 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #27 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T08:12:43Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 27 times; this is ONE
-> coalesced notice that updates in place, not 27 messages. Latest detail:
+> WATCHDOG notice — occurrence #31 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T08:37:47Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 31 times; this is ONE
+> coalesced notice that updates in place, not 31 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1484](https://github.com/endojs/endo-but-for-bots/pull/1484)#discussion_r4344892435 (age=9410s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1477](https://github.com/endojs/endo-but-for-bots/pull/1477)#discussion_r4344979384 (age=8458s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1392](https://github.com/endojs/endo-but-for-bots/pull/1392)#discussion_r4345265068 (age=5626s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345298532 (age=5309s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345304671 (age=5253s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1484](https://github.com/endojs/endo-but-for-bots/pull/1484)#discussion_r4344892435 (age=10910s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1477](https://github.com/endojs/endo-but-for-bots/pull/1477)#discussion_r4344979384 (age=9958s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1392](https://github.com/endojs/endo-but-for-bots/pull/1392)#discussion_r4345265068 (age=7126s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345298532 (age=6809s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345304671 (age=6753s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1027,7 +1025,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 370.2M | $1448.21 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
 | Codex | 136.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 92095295 tokens/day lower bound._
+_Fleet token-unlock pace: 92109114 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 13.358712s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 9 open notice(s); checker healthy
@@ -1036,36 +1034,37 @@ worst fetch p95 13.358712s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (20)
 - [`conduct-endojs-endo-but-for-bots-pr1389-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1389-endolin.md) — Conduct endojs/endo-but-for-bots PR #1389 (endolin relay)
 - [`oros-health-watch-20261022-063509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261022-063509.md) — ---
+- [`endojs-endo-but-for-bots-endor-run-unit-tests-ci-lane-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-endor-run-unit-tests-ci-lane-open-pr.md) — Open the draft PR for the endor-run unit-test CI lane (endojs/endo-but-for-bots)
 - [`kriscendobot-minion.town-pr216-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr216-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #216
 - [`daily-progress-summary-20261022-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261022-070508.md) — Daily midnight Pacific progress summary
 - [`ironhorse-bytecode-decoder-fuzz-timeout-1015c4e9-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-bytecode-decoder-fuzz-timeout-1015c4e9-open-pr.md) — Open the draft PR for the Ironhorse store-chain-walk fix (endojs/endo-but-for...
 - [`endojs-endo-but-for-bots-pr1531-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1531-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1531
-- [`endojs-endo-but-for-bots-pr1392-review-8531f855`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1392-review-8531f855.md) — Review directive on endojs/endo-but-for-bots PR #1392
+- [`minion-town-arc-press-20261022-063509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261022-063509.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr1484-review-292b9e05-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1484-review-292b9e05-replies.md) — Post review-thread replies on endojs/endo-but-for-bots PR #1484
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1527
-- [`endojs-endo-but-for-bots-pr1533-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1533-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1533
+- [`endojs-endo-but-for-bots-pr1392-review-rsvp-relay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1392-review-rsvp-relay.md) — Post the RSVP reply on endojs/endo-but-for-bots PR #1392
 - [`endojs-endo-but-for-bots-pr774-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr774-conduct-endolin.md) — Finalize (un-draft -> merge) endojs/endo-but-for-bots PR #774 (host-pinned ha...
 - [`endojs-endo-but-for-bots-pr1433-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-close.md) — Close endojs/endo-but-for-bots PR #1433 (maintainer directive)
 - [`endojs-endo-but-for-bots-pr1393-review-9416ed93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1393-review-9416ed93.md) — Review directive on endojs/endo-but-for-bots PR #1393
-- [`endojs-endo-but-for-bots-pr1393-fix-review-5610193365`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1393-fix-review-5610193365.md) — fix endojs/endo-but-for-bots#1393: kriskowal review 5610193365 inline items
-- [`endojs-endo-but-for-bots-no-any-typecheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-no-any-typecheck.md) — endojs/endo-but-for-bots: systematically set up no-any in type checking
+- [`endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand.md) — Fix endojs/endo-but-for-bots PR #1392: recognize a Parcel by a WeakMap brand ...
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1530-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1530-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1530
 - [`conduct-endojs-endo-but-for-bots-pr1389`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1389.md) — Conduct endojs/endo-but-for-bots PR #1389
 - [`endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1477-review-5609794016-post-replies.md) — Post the drafted RSVP replies on endojs/endo-but-for-bots PR #1477
 - [`endojs-endo-but-for-bots-pr774-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr774-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #774
 
-### doin (2)
-- [`minion-town-arc-press-20261022-063509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261022-063509.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`endojs-endo-but-for-bots-endor-run-unit-tests-ci-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-endor-run-unit-tests-ci-lane.md) — CI: run the endo crate's endor run unit tests (endojs/endo-but-for-bots)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1533-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1533-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1533
+- [`endojs-endo-but-for-bots-pr1393-fix-review-5610193365`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1393-fix-review-5610193365.md) — fix endojs/endo-but-for-bots#1393: kriskowal review 5610193365 inline items
+- [`endojs-endo-but-for-bots-no-any-typecheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-no-any-typecheck.md) — endojs/endo-but-for-bots: systematically set up no-any in type checking
 
-### tada (14556)
+### tada (14558)
+- [`endojs-endo-but-for-bots-pr1392-review-8531f855`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1392-review-8531f855.md) — Cost
+- [`endojs-endo-but-for-bots-endor-run-unit-tests-ci-lane`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-endor-run-unit-tests-ci-lane.md) — Completion report: endojs-endo-but-for-bots-endor-run-unit-tests-ci-lane
 - [`endojs-endo-but-for-bots-pr1391-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1391-conduct.md) — Cost
 - [`oros-health-checkup-20261022-063509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/oros-health-checkup-20261022-063509.md) — Cost
 - [`claude-on-minion-town-completion-press-20261022-063509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/claude-on-minion-town-completion-press-20261022-063509.md) — Cost
-- [`conduct-endojs-endo-but-for-bots-pr1391-20261022`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/conduct-endojs-endo-but-for-bots-pr1391-20261022.md) — Conduct endojs/endo-but-for-bots#1391: stalled, not merged
-- [`endojs-endo-but-for-bots-pr1389-review-eb48c518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1389-review-eb48c518.md) — Cost
-- … and 14551 more
+- … and 14553 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
