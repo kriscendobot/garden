@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-22T11:06:21Z_
+_As of 2026-10-22T11:11:08Z_
 
 ## Latest
 
@@ -52,16 +50,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr201-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `conduct-pr1389-endolin-budget-stall-20261022` — from gardener:conduct-endojs-endo-but-for-bots-pr1389, reply_to `conduct-endojs-endo-but-for-bots-pr1389` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/conduct-pr1389-endolin-budget-stall-20261022.md)
-
-> **Conductor stalled: [endojs/endo-but-for-bots#1389](https://github.com/endojs/endo-but-for-bots/issues/1389) merge blocked on host capability + endolin budget throttle**
->
-> PR [https://github.com/endojs/endo-but-for-bots/pull/1389](https://github.com/endojs/endo-but-for-bots/pull/1389) is APPROVED (kriskowal), MERGEABLE, CLEAN, CI terminal green (6 success / 24 skipped). It is ready to merge, but the merge cannot be issued from oros-studio-garden-ce242c49: the bot PAT lacks **Pull requests: write** on the endojs org, so the conductor's base unfreeze `gh pr edit --base llm` (and the merge itself) return `updatePullRequest` 403. Nothing was pushed or changed on the PR.
->
-> A correctly-formed endolin-pinned relay conductor `conduct-endojs-endo-but-for-bots-pr1389-endolin` is already parked in jobs/todo/, but it has sat unclaimed for >1h: endolin-garden-ece02cb4 is live yet at spend=90.0%/95% (token backoff ~370M/271M), so its single monk is throttled from claiming the mentor-tier relay. The requirements watchdog already flagged it unclaimable at 08:02Z.
->
-> To unblock, either: (a) raise endolin-garden-ece02cb4's budget headroom so the relay claims, or (b) grant the oros bot PAT PR read+write on endojs (the durable fix noted in the bot-pat-no-pr-write-endojs reference). This generic oros attempt is completing as an honest handoff to the relay; no false merge marker.
 
 - `mt-beta-product-pass-20261017-terminal-complete` — from orchestrator:mt-beta-product-pass-20261017-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/mt-beta-product-pass-20261017-terminal-complete.md)
 
@@ -265,16 +253,16 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #58 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T11:03:03Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 58 times; this is ONE
-> coalesced notice that updates in place, not 58 messages. Latest detail:
+> WATCHDOG notice — occurrence #59 (first seen 2026-10-22T05:52:17Z, latest 2026-10-22T11:08:01Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 59 times; this is ONE
+> coalesced notice that updates in place, not 59 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1484](https://github.com/endojs/endo-but-for-bots/pull/1484)#discussion_r4344892435 (age=19620s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1477](https://github.com/endojs/endo-but-for-bots/pull/1477)#discussion_r4344979384 (age=18668s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1392](https://github.com/endojs/endo-but-for-bots/pull/1392)#discussion_r4345265068 (age=15836s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345298532 (age=15519s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345304671 (age=15463s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1484](https://github.com/endojs/endo-but-for-bots/pull/1484)#discussion_r4344892435 (age=19920s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1477](https://github.com/endojs/endo-but-for-bots/pull/1477)#discussion_r4344979384 (age=18968s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1392](https://github.com/endojs/endo-but-for-bots/pull/1392)#discussion_r4345265068 (age=16136s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345298532 (age=15819s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1393](https://github.com/endojs/endo-but-for-bots/pull/1393)#discussion_r4345304671 (age=15763s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1046,13 +1034,12 @@ _Fleet token-unlock pace: 91940324 tokens/day lower bound._
 worst fetch p95 13.358712s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (14)
 - [`conduct-endojs-endo-but-for-bots-pr1389-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1389-endolin.md) — Conduct endojs/endo-but-for-bots PR #1389 (endolin relay)
 - [`endojs-endo-but-for-bots-pr1533-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1533-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1533
 - [`endojs-endo-but-for-bots-pr1534-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1534-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1534
 - [`endojs-endo-but-for-bots-pr1433-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1433-close.md) — Close endojs/endo-but-for-bots PR #1433 (maintainer directive)
 - [`kriscendobot-minion.town-pr216-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr216-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #216
-- [`oros-health-checkup-20261022-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261022-093509.md) — ---
 - [`endojs-endo-but-for-bots-pr1393-fix-review-5610193365`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1393-fix-review-5610193365.md) — fix endojs/endo-but-for-bots#1393: kriskowal review 5610193365 inline items
 - [`endojs-endo-but-for-bots-no-any-typecheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-no-any-typecheck.md) — Deliberate overrun decomposition for endojs-endo-but-for-bots-no-any-typecheck
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
@@ -1066,15 +1053,15 @@ worst fetch p95 13.358712s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1527
 - [`endojs-endo-but-for-bots-pr774-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr774-conduct-endolin.md) — Finalize (un-draft -> merge) endojs/endo-but-for-bots PR #774 (host-pinned ha...
-- [`conduct-endojs-endo-but-for-bots-pr1389`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/conduct-endojs-endo-but-for-bots-pr1389.md) — Conduct endojs/endo-but-for-bots PR #1389
+- [`oros-health-checkup-20261022-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261022-093509.md) — ---
 
-### tada (14576)
+### tada (14577)
+- [`conduct-endojs-endo-but-for-bots-pr1389`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/conduct-endojs-endo-but-for-bots-pr1389.md) — Cost
 - [`minion-town-arc-press-20261022-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/minion-town-arc-press-20261022-093509.md) — Cost
 - [`claude-on-minion-town-press-20261022-093509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/claude-on-minion-town-press-20261022-093509.md) — Cost
 - [`endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1392-parcel-weakmap-brand.md) — PR #1392: Parcel recognition is now a WeakMap brand check
 - [`endojs-endo-but-for-bots-pr1533-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1533-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1392-review-rsvp-relay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/22/endojs-endo-but-for-bots-pr1392-review-rsvp-relay.md) — Panel-head freshness
-- … and 14571 more
+- … and 14572 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
