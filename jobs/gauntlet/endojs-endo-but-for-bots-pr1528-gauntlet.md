@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1528
 build_job: design-endor-bus-tui-phase-breakdown-open-pr
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1528-gauntlet-viability
+current_child: endojs-endo-but-for-bots-pr1528-gauntlet-clean
 state: running
 created_by: producer
 arc: moonshots
