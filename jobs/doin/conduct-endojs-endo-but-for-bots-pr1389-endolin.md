@@ -13,3 +13,13 @@ Authorization: kriskowal APPROVED review https://github.com/endojs/endo-but-for-
 Task: finalize and merge per the conductor role: run `ci-wait-merge.sh endojs/endo-but-for-bots 1389` from the isolated project worktree (single commit; no tidy needed).
 
 Why pinned: predecessor job conduct-endojs-endo-but-for-bots-pr1389 on oros-studio-garden-ce242c49 hit `updatePullRequest` 403 (bot PAT lacks PR write on endojs there) at the unfreeze step `gh pr edit --base llm`; nothing was pushed or changed on the PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-22T17:25:37Z
