@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-22T01:05:07Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-pr200-reland-2-dynamodb-validation
+pr_number: 216
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/216
+pr_head: reland/pr200-settings-2
