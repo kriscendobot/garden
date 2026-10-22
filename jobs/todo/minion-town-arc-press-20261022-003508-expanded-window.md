@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-arc-press-20261022-003508-split
+role: gardener
+tier: mentor
 handler-timeout: 5400
 split-indivisible-reason: 'serial-ci-wait-on-single-self-hosted-runner'
 split-lineage-root: minion-town-arc-press-20261022-003508
 split-lineage-parent: minion-town-arc-press-20261022-003508-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-10-22T01:30:19Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-22T01:35:59Z cleared=none -->
 
 ---
 role: gardener
