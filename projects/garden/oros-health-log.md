@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-22T00:55Z (oros-health-checkup-20261022-003508): healthy; deployed = origin/main2 `91030eca`, no changes
+
+- **Load/mem:** load 2.26/2.78/2.78 at 00:53Z. 3 monks are running. 12 GiB of 15 GiB available; swap reads 0.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is 52% used; inodes 1%.
+- **Uptime:** 20d07h, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `91030eca` (deployed 23:57Z), the origin/main2 tip. fleet/health/oros (23:58:16Z): `roll_status: deployed`.
+- **Units:** 0 failed garden units and 0 `NeedDaemonReload=yes`. `garden-monk@1..3` are running. `hosts/oros` says `monks: 3`. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 00:47:37Z and pushed at 00:47:48Z. Status ok, 41.4M of 180M (14% derived). The pushes at 00:03, 00:17, 00:32 and 00:47Z were all ok, and spend rose monotonically.
+- **State clones:** 33 `*/journal` clones. The largest are unblock and reaper (47 packs each), below the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. No leaked bun/node test daemons.
+- **rc=124 (3h):** none in the system journal. The fleet-brake ledger has 2 transient failures in 3h, far below the threshold.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-21T21:45Z (oros-health-checkup-20261021-213508): healthy; deployed = origin/main2 `f9d731f5`, no changes
 
 - **Load/mem:** load 3.17/3.17/3.04 at 21:41Z. 3 monks are running. 12.9 GiB of 15.6 GiB available. Swap is 1 GiB of 1 GiB used, full but flat (page cache).
