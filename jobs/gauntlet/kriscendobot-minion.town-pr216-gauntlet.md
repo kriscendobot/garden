@@ -11,11 +11,11 @@ created_by: producer
 created_at: 2026-10-22T01:08:23Z
 arc: 
 added_rounds: 1
-stage: panel
+stage: fix
 iteration: 7
 resumes: 0
-stage_retries: 1
-current_child: kriscendobot-minion.town-pr216-gauntlet-panel-7
+stage_retries: 0
+current_child: kriscendobot-minion.town-pr216-gauntlet-fix-7
 state: running
 resumed_at: 2026-10-22T15:59:40Z
 resumed_from_stage: fix
