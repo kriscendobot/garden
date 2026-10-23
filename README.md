@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T02:40:30Z_
+_As of 2026-10-23T02:47:04Z_
 
 ## Latest
 
@@ -248,12 +246,12 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #131 (first seen 2026-10-22T05:52:17Z, latest 2026-10-23T02:38:48Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 131 times; this is ONE
-> coalesced notice that updates in place, not 131 messages. Latest detail:
+> WATCHDOG notice — occurrence #132 (first seen 2026-10-22T05:52:17Z, latest 2026-10-23T02:43:28Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 132 times; this is ONE
+> coalesced notice that updates in place, not 132 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1394](https://github.com/endojs/endo-but-for-bots/pull/1394)#discussion_r4353347418 (age=21089s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1394](https://github.com/endojs/endo-but-for-bots/pull/1394)#discussion_r4353347418 (age=21389s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -485,11 +483,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-10-17T00:42:48Z, latest 2026-10-22T20:45:17Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_reducer_journal`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` has CLEARED (first seen 2026-10-17T00:42:48Z, cleared 2026-10-23T02:45:34Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.014303s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
 
@@ -917,10 +915,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
-- `liaison-followup-45aa67ca5333` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-45aa67ca5333.md)
-
-> The gauntlet for kriscendobot/minion.town PR 216 ([https://github.com/kriscendobot/minion.town/pull/216](https://github.com/kriscendobot/minion.town/pull/216)) hit its review-round limit. That notice, `kriscendobot-minion.town-pr216-gauntlet-review-budget-reached`, is still unread in your inbox. Please decide whether to grant more review rounds, take over the PR, or close it. The latest fix job, `kriscendobot-minion.town-pr216-gauntlet-fix-10`, finished, but the panel's must-fix list reached it truncated. I've posted a job to fix that truncation.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
 > WATCHDOG notice — occurrence #6 (first seen 2026-10-18T14:45:48Z, latest 2026-10-22T18:43:07Z).
@@ -1057,7 +1051,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.687215s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 8 open notice(s); checker healthy
+worst fetch p95 3.687215s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
