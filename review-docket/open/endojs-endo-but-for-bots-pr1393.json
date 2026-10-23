@@ -4,17 +4,17 @@
   "pr": 1393,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/1393",
   "head_oid": "2a40caf71433c639eaa5a855a5cd4c2dca979bf4",
-  "ask": "approve",
+  "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "feat(marshal): encode Parcel locations inline",
+  "summary": "Panel reviewed 4445fbf93791, but the presented head is 2a40caf71433",
   "unblocks": [],
-  "source": "native-review-request-endojs-endo-but-for-bots-pr1393",
-  "requested_at": "2026-10-22T19:47:44Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1393-4445fbf9-2a40caf7",
+  "requested_at": "2026-10-22T09:02:19Z",
   "first_requested_at": "2026-10-22T10:44:00Z",
-  "generation": 4,
+  "generation": 5,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-23T17:19:09Z"
+    "observed_at": "2026-10-23T17:30:24Z"
   }
 }
