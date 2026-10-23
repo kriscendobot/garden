@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T05:39:18Z_
+_As of 2026-10-23T05:45:31Z_
 
 ## Latest
 
@@ -1056,26 +1054,26 @@ worst fetch p95 4.753876s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 
 ## Board
 ### todo (6)
+- [`endojs-endo-but-for-bots-pr1543-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1543-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1543
 - [`fix-endojs-endo-but-for-bots-pr1349-panel-prose-and-rationale`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1349-panel-prose-and-rationale.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1538
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
-- [`fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions.md) — ---
 
 ### doin (4)
 - [`fix-endojs-endo-but-for-bots-pr1539-fs-interface-consolidation-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1539-fs-interface-consolidation-panel-findings.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1349-remaining-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-remaining-panel-findings.md) — ---
 - [`kriscendobot-minion.town-pr216-gauntlet-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr216-gauntlet-fix-11.md) — Gauntlet stage: FIX round 11 — kriscendobot/minion.town PR #216
-- [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1543-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1543
+- [`fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions.md) — ---
 
-### tada (14713)
+### tada (14714)
+- [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-fix-2.md) — Cost
 - [`claude-on-minion-town-press-20261023-043528`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-press-20261023-043528.md) — Completion report: claude-on-minion-town-press-20261023-043528
 - [`kriscendobot-minion.town-pr216-gauntlet-panel-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet-panel-11.md) — Cost
 - [`minion-town-arc-press-20261023-043528`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/minion-town-arc-press-20261023-043528.md) — Cost
 - [`oros-health-checkup-20261023-043528`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/oros-health-checkup-20261023-043528.md) — Cost
-- [`oros-health-watch-20261023-043528`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/oros-health-watch-20261023-043528.md) — Cost
-- … and 14708 more
+- … and 14709 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
