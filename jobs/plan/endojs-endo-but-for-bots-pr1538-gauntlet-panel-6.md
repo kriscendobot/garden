@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: endojs-endo-but-for-bots-pr1538-gauntlet
+role: gardener
+tier: mentor
+handler-budget-role: panel
+handler-timeout: 10800
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: unknown
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-23T18:23:33Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-23T18:23:33Z
+---
+
+---
 role: gardener
 arc: daemon-git
 handler-budget-role: panel
@@ -72,13 +94,3 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
   <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-23T14:17:38Z
