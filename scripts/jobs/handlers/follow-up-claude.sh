@@ -234,6 +234,50 @@ SET_SCHEDULE="${GARDEN_FOLLOWUP_SET_SCHEDULE:-$HERE/../set-schedule.sh}"
 SET_SCHEDULE_ONCE="${GARDEN_FOLLOWUP_SET_SCHEDULE_ONCE:-$HERE/../set-schedule-once.sh}"
 INBOX_SEND="${GARDEN_FOLLOWUP_INBOX_SEND:-$HERE/../inbox-send.sh}"
 
+# A follow-up spawned from a gauntlet clean/fix report is still the same
+# CI-blocking unit of work, even though its `fu-` basename no longer matches the
+# gauntlet driver's stage job. Preserve that stage's wall-clock budget at this
+# producer seam. Without it, post-job.sh sees a role-less ordinary job and the
+# gardener applies the 2400s fleet default; the follow-up then hits the same
+# deterministic wall on every attempt (fu-...-gauntlet-fix-2-1, 2026-10-23).
+#
+# The classifier grammar makes the source report recoverable from the action
+# basename: fu-<report-base>-<ordinal>. Match only exact clean/fix stage shapes,
+# and leave a valid explicit timeout authoritative. An invalid timeout does not
+# count as an override: replace it with the known-good value.
+: "${GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT:=$GARDEN_SHEPHERD_HANDLER_TIMEOUT}"
+
+gauntlet_stage_followup_base() {  # gauntlet_stage_followup_base <fu-base>
+  [[ "${1:-}" =~ ^fu-.+-gauntlet-(clean|fix-[1-9][0-9]*)-[1-9][0-9]*$ ]]
+}
+
+body_has_valid_handler_timeout() {  # body on stdin
+  awk '
+    NR == 1 && $0 == "---" { frontmatter=1; next }
+    frontmatter && $0 == "---" { exit }
+    frontmatter && $0 ~ /^handler-timeout:[ \t]*[1-9][0-9]*[ \t]*$/ { found=1; exit }
+    END { exit found ? 0 : 1 }
+  '
+}
+
+preserve_gauntlet_stage_budget() {  # preserve_gauntlet_stage_budget <fu-base>; mutates body
+  local action_base="$1"
+  gauntlet_stage_followup_base "$action_base" || return 0
+  printf '%s' "$body" | body_has_valid_handler_timeout && return 0
+
+  if [ "${body%%$'\n'*}" = "---" ]; then
+    body="$(printf '%s' "$body" | awk -v timeout="$GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT" '
+      NR == 1 { in_frontmatter=1; print; print "handler-timeout: " timeout; next }
+      in_frontmatter && $0 == "---" { in_frontmatter=0; print; next }
+      in_frontmatter && $0 ~ /^handler-timeout:[ \t]*/ { next }
+      { print }
+    ')"
+  else
+    body="$(printf -- '---\nhandler-timeout: %s\n---\n\n%s' \
+      "$GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT" "$body")"
+  fi
+}
+
 # Read the design PR and its cross-reference timeline through a typed GraphQL
 # projection. No title, body, comment, review, or commit-message text is fetched.
 # Output: <OPEN|CLOSED|MERGED><TAB><build-PR-URL-or-dash>. The first same-repo
@@ -390,6 +434,7 @@ while IFS= read -r line; do
     "ENDJOB")
       if [ "$state" = JOB ] && [ -n "$name" ]; then
         if scope_ok "$body"; then
+          preserve_gauntlet_stage_budget "$name"
           run_producer "JOB $name" "$POST_JOB" "$name"
         else log "refused JOB '$name': body names agoric-sdk (out of bounds)"; fi
       fi
