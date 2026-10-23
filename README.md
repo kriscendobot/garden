@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-23T04:20:07Z_
+_As of 2026-10-23T04:22:19Z_
 
 ## Latest
 
@@ -1058,18 +1058,17 @@ worst fetch p95 4.753876s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (3)
+### doin (2)
 - [`fix-endojs-endo-but-for-bots-pr1349-style-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-style-panel-findings.md) — ---
-- [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1543-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1543
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1538
 
-### tada (14702)
+### tada (14703)
+- [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-clean.md) — Cost
 - [`improve-spell-out-identifiers-style-gaps`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/improve-spell-out-identifiers-style-gaps.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1538-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-restage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1349-gauntlet-restage.md) — Cost
-- … and 14697 more
+- … and 14698 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
