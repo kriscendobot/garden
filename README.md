@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T09:00:20Z_
+_As of 2026-10-23T09:11:05Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-159 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+160 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -1056,7 +1054,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 372.5M | $1458.26 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 20.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Codex | 20.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1076,17 +1074,16 @@ worst fetch p95 4.753876s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1543-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1543
 - [`claude-on-minion-town-press-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261023-075030.md) — Press the Claude-on-minion.town arc forward
 
-### doin (2)
-- [`fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-1.md) — ---
+### doin (1)
 - [`fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions.md) — ---
 
-### tada (14728)
+### tada (14729)
+- [`fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-1.md) — Panel-head freshness
 - [`oros-health-watch-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/oros-health-watch-20261023-075030.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-fix-3.md) — Gauntlet FIX round 3: endojs/endo-but-for-bots#1543 — all findings fixed, CI ...
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1538-gauntlet-panel-3.md) — Cost
-- … and 14723 more
+- … and 14724 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
