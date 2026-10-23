@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T03:09:33Z_
+_As of 2026-10-23T03:21:37Z_
 
 ## Latest
 
@@ -1046,13 +1044,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 372.3M | $1456.83 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 6.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 372.3M | $1457.25 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
+| Codex | 6.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.687215s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 7 open notice(s); checker healthy
+worst fetch p95 3.805542s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
@@ -1060,16 +1058,16 @@ worst fetch p95 3.687215s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (0)
-(none)
+### doin (1)
+- [`design-claude-bare-retreat-api-key-agents-20261023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-bare-retreat-api-key-agents-20261023.md) — Design the course correction after claude --bare rejected subscription tokens
 
-### tada (14694)
+### tada (14695)
+- [`canary-probe-oros-studio-garden-ce242c49-2af58666ece8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/canary-probe-oros-studio-garden-ce242c49-2af58666ece8.md) — rolling-deploy canary probe — round trip OK
 - [`fu-kriscendobot-minion.town-pr216-gauntlet-fix-10-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fu-kriscendobot-minion.town-pr216-gauntlet-fix-10-1.md) — Cost
 - [`kriscendobot-minion.town-pr216-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet.md) — gauntlet kriscendobot-minion.town-pr216-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr216-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet-fix-10.md) — Gauntlet fix round 10: kriscendobot/minion.town PR #216
 - [`kriscendobot-minion.town-pr216-gauntlet-panel-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet-panel-10.md) — Cost
-- [`claude-on-minion-town-press-20261023-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-press-20261023-012009.md) — Cost
-- … and 14689 more
+- … and 14690 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
