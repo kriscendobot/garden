@@ -27,3 +27,13 @@ Task (on this endolin host, which has PR write):
    scripts/jobs/gardening/panel.sh <worktree> 1349 6ee3fda77bf28a4fe4a81c6269fe33655f162b9e`
    — it should RESUME the pass-only record (seats not re-run) and submit the review.
 4. Report the posted review URL and the terminal disposition line. Do not fix or un-draft.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-23T10:20:31Z
