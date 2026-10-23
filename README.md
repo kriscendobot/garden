@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-23T10:55:29Z_
+_As of 2026-10-23T11:02:10Z_
 
 ## Latest
 
@@ -732,6 +732,13 @@ Delegation: **active**
 > Heal job heal-minion-town-8a3ce66 posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
 > Operations: context/operations/minion-town-screening.md
 
+- `kriscendobot-minion.town-pr218-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr218-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr218-gauntlet-halted.md)
+
+> Gauntlet kriscendobot-minion.town-pr218-gauntlet HALTED: PR [kriscendobot/minion.town#218](https://github.com/kriscendobot/minion.town/issues/218) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #218') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `minion-town-pr-screening-paused-f6fe2b5` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-f6fe2b5.md)
 
 > minion.town screening PAUSED: merge f6fe2b522ca of [https://github.com/kriscendobot/minion.town/pull/200](https://github.com/kriscendobot/minion.town/pull/200) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/39617782849
@@ -1062,25 +1069,24 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 5.286443s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
+### todo (4)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 - [`gauntlet-endojs-endo-but-for-bots-pr1349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-endojs-endo-but-for-bots-pr1349.md) — ---
 
 ### doin (3)
-- [`minion-town-arc-press-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261023-075030.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1543-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1543
 - [`build-daemon-agent-tools-endo-claude-acceptance-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-endo-claude-acceptance-loop.md) — ---
 
-### tada (14741)
+### tada (14743)
+- [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — HALTED
+- [`minion-town-arc-press-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/minion-town-arc-press-20261023-075030.md) — Supervisor tick 2026-10-23T10:56Z — minion.town arc
 - [`claude-on-minion-town-press-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-press-20261023-075030.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1538-gauntlet-panel-4.md) — Cost
 - [`claude-on-minion-town-completion-press-20261023-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-completion-press-20261023-070508.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-b5b0188803f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/canary-probe-oros-studio-garden-ce242c49-b5b0188803f3.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1538-gauntlet-fix-3.md) — Fix round 3: endojs/endo-but-for-bots PR #1538 — done, CI green
-- … and 14736 more
+- … and 14738 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
