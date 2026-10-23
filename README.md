@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-23T11:21:09Z_
+_As of 2026-10-23T11:27:35Z_
 
 ## Latest
 
@@ -1064,24 +1064,24 @@ worst fetch p95 5.286443s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ## Board
 ### todo (6)
 - [`oros-health-checkup-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261023-110509.md) — ---
+- [`kriscendobot-minion-town-pr218-weave-20261023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr218-weave-20261023.md) — weave kriscendobot/minion.town#218 (pin the merge base), then resume its gaun...
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
-- [`endojs-endo-but-for-bots-pr1543-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1543-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1543
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 - [`oros-health-watch-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261023-110509.md) — ---
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
+- [`endojs-endo-but-for-bots-pr1543-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1543-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1543
 - [`build-daemon-agent-tools-endo-claude-acceptance-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-endo-claude-acceptance-loop.md) — ---
-- [`minion-town-arc-press-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261023-110509.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (14746)
+### tada (14747)
+- [`minion-town-arc-press-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/minion-town-arc-press-20261023-110509.md) — Minion.town arc supervisor tick (2026-10-23T11:22Z)
 - [`claude-on-minion-town-press-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-press-20261023-110509.md) — Cost
 - [`gauntlet-endojs-endo-but-for-bots-pr1349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/gauntlet-endojs-endo-but-for-bots-pr1349.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-fix-4.md) — PR #1543 fix round 4: panel-4 findings applied, CI green
 - [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — HALTED
-- [`minion-town-arc-press-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/minion-town-arc-press-20261023-075030.md) — Supervisor tick 2026-10-23T10:56Z — minion.town arc
-- … and 14741 more
+- … and 14742 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
