@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T06:10:56Z_
+_As of 2026-10-23T06:15:38Z_
 
 ## Latest
 
@@ -1061,20 +1059,19 @@ worst fetch p95 4.753876s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (5)
+### doin (4)
 - [`fix-endojs-endo-but-for-bots-pr1539-fs-interface-consolidation-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1539-fs-interface-consolidation-panel-findings.md) — ---
-- [`fix-endojs-endo-but-for-bots-pr1349-panel-prose-and-rationale`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-panel-prose-and-rationale.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1538
 - [`fix-endojs-endo-but-for-bots-pr1349-remaining-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-remaining-panel-findings.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions.md) — ---
 
-### tada (14717)
+### tada (14718)
+- [`fix-endojs-endo-but-for-bots-pr1349-panel-prose-and-rationale`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fix-endojs-endo-but-for-bots-pr1349-panel-prose-and-rationale.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr216-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet.md) — gauntlet kriscendobot-minion.town-pr216-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr216-gauntlet-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet-fix-11.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-fix-2.md) — Cost
-- [`claude-on-minion-town-press-20261023-043528`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-press-20261023-043528.md) — Completion report: claude-on-minion-town-press-20261023-043528
-- … and 14712 more
+- … and 14713 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
