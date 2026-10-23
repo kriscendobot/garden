@@ -134,6 +134,19 @@ printf '%s\n' "$args_output" | grep -Fq '`argsShape` (`args`' \
   && ok 'spell-out probe catches args from PR 1336' \
   || bad 'spell-out probe missed argsShape'
 
+style_gap_output=$(printf '%s\n' \
+  'runTest().catch(err => {' \
+  'for (const ctor of constructors) {' \
+  'for (const prop of restrictedProperties) {' \
+  'const ok = validateResult(result);' \
+  'const codePoints = Array.from(text, c => c.codePointAt(0));' \
+  | "$SPELL" --scan-stdin fixture.js 2>&1) || true
+for abbreviation in err ctor prop ok c; do
+  printf '%s\n' "$style_gap_output" | grep -Fq "\`$abbreviation\` (\`$abbreviation\`" \
+    && ok "spell-out probe catches $abbreviation from the SES style-gap sweep" \
+    || bad "spell-out probe missed $abbreviation: $style_gap_output"
+done
+
 if printf '%s\n' 'const database = openTestDatabase(config.statePath);' \
     | "$SPELL" --scan-stdin fixture.js | grep -qx pass; then
   ok 'spelled-out database abstains'
