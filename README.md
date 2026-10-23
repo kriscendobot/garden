@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T16:16:07Z_
+_As of 2026-10-23T16:21:57Z_
 
 ## Latest
 
@@ -1100,7 +1098,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 372.6M | $1458.57 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 35.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 37.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1108,15 +1106,15 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 20.383160s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (6)
-- [`endojs-endo-but-for-bots-pr1367-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1367-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1367
+### todo (5)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-addendum`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-addendum.md) — Relay: post the gauntlet fix-4 summary addendum on endojs/endo-but-for-bots#1538
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment.md) — Relay: post the gauntlet fix-4 completion summary on endojs/endo-but-for-bots...
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1367-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1367-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1367
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #218
 
