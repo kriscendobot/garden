@@ -20,6 +20,7 @@ claim_ttl=$(sed -n 's/^: "${GARDEN_CLAIM_TTL:=\([0-9][0-9]*\)}"$/\1/p' "$GARDENE
 # shellcheck disable=SC2016  # parameter syntax is matched literally in gardener.sh
 kill_after=$(sed -n 's/^: "${GARDEN_HANDLER_KILL_AFTER:=\([0-9][0-9]*\)}"$/\1/p' "$GARDENER")
 stop_timeout=$(sed -n 's/^TimeoutStopSec=\([0-9][0-9]*\)$/\1/p' "$rendered")
+expected_drain="ExecStopPost=-/bin/bash $ROOT/scripts/jobs/cgroup-drain.sh %n"
 
 if ! [[ "$claim_ttl" =~ ^[0-9]+$ && "$kill_after" =~ ^[0-9]+$ && "$stop_timeout" =~ ^[0-9]+$ ]]; then
   echo "FAIL: could not read numeric shipped bounds from gardener.sh and rendered unit"
@@ -33,4 +34,10 @@ if [ "$stop_timeout" -lt "$minimum_stop_timeout" ]; then
   exit 1
 fi
 
+if ! grep -Fxq "$expected_drain" "$rendered"; then
+  echo "FAIL: rendered worker unit lacks the bounded cgroup-drain ExecStopPost backstop"
+  exit 1
+fi
+
 echo "PASS: rendered TimeoutStopSec=${stop_timeout}s covers ${maximum_handler_wall}s handler wall + ${kill_after}s kill grace + 300s margin"
+echo "PASS: rendered worker unit waits for its cgroup-drain ExecStopPost backstop"

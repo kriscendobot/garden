@@ -62,6 +62,13 @@ RestartSec=5
 # a genuinely wedged handler cannot hold the stop open past this bound.
 KillMode=mixed
 TimeoutStopSec=14700
+# Once the graceful worker drain finishes, systemd's mixed-mode final sweep can
+# leave SIGKILLed descendants in the cgroup while they finish uninterruptible
+# kernel work. Hold the unit in "deactivating" until that cgroup is stably empty,
+# so a restart cannot overlap those residual processes with the next worker.
+# cgroup-drain.sh is bounded (15s by default) and `-` keeps diagnostics from
+# turning an otherwise clean stop into a failed unit.
+ExecStopPost=-/bin/bash @GARDEN_ROOT@/scripts/jobs/cgroup-drain.sh %n
 # Per-worker memory confinement. Without a Memory* / OOMPolicy key a memory spike in
 # one handler pressures the WHOLE host and the kernel OOM killer picks an arbitrary
 # victim across every process — it once caught gardener-8 (self-restarts, tolerable),
