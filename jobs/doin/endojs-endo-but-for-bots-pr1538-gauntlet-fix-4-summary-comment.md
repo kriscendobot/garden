@@ -56,3 +56,13 @@ Head `af7d9638d`, following `35f7e32f`.
 - `@endo/git`: lint is clean, and the process-group and `SIGKILL` tests pass.
 - `@endo/sandbox`: all 42 `bwrap.test.js` tests pass.
 ----- END COMMENT BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-23T20:24:18Z
