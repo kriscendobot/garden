@@ -114,3 +114,13 @@ Two linked designs, landed together as one review surface:
 - Do not touch the maintainer-reserved surfaces (ferry, identity switching).
 - Cite file paths and PR numbers; verify claims against `llm` and minion.town
   `main` rather than the descriptions above.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-23T03:16:38Z
