@@ -42,3 +42,13 @@ Standing maintainer request (kriskowal, 2026-10-02). Background is in the 2026-1
 5. **Report:** one line of verdict (healthy / degraded / unhealthy), what you changed, and what needs a person at the machine or the maintainer. Keep the run under about 45 minutes. If it is healthy and there is nothing to fix, say so and finish quickly.
 
 Do not change drains, worker leveling, derotation markers, budget pools or schedules. The maintainer's 90% quota policy stands.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-23T01:22:32Z
