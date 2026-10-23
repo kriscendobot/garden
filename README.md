@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T16:24:22Z_
+_As of 2026-10-23T16:37:17Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-161 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+160 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -404,9 +402,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-09-09T21:05:16Z, latest 2026-10-23T15:20:24Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> WATCHDOG notice — occurrence #14 (first seen 2026-09-09T21:05:16Z, latest 2026-10-23T16:35:28Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 14 times; this is ONE
+> coalesced notice that updates in place, not 14 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
 
@@ -1100,7 +1098,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 372.6M | $1458.57 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 37.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Codex | 38.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1108,9 +1106,11 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 20.383160s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (7)
+- [`kriscendobot-minion.town-pr218-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr218-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #218
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
+- [`endojs-endo-but-for-bots-pr1367-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1367-gauntlet-fix-2-pr-body.md) — Replace PR #1367's body (host-pinned: oros PAT lacks PR write on endojs)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-addendum`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-addendum.md) — Relay: post the gauntlet fix-4 summary addendum on endojs/endo-but-for-bots#1538
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment.md) — Relay: post the gauntlet fix-4 completion summary on endojs/endo-but-for-bots...
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
