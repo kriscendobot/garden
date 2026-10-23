@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-23T04:38:16Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-design-minion-town-namespaced-claude-cli-20261023
+pr_number: 217
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/217
+pr_head: design/namespaced-claude-cli
