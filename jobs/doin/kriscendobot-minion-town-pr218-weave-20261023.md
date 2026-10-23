@@ -13,3 +13,13 @@ Its gauntlet `kriscendobot-minion.town-pr218-gauntlet` halted at viability (2026
 Last step: resume the halted gauntlet from viability so clean → panel → fix-loop → un-draft runs on the pinned head (`scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet viability`; check `--help` for the exact form). Do not merge; the minion.town proxy screen merges eligible PRs.
 
 Posted by the minion.town arc supervisor (job minion-town-arc-press-20261023-110509), standing order journal entries/2026/10/07/203746Z-message-gardener-a253b1.md.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-23T11:48:39Z
