@@ -120,11 +120,11 @@ fi
 # wall+grace escalation from an arbitrary external SIGKILL/OOM: the former receives
 # the same deadline-overrun hint as rc=124 so the reaper can split/escalate it early.
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"
-# Grace (seconds) between the group-wide SIGTERM and SIGKILL when the gardener
-# sweeps the handler's process group after it returns (reap_process_group, the
+# Grace (seconds) between SIGTERM and SIGKILL when the gardener sweeps the
+# handler's process tree after it returns (reap_process_tree, the
 # structural orphan backstop for the 2026-07-20/21 endor-leak incident). Kept SMALL
 # and independent of GARDEN_HANDLER_KILL_AFTER: these are already-orphaned
-# descendants we want gone fast, and the sweep early-exits the instant the group
+# descendants we want gone fast, and the sweep early-exits the instant the tree
 # empties, so a clean tree that respects SIGTERM costs ~0s and only a wedged tree
 # pays the full grace before the unconditional SIGKILL.
 : "${GARDEN_HANDLER_REAP_GRACE:=5}"
@@ -766,16 +766,17 @@ while :; do
   rm -f "$watchdog_marker"
   set -e
 
-  # REAP the handler's process group UNCONDITIONALLY, for every outcome. On an
+  # REAP the handler's process tree UNCONDITIONALLY, for every outcome. On an
   # rc=124 wall-clock overrun timeout killed only the direct handler (--foreground),
   # so its descendants (the `claude -p` → node → xsnap/endor tree) are still alive
   # here; on a self-exit into doom/requeue-exhaustion (a `claude` that crashed or
   # hit a quota cut mid-run) the handler returned but may have left a runaway tree;
   # on clean completion the group is already empty and this is a fast no-op. Either
-  # way ZERO descendants outlive the job. Safe by construction: reap_process_group
-  # only ever signals THIS job's own freshly-minted group id, never a peer's (see
+  # way ZERO descendants outlive the job. Unlike a group-only sweep, the tree
+  # reaper also reaches descendants that created their own session/process group.
+  # Safe by construction: it refuses this gardener's own tree and group (see
   # common.sh). Subshell-guarded so a stray failure cannot abort the gardener loop.
-  ( reap_process_group "$handler_pgid" "$GARDEN_HANDLER_REAP_GRACE" ) || true
+  ( reap_process_tree "$handler_pgid" "$GARDEN_HANDLER_REAP_GRACE" ) || true
 
   # Resolve the capture ladder once, before any branch deletes the report or
   # session transcript.  Provider terminal usage wins; otherwise subtract the

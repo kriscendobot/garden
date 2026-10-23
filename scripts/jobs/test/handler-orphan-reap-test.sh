@@ -7,13 +7,15 @@
 #
 # The fix: gardener.sh launches every handler in its OWN process group (job control,
 # `timeout --foreground` so the tree stays in the one group we capture) and sweeps
-# that whole group after the handler returns for ANY reason (common.sh
-# reap_process_group: SIGTERM → grace → SIGKILL). This test proves a handler that
-# EXCEEDS ITS TIMEBOX leaves ZERO orphaned descendants.
+# that whole tree after the handler returns for ANY reason (common.sh
+# reap_process_tree: descendant walk + SIGTERM → grace → SIGKILL). This test
+# proves both ordinary and detached descendants are covered.
 #
 # SUBTEST 1 — reap_process_group unit: guards (non-numeric / init(1) / own-group are
 #             refused) and a real spawned tree is SIGTERM→SIGKILL swept to zero.
-# SUBTEST 2 — integration: the REAL gardener.sh runs a stub that spawns a multi-level
+# SUBTEST 2 — reap_process_tree unit: a setsid descendant in its own session/group
+#             is swept along with the handler tree.
+# SUBTEST 3 — integration: the REAL gardener.sh runs a stub that spawns a multi-level
 #             descendant tree then hangs past a tiny GARDEN_HANDLER_TIMEOUT (rc=124);
 #             after the gardener returns, EVERY recorded descendant PID is gone.
 #
@@ -83,7 +85,36 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 2 — integration: a real gardener overrun leaves ZERO orphaned descendants"; hr
+hr; echo "SUBTEST 2 — reap_process_tree reaches a detached setsid descendant"; hr
+DETACHED_PIDS="$(mktemp "${TMPDIR:-/tmp}/garden-detached-tree.XXXXXX")"
+set -m
+DETACHED_PIDS="$DETACHED_PIDS" bash -c '
+  setsid sleep 3600 &
+  echo "$!" > "$DETACHED_PIDS"
+  sleep 3600
+' &
+tree_root=$!
+set +m
+for _ in $(seq 1 20); do [ -s "$DETACHED_PIDS" ] && break; sleep 0.1; done
+detached_pid="$(cat "$DETACHED_PIDS" 2>/dev/null || true)"
+detached_pgid="$(ps -o pgid= -p "$detached_pid" 2>/dev/null | tr -dc '0-9')"
+if [ -n "$detached_pid" ] && [ "$detached_pgid" = "$detached_pid" ] && [ "$detached_pgid" != "$tree_root" ]; then
+  ok "spawned setsid descendant $detached_pid in a process group distinct from root $tree_root"
+else
+  bad "failed to establish a detached setsid descendant (pid=$detached_pid pgid=$detached_pgid root=$tree_root)"
+fi
+( reap_process_tree "$tree_root" 2 5 ) || true
+sleep 0.3
+if [ -n "$detached_pid" ] && kill -0 "$detached_pid" 2>/dev/null; then
+  bad "reap_process_tree left detached setsid descendant $detached_pid alive"
+  kill -KILL "$detached_pid" 2>/dev/null || true
+else
+  ok "reap_process_tree swept the detached setsid descendant to ZERO survivors"
+fi
+rm -f "$DETACHED_PIDS"
+
+# ============================================================================
+hr; echo "SUBTEST 3 — integration: a real gardener overrun leaves ZERO orphaned descendants"; hr
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-orphan-reap.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 BARE="$TR/journal.git"; BRANCH=journal2
 git_id=(-c user.name=test -c user.email=test@localhost)
@@ -136,11 +167,11 @@ if [ "${#tree_pids[@]}" -ge 1 ] && any_alive "${tree_pids[@]}"; then
   # leave the host clean
   for p in "${tree_pids[@]}"; do kill -KILL "$p" 2>/dev/null || true; done
 else
-  ok "ZERO orphaned descendants after the overrun (the process group was swept)"
+  ok "ZERO orphaned descendants after the overrun (the process tree was swept)"
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 3 — integration: a handler that SELF-EXITS (doom path, no timeout kill) also leaves ZERO orphans"; hr
+hr; echo "SUBTEST 4 — integration: a handler that SELF-EXITS (doom path, no timeout kill) also leaves ZERO orphans"; hr
 # The true incident discriminator. On rc=124 the OLD `timeout` already group-killed
 # a non-detaching tree, but when the handler RETURNS ON ITS OWN (a `claude -p` that
 # crashed / hit a quota cut, then requeue-exhausts into doom) NO timeout kill fires
@@ -188,7 +219,7 @@ if [ "${#tree_pids2[@]}" -ge 1 ] && any_alive "${tree_pids2[@]}"; then
   echo "$survivors2" | sed 's/^/        /'
   for p in "${tree_pids2[@]}"; do kill -KILL "$p" 2>/dev/null || true; done
 else
-  ok "ZERO orphaned descendants after a self-exit (the process group was swept on return)"
+  ok "ZERO orphaned descendants after a self-exit (the process tree was swept on return)"
 fi
 
 # ============================================================================
