@@ -1,5 +1,5 @@
 cadence: 3h
-last_dispatched: 2026-10-23T01:20:09Z
+last_dispatched: 2026-10-23T04:35:28Z
 job_basename_prefix: claude-on-minion-town-press
 ---
 ---
