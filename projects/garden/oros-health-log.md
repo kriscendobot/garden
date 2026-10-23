@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-23T17:30Z (oros-health-checkup-20261023-172020): healthy; deployed = origin/main2 `b5b0188`, no changes
+
+- **Load/mem:** load 2.15/2.75/2.90 at 17:25Z. 2 monks are running. 13 GiB of 15 GiB available; swap reads 0 (down from 816M last run).
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 58%, inodes 1%.
+- **Uptime:** 22d00h09m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `b5b0188` (10:38Z), still the origin/main2 tip. fleet/health/oros (10:38:16Z): `roll_status: deployed`, 0 of 288 units failed.
+- **Units:** 0 failed user units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker. The sysop ticks cleanly (applied 0, failed 0).
+- **Budget heartbeat:** claude-oros pushed at 14:47, 15:02, 15:17, 15:32, 15:47, 16:02, 16:18, 16:32, 16:48, 17:04 and 17:17Z, all ok, about every 15 minutes. Spend rose from 80.44M to 85.34M (47.4% of 180M). The meter is not stuck.
+- **State clones:** 80 journal clones (top-level and nested). The largest are reaper and gauntlet (47 packs each), then regenerate-sections-index (37); all under the threshold of 50. No tmp_pack, no `gc.log`, no git `*.lock` or gc.log older than 30 minutes.
+- **rc=124 (3h):** none, and no `Failed with result` or rc=137 lines. About 110 `garden repo lock: timeout after Ns (shared)` lines spread over 7 repo locks. These are the bounded try-locks seen in earlier runs, not a wedge.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-23T15:05Z (oros-health-checkup-20261023-142009): healthy; deployed = origin/main2 `b5b0188`, no changes
 
 - **Load/mem:** load 3.66/3.09/2.36 at 14:47Z. 2 monks are running. 13 GiB of 15 GiB available. Swap reads 816M of 1.0 GiB, the same as the last three runs; not pressure.
