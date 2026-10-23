@@ -1,0 +1,2 @@
+base: improve-spell-out-identifiers-style-gaps
+identity: mentor:scripts/jobs/gardening/pre-push-gates/probes/spell-out-identifiers.sh
