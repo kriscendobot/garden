@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T06:15:38Z_
+_As of 2026-10-23T06:26:13Z_
 
 ## Latest
 
@@ -101,11 +99,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #14 (first seen 2026-09-09T20:50:15Z, latest 2026-10-23T04:50:31Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 14 times; this is ONE
-> coalesced notice that updates in place, not 14 messages. Latest detail:
+> WATCHDOG notice — occurrence #15 (first seen 2026-09-09T20:50:15Z, latest 2026-10-23T06:20:25Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 15 times; this is ONE
+> coalesced notice that updates in place, not 15 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
+> budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared codex subscription demand active=2 queue=0 quota=ok fleet-envelope=4 target=2
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
@@ -1024,6 +1022,15 @@ Delegation: **active**
 
 > gardener job 'minion-town-ci-harness-path-gate' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7208s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
+
+> Container hardening is PENDING on oros-studio-garden-ce242c49: 2 launcher-posture check(s) fail (caps/sudo/block devices/mount).
+>
+> This is the expected state until the container is recreated with the hardened launcher,
+> a maintainer step: context/operations/harden-container.md. The garden-container-hardening
+> unit stays clean meanwhile (exit 3), so it does not fail rolling-deploy canaries. After the
+> first all-pass run, any failure is treated as a regression and fails the unit.
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` has CLEARED (first seen 2026-10-17T08:44:39Z, cleared 2026-10-20T02:43:41Z).
@@ -1047,7 +1054,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 372.5M | $1457.90 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Codex | 18.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1061,19 +1068,17 @@ worst fetch p95 4.753876s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (4)
-- [`fix-endojs-endo-but-for-bots-pr1539-fs-interface-consolidation-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1539-fs-interface-consolidation-panel-findings.md) — ---
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1538
-- [`fix-endojs-endo-but-for-bots-pr1349-remaining-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-remaining-panel-findings.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions.md) — ---
 
-### tada (14718)
+### tada (14720)
+- [`fix-endojs-endo-but-for-bots-pr1349-remaining-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fix-endojs-endo-but-for-bots-pr1349-remaining-panel-findings.md) — Cost
+- [`fix-endojs-endo-but-for-bots-pr1539-fs-interface-consolidation-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fix-endojs-endo-but-for-bots-pr1539-fs-interface-consolidation-panel-findings.md) — Cost
 - [`fix-endojs-endo-but-for-bots-pr1349-panel-prose-and-rationale`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fix-endojs-endo-but-for-bots-pr1349-panel-prose-and-rationale.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr216-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet.md) — gauntlet kriscendobot-minion.town-pr216-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr216-gauntlet-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet-fix-11.md) — Cost
-- [`endojs-endo-but-for-bots-pr1543-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-panel-3.md) — Cost
-- [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1543-gauntlet-fix-2.md) — Cost
-- … and 14713 more
+- … and 14715 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
