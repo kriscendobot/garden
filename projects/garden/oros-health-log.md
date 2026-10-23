@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-23T05:05Z (oros-health-checkup-20261023-043528): healthy; deployed = origin/main2 `e282e101`, cleared one stale index.lock
+
+- **Load/mem:** load 2.95/2.63/2.42 at 05:00Z. 2 monks are running. 13 GiB of 15 GiB available. Swap reads 797M of 1.0 GiB, up from 0 at 01:30Z; with 13 GiB available this is not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free); inodes 1%. The `/tmp` tmpfs is at 745M (10%), unchanged.
+- **Uptime:** 21d11h44m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `e282e101` (written 04:53Z), the origin/main2 tip. The last fleet/health/oros on origin (04:42:42Z) still shows `roll_status: deferred` on `long-job monk 2 2809s`, targeting `e282e101`. That is the gate waiting for a long job as designed, and the roll completed at 04:53Z. 0 of 289 units failed.
+- **Units:** 0 failed garden units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros sampled at 04:32:37Z. Status ok, 73.59M of 180M. The pushes at 02:48, 03:03, 03:18, 03:32, 03:48, 04:03, 04:17 and 04:32Z were all ok, about every 15 minutes. Spend was flat at 72.62M from 02:48Z to 03:32Z, then rose.
+- **State clones:** 33 `*/journal` clones. The largest are sysop (50 packs, at the threshold), screening-control (49) and reaper (47). No tmp_pack and no `gc.log`. There was one stale lock: `decisions/journal/.git/index.lock`, empty, from 02:54:09Z (2h09m old), held by no git process (see Changed). Git in the clones went through the fleet repo lock, and two probe commands waited out a transient holder (pid 825830, gone moments later). That is normal contention, not a wedge.
+- **rc=124 (3h):** one. At 02:56:53Z the self-heal handler for `garden-triager@kriscendobot-minion.town` exceeded its 600s timeout. It was bounded and cleaned up, and no unit failed. It came 2.7 minutes after the stale index.lock was created, so it may have left that lock, but this is not proven. No `Failed with result` lines.
+- **Changed:** removed the stale `decisions/journal/.git/index.lock`.
+- **Needs the maintainer:** nothing. If the minion.town triager timeout recurs, look into it.
+
 ## 2026-10-23T01:30Z (oros-health-checkup-20261023-012009): healthy; deployed = origin/main2 `32faa8fe`, no changes
 
 - **Load/mem:** load 2.94/2.89/2.74 at 01:23Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 0.
