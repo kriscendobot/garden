@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-23T21:20:40Z_
+_As of 2026-10-23T21:27:21Z_
 
 ## Latest
 
@@ -453,6 +453,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > heartbeat and sysop control plane are available for oros-studio-garden-ce242c49 (heartbeat fresh (136s old; sampled_at_epoch=1792332168); no unlogged sysop operations); its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
+
+- `foreman-milestone-M1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M1.md)
+
+> Milestone M1 is blocked on [endojs/endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/issues/1426): its gauntlet exhausted six review/fix rounds with green CI and remains draft. Decide whether to un-draft/merge it or authorize another review run.
 
 - `foreman-milestone-M11` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M11.md)
 
@@ -1133,28 +1137,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 373.1M | $1458.72 _(notional, rate-card)_ | 138% of 271.0M (backoff) |
+| Claude | 373.2M | $1460.18 _(notional, rate-card)_ | 138% of 271.0M (backoff) |
 | Codex | 46.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 9.733498s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 7 open notice(s); checker healthy
+worst fetch p95 6.614559s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-panel-8.md) — Gauntlet stage: PANEL round 8 — kriscendobot/minion.town PR #218
+- [`kriscendobot-minion.town-pr218-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #218
 
-### tada (14811)
+### tada (14812)
+- [`kriscendobot-minion.town-pr218-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-panel-8.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-fix-7.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-panel-7.md) — Cost
 - [`minion-town-arc-press-20261023-203508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/minion-town-arc-press-20261023-203508.md) — minion.town arc supervisor tick, 2026-10-23T20:43Z (issue 58)
 - [`claude-on-minion-town-press-20261023-203508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-press-20261023-203508.md) — Cost
-- [`oros-health-checkup-20261023-203508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/oros-health-checkup-20261023-203508.md) — Cost
-- … and 14806 more
+- … and 14807 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
