@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-23T23:45Z (oros-health-checkup-20261023-233509): healthy; deployed = origin/main2 `8576a7c`, no changes
+
+- **Load/mem:** load 1.62/1.97/2.19 at 23:37Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 833M of 1.0 GiB, the usual steady level; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free), inodes 1%. The virtiofs garden mount is at 60%; `/tmp` at 766M (10%).
+- **Uptime:** 22d06h22m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `8576a7c` (19:52Z), still the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed user units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed every ~15 minutes, 20:47 through 23:32Z, all ok. Spend has held at 87.46M (48.6% of 180M) since 21:02Z. The monks claimed nothing between 20:40Z and this run (no `working` lines), so the meter is not stuck; there was just no work.
+- **CLI swap:** at 21:46Z monk 1's health gate found `claude` missing from PATH, so the monk self-disqualified and parked. It happened while the global npm install was replaced; `/usr/local/bin/claude` was relinked at 23:16Z and is now 2.1.309. Monk 1 requalified by itself and claimed this job. This was transient and the latch worked as designed.
+- **State clones:** 80 journal clones. The largest is gauntlet (50 packs, at the threshold), then monks/monk-2 (49) and reaper (47). No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes.
+- **rc=124 (3h):** none; no `Failed with result` or rc=137 lines. 176 `garden repo lock: timeout` lines, the usual bounded try-locks.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-23T20:45Z (oros-health-checkup-20261023-203508): healthy; deployed = origin/main2 `8576a7c`, no changes
 
 - **Load/mem:** load 2.76/2.43/2.43 at 20:38Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 819M of 1.0 GiB, back at the earlier steady level; not pressure.
