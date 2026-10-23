@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T02:54:07Z_
+_As of 2026-10-23T02:59:53Z_
 
 ## Latest
 
@@ -109,11 +107,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #6 (first seen 2026-10-18T09:20:28Z, latest 2026-10-22T18:00:30Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 6 times; this is
-> ONE entry that updates in place, not 6 messages. Latest detail:
+> COALESCED message — occurrence #7 (first seen 2026-10-18T09:20:28Z, latest 2026-10-23T02:56:51Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 7 times; this is
+> ONE entry that updates in place, not 7 messages. Latest detail:
 >
-> Milestone M2 is blocked on its sole remaining step, `hardened-text-codecs-shim` in [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). Decide whether the now-green conditional codec-taming implementation should proceed for approval after upstream [endojs/endo#3372](https://github.com/endojs/endo/issues/3372) closed unmerged.
+> Milestone M2’s remaining step, [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), declares an open draft #1425 as its prerequisite. Decide whether #1425 must land separately or its work is intentionally folded into #1349 so the dependency can be removed before renewed review.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
