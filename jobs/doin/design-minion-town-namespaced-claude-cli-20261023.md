@@ -80,3 +80,13 @@ compare the two.
   numbers.
 - Do not touch the maintainer-reserved surfaces (ferry, identity switching).
 - Do not enable, deploy, or run anything on production.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-23T04:38:16Z
