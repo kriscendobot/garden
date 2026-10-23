@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T10:00:14Z_
+_As of 2026-10-23T10:12:30Z_
 
 ## Latest
 
@@ -1056,7 +1054,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 372.5M | $1458.26 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 21.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 21.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1064,29 +1062,26 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 5.277567s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (7)
 - [`minion-town-arc-press-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261023-075030.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`claude-on-minion-town-completion-press-20261023-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261023-070508.md) — Completion press: Claude-on-minion.town arc
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1349-fresh-panel-current-head`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1349-fresh-panel-current-head.md) — ---
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1543-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1543
-- [`fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions.md) — ---
 - [`claude-on-minion-town-press-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261023-075030.md) — Press the Claude-on-minion.town arc forward
 
-### doin (3)
-- [`oros-health-checkup-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261023-075030.md) — ---
-- [`kriscendobot-minion.town-pr216-split-20261023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr216-split-20261023.md) — Split kriscendobot/minion.town#216 into smaller stacked PRs
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1538
+- [`endojs-endo-but-for-bots-pr1349-fresh-panel-current-head`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fresh-panel-current-head.md) — ---
 
-### tada (14731)
+### tada (14734)
+- [`fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions.md) — Cost
+- [`kriscendobot-minion.town-pr216-split-20261023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-split-20261023.md) — Cost
+- [`oros-health-checkup-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/oros-health-checkup-20261023-075030.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-1b0b585fd33a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/canary-probe-oros-studio-garden-ce242c49-1b0b585fd33a.md) — rolling-deploy canary probe — round trip OK
 - [`improve-followup-gauntlet-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/improve-followup-gauntlet-budget.md) — Cost
-- [`fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-1.md) — Panel-head freshness
-- [`oros-health-watch-20261023-075030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/oros-health-watch-20261023-075030.md) — Cost
-- [`fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-3.md) — Cost
-- … and 14726 more
+- … and 14729 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
