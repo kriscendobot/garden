@@ -6,6 +6,8 @@ dispatch: automatic
 In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/pull/1538, add dedicated tests for the process-group kill's timeout path and output-overflow path. corner-prober asked for these in its summary-fix, and neither path has a dedicated test yet.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
