@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T19:50:39Z_
+_As of 2026-10-23T20:07:10Z_
 
 ## Latest
 
@@ -1127,8 +1125,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 372.6M | $1458.57 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 41.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 372.7M | $1458.72 _(notional, rate-card)_ | 138% of 271.0M (backoff) |
+| Codex | 41.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1147,13 +1145,13 @@ worst fetch p95 9.733498s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### doin (0)
 (none)
 
-### tada (14800)
+### tada (14801)
+- [`canary-probe-oros-studio-garden-ce242c49-8576a7c015f2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/canary-probe-oros-studio-garden-ce242c49-8576a7c015f2.md) — rolling-deploy canary probe — round trip OK
 - [`improve-handler-wall-watchdog-lag`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/improve-handler-wall-watchdog-lag.md) — Cost
 - [`claude-on-minion-town-completion-press-20261023-192017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-completion-press-20261023-192017.md) — Cost
 - [`endojs-endo-but-for-bots-pr1537-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1537-shepherd.md) — Shepherd report: endojs/endo-but-for-bots#1537 (build/endo-fs-from-git-sha256...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1538-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1538-gauntlet — HALTED
-- [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — review budget reached
-- … and 14795 more
+- … and 14796 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
