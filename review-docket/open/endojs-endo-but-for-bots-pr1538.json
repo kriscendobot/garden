@@ -3,7 +3,7 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 1538,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/1538",
-  "head_oid": "af7d9638da22ed7698bb2a4e26033cfea64511ce",
+  "head_oid": "ecd01edf2d1b47ec87459f3a21d0c7250c07c293",
   "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
@@ -15,6 +15,6 @@
   "generation": 1,
   "ci": {
     "state": "pending",
-    "observed_at": "2026-10-23T11:42:25Z"
+    "observed_at": "2026-10-23T12:12:22Z"
   }
 }
