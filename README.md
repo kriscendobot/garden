@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T23:29:00Z_
+_As of 2026-10-23T23:44:50Z_
 
 ## Latest
 
@@ -1147,28 +1145,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 373.2M | $1458.72 _(notional, rate-card)_ | 138% of 271.0M (backoff) |
-| Codex | 49.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 373.3M | $1458.72 _(notional, rate-card)_ | 138% of 271.0M (backoff) |
+| Codex | 49.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.980831s/45s (unknown); 6 open notice(s); checker healthy
+worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion-town-pr218-ledger-design-fix-20261023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr218-ledger-design-fix-20261023.md) — fix kriscendobot/minion.town#218: resolve the design-level must-fix items lef...
 
-### tada (14814)
+### tada (14818)
+- [`oros-health-checkup-20261023-233509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/oros-health-checkup-20261023-233509.md) — Cost
+- [`oros-health-watch-20261023-233509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/oros-health-watch-20261023-233509.md) — Cost
+- [`minion-town-arc-press-20261023-233509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/minion-town-arc-press-20261023-233509.md) — Cost
+- [`claude-on-minion-town-press-20261023-233509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-press-20261023-233509.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — review budget reached
-- [`kriscendobot-minion.town-pr218-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-fix-8.md) — Cost
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-panel-8.md) — Cost
-- [`kriscendobot-minion.town-pr218-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-fix-7.md) — Cost
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-panel-7.md) — Cost
-- … and 14809 more
+- … and 14813 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
