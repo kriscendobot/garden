@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-23T15:05Z (oros-health-checkup-20261023-142009): healthy; deployed = origin/main2 `b5b0188`, no changes
+
+- **Load/mem:** load 3.66/3.09/2.36 at 14:47Z. 2 monks are running. 13 GiB of 15 GiB available. Swap reads 816M of 1.0 GiB, the same as the last three runs; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free); inodes 1%. The `/tmp` tmpfs is at 763M (10%), steady. The virtiofs garden mount is at 58%.
+- **Uptime:** 21d21h31m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `b5b0188` (10:38Z), still the origin/main2 tip per `ls-remote`. fleet/health/oros (10:38:16Z): `roll_status: deployed`, 0 of 288 units failed.
+- **Units:** 0 failed garden units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker (`.garden-state/worker-derotate` is only the derotate service's journal clone).
+- **Budget heartbeat:** claude-oros pushed at 12:18, 12:32, 12:48, 13:03, 13:17, 13:33, 13:47, 14:01, 14:18 and 14:32Z, all ok, about every 15 minutes. Spend rose from 78.54M to 80.31M (44.6% of 180M). The meter is not stuck.
+- **State clones:** 33 top-level `*/journal` clones, plus 47 nested ones (`*/*/journal`). The largest are worktree-sweeper (50 packs, at the threshold), monitors/monk-1 (49), repo-watcher (48), and reaper and gauntlet (47 each). No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes under any clone's `.git`. Note that a recursive `find` over all of `.garden-state` takes more than 10 minutes on this host, so scope the lock scan to `*/journal/.git` and `*/*/journal/.git` at maxdepth 2.
+- **rc=124 (3h):** none, and no `Failed with result` or rc=137 lines. There are a few `garden repo lock: timeout after 2s (shared)` lines at 14:58–15:03Z. These are bounded try-locks that wait behind a peer, not a wedge.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-23T11:50Z (oros-health-checkup-20261023-110509): healthy; deployed = origin/main2 `b5b0188`, no changes
 
 - **Load/mem:** load 1.61/2.63/2.80 at 11:36Z. 2 monks are running. 13 GiB of 15 GiB available. Swap reads 817M of 1.0 GiB, about the same as the last two runs; not pressure.
