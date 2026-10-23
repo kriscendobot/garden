@@ -2,6 +2,20 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-23T11:50Z (oros-health-checkup-20261023-110509): healthy; deployed = origin/main2 `b5b0188`, no changes
+
+- **Load/mem:** load 1.61/2.63/2.80 at 11:36Z. 2 monks are running. 13 GiB of 15 GiB available. Swap reads 817M of 1.0 GiB, about the same as the last two runs; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free); inodes 1%. The `/tmp` tmpfs is at 745M (10%), steady. The virtiofs garden mount is at 57%.
+- **Uptime:** 21d18h20m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `b5b0188` (written 10:38Z), the origin/main2 tip per `ls-remote`. fleet/health/oros (10:38:16Z): `roll_status: deployed`, 0 of 288 units failed. The roll that the last run saw deferred behind monk 2's long job completed once the job ended.
+- **Units:** 0 failed garden units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker. The sysop is ticking (applied 0, failed 0).
+- **Budget heartbeat:** claude-oros pushed at 09:47, 10:05, 10:18, 10:32, 10:49, 11:03, 11:18 and 11:33Z, all ok, about every 15 minutes. Spend rose from 75.19M to 78.30M (43.5% of 180M). The meter is not stuck.
+- **State clones:** 33 `*/journal` clones. The largest are repo-watcher (50 packs, at the threshold), reaper and gauntlet (47 each), and fork-watch (46). No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes under any clone's `.git`. The old `*.lock` files at `.garden-state` top level (`ci-pr-source-cache/*.lock`, `*/journal.lock`) are persistent flock files, not stale git locks.
+- **rc=124 (3h):** none since 09:25Z. The 08:56–09:25Z journal-fetch burst was already noted in the last run. No `Failed with result` lines. One older rc=137, at 09:10Z: `fix-endojs-endo-but-for-bots-pr1349-constructable-changeset-docs-regressions` hit its own wall-clock budget, which is a bounded kill and not a host fault.
+- **Standing noise:** `garden-minion-mcp-watchdog` self-heal still reports minion.town MCP down since 2026-10-08. The cause is that oros has no AWS credentials (`secret minion/test-cc-client`). This is known and expected on this host. gpg-agent `scdaemon` IPC lines are benign.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-23T10:05Z (oros-health-checkup-20261023-075030): healthy; deployed `1b0b585f`, roll to tip `b5b0188` deferred on a long job; no changes
 
 - **Load/mem:** load 0.85/2.01/3.13 at 09:55Z. 2 monks are running (monk 2 is on `endojs-endo-but-for-bots-pr1538-gauntlet-fix-3`; monk 1 is this run). 12 GiB of 15 GiB available. Swap reads 819M of 1.0 GiB, about the same as last run; not pressure.
