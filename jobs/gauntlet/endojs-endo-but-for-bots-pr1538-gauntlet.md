@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-22T17:23:30Z
 arc: daemon-git
-stage: panel
+stage: fix
 iteration: 5
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1538-gauntlet-panel-5
+current_child: endojs-endo-but-for-bots-pr1538-gauntlet-fix-5
 state: running
 resumed_at: 2026-10-23T03:39:56Z
 resumed_from_stage: clean
