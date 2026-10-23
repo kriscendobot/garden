@@ -21,3 +21,13 @@ Releaser's changeset request: decline (no `.changeset/` in this repo); reply onc
 Also check whether `test/git-remote/capability.test.ts` "propagates a git failure..." fails on base `main-68c3960`; if it fails only on this head, fix it.
 Push follow-up commits, keep CI green, reply on review threads, leave the PR draft. When you finish, resume the gauntlet for one more round:
 `scripts/jobs/gauntlet.sh --resume-from-stage ...` as printed in the gauntlet report. If that is not possible, report it.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-23T23:38:21Z
