@@ -1,2 +1,2 @@
-base: improve-worker-stop-timeout
+base: improve-worker-cgroup-stop-drain
 identity: mentor:scripts/systemd/garden-worker@.service.in
