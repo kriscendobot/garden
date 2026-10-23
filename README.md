@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T20:21:11Z_
+_As of 2026-10-23T20:30:13Z_
 
 ## Latest
 
@@ -1131,7 +1129,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 372.8M | $1459.09 _(notional, rate-card)_ | 138% of 271.0M (backoff) |
+| Claude | 372.9M | $1458.72 _(notional, rate-card)_ | 138% of 271.0M (backoff) |
 | Codex | 41.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1140,21 +1138,19 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 9.733498s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment.md) — Relay: post the gauntlet fix-4 completion summary on endojs/endo-but-for-bots...
-- [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-addendum`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-addendum.md) — Relay: post the gauntlet fix-4 summary addendum on endojs/endo-but-for-bots#1538
+### doin (0)
+(none)
 
-### tada (14803)
+### tada (14806)
+- [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Completion report: endojs-endo-but-for-bots-pr709-retarget-frozen-base
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-addendum`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-addendum.md) — Panel-head freshness
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1367-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1367-gauntlet-fix-2-pr-body.md) — Cost
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Panel-head freshness
-- [`canary-probe-oros-studio-garden-ce242c49-8576a7c015f2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/canary-probe-oros-studio-garden-ce242c49-8576a7c015f2.md) — rolling-deploy canary probe — round trip OK
-- [`improve-handler-wall-watchdog-lag`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/improve-handler-wall-watchdog-lag.md) — Cost
-- [`claude-on-minion-town-completion-press-20261023-192017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-completion-press-20261023-192017.md) — Cost
-- … and 14798 more
+- … and 14801 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
