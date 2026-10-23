@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T14:09:03Z_
+_As of 2026-10-23T14:14:27Z_
 
 ## Latest
 
@@ -1113,18 +1111,17 @@ worst fetch p95 20.383160s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr218-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #218
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1538
-- [`improve-accounts-store-iam-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-accounts-store-iam-rollout.md) — ---
 - [`endojs-endo-but-for-bots-pr1544-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1544-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1544
 
-### tada (14763)
+### tada (14764)
+- [`improve-accounts-store-iam-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/improve-accounts-store-iam-rollout.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-panel-1.md) — Cost
 - [`claude-on-minion-town-completion-press-20261023-130519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-completion-press-20261023-130519.md) — Cost
 - [`endojs-endo-but-for-bots-pr1367-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1367-gauntlet-viability.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1367-weave-20261023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1367-weave-20261023.md) — Cost
-- … and 14758 more
+- … and 14759 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
