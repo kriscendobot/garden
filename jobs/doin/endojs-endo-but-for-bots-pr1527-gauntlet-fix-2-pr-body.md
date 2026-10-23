@@ -56,3 +56,13 @@ None. Suspend state lives in memory, so there is nothing to migrate.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- BODY END -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-23T20:10:55Z
