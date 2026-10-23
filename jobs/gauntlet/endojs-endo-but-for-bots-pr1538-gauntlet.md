@@ -14,8 +14,8 @@ stage: clean
 iteration: 0
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: endojs-endo-but-for-bots-pr1538-gauntlet-clean
+state: running
 resumed_at: 2026-10-23T03:39:56Z
 resumed_from_stage: clean
 ---
