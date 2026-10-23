@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-23T11:13:06Z_
+_As of 2026-10-23T11:15:01Z_
 
 ## Latest
 
@@ -1062,8 +1062,7 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 5.286443s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (8)
-- [`claude-on-minion-town-press-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261023-110509.md) — Press the Claude-on-minion.town arc forward
+### todo (7)
 - [`oros-health-checkup-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261023-110509.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
@@ -1072,7 +1071,8 @@ worst fetch p95 5.286443s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-watch-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261023-110509.md) — ---
 - [`minion-town-arc-press-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261023-110509.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (2)
+### doin (3)
+- [`claude-on-minion-town-press-20261023-110509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261023-110509.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
 - [`build-daemon-agent-tools-endo-claude-acceptance-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-endo-claude-acceptance-loop.md) — ---
 
