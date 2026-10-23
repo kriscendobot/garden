@@ -18,3 +18,13 @@ That shape fits hardened262 on `llm`. A case flagged `noLockdown`, `noCompartmen
 
 I left the xst script in place for this PR. Once it lands on a base that has hardened262, I propose a follow-up PR that moves the case into `packages/hardened262/test/lockdown/`, adds its baseline lines, and removes `test/_xs-missing-text-codecs.js` and its `test:xs` step. If you would rather have the migration in this PR, say "pin the merge base" and the weave will bring hardened262 in first.
 ----- END REPLY BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-23T16:06:01Z
