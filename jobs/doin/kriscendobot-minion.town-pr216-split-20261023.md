@@ -32,3 +32,13 @@ made in #216's rounds and address the round-11 panel's open must-fix items in th
 they belong to. Open PRs only via `scripts/jobs/gardening/ensure-pr.sh`. When the slices
 are open, close #216 with a one-line comment naming the PRs that supersede it. Each
 build completes into its own gauntlet as usual; slice 1 should land and deploy first.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-23T09:45:03Z
