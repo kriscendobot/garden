@@ -2,6 +2,19 @@
 
 Newest first. One note per `oros-health-checkup-*` run.
 
+## 2026-10-23T10:05Z (oros-health-checkup-20261023-075030): healthy; deployed `1b0b585f`, roll to tip `b5b0188` deferred on a long job; no changes
+
+- **Load/mem:** load 0.85/2.01/3.13 at 09:55Z. 2 monks are running (monk 2 is on `endojs-endo-but-for-bots-pr1538-gauntlet-fix-3`; monk 1 is this run). 12 GiB of 15 GiB available. Swap reads 819M of 1.0 GiB, about the same as last run; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free); inodes 1%. The `/tmp` tmpfs is at 755M (10%), steady.
+- **Uptime:** 21d16h40m, no reboot.
+- **Deployed vs main2:** oros self-deployed `1b0b585f` at 09:32Z, and its canary probe completed at 09:37Z. Origin/main2 then moved to `b5b0188` (09:33:56Z, one commit). fleet/health/oros (09:57:50Z): `roll_status: deferred`, reason `long-job monk 2 1375s`, targeting `b5b0188`. That is the gate waiting for a long job as designed. 0 of 288 units failed.
+- **Units:** 0 failed garden units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed at 08:17, 08:32, 08:46, 09:02, 09:17, 09:32 and 09:47Z, all ok, about every 15 minutes. Spend was flat at 75.02M from 08:01Z to 09:32Z, while the monks were idle (no handler between the end of pr1543-fix-3 and the 09:34Z claim). It then rose to 75.19M (09:47Z push). A live `meter_subscription_window_total` read 75.25M at 10:00Z. The meter is not stuck. 41.8% of 180M.
+- **State clones:** 33 `*/journal` clones. The largest are reaper and gauntlet (47 packs each) and gardener-scaler (43), all below the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. The previous run's sysop and screening-control clones (50 and 49 packs) have since been compacted.
+- **rc=124 (3h):** 14, all journal-fetch timeouts in one burst from 08:56Z to 09:25Z. That is 8 in `monks/1/journal` (three failed 3-attempt cycles), 4 in `producer/journal` (one failed cycle at 09:17Z), and 2 deferred journal-contention-watch notices about them. The clones are small (175–182M, 8–12 packs), so this is not bloat. None since 09:25Z, and monk 1 claimed and finished work afterwards. It looks like transient GitHub/network slowness against the 45s fetch bound, not a host fault. No `Failed with result` lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing. If journal-fetch timeouts keep recurring in bursts, compare them against GitHub latency before blaming the host.
+
 ## 2026-10-23T05:05Z (oros-health-checkup-20261023-043528): healthy; deployed = origin/main2 `e282e101`, cleared one stale index.lock
 
 - **Load/mem:** load 2.95/2.63/2.42 at 05:00Z. 2 monks are running. 13 GiB of 15 GiB available. Swap reads 797M of 1.0 GiB, up from 0 at 01:30Z; with 13 GiB available this is not pressure.
