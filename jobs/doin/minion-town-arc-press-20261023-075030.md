@@ -78,6 +78,7 @@ Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 `kriscendobot/garden` issue 58. No upstream `agoric/agoric-sdk` interaction.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=526 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
