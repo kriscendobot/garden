@@ -31,3 +31,13 @@ Local verification at `ecd01edf2`:
 - `@endo/daemon`: `tsc` and eslint report no errors, and `rename-no-replace` plus `mount-platform-fs-conformance` (23 tests) pass.
 - All 16 `provideGitClone` tests pass.
 ----- END COMMENT BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-23T20:13:03Z
