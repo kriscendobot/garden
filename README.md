@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-23T16:21:57Z_
+_As of 2026-10-23T16:24:22Z_
 
 ## Latest
 
@@ -1113,18 +1113,17 @@ worst fetch p95 20.383160s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-fix-4-summary-comment.md) — Relay: post the gauntlet fix-4 completion summary on endojs/endo-but-for-bots...
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1367-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1367-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1367
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #218
 
-### tada (14782)
+### tada (14783)
+- [`kriscendobot-minion.town-pr218-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1367-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1367-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-fix-3.md) — Fix round 3: kriscendobot/minion.town PR #218
 - [`endojs-endo-but-for-bots-pr1349-hardened262-thread-reply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1349-hardened262-thread-reply.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/endojs-endo-but-for-bots-pr1349-fix.md) — Completion report: endojs-endo-but-for-bots-pr1349-fix
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr218-gauntlet-panel-3.md) — Cost
-- … and 14777 more
+- … and 14778 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
