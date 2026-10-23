@@ -3,17 +3,20 @@
 #
 # `timeout --foreground` once let a claimed handler run 3702s against a 2400s
 # budget (2026-09-30T05:36:39Z). gardener.sh now runs common.sh
-# handler_wall_watchdog beside `timeout`: it SIGTERMs the handler's process group at
+# handler_wall_watchdog beside `timeout`: it SIGTERMs the handler's process tree at
 # budget + GARDEN_HANDLER_WATCHDOG_GRACE and SIGKILLs it at budget +
-# GARDEN_HANDLER_KILL_AFTER + GARDEN_HANDLER_WATCHDOG_KILL_LAG, and is cancelled on
+# GARDEN_HANDLER_KILL_AFTER, and is cancelled on
 # every handler exit.
 #
 # SUBTEST 1 — unit: guards refuse unsafe targets; an early-exiting group ends the
 #             watchdog without signalling; a TERM-ignoring group is TERMed then
 #             KILLed on schedule and the marker records both.
 # SUBTEST 2 — integration: the REAL gardener.sh runs a handler whose TERM-ignoring
-#             descendant SIGSTOPs `timeout`; the worker still returns, the
-#             descendant dies by budget + kill-after, and the outcome is rc=124.
+#             descendant SIGSTOPs `timeout` and whose watchdog is itself SIGSTOPed;
+#             the parent detects the late watchdog, reaps the whole tree by the
+#             independently stamped deadline, and records rc=124.
+# SUBTEST 3 — integration: killing the watchdog is detected immediately and also
+#             causes a fail-closed process-tree reap.
 #
 # systemd is not required. Usage: handler-wall-watchdog-test.sh
 set -euo pipefail
@@ -57,7 +60,8 @@ sleep 1 &
 quick_pgid=$!
 set +m
 t0=$SECONDS
-handler_wall_watchdog "$quick_pgid" 30 60 "$TR/quick.marker"
+now="$(date +%s)"
+handler_wall_watchdog "$quick_pgid" $((now + 30)) $((now + 60)) "$TR/quick.marker"
 if [ $((SECONDS - t0)) -le 4 ] && [ ! -s "$TR/quick.marker" ]; then
   ok "an early-exiting group ends the watchdog without signalling"
 else
@@ -73,7 +77,8 @@ LEFTOVER+=("$stuck_pgid")
 sleep 0.3
 mapfile -t members < <(ps -eo pid,pgid | awk -v g="$stuck_pgid" '$2==g {print $1}')
 t0=$SECONDS
-handler_wall_watchdog "$stuck_pgid" 1 3 "$TR/stuck.marker"
+now="$(date +%s)"
+handler_wall_watchdog "$stuck_pgid" $((now + 1)) $((now + 3)) "$TR/stuck.marker"
 elapsed=$((SECONDS - t0))
 sleep 0.3
 alive=0; for p in "${members[@]}"; do kill -0 "$p" 2>/dev/null && alive=1; done
@@ -89,7 +94,7 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 2 — integration: a TERM-ignoring descendant cannot extend the worker"; hr
+hr; echo "SUBTEST 2 — integration: a late watchdog cannot extend an over-budget handler"; hr
 BARE="$TR/journal.git"; BRANCH=journal2
 git_id=(-c user.name=test -c user.email=test@localhost)
 git init -q --bare "$BARE"
@@ -104,13 +109,14 @@ git -C "$SEED" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
 git -C "$SEED" remote add origin "$BARE"
 git -C "$SEED" push -q -u origin "$BRANCH"
 
-BUDGET=2; KILL_AFTER=4; KILL_LAG=2
+BUDGET=2; KILL_AFTER=4
 PIDFILE="$TR/wall.pids"; : > "$PIDFILE"
 env GARDEN="wallhost" GARDEN_STATE="$TR/state" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_HANDLER_TIMEOUT=$BUDGET \
     GARDEN_HANDLER_KILL_AFTER=$KILL_AFTER GARDEN_HANDLER_WATCHDOG_GRACE=1 \
     GARDEN_HANDLER_REAP_GRACE=2 GARDEN_NO_MAINTAINER_ALERT=1 \
+    GARDEN_WALL_SABOTAGE_WATCHDOG=STOP \
     GARDEN_WALL_PIDFILE="$PIDFILE" \
     GARDEN_JOB_HANDLER="$HERE/wall-bypass-handler-stub.sh" \
     "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 &
@@ -136,9 +142,9 @@ if [ -n "$desc" ]; then
     sleep 0.5
   done
 fi
-bound=$((BUDGET + KILL_AFTER + KILL_LAG + 2))
+bound=$((BUDGET + KILL_AFTER + 2))
 if [ -n "$died_at" ] && [ $((died_at - start)) -le "$bound" ]; then
-  ok "descendant killed $((died_at - start))s after handler start (bound ${bound}s = budget + kill-after + kill-lag + polling slack)"
+  ok "descendant killed $((died_at - start))s after handler start (bound ${bound}s = budget + kill-after + polling slack)"
 else
   bad "descendant outlived the configured bound (died_at='${died_at}', start='${start}', bound ${bound}s)"
 fi
@@ -161,6 +167,11 @@ if grep -q "handler wall watchdog fired for 'walljob'" "$TR/gardener.log"; then
 else
   bad "no watchdog log line; log: $(grep -i 'rc=\|watchdog' "$TR/gardener.log" | tail -5)"
 fi
+if grep -q 'FAIL_CLOSED reason=late.*deadline=' "$TR/gardener.log"; then
+  ok "the gardener independently detected the stopped watchdog at its absolute deadline"
+else
+  bad "late-watchdog fail-close evidence missing: $(grep -i 'watchdog\|FAIL_CLOSED' "$TR/gardener.log" | tail -5)"
+fi
 if grep -Eq "rc=124" "$TR/gardener.log"; then
   ok "the watchdog kill is recorded as a wall-clock overrun (rc=124)"
 else
@@ -170,6 +181,47 @@ if ls "${TMPDIR:-/tmp}"/garden-watchdog-walljob.* >/dev/null 2>&1; then
   bad "watchdog marker file leaked"
 else
   ok "watchdog marker cleaned up"
+fi
+
+# The timeout case above proves the deadline fallback. Exercise the other half of
+# the fail-closed contract separately: a watchdog that vanishes before the budget
+# must be noticed without waiting for the deadline.
+hr; echo "SUBTEST 3 — integration: a vanished watchdog fails closed immediately"; hr
+: > "$PIDFILE"
+# The first timeout may be parked by the normal retry classifier. Add a fresh,
+# lexically first claim so this case does not depend on that disposition.
+git -C "$SEED" fetch -q origin "$BRANCH"
+git -C "$SEED" reset -q --hard "origin/$BRANCH"
+printf '# aaa-vanishjob\n\ndo the work\n' > "$SEED/jobs/todo/aaa-vanishjob.md"
+git -C "$SEED" add jobs/todo/aaa-vanishjob.md
+git -C "$SEED" "${git_id[@]}" commit -q -m 'seed vanished-watchdog job'
+git -C "$SEED" push -q origin "$BRANCH"
+env GARDEN="wallhost" GARDEN_STATE="$TR/state" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_HANDLER_TIMEOUT=$BUDGET \
+    GARDEN_HANDLER_KILL_AFTER=$KILL_AFTER GARDEN_HANDLER_WATCHDOG_GRACE=1 \
+    GARDEN_HANDLER_REAP_GRACE=2 GARDEN_NO_MAINTAINER_ALERT=1 \
+    GARDEN_WALL_SABOTAGE_WATCHDOG=KILL \
+    GARDEN_WALL_PIDFILE="$PIDFILE" \
+    GARDEN_JOB_HANDLER="$HERE/wall-bypass-handler-stub.sh" \
+    "$JOBS/gardener.sh" 1 > "$TR/gardener-disappear.log" 2>&1 &
+gardener_pid=$!
+for _ in $(seq 1 40); do
+  kill -0 "$gardener_pid" 2>/dev/null || break
+  sleep 0.25
+done
+if kill -0 "$gardener_pid" 2>/dev/null; then
+  bad "gardener did not return after its watchdog disappeared"
+  kill -KILL "$gardener_pid" 2>/dev/null || true
+else
+  ok "gardener returned after its watchdog disappeared"
+fi
+wait "$gardener_pid" 2>/dev/null || true
+if grep -q 'FAIL_CLOSED reason=disappeared.*deadline=' "$TR/gardener-disappear.log" \
+  && grep -q "handler wall watchdog fired for 'aaa-vanishjob'" "$TR/gardener-disappear.log"; then
+  ok "watchdog disappearance caused an immediate auditable fail-closed reap"
+else
+  bad "watchdog-disappearance evidence missing: $(grep -i 'watchdog\|FAIL_CLOSED' "$TR/gardener-disappear.log" | tail -5)"
 fi
 
 hr

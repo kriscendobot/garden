@@ -130,23 +130,16 @@ fi
 : "${GARDEN_HANDLER_REAP_GRACE:=5}"
 # Independent wall watchdog (common.sh handler_wall_watchdog). `timeout` alone once
 # let a handler run 3702s against a 2400s budget (2026-09-30T05:36:39Z), so a
-# background watchdog SIGTERMs the handler's WHOLE process group at
+# background watchdog SIGTERMs the handler's WHOLE process tree at
 # budget + GARDEN_HANDLER_WATCHDOG_GRACE and SIGKILLs it at
-# budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_HANDLER_WATCHDOG_KILL_LAG. The lag lets
-# `timeout`'s own --kill-after escalation (rc=137) win when it works, so the watchdog
-# KILL fires only when `timeout` has genuinely failed. The worker's worst-case
-# lifetime is budget + GARDEN_HANDLER_KILL_AFTER + lag (+ ≤1s of polling), which the
+# budget + GARDEN_HANDLER_KILL_AFTER. The worker's worst-case lifetime is therefore
+# the advertised budget + kill-after bound (+ ≤1s of polling), which the
 # reaper's GARDEN_REAP_SAFETY_SLACK (30s) already covers in its reap_age_threshold
 # floor, so the claim-TTL INVARIANT above holds. The grace must be below
-# GARDEN_HANDLER_KILL_AFTER so the group TERM precedes the KILL, and the lag must
-# stay well under GARDEN_REAP_SAFETY_SLACK.
+# GARDEN_HANDLER_KILL_AFTER so the tree TERM precedes the KILL.
 : "${GARDEN_HANDLER_WATCHDOG_GRACE:=10}"
-: "${GARDEN_HANDLER_WATCHDOG_KILL_LAG:=2}"
 if ! [[ "$GARDEN_HANDLER_WATCHDOG_GRACE" =~ ^[0-9]+$ ]] || [ "$GARDEN_HANDLER_WATCHDOG_GRACE" -ge "$GARDEN_HANDLER_KILL_AFTER" ]; then
   GARDEN_HANDLER_WATCHDOG_GRACE=$(( GARDEN_HANDLER_KILL_AFTER / 2 ))
-fi
-if ! [[ "$GARDEN_HANDLER_WATCHDOG_KILL_LAG" =~ ^[0-9]+$ ]] || [ "$GARDEN_HANDLER_WATCHDOG_KILL_LAG" -gt 10 ]; then
-  GARDEN_HANDLER_WATCHDOG_KILL_LAG=2
 fi
 # A restarted worker can inherit detached descendants from its prior incarnation
 # in the systemd service cgroup. Process-group reaping cannot reach a descendant
@@ -713,6 +706,12 @@ while :; do
   job_classify_require="${CLASSIFY_REQUIRE:-0}"
   job_requires_token "$jobfile" typesafe && job_classify_require=1
   handler_start=$SECONDS
+  # Epoch deadlines are stamped BEFORE either child is launched. Unlike a
+  # relative timer started inside the watchdog, these remain auditable even when
+  # the watchdog starts late or is scheduler-starved.
+  handler_wall_start_epoch="$(date +%s)"
+  watchdog_term_deadline=$(( handler_wall_start_epoch + handler_budget + GARDEN_HANDLER_WATCHDOG_GRACE ))
+  watchdog_kill_deadline=$(( handler_wall_start_epoch + handler_budget + GARDEN_HANDLER_KILL_AFTER ))
   set +e
   set -m
   # Nested bounded work (notably panel seats) must stay strictly inside the exact
@@ -726,31 +725,49 @@ while :; do
   set +m
   # INDEPENDENT WALL WATCHDOG. Launched with job control OFF so it stays in THIS
   # gardener's group, never the handler's (a group kill must not take down its own
-  # enforcer). It bounds the handler group even if `timeout` itself fails to, and it
+  # enforcer). It bounds the handler tree even if `timeout` itself fails to, and it
   # is cancelled below on every handler exit.
   watchdog_marker="$(mktemp "${TMPDIR:-/tmp}/garden-watchdog-$base.XXXXXX")"
+  printf 'DEADLINE start=%s term=%s kill=%s\n' \
+    "$handler_wall_start_epoch" "$watchdog_term_deadline" "$watchdog_kill_deadline" > "$watchdog_marker"
   ( handler_wall_watchdog "$handler_pgid" \
-      $(( handler_budget + GARDEN_HANDLER_WATCHDOG_GRACE )) \
-      $(( handler_budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_HANDLER_WATCHDOG_KILL_LAG )) \
+      "$watchdog_term_deadline" \
+      "$watchdog_kill_deadline" \
       "$watchdog_marker" ) >/dev/null 2>&1 &
   watchdog_pid=$!
-  # Wait for the handler, RESUMING across any trapped-signal interruption. A
-  # deploy-drain SIGTERM to THIS gardener (self-heal-run.sh signals only the worker
-  # process, never the in-flight handler) fires the TERM trap above and interrupts
-  # `wait`, which returns 143 while the handler is STILL RUNNING in its background
-  # group. The graceful-drain contract is that the current handler RUNS TO
-  # COMPLETION (the old foreground `timeout` deferred the trap until it returned), so
-  # we re-`wait` rather than mistake the interruption for the handler's own exit —
-  # which would both misclassify the outcome AND make reap_process_group kill a
-  # legitimately-running job's tree mid-work. `kill -0` distinguishes the two:
-  # process gone → `wait` returned the real exit code (break); still alive → the wait
-  # was signal-interrupted (loop).
+  # Do not block blindly in wait(1): the 2026-10-23 overrun showed that a missing
+  # or late watchdog otherwise leaves no enforcer. This parent independently polls
+  # both the absolute deadline and watchdog liveness. If either invariant fails
+  # while the handler remains live, snapshot and reap the whole tree immediately.
+  watchdog_fail_reason=""
+  while kill -0 "$handler_pgid" 2>/dev/null; do
+    handler_stat="$(ps -o stat= -p "$handler_pgid" 2>/dev/null | awk '{print $1}')"
+    [[ "$handler_stat" = Z* ]] && break
+    watchdog_stat="$(ps -o stat= -p "$watchdog_pid" 2>/dev/null | awk '{print $1}')"
+    if ! kill -0 "$watchdog_pid" 2>/dev/null || [[ "$watchdog_stat" = Z* ]]; then
+      watchdog_fail_reason="disappeared"
+    elif [ "$(date +%s)" -gt "$watchdog_kill_deadline" ] \
+      && ! grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
+      watchdog_fail_reason="late"
+    fi
+    if [ -n "$watchdog_fail_reason" ]; then
+      printf 'FAIL_CLOSED reason=%s observed=%s deadline=%s\n' \
+        "$watchdog_fail_reason" "$(date +%s)" "$watchdog_kill_deadline" >> "$watchdog_marker"
+      reap_process_tree "$handler_pgid" 0 0 "$watchdog_marker"
+      break
+    fi
+    sleep 1
+  done
+  # Preserve the handler's actual status, resuming across a deploy-drain signal
+  # that interrupts wait while the process is still alive.
   while :; do
     wait "$handler_pgid"; hrc=$?
     kill -0 "$handler_pgid" 2>/dev/null || break
+    handler_stat="$(ps -o stat= -p "$handler_pgid" 2>/dev/null | awk '{print $1}')"
+    [[ "$handler_stat" = Z* ]] && break
   done
   # Cancel the watchdog on every exit path. It holds no resources beyond a ≤1s
-  # `sleep`; SIGKILL is safe because it only ever signals the handler group, which
+  # `sleep`; SIGKILL is safe because it only ever signals the handler tree, which
   # the unconditional reap below sweeps regardless.
   kill -KILL "$watchdog_pid" 2>/dev/null || true
   wait "$watchdog_pid" 2>/dev/null || true
@@ -760,8 +777,8 @@ while :; do
   if grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
     log "handler wall watchdog fired for '$base' ($(tr '\n' ' ' < "$watchdog_marker")); timeout did not bound the handler, recording rc=124 (was rc=$hrc)"
     hrc=124
-  elif [ -s "$watchdog_marker" ]; then
-    log "handler wall watchdog TERMed the process group of '$base' past its budget; timeout returned rc=$hrc"
+  elif grep -q '^TERM ' "$watchdog_marker" 2>/dev/null; then
+    log "handler wall watchdog TERMed the process tree of '$base' past its budget; timeout returned rc=$hrc"
   fi
   rm -f "$watchdog_marker"
   set -e

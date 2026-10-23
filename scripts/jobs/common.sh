@@ -7005,46 +7005,41 @@ reap_process_group() {
   return 0
 }
 
-# handler_wall_watchdog <pgid> <term-at-secs> <kill-at-secs> [marker-file] — an
-# INDEPENDENT wall-clock bound on a claimed handler's process group, run in the
+# handler_wall_watchdog <root-pid> <term-deadline> <kill-deadline> [marker-file] — an
+# INDEPENDENT wall-clock bound on a claimed handler's process tree, run in the
 # background beside the handler's `timeout` wrapper. `timeout --foreground` signals
 # only its direct child and bounds nothing if its own supervision fails (the
 # 2026-09-30T05:36:39Z entry: rc=124 after 3702s against a 2400s budget, so the
 # worker outlived its wall by ~22 min). This watchdog does not rely on `timeout` at
-# all: it polls the recorded group once per second and, if ANY member is still alive
-# <term-at-secs> after launch, SIGTERMs the WHOLE group; if members survive to
-# <kill-at-secs>, it SIGKILLs the whole group (which includes the `timeout` leader
-# itself, so the gardener's `wait` returns). It exits 0 the moment the group
-# empties, so a handler that finishes in budget costs nothing; the gardener also
-# cancels it on every handler exit. When it signals anything it touches
-# <marker-file> first so the caller can report the kill as a wall-clock overrun.
+# all: the caller gives it ABSOLUTE epoch deadlines computed before the watchdog is
+# spawned, so a late-starting watchdog cannot accidentally begin a fresh relative
+# budget. At the TERM deadline it snapshots and SIGTERMs the WHOLE process tree;
+# reap_process_tree retains that snapshot across the grace period and SIGKILLs it
+# at the KILL deadline, including descendants that detach while shutting down. It
+# exits 0 the moment the tree empties. Marker timestamps let the caller verify the
+# configured deadline independently of this process's own scheduling.
 # Guards mirror reap_process_group: a non-numeric, init, or own-group target is a
 # no-op, so a caller defect can never widen the signal scope.
 handler_wall_watchdog() {
-  local pgid="${1:-}" term_at="${2:-}" kill_at="${3:-}" marker="${4:-}" start now self_pgid fired=0
-  case "$pgid" in ''|*[!0-9]*) return 0 ;; esac
-  case "$term_at" in ''|*[!0-9]*) return 0 ;; esac
-  case "$kill_at" in ''|*[!0-9]*) return 0 ;; esac
-  [ "$pgid" -gt 1 ] 2>/dev/null || return 0
-  [ "$pgid" = "$$" ] && return 0
+  local root="${1:-}" term_deadline="${2:-}" kill_deadline="${3:-}" marker="${4:-}" now self_pgid grace
+  case "$root" in ''|*[!0-9]*) return 0 ;; esac
+  case "$term_deadline" in ''|*[!0-9]*) return 0 ;; esac
+  case "$kill_deadline" in ''|*[!0-9]*) return 0 ;; esac
+  [ "$root" -gt 1 ] 2>/dev/null || return 0
+  [ "$root" = "$$" ] && return 0
   self_pgid="$(ps -o pgid= -p "${BASHPID:-$$}" 2>/dev/null | tr -dc '0-9')"
-  [ -n "$self_pgid" ] && [ "$pgid" = "$self_pgid" ] && return 0
-  [ "$kill_at" -ge "$term_at" ] || kill_at="$term_at"
-  start="$(date +%s)"
+  [ -n "$self_pgid" ] && [ "$root" = "$self_pgid" ] && return 0
+  [ "$kill_deadline" -ge "$term_deadline" ] || kill_deadline="$term_deadline"
   while :; do
-    kill -0 -"$pgid" 2>/dev/null || return 0
+    kill -0 -"$root" 2>/dev/null || kill -0 "$root" 2>/dev/null || return 0
     now="$(date +%s)"
-    if [ $((now - start)) -ge "$kill_at" ]; then
-      [ -n "$marker" ] && printf 'KILL %s\n' "$now" >> "$marker" 2>/dev/null || true
-      kill -KILL -"$pgid" 2>/dev/null || true
-      return 0
+    [ "$now" -ge "$term_deadline" ] || { sleep 1; continue; }
+    if [ -n "$marker" ]; then
+      printf 'TERM observed=%s deadline=%s\n' "$now" "$term_deadline" >> "$marker" 2>/dev/null || true
     fi
-    if [ "$fired" -eq 0 ] && [ $((now - start)) -ge "$term_at" ]; then
-      fired=1
-      [ -n "$marker" ] && printf 'TERM %s\n' "$now" >> "$marker" 2>/dev/null || true
-      kill -TERM -"$pgid" 2>/dev/null || true
-    fi
-    sleep 1
+    grace=$((kill_deadline - now)); [ "$grace" -ge 0 ] || grace=0
+    reap_process_tree "$root" "$grace" 0 "$marker"
+    return 0
   done
 }
 
@@ -7078,7 +7073,7 @@ process_tree_pids() {
   done
 }
 
-# reap_process_tree <root-pid> [term-grace] [drain-timeout] — terminate <root-pid>,
+# reap_process_tree <root-pid> [term-grace] [drain-timeout] [marker-file] — terminate <root-pid>,
 # its whole descendant TREE, and its process GROUP, then BLOCK until the tree has
 # drained. This is the stronger cousin of reap_process_group: a worker runtime like
 # `claude -p` spawns a node tree whose members may detach into their own process
@@ -7103,7 +7098,7 @@ process_tree_pids() {
 : "${GARDEN_PROC_TREE_REAP_GRACE:=5}"
 : "${GARDEN_PROC_TREE_DRAIN_TIMEOUT:=20}"
 reap_process_tree() {
-  local root="${1:-}" grace="${2:-$GARDEN_PROC_TREE_REAP_GRACE}" drain="${3:-$GARDEN_PROC_TREE_DRAIN_TIMEOUT}"
+  local root="${1:-}" grace="${2:-$GARDEN_PROC_TREE_REAP_GRACE}" drain="${3:-$GARDEN_PROC_TREE_DRAIN_TIMEOUT}" marker="${4:-}"
   case "$root" in ''|*[!0-9]*) return 0 ;; esac
   [ "$root" -gt 1 ] 2>/dev/null || return 0
   [ "$root" = "$$" ] && return 0
@@ -7155,6 +7150,9 @@ reap_process_tree() {
     sleep 1; waited=$((waited + 1))
   done
 
+  if [ -n "$marker" ]; then
+    printf 'KILL observed=%s\n' "$(date +%s)" >> "$marker" 2>/dev/null || true
+  fi
   for k in "${!grpset[@]}"; do kill -KILL "-$k" 2>/dev/null || true; done
   for k in "${!pidset[@]}"; do kill -KILL "$k" 2>/dev/null || true; done
 
