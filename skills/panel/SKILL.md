@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-10-18
+updated: 2026-10-23
 author: gardener
 ---
 
@@ -59,6 +59,7 @@ runnable non-interactively):
 | `GARDEN_PANEL_FIXER` | pluggable: project fixer invocation on non-terminating rounds (default no-op `true`). |
 | `GARDEN_PANEL_UNDRAFT` | pluggable: the terminal un-draft call, e.g. `gh pr ready` (default no-op `true`). |
 | `GARDEN_PANEL_RUNDIR` | on-disk scratch for per-seat blocks + aggregates (kept OUT of the supervisor's context). |
+| `GARDEN_PANEL_RESUME` | single-round pass-only replay from an exact-head durable record (default 1). Must-fix records are never replayed because their audit titles are lossy. |
 | `GARDEN_PANEL_RECORD` | the durable-record writer (default `scripts/jobs/panel-run-record.sh`; set `:` to skip the journal push). |
 | `GARDEN_PANEL_GH` | `gh` command used for single-round author/login preflight and formal-review submission (default `gh`; test-stubbable). |
 | `GARDEN_PANEL_REVIEW_SUBMIT` | single-round review-submission hook. The default submits with `gh`; `:` skips only in tests, and another command receives `<aggregate> <disposition> <pr> <repo>`. |
@@ -150,6 +151,15 @@ action but does not stage a gauntlet. A stage already inside an explicitly
 requested gauntlet is exempt because the driver deterministically owns its next
 panel round.
 
+The compact record is audit metadata, not a fixer handoff. Its must-fix titles
+are intentionally truncated, so a single-round `must-fix` result is never
+resumed from that record. The panel re-fans the seats and posts a focused
+must-fix aggregate containing the complete block from every seat that requested
+changes. This keeps each seat's multiline rationale, locations, and proposed
+repair intact while omitting non-blocking seat blocks that can make CLI output
+clip before the actionable findings. Exact-key `pass` records remain resumable
+because there is no fix evidence to reconstruct.
+
 ## Procedure
 
 1. **Sense the panel kind.** The script diffs `<base>...HEAD`. If every changed
@@ -189,7 +199,10 @@ panel round.
    retains each attempt's stderr in the seat's combined `.stderr` file. After
    the join, a **second pass
    appends the blocks to the round aggregate in `$seats` order**, so the
-   aggregate is byte-identical however the seats happened to interleave.
+   aggregate is byte-identical however the seats happened to interleave. It also
+   writes `round-<r>.must-fix-list`, containing the full, untruncated blocks for
+   request-changes seats in the same order. The decider reads the whole aggregate;
+   a fixer receives the focused list.
    Concurrency is what makes the panel fit a gardener's handler budget *by
    construction*: sequentially, a 29-seat code panel over a ~1500-line diff ran
    ~1.5–2.5 hours against a default `GARDEN_HANDLER_TIMEOUT` of 2400s. Panel jobs
@@ -204,15 +217,17 @@ panel round.
 5. **Submit a single-round review.** In `GARDEN_PANEL_SINGLE_ROUND=1` mode, the
    script owns the formal review post before it emits the gauntlet stage marker.
    It resolves the authenticated login and PR author first. A must-fix aggregate
-   gets a `Must-fix before merge` heading and normally uses
+   contains the full blocks for request-changes seats, gets a `Must-fix before
+   merge` heading, and normally uses
    `gh pr review --request-changes`; when the authenticated identity authored the
    PR, GitHub forbids that review state, so the script submits the unchanged full
    aggregate with `--comment`. A clean result uses `--approve`, with the same
    self-authored `--comment` fallback. A failed preflight or post emits no success
    marker and fails the panel stage for retry.
 6. **Fixer loop.** On `must-fix`, the script invokes the project fixer hook with
-   the must-fix items and re-runs the panel against the new head — the same loop
-   v1 ran between a judge's request-changes verdict and the justice's re-review.
+   the focused, full-text must-fix aggregate and re-runs the panel against the
+   new head — the same loop v1 ran between a judge's request-changes verdict and
+   the justice's re-review.
    The loop iterates until a `pass` (or the safety bound trips).
 7. **Appellate pass.** On `pass`, the script shells the appellate hook over the
    passing aggregate; its conservative promotion proposals land in the run dir
@@ -263,6 +278,7 @@ decider model).
   preceded on stderr by the one-line reason no seat was dispatched.
 - **Failure:** a loud `panel #<N>: FAILED at <stage>` on stderr, non-zero exit.
 - **Detail (on disk, not stdout):** `GARDEN_PANEL_RUNDIR/round-<r>.md` aggregates,
+  `round-<r>.must-fix-list` focused full-text fixer handoffs,
   `round-<r>.<seat>.md` per-seat blocks, and `appellate.md` proposals.
 - **Durable (on `journal2`, not stdout):** one compact `panel-runs/<owner>-<repo>-<pr>/<run-id>.md`
   record per run (see § State), pushed best-effort on termination, including the

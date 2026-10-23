@@ -142,8 +142,14 @@ fi
 # ============================================================================
 hr; echo "SUBTEST 2 — a must-fix→pass loop records the correct round count"; hr
 S2="$TR/s2"; B2="$(seed_board "$S2")"
-run_panel "$S2" "$B2" 202 FIX_MARKER="$S2/fixed" GARDEN_PANEL_REPO=acme/widget >/dev/null 2>"$S2/err"; rc2=$?
+run_panel "$S2" "$B2" 202 FIX_MARKER="$S2/fixed" \
+  FIX_AGGREGATE_OUT="$S2/fixer.md" GARDEN_PANEL_REPO=acme/widget \
+  >/dev/null 2>"$S2/err"; rc2=$?
 [ "$rc2" -eq 0 ] && ok "must-fix→pass panel converges and exits 0" || bad "panel exited $rc2; err: $(cat "$S2/err")"
+{ grep -q "$SENTINEL" "$S2/fixer.md" \
+    && grep -q 'must reach the fixer in full' "$S2/fixer.md"; } \
+  && ok "the fixer receives the request-changes seat's full multiline block" \
+  || bad "the fixer handoff lost or truncated seat findings"
 V2="$TR/v2"; verify_clone "$B2" "$V2"
 REC2="$(record_path "$V2")"
 if [ -n "$REC2" ]; then

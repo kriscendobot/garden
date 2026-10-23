@@ -6,7 +6,8 @@
 #     seat APPROVES.
 #   * Otherwise it REQUESTS CHANGES, emitting a bullet finding whose TITLE the
 #     record should capture AND a block of verbose prose carrying the sentinel
-#     $PROSE_SENTINEL that the record must NOT leak (seat prose stays in the rundir).
+#     $PROSE_SENTINEL. The compact record must NOT leak it, while the fixer handoff
+#     must retain it in full.
 #
 # $SEAT_MODE forces a fixed verdict regardless of the marker:
 #   approve        — always approve (the clean-pass path)
@@ -23,8 +24,8 @@ emit_request() {
   printf 'Findings:\n'
   printf -- '- %s must handle the empty-input case before merge\n' "$seat"
   printf '\n%s\n' "${PROSE_SENTINEL:-SEATPROSE}"
-  printf 'A long paragraph of seat reasoning that is scratch-only and must never\n'
-  printf 'propagate into the durable record or any later prompt.\n'
+  printf 'A long paragraph of seat reasoning that must reach the fixer in full,\n'
+  printf 'but must never propagate into the compact durable audit record.\n'
 }
 emit_approve() {
   printf '### %s\nVerdict: approve\nFindings: none\n' "$seat"

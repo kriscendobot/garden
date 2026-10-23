@@ -5,5 +5,6 @@
 # round — modeling a must-fix→pass loop in exactly two rounds. When $FIX_MARKER is
 # unset it is a genuine no-op (the never-converges / max-rounds path).
 set -uo pipefail
+[ -z "${FIX_AGGREGATE_OUT:-}" ] || cp "${3:?aggregate}" "$FIX_AGGREGATE_OUT"
 [ -n "${FIX_MARKER:-}" ] && : > "$FIX_MARKER"
 exit 0

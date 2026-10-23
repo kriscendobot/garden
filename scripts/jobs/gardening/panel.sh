@@ -353,19 +353,16 @@ trap 'panel_signal_exit 143' TERM
 #
 # RESUME CONTRACT (single-round mode only; classic mode is untouched): before the
 # fan-out, look in the durable panel-runs store for a record whose reviewed head,
-# provider, base ref, and PR-body hash equal the CURRENT values. When one is found, DO NOT
-# re-run the seats — reconstruct a review-ready aggregate into the rundir from
-# the record's recorded disposition + must-fix titles, print the same single-round
-# terminal contract, and exit 0. The supervising gardener then only has to
-# (re)post the review, the cheap idempotent-retryable step.
+# provider, base ref, and PR-body hash equal the CURRENT values. A PASS record can
+# be resumed without seat prose. A MUST-FIX record cannot: its compact titles are
+# deliberately truncated audit data, not enough evidence for a fixer. Fall through
+# and re-run those seats so the posted must-fix review keeps every blocking seat's
+# complete findings.
 #
 # FAIL-OPEN, deliberately narrow: resume fires ONLY on an EXACT four-part key
 # match with a parseable disposition. A missing body hash/store, a stale clone, a
 # moved head/base/body, or an unparseable record all fall through to the normal
 # panel — worst case is the pre-existing recompute, never a wrong verdict. The
-# record's must-fix titles are LLM-authored text ABOUT a third-party diff: they are
-# DATA, written to a file for the gardener to post, never interpolated into a
-# prompt as instruction.
 # Disable with GARDEN_PANEL_RESUME=0.
 resume_slug() { printf '%s' "${1:-}" | tr -c 'A-Za-z0-9._-' '-'; }
 
@@ -522,17 +519,22 @@ maybe_resume_single_round() {
   [ -n "$best" ] || return 1
   disp="$(sed -n 's/^disposition:[[:space:]]*//p' "$best" 2>/dev/null | head -1 \
     | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
-  case "$disp" in must-fix|passed|pass) ;; *) return 1 ;; esac
-  # Reconstruct a review-ready aggregate for the gardener's post step. The record's
-  # "must-fix items (N):" bullet list is the recovered content; the header names the
-  # provenance so a human reading the posted review knows it was resumed.
+  case "$disp" in
+    # panel-run records intentionally keep only bounded title snippets. Replaying
+    # one as the formal review handed a fixer an ellipsis instead of the seat's
+    # rationale (kriscendobot/minion.town#216, gauntlet fix round 10). Recompute
+    # rather than present lossy audit metadata as actionable review evidence.
+    must-fix) return 1 ;;
+    passed|pass) ;;
+    *) return 1 ;;
+  esac
+  # Reconstruct a review-ready PASS aggregate for the gardener's post step. The
+  # header names the provenance so a human knows why the seats did not re-run.
   {
     printf '### resumed panel verdict (from durable record %s)\n\n' "$(basename "$best" .md)"
     printf 'This aggregate was reconstructed from the recorded panel run for head `%s`\n' "$hsha"
     printf 'because the seats had already run; the gardener re-posts it without re-fanning.\n\n'
-    # Recover the matched (last) round's `must-fix items (N):` line + its bullets:
-    # buffer the whole record and replay from the LAST such header to EOF.
-    awk '/^must-fix items \(/{start=NR} {a[NR]=$0} END{if(start)for(i=start;i<=NR;i++)print a[i]}' "$best" 2>/dev/null || true
+    printf 'The recorded disposition was pass; no must-fix findings were handed to a fixer.\n'
   } > "$GARDEN_PANEL_RUNDIR/round-1.md" 2>/dev/null || return 1
   # Do NOT re-emit a degenerate record from the EXIT trap (this run dispatched no
   # seats and has no per-round head file; a re-emit would key a bogus run-id).
@@ -542,10 +544,8 @@ maybe_resume_single_round() {
   # panel-stage checklist read. The provenance note is a SEPARATE preceding line so
   # it never pollutes the last token.
   echo "panel #$pr: $panel_kind single-round — RESUMED from durable record $(basename "$best" .md) (seats not re-run)" >&2
-  case "$disp" in
-    must-fix) PANEL_DISPOSITION="must-fix"; finish_single_round "$GARDEN_PANEL_RUNDIR/round-1.md" must-fix ;;
-    *)        PANEL_DISPOSITION="passed";   finish_single_round "$GARDEN_PANEL_RUNDIR/round-1.md" pass ;;
-  esac
+  PANEL_DISPOSITION="passed"
+  finish_single_round "$GARDEN_PANEL_RUNDIR/round-1.md" pass
   return 0
 }
 
@@ -1385,7 +1385,9 @@ while :; do
   run_mechanism_repeat_prepass
 
   agg="$GARDEN_PANEL_RUNDIR/round-$round.md"
+  fixer_agg="$GARDEN_PANEL_RUNDIR/round-$round.must-fix-list"
   : > "$agg"
+  : > "$fixer_agg"
   # Record the head sha under review THIS round for the durable panel-run record
   # (the worktree HEAD moves as the fixer pushes, so it must be captured per round,
   # not reconstructed after the fact). Best-effort; a non-git worktree leaves it empty.
@@ -1427,8 +1429,9 @@ while :; do
     # inside a `<details>` only when a BLANK LINE follows the `</summary>` tag —
     # without it the block content shows as literal text — so the blank line below is
     # load-bearing (see skills/panel-review/SKILL.md).
+    verdict="$(seat_verdict_label "$block" 2>/dev/null || true)"
+    rendered="$GARDEN_PANEL_RUNDIR/round-$round.$seat.aggregate"
     {
-      verdict="$(seat_verdict_label "$block" 2>/dev/null || true)"
       printf '<details>\n'
       if [ -n "$verdict" ]; then
         printf '<summary><b>%s</b> — %s</summary>\n\n' "$seat" "$verdict"
@@ -1447,7 +1450,16 @@ while :; do
       [ -n "$fn" ] && printf '%s\n' "$fn"
       printf '</details>\n'
       echo
-    } >> "$agg"
+    } > "$rendered"
+    cat "$rendered" >> "$agg"
+    # The decider needs the whole panel, but the fixer needs a smaller actionable
+    # list that cannot be clipped by a CLI/context output limit. Keep the COMPLETE
+    # blocks for every seat that requested changes: multiline rationale, locations,
+    # proposed repair, and provenance. Never substitute the compact panel-run
+    # record's 120-character audit titles here.
+    if [ "$verdict" = request-changes ]; then
+      cat "$rendered" >> "$fixer_agg"
+    fi
   done
 
   # STRICT verdict parse — the disposition gate must never fail OPEN. The old
@@ -1517,13 +1529,24 @@ while :; do
     if [ "$PHASE_EVIDENCE_HOLD_DRAFT" -eq 1 ] && [ "$disposition" = pass ]; then
       echo "panel #$pr: code passed; the phase ledger withholds the un-draft (the gauntlet driver holds the PR draft)." >&2
     fi
-    finish_single_round "$agg" "$disposition"
+    review_agg="$agg"
+    if [ "$disposition" = must-fix ] && grep -q '[^[:space:]]' "$fixer_agg"; then
+      review_agg="$fixer_agg"
+    fi
+    finish_single_round "$review_agg" "$disposition"
     exit 0
   fi
 
   case "$disposition" in
     must-fix)
-      run_fixer "$agg"      # non-terminating round; loop to re-review the delta
+      # Prefer the focused full-text list. If a seat omitted a parseable verdict,
+      # fail safe to the complete panel aggregate rather than hand the fixer an
+      # empty file.
+      if grep -q '[^[:space:]]' "$fixer_agg"; then
+        run_fixer "$fixer_agg"
+      else
+        run_fixer "$agg"
+      fi
       continue ;;
     pass)
       # terminating round: appellate pass (advisory), then un-draft, then exit.

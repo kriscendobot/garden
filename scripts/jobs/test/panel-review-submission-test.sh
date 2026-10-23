@@ -35,9 +35,9 @@ run_panel() {  # run_panel <author> <tag> [fail]
   GARDEN_PANEL_SINGLE_ROUND=1 \
   GARDEN_PANEL_REVIEW_SUBMIT=panel_submit_review \
   GARDEN_PANEL_GH="$HERE/panel-review-submit-gh-stub.sh" \
-  GARDEN_CODE_SEATS=assessor \
-  GARDEN_PANEL_CONCURRENCY=1 \
-  GARDEN_PANEL_SEAT="$HERE/panel-parallel-fanout-stub.sh" \
+  GARDEN_CODE_SEATS='assessor stylist' \
+  GARDEN_PANEL_CONCURRENCY=2 \
+  GARDEN_PANEL_SEAT="$HERE/panel-fixer-aggregate-stub.sh" \
   GARDEN_PANEL_DECIDE="$HERE/panel-decide-stub.sh" \
   GARDEN_PANEL_RELATED_DESIGN=: \
   GARDEN_PANEL_APPELLATE=: \
@@ -54,8 +54,10 @@ grep -q -- '--request-changes' "$TR/normal.gh.log" \
   || bad "normal review did not request changes: $(cat "$TR/normal.gh.log")"
 grep -q '^## Must-fix before merge$' "$TR/normal.body.md" \
   && grep -q '<summary><b>assessor</b>' "$TR/normal.body.md" \
-  && ok "request-changes body keeps the must-fix heading and aggregate" \
-  || bad "request-changes body lost its heading or aggregate"
+  && grep -q 'This continuation line is required evidence' "$TR/normal.body.md" \
+  && ! grep -q 'APPROVING_SEAT_CONTEXT_MUST_NOT_REACH_FIXER' "$TR/normal.body.md" \
+  && ok "request-changes body keeps the full blocking-seat findings and omits approving-seat prose" \
+  || bad "request-changes body lost or inflated the focused full-text aggregate"
 grep -q '<!-- gauntlet-stage-result: panel=must-fix -->' <<<"$out1" \
   && ok "normal success emits the stage marker" \
   || bad "normal success omitted the stage marker: $out1"
