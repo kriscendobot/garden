@@ -77,6 +77,7 @@ This schedule is STANDING for the life of the arc; do not retire it.
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 `kriscendobot/garden` issue 58. No upstream `agoric/agoric-sdk` interaction.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=264 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
