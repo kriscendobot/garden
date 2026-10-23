@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-23T02:47:04Z_
+_As of 2026-10-23T02:51:55Z_
 
 ## Latest
 
@@ -248,12 +246,11 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #132 (first seen 2026-10-22T05:52:17Z, latest 2026-10-23T02:43:28Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 132 times; this is ONE
-> coalesced notice that updates in place, not 132 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-ack-blind-endojs-endo-but-for-bots` has CLEARED (first seen 2026-10-22T05:52:17Z, cleared 2026-10-23T02:49:02Z).
+> It was observed 132 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1394](https://github.com/endojs/endo-but-for-bots/pull/1394)#discussion_r4353347418 (age=21389s; heartbeat=full-poll)
+> Comment acknowledgment condition cleared.
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1048,7 +1045,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 372.3M | $1456.83 _(notional, rate-card)_ | 137% of 271.0M (backoff) |
-| Codex | 5.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Codex | 5.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1061,16 +1058,16 @@ worst fetch p95 3.687215s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1527-gauntlet-fix-2-pr-body.md) — Update PR #1527's title and body (relay from oros: updatePullRequest 403)
 - [`endojs-endo-but-for-bots-pr709-retarget-frozen-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr709-retarget-frozen-base.md) — Summary
 
-### doin (1)
-- [`fu-kriscendobot-minion.town-pr216-gauntlet-fix-10-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-kriscendobot-minion.town-pr216-gauntlet-fix-10-1.md) — ---
+### doin (0)
+(none)
 
-### tada (14693)
+### tada (14694)
+- [`fu-kriscendobot-minion.town-pr216-gauntlet-fix-10-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/fu-kriscendobot-minion.town-pr216-gauntlet-fix-10-1.md) — Cost
 - [`kriscendobot-minion.town-pr216-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet.md) — gauntlet kriscendobot-minion.town-pr216-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr216-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet-fix-10.md) — Gauntlet fix round 10: kriscendobot/minion.town PR #216
 - [`kriscendobot-minion.town-pr216-gauntlet-panel-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/kriscendobot-minion.town-pr216-gauntlet-panel-10.md) — Cost
 - [`claude-on-minion-town-press-20261023-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/claude-on-minion-town-press-20261023-012009.md) — Cost
-- [`minion-town-arc-press-20261023-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/23/minion-town-arc-press-20261023-012009.md) — Cost
-- … and 14688 more
+- … and 14689 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
