@@ -1,2 +1,2 @@
-base: improve-accounts-store-transaction-permission
+base: improve-accounts-store-iam-rollout
 identity: mentor:deploy/aws/scripts/deploy-accounts-store.sh
