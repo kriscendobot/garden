@@ -12,11 +12,11 @@ created_by: gardener
 created_at: 2026-10-23T10:56:01Z
 arc: 
 added_rounds: 2
-stage: panel
+stage: undraft
 iteration: 18
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr218-gauntlet-panel-18
+current_child: kriscendobot-minion.town-pr218-gauntlet-undraft
 state: running
 resumed_at: 2026-10-24T15:40:33Z
 resumed_from_stage: panel
