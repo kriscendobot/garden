@@ -8,14 +8,14 @@
   ],
   "deploy_run": 40069023925,
   "deploy_url": "https://github.com/kriscendobot/minion.town/actions/runs/40069023925",
-  "gauntlet": "jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md",
+  "gauntlet": "jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet.md",
   "head": "5e2b6232bc4dfd27083912167ed48cbaf06cb5af",
   "heal": null,
-  "heartbeat_at": "2026-10-24T17:14:01Z",
-  "panel_head": "e01c98807b0b8270a04dd4e89059609187644aef",
-  "panel_match": "rebase",
+  "heartbeat_at": "2026-10-24T19:24:00Z",
+  "panel_head": "5e2b6232bc4dfd27083912167ed48cbaf06cb5af",
+  "panel_match": "exact",
   "pull_request": 218,
   "repository": "kriscendobot/minion.town",
   "schema": 2,
-  "screened_at": "2026-10-24T17:15:11Z"
+  "screened_at": "2026-10-24T19:32:52Z"
 }
