@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-24T09:15Z (oros-health-checkup-20261024-090509): healthy; deployed = origin/main2 `879c67e`, no changes
+
+- **Load/mem:** load 2.02/1.88/2.12 at 09:08Z. 2 monks are running. 13 GiB of 15 GiB available; swap reads 833M of 1.0 GiB, the usual steady level; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 55% (208G free), inodes 1%; `/tmp` at 800M (11%).
+- **Uptime:** 22d15h52m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `879c67e` (06:46Z), the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed user units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker (`.garden-state/worker-derotate` holds only its state clone).
+- **Budget heartbeat:** claude-oros pushed at 07:47, 08:03, 08:18, 08:32, 08:47 and 09:02Z, all ok. Spend has held at 88.41M (49.1% of 180M) across those samples while the monks were idle; the meter is not stuck.
+- **State clones:** 80 journal clones. The largest are reaper and monks/2 (47 packs each), then monitors/monk-1 (46); all under the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes.
+- **rc=124 (3h):** one, benign: at 06:45Z journal-contention-watch deferred a notice close (`action=close rc=124`) with tick budget remaining. No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-24T06:00Z (oros-health-checkup-20261024-055009): healthy; deployed = origin/main2 `65ed907`, no changes
 
 - **Load/mem:** load 1.64/1.98/2.26 at 05:54Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 834M of 1.0 GiB, the usual steady level; not pressure.
