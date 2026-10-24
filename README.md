@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T16:22:08Z_
+_As of 2026-10-24T16:24:52Z_
 
 ## Latest
 
@@ -1285,7 +1283,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.4M | $62.85 _(notional, rate-card)_ | 7% of 271.0M (ok) |
+| Claude | 19.5M | $63.30 _(notional, rate-card)_ | 7% of 271.0M (ok) |
 | Codex | 75.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1297,8 +1295,9 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
 - [`build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop.md) — ---
+- [`kriscendobot-minion.town-pr218-gauntlet-fix-17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-17.md) — Gauntlet stage: FIX round 17 — kriscendobot/minion.town PR #218
 
 ### tada (14936)
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-17.md) — Cost
