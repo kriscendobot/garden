@@ -68,3 +68,13 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
   <!-- gauntlet-stage-result: panel=prepass-failed --> (read-only deterministic probes failed; no juror dispatched)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-24T00:35:23Z
