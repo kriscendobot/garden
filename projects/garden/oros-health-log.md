@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-24T03:05Z (oros-health-checkup-20261024-025008): healthy; deployed = origin/main2 `8576a7c`, no changes
+
+- **Load/mem:** load 2.84/2.91/2.80 at 02:55Z. 2 monks are running. 13 GiB of 15 GiB available; no swap configured in this reading.
+- **Disk/inodes:** the virtiofs garden mount is at 60% (186G free), inodes 1%; `/tmp` at 793M (10%).
+- **Uptime:** 22d09h39m, no reboot.
+- **Deployed vs main2:** root HEAD is `8576a7c`, the origin/main2 tip. fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed user units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** the claude-oros snapshot was sampled at 02:48Z (7 minutes old, `status: ok`). Spend is 87.86M of 180M (48.8%), with the ledger-derived `used_percent: 11`. The meter is publishing.
+- **State clones:** the largest journal clones are regenerate-sections-index and reaper (47 packs each), then library-link-check (45); all under the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes.
+- **rc=124 (3h):** none. Six `Failed with result 'resources'` lines at 00:03Z were transient `systemd-run` probes of `/etc/minion-mcp/account.env`, which does not exist on oros. A minion.town job workspace ran them; they are not garden units. 159 `garden repo lock: timeout` lines, the usual bounded try-locks.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-23T23:45Z (oros-health-checkup-20261023-233509): healthy; deployed = origin/main2 `8576a7c`, no changes
 
 - **Load/mem:** load 1.62/1.97/2.19 at 23:37Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 833M of 1.0 GiB, the usual steady level; not pressure.
