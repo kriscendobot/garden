@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T08:53:09Z_
+_As of 2026-10-24T08:55:02Z_
 
 ## Latest
 
@@ -1040,11 +1040,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-10-16T18:43:57Z, latest 2026-10-23T21:09:28Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-10-16T18:43:57Z, cleared 2026-10-24T08:54:25Z).
+> It was observed 12 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.037490s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_repo_watcher_journal` cleared on oros-studio-garden-ce242c49.
 
 - `kriscendobot-minion.town-pr199-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr199-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr199-gauntlet-review-budget-reached.md)
 
@@ -1224,7 +1224,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.6M | $28.09 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 9.6M | $28.18 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 65.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
