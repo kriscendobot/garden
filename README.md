@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T04:16:03Z_
+_As of 2026-10-24T04:25:38Z_
 
 ## Latest
 
@@ -111,17 +109,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #131 (first seen 2026-10-16T17:37:14Z, latest 2026-10-24T04:01:48Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 131 times; this is ONE
-> coalesced notice that updates in place, not 131 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-24T04:17:17Z).
+> It was observed 131 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.014617s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=3.637463s, giveups=4, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.016334s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.025723s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.018554s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.018485s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -235,10 +227,6 @@ Delegation: **active**
 - `msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df` — from gardener:claude-on-minion-town-press-20261016-170509, reply_to `claude-on-minion-town-press-20261016-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df.md)
 
 > Done: minion-town-ocapn-canary-live-run is repinned to requires: host=endolin-garden-ece02cb4 and stays parked until you say go ahead. One heads-up before you provision: as of [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/issues/193) commit 32bab449 the canary adopts each guest from a durable endo:// locator (GET /account/guest-locator), not an invitation, so ~/.garden-state/ocapn-canary/guests.json should hold the two guest locators. No reply needed.
-
-- `msg-fu-design-recursive-dynamodb-capabilities-1-452cf7ab3ae4` — from gardener:fu-design-recursive-dynamodb-capabilities-1, reply_to `fu-design-recursive-dynamodb-capabilities-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fu-design-recursive-dynamodb-capabilities-1-452cf7ab3ae4.md)
-
-> I received the tentative pause after the implementation was complete. The claimed job specification explicitly says to implement the 'landed design' from job design-recursive-dynamodb-capabilities. I found that exact design artifact at [kriscendobot/minion.town#221](https://github.com/kriscendobot/minion.town/issues/221), commit 7eca8b82, and implemented against it without inventing a separate shape. The required draft is now [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545). [kriscendobot/minion.town#221](https://github.com/kriscendobot/minion.town/issues/221) remains draft on GitHub, so if 'landed' in this job spec was erroneous, [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) is safely still draft and can be treated as the requested gap-revealing build; please revise the job/spec if it should be parked instead.
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
@@ -1111,6 +1099,17 @@ Delegation: **active**
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/review-docket/journal: p95=0.028449s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `20261024T042224Z-4f5bf8` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261024T042224Z-4f5bf8.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: fu-design-recursive-dynamodb-capabilities-1
+> - question (msgid msg-fu-design-recursive-dynamodb-capabilities-1-452cf7ab3ae4.md)
+> - tentative answer: Proxy/tentative (the maintainer may revise): This is a progress question, so I'm answering it.
+>
+> 1. Keep [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) as a DRAFT. Treat it as the gap-revealing build the job asked for, and don't take it out of draft. Make no outward-facing moves: no merging, no closing, no un-drafting, and no ferrying upstream.
+> 2. Building against [kriscendobot/minion.town#221](https://github.com/kriscendobot/minion.town/issues/221) at commit 7eca8b82 is a reasonable reading of "landed design". The design is still a draft PR, so its shape is provisional. Say so in the [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) PR body. Add a short gap report listing where the implementation diverged from, or exposed holes in, the design. If the design changes, [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) may need rework, and that's acceptable throw-away cost.
+> 3. Don't wait for the maintainer to confirm the spec. Finish the gap report and run the usual local checks. Then post your completion summary, noting that the build is provisional on the draft design. Per the probe convention, no panel, fix-loop or un-draft chain should follow. If the maintainer later wants it parked, they can close or park it.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-17T11:18:19Z, latest 2026-10-24T01:16:25Z).
@@ -1196,28 +1195,30 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.1M | $3.33 _(notional, rate-card)_ | 1% of 271.0M (ok) |
-| Codex | 57.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 2.4M | $7.64 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Codex | 58.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 5.009225s/45s (/home/kris/garden/.garden-state/maintainer/journal); 10 open notice(s); checker healthy
+worst fetch p95 5.009225s/45s (/home/kris/garden/.garden-state/maintainer/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1545-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1545-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1545
+- [`kriscendobot-minion.town-pr221-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr221-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #221
 - [`fu-design-recursive-dynamodb-capabilities-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-design-recursive-dynamodb-capabilities-1.md) — ---
 
-### tada (14858)
+### tada (14860)
+- [`canary-probe-oros-studio-garden-ce242c49-65ed9070fc5b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-65ed9070fc5b.md) — rolling-deploy canary probe — round trip OK
+- [`kriscendobot-minion.town-pr221-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1545-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1545-gauntlet-viability.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-fix-2.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — review budget reached
-- [`kriscendobot-minion.town-pr218-gauntlet-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-fix-11.md) — Cost
-- [`improve-merge-exact-panel-head-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-merge-exact-panel-head-gate.md) — Cost
-- … and 14853 more
+- … and 14855 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
