@@ -10,3 +10,13 @@ Continue and finish the @endo/exo-dynamodb implementation against the latest des
 Reconcile at least: both derive methods resolve Result<Derived> with capability plus grantId; control exposes async withdraw and lineage; expected malformed/widening/revoked failures resolve rather than reject; Restriction uses keySpace, per-index KeyRange maps, nested shape with a Condition guard, itemBytes and requestsPerSecond; numeric exact/interval constraints and query intersection; index results outside base key space are dropped rather than failing the page; GSI consistent reads are refused; idempotency keys on individual writes; durable named-grant tombstone/restart interfaces; required property, deny-before-send, index leakage, revocation, restart, audit, confinement, DynamoDB Local, and isolated-IAM coverage.
 The current CI failures observed on run 40060852427 are pre-existing sandbox-driver failures (bwrap ulimit/process cleanup), and mutual-dependency run 40060852432 lacks tred; classify against base before changing package code.
 Preserve the existing garden job marker and update the draft PR rather than opening another PR. Run package and repository checks, push the head branch with CAS discipline, and report any integration tests that cannot run.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-24T04:26:11Z
