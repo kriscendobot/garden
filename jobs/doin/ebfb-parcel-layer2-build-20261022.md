@@ -46,3 +46,13 @@ Advance the next layer of the Parcel stack onto the merged layer 1:
 Scope: layer 2 only. Layers 3 to 9 (#1392 to #1399) stay as drafts stacked on #1391; restack
 only the immediate child's base if the force-push requires it, and leave further layers to later
 plans. Do not add new channels or reopen questions settled in `designs/parcel.md`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-24T03:18:15Z
