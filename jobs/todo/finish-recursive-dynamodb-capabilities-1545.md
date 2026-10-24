@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: fixer
@@ -11,13 +12,5 @@ Reconcile at least: both derive methods resolve Result<Derived> with capability 
 The current CI failures observed on run 40060852427 are pre-existing sandbox-driver failures (bwrap ulimit/process cleanup), and mutual-dependency run 40060852432 lacks tred; classify against base before changing package code.
 Preserve the existing garden job marker and update the draft PR rather than opening another PR. Run package and repository checks, push the head branch with CAS discipline, and report any integration tests that cannot run.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-24T04:26:11Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-24T06:03:08Z -->
