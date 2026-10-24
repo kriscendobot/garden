@@ -1,2 +1,2 @@
-base: improve-build-job-budget-inference
+base: improve-completed-job-collision
 identity: mentor:scripts/jobs/post-job.sh
