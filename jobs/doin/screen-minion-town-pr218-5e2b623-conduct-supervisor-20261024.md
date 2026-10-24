@@ -28,3 +28,13 @@ minion-town-pr-screening-stalled-pr218-5e2b623). `assert-panel-head-fresh.sh` re
    Any other "merge blocked" or a red/stalled CI result: report it and finish; never
    fall back to an ordinary merge, never queue --auto, never ask for approval.
 PR: https://github.com/kriscendobot/minion.town/pull/218
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-24T21:38:20Z
