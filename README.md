@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T06:30:17Z_
+_As of 2026-10-24T06:32:26Z_
 
 ## Latest
 
@@ -30,7 +30,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 Delegation: **active**
 
-- 2026-10-24T06:08:36Z [#221](https://github.com/kriscendobot/minion.town/pull/221) merged `27f70ed6e4f`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/40069023925)
+- 2026-10-24T06:08:36Z [#221](https://github.com/kriscendobot/minion.town/pull/221) merged `27f70ed6e4f`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/40069023925), watchdog ok — validated
 - 2026-10-24T06:07:16Z [#221](https://github.com/kriscendobot/minion.town/pull/221) `35bb0c3b394` screened
 
 ## Messages to the maintainer
@@ -1210,7 +1210,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 7.6M | $21.40 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Claude | 7.6M | $22.05 _(notional, rate-card)_ | 3% of 271.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
