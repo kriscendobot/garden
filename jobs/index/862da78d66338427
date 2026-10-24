@@ -1,2 +1,2 @@
-base: improve-deadmail-producer-lock-contention
+base: improve-deadmail-completed-collision
 identity: mentor:scripts/jobs/deadmail.sh
