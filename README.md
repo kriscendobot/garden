@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T18:14:54Z_
+_As of 2026-10-24T18:16:27Z_
 
 ## Latest
 
@@ -248,6 +248,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-handler-budget-overrun-build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop.md)
+
+> gardener job 'build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7207s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
