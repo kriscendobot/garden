@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T17:37:33Z_
+_As of 2026-10-24T17:40:44Z_
 
 ## Latest
 
@@ -1317,13 +1315,13 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### doin (1)
 - [`build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop.md) — ---
 
-### tada (14946)
+### tada (14947)
+- [`endojs-endo-but-for-bots-pr1547-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1547-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1547-gauntlet - not viable
 - [`endojs-endo-but-for-bots-pr1547-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1547-gauntlet-viability.md) — Cost
 - [`screen-minion-town-pr218-5e2b623-conduct-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct-r3.md) — Panel-head freshness
 - [`screen-minion-town-pr218-5e2b623-conduct-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct-r2.md) — Panel-head freshness
 - [`screen-minion-town-pr218-5e2b623-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1367-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-fix-20261024.md) — Completion report: endojs/endo-but-for-bots#1367 fix
-- … and 14941 more
+- … and 14942 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
