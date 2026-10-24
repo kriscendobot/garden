@@ -23,6 +23,7 @@ improved_by: 7a88d0007c2: skills/panel-hints/probes/X-decomplector.sh, scripts/j
 
 
 
+
 A design invents a bespoke per-entity channel or mechanism where the repository's existing client/connection path already provides the access, and successive design-panel rounds patch that mechanism's recurring must-fix findings instead of asking whether it is needed at all.
 
 **Threshold rationale:** Held below the dispatch floor. The newly minted
@@ -80,3 +81,24 @@ existing-path candidates in roles/designer/AGENT.md and decomplector (f),
 and have the design-panel decomplector ask, for any design whose goal is
 revocation, attenuation, or rotation, whether a caretaker or membrane over
 the existing referent suffices before any schema or registry change.
+
+**Threshold rationale:** **Threshold rationale (2026-10-24, retro of endojs-endo-but-for-bots-pr1392-review-8531f855):**
+Held open, no second improvement dispatched. The floor is met (count=5 across
+#1226, #1407, #1433, #1392), but the cluster is already reopened as a genuine
+post-fix recurrence (the #1433 retro, same day; maintainer alerted under
+review-miss-recurrence-design-bespoke-mechanism-over-existing-path), and per the
+skill a second round waits on maintainer direction rather than proceeding on
+autopilot. This member is a second post-fix recurrence and adds two failure
+points the first improvement did not cover, for the second round's scope:
+(1) the sensing fired but did not bind: the code-panel decomplector named the
+bespoke Parcel shape validator as must-fix in round 5, and gauntlet fix-5
+declined it as "a design change" with no escalation, after which the gauntlet
+halted and the maintainer raised the same point. Candidate: a forced
+is-it-needed must-fix may not be declined by the fixer as out of scope; it is
+either done or escalated to the maintainer as an explicit question on the PR.
+(2) the governing design already named the existing path (designs/parcel.md:
+WeakMap-backed Parcel.isParcel, "the brand check is the only recognition
+path"), so the decomplector (f) existing-path candidates should include the
+PR's own governing design's stated mechanism, and the ocap-idiom list proposed
+by the #1433 retro should include "brand check via a closely held WeakMap, not
+a shape check" alongside caretaker/membrane/facet.
