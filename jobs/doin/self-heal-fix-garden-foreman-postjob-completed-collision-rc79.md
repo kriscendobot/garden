@@ -16,3 +16,13 @@ dispatch: automatic
 - Do not post. The foreman's next-step handler must not re-propose a base that is already in `tada/`. Either give the step an ISO-date suffix (`-YYYYMMDD`) or skip it as already done.
 - Any other nonzero rc should still fail loudly.
 - Add a regression test next to `scripts/jobs/test/directive-identity-dedup-test.sh`: a foreman pump whose base collides with `tada/` must exit 0 and not post.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-24T23:55:22Z
