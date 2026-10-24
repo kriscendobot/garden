@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T17:29:20Z_
+_As of 2026-10-24T17:30:59Z_
 
 ## Latest
 
@@ -318,6 +318,11 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `minion-town-pr-screening-stalled-pr218-5e2b623` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-stalled-pr218-5e2b623.md)
+
+> minion.town delegated merge STALLED: [https://github.com/kriscendobot/minion.town/pull/218](https://github.com/kriscendobot/minion.town/pull/218) (head 5e2b6232bc4) was screened, but 3 conductors finished without merging it. Read their reports under jobs/tada/ (base screen-minion-town-pr218-5e2b623-conduct*).
+> Operations: context/operations/minion-town-screening.md
 
 - `kriscendobot-minion.town-pr198-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-review-budget-reached.md)
 
