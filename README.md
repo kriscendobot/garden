@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T06:50:42Z_
+_As of 2026-10-24T06:51:33Z_
 
 ## Latest
 
@@ -1223,11 +1223,11 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`canary-probe-oros-studio-garden-ce242c49-879c67ebef05`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-879c67ebef05.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 879c67ebef05
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
+- [`canary-probe-oros-studio-garden-ce242c49-879c67ebef05`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-879c67ebef05.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 879c67ebef05
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-12.md) — Gauntlet stage: FIX round 12 — kriscendobot/minion.town PR #218
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1542-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1542
 
