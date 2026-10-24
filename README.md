@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T13:51:16Z_
+_As of 2026-10-24T13:52:38Z_
 
 ## Latest
 
@@ -550,6 +550,13 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` cleared on endolin-garden-ece02cb4.
+
+- `msg-claude-on-minion-town-completion-press-20261024-135008-006adced2f51` — from gardener:claude-on-minion-town-completion-press-20261024-135008, reply_to `claude-on-minion-town-completion-press-20261024-135008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261024-135008-006adced2f51.md)
+
+> Claude-on-minion.town completion press ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)), window 2026-10-24T07:35→13:50Z: one stalled claim.
+> minion-town-arc-press-20261024-122008 was claimed 12:20:40Z on endolin-garden-ece02cb4. It is 5368s old against a 2400s handler budget (2968s overdue), with 0 requeues. I found no live process or scratch worktree for it on that host, so it looks orphaned. I took no action: this press only observes, and the reaper should requeue it.
+> Everything else is nominal. 11 completions ([kriscendobot/minion.town#218](https://github.com/kriscendobot/minion.town/issues/218) gauntlet rounds 14–16 included), 0 new dooms, 0 absent jobs.
+> Side note: the report wrapper's schedule-derived window lagged one dispatch (it gave 01:35→07:35), so I passed --since/--until explicitly.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot.md)
 
@@ -1242,10 +1249,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.3M | $56.23 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 17.3M | $55.78 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 70.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 63413709 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 6 open notice(s); checker healthy
@@ -1254,16 +1261,16 @@ worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20261024-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261024-135008.md) — Completion press: Claude-on-minion.town arc
+### doin (0)
+(none)
 
-### tada (14924)
+### tada (14925)
+- [`claude-on-minion-town-completion-press-20261024-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-completion-press-20261024-135008.md) — Completion press: Claude-on-minion.town arc (kriscendobot/garden#89), 2026-10...
 - [`oros-health-watch-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-watch-20261024-122008.md) — Cost
 - [`oros-health-checkup-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-checkup-20261024-122008.md) — Cost
 - [`minion-town-arc-press-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/minion-town-arc-press-20261024-122008.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — HALTED
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-16`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-16.md) — Cost
-- … and 14919 more
+- … and 14920 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
