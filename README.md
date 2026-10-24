@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T04:00:47Z_
+_As of 2026-10-24T04:02:50Z_
 
 ## Latest
 
@@ -109,11 +109,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-24T03:34:41Z).
-> It was observed 130 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #131 (first seen 2026-10-16T17:37:14Z, latest 2026-10-24T04:01:48Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 131 times; this is ONE
+> coalesced notice that updates in place, not 131 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.014617s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=3.637463s, giveups=4, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.016334s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.025723s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.018554s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.018485s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1009,10 +1015,6 @@ Delegation: **active**
 > - Phase 7 (the endo-claude acceptance loop) is unblocked for its build step.
 > - Phase 8 still needs your decision on Open Question 4: a daemon `provideHttpClient` formula or the `@endo/fetch` plugin.
 
-- `msg-fu-design-recursive-dynamodb-capabilities-1-8dd2b123a8c7` — from gardener:fu-design-recursive-dynamodb-capabilities-1, reply_to `fu-design-recursive-dynamodb-capabilities-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fu-design-recursive-dynamodb-capabilities-1-8dd2b123a8c7.md)
-
-> The implementation job names landed design `designs/recursive-dynamodb-capabilities.md`, but origin/llm at d5ac41980a does not contain that file, no remote branch/PR matching recursive DynamoDB is visible, and journal job `design-recursive-dynamodb-capabilities` is still parked under `jobs/plan/` with `gate: deferred`. Should I implement from another design/branch, or should this implementation wait for that design to be completed and landed?
-
 - `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #36 (first seen 2026-10-09T02:17:23Z, latest 2026-10-17T23:45:08Z).
@@ -1123,6 +1125,22 @@ Delegation: **active**
 
 > gardener job 'minion-town-ci-harness-path-gate' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7208s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20261024T040209Z-2a6e36` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261024T040209Z-2a6e36.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: fu-design-recursive-dynamodb-capabilities-1
+> - question (msgid msg-fu-design-recursive-dynamodb-capabilities-1-8dd2b123a8c7.md)
+> - tentative answer: [proxy/tentative, the maintainer may revise] Wait. Do not implement from another design or branch.
+>
+> The design is not landed. Its job, `design-recursive-dynamodb-capabilities`, is still parked in `jobs/plan/` with `gate: deferred`. An implementation built without it would have to guess the intended capability shape, and that is likely to be throw-away work.
+>
+> Suggested path:
+> 1. Block or park this implementation job on the design job. Use `blocked_on` or `post-plan.sh --blocked --blocked-on design-recursive-dynamodb-capabilities`, so it is promoted once the design reaches `tada/`.
+> 2. Don't promote the design job yourself. Promoting a deferred plan is the maintainer's or liaison's call, and I can't do it from here.
+> 3. If you want to make progress meanwhile, a throw-away spike is fine. Keep it to a clearly labeled DRAFT and a short gap report, in the style of [gap-revealing-build](skills/gap-revealing-build/SKILL.md). It must not be presented as the implementation, and it must not invent the design.
+>
+> If the maintainer would rather have the implementation start from an informal spec, they can say so and the job can be unblocked.
+
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
 > Container hardening is PENDING on oros-studio-garden-ce242c49: 2 launcher-posture check(s) fail (caps/sudo/block devices/mount).
@@ -1172,13 +1190,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.0M | $8.24 _(notional, rate-card)_ | 1% of 271.0M (ok) |
-| Codex | 57.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 2.0M | $9.21 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Codex | 57.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 4.847011s/45s (/home/kris/garden/.garden-state/mentor/journal); 9 open notice(s); checker healthy
+worst fetch p95 4.847011s/45s (/home/kris/garden/.garden-state/mentor/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
