@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 221
 build_job: design-recursive-dynamodb-capabilities
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr221-gauntlet-panel-3
+current_child: kriscendobot-minion.town-pr221-gauntlet-fix-3
 state: running
 created_by: producer
 arc: unallocated
