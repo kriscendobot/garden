@@ -1,10 +1,9 @@
 ---
-gate: deferred
-priority: normal
+role: builder
+tier: mentor
 arc: endo-ocapn-background
-posted_by: gardener
-posted_at: 2026-10-22T06:20:56Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-24T03:04:12Z cleared=none -->
 
 ---
 role: builder
