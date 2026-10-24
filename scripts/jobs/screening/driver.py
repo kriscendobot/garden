@@ -231,20 +231,42 @@ def ci_state(rollup):
 
 
 CONDUCTOR_ATTEMPTS = 3
+# Names a head may consume in total, counting conductors refused before its exact
+# panel existed; a hard ceiling so no report shape can make the re-post unbounded.
+CONDUCTOR_NAMES = 10
+STALE_REFUSAL = re.compile(r'## Panel-head freshness\s+Disposition: \*\*review required\*\*\. '
+                           r'The last completed panel reviewed `([0-9a-f]+)`')
 
 
-def conductor(number, head, heal):
+def refused_before_panel(path, panel_head):
+    """True when gardener.sh stamped this conductor's report as refused by the
+    panel-freshness gate under a panel other than the attested exact one: it ran
+    before the head was covered, so it never really attempted the merge."""
+    try:
+        found = STALE_REFUSAL.search(path.read_text(errors='replace'))
+    except OSError:
+        return False
+    return bool(found and panel_head and found.group(1) != panel_head)
+
+
+def conductor(number, head, heal, panel_head):
     """Post the delegated conductor for an attested head; a bounded re-post covers a
     conductor that finished without merging while the head stayed put."""
     first = f'screen-minion-town-pr{number}-{head[:7]}-conduct'
-    names = [first] + [f'{first}-r{attempt}' for attempt in range(2, CONDUCTOR_ATTEMPTS + 1)]
+    names = [first] + [f'{first}-r{attempt}' for attempt in range(2, CONDUCTOR_NAMES + 1)]
     if any((JOURNAL / f'jobs/{kind}/{name}.md').is_file() for name in names for kind in ('todo', 'doin', 'plan')):
         return
-    base = next((name for name in names if name not in TADA), None)
-    if base is None:
+    base, failures = None, 0
+    for name in names:
+        if name not in TADA:
+            base = name
+            break
+        if not refused_before_panel(TADA[name], panel_head):
+            failures += 1
+    if base is None or failures >= CONDUCTOR_ATTEMPTS:
         notify(f'stalled-pr{number}-{head[:7]}',
                f'minion.town delegated merge STALLED: {URL}/pull/{number} (head {head[:11]}) was '
-               f'screened, but {CONDUCTOR_ATTEMPTS} conductors finished without merging it. '
+               f'screened, but {failures} conductors finished without merging it. '
                'Read their reports under jobs/tada/ (base ' + first + '*).')
         return
     host = os.environ.get('GARDEN', '')
@@ -315,7 +337,7 @@ def screen(value, pull):
         # record is useful evidence for choosing the deterministic re-panel path,
         # but can never authorize another conductor that the gate must reject.
         if attested.get('panel_match') == 'exact':
-            return conductor(number, head, attested.get('heal'))
+            return conductor(number, head, attested.get('heal'), attested.get('panel_head'))
     if any((target.parent / f'{kind}-{head}.json').is_file()
            for kind in ('escalated', 'blocked')):
         return
@@ -358,7 +380,7 @@ def screen(value, pull):
                             screened_at=iso(NOW), gauntlet=verdict[1], panel_head=verdict[0],
                             panel_match='exact', ci=checks, heal=heal, **production))
     note(f'#{number}: screened at {head[:11]}')
-    conductor(number, head, heal)
+    conductor(number, head, heal, verdict[0])
 
 
 # --- post-merge validation ----------------------------------------------------------

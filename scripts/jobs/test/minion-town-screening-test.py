@@ -271,6 +271,55 @@ class Screening(unittest.TestCase):
         notices = list((self.journal / 'inbox/maintainer/unread').glob('minion-town-pr-screening-stalled-*'))
         self.assertEqual(len(notices), 1)
 
+    def refusal(self, name, reviewed):
+        done = self.journal / f'jobs/tada/2026/10/24/{name}.md'
+        done.parent.mkdir(parents=True, exist_ok=True)
+        done.write_text('Conductor report: not merged.\n\n## Panel-head freshness\n\n'
+                        'Disposition: **review required**. The last completed panel reviewed '
+                        f'`{reviewed}`; this job presented `{HEAD}`. The old panel verdict does '
+                        'not cover the current head.\n')
+
+    def exact_attestation(self):
+        self.gauntlet(HEAD)
+        write_json(self.journal / policy.SCREENINGS / '17' / f'{HEAD}.json',
+                   dict(schema=2, repository=policy.REPOSITORY, pull_request=17, head=HEAD,
+                        base='main', panel_head=HEAD, panel_match='exact', heal=None))
+
+    def test_pre_attestation_refusals_do_not_burn_the_conductor_budget(self):
+        first = f'screen-minion-town-pr17-{HEAD[:7]}-conduct'
+        for name in (first, f'{first}-r2', f'{first}-r3'):
+            self.refusal(name, OTHER)
+        self.exact_attestation()
+        self.publish()
+        self.tick()
+        self.assertEqual(self.posts(), [f'post-job {first}-r4'])
+        self.assertFalse(list((self.journal / 'inbox/maintainer/unread').glob('*stalled*')))
+
+        # The budget still bounds genuine post-attestation failures: three more
+        # finished conductors after the exact panel stall to the maintainer.
+        for name in (f'{first}-r4', f'{first}-r5', f'{first}-r6'):
+            done = self.journal / f'jobs/tada/2026/10/24/{name}.md'
+            if name != f'{first}-r4':
+                self.assertEqual(self.posts()[-1], f'post-job {name}')
+            (self.journal / f'jobs/todo/{name}.md').rename(done)
+            self.publish()
+            self.tick()
+        self.assertEqual(len(self.posts()), 3)
+        notices = list((self.journal / 'inbox/maintainer/unread').glob('*stalled*'))
+        self.assertEqual(len(notices), 1)
+
+    def test_post_attestation_failures_stall_even_with_freshness_sections(self):
+        first = f'screen-minion-town-pr17-{HEAD[:7]}-conduct'
+        # A refusal citing the attested panel head ran under the exact panel and counts.
+        for name in (first, f'{first}-r2', f'{first}-r3'):
+            self.refusal(name, HEAD)
+        self.exact_attestation()
+        self.publish()
+        self.tick()
+        self.assertFalse(any('conduct' in post for post in self.posts()), self.posts())
+        notices = list((self.journal / 'inbox/maintainer/unread').glob('*stalled*'))
+        self.assertEqual(len(notices), 1)
+
     def test_rebase_equivalent_panel_head_gets_one_exact_head_panel_before_conductor(self):
         self.gauntlet(OTHER); (self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md')
         self.pull['headRefOid'] = HEAD
