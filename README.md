@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T09:04:00Z_
+_As of 2026-10-24T09:06:19Z_
 
 ## Latest
 
@@ -1224,7 +1224,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.6M | $27.36 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 9.7M | $28.13 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 65.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1233,11 +1233,14 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`oros-health-checkup-20261024-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261024-090509.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (3)
+- [`oros-health-watch-20261024-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261024-090509.md) — ---
+- [`claude-on-minion-town-press-20261024-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261024-090509.md) — Press the Claude-on-minion.town arc forward
+- [`minion-town-arc-press-20261024-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261024-090509.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (14900)
 - [`endojs-endo-but-for-bots-pr1542-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-shepherd.md) — Cost
