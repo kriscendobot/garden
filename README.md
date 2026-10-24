@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T11:21:38Z_
+_As of 2026-10-24T11:24:01Z_
 
 ## Latest
 
@@ -1230,7 +1228,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.0M | $56.15 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 17.0M | $55.64 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 68.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1242,16 +1240,16 @@ worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegat
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`improve-deadmail-completed-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadmail-completed-collision.md) — ---
+### doin (0)
+(none)
 
-### tada (14917)
+### tada (14918)
+- [`improve-deadmail-completed-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-deadmail-completed-collision.md) — Report: improve-deadmail-completed-collision
 - [`canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-fix-15.md) — Cost
-- [`improve-completed-job-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-completed-job-collision.md) — Cost
-- … and 14912 more
+- … and 14913 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
