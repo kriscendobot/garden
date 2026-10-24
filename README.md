@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T03:37:53Z_
+_As of 2026-10-24T03:40:59Z_
 
 ## Latest
 
@@ -1166,10 +1164,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 480.9k | $0.00 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 611.7k | $0.59 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 54.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63405878 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
@@ -1178,16 +1176,18 @@ worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (3)
+- [`fu-design-recursive-dynamodb-capabilities-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-design-recursive-dynamodb-capabilities-2.md) — ---
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-panel-11.md) — Gauntlet stage: PANEL round 11 — kriscendobot/minion.town PR #218
+- [`fu-design-recursive-dynamodb-capabilities-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-design-recursive-dynamodb-capabilities-1.md) — ---
 
-### tada (14846)
+### tada (14847)
+- [`kriscendobot-minion.town-pr221-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-viability.md) — Cost
 - [`design-recursive-dynamodb-capabilities`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/design-recursive-dynamodb-capabilities.md) — Follow-ups
 - [`endojs-endo-but-for-bots-pr1393-review-9416ed93-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1393-review-9416ed93-retro.md) — Retrospective: endojs/endo-but-for-bots#1393, review 5610193365
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-fix-10.md) — Cost
 - [`endojs-endo-but-for-bots-pr1394-review-fa16249a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1394-review-fa16249a-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1392-review-8531f855-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1392-review-8531f855-retro.md) — Cost
-- … and 14841 more
+- … and 14842 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
