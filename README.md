@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T16:03:37Z_
+_As of 2026-10-24T16:06:57Z_
 
 ## Latest
 
@@ -1259,7 +1257,8 @@ worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`accountant-weekly-20261024-160509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-weekly-20261024-160509.md) — Weekly arc apportionment
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-16`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-16.md) — Gauntlet stage: FIX round 16 — kriscendobot/minion.town PR #218
 
 ### tada (14933)
