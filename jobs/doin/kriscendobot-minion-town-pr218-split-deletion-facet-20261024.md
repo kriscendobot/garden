@@ -27,3 +27,13 @@ This takes the decomplector's own option "split out the deletion path":
 
 Keep CI green on #218 and leave it draft. When done, resume its gauntlet for two rounds:
 `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --add-rounds 2`. If that fails, report why.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-24T09:08:09Z
