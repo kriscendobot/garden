@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T06:45:10Z_
+_As of 2026-10-24T06:46:10Z_
 
 ## Latest
 
@@ -1112,7 +1112,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_review_docket_journal.md)
 
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/review-docket/journal: p95=0.028449s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_review_docket_journal` has CLEARED (first seen 2026-10-24T00:49:56Z, cleared 2026-10-24T06:45:30Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_review_docket_journal` cleared on oros-studio-garden-ce242c49.
 
 - `20261024T042224Z-4f5bf8` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261024T042224Z-4f5bf8.md)
 
