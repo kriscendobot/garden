@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T10:54:04Z_
+_As of 2026-10-24T10:55:07Z_
 
 ## Latest
 
@@ -1237,12 +1237,11 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 0d89bd9a3a72
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 0d89bd9a3a72
 
 ### tada (14916)
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024.md) — Cost
