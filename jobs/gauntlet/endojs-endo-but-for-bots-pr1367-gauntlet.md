@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-23T13:17:20Z
 arc: minion-town-git-remote
-stage: panel
+stage: fix
 iteration: 3
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1367-gauntlet-panel-3
+current_child: endojs-endo-but-for-bots-pr1367-gauntlet-fix-3
 state: running
 resumed_at: 2026-10-24T20:11:41Z
 resumed_from_stage: panel
