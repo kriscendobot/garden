@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T05:18:12Z_
+_As of 2026-10-24T05:22:33Z_
 
 ## Latest
 
@@ -1199,10 +1199,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.9M | $26.73 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 4.9M | $26.61 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 59.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 63405878 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 5.131959s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 8 open notice(s); checker healthy
@@ -1211,17 +1211,16 @@ worst fetch p95 5.131959s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`kriscendobot-minion.town-pr221-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr221-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #221
+### doin (1)
 - [`finish-recursive-dynamodb-capabilities-1545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finish-recursive-dynamodb-capabilities-1545.md) — ---
 
-### tada (14871)
+### tada (14872)
+- [`kriscendobot-minion.town-pr221-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-fix-6.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-panel-6.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-fix-5.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1545-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1545-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1545-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1545-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1545-gauntlet-clean.md) — PR #1545 clean stage: coverage pushed, CI red from two runner-image breakages...
-- … and 14866 more
+- … and 14867 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
