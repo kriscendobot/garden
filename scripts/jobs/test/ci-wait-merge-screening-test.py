@@ -41,6 +41,9 @@ class ScreenedMerge(unittest.TestCase):
         write_json(policy.attestation_path(self.journal, 17, HEAD),
                    dict(schema=2, repository=policy.REPOSITORY, pull_request=17, head=HEAD,
                         base='main', heal=None))
+        panel = self.journal / 'panel-runs/kriscendobot-minion.town-17/current.md'
+        panel.parent.mkdir(parents=True)
+        panel.write_text(f'---\ndisposition: passed\nreviewed_head: {HEAD}\n---\n')
         self.git('init', '-q', '-b', 'journal2')
         self.git('config', 'user.name', 'test')
         self.git('config', 'user.email', 'test@example.invalid')
@@ -97,6 +100,7 @@ elif columns == 'state,mergeable,statusCheckRollup,reviewDecision,headRefOid':
     if configuration['mode'] == 'rebase' and (root / 'rebased').exists(): head = 'c'*40
     print(json.dumps(dict(state='OPEN', headRefOid=head, mergeable='MERGEABLE', reviewDecision='',
                          statusCheckRollup=[dict(status='COMPLETED', conclusion=configuration['ci'])])))
+elif columns == 'headRefOid,state': print(json.dumps(dict(state='OPEN', headRefOid=configuration['head'])))
 elif columns == 'reviewDecision': print(json.dumps(dict(reviewDecision='')))
 elif columns == 'headRefName': print('crank')
 elif columns == 'state,autoMergeRequest': print('MERGED|false')

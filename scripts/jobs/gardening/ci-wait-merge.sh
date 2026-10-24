@@ -21,7 +21,8 @@
 #     lease-pushed and ONLY CI attached to that resulting OID is accepted. A
 #     non-lockfile conflict fails closed as `needs weave`.
 #   * On GREEN terminal (no failures) and --merge (default): require
-#     a current maintainer approval independently of branch protection, else
+#     exact panel coverage of the live head and a current maintainer approval
+#     independently of branch protection, else
 #     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. The one
 #     narrow exception is the explicit `--dependabot-auto-merge` mode: it skips
 #     only the approval requirement, and only after a live author read proves
@@ -86,8 +87,9 @@
 #      rollup and the Actions runs API (`ci-read-forbidden`, maintainer alerted) /
 #      merge or rebase blocked (`needs weave`) / not mergeable /
 #      frozen base shared by a sibling stack / base is a snapshot of a non-trunk
-#      branch (`reason=nontrunk-frozen-base`) / reviewDecision=CHANGES_REQUESTED (maintainer
-#      alerted)                                      → stall, re-enqueue
+#      branch (`reason=nontrunk-frozen-base`) / reviewDecision=CHANGES_REQUESTED /
+#      panel coverage stale, absent, or unreadable (maintainer alerted)
+#                                                     → stall, re-enqueue
 #
 # --no-merge makes it a pure block-until-CI-terminal probe (exit 0 = green,
 # 3 = red, 4 = timeout, 5 = billing-blocked) for callers that drive the merge themselves.
@@ -160,13 +162,20 @@ if [ -n "${GARDEN_GH:-}" ]; then
   if [ -x "$GARDEN_GH" ] || command -v "$GARDEN_GH" >/dev/null 2>&1; then
     GH="$GARDEN_GH"
   else
-    log "GARDEN_GH=$GARDEN_GH does not resolve (stale temp path?) — falling back to the durable PATH gh (fleet wrapper) so the merge is never dropped"
+    log "GARDEN_GH=$GARDEN_GH does not resolve (stale temp path?) — falling back to the durable fleet gh wrapper so the merge is never dropped"
+    [ ! -x "$GARDEN_ROOT/scripts/jobs/bin/gh" ] \
+      || GH="$GARDEN_ROOT/scripts/jobs/bin/gh"
+    # common.sh helpers consult GARDEN_GH independently of this script's local
+    # GH variable.  Replace the stale override so those helpers take the same
+    # durable wrapper too.
+    export GARDEN_GH="$GH"
   fi
 fi
 require_tools jq
 require_tools "$GH"
 
 : "${GARDEN_REBASE_PR:=$HERE/rebase-pr-before-merge.sh}"
+: "${GARDEN_PANEL_HEAD_FRESHNESS_SENSOR:=$HERE/../assert-panel-head-fresh.sh}"
 
 : "${GARDEN_DEPENDABOT_LOGIN:=dependabot[bot]}"
 
@@ -826,6 +835,30 @@ elif ! "$HERE/../handlers/pr-maintainer-approval-gh.sh" "$repo" "$pr"; then
     --unblocks-json "[{\"kind\":\"job\",\"ref\":\"${GARDEN_JOB_BASE:-${repo//\//-}-pr$pr-conduct}\",\"summary\":\"allows the conductor to merge this PR\"}]" \
     || echo "review-docket intake failed for $repo#$pr; merge remains blocked" >&2
   echo "merge blocked: no maintainer approval repo=$repo pr=$pr"
+  exit 1
+fi
+
+# A maintainer approval (or a narrowly delegated approval bypass) is not a
+# substitute for panel coverage.  The panel reviews one exact commit, while the
+# rebase stage above may have moved the head after an earlier panel completed.
+# Re-read the durable panel record and the live PR head at the final merge point.
+# Every non-fresh result fails closed: rc 10 is stale, 11 is absent, 12 is an
+# unreadable journal/GitHub view, and any other nonzero status is an operational
+# failure.  Exit 1 leaves the conductor claimable for a later reviewed-head run.
+panel_head_rc=0
+"$GARDEN_PANEL_HEAD_FRESHNESS_SENSOR" pr --require-reviewed-head "$repo" "$pr" \
+  || panel_head_rc=$?
+case "$panel_head_rc" in
+  0) ;;
+  10) panel_head_reason=stale ;;
+  11) panel_head_reason=missing ;;
+  12) panel_head_reason=unreadable ;;
+  *) panel_head_reason="sensor-error-$panel_head_rc" ;;
+esac
+if [ "$panel_head_rc" -ne 0 ]; then
+  alert_maintainer "panel-head-coverage-${repo//\//_}-$pr" \
+    "conductor merge BLOCKED for $repo#$pr: exact panel-head coverage is $panel_head_reason (sensor rc=$panel_head_rc). I will NOT merge without a durable completed panel for the live PR head. Run or resume the gauntlet against the current head, then leave the conductor claimable for a later merge attempt."
+  echo "panel-head-blocked repo=$repo pr=$pr reason=$panel_head_reason rc=$panel_head_rc → alerted maintainer, NOT merging; conductor remains claimable"
   exit 1
 fi
 

@@ -73,6 +73,8 @@
 #   T46 a concurrency-cancelled workflow run whose check names the later green run
 #      of the same workflow never emits (bare `test` vs `test (22.x, …)`) → green;
 #      a cancelled check in the NEWEST run still reads red
+#   T47-T50 exact panel-head gate admits equal-head coverage and refuses stale,
+#      missing, and unreadable coverage before invoking the merge
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -90,6 +92,7 @@ bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 rm -rf "$TR"; mkdir -p "$TR"
 export STUBDIR="$TR" GARDEN_GH="$TR/gh"
 export GARDEN_REBASE_PR="$TR/rebase-pr"
+export GARDEN_PANEL_HEAD_FRESHNESS_SENSOR="$TR/panel-head-freshness"
 export GARDEN_CI_DOCKET_REQUEST=/bin/true
 export GARDEN_NO_MAINTAINER_ALERT=1
 export GARDEN_CI_POLL_SECS=0 GARDEN_CI_POLL_MAX_SECS=0 GARDEN_CI_DEADLINE_SECS=5
@@ -186,6 +189,20 @@ cat "$STUBDIR/rebase_head" 2>/dev/null || printf '123abc123abc123abc123abc123abc
 STUB
 chmod +x "$TR/rebase-pr"
 
+cat > "$TR/panel-head-freshness" <<'STUB'
+#!/bin/bash
+printf '%s\n' "$*" >> "$STUBDIR/panel-head.log"
+rc="$(cat "$STUBDIR/panel-head-rc" 2>/dev/null || echo 0)"
+case "$rc" in
+  0) echo 'panel-head-freshness: fresh disposition=covered' ;;
+  10) echo 'panel-head-freshness: stale disposition=review-required' ;;
+  11) echo 'panel-head-freshness: no completed panel head is durable' >&2 ;;
+  12) echo 'panel-head-freshness: journal unavailable; retry required' >&2 ;;
+esac
+exit "$rc"
+STUB
+chmod +x "$TR/panel-head-freshness"
+
 b64() { printf '%s' "$1" | base64 | tr -d '\n'; }
 HEAD='123abc123abc123abc123abc123abc123abc123a'
 PEND="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"IN_PROGRESS\",\"conclusion\":null}]}"
@@ -197,7 +214,7 @@ CONFLICT_EMPTY="{\"state\":\"OPEN\",\"mergeable\":\"CONFLICTING\",\"headRefOid\"
 # Green CI but a maintainer requested changes: reviewDecision drives the gate.
 GREEN_CR="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"reviewDecision\":\"CHANGES_REQUESTED\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
 
-reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta" "$STUBDIR/refs" "$STUBDIR/refs_fail" "$STUBDIR/compare" "$STUBDIR/runs" "$STUBDIR/runs_forbidden" "$STUBDIR/rollup_forbidden" "$STUBDIR/rollup_ratelimited"; }
+reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta" "$STUBDIR/refs" "$STUBDIR/refs_fail" "$STUBDIR/compare" "$STUBDIR/runs" "$STUBDIR/runs_forbidden" "$STUBDIR/rollup_forbidden" "$STUBDIR/rollup_ratelimited" "$STUBDIR/panel-head.log" "$STUBDIR/panel-head-rc"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
 chk()       { if [ "$1" = "$2" ]; then ok "$3 (rc=$1)"; else bad "$3 (got rc=$1 want $2)"; fi; }
 merged()    { if [ -f "$STUBDIR/merge.log" ]; then ok "$1 merge called"; else bad "$1 merge NOT called"; fi; }
@@ -541,6 +558,42 @@ run o/r 1483 --no-merge; chk "$rc" 0 T46
 echo "T46b cancelled check in the newest run still reads red"
 reset_seq; seq_add "$(printf '{"state":"OPEN","mergeable":"MERGEABLE","headRefOid":"%s","statusCheckRollup":[%s,%s]}' "$HEAD" "$(in_run lint SUCCESS 1 404)" "$(in_run test CANCELLED 2 405)")"
 run o/r 1483 --no-merge; chk "$rc" 3 T46b
+
+echo "T47 equal-head panel coverage → merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+run o/r 178; chk "$rc" 0 T47; merged T47
+if grep -qx 'pr --require-reviewed-head o/r 178' "$STUBDIR/panel-head.log"; then
+  ok "T47 required exact reviewed-head coverage"
+else
+  bad "T47 missing exact-head sensor invocation"
+fi
+
+echo "T48 stale panel coverage → alert and refuse merge"
+reset_seq; seq_add "$GREEN"; echo 10 > "$STUBDIR/panel-head-rc"
+run_capture o/r 178; chk "$rc" 1 T48; nomerge T48
+if grep -q 'panel-head-blocked .*reason=stale .*conductor remains claimable' "$STUBDIR/output"; then
+  ok "T48 stale coverage refusal is explicit"
+else
+  bad "T48 stale coverage refusal missing: $(cat "$STUBDIR/output")"
+fi
+
+echo "T49 missing panel coverage → alert and refuse merge"
+reset_seq; seq_add "$GREEN"; echo 11 > "$STUBDIR/panel-head-rc"
+run_capture o/r 178; chk "$rc" 1 T49; nomerge T49
+if grep -q 'panel-head-blocked .*reason=missing .*conductor remains claimable' "$STUBDIR/output"; then
+  ok "T49 missing coverage refusal is explicit"
+else
+  bad "T49 missing coverage refusal absent: $(cat "$STUBDIR/output")"
+fi
+
+echo "T50 unreadable panel coverage → alert and refuse merge"
+reset_seq; seq_add "$GREEN"; echo 12 > "$STUBDIR/panel-head-rc"
+run_capture o/r 178; chk "$rc" 1 T50; nomerge T50
+if grep -q 'panel-head-blocked .*reason=unreadable .*conductor remains claimable' "$STUBDIR/output"; then
+  ok "T50 unreadable coverage refusal is explicit"
+else
+  bad "T50 unreadable coverage refusal absent: $(cat "$STUBDIR/output")"
+fi
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"
