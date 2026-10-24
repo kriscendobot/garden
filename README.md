@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T10:21:57Z_
+_As of 2026-10-24T10:24:18Z_
 
 ## Latest
 
@@ -1242,13 +1240,13 @@ worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegat
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-15.md) — Gauntlet stage: FIX round 15 — kriscendobot/minion.town PR #218
 - [`improve-completed-job-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-completed-job-collision.md) — ---
 
-### tada (14911)
+### tada (14912)
+- [`endojs-endo-but-for-bots-pr1542-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1542-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-panel-6.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-15.md) — Cost
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-fix-5.md) — Cost
-- [`kriscendobot-minion.town-pr218-gauntlet-fix-14`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-fix-14.md) — Gauntlet FIX round 14: kriscendobot/minion.town#218
-- … and 14906 more
+- … and 14907 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
