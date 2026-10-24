@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T10:39:10Z_
+_As of 2026-10-24T10:41:25Z_
 
 ## Latest
 
@@ -1141,11 +1141,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-17T11:18:19Z, latest 2026-10-24T01:16:25Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-17T11:18:19Z, cleared 2026-10-24T10:40:17Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013333s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49.md)
 
@@ -1230,14 +1230,14 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 6 open notice(s); checker healthy
+worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024.md) — ---
 
 ### tada (14915)
 - [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — review budget reached
