@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T17:23:53Z_
+_As of 2026-10-24T17:29:20Z_
 
 ## Latest
 
@@ -1291,7 +1289,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.4M | $70.30 _(notional, rate-card)_ | 8% of 271.0M (ok) |
+| Claude | 21.5M | $70.30 _(notional, rate-card)_ | 8% of 271.0M (ok) |
 | Codex | 76.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1306,13 +1304,13 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### doin (1)
 - [`build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop.md) — ---
 
-### tada (14944)
+### tada (14945)
+- [`screen-minion-town-pr218-5e2b623-conduct-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct-r3.md) — Panel-head freshness
 - [`screen-minion-town-pr218-5e2b623-conduct-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct-r2.md) — Panel-head freshness
 - [`screen-minion-town-pr218-5e2b623-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1367-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-fix-20261024.md) — Completion report: endojs/endo-but-for-bots#1367 fix
 - [`screen-minion-town-pr218-e01c988-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-e01c988-conduct.md) — Panel-head freshness
-- [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — complete
-- … and 14939 more
+- … and 14940 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
