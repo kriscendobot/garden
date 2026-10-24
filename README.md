@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T15:49:50Z_
+_As of 2026-10-24T15:51:51Z_
 
 ## Latest
 
@@ -1257,16 +1257,16 @@ worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-16`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-panel-16.md) — Gauntlet stage: PANEL round 16 — kriscendobot/minion.town PR #218
+### doin (0)
+(none)
 
-### tada (14931)
+### tada (14932)
+- [`kriscendobot-minion.town-pr218-gauntlet-panel-16`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-16.md) — Cost
 - [`kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024.md) — Completion report: kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024
 - [`improve-rest-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-rest-quota-admission.md) — Cost
 - [`oros-health-checkup-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-checkup-20261024-152017.md) — Cost
 - [`minion-town-arc-press-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/minion-town-arc-press-20261024-152017.md) — Panel-head freshness
-- [`claude-on-minion-town-press-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-press-20261024-152017.md) — Cost
-- … and 14926 more
+- … and 14927 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
