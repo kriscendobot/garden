@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T04:45:33Z_
+_As of 2026-10-24T04:46:20Z_
 
 ## Latest
 
@@ -1202,7 +1202,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.5M | $18.26 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.5M | $18.55 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 59.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1214,19 +1214,18 @@ worst fetch p95 5.131959s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1545-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1545-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1545
 - [`finish-recursive-dynamodb-capabilities-1545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finish-recursive-dynamodb-capabilities-1545.md) — ---
-- [`endojs-endo-but-for-bots-ci-ubuntu2604-graphviz-tred`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ci-ubuntu2604-graphviz-tred.md) — Fix depcheck build on ubuntu-26.04: graphviz tred missing
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr221-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #221
 
-### tada (14864)
+### tada (14865)
+- [`endojs-endo-but-for-bots-ci-ubuntu2604-graphviz-tred`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-ci-ubuntu2604-graphviz-tred.md) — Cost
 - [`endojs-endo-but-for-bots-pr1546-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1546-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1546-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr221-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-fix-3.md) — Cost
 - [`fu-design-recursive-dynamodb-capabilities-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/fu-design-recursive-dynamodb-capabilities-1.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-65ed9070fc5b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-65ed9070fc5b.md) — rolling-deploy canary probe — round trip OK
-- … and 14859 more
+- … and 14860 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
