@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-29
+updated: 2026-10-24
 author: gardener
 ---
 
@@ -99,9 +99,11 @@ fresh directive is never tada-swallowed (`base_live` counts only todo/doin, and 
 identity index is the re-see guard — the endo-but-for-bots #671 fix). The gap the
 convention closes is the **hand-posted** recurring job — an orchestration child, a
 liaison-posted `weave`/`shepherd`/`conduct` — that carries neither a date nor an identity:
-name those with an ISO-date suffix. `post-job.sh`/`post-plan.sh` now emit a **loud WARN**
-(not the routine one-line no-op) when a post collides with a *completed* tada/ job, so a
-scripted loop can no longer let the swallow pass unnoticed.
+name those with an ISO-date suffix. `post-job.sh` emits a **loud WARN and exits with
+`GARDEN_COMPLETED_COLLISION_RC`** (not the routine successful no-op) when an
+unidentified post collides with a *completed* tada/ job, so a scripted loop cannot
+mistake the swallow for success. An explicit directive-identity replay remains a
+successful no-op. `post-plan.sh` continues to WARN on its analogous collision.
 
 - **Post** (`post-job.sh [--identity <key>] <base> [body]`): write
   `jobs/todo/<base>.md`, push; idempotent on the basename; retry-with-backoff on

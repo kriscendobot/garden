@@ -9,14 +9,17 @@
 #   --identity   optional stable directive identity (see below). May also be
 #                supplied via the GARDEN_JOB_IDENTITY env var.
 #
-# Idempotent by BASENAME: if <basename> already exists in the lifecycle the post is
-# a no-op success — a triager that re-sees the same change across ticks will not
+# Idempotent by BASENAME while a job is LIVE: if <basename> already exists in
+# plan/todo/doin the post is a no-op success — a triager that re-sees the same change
+# across ticks will not
 # duplicate the job, provided the basename is derived deterministically from the
 # change identity. plan/todo/doin ALWAYS count: plan/ because a job the proxy parked
 # as blocked (proxy.sh park_blocked_jobs moves the ONLY live copy there) must not be
 # re-minted into todo/ by a producer re-seeing the directive — that would run the
 # "blocked" job AND let promote-plan.sh later clobber it with the stale plan body.
-# tada/ (COMPLETED) counts ONLY when NO directive identity is given: with an identity,
+# tada/ (COMPLETED) returns GARDEN_COMPLETED_COLLISION_RC when NO directive identity
+# is given: callers cannot tell a genuine replay from a fresh recurring action, so the
+# post must fail visibly instead of reporting a successful no-op. With an identity,
 # the identity index (below) is the authoritative re-see guard and a FINISHED job must
 # not swallow a FRESH directive that happens to derive the same base (the #671
 # "Shepherd." drop — see the basename check below). A base is NOT comment-unique for
@@ -368,12 +371,13 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # `endojs-endo-but-for-bots-pr395-weave` child of the
   # `endojs-endo-but-for-bots-gateway-phase-restack-chain` orchestration vanished against
   # a since-superseded PR #395 restack (2026-08-17), caught only by reading a scripted
-  # loop's log line by line. Log it as a WARN so a posting loop cannot let it pass
-  # unnoticed. (Only reached with NO directive identity — with one, the identity index
-  # below is the authoritative re-see guard and a fresh directive is never tada-swallowed.)
+  # loop's log line by line. Return a dedicated nonzero status so scripted producers
+  # cannot mistake the lost post for success. (Only reached with NO directive identity
+  # — with one, the identity index below is the authoritative re-see guard and an
+  # explicit replay remains a successful no-op.)
   if [ -z "$idhash" ] && tada_exists "$DIR" "$base"; then
-    log "WARN: job '$base' collides with a COMPLETED job in tada/ — NOT re-posted. If this is a recurring action, give the basename an ISO-date (YYYYMMDD) or identity suffix (job-board § Post/Park); if it is a true re-post, this no-op is expected."
-    exit 0
+    log "WARN: job '$base' collides with a COMPLETED job in tada/ — NOT re-posted (rc=$GARDEN_COMPLETED_COLLISION_RC). If this is a recurring action, give the basename an ISO-date (YYYYMMDD) or directive identity (job-board § Post/Park); explicit directive replays remain successful no-ops."
+    exit "$GARDEN_COMPLETED_COLLISION_RC"
   fi
 
   # Directive-identity dedup: if this directive already owns a LIVE job (under

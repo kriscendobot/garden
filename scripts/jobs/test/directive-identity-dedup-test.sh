@@ -164,19 +164,23 @@ post --identity "$IDB" "$CBASE" "$(bodyfile 'a SECOND shepherd on #671, days lat
 has "$CBASE" && ok "8c a FRESH directive re-mints the base despite the completed tada job" \
              || bad "8c fresh directive swallowed by the tada entry (the #671 silent drop)"
 
-# --- 8d: a NO-IDENTITY post whose base sits in tada/ is STILL deduped ----------
+# --- 8d: an unidentified post whose base sits in tada/ fails visibly ----------
 # The identity layer is what relaxes the tada-basename dedup; a plain producer (no
-# identity, e.g. a commit triager re-seeing an old completed change) keeps FULL tada
-# idempotency, unchanged.
+# identity) cannot distinguish a true replay from a fresh recurring action. It must
+# not re-mint the job, but it must return the dedicated collision status instead of
+# telling a scripted producer the lost post succeeded.
 NIB=plain-tada-idempotent
 CC3="$TR/ntada"; git clone -q -b journal2 "$BARE" "$CC3" 2>/dev/null
 mkdir -p "$CC3/jobs/tada/2026/01/01"
 printf 'done\n' > "$CC3/jobs/tada/2026/01/01/$NIB.md"
 git -C "$CC3" add -A; git -C "$CC3" -c user.name=t -c user.email=t@l commit -q -m 'seed tada for no-id case'
 git -C "$CC3" push -q origin journal2
-post "$NIB" "$(bodyfile 'plain no-identity re-post')"
-! has "$NIB" && ok "8d a no-identity post whose base is in tada stays deduped (unchanged)" \
-             || bad "8d no-identity tada dedup regressed (re-minted into todo)"
+if post "$NIB" "$(bodyfile 'plain no-identity re-post')"; then nib_rc=0; else nib_rc=$?; fi
+! has "$NIB" && ok "8d1 unidentified tada collision is not re-minted" \
+             || bad "8d1 unidentified tada collision was re-minted into todo"
+[ "$nib_rc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ] \
+  && ok "8d2 unidentified tada collision returns rc=$GARDEN_COMPLETED_COLLISION_RC" \
+  || bad "8d2 unidentified tada collision returned rc=$nib_rc, expected $GARDEN_COMPLETED_COLLISION_RC"
 
 # The same basename idempotency must see a completed report below a date shard.
 SHARDED_NIB=plain-sharded-tada-idempotent
@@ -186,9 +190,12 @@ printf 'done\n' > "$CC4/jobs/tada/2026/08/13/$SHARDED_NIB.md"
 git -C "$CC4" add -A
 git -C "$CC4" -c user.name=t -c user.email=t@l commit -q -m 'seed sharded tada for no-id case'
 git -C "$CC4" push -q origin journal2
-post "$SHARDED_NIB" "$(bodyfile 'plain no-identity re-post of sharded completion')"
-! has "$SHARDED_NIB" && ok "8e a no-identity post dedups a sharded completed basename" \
-                     || bad "8e sharded tada dedup regressed (re-minted into todo)"
+if post "$SHARDED_NIB" "$(bodyfile 'plain no-identity re-post of sharded completion')"; then sharded_rc=0; else sharded_rc=$?; fi
+! has "$SHARDED_NIB" && ok "8e1 unidentified sharded tada collision is not re-minted" \
+                     || bad "8e1 sharded tada collision was re-minted into todo"
+[ "$sharded_rc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ] \
+  && ok "8e2 unidentified sharded tada collision returns rc=$GARDEN_COMPLETED_COLLISION_RC" \
+  || bad "8e2 sharded tada collision returned rc=$sharded_rc, expected $GARDEN_COMPLETED_COLLISION_RC"
 
 # --- 8f: a no-identity collision against a COMPLETED tada job WARNs loudly ------
 # The dedup no-op is correct (8d), but it used to log only a routine one-liner, so a
@@ -202,12 +209,19 @@ mkdir -p "$CC5/jobs/tada/2026/01/01"
 printf 'done\n' > "$CC5/jobs/tada/2026/01/01/$WBASE.md"
 git -C "$CC5" add -A; git -C "$CC5" -c user.name=t -c user.email=t@l commit -q -m 'seed tada for warn case'
 git -C "$CC5" push -q origin journal2
-werr="$("$JOBS/post-job.sh" "$WBASE" "$(bodyfile 'recurring post that collides with a completed job')" 2>&1 >/dev/null)"
+if werr="$("$JOBS/post-job.sh" "$WBASE" "$(bodyfile 'recurring post that collides with a completed job')" 2>&1 >/dev/null)"; then
+  wrc=0
+else
+  wrc=$?
+fi
 ! has "$WBASE" && ok "8f1 tada collision is still a no-op (not re-minted)" \
               || bad "8f1 tada collision wrongly re-minted"
 printf '%s' "$werr" | grep -qi 'WARN.*collides with a COMPLETED job' \
   && ok "8f2 tada collision surfaces a loud WARN (not a routine no-op)" \
   || bad "8f2 tada collision did not emit the expected WARN (got: $werr)"
+[ "$wrc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ] \
+  && ok "8f3 tada collision exits with the dedicated status" \
+  || bad "8f3 tada collision returned rc=$wrc, expected $GARDEN_COMPLETED_COLLISION_RC"
 
 # --- 9: a COMPLETED owner (in tada/, index still points at it) never blocks a ----
 # fresh directive of the SAME identity under a DIFFERENT base. This is the pr475
@@ -257,12 +271,18 @@ printf 'base: %s\nidentity: %s\n' "$SAMEBASE" "$IDT" > "$CC7/jobs/index/$idtkey"
 git -C "$CC7" add -A
 git -C "$CC7" -c user.name=t -c user.email=t@l commit -q -m 'seed completed same-base owner + live index'
 git -C "$CC7" push -q origin journal2
-post --identity "$IDT" "$SAMEBASE" "$(bodyfile 'watcher re-poll of the SAME comment after a cursor failure')"
+if post --identity "$IDT" "$SAMEBASE" "$(bodyfile 'watcher re-poll of the SAME comment after a cursor failure')"; then
+  same_identity_rc=0
+else
+  same_identity_rc=$?
+fi
 ! has "$SAMEBASE" && ok "10a a completed same-base directive replay is terminal (not reminted)" \
                   || bad "10a a completed directive was reminted on replay (the dedup gap)"
 owner_t="$(git -C "$BARE" cat-file -p "journal2:jobs/index/$idtkey" | sed -n 's/^base:[[:space:]]*//p')"
 [ "$owner_t" = "$SAMEBASE" ] && ok "10b the index still points at the completed owner (unchanged)" \
                              || bad "10b index owner drifted to '$owner_t', expected $SAMEBASE"
+[ "$same_identity_rc" -eq 0 ] && ok "10c an explicit directive replay remains a successful no-op" \
+                              || bad "10c explicit directive replay returned rc=$same_identity_rc, expected 0"
 
 echo "----------------------------------------------------------------"
 echo "directive-identity-dedup-test: PASS=$PASS FAIL=$FAIL"

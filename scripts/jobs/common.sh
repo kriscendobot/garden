@@ -791,6 +791,7 @@ GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 # sub-second, so this never trims a healthy loop.
 : "${GARDEN_POST_DEADLINE_SECS:=300}"  # seconds; producer push-CAS loop bails EX_TEMPFAIL past this
 : "${GARDEN_HANDOFF_UNVERIFIED_RC:=76}" # soft job-level verdict: declared handoff successor is absent
+: "${GARDEN_COMPLETED_COLLISION_RC:=79}" # post-job: unidentified basename collides with a completed job
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
 : "${GARDEN_LOCK_RETRIES:=3}"     # bounded waits before a lock acquisition gives up
 # SOFT clone-lock acquisition (GARDEN_CLONE_LOCK_SOFT=1): a caller doing OPTIONAL,
