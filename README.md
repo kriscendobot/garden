@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T19:19:50Z_
+_As of 2026-10-24T19:21:56Z_
 
 ## Latest
 
@@ -1309,13 +1309,13 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### doin (0)
 (none)
 
-### tada (14956)
+### tada (14957)
+- [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-viability.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-03fb3fa40f2d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-03fb3fa40f2d.md) — rolling-deploy canary probe — round trip OK
 - [`fix-screened-conductor-rebase-panel-freshness-deadlock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/fix-screened-conductor-rebase-panel-freshness-deadlock.md) — Cost
 - [`oros-health-watch-20261024-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-watch-20261024-183508.md) — Cost
-- [`oros-health-checkup-20261024-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-checkup-20261024-183508.md) — Cost
-- … and 14951 more
+- … and 14952 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
