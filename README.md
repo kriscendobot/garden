@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T15:14:46Z_
+_As of 2026-10-24T15:26:34Z_
 
 ## Latest
 
@@ -1251,8 +1249,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.5M | $58.70 _(notional, rate-card)_ | 6% of 271.0M (ok) |
-| Codex | 71.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 17.8M | $59.65 _(notional, rate-card)_ | 7% of 271.0M (ok) |
+| Codex | 71.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1260,19 +1258,21 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`oros-health-checkup-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261024-152017.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024.md) — fix #218: clear the typist-friendly-code-points prepass failure, then resume ...
 - [`improve-rest-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-rest-quota-admission.md) — ---
 
-### tada (14927)
+### tada (14930)
+- [`minion-town-arc-press-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/minion-town-arc-press-20261024-152017.md) — Panel-head freshness
+- [`claude-on-minion-town-press-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-press-20261024-152017.md) — Cost
+- [`oros-health-watch-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-watch-20261024-152017.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-ab17325c50f2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-ab17325c50f2.md) — rolling-deploy canary probe — round trip OK
 - [`improve-completion-press-refresh-schedule`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-completion-press-refresh-schedule.md) — Cost
-- [`claude-on-minion-town-completion-press-20261024-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-completion-press-20261024-135008.md) — Completion press: Claude-on-minion.town arc (kriscendobot/garden#89), 2026-10...
-- [`oros-health-watch-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-watch-20261024-122008.md) — Cost
-- [`oros-health-checkup-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-checkup-20261024-122008.md) — Cost
-- … and 14922 more
+- … and 14925 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
