@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T20:30:52Z_
+_As of 2026-10-24T20:36:28Z_
 
 ## Latest
 
@@ -814,11 +812,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-12T03:35:10Z, latest 2026-10-24T03:35:27Z).
-> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-3`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-12T03:35:10Z, latest 2026-10-24T20:35:24Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-3`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 4): subscription claude-endolin1 spend=480896 cap=271000000 pace-bias=0.001500 window-start=2026-10-24T03:00Z(calendar) deadline=2026-10-31T03:00Z(calendar) ceiling=4 backoff=0.5017(ramp) target=4
+> budget-level changed endolin-garden-ece02cb4 monk workers 4 -> 3 (target 3): subscription claude-endolin1 spend=25411241 cap=271000000 pace-bias=0.010435 window-start=2026-10-24T03:00Z(calendar) deadline=2026-10-31T03:00Z(calendar) ceiling=4 backoff=0.5523(ramp) target=3
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
@@ -1303,8 +1301,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 25.0M | $82.31 _(notional, rate-card)_ | 9% of 271.0M (ok) |
-| Codex | 79.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 25.5M | $83.87 _(notional, rate-card)_ | 9% of 271.0M (ok) |
+| Codex | 79.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1316,15 +1314,15 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1367-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1367-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1367
+- [`endojs-endo-but-for-bots-pr1367-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1367-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1367
 
-### tada (14962)
+### tada (14963)
+- [`endojs-endo-but-for-bots-pr1367-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1367-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-gauntlet-fix-3.md) — Gauntlet FIX round 3 — endojs/endo-but-for-bots#1367: fix pushed, CI green
 - [`endojs-endo-but-for-bots-pr1367-shepherd-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-shepherd-20261024.md) — Cost
 - [`endojs-endo-but-for-bots-pr1367-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-gauntlet-panel-3.md) — Cost
 - [`claude-on-minion-town-completion-press-20261024-195010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-completion-press-20261024-195010.md) — Cost
-- [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet.md) — gauntlet kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet — complete
-- … and 14957 more
+- … and 14958 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1424,7 +1422,7 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 4 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
