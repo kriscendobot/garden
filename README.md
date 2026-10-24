@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T14:19:24Z_
+_As of 2026-10-24T14:21:52Z_
 
 ## Latest
 
@@ -1249,7 +1249,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.3M | $55.78 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 17.3M | $56.17 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 70.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1261,8 +1261,8 @@ worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-completion-press-refresh-schedule`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-completion-press-refresh-schedule.md) — ---
 
 ### tada (14925)
 - [`claude-on-minion-town-completion-press-20261024-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-completion-press-20261024-135008.md) — Completion press: Claude-on-minion.town arc (kriscendobot/garden#89), 2026-10...
