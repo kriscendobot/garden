@@ -20,6 +20,7 @@ improved_by: 7a88d0007c2: skills/panel-hints/probes/X-decomplector.sh, scripts/j
 
 
 
+
 A design invents a bespoke per-entity channel or mechanism where the repository's existing client/connection path already provides the access, and successive design-panel rounds patch that mechanism's recurring must-fix findings instead of asking whether it is needed at all.
 
 **Threshold rationale:** Held below the dispatch floor. The newly minted
@@ -58,3 +59,22 @@ review-improve-design-bespoke-mechanism-over-existing-path carries prevention
 decomplector probe + seat amendment + repeat-finding signal), with the
 re-litigation test. The held sibling cluster vestigial-mechanism-unquestioned
 is named as related evidence but left open.
+
+**Threshold rationale:** **Threshold rationale (2026-10-24, retro of endojs-endo-but-for-bots-pr1433-review-9f6935d5):**
+Held open, no second improvement dispatched: this is a genuine post-fix
+recurrence (review 2026-10-22 postdates improvement 7a88d0007c2 of
+2026-10-07), so the writer reopened the cluster and alerted the maintainer;
+per the skill a second improvement round waits on maintainer direction. The
+first improvement partly worked: the repeated-mechanism pre-pass fired on
+#1433 round 3 and the decomplector asked is-it-needed. It failed on scope:
+both the decomplector (f) line and the designer's name-the-existing-path
+line enumerate repository surfaces (bootstrap lookup, lookupById,
+attenuators, static declarations), so the seat compared the new registry
+only with the pet store. The maintainer's replacement was a standard ocap
+composition idiom (a revocable proxy / caretaker around the referent).
+Candidate second-round fix, if the maintainer approves: add well-known ocap
+idioms (caretaker/revocable forwarder, membrane, facet attenuation) to the
+existing-path candidates in roles/designer/AGENT.md and decomplector (f),
+and have the design-panel decomplector ask, for any design whose goal is
+revocation, attenuation, or rotation, whether a caretaker or membrane over
+the existing referent suffices before any schema or registry change.
