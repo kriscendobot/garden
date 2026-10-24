@@ -2,7 +2,7 @@
 slug: post-gauntlet-fixer-change-unreviewed
 category: process
 status: open
-count: 6
+count: 7
 members:
   - endojs-endo-but-for-bots-pr475-review-e560d700
   - endojs-endo-but-for-bots-pr858-review-8add9193
@@ -10,10 +10,12 @@ members:
   - endojs-endo-but-for-bots-pr1227-review-e348b253
   - endojs-endo-but-for-bots-pr1349-review-a794b43f
   - endojs-endo-but-for-bots-pr774-review-bedb3ee0
-prs: [475, 858, 1226, 1227, 1349, 774]
+  - endojs-endo-but-for-bots-pr1393-review-9416ed93
+prs: [475, 858, 1226, 1227, 1349, 774, 1393]
 improvement_job: review-improve-post-gauntlet-fixer-change-unreviewed
 improved_by: 05e02d8f4d1 (scripts/jobs/assert-panel-head-fresh.sh, scripts/jobs/gardener.sh, scripts/jobs/panel-run-record.sh, roles/COMMON.md, skills/panel/SKILL.md, designs/manual-gauntlet-trigger.md, tests)
 ---
+
 
 
 
