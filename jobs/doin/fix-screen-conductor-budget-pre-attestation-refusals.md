@@ -27,3 +27,13 @@ Keep the bound for genuine post-attestation failures. Add a regression test alon
 existing screening tests (35 screening tests in the repo) covering: three pre-attestation
 refusals + exact attestation → a conductor is posted; three post-attestation failures →
 STALLED notice. Run the screening test suite + shellcheck; push to main2.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-24T21:38:25Z
