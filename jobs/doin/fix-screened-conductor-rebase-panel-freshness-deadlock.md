@@ -31,3 +31,13 @@ Fix one of these ways (pick the one consistent with the intent of 65ed9070fc5):
     (`-rN`) that the gate is certain to refuse for the same head. Add a regression test.
 The minion.town supervisor posted `kriscendobot-minion-town-pr218-fresh-panel-5e2b623` as a
 one-off unblock for #218 itself; do not touch that PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-24T18:38:33Z
