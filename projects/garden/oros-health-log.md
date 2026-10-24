@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-24T06:00Z (oros-health-checkup-20261024-055009): healthy; deployed = origin/main2 `65ed907`, no changes
+
+- **Load/mem:** load 1.64/1.98/2.26 at 05:54Z. 2 monks are running. 12 GiB of 15 GiB available; swap reads 834M of 1.0 GiB, the usual steady level; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 55% (209G free), inodes 1%; `/tmp` at 799M (11%).
+- **Uptime:** 22d12h38m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `65ed907` (04:19Z), the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed user units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed at 04:33, 04:48, 05:03, 05:18, 05:33 and 05:47Z, all ok. Spend has held at 88.34M (49.1% of 180M) across those samples, with the ledger-derived `used_percent: 11`. The monks were idle, so the meter is not stuck.
+- **State clones:** 80 journal clones. The largest are regenerate-sections-index and monks/1 (50 packs each, at the threshold), then library-link-check (48). No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. A recursive `find` over `.garden-state` takes more than 90s on virtiofs; glob the `*/journal/.git` dirs directly instead.
+- **rc=124 (3h):** none; no `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-24T03:05Z (oros-health-checkup-20261024-025008): healthy; deployed = origin/main2 `8576a7c`, no changes
 
 - **Load/mem:** load 2.84/2.91/2.80 at 02:55Z. 2 monks are running. 13 GiB of 15 GiB available; no swap configured in this reading.
