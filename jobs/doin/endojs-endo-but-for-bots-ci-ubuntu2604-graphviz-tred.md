@@ -14,3 +14,13 @@ Since `ubuntu-latest` moved to the ubuntu-26.04 image (first failure about 2026-
 Evidence: job https://github.com/endojs/endo-but-for-bots/actions/runs/40060852432/job/120773874012 (PR #1545). Earlier failures in runs 39962424431, 39956759701, 39947792182.
 
 Fix: install the package that ships `tred`/`acyclic` on 26.04 (check `apt-file`/packages.ubuntu.com for resolute; likely a split-out graphviz tools package), or pin the job's `runs-on` to ubuntu-24.04 if no package provides them. Confirm `tred` and `acyclic` both resolve. Keep zizmor and check-action-pins green. The sibling ubuntu-26.04 bwrap `ulimit -u` breakage is already handled by PR #1542; leave it alone.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-24T04:26:04Z
