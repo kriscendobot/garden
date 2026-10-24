@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T17:14:33Z_
+_As of 2026-10-24T17:23:53Z_
 
 ## Latest
 
@@ -32,6 +30,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 Delegation: **active**
 
+- 2026-10-24T17:15:11Z [#218](https://github.com/kriscendobot/minion.town/pull/218) `5e2b6232bc4` screened
 - 2026-10-24T16:55:06Z [#218](https://github.com/kriscendobot/minion.town/pull/218) `e01c98807b0` screened
 - 2026-10-24T06:08:36Z [#221](https://github.com/kriscendobot/minion.town/pull/221) merged `27f70ed6e4f`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/40069023925), watchdog ok — validated
 - 2026-10-24T06:07:16Z [#221](https://github.com/kriscendobot/minion.town/pull/221) `35bb0c3b394` screened
@@ -1290,8 +1289,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.3M | $70.30 _(notional, rate-card)_ | 8% of 271.0M (ok) |
-| Codex | 76.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 21.4M | $70.30 _(notional, rate-card)_ | 8% of 271.0M (ok) |
+| Codex | 76.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1305,13 +1304,13 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### doin (1)
 - [`build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop.md) — ---
 
-### tada (14942)
+### tada (14944)
+- [`screen-minion-town-pr218-5e2b623-conduct-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct-r2.md) — Panel-head freshness
+- [`screen-minion-town-pr218-5e2b623-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1367-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-fix-20261024.md) — Completion report: endojs/endo-but-for-bots#1367 fix
 - [`screen-minion-town-pr218-e01c988-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-e01c988-conduct.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — complete
-- [`kriscendobot-minion.town-pr218-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-undraft.md) — Cost
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-18`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-18.md) — Cost
-- … and 14937 more
+- … and 14939 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
