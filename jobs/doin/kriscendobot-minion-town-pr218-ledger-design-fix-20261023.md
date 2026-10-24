@@ -23,6 +23,7 @@ Push follow-up commits, keep CI green, reply on review threads, leave the PR dra
 `scripts/jobs/gauntlet.sh --resume-from-stage ...` as printed in the gauntlet report. If that is not possible, report it.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3670 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
