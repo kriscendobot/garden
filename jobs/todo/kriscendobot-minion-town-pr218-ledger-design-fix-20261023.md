@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # fix kriscendobot/minion.town#218: resolve the design-level must-fix items left after the gauntlet budget
@@ -23,13 +24,6 @@ Push follow-up commits, keep CI green, reply on review threads, leave the PR dra
 `scripts/jobs/gauntlet.sh --resume-from-stage ...` as printed in the gauntlet report. If that is not possible, report it.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3670 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-23T23:38:21Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-24T00:53:10Z -->
