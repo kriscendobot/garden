@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T15:26:34Z_
+_As of 2026-10-24T15:28:03Z_
 
 ## Latest
 
@@ -1258,12 +1258,12 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`oros-health-checkup-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261024-152017.md) — ---
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024.md) — fix #218: clear the typist-friendly-code-points prepass failure, then resume ...
+- [`oros-health-checkup-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261024-152017.md) — ---
 - [`improve-rest-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-rest-quota-admission.md) — ---
 
 ### tada (14930)
