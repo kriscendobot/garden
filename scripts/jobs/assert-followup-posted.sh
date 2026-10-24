@@ -76,6 +76,9 @@
 # (followups_prescribe_fleet_work), the gate itself sends the section to the
 # maintainer inbox (coalesced, reply_to=<base>) and passes only after a fresh
 # board read shows that message. A failed send or unverified write blocks.
+# A follow-up item gated only on host access or credentials the fleet lacks
+# ("on a host that has Docker and AWS access") counts as no fleet work
+# (followup_item_needs_external_access), so it is escalated, not rerun.
 #
 # Four INFORMATIONAL carve-outs additionally pass without a worker-authored
 # disposition, because they name no owed successor work (all deterministic and

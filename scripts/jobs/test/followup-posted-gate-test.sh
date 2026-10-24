@@ -406,6 +406,34 @@ if git --git-dir="$TR/journal.git" ls-tree -r --name-only journal2 inbox/maintai
 fi
 echo '   gate blocked prescribed fleet work without escalating it (rc 1)'
 
+echo '== (d5) PASS: a follow-up gated on external host access/credentials is escalated =='
+# Grounding: the #1545 exo-dynamodb report (2026-10-24T05:51:51Z) was blocked
+# and rerun for a follow-up only a host with Docker and AWS access could do.
+cat >"$TR/r4d.md" <<'EOF2'
+Finished the package; two integration tests are skipped without external access.
+
+## Follow-ups
+- Before taking the draft out of draft, run the DynamoDB Local and isolated-IAM tests on a host that has Docker and AWS access.
+- The bwrap and `tred` CI failures need separate infrastructure fixes.
+EOF2
+reset_clone
+"$GATE" external-prereq-sample "$JOB" "$TR/r4d.md" \
+  || fail 'gate blocked a follow-up that only names external host-access prerequisites'
+git --git-dir="$TR/journal.git" show journal2:inbox/maintainer/unread/followup-gate-external-prereq-sample.md \
+  | grep -qF 'host that has Docker and AWS access' \
+  || fail 'external-prerequisite follow-up was not escalated to the maintainer inbox'
+cat >"$TR/r4e.md" <<'EOF2'
+Finished the package.
+
+## Follow-ups
+- A fresh shepherd job is warranted on a host that has Docker and AWS access.
+EOF2
+reset_clone
+if "$GATE" external-prereq-fleet "$JOB" "$TR/r4e.md"; then
+  fail 'gate escalated fleet work just because it also names host access'
+fi
+echo '   gate escalated the external prerequisite and still blocked fleet work beside it'
+
 echo '== (e) PASS: an explicit override marker with a reason is the safety valve =='
 cat >"$TR/r5.md" <<'EOF'
 Fixed the bug and pushed.

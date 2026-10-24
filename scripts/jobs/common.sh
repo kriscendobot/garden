@@ -7796,6 +7796,27 @@ gauntlet_failed_stage_driver_owned() {
   report_has_orchestration_failure_marker "$report" || tada_failed "$report"
 }
 
+# followup_item_needs_external_access <item-text> — 0 iff one follow-up list
+# item is gated on host access or credentials the fleet does not have: it says
+# the work must happen "on a host/machine/account that has|with" Docker, AWS,
+# credentials, or similar access, or that it "requires|needs" Docker, AWS
+# access/credentials/account, maintainer credentials, or interactive login/MFA.
+# Such an item cannot be claimed off the board, so the completion gate escalates
+# it to the maintainer instead of blocking the job into a rerun. Deliberately
+# narrow: an item that also names a fleet role or job (conductor, shepherd,
+# gauntlet, a job, ...) is still fleet work. Grounding: the #1545 exo-dynamodb
+# report at 2026-10-24T05:51:51Z ("run the DynamoDB Local and isolated-IAM tests
+# on a host that has Docker and AWS access") was blocked here and rerun.
+followup_item_needs_external_access() {
+  local item
+  item="$(printf '%s' "${1:-}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+/ /g')"
+  printf '%s' "$item" | grep -Eq \
+'(conductor|shepherd|fixer|weaver|builder|designer|gauntlet|panel|jobs?)([^[:alnum:]_-]|$)' \
+    && return 1
+  printf '%s' "$item" | grep -Eq \
+'(on|from|in|via|with) (a|an|the|another) ([a-z0-9-]+ ){0,2}(host|machine|box|runner|environment|workstation|laptop|account)s? (that|which|where|with|holding|having)[^.]*(docker|aws|gcp|azure|kubernetes|credentials?|secrets?|api keys?|access|permissions?|gpus?|hardware)|(requires?|required|needs?|needing|requiring|gated on|blocked on) ([a-z0-9-]+ ){0,3}(docker|(real |live )?aws( access| credentials?| account| iam)?|(cloud|maintainer|human|production|prod) (credentials?|access)|credentials?|interactive (login|auth[a-z]*)|mfa)([^[:alnum:]_-]|$)'
+}
+
 # followups_prescribe_fleet_work <section-text> — 0 iff the follow-up section
 # prescribes new board-postable fleet work: a role/job to be posted, run, or
 # "warranted" (the pr910 "a conductor job is warranted" and pr876 "a fresh
@@ -7809,6 +7830,12 @@ gauntlet_failed_stage_driver_owned() {
 # in imperative position ("- Conduct next.", "Rebase onto llm") counts as
 # prescribed work too; a wrapped continuation line ("  merge decision is ...")
 # does not.
+#
+# A list item that only names an EXTERNAL prerequisite the fleet lacks (run X
+# "on a host that has Docker and AWS access", "requires real AWS credentials")
+# is skipped by the prose patterns below: no gardener can claim it, so it is a
+# maintainer item, not a successor to post (followup_item_needs_external_access).
+# The imperative-verb check above still applies to every item.
 followups_prescribe_fleet_work() {
   local normalized
   printf '%s\n' "${1:-}" \
@@ -7819,9 +7846,17 @@ followups_prescribe_fleet_work() {
   normalized="$(
     printf '%s\n' "${1:-}" \
       | sed -E '/^[[:space:]]*<!--/d; /^[[:space:]]*$/d' \
-      | tr '\n' ' ' \
+      | awk '
+          /^[[:space:]]*[-*•]/ { if (item != "") print item; item = $0; next }
+          { item = (item == "" ? $0 : item " " $0) }
+          END { if (item != "") print item }
+        ' \
       | sed -E 's/[[:space:]]+/ /g' \
-      | tr '[:upper:]' '[:lower:]'
+      | tr '[:upper:]' '[:lower:]' \
+      | while IFS= read -r item; do
+          followup_item_needs_external_access "$item" || printf '%s\n' "$item"
+        done \
+      | tr '\n' ' '
   )"
   printf '%s' "$normalized" | grep -Eq \
 'warrant|(should|must|needs?|need to|ought to|has to|have to)[[:space:]]+(be[[:space:]]+)?(a[[:space:]]+)?(post|dispatch|conduct|shepherd|weav|rebase|retcon|schedul|run|open|file|stage)|(post|dispatch|open|file|stage|schedule|run)[[:space:]]+(a|an|the|another)[[:space:]]+|then[[:space:]]+(conduct|shepherd|weave|rebase|run)|(a[[:space:]]+)?(fresh|new|another)[[:space:]]+(conductor|shepherd|fixer|weaver|builder|gauntlet|panel|job)'
