@@ -22,6 +22,7 @@ Also check whether `test/git-remote/capability.test.ts` "propagates a git failur
 Push follow-up commits, keep CI green, reply on review threads, leave the PR draft. When you finish, resume the gauntlet for one more round:
 `scripts/jobs/gauntlet.sh --resume-from-stage ...` as printed in the gauntlet report. If that is not possible, report it.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3670 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
