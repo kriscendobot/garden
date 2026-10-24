@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T03:06:15Z_
+_As of 2026-10-24T03:11:46Z_
 
 ## Latest
 
@@ -107,11 +105,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-24T02:39:46Z).
-> It was observed 128 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #129 (first seen 2026-10-16T17:37:14Z, latest 2026-10-24T03:09:26Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 129 times; this is ONE
+> coalesced notice that updates in place, not 129 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.277264s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.037074s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.036428s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.043507s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/review-docket/journal: p95=0.031419s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.044539s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1155,7 +1159,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 0 | $0.00 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 748 | $0.04 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 53.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1164,26 +1168,26 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (7)
-- [`kriscendobot-minion.town-pr144-review-ad16ad1a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr144-review-ad16ad1a-retro.md) — Retrospective on kriscendobot/minion.town PR #144 (primary: kriscendobot-mini...
+### todo (6)
+- [`endojs-endo-but-for-bots-pr1484-review-292b9e05-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1484-review-292b9e05-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1484 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr144-review-cb822aca-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr144-review-cb822aca-retro.md) — Retrospective on kriscendobot/minion.town PR #144 (primary: kriscendobot-mini...
+- [`kriscendobot-minion.town-pr201-review-f2094d04-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr201-review-f2094d04-retro.md) — Retrospective on kriscendobot/minion.town PR #201 (primary: kriscendobot-mini...
 - [`design-recursive-dynamodb-capabilities`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-recursive-dynamodb-capabilities.md) — Design recursively partitioned and attenuated DynamoDB capabilities
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`kriscendobot-minion.town-pr199-8bc23828-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-8bc23828-retro.md) — Retrospective on kriscendobot/minion.town PR #199 (primary: kriscendobot-mini...
-- [`kriscendobot-minion.town-pr218-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr218-gauntlet-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #218
 - [`ebfb-parcel-layer2-build-20261022`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-parcel-layer2-build-20261022.md) — Build: Parcel layer 2 (SES %InitialParcel% / %SharedParcel%), endojs/endo-but...
 
-### doin (2)
+### doin (3)
 - [`oros-health-watch-20261024-025008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261024-025008.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-six-rest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-fix-six-rest.md) — ---
+- [`kriscendobot-minion.town-pr218-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-10.md) — Gauntlet stage: FIX round 10 — kriscendobot/minion.town PR #218
 
-### tada (14827)
+### tada (14829)
+- [`kriscendobot-minion.town-pr144-review-ad16ad1a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr144-review-ad16ad1a-retro.md) — Cost
+- [`kriscendobot-minion.town-pr199-8bc23828-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr199-8bc23828-retro.md) — Cost
 - [`oros-health-checkup-20261024-025008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-checkup-20261024-025008.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-10.md) — Cost
 - [`minion-town-arc-press-20261024-025008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/minion-town-arc-press-20261024-025008.md) — Cost
-- [`claude-on-minion-town-press-20261024-025008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-press-20261024-025008.md) — Cost
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-fix-six`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1538-gauntlet-fix-six.md) — Cost
-- … and 14822 more
+- … and 14824 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1257,8 +1261,6 @@ worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control
 - [`build-endor-tui-phase-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-2.md) - [endor-tui Phase 2: minimal Rust CapTP client over the existing socket (recommended) or a manager-side adapter serving the bus-verb table?](https://github.com/endojs/endo-but-for-bots/pull/1526)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-minion.town-pr201-review-f2094d04-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr201-review-f2094d04-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #201 (primary: kriscendobot-mini...
-- [`endojs-endo-but-for-bots-pr1484-review-292b9e05-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1484-review-292b9e05-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1484 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1433-review-9f6935d5-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1433-review-9f6935d5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1433 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1477-review-071f4f54-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1477-review-071f4f54-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1477 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr774-review-bedb3ee0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr774-review-bedb3ee0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #774 (primary: endojs-endo-but-f...
