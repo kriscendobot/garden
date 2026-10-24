@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T12:21:21Z_
+_As of 2026-10-24T12:25:34Z_
 
 ## Latest
 
@@ -809,6 +807,16 @@ Delegation: **active**
 > Heal job heal-minion-town-8a3ce66 posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
 > Operations: context/operations/minion-town-screening.md
 
+- `kriscendobot-minion.town-pr218-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr218-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr218-gauntlet-halted.md)
+
+> Gauntlet kriscendobot-minion.town-pr218-gauntlet HALTED: panel stage reported prepass-failed without one non-empty exact-output block; refusing to dispatch a fixer without deterministic evidence.
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 16/17 · cost so far: $27.56
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --iteration 16 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 17 -> 19 (N is yours to choose).
+
 - `minion-town-pr-screening-paused-f6fe2b5` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-f6fe2b5.md)
 
 > minion.town screening PAUSED: merge f6fe2b522ca of [https://github.com/kriscendobot/minion.town/pull/200](https://github.com/kriscendobot/minion.town/pull/200) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/39617782849
@@ -1230,7 +1238,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.1M | $56.76 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 17.2M | $56.39 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 68.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1243,18 +1251,16 @@ worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`oros-health-checkup-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261024-122008.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
-- [`claude-on-minion-town-press-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261024-122008.md) — Press the Claude-on-minion.town arc forward
+### doin (1)
 - [`oros-health-watch-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261024-122008.md) — ---
-- [`minion-town-arc-press-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261024-122008.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (14919)
+### tada (14922)
+- [`minion-town-arc-press-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/minion-town-arc-press-20261024-122008.md) — Panel-head freshness
+- [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — HALTED
+- [`kriscendobot-minion.town-pr218-gauntlet-panel-16`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-16.md) — Cost
+- [`claude-on-minion-town-press-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-press-20261024-122008.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-948afcf9ded1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-948afcf9ded1.md) — rolling-deploy canary probe — round trip OK
-- [`improve-deadmail-completed-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-deadmail-completed-collision.md) — Report: improve-deadmail-completed-collision
-- [`canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024.md) — Cost
-- [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — review budget reached
-- … and 14914 more
+- … and 14917 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
