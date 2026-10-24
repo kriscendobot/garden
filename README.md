@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T04:08:04Z_
+_As of 2026-10-24T04:10:34Z_
 
 ## Latest
 
@@ -1194,7 +1194,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.0M | $10.06 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 2.0M | $5.48 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 57.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1206,18 +1206,17 @@ worst fetch p95 5.009225s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr221-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #221
-- [`kriscendobot-minion.town-pr218-gauntlet-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-11.md) — Gauntlet stage: FIX round 11 — kriscendobot/minion.town PR #218
 - [`fu-design-recursive-dynamodb-capabilities-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-design-recursive-dynamodb-capabilities-1.md) — ---
 
-### tada (14854)
+### tada (14855)
+- [`kriscendobot-minion.town-pr218-gauntlet-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-fix-11.md) — Cost
 - [`improve-merge-exact-panel-head-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-merge-exact-panel-head-gate.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-panel-1.md) — Cost
-- [`fu-design-recursive-dynamodb-capabilities-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/fu-design-recursive-dynamodb-capabilities-2.md) — Cost
-- … and 14849 more
+- … and 14850 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
