@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T05:49:37Z_
+_As of 2026-10-24T05:51:16Z_
 
 ## Latest
 
@@ -1215,7 +1215,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.0M | $28.28 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 5.1M | $29.80 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 60.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1224,11 +1224,15 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 5.131959s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (3)
+- [`oros-health-checkup-20261024-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261024-055009.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`minion-town-arc-press-20261024-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261024-055009.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (2)
+### doin (4)
 - [`finish-recursive-dynamodb-capabilities-1545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finish-recursive-dynamodb-capabilities-1545.md) — ---
+- [`oros-health-watch-20261024-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261024-055009.md) — ---
+- [`claude-on-minion-town-press-20261024-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261024-055009.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1542-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1542
 
 ### tada (14874)
