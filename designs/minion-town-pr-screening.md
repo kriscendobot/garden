@@ -2,7 +2,7 @@
 
 | Created | 2026-09-29 |
 | Author  | gardener (designer, job `design-minion-town-pr-screening-by-proxy`) |
-| Status  | Accepted; widened 2026-10-07; rebase matching corrected 2026-10-12 |
+| Status  | Accepted; widened 2026-10-07; exact-head re-panel added 2026-10-24 |
 
 ## Mandate
 
@@ -117,14 +117,17 @@ A PR **passes** only when every gate holds on that exact head:
    trigger) instead of passing.
    A conductor rebase may change hunk context without changing the PR's edits, so
    rebase matching hashes the filename, status, previous filename, and only the
-   added and removed patch lines. Context and hunk offsets are excluded. A screen
-   gauntlet posted by `proxy:screen` for this repository may run on live `main`:
-   the conductor already produced that exact live-base head, and pinning it again
-   would mutate the PR instead of reviewing it. The exception is constrained to
-   the deterministic screen-gauntlet name and producer; ordinary gauntlets still
-   require a frozen base. A halted screen gauntlet sends one coalesced maintainer
-   notice for the current head rather than leaving the proxy to log the same wait
-   forever.
+   added and removed patch lines. Context and hunk offsets are excluded. That
+   match classifies the transition but does not substitute for exact-head panel
+   coverage: the screen posts one deterministically named, single-panel-round
+   gauntlet (`max_iterations=1`) for the current head and no conductor until it
+   passes. A screen gauntlet posted by
+   `proxy:screen` for this repository may run on live `main`: the conductor already
+   produced that exact live-base head, and pinning it again would mutate the PR
+   instead of reviewing it. The exception is constrained to the deterministic
+   screen-gauntlet name and producer; ordinary gauntlets still require a frozen
+   base. A halted screen gauntlet sends one coalesced maintainer notice for the
+   current head rather than leaving the proxy to log the same wait forever.
 3. **CI.** The status rollup is terminal-green on the current head, with at least
    one check (`test.yml`). A PR with no checks does not pass.
 4. **No human veto.** No live `CHANGES_REQUESTED` review from any human. A
@@ -172,12 +175,12 @@ no state beyond the attestation files.
   the final policy gate; it waits for the parent merge and a weave/restack.
 - **Rebase through `safe-rebase.sh`, then CI freshness on the rebased head.** This
   step is unchanged from the ordinary path.
-- **Attestation gate at merge time.** An attestation file must exist for the
-  **post-rebase head**. A rebase that moved the head therefore stalls the job
-  with `awaiting re-screen`, and the next proxy tick screens the new head and
-  posts a fresh conductor. This matches the ratchet rule that rebasing
-  invalidates the attestation. The spine re-reads the human-veto gate
-  (touchpoint 4) at merge time.
+- **Attestation gate at merge time.** An attestation file and completed panel must
+  cover the **post-rebase head** exactly. A rebase that moved the head therefore
+  stalls the job with `awaiting re-screen`; the next proxy tick stages one
+  head-keyed panel and posts a fresh conductor only after that panel passes. This
+  matches the ratchet rule that rebasing invalidates the attestation. The spine
+  re-reads the human-veto gate (touchpoint 4) at merge time.
 - **Merge `--merge` only.** Never queue `--auto`, following the ratchet rule. The
   downstream-branch retention rule is unchanged.
 - **Log line:** `approval-bypass repo=… pr=… mode=screened-delegated-merge head=…`.
@@ -276,8 +279,10 @@ is the arming act, and until then the screener is inert.
 - A stacked child does not receive a merge conductor until its parent has merged
   and it has been woven onto the live-base line; the final merge gate independently
   requires live `main`.
-- An attestation exists and a conductor is posted on a full pass. A re-tick does
-  not create a duplicate conductor.
+- An attestation exists and a conductor is posted on an exact-head full pass. A
+  rebase-equivalent head instead receives one exact-head gauntlet and no
+  conductor; re-ticks create neither duplicate gauntlets nor doomed `-rN`
+  conductors.
 - The spine refuses a merge when the post-rebase head has no attestation, and
   merges when it has one. The spine never uses `--auto`.
 - A failed post-merge deploy pauses the delegation, posts the heal job, and sends

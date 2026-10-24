@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-10-07
+updated: 2026-10-24
 author: liaison, gardener
 ---
 
@@ -111,8 +111,9 @@ deterministic screen posts these conductor jobs (base
 isolated project checkout. The spine checks scope before any mutation, rebases,
 re-checks CI on the rebased head, and requires an attestation for the
 **post-rebase** head. `merge blocked: awaiting re-screen` means the rebase moved
-the head: finish and report it, because the proxy screens the new head and posts a
-fresh conductor. A frozen `main-<sha>` base is unfrozen before rebase; a PR still
+the head: finish and report it, because the proxy stages one panel for the new
+exact head and posts a fresh conductor only after that panel passes. A frozen
+`main-<sha>` base is unfrozen before rebase; a PR still
 based on a parent head is blocked until the parent merges and a weaver restacks it,
 and the final policy read requires live `main`. Never request maintainer approval on this path, never fall back to
 an ordinary merge, and never queue `--auto`. A human `CHANGES_REQUESTED` still

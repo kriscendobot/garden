@@ -1,6 +1,6 @@
 ---
 created: 2026-09-29
-updated: 2026-10-07
+updated: 2026-10-24
 author: gardener
 ---
 
@@ -77,10 +77,13 @@ without blocking the proxy. Logic lives in `scripts/jobs/screening/`
    3. CI terminal-green with at least one check (no checks, pending, or red waits);
    4. no human whose latest review is `CHANGES_REQUESTED` (bots and `kriscendobot` excluded);
    5. the compare response is complete (fewer than 300 files);
-   6. a completed feature gauntlet whose `panel_head` is this head, or a head
-      whose merge-base patch is identical with hunk offsets erased (a clean
-      rebase). With an in-flight gauntlet it waits; otherwise it records a
-      head-keyed gauntlet `kriscendobot-minion-town-pr<N>-screen-<sha8>-gauntlet`;
+   6. a completed feature gauntlet whose `panel_head` is this exact head. When
+      the merge-base patch matches a reviewed pre-rebase head with hunk offsets
+      erased, the screen classifies the move as a clean rebase but still records
+      one head-keyed gauntlet
+      `kriscendobot-minion-town-pr<N>-screen-<sha8>-gauntlet`. It waits while
+      that single-panel-round gauntlet is in flight and never posts a conductor
+      for the rebase-equivalent head;
    7. landing base: live `main` or a frozen `main-<sha>` base that the conductor
       can unfreeze. A child still based on its parent's head waits for the parent
       merge and a weave/restack;
@@ -97,9 +100,11 @@ without blocking the proxy. Logic lives in `scripts/jobs/screening/`
    That spine unfreezes a `main-<sha>` base and rebases onto live `main`.
    Its final policy read requires `baseRefName: main`, so a stale frozen or
    still-stacked base cannot merge even if an earlier attestation exists.
-   If that conductor finishes without merging while the head stays the same, the
-   screen re-posts it as `…-conduct-r2` and then `…-conduct-r3`. After the third,
-   it sends one *stalled* notice to the maintainer.
+   If an exact-head conductor finishes without merging while the head stays the
+   same, the screen may re-post it as `…-conduct-r2` and then `…-conduct-r3`.
+   Rebase-equivalent heads receive no conductor retry until their exact-head
+   panel completes. After the third exact-head attempt, it sends one *stalled*
+   notice to the maintainer.
 
 The gauntlet driver stamps `panel_head` on its record when a panel passes, and
 copies `repo`, `pr_number`, and `panel_head` into the completed report. Gauntlets

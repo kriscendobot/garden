@@ -273,6 +273,26 @@ PR: {URL}/pull/{number}
     actions.append(dict(kind='post', base=base, body=body))
 
 
+def exact_head_gauntlet(number, head, in_flight, reason):
+    """Stage at most one panel run for this exact head before a conductor."""
+    if in_flight:
+        return note(f'#{number}: gauntlet in flight')
+    gauntlet_base = f'kriscendobot-minion-town-pr{number}-screen-{head[:8]}-gauntlet'
+    completed_gauntlet = TADA.get(gauntlet_base)
+    if (completed_gauntlet is not None
+            and fields(completed_gauntlet).get('gauntlet-status') == 'halted'):
+        notify(f'gauntlet-halted-pr{number}-{head[:7]}',
+               f'minion.town screen BLOCKED {URL}/pull/{number} (head {head[:11]}): '
+               f'screen gauntlet {gauntlet_base} halted. Read '
+               f'{completed_gauntlet.relative_to(JOURNAL)} and resume or replace the gauntlet; '
+               'the proxy cannot produce a panel verdict for this head.')
+    if (not on_board(gauntlet_base)
+            and not (JOURNAL / f'jobs/gauntlet/{gauntlet_base}.md').is_file()):
+        actions.append(dict(kind='gauntlet', base=gauntlet_base,
+                            url=f'{URL}/pull/{number}', max_iterations=1))
+    note(f'#{number}: {reason}; exact-head panel required')
+
+
 def screen(value, pull):
     number, head, pr_base = pull['number'], pull['headRefOid'], pull.get('baseRefName')
     if (not isinstance(pr_base, str) or not pr_base
@@ -289,7 +309,13 @@ def screen(value, pull):
         return note(f'#{number}: delegation paused')
     target = attestation_path(JOURNAL, number, head)
     if target.is_file():
-        return conductor(number, head, read_json(target).get('heal'))
+        attested = read_json(target)
+        # Records written before exact panel coverage became a conductor gate may
+        # attest only patch-equivalence with a reviewed pre-rebase head.  Such a
+        # record is useful evidence for choosing the deterministic re-panel path,
+        # but can never authorize another conductor that the gate must reject.
+        if attested.get('panel_match') == 'exact':
+            return conductor(number, head, attested.get('heal'))
     if any((target.parent / f'{kind}-{head}.json').is_file()
            for kind in ('escalated', 'blocked')):
         return
@@ -310,25 +336,15 @@ def screen(value, pull):
                'policy escalation; split the change or otherwise bring it below the limit.')
         return
     verdict = next(((panel, path, 'exact') for panel, path in heads if panel == head), None)
+    rebase_verdict = None
     if verdict is None and heads:
         fingerprint = patch_fingerprint(pr_base, head)
-        verdict = next(((panel, path, 'rebase') for panel, path in heads
-                        if fingerprint and patch_fingerprint(pr_base, panel) == fingerprint), None)
+        rebase_verdict = next(((panel, path) for panel, path in heads
+                               if fingerprint and patch_fingerprint(pr_base, panel) == fingerprint), None)
     if verdict is None:
-        if in_flight:
-            return note(f'#{number}: gauntlet in flight')
-        gauntlet_base = f'kriscendobot-minion-town-pr{number}-screen-{head[:8]}-gauntlet'
-        completed_gauntlet = TADA.get(gauntlet_base)
-        if (completed_gauntlet is not None
-                and fields(completed_gauntlet).get('gauntlet-status') == 'halted'):
-            notify(f'gauntlet-halted-pr{number}-{head[:7]}',
-                   f'minion.town screen BLOCKED {URL}/pull/{number} (head {head[:11]}): '
-                   f'screen gauntlet {gauntlet_base} halted. Read '
-                   f'{completed_gauntlet.relative_to(JOURNAL)} and resume or replace the gauntlet; '
-                   'the proxy cannot produce a panel verdict for this head.')
-        if not on_board(gauntlet_base) and not (JOURNAL / f'jobs/gauntlet/{gauntlet_base}.md').is_file():
-            actions.append(dict(kind='gauntlet', base=gauntlet_base, url=f'{URL}/pull/{number}'))
-        return note(f'#{number}: no panel verdict at this head')
+        reason = ('rebase-equivalent to panel head ' + rebase_verdict[0][:11]
+                  if rebase_verdict else 'no panel verdict at this head')
+        return exact_head_gauntlet(number, head, in_flight, reason)
     if pr_base != LIVE_BASE and not re.fullmatch(
             rf'{re.escape(LIVE_BASE)}-[0-9a-f]{{4,40}}', pr_base):
         return note(f'#{number}: stacked on {pr_base}; awaiting parent merge and weave onto {LIVE_BASE}')
@@ -340,7 +356,7 @@ def screen(value, pull):
     write_json(target, dict(schema=2, repository=REPOSITORY, pull_request=number, head=head,
                             base=pr_base,
                             screened_at=iso(NOW), gauntlet=verdict[1], panel_head=verdict[0],
-                            panel_match=verdict[2], ci=checks, heal=heal, **production))
+                            panel_match='exact', ci=checks, heal=heal, **production))
     note(f'#{number}: screened at {head[:11]}')
     conductor(number, head, heal)
 

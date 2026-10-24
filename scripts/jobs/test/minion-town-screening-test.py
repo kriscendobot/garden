@@ -71,8 +71,14 @@ sys.exit(1)
 
 POST = '''#!/bin/bash
 set -euo pipefail
-base="$1"; [ "$base" = --by ] && { shift 2; base="$1"; }
+max_iterations=""
+while [[ "${1:-}" == --* ]]; do
+  [ "$1" != --max-iterations ] || max_iterations="$2"
+  shift 2
+done
+base="$1"
 echo "$(basename "$0") $base" >> "$SCREEN_FIXTURE/posts"
+[ -z "$max_iterations" ] || echo "$max_iterations" > "$SCREEN_FIXTURE/max-iterations-$base"
 [ -f "${2:-}" ] && cp "$2" "$SCREEN_FIXTURE/body-$base"
 seed="$SCREEN_FIXTURE/seed"
 git -C "$seed" pull -q --rebase origin journal2
@@ -265,7 +271,7 @@ class Screening(unittest.TestCase):
         notices = list((self.journal / 'inbox/maintainer/unread').glob('minion-town-pr-screening-stalled-*'))
         self.assertEqual(len(notices), 1)
 
-    def test_rebase_equivalent_panel_head_passes(self):
+    def test_rebase_equivalent_panel_head_gets_one_exact_head_panel_before_conductor(self):
         self.gauntlet(OTHER); (self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md')
         self.pull['headRefOid'] = HEAD
         (self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md').write_text(
@@ -277,9 +283,55 @@ class Screening(unittest.TestCase):
         self.configuration['compare'][OTHER] = dict(merge_base_commit=dict(sha='f' * 40), files=[
             dict(filename='src/app.ts', status='modified',
                  patch='@@ -9,3 +9,3 @@\n other context\n-old\n+new\n other tail')])
+        result = self.tick()
+        gauntlet_base = f'kriscendobot-minion-town-pr17-screen-{HEAD[:8]}-gauntlet'
+        self.assertFalse(self.attested())
+        self.assertEqual(self.posts(), [f'post-gauntlet {gauntlet_base}'])
+        self.assertEqual((self.directory / f'max-iterations-{gauntlet_base}').read_text().strip(), '1')
+        self.assertIn('rebase-equivalent', result.stderr)
+
+        # A re-tick while the deterministic head-keyed panel is queued neither
+        # duplicates it nor starts a conductor certain to fail the freshness gate.
+        self.tick()
+        self.assertEqual(self.posts(), [f'post-gauntlet {gauntlet_base}'])
+
+        # Once that one panel covers the exact rebased head, the screen may attest
+        # it and post the first conductor.
+        queued = self.journal / f'jobs/todo/{gauntlet_base}.md'
+        completed = self.journal / f'jobs/tada/2026/10/24/{gauntlet_base}.md'
+        completed.parent.mkdir(parents=True, exist_ok=True)
+        queued.unlink()
+        completed.write_text(f'gauntlet-status: complete\nrepo: {policy.REPOSITORY}\n'
+                             f'pr_number: 17\npanel_head: {HEAD}\n')
+        self.publish()
         self.tick()
         record = json.loads((self.journal / policy.SCREENINGS / '17' / f'{HEAD}.json').read_text())
-        self.assertEqual(record['panel_match'], 'rebase')
+        self.assertEqual(record['panel_match'], 'exact')
+        self.assertEqual(self.posts(), [f'post-gauntlet {gauntlet_base}',
+                                        f'post-job screen-minion-town-pr17-{HEAD[:7]}-conduct'])
+
+    def test_legacy_rebase_attestation_never_reposts_refused_conductors(self):
+        original = self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md'
+        original.write_text(f'gauntlet-status: complete\nrepo: {policy.REPOSITORY}\n'
+                            f'pr_number: 17\npanel_head: {OTHER}\n')
+        target = self.journal / policy.SCREENINGS / '17' / f'{HEAD}.json'
+        write_json(target, dict(schema=2, repository=policy.REPOSITORY, pull_request=17,
+                                head=HEAD, base='main', panel_head=OTHER,
+                                panel_match='rebase', heal=None))
+        first = f'screen-minion-town-pr17-{HEAD[:7]}-conduct'
+        done = self.journal / f'jobs/tada/2026/10/24/{first}.md'
+        done.parent.mkdir(parents=True, exist_ok=True)
+        done.write_text('orchestration-failed: true\n')
+        self.publish()
+        self.configuration['compare'][HEAD] = dict(files=[
+            dict(filename='src/app.ts', status='modified', patch=PATCH)])
+        self.configuration['compare'][OTHER] = dict(files=[
+            dict(filename='src/app.ts', status='modified', patch=PATCH)])
+
+        self.tick()
+        gauntlet = f'post-gauntlet kriscendobot-minion-town-pr17-screen-{HEAD[:8]}-gauntlet'
+        self.assertEqual(self.posts(), [gauntlet])
+        self.assertFalse(any('-conduct-r' in post for post in self.posts()))
 
     def test_stale_gauntlet_head_requests_a_gauntlet(self):
         (self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md').write_text(

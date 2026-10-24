@@ -82,6 +82,7 @@ for attempt in $(seq 1 20); do
           rm -f "$body" ;;
         gauntlet)
           GARDEN_SENDER=proxy:screen "$GARDEN_SCREEN_POST_GAUNTLET" --by proxy:screen \
+            --max-iterations "$(jq -r .max_iterations <<<"$action")" \
             "$(jq -r .base <<<"$action")" "$(jq -r .url <<<"$action")" >/dev/null \
             || log "WARN: gauntlet $(jq -r .base <<<"$action") failed; retrying next tick" ;;
       esac
