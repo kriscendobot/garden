@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T16:06:57Z_
+_As of 2026-10-24T16:07:40Z_
 
 ## Latest
 
@@ -529,6 +529,44 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
+
+- `msg-accountant-weekly-20261024-160509-6764902e87b9` — from gardener:accountant-weekly-20261024-160509, reply_to `accountant-weekly-20261024-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261024-160509-6764902e87b9.md)
+
+> # Weekly accountant statement and proposal — week of 2026-10-24T03:00:00Z
+>
+> The carried-forward slate is in force. As of 2026-10-24T16:05:59Z, total foreman-drawn allocation is 460M tokens at the 90% planning ceiling, authorized by kriskowal under message 20261002T043717Z-c66a59.
+>
+> ## Current slices and spend
+>
+> | rank | arc | slice | spend | remaining |
+> | ---: | --- | ---: | ---: | ---: |
+> | 1 | minion-town-mcp-ocapn | 131.1M | 63.6K | 131M |
+> | 2 | minion-town-git-remote | 87.4M | 862.1K | 86.5M |
+> | 3 | minion-town-ui | 65.55M | 0 | 65.55M |
+> | 4 | endo-ocapn-background | 87.4M | 57K | 87.3M |
+> | 5 | moonshots | 34.96M | 0 | 34.96M |
+> | 6 | garden-upkeep | 21.85M | 0 | 21.85M |
+> | 7 | garden-book | 5M | 0 | 5M |
+> | 8 | endo-backlog | 8.74M | 0 | 8.74M |
+> | 9 | unallocated | 18M | 1.8M | 16.1M |
+>
+> No arc has held plans or overshoot. There are no open budget requests.
+>
+> ## Capacity
+>
+> - claude-endolin1: active, calibrated 271M weekly tokens; current utilization unavailable.
+> - claude-oros: active, calibrated 180M weekly tokens; current utilization unavailable. Credits remain unknown and are treated as none pending confirmation.
+> - codex-endolin: active percent-metered pool, 26% used. Its token capacity remains uncalibrated; the carried-forward total retains the provisional 60.7M fit from last week rather than inventing a new estimate.
+> - Reset-credit inventory records one inferred codex-endolin credit expiring 2026-11-06. I have not added unknown credit capacity to the slate. Standing policy is to use it mid-week before expiry after spending toward 90%; please confirm the credit still exists.
+> - claude-endolin2 remains retired and contributes no capacity.
+>
+> Next reset: 2026-10-31T03:00:00Z.
+>
+> ## Proposal
+>
+> Keep the approved 2026-10-02 ranking and the carried-forward 460M total unchanged for this week. The eight named slices preserve the approved 30/20/15/20/8/5/2 distribution over 95% of total, with the standing 5M garden-book slice taken from the reserve; 18M remains unallocated. This honors the standing instruction to distribute capacity to the approved ranking each reset, applies the 90% ceiling, and does not count an unconfirmed reset-credit amount.
+>
+> Reply with any desired re-slice. If there is no reply, the carried-forward slate above remains in force.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal.md)
 
