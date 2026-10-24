@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T23:04:48Z_
+_As of 2026-10-24T23:06:58Z_
 
 ## Latest
 
@@ -1320,13 +1320,13 @@ worst fetch p95 10.193526s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### doin (0)
 (none)
 
-### tada (14980)
+### tada (14981)
+- [`kriscendobot-minion.town-pr222-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-3.md) — PR #222 panel round 3: style pre-pass failed, no jurors dispatched
 - [`kriscendobot-minion.town-pr222-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-fix-2.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion.town-pr222-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-clean.md) — Cost
-- … and 14975 more
+- … and 14976 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
