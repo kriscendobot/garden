@@ -29,6 +29,7 @@ improved_by: 05e02d8f4d1 (scripts/jobs/assert-panel-head-fresh.sh, scripts/jobs/
 
 
 
+
 A substantive fixer change lands after the last panel reviewed the PR and reaches maintainer review without a fresh correctness pass over the new head, leaving newly introduced state invariants for the maintainer to reconstruct.
 
 **Threshold rationale:** Held below the dispatch floor. The cluster now has count=2 across PRs #475 and
@@ -71,3 +72,24 @@ section 6, do not dispatch a second improvement round on autopilot. A sanctioned
 round should inspect the approval/conductor boundary and require an exact-head
 passing panel (or an explicit maintainer override) after a gauntlet halts before
 panel.
+
+**Threshold rationale:** Hold without a second improvement dispatch (2026-10-24, retro of
+endojs-endo-but-for-bots-pr1394-review-fa16249a). The cluster is already past
+the floor and already carries improvement job
+`review-improve-post-gauntlet-fixer-change-unreviewed`; PR #1349 genuinely
+reopened it after that improvement and triggered the maintainer alert. This new
+member is another post-improvement instance while the cluster is open, so the
+review-retrospective recurrence rule forbids starting a second round on
+autopilot. Two sibling Parcel-stack retros (#774 and #1393) have also joined
+the reopened cluster, reinforcing the same halt-before-panel seam.
+
+The instance sharpens the existing diagnosis. The exact-head sensor eventually
+worked on the review-response job, but too late. The Parcel pivot staged a
+gauntlet that halted before panel, its restack handed off to CI shepherding, and
+the terminal shepherd made no new commit. No owner at the halt-to-handoff seam
+restored the missing panel stage before human review. A maintainer-sanctioned
+next improvement should make unresolved exact-head coverage durable across
+gauntlet halts and successor handoffs, and should require the terminal successor
+to restage or explicitly block on panel coverage even when that successor itself
+does not push a commit. Re-litigate both this sequence (7516782577 to 991e943649)
+and all seven earlier members; retain metadata-only and equal-head controls.
