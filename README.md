@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T04:42:21Z_
+_As of 2026-10-24T04:45:33Z_
 
 ## Latest
 
@@ -852,6 +850,13 @@ Delegation: **active**
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 2 (target 2): subscription claude-oros spend=57975723 cap=180000000 pace-bias=0 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.6401(ramp) target=2
 
+- `endojs-endo-but-for-bots-pr1546-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1546-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1546-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1546-gauntlet HALTED: PR [endojs/endo-but-for-bots#1546](https://github.com/endojs/endo-but-for-bots/issues/1546) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #1546') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1546-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `20261021T161440Z-f4b7c7` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T161440Z-f4b7c7.md)
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
@@ -1197,7 +1202,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.4M | $15.61 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 3.5M | $18.26 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 59.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1215,13 +1220,13 @@ worst fetch p95 5.131959s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`endojs-endo-but-for-bots-ci-ubuntu2604-graphviz-tred`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ci-ubuntu2604-graphviz-tred.md) — Fix depcheck build on ubuntu-26.04: graphviz tred missing
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr221-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #221
 
-### tada (14863)
+### tada (14864)
+- [`endojs-endo-but-for-bots-pr1546-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1546-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1546-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr221-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-fix-3.md) — Cost
 - [`fu-design-recursive-dynamodb-capabilities-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/fu-design-recursive-dynamodb-capabilities-1.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-65ed9070fc5b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-65ed9070fc5b.md) — rolling-deploy canary probe — round trip OK
-- [`kriscendobot-minion.town-pr221-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-panel-3.md) — Cost
-- … and 14858 more
+- … and 14859 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
