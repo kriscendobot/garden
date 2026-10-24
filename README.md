@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T03:40:59Z_
+_As of 2026-10-24T03:43:57Z_
 
 ## Latest
 
@@ -1007,6 +1005,10 @@ Delegation: **active**
 > - Phase 7 (the endo-claude acceptance loop) is unblocked for its build step.
 > - Phase 8 still needs your decision on Open Question 4: a daemon `provideHttpClient` formula or the `@endo/fetch` plugin.
 
+- `msg-fu-design-recursive-dynamodb-capabilities-1-8dd2b123a8c7` — from gardener:fu-design-recursive-dynamodb-capabilities-1, reply_to `fu-design-recursive-dynamodb-capabilities-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fu-design-recursive-dynamodb-capabilities-1-8dd2b123a8c7.md)
+
+> The implementation job names landed design `designs/recursive-dynamodb-capabilities.md`, but origin/llm at d5ac41980a does not contain that file, no remote branch/PR matching recursive DynamoDB is visible, and journal job `design-recursive-dynamodb-capabilities` is still parked under `jobs/plan/` with `gate: deferred`. Should I implement from another design/branch, or should this implementation wait for that design to be completed and landed?
+
 - `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #36 (first seen 2026-10-09T02:17:23Z, latest 2026-10-17T23:45:08Z).
@@ -1166,7 +1168,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 611.7k | $0.59 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 661.9k | $0.15 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 54.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1178,18 +1180,16 @@ worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
-- [`fu-design-recursive-dynamodb-capabilities-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-design-recursive-dynamodb-capabilities-2.md) — ---
-- [`kriscendobot-minion.town-pr218-gauntlet-panel-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-panel-11.md) — Gauntlet stage: PANEL round 11 — kriscendobot/minion.town PR #218
+### doin (1)
 - [`fu-design-recursive-dynamodb-capabilities-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-design-recursive-dynamodb-capabilities-1.md) — ---
 
-### tada (14847)
+### tada (14850)
+- [`fu-design-recursive-dynamodb-capabilities-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/fu-design-recursive-dynamodb-capabilities-2.md) — Cost
+- [`kriscendobot-minion.town-pr218-gauntlet-panel-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-11.md) — Cost
+- [`kriscendobot-minion.town-pr221-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr221-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr221-gauntlet-viability.md) — Cost
 - [`design-recursive-dynamodb-capabilities`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/design-recursive-dynamodb-capabilities.md) — Follow-ups
-- [`endojs-endo-but-for-bots-pr1393-review-9416ed93-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1393-review-9416ed93-retro.md) — Retrospective: endojs/endo-but-for-bots#1393, review 5610193365
-- [`kriscendobot-minion.town-pr218-gauntlet-fix-10`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-fix-10.md) — Cost
-- [`endojs-endo-but-for-bots-pr1394-review-fa16249a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1394-review-fa16249a-retro.md) — Cost
-- … and 14842 more
+- … and 14845 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1278,6 +1278,7 @@ worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
+- [`migrate-coupons-onto-exo-dynamodb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-coupons-onto-exo-dynamodb.md) — awaiting `build-recursive-dynamodb-capabilities` · ---
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`build-minion-town-guest-coupons-phase1-rest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-guest-coupons-phase1-rest.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/199` · Build the rest of guest-coupons phase 1 on kriscendobot/minion.town
