@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T20:28:47Z_
+_As of 2026-10-24T20:30:52Z_
 
 ## Latest
 
@@ -1301,7 +1301,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 24.6M | $80.13 _(notional, rate-card)_ | 9% of 271.0M (ok) |
+| Claude | 25.0M | $82.31 _(notional, rate-card)_ | 9% of 271.0M (ok) |
 | Codex | 79.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1313,8 +1313,8 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1367-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1367-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1367
 
 ### tada (14962)
 - [`endojs-endo-but-for-bots-pr1367-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-gauntlet-fix-3.md) — Gauntlet FIX round 3 — endojs/endo-but-for-bots#1367: fix pushed, CI green
