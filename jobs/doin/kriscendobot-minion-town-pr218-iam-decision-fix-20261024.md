@@ -25,3 +25,13 @@ does not review individual minion.town PRs; the arc supervisor decides. The supe
 
 Push follow-up commits with safe-push-pr-head.sh, keep CI green, leave the PR draft. When you finish, resume the gauntlet for two rounds:
 `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --add-rounds 2`. If that fails, report why.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-24T05:53:49Z
