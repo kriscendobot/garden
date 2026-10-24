@@ -1,2 +1,2 @@
-base: improve-design-build-dispatch
+base: improve-followup-external-prerequisites
 identity: mentor:scripts/jobs/assert-followup-posted.sh
