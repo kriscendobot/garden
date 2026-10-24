@@ -1,5 +1,5 @@
 cadence: weekly-at-Sat-09:00-America/Los_Angeles
-last_dispatched: 2026-10-17T16:00:00Z
+last_dispatched: 2026-10-24T16:00:00Z
 job_basename_prefix: accountant-weekly
 handler-timeout: 14000
 ---
