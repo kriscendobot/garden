@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T21:54:27Z_
+_As of 2026-10-24T22:00:34Z_
 
 ## Latest
 
@@ -1315,17 +1313,16 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`oros-health-watch-20261024-213514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261024-213514.md) — ---
+### doin (1)
 - [`kriscendobot-minion.town-pr222-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr222-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #222
 
-### tada (14973)
+### tada (14974)
+- [`oros-health-watch-20261024-213514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-watch-20261024-213514.md) — Cost
 - [`endojs-endo-but-for-bots-pr1504-weave-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1504-weave-20261024.md) — Cost
 - [`oros-health-checkup-20261024-213514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-checkup-20261024-213514.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-viability.md) — Cost
 - [`heal-minion-town-c104813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/heal-minion-town-c104813.md) — Cost
-- [`fix-screen-conductor-budget-pre-attestation-refusals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/fix-screen-conductor-budget-pre-attestation-refusals.md) — Cost
-- … and 14968 more
+- … and 14969 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
