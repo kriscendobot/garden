@@ -72,10 +72,12 @@ verify_posted() {  # verify_posted <base>
   local base="$1" dir="$GARDEN_DEADMAIL_VERIFY_CLONE" sub
   ensure_clone "$dir"
   journal_fetch "$dir" 0 >/dev/null 2>&1 || return 1
-  for sub in todo doin tada; do
+  for sub in todo doin; do
     git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
-  return 1
+  # Completions are date-sharded (jobs/tada/<yyyy>/<mm>/<dd>/<base>.md); search
+  # the remote tree exhaustively rather than a retired flat path.
+  tada_find_tree "$dir" "origin/$JOURNAL_BRANCH" "$base" >/dev/null
 }
 
 # Strip a dispatched-tick timestamp suffix (-YYYYMMDD-HHMMSS) from a recipient
@@ -210,13 +212,23 @@ for f in $(list_jobs "$DIR" inbox/dead); do
   # The if/else (not `if ! …`) captures post-job's REAL exit in the else branch:
   # `! cmd` would clobber $? to the negation, losing timeout's 124.
   err="$(mktemp "${TMPDIR:-/tmp}/garden-deadmail-err.XXXXXX")"
+  collided=false
   if GARDEN_CLONE_LOCK_SOFT=1 \
     GARDEN_LOCK_SOFT_WAIT="$GARDEN_DEADMAIL_POST_LOCK_WAIT" \
     timeout "${GARDEN_POST_TIMEOUT:-120}" "$POST_JOB" "$base" "$body" >/dev/null 2>"$err"; then
     rm -f "$body" "$err"
   else
     rc=$?
-    if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+    if [ "$rc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ]; then
+      # The deterministic base already COMPLETED: an earlier tick promoted this
+      # entry and the promoted job finished, but the retire never landed (lost
+      # push race, crash between post and retire). That is a terminal, idempotent
+      # promotion, not a failure to retry every tick. Fall through to the
+      # verify-then-retire path; if the completion cannot be confirmed on the
+      # remote, the entry stays queued exactly as before.
+      collided=true
+      rm -f "$body" "$err"
+    elif [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
       # A live producer lock or another temporary journal outage is routine for
       # this courtesy timer. Leave the entry queued, stop this tick, and retry
       # quietly next time. In particular, do not promote clone_lock's captured
@@ -234,16 +246,22 @@ for f in $(list_jobs "$DIR" inbox/dead); do
     else
       log "WARN post of '$base' failed (rc=$rc); leaving dead-mail $msgid for the next tick"
     fi
-    [ -s "$err" ] && log "post-job stderr for '$base': $(tr '\n' ' ' < "$err")"
-    rm -f "$body" "$err"
-    continue
+    if [ "$collided" = false ]; then
+      [ -s "$err" ] && log "post-job stderr for '$base': $(tr '\n' ' ' < "$err")"
+      rm -f "$body" "$err"
+      continue
+    fi
   fi
 
   # Guard the retire: only `git rm` the dead-mail entry once the promoted job is
   # confirmed reachable on origin/$JOURNAL_BRANCH. post-job may report success while
   # its push lost a CAS race; retiring on that false positive would drop the intent.
   if ! verify_posted "$base"; then
-    log "post of '$base' reported success but job not yet on origin/$JOURNAL_BRANCH; leaving dead-mail $msgid for the next tick"
+    if [ "$collided" = true ]; then
+      log "post of '$base' collided with a completed job, but it is not yet reachable on origin/$JOURNAL_BRANCH; leaving dead-mail $msgid for the next tick"
+    else
+      log "post of '$base' reported success but job not yet on origin/$JOURNAL_BRANCH; leaving dead-mail $msgid for the next tick"
+    fi
     continue
   fi
 
@@ -252,7 +270,12 @@ for f in $(list_jobs "$DIR" inbox/dead); do
     sync_clone "$DIR"
     [ -e "$DIR/inbox/dead/$f" ] || break   # already retired by another host
     git -C "$DIR" rm -q "inbox/dead/$f"
-    if commit_and_push "$DIR" "deadmail: promoted $msgid → $base ($GARDEN)"; then
+    if [ "$collided" = true ]; then
+      msg="deadmail: retired $msgid — $base already completed ($GARDEN)"
+    else
+      msg="deadmail: promoted $msgid → $base ($GARDEN)"
+    fi
+    if commit_and_push "$DIR" "$msg"; then
       promoted=$((promoted+1)); break
     fi
     log "retire of dead-mail $msgid lost a push race (attempt $attempt); retrying"
