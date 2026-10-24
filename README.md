@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T07:00:14Z_
+_As of 2026-10-24T07:04:22Z_
 
 ## Latest
 
@@ -1216,8 +1214,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.2M | $27.53 _(notional, rate-card)_ | 3% of 271.0M (ok) |
-| Codex | 63.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 9.4M | $28.97 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Codex | 63.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1228,16 +1226,17 @@ worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegat
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1542-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1542-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1542
+### doin (2)
+- [`kriscendobot-minion.town-pr218-gauntlet-fix-13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-13.md) — Gauntlet stage: FIX round 13 — kriscendobot/minion.town PR #218
+- [`endojs-endo-but-for-bots-pr1542-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1542-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1542
 
-### tada (14892)
+### tada (14893)
+- [`endojs-endo-but-for-bots-pr1542-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-13.md) — Cost
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-fix-3.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-fix-12.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-879c67ebef05`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-879c67ebef05.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1542-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-panel-3.md) — Cost
-- … and 14887 more
+- … and 14888 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
