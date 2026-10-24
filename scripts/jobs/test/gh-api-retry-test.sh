@@ -43,6 +43,10 @@ unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' |
 # Keep the retries instant: a zero backoff window means the loop spins with no real
 # sleep, so the test is fast and clock-independent.
 export GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
+# The scrub above dropped GARDEN_TEST, so the `bash -c` callers below are not a
+# recognized test context; keep the REST budget's rate_limit sample out of the
+# stub call counts (gh-rest-budget-test.sh covers the budget).
+export GARDEN_GH_REST_BUDGET=0
 
 # gh_api_retry latches primary-quota refusals into the host-shared cooldown dir;
 # keep this suite's latches in a private dir (never the checkout's .garden-state).

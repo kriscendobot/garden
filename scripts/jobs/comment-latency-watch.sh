@@ -279,9 +279,15 @@ if api_cooldown_active rest; then
   [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
   exit 0
 fi
+# A low-priority sweep: once the host's REST core budget is down to its reserve,
+# leave the remaining quota to the watchers that acknowledge comments.
+if gh_rest_budget_defer comment-latency-watch; then
+  [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
+  exit 0
+fi
 collect_sources "$since" > "$rows"
 if [ "$PRIMARY_QUOTA_HIT" -eq 1 ]; then
-  secs="$(api_primary_quota_secs)"
+  secs="$(api_primary_quota_secs rest)"
   if start_api_cooldown "comment-latency-watch:primary-quota" "$secs"; then
     log "WARN: latency source for ${PRIMARY_QUOTA_SOURCE:-unknown source} hit GitHub primary quota exhaustion; cooling REST gh-api watchers for ${secs}s and stopping this sweep"
   fi

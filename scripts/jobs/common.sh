@@ -1160,11 +1160,21 @@ _api_cooldown_max_secs() {  # echo the cap for an explicitly REQUESTED window
 # reset and the failing response does not reliably expose the reset header; clamped to
 # the requested-window cap. Any watcher that classifies a primary-quota trip passes
 # this to start_api_cooldown so the whole host waits out the quota, not a 300s blip.
+#
+# api_primary_quota_secs rest — the same window, RESET-AWARE for the REST core
+# bucket: when the host REST budget (see _gh_rest_budget_admit_locked) holds a
+# sample whose core reset is still ahead, the window ends at that reset plus
+# GARDEN_GH_REST_RESET_SLACK_SECS instead of a blind hour, never longer than the
+# blind window. Without usable metadata it falls back to the blind window. Other
+# scopes (and no scope) never consult it: the GraphQL bucket resets on its own clock.
 api_primary_quota_secs() {
-  local v="${GARDEN_API_PRIMARY_QUOTA_SECS:-3600}" cap; cap="$(_api_cooldown_max_secs)"
+  local v="${GARDEN_API_PRIMARY_QUOTA_SECS:-3600}" cap r; cap="$(_api_cooldown_max_secs)"
   case "$v" in ''|*[!0-9]*) v=3600 ;; esac
   [ "$v" -ge 1 ]     || v=1
   [ "$v" -le "$cap" ] || v="$cap"
+  if [ "${1:-}" = rest ] && r="$(_gh_rest_budget_reset_secs)" && [ "$r" -lt "$v" ]; then
+    v="$r"
+  fi
   printf '%s' "$v"
 }
 
@@ -6386,6 +6396,11 @@ _gh_api_admit() {
     log "WARN: gh api $label admission lock busy for ${wait}s; issuing the request unserialized"
     return 0
   fi
+  # A REST call that no latch covers takes its budget step: a sampled zero opens
+  # the primary-quota latch here, and the re-check below refuses under it.
+  if [ "$need" = rest ] && ! _api_cooldown_live_locked "${markers[@]}" >/dev/null; then
+    _gh_rest_budget_admit_locked "$fd" || true
+  fi
   if st="$(_api_cooldown_live_locked "${markers[@]}")"; then
     remaining="${st%%$'\t'*}"
     rest="${st#*$'\t'}"
@@ -6411,6 +6426,208 @@ _gh_api_admit() {
     return 1
   fi
   _GH_API_ADMIT_FD="$fd"
+}
+
+# --- host-wide REST core admission budget -------------------------------------
+# The single-flight admission below only learns of the primary quota when GitHub
+# REFUSES a call, and the latch then costs the host up to an hour of REST reads.
+# The comment watcher still ran the core bucket dry at 2026-10-24 14:27:38, with
+# every lower-value sweep spending from the same bucket until the refusal. The
+# budget makes admission see the quota coming:
+#   * it records the core bucket's limit/remaining/reset from `gh api rate_limit`
+#     (an endpoint GitHub does not charge against the quota) at most every
+#     GARDEN_GH_REST_BUDGET_REFRESH_SECS (default 120s), and every
+#     GARDEN_GH_REST_BUDGET_EDGE_REFRESH_SECS (default 20s) once the estimate is
+#     inside the low-priority reserve or the sampled reset has passed. The sample
+#     is account-wide, so it also corrects for calls made outside gh_api_retry;
+#   * it decrements the estimate for every REST attempt _gh_api_admit admits
+#     under the lock (a `--paginate` read is counted once; the next sample
+#     corrects the undercount);
+#   * gh_rest_budget_defer lets a low-priority watcher skip its whole tick, with
+#     its cursor untouched, once the estimate falls to GARDEN_GH_REST_LOW_RESERVE
+#     (default 10% of the limit; an absolute count is also accepted) before the
+#     sampled reset. Maintainer-facing watchers do not call it and keep the
+#     reserve for themselves;
+#   * a SAMPLED (not estimated) remaining of 0 opens the primary-quota latch
+#     before any doomed request, ending at the sampled reset, and a refusal's
+#     latch also ends at that reset (api_primary_quota_secs rest).
+# The estimate never refuses a normal call by itself: only GitHub's refusal or a
+# sampled zero does. When the metadata is unavailable (no sample yet, the
+# rate_limit read failed, the sample is older than
+# GARDEN_GH_REST_BUDGET_MAX_AGE_SECS, or its reset has passed without a new
+# sample) nothing is deferred and the refusal latch remains the only guard.
+# GraphQL is a separate bucket with its own reset and is not metered here.
+# GARDEN_GH_REST_BUDGET=0 disables the budget; it is off by default in a test
+# context (_in_test_context) so stubbed gh fixtures do not see an extra
+# rate_limit call (GARDEN_GH_REST_BUDGET=1 opts a test back in), and
+# GARDEN_API_COOLDOWN_SECS=0 disables it with the rest of admission.
+# State: $GARDEN_API_COOLDOWN_DIR/rest-budget, one line
+# "<limit> <estimate> <reset-epoch> <sampled-epoch> <attempted-epoch> <sampled-remaining>",
+# written atomically under marker.lock.
+: "${GARDEN_GH_REST_BUDGET_REFRESH_SECS:=120}"
+: "${GARDEN_GH_REST_BUDGET_EDGE_REFRESH_SECS:=20}"
+: "${GARDEN_GH_REST_BUDGET_MAX_AGE_SECS:=900}"
+: "${GARDEN_GH_REST_LOW_RESERVE:=10%}"
+: "${GARDEN_GH_REST_RESET_SLACK_SECS:=15}"
+GARDEN_GH_REST_BUDGET_FILE="$GARDEN_API_COOLDOWN_DIR/rest-budget"
+
+_gh_rest_budget_enabled() {
+  local v="${GARDEN_GH_REST_BUDGET:-}"
+  if [ -z "$v" ]; then ! _in_test_context; return; fi
+  [ "$v" != 0 ]
+}
+
+_gh_rest_budget_int() {  # _gh_rest_budget_int <value> <default>
+  case "${1:-}" in ''|*[!0-9]*) printf '%s' "$2" ;; *) printf '%s' "$1" ;; esac
+}
+
+# _gh_rest_budget_read — print the six state fields, normalized to integers; rc 1
+# when there is no state file. Lock-free: the file is only replaced by mv.
+_gh_rest_budget_read() {
+  local line limit est reset sampled attempted measured
+  line="$(sed -n '1p' "$GARDEN_GH_REST_BUDGET_FILE" 2>/dev/null)" || return 1
+  [ -n "$line" ] || return 1
+  read -r limit est reset sampled attempted measured <<<"$line"
+  printf '%s %s %s %s %s %s\n' "$(_gh_rest_budget_int "$limit" 0)" "$(_gh_rest_budget_int "$est" 0)" \
+    "$(_gh_rest_budget_int "$reset" 0)" "$(_gh_rest_budget_int "$sampled" 0)" \
+    "$(_gh_rest_budget_int "$attempted" 0)" "$(_gh_rest_budget_int "$measured" 0)"
+}
+
+_gh_rest_budget_write_locked() {  # <limit> <estimate> <reset> <sampled> <attempted> <sampled-remaining>
+  local tmp="$GARDEN_GH_REST_BUDGET_FILE.$$.$RANDOM"
+  printf '%s %s %s %s %s %s\n' "$@" >"$tmp" 2>/dev/null && mv -f "$tmp" "$GARDEN_GH_REST_BUDGET_FILE" 2>/dev/null
+}
+
+# _gh_rest_low_reserve <limit> — the estimate at or below which low-priority reads
+# defer. "N%" is a share of the sampled limit; a bare N is an absolute count.
+_gh_rest_low_reserve() {
+  local v="$GARDEN_GH_REST_LOW_RESERVE" pct
+  case "$v" in
+    *%) pct="$(_gh_rest_budget_int "${v%\%}" 10)"; printf '%s' "$(( ${1:-0} * pct / 100 ))" ;;
+    *)  _gh_rest_budget_int "$v" 0 ;;
+  esac
+}
+
+# _gh_rest_budget_refresh_locked <now> [lock-fd] — sample the core bucket. The
+# caller holds marker.lock; the fd is closed in the gh child like an admitted call.
+# rc 0 = sampled; rc 1 = unavailable (the attempt time is still recorded, so a
+# failing endpoint is retried only once per refresh interval).
+_gh_rest_budget_refresh_locked() {
+  local now="$1" fd="${2:-}" out limit rem reset st sampled measured
+  out="$(if [ -n "$fd" ]; then exec {fd}>&-; fi
+         _GARDEN_GH_API_ADMITTED=1 "${GARDEN_GH:-gh}" api rate_limit \
+           --jq '.resources.core | "\(.limit) \(.remaining) \(.reset)"' 2>/dev/null)" || out=""
+  read -r limit rem reset <<<"$out"
+  case "$limit$rem$reset" in ''|*[!0-9]*) limit="" ;; esac
+  if [ -n "$limit" ] && [ "$limit" -gt 0 ] && [ -n "$rem" ] && [ -n "$reset" ]; then
+    _gh_rest_budget_write_locked "$limit" "$rem" "$reset" "$now" "$now" "$rem"
+    return 0
+  fi
+  if st="$(_gh_rest_budget_read)"; then
+    read -r limit rem reset sampled _ measured <<<"$st"
+    _gh_rest_budget_write_locked "$limit" "$rem" "$reset" "$sampled" "$now" "$measured"
+  else
+    _gh_rest_budget_write_locked 0 0 0 0 "$now" 0
+  fi
+  return 1
+}
+
+# _gh_rest_budget_state_locked [lock-fd] — refresh the sample when due, then print
+# "<limit> <estimate> <reset> <sampled-remaining> <sampled-epoch>" for a usable
+# sample. rc 1 = metadata unavailable (callers fall back to the refusal latch).
+_gh_rest_budget_state_locked() {
+  local fd="${1:-}" now st limit est reset sampled attempted measured every edge maxage due=0
+  _gh_rest_budget_enabled || return 1
+  now="$(date +%s 2>/dev/null || echo 0)"
+  every="$(_gh_rest_budget_int "$GARDEN_GH_REST_BUDGET_REFRESH_SECS" 120)"
+  edge="$(_gh_rest_budget_int "$GARDEN_GH_REST_BUDGET_EDGE_REFRESH_SECS" 20)"
+  maxage="$(_gh_rest_budget_int "$GARDEN_GH_REST_BUDGET_MAX_AGE_SECS" 900)"
+  if st="$(_gh_rest_budget_read)"; then
+    read -r limit est reset sampled attempted measured <<<"$st"
+    if [ "$((now - attempted))" -ge "$every" ]; then
+      due=1
+    elif [ "$limit" -gt 0 ] && [ "$((now - attempted))" -ge "$edge" ] \
+         && { [ "$reset" -le "$now" ] || [ "$est" -le "$(_gh_rest_low_reserve "$limit")" ]; }; then
+      due=1
+    fi
+  else
+    due=1
+  fi
+  if [ "$due" -eq 1 ]; then
+    _gh_rest_budget_refresh_locked "$now" "$fd" || true
+  fi
+  st="$(_gh_rest_budget_read)" || return 1
+  read -r limit est reset sampled attempted measured <<<"$st"
+  [ "$limit" -gt 0 ] && [ "$reset" -gt "$now" ] && [ "$((now - sampled))" -le "$maxage" ] || return 1
+  printf '%s %s %s %s %s\n' "$limit" "$est" "$reset" "$measured" "$sampled"
+}
+
+# _gh_rest_budget_reset_secs — seconds until the sampled core reset plus slack,
+# when a usable sample exists (rc 1 otherwise). Lock-free read, no refresh.
+_gh_rest_budget_reset_secs() {
+  local st limit reset sampled now slack maxage
+  _gh_rest_budget_enabled || return 1
+  st="$(_gh_rest_budget_read)" || return 1
+  read -r limit _ reset sampled _ _ <<<"$st"
+  now="$(date +%s 2>/dev/null || echo 0)"
+  maxage="$(_gh_rest_budget_int "$GARDEN_GH_REST_BUDGET_MAX_AGE_SECS" 900)"
+  [ "$limit" -gt 0 ] && [ "$reset" -gt "$now" ] && [ "$((now - sampled))" -le "$maxage" ] || return 1
+  slack="$(_gh_rest_budget_int "$GARDEN_GH_REST_RESET_SLACK_SECS" 15)"
+  printf '%s' "$((reset - now + slack))"
+}
+
+# _gh_rest_budget_admit_locked <lock-fd> — the budget step of a REST admission,
+# with marker.lock held and no live REST latch. rc 0 = admit (the estimate was
+# charged when metadata exists); rc 1 = a sampled zero just opened the
+# primary-quota latch, so the caller must refuse as for any live latch.
+_gh_rest_budget_admit_locked() {
+  local fd="$1" st limit est reset measured sampled secs
+  st="$(_gh_rest_budget_state_locked "$fd")" || return 0
+  read -r limit est reset measured sampled <<<"$st"
+  if [ "$measured" -le 0 ] && [ "$est" -le 0 ]; then
+    secs="$(api_primary_quota_secs rest)"
+    _api_cooldown_record_locked "$GARDEN_API_COOLDOWN_MARKER" "$secs" \
+      "gh-api:rest-budget:primary-quota" primary-quota || true
+    return 1
+  fi
+  [ "$est" -le 0 ] || est=$((est - 1))
+  read -r _ _ _ _ st _ <<<"$(_gh_rest_budget_read)"
+  _gh_rest_budget_write_locked "$limit" "$est" "$reset" "$sampled" "$st" "$measured"
+  return 0
+}
+
+# gh_rest_budget_defer [label] — the low-priority watcher gate. Call it right
+# after `api_cooldown_active` and skip the tick (cursor untouched) on rc 0: the
+# host's estimated REST core remaining is at or below GARDEN_GH_REST_LOW_RESERVE
+# before the sampled reset. rc 1 = proceed, including whenever the budget is
+# disabled or its metadata is unavailable. One WARN per host per quota window.
+gh_rest_budget_defer() {
+  local label="${1:-${GARDEN_TAG:-watcher}}" wait out verdict limit est reset left
+  _gh_rest_budget_enabled || return 1
+  [ "$(_api_cooldown_secs)" -gt 0 ] || return 1
+  wait="$(_gh_rest_budget_int "${GARDEN_GH_API_ADMISSION_WAIT_SECS:-}" 60)"
+  mkdir -p "$GARDEN_API_COOLDOWN_DIR" 2>/dev/null || return 1
+  out="$(
+    {
+      flock -w "$wait" 9 || exit 1
+      st="$(_gh_rest_budget_state_locked 9)" || exit 1
+      read -r limit est reset _ _ <<<"$st"
+      [ "$est" -le "$(_gh_rest_low_reserve "$limit")" ] || exit 1
+      if [ "$(sed -n '1p' "$GARDEN_GH_REST_BUDGET_FILE.deferred" 2>/dev/null)" = "$reset" ]; then
+        printf 'quiet %s %s %s\n' "$limit" "$est" "$reset"
+      else
+        printf '%s\n' "$reset" >"$GARDEN_GH_REST_BUDGET_FILE.deferred" 2>/dev/null || true
+        printf 'warn %s %s %s\n' "$limit" "$est" "$reset"
+      fi
+    } 9>>"$GARDEN_API_COOLDOWN_LOCK"
+  )" || return 1
+  read -r verdict limit est reset <<<"$out"
+  left=$((reset - $(date +%s 2>/dev/null || echo 0)))
+  # Like a cooldown skip, later deferrals in the same window are silent.
+  if [ "$verdict" = warn ]; then
+    log "WARN: $label deferring low-priority GitHub REST reads: host core budget ~$est/$limit left (reserve $(_gh_rest_low_reserve "$limit")), resets in ${left}s"
+  fi
+  return 0
 }
 
 # gh_api_retry <gh-api-args…> — run `gh api <args…>` with bounded transient retry.
@@ -6468,7 +6685,7 @@ gh_api_retry() {
     # budget, nor for any sibling: latch it while the admission lock is still held,
     # so no caller queued behind this one issues another doomed request.
     if [ "$rc" -ne 0 ] && is_gh_primary_rate_limit_text "$stderr"; then
-      pq="$(api_primary_quota_secs)"
+      if [ "$latch" = all ]; then pq="$(api_primary_quota_secs rest)"; else pq="$(api_primary_quota_secs)"; fi
       marker="$(_api_cooldown_marker_for "$latch")"
       if [ -n "$lockfd" ]; then
         _api_cooldown_record_locked "$marker" "$pq" "gh-api:$label:primary-quota" primary-quota || true
@@ -6559,7 +6776,7 @@ gh_read_retry() {
     stderr=""
     [ "$rc" -eq 0 ] || stderr="$(cat "$errf" 2>/dev/null || true)"
     if [ "$rc" -ne 0 ] && is_gh_primary_rate_limit_text "$stderr"; then
-      pq="$(api_primary_quota_secs)"
+      if [ "$latch" = all ]; then pq="$(api_primary_quota_secs rest)"; else pq="$(api_primary_quota_secs)"; fi
       marker="$(_api_cooldown_marker_for "$latch")"
       if [ -n "$lockfd" ]; then
         _api_cooldown_record_locked "$marker" "$pq" "gh-api:$label:primary-quota" primary-quota || true

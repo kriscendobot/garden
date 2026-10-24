@@ -1921,7 +1921,7 @@ if [ "$src_rc" -ne 0 ]; then
     # comment-latency-watch opened it, later). The cursor is still frozen: we exit
     # before SRC is read.
     if is_gh_primary_rate_limit_text "$(cat "$ERRF" 2>/dev/null || true)"; then
-      pq_secs="$(api_primary_quota_secs)"
+      pq_secs="$(api_primary_quota_secs rest)"
       if start_api_cooldown "comment:$slug:primary-quota" "$pq_secs"; then
         log "WARN: comment source hit GitHub primary quota exhaustion (rc=$src_rc) — cursor frozen; cooling REST gh-api watchers for ${pq_secs}s"
       fi
@@ -1943,7 +1943,7 @@ if [ "$src_rc" -ne 0 ]; then
     comment_heartbeat_outcome=source-timeout
     if is_gh_primary_rate_limit_text "$timeout_err"; then
       comment_heartbeat_outcome=cooldown
-      pq_secs="$(api_primary_quota_secs)"
+      pq_secs="$(api_primary_quota_secs rest)"
       if start_api_cooldown "comment:$slug:primary-quota" "$pq_secs"; then
         log "WARN: comment source timed out after GitHub primary quota exhaustion (rc=$src_rc) — cooling REST gh-api watchers for ${pq_secs}s"
       fi

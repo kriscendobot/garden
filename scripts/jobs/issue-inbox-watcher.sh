@@ -707,7 +707,7 @@ if [ "$src_rc" -ne 0 ]; then
       | sed -E 's/^<[0-9]>//; s/^[^[]*\[[^]]+\] WARN:[[:space:]]*//' \
       | tr '\n\t' '  ' | cut -c1-300 || true)"
     if is_gh_primary_rate_limit_text "$(cat "$ERRF" 2>/dev/null || true)"; then
-      pq_secs="$(api_primary_quota_secs)"
+      pq_secs="$(api_primary_quota_secs rest)"
       if start_api_cooldown "issue-inbox:$slug:primary-quota" "$pq_secs"; then
         log "WARN: issue source hit GitHub primary quota exhaustion (rc=$src_rc) — cursor frozen; cooling REST gh-api watchers for ${pq_secs}s${source_diag:+; diagnostic: $source_diag}"
       fi

@@ -124,6 +124,9 @@ MIRROR_STATE_DIR="${GARDEN_MIRROR_STATE_DIR:-$GARDEN_STATE/mirror-closer}"
 # Every unresolved mapping is preserved. (This replaces the service's former
 # private per-quota marker — the shared latch is the single throttle now.)
 api_cooldown_active && { log "shared gh-api cooldown active; skipping tick (unresolved mappings preserved)"; exit 0; }
+# Low priority: defer to the maintainer-facing watchers once the host REST core
+# budget reaches its reserve (common.sh gh_rest_budget_defer).
+gh_rest_budget_defer mirror-closer && exit 0
 
 DIR="${GARDEN_MIRROR_CLONE:-$MIRROR_STATE_DIR/journal}"
 ensure_clone "$DIR"

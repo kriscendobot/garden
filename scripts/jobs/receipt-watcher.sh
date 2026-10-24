@@ -126,6 +126,9 @@ shared_availability_failure() {  # shared_availability_failure <stage> <rc> <std
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 api_cooldown_active && exit 0
+# Low priority: defer to the maintainer-facing watchers once the host REST core
+# budget reaches its reserve (common.sh gh_rest_budget_defer).
+gh_rest_budget_defer && exit 0
 
 owner="${slug%%-*}"; name="${slug#*-}"
 repo="$owner/$name"

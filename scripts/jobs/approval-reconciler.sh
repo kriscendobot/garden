@@ -172,6 +172,9 @@ fi
 # Do no API work and emit no per-repo log line; the detector's single warning owns it.
 # (Shared host-wide across every gh-api watcher — see api_cooldown_active in common.sh.)
 api_cooldown_active && exit 0
+# Low priority: defer to the maintainer-facing watchers once the host REST core
+# budget reaches its reserve (common.sh gh_rest_budget_defer).
+gh_rest_budget_defer && exit 0
 
 # The safety contract below depends on GNU timeout.  Running without it would
 # silently restore the very unbounded probes this watcher must avoid.
