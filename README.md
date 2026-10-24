@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T19:27:21Z_
+_As of 2026-10-24T19:28:11Z_
 
 ## Latest
 
@@ -1300,7 +1300,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 23.6M | $77.93 _(notional, rate-card)_ | 9% of 271.0M (ok) |
+| Claude | 23.7M | $77.94 _(notional, rate-card)_ | 9% of 271.0M (ok) |
 | Codex | 78.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1312,16 +1312,16 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #218
+### doin (0)
+(none)
 
-### tada (14958)
+### tada (14959)
+- [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-undraft.md) — Undraft stage: kriscendobot/minion.town #218 ("feat(accounts): add the guest ...
 - [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-viability.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-03fb3fa40f2d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-03fb3fa40f2d.md) — rolling-deploy canary probe — round trip OK
-- [`fix-screened-conductor-rebase-panel-freshness-deadlock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/fix-screened-conductor-rebase-panel-freshness-deadlock.md) — Cost
-- … and 14953 more
+- … and 14954 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
