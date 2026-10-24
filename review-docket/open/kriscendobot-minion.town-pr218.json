@@ -7,14 +7,14 @@
   "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Automated review rounds were exhausted after a green fix: Applied 11 panel/fix round(s); fix round 11 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=11, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --add-rounds N",
+  "summary": "Panel reviewed 65afe31e053a, but the presented head is f887332ad9b7",
   "unblocks": [],
-  "source": "kriscendobot-minion.town-pr218-gauntlet-review-budget-reached",
-  "requested_at": "2026-10-24T04:11:05Z",
+  "source": "stale-panel-head-kriscendobot-minion.town-pr218-65afe31e-f887332a",
+  "requested_at": "2026-10-24T12:22:27Z",
   "first_requested_at": "2026-10-23T14:35:54Z",
-  "generation": 4,
+  "generation": 5,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-24T12:07:16Z"
+    "observed_at": "2026-10-24T12:23:44Z"
   }
 }
