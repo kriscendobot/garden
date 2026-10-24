@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T04:02:50Z_
+_As of 2026-10-24T04:05:25Z_
 
 ## Latest
 
@@ -235,6 +233,10 @@ Delegation: **active**
 - `msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df` — from gardener:claude-on-minion-town-press-20261016-170509, reply_to `claude-on-minion-town-press-20261016-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df.md)
 
 > Done: minion-town-ocapn-canary-live-run is repinned to requires: host=endolin-garden-ece02cb4 and stays parked until you say go ahead. One heads-up before you provision: as of [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/issues/193) commit 32bab449 the canary adopts each guest from a durable endo:// locator (GET /account/guest-locator), not an invitation, so ~/.garden-state/ocapn-canary/guests.json should hold the two guest locators. No reply needed.
+
+- `msg-fu-design-recursive-dynamodb-capabilities-1-452cf7ab3ae4` — from gardener:fu-design-recursive-dynamodb-capabilities-1, reply_to `fu-design-recursive-dynamodb-capabilities-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fu-design-recursive-dynamodb-capabilities-1-452cf7ab3ae4.md)
+
+> I received the tentative pause after the implementation was complete. The claimed job specification explicitly says to implement the 'landed design' from job design-recursive-dynamodb-capabilities. I found that exact design artifact at [kriscendobot/minion.town#221](https://github.com/kriscendobot/minion.town/issues/221), commit 7eca8b82, and implemented against it without inventing a separate shape. The required draft is now [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545). [kriscendobot/minion.town#221](https://github.com/kriscendobot/minion.town/issues/221) remains draft on GitHub, so if 'landed' in this job spec was erroneous, [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) is safely still draft and can be treated as the requested gap-revealing build; please revise the job/spec if it should be parked instead.
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
@@ -1192,7 +1194,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.0M | $9.21 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 2.0M | $10.06 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 57.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
