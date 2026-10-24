@@ -1,0 +1,48 @@
+<6>04:26:17 [monk/1] job 'finish-recursive-dynamodb-capabilities-1545' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>04:26:17 [monk/1] job 'finish-recursive-dynamodb-capabilities-1545' call ceiling: tier=mentor max-budget-usd=19.80 (scaled by fresh seven-day headroom when available)
+<6>04:26:17 [monk/1] job 'finish-recursive-dynamodb-capabilities-1545' attaching minion.town MCP (stdio bridge)
+<6>05:51:30 [auto-gauntlet-handoff] auto-gauntlet: 'finish-recursive-dynamodb-capabilities-1545' named several PRs; treating the first, https://github.com/endojs/endo-but-for-bots/pull/1545, as its artifact
+garden repo lock: cleared dead-holder metadata pid=1668230 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+<6>05:51:35 [post-gauntlet] gauntlet 'endojs-endo-but-for-bots-pr1545-gauntlet' already recorded; nothing to do
+<6>05:51:35 [auto-gauntlet-handoff] auto-gauntlet: 'finish-recursive-dynamodb-capabilities-1545' recorded gauntlet 'endojs-endo-but-for-bots-pr1545-gauntlet' for https://github.com/endojs/endo-but-for-bots/pull/1545
+<6>05:51:39 [review-docket] https://github.com/endojs/endo-but-for-bots/pull/1545 has no retired request to inherit
+<6>05:51:39 [review-docket] reenter is an idempotent no-op
+panel-head-freshness: unreviewed target=endojs/endo-but-for-bots#1545 disposition=manual-gauntlet-not-triggered
+<6>05:51:51 [assert-followup-posted] gate: BLOCK — 'finish-recursive-dynamodb-capabilities-1545' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# finish-recursive-dynamodb-capabilities-1545: completion report
+
+`@endo/exo-dynamodb` now matches the final design (kriscendobot/minion.town#221 at d65ac219e6). I pushed one commit, e728a830fa, onto `gardener/fu-design-recursive-dynamodb-capabilities-1` and updated draft PR https://github.com/endojs/endo-but-for-bots/pull/1545, keeping its garden job marker. In this PR's CI the package's own tests pass (39 passed, 2 skipped). All the failing checks are failures already present on other branches. Two integration tests could not run against the real target (details below).
+
+## What changed
+- **derive, withdraw, lineage:** both `derive` methods now return a result carrying the capability and its grant id. The host control has async `withdraw` and `lineage`, plus a `retire()` call used at restart. Malformed, widening, conflicting or revoked requests come back as results instead of rejected promises, and every `limit-exceeded` result says which limit was hit.
+- **Restriction shape:** restrictions now use `keySpace`, per-index key-range maps, a nested `shape` (with a `guard` condition), `operations`, and limits `pageSize`, `transactionSize`, `itemBytes` and `requestsPerSecond`. Omitted parts inherit from the parent; a child that names anything outside its parent is refused rather than silently clamped.
+- **Guards:** a guard may only combine equality, begins-with and existence tests with AND (plus negating a single test). Updates check guard fields they touch directly, enforce untouched ones as a DynamoDB condition, and refuse add/delete on a guarded field.
+- **Keys and queries:** numeric sort keys accept exact values or closed intervals, and a query's sort condition is intersected with the one allowed range it selects.
+- **Index queries:** rows outside any ancestor's base key space or guard are dropped with no count of dropped rows. Consistent reads on global secondary indexes are refused.
+- **Idempotency:** individual writes and transactions accept idempotency keys. Tokens are tied to the grant and capped at 36 characters; the old implementation sent 64, which DynamoDB rejects.
+- **Durable named grants:** recipes and withdrawal tombstones go through an injected grant store. `reincarnateDynamoControl` reads tombstones first and rebinds only live named grants.
+- **Binary values:** they now cross the boundary as passable frozen byte arrays. Plain `Uint8Array` was rejected by the exo guard, so binary data was unusable before.
+- **Other changes:**
+  - New optional host `log` power for full provider diagnostics.
+  - New `@endo/immutable-arraybuffer` dependency, with `yarn.lock` and the composite tsconfig updated.
+  - README and changeset rewritten.
+
+**Tests:** the suite covers property-generated three-level chains, deny-before-send, index leakage, guards, sort narrowing, positional transaction cancellation, paging, idempotency, error redaction, revocation (including just before dispatch and in flight), restart with tombstones, audit, and a confined-compartment escape attempt. It runs against a new in-memory fake DynamoDB that parses the compiled expressions.
+
+**Checks run:** package tests (40 pass with the integration test enabled), package ESLint (no errors), package and repo-root `tsc`, `prettier --check`, the composite-tsconfig drift check, and the composite build.
+
+## Integration tests that could not run
+- **DynamoDB Local:** no Java or Docker on this host. The test does pass against a local moto server (a DynamoDB emulator) over the same protocol. Only the idempotency-token assertion was skipped, because moto does not implement tokens.
+- **Isolated IAM:** needs real AWS tables, a narrowly scoped IAM role and the AWS SDK, so it was not run. Both tests skip unless their environment variables are set.
+
+## CI classification
+- **sandbox-drivers / cover / ubuntu test:** fail only on the bwrap `ulimit -u` and "parent death" tests.
+- **depcheck `build`:** fails on `tred: command not found`.
+- Both failures reproduce on unrelated PR branches (`build/daemon-git-clone`, `build/daemon-agent-tools-endo-claude-acceptance-loop`). Both jobs are skipped on `llm` by change detection, so they are not this package's doing.
+- Lint passed. The two macOS `test` jobs were still running when I wrote this.
+
+## Follow-ups
+- Before taking the draft out of draft, run the DynamoDB Local and isolated-IAM tests on a host that has Docker and AWS access.
+- The bwrap and `tred` CI failures need separate infrastructure fixes.

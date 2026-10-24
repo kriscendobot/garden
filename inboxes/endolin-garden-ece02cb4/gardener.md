@@ -5077,3 +5077,14 @@ Inspect via `git -C journal cat-file -p 6b15c7a5560d228d3a200ee77d0bec1662111df8
 
 Inspect via `git -C journal cat-file -p 19888ef1ae791f4fa35d81a0e54cad6d995de536` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/19888ef1ae791f4fa35d81a0e54cad6d995de536`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-10-24T05:52:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 028581b0306870674f7a5b72e6a8db05becded56
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'finish-recursive-dynamodb-capabilities-1545' handler exited rc=1
+- Capture: inboxes/endolin-garden-ece02cb4/captures/028581b0306870674f7a5b72e6a8db05becded56
+
+Inspect via `git -C journal cat-file -p 028581b0306870674f7a5b72e6a8db05becded56` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/028581b0306870674f7a5b72e6a8db05becded56`) -- both work off-host after a plain `journal2` fetch.
