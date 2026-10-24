@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T11:52:04Z_
+_As of 2026-10-24T11:52:59Z_
 
 ## Latest
 
@@ -1240,16 +1240,16 @@ worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-948afcf9ded1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-948afcf9ded1.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 948afcf9ded1
+### doin (0)
+(none)
 
-### tada (14918)
+### tada (14919)
+- [`canary-probe-oros-studio-garden-ce242c49-948afcf9ded1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-948afcf9ded1.md) — rolling-deploy canary probe — round trip OK
 - [`improve-deadmail-completed-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-deadmail-completed-collision.md) — Report: improve-deadmail-completed-collision
 - [`canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-0d89bd9a3a72.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261024.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet.md) — gauntlet kriscendobot-minion.town-pr218-gauntlet — review budget reached
-- [`kriscendobot-minion.town-pr218-gauntlet-fix-15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-fix-15.md) — Cost
-- … and 14913 more
+- … and 14914 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
