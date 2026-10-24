@@ -14,8 +14,8 @@ stage: panel
 iteration: 3
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: endojs-endo-but-for-bots-pr1367-gauntlet-panel-3
+state: running
 resumed_at: 2026-10-24T20:11:41Z
 resumed_from_stage: panel
 ---
