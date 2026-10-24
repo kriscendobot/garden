@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T06:11:18Z_
+_As of 2026-10-24T06:13:56Z_
 
 ## Latest
 
@@ -27,11 +25,12 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-162 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+161 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
 
+- 2026-10-24T06:08:36Z [#221](https://github.com/kriscendobot/minion.town/pull/221) merged `27f70ed6e4f`; deploy [pending](https://github.com/kriscendobot/minion.town/actions/runs/39700868753)
 - 2026-10-24T06:07:16Z [#221](https://github.com/kriscendobot/minion.town/pull/221) `35bb0c3b394` screened
 
 ## Messages to the maintainer
@@ -1211,28 +1210,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.8M | $12.74 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 6.6M | $17.35 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 60.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 5.131959s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 8 open notice(s); checker healthy
+worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (2)
-- [`kriscendobot-minion-town-pr218-iam-decision-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr218-iam-decision-fix-20261024.md) — fix kriscendobot/minion.town#218: record the supervisor's IAM decision, then ...
+- [`kriscendobot-minion.town-pr218-gauntlet-panel-12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-panel-12.md) — Gauntlet stage: PANEL round 12 — kriscendobot/minion.town PR #218
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1542-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1542
 
 ### tada (14884)
+- [`kriscendobot-minion-town-pr218-iam-decision-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-iam-decision-fix-20261024.md) — Cost
 - [`finish-recursive-dynamodb-capabilities-1545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/finish-recursive-dynamodb-capabilities-1545.md) — Completion report
 - [`screen-minion-town-pr221-35bb0c3-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr221-35bb0c3-conduct.md) — Cost
 - [`oros-health-watch-20261024-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-watch-20261024-055009.md) — Cost
 - [`oros-health-checkup-20261024-055009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-checkup-20261024-055009.md) — Cost
-- [`endojs-endo-but-for-bots-pr1542-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-panel-2.md) — Cost
 - … and 14879 more
 
 ## Plan queue (parked — not claimable until promoted)
