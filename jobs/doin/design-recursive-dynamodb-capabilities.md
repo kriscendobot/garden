@@ -38,3 +38,13 @@ Start by inventorying existing DynamoDB adapters and Endo attenuation patterns.
 Name why none already provides recursive partitioning before introducing a new
 surface. Include an ownership map and an explicit migration path for the guest
 coupon design.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-24T03:23:18Z
