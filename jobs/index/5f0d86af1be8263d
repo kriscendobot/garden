@@ -1,2 +1,2 @@
-base: improve-actions-billing-ci-classification
+base: improve-merge-exact-panel-head-gate
 identity: mentor:scripts/jobs/gardening/ci-wait-merge.sh
