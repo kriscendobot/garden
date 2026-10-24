@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T15:29:53Z_
+_As of 2026-10-24T15:30:37Z_
 
 ## Latest
 
@@ -1261,18 +1261,17 @@ worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr218-prepass-codepoint-fix-20261024.md) — fix #218: clear the typist-friendly-code-points prepass failure, then resume ...
-- [`oros-health-checkup-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261024-152017.md) — ---
 - [`improve-rest-quota-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-rest-quota-admission.md) — ---
 
-### tada (14930)
+### tada (14931)
+- [`oros-health-checkup-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-checkup-20261024-152017.md) — Cost
 - [`minion-town-arc-press-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/minion-town-arc-press-20261024-152017.md) — Panel-head freshness
 - [`claude-on-minion-town-press-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-press-20261024-152017.md) — Cost
 - [`oros-health-watch-20261024-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/oros-health-watch-20261024-152017.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-ab17325c50f2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-ab17325c50f2.md) — rolling-deploy canary probe — round trip OK
-- [`improve-completion-press-refresh-schedule`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-completion-press-refresh-schedule.md) — Cost
-- … and 14925 more
+- … and 14926 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
