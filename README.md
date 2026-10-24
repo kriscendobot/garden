@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T18:34:13Z_
+_As of 2026-10-24T18:36:21Z_
 
 ## Latest
 
@@ -1294,7 +1294,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.7M | $70.45 _(notional, rate-card)_ | 8% of 271.0M (ok) |
+| Claude | 21.8M | $71.46 _(notional, rate-card)_ | 8% of 271.0M (ok) |
 | Codex | 77.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1303,11 +1303,14 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`oros-health-checkup-20261024-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261024-183508.md) — ---
 
-### doin (0)
-(none)
+### doin (3)
+- [`minion-town-arc-press-20261024-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261024-183508.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`claude-on-minion-town-press-20261024-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261024-183508.md) — Press the Claude-on-minion.town arc forward
+- [`oros-health-watch-20261024-183508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261024-183508.md) — ---
 
 ### tada (14948)
 - [`build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/build-daemon-agent-tools-phase-seven-endo-claude-acceptance-loop.md) — Cost
