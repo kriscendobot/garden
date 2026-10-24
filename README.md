@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T06:26:20Z_
+_As of 2026-10-24T06:27:54Z_
 
 ## Latest
 
@@ -1222,17 +1222,16 @@ worst fetch p95 7.874781s/45s (/home/kris/garden/.garden-state/screening-delegat
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-12.md) — Gauntlet stage: FIX round 12 — kriscendobot/minion.town PR #218
-- [`endojs-endo-but-for-bots-pr1542-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1542-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1542
 
-### tada (14887)
+### tada (14888)
+- [`endojs-endo-but-for-bots-pr1542-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-panel-3.md) — Cost
 - [`improve-followup-external-prerequisites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/improve-followup-external-prerequisites.md) — Cost
 - [`endojs-endo-but-for-bots-pr1542-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1542-gauntlet-fix-2.md) — Cost
 - [`kriscendobot-minion.town-pr218-gauntlet-panel-12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr218-gauntlet-panel-12.md) — Cost
 - [`kriscendobot-minion-town-pr218-iam-decision-fix-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-iam-decision-fix-20261024.md) — Cost
-- [`finish-recursive-dynamodb-capabilities-1545`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/finish-recursive-dynamodb-capabilities-1545.md) — Completion report
-- … and 14882 more
+- … and 14883 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
