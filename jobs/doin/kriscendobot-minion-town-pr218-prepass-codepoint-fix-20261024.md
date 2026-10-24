@@ -25,3 +25,13 @@ green, and resume the gauntlet:
 `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --add-rounds 2`.
 Do not un-draft or merge by hand (the proxy screen merges). Supervisor authority:
 garden#58 standing order.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-24T15:23:01Z
