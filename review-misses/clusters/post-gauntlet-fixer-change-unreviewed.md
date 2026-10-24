@@ -30,6 +30,7 @@ improved_by: 05e02d8f4d1 (scripts/jobs/assert-panel-head-fresh.sh, scripts/jobs/
 
 
 
+
 A substantive fixer change lands after the last panel reviewed the PR and reaches maintainer review without a fresh correctness pass over the new head, leaving newly introduced state invariants for the maintainer to reconstruct.
 
 **Threshold rationale:** Held below the dispatch floor. The cluster now has count=2 across PRs #475 and
@@ -93,3 +94,5 @@ gauntlet halts and successor handoffs, and should require the terminal successor
 to restage or explicitly block on panel coverage even when that successor itself
 does not push a commit. Re-litigate both this sequence (7516782577 to 991e943649)
 and all seven earlier members; retain metadata-only and equal-head controls.
+
+**Threshold rationale:** Held, not dispatched (2026-10-24, retro of endojs-endo-but-for-bots-pr1393-review-9416ed93). The numeric floor is far exceeded (count=7 across 7 distinct PRs), but the cluster is still open from the 2026-10-19 genuine recurrence, whose maintainer alert (review-miss-recurrence-post-gauntlet-fixer-change-unreviewed) was read with no recorded decision; per skill § 6 a second improvement round does not start on autopilot. Added diagnosis for that decision: the #1393 member is a NEW sub-shape. The post-panel change (2026-10-15 Parcel pivot restack, a near-rewrite after six panel rounds) DID stage a fresh gauntlet, but its clean stage halted on an unrelated, bot-unrerunnable daemon CI flake and sat halted for a week with no resume, so the new head reached the maintainer unpanelled. Any second round should therefore cover both paths: (a) the 1349 path, where the freshness check only dockets a stale head instead of staging a scoped panel, and (b) the 1393 path, where a halted gauntlet on an already-panelled PR leaves the newest head unreviewed with no resume or re-stage. A halted-gauntlet resume sweep (or panel-before-clean when the clean failure is an off-diff flake) would have caught the any-widening (typist) and the types.types.js import stutter.
