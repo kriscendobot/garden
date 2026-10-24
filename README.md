@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T19:28:11Z_
+_As of 2026-10-24T19:29:47Z_
 
 ## Latest
 
@@ -1315,13 +1315,13 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### doin (0)
 (none)
 
-### tada (14959)
+### tada (14960)
+- [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet.md) — gauntlet kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet — complete
 - [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-undraft.md) — Undraft stage: kriscendobot/minion.town #218 ("feat(accounts): add the guest ...
 - [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion-town-pr218-screen-5e2b6232-gauntlet-viability.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-03fb3fa40f2d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/canary-probe-oros-studio-garden-ce242c49-03fb3fa40f2d.md) — rolling-deploy canary probe — round trip OK
-- … and 14954 more
+- … and 14955 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
