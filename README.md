@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T03:49:20Z_
+_As of 2026-10-24T03:53:24Z_
 
 ## Latest
 
@@ -83,7 +81,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-4.md)
 
-> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 4 (target 4): subscription claude-endolin1 spend=5384220 cap=430000000 pace-bias=0 window-start=2026-10-17T03:00Z(calendar) deadline=2026-10-24T03:00Z(calendar) ceiling=4 backoff=0.5017(ramp) target=4
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-12T03:50:27Z, latest 2026-10-24T03:50:27Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-4`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 4 (target 4): subscription claude-endolin1 spend=1239853 cap=271000000 pace-bias=0.000357 window-start=2026-10-24T03:00Z(calendar) deadline=2026-10-31T03:00Z(calendar) ceiling=4 backoff=0.5025(ramp) target=4
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
@@ -1170,21 +1172,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.4M | $5.01 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 1.4M | $7.33 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 57.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
+worst fetch p95 4.847011s/45s (/home/kris/garden/.garden-state/mentor/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (4)
 - [`kriscendobot-minion.town-pr218-gauntlet-fix-11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr218-gauntlet-fix-11.md) — Gauntlet stage: FIX round 11 — kriscendobot/minion.town PR #218
 - [`kriscendobot-minion.town-pr221-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr221-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #221
+- [`improve-merge-exact-panel-head-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-merge-exact-panel-head-gate.md) — ---
 - [`fu-design-recursive-dynamodb-capabilities-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-design-recursive-dynamodb-capabilities-1.md) — ---
 
 ### tada (14851)
@@ -1293,7 +1296,7 @@ worst fetch p95 4.834695s/45s (/home/kris/garden/.garden-state/screening-control
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 4 monks
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
