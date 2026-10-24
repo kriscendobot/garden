@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-24T12:25:34Z_
+_As of 2026-10-24T12:26:38Z_
 
 ## Latest
 
@@ -1247,11 +1247,11 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.064402s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`oros-health-checkup-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261024-122008.md) — ---
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`oros-health-checkup-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261024-122008.md) — ---
 - [`oros-health-watch-20261024-122008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261024-122008.md) — ---
 
 ### tada (14922)
