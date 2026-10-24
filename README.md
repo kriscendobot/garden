@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T21:40:32Z_
+_As of 2026-10-24T21:44:41Z_
 
 ## Latest
 
@@ -27,11 +25,12 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-163 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+162 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
-Delegation: **active**
+Delegation: **paused** by proxy:screen since 2026-10-24T21:43:00Z: #218 merge c104813b9c4: deploy.yml failure
 
+- 2026-10-24T21:39:05Z [#218](https://github.com/kriscendobot/minion.town/pull/218) merged `c104813b9c4`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/40135158359) — failed
 - 2026-10-24T19:32:52Z [#218](https://github.com/kriscendobot/minion.town/pull/218) `5e2b6232bc4` screened
 - 2026-10-24T16:55:06Z [#218](https://github.com/kriscendobot/minion.town/pull/218) `e01c98807b0` screened
 - 2026-10-24T06:08:36Z [#221](https://github.com/kriscendobot/minion.town/pull/221) merged `27f70ed6e4f`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/40069023925), watchdog ok — validated
@@ -48,6 +47,12 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr201-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
+- `minion-town-pr-screening-paused-c104813` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-c104813.md)
+
+> minion.town screening PAUSED: merge c104813b9c4 of [https://github.com/kriscendobot/minion.town/pull/218](https://github.com/kriscendobot/minion.town/pull/218) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/40135158359
+> Heal job heal-minion-town-c104813 posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
+> Operations: context/operations/minion-town-screening.md
 
 - `kriscendobot-minion.town-pr218-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr218-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr218-gauntlet-review-budget-reached.md)
 
@@ -1296,7 +1301,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 25.8M | $84.62 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 25.9M | $84.46 _(notional, rate-card)_ | 10% of 271.0M (ok) |
 | Codex | 80.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1309,17 +1314,17 @@ worst fetch p95 20.377791s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
-- [`fix-screen-conductor-budget-pre-attestation-refusals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-screen-conductor-budget-pre-attestation-refusals.md) — Screen conductor attempt budget: don't count conductors refused before the ex...
 - [`oros-health-watch-20261024-213514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261024-213514.md) — ---
 - [`oros-health-checkup-20261024-213514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261024-213514.md) — ---
+- [`heal-minion-town-c104813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/heal-minion-town-c104813.md) — Heal minion.town production after merge c104813b9c464ecf314e469a4456c72ec7cdeda9
 
-### tada (14968)
+### tada (14969)
+- [`fix-screen-conductor-budget-pre-attestation-refusals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/fix-screen-conductor-budget-pre-attestation-refusals.md) — Cost
 - [`minion-town-arc-press-20261024-213514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/minion-town-arc-press-20261024-213514.md) — Cost
 - [`screen-minion-town-pr218-5e2b623-conduct-supervisor-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/screen-minion-town-pr218-5e2b623-conduct-supervisor-20261024.md) — Cost
 - [`claude-on-minion-town-press-20261024-213514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/claude-on-minion-town-press-20261024-213514.md) — Cost
 - [`endojs-endo-but-for-bots-pr1367-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1367-gauntlet — complete
-- [`endojs-endo-but-for-bots-pr1367-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/endojs-endo-but-for-bots-pr1367-gauntlet-undraft.md) — Gauntlet UNDRAFT: endojs/endo-but-for-bots#1367 is now ready for review
-- … and 14963 more
+- … and 14964 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
