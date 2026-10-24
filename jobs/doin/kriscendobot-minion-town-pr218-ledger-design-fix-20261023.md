@@ -27,3 +27,13 @@ Push follow-up commits, keep CI green, reply on review threads, leave the PR dra
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-24T00:53:10Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-24T00:53:28Z
