@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T17:43:44Z_
+_As of 2026-10-25T17:45:19Z_
 
 ## Latest
 
@@ -791,33 +791,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 12 -> 14 (N is yours to choose).
-
-- `msg-endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025-r2-211ca9986aee` — from gardener:endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025-r2, reply_to `endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025-r2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025-r2-211ca9986aee.md)
-
-> [endojs/endo-but-for-bots#1538](https://github.com/endojs/endo-but-for-bots/issues/1538) (provideGitClone, head 1509ed043e): renewed panel review [https://github.com/endojs/endo-but-for-bots/pull/1538](https://github.com/endojs/endo-but-for-bots/pull/1538)#pullrequestreview-5644388916
->
-> Every must-fix from the prior round (review 5643260299) is resolved:
-> - the unbounded `await sandboxInitPid` in bwrap `killSliceNow`
-> - the "inside the destination" JSDoc
-> - the swallowed `catch {}` and the orphaned staging in `manager.js`
-> - the changeset not covering the widened exported types
->
-> One must-fix remains, and it is a design decision for you, not a fix (decomplector, category f, raised on repeated rounds):
->
-> Is a destination mount shared with CONCURRENT writers a supported `provideGitClone` target?
->
-> - If YES: the design should say so, citing your decision. The staging, move-without-replace, entry-identity, and restart-sweep mechanism stays, and the fix round only handles the should-fixes.
-> - If NO: drop that mechanism and use a simpler shape. Options include cloning in place and cleaning up on failure, the daemon holding the mount exclusively (it mints the mount), or a daemon-private directory that becomes the mount.
->
-> Main should-fixes, either way:
-> - the XS host fails only after the network clone (`renameNoReplace` throws there)
-> - the POSIX-only `renameNoReplace` has no Windows guard
-> - the origin-name restore is skipped when the store write partly applies
-> - `destMount`/`destPath` should be spelled out
-> - `@endo/floot` has no changeset
-> - unsquashed fixup! commits
->
-> I have not posted a fix round, because another hardening round is the pattern the decomplector flagged. Reply YES or NO (plus any constraints) and I'll route the fixer accordingly.
 
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
