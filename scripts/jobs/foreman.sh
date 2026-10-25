@@ -506,11 +506,26 @@ case "$btype" in
       [ -n "$role" ] && post_args+=(--role "$role")
       # Stamp the arc the step was drawn from; unarced steps charge the reserve.
       [ -n "$arcs_open" ] && post_args+=(--arc "${job_arc_line:-$GARDEN_ARC_RESERVE}")
-      printf '%s' "$body" | "$HERE/post-job.sh" "${post_args[@]}" "$base"
-      printf '%s\n' "$base" > "$LAST_STEP"
-      : > "$NOTED"           # forward progress clears the maintainer-note dedupe
-      log "pumped next milestone step '$base'"
-      decide pumped "base=$base${role:+ role=$role}${arcs_open:+ arc=${job_arc_line:-$GARDEN_ARC_RESERVE}}$skip_detail"
+      post_rc=0
+      printf '%s' "$body" | "$HERE/post-job.sh" "${post_args[@]}" "$base" || post_rc=$?
+      if [ "$post_rc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ]; then
+        # A no-identity base already in tada/ is a deliberate post-job refusal,
+        # not a broken foreman tick. Do not record it as forward progress: keeping
+        # LAST_STEP unchanged lets anti-flap continue to describe the last job
+        # actually posted. Surface the bad proposal once so the next-step policy
+        # can be corrected without failing the service every settle window.
+        log "next milestone step '$base' collides with a completed job; not posted"
+        decide completed-collision "base=$base"
+        note_once "collision:$base" "foreman: proposed next step '$base' is already completed. It was not re-posted; choose a different step, or use an ISO-date suffix for genuinely recurring work."
+      elif [ "$post_rc" -ne 0 ]; then
+        log "ERROR: post-job failed for next milestone step '$base' (rc=$post_rc)"
+        exit "$post_rc"
+      else
+        printf '%s\n' "$base" > "$LAST_STEP"
+        : > "$NOTED"           # forward progress clears the maintainer-note dedupe
+        log "pumped next milestone step '$base'"
+        decide pumped "base=$base${role:+ role=$role}${arcs_open:+ arc=${job_arc_line:-$GARDEN_ARC_RESERVE}}$skip_detail"
+      fi
     fi
     ;;
   MAINTAINER)

@@ -79,7 +79,9 @@ step, per your role brief:
     within your action bounds below (endo-but-for-bots only, NEVER agoric-sdk).
   - Cross-reference merged and in-flight PRs, the designs, the board
     (journal/jobs/), and recent journal progress to see which steps are done, in
-    flight, or not started.
+    flight, or not started. Never propose a base already present under
+    journal/jobs/tada/: skip it as already done, or, only for genuinely recurring
+    work, give this occurrence an ISO-date suffix (-YYYYMMDD).
   - Respect dependencies: read journal/pr-deps/ and apply the topological sort so
     a blocked step is never chosen.
 
