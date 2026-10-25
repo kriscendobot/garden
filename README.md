@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T18:03:12Z_
+_As of 2026-10-25T18:07:23Z_
 
 ## Latest
 
@@ -1342,8 +1342,9 @@ worst fetch p95 2.733086s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1544-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1544-shepherd.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-ec7081b64bc5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-ec7081b64bc5.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ ec7081b64bc5
 
 ### tada (15063)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025-r2.md) — Cost
