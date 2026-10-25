@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T05:31:35Z_
+_As of 2026-10-25T05:36:22Z_
 
 ## Latest
 
@@ -32,6 +30,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 Delegation: **active**
 
+- 2026-10-25T04:28:16Z [#224](https://github.com/kriscendobot/minion.town/pull/224) merged `df5bd2d7c41`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/40161993447), watchdog ok — validated
 - 2026-10-25T04:25:57Z [#224](https://github.com/kriscendobot/minion.town/pull/224) `c2b969fc36e` screened
 - 2026-10-24T21:39:05Z [#218](https://github.com/kriscendobot/minion.town/pull/218) merged `c104813b9c4`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/40135158359) — failed
 - 2026-10-24T19:32:52Z [#218](https://github.com/kriscendobot/minion.town/pull/218) `5e2b6232bc4` screened
@@ -1326,8 +1325,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.7M | $104.54 _(notional, rate-card)_ | 12% of 271.0M (ok) |
-| Codex | 92.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 32.8M | $104.69 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Codex | 92.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
