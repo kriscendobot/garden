@@ -6600,7 +6600,9 @@ _gh_rest_budget_admit_locked() {
 # after `api_cooldown_active` and skip the tick (cursor untouched) on rc 0: the
 # host's estimated REST core remaining is at or below GARDEN_GH_REST_LOW_RESERVE
 # before the sampled reset. rc 1 = proceed, including whenever the budget is
-# disabled or its metadata is unavailable. One WARN per host per quota window.
+# disabled or its metadata is unavailable. One info-severity line per host per
+# quota window: the deferral is the budget working, not a failure, so it must stay
+# out of the `journalctl -p warning` tail the mentor digests.
 gh_rest_budget_defer() {
   local label="${1:-${GARDEN_TAG:-watcher}}" wait out verdict limit est reset left
   _gh_rest_budget_enabled || return 1
@@ -6625,7 +6627,7 @@ gh_rest_budget_defer() {
   left=$((reset - $(date +%s 2>/dev/null || echo 0)))
   # Like a cooldown skip, later deferrals in the same window are silent.
   if [ "$verdict" = warn ]; then
-    log "WARN: $label deferring low-priority GitHub REST reads: host core budget ~$est/$limit left (reserve $(_gh_rest_low_reserve "$limit")), resets in ${left}s"
+    log "$label deferring low-priority GitHub REST reads: host core budget ~$est/$limit left (reserve $(_gh_rest_low_reserve "$limit")), resets in ${left}s"
   fi
   return 0
 }

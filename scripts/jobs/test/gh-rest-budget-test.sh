@@ -86,7 +86,11 @@ gh_read_retry rest "pr list" pr list -R o/r >/dev/null
 hr; echo "SUBTEST 3 — at the reserve: low-priority ticks defer, normal calls proceed"; hr
 reset_state; export RL_OUT="5000 400 $(( $(now) + 600 ))"
 log_out="$(gh_rest_budget_defer low-watcher 2>&1)" && ok "400/5000 (≤10% reserve) → defer" || bad "did not defer at the reserve"
-grep -q "WARN: low-watcher deferring" <<<"$log_out" && ok "first deferral in the window warns" || bad "no WARN: $log_out"
+grep -q "low-watcher deferring" <<<"$log_out" && ok "first deferral in the window logs" || bad "no deferral line: $log_out"
+# A healthy deferral is info, not warning: it must stay out of `journalctl -p
+# warning` (syslog prefixes <0>..<4>), which feeds the mentor failure digest.
+grep -q '^<6>' <<<"$log_out" && ! grep -qE '^<[0-4]>|WARN' <<<"$log_out" \
+  && ok "first deferral logs at info severity (not in journalctl -p warning)" || bad "deferral not info-severity: $log_out"
 log_out="$(gh_rest_budget_defer low-watcher 2>&1)" && ok "second tick defers too" || bad "second tick did not defer"
 [ -z "$log_out" ] && ok "later deferrals in the same window are silent" || bad "repeat deferral logged: $log_out"
 gh_api_retry "repos/o/r/pulls" >/dev/null && ok "normal-priority call still admitted inside the reserve" || bad "normal call refused at the reserve"
