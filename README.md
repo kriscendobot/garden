@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T03:43:07Z_
+_As of 2026-10-25T03:46:35Z_
 
 ## Latest
 
@@ -1338,13 +1338,13 @@ worst fetch p95 4.374658s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### doin (0)
 (none)
 
-### tada (15011)
+### tada (15012)
+- [`endojs-endo-but-for-bots-pr1349-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1349-weave.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-5af7b73f9272`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-5af7b73f9272.md) — rolling-deploy canary probe — round trip OK
 - [`improve-gh-rest-budget-deferral-log-level`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-gh-rest-budget-deferral-log-level.md) — Cost
 - [`claude-on-minion-town-completion-press-20261025-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-completion-press-20261025-020508.md) — Completion press: Claude-on-minion.town arc (kriscendobot/garden#89)
 - [`kriscendobot-minion.town-pr224-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet.md) — gauntlet kriscendobot-minion.town-pr224-gauntlet — complete
-- [`kriscendobot-minion.town-pr224-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-undraft.md) — Cost
-- … and 15006 more
+- … and 15007 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
