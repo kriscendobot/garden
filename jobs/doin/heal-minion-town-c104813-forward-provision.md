@@ -46,3 +46,13 @@ If step 1 refuses or the procedure is unsafe to run unattended, do not force it:
 instead grant #222 two more rounds
 (`scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr222-gauntlet panel --add-rounds 2`)
 after restoring the adapter tests and `row_kind` filter the panel flagged, and report why.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-25T04:08:28Z
