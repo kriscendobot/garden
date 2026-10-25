@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T08:13:50Z_
+_As of 2026-10-25T08:16:02Z_
 
 ## Latest
 
@@ -1338,13 +1338,13 @@ worst fetch p95 3.828247s/45s (/home/kris/garden/.garden-state/screening-delegat
 ### doin (0)
 (none)
 
-### tada (15029)
+### tada (15030)
+- [`kriscendobot-minion.town-pr220-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr220-gauntlet-viability.md) — Cost
 - [`weave-kriscendobot-minion.town-pr220-20261025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/weave-kriscendobot-minion.town-pr220-20261025.md) — Weave report: kriscendobot/minion.town#220
 - [`claude-on-minion-town-completion-press-20261025-080509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-completion-press-20261025-080509.md) — Cost
 - [`oros-health-checkup-20261025-072008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-checkup-20261025-072008.md) — Cost
 - [`kriscendobot-minion.town-pr219-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr219-gauntlet.md) — gauntlet kriscendobot-minion.town-pr219-gauntlet — HALTED
-- [`minion-town-arc-press-20261025-072008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-072008.md) — Cost
-- … and 15024 more
+- … and 15025 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
