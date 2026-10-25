@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T05:39:16Z_
+_As of 2026-10-25T05:43:39Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-164 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+163 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
