@@ -60,7 +60,8 @@
 #      shepherd untouched and stopping before the next re-validation read.
 #   Source-race. A source that loses the race with a sibling's REST primary-quota
 #      latch and returns only rc 75 exits cleanly, discards partial output, and
-#      skips the tick.
+#      skips the tick; an admission refusal under a non-primary (receipt-owned)
+#      latch is likewise discarded silently, never read as fresh quota exhaustion.
 #
 # Usage: ci-watcher-test.sh
 set -euo pipefail
@@ -432,6 +433,68 @@ grep -q 'collateral quota failure; source discarded, skipping tick' "$TR/collate
 [ "$(todo_count "$BARE_U")" -eq 0 ] \
   && ok "partial source output is discarded without posting or advancing watcher state" \
   || bad "collateral source output posted a shepherd despite the incomplete enumeration"
+
+# 2026-10-25T04:29:34Z: a sibling (the receipt watcher) opened a short TRANSIENT
+# latch after this tick's cooldown gate, so the source's REST request was refused
+# admission and NOT ISSUED. gh_api_retry's synthetic refusal names "API rate limit
+# already exceeded" whatever the latch's tag, and the watcher misread it as fresh
+# primary-quota exhaustion: a second WARN plus a primary-quota latch. The refusal
+# is collateral of the owner's latch, so the tick must discard the partial source
+# output silently, leave the receipt-owned latch untouched, and issue no request.
+hr; echo "QUOTA-COLLATERAL-TRANSIENT - admission refusal under a receipt-owned latch stays silent"; hr
+BARE_U2="$TR/u2.git"; seed_bare "$BARE_U2"
+ROOT_U2="$TR/root-u2"; STATE_U2="$TR/state-u2"; mkdir -p "$ROOT_U2"
+U2_CNT="$TR/u2-gh.count"; printf '0\n' > "$U2_CNT"
+U2_GH="$TR/u2-gh.sh"
+cat > "$U2_GH" <<EOF
+#!/bin/bash
+n=\$(( \$(cat "$U2_CNT" 2>/dev/null || echo 0) + 1 )); printf '%s\n' "\$n" > "$U2_CNT"
+echo '[]'
+EOF
+chmod +x "$U2_GH"
+U2_SRC="$TR/u2-source.sh"
+cat > "$U2_SRC" <<EOF
+#!/bin/bash
+printf '%s\t%s\t%s\t%s\n' 121 kriscendobot endojs/endo-but-for-bots 2099-01-01T00:00:00Z
+# shellcheck source=/dev/null
+. "$JOBS/common.sh"
+mkdir -p "\$GARDEN_API_COOLDOWN_DIR"
+printf '%s\n%s\n' "\$(( \$(date +%s) + 300 ))" 'receipt-watcher:endojs-endo-but-for-bots' \
+  > "\$GARDEN_API_COOLDOWN_DIR/marker"
+gh_api_retry "repos/\$1/pulls?state=open&per_page=100" --paginate
+EOF
+chmod +x "$U2_SRC"
+set +e
+env GARDEN_ROOT="$ROOT_U2" GARDEN_STATE="$STATE_U2" \
+    GARDEN_API_COOLDOWN_DIR="$ROOT_U2/.garden-state/gh-api-cooldown" \
+    GARDEN_API_COOLDOWN_SECS=300 GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    JOURNAL_REMOTE="$BARE_U2" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$U2_SRC" GARDEN_GH="$U2_GH" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='121=0' GARDEN_CI_POST="$JOBS/post-job.sh" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$TR/u2.err"
+u2_rc=$?
+set -e
+U2_MARKER="$ROOT_U2/.garden-state/gh-api-cooldown/marker"
+[ "$u2_rc" -eq 0 ] \
+  && ok "admission-refused source exits 0 under a receipt-owned transient latch" \
+  || bad "admission-refused source exited $u2_rc (want 0; $(cat "$TR/u2.err"))"
+[ "$(cat "$U2_CNT")" -eq 0 ] \
+  && ok "the refused source request was never issued" \
+  || bad "source issued $(cat "$U2_CNT") gh request(s) despite the live latch"
+! grep -qi 'primary REST quota exhaustion' "$TR/u2.err" && ! grep -q 'FATAL:' "$TR/u2.err" \
+  && ok "no second primary-quota warning (and no FATAL) for a collateral refusal" \
+  || bad "collateral refusal was classified as quota exhaustion ($(cat "$TR/u2.err"))"
+! grep -q 'source: ' "$TR/u2.err" \
+  && ok "the collateral refusal's stderr is discarded silently" \
+  || bad "collateral refusal stderr echoed ($(cat "$TR/u2.err"))"
+grep -qx 'receipt-watcher:endojs-endo-but-for-bots' "$U2_MARKER" 2>/dev/null \
+  && ! grep -q 'primary-quota' "$U2_MARKER" 2>/dev/null \
+  && ok "the receipt-owned latch keeps its owner and is not promoted to primary quota" \
+  || bad "latch was rewritten ($(cat "$U2_MARKER" 2>/dev/null))"
+[ "$(todo_count "$BARE_U2")" -eq 0 ] \
+  && ok "partial source output is discarded without posting a shepherd" \
+  || bad "collateral refusal posted a shepherd despite the incomplete enumeration"
 
 # ============================================================================
 hr; echo "A — bot PR + completed-red CI → exactly one shepherd job"; hr

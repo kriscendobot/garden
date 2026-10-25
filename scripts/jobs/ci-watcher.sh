@@ -488,6 +488,17 @@ quota_degrade_if_latched() {
 }
 
 if [ "$src_rc" -ne 0 ]; then
+  # A host-shared admission refusal means the source lost the race with a sibling
+  # that latched the gh-api cooldown after this tick's api_cooldown_active check;
+  # the request was NOT ISSUED. gh_api_retry's synthetic refusal names "API rate
+  # limit already exceeded" whatever the latch's tag, so the quota classifier below
+  # would mistake a transient (e.g. receipt-owned) latch for fresh primary-quota
+  # exhaustion and warn a second time (2026-10-25T04:29:34Z). Test for the refusal
+  # before any classification or stderr echo: the latch owner already warned, so
+  # discard the incomplete source result and skip quietly.
+  if grep -Fq 'admission refused: host-shared gh-api cooldown live' "$ERRF" 2>/dev/null; then
+    exit 0
+  fi
   sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   # A transient connectivity failure (GitHub outage, DNS blip, TLS/read timeout)
   # is not a broken enumeration — it is "we couldn't ask right now". Degrade the
