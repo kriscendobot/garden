@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T04:15:57Z_
+_As of 2026-10-25T04:34:55Z_
 
 ## Latest
 
@@ -30,8 +28,9 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 164 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
-Delegation: **paused** by proxy:screen since 2026-10-24T21:43:00Z: #218 merge c104813b9c4: deploy.yml failure
+Delegation: **active**
 
+- 2026-10-25T04:25:57Z [#224](https://github.com/kriscendobot/minion.town/pull/224) `c2b969fc36e` screened
 - 2026-10-24T21:39:05Z [#218](https://github.com/kriscendobot/minion.town/pull/218) merged `c104813b9c4`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/40135158359) — failed
 - 2026-10-24T19:32:52Z [#218](https://github.com/kriscendobot/minion.town/pull/218) `5e2b6232bc4` screened
 - 2026-10-24T16:55:06Z [#218](https://github.com/kriscendobot/minion.town/pull/218) `e01c98807b0` screened
@@ -1325,8 +1324,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.5M | $105.68 _(notional, rate-card)_ | 12% of 271.0M (ok) |
-| Codex | 91.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 32.6M | $104.54 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Codex | 91.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1337,18 +1336,16 @@ worst fetch p95 4.374658s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
-- [`oros-health-checkup-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261025-040518.md) — ---
-- [`oros-health-watch-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261025-040518.md) — ---
-- [`heal-minion-town-c104813-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/heal-minion-town-c104813-forward-provision.md) — Heal minion.town main forward: provision the guest bond ledger so main deploy...
+### doin (0)
+(none)
 
-### tada (15014)
+### tada (15018)
+- [`heal-minion-town-c104813-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/heal-minion-town-c104813-forward-provision.md) — Cost
+- [`screen-minion-town-pr224-c2b969f-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/screen-minion-town-pr224-c2b969f-conduct.md) — Cost
+- [`oros-health-checkup-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-checkup-20261025-040518.md) — Cost
+- [`oros-health-watch-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-040518.md) — Cost
 - [`minion-town-arc-press-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-040518.md) — Cost
-- [`claude-on-minion-town-press-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-press-20261025-040518.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1349-weave.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-5af7b73f9272`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-5af7b73f9272.md) — rolling-deploy canary probe — round trip OK
-- [`improve-gh-rest-budget-deferral-log-level`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-gh-rest-budget-deferral-log-level.md) — Cost
-- … and 15009 more
+- … and 15013 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
