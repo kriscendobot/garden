@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T22:34:10Z_
+_As of 2026-10-25T22:36:30Z_
 
 ## Latest
 
@@ -1336,7 +1336,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $144.97 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 44.2M | $145.95 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 112.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1345,11 +1345,14 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 2.780534s/45s (/home/kris/garden/.garden-state/decisions/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`oros-health-checkup-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261025-223508.md) — ---
 
-### doin (0)
-(none)
+### doin (3)
+- [`minion-town-arc-press-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261025-223508.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`oros-health-watch-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261025-223508.md) — ---
+- [`claude-on-minion-town-press-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261025-223508.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (15082)
 - [`canary-probe-oros-studio-garden-ce242c49-641bae7ab287`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-641bae7ab287.md) — rolling-deploy canary probe — round trip OK
