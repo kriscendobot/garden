@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T13:53:54Z_
+_As of 2026-10-25T13:54:42Z_
 
 ## Latest
 
@@ -1331,7 +1331,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.7M | $136.57 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 40.8M | $135.21 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 103.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1343,16 +1343,16 @@ worst fetch p95 4.790090s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`heal-minion-town-17e5b95-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/heal-minion-town-17e5b95-forward-provision.md) — Forward-heal kriscendobot/minion.town main at 17e5b95 (#220): provision the m...
+### doin (0)
+(none)
 
-### tada (15055)
+### tada (15056)
+- [`heal-minion-town-17e5b95-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/heal-minion-town-17e5b95-forward-provision.md) — Cost
 - [`oros-health-watch-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-132008.md) — Cost
 - [`oros-health-checkup-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-checkup-20261025-132008.md) — Cost
 - [`minion-town-arc-press-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-132008.md) — Cost
 - [`claude-on-minion-town-press-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-press-20261025-132008.md) — Cost
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025.md) — PR #1538: renewed panel after the weave onto llm-d5ac419 — must-fix
-- … and 15050 more
+- … and 15051 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
