@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T04:57:29Z_
+_As of 2026-10-25T05:04:25Z_
 
 ## Latest
 
@@ -1325,7 +1325,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.7M | $105.51 _(notional, rate-card)_ | 12% of 271.0M (ok) |
-| Codex | 91.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Codex | 92.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1339,13 +1339,13 @@ worst fetch p95 4.374658s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### doin (1)
 - [`improve-ci-cooldown-collateral`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-cooldown-collateral.md) — ---
 
-### tada (15018)
+### tada (15019)
+- [`endojs-endo-but-for-bots-pr1546-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1546-weave.md) — Cost
 - [`heal-minion-town-c104813-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/heal-minion-town-c104813-forward-provision.md) — Cost
 - [`screen-minion-town-pr224-c2b969f-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/screen-minion-town-pr224-c2b969f-conduct.md) — Cost
 - [`oros-health-checkup-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-checkup-20261025-040518.md) — Cost
 - [`oros-health-watch-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-040518.md) — Cost
-- [`minion-town-arc-press-20261025-040518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-040518.md) — Cost
-- … and 15013 more
+- … and 15014 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
