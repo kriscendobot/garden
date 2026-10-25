@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-25T04:25Z (oros-health-checkup-20261025-040518): healthy; deployed = origin/main2 `5af7b73`, no changes
+
+- **Load/mem:** load 1.78/2.25/2.45 at 04:10Z. 2 monks are running. 13 GiB of 15 GiB available; swap reads 875M of 1.0 GiB, the usual steady level; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 55% (209G free), inodes 1%; `/tmp` at 800M (11%).
+- **Uptime:** 23d10h54m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `5af7b73`, the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed user units. `garden-monk@1..2` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed at 02:48, 03:03, 03:18, 03:32, 03:48 and 04:02Z, all ok. Spend has held at 88.72M (49.3% of 180M) while the monks were idle; the meter is not stuck. (The live `journal/` worktree's origin ref lagged at 03:44Z; fresh state clones match `ls-remote`.)
+- **State clones:** 33 journal clones. The largest are reaper (47 packs), self-deploy and producer (44 each); all under the threshold of 50. No tmp_pack, no `gc.log`, and no git `*.lock` older than 30 minutes. `repo-locks` holds 5832 keys, oldest 10-17, consistent with the 7-day pruner.
+- **Scratch:** 42 `gardener-wt-*` checkouts older than 2 days (oldest 09-27). The worktree sweeper keeps them on purpose because their PRs are still open (for example endojs/endo-but-for-bots#664, #675, #1298); PR state is cached per tick.
+- **rc=124 (3h):** none; no `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-25T00:55Z (oros-health-checkup-20261025-005027): healthy; deployed = origin/main2 `e73321c`, no changes
 
 - **Load/mem:** load 1.96/2.24/2.44 at 00:53Z. 2 monks are running. 13 GiB of 15 GiB available; swap reads 876M of 1.0 GiB, the usual steady level; not pressure.
