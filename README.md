@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T04:47:08Z_
+_As of 2026-10-25T04:54:15Z_
 
 ## Latest
 
@@ -1324,10 +1324,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $104.54 _(notional, rate-card)_ | 12% of 271.0M (ok) |
-| Codex | 91.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 32.6M | $105.45 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Codex | 91.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 63426050 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.374658s/45s (/home/kris/garden/.garden-state/deadmail/verify); 4 open notice(s); checker healthy
@@ -1336,8 +1336,8 @@ worst fetch p95 4.374658s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-ci-cooldown-collateral`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-cooldown-collateral.md) — ---
 
 ### tada (15018)
 - [`heal-minion-town-c104813-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/heal-minion-town-c104813-forward-provision.md) — Cost
