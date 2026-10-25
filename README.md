@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T14:26:48Z_
+_As of 2026-10-25T14:35:05Z_
 
 ## Latest
 
@@ -755,11 +753,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #2 (first seen 2026-10-23T13:27:09Z, latest 2026-10-25T01:02:29Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
+> COALESCED message — occurrence #3 (first seen 2026-10-23T13:27:09Z, latest 2026-10-25T14:33:22Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 3 times; this is
+> ONE entry that updates in place, not 3 messages. Latest detail:
 >
-> Milestone M3’s critical Phase 7 continuation, PR #1544, is blocked behind PR #1504’s active CI shepherding and PR #1542’s ready-but-unmerged sandbox fix. Please decide whether to merge #1542 and approve the API-key-provider direction in design PR #1543 before further M3 build work proceeds.
+> Milestone M3’s next top-priority client-side bridge step, `endo-claude-agents-capability`, is blocked on deciding whether to adopt PR #1543’s API-key-provider course correction in place of the closed #1102 design. Confirm the replacement direction and provider/credential boundary before a builder implements child-agent provisioning.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1333,8 +1331,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.9M | $136.00 _(notional, rate-card)_ | 15% of 271.0M (ok) |
-| Codex | 103.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 40.9M | $137.50 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Codex | 104.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
