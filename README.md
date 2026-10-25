@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T00:00:16Z_
+_As of 2026-10-25T00:01:19Z_
 
 ## Latest
 
@@ -1317,16 +1317,16 @@ worst fetch p95 10.193526s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`self-heal-fix-garden-foreman-postjob-completed-collision-rc79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-foreman-postjob-completed-collision-rc79.md) — ---
+### doin (0)
+(none)
 
-### tada (14985)
+### tada (14986)
+- [`self-heal-fix-garden-foreman-postjob-completed-collision-rc79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/self-heal-fix-garden-foreman-postjob-completed-collision-rc79.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-fix-4.md) — Fix round 4: https://github.com/kriscendobot/minion.town/pull/222
 - [`kriscendobot-minion.town-pr222-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-fix-3.md) — Gauntlet fix round 3: kriscendobot/minion.town#222
-- [`kriscendobot-minion.town-pr222-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-3.md) — PR #222 panel round 3: style pre-pass failed, no jurors dispatched
-- … and 14980 more
+- … and 14981 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
