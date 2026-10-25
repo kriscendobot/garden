@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T07:23:57Z_
+_As of 2026-10-25T07:25:19Z_
 
 ## Latest
 
@@ -1010,13 +1010,6 @@ Delegation: **active**
 
 > daemon-agent-tools-design-build (endojs/endo-but-for-bots): Phase 8 of the daemon agent tools design needs your decision on Open Question 4. Should the HTTP client be a daemon `provideHttpClient` formula, or the `@endo/fetch` plugin? Phase 8 is blocked until you answer. Separately, the Phase 2c checkbox in the design document should be ticked once #1497 lands. Phase 7 (the endo-claude acceptance loop) is unblocked for its build step whenever you want it posted.
 
-- `kriscendobot-minion.town-pr219-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr219-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr219-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr219-gauntlet HALTED: PR [kriscendobot/minion.town#219](https://github.com/kriscendobot/minion.town/issues/219) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #219') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr219-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_producer_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` has CLEARED (first seen 2026-10-18T07:14:56Z, cleared 2026-10-18T12:44:41Z).
@@ -1330,7 +1323,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.1M | $105.73 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 33.1M | $106.65 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 94.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1339,12 +1332,12 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.828247s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`oros-health-checkup-20261025-072008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261025-072008.md) — ---
 
-### doin (1)
+### doin (2)
 - [`weave-kriscendobot-minion.town-pr220-20261025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-kriscendobot-minion.town-pr220-20261025.md) — weave kriscendobot/minion.town#220 onto live main
+- [`oros-health-checkup-20261025-072008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261025-072008.md) — ---
 
 ### tada (15026)
 - [`kriscendobot-minion.town-pr219-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr219-gauntlet.md) — gauntlet kriscendobot-minion.town-pr219-gauntlet — HALTED
