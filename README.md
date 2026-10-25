@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T20:19:33Z_
+_As of 2026-10-25T20:25:38Z_
 
 ## Latest
 
@@ -1335,7 +1333,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.8M | $147.54 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 43.9M | $148.12 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 109.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1347,18 +1345,17 @@ worst fetch p95 16.395507s/45s (/home/kris/garden/.garden-state/dependabot-watch
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1551-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1551-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1551
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1553-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1553-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1553
 - [`endojs-endo-but-for-bots-pr1555-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1555-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1555
 
-### tada (15072)
+### tada (15075)
+- [`improve-dependabot-panel-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-dependabot-panel-gate.md) — Completion report: improve-dependabot-panel-gate
+- [`endojs-endo-but-for-bots-pr1551-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1551-dependabot.md) — Cost
+- [`claude-on-minion-town-completion-press-20261025-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-completion-press-20261025-202009.md) — Cost
 - [`endojs-endo-but-for-bots-pr1552-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1552-dependabot.md) — dependabot-terminal-close: complete
 - [`endojs-endo-but-for-bots-pr1554-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1554-dependabot.md) — dependabot-terminal-close: complete
-- [`endojs-endo-but-for-bots-pr1550-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1550-dependabot.md) — Botanist report: endojs/endo-but-for-bots PR #1550 (zizmorcore/zizmor-action ...
-- [`oros-health-watch-20261025-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-192009.md) — Cost
-- [`oros-health-checkup-20261025-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-checkup-20261025-192009.md) — Cost
-- … and 15067 more
+- … and 15070 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
