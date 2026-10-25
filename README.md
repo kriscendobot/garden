@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T21:19:28Z_
+_As of 2026-10-25T21:22:28Z_
 
 ## Latest
 
@@ -1349,8 +1349,8 @@ worst fetch p95 2.739732s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-baseline-ci-embargo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-baseline-ci-embargo.md) — ---
 
 ### tada (15080)
 - [`endojs-endo-but-for-bots-pr1555-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1555-dependabot.md) — Cost
