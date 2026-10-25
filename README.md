@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T02:03:35Z_
+_As of 2026-10-25T02:07:41Z_
 
 ## Latest
 
@@ -1323,7 +1323,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.0M | $104.23 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.1M | $104.23 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 89.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1338,13 +1338,13 @@ worst fetch p95 4.374658s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### doin (0)
 (none)
 
-### tada (15008)
+### tada (15009)
+- [`claude-on-minion-town-completion-press-20261025-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-completion-press-20261025-020508.md) — Completion press: Claude-on-minion.town arc (kriscendobot/garden#89)
 - [`kriscendobot-minion.town-pr224-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet.md) — gauntlet kriscendobot-minion.town-pr224-gauntlet — complete
 - [`kriscendobot-minion.town-pr224-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-undraft.md) — Cost
 - [`kriscendobot-minion.town-pr224-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr224-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-fix-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr1538-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1538-weave.md) — Weave report: endojs/endo-but-for-bots#1538 (build/daemon-git-clone)
-- … and 15003 more
+- … and 15004 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
