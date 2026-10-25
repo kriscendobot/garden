@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T13:34:31Z_
+_As of 2026-10-25T13:35:30Z_
 
 ## Latest
 
@@ -28,7 +28,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 163 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
-Delegation: **paused** by proxy:screen since 2026-10-25T10:54:15Z: #220 merge 17e5b956aec: deploy.yml failure
+Delegation: **active**
 
 - 2026-10-25T10:45:35Z [#220](https://github.com/kriscendobot/minion.town/pull/220) merged `17e5b956aec`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/40186091316) — failed
 - 2026-10-25T10:44:16Z [#220](https://github.com/kriscendobot/minion.town/pull/220) `2d726c5e96c` screened
