@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T20:59:14Z_
+_As of 2026-10-25T21:04:18Z_
 
 ## Latest
 
@@ -1335,8 +1333,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.0M | $146.96 _(notional, rate-card)_ | 16% of 271.0M (ok) |
-| Codex | 110.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 44.1M | $144.66 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Codex | 110.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1347,16 +1345,16 @@ worst fetch p95 16.395507s/45s (/home/kris/garden/.garden-state/dependabot-watch
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1555-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1555-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1555
+### doin (0)
+(none)
 
-### tada (15079)
+### tada (15080)
+- [`endojs-endo-but-for-bots-pr1555-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1555-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright.md) — Completion report: endojs/endo-but-for-bots browser-tests red on Ubuntu 26.04
 - [`canary-probe-oros-studio-garden-ce242c49-daaa3d299a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-daaa3d299a47.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1556-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1556-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1556-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1553-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1553-dependabot.md) — Botanist report: endojs/endo-but-for-bots#1553 (eslint-plugin-jsdoc 64.5.4 → ...
-- [`improve-dependabot-panel-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-dependabot-panel-gate.md) — Completion report: improve-dependabot-panel-gate
-- … and 15074 more
+- … and 15075 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
