@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T10:04:58Z_
+_As of 2026-10-25T10:06:25Z_
 
 ## Latest
 
@@ -543,11 +543,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T03:35:47Z, latest 2026-10-21T08:20:27Z).
-> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-3`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-25T03:35:47Z, latest 2026-10-25T10:05:29Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-3`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 3 (target 3): subscription claude-oros spend=18402533 cap=180000000 pace-bias=0.030204 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.5665(ramp) target=3
+> budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 3 (target 3): subscription claude-oros spend=88841607 cap=180000000 pace-bias=0.508342 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.8574(ramp) target=3
 
 - `liaison-followup-012ad029ea29` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-012ad029ea29.md)
 
@@ -1323,7 +1323,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $104.69 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 33.8M | $105.73 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 99.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1335,8 +1335,8 @@ worst fetch p95 3.828247s/45s (/home/kris/garden/.garden-state/screening-delegat
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr220-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr220-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #220
 
 ### tada (15035)
 - [`kriscendobot-minion.town-pr220-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr220-gauntlet-fix-2.md) — Cost
