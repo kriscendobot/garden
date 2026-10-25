@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T07:06:32Z_
+_As of 2026-10-25T07:09:16Z_
 
 ## Latest
 
@@ -1325,7 +1323,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.8M | $105.31 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 32.8M | $104.69 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 94.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1337,16 +1335,16 @@ worst fetch p95 3.828247s/45s (/home/kris/garden/.garden-state/screening-delegat
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`daily-progress-summary-20261025-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261025-070508.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
-### tada (15021)
+### tada (15022)
+- [`daily-progress-summary-20261025-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/daily-progress-summary-20261025-070508.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-484008b2c22f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-484008b2c22f.md) — rolling-deploy canary probe — round trip OK
 - [`improve-ci-cooldown-collateral`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-ci-cooldown-collateral.md) — Cost
 - [`endojs-endo-but-for-bots-pr1546-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1546-weave.md) — Cost
 - [`heal-minion-town-c104813-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/heal-minion-town-c104813-forward-provision.md) — Cost
-- [`screen-minion-town-pr224-c2b969f-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/screen-minion-town-pr224-c2b969f-conduct.md) — Cost
-- … and 15016 more
+- … and 15017 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
