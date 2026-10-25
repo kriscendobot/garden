@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T09:40:15Z_
+_As of 2026-10-25T09:42:25Z_
 
 ## Latest
 
@@ -1323,7 +1323,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.7M | $104.69 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 33.8M | $105.28 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 99.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1335,8 +1335,8 @@ worst fetch p95 3.828247s/45s (/home/kris/garden/.garden-state/screening-delegat
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr220-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr220-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #220
 
 ### tada (15034)
 - [`kriscendobot-minion.town-pr220-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr220-gauntlet-panel-2.md) — Cost
