@@ -16,3 +16,13 @@ Keep it draft. The weave's completion edge restages the gauntlet.
 
 Note: #220 (https://github.com/kriscendobot/minion.town/pull/220) is stacked on #219's
 commit (as `2e563013`); do not touch #220.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-25T10:22:05Z
