@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T02:49:24Z_
+_As of 2026-10-25T02:53:17Z_
 
 ## Latest
 
@@ -1340,13 +1338,13 @@ worst fetch p95 4.374658s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### doin (0)
 (none)
 
-### tada (15009)
+### tada (15010)
+- [`improve-gh-rest-budget-deferral-log-level`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-gh-rest-budget-deferral-log-level.md) — Cost
 - [`claude-on-minion-town-completion-press-20261025-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-completion-press-20261025-020508.md) — Completion press: Claude-on-minion.town arc (kriscendobot/garden#89)
 - [`kriscendobot-minion.town-pr224-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet.md) — gauntlet kriscendobot-minion.town-pr224-gauntlet — complete
 - [`kriscendobot-minion.town-pr224-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-undraft.md) — Cost
 - [`kriscendobot-minion.town-pr224-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-panel-3.md) — Cost
-- [`kriscendobot-minion.town-pr224-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-fix-2.md) — Cost
-- … and 15004 more
+- … and 15005 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
