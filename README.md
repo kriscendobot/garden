@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T11:09:06Z_
+_As of 2026-10-25T11:09:55Z_
 
 ## Latest
 
@@ -849,13 +849,6 @@ Delegation: **paused** by proxy:screen since 2026-10-25T10:54:15Z: #220 merge 17
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
-
-- `kriscendobot-minion.town-pr225-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr225-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr225-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr225-gauntlet HALTED: PR [kriscendobot/minion.town#225](https://github.com/kriscendobot/minion.town/issues/225) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #225') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr225-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached.md)
 
