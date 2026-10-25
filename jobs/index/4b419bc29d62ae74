@@ -1,2 +1,2 @@
-base: improve-rest-quota-admission
+base: improve-gh-rest-budget-deferral-log-level
 identity: mentor:scripts/jobs/common.sh
