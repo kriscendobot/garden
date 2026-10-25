@@ -75,6 +75,15 @@
 #      a cancelled check in the NEWEST run still reads red
 #   T47-T50 exact panel-head gate admits equal-head coverage and refuses stale,
 #      missing, and unreadable coverage before invoking the merge
+#   T51 verified dependabot mode + NO panel → deterministic head gate merges,
+#      pinned with --match-head-commit, without consulting the panel sensor
+#   T52 dependabot mode + human author + NO panel → ordinary gates, no merge
+#   T53 ordinary merge + dependabot author + NO panel → still fails closed
+#   T54 verified dependabot mode + a foreign commit author → no merge
+#   T55 verified dependabot mode + live head moved off the CI-verified OID → no merge
+#   T56 verified dependabot mode + unreadable final gate read → no merge
+#   T57 verified dependabot mode + a garden-bot migration commit → merge
+#   T58 verified dependabot mode + CHANGES_REQUESTED + NO panel → no merge
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -138,6 +147,14 @@ case "$1 $2" in
       [ -f "$STUBDIR/rollup_ratelimited" ] && { echo "gh: You have exceeded a secondary rate limit (HTTP 403)" >&2; exit 1; }
     fi
     if printf ' %s' "$@" | grep -q -- '--json state,autoMergeRequest'; then cat "$STUBDIR/verify"; exit 0; fi
+    # The Dependabot head gate's final read: $STUBDIR/dependabotmeta, else a
+    # single Dependabot-authored commit at $HEAD by the $STUBDIR/author login.
+    if printf ' %s' "$@" | grep -q -- '--json headRefOid,author,commits'; then
+      [ -f "$STUBDIR/dependabotmeta_fail" ] && exit 1
+      if [ -f "$STUBDIR/dependabotmeta" ]; then cat "$STUBDIR/dependabotmeta"; exit 0; fi
+      login="$(jq -r '.author.login' "$STUBDIR/author" 2>/dev/null || echo 'dependabot[bot]')"
+      printf '{"headRefOid":"123abc123abc123abc123abc123abc123abc123a","author":{"login":"%s"},"commits":[{"oid":"123abc123abc123abc123abc123abc123abc123a","authors":[{"login":"dependabot[bot]","email":"49699333+dependabot[bot]@users.noreply.github.com"}]}]}' "$login"
+      exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json author'; then
       [ -f "$STUBDIR/author_fail" ] && exit 1
       cat "$STUBDIR/author" 2>/dev/null || printf '{"author":{"login":"dependabot[bot]"}}'; exit 0; fi
@@ -214,7 +231,7 @@ CONFLICT_EMPTY="{\"state\":\"OPEN\",\"mergeable\":\"CONFLICTING\",\"headRefOid\"
 # Green CI but a maintainer requested changes: reviewDecision drives the gate.
 GREEN_CR="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"reviewDecision\":\"CHANGES_REQUESTED\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
 
-reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta" "$STUBDIR/refs" "$STUBDIR/refs_fail" "$STUBDIR/compare" "$STUBDIR/runs" "$STUBDIR/runs_forbidden" "$STUBDIR/rollup_forbidden" "$STUBDIR/rollup_ratelimited" "$STUBDIR/panel-head.log" "$STUBDIR/panel-head-rc"; }
+reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta" "$STUBDIR/refs" "$STUBDIR/refs_fail" "$STUBDIR/compare" "$STUBDIR/runs" "$STUBDIR/runs_forbidden" "$STUBDIR/rollup_forbidden" "$STUBDIR/rollup_ratelimited" "$STUBDIR/panel-head.log" "$STUBDIR/panel-head-rc" "$STUBDIR/dependabotmeta" "$STUBDIR/dependabotmeta_fail"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
 chk()       { if [ "$1" = "$2" ]; then ok "$3 (rc=$1)"; else bad "$3 (got rc=$1 want $2)"; fi; }
 merged()    { if [ -f "$STUBDIR/merge.log" ]; then ok "$1 merge called"; else bad "$1 merge NOT called"; fi; }
@@ -594,6 +611,58 @@ if grep -q 'panel-head-blocked .*reason=unreadable .*conductor remains claimable
 else
   bad "T50 unreadable coverage refusal absent: $(cat "$STUBDIR/output")"
 fi
+
+DB_HEAD_META() {  # DB_HEAD_META <head> <commit-authors-json>
+  printf '{"headRefOid":"%s","author":{"login":"dependabot[bot]"},"commits":[{"oid":"%s","authors":%s}]}' "$1" "$1" "$2"
+}
+DB_AUTHOR='{"login":"dependabot[bot]","email":"49699333+dependabot[bot]@users.noreply.github.com"}'
+
+echo "T51 verified dependabot mode + no panel → deterministic gate merges, head-pinned"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+printf '[]' > "$STUBDIR/reviews"; printf '{"author":{"login":"app/dependabot"}}' > "$STUBDIR/author"
+run_capture endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 0 T51; merged T51
+grep -q -- "--match-head-commit $HEAD" "$STUBDIR/merge.log" && ok "T51 merge pinned to the verified head" || bad "T51 merge not head-pinned: $(cat "$STUBDIR/merge.log")"
+[ -f "$STUBDIR/panel-head.log" ] && bad "T51 panel sensor consulted on the dependabot path" || ok "T51 panel sensor not consulted"
+grep -q "dependabot-head-verified repo=endojs/endo-but-for-bots pr=1550" "$STUBDIR/output" && ok "T51 deterministic gate named" || bad "T51 gate line missing: $(cat "$STUBDIR/output")"
+
+echo "T52 dependabot mode + human author + no panel → ordinary gates, no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+printf '{"author":{"login":"alice"}}' > "$STUBDIR/author"
+run endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 1 T52; nomerge T52
+
+echo "T53 ordinary merge mode + dependabot author + no panel → fails closed"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+printf '{"author":{"login":"dependabot[bot]"}}' > "$STUBDIR/author"
+run_capture endojs/endo-but-for-bots 1550; chk "$rc" 1 T53; nomerge T53
+grep -q 'panel-head-blocked .*reason=missing' "$STUBDIR/output" && ok "T53 panel requirement still enforced" || bad "T53 panel refusal missing: $(cat "$STUBDIR/output")"
+
+echo "T54 verified dependabot mode + foreign commit author → no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+DB_HEAD_META "$HEAD" "[$DB_AUTHOR,{\"login\":\"mallory\",\"email\":\"m@example.com\"}]" > "$STUBDIR/dependabotmeta"
+run_capture endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 1 T54; nomerge T54
+grep -q 'dependabot-head-blocked .*reason=foreign-commit-author' "$STUBDIR/output" && ok "T54 refusal names the foreign author" || bad "T54 refusal missing: $(cat "$STUBDIR/output")"
+
+echo "T55 verified dependabot mode + live head moved → no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+DB_HEAD_META 456def456def456def456def456def456def456d "[$DB_AUTHOR]" > "$STUBDIR/dependabotmeta"
+run_capture endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 1 T55; nomerge T55
+grep -q 'dependabot-head-blocked .*reason=head-changed' "$STUBDIR/output" && ok "T55 refusal names the moved head" || bad "T55 refusal missing: $(cat "$STUBDIR/output")"
+
+echo "T56 verified dependabot mode + unreadable gate read → no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+touch "$STUBDIR/dependabotmeta_fail"
+run_capture endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 1 T56; nomerge T56
+grep -q 'dependabot-head-blocked .*reason=unreadable' "$STUBDIR/output" && ok "T56 refusal names the unreadable read" || bad "T56 refusal missing: $(cat "$STUBDIR/output")"
+
+echo "T57 verified dependabot mode + garden-bot migration commit → merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+DB_HEAD_META "$HEAD" "[$DB_AUTHOR,{\"login\":\"kriscendobot\",\"email\":\"bot@example.com\"}]" > "$STUBDIR/dependabotmeta"
+GARDEN_BOT_LOGIN=kriscendobot run endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 0 T57; merged T57
+
+echo "T58 verified dependabot mode + CHANGES_REQUESTED + no panel → no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+printf '{"reviewDecision":"CHANGES_REQUESTED"}' > "$STUBDIR/finalreview"
+run endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 1 T58; nomerge T58
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"

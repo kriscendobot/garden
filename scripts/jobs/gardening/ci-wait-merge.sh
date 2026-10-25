@@ -26,9 +26,13 @@
 #     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. The one
 #     narrow exception is the explicit `--dependabot-auto-merge` mode: it skips
 #     only the approval requirement, and only after a live author read proves
-#     `dependabot[bot]` and the repository is in the bot-owned merge scope. An
-#     unreadable or different author, or a repository outside that scope, keeps
-#     the ordinary approval gate. Issuing the merge in the same invocation as the
+#     `dependabot[bot]` and the repository is in the bot-owned merge scope. In
+#     that verified mode the agent-panel requirement is replaced by a
+#     deterministic head gate (live author still Dependabot, head equals the
+#     CI-verified OID, every commit authored by Dependabot or the garden bot) and
+#     the merge is pinned with --match-head-commit. An unreadable or different
+#     author, or a repository outside that scope, keeps the ordinary approval and
+#     panel gates. Issuing the merge in the same invocation as the
 #     wait is the whole point — never "wait, exit, hope a later tick merges".
 #   * STACKED-PR BRANCH RETENTION: `--delete-branch` is DROPPED when another
 #     open PR uses this PR's head branch as its BASE. Deleting the ref through
@@ -88,7 +92,8 @@
 #      merge or rebase blocked (`needs weave`) / not mergeable /
 #      frozen base shared by a sibling stack / base is a snapshot of a non-trunk
 #      branch (`reason=nontrunk-frozen-base`) / reviewDecision=CHANGES_REQUESTED /
-#      panel coverage stale, absent, or unreadable (maintainer alerted)
+#      panel coverage stale, absent, or unreadable (maintainer alerted) /
+#      Dependabot head gate failed (`dependabot-head-blocked`, maintainer alerted)
 #                                                     → stall, re-enqueue
 #
 # --no-merge makes it a pure block-until-CI-terminal probe (exit 0 = green,
@@ -96,7 +101,8 @@
 # --dependabot-auto-merge is the botanist MERGE-NOW opt-in. It still enforces CI,
 # CHANGES_REQUESTED, unfreeze/shared-stack, branch-retention, and post-merge
 # verification; only the current-maintainer APPROVED signature is omitted after
-# both the author and bot-owned-repository checks succeed.
+# both the author and bot-owned-repository checks succeed, and the exact-head
+# panel requirement is swapped for the deterministic Dependabot head gate.
 #
 # --ratchet-delegated-merge requires the active Ironhorse delegation and a mentat
 # attestation for this exact head. Maintainer veto/dismissal still blocks; the
@@ -838,6 +844,46 @@ elif ! "$HERE/../handlers/pr-maintainer-approval-gh.sh" "$repo" "$pr"; then
   exit 1
 fi
 
+# The verified Dependabot path has no agent panel: the gauntlet never stages one
+# for a bot-authored bump, and the botanist's own MERGE-NOW criteria are the
+# review (endo-but-for-bots#1550 stalled `panel-head-blocked reason=missing`).
+# Its substitute is deterministic, not a skip. One live read at the final merge
+# point must show the author is still Dependabot, the head is exactly the OID whose
+# CI was accepted, and every commit on it is authored only by Dependabot or this
+# bot (the botanist's step-6 migration commits). Any other author, an empty
+# author list, a moved head, or an unreadable answer fails closed. The merge below
+# is then pinned to that head so nothing can land between this read and the merge.
+dependabot_head_gate() {
+  local meta reason
+  if ! meta="$("$GH" pr view "$pr" -R "$repo" --json headRefOid,author,commits 2>/dev/null)" \
+     || ! printf '%s' "$meta" | jq -e . >/dev/null 2>&1; then
+    reason=unreadable
+  elif [ "$(canonical_bot_login "$(printf '%s' "$meta" | jq -r '.author.login // ""')")" \
+         != "$(canonical_bot_login "$GARDEN_DEPENDABOT_LOGIN")" ]; then
+    reason="author-changed"
+  elif [ "$(printf '%s' "$meta" | jq -r '.headRefOid // ""')" != "$post_rebase_head" ]; then
+    reason="head-changed"
+  elif ! printf '%s' "$meta" | jq -e \
+      --arg dependabot "$(canonical_bot_login "$GARDEN_DEPENDABOT_LOGIN")" \
+      --arg bot "$(printf '%s' "$GARDEN_BOT_LOGIN" | tr '[:upper:]' '[:lower:]')" '
+        def canon: ascii_downcase | sub("^app/"; "") | sub("\\[bot\\]$"; "");
+        (.commits | type == "array" and length > 0)
+        and all(.commits[];
+          (.authors | type == "array" and length > 0)
+          and all(.authors[]; (.login // "" | canon) as $login
+                              | $login != "" and ($login == $dependabot or $login == $bot)))
+      ' >/dev/null; then
+    reason="foreign-commit-author"
+  else
+    echo "dependabot-head-verified repo=$repo pr=$pr head=$post_rebase_head mode=dependabot-auto-merge"
+    return 0
+  fi
+  alert_maintainer "dependabot-head-gate-${repo//\//_}-$pr" \
+    "dependabot auto-merge BLOCKED for $repo#$pr: the deterministic Dependabot head gate failed ($reason). This path merges without an agent panel only when the live author is Dependabot, the head is the CI-verified OID, and every commit is authored by Dependabot or $GARDEN_BOT_LOGIN. I will NOT merge. (#$pr left claimable: not merged, not stranded.)"
+  echo "dependabot-head-blocked repo=$repo pr=$pr reason=$reason → alerted maintainer, NOT merging"
+  return 1
+}
+
 # A maintainer approval (or a narrowly delegated approval bypass) is not a
 # substitute for panel coverage.  The panel reviews one exact commit, while the
 # rebase stage above may have moved the head after an earlier panel completed.
@@ -845,9 +891,15 @@ fi
 # Every non-fresh result fails closed: rc 10 is stale, 11 is absent, 12 is an
 # unreadable journal/GitHub view, and any other nonzero status is an operational
 # failure.  Exit 1 leaves the conductor claimable for a later reviewed-head run.
+# The one exception is the verified Dependabot path, whose substitute gate is
+# above; every other mode, including a failed Dependabot bypass, needs the panel.
 panel_head_rc=0
-"$GARDEN_PANEL_HEAD_FRESHNESS_SENSOR" pr --require-reviewed-head "$repo" "$pr" \
-  || panel_head_rc=$?
+if [ "$dependabot_approval_bypass" -eq 1 ]; then
+  dependabot_head_gate || exit 1
+else
+  "$GARDEN_PANEL_HEAD_FRESHNESS_SENSOR" pr --require-reviewed-head "$repo" "$pr" \
+    || panel_head_rc=$?
+fi
 case "$panel_head_rc" in
   0) ;;
   10) panel_head_reason=stale ;;
@@ -883,6 +935,8 @@ merge_head_arguments=()
 if [ "$ratchet_delegated_merge" -eq 1 ]; then
   ratchet_gate merge || exit 1
   merge_head_arguments=(--match-head-commit "$post_rebase_head")
+elif [ "$dependabot_approval_bypass" -eq 1 ]; then
+  merge_head_arguments=(--match-head-commit "$post_rebase_head")
 fi
 
 if ! merr="$("$GH" pr merge "$pr" -R "$repo" --merge ${delete_flag:+"$delete_flag"} "${merge_head_arguments[@]}" 2>&1)"; then
@@ -890,7 +944,7 @@ if ! merr="$("$GH" pr merge "$pr" -R "$repo" --merge ${delete_flag:+"$delete_fla
   # supports queued auto-merge, queue it so GitHub completes on the now-green CI.
   log "direct --merge failed for $repo#$pr: $merr"
   if [ "$ratchet_delegated_merge" -eq 0 ] && printf '%s' "$merr" | grep -qi 'auto-merge\|not mergeable\|required status'; then
-    if "$GH" pr merge "$pr" -R "$repo" --auto --merge >/dev/null 2>&1; then
+    if "$GH" pr merge "$pr" -R "$repo" --auto --merge "${merge_head_arguments[@]}" >/dev/null 2>&1; then
       state="$("$GH" pr view "$pr" -R "$repo" --json state,autoMergeRequest \
         --jq '.state + " auto=" + (.autoMergeRequest != null | tostring)' 2>/dev/null || echo '?')"
       echo "queued repo=$repo pr=$pr auto-merge ($state)"
