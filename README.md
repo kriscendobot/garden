@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T03:12:14Z_
+_As of 2026-10-25T03:15:16Z_
 
 ## Latest
 
@@ -1334,20 +1332,19 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.374658s/45s (/home/kris/garden/.garden-state/deadmail/verify); 3 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`canary-probe-oros-studio-garden-ce242c49-5af7b73f9272`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-5af7b73f9272.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 5af7b73f9272
 
 ### doin (0)
 (none)
 
-### tada (15010)
+### tada (15011)
+- [`canary-probe-oros-studio-garden-ce242c49-5af7b73f9272`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-5af7b73f9272.md) — rolling-deploy canary probe — round trip OK
 - [`improve-gh-rest-budget-deferral-log-level`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-gh-rest-budget-deferral-log-level.md) — Cost
 - [`claude-on-minion-town-completion-press-20261025-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-completion-press-20261025-020508.md) — Completion press: Claude-on-minion.town arc (kriscendobot/garden#89)
 - [`kriscendobot-minion.town-pr224-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet.md) — gauntlet kriscendobot-minion.town-pr224-gauntlet — complete
 - [`kriscendobot-minion.town-pr224-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-undraft.md) — Cost
-- [`kriscendobot-minion.town-pr224-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr224-gauntlet-panel-3.md) — Cost
-- … and 15005 more
+- … and 15006 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
