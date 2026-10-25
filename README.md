@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T10:21:29Z_
+_As of 2026-10-25T10:23:48Z_
 
 ## Latest
 
@@ -1325,7 +1323,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.5M | $114.32 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 35.5M | $113.76 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 99.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1338,19 +1336,17 @@ worst fetch p95 4.790090s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261025-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261025-102008.md) — ---
 
-### doin (4)
-- [`claude-on-minion-town-press-20261025-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261025-102008.md) — Press the Claude-on-minion.town arc forward
-- [`oros-health-watch-20261025-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261025-102008.md) — ---
+### doin (2)
+- [`weave-kriscendobot-minion.town-pr219-20261025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-kriscendobot-minion.town-pr219-20261025.md) — weave kriscendobot/minion.town#219 (pin the merge base)
 - [`kriscendobot-minion.town-pr220-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr220-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #220
-- [`minion-town-arc-press-20261025-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261025-102008.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (15036)
+### tada (15039)
+- [`claude-on-minion-town-press-20261025-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-press-20261025-102008.md) — Cost
+- [`minion-town-arc-press-20261025-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-102008.md) — Cost
+- [`oros-health-watch-20261025-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-102008.md) — Cost
 - [`kriscendobot-minion.town-pr220-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr220-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr220-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr220-gauntlet-fix-2.md) — Cost
-- [`kriscendobot-minion.town-pr220-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr220-gauntlet-panel-2.md) — Cost
-- [`kriscendobot-minion.town-pr220-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr220-gauntlet-fix-1.md) — Gauntlet FIX round 1: kriscendobot/minion.town#220
-- [`kriscendobot-minion.town-pr220-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr220-gauntlet-panel-1.md) — Cost
-- … and 15031 more
+- … and 15034 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
