@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T23:23:33Z_
+_As of 2026-10-25T23:26:05Z_
 
 ## Latest
 
@@ -1336,7 +1336,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.3M | $144.97 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 44.4M | $145.66 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 113.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1348,8 +1348,8 @@ worst fetch p95 2.780534s/45s (/home/kris/garden/.garden-state/decisions/journal
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-daemon-git-remotes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes.md) — ---
 
 ### tada (15086)
 - [`oros-health-watch-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-223508.md) — Cost
