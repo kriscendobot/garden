@@ -176,6 +176,34 @@ echo "ok - a long spell-out-exempt file stays exempt under pipefail"
 git -C "$REPOSITORY" reset -q --hard HEAD
 git -C "$REPOSITORY" clean -qfd
 
+# Regression (endojs/endo-but-for-bots#1538): a test shimming the XS host global
+# `hostReadDir` cannot rename it; the pre-change tree declares it ambient in a
+# `.d.ts`, so it is an external binding, not a freshly-authored name. An ambient
+# declaration the change itself adds earns no exemption.
+printf '%s\n' 'declare var hostReadDir: (...args: any[]) => any;' \
+  >"$REPOSITORY/host-globals.d.ts"
+git -C "$REPOSITORY" add host-globals.d.ts
+git -C "$REPOSITORY" commit -qm 'ambient host globals'
+printf '%s\n' 'globalThis.hostReadDir = () => [];' >"$REPOSITORY/shim.js"
+git -C "$REPOSITORY" add shim.js
+output=$($DRIVER --no-auto-fix --probes-only --summary "$REPOSITORY") || {
+  echo "not ok - pre-existing ambient host global hostReadDir was flagged"
+  printf '%s\n' "$output"
+  exit 1
+}
+echo "ok - an ambient host global declared before the change is exempt"
+printf '%s\n' 'declare var hostWriteDir: (...args: any[]) => any;' \
+  >>"$REPOSITORY/host-globals.d.ts"
+printf '%s\n' 'globalThis.hostWriteDir = () => [];' >>"$REPOSITORY/shim.js"
+git -C "$REPOSITORY" add host-globals.d.ts shim.js
+if $DRIVER --no-auto-fix --probes-only --summary "$REPOSITORY" >/dev/null; then
+  echo "not ok - an ambient declaration added by the change exempted hostWriteDir"
+  exit 1
+fi
+echo "ok - an ambient declaration added by the change is still checked"
+git -C "$REPOSITORY" reset -q --hard HEAD~1
+git -C "$REPOSITORY" clean -qfd
+
 # Regression: a literal NUL byte makes a file binary, so git and GitHub suppress
 # its line-level diff and hide the substantive change from review. The
 # no-nul-bytes probe must reject a changed text file that carries a NUL, in the

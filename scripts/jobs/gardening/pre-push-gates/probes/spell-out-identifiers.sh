@@ -40,6 +40,16 @@
 #     in the SES text-codec tests bypassed the curated blocklist. These names
 #     have direct spelled-out forms: error, constructor, property, success, and
 #     character.
+#   * 2026-10-25 false positive: endojs/endo-but-for-bots#1538 shimmed the XS
+#     host global `hostReadDir` in a test. That name is the Rust host ABI's
+#     (rust/endo/xsnap/src/host_aliases.js), declared ambient in the base's
+#     packages/daemon/src/bus-xs-host-globals.d.ts; the PR cannot rename it. An
+#     identifier the PRE-CHANGE tree declares ambient in a `.d.ts`
+#     (`declare var|let|const|function NAME`) is an external binding, not a
+#     freshly-authored name, so it is exempt. Only the pre-change tree counts: a
+#     PR that adds its own ambient declaration still has its new names checked.
+#     A local helper that merely mirrors an abbreviated sibling (#1329's
+#     `openTestDb`) is not an ambient declaration and still fires.
 #
 # HOW IT WORKS: for each ADDED line of a changed source file the probe strips
 # string literals and comments (a char scanner that skips `//`, `/* */`, and
@@ -72,6 +82,7 @@
 #   spell-out-identifiers.sh --scan-stdin [<label>]
 #       Scan added-code lines on stdin (for tests / demonstration): treat every
 #       stdin line as an added line of a file named <label> (default `<stdin>`).
+#       SPELL_OUT_AMBIENT (space-separated names) stands in for the ambient set.
 #       Prints `pass` or `fail:` lines; exits 0/1.
 #   spell-out-identifiers.sh --segments <identifier>
 #       Print the lowercased segments of one identifier (debug), space-separated.
@@ -90,6 +101,9 @@ classify() {
       # abbreviation trips a review.
       split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument args:arguments subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request addr:address db:database err:error ctor:constructor prop:property ok:success c:character", pairs, " ")
       for (p in pairs) { split(pairs[p], kv, ":"); BLOCK[kv[1]] = kv[2] }
+      # Ambient host-ABI names the pre-change tree declares (space-separated).
+      na = split(ENVIRON["SPELL_OUT_AMBIENT"], amb, " ")
+      for (a = 1; a <= na; a++) AMBIENT[amb[a]] = 1
       findings = 0
       sq = sprintf("%c", 39); bt = sprintf("%c", 96)
     }
@@ -137,6 +151,7 @@ classify() {
       return n
     }
     function check_ident(id, file,   arr, ns, j, s, key) {
+      if (id in AMBIENT) return
       ns = segment(id, arr)
       for (j = 1; j <= ns; j++) {
         s = arr[j]
@@ -216,6 +231,22 @@ run_probe() {
     files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
     [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
   fi
+
+  # Ambient declarations in the PRE-CHANGE tree's `.d.ts` files: the merge
+  # base under PRE_PUSH_BASE_REF, else HEAD (staged/unstaged diffs are on top of
+  # HEAD). These are external bindings the change did not coin.
+  local ambient_tree=HEAD
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    ambient_tree=$(git merge-base "$PRE_PUSH_BASE_REF" HEAD 2>/dev/null) \
+      || ambient_tree="$PRE_PUSH_BASE_REF"
+  fi
+  SPELL_OUT_AMBIENT=$(
+    git grep -h -E '^[[:space:]]*declare[[:space:]]+(var|let|const|function)[[:space:]]' \
+      "$ambient_tree" -- '*.d.ts' 2>/dev/null \
+      | sed -E 's/^[[:space:]]*declare[[:space:]]+(var|let|const|function)[[:space:]]+([A-Za-z_$][A-Za-z0-9_$]*).*/\2/' \
+      | grep -E '^[A-Za-z_$][A-Za-z0-9_$]*$' | sort -u | tr '\n' ' '
+  )
+  export SPELL_OUT_AMBIENT
 
   # Build the combined `<file>\t<line>` stream, then classify once so `seen`
   # dedupes across the whole diff and the exit code is a single verdict.
