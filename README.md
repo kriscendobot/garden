@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T14:18:35Z_
+_As of 2026-10-25T14:22:09Z_
 
 ## Latest
 
@@ -1346,13 +1346,13 @@ worst fetch p95 4.790090s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### doin (0)
 (none)
 
-### tada (15056)
+### tada (15057)
+- [`claude-on-minion-town-completion-press-20261025-142009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-completion-press-20261025-142009.md) — Cost
 - [`heal-minion-town-17e5b95-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/heal-minion-town-17e5b95-forward-provision.md) — Cost
 - [`oros-health-watch-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-132008.md) — Cost
 - [`oros-health-checkup-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-checkup-20261025-132008.md) — Cost
 - [`minion-town-arc-press-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-132008.md) — Cost
-- [`claude-on-minion-town-press-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-press-20261025-132008.md) — Cost
-- … and 15051 more
+- … and 15052 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
