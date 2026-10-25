@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T19:53:23Z_
+_As of 2026-10-25T19:56:17Z_
 
 ## Latest
 
@@ -1329,7 +1329,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.4M | $144.49 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 43.5M | $145.09 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 109.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1341,8 +1341,8 @@ worst fetch p95 2.739732s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1550-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1550-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1550
 
 ### tada (15069)
 - [`oros-health-watch-20261025-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-192009.md) — Cost
