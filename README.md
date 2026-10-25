@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T22:36:30Z_
+_As of 2026-10-25T22:39:19Z_
 
 ## Latest
 
@@ -1338,7 +1336,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.2M | $145.95 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 44.3M | $145.57 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 112.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1351,18 +1349,16 @@ worst fetch p95 2.780534s/45s (/home/kris/garden/.garden-state/decisions/journal
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261025-223508.md) — ---
 
-### doin (3)
-- [`minion-town-arc-press-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261025-223508.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (1)
 - [`oros-health-watch-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261025-223508.md) — ---
-- [`claude-on-minion-town-press-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261025-223508.md) — Press the Claude-on-minion.town arc forward
 
-### tada (15082)
+### tada (15084)
+- [`claude-on-minion-town-press-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-press-20261025-223508.md) — Cost
+- [`minion-town-arc-press-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-223508.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-641bae7ab287`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-641bae7ab287.md) — rolling-deploy canary probe — round trip OK
 - [`improve-baseline-ci-embargo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-baseline-ci-embargo.md) — Cost
 - [`endojs-endo-but-for-bots-pr1555-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1555-dependabot.md) — Cost
-- [`endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright.md) — Completion report: endojs/endo-but-for-bots browser-tests red on Ubuntu 26.04
-- [`canary-probe-oros-studio-garden-ce242c49-daaa3d299a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-daaa3d299a47.md) — rolling-deploy canary probe — round trip OK
-- … and 15077 more
+- … and 15079 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
