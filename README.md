@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T19:58:07Z_
+_As of 2026-10-25T20:05:04Z_
 
 ## Latest
 
@@ -285,6 +283,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr221-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
+- `watchdog-panel-head-coverage-endojs_endo-but-for-bots-1550` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-panel-head-coverage-endojs_endo-but-for-bots-1550.md)
+
+> conductor merge BLOCKED for [endojs/endo-but-for-bots#1550](https://github.com/endojs/endo-but-for-bots/issues/1550): exact panel-head coverage is missing (sensor rc=11). I will NOT merge without a durable completed panel for the live PR head. Run or resume the gauntlet against the current head, then leave the conductor claimable for a later merge attempt.
 
 - `liaison-followup-56d47a214d15` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-56d47a214d15.md)
 
@@ -1331,8 +1333,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.5M | $145.50 _(notional, rate-card)_ | 16% of 271.0M (ok) |
-| Codex | 109.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 43.5M | $145.82 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Codex | 109.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
