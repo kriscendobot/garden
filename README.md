@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-25T21:23:38Z_
+_As of 2026-10-25T21:29:14Z_
 
 ## Latest
 
@@ -1351,16 +1349,16 @@ worst fetch p95 2.739732s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`improve-baseline-ci-embargo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-baseline-ci-embargo.md) — ---
+### doin (0)
+(none)
 
-### tada (15080)
+### tada (15081)
+- [`improve-baseline-ci-embargo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-baseline-ci-embargo.md) — Cost
 - [`endojs-endo-but-for-bots-pr1555-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1555-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright.md) — Completion report: endojs/endo-but-for-bots browser-tests red on Ubuntu 26.04
 - [`canary-probe-oros-studio-garden-ce242c49-daaa3d299a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/canary-probe-oros-studio-garden-ce242c49-daaa3d299a47.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1556-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1556-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1556-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1553-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1553-dependabot.md) — Botanist report: endojs/endo-but-for-bots#1553 (eslint-plugin-jsdoc 64.5.4 → ...
-- … and 15075 more
+- … and 15076 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
