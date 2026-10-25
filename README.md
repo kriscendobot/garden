@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T10:53:18Z_
+_As of 2026-10-25T10:55:43Z_
 
 ## Latest
 
@@ -28,9 +28,9 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 163 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
-Delegation: **active**
+Delegation: **paused** by proxy:screen since 2026-10-25T10:54:15Z: #220 merge 17e5b956aec: deploy.yml failure
 
-- 2026-10-25T10:45:35Z [#220](https://github.com/kriscendobot/minion.town/pull/220) merged `17e5b956aec`; deploy [pending](https://github.com/kriscendobot/minion.town/actions/runs/40161993447)
+- 2026-10-25T10:45:35Z [#220](https://github.com/kriscendobot/minion.town/pull/220) merged `17e5b956aec`; deploy [failure](https://github.com/kriscendobot/minion.town/actions/runs/40186091316) — failed
 - 2026-10-25T10:44:16Z [#220](https://github.com/kriscendobot/minion.town/pull/220) `2d726c5e96c` screened
 - 2026-10-25T04:28:16Z [#224](https://github.com/kriscendobot/minion.town/pull/224) merged `df5bd2d7c41`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/40161993447), watchdog ok — validated
 - 2026-10-25T04:25:57Z [#224](https://github.com/kriscendobot/minion.town/pull/224) `c2b969fc36e` screened
@@ -1309,6 +1309,12 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` cleared on oros-studio-garden-ce242c49.
 
+- `minion-town-pr-screening-paused-17e5b95` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-17e5b95.md)
+
+> minion.town screening PAUSED: merge 17e5b956aec of [https://github.com/kriscendobot/minion.town/pull/220](https://github.com/kriscendobot/minion.town/pull/220) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/40186091316
+> Heal job heal-minion-town-17e5b95 posted; the delegation resumes by itself once a later main deploy succeeds and the watchdog is ok.
+> Operations: context/operations/minion-town-screening.md
+
 - `endojs-endo-but-for-bots-pr1538-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1538-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1538-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1538-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1538-gauntlet-panel-6' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
@@ -1337,8 +1343,8 @@ worst fetch p95 4.790090s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`heal-minion-town-17e5b95`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/heal-minion-town-17e5b95.md) — Heal minion.town production after merge 17e5b956aec2377dd94782fb31ec50a4634e267d
 
 ### tada (15046)
 - [`screen-minion-town-pr220-2d726c5-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/screen-minion-town-pr220-2d726c5-conduct.md) — Cost
