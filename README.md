@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T20:50:51Z_
+_As of 2026-10-25T20:52:31Z_
 
 ## Latest
 
@@ -1333,7 +1333,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.0M | $147.83 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 44.0M | $147.92 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 110.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1342,12 +1342,12 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 16.395507s/45s (/home/kris/garden/.garden-state/dependabot-watcher/verify); 7 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`canary-probe-oros-studio-garden-ce242c49-daaa3d299a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-daaa3d299a47.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ daaa3d299a47
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright.md) — fix: endojs/endo-but-for-bots browser-tests red on Ubuntu 26.04 (Playwright)
+- [`canary-probe-oros-studio-garden-ce242c49-daaa3d299a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-daaa3d299a47.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ daaa3d299a47
 - [`endojs-endo-but-for-bots-pr1555-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1555-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1555
 
 ### tada (15077)
