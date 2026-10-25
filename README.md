@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T13:38:07Z_
+_As of 2026-10-25T13:40:09Z_
 
 ## Latest
 
@@ -1343,18 +1343,17 @@ worst fetch p95 4.790090s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`oros-health-watch-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261025-132008.md) — ---
-- [`oros-health-checkup-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261025-132008.md) — ---
 - [`heal-minion-town-17e5b95-forward-provision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/heal-minion-town-17e5b95-forward-provision.md) — Forward-heal kriscendobot/minion.town main at 17e5b95 (#220): provision the m...
 
-### tada (15053)
+### tada (15054)
+- [`oros-health-checkup-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-checkup-20261025-132008.md) — Cost
 - [`minion-town-arc-press-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-132008.md) — Cost
 - [`claude-on-minion-town-press-20261025-132008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-press-20261025-132008.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025.md) — PR #1538: renewed panel after the weave onto llm-d5ac419 — must-fix
 - [`endojs-endo-but-for-bots-pr1546-gauntlet-20261025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1546-gauntlet-20261025.md) — Cost
-- [`kriscendobot-minion.town-pr225-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/kriscendobot-minion.town-pr225-gauntlet.md) — gauntlet kriscendobot-minion.town-pr225-gauntlet — HALTED
-- … and 15048 more
+- … and 15049 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
