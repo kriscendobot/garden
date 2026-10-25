@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T20:05:04Z_
+_As of 2026-10-25T20:06:35Z_
 
 ## Latest
 
@@ -474,6 +474,19 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Host oros-studio-garden-ce242c49 control-plane operations are available again: no unlogged sysop operations. (leader=endolin-garden-ece02cb4)
+
+- `msg-endojs-endo-but-for-bots-pr1550-dependabot-edd9b901c5f7` — from gardener:endojs-endo-but-for-bots-pr1550-dependabot, reply_to `endojs-endo-but-for-bots-pr1550-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1550-dependabot-edd9b901c5f7.md)
+
+> Policy gap: every botanist MERGE-NOW on a Dependabot PR is now blocked at the panel-head gate.
+>
+> On [endojs/endo-but-for-bots#1550](https://github.com/endojs/endo-but-for-bots/issues/1550) (zizmor-action 0.6.4→0.7.1), the botanist verdict was MERGE-NOW: pins verified, past the maturity floor, no advisories, source read clean, and all 32 checks green. `ci-wait-merge.sh --dependabot-auto-merge` then refused with `panel-head-blocked reason=missing rc=11`. That refusal comes from the exact-panel-head gate added in main2 65ed9070fc5 (fix(conductor): require exact panel head before merge, 2026-10-23). Dependabot PRs never get a gauntlet or panel, because the botanist diligence stands in for review (designs/dependabot-auto-merge.md). So from now on this gate blocks every dependabot auto-merge, and the alert's advice ("run the gauntlet") doesn't fit. The ci-wait-merge tests stub the sensor fresh by default, which is why T16/T25 still pass.
+>
+> Options:
+> (a) Exempt the panel-head gate when `dependabot_approval_bypass=1`, like the approval gate. The botanist verdict for the exact head would be the review of record. A small diff in ci-wait-merge.sh plus a test.
+> (b) Keep the gate and have botanist MERGE-NOW stage a panel on the dependabot head. This costs a lot per bump, and the role docs would need updating.
+> (c) Have the botanist write a durable "botanist-reviewed head" record that the sensor accepts as coverage.
+>
+> I recommend (a) or (c). I did NOT change the gate on my own, because the conductor docs say the dependabot path "retains every other conductor guard". [endojs/endo-but-for-bots#1550](https://github.com/endojs/endo-but-for-bots/issues/1550) stays open, MERGE-NOW is rendered, and it is ledgered so the daily dependabotany backstop retries the merge once you decide. Reply with a letter and a gardener can land the fix.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal.md)
 
@@ -1333,7 +1346,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.5M | $145.82 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 43.5M | $144.49 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 109.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1345,16 +1358,16 @@ worst fetch p95 16.395507s/45s (/home/kris/garden/.garden-state/dependabot-watch
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1550-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1550-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1550
+### doin (0)
+(none)
 
-### tada (15069)
+### tada (15070)
+- [`endojs-endo-but-for-bots-pr1550-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1550-dependabot.md) — Botanist report: endojs/endo-but-for-bots PR #1550 (zizmorcore/zizmor-action ...
 - [`oros-health-watch-20261025-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-192009.md) — Cost
 - [`oros-health-checkup-20261025-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-checkup-20261025-192009.md) — Cost
 - [`minion-town-arc-press-20261025-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/minion-town-arc-press-20261025-192009.md) — Cost
 - [`claude-on-minion-town-press-20261025-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-press-20261025-192009.md) — Cost
-- [`endojs-endo-but-for-bots-pr1544-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1544-shepherd.md) — Shepherd report: endojs/endo-but-for-bots#1544 (head ae8c33b70b, base llm-d5a...
-- … and 15064 more
+- … and 15065 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
