@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-25T20:43:38Z_
+_As of 2026-10-25T20:45:27Z_
 
 ## Latest
 
@@ -1278,6 +1278,13 @@ Delegation: **active**
 >
 > If the maintainer would rather have the implementation start from an informal spec, they can say so and the job can be unblocked.
 
+- `endojs-endo-but-for-bots-pr1556-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1556-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1556-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1556-gauntlet HALTED: PR [endojs/endo-but-for-bots#1556](https://github.com/endojs/endo-but-for-bots/issues/1556) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #1556') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1556-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
 > Container hardening is PENDING on oros-studio-garden-ce242c49: 2 launcher-posture check(s) fail (caps/sudo/block devices/mount).
@@ -1349,13 +1356,13 @@ worst fetch p95 16.395507s/45s (/home/kris/garden/.garden-state/dependabot-watch
 - [`endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ci-ubuntu2604-browser-tests-playwright.md) — fix: endojs/endo-but-for-bots browser-tests red on Ubuntu 26.04 (Playwright)
 - [`endojs-endo-but-for-bots-pr1555-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1555-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1555
 
-### tada (15076)
+### tada (15077)
+- [`endojs-endo-but-for-bots-pr1556-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1556-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1556-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1553-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1553-dependabot.md) — Botanist report: endojs/endo-but-for-bots#1553 (eslint-plugin-jsdoc 64.5.4 → ...
 - [`improve-dependabot-panel-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/improve-dependabot-panel-gate.md) — Completion report: improve-dependabot-panel-gate
 - [`endojs-endo-but-for-bots-pr1551-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1551-dependabot.md) — Cost
 - [`claude-on-minion-town-completion-press-20261025-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/claude-on-minion-town-completion-press-20261025-202009.md) — Cost
-- [`endojs-endo-but-for-bots-pr1552-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1552-dependabot.md) — dependabot-terminal-close: complete
-- … and 15071 more
+- … and 15072 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
