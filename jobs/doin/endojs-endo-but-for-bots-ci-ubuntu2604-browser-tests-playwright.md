@@ -23,3 +23,13 @@ that supports 26.04 if one exists and is mature, whichever is the smaller, safer
 Check whether the same workflow has other `ubuntu-latest` Playwright jobs. Open a PR
 against `llm` via ensure-pr.sh, drive its `browser-tests` to green, and let the gauntlet
 run. This red currently blocks every Dependabot MERGE-NOW on the repo (e.g. #1553).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-25T20:40:02Z
