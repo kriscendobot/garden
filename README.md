@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-24T23:57:24Z_
+_As of 2026-10-25T00:00:16Z_
 
 ## Latest
 
@@ -1307,7 +1305,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.2M | $91.63 _(notional, rate-card)_ | 10% of 271.0M (ok) |
+| Claude | 29.6M | $98.16 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 83.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1319,17 +1317,16 @@ worst fetch p95 10.193526s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`self-heal-fix-garden-foreman-postjob-completed-collision-rc79`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-foreman-postjob-completed-collision-rc79.md) — ---
-- [`kriscendobot-minion.town-pr222-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr222-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #222
 
-### tada (14984)
+### tada (14985)
+- [`kriscendobot-minion.town-pr222-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-fix-4.md) — Fix round 4: https://github.com/kriscendobot/minion.town/pull/222
 - [`kriscendobot-minion.town-pr222-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr222-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-fix-3.md) — Gauntlet fix round 3: kriscendobot/minion.town#222
 - [`kriscendobot-minion.town-pr222-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-panel-3.md) — PR #222 panel round 3: style pre-pass failed, no jurors dispatched
-- [`kriscendobot-minion.town-pr222-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/24/kriscendobot-minion.town-pr222-gauntlet-fix-2.md) — Cost
-- … and 14979 more
+- … and 14980 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
