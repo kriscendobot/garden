@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "kriscendobot/minion.town",
+  "pr": 218,
+  "url": "https://github.com/kriscendobot/minion.town/pull/218",
+  "head_oid": "5e2b6232bc4dfd27083912167ed48cbaf06cb5af",
+  "ask": "re-review",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Panel reviewed e01c98807b0b, but the presented head is 5e2b6232bc4d",
+  "unblocks": [],
+  "source": "heal-minion-town-c104813-forward-provision-fixer-complete",
+  "requested_at": "2026-10-25T04:26:59Z",
+  "first_requested_at": "2026-10-23T14:35:54Z",
+  "generation": 10,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-25T04:27:28Z"
+  }
+}
