@@ -36,6 +36,8 @@
 #   N. an empty peer-dependency range intersection → cheap incompatible close job
 #   O. a target Node engine excluding the project floor → cheap incompatible job
 #   P. no compatibility proof → fall open to the full review
+#   BCI. exact failed-check overlap with the base is carried into the job, an
+#      all-shared rollup suppresses repeat diagnosis, and comparisons are capped
 #   MIG. a migration hook is named only for its exact (repo, package) row
 #   Q. a primary REST-quota source refusal arms the host-wide gh-api latch for the
 #      full primary-quota window (not the 300s transient default), and a later tick
@@ -119,6 +121,19 @@ awk -F'\t' -v OFS='\t' -v pr="$2" '$1 == pr {$1=""; sub(/^\t/, ""); print; found
 EOF
 chmod +x "$COMPSTUB"
 
+# Base-CI attribution oracle. BASE_CI_FIXTURE lines are:
+#   pr \t shared \t base_sha \t head_sha \t pr_failed \t base_failed \t overlap \t all
+# A missing PR exits nonzero, the real handler's "no exact overlap / unreadable"
+# fail-open result. Every call is logged so the per-tick cap is testable.
+BASECISTUB="$TR/base-ci-stub.sh"
+cat > "$BASECISTUB" <<'EOF'
+#!/bin/bash
+[ -n "${BASE_CI_LOG:-}" ] && printf '%s %s\n' "$1" "$2" >> "$BASE_CI_LOG"
+[ -n "${BASE_CI_FIXTURE:-}" ] && [ -f "$BASE_CI_FIXTURE" ] || exit 1
+awk -F'\t' -v OFS='\t' -v pr="$2" '$1 == pr {$1=""; sub(/^\t/, ""); print; found=1; exit} END {if (!found) exit 1}' "$BASE_CI_FIXTURE"
+EOF
+chmod +x "$BASECISTUB"
+
 board_has() {  # board_has <bare> <base>  -> 0 if job present in plan/todo/doin/tada
   local v; v="$(mktemp -d "$TR/bv.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
@@ -158,6 +173,7 @@ run_dep() {  # run_dep <state> <bare> <fixture> [slug]
       GARDEN_DEP_PR_SOURCE="$SRCSTUB" DEP_FIXTURE="$3" \
       GARDEN_DEP_COMPARE="$CMPSTUB" CMP_FIXTURE="${CMP_FIXTURE:-}" CMP_LOG="${CMP_LOG:-}" \
       GARDEN_DEP_COMPAT="$COMPSTUB" COMP_FIXTURE="${COMP_FIXTURE:-}" COMP_LOG="${COMP_LOG:-}" \
+      GARDEN_DEP_BASE_CI="$BASECISTUB" BASE_CI_FIXTURE="${BASE_CI_FIXTURE:-}" BASE_CI_LOG="${BASE_CI_LOG:-}" \
       GARDEN_FETCH_CMD="${GARDEN_FETCH_CMD:-}" VLOCK_LOG="${VLOCK_LOG:-}" \
       GARDEN_DEPENDABOT_CLOSE_HOST=write-host \
       GARDEN_DEP_POST="$JOBS/post-job.sh" \
@@ -409,6 +425,44 @@ has_in_body "$BARE_P" "$SLUG-pr802-dependabot" 'read the lockfile transitive set
   && ok "absence of proof fell open to the FULL review" || bad "no-proof bump did not fall open"
 has_in_body "$BARE_P" "$SLUG-pr802-dependabot" 'INCOMPATIBLE by preflight' \
   && bad "no-proof bump was marked incompatible" || ok "no-proof bump was NOT rejected"
+
+# ============================================================================
+hr; echo "BCI — exact base-rollup overlap is annotated, all-shared avoids repeat diagnosis, and reads are capped"; hr
+BARE_BCI="$TR/bci.git"; seed_bare "$BARE_BCI"
+FIX_BCI="$TR/fix-bci.tsv"
+{ depline 810 'Bump alpha from 1.0.0 to 1.1.0'
+  depline 811 'Bump beta from 1.0.0 to 1.1.0'
+  depline 812 'Bump gamma from 1.0.0 to 1.1.0'
+  depline 813 'Bump delta from 1.0.0 to 1.1.0'; } > "$FIX_BCI"
+BASE_A=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+HEAD_810=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+HEAD_811=cccccccccccccccccccccccccccccccccccccccc
+HEAD_813=dddddddddddddddddddddddddddddddddddddddd
+BASE_CI_FIX="$TR/base-ci.tsv"
+{ printf '810\tshared\t%s\t%s\t2\t3\t2\t1\n' "$BASE_A" "$HEAD_810"
+  printf '811\tshared\t%s\t%s\t3\t2\t1\t0\n' "$BASE_A" "$HEAD_811"
+  # 812 deliberately absent: no overlap/read failure falls open without annotation.
+  printf '813\tshared\t%s\t%s\t1\t1\t1\t1\n' "$BASE_A" "$HEAD_813"; } > "$BASE_CI_FIX"
+BASE_CI_LOG="$TR/base-ci.log"; : > "$BASE_CI_LOG"
+BASE_CI_FIXTURE="$BASE_CI_FIX" BASE_CI_LOG="$BASE_CI_LOG" GARDEN_DEP_BASE_CI_MAX_CHECKS=3 \
+  run_dep "$TR/state-bci" "$BARE_BCI" "$FIX_BCI"
+has_in_body "$BARE_BCI" "$SLUG-pr810-dependabot" 'dependabot-base-ci-all-shared: 1' \
+  && has_in_body "$BARE_BCI" "$SLUG-pr810-dependabot" 'ALL observed PR failures were shared' \
+  && has_in_body "$BARE_BCI" "$SLUG-pr810-dependabot" 'do not shepherd' \
+  && ok "all-shared failures carry immutable evidence and suppress repeat diagnosis/shepherding" \
+  || bad "all-shared base-CI annotation or disposition is missing"
+has_in_body "$BARE_BCI" "$SLUG-pr811-dependabot" 'dependabot-base-ci-shared: 1' \
+  && has_in_body "$BARE_BCI" "$SLUG-pr811-dependabot" 'Only the remaining PR-only failures belong to step 6 diagnosis' \
+  && ok "partial overlap attributes only the shared subset to baseline infrastructure" \
+  || bad "partial base-CI overlap annotation is missing"
+! has_in_body "$BARE_BCI" "$SLUG-pr812-dependabot" 'dependabot-base-ci: v1' \
+  && ok "no-overlap/unreadable comparison falls open to an unannotated full review" \
+  || bad "failed base-CI proof produced an annotation"
+! has_in_body "$BARE_BCI" "$SLUG-pr813-dependabot" 'dependabot-base-ci: v1' \
+  && [ "$(wc -l < "$BASE_CI_LOG")" -eq 3 ] \
+  && ! grep -q ' 813$' "$BASE_CI_LOG" \
+  && ok "per-tick cap stopped after exactly three base-rollup comparisons" \
+  || bad "base-CI comparison cap was not enforced ($(tr '\n' ' ' < "$BASE_CI_LOG"))"
 
 # ============================================================================
 hr; echo "R — cgroup straggler sweep waits until the cgroup is EMPTY (not one-shot)"; hr

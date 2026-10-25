@@ -72,6 +72,19 @@
 # reverify-and-close botanist job. Missing/unsupported declarations, malformed API
 # data, registry/API failure, and the timeout all fall open to the full review.
 #
+# ── Base-CI attribution preflight (exact commits, bounded, fail-open) ─────────
+# For up to four otherwise-full jobs per tick, handlers/dep-base-ci-gh.sh compares
+# the failed status-check identities on the PR head with the failed identities on
+# that PR's exact baseRefOid. A positive intersection is stamped into the job as
+# immutable SHA + count evidence. The botanist rechecks those two rollups once and
+# does not re-diagnose, rerun, or repair failures already red on base; when every PR
+# failure is shared, it records an infrastructure-blocked embargo/escalation and
+# recheck rather than buying a shepherd pass for the same fleet-wide outage. An API
+# error, moving/closed PR, empty or >100-context rollup, timeout, malformed result,
+# no intersection, or exhausted per-tick cap falls open to the ordinary full body.
+# Check names never enter the job: the handler compares workflow+job/status-context
+# identities internally and emits only counts and immutable commit IDs.
+#
 # ── Migration hooks (exact repo + package match, fail-closed runner) ─────────
 # Some bumps are red by construction until a known regeneration step lands (every
 # `@anthropic-ai/claude-code` bump on kriscendobot/minion.town needs
@@ -126,6 +139,8 @@
 #   GARDEN_DEP_COMPAT    <repo> <pr> <pkg> <old-ver> <new-ver> -> TSV proof of a declared
 #                                                     peer/Node incompatibility
 #                                                     (non-zero = no proof)
+#   GARDEN_DEP_BASE_CI   <repo> <pr>       -> TSV when one or more failed PR
+#                                                     checks also fail on base
 #   GARDEN_DEP_POST      <basename> <body-file>    (post-job.sh)
 #   GARDEN_DEP_MIGRATION lookup <repo> <pkg>       -> hook id (dependabot-migration.sh)
 # The dependabot-author gate and the whole preflight live HERE (not in a handler) so
@@ -147,6 +162,7 @@ export GARDEN_TAG="dependabot-watcher/$slug"
 : "${GARDEN_DEP_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
 : "${GARDEN_DEP_COMPARE:=$HERE/handlers/dep-compare-gh.sh}"
 : "${GARDEN_DEP_COMPAT:=$HERE/handlers/dep-compat-gh.sh}"
+: "${GARDEN_DEP_BASE_CI:=$HERE/handlers/dep-base-ci-gh.sh}"
 : "${GARDEN_DEP_POST:=$HERE/post-job.sh}"
 # Terminal, declaration-proven closes must run where the fork-scoped bot token can
 # write endojs PRs. Other fleet hosts can enumerate them but their PATs may be
@@ -161,6 +177,8 @@ export GARDEN_TAG="dependabot-watcher/$slug"
 : "${GARDEN_DEP_COMPARE_TIMEOUT_SECS:=90}"
 : "${GARDEN_DEP_COMPAT_TIMEOUT_SECS:=45}"
 : "${GARDEN_DEP_COMPAT_MAX_CHECKS:=8}"
+: "${GARDEN_DEP_BASE_CI_TIMEOUT_SECS:=45}"
+: "${GARDEN_DEP_BASE_CI_MAX_CHECKS:=4}"
 : "${GARDEN_DEP_VERIFY_CLONE:=$GARDEN_STATE/dependabot-watcher/verify}"
 VERIFY="$GARDEN_DEP_VERIFY_CLONE"
 # Bound the PR-source enumeration so a hung gh/git can never outlive the tick.
@@ -488,6 +506,8 @@ done < "$SRC"
 # NOTE[pr]      -> a preflight finding to hand a FULL review so it need not redo it
 declare -A DOM_PEER=() DOM_EVIDENCE=() NOTE=()
 declare -A INCOMP_KIND=() INCOMP_A=() INCOMP_PROJECT=() INCOMP_REQUIRED=() INCOMP_PATH=()
+declare -A BASE_CI_BASE=() BASE_CI_HEAD=() BASE_CI_PR_FAILED=() BASE_CI_BASE_FAILED=()
+declare -A BASE_CI_SHARED=() BASE_CI_ALL_SHARED=()
 
 run_compare() {  # run_compare <pkg> <old> <new> -> TSV on stdout; rc 1 = not established
   local out rc=0
@@ -601,6 +621,65 @@ compat_preflight() {
 }
 compat_preflight
 
+# --- base-CI attribution preflight (bounded and fail-open) -------------------
+# A red PR is not proof that its dependency bump caused the failure. Compare the
+# failed check identities on the exact PR head with those on its exact base commit
+# before commissioning a botanist. This is deliberately bounded per tick: the
+# watcher may discover a large Dependabot backlog, and each comparison costs GitHub
+# rollup reads. Anything unreadable, malformed, timed out, or beyond the cap falls
+# open to the ordinary full review; only a positive exact-name intersection is
+# carried into the job.
+run_base_ci() {  # run_base_ci <pr> -> TSV on stdout; rc 1 = no shared proof
+  local out rc=0
+  if command -v timeout >/dev/null 2>&1; then
+    out="$(timeout --signal=TERM --kill-after="$GARDEN_DEP_KILL_AFTER" \
+             "${GARDEN_DEP_BASE_CI_TIMEOUT_SECS}s" \
+             "$GARDEN_DEP_BASE_CI" "$repo" "$1")" || rc=$?
+  else
+    out="$("$GARDEN_DEP_BASE_CI" "$repo" "$1")" || rc=$?
+  fi
+  [ "$rc" -eq 0 ] && [ -n "$out" ] || return 1
+  printf '%s' "$out" | head -1
+}
+
+base_ci_preflight() {
+  local pr _pkg _old _new proof verdict base_sha head_sha pr_bad base_bad shared all checked=0
+  case "$GARDEN_DEP_BASE_CI_MAX_CHECKS" in
+    ''|*[!0-9]*) die "GARDEN_DEP_BASE_CI_MAX_CHECKS must be a non-negative integer" ;;
+  esac
+  while IFS=$'\t' read -r pr _pkg _old _new; do
+    [ -n "$pr" ] && [ -z "${DOM_PEER[$pr]:-}" ] && [ -z "${INCOMP_KIND[$pr]:-}" ] || continue
+    posted_anywhere "$slug-pr$pr-dependabot" && continue
+    if [ "$checked" -ge "$GARDEN_DEP_BASE_CI_MAX_CHECKS" ]; then
+      log "preflight: base-CI comparison cap ($GARDEN_DEP_BASE_CI_MAX_CHECKS) reached; remaining PRs fall open to full review"
+      break
+    fi
+    checked=$((checked+1))
+    if ! proof="$(run_base_ci "$pr")"; then
+      continue
+    fi
+    IFS=$'\t' read -r verdict base_sha head_sha pr_bad base_bad shared all <<< "$proof"
+    [ "$verdict" = shared ] || continue
+    [[ "$base_sha" =~ ^[0-9a-fA-F]{40,64}$ ]] || continue
+    [[ "$head_sha" =~ ^[0-9a-fA-F]{40,64}$ ]] || continue
+    [[ "$pr_bad" =~ ^[0-9]+$ ]] && [ "$pr_bad" -gt 0 ] || continue
+    [[ "$base_bad" =~ ^[0-9]+$ ]] && [ "$base_bad" -gt 0 ] || continue
+    [[ "$shared" =~ ^[0-9]+$ ]] && [ "$shared" -gt 0 ] || continue
+    [ "$shared" -le "$pr_bad" ] && [ "$shared" -le "$base_bad" ] || continue
+    case "$all" in 0|1) ;; *) continue;; esac
+    [ "$all" -eq 0 ] || [ "$shared" -eq "$pr_bad" ] || continue
+    BASE_CI_BASE[$pr]="${base_sha,,}"; BASE_CI_HEAD[$pr]="${head_sha,,}"
+    BASE_CI_PR_FAILED[$pr]="$pr_bad"; BASE_CI_BASE_FAILED[$pr]="$base_bad"
+    BASE_CI_SHARED[$pr]="$shared"; BASE_CI_ALL_SHARED[$pr]="$all"
+    if [ "$all" -eq 1 ]; then
+      log "preflight: #$pr has $pr_bad failed check(s), all already failing on base $base_sha — annotate as shared infrastructure"
+    else
+      log "preflight: #$pr has $shared/$pr_bad failed check(s) already failing on base $base_sha — annotate shared subset"
+    fi
+  done < "$DEPS"
+}
+base_ci_preflight
+
 # --- pass 3: post ------------------------------------------------------------
 
 # The FULL review body: the whole diligence chain. Its named FIRST STEP is the
@@ -610,7 +689,17 @@ compat_preflight
 # would have partially reverted a deliberate repin).
 write_full_body() {  # write_full_body <pr> [<pkg> <old> <new>]
   local pr="$1"
-  printf '%s\n%s\n%s\n\n' '---' 'role: botanist' '---'
+  printf '%s\n%s\n' '---' 'role: botanist'
+  if [ -n "${BASE_CI_SHARED[$pr]:-}" ]; then
+    printf '%s\n' 'dependabot-base-ci: v1'
+    printf 'dependabot-base-ci-base: %s\n' "${BASE_CI_BASE[$pr]}"
+    printf 'dependabot-base-ci-head: %s\n' "${BASE_CI_HEAD[$pr]}"
+    printf 'dependabot-base-ci-pr-failed: %s\n' "${BASE_CI_PR_FAILED[$pr]}"
+    printf 'dependabot-base-ci-base-failed: %s\n' "${BASE_CI_BASE_FAILED[$pr]}"
+    printf 'dependabot-base-ci-shared: %s\n' "${BASE_CI_SHARED[$pr]}"
+    printf 'dependabot-base-ci-all-shared: %s\n' "${BASE_CI_ALL_SHARED[$pr]}"
+  fi
+  printf '%s\n\n' '---'
   printf '# botanist (auto: dependabot PR) on %s PR #%s\n\n' "$repo" "$pr"
   printf 'A `dependabot[bot]` pull request is open on this gated repo. Map:\n'
   printf '**dependabot PR** -> botanist review. Wear roles/botanist/AGENT.md and review\n'
@@ -635,6 +724,21 @@ write_full_body() {  # write_full_body <pr> [<pkg> <old> <new>]
     printf 'Watcher preflight: the title of this PR did not match the `bump <pkg> from <a>\n'
     printf 'to <b>` form, so it could not be grouped and NO cross-PR reconciliation was done.\n'
     printf 'Run the sibling-PR supersession check yourself (roles/botanist/AGENT.md step 1).\n\n'
+  fi
+  if [ -n "${BASE_CI_SHARED[$pr]:-}" ]; then
+    printf 'BASE-CI PREFLIGHT (deterministic, exact commits): the PR head `%s` had\n' "${BASE_CI_HEAD[$pr]}"
+    printf '%s failed check identity/identities; base `%s` had %s, with %s exact\n' \
+      "${BASE_CI_PR_FAILED[$pr]}" "${BASE_CI_BASE[$pr]}" "${BASE_CI_BASE_FAILED[$pr]}" "${BASE_CI_SHARED[$pr]}"
+    printf 'identity/identities failing on BOTH commits. Re-read both live rollups once.\n'
+    printf 'If the recorded SHAs still match, attribute that shared set to baseline\n'
+    printf 'infrastructure and do NOT diagnose, rerun, or repair it in this dependency PR.\n'
+    if [ "${BASE_CI_ALL_SHARED[$pr]}" -eq 1 ]; then
+      printf 'ALL observed PR failures were shared. If that remains true, do not shepherd\n'
+      printf 'this CI: finish the non-CI diligence, then record an infrastructure-blocked\n'
+      printf 'embargo/escalation and its recheck instead of rediscovering the base outage.\n\n'
+    else
+      printf 'Only the remaining PR-only failures belong to step 6 diagnosis.\n\n'
+    fi
   fi
   local hook=""
   [ -n "${2:-}" ] && hook="$("$GARDEN_DEP_MIGRATION" lookup "$repo" "$2" 2>/dev/null)" || hook=""
