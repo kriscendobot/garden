@@ -1,2 +1,2 @@
-base: improve-dependabot-terminal-close-routing
+base: improve-baseline-ci-embargo
 identity: mentor:scripts/jobs/dependabot-watcher.sh
