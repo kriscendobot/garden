@@ -17,3 +17,13 @@ Do, in order (authority: maintainer standing order for kriscendobot/minion.town,
 4. On success, close #225 with a one-line comment: superseded by the forward provisioning, naming the deploy and probe runs. Do NOT resume the screener by hand; confirm the proxy auto-resumed it (`status` → `active`).
 5. If the documented step does not exist, would need a policy wider than #220 documents, or the available credentials cannot change IAM: do not improvise. Instead post `weave #225` (basename `weave-kriscendobot-minion.town-pr225-20261025`) so the revert's gauntlet can run, and report why.
 Report what changed (AWS state, runs, PR closes).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-25T13:22:15Z

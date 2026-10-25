@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 3
+worker_kind: monk
+claimed_at: 2026-10-25T13:22:15Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-heal-minion-town-17e5b95-forward-provision
