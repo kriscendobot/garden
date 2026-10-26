@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T15:50:44Z_
+_As of 2026-10-26T15:52:18Z_
 
 ## Latest
 
@@ -317,10 +317,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_ci_watcher_verify_kriscendobot_oros_ckm_data_readiness` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_ci_watcher_verify_kriscendobot_oros_ckm_data_readiness.md)
-
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/ci-watcher/verify-kriscendobot-oros-ckm-data-readiness: p95=30.227843s max=30.227843s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1370,7 +1366,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.1M | $167.46 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 55.2M | $167.86 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 134.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1382,8 +1378,8 @@ worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-daemon-git-next-steps-structured-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-next-steps-structured-rebase.md) — ---
 
 ### tada (15192)
 - [`claude-on-minion-town-completion-press-20261026-143508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-143508.md) — Cost
