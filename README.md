@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T17:30:54Z_
+_As of 2026-10-26T17:34:41Z_
 
 ## Latest
 
@@ -46,15 +44,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr201-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
-- `followup-gate-endojs-endo-but-for-bots-pr1570-gauntlet-clean` — from followup-gate:endojs-endo-but-for-bots-pr1570-gauntlet-clean, reply_to `endojs-endo-but-for-bots-pr1570-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-endojs-endo-but-for-bots-pr1570-gauntlet-clean.md)
-
-> Job "endojs-endo-but-for-bots-pr1570-gauntlet-clean" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
->
-> ## Follow-ups
-> - The gauntlet can't go green on this frozen base until the bwrap fix ([#1542](https://github.com/endojs/endo-but-for-bots/issues/1542) or [#1566](https://github.com/endojs/endo-but-for-bots/issues/1566)) lands and the PR is woven onto a base that has it. The daemon durable-environment failure and the floot macOS failure look intermittent and should be re-run before anyone investigates them.
->
-> <<<GARDEN-ORCHESTRATION-FAILED>>>
-
 - `minion-town-pr-screening-paused-c104813` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-c104813.md)
 
 > minion.town screening PAUSED: merge c104813b9c4 of [https://github.com/kriscendobot/minion.town/pull/218](https://github.com/kriscendobot/minion.town/pull/218) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/40135158359
@@ -74,13 +63,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 15 -> 17 (N is yours to choose).
-
-- `endojs-endo-but-for-bots-pr1570-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1570-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1570-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1570-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1570-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1570-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `mt-beta-product-pass-20261017-terminal-complete` — from orchestrator:mt-beta-product-pass-20261017-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/mt-beta-product-pass-20261017-terminal-complete.md)
 
@@ -1398,20 +1380,21 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.9M | $168.55 _(notional, rate-card)_ | 21% of 271.0M (ok) |
-| Codex | 135.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 56.0M | $171.25 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Codex | 136.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.508447s/45s (/home/kris/garden/.garden-state/screening-control/journal); 7 open notice(s); checker healthy
+worst fetch p95 3.738372s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`build-daemon-git-next-steps-structured-stash`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-next-steps-structured-stash.md) — ---
+- [`build-daemon-git-next-steps-read-only-type-narrowing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-next-steps-read-only-type-narrowing.md) — ---
 - [`fu-endojs-endo-but-for-bots-pr1570-gauntlet-clean-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1570-gauntlet-clean-1.md) — ---
 
 ### tada (15201)
