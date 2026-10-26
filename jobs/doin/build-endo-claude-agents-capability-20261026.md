@@ -24,3 +24,13 @@ Dispatched by design-build-handoff.sh from the design report's follow-ups:
 > - Build `build-endo-child-agent-factory` after the draft design gauntlet converges.
 > 
 > Self-improvement: nothing this time.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-26T01:57:08Z
