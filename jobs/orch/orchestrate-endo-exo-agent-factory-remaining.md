@@ -1,4 +1,5 @@
 ---
+child-build-endo-exo-agent-factory-reply-collapse-host: endolin-garden-ece02cb4
 child-build-endo-exo-agent-factory-reply-collapse-reap-count: 0
 child-build-endo-exo-agent-factory-turn-ledger-host: endolin-garden-ece02cb4
 child-build-endo-exo-agent-factory-turn-ledger-reap-count: 0
