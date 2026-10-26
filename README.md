@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T10:55:09Z_
+_As of 2026-10-26T10:59:13Z_
 
 ## Latest
 
@@ -1368,7 +1366,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.7M | $169.50 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 54.7M | $168.41 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 128.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1377,22 +1375,21 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`oros-health-checkup-20261026-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261026-105008.md) — ---
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
-- [`improve-dependabot-ledger-pr-parser`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-ledger-pr-parser.md) — ---
+- [`oros-health-checkup-20261026-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261026-105008.md) — ---
 - [`oros-health-watch-20261026-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261026-105008.md) — ---
 - [`endojs-endo-but-for-bots-pr1568-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1568-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1568
 
-### tada (15177)
+### tada (15178)
+- [`improve-dependabot-ledger-pr-parser`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-dependabot-ledger-pr-parser.md) — Cost
 - [`claude-on-minion-town-press-20261026-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-105008.md) — Cost
 - [`minion-town-arc-press-20261026-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-105008.md) — Cost
 - [`endojs-endo-but-for-bots-pr1568-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1568-gauntlet-viability.md) — Cost
 - [`build-daemon-git-next-steps-structured-show`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-daemon-git-next-steps-structured-show.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20261026-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/dependabotany-recheck-endo-but-for-bots-20261026-102008.md) — Cost
-- … and 15172 more
+- … and 15173 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
