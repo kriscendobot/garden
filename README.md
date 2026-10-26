@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T03:20:50Z_
+_As of 2026-10-26T03:22:41Z_
 
 ## Latest
 
@@ -1344,10 +1344,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.8M | $152.43 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 47.8M | $149.95 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 119.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 63445643 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 6 open notice(s); checker healthy
@@ -1356,18 +1356,16 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1561-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1561-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1561
-- [`build-endo-exo-agent-factory-maker-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-exo-agent-factory-maker-adapters.md) — Build: child-agent factory, maker adapters (implementation-plan steps 2 and 4)
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1560
 
-### tada (15123)
+### tada (15125)
+- [`build-endo-exo-agent-factory-maker-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-endo-exo-agent-factory-maker-adapters.md) — Cost
+- [`endojs-endo-but-for-bots-pr1560-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1560-gauntlet-clean.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1559-gauntlet-clean-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fu-endojs-endo-but-for-bots-pr1559-gauntlet-clean-3.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-aec7aabd570b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-aec7aabd570b.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1561-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1561-gauntlet-viability.md) — Cost
-- [`build-endo-exo-agent-factory-daemon-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-endo-exo-agent-factory-daemon-wiring.md) — Cost
-- [`claude-on-minion-town-completion-press-20261026-022009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-022009.md) — Cost
-- … and 15118 more
+- … and 15120 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
