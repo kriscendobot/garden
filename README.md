@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T07:03:36Z_
+_As of 2026-10-26T07:06:42Z_
 
 ## Latest
 
@@ -1359,7 +1359,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.9M | $168.19 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 51.9M | $170.28 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 124.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1371,7 +1371,8 @@ worst fetch p95 3.657741s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`daily-progress-summary-20261026-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261026-070508.md) — Daily midnight Pacific progress summary
 - [`build-daemon-git-next-steps`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-next-steps.md) — ---
 
 ### tada (15150)
