@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T20:40:33Z_
+_As of 2026-10-26T20:41:49Z_
 
 ## Latest
 
@@ -1060,10 +1060,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` cleared on endolin-garden-ece02cb4.
-
-- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal.md)
-
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/library-link-check/journal: p95=15.089529s max=15.089529s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `20261017T175349Z-6b9fd0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T175349Z-6b9fd0.md)
 
