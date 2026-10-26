@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T02:35:03Z_
+_As of 2026-10-26T02:37:13Z_
 
 ## Latest
 
@@ -1360,13 +1360,13 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`fu-endojs-endo-but-for-bots-pr1559-gauntlet-clean-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1559-gauntlet-clean-3.md) — ---
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1560
 
-### tada (15120)
+### tada (15121)
+- [`endojs-endo-but-for-bots-pr1561-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1561-gauntlet-viability.md) — Cost
 - [`build-endo-exo-agent-factory-daemon-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-endo-exo-agent-factory-daemon-wiring.md) — Cost
 - [`claude-on-minion-town-completion-press-20261026-022009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-022009.md) — Cost
 - [`oros-health-watch-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-013510.md) — Cost
 - [`oros-health-checkup-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-013510.md) — Cost
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1560-gauntlet-viability.md) — Cost
-- … and 15115 more
+- … and 15116 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
