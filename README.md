@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T23:25:25Z_
+_As of 2026-10-26T23:29:55Z_
 
 ## Latest
 
@@ -1392,16 +1392,16 @@ worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-79377c2dbb43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-79377c2dbb43.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 79377c2dbb43
+### doin (0)
+(none)
 
-### tada (15224)
+### tada (15225)
+- [`canary-probe-oros-studio-garden-ce242c49-79377c2dbb43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-79377c2dbb43.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-230509.md) — Cost
 - [`oros-health-checkup-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-230509.md) — Cost
 - [`minion-town-arc-press-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-230509.md) — Cost
 - [`claude-on-minion-town-press-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-230509.md) — Cost
-- [`improve-issue-inbox-transient-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-issue-inbox-transient-cooldown-race.md) — Cost
-- … and 15219 more
+- … and 15220 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
