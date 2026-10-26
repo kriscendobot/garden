@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T15:48:52Z_
+_As of 2026-10-26T15:50:44Z_
 
 ## Latest
 
@@ -317,6 +317,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_ci_watcher_verify_kriscendobot_oros_ckm_data_readiness` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_ci_watcher_verify_kriscendobot_oros_ckm_data_readiness.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/ci-watcher/verify-kriscendobot-oros-ckm-data-readiness: p95=30.227843s max=30.227843s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
