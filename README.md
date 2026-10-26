@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T07:08:37Z_
+_As of 2026-10-26T07:16:06Z_
 
 ## Latest
 
@@ -1361,7 +1359,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.9M | $170.28 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 52.0M | $161.71 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 124.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1373,17 +1371,16 @@ worst fetch p95 3.657741s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`daily-progress-summary-20261026-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261026-070508.md) — Daily midnight Pacific progress summary
-- [`build-daemon-git-next-steps`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-next-steps.md) — ---
+### doin (0)
+(none)
 
-### tada (15150)
+### tada (15153)
+- [`endojs-endo-but-for-bots-pr1565-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1565-gauntlet-viability.md) — Cost
+- [`daily-progress-summary-20261026-070508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/daily-progress-summary-20261026-070508.md) — Cost
+- [`build-daemon-git-next-steps`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-daemon-git-next-steps.md) — Completion report: build-daemon-git-next-steps
 - [`endojs-endo-but-for-bots-pr1564-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1564-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1564-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1564-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1564-gauntlet-clean.md) — Gauntlet CLEAN stage for endojs/endo-but-for-bots#1564: CI is RED, but none o...
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-b3fecfbf-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1349-gauntlet-restage-b3fecfbf-20261026.md) — Cost
-- [`endojs-endo-but-for-bots-pr1564-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1564-gauntlet-viability.md) — Cost
-- [`orchestrate-endo-exo-agent-factory-remaining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/orchestrate-endo-exo-agent-factory-remaining.md) — orchestration orchestrate-endo-exo-agent-factory-remaining — complete
-- … and 15145 more
+- … and 15148 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
