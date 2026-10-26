@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T01:44:19Z_
+_As of 2026-10-26T01:49:24Z_
 
 ## Latest
 
@@ -1346,8 +1344,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.9M | $148.08 _(notional, rate-card)_ | 17% of 271.0M (ok) |
-| Codex | 117.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 46.6M | $150.66 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Codex | 117.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1359,19 +1357,18 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`oros-health-checkup-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261026-013510.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr1558-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1558-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1558
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1559-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1559-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1559
 - [`fix-endojs-endo-but-for-bots-pr1349-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-20261026.md) — ---
 - [`oros-health-watch-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261026-013510.md) — ---
 
-### tada (15105)
+### tada (15106)
+- [`endojs-endo-but-for-bots-pr1558-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-panel-4.md) — Cost
 - [`minion-town-arc-press-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-013510.md) — Cost
 - [`claude-on-minion-town-press-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-013510.md) — Cost
 - [`endojs-endo-but-for-bots-pr1558-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-fix-3.md) — Fix round 3 for endojs/endo-but-for-bots PR #1558: done, CI green
 - [`canary-probe-oros-studio-garden-ce242c49-863da8d4a681`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-863da8d4a681.md) — rolling-deploy canary probe — round trip OK
-- [`fix-endojs-endo-but-for-bots-pr1349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fix-endojs-endo-but-for-bots-pr1349.md) — Cost
-- … and 15100 more
+- … and 15101 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
