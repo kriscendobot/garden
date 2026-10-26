@@ -6,3 +6,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Fix the outstanding requested-review findings on endojs/endo-but-for-bots PR #1349, `build/hardened-text-codecs-shim`, and verify CI.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-26T01:40:34Z
