@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T05:43:49Z_
+_As of 2026-10-26T05:50:27Z_
 
 ## Latest
 
@@ -642,6 +640,19 @@ Delegation: **active**
 > minion-town-arc-press-20261024-122008 was claimed 12:20:40Z on endolin-garden-ece02cb4. It is 5368s old against a 2400s handler budget (2968s overdue), with 0 requeues. I found no live process or scratch worktree for it on that host, so it looks orphaned. I took no action: this press only observes, and the reaper should requeue it.
 > Everything else is nominal. 11 completions ([kriscendobot/minion.town#218](https://github.com/kriscendobot/minion.town/issues/218) gauntlet rounds 14–16 included), 0 new dooms, 0 absent jobs.
 > Side note: the report wrapper's schedule-derived window lagged one dispatch (it gave 01:35→07:35), so I passed --since/--until explicitly.
+
+- `orchestrate-endo-exo-agent-factory-remaining-terminal-complete` — from orchestrator:orchestrate-endo-exo-agent-factory-remaining-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orchestrate-endo-exo-agent-factory-remaining-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: orchestrate-endo-exo-agent-factory-remaining
+> orchestration-status: complete
+> order: serial
+> children-total: 4
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration orchestrate-endo-exo-agent-factory-remaining complete (serial): all 4 children reached tada without a machine-readable failure declaration.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot.md)
 
@@ -1344,8 +1355,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.0M | $154.91 _(notional, rate-card)_ | 18% of 271.0M (ok) |
-| Codex | 122.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 50.1M | $156.22 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Codex | 123.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1356,16 +1367,16 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1564-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1564-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1564
 
-### tada (15145)
+### tada (15147)
+- [`endojs-endo-but-for-bots-pr1564-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1564-gauntlet-viability.md) — Cost
+- [`orchestrate-endo-exo-agent-factory-remaining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/orchestrate-endo-exo-agent-factory-remaining.md) — orchestration orchestrate-endo-exo-agent-factory-remaining — complete
 - [`build-endo-exo-agent-factory-reply-collapse`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-endo-exo-agent-factory-reply-collapse.md) — Cost
 - [`endojs-endo-but-for-bots-pr1563-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1563-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1563-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1563-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1563-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-fix-panel-5647558192`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1349-fix-panel-5647558192.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1349-shepherd-b3fecfbf-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1349-shepherd-b3fecfbf-20261026.md) — Cost
-- … and 15140 more
+- … and 15142 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
