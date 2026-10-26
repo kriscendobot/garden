@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T22:54:10Z_
+_As of 2026-10-26T22:56:59Z_
 
 ## Latest
 
@@ -1380,7 +1380,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.0M | $171.90 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Claude | 57.0M | $170.84 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 141.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1392,16 +1392,16 @@ worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`improve-issue-inbox-transient-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-inbox-transient-cooldown-race.md) — ---
+### doin (0)
+(none)
 
-### tada (15219)
+### tada (15220)
+- [`improve-issue-inbox-transient-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-issue-inbox-transient-cooldown-race.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-0c6356a68150`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-0c6356a68150.md) — rolling-deploy canary probe — round trip OK
 - [`improve-rest-budget-pagination`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-rest-budget-pagination.md) — Cost
 - [`fix-endo-but-for-bots-pull-request-1569-git-remote-pull-merge-conflict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fix-endo-but-for-bots-pull-request-1569-git-remote-pull-merge-conflict.md) — Cost
 - [`claude-on-minion-town-completion-press-20261026-203509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-203509.md) — Cost
-- [`oros-health-watch-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-200508.md) — Cost
-- … and 15214 more
+- … and 15215 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
