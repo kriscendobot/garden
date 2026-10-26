@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T13:18:31Z_
+_As of 2026-10-26T13:34:57Z_
 
 ## Latest
 
@@ -1368,8 +1366,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.9M | $168.92 _(notional, rate-card)_ | 20% of 271.0M (ok) |
-| Codex | 131.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 54.9M | $167.46 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Codex | 131.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1380,16 +1378,16 @@ worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1569-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1569-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1569
+### doin (0)
+(none)
 
-### tada (15185)
+### tada (15186)
+- [`endojs-endo-but-for-bots-pr1569-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1569-gauntlet-clean.md) — Clean stage report: endojs/endo-but-for-bots#1569
 - [`endojs-endo-but-for-bots-pr1569-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1569-gauntlet-viability.md) — Cost
 - [`build-daemon-git-next-steps-structured-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-daemon-git-next-steps-structured-merge.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-4b3d31203686`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-4b3d31203686.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1568-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1568-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1568-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1568-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1568-gauntlet-clean.md) — Clean stage for PR #1568: failed, CI is red, but none of the failures are in ...
-- … and 15180 more
+- … and 15181 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
