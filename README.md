@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T04:49:24Z_
+_As of 2026-10-26T04:52:01Z_
 
 ## Latest
 
@@ -1342,7 +1342,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.2M | $150.09 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 48.3M | $150.81 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 121.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1354,10 +1354,11 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
+### doin (5)
 - [`oros-health-checkup-20261026-043510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261026-043510.md) — ---
 - [`oros-health-watch-20261026-043510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261026-043510.md) — ---
 - [`endojs-endo-but-for-bots-pr1563-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1563-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1563
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-restage-20261026.md) — ---
 - [`build-endo-exo-agent-factory-reply-collapse`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-exo-agent-factory-reply-collapse.md) — Build: child-agent factory, reader-side reply collapse (implementation-plan s...
 
 ### tada (15137)
