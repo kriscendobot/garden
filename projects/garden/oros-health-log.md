@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-26T02:05Z (oros-health-checkup-20261026-013510): healthy; deployed = origin/main2 `863da8d`, removed one stale tmp_pack
+
+- **Load/mem:** load 3.63/3.74/3.80 at 02:00Z. 4 monks are running (up from 3). 12 GiB of 15 GiB available; swap reads 883M of 1.0 GiB, the usual steady level; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 57% (200G free), inodes 1%.
+- **Uptime:** 24d08h45m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `863da8d`, the origin/main2 tip per `ls-remote` (rolled forward from `641bae7`). fleet/health/oros: `roll_status: deployed`.
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 00:19 to 01:33Z, all ok; file mtime 01:45Z. Spend has held at 89.10M (49.5% of 180M), sampled 01:33Z; the meter is not stuck.
+- **State clones:** 33 journal clones. The largest are producer (48 packs), reaper (47) and regenerate-sections-index (46); all under the threshold of 50. One orphaned `tmp_pack` (6.5 MB) sat in `decisions/journal` from 23:24:15Z, the same second the self-heal wrapper killed `garden-triager@kriscendobot-vattr97` at its 600s bound; no git process held it. No `gc.log` and no `.git` lock older than 30 minutes.
+- **rc=124 (3h):** one, the triager timeout above (one in 24h). No `Failed with result` or rc=137 lines.
+- **Changed:** removed the orphaned `tmp_pack` from `decisions/journal`.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-25T22:43Z (oros-health-checkup-20261025-223508): healthy; deployed = origin/main2 `641bae7`, no changes
 
 - **Load/mem:** load 2.98/3.31/3.20 at 22:41Z. 3 monks are running. 12 GiB of 15 GiB available; swap reads 883M of 1.0 GiB, the usual steady level; not pressure.
