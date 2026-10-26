@@ -1,2 +1,2 @@
-base: improve-budget-snapshot-cas-contention
+base: improve-budget-snapshot-regression-floor
 identity: mentor:scripts/jobs/usage-meter.sh
