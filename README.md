@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T21:53:36Z_
+_As of 2026-10-26T21:56:08Z_
 
 ## Latest
 
@@ -915,6 +915,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
 
+- `foreman-milestone-M2-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2-M3.md)
+
+> Milestone M2 is awaiting the maintainer’s merge decision on endojs/endo-but-for-bots PR #1349, whose CI is green and merge state is clean. Its completion unlocks M3 sequencing.
+
 - `minion-town-pr-screening-paused-8a3ce66` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-8a3ce66.md)
 
 > minion.town screening PAUSED: merge 8a3ce66c4e8 of [https://github.com/kriscendobot/minion.town/pull/204](https://github.com/kriscendobot/minion.town/pull/204) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/39281790117
@@ -1380,7 +1384,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.9M | $171.50 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Claude | 56.9M | $171.56 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 140.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
