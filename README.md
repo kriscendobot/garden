@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T14:20:17Z_
+_As of 2026-10-26T14:37:22Z_
 
 ## Latest
 
@@ -1369,7 +1367,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 55.1M | $167.46 _(notional, rate-card)_ | 20% of 271.0M (ok) |
-| Codex | 132.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 132.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1383,13 +1381,13 @@ worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### doin (0)
 (none)
 
-### tada (15191)
+### tada (15192)
+- [`claude-on-minion-town-completion-press-20261026-143508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-143508.md) — Cost
 - [`oros-health-checkup-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-135008.md) — Cost
 - [`claude-on-minion-town-press-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-135008.md) — Cost
 - [`minion-town-arc-press-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-135008.md) — Cost
 - [`oros-health-watch-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-135008.md) — Cost
-- [`endojs-endo-but-for-bots-pr1569-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1569-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1569-gauntlet — HALTED
-- … and 15186 more
+- … and 15187 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
