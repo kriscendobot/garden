@@ -230,6 +230,98 @@ ledger_declares_drained() {
   ' "$entry" 2>/dev/null
 }
 
+# ledger_entry_embargo_rows <entry> — print PR<TAB>maturity for every
+# EMBARGO-YYYY-MM-DD in the entry, PR being a number or "unknown".
+#
+# Ledger prose routinely cross-references non-Dependabot PRs (a CI-fix PR, a
+# sibling migration) in the very row that carries the embargo date, so the first
+# "#<number>" on a line is NOT evidence of which PR the row embargoes
+# (2026-10-26: "- Row: EMBARGO-2026-10-26 ... tred -> #1546" made the CI-fix
+# PR #1546 a snapshot row). The entry is read as logical records (a line plus
+# its indented continuation lines), and each embargo date binds, in order, to:
+#   1. a PR reference directly abutting it: "#197 (EMBARGO-...", "PR #1553 —
+#      EMBARGO-...", "| <.../pull/868> | **EMBARGO-...", or a reference whose
+#      open parenthetical contains the date ("#1005 (group, prior EMBARGO-...");
+#   2. the record's row label: a reference opening the list item / table row
+#      ("- **owner/repo#1007** ...", "- https://.../pull/197 (...");
+#   3. any reference in the record that is in the entry's STRUCTURED set: a
+#      `pr: N` line, `- <pull URL>` items under `prs:`, a labelled
+#      `PR: <pull URL | #N>` line, or the PR(s) named by the first H1 heading;
+#   4. the structured set's first PR;
+#   5. the entry's first PR bound by rule 1 or 2;
+#   6. "unknown".
+# A bare "#N" elsewhere in the record never binds outside the structured set.
+ledger_entry_embargo_rows() {
+  awk '
+    function addset(n) { if (n != "" && !(n in inset)) { inset[n] = 1; set[++nset] = n } }
+    function lastnum(s) {
+      sub(/[^0-9]+$/, "", s)
+      if (!match(s, /[0-9]+$/)) return ""
+      return substr(s, RSTART, RLENGTH)
+    }
+    function headrefs(s,   m) {
+      while (match(s, /(\/pull\/|[a-z0-9_.-]+\/[a-z0-9_.-]+#|pr[[:space:]]*#?)[0-9]+/)) {
+        m = substr(s, RSTART, RLENGTH); addset(lastnum(m)); s = substr(s, RSTART + RLENGTH)
+      }
+    }
+    function flush() { if (rec != "") recs[++nrec] = rec; rec = "" }
+    function bind(r, pre,   m, t) {
+      if (match(pre, /(\/pull\/|[a-z0-9_.-]+\/[a-z0-9_.-]+#|pr[[:space:]]*#?|#)[0-9]+[^a-z0-9#]*$/)) {
+        m = substr(pre, RSTART, RLENGTH); t = m; sub(/^.*[0-9]/, "", t)
+        if (length(t) <= 8) return lastnum(m)
+      }
+      if (match(pre, /(\/pull\/|[a-z0-9_.-]+\/[a-z0-9_.-]+#|pr[[:space:]]*#?|#)[0-9]+[>`*_]*[[:space:]]*\([^()]*$/)) {
+        m = substr(pre, RSTART, RLENGTH); return lastnum(substr(m, 1, index(m, "(") - 1))
+      }
+      if (match(r, /^[[:space:]]*([-*+]|[0-9]+\.|\|)?[[:space:]]*[*_`<\[]*(https?:\/\/github\.com\/[^\/[:space:]]+\/[^\/[:space:]]+\/pull\/|[a-z0-9_.-]+\/[a-z0-9_.-]+#|pr[[:space:]]*#?|#)[0-9]+/))
+        return lastnum(substr(r, RSTART, RLENGTH))
+      return ""
+    }
+    {
+      l = tolower($0)
+      if (l ~ /^pr:[[:space:]]*#?[0-9]+[[:space:]]*$/) { addset(lastnum(l)); inprs = 0 }
+      else if (l ~ /^prs:[[:space:]]*$/) inprs = 1
+      else if (inprs && l ~ /^[[:space:]]*-/) { if (match(l, /\/pull\/[0-9]+/)) addset(lastnum(substr(l, RSTART, RLENGTH))) }
+      else {
+        inprs = 0
+        if (l ~ /^[[:space:]]*([-*+][[:space:]]*)?[*_]*pr[*_]*:[*_]*[[:space:]]/) {
+          if (match(l, /\/pull\/[0-9]+/)) addset(lastnum(substr(l, RSTART, RLENGTH)))
+          else if (match(l, /:[*_]*[[:space:]]*#[0-9]+/)) addset(lastnum(substr(l, RSTART, RLENGTH)))
+        }
+        if (!seen_h1 && l ~ /^#[[:space:]]/) { seen_h1 = 1; headrefs(l) }
+      }
+      if (l ~ /^[[:space:]]*$/) { flush(); next }
+      if (rec != "" && l ~ /^[[:space:]]+[^[:space:]]/ && l !~ /^[[:space:]]*([-*+]|[0-9]+\.)[[:space:]]/ && l !~ /^[[:space:]]*\|/) {
+        rec = rec " " l; next
+      }
+      flush(); rec = l
+    }
+    END {
+      flush()
+      for (i = 1; i <= nrec; i++) {
+        r = recs[i]; off = 0; rest = r
+        while (match(rest, /embargo-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/)) {
+          d = substr(rest, RSTART + 8, 10)
+          pos = off + RSTART
+          off = pos + RLENGTH - 1; rest = substr(r, off + 1)
+          n = bind(r, substr(r, 1, pos - 1))
+          if (n != "" && first_bound == "") first_bound = n
+          if (n == "" && nset > 0) {
+            t = r
+            while (n == "" && match(t, /(\/pull\/|pr[[:space:]]*#?|#)[0-9]+/)) {
+              m = lastnum(substr(t, RSTART, RLENGTH)); if (m in inset) n = m
+              t = substr(t, RSTART + RLENGTH)
+            }
+          }
+          rows[++nrows] = n; dates[nrows] = d
+        }
+      }
+      fallback = nset > 0 ? set[1] : (first_bound != "" ? first_bound : "unknown")
+      for (i = 1; i <= nrows; i++) printf "%s\t%s\n", (rows[i] != "" ? rows[i] : fallback), dates[i]
+    }
+  ' "$1" 2>/dev/null
+}
+
 ledger_due=0
 declare -a SNAPSHOT_ROWS=()
 declare -a ACTIVE_LEDGER=()
@@ -253,10 +345,9 @@ if [ "${#LEDGER[@]}" -gt 0 ]; then
     log "ledger: entry ($(basename "$last_drain")) declares the embargo set drained/retired — no later active rows"
   else
     # Normalize the conservative active set used by this gate. Each row is
-    # maturity<TAB>PR-or-unknown<TAB>journal-relative source. Prose has never had
-    # a schema, so associate a maturity with a PR on the same line when possible,
-    # then with the first PR named by that entry. Unknown remains explicit rather
-    # than guessing. Sorting makes the snapshot byte-deterministic for a given
+    # maturity<TAB>PR-or-unknown<TAB>journal-relative source; the PR binding is
+    # ledger_entry_embargo_rows' (above). Unknown remains explicit rather than
+    # guessing. Sorting makes the snapshot byte-deterministic for a given
     # journal HEAD.
     for entry in "${ACTIVE_LEDGER[@]}"; do
       rel="${entry#"$CLONE"/}"
@@ -264,28 +355,18 @@ if [ "${#LEDGER[@]}" -gt 0 ]; then
         case "$terminal_pr" in ''|*[!0-9]*) continue;; esac
         TERMINAL_SOURCE[$terminal_pr]="$rel"
       done < <(sed -nE 's/^dependabotany-terminal-pr:[[:space:]]*([0-9]+)[[:space:]]*$/\1/p' "$entry" 2>/dev/null)
-      fallback_pr="$(grep -Eio 'github\.com/[^/[:space:]]+/[^/[:space:]]+/pull/[0-9]+|PR[[:space:]]*#?[0-9]+|#[0-9]+' "$entry" 2>/dev/null \
-        | sed -nE 's@.*(/pull/|PR[[:space:]]*#?|#)([0-9]+).*@\2@Ip' | head -1 || true)"
-      while IFS= read -r line; do
-        [ -n "$line" ] || continue
-        line_pr="$(printf '%s\n' "$line" \
-          | grep -Eio 'github\.com/[^/[:space:]]+/[^/[:space:]]+/pull/[0-9]+|PR[[:space:]]*#?[0-9]+|#[0-9]+' 2>/dev/null \
-          | sed -nE 's@.*(/pull/|PR[[:space:]]*#?|#)([0-9]+).*@\2@Ip' | head -1 || true)"
-        [ -n "$line_pr" ] || line_pr="${fallback_pr:-unknown}"
-        while IFS= read -r d; do
-          [ -n "$d" ] || continue
-          d="${d#EMBARGO-}"
-          key="$line_pr"
-          [ "$key" != unknown ] || key="unknown:$rel"
-          # One normalized row per PR. A later/extended maturity replaces the
-          # earlier date; repeated mentions of the same date collapse.
-          if [ -z "${SNAPSHOT_DATE[$key]:-}" ] || [[ "${SNAPSHOT_DATE[$key]}" < "$d" ]]; then
-            SNAPSHOT_DATE[$key]="$d"
-            SNAPSHOT_PR[$key]="$line_pr"
-            SNAPSHOT_SOURCE[$key]="$rel"
-          fi
-        done < <(printf '%s\n' "$line" | grep -oE 'EMBARGO-[0-9]{4}-[0-9]{2}-[0-9]{2}' | sort -u)
-      done < <(grep -iE 'EMBARGO-[0-9]{4}-[0-9]{2}-[0-9]{2}' "$entry" 2>/dev/null || true)
+      while IFS=$'\t' read -r line_pr d; do
+        [ -n "$d" ] || continue
+        key="$line_pr"
+        [ "$key" != unknown ] || key="unknown:$rel"
+        # One normalized row per PR. A later/extended maturity replaces the
+        # earlier date; repeated mentions of the same date collapse.
+        if [ -z "${SNAPSHOT_DATE[$key]:-}" ] || [[ "${SNAPSHOT_DATE[$key]}" < "$d" ]]; then
+          SNAPSHOT_DATE[$key]="$d"
+          SNAPSHOT_PR[$key]="$line_pr"
+          SNAPSHOT_SOURCE[$key]="$rel"
+        fi
+      done < <(ledger_entry_embargo_rows "$entry")
     done
     # A deterministic close records a per-PR terminal marker instead of a global
     # "set drained" assertion. Retire only an embargo observation at or before

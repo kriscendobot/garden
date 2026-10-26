@@ -274,6 +274,47 @@ run_pre ""
   || bad "snapshot changed without a journal HEAD change"
 
 # ============================================================================
+hr; echo "SNAPSHOT — an unrelated #<number> cross-reference never becomes a row"; hr
+# Regression for the 2026-10-26 misparse: the botanist's EMBARGO line cited the
+# CI-fix PR (#1546) by bare number, and the first-#N heuristic made #1546 a
+# ledger row. The structured `- PR:` URL and the H1 "PR #1553 — EMBARGO-..."
+# binding name the Dependabot PR; the cross-reference must not.
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(printf '%s\n' \
+  "# Dependabotany: $REPO PR #1553 — EMBARGO-2026-08-04 (CI-infra blocked)" '' \
+  "project: $PROJECT" "repo: $REPO" '' \
+  "- PR: https://github.com/$REPO/pull/1553 (head ba26b7472a)" \
+  '- Row: EMBARGO-2026-08-04. CI is red only from the runner migration (build: tred -> #1546; cover: bwrap -> #1542).' \
+  "- Fix tracked in PR #1546 (https://github.com/$REPO/pull/1546); recheck on EMBARGO-2026-08-04.")"
+run_pre ""
+[ "$RC" -eq 0 ] && ok "matured row dispatches" || bad "exit $RC (want 0); OUT=$OUT"
+grep -q $'^2026-08-04\t1553\tentries/2026/08/01/000001Z-a$' <<<"$CONTEXT" \
+  && ! grep -qE $'\t(1546|1542)\t' <<<"$CONTEXT" \
+  && grep -q -- '- Rows: 1' <<<"$CONTEXT" \
+  && ok "embargo row binds to the structured Dependabot PR, not the cross-reference" \
+  || bad "cross-referenced PR leaked into the snapshot; CONTEXT=$CONTEXT"
+
+# ============================================================================
+hr; echo "SNAPSHOT — a multi-row sweep binds each embargo to its own row label"; hr
+# No structured set: bindings come only from row labels / abutting references,
+# including an embargo date wrapped onto an indented continuation line.
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(printf '%s\n' \
+  "project: $PROJECT" "repo: $REPO" '' \
+  "# Dependabotany ledger: $REPO — daily backstop sweep" '' \
+  "- **$REPO#1005** (group; prior EMBARGO-2026-08-03) — CLOSED, superseded by #1037." \
+  "- **$REPO#1007** \`@octokit/core\` 3.6.0 → 7.0.7 —" \
+  '  **EMBARGO-2026-08-04** (floor from a transitive; see #1037).' \
+  '- **#197 (EMBARGO-2026-08-02)** still open; CI fix is #1546.')"
+run_pre ""
+grep -q $'^2026-08-03\t1005\t' <<<"$CONTEXT" \
+  && grep -q $'^2026-08-04\t1007\t' <<<"$CONTEXT" \
+  && grep -q $'^2026-08-02\t197\t' <<<"$CONTEXT" \
+  && ! grep -qE $'\t(1037|1546|unknown[^\t]*)\t' <<<"$CONTEXT" \
+  && ok "each embargo binds to its labelled PR; cross-references ignored" \
+  || bad "row-label binding wrong; CONTEXT=$CONTEXT"
+
+# ============================================================================
 hr; echo "SNAPSHOT — a drain resets history; only later active rows survive"; hr
 reset_bare
 add_entry 2026/08/01/000001Z-a "$(embargo_body 800 2026-08-02)"
