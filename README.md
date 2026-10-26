@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T23:09:39Z_
+_As of 2026-10-26T23:16:11Z_
 
 ## Latest
 
@@ -1392,17 +1392,16 @@ worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`oros-health-checkup-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261026-230509.md) — ---
+### doin (1)
 - [`oros-health-watch-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261026-230509.md) — ---
 
-### tada (15222)
+### tada (15223)
+- [`oros-health-checkup-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-230509.md) — Cost
 - [`minion-town-arc-press-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-230509.md) — Cost
 - [`claude-on-minion-town-press-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-230509.md) — Cost
 - [`improve-issue-inbox-transient-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-issue-inbox-transient-cooldown-race.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-0c6356a68150`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-0c6356a68150.md) — rolling-deploy canary probe — round trip OK
-- [`improve-rest-budget-pagination`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-rest-budget-pagination.md) — Cost
-- … and 15217 more
+- … and 15218 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
