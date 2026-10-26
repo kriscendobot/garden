@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T09:34:11Z_
+_As of 2026-10-26T09:37:13Z_
 
 ## Latest
 
@@ -1359,7 +1359,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.5M | $161.71 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 52.6M | $161.71 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 127.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1371,16 +1371,16 @@ worst fetch p95 3.347123s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`fix-floot-client-destroyed-error-node24`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-floot-client-destroyed-error-node24.md) — ---
+### doin (0)
+(none)
 
-### tada (15165)
+### tada (15167)
+- [`endojs-endo-but-for-bots-pr1567-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1567-gauntlet-viability.md) — Cost
+- [`fix-floot-client-destroyed-error-node24`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fix-floot-client-destroyed-error-node24.md) — Cost
 - [`build-ci-runner-bwrap-and-graphviz`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-ci-runner-bwrap-and-graphviz.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-5cdd673f46a2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-5cdd673f46a2.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1566-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1566-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1566-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1566-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1566-gauntlet-viability.md) — Viability report: endojs/endo-but-for-bots#1566
-- [`claude-on-minion-town-completion-press-20261026-082009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-082009.md) — Cost
-- … and 15160 more
+- … and 15162 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
