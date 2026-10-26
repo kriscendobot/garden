@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 4
+worker_kind: monk
+claimed_at: 2026-10-26T08:24:13Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-canary-probe-oros-studio-garden-ce242c49-5cdd673f46a2
