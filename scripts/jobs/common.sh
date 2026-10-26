@@ -2439,6 +2439,25 @@ is_nonattributable_rc() {
 # "this kind is currently unhealthy on this host" fact, and creating/removing it is
 # the atomic right to report the transition.
 : "${GARDEN_WORKER_HEALTH_DIR:=$GARDEN_STATE/health}"
+# CLI-MISSING CONFIRMATION WINDOW. A single failed probe does not open an episode:
+# an `npm install -g` relink removes and re-creates the binary, so the CLI can be
+# briefly absent on a perfectly healthy host (the monk pool on endolin, 2026-10-26:
+# absent at 07:46:56Z, resolved again at 07:47:36Z — one error + one recovery
+# entry and a maintainer notice for a 40s blip). The first miss instead opens a
+# host-wide PENDING observation (<kind>.missing-pending, its `since` epoch); the
+# episode is latched and reported only once the CLI has stayed missing for
+# GARDEN_WORKER_HEALTH_CONFIRM_SECS. Claims stay PROHIBITED throughout the window
+# — the gate still returns 1 on every miss — so only the REPORT is debounced,
+# never the invariant. The window is measured against wall-clock timestamps in
+# the state dir, not slept inside the gate, so the poll loop's drain/stop checks
+# and its idle backoff run unchanged (stop-aware), and oneshot workers share the
+# observation across timer ticks. A healthy probe discards the pending
+# observation silently. A pending observation nobody has refreshed for
+# GARDEN_WORKER_HEALTH_CONFIRM_GAP seconds (e.g. the pool was stopped) is stale
+# and restarts the window rather than counting the gap as "missing".
+# GARDEN_WORKER_HEALTH_CONFIRM_SECS=0 restores report-on-first-miss.
+: "${GARDEN_WORKER_HEALTH_CONFIRM_SECS:=120}"
+: "${GARDEN_WORKER_HEALTH_CONFIRM_GAP:=300}"
 
 # worker_agent_bin <kind> — the agent CLI a kind's default handler drives. Prints
 # the name; returns non-zero for an unknown kind or a kind with no CLI dependency.
@@ -2449,6 +2468,49 @@ worker_agent_bin() {
 # worker_health_marker <kind> — the per-kind episode marker directory (see above).
 worker_health_marker() {
   printf '%s\n' "$GARDEN_WORKER_HEALTH_DIR/${1:?worker_health_marker: kind required}.unhealthy"
+}
+
+# worker_health_pending <kind> — the per-kind CLI-missing PENDING observation
+# directory (see GARDEN_WORKER_HEALTH_CONFIRM_SECS above).
+worker_health_pending() {
+  printf '%s\n' "$GARDEN_WORKER_HEALTH_DIR/${1:?worker_health_pending: kind required}.missing-pending"
+}
+
+# _worker_health_miss_confirmed <kind> — record one failed probe in the pending
+# observation and return 0 once the CLI has been missing for the whole
+# confirmation window (the caller then latches + reports the episode), 1 while
+# it is still inside the window. Never sleeps. mkdir is the atomic "first miss"
+# edge; a reader racing the winner's `since` write sees it empty and simply
+# treats the window as not yet elapsed.
+_worker_health_miss_confirmed() {
+  local kind="$1" pending now since last window gap
+  window="${GARDEN_WORKER_HEALTH_CONFIRM_SECS:-120}"
+  gap="${GARDEN_WORKER_HEALTH_CONFIRM_GAP:-300}"
+  case "$window" in ''|*[!0-9]*) window=120 ;; esac
+  case "$gap" in ''|*[!0-9]*) gap=300 ;; esac
+  [ "$window" -eq 0 ] && return 0
+  pending="$(worker_health_pending "$kind")"
+  now="$(date -u +%s)"
+  mkdir -p "$GARDEN_WORKER_HEALTH_DIR" 2>/dev/null || true
+  if mkdir "$pending" 2>/dev/null; then
+    printf '%s\n' "$now" > "$pending/since" 2>/dev/null || true
+    printf '%s\n' "$now" > "$pending/last" 2>/dev/null || true
+    return 1
+  fi
+  # No pending dir and none creatable (an unwritable state dir): fall back to the
+  # pre-window behavior so the bookkeeping failure cannot suppress the report.
+  [ -d "$pending" ] || return 0
+  since="$(cat "$pending/since" 2>/dev/null || true)"
+  last="$(cat "$pending/last" 2>/dev/null || true)"
+  case "$since" in ''|*[!0-9]*) return 1 ;; esac
+  case "$last" in ''|*[!0-9]*) last="$since" ;; esac
+  if [ $((now - last)) -gt "$gap" ] || [ "$since" -gt "$now" ]; then
+    printf '%s\n' "$now" > "$pending/since" 2>/dev/null || true
+    printf '%s\n' "$now" > "$pending/last" 2>/dev/null || true
+    return 1
+  fi
+  printf '%s\n' "$now" > "$pending/last" 2>/dev/null || true
+  [ $((now - since)) -ge "$window" ]
 }
 
 # worker_health_probe <kind> — ONE resolution pass for this kind's agent CLI.
@@ -2677,7 +2739,12 @@ worker_health_gate() {
       fi
       worker_auth_recovery_confirm "$kind" "$cli" "$marker" "$cur" || return 1
     fi
-    # HEALTHY. Fast path when no episode is open. When one IS open, exactly one
+    # HEALTHY. A pending CLI-missing observation (a relink window that closed
+    # before the confirmation window elapsed) is discarded without a report.
+    if [ -d "$(worker_health_pending "$kind")" ]; then
+      rm -rf "$(worker_health_pending "$kind")" 2>/dev/null || true
+    fi
+    # Fast path when no episode is open. When one IS open, exactly one
     # worker wins the recovery report: the rename succeeds for the first caller
     # only, and every later caller finds the marker already gone.
     if [ -d "$marker" ]; then
@@ -2694,14 +2761,20 @@ worker_health_gate() {
     fi
     return 0
   fi
-  # UNHEALTHY. `mkdir` on an existing directory fails, so it is the atomic
+  # UNHEALTHY. An open episode parks silently. Otherwise the miss joins the
+  # pending observation, and the worker parks WITHOUT a report until the CLI has
+  # stayed missing for the confirmation window (a relink blip never reports).
+  # Once confirmed, `mkdir` on an existing directory fails, so it is the atomic
   # healthy→unhealthy edge latch: the single winner reports, everyone else parks
   # silently. A marker we cannot create at all (an unwritable state dir) still
   # parks the worker — the invariant holds even when the bookkeeping does not.
+  [ -d "$marker" ] && return 1
+  _worker_health_miss_confirmed "$kind" || return 1
   mkdir -p "$GARDEN_WORKER_HEALTH_DIR" 2>/dev/null || true
   if mkdir "$marker" 2>/dev/null; then
     date -u +%FT%TZ > "$marker/since" 2>/dev/null || true
-    _worker_health_report "$kind" "$id" unhealthy "${name:-agent CLI} not on PATH nor in any known install location"
+    rm -rf "$(worker_health_pending "$kind")" 2>/dev/null || true
+    _worker_health_report "$kind" "$id" unhealthy "${name:-agent CLI} not on PATH nor in any known install location, sustained past the ${GARDEN_WORKER_HEALTH_CONFIRM_SECS:-120}s confirmation window"
   fi
   return 1
 }

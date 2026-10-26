@@ -45,6 +45,12 @@
 #   SUBTEST 8  AUTH SIM   — the endolin-garden2 scenario through the real poll
 #                           loop: transient job, park after one failure, ONE
 #                           maintainer notice, self-un-park on re-login.
+#   SUBTEST 9  DEBOUNCE   — a CLI-missing blip shorter than the confirmation
+#                           window parks the pool (no claims) but reports NOTHING;
+#                           a miss sustained past the window reports exactly once;
+#                           a stale pending observation restarts the window.
+#                           (Subtests 2-8 pin the window to 0 so they keep
+#                           asserting the edge itself.)
 #
 # Usage: worker-health-gate-test.sh
 set -euo pipefail
@@ -66,6 +72,9 @@ source "$JOBS/common.sh"   # sourced BEFORE the exec-base probe: it defines the
                            # GARDEN_SCRATCH fallback the probe needs after the scrub
 # shellcheck source=test-fixture-helpers.sh
 source "$HERE/test-fixture-helpers.sh"
+# Subtests 2-8 assert the episode EDGE itself; report on the first miss there.
+# SUBTEST 9 exercises the confirmation window explicitly.
+export GARDEN_WORKER_HEALTH_CONFIRM_SECS=0
 
 # The fixtures below are probed with `[ -x ]`, which honors a mount's noexec flag —
 # and the sandbox mounts /tmp noexec, so a fixture there would read as "present but
@@ -830,6 +839,64 @@ if grep -q '^worker-agent-bin-.*|RECOVERED:.*CHANGED credential' "$ALERTS8" && [
 else
   bad "recovery notices wrong: $(cat "$ALERTS8" | cut -c1-120 | tr '\n' ' ')"
 fi
+
+# ============================================================================
+hr; echo "SUBTEST 9 — DEBOUNCE: a relink blip parks silently; a sustained miss reports ONCE"; hr
+
+export GARDEN_STATE="$TR/state9"
+export GARDEN_WORKER_HEALTH_DIR="$GARDEN_STATE/health"
+export GARDEN_NO_MAINTAINER_ALERT=1
+export GARDEN=debouncehost
+export GARDEN_WORKER_HEALTH_CONFIRM_SECS=120
+export GARDEN_WORKER_HEALTH_CONFIRM_GAP=300
+REPORTS9="$TR/reports9"; : > "$REPORTS9"
+_worker_health_report() { printf '%s %s\n' "$3" "$1" >> "$REPORTS9"; }
+MARKER9="$(worker_health_marker monk)"
+PENDING9="$(worker_health_pending monk)"
+mkdir -p "$TR/bin9"; printf '#!/bin/sh\nexit 0\n' > "$TR/bin9/claude"; chmod +x "$TR/bin9/claude"
+
+# (a) the 2026-10-26 relink blip: missing for a few ticks, then back.
+export GARDEN_CLAUDE_BIN="$TR/nowhere9/claude"
+refused=0
+for i in 1 2 3 4; do worker_health_gate monk "$i" 2>/dev/null || refused=$((refused+1)); done
+[ "$refused" = 4 ] && ok "every tick inside the window REFUSES to claim" || bad "only $refused/4 ticks refused inside the window"
+[ -d "$PENDING9" ] && ok "the first miss opened a pending observation" || bad "no pending observation"
+[ -d "$MARKER9" ] && bad "an episode was latched inside the window" || ok "no episode latched inside the window"
+export GARDEN_CLAUDE_BIN="$TR/bin9/claude"
+worker_health_gate monk 1 2>/dev/null && ok "the gate permits once the relink closes" || bad "the gate refused after the CLI returned"
+[ -d "$PENDING9" ] && bad "the pending observation survived recovery" || ok "recovery discards the pending observation"
+[ -s "$REPORTS9" ] && bad "the blip produced reports: $(tr '\n' ' ' < "$REPORTS9")" || ok "the blip produced NO error and NO recovery report"
+
+# (b) a sustained miss: backdate the pending observation past the window.
+export GARDEN_CLAUDE_BIN="$TR/nowhere9/claude"
+worker_health_gate monk 1 2>/dev/null || true
+now9="$(date -u +%s)"
+echo $((now9 - 121)) > "$PENDING9/since"; echo $((now9 - 10)) > "$PENDING9/last"
+worker_health_gate monk 2 2>/dev/null && bad "the gate permitted with the CLI missing" || ok "a sustained miss still refuses"
+[ -d "$MARKER9" ] && ok "a miss sustained past the window latches the episode" || bad "no episode after the window elapsed"
+for i in 3 4 5; do worker_health_gate monk "$i" 2>/dev/null || true; done
+n9="$(grep -c '^unhealthy ' "$REPORTS9" || true)"
+[ "${n9:-0}" = 1 ] && ok "exactly ONE unhealthy report for the sustained episode" || bad "$n9 unhealthy reports, expected 1"
+[ -d "$PENDING9" ] && bad "the pending observation outlived the latch" || ok "the latch consumes the pending observation"
+export GARDEN_CLAUDE_BIN="$TR/bin9/claude"
+worker_health_gate monk 1 2>/dev/null || true
+n9="$(grep -c '^healthy ' "$REPORTS9" || true)"
+[ "${n9:-0}" = 1 ] && ok "the sustained episode still reports its recovery once" || bad "$n9 recovery reports, expected 1"
+
+# (c) a stale pending observation (nobody probed for longer than the gap) does
+# not count the gap as missing time: the window restarts.
+export GARDEN_CLAUDE_BIN="$TR/nowhere9/claude"
+worker_health_gate monk 1 2>/dev/null || true
+now9="$(date -u +%s)"
+echo $((now9 - 3600)) > "$PENDING9/since"; echo $((now9 - 3500)) > "$PENDING9/last"
+worker_health_gate monk 2 2>/dev/null || true
+[ -d "$MARKER9" ] && bad "a stale pending observation latched an episode at once" || ok "a stale pending observation restarts the window"
+since9="$(cat "$PENDING9/since" 2>/dev/null || echo 0)"
+[ $((now9 - since9)) -lt 5 ] && ok "the restarted window begins now" || bad "since not reset (since=$since9 now=$now9)"
+
+unset -f _worker_health_report
+export GARDEN_WORKER_HEALTH_CONFIRM_SECS=0
+unset GARDEN_CLAUDE_BIN GARDEN_WORKER_HEALTH_DIR GARDEN_WORKER_HEALTH_CONFIRM_GAP
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

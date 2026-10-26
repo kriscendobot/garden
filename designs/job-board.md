@@ -125,6 +125,14 @@ Shape:
   ~20 in a pool emits the journal `error`, and exactly one emits the `progress` on
   recovery. `ps23` emitted one error entry *per failed job* for hours; that flood
   is the thing being fixed, not just the claiming.
+- **Confirm a missing CLI before reporting it.** A single failed probe parks the
+  worker but opens only a host-local *pending* observation; the episode is
+  latched and reported once the CLI has stayed missing for
+  `GARDEN_WORKER_HEALTH_CONFIRM_SECS` (default 120s). An `npm` relink briefly
+  removes the binary on a healthy host (monk pool, 2026-10-26: absent 40s), and
+  that blip must not cost an error entry, a recovery entry, and a maintainer
+  notice. Claims stay prohibited for the whole window; only the report waits.
+  The window is timestamp-based, never slept, so drain/stop checks are unaffected.
 - **Scoped to the kind's own handler.** The spine is backend-pluggable, so when
   `GARDEN_JOB_HANDLER` names a substituted handler its dependencies are unknown
   and the gate does not apply (`GARDEN_WORKER_HEALTH_GATE=0` disables it
