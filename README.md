@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T02:19:26Z_
+_As of 2026-10-26T02:21:15Z_
 
 ## Latest
 
@@ -1344,7 +1344,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.5M | $153.63 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 47.5M | $154.14 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 118.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1353,7 +1353,8 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`claude-on-minion-town-completion-press-20261026-022009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261026-022009.md) — Completion press: Claude-on-minion.town arc
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
