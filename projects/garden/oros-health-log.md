@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-26T11:18Z (oros-health-checkup-20261026-105008): healthy; deployed `5cdd673`, one commit behind a tip pushed 90s before the check; landed one settle-marker fix
+
+- **Load/mem:** load 3.63/3.21/3.19 at 10:57Z. 4 monks are running. 12 GiB of 15 GiB available; swap reads 882M of 1.0 GiB, the usual steady level; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 57% (201G free), inodes 1%.
+- **Uptime:** 24d17h42m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `5cdd673`. The origin/main2 tip was `0455842`, pushed at 10:56:18Z, inside the 10-minute settle window, so the roll had not picked it up yet. That is normal lag; nothing is blocking the deploy. fleet/health/oros: `roll_status: deployed` (as of 08:20Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. No derotation marker; `.garden-state/worker-derotate` holds only its state clone.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 09:18 to 10:33Z, all ok; file mtime 10:45Z. Spend 89.32M (49.6% of 180M), sampled 10:33Z; still rising slowly since 07:34Z, so the meter is not stuck.
+- **State clones:** 33 journal clones. The largest are regenerate-topics-counts (47 packs), reaper (47) and state-clone-keeper (46); all under the threshold of 50. No `gc.log`. No `.git` lock older than 30 minutes. One `tmp_pack` in self-deploy belonged to a live fetch and was gone seconds later.
+- **rc=124 (3h):** none; no `Failed with result` or rc=137 lines.
+- **Changed:** `.garden-state/self-deploy/settle/` held 395 one-line first-seen markers, one per upgrade target since September, and nothing ever removed them. A slow, unbounded inode leak. Landed `4b3d312` on main2: when self-deploy.sh and rolling-deploy.sh first see a new target, they now prune markers older than 7 days (`GARDEN_SELF_DEPLOY_SETTLE_RETAIN`). rolling-deploy-test passes, 130/0. The existing markers are pruned once oros deploys `4b3d312`.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-26T07:56Z (oros-health-checkup-20261026-075008): healthy; deployed = origin/main2 `13683d2`, no changes
 
 - **Load/mem:** load 3.89/3.74/3.64 at 07:54Z. 4 monks are running. 13 GiB of 15 GiB available; swap reads 882M of 1.0 GiB, the usual steady level; not pressure.
