@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-10-26T01:57:08Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-endo-claude-agents-capability-20261026
-pr_number: 1560
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1560
-pr_head: build/exo-agent-factory-core
