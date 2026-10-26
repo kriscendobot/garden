@@ -14,7 +14,9 @@
 #   * Polls the statusCheckRollup (the source of truth — check_run/check_suite
 #     events do NOT appear on the events feed; see skills/pr-ci-watch) on a real
 #     timeout/backoff cadence until every check has SETTLED (no QUEUED/IN_PROGRESS/
-#     PENDING/WAITING left), or the overall deadline passes.
+#     PENDING/WAITING left), or the overall deadline passes. Before accepting a
+#     green rollup, cross-checks every Actions workflow run on the head SHA: a run
+#     that has not attached any check yet is pending, never invisible green.
 #   * Before accepting CI in a merge-capable mode: first UNFREEZE the base if it
 #     is a frozen snapshot, then use safe-rebase.sh to establish that the exact
 #     remote head contains the freshly fetched live base. A changed head is
@@ -322,10 +324,14 @@ ci_read_forbidden() {  # ci_read_forbidden <stderr-file>
 # Each workflow run becomes one CheckRun-shaped entry keyed by workflow name and
 # triggering event, so LATEST_CHECKS_JQ and the verdicts below apply unchanged.
 # Echoes the JSON array; returns 6 when this read is forbidden too, 1 otherwise.
-actions_runs_rollup() {  # actions_runs_rollup <head-sha>
-  local head="$1" err runs rc=0
+# Read every page of Actions workflow runs for <head> and normalize the response
+# to one array. Returns 6 when the token is forbidden from this inventory and 1
+# for any other unreadable/malformed response. This inventory is used both as the
+# forbidden-rollup fallback and as the green-boundary attachment guard below.
+read_actions_runs() {  # read_actions_runs <head-sha>
+  local head="$1" err pages rc=0
   err="$(mktemp)"
-  runs="$("$GH" api "repos/$repo/actions/runs?head_sha=$head&per_page=100" 2>"$err")" || rc=$?
+  pages="$("$GH" api --paginate "repos/$repo/actions/runs?head_sha=$head&per_page=100" 2>"$err")" || rc=$?
   if [ "$rc" -ne 0 ]; then
     if ci_read_forbidden "$err"; then
       log "Actions runs read forbidden for $repo@${head:0:11}: $(head -c 300 "$err" | tr '\n' ' ')"
@@ -334,9 +340,19 @@ actions_runs_rollup() {  # actions_runs_rollup <head-sha>
     rm -f "$err"; return 1
   fi
   rm -f "$err"
+  [ -n "$pages" ] || return 1
+  printf '%s' "$pages" | jq -sce '
+    [ .[]
+      | if (.workflow_runs | type) != "array" then error("no workflow_runs")
+        else .workflow_runs[] end ]' 2>/dev/null || return 1
+}
+
+actions_runs_rollup() {  # actions_runs_rollup <head-sha>
+  local head="$1" runs rc=0
+  runs="$(read_actions_runs "$head")" || rc=$?
+  [ "$rc" -eq 0 ] || return "$rc"
   printf '%s' "$runs" | jq -ce '
-    if (.workflow_runs | type) != "array" then error("no workflow_runs") else . end
-    | [ .workflow_runs[]
+    [ .[]
         | (.status // "" | ascii_upcase) as $s
         | { __typename: "CheckRun",
             workflowName: (.name // ""),
@@ -347,6 +363,33 @@ actions_runs_rollup() {  # actions_runs_rollup <head-sha>
             completedAt: (if $s == "COMPLETED" then (.updated_at // "") else "" end),
             detailsUrl: (.html_url // ""),
             source: "actions-runs" } ]' 2>/dev/null || return 1
+}
+
+# A workflow run is "attached" once at least one statusCheckRollup entry links to
+# its Actions run URL. GitHub can expose a newly queued workflow run through the
+# Actions API before its first check appears in statusCheckRollup. Without this
+# cross-check an older green run on the same head makes pending=0/failed=0 and the
+# PR can merge during that propagation window (endo-but-for-bots#1559).
+# Echoes a JSON array describing every unattached run; returns as read_actions_runs.
+unattached_actions_runs() {  # unattached_actions_runs <head-sha> <rollup-json>
+  local head="$1" rollup="$2" runs rc=0
+  runs="$(read_actions_runs "$head")" || rc=$?
+  [ "$rc" -eq 0 ] || return "$rc"
+  printf '%s\n%s\n' "$runs" "$rollup" | jq -sce '
+    def run_id:
+      if .id != null then (.id | tostring)
+      else ((.html_url // "") | try capture("/actions/runs/(?<id>[0-9]+)(/|$)").id catch "")
+      end;
+    .[0] as $runs | (.[1].statusCheckRollup // []) as $checks
+    | [ $checks[]
+        | (.detailsUrl // .targetUrl // "")
+        | try capture("/actions/runs/(?<id>[0-9]+)(/|$)").id catch empty ]
+      | unique as $attached
+    | [ $runs[]
+        | run_id as $id
+        | select($id == "" or ($attached | index($id) | not))
+        | {id: $id, name: (.name // ""), status: (.status // "")} ]' \
+    2>/dev/null || return 1
 }
 
 # pr view for <fields> (which include statusCheckRollup). On a forbidden rollup
@@ -386,7 +429,7 @@ read_pr_with_rollup() {  # read_pr_with_rollup <comma-separated json fields>
 # REVIEW_REQUIRED / ""); the green-and-terminal block below refuses to merge over
 # a CHANGES_REQUESTED so a maintainer review landing mid-wait is never merged over.
 read_rollup() {
-  local json state pending failed total review head_oid mergeable rc=0
+  local json state pending failed total review head_oid mergeable rc=0 unattached unattached_count unattached_ids
   json="$(read_pr_with_rollup state,mergeable,statusCheckRollup,reviewDecision,headRefOid)" || rc=$?
   [ "$rc" -ne 6 ] || return 6
   [ "$rc" -eq 0 ] \
@@ -424,6 +467,23 @@ read_rollup() {
   total="$(printf '%s' "$json" | jq -r "$LATEST_CHECKS_JQ"'[ latest_checks ] | length')"
   review="$(printf '%s' "$json" | jq -r '.reviewDecision // ""')"
   head_oid="$(printf '%s' "$json" | jq -r '.headRefOid // ""')"
+  # A settled-looking rollup is not enough: a newly queued workflow run can be
+  # visible through Actions before any of its checks attach to this rollup. Count
+  # every such run as pending. An unreadable workflow inventory cannot prove
+  # green and therefore fails closed through the normal read retry/403 paths.
+  if [ "$state" = OPEN ] && [ "${pending:-0}" -eq 0 ] && [ "${failed:-0}" -eq 0 ]; then
+    rc=0; unattached="$(unattached_actions_runs "$head_oid" "$json")" || rc=$?
+    [ "$rc" -ne 6 ] || return 6
+    [ "$rc" -eq 0 ] \
+      || { log "Actions workflow attachment inventory unreadable for $repo#$pr@${head_oid:0:11}; refusing to fabricate green"; return 1; }
+    unattached_count="$(printf '%s' "$unattached" | jq -r 'length')"
+    if [ "$unattached_count" -gt 0 ]; then
+      unattached_ids="$(printf '%s' "$unattached" | jq -r '[.[] | if .id == "" then "unknown" else .id end] | join(",")')"
+      log "waiting: $repo#$pr has $unattached_count Actions workflow run(s) not attached to statusCheckRollup yet (run ids: $unattached_ids)"
+      pending=$((pending + unattached_count))
+      total=$((total + unattached_count))
+    fi
+  fi
   # MERGEABLE / CONFLICTING / UNKNOWN. Only CONFLICTING is a computed answer we
   # act on; UNKNOWN is GitHub still thinking and must never be treated as a fact.
   mergeable="$(printf '%s' "$json" | jq -r '.mergeable // ""')"

@@ -84,6 +84,9 @@
 #   T56 verified dependabot mode + unreadable final gate read → no merge
 #   T57 verified dependabot mode + a garden-bot migration commit → merge
 #   T58 verified dependabot mode + CHANGES_REQUESTED + NO panel → no merge
+#   T59 old green checks + a queued workflow run not attached to the rollup →
+#      keeps waiting, never declares green
+#   T60 every workflow run attached to the rollup → accepts green
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -134,9 +137,9 @@ if [ "$1" = api ] && [[ "$2" =~ /compare/ ]]; then
   cat "$STUBDIR/compare"; exit 0; fi
 # Actions runs (the forbidden-rollup fallback): $STUBDIR/runs holds the REST body;
 # $STUBDIR/runs_forbidden makes the read a 403.
-if [ "$1" = api ] && [[ "$2" =~ /actions/runs\?head_sha= ]]; then
+if [ "$1" = api ] && [[ "$*" =~ /actions/runs\?head_sha= ]]; then
   [ -f "$STUBDIR/runs_forbidden" ] && { echo "gh: Resource not accessible by personal access token (HTTP 403)" >&2; exit 1; }
-  cat "$STUBDIR/runs"; exit 0; fi
+  cat "$STUBDIR/runs" 2>/dev/null || printf '{"total_count":0,"workflow_runs":[]}'; exit 0; fi
 if [ "$1" = api ]; then cat "$STUBDIR/reviews" 2>/dev/null || printf '[{"state":"APPROVED","commit_id":"123abc123abc123abc123abc123abc123abc123a","user":{"login":"kriskowal"}}]'; exit 0; fi
 case "$1 $2" in
   "pr view")
@@ -663,6 +666,24 @@ echo "T58 verified dependabot mode + CHANGES_REQUESTED + no panel → no merge"
 reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
 printf '{"reviewDecision":"CHANGES_REQUESTED"}' > "$STUBDIR/finalreview"
 run endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 1 T58; nomerge T58
+
+echo "T59 old green checks + unattached queued workflow run → keeps waiting"
+reset_seq; seq_add "$GREEN"
+runs_body "$(wf_run test queued null 987)" > "$STUBDIR/runs"
+GARDEN_CI_DEADLINE_SECS=1 run_capture o/r 1559 --no-merge; chk "$rc" 4 T59; nomerge T59
+grep -q 'workflow run(s) not attached to statusCheckRollup yet (run ids: 987)' "$STUBDIR/output" \
+  && ok "T59 unattached workflow run is explicitly pending" \
+  || bad "T59 attachment wait missing: $(cat "$STUBDIR/output")"
+grep -q 'CI GREEN' "$STUBDIR/output" \
+  && bad "T59 falsely declared green" \
+  || ok "T59 never declared green"
+
+echo "T60 every Actions workflow run attached to the rollup → accepts green"
+reset_seq
+ATTACHED_GREEN="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\",\"detailsUrl\":\"https://github.com/o/r/actions/runs/988/job/1\"}]}"
+seq_add "$ATTACHED_GREEN"; runs_body "$(wf_run test completed '"success"' 988)" > "$STUBDIR/runs"
+run_capture o/r 1559 --no-merge; chk "$rc" 0 T60
+grep -q 'CI GREEN' "$STUBDIR/output" && ok "T60 attached workflow accepted" || bad "T60 green missing: $(cat "$STUBDIR/output")"
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"
