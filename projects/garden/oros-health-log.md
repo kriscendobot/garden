@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-26T14:05Z (oros-health-checkup-20261026-135008): healthy; deployed = origin/main2 `4b3d312`, no changes
+
+- **Load/mem:** load 2.76/3.22/3.23 at 13:57Z. 4 monks are running, mostly idle: the board holds 1 todo job. 13 GiB of 15 GiB available; swap reads 882M of 1.0 GiB, the usual steady level; not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 58% (196G free), inodes 1%.
+- **Uptime:** 24d20h41m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `4b3d312`, the origin/main2 tip per `ls-remote`. It rolled forward from `5cdd673`; the canary probe ran at 11:40Z. Before that, `0455842` was deferred at 11:13Z behind a 945s long-running monk job. fleet/health/oros: `roll_status: deployed`, 0 unit failures (11:37Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 12:19 to 13:33Z, all ok; file mtime 13:45Z. Spend is 89.40M (49.7% of 180M). It has been flat at 89396754 since 11:19Z, when a low reading was re-measured back up. Flat is real: only 2 transcripts were written in the last 2h because the fleet has been idle. The meter is not stuck.
+- **State clones:** 33 journal clones. The largest are repo-watcher and regenerate-topics-counts (50 packs each, at the threshold, not over it) and state-clone-keeper (49). No tmp_pack, no `gc.log`, and no `.git` lock older than 30 minutes.
+- **Settle markers:** still 396 in `.garden-state/self-deploy/settle/`. That is expected: `4b3d312` prunes them only when self-deploy first sees the next new target.
+- **rc=124 (3h):** none; no `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-26T11:18Z (oros-health-checkup-20261026-105008): healthy; deployed `5cdd673`, one commit behind a tip pushed 90s before the check; landed one settle-marker fix
 
 - **Load/mem:** load 3.63/3.21/3.19 at 10:57Z. 4 monks are running. 12 GiB of 15 GiB available; swap reads 882M of 1.0 GiB, the usual steady level; not pressure.
