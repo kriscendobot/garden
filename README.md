@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T10:45:43Z_
+_As of 2026-10-26T10:50:05Z_
 
 ## Latest
 
@@ -1369,7 +1367,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.4M | $167.31 _(notional, rate-card)_ | 20% of 271.0M (ok) |
-| Codex | 128.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Codex | 128.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1383,13 +1381,13 @@ worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### doin (0)
 (none)
 
-### tada (15174)
+### tada (15175)
+- [`endojs-endo-but-for-bots-pr1568-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1568-gauntlet-viability.md) — Cost
 - [`build-daemon-git-next-steps-structured-show`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-daemon-git-next-steps-structured-show.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261026-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/dependabotany-recheck-endo-but-for-bots-20261026-102008.md) — Cost
 - [`kriscendobot-minion.town-pr226-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/kriscendobot-minion.town-pr226-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1567-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1567-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1567-gauntlet — complete
-- [`endojs-endo-but-for-bots-pr1567-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1567-gauntlet-undraft.md) — Cost
-- … and 15169 more
+- … and 15170 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
