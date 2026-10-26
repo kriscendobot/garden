@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T02:40:54Z_
+_As of 2026-10-26T02:44:56Z_
 
 ## Latest
 
@@ -756,11 +754,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-10-16T18:43:50Z, latest 2026-10-25T12:41:47Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-10-16T18:43:50Z, cleared 2026-10-26T02:43:07Z).
+> It was observed 13 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.096522s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
@@ -1346,7 +1344,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.8M | $151.68 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 47.8M | $152.13 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 118.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1358,20 +1356,19 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1561-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1561-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1561
 - [`fu-endojs-endo-but-for-bots-pr1559-gauntlet-clean-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1559-gauntlet-clean-3.md) — ---
 - [`build-endo-exo-agent-factory-maker-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-exo-agent-factory-maker-adapters.md) — Build: child-agent factory, maker adapters (implementation-plan steps 2 and 4)
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1560
-- [`canary-probe-oros-studio-garden-ce242c49-aec7aabd570b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-aec7aabd570b.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ aec7aabd570b
 
-### tada (15121)
+### tada (15122)
+- [`canary-probe-oros-studio-garden-ce242c49-aec7aabd570b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-aec7aabd570b.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1561-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1561-gauntlet-viability.md) — Cost
 - [`build-endo-exo-agent-factory-daemon-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-endo-exo-agent-factory-daemon-wiring.md) — Cost
 - [`claude-on-minion-town-completion-press-20261026-022009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-022009.md) — Cost
 - [`oros-health-watch-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-013510.md) — Cost
-- [`oros-health-checkup-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-013510.md) — Cost
-- … and 15116 more
+- … and 15117 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
