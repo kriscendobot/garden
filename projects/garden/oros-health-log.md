@@ -1,6 +1,21 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-26T17:05Z (oros-health-checkup-20261026-165012): healthy; deployed = origin/main2 `4b3d312`, no changes
+
+- **Load/mem:** load 2.99/3.32/3.69 at 16:58Z. 4 monks are running, mostly idle: the board holds 1 todo job. 13.8 GiB of 15.6 GiB is available. Swap reads 958M of 1.0 GiB, up from the steady 882M. That is page cache, not pressure, but if it keeps climbing it is worth watching.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 59% (193G free), inodes 1%.
+- **Uptime:** 24d23h42m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `4b3d312`, the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed`, 0 unit failures (11:37Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 15:19 to 16:34Z, all ok; file mtime 16:45Z. Spend has been flat at 89.46M (49.7% of 180M) since 15:19Z. That is real: only 2 transcripts were written in the last 2h because the fleet is idle. The meter is not stuck.
+- **State clones:** 33 journal clones. The largest are fork-watch (50 packs, at the threshold, not over it), reaper (47) and fleet-health (45); producer has 49. No tmp_pack, no `gc.log`, and no `.git` lock older than 30 minutes.
+- **Settle markers:** still 396. They are pruned when self-deploy first sees the next new target.
+- **rc=124 (3h):** none; no `Failed with result` or rc=137 lines.
+- **Land latency:** the first `land-journal-edit.sh` run for this note produced no output for 10 minutes before the tool limit killed it. It was rerun with a trace (see the run's report).
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-26T14:05Z (oros-health-checkup-20261026-135008): healthy; deployed = origin/main2 `4b3d312`, no changes
 
 - **Load/mem:** load 2.76/3.22/3.23 at 13:57Z. 4 monks are running, mostly idle: the board holds 1 todo job. 13 GiB of 15 GiB available; swap reads 882M of 1.0 GiB, the usual steady level; not pressure.
