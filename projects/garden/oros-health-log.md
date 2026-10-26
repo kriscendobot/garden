@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-26T20:20Z (oros-health-checkup-20261026-200508): healthy; deployed = origin/main2 `4b3d312`, no changes
+
+- **Load/mem:** load 4.01/3.70/3.40 at 20:13Z. 4 monks are running, mostly idle: the board holds no todo job, and only this check-up and its watcher are in doin. 13 GiB of 15 GiB is available. Swap reads 949M of 1.0 GiB, about the 958M of the last run and still page cache, not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 58% (195G free), inodes 1%.
+- **Uptime:** 25d02h57m, no reboot.
+- **Deployed vs main2:** `.garden-state/deploy/deployed-sha` is `4b3d312`, the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed`, 0 unit failures (11:37Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 19:19 to 20:03Z, all ok. Spend has been flat at 89.53M (49.7% of 180M) since at least 18:34Z. That is real: the fleet is idle, with 2 transcripts written in the last 2h. The meter is not stuck. The live `journal/` worktree's origin/journal2 ref was 30 minutes stale (19:43Z), which made the heartbeat look late. A fresh fetch shows it current.
+- **State clones:** 33 journal clones. The largest are transcripts and reaper (47 packs each), gardener-scaler (46) and fleet-health (45), all under the threshold of 50. No tmp_pack, no `gc.log`, and no `.git` lock older than 30 minutes.
+- **Settle markers:** still 396. They are pruned when self-deploy first sees the next new target.
+- **rc=124 (3h):** one, which is benign: at 18:44Z journal-contention-watch deferred a contention-notice close for the regenerate-sections-index clone (rc=124 on its 107s tick budget). No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-26T17:05Z (oros-health-checkup-20261026-165012): healthy; deployed = origin/main2 `4b3d312`, no changes
 
 - **Load/mem:** load 2.99/3.32/3.69 at 16:58Z. 4 monks are running, mostly idle: the board holds 1 todo job. 13.8 GiB of 15.6 GiB is available. Swap reads 958M of 1.0 GiB, up from the steady 882M. That is page cache, not pressure, but if it keeps climbing it is worth watching.
