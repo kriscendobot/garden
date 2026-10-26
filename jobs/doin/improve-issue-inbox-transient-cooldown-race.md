@@ -6,3 +6,13 @@ dispatch: automatic
 scripts/jobs/issue-inbox-watcher.sh
 scripts/jobs/issue-inbox-watcher.sh:690 checks only a primary-quota latch, so the 2026-10-26 22:49:52 pages transient-cooldown admission refusal was misreported as a new primary quota and extended to 2489s.
 Treat any live REST cooldown plus an admission-refused diagnostic as collateral; preserve its owner/deadline and emit no warning, with a regression case for a `pages:*:net` latch.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-26T22:50:45Z
