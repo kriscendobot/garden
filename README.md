@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T22:56:59Z_
+_As of 2026-10-26T23:06:38Z_
 
 ## Latest
 
@@ -1380,8 +1380,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.0M | $170.84 _(notional, rate-card)_ | 21% of 271.0M (ok) |
-| Codex | 141.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 57.2M | $172.08 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Codex | 141.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1389,11 +1389,14 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`oros-health-checkup-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261026-230509.md) — ---
 
-### doin (0)
-(none)
+### doin (3)
+- [`minion-town-arc-press-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261026-230509.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`claude-on-minion-town-press-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261026-230509.md) — Press the Claude-on-minion.town arc forward
+- [`oros-health-watch-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261026-230509.md) — ---
 
 ### tada (15220)
 - [`improve-issue-inbox-transient-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-issue-inbox-transient-cooldown-race.md) — Cost
