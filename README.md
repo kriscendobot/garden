@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T14:09:15Z_
+_As of 2026-10-26T14:11:51Z_
 
 ## Latest
 
@@ -1378,16 +1378,16 @@ worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`oros-health-checkup-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261026-135008.md) — ---
+### doin (0)
+(none)
 
-### tada (15190)
+### tada (15191)
+- [`oros-health-checkup-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-135008.md) — Cost
 - [`claude-on-minion-town-press-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-135008.md) — Cost
 - [`minion-town-arc-press-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-135008.md) — Cost
 - [`oros-health-watch-20261026-135008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-135008.md) — Cost
 - [`endojs-endo-but-for-bots-pr1569-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1569-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1569-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1569-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1569-gauntlet-clean.md) — Clean stage report: endojs/endo-but-for-bots#1569
-- … and 15185 more
+- … and 15186 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
