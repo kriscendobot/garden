@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T20:34:06Z_
+_As of 2026-10-26T20:37:36Z_
 
 ## Latest
 
@@ -1395,13 +1395,13 @@ worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### doin (0)
 (none)
 
-### tada (15215)
+### tada (15216)
+- [`claude-on-minion-town-completion-press-20261026-203509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-203509.md) — Cost
 - [`oros-health-watch-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-200508.md) — Cost
 - [`oros-health-checkup-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-200508.md) — Cost
 - [`minion-town-arc-press-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-200508.md) — Cost
 - [`claude-on-minion-town-press-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-200508.md) — Cost
-- [`issue-kriscendobot-garden-126`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/issue-kriscendobot-garden-126.md) — Cost
-- … and 15210 more
+- … and 15211 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
