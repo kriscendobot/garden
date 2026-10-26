@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T21:58:31Z_
+_As of 2026-10-26T22:00:55Z_
 
 ## Latest
 
@@ -1392,17 +1392,16 @@ worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`improve-rest-budget-pagination`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-rest-budget-pagination.md) — ---
-- [`fix-endo-but-for-bots-pull-request-1569-git-remote-pull-merge-conflict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-pull-request-1569-git-remote-pull-merge-conflict.md) — ---
 
-### tada (15216)
+### tada (15217)
+- [`fix-endo-but-for-bots-pull-request-1569-git-remote-pull-merge-conflict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fix-endo-but-for-bots-pull-request-1569-git-remote-pull-merge-conflict.md) — Cost
 - [`claude-on-minion-town-completion-press-20261026-203509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-completion-press-20261026-203509.md) — Cost
 - [`oros-health-watch-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-200508.md) — Cost
 - [`oros-health-checkup-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-200508.md) — Cost
 - [`minion-town-arc-press-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-200508.md) — Cost
-- [`claude-on-minion-town-press-20261026-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-200508.md) — Cost
-- … and 15211 more
+- … and 15212 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
