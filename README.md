@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T11:25:46Z_
+_As of 2026-10-26T11:28:13Z_
 
 ## Latest
 
@@ -1381,13 +1381,13 @@ worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### doin (1)
 - [`build-daemon-git-next-steps-structured-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-next-steps-structured-merge.md) — ---
 
-### tada (15181)
+### tada (15182)
+- [`endojs-endo-but-for-bots-pr1568-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1568-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1568-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1568-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1568-gauntlet-clean.md) — Clean stage for PR #1568: failed, CI is red, but none of the failures are in ...
 - [`oros-health-checkup-20261026-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-105008.md) — Cost
 - [`oros-health-watch-20261026-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-105008.md) — Cost
 - [`improve-dependabot-ledger-pr-parser`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-dependabot-ledger-pr-parser.md) — Cost
-- [`claude-on-minion-town-press-20261026-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-105008.md) — Cost
-- … and 15176 more
+- … and 15177 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
