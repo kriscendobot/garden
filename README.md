@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T00:35:05Z_
+_As of 2026-10-26T00:39:59Z_
 
 ## Latest
 
@@ -1342,7 +1340,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.7M | $144.97 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 44.8M | $144.97 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 114.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1354,16 +1352,16 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`design-endo-claude-agents-capability-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-agents-capability-20261026.md) — ---
+### doin (0)
+(none)
 
-### tada (15090)
+### tada (15093)
+- [`endojs-endo-but-for-bots-pr1558-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-clean.md) — Cost
+- [`design-endo-claude-agents-capability-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/design-endo-claude-agents-capability-20261026.md) — Follow-ups
+- [`endojs-endo-but-for-bots-pr1558-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1557-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1557-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1557-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1557-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1557-gauntlet-clean.md) — Cost
-- [`build-daemon-git-remotes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-daemon-git-remotes.md) — Cost
-- [`endojs-endo-but-for-bots-pr1557-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/endojs-endo-but-for-bots-pr1557-gauntlet-viability.md) — Cost
-- [`oros-health-watch-20261025-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/25/oros-health-watch-20261025-223508.md) — Cost
-- … and 15085 more
+- … and 15088 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1446,6 +1444,7 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
+- [`build-endo-claude-agents-capability-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-claude-agents-capability-20261026.md) — awaiting `endojs-endo-but-for-bots-pr1558-gauntlet` · Build: the design in endojs/endo-but-for-bots#1558
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
 - [`ebfb-parcel-layer2-build-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-parcel-layer2-build-20261024.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/774` · Build: Parcel layer 2 (SES %InitialParcel% / %SharedParcel%), endojs/endo-but...
