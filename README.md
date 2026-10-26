@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T08:14:59Z_
+_As of 2026-10-26T08:16:33Z_
 
 ## Latest
 
@@ -129,13 +129,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 22 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 4): shared codex subscription demand active=1 queue=4 quota=ok fleet-envelope=4 target=4
-
-- `endojs-endo-but-for-bots-pr1565-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1565-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1565-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1565-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1565-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1565-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
