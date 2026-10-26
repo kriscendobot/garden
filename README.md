@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T19:53:41Z_
+_As of 2026-10-26T19:58:52Z_
 
 ## Latest
 
@@ -1382,7 +1380,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $167.95 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Claude | 56.4M | $168.47 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 138.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1394,8 +1392,8 @@ worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`issue-kriscendobot-garden-126`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-126.md) — Issue from dckc on kriscendobot/garden #126
 
 ### tada (15210)
 - [`endojs-endo-but-for-bots-pr1572-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1572-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1572-gauntlet — HALTED
