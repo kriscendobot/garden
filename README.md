@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T01:54:41Z_
+_As of 2026-10-26T02:00:17Z_
 
 ## Latest
 
@@ -1346,7 +1344,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.8M | $151.32 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 46.9M | $152.70 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 117.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1355,23 +1353,22 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`oros-health-checkup-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261026-013510.md) — ---
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (4)
+- [`oros-health-checkup-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261026-013510.md) — ---
 - [`endojs-endo-but-for-bots-pr1559-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1559-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1559
-- [`shepherd-endojs-endo-but-for-bots-pr1349-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1349-20261026.md) — ---
-- [`fix-endojs-endo-but-for-bots-pr1349-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1349-20261026.md) — ---
+- [`build-endo-claude-agents-capability-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-20261026.md) — Build: the design in endojs/endo-but-for-bots#1558
 - [`oros-health-watch-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261026-013510.md) — ---
 
-### tada (15108)
+### tada (15110)
+- [`fix-endojs-endo-but-for-bots-pr1349-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fix-endojs-endo-but-for-bots-pr1349-20261026.md) — Cost
+- [`shepherd-endojs-endo-but-for-bots-pr1349-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/shepherd-endojs-endo-but-for-bots-pr1349-20261026.md) — Cost
 - [`endojs-endo-but-for-bots-pr1558-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1558-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1558-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-undraft.md) — Completion report: endojs/endo-but-for-bots#1558, UNDRAFT stage (gauntlet ite...
 - [`endojs-endo-but-for-bots-pr1558-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-panel-4.md) — Cost
-- [`minion-town-arc-press-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-013510.md) — Cost
-- [`claude-on-minion-town-press-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-013510.md) — Cost
-- … and 15103 more
+- … and 15105 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1454,7 +1451,6 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
-- [`build-endo-claude-agents-capability-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-claude-agents-capability-20261026.md) — awaiting `endojs-endo-but-for-bots-pr1558-gauntlet` · Build: the design in endojs/endo-but-for-bots#1558
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
 - [`ebfb-parcel-layer2-build-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-parcel-layer2-build-20261024.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/774` · Build: Parcel layer 2 (SES %InitialParcel% / %SharedParcel%), endojs/endo-but...
