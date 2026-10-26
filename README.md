@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T09:52:14Z_
+_As of 2026-10-26T09:54:28Z_
 
 ## Latest
 
@@ -1333,11 +1331,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-10-17T06:44:40Z, cleared 2026-10-26T00:51:47Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-10-17T06:44:40Z, latest 2026-10-26T09:53:24Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.096965s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `minion-town-pr-screening-paused-17e5b95` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-17e5b95.md)
 
@@ -1376,13 +1374,13 @@ worst fetch p95 3.347123s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### doin (1)
 - [`kriscendobot-minion.town-pr226-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr226-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #226
 
-### tada (15170)
+### tada (15171)
+- [`endojs-endo-but-for-bots-pr1567-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1567-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1567-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1567-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1567-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1567-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1567-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1567-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1567-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1567-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1567-gauntlet-viability.md) — Cost
-- [`fix-floot-client-destroyed-error-node24`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fix-floot-client-destroyed-error-node24.md) — Cost
-- … and 15165 more
+- … and 15166 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
