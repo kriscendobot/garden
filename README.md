@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T02:04:47Z_
+_As of 2026-10-26T02:06:30Z_
 
 ## Latest
 
@@ -165,6 +165,13 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
+
+- `endojs-endo-but-for-bots-pr1559-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1559-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1559-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1559-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1559-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1559-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
 
@@ -1344,7 +1351,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.0M | $151.73 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 47.0M | $153.12 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 118.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1361,13 +1368,13 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`build-endo-claude-agents-capability-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-20261026.md) — Build: the design in endojs/endo-but-for-bots#1558
 - [`oros-health-watch-20261026-013510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261026-013510.md) — ---
 
-### tada (15111)
+### tada (15112)
+- [`endojs-endo-but-for-bots-pr1559-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1559-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1559-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1559-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1559-gauntlet-clean.md) — Gauntlet CLEAN stage: endojs/endo-but-for-bots PR #1559
 - [`fix-endojs-endo-but-for-bots-pr1349-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fix-endojs-endo-but-for-bots-pr1349-20261026.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1349-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/shepherd-endojs-endo-but-for-bots-pr1349-20261026.md) — Cost
 - [`endojs-endo-but-for-bots-pr1558-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1558-gauntlet — complete
-- [`endojs-endo-but-for-bots-pr1558-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-undraft.md) — Completion report: endojs/endo-but-for-bots#1558, UNDRAFT stage (gauntlet ite...
-- … and 15106 more
+- … and 15107 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
