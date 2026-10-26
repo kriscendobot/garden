@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T13:34:57Z_
+_As of 2026-10-26T13:36:38Z_
 
 ## Latest
 
@@ -1381,13 +1381,13 @@ worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### doin (0)
 (none)
 
-### tada (15186)
+### tada (15187)
+- [`endojs-endo-but-for-bots-pr1569-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1569-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1569-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1569-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1569-gauntlet-clean.md) — Clean stage report: endojs/endo-but-for-bots#1569
 - [`endojs-endo-but-for-bots-pr1569-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1569-gauntlet-viability.md) — Cost
 - [`build-daemon-git-next-steps-structured-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-daemon-git-next-steps-structured-merge.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-4b3d31203686`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-4b3d31203686.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1568-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1568-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1568-gauntlet — HALTED
-- … and 15181 more
+- … and 15182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
