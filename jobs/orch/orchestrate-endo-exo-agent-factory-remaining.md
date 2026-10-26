@@ -1,4 +1,5 @@
 ---
+child-build-endo-exo-agent-factory-daemon-wiring-reap-count: 0
 order: serial
 children: build-endo-exo-agent-factory-daemon-wiring build-endo-exo-agent-factory-maker-adapters build-endo-exo-agent-factory-turn-ledger build-endo-exo-agent-factory-reply-collapse
 on-child-failure: halt
