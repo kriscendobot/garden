@@ -6,3 +6,13 @@ dispatch: automatic
 ---
 
 In endojs/endo-but-for-bots, PR #1570 (https://github.com/endojs/endo-but-for-bots/pull/1570): check whether the bwrap fix (#1542 or #1566) has landed. If it has, weave #1570 onto a base that includes it and re-run the gauntlet. If it has not, only re-run the intermittent daemon durable-environment and floot macOS CI failures, and don't investigate them unless they recur. Post no comments and make no changes if neither applies.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-26T17:29:01Z
