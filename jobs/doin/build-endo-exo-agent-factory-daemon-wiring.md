@@ -24,3 +24,13 @@ Task: implement the daemon side of step 3.
 - Durable `evaluate` facet formulas (`boundFacet(nsId)`, `lifecycleFor(opKey)`), so held facets and a revived runner's lifecycle work after restart without being re-issued. This replaces #1560's in-memory exos.
 - Daemon-backed recovery tests for the design's § Recovery matrix items that need a real daemon: restart revival with no holder call or mail, a child that clears its own `@pins`, facets surviving restart, and a revoked facet that rejects after restart.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-26T02:12:31Z
