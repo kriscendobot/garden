@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T03:26:01Z_
+_As of 2026-10-26T03:27:37Z_
 
 ## Latest
 
@@ -517,6 +517,13 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
+
+- `endojs-endo-but-for-bots-pr1560-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1560-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1560-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1560-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1560-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1560-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
 
@@ -1344,7 +1351,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.8M | $149.95 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 47.9M | $150.30 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 119.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1356,17 +1363,18 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`build-endo-exo-agent-factory-turn-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-exo-agent-factory-turn-ledger.md) — Build: child-agent factory, driver turn ledger (implementation-plan step 5)
 - [`endojs-endo-but-for-bots-pr1561-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1561-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1561
+- [`endojs-endo-but-for-bots-pr1562-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1562-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1562
 
-### tada (15126)
+### tada (15127)
+- [`endojs-endo-but-for-bots-pr1560-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1560-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1560-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1560-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1562-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1562-gauntlet-viability.md) — Cost
 - [`build-endo-exo-agent-factory-maker-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-endo-exo-agent-factory-maker-adapters.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1559-gauntlet-clean-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fu-endojs-endo-but-for-bots-pr1559-gauntlet-clean-3.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-aec7aabd570b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-aec7aabd570b.md) — rolling-deploy canary probe — round trip OK
-- … and 15121 more
+- … and 15122 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
