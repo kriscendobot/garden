@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T10:18:22Z_
+_As of 2026-10-26T10:21:59Z_
 
 ## Latest
 
@@ -1367,7 +1367,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $167.31 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 54.2M | $168.18 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 128.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1379,8 +1379,8 @@ worst fetch p95 3.347123s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`dependabotany-recheck-endo-but-for-bots-20261026-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261026-102008.md) — Dependabotany active-row snapshot (v1):
 
 ### tada (15172)
 - [`kriscendobot-minion.town-pr226-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/kriscendobot-minion.town-pr226-dependabot.md) — Cost
