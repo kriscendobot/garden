@@ -6518,8 +6518,11 @@ _gh_api_admit() {
 #     inside the low-priority reserve or the sampled reset has passed. The sample
 #     is account-wide, so it also corrects for calls made outside gh_api_retry;
 #   * it decrements the estimate for every REST attempt _gh_api_admit admits
-#     under the lock (a `--paginate` read is counted once; the next sample
-#     corrects the undercount);
+#     under the lock. A `--paginate` read is admitted as one attempt but spends
+#     one request per page, so after it succeeds gh_api_retry re-samples the
+#     bucket before releasing the lock (_gh_rest_budget_reconcile_locked). The
+#     comment watcher's multi-page sweeps otherwise kept the estimate high until
+#     GitHub refused it (2026-10-26 21:26:53Z), before deferral could engage;
 #   * gh_rest_budget_defer lets a low-priority watcher skip its whole tick, with
 #     its cursor untouched, once the estimate falls to GARDEN_GH_REST_LOW_RESERVE
 #     (default 10% of the limit; an absolute count is also accepted) before the
@@ -6673,6 +6676,17 @@ _gh_rest_budget_admit_locked() {
   return 0
 }
 
+# _gh_rest_budget_reconcile_locked [lock-fd] — re-sample the core bucket after a
+# successful `--paginate` REST read, with marker.lock held, so the estimate
+# reflects the pages that read actually spent rather than the single admission
+# charge. Ignores the refresh interval on purpose: the sample is free, and the
+# admission that follows must see the real remaining. A failed sample keeps the
+# charged estimate and only records the attempt (see _gh_rest_budget_refresh_locked).
+_gh_rest_budget_reconcile_locked() {
+  _gh_rest_budget_enabled || return 0
+  _gh_rest_budget_refresh_locked "$(date +%s 2>/dev/null || echo 0)" "${1:-}" || true
+}
+
 # gh_rest_budget_defer [label] — the low-priority watcher gate. Call it right
 # after `api_cooldown_active` and skip the tick (cursor untouched) on rc 0: the
 # host's estimated REST core remaining is at or below GARDEN_GH_REST_LOW_RESERVE
@@ -6714,7 +6728,7 @@ gh_rest_budget_defer() {
 # rc with empty stdout on a definitive error (no retry) or after the transient
 # retries are exhausted. See the block comment above for the full contract.
 gh_api_retry() {
-  local attempt=1 out rc errf stderr label gh_bin a need=rest latch=all admit=0 lockfd pq emit=1 marker timeout_retried=0
+  local attempt=1 out rc errf stderr label gh_bin a need=rest latch=all admit=0 lockfd pq emit=1 marker timeout_retried=0 paginate=0
   # The gh binary is "${GARDEN_GH:-gh}" — the same test seam gh_pr_view_retry and
   # ci-wait-merge.sh use to inject a stub, so a handler's GraphQL/REST read can be
   # exercised hermetically (e.g. mirror-closer-test.sh's large-PR 422 case) without
@@ -6732,6 +6746,7 @@ gh_api_retry() {
   # call honors both latches and latches only the GraphQL marker; a REST call
   # honors and latches the host-wide marker.
   for a in "$@"; do [ "$a" = graphql ] && { need=graphql; latch=graphql; break; }; done
+  for a in "$@"; do [ "$a" = --paginate ] && { paginate=1; break; }; done
   # Single-flight admission (see the block above _gh_api_admit): off when the
   # cooldown is disabled, and a pass-through inside an admitted gh child.
   if [ -z "${_GARDEN_GH_API_ADMITTED:-}" ] && [ "$(_api_cooldown_secs)" -gt 0 ]; then admit=1; fi
@@ -6775,6 +6790,20 @@ gh_api_retry() {
           flock 9
           _api_cooldown_claim_warning_locked "$marker"
         ) 9>"$GARDEN_API_COOLDOWN_LOCK" || emit=0
+      fi
+    fi
+    # A paginated REST read spent one request per page but was charged once:
+    # re-sample before the next queued caller is admitted against the estimate.
+    if [ "$rc" -eq 0 ] && [ "$paginate" -eq 1 ] && [ "$need" = rest ] && [ "$admit" -eq 1 ]; then
+      if [ -n "$lockfd" ]; then
+        _gh_rest_budget_reconcile_locked "$lockfd"
+      else
+        # Admitted unserialized after a busy lock: reconcile only if the lock is
+        # free now, never stall the caller behind the sibling a second time.
+        (
+          flock -n 9 || exit 0
+          _gh_rest_budget_reconcile_locked 9
+        ) 9>>"$GARDEN_API_COOLDOWN_LOCK" 2>/dev/null || true
       fi
     fi
     if [ -n "$lockfd" ]; then exec {lockfd}>&-; fi

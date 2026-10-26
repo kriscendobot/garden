@@ -144,6 +144,31 @@ export RL_OUT="5000 4999 $(( $(now) + 3600 ))"
 gh_api_retry "repos/o/r/pulls" >/dev/null
 [ "$(field 2)" = 4998 ] && ok "edge refresh adopted the new window and charged it" || bad "estimate $(field 2), want 4998"
 
+# ============================================================================
+hr; echo "SUBTEST 8 — a successful --paginate read re-samples the pages it spent"; hr
+reset_state; export RL_OUT="5000 4000 $(( $(now) + 600 ))"
+gh_rest_budget_defer t || true
+# The multi-page sweep spent 3700 requests; the account-wide sample now shows it.
+export RL_OUT="5000 300 $(( $(now) + 600 ))"
+gh_api_retry --paginate "repos/o/r/issues/comments" >/dev/null && ok "paginated read succeeded" || bad "paginated read failed"
+[ "$(field 2)" = 300 ] && ok "estimate reconciled to the post-sweep sample (300)" || bad "estimate $(field 2), want 300"
+[ "$(calls_matching rate_limit)" = 2 ] && ok "one reconcile sample after the paginated read" \
+  || bad "rate_limit called $(calls_matching rate_limit) times, want 2"
+gh_rest_budget_defer low-watcher >/dev/null 2>&1 && ok "low-priority deferral engages right after the sweep" \
+  || bad "deferral did not engage after the paginated sweep"
+gh_api_retry "repos/o/r/pulls" >/dev/null
+[ "$(calls_matching rate_limit)" = 2 ] && ok "a non-paginated read does not re-sample" \
+  || bad "rate_limit called $(calls_matching rate_limit) times, want 2"
+export RL_FAIL=1
+gh_api_retry --paginate "repos/o/r/issues/comments" >/dev/null && ok "paginated read succeeds when the reconcile sample fails" \
+  || bad "a failed reconcile sample failed the read"
+[ "$(field 2)" = 298 ] && ok "failed reconcile keeps the charged estimate (298)" || bad "estimate $(field 2), want 298"
+export RL_FAIL=0 API_PRIMARY=1 RL_OUT="5000 4000 $(( $(now) + 600 ))"
+: >"$CALLS"
+gh_api_retry --paginate "repos/o/r/issues/comments" >/dev/null 2>&1 && bad "refused paginated read succeeded" || true
+[ "$(calls_matching rate_limit)" = 0 ] && ok "a refused paginated read does not re-sample" \
+  || bad "rate_limit called $(calls_matching rate_limit) times after a refusal"
+
 hr
 echo "gh-rest-budget-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
