@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T23:24:14Z_
+_As of 2026-10-26T23:25:25Z_
 
 ## Latest
 
@@ -1389,12 +1389,11 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`canary-probe-oros-studio-garden-ce242c49-79377c2dbb43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-79377c2dbb43.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 79377c2dbb43
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`canary-probe-oros-studio-garden-ce242c49-79377c2dbb43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-79377c2dbb43.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 79377c2dbb43
 
 ### tada (15224)
 - [`oros-health-watch-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-230509.md) — Cost
