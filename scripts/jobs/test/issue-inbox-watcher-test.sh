@@ -567,6 +567,55 @@ quota_gh_api_race_marker="$QUOTA_GH_API_RACE_COOLDOWN/marker"
   && ok "collateral refusal leaves the different gh-api detector's warning unclaimed" \
   || bad "gh-api collateral refusal emitted a warning ($(cat "$QUOTA_GH_API_RACE_ERR"))"
 
+# A plain transient latch (here a pages network blip) can open after the
+# head-of-tick guard too.  The synthetic admission refusal still names "API rate
+# limit already exceeded", but it is collateral: it must not be promoted into a
+# fresh primary-quota episode that extends the deadline and warns again
+# (2026-10-26 22:49:52, extended to 2489s).
+TRANSIENT_RACE_SOURCE="$TR/issue-transient-race-source.sh"
+cat > "$TRANSIENT_RACE_SOURCE" <<'EOF'
+#!/bin/bash
+source "$IIW_JOBS/common.sh"
+if start_api_cooldown 'pages:kriscendobot-garden:net'; then
+  sed -n '1p' "$GARDEN_API_COOLDOWN_MARKER" > "$IIW_OWNER_EXPIRY"
+fi
+echo 'gh api repos/kriskowal/garden/issues admission refused: host-shared gh-api cooldown live (300s left, tag pages:kriscendobot-garden:net; API rate limit already exceeded for user); not issued' >&2
+exit 75
+EOF
+chmod +x "$TRANSIENT_RACE_SOURCE"
+BARE_TRANSIENT_RACE="$TR/transient-race.git"; seed_bare "$BARE_TRANSIENT_RACE"
+TRANSIENT_RACE_STATE="$TR/state-transient-race"
+TRANSIENT_RACE_COOLDOWN="$TR/transient-race-cooldown"
+TRANSIENT_RACE_ERR="$TR/issue-watcher-transient-race.err"
+TRANSIENT_RACE_OWNER_EXPIRY="$TR/issue-watcher-transient-race-owner.expiry"
+set +e
+env GARDEN_STATE="$TRANSIENT_RACE_STATE" \
+    JOURNAL_REMOTE="$BARE_TRANSIENT_RACE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_GARDEN_REPO="$REPO" GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
+    GARDEN_ISSUE_SOURCE="$TRANSIENT_RACE_SOURCE" IIW_JOBS="$JOBS" \
+    IIW_OWNER_EXPIRY="$TRANSIENT_RACE_OWNER_EXPIRY" \
+    GARDEN_ISSUE_REACTJI="$REACTSTUB" GARDEN_ISSUE_POST="$POSTSTUB" \
+    GARDEN_ISSUE_MSG="$MSGSTUB" GARDEN_ISSUE_MAINT_SEND="$MAINTSTUB" \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_API_COOLDOWN_SECS=300 \
+    GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    GARDEN_API_COOLDOWN_DIR="$TRANSIENT_RACE_COOLDOWN" \
+    "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$TRANSIENT_RACE_ERR"
+transient_race_rc=$?
+set -e
+transient_race_marker="$TRANSIENT_RACE_COOLDOWN/marker"
+[ "$transient_race_rc" -eq 0 ] \
+  && [ -z "$(cursor_seen "$TRANSIENT_RACE_STATE" "$BARE_TRANSIENT_RACE")" ] \
+  && ok "collateral refusal under a transient pages latch freezes the cursor" \
+  || bad "transient collateral refusal rc/cursor wrong (rc=$transient_race_rc cursor=$(cursor_seen "$TRANSIENT_RACE_STATE" "$BARE_TRANSIENT_RACE"))"
+[ "$(sed -n '2p' "$transient_race_marker")" = 'pages:kriscendobot-garden:net' ] \
+  && [ "$(sed -n '3p' "$transient_race_marker")" = transient ] \
+  && [ "$(sed -n '1p' "$transient_race_marker")" = "$(cat "$TRANSIENT_RACE_OWNER_EXPIRY" 2>/dev/null)" ] \
+  && ok "collateral refusal preserves the transient latch's owner, kind, and deadline" \
+  || bad "transient collateral refusal promoted or extended the cooldown ($(tr '\n' ' ' < "$transient_race_marker" 2>/dev/null))"
+[ "$(grep -Ec 'WARN:|admission refused|primary quota exhaustion|source:' "$TRANSIENT_RACE_ERR" || true)" -eq 0 ] \
+  && ok "collateral refusal under a transient latch emits no warning" \
+  || bad "transient collateral refusal emitted a warning ($(cat "$TRANSIENT_RACE_ERR"))"
+
 GHTRANSIENT="$TR/gh-transient-stub.sh"
 cat > "$GHTRANSIENT" <<'EOF'
 #!/bin/bash

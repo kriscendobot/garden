@@ -680,23 +680,26 @@ if [ "$src_rc" -ne 0 ]; then
   # before the text-only compatibility paths and before SRC is ever processed.
   if is_nonattributable_rc "$src_rc"; then
     # The source can pass the head-of-tick guard and then lose REST admission after
-    # a sibling opens the primary-quota latch.  Its synthetic refusal contains
-    # primary-rate-limit wording, but it is collateral evidence, not a new outage.
-    # Honor the latch before reading that diagnostic: preserve its original owner,
-    # deadline, and sole warning while freezing this watcher's cursor.
-    # A raw `gh-api:` latch was opened by this source's own failed request; let
-    # the watcher adopt it below so that captured owner warning reaches the unit
-    # log.  Any already-attributed latch belongs to an earlier detector.
+    # a sibling opens ANY REST latch — a primary-quota one, a raw gh-api one not yet
+    # attributed, or a plain transient one (e.g. `pages:*:net`).  gh_api_retry's
+    # synthetic refusal names "API rate limit already exceeded" whatever the
+    # latch's kind, so the primary-quota classifier below would promote a transient
+    # latch into a fresh, extended primary-quota episode and warn a second time
+    # (2026-10-26 22:49:52, 2489s).  Under any live REST cooldown the refusal is
+    # collateral: preserve the owner, deadline, and warning.  The source that
+    # opened its own latch reports the original API diagnostic instead, so the
+    # adoption path below is untouched.
+    if grep -Fq 'admission refused: host-shared gh-api cooldown live' "$ERRF" 2>/dev/null \
+       && api_cooldown_active rest; then
+      issue_heartbeat_outcome=cooldown
+      exit 0
+    fi
+    # Without an admission refusal, a live primary-quota latch still marks this
+    # failure as the same outage.  A raw `gh-api:` latch was opened by this
+    # source's own failed request; let the watcher adopt it below so that captured
+    # owner warning reaches the unit log.  Any already-attributed latch belongs to
+    # an earlier detector.
     if api_primary_quota_cooldown_active rest; then
-      # Admission can be refused because a different REST source opened a raw
-      # gh-api latch after our head-of-tick guard.  That refusal is collateral
-      # even though the latch is not attributed yet; adopting it would steal the
-      # actual detector's warning.  The source that opened its own latch reports
-      # the original API diagnostic instead, so preserve that adoption path.
-      if grep -Fq 'admission refused: host-shared gh-api cooldown live' "$ERRF" 2>/dev/null; then
-        issue_heartbeat_outcome=cooldown
-        exit 0
-      fi
       primary_owner="$(sed -n '2p' "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null || true)"
       if [[ "$primary_owner" != gh-api:* ]]; then
         issue_heartbeat_outcome=cooldown
