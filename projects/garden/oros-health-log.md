@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-26T23:15Z (oros-health-checkup-20261026-230509): healthy; deployed `0c6356a`, one commit behind a tip pushed 22:56Z, inside normal roll lag; no changes
+
+- **Load/mem:** load 3.96/3.46/3.32 at 23:10Z. 4 monks are running, mostly idle. 12 GiB of 15 GiB is available. Swap reads 885M of 1.0 GiB, back down from 949M, so it is page cache, not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 58% (194G free), inodes 1%.
+- **Uptime:** 25d05h54m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `0c6356a`, deployed by self-deploy (leader-release) at 22:18Z. The origin/main2 tip `79377c2` was pushed at 22:56Z. `upgrade-ready` for it was written at 23:07Z and is still in the settle window. That is normal lag; nothing blocks the deploy. fleet/health/oros: `roll_status: deployed`, 0 unit failures (22:26Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 21:19 to 23:03Z, all ok. Spend has been flat at 89.58M (49.8% of 180M) since 21:19Z. That is the idle fleet, not a stuck meter.
+- **State clones:** 33 journal clones. transcripts and gardener-scaler are at 50 packs each (at the threshold, not over it); reaper has 47 and fleet-health 46. No tmp_pack, no `gc.log`, and no `.git` lock older than 30 minutes.
+- **Settle markers:** 44, down from 396. The `4b3d312` prune is working.
+- **rc=124 (3h):** one. At 20:24Z the `garden-gardener-scaler` self-heal handler hit its 600s bound and was cleaned up. It has happened 2 times in 24h, which is not recurring enough to act on. No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-26T20:20Z (oros-health-checkup-20261026-200508): healthy; deployed = origin/main2 `4b3d312`, no changes
 
 - **Load/mem:** load 4.01/3.70/3.40 at 20:13Z. 4 monks are running, mostly idle: the board holds no todo job, and only this check-up and its watcher are in doin. 13 GiB of 15 GiB is available. Swap reads 949M of 1.0 GiB, about the 958M of the last run and still page cache, not pressure.
