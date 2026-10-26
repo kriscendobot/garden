@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T06:05:36Z_
+_As of 2026-10-26T06:09:35Z_
 
 ## Latest
 
@@ -1357,7 +1355,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.2M | $156.64 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 51.6M | $163.09 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 123.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1369,17 +1367,16 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1564-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1564-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1564
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-b3fecfbf-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-restage-b3fecfbf-20261026.md) — ---
 
-### tada (15147)
+### tada (15148)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-restage-b3fecfbf-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1349-gauntlet-restage-b3fecfbf-20261026.md) — Cost
 - [`endojs-endo-but-for-bots-pr1564-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1564-gauntlet-viability.md) — Cost
 - [`orchestrate-endo-exo-agent-factory-remaining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/orchestrate-endo-exo-agent-factory-remaining.md) — orchestration orchestrate-endo-exo-agent-factory-remaining — complete
 - [`build-endo-exo-agent-factory-reply-collapse`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/build-endo-exo-agent-factory-reply-collapse.md) — Cost
 - [`endojs-endo-but-for-bots-pr1563-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1563-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1563-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1563-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1563-gauntlet-clean.md) — Cost
-- … and 15142 more
+- … and 15143 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
