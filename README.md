@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T08:10:42Z_
+_As of 2026-10-26T08:12:36Z_
 
 ## Latest
 
@@ -129,6 +129,13 @@ Delegation: **active**
 > coalesced notice that updates in place, not 22 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 4): shared codex subscription demand active=1 queue=4 quota=ok fleet-envelope=4 target=4
+
+- `endojs-endo-but-for-bots-pr1565-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1565-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1565-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1565-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1565-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1565-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -1374,13 +1381,13 @@ worst fetch p95 3.657741s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### doin (0)
 (none)
 
-### tada (15159)
+### tada (15160)
+- [`endojs-endo-but-for-bots-pr1565-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1565-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1565-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1565-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1565-gauntlet-clean.md) — Cost
 - [`oros-health-checkup-20261026-075008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-075008.md) — Cost
 - [`oros-health-watch-20261026-075008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-075008.md) — Cost
 - [`improve-worker-cli-health-debounce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/improve-worker-cli-health-debounce.md) — Cost
-- [`claude-on-minion-town-press-20261026-075008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/claude-on-minion-town-press-20261026-075008.md) — Cost
-- … and 15154 more
+- … and 15155 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
