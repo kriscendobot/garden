@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1558
 build_job: 
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1558-gauntlet-viability
+current_child: endojs-endo-but-for-bots-pr1558-gauntlet-clean
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-10-26T00:32:26Z
