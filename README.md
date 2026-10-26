@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T08:12:36Z_
+_As of 2026-10-26T08:13:41Z_
 
 ## Latest
 
@@ -784,11 +784,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #4 (first seen 2026-10-23T13:27:09Z, latest 2026-10-26T00:56:46Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 4 times; this is
-> ONE entry that updates in place, not 4 messages. Latest detail:
+> COALESCED message — occurrence #5 (first seen 2026-10-23T13:27:09Z, latest 2026-10-26T08:12:54Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 5 times; this is
+> ONE entry that updates in place, not 5 messages. Latest detail:
 >
-> Milestone M3’s next build, the child-agent factory, is blocked on the active gauntlet for [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558). Please allow that gauntlet to converge before its queued builder handoff is promoted.
+> Milestone M3’s MCP and git-remote critical paths are blocked: PRs #1544 and #1565 require the runner fixes in #1542 and #1546 on `llm`. Please decide whether to merge those fixes so the PRs can be rewoven and their gauntlets restarted.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
