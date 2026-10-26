@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T00:54:25Z_
+_As of 2026-10-26T00:59:25Z_
 
 ## Latest
 
@@ -764,11 +762,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #3 (first seen 2026-10-23T13:27:09Z, latest 2026-10-25T14:33:22Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 3 times; this is
-> ONE entry that updates in place, not 3 messages. Latest detail:
+> COALESCED message — occurrence #4 (first seen 2026-10-23T13:27:09Z, latest 2026-10-26T00:56:46Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 4 times; this is
+> ONE entry that updates in place, not 4 messages. Latest detail:
 >
-> Milestone M3’s next top-priority client-side bridge step, `endo-claude-agents-capability`, is blocked on deciding whether to adopt PR #1543’s API-key-provider course correction in place of the closed #1102 design. Confirm the replacement direction and provider/credential boundary before a builder implements child-agent provisioning.
+> Milestone M3’s next build, the child-agent factory, is blocked on the active gauntlet for [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558). Please allow that gauntlet to converge before its queued builder handoff is promoted.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1346,7 +1344,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.1M | $150.61 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 45.2M | $154.96 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 115.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1359,16 +1357,16 @@ worst fetch p95 12.001812s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr1558-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1558-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1558
+- [`endojs-endo-but-for-bots-pr1558-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1558-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1558
 - [`build-daemon-worker-import-from-mount`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-worker-import-from-mount.md) — ---
 
-### tada (15094)
+### tada (15095)
+- [`endojs-endo-but-for-bots-pr1558-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1558-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1558-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-clean.md) — Cost
 - [`design-endo-claude-agents-capability-20261026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/design-endo-claude-agents-capability-20261026.md) — Follow-ups
 - [`endojs-endo-but-for-bots-pr1558-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1558-gauntlet-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1557-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1557-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1557-gauntlet — HALTED
-- … and 15089 more
+- … and 15090 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
