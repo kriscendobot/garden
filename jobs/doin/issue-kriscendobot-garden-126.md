@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 I think endo chat supports this naturally. If so, design a demo and short marketing blurb. If not, identify gaps. What follows is my question about the feature and t3's answer: ---- https://x.com/MatthewBerman/status/2114548318550495520 says > I think I'm becoming T3-pilled. Havi
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-26T19:57:35Z
