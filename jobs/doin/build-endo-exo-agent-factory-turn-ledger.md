@@ -23,3 +23,13 @@ Task: step 5, per the design's § Turn publication.
 - The crash-cut tests from § Adapter and confinement tests, including a crash inside `infer` after a fake tool effect, asserted rather than hidden.
 - A worked deployment example following § Issuance, for a consumer such as PR #1543.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-26T03:25:09Z
