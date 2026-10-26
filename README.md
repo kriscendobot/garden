@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-26T01:21:01Z_
+_As of 2026-10-26T01:24:17Z_
 
 ## Latest
 
@@ -1291,15 +1289,6 @@ Delegation: **active**
 >
 > If the maintainer would rather have the implementation start from an informal spec, they can say so and the job can be unblocked.
 
-- `gauntlet-followups-endojs-endo-but-for-bots-pr1558-gauntlet-fix-2` — from gardener:endojs-endo-but-for-bots-pr1558-gauntlet-fix-2, reply_to `endojs-endo-but-for-bots-pr1558-gauntlet-fix-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/gauntlet-followups-endojs-endo-but-for-bots-pr1558-gauntlet-fix-2.md)
-
-> Gauntlet stage "endojs-endo-but-for-bots-pr1558-gauntlet-fix-2" ("endojs-endo-but-for-bots-pr1558-gauntlet", stage "fix") completed and reported additional follow-ups that require maintainer disposition. The deterministic gauntlet driver owns only the next-panel transition; this escalation was forwarded before the child completed.
->
-> ## Follow-ups
->
-> - The panel-3 re-review is the gauntlet driver's to post; this job did not run it.
-> - The `endo-claude-inference-backends` M3 row says "In Progress" while its summary-table row says "Draft". That mismatch was already in the PR, no juror flagged it, and I left it alone.
-
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
 > Container hardening is PENDING on oros-studio-garden-ce242c49: 2 launcher-posture check(s) fail (caps/sudo/block devices/mount).
@@ -1355,7 +1344,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.6M | $146.62 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 45.6M | $146.94 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 116.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
