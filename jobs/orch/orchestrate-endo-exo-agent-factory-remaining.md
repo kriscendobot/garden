@@ -2,7 +2,7 @@
 order: serial
 children: build-endo-exo-agent-factory-daemon-wiring build-endo-exo-agent-factory-maker-adapters build-endo-exo-agent-factory-turn-ledger build-endo-exo-agent-factory-reply-collapse
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-26T02:09:51Z
 ---
