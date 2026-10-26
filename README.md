@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T10:24:19Z_
+_As of 2026-10-26T10:27:22Z_
 
 ## Latest
 
@@ -1367,7 +1367,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $167.31 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 54.3M | $167.93 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 128.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1379,8 +1379,8 @@ worst fetch p95 3.691368s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-daemon-git-next-steps-structured-show`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-next-steps-structured-show.md) — ---
 
 ### tada (15173)
 - [`dependabotany-recheck-endo-but-for-bots-20261026-102008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/dependabotany-recheck-endo-but-for-bots-20261026-102008.md) — Cost
