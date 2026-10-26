@@ -1,4 +1,5 @@
 ---
+child-build-endo-exo-agent-factory-maker-adapters-host: endolin-garden-ece02cb4
 child-build-endo-exo-agent-factory-maker-adapters-reap-count: 0
 child-build-endo-exo-agent-factory-daemon-wiring-host: endolin-garden-ece02cb4
 child-build-endo-exo-agent-factory-daemon-wiring-reap-count: 0
