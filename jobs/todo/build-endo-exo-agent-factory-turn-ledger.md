@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: orchestrate-endo-exo-agent-factory-remaining
-priority: normal
-posted_by: producer
-posted_at: 2026-10-26T02:09:51Z
+role: builder
+tier: mentor
+arc: minion-town-mcp-ocapn
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-26T03:24:56Z cleared=none -->
 
 ---
 role: builder
