@@ -23,3 +23,13 @@ Task: steps 2 and 4.
 - `AgentDriverMaker` adapters for `@endo/inference` (closing over an `InferenceBackend`/`CredentialSource` and passing the child-derived `GuestToolProjection` on each turn), Fae, and Lal. Claude CLI and Agent SDK makers must be thin compositions of the landed backends.
 - The § Adapter and confinement tests that need no turn ledger.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-26T02:37:49Z
