@@ -1,12 +1,9 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1558-gauntlet
-priority: normal
 role: builder
+tier: mentor
 arc: minion-town-mcp-ocapn
-posted_by: design-build-handoff
-posted_at: 2026-10-26T00:36:30Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-26T01:56:08Z cleared=none -->
 
 ---
 role: builder
