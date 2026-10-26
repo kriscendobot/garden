@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T18:49:42Z_
+_As of 2026-10-26T18:52:08Z_
 
 ## Latest
 
@@ -1395,13 +1395,13 @@ worst fetch p95 3.738372s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 ### doin (0)
 (none)
 
-### tada (15209)
+### tada (15210)
+- [`endojs-endo-but-for-bots-pr1572-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1572-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1572-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1572-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1572-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1571-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1571-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1571-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1571-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1571-gauntlet-clean.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1570-gauntlet-clean-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/fu-endojs-endo-but-for-bots-pr1570-gauntlet-clean-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1572-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/endojs-endo-but-for-bots-pr1572-gauntlet-viability.md) — Cost
-- … and 15204 more
+- … and 15205 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
