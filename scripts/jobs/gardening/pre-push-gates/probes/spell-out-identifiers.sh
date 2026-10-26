@@ -40,6 +40,13 @@
 #     in the SES text-codec tests bypassed the curated blocklist. These names
 #     have direct spelled-out forms: error, constructor, property, success, and
 #     character.
+#   * 2026-10-26 false positive: endojs/endo-but-for-bots
+#     build-daemon-worker-import-from-mount added a JSDoc body line
+#     ` * @param {DaemonCore['formulateFromPackage']} args.formulateFromPackage`
+#     to the existing `makeHostMaker(args)` doc block. Per-line scanning read
+#     the comment continuation as code and flagged the pre-existing `args`
+#     parameter name. A line whose first non-blank character is `*` is now
+#     treated as comment text.
 #   * 2026-10-25 false positive: endojs/endo-but-for-bots#1538 shimmed the XS
 #     host global `hostReadDir` in a test. That name is the Rust host ABI's
 #     (rust/endo/xsnap/src/host_aliases.js), declared ambient in the base's
@@ -114,6 +121,10 @@ classify() {
     # added lines, so cross-line block/string state is not tracked (favoring a
     # false NEGATIVE over reading stale context).
     function scan_code(line,   n, i, c, d, out, instr, q, inblock) {
+      # A line that opens with `*` continues a block comment (a JSDoc body line
+      # such as ` * @param {T} args.name`); without cross-line state it would
+      # otherwise read as code.
+      if (line ~ /^[ \t]*\*/) return ""
       n = length(line); i = 1; out = ""; instr = 0; q = ""; inblock = 0
       while (i <= n) {
         c = substr(line, i, 1); d = substr(line, i, 2)

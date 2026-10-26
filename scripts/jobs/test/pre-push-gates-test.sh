@@ -176,6 +176,31 @@ echo "ok - a long spell-out-exempt file stays exempt under pipefail"
 git -C "$REPOSITORY" reset -q --hard HEAD
 git -C "$REPOSITORY" clean -qfd
 
+# Regression (build-daemon-worker-import-from-mount): a JSDoc body line added to
+# an existing doc block names the pre-existing parameter `args`. The probe scans
+# one added line at a time, so the continuation line must read as comment text,
+# while the same name in code still fires.
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+printf '%s\n' '/**' " * @param {Function} args.formulate" ' */' 'export const x = 1;' >"$REPOSITORY/jsdoc-body.js"
+git -C "$REPOSITORY" add jsdoc-body.js
+output=$($DRIVER --no-auto-fix --probes-only --summary "$REPOSITORY") || {
+  echo "not ok - a JSDoc body line naming args was read as code"
+  printf '%s\n' "$output"
+  exit 1
+}
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+printf '%s\n' 'export const f = (args) => args;' >"$REPOSITORY/code-args.js"
+git -C "$REPOSITORY" add code-args.js
+if $DRIVER --no-auto-fix --probes-only --summary "$REPOSITORY" >/dev/null; then
+  echo "not ok - an abbreviated identifier in code no longer fires"
+  exit 1
+fi
+echo "ok - a JSDoc body line is comment text; the same name in code still fires"
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+
 # Regression (endojs/endo-but-for-bots#1538): a test shimming the XS host global
 # `hostReadDir` cannot rename it; the pre-change tree declares it ambient in a
 # `.d.ts`, so it is an external binding, not a freshly-authored name. An ambient
