@@ -1,9 +1,10 @@
 #!/bin/bash
 # budget-snapshot-spend-regression-test.sh — a live budget reading below the last
-# published spend for the same window is re-measured once, and the larger reading
-# is published. Regression for oros-studio 2026-10-21 18:32Z, which published
-# 20.3M between 33.4M and 35.0M (and 0 at 2026-10-20 21:03Z): one-tick
-# undercounts of a total that only grows within a window.
+# published spend for the same window is re-measured once, and the published
+# high-water spend is held unless an entitlement transition is identified.
+# Regression for oros-studio 2026-10-21 18:32Z, which published 20.3M between
+# 33.4M and 35.0M (and 0 at 2026-10-20 21:03Z), and for endolin 2026-10-26
+# 03:47:34Z, where a low re-measure let 47944967 regress to 47922983.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
@@ -38,13 +39,17 @@ meter_subscription_window_total() {
   local n; n="$(cat "$SCANS" 2>/dev/null || echo 0)"; n=$((n + 1)); echo "$n" > "$SCANS"
   set -- $READINGS; shift $((n - 1)); printf '%s\n' "$1"
 }
+# ENTITLEMENT is the effective cutoff the meter would detect; default: none.
+ENTITLEMENT=1755820800
+_meter_entitlement_cutoff() { printf '%s\n' "$ENTITLEMENT"; }
 sync_clone() { :; }
 commit_and_push() { return 0; }
 git() { :; }
 
-seed() {  # seed <window> <spend> — a published snapshot from an earlier bucket
+seed() {  # seed <window> <spend> [sampled-at] — a published snapshot from an earlier bucket
   printf 'window_start_epoch: %s\nspend: %s\nsample_bucket: 1\nstatus: ok\n' "$1" "$2" > "$SNAP"
-  : > "$SCANS"
+  [ -z "${3:-}" ] || printf 'sampled_at_epoch: %s\n' "$3" >> "$SNAP"
+  : > "$SCANS"; ENTITLEMENT=1755820800
 }
 published() { sed -n 's/^spend:[[:space:]]*//p' "$SNAP"; }
 
@@ -55,11 +60,33 @@ budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
 [ "$(cat "$SCANS")" = 2 ] || fail "expected exactly one re-measure"
 echo "PASS: a reading below the published spend is re-measured"
 
-# 2. A genuine drop reads low twice and still publishes (the larger reading).
-seed 1755820800 900; READINGS="300 200"
+# 2. A re-measure that still reads low holds the published high-water spend.
+seed 1755820800 47944967 1755830000; READINGS="47900000 47922983"
 budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
-[ "$(published)" = 300 ] || fail "genuine drop published $(published), want 300"
-echo "PASS: a drop confirmed by the re-measure still publishes"
+[ "$(published)" = 47944967 ] || fail "confirmed undercount published $(published), want 47944967"
+echo "PASS: a low re-measure without an entitlement transition holds the high-water spend"
+
+# 2b. Two consecutive undercounting ticks both hold the floor.
+seed 1755820800 900; READINGS="600 650"
+budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
+[ "$(published)" = 900 ] || fail "first undercount published $(published), want 900"
+sed -i 's/^sample_bucket:.*/sample_bucket: 2/' "$SNAP"; : > "$SCANS"; READINGS="700 720"
+budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
+[ "$(published)" = 900 ] || fail "second undercount published $(published), want 900"
+[ "$(cat "$SCANS")" = 2 ] || fail "second undercount did not re-measure once"
+echo "PASS: two consecutive undercounts keep the high-water spend"
+
+# 2c. An entitlement boundary after the published sample lets a drop publish.
+seed 1755820800 900 1755830000; ENTITLEMENT=1755840000; READINGS="300 200"
+budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
+[ "$(published)" = 300 ] || fail "entitlement drop published $(published), want 300"
+echo "PASS: a drop across an identified entitlement transition still publishes"
+
+# 2d. A boundary the published sample already counted from does not excuse a drop.
+seed 1755820800 900 1755850000; ENTITLEMENT=1755840000; READINGS="300 200"
+budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
+[ "$(published)" = 900 ] || fail "pre-sample boundary published $(published), want 900"
+echo "PASS: an entitlement boundary older than the published sample holds the floor"
 
 # 3. A new window starts low without a re-measure.
 seed 1755216000 900; READINGS="10 999"

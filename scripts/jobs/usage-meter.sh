@@ -1157,18 +1157,34 @@ _budget_publish_legacy_local_pool_once() {
 # grows (retired transcripts outlive the window), so a reading below the last
 # published spend for the same window_start_epoch is suspect: oros published
 # 0 (2026-10-20 21:03Z) and 20.3M between 33.4M and 35.0M (2026-10-21 18:32Z),
-# one-tick undercounts that the next tick erased. Re-measure once and publish the
-# larger reading; a scan can miss files but never invents tokens, and a genuine
-# drop (an entitlement boundary) reads low both times and still publishes.
+# and endolin's 2026-10-26T03:47:34Z warning re-measured low twice and let
+# 47944967 regress to 47922983. A scan can miss files but never invents tokens,
+# so re-measure once and then hold the published high-water spend. A drop is
+# published only when an entitlement transition is deterministically identified:
+# the meter's effective cutoff (_meter_entitlement_cutoff) has moved past the
+# window start to a boundary later than the published sample, so that sample
+# counted the previous server epoch.
 _budget_spend_regression_recheck() {
-  local file="$1" cutoff="$2" spend="$3" pool="$4" dir="$5" old_window old_spend again
+  local file="$1" cutoff="$2" spend="$3" pool="$4" dir="$5" old_window old_spend old_at again effective
   old_window="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   old_spend="$(sed -n 's/^spend:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   if [ "$old_window" = "$cutoff" ] && [[ "$old_spend" =~ ^[0-9]+$ ]] \
     && [[ "$spend" =~ ^[0-9]+$ ]] && [ "$spend" -lt "$old_spend" ]; then
     again="$(meter_subscription_window_total "$pool" "$dir" 2>/dev/null)" || again=""
-    log "WARN: $pool spend reading $spend is below the published $old_spend for window $cutoff; re-measured ${again:-unknown}"
     if [[ "$again" =~ ^[0-9]+$ ]] && [ "$again" -gt "$spend" ]; then spend="$again"; fi
+    if [ "$spend" -lt "$old_spend" ]; then
+      old_at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+      effective="$(_meter_entitlement_cutoff "$GARDEN_CCUSAGE_LOGDIR" "$cutoff" 2>/dev/null || true)"
+      if [[ "$effective" =~ ^[0-9]+$ ]] && [ "$effective" -gt "$cutoff" ] \
+        && [[ "$old_at" =~ ^[0-9]+$ ]] && [ "$old_at" -lt "$effective" ]; then
+        log "WARN: $pool spend reading $spend is below the published $old_spend for window $cutoff; re-measured ${again:-unknown}; entitlement boundary $effective follows the published sample, publishing the drop"
+      else
+        log "WARN: $pool spend reading $spend is below the published $old_spend for window $cutoff; re-measured ${again:-unknown}; no entitlement transition identified, holding $old_spend"
+        spend="$old_spend"
+      fi
+    else
+      log "WARN: $pool spend reading below the published $old_spend for window $cutoff; re-measured $spend"
+    fi
   fi
   printf '%s\n' "$spend"
 }
