@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-26T06:54:36Z_
+_As of 2026-10-26T06:56:32Z_
 
 ## Latest
 
@@ -561,13 +561,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 3 (target 3): subscription claude-oros spend=88841607 cap=180000000 pace-bias=0.508342 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.8574(ramp) target=3
-
-- `endojs-endo-but-for-bots-pr1564-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1564-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1564-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1564-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1564-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1564-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `liaison-followup-012ad029ea29` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-012ad029ea29.md)
 
@@ -1366,7 +1359,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.9M | $166.98 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 51.9M | $167.74 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 124.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
