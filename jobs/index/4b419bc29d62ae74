@@ -1,2 +1,2 @@
-base: improve-gh-rest-budget-deferral-log-level
+base: improve-worker-cli-health-debounce
 identity: mentor:scripts/jobs/common.sh
