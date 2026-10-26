@@ -587,6 +587,10 @@ export GARDEN
 # semantically premature. The upgrade-monitor rewrites the signal each tick with the
 # current tip, so a superseded tip never becomes eligible and the clock restarts.
 : "${GARDEN_SELF_DEPLOY_SETTLE:=600}"                # 10 min
+# Each new upgrade target leaves a settle/<sha12> first-seen marker. Markers whose
+# first-seen epoch is older than this are pruned when a new target is first seen,
+# so the settle directory does not grow by one file per main2 commit forever.
+: "${GARDEN_SELF_DEPLOY_SETTLE_RETAIN:=604800}"      # 7 days
 : "${GARDEN_ROLL_CANARY_BATCH:=1}"                   # followers rolled per wave (1 = one canary at a time)
 : "${GARDEN_CANARY_PROBE_DEADLINE:=600}"             # 10 min: max for the probe job to reach tada/
 : "${GARDEN_CANARY_WATCH:=900}"                      # 15 min: post-probe regression-watch window
@@ -12044,4 +12048,20 @@ plan_deferred_ranked_omega() {
     }
     { print $1 "\t" (($2 in rank) ? rank[$2] : 0) "\t" $2 }
   ' | sort -s -t"$(printf '\t')" -k1,1n -k2,2n | cut -f2,3
+}
+
+# prune_settle_markers <settle-dir> <now-epoch> — delete settle/<sha12> markers
+# whose recorded first-seen epoch is older than GARDEN_SELF_DEPLOY_SETTLE_RETAIN.
+# Keyed on the recorded epoch, not mtime, so a pinned test clock prunes the same way.
+# A marker with an unreadable epoch is left alone. Never fails the caller.
+prune_settle_markers() {
+  local dir="$1" now="$2" f first
+  [ -d "$dir" ] || return 0
+  for f in "$dir"/*; do
+    [ -f "$f" ] || continue
+    first="$(head -n1 "$f" 2>/dev/null || true)"
+    [[ "$first" =~ ^[0-9]+$ ]] || continue
+    if [ $(( now - first )) -gt "$GARDEN_SELF_DEPLOY_SETTLE_RETAIN" ]; then rm -f "$f" 2>/dev/null || true; fi
+  done
+  return 0
 }

@@ -715,7 +715,10 @@ target="$( { sed -n 's/^available:[[:space:]]*//p' "$GARDEN_UPGRADE_READY_MARKER
 settle_file="$STATE/settle/$(sd "$target")"
 mkdir -p "$(dirname "$settle_file")" 2>/dev/null || true
 first_seen="$(rdline "$settle_file")"
-if ! [[ "$first_seen" =~ ^[0-9]+$ ]]; then first_seen="$now"; printf '%s\n' "$now" > "$settle_file"; fi
+if ! [[ "$first_seen" =~ ^[0-9]+$ ]]; then
+  prune_settle_markers "$(dirname "$settle_file")" "$now"
+  first_seen="$now"; printf '%s\n' "$now" > "$settle_file"
+fi
 waited=$(( now - first_seen ))
 if [ "$waited" -lt "$GARDEN_SELF_DEPLOY_SETTLE" ]; then
   log "target ${target:0:12} settling (${waited}s/${GARDEN_SELF_DEPLOY_SETTLE}s); not rolling yet"

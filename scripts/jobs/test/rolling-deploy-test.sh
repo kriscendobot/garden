@@ -569,6 +569,14 @@ if [ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ]; then ok "unsettl
 # NOW advanced past the window → now it releases.
 run_conductor GARDEN_SELF_DEPLOY_SETTLE=600 GARDEN_ROLLING_NOW=2000
 if [ "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" = "$TARGET" ]; then ok "settled tip: canary released"; else bad "settled tip was not released"; fi
+# A newly-seen target prunes settle markers older than the retention window.
+SDIR="$TR/state-leader/rolling-deploy/settle"
+reset_leader_roll_state; mkdir -p "$SDIR"
+printf '100\n' > "$SDIR/aaaaaaaaaaaa"; printf '900\n' > "$SDIR/bbbbbbbbbbbb"; printf 'junk\n' > "$SDIR/cccccccccccc"
+run_conductor GARDEN_SELF_DEPLOY_SETTLE=600 GARDEN_SELF_DEPLOY_SETTLE_RETAIN=500 GARDEN_ROLLING_NOW=1000
+[ ! -e "$SDIR/aaaaaaaaaaaa" ] && ok "settle: marker older than retention pruned" || bad "settle: stale marker not pruned"
+[ -e "$SDIR/bbbbbbbbbbbb" ] && [ -e "$SDIR/cccccccccccc" ] && ok "settle: recent and unreadable markers kept" || bad "settle: pruned a recent or unreadable marker"
+[ "$(head -n1 "$SDIR/${TARGET:0:12}")" = 1000 ] && ok "settle: new target's first-seen recorded" || bad "settle: new target marker missing"
 
 # ============================================================================
 hr; echo "FOLLOWER DAEMON — release / leaderless-grace / hold / operator-drained decline"; hr
