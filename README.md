@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T17:46:03Z_
+_As of 2026-10-27T17:50:00Z_
 
 ## Latest
 
@@ -1510,9 +1508,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 70.6M | $211.07 _(notional, rate-card)_ | 26% of 271.0M (ok) |
-| Codex | 166.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 166.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57332551 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57350907 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
@@ -1524,13 +1522,13 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### doin (1)
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
 
-### tada (15324)
+### tada (15325)
+- [`endojs-endo-but-for-bots-pr1425-fix-panel-findings-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings-ci.md) — Cost
 - [`endojs-endo-but-for-bots-pr1425-fix-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1566-fix-ci-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1566-fix-ci-failures.md) — Completion report: endojs-endo-but-for-bots-pr1566-fix-ci-failures
 - [`improve-enforce-handler-wall-bound-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split.md) — orchestration improve-enforce-handler-wall-bound-split — HALTED
 - [`canary-probe-oros-studio-garden-ce242c49-c0b632f5670b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-c0b632f5670b.md) — rolling-deploy canary probe — round trip OK
-- [`improve-enforce-handler-wall-bound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound.md) — Cost
-- … and 15319 more
+- … and 15320 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
