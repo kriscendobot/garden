@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T15:53:38Z_
+_As of 2026-10-27T15:56:02Z_
 
 ## Latest
 
@@ -857,6 +857,19 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 12 -> 14 (N is yours to choose).
 
+- `improve-enforce-handler-wall-bound-split-child-improve-enforce-handler-wall-bound-watchdog-failed` — from orchestrator:improve-enforce-handler-wall-bound-split-child-improve-enforce-handler-wall-bound-watchdog-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-enforce-handler-wall-bound-split-child-improve-enforce-handler-wall-bound-watchdog-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: improve-enforce-handler-wall-bound-split
+> orchestration-status: running
+> child: improve-enforce-handler-wall-bound-watchdog
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1)
+>
+> Orchestration improve-enforce-handler-wall-bound-split observed child improve-enforce-handler-wall-bound-watchdog: stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
+
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr198-gauntlet-20261019 REVIEW-BUDGET-REACHED: Applied 3 panel/fix round(s); fix round 3 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=3, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds N
@@ -1273,6 +1286,19 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.059380s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `improve-enforce-handler-wall-bound-split-halted` — from orchestrator:improve-enforce-handler-wall-bound-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-enforce-handler-wall-bound-split-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: improve-enforce-handler-wall-bound-split
+> orchestration-status: halted
+> child: improve-enforce-handler-wall-bound-watchdog
+> failure-kind: handler-timeout
+> children-completed: 0
+> children-total: 2
+> halt-parked-remainder: improve-enforce-handler-wall-bound-regression
+>
+> Orchestration improve-enforce-handler-wall-bound-split HALTED: child improve-enforce-handler-wall-bound-watchdog stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: improve-enforce-handler-wall-bound-regression
+
 - `kriscendobot-minion.town-pr199-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr199-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr199-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr199-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet panel --add-rounds N
@@ -1497,13 +1523,13 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
 - [`endojs-endo-but-for-bots-pr1425-fix-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1425-fix-panel-findings.md) — ---
 
-### tada (15321)
+### tada (15322)
+- [`improve-enforce-handler-wall-bound-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split.md) — orchestration improve-enforce-handler-wall-bound-split — HALTED
 - [`canary-probe-oros-studio-garden-ce242c49-c0b632f5670b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-c0b632f5670b.md) — rolling-deploy canary probe — round trip OK
 - [`improve-enforce-handler-wall-bound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound.md) — Cost
 - [`improve-foreman-completed-step-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-foreman-completed-step-retry.md) — Cost
 - [`oros-health-checkup-20261027-145008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-checkup-20261027-145008.md) — Cost
-- [`oros-health-watch-20261027-145008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-145008.md) — Cost
-- … and 15316 more
+- … and 15317 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
