@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-27T02:30Z (oros-health-checkup-20261027-022010): healthy; deployed = origin/main2 `9feb659`, no changes
+
+- **Load/mem:** load 4.20/4.41/4.10 at 02:26Z. 4 monks are running. 13 GiB of 15 GiB is available. Swap reads 884M of 1.0 GiB, the usual steady level; page cache, not pressure.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 59% (191G free), inodes 1%.
+- **Uptime:** 25d09h11m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `9feb659` (written 02:06Z), the origin/main2 tip per `ls-remote` (pushed 01:42Z). It rolled forward from `0c6356a` across the 3 commits since the last run. fleet/health/oros: `roll_status: deployed`, 0 of 290 units failing, 0 advisory (02:06Z). self-deploy ticks every 3 min, all no-op.
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 00:18 to 02:03Z, all ok; file mtime 02:15Z. Spend has been flat at 89.64M (49.8% of 180M) since 00:18Z, up from 89.58M at the last run. The fleet is quiet; the meter is not stuck.
+- **State clones:** 33 journal clones. The largest are fleet-health (49 packs), reaper and leader (47 each), all under the threshold of 50. No tmp_pack, no `gc.log`, and no `.git` lock older than 30 minutes.
+- **Settle markers:** 46, flat against the 44 of the last run.
+- **rc=124 (3h):** one, which is benign: at 23:54Z journal-contention-watch deferred a contention-notice close for the producer clone (rc=124 on its 107s tick budget). No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-26T23:15Z (oros-health-checkup-20261026-230509): healthy; deployed `0c6356a`, one commit behind a tip pushed 22:56Z, inside normal roll lag; no changes
 
 - **Load/mem:** load 3.96/3.46/3.32 at 23:10Z. 4 monks are running, mostly idle. 12 GiB of 15 GiB is available. Swap reads 885M of 1.0 GiB, back down from 949M, so it is page cache, not pressure.
