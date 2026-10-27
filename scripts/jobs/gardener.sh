@@ -820,6 +820,23 @@ while :; do
   # classification below uses this value; post-handler latency is logged apart.
   handler_elapsed=$((SECONDS - handler_start))
   handler_returned_at=$SECONDS
+  # A watchdog that has TERMed the tree holds the only pid snapshot of members
+  # that left the handler's group (setsid). `timeout`'s --kill-after KILLs the
+  # handler at the same deadline as the watchdog's KILL; if it wins, those members
+  # are orphaned and the final reap below cannot walk to them from a dead root.
+  # Let the watchdog finish its escalation (bounded by its absolute KILL deadline)
+  # before cancelling it, so the snapshot is KILLed rather than leaked. Only a
+  # KILL recorded while the handler was still live overrides timeout's rc.
+  watchdog_killed_live=0
+  grep -q '^KILL ' "$watchdog_marker" 2>/dev/null && watchdog_killed_live=1
+  if [ -z "$watchdog_fail_reason" ] && grep -q '^TERM ' "$watchdog_marker" 2>/dev/null; then
+    while kill -0 "$watchdog_pid" 2>/dev/null \
+      && [ "$(date +%s)" -le $(( watchdog_kill_deadline + 5 )) ]; do
+      watchdog_stat="$(ps -o stat= -p "$watchdog_pid" 2>/dev/null | awk '{print $1}')"
+      [[ "$watchdog_stat" = Z* ]] && break
+      sleep 0.2
+    done
+  fi
   # Cancel the watchdog on every exit path. It holds no resources beyond a ≤1s
   # `sleep`; SIGKILL is safe because it only ever signals the handler tree, which
   # the unconditional reap below sweeps regardless.
@@ -830,18 +847,18 @@ while :; do
   # escalation) authoritative. Either way the marker's timestamps are kept as
   # concrete watchdog evidence for the failure record below.
   watchdog_evidence=""
-  watchdog_fired=0
   watchdog_termed=0
   grep -q '^TERM ' "$watchdog_marker" 2>/dev/null && watchdog_termed=1
   if grep -q '^\(TERM\|KILL\|FAIL_CLOSED\|UNREAPED\) ' "$watchdog_marker" 2>/dev/null; then
-    watchdog_fired=1
     watchdog_evidence="$(tr '\n' ' ' < "$watchdog_marker" | sed 's/ *$//') handler_elapsed=${handler_elapsed}s rc=$hrc"
   fi
   if [ "$handler_unreaped" -eq 1 ]; then
     log "handler wall watchdog could NOT reap '$base' (pid $handler_pgid stat ${handler_stat:-?} survived SIGKILL; $watchdog_evidence); abandoning the wait so this worker is not wedged, recording rc=124"
-  elif grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
+  elif [ "$watchdog_killed_live" -eq 1 ]; then
     log "handler wall watchdog fired for '$base' ($watchdog_evidence); timeout did not bound the handler, recording rc=124 (was rc=$hrc)"
     hrc=124
+  elif grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
+    log "handler wall watchdog KILLed the surviving tree of '$base' after timeout ended the handler ($watchdog_evidence); timeout returned rc=$hrc"
   elif grep -q '^TERM ' "$watchdog_marker" 2>/dev/null; then
     log "handler wall watchdog TERMed the process tree of '$base' past its budget ($watchdog_evidence); timeout returned rc=$hrc"
   fi
