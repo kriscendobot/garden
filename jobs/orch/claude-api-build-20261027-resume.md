@@ -1,4 +1,5 @@
 ---
+child-claude-api-p3-minion-ui-host: endolin-garden-ece02cb4
 child-claude-api-p3-minion-ui-reap-count: 0
 child-claude-api-p2-adapters-host: endolin-garden-ece02cb4
 child-claude-api-p2-adapters-reap-count: 0
