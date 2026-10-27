@@ -124,6 +124,29 @@ arc:
 
 Applied 3 panel/fix round(s).
 EOF
+cat >"$SEED/jobs/tada/2026/01/01/g-pin.md" <<'EOF'
+---
+pr: https://github.com/testowner/testrepo/pull/44
+repo: testowner/testrepo
+pr_number: 44
+build_job: build-44
+kind: feature
+stage: panel
+iteration: 6
+max_iterations: 6
+resumes: 0
+max_resumes: 6
+stage_retries: 2
+max_stage_retries: 2
+current_child: g-pin-panel-6
+state: halted
+created_by: test
+created_at: 2026-09-17T00:00:00Z
+orchestration-status: halted
+gauntlet-status: halted
+---
+# halted gauntlet: panel posting refused on one host
+EOF
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m seed
 git -C "$SEED" remote add origin "$BARE"
@@ -266,6 +289,32 @@ if "$JOBS/gauntlet.sh" --resume-from-stage g-resume fix --iteration 2 --add-roun
   ok "an already-active resume is idempotent and not re-budgeted"
 else
   bad "repeat --add-rounds on an active record changed it or failed"
+fi
+
+# --stage-requires pins every later stage job to hosts satisfying the tokens; an
+# illegal token set is refused before the journal changes.
+if "$JOBS/gauntlet.sh" --resume-from-stage g-pin panel --iteration 6 --stage-requires 'host=Bad Host' >"$TR/pin-bad.log" 2>&1; then
+  bad "an illegal --stage-requires value was accepted"
+else
+  ok "--stage-requires rejects an illegal token set"
+fi
+if "$JOBS/gauntlet.sh" --resume-from-stage g-pin panel --iteration 6 --add-rounds 1 \
+    --stage-requires host=pinhost-1 >"$TR/pin.log" 2>&1; then
+  git -C "$VERIFY" pull -q
+  prec="$VERIFY/jobs/gauntlet/g-pin.md"; ptodo="$VERIFY/jobs/todo/g-pin-panel-6.md"
+  if grep -qx 'stage_requires: host=pinhost-1' "$prec" && [ -f "$ptodo" ] \
+    && grep -qx 'requires: host=pinhost-1' "$ptodo"; then
+    ok "--stage-requires records stage_requires and the restarted stage carries requires:"
+  else
+    bad "--stage-requires record/todo wrong: $(cat "$prec" 2>/dev/null) // $(head -12 "$ptodo" 2>/dev/null)"
+  fi
+else
+  bad "--stage-requires resume failed: $(cat "$TR/pin.log")"
+fi
+if ! grep -q '^requires:' "$VERIFY/jobs/todo/g-resume-fix-2.md"; then
+  ok "a resume without --stage-requires posts an unpinned stage"
+else
+  bad "an unpinned resume grew a requires: header"
 fi
 
 echo

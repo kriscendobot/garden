@@ -395,7 +395,9 @@ common commands. See `CLAUDE.md` under "Monitoring safety constraint" and
   gauntlet records plus job lanes. To resume a halted, billing-parked, or
   `review-budget-reached` gauntlet with more review rounds, run
   `scripts/jobs/gauntlet.sh --resume-from-stage <g> panel --add-rounds N`
-  (raises `max_iterations` by N; see `designs/staged-gauntlet.md`).
+  (raises `max_iterations` by N; see `designs/staged-gauntlet.md`). Add
+  `--stage-requires host=<GARDEN>` to pin every later stage to hosts satisfying
+  those `requires:` tokens, such as when one host's token cannot post reviews.
 - **`garden-follow-up.timer`, `garden-follow-up.service`:** leader-only at
   `:08/10`; runs `scripts/jobs/follow-up.sh`. It skips under drain, converts
   structured `follow-up:` report fields into jobs, schedules, or maintainer

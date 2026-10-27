@@ -7,6 +7,7 @@
 # Usage:
 #   gauntlet.sh                                      (timer tick)
 #   gauntlet.sh --resume-from-stage <g> <stage> [--iteration N] [--add-rounds N]
+#               [--stage-requires TOKENS]
 #
 # The resume form turns a terminal halted (or billing-parked) report back into an active record, then
 # atomically replaces any stale artifact for the requested stage with a fresh todo
@@ -16,7 +17,12 @@
 # that one without more budget would just end again), whose panel resume defaults
 # to the next round, e.g. `--resume-from-stage <g> panel --add-rounds 2`. This is
 # the supported recovery path after the reason for a halt was fixed; operators
-# never need to hand-edit the journal.
+# never need to hand-edit the journal. `--stage-requires TOKENS` records a
+# `stage_requires:` field whose value every later stage job carries as its
+# `requires:` header, e.g. `--stage-requires host=<GARDEN>` keeps the stages off a
+# host whose bot token cannot post reviews on the PR's repository (endojs PR #1543:
+# three panel-6 attempts on oros-studio got a 403 from addPullRequestReview and the
+# gauntlet halted). An empty value (`--stage-requires ''`) clears it.
 #
 # THE PROBLEM (designs/staged-gauntlet.md): the gauntlet ran as ONE claimed job
 # whose wall-clock was the SUM of every stage, every fix-loop iteration, and every
@@ -107,6 +113,7 @@ resume_base=""
 resume_requested_stage=""
 resume_requested_iteration=""
 resume_add_rounds=""
+resume_stage_requires="-"
 if [ "${1:-}" = --resume-from-stage ]; then
   resume_base="${2:?--resume-from-stage needs a gauntlet base}"
   resume_requested_stage="${3:?--resume-from-stage needs viability|clean|panel|fix|undraft}"
@@ -117,11 +124,13 @@ if [ "${1:-}" = --resume-from-stage ]; then
       --iteration=*) resume_requested_iteration="${1#--iteration=}"; shift;;
       --add-rounds) resume_add_rounds="${2:?--add-rounds needs a positive integer}"; shift 2;;
       --add-rounds=*) resume_add_rounds="${1#--add-rounds=}"; shift;;
+      --stage-requires) [ "$#" -ge 2 ] || die "--stage-requires needs a value"; resume_stage_requires="$2"; shift 2;;
+      --stage-requires=*) resume_stage_requires="${1#--stage-requires=}"; shift;;
       *) die "unknown resume option: '$1'";;
     esac
   done
 elif [ "$#" -gt 0 ]; then
-  die "usage: gauntlet.sh [--resume-from-stage <g> <viability|clean|panel|fix|undraft> [--iteration N] [--add-rounds N]]"
+  die "usage: gauntlet.sh [--resume-from-stage <g> <viability|clean|panel|fix|undraft> [--iteration N] [--add-rounds N] [--stage-requires TOKENS]]"
 fi
 
 # The CI-blocking stages (clean/fix) need a CI-sized handler budget; only the short
@@ -777,7 +786,8 @@ halt_gauntlet() {  # <base> <reason> [halted|parked-ci-billing]
     printf -- '---\n'
     if [ -f "$rec" ]; then
       for key in pr repo pr_number build_job kind stage iteration max_iterations \
-        resumes max_resumes stage_retries max_stage_retries created_by created_at arc; do
+        resumes max_resumes stage_retries max_stage_retries created_by created_at arc \
+        stage_requires; do
         printf '%s: %s\n' "$key" "$(plan_field "$rec" "$key")"
       done
     fi
@@ -835,7 +845,8 @@ finish_review_budget_reached() {  # <base> <reason>
     # once the record leaves jobs/gauntlet/ (gauntlet_history_for_pr), plus the
     # record facts `--resume-from-stage ... --add-rounds N` rebuilds it from.
     for key in pr repo pr_number build_job kind stage iteration max_iterations \
-      resumes max_resumes stage_retries max_stage_retries created_by created_at arc; do
+      resumes max_resumes stage_retries max_stage_retries created_by created_at arc \
+      stage_requires; do
       value="$(plan_field "$rec" "$key" 2>/dev/null || true)"
       [ -n "$value" ] && printf '%s: %s\n' "$key" "$value"
     done
@@ -935,6 +946,10 @@ compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
     panel)     printf 'handler-budget-role: panel\n' ;;
   esac
   [ -n "$timeout_line" ] && printf '%s\n' "$timeout_line"
+  # The record's stage_requires (set by --resume-from-stage --stage-requires) pins
+  # every stage to hosts that satisfy it, through the ordinary claim-time gate.
+  [ -z "$(plan_field "$rec" stage_requires)" ] \
+    || printf 'requires: %s\n' "$(plan_field "$rec" stage_requires)"
   printf 'gauntlet: %s\n' "$base"
   printf 'gauntlet_stage: %s\n' "$stage"
   printf 'gauntlet_iteration: %s\n' "$iter"
@@ -1170,14 +1185,22 @@ EOF
 # exactly one owner for the gauntlet base. The stage job itself is installed by
 # restart_requested_stage below in a second CAS transaction; the intermediate
 # resume-pending record is restart-safe and is picked up by every later timer tick.
-activate_stage_resume() {  # <base> <stage> [iteration] [add-rounds]
-  local base="$1" stage="${2,,}" requested_iter="${3:-}" add_rounds="${4:-}"
+activate_stage_resume() {  # <base> <stage> [iteration] [add-rounds] [stage-requires|-]
+  local base="$1" stage="${2,,}" requested_iter="${3:-}" add_rounds="${4:-}" stage_requires="${5:--}"
   local attempt terminal_path terminal record iter key val rc existing_state existing_stage existing_iter
   local terminal_status maxit
   case "$base" in -*) die "illegal gauntlet base: '$base'";; */*|.*|'') die "illegal gauntlet base: '$base'";; esac
   case "$stage" in viability|clean|panel|fix|undraft) :;; *) die "illegal resume stage: '$stage'";; esac
   case "$requested_iter" in ''|*[!0-9]*) [ -z "$requested_iter" ] || die "illegal --iteration: '$requested_iter'";; esac
   case "$add_rounds" in '') ;; 0|*[!0-9]*) die "illegal --add-rounds: '$add_rounds' (needs a positive integer)";; esac
+  if [ "$stage_requires" != - ] && [ -n "$stage_requires" ]; then
+    local req_probe
+    case "$stage_requires" in *[[:space:]]*) die "illegal --stage-requires: '$stage_requires' (no whitespace)";; esac
+    req_probe="$(mktemp "${TMPDIR:-/tmp}/gauntlet-requires.XXXXXX")"
+    printf -- '---\nrequires: %s\n---\n' "$stage_requires" > "$req_probe"
+    job_requirements_valid "$req_probe" || { rm -f "$req_probe"; die "illegal --stage-requires: '$stage_requires'"; }
+    rm -f "$req_probe"
+  fi
 
   for attempt in $(seq 1 50); do
     sync_clone "$DIR"
@@ -1235,6 +1258,9 @@ activate_stage_resume() {  # <base> <stage> [iteration] [add-rounds]
         [ "$key" = max_iterations ] && val="$maxit"
         printf '%s: %s\n' "$key" "$val"
       done
+      val="$(plan_field "$terminal" stage_requires)"
+      [ "$stage_requires" = - ] || val="$stage_requires"
+      [ -z "$val" ] || printf 'stage_requires: %s\n' "$val"
       [ -z "$add_rounds" ] || printf 'added_rounds: %s\n' "$add_rounds"
       printf 'stage: %s\n' "$stage"
       printf 'iteration: %s\n' "$iter"
@@ -1471,7 +1497,8 @@ resume_stage() {  # <base> <rec-file> <stage> <iter> <child> <resumes> <max-resu
 
 # --- the tick ---------------------------------------------------------------
 [ -z "$resume_base" ] || activate_stage_resume \
-  "$resume_base" "$resume_requested_stage" "$resume_requested_iteration" "$resume_add_rounds"
+  "$resume_base" "$resume_requested_stage" "$resume_requested_iteration" "$resume_add_rounds" \
+  "$resume_stage_requires"
 
 # Owed terminal receipts first: they are cheap, and each sits behind a cooldown that
 # may have expired since the tick that deferred it.
