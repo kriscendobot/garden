@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T09:30:03Z_
+_As of 2026-10-27T09:37:42Z_
 
 ## Latest
 
@@ -1476,7 +1474,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 66.5M | $195.10 _(notional, rate-card)_ | 25% of 271.0M (ok) |
-| Codex | 154.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Codex | 155.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1487,8 +1485,8 @@ worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`canary-probe-oros-studio-garden-ce242c49-c9bdc1fba651`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-c9bdc1fba651.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ c9bdc1fba651
 
 ### tada (15282)
 - [`improve-gardener-panel-freshness-inputs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-gardener-panel-freshness-inputs.md) — Cost
