@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T01:44:48Z_
+_As of 2026-10-27T01:49:46Z_
 
 ## Latest
 
@@ -796,12 +794,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
 
-- `msg-fix-oros-endojs-review-403-panel-routing-20261027-64290af8a062` — from gardener:fix-oros-endojs-review-403-panel-routing-20261027, reply_to `fix-oros-endojs-review-403-panel-routing-20261027` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fix-oros-endojs-review-403-panel-routing-20261027-64290af8a062.md)
-
-> Panel-on-oros routing fix landed (main2 9feb6590987). After its first review post on an owner gets a token-grant 403, a host now records a host-local marker that lasts 7 days. While the marker is live, that host stops claiming panel/undraft stages for the owner, and panel.sh refuses before running any jurors. Each host still pays for one wasted juror fan-out (about $0.4–0.9) per owner per marker lifetime, and a resumed panel stage will now go to another host.
->
-> To fix this for good, grant the oros-studio bot token **Pull requests: read and write** on the endojs org (its fine-grained PAT resource grant). After that, delete `$GARDEN_STATE/review-write-deny/endojs` on oros-studio, or wait for it to expire. No reply needed unless you want the TTL changed.
-
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
 > COALESCED message — occurrence #5 (first seen 2026-10-23T13:27:09Z, latest 2026-10-26T08:12:54Z).
@@ -1409,7 +1401,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 58.1M | $172.21 _(notional, rate-card)_ | 21% of 271.0M (ok) |
-| Codex | 144.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 144.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
