@@ -2,7 +2,7 @@
 order: serial
 children: improve-enforce-handler-wall-bound-watchdog improve-enforce-handler-wall-bound-regression
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-27T15:06:13Z
 ---
