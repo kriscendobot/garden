@@ -2,11 +2,11 @@
   "schema": 2,
   "status": "active",
   "arc": "minion-town-ui",
-  "rank": 3,
+  "rank": 4,
   "summary": "minion.town UI: clip gutter, clip iframe, clips hosted on ocap.site",
-  "token_cap": 65550000,
+  "token_cap": 16387500,
   "window": "week",
   "window_start": "2026-10-24T03:00:00Z",
-  "set_by": "accountant-weekly-20261024-160509",
-  "set_at": "2026-10-24T16:05:47Z"
+  "set_by": "accountant",
+  "set_at": "2026-10-27T00:33:09Z"
 }

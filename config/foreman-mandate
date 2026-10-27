@@ -2,17 +2,18 @@
 # Re-slice through the accountant (say "apportion" to the liaison).
 
 Week of 2026-10-24T03:00:00Z: 460M tokens for foreman-drawn work, apportioned
-across 8 arc(s). Draw from the highest-ranked arc with headroom.
+across 9 arc(s). Draw from the highest-ranked arc with headroom.
 
-Maintainer priority mandate (kriskowal, approved 2026-10-02): keep distributing tokens to this ranking as capacity becomes available each reset. Spend each subscription to 90%, never 100%. Week of 2026-10-17: total re-sized under that standing directive to 460M, rounding down 90% of the living config/budget-pools Claude caps (endolin1 271M + oros 180M = 451M) plus the provisional 60.7M codex-endolin fit (90% of 511.7M = 460.5M). claude-endolin2 is retired (2026-10-15) and contributes nothing. Ranking and shares unchanged: arc slices keep the approved 30/20/15/20/8/5/2 ratios over 95% of the total; garden-book keeps its standing 5M (re-slice 2026-10-04) taken from the 5% reserve. No Claude reset credits remain; codex-endolin holds two credits (expire 2026-10-29 and 2026-11-06) for mid-week use before expiry.
+Week of 2026-10-24 re-sliced 2026-10-27 at maintainer direction (kriskowal, liaison session): new top arc minion-town-claude-api takes 75% of total; all prior arcs scaled to 25% of their prior slices, preserving ranking and ratios. Prior notes: Maintainer priority mandate (kriskowal, approved 2026-10-02): keep distributing tokens to this ranking as capacity becomes available each reset. Spend each subscription to 90%, never 100%. Week of 2026-10-17: total re-sized under that standing directive to 460M, rounding down 90% of the living config/budget-pools Claude caps (endolin1 271M + oros 180M = 451M) plus the provisional 60.7M codex-endolin fit (90% of 511.7M = 460.5M). claude-endolin2 is retired (2026-10-15) and contributes nothing. Ranking and shares unchanged: arc slices keep the approved 30/20/15/20/8/5/2 ratios over 95% of the total; garden-book keeps its standing 5M (re-slice 2026-10-04) taken from the 5% reserve. No Claude reset credits remain; codex-endolin holds two credits (expire 2026-10-29 and 2026-11-06) for mid-week use before expiry.
 
-1. minion-town-mcp-ocapn: minion.town operational over MCP and OCapN (top priority) (131.1M tokens)
-2. minion-town-git-remote: minion.town as a capability git remote, including kriscendobot/minion.town#86 (87.4M tokens) https://github.com/kriscendobot/minion.town/pull/86
-3. minion-town-ui: minion.town UI: clip gutter, clip iframe, clips hosted on ocap.site (65550K tokens)
-4. endo-ocapn-background: Background Endo/OCapN: SturdyRef, byte arrays, streams, and OCapN (87.4M tokens)
-5. moonshots: Trailing moonshots: endor, ironhorse, thixotrope, and slot machine (34960K tokens)
-6. garden-upkeep: Garden upkeep: self-heal, watchdog fixes, and deploys (21850K tokens)
-7. garden-book: Garden book: future editions and upkeep (tag book-* and garden-book-* jobs here) (5M tokens)
-8. endo-backlog: Off-mandate endo-but-for-bots backlog sliver: already-staged gauntlets only (8740K tokens)
+1. minion-town-claude-api: Harnessing Claude from minion.town by API key (API-key agents via @secrets, replacing the claude --bare / subscription-token CLI wrapper) (345M tokens)
+2. minion-town-mcp-ocapn: minion.town operational over MCP and OCapN (top priority) (32775K tokens)
+3. minion-town-git-remote: minion.town as a capability git remote, including kriscendobot/minion.town#86 (21850K tokens) https://github.com/kriscendobot/minion.town/pull/86
+4. minion-town-ui: minion.town UI: clip gutter, clip iframe, clips hosted on ocap.site (16387.5K tokens)
+5. endo-ocapn-background: Background Endo/OCapN: SturdyRef, byte arrays, streams, and OCapN (21850K tokens)
+6. moonshots: Trailing moonshots: endor, ironhorse, thixotrope, and slot machine (8740K tokens)
+7. garden-upkeep: Garden upkeep: self-heal, watchdog fixes, and deploys (5462.5K tokens)
+8. garden-book: Garden book: future editions and upkeep (tag book-* and garden-book-* jobs here) (1250K tokens)
+9. endo-backlog: Off-mandate endo-but-for-bots backlog sliver: already-staged gauntlets only (2185K tokens)
 
-Reserve: unallocated, 18M tokens for work outside these arcs.
+Reserve: unallocated, 4.5M tokens for work outside these arcs.

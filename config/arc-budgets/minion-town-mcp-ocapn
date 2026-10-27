@@ -2,11 +2,11 @@
   "schema": 2,
   "status": "active",
   "arc": "minion-town-mcp-ocapn",
-  "rank": 1,
+  "rank": 2,
   "summary": "minion.town operational over MCP and OCapN (top priority)",
-  "token_cap": 131100000,
+  "token_cap": 32775000,
   "window": "week",
   "window_start": "2026-10-24T03:00:00Z",
-  "set_by": "accountant-weekly-20261024-160509",
-  "set_at": "2026-10-24T16:05:47Z"
+  "set_by": "accountant",
+  "set_at": "2026-10-27T00:33:09Z"
 }
