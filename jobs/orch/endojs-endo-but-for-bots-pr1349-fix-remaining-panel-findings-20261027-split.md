@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-expanded-window-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-expanded-window
 on-child-failure: halt
