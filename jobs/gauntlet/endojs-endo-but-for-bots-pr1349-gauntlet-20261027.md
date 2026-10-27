@@ -1,4 +1,5 @@
 ---
+panel_head: 4c315e84c021efcf6e0a20f3cb3bb5fac0deca5b
 pr: https://github.com/endojs/endo-but-for-bots/pull/1349
 repo: endojs/endo-but-for-bots
 pr_number: 1349
