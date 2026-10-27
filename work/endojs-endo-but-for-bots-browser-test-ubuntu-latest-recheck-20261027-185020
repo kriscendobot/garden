@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 3
-worker_kind: monk
-claimed_at: 2026-10-27T18:50:34Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-browser-test-ubuntu-latest-recheck-20261027-185020
-pr_number: 1578
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1578
-pr_head: ci/browser-tests-playwright-1.64-ubuntu-latest
