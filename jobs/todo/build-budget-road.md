@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: budget-road-rollout-20261027
-priority: normal
-posted_by: producer
-posted_at: 2026-10-27T04:27:11Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-27T04:33:07Z cleared=none -->
 
 ---
 role: builder
