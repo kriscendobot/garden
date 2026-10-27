@@ -435,6 +435,9 @@ compose() {
 # clone and fails safe toward paused. The already-parked IronHorse plan items are
 # untouched: this only refuses a FRESH park of paused work.
 sync_clone "$DIR"
+if [ -n "$arc" ] && ! road_arc_known "$DIR" "$arc"; then
+  log "WARN: --arc '$arc' is not on the budget road or among its aliases; its work draws only on discretion (set-road.sh add/alias)"
+fi
 _pause_body="$(mktemp "${TMPDIR:-/tmp}/garden-post-plan-pause.XXXXXX")"
 printf '%s\n' "$BODY" > "$_pause_body"
 if pause_slug="$(project_pause_hit "$DIR" "$base" "$_pause_body")"; then

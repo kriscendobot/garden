@@ -277,6 +277,14 @@ if [ -n "$arc" ]; then
   fi
 fi
 
+# posted_at: stamps the posting time the road reads as an arc's activity
+# (designs/budget-road.md § Order). Only into an existing frontmatter block, so a
+# bare body posts byte-for-byte as before; readers fall back to the file's mtime.
+if [ "$(printf '%s\n' "$BODY" | head -1)" = "---" ] \
+   && ! printf '%s\n' "$BODY" | sed -n '2,/^---$/p' | grep -q '^posted_at:[[:space:]]'; then
+  BODY="$(printf '%s\n' "$BODY" | sed "1a posted_at: $(date -u +%FT%TZ)")"
+fi
+
 # BOATMAN LOCKOUT (job dedicated-ferry-dispatch). Ferry work never goes on the
 # generic job board: the boatman is dispatched ONLY by scripts/ferry.sh off the
 # dedicated jobs/ferry/ board, on the one host holding the maintainer credentials.
@@ -321,6 +329,9 @@ if pause_slug="$(project_pause_hit "$DIR" "$base" "$_pause_body")"; then
 fi
 rm -f "$_pause_body"
 
+if [ -n "$arc" ] && ! road_arc_known "$DIR" "$arc"; then
+  log "WARN: --arc '$arc' is not on the budget road or among its aliases; its work draws only on discretion (set-road.sh add/alias)"
+fi
 fleet_budget_status="$(budget_fleet_status "$DIR")"
 route_budget_hold=false
 POST_BODY="$BODY"

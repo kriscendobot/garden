@@ -262,6 +262,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   model="$(plan_field "$src" model)"
   ratchet_arc="$(plan_field "$src" ratchet-arc)"
   arc="$(plan_field "$src" arc)"
+  posted_at="$(plan_field "$src" posted_at)"
   # Arc membership (designs/accountant-arc-apportionment.md § The arc): an
   # orchestrated child inherits its orchestration record's `arc:`, and a
   # foreman-drawn plan with no arc is charged to the armed reserve.
@@ -317,6 +318,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
       [ -n "$model" ]    && printf 'model: %s\n' "$model"
       [ -n "$arc" ] && printf 'arc: %s\n' "$arc"
       [ -n "$ratchet_arc" ] && printf 'ratchet-arc: %s\n' "$ratchet_arc"
+      [ -n "$posted_at" ] && printf 'posted_at: %s\n' "$posted_at"
       [ -n "$budget_role" ] && printf 'handler-budget-role: %s\n' "$budget_role"
       [ -n "$htimeout" ] && printf 'handler-timeout: %s\n' "$htimeout"
       [ -n "$token_budget" ] && printf 'token-budget: %s\n' "$token_budget"
