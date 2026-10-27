@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T06:49:54Z_
+_As of 2026-10-27T06:51:17Z_
 
 ## Latest
 
@@ -95,11 +95,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-10-18T00:44:50Z, cleared 2026-10-22T06:44:38Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-10-18T00:44:50Z, latest 2026-10-27T06:50:32Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_unblock_journal`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.019691s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-oros-health-checkup-20261018-093508-f054cd1e7164` — from gardener:oros-health-checkup-20261018-093508, reply_to `oros-health-checkup-20261018-093508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261018-093508-f054cd1e7164.md)
 
@@ -1459,13 +1459,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $192.69 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 64.1M | $192.81 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 151.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journal); 7 open notice(s); checker healthy
+worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
