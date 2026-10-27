@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T01:00:31Z_
+_As of 2026-10-27T01:01:35Z_
 
 ## Latest
 
@@ -1409,12 +1409,11 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`canary-probe-oros-studio-garden-ce242c49-658a378768eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-658a378768eb.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 658a378768eb
 
-### doin (0)
-(none)
+### doin (1)
+- [`canary-probe-oros-studio-garden-ce242c49-658a378768eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-658a378768eb.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 658a378768eb
 
 ### tada (15227)
 - [`design-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/design-budget-road.md) — Completion report: design-budget-road
