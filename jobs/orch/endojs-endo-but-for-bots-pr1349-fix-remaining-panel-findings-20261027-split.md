@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-27T14:14:40Z
 ---
