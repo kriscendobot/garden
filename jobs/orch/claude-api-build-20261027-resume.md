@@ -1,4 +1,5 @@
 ---
+child-claude-api-p2-adapters-reap-count: 0
 order: serial
 children: claude-api-p2-adapters claude-api-p3-minion-ui claude-api-p4-agent-factory claude-api-p5-responder claude-api-p6-canary claude-api-p7-migration
 on-child-failure: halt
