@@ -289,3 +289,97 @@ printf '%s\n' "$output" | grep -Fq 'result: pass' || {
 echo "ok - a known-binary asset is left alone by the NUL probe"
 git -C "$REPOSITORY" reset -q --hard HEAD
 git -C "$REPOSITORY" clean -qfd
+
+# Regression (2026-10-27): an unbounded whole-repository `lint:fix` exhausted host
+# memory. Project-script stages run under a wall and a process-tree memory bound;
+# hitting either is a distinct resource-exhausted result (exit 3) that stops the
+# gate before any later stage, and disabling the bounds restores the plain run.
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+printf '%s\n' '{"scripts":{"lint:fix":"x","typecheck":"x"}}' >"$REPOSITORY/package.json"
+git -C "$REPOSITORY" add package.json
+FAKE_BOUNDED="$TEMPORARY_DIRECTORY/fake-bounded-yarn.sh"
+cat >"$FAKE_BOUNDED" <<'SCRIPT'
+#!/bin/bash
+printf '%s\n' "$*" >>"$FAKE_BOUNDED_LOG"
+[ "$*" = "run lint:fix" ] || exit 0
+case "$FAKE_BOUNDED_MODE" in
+  memory) python3 -c 'import time; block = bytearray(300 << 20); time.sleep(60)' ;;
+  wall) sleep 300 & sleep 300 ;;
+  heap)
+    echo 'FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory'
+    exit 134
+    ;;
+esac
+SCRIPT
+chmod +x "$FAKE_BOUNDED"
+export FAKE_BOUNDED_LOG="$TEMPORARY_DIRECTORY/bounded.log"
+
+bounded_run() { # bounded_run <mode> [VAR=value...] -> sets output and rc
+  local mode="$1"
+  shift
+  rm -f "$FAKE_BOUNDED_LOG"
+  rc=0
+  output=$(env FAKE_BOUNDED_MODE="$mode" GARDEN_YARN="bash $FAKE_BOUNDED" "$@" \
+    "$DRIVER" "$REPOSITORY" 2>&1) || rc=$?
+}
+
+expect_exhausted() { # expect_exhausted <description> <reason-fragment>
+  [ "$rc" -eq 3 ] || {
+    echo "not ok - $1: expected exit 3, got $rc"
+    printf '%s\n' "$output"
+    exit 1
+  }
+  printf '%s\n' "$output" | grep -Fq "resource-exhausted ($2" || {
+    echo "not ok - $1: missing resource-exhausted reason '$2'"
+    printf '%s\n' "$output"
+    exit 1
+  }
+  if grep -sFxq 'run typecheck' "$FAKE_BOUNDED_LOG"; then
+    echo "not ok - $1: gate continued to typecheck after resource exhaustion"
+    exit 1
+  fi
+  if printf '%s\n' "$output" | grep -Fq 'probe '; then
+    echo "not ok - $1: gate ran probes after resource exhaustion"
+    exit 1
+  fi
+}
+
+bounded_run memory GARDEN_PRE_PUSH_STAGE_MEMORY_MB=64
+expect_exhausted "memory bound" "memory: process tree exceeded 64 MiB"
+echo "ok - a stage over the memory bound is killed and stops the gate with exit 3"
+
+start=$(date +%s)
+bounded_run wall GARDEN_PRE_PUSH_STAGE_WALL=2 GARDEN_PRE_PUSH_KILL_GRACE=1
+expect_exhausted "wall bound" "wall: exceeded 2s"
+[ $(( $(date +%s) - start )) -lt 30 ] || {
+  echo "not ok - wall bound waited on a backgrounded grandchild"
+  exit 1
+}
+echo "ok - a stage over the wall is stopped with its whole session"
+
+bounded_run heap
+expect_exhausted "heap abort" "memory: Node heap exhausted"
+echo "ok - a Node heap-exhaustion abort is a resource-exhausted result"
+
+bounded_run wall GARDEN_HANDLER_DEADLINE_EPOCH=$(( $(date +%s) + 60 )) GARDEN_PRE_PUSH_DEADLINE_MARGIN=300
+expect_exhausted "claim deadline" "no claim-safe time left"
+if grep -sFxq 'run lint:fix' "$FAKE_BOUNDED_LOG"; then
+  echo "not ok - a stage started with no claim-safe time left"
+  exit 1
+fi
+echo "ok - a stage is not started inside the claim deadline margin"
+
+bounded_run heap GARDEN_PRE_PUSH_RESOURCE_LIMITS=0
+if [ "$rc" -eq 0 ] || [ "$rc" -eq 3 ]; then
+  echo "not ok - disabled limits: expected an ordinary stage failure, got $rc"
+  printf '%s\n' "$output"
+  exit 1
+fi
+grep -Fxq 'run typecheck' "$FAKE_BOUNDED_LOG" || {
+  echo "not ok - disabled limits: a failing stage no longer let later stages run"
+  exit 1
+}
+echo "ok - disabled limits preserve the ordinary project-script behavior"
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd

@@ -42,6 +42,19 @@ The gate is **not** an orchestrator concern. The liaison and the panel do not ru
 
 Each stage's exit code is captured; the script exits with the highest non-zero code at the end. Auto-fixable stages do not contribute to the exit code unless their fixer itself fails.
 
+### Resource bounds on project-script stages
+
+The project-script stages (format, lint-fix / `lint:fix` / `lint --fix`, typecheck) each run in their own session under a wall-clock bound and a memory bound on the summed RSS of the stage's whole process tree. A stage that exceeds either bound is killed with its whole session. A Node heap-exhaustion abort or a SIGKILL death (the kernel OOM killer's signature) counts the same way. Any of these is a **resource-exhausted** result: the driver prints `resource-exhausted (<reason>)` for the stage and stops at once with **exit 3**, without running later stages or probes. The calling step must not retry with a larger heap or a raised bound, which is how an OOM-ing whole-repository `lint:fix` starves the host; it narrows the stage (lint only the changed packages or files) or reports the bound.
+
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `GARDEN_PRE_PUSH_RESOURCE_LIMITS` | `1` | `0` disables both bounds and restores the plain unbounded run |
+| `GARDEN_PRE_PUSH_STAGE_WALL` | `1200` | per-stage wall in seconds; `0` disables the wall |
+| `GARDEN_PRE_PUSH_STAGE_MEMORY_MB` | 25% of `MemTotal` | per-stage process-tree RSS bound in MiB; `0` disables it |
+| `GARDEN_PRE_PUSH_DEADLINE_MARGIN` | `300` | seconds kept free before the claim's handler deadline |
+
+The wall is claim-safe: `gardener.sh` exports `GARDEN_HANDLER_DEADLINE_EPOCH` (handler start plus applied budget), and the driver clamps each stage's wall to end at least the margin before it. A stage that cannot start with that margin left is reported as resource-exhausted without being started, so the agent still has time to report instead of being killed mid-stage by the handler wall.
+
 ### 1. Package-manager selection
 
 The driver reads the root `package.json` `packageManager` declaration and uses
@@ -140,12 +153,13 @@ yarn typecheck  pass
 result: 1 failing stage(s); address and re-run.
 ```
 
-The exit code is the worst per-stage exit (0 if all probes passed, 1 if any failed, 2 if typecheck failed, etc.).
+The exit code is the worst per-stage exit (0 if all probes passed, 1 if any failed, 2 if typecheck failed, etc.). Exit 3 is reserved for a resource-exhausted project-script stage, which ends the run immediately.
 
 ## Output
 
 - Exit 0: gate passed (possibly after auto-fixes and possibly with a non-blocking comment-concision warning); the calling step resolves any advisory by rereading the candidate, then proceeds to push.
 - Exit non-zero: at least one non-auto-fixable finding; the calling step addresses it before pushing.
+- Exit 3: a project-script stage exhausted its wall or memory bound and the gate stopped; narrow the stage or report the bound, never retry with a larger heap.
 
 The exit code is the gate's sole machine-readable signal. The summary (printed to stdout) is for the calling step's context.
 
@@ -206,3 +220,4 @@ The
 - _2026-10-25_: `spell-out-identifiers` now exempts identifiers that the pre-change tree (the merge base in `--base-ref` mode, else `HEAD`) declares ambient in a `.d.ts`. `endojs/endo-but-for-bots#1538` shimmed the XS host global `hostReadDir`, a Rust host-ABI name declared in `packages/daemon/src/bus-xs-host-globals.d.ts` that the PR cannot rename, and the probe blocked its gauntlet panel. An ambient declaration added by the change itself earns no exemption, and a local helper that copies an abbreviated sibling (#1329's `openTestDb`) still fires. Regression coverage: `scripts/jobs/test/pre-push-gates-test.sh`.
 - _2026-09-23_: added `no-plain-reexport` probe (`scripts/jobs/gardening/pre-push-gates/probes/no-plain-reexport.sh`) — the author-time preventive for the garden's re-export deprecation policy ([re-export-deprecation-policy](../re-export-deprecation-policy/SKILL.md)). @erights asked on `endojs/endo-but-for-bots#475` that the garden follow the re-export policy and prevent every future violation; the design `designs/reexport-deprecation-policy-gauntlet.md` (approved PR #95, five open questions resolved) specifies a three-stage detector: a cheap grep for added `export` words gates a full Babel parse taking the set difference of qualified re-exports (after − before) so only newly-introduced ones are flagged; the `reexport-auditor` jury seat is the LLM stage. Because the garden does not `npm install` at run time, the skill **vendors** a self-contained `@babel/parser` bundle and a parse helper (`reexport-parse.cjs`); the probe is one detector reused as the seat's pre-pass (`check`/`report` subcommands). Barrels are in scope (Decision 1); type-only re-exports and `.d.ts` are skipped (Decision 5); the `@deprecated`-adjacency rule is Decision 2; per-file `reexport-policy-exempt` marker. Regression coverage: `scripts/jobs/test/no-plain-reexport-probe-test.sh` and `scripts/jobs/test/seat-gate-reexport-auditor-test.sh`.
 - _2026-09-12_: added `no-nul-bytes` probe (`scripts/jobs/gardening/pre-push-gates/probes/no-nul-bytes.sh`). A literal NUL byte makes git treat a file as binary, so `git diff` and GitHub's review UI render only "Binary files differ" and suppress the line-level diff — a NUL smuggled into an otherwise-textual file (a test file, precipitatingly) hides that file's substantive change from human review. The probe fails when a changed text file carries any NUL, whole-file (a NUL leaves no added-line ranges to scope to), across the staged, unstaged, and `--base-ref` committed diffs; the content is streamed straight into the detector so the NUL is never stripped by a shell variable. Non-auto-fixable: the author must spell the character with a textual escape (`\0`, `\x00`, `String.fromCharCode(0)`). It skips genuinely-binary paths — a curated known-binary extension denylist, `references/`/`node_modules/`, and any file the repo declares binary via a gitattributes `-diff`/`binary` attribute (the principled per-file escape hatch). Regression coverage in `scripts/jobs/test/pre-push-gates-test.sh`: a staged NUL and a committed `--base-ref` NUL are both rejected with the textual-escape suggestion, and a known-binary asset (`.png`) passes untouched.
+- _2026-10-27_: project-script stages now run under a claim-safe wall and a process-tree memory bound. An unbounded whole-repository `lint:fix` exhausted host memory and the job's 2026-10-27T17:38:39Z timeout was spent recovering from the OOM. Exceeding a bound, a Node heap abort, or an OOM-kill is a distinct resource-exhausted result (exit 3) that stops the gate at once so agents do not retry with a larger heap; `GARDEN_PRE_PUSH_RESOURCE_LIMITS=0` restores the unbounded behavior. Regression coverage: `scripts/jobs/test/pre-push-gates-test.sh`.

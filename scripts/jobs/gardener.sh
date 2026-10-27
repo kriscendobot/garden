@@ -715,10 +715,13 @@ while :; do
   set +e
   set -m
   # Nested bounded work (notably panel seats) must stay strictly inside the exact
-  # per-job wall, including an explicit handler-timeout override.
+  # per-job wall, including an explicit handler-timeout override. The absolute
+  # deadline lets work started mid-run (pre-push-gates.sh stages) clamp to what is
+  # left rather than to the whole budget.
   GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" GARDEN_USAGE_FILE="$usage_file" \
     GARDEN_JOB_CLAIM_BASE="$base" GARDEN_JOB_CLAIM_FP="$claim_fp" \
     GARDEN_APPLIED_HANDLER_BUDGET="$handler_budget" CLASSIFY_REQUIRE="$job_classify_require" \
+    GARDEN_HANDLER_DEADLINE_EPOCH="$(( handler_wall_start_epoch + handler_budget ))" \
     timeout --foreground --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
     "${handler_cmd[@]}" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
   handler_pgid=$!

@@ -96,11 +96,158 @@ record_stage() { # record_stage <label> <exit-code> <output-file>
   [ ! -s "$output_file" ] || sed 's/^/  /' "$output_file"
 }
 
+# --- resource bounds for project-script stages -------------------------------
+# A project's own scripts (format, lint:fix, typecheck) are unbounded by default:
+# a whole-repository `lint:fix` exhausted host memory on 2026-10-27 and the job's
+# remaining wall went to OOM recovery. Each project-script stage therefore runs in
+# its own session under a wall-clock limit and a sampled memory limit summed over
+# the whole process tree. Exceeding either, a Node heap-exhaustion abort, or a
+# SIGKILL death (the kernel OOM killer's signature) is a RESOURCE-EXHAUSTED result:
+# the gate stops at once with exit 3 and does not run later stages, because the
+# fix is a narrower stage, never a retry with a larger heap that starves the host.
+#   GARDEN_PRE_PUSH_RESOURCE_LIMITS=0   disable both bounds (the unbounded run)
+#   GARDEN_PRE_PUSH_STAGE_WALL          per-stage seconds; 0 disables (1200)
+#   GARDEN_PRE_PUSH_STAGE_MEMORY_MB     per-stage tree RSS in MiB; 0 disables
+#                                       (25% of MemTotal)
+#   GARDEN_PRE_PUSH_DEADLINE_MARGIN     seconds kept free before the claim's
+#                                       handler deadline (300)
+# Claim safety: gardener.sh exports GARDEN_HANDLER_DEADLINE_EPOCH; the stage wall
+# is clamped so the stage ends at least the margin before that deadline, leaving
+# the agent time to report instead of being killed mid-stage by the handler wall.
+RESOURCE_EXHAUSTED_EXIT=3
+: "${GARDEN_PRE_PUSH_RESOURCE_LIMITS:=1}"
+: "${GARDEN_PRE_PUSH_STAGE_WALL:=1200}"
+: "${GARDEN_PRE_PUSH_DEADLINE_MARGIN:=300}"
+: "${GARDEN_PRE_PUSH_SAMPLE_INTERVAL:=1}"
+: "${GARDEN_PRE_PUSH_KILL_GRACE:=5}"
+if [ -z "${GARDEN_PRE_PUSH_STAGE_MEMORY_MB:-}" ]; then
+  GARDEN_PRE_PUSH_STAGE_MEMORY_MB=$(awk '/^MemTotal:/ { printf "%d\n", $2 / 1024 / 4 }' /proc/meminfo 2>/dev/null)
+  : "${GARDEN_PRE_PUSH_STAGE_MEMORY_MB:=0}"
+fi
+for knob in GARDEN_PRE_PUSH_STAGE_WALL GARDEN_PRE_PUSH_STAGE_MEMORY_MB \
+  GARDEN_PRE_PUSH_DEADLINE_MARGIN GARDEN_PRE_PUSH_KILL_GRACE; do
+  case "${!knob}" in
+    ''|*[!0-9]*)
+      echo "pre-push-gates: $knob must be a non-negative integer: ${!knob}" >&2
+      exit 2
+      ;;
+  esac
+done
+
+# stage_wall_seconds -> the wall for a stage starting now, clamped to the claim
+# deadline. Prints 0 for "no wall" and -1 when no claim-safe time remains.
+stage_wall_seconds() {
+  local wall="$GARDEN_PRE_PUSH_STAGE_WALL" deadline="${GARDEN_HANDLER_DEADLINE_EPOCH:-}" remaining
+  case "$deadline" in
+    ''|*[!0-9]*) ;;
+    *)
+      remaining=$(( deadline - $(date +%s) - GARDEN_PRE_PUSH_DEADLINE_MARGIN ))
+      if [ "$remaining" -le 0 ]; then
+        echo -1
+        return
+      fi
+      if [ "$wall" -eq 0 ] || [ "$remaining" -lt "$wall" ]; then wall="$remaining"; fi
+      ;;
+  esac
+  echo "$wall"
+}
+
+session_rss_kib() { # session_rss_kib <session-id>
+  ps -s "$1" -o rss= 2>/dev/null | awk '{ total += $1 } END { print total + 0 }'
+}
+
+stop_session() { # stop_session <session-id>
+  local session="$1" waited=0
+  pkill -TERM -s "$session" 2>/dev/null || true
+  while [ "$waited" -lt "$GARDEN_PRE_PUSH_KILL_GRACE" ] && pgrep -s "$session" >/dev/null 2>&1; do
+    sleep 1
+    waited=$((waited + 1))
+  done
+  pkill -KILL -s "$session" 2>/dev/null || true
+}
+
+# run_project_command <output-file> <command-string>: runs a project script in the
+# project root. Sets stage_exit, and stage_exhausted to a non-empty reason when the
+# stage hit a resource bound.
+run_project_command() {
+  local output_file="$1" command_string="$2" wall memory_kib pid session started
+  stage_exit=0
+  stage_exhausted=""
+  if [ "$GARDEN_PRE_PUSH_RESOURCE_LIMITS" = 0 ]; then
+    (cd "$project_root" && bash -c "$command_string") >"$output_file" 2>&1 || stage_exit=$?
+    return 0
+  fi
+
+  wall=$(stage_wall_seconds)
+  if [ "$wall" -lt 0 ]; then
+    stage_exit=124
+    stage_exhausted="no claim-safe time left before the handler deadline (margin ${GARDEN_PRE_PUSH_DEADLINE_MARGIN}s); stage not started"
+    : >"$output_file"
+    return 0
+  fi
+  memory_kib=$(( GARDEN_PRE_PUSH_STAGE_MEMORY_MB * 1024 ))
+
+  # A background child of a non-interactive shell is not a process-group leader,
+  # so setsid(1) makes it a session leader in place: its pid names the session.
+  (cd "$project_root" && exec setsid bash -c "$command_string") >"$output_file" 2>&1 &
+  pid=$!
+  session="$pid"
+  started=$(date +%s)
+  while kill -0 "$pid" 2>/dev/null; do
+    if [ "$memory_kib" -gt 0 ] && [ "$(session_rss_kib "$session")" -gt "$memory_kib" ]; then
+      stage_exhausted="memory: process tree exceeded ${GARDEN_PRE_PUSH_STAGE_MEMORY_MB} MiB RSS"
+      pkill -KILL -s "$session" 2>/dev/null || true
+      break
+    fi
+    if [ "$wall" -gt 0 ] && [ $(( $(date +%s) - started )) -ge "$wall" ]; then
+      stage_exhausted="wall: exceeded ${wall}s"
+      stop_session "$session"
+      break
+    fi
+    sleep "$GARDEN_PRE_PUSH_SAMPLE_INTERVAL"
+  done
+  wait "$pid" || stage_exit=$?
+  # Reap anything the stage left behind in its session.
+  pkill -KILL -s "$session" 2>/dev/null || true
+
+  if [ -z "$stage_exhausted" ] && [ "$stage_exit" -ne 0 ]; then
+    if grep -Eq 'JavaScript heap out of memory|Reached heap limit|Allocation failed - process out of memory' \
+      "$output_file" 2>/dev/null; then
+      stage_exhausted="memory: Node heap exhausted"
+    elif [ "$stage_exit" -eq 137 ]; then
+      stage_exhausted="memory: killed by SIGKILL (likely the kernel OOM killer)"
+    fi
+  fi
+  return 0
+}
+
+# stop_on_resource_exhaustion <label> <output-file>: when the stage just run hit a
+# resource bound, report it and end the gate immediately.
+stop_on_resource_exhaustion() {
+  local label="$1" output_file="$2"
+  [ -n "$stage_exhausted" ] || return 0
+  printf '%-31s resource-exhausted (%s)\n' "$label" "$stage_exhausted"
+  [ ! -s "$output_file" ] || tail -n 40 "$output_file" | sed 's/^/  /'
+  echo "result: resource-exhausted; gate stopped. Do NOT retry with a larger heap or"
+  echo "  a raised limit: narrow the stage (lint only the changed packages or files)"
+  echo "  or report the bound in the job instead."
+  exit "$RESOURCE_EXHAUSTED_EXIT"
+}
+
 run_command_stage() { # run_command_stage <label> <command-string>
   local label="$1" command_string="$2" output_file exit_code=0
   output_file="$temporary_directory/stage-$stage_count"
   (cd "$project_root" && bash -c "$command_string") >"$output_file" 2>&1 || exit_code=$?
   record_stage "$label" "$exit_code" "$output_file"
+  return 0
+}
+
+run_project_stage() { # run_project_stage <label> <command-string>
+  local label="$1" command_string="$2" output_file
+  output_file="$temporary_directory/stage-$stage_count"
+  run_project_command "$output_file" "$command_string"
+  stop_on_resource_exhaustion "$label" "$output_file"
+  record_stage "$label" "$stage_exit" "$output_file"
   return 0
 }
 
@@ -117,7 +264,7 @@ package_script_command() { # package_script_command <script> [arguments]
 
 if [ "$probes_only" -eq 0 ] && [ "$auto_fix" -eq 1 ]; then
   if has_script format; then
-    run_command_stage "$package_manager format" "$(package_script_command format)"
+    run_project_stage "$package_manager format" "$(package_script_command format)"
     git -C "$project_root" add -A
   fi
   # Prefer a dedicated fix script over appending `--fix` to `lint`: package
@@ -126,13 +273,13 @@ if [ "$probes_only" -eq 0 ] && [ "$auto_fix" -eq 1 ]; then
   # only — and a leg that does not know `--fix` (shellcheck) hard-fails the
   # stage even though every real linter passed.
   if has_script lint-fix; then
-    run_command_stage "$package_manager lint-fix" "$(package_script_command lint-fix)"
+    run_project_stage "$package_manager lint-fix" "$(package_script_command lint-fix)"
     git -C "$project_root" add -A
   elif has_script lint:fix; then
-    run_command_stage "$package_manager lint:fix" "$(package_script_command lint:fix)"
+    run_project_stage "$package_manager lint:fix" "$(package_script_command lint:fix)"
     git -C "$project_root" add -A
   elif has_script lint; then
-    run_command_stage "$package_manager lint --fix" \
+    run_project_stage "$package_manager lint --fix" \
       "$(package_script_command lint --fix)"
     git -C "$project_root" add -A
   fi
@@ -177,9 +324,9 @@ fi
 
 if [ "$probes_only" -eq 0 ] && has_script typecheck; then
   output_file="$temporary_directory/stage-$stage_count"
-  exit_code=0
-  (cd "$project_root" && bash -c "$(package_script_command typecheck)") \
-    >"$output_file" 2>&1 || exit_code=$?
+  run_project_command "$output_file" "$(package_script_command typecheck)"
+  stop_on_resource_exhaustion "$package_manager typecheck" "$output_file"
+  exit_code="$stage_exit"
   # Typecheck is the terminal, non-auto-fixable stage. Reserve exit 2 for it so
   # callers can distinguish it from a deterministic probe finding.
   [ "$exit_code" -eq 0 ] || exit_code=2
