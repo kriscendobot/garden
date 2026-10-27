@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T21:06:26Z_
+_As of 2026-10-27T21:09:52Z_
 
 ## Latest
 
@@ -1533,7 +1531,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.5M | $221.75 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Claude | 75.6M | $222.76 _(notional, rate-card)_ | 28% of 271.0M (ok) |
 | Codex | 170.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57201165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1545,8 +1543,8 @@ worst fetch p95 3.059838s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1349-weave-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-weave-20261027.md) — weave endojs/endo-but-for-bots PR #1349 onto current upstream master
 
 ### tada (15367)
 - [`endojs-endo-but-for-bots-pr1349-0282c446`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-0282c446.md) — Cost
