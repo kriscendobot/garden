@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T07:11:24Z_
+_As of 2026-10-27T07:16:31Z_
 
 ## Latest
 
@@ -1461,7 +1459,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.0M | $197.09 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 65.1M | $194.45 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 151.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1473,19 +1471,17 @@ worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1574-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1574
+### doin (2)
 - [`claude-api-p2-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p2-adapters.md) — Phase 2: provider adapters and accounting
-- [`daily-progress-summary-20261027-070511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261027-070511.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261027.md) — ---
 
-### tada (15265)
+### tada (15269)
+- [`endojs-endo-but-for-bots-pr1575-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1575-gauntlet-viability.md) — Cost
+- [`daily-progress-summary-20261027-070511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/daily-progress-summary-20261027-070511.md) — Cost
+- [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-fix-5.md) — Fix round 5 for endojs/endo-but-for-bots#1574 is pushed and CI is green
+- [`endojs-endo-but-for-bots-pr1573-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1573-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1573-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1573-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-panel-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots#1574
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-panel-4.md) — Cost
-- [`claude-api-build-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-api-build-20261027.md) — orchestration claude-api-build-20261027 — HALTED
-- … and 15260 more
+- … and 15264 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
