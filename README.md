@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T15:44:00Z_
+_As of 2026-10-27T15:45:43Z_
 
 ## Latest
 
@@ -1179,6 +1179,10 @@ Delegation: **active**
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=128571691 cap=271000000 pace-bias=0 window-start=2026-10-17T03:00Z(calendar) deadline=2026-10-24T03:00Z(calendar) ceiling=4 backoff=0.5657(ramp) target=1
 
+- `20261027T154454Z-b44ea4` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T154454Z-b44ea4.md)
+
+> foreman: proposed next step 'endojs-endo-but-for-bots-pr1573-shepherd-20261027' is already completed. It was not re-posted; choose a different step, or use an ISO-date suffix for genuinely recurring work.
+
 - `msg-reset-credit-watch-20261019-160508-4e0a7e09c87c` — from gardener:reset-credit-watch-20261019-160508, reply_to `reset-credit-watch-20261019-160508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261019-160508-4e0a7e09c87c.md)
 
 > Correction to the reset-credit-watch note: claude-endolin1 is projected to cross 90% around **Tue 10-20 ~20Z**, not 'Mon'. Everything else stands.
@@ -1481,7 +1485,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.4M | $212.38 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.4M | $212.44 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 164.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57318358 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
