@@ -20,3 +20,13 @@ If a design open question this phase depends on is still unanswered on the track
 
 Address the outstanding panel must-fix findings on https://github.com/endojs/endo-but-for-bots/pull/1543 (head branch design/claude-api-key-agents), keep CI green, and stop. Do not resolve the design's open questions yourself; they are the maintainer's. When done, comment on the tracker with the head SHA and state that the PR is ready for maintainer review, and update the tracker's review-requests row 2.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-27T04:15:45Z
