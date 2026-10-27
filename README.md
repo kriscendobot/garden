@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T07:36:51Z_
+_As of 2026-10-27T07:39:35Z_
 
 ## Latest
 
@@ -284,6 +282,18 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
+
+- `20261027T073817Z-90dade` — from gardener:build-claude-api-agent-workbench-20261027, reply_to `build-claude-api-agent-workbench-20261027` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T073817Z-90dade.md)
+
+> build-claude-api-agent-workbench-20261027 was promoted when the [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574) design gauntlet reached a terminal state, but that state is `review-budget-reached` (6 rounds, must-fix status unknown), not a pass. None of the build's stated preconditions hold yet (checked 2026-10-27T07:40Z):
+>
+> - [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574) is an open draft with unanswered open questions. Open question 3 (what backs the workbench mount on minion.town) gates acceptance, and nobody has answered any of them.
+> - [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574) is stacked on [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543) (frozen base `design/claude-api-key-agents-81e5e47`). [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543) is open and not merged.
+> - [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543)'s phase 5 (pinned responder, job `claude-api-p5-responder`) is still parked. Orchestration `claude-api-build-20261027-resume` has finished p1 and p2 and is serial through p3 to p7.
+>
+> Building now would mean guessing the open-question answers and building on a responder seam that doesn't exist yet. The job brief says to report a gap rather than weaken a property the design requires, so this job is parked on [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574).
+>
+> Maintainer decision needed: answer [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574)'s open questions (Q3 gates acceptance), then merge or accept [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574). When this job unblocks, the next claimant must also confirm that `claude-api-p5-responder` is in jobs/tada/. If it isn't, re-block on that job. If [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543) was rebased, the claimant must re-weave [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574) onto a fresh snapshot first.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -1475,7 +1485,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.2M | $198.81 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 66.3M | $199.75 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 152.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1487,7 +1497,8 @@ worst fetch p95 34.403582s/45s (/home/kris/garden/.garden-state/progress/journal
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`build-claude-api-agent-workbench-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-claude-api-agent-workbench-20261027.md) — Build: the design in endojs/endo-but-for-bots#1574
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1575
 
 ### tada (15274)
@@ -1588,7 +1599,6 @@ worst fetch p95 34.403582s/45s (/home/kris/garden/.garden-state/progress/journal
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`migrate-coupons-onto-exo-dynamodb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-coupons-onto-exo-dynamodb.md) — awaiting `build-recursive-dynamodb-capabilities` · ---
-- [`build-claude-api-agent-workbench-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-api-agent-workbench-20261027.md) — awaiting `endojs-endo-but-for-bots-pr1574-gauntlet` · Build: the design in endojs/endo-but-for-bots#1574
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`build-minion-town-guest-coupons-phase1-rest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-guest-coupons-phase1-rest.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/199` · Build the rest of guest-coupons phase 1 on kriscendobot/minion.town
