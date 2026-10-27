@@ -31,3 +31,13 @@ add this comment URL to its Authorization provenance section):
 Push via journal CAS, then reply on the PR (one comment) that the ferry is re-staged
 and the maintainer should run `scripts/ferry.sh` on the credentialed host.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T21:25:13Z
