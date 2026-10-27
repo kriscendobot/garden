@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T07:34:58Z_
+_As of 2026-10-27T07:36:51Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-164 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+165 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -1233,6 +1231,16 @@ Delegation: **active**
 > - Phase 7 (the endo-claude acceptance loop) is unblocked for its build step.
 > - Phase 8 still needs your decision on Open Question 4: a daemon `provideHttpClient` formula or the `@endo/fetch` plugin.
 
+- `endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1574-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1574-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $12.73
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1574-gauntlet panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `watchdog-minion-mcp-connection-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-mcp-connection-endolin-garden-ece02cb4.md)
 
 > RECOVERED — the watchdog condition `minion-mcp-connection-endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-26T10:04:02Z, cleared 2026-10-26T10:14:01Z).
@@ -1480,13 +1488,13 @@ worst fetch p95 34.403582s/45s (/home/kris/garden/.garden-state/progress/journal
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1575
 
-### tada (15273)
+### tada (15274)
+- [`endojs-endo-but-for-bots-pr1574-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1574-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-fix-6.md) — FIX round 6 report: endojs/endo-but-for-bots#1574
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1573-shepherd-20261027.md) — Shepherd report: endojs/endo-but-for-bots#1573 (draft, feature/api-key-provid...
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-panel-6.md) — Panel round 6: endojs/endo-but-for-bots PR #1574 (design/api-key-agent-workbe...
 - [`claude-api-p2-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-api-p2-adapters.md) — Cost
-- [`endojs-endo-but-for-bots-pr1575-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1575-gauntlet-viability.md) — Cost
-- … and 15268 more
+- … and 15269 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
