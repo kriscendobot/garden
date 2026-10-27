@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T11:24:49Z_
+_As of 2026-10-27T11:30:13Z_
 
 ## Latest
 
@@ -1495,7 +1493,8 @@ worst fetch p95 3.891034s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
+- [`dependabotany-recheck-endo-but-for-bots-20261027-112012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261027-112012.md) — Dependabotany active-row snapshot (v1):
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1349
 - [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027.md) — ---
 
