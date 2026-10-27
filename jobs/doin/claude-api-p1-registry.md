@@ -21,6 +21,7 @@ If a design open question this phase depends on is still unanswered on the track
 Repo endojs/endo-but-for-bots, base llm. Implement build-plan phase 1 with its stated tests (restart, supersession, retirement, cross-principal denial, crash injection at each commit boundary). Open a DRAFT PR; the gauntlet is staged on completion. If #1543 changes under you, rebase onto it.
 
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
