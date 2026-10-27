@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T17:34:18Z_
+_As of 2026-10-27T17:36:10Z_
 
 ## Latest
 
@@ -1507,10 +1507,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.5M | $214.36 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.5M | $212.80 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 166.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57332551 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
@@ -1519,18 +1519,17 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1566-fix-ci-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1566-fix-ci-failures.md) — ---
+### doin (2)
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
 - [`endojs-endo-but-for-bots-pr1425-fix-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1425-fix-panel-findings.md) — ---
 
-### tada (15322)
+### tada (15323)
+- [`endojs-endo-but-for-bots-pr1566-fix-ci-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1566-fix-ci-failures.md) — Completion report: endojs-endo-but-for-bots-pr1566-fix-ci-failures
 - [`improve-enforce-handler-wall-bound-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split.md) — orchestration improve-enforce-handler-wall-bound-split — HALTED
 - [`canary-probe-oros-studio-garden-ce242c49-c0b632f5670b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-c0b632f5670b.md) — rolling-deploy canary probe — round trip OK
 - [`improve-enforce-handler-wall-bound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound.md) — Cost
 - [`improve-foreman-completed-step-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-foreman-completed-step-retry.md) — Cost
-- [`oros-health-checkup-20261027-145008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-checkup-20261027-145008.md) — Cost
-- … and 15317 more
+- … and 15318 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
