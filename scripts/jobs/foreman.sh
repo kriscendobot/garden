@@ -45,6 +45,11 @@
 #      identical step again (the board redrained without milestone progress) the
 #      foreman does NOT blindly re-post it. It surfaces the repeat as a one-line
 #      maintainer note so a stuck step is seen rather than silently looped.
+#   7. COMPLETED COLLISION: the digest lists the most recently completed bases
+#      (GARDEN_FOREMAN_DIGEST_COMPLETED, default 200). If the handler still proposes
+#      a base post-job.sh refuses as completed (rc=79), the foreman re-prompts ONCE
+#      with that base marked rejected, and surfaces a maintainer note only when the
+#      replacement is absent or also invalid.
 #
 # State (host-local, outside any reset-prone worktree) lives in
 # GARDEN_STATE/foreman/: `idle-since` (the below-target settle clock), `last-step`
@@ -123,6 +128,8 @@ NOTICE_SEEN="$STATE/notice-seen"
 # that milestone is delivered even with no new ref: a once-a-day reminder of a
 # still-stalled decision, amended into the same inbox entry.
 : "${GARDEN_FOREMAN_NOTICE_TTL:=86400}"
+# How many recently completed bases the handler digest lists (newest first).
+: "${GARDEN_FOREMAN_DIGEST_COMPLETED:=200}"
 # Durable per-tick DECISION record. Every tick appends ONE line saying how it
 # resolved: the inflight count, the active-job target, the guard/branch that
 # ended the tick, and any detail (what was promoted/pumped). This closes the gap
@@ -476,6 +483,18 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
       + (if (.unblocks|length)>0 then " blocks=" + ([.unblocks[]|.kind+":"+.ref]|join(",")) else " blocks=(none)" end)' \
       "$DIR"/review-docket/open/*.json | sort
   fi
+  # Recently completed bases, newest first (identifiers only). The handler is told
+  # never to propose a tada/ base, but it otherwise has to discover tada/ itself;
+  # 2026-10-27 it re-proposed a completed `...-expanded-window` step. Bounded, since
+  # tada/ holds tens of thousands of entries; post-job.sh stays the authority.
+  completed_bases="$(find "$DIR/$JOBS_TADA" -mindepth 2 -type f -name '*.md' -printf '%P\n' 2>/dev/null \
+    | sort -r | head -n "$GARDEN_FOREMAN_DIGEST_COMPLETED" \
+    | sed 's|.*/||; s|\.md$||' || true)"
+  if [ -n "$completed_bases" ]; then
+    printf 'completed_job_bases: |\n'
+    printf '  # The %s most recently completed bases; never propose one of these.\n' "$GARDEN_FOREMAN_DIGEST_COMPLETED"
+    sed 's/^/  /' <<<"$completed_bases"
+  fi
 } > "$digest"
 
 # Capture the handler's stderr and rc EXPLICITLY. The old `2>/dev/null || true`
@@ -487,10 +506,7 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
 # tick still idles rather than crashing, since a broken pump must not take the
 # rest of the foreman down with it.
 herrf="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-err.XXXXXX")"
-# The live handler writes its Claude call's measurement here; the row is written
-# below once the block's arc is known (designs/budget-road.md § The foreman's part).
-usagef="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-usage.XXXXXX")"
-hrc=0
+usagef=""
 foreman_usage_row() { # <arc> <step>
   if [ -s "$usagef" ]; then
     GARDEN_FOREMAN_CLONE="$DIR" "$HERE/usage-append-foreman.sh" "$1" "$2" "$usagef" >/dev/null 2>&1 \
@@ -498,111 +514,161 @@ foreman_usage_row() { # <arc> <step>
   fi
   rm -f "$usagef"
 }
-# Point the handler's quota meter at THIS tick's synced clone. Unset, the meter
-# falls back to the first $GARDEN_STATE/*/journal it finds (alphabetically the
-# accountant's), and a stale one there read a retired backoff pin and held the
-# whole provider route at rc=75 for hours (2026-10-07).
-out="$(GARDEN_PRODUCER_CLONE="$DIR" GARDEN_FOREMAN_USAGE_OUT="$usagef" "$GARDEN_FOREMAN_HANDLER" "$digest" 2>"$herrf")" || hrc=$?
-if [ "$hrc" -ne 0 ]; then
-  if [ "$hrc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
-    # The live handler uses EX_TEMPFAIL when every configured inference route is
-    # unavailable (and while its bounded outage latch is live). This is expected,
-    # self-recovering timer state: record it and exit success so systemd never
-    # marks the timer Failed or emits one maintainer alert per tick. Do not reset
-    # idle-since; every timer tick cheaply consults the latch and the first tick
-    # after its expiry performs the bounded re-probe immediately.
-    log "foreman handler transiently unavailable rc=$hrc; inference deferred to its bounded re-probe"
-    decide handler-transient "rc=$hrc"
-    foreman_usage_row "" ""
-    rm -f "$digest" "$herrf"
-    exit 0
-  fi
-  log "WARN: foreman handler failed rc=$hrc: $(tail -c 500 "$herrf" 2>/dev/null || echo '<no stderr>')"
-  alert_maintainer "foreman-handler-failed-$GARDEN" \
-    "garden-foreman's pump handler ($GARDEN_FOREMAN_HANDLER) failed rc=$hrc on $GARDEN; the board pump is starving. stderr tail: $(tail -c 500 "$herrf" 2>/dev/null)"
-  decide handler-failed "rc=$hrc"
-  out=""
-fi
-rm -f "$digest" "$herrf"
 
-# Parse at most one block from the handler output. An optional `ROLE <role>` line
+# One handler call + parse of at most one block. An optional `ROLE <role>` line
 # immediately inside a JOB block names the role the gardener wears (designer,
 # builder, …); it is threaded to post-job.sh as --role so the job carries a
 # `role:` field and inherits that role's default model (Opus for designer, Opus
-# for builder). It is consumed here, not folded into the body.
-btype=""; base=""; body=""; role=""; job_arc_line=""
-while IFS= read -r line; do
-  if   [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then btype="JOB"; base="${BASH_REMATCH[1]}"; body=""; role=""; job_arc_line=""
-  elif [ "$line" = "MAINTAINER" ];             then btype="MAINTAINER"; base=""; body=""; role=""; job_arc_line=""
-  elif [ "$btype" = "JOB" ] && [[ "$line" =~ ^ARC[[:space:]]+(.+)$ ]]; then job_arc_line="$(printf '%s' "${BASH_REMATCH[1]}" | tr -d '[:space:]')"
-  elif [ "$line" = "ENDJOB" ] || [ "$line" = "ENDMAINTAINER" ]; then break
-  elif [ "$btype" = "JOB" ] && [[ "$line" =~ ^ROLE[[:space:]]+(.+)$ ]]; then role="$(printf '%s' "${BASH_REMATCH[1]}" | tr -d '[:space:]')"
-  elif [ -n "$btype" ];                        then body+="$line"$'\n'
-  fi
-done <<< "$out"
-foreman_usage_row "$job_arc_line" "$(printf '%s' "$base" | tr -d '[:space:]')"
-
-case "$btype" in
-  JOB)
-    base="$(printf '%s' "$base" | tr -d '[:space:]')"
-    if [ -z "$base" ]; then
-      log "handler returned an empty JOB base; staying idle"
-      decide noop "empty-base$skip_detail"
-    elif [ "$base" = "$last_step" ]; then
-      # Anti-flap: the same step recurred after the previous post drained without
-      # milestone progress. Do not blindly re-post; surface it for review.
-      note_once "repeat:$base" "foreman: next step '$base' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck."
-      log "anti-flap: '$base' repeats last posted step; surfaced to maintainer, not re-posted"
-      decide anti-flap "base=$base$skip_detail"
-    elif [ "$road_on" -eq 1 ] && [ "$(road_arc_admit "$DIR" "$(road_alias_target "$DIR" "${job_arc_line:-}")")" = held ]; then
-      log "refusing step '$base': arc '${job_arc_line:--}' is held on the road"
-      decide arc-refused "base=$base arc=${job_arc_line:--}$skip_detail"
-    elif [ "$road_on" -eq 0 ] && [ -n "$arcs_open" ] && ! grep -qxF "${job_arc_line:-$GARDEN_ARC_RESERVE}" <<<"$arcs_open"; then
-      log "refusing step '$base': arc '${job_arc_line:-$GARDEN_ARC_RESERVE}' has no headroom (open: $(paste -sd, <<<"$arcs_open"))"
-      decide arc-refused "base=$base arc=${job_arc_line:-$GARDEN_ARC_RESERVE}$skip_detail"
+# for builder). It is consumed here, not folded into the body. Sets out, hrc,
+# btype, base, body, role, job_arc_line.
+run_handler() { # <attempt>
+  local attempt="$1" line
+  # The live handler writes its Claude call's measurement here; the row is written
+  # once the block's arc is known (designs/budget-road.md § The foreman's part).
+  usagef="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-usage.XXXXXX")"
+  hrc=0
+  # Point the handler's quota meter at THIS tick's synced clone. Unset, the meter
+  # falls back to the first $GARDEN_STATE/*/journal it finds (alphabetically the
+  # accountant's), and a stale one there read a retired backoff pin and held the
+  # whole provider route at rc=75 for hours (2026-10-07).
+  out="$(GARDEN_PRODUCER_CLONE="$DIR" GARDEN_FOREMAN_USAGE_OUT="$usagef" "$GARDEN_FOREMAN_HANDLER" "$digest" 2>"$herrf")" || hrc=$?
+  if [ "$hrc" -ne 0 ]; then
+    if [ "$hrc" -eq "${GARDEN_TRANSIENT_RC:-75}" ] && [ "$attempt" -eq 0 ]; then
+      # The live handler uses EX_TEMPFAIL when every configured inference route is
+      # unavailable (and while its bounded outage latch is live). This is expected,
+      # self-recovering timer state: record it and exit success so systemd never
+      # marks the timer Failed or emits one maintainer alert per tick. Do not reset
+      # idle-since; every timer tick cheaply consults the latch and the first tick
+      # after its expiry performs the bounded re-probe immediately.
+      log "foreman handler transiently unavailable rc=$hrc; inference deferred to its bounded re-probe"
+      decide handler-transient "rc=$hrc"
+      foreman_usage_row "" ""
+      rm -f "$digest" "$herrf"
+      exit 0
+    elif [ "$hrc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
+      # A transient outage on the collision re-prompt is an absent replacement.
+      log "foreman handler transiently unavailable rc=$hrc on the re-prompt"
     else
-      post_args=()
-      [ -n "$role" ] && post_args+=(--role "$role")
-      # Stamp the arc the step was drawn from; unarced steps charge the reserve.
-      if [ "$road_on" -eq 1 ]; then
-        [ -z "$job_arc_line" ] || post_args+=(--arc "$job_arc_line")
-      elif [ -n "$arcs_open" ]; then
-        post_args+=(--arc "${job_arc_line:-$GARDEN_ARC_RESERVE}")
-      fi
-      post_rc=0
-      printf '%s' "$body" | "$HERE/post-job.sh" "${post_args[@]}" "$base" || post_rc=$?
-      if [ "$post_rc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ]; then
-        # A no-identity base already in tada/ is a deliberate post-job refusal,
-        # not a broken foreman tick. Do not record it as forward progress: keeping
-        # LAST_STEP unchanged lets anti-flap continue to describe the last job
-        # actually posted. Surface the bad proposal once so the next-step policy
-        # can be corrected without failing the service every settle window.
-        log "next milestone step '$base' collides with a completed job; not posted"
-        decide completed-collision "base=$base"
-        note_once "collision:$base" "foreman: proposed next step '$base' is already completed. It was not re-posted; choose a different step, or use an ISO-date suffix for genuinely recurring work."
-      elif [ "$post_rc" -ne 0 ]; then
-        log "ERROR: post-job failed for next milestone step '$base' (rc=$post_rc)"
-        exit "$post_rc"
-      else
-        printf '%s\n' "$base" > "$LAST_STEP"
-        : > "$NOTED"           # forward progress clears the maintainer-note dedupe
-        log "pumped next milestone step '$base'"
-        decide pumped "base=$base${role:+ role=$role}${arcs_open:+ arc=${job_arc_line:-$GARDEN_ARC_RESERVE}}$skip_detail"
-      fi
+      log "WARN: foreman handler failed rc=$hrc: $(tail -c 500 "$herrf" 2>/dev/null || echo '<no stderr>')"
+      alert_maintainer "foreman-handler-failed-$GARDEN" \
+        "garden-foreman's pump handler ($GARDEN_FOREMAN_HANDLER) failed rc=$hrc on $GARDEN; the board pump is starving. stderr tail: $(tail -c 500 "$herrf" 2>/dev/null)"
+      decide handler-failed "rc=$hrc"
     fi
-    ;;
-  MAINTAINER)
-    # A board stalled on the same decision re-emits a reworded notice every tick;
-    # note_milestone_once delivers only a new blocker, into one entry per milestone.
-    note_milestone_once "$body"
-    log "next step blocked on a maintainer decision; noted to maintainer inbox (dedup by milestone + new refs)"
-    decide maintainer-note "$skip_detail"
-    ;;
-  *)
-    log "handler proposed no next step; staying idle"
-    decide noop "no-block$skip_detail"
-    ;;
-esac
+    out=""
+  fi
+  btype=""; base=""; body=""; role=""; job_arc_line=""
+  while IFS= read -r line; do
+    if   [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then btype="JOB"; base="${BASH_REMATCH[1]}"; body=""; role=""; job_arc_line=""
+    elif [ "$line" = "MAINTAINER" ];             then btype="MAINTAINER"; base=""; body=""; role=""; job_arc_line=""
+    elif [ "$btype" = "JOB" ] && [[ "$line" =~ ^ARC[[:space:]]+(.+)$ ]]; then job_arc_line="$(printf '%s' "${BASH_REMATCH[1]}" | tr -d '[:space:]')"
+    elif [ "$line" = "ENDJOB" ] || [ "$line" = "ENDMAINTAINER" ]; then break
+    elif [ "$btype" = "JOB" ] && [[ "$line" =~ ^ROLE[[:space:]]+(.+)$ ]]; then role="$(printf '%s' "${BASH_REMATCH[1]}" | tr -d '[:space:]')"
+    elif [ -n "$btype" ];                        then body+="$line"$'\n'
+    fi
+  done <<< "$out"
+  base="$(printf '%s' "$base" | tr -d '[:space:]')"
+  foreman_usage_row "$job_arc_line" "$base"
+}
+
+# A completed-basename collision (post-job rc=79) is routine candidate selection,
+# not a maintainer matter: re-prompt ONCE with the rejected base excluded. Only an
+# absent or again-invalid replacement surfaces the collision to the maintainer.
+attempt=0; rejected_base=""; outcome=""
+while :; do
+  run_handler "$attempt"
+  outcome=""
+  case "$btype" in
+    JOB)
+      if [ -z "$base" ]; then
+        log "handler returned an empty JOB base; staying idle"
+        decide noop "empty-base$skip_detail"
+        outcome=invalid
+      elif [ -n "$rejected_base" ] && [ "$base" = "$rejected_base" ]; then
+        log "re-prompt proposed the rejected completed step '$base' again; not posted"
+        decide completed-collision "base=$base retry=1"
+        outcome=invalid
+      elif [ "$base" = "$last_step" ]; then
+        # Anti-flap: the same step recurred after the previous post drained without
+        # milestone progress. Do not blindly re-post; surface it for review.
+        note_once "repeat:$base" "foreman: next step '$base' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck."
+        log "anti-flap: '$base' repeats last posted step; surfaced to maintainer, not re-posted"
+        decide anti-flap "base=$base$skip_detail"
+        outcome=anti-flap
+      elif [ "$road_on" -eq 1 ] && [ "$(road_arc_admit "$DIR" "$(road_alias_target "$DIR" "${job_arc_line:-}")")" = held ]; then
+        log "refusing step '$base': arc '${job_arc_line:--}' is held on the road"
+        decide arc-refused "base=$base arc=${job_arc_line:--}$skip_detail"
+        outcome=invalid
+      elif [ "$road_on" -eq 0 ] && [ -n "$arcs_open" ] && ! grep -qxF "${job_arc_line:-$GARDEN_ARC_RESERVE}" <<<"$arcs_open"; then
+        log "refusing step '$base': arc '${job_arc_line:-$GARDEN_ARC_RESERVE}' has no headroom (open: $(paste -sd, <<<"$arcs_open"))"
+        decide arc-refused "base=$base arc=${job_arc_line:-$GARDEN_ARC_RESERVE}$skip_detail"
+        outcome=invalid
+      else
+        post_args=()
+        [ -n "$role" ] && post_args+=(--role "$role")
+        # Stamp the arc the step was drawn from; unarced steps charge the reserve.
+        if [ "$road_on" -eq 1 ]; then
+          [ -z "$job_arc_line" ] || post_args+=(--arc "$job_arc_line")
+        elif [ -n "$arcs_open" ]; then
+          post_args+=(--arc "${job_arc_line:-$GARDEN_ARC_RESERVE}")
+        fi
+        post_rc=0
+        printf '%s' "$body" | "$HERE/post-job.sh" "${post_args[@]}" "$base" || post_rc=$?
+        if [ "$post_rc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ]; then
+          # A no-identity base already in tada/ is a deliberate post-job refusal,
+          # not a broken foreman tick. Do not record it as forward progress: keeping
+          # LAST_STEP unchanged lets anti-flap continue to describe the last job
+          # actually posted.
+          log "next milestone step '$base' collides with a completed job; not posted"
+          decide completed-collision "base=$base${rejected_base:+ retry=1}"
+          if [ "$attempt" -eq 0 ]; then
+            rejected_base="$base"
+            {
+              printf 'rejected_completed_base: %s\n' "$base"
+              printf '  # Your previous proposal is already completed in jobs/tada/. Propose a DIFFERENT step.\n'
+            } >> "$digest"
+            attempt=1
+            log "re-prompting the foreman handler once, excluding '$base'"
+            continue
+          fi
+          outcome=invalid
+        elif [ "$post_rc" -ne 0 ]; then
+          log "ERROR: post-job failed for next milestone step '$base' (rc=$post_rc)"
+          rm -f "$digest" "$herrf"
+          exit "$post_rc"
+        else
+          printf '%s\n' "$base" > "$LAST_STEP"
+          : > "$NOTED"           # forward progress clears the maintainer-note dedupe
+          log "pumped next milestone step '$base'"
+          decide pumped "base=$base${role:+ role=$role}${arcs_open:+ arc=${job_arc_line:-$GARDEN_ARC_RESERVE}}${rejected_base:+ replaced=$rejected_base}$skip_detail"
+          outcome=pumped
+        fi
+      fi
+      ;;
+    MAINTAINER)
+      # A board stalled on the same decision re-emits a reworded notice every tick;
+      # note_milestone_once delivers only a new blocker, into one entry per milestone.
+      note_milestone_once "$body"
+      log "next step blocked on a maintainer decision; noted to maintainer inbox (dedup by milestone + new refs)"
+      decide maintainer-note "$skip_detail"
+      outcome=maintainer
+      ;;
+    *)
+      log "handler proposed no next step; staying idle"
+      decide noop "no-block$skip_detail"
+      outcome=absent
+      ;;
+  esac
+  break
+done
+rm -f "$digest" "$herrf"
+
+if [ -n "$rejected_base" ] && { [ "$outcome" = invalid ] || [ "$outcome" = absent ]; }; then
+  # The bounded re-prompt produced no valid replacement: now the bad proposal is
+  # worth a maintainer's eye, so the next-step policy can be corrected. (An
+  # anti-flap replacement already surfaced its own note; a second note_once key
+  # in the same tick would only make the single-key dedupe re-fire each tick.)
+  note_once "collision:$rejected_base" "foreman: proposed next step '$rejected_base' is already completed, and the one re-prompt excluding it produced no valid replacement. It was not re-posted; choose a different step, or use an ISO-date suffix for genuinely recurring work."
+fi
 
 # Reset the settle clock so the next pump is a fresh sustained-below-target window
 # away. After a real JOB post the in-flight count rises by one; if that reached the

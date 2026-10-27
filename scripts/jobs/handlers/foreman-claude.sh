@@ -82,6 +82,9 @@ step, per your role brief:
     flight, or not started. Never propose a base already present under
     journal/jobs/tada/: skip it as already done, or, only for genuinely recurring
     work, give this occurrence an ISO-date suffix (-YYYYMMDD).
+    The digest's completed_job_bases lists the most recent ones; a
+    rejected_completed_base line means your previous proposal this tick was
+    already completed, so propose a DIFFERENT step.
   - Respect dependencies: read journal/pr-deps/ and apply the topological sort so
     a blocked step is never chosen.
 

@@ -1,6 +1,8 @@
 #!/bin/bash
 # foreman-completed-collision-test.sh — a completed basename proposed by the
-# foreman is a healthy, visible no-op rather than a fatal post-job rc=79.
+# foreman is a healthy, visible no-op rather than a fatal post-job rc=79; the
+# foreman re-prompts once with the base excluded and notes the maintainer only
+# when that replacement is absent or also invalid.
 #
 # Hermetic: a throwaway bare journal; no real garden, journal, or network.
 
@@ -47,13 +49,13 @@ mkdir -p "$STATE/foreman"
 printf '%s\n' previously-posted-step > "$STATE/foreman/last-step"
 
 tick() {
-  local now="$1"
+  local now="$1"; shift
   env GARDEN=okhost GARDEN_STATE="$STATE" HOME="$TR" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_FOREMAN_NOW="$now" GARDEN_FOREMAN_IDLE_SETTLE=0 \
     GARDEN_FOREMAN_ACTIVE_TARGET=1 \
     GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" \
-    GARDEN_FOREMAN_STUB_BASE="$BASE" \
+    GARDEN_FOREMAN_STUB_BASE="$BASE" "$@" \
     "$JOBS/foreman.sh" >"$TR/tick-$now.log" 2>&1
 }
 
@@ -103,6 +105,70 @@ if [ "$notice_count" -eq 1 ] && grep -Rqs "proposed next step '$BASE' is already
   ok "the completed collision is surfaced to the maintainer once"
 else
   bad "expected one completed-collision maintainer note, found $notice_count"
+fi
+
+notices() { # <verify-dir>
+  find "$1/inbox/maintainer/unread" -maxdepth 1 -type f -name '*.md' | wc -l
+}
+
+echo "--- the re-prompt yields a valid replacement: posted, no maintainer note"
+STATE="$TR/state-replace"; mkdir -p "$STATE/foreman"
+printf '%s\n' previously-posted-step > "$STATE/foreman/last-step"
+tick 2000
+tick 2001 GARDEN_FOREMAN_STUB_DIGEST="$TR/first-digest" \
+  GARDEN_FOREMAN_STUB_RETRY_BASE=fresh-replacement-step \
+  GARDEN_FOREMAN_STUB_RETRY_DIGEST="$TR/retry-digest" || bad "the replacement tick failed"
+if grep -qx '  already-completed-step' "$TR/first-digest" && grep -q '^completed_job_bases: |' "$TR/first-digest"; then
+  ok "the handler digest lists the completed job bases"
+else
+  bad "the handler digest lacks completed_job_bases"
+fi
+if grep -qx "rejected_completed_base: $BASE" "$TR/retry-digest"; then
+  ok "the re-prompt digest names the rejected completed base"
+else
+  bad "the re-prompt digest does not exclude the rejected base"
+fi
+tree="$(git -C "$BARE" ls-tree -r --name-only "$BRANCH")"
+if grep -qx "jobs/todo/fresh-replacement-step.md" <<<"$tree"; then
+  ok "the replacement proposal was posted"
+else
+  bad "the replacement proposal was not posted"
+fi
+if [ "$(cat "$STATE/foreman/last-step")" = fresh-replacement-step ]; then
+  ok "LAST_STEP records the replacement"
+else
+  bad "LAST_STEP does not record the replacement"
+fi
+if grep -q "guard=pumped base=fresh-replacement-step.* replaced=$BASE" "$STATE/foreman/decisions.log"; then
+  ok "the pump decision records the replaced base"
+else
+  bad "decisions.log lacks the replaced pump"
+fi
+rm -rf "$VERIFY"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERIFY" 2>/dev/null
+if [ "$(notices "$VERIFY")" -eq "$notice_count" ]; then
+  ok "a successful replacement sends no maintainer note"
+else
+  bad "a successful replacement still noted the maintainer"
+fi
+
+echo "--- the re-prompt yields nothing: one maintainer note"
+STATE="$TR/state-absent"; mkdir -p "$STATE/foreman"
+printf '%s\n' previously-posted-step > "$STATE/foreman/last-step"
+CALLS="$TR/absent-calls"
+# fresh-replacement-step is now in flight; leave room below the target.
+tick 3000 GARDEN_FOREMAN_ACTIVE_TARGET=2
+tick 3001 GARDEN_FOREMAN_ACTIVE_TARGET=2 GARDEN_FOREMAN_STUB_RETRY_BASE=none GARDEN_FOREMAN_STUB_CALLS="$CALLS" \
+  || bad "the absent-replacement tick failed"
+if [ "$(wc -l < "$CALLS")" -eq 2 ]; then
+  ok "the re-prompt is bounded to one extra handler call"
+else
+  bad "expected 2 handler calls, saw $(wc -l < "$CALLS")"
+fi
+rm -rf "$VERIFY"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERIFY" 2>/dev/null
+if [ "$(notices "$VERIFY")" -eq $((notice_count + 1)) ]; then
+  ok "an absent replacement surfaces the collision once"
+else
+  bad "expected one new note for an absent replacement, found $(( $(notices "$VERIFY") - notice_count ))"
 fi
 
 echo "RESULTS: $PASS passed, $FAIL failed"

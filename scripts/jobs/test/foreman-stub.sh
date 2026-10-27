@@ -9,7 +9,15 @@ set -euo pipefail
 [ -n "${GARDEN_FOREMAN_STUB_CALLS:-}" ] && echo "called" >> "$GARDEN_FOREMAN_STUB_CALLS"
 [ -z "${GARDEN_FOREMAN_STUB_DIGEST:-}" ] || cp "$1" "$GARDEN_FOREMAN_STUB_DIGEST"
 [ "${GARDEN_FOREMAN_STUB_RC:-0}" -eq 0 ] || exit "$GARDEN_FOREMAN_STUB_RC"
-printf 'JOB %s\n' "${GARDEN_FOREMAN_STUB_BASE:-foreman-next-step}"
+stub_base="${GARDEN_FOREMAN_STUB_BASE:-foreman-next-step}"
+# On the foreman's completed-collision re-prompt, GARDEN_FOREMAN_STUB_RETRY_BASE
+# (when set) replaces the proposal; the literal `none` emits no block at all.
+if [ -n "${GARDEN_FOREMAN_STUB_RETRY_BASE:-}" ] && grep -q '^rejected_completed_base: ' "$1"; then
+  [ -z "${GARDEN_FOREMAN_STUB_RETRY_DIGEST:-}" ] || cp "$1" "$GARDEN_FOREMAN_STUB_RETRY_DIGEST"
+  [ "$GARDEN_FOREMAN_STUB_RETRY_BASE" != none ] || exit 0
+  stub_base="$GARDEN_FOREMAN_STUB_RETRY_BASE"
+fi
+printf 'JOB %s\n' "$stub_base"
 [ -z "${GARDEN_FOREMAN_STUB_ARC:-}" ] || printf 'ARC %s\n' "$GARDEN_FOREMAN_STUB_ARC"
 cat <<'EOF'
 endo-but-for-bots: build the next unblocked milestone step (test stub).
