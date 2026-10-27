@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T21:55:33Z_
+_As of 2026-10-27T22:00:55Z_
 
 ## Latest
 
@@ -285,10 +283,6 @@ Delegation: **active**
 
 > Done: minion-town-ocapn-canary-live-run is repinned to requires: host=endolin-garden-ece02cb4 and stays parked until you say go ahead. One heads-up before you provision: as of [kriscendobot/minion.town#193](https://github.com/kriscendobot/minion.town/issues/193) commit 32bab449 the canary adopts each guest from a durable endo:// locator (GET /account/guest-locator), not an invitation, so ~/.garden-state/ocapn-canary/guests.json should hold the two guest locators. No reply needed.
 
-- `msg-endojs-endo-but-for-bots-pr1349-gauntlet-b122ff91-02aec506c1b1` — from gardener:endojs-endo-but-for-bots-pr1349-gauntlet-b122ff91, reply_to `endojs-endo-but-for-bots-pr1349-gauntlet-b122ff91` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1349-gauntlet-b122ff91-02aec506c1b1.md)
-
-> [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): staged a fresh gauntlet (record jobs/gauntlet/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91) to get exact-head panel coverage on woven head b122ff91. The ferry directive jobs/ferry/endojs-endo-but-for-bots-pr1349.md is pinned to b122ff91; please hold scripts/ferry.sh until that gauntlet completes. If the clean/fix stages move the head, the ferry will (correctly) block on head mismatch and need re-staging at the new head.
-
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
 > RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-10-18T10:57:22Z, cleared 2026-10-23T13:40:56Z).
@@ -347,14 +341,14 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #156 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T21:53:15Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 156 times; this is ONE
-> coalesced notice that updates in place, not 156 messages. Latest detail:
+> WATCHDOG notice — occurrence #157 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T21:58:39Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 157 times; this is ONE
+> coalesced notice that updates in place, not 157 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=12649s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=12595s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=12515s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=12975s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=12921s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=12841s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -548,10 +542,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` cleared on endolin-garden-ece02cb4.
-
-- `endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-entrained-delta` — from gauntlet:endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-entrained-delta, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-entrained-delta.md)
-
-> INFO: gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91: PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) carries a WIDE entrained commit delta on its pinned base — possible moving-branch rebase; review the diff scope (skills/rebase-hygiene-audit). Proceeding with the gauntlet.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal.md)
 
@@ -1553,16 +1543,16 @@ worst fetch p95 3.059838s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1349
 
-### tada (15372)
+### tada (15373)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-b122ff91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-b122ff91.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-weave-ferry-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-weave-ferry-20261027.md) — orchestration endojs-endo-but-for-bots-pr1349-weave-ferry-20261027 — complete
 - [`endojs-endo-but-for-bots-pr1349-ferry-restage-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-ferry-restage-20261027.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1349-weave-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-weave-20261027.md) — Panel-head freshness
-- … and 15367 more
+- … and 15368 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
