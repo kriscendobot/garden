@@ -885,6 +885,39 @@ while :; do
       fi
     fi
   fi
+
+  # Snapshot the panel-freshness inputs as soon as the handler has proved
+  # completion, before any completion-local hook can refresh the worker clone or
+  # otherwise invalidate a pathname.  Besides preserving valid inputs for the
+  # later sensor, this gives a missing handler output one explicit retryable
+  # diagnosis instead of letting an intervening helper or the sensor print usage.
+  panel_freshness_inputs=""
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    panel_freshness_inputs="$(mktemp -d "${TMPDIR:-/tmp}/garden-panel-freshness-inputs-$base.XXXXXX")"
+    panel_freshness_job="$panel_freshness_inputs/job.md"
+    panel_freshness_report="$panel_freshness_inputs/report.md"
+    panel_freshness_missing=""
+    [ -f "$jobfile" ] && [ -r "$jobfile" ] \
+      || panel_freshness_missing="job file '$jobfile'"
+    if ! [ -f "$report" ] || ! [ -r "$report" ]; then
+      [ -z "$panel_freshness_missing" ] \
+        || panel_freshness_missing="$panel_freshness_missing and "
+      panel_freshness_missing="${panel_freshness_missing}completion report '$report'"
+    fi
+    if [ -n "$panel_freshness_missing" ]; then
+      hrc=12
+      panel_freshness_diagnostic="panel-head-freshness: completion input unavailable for $base: $panel_freshness_missing is missing or unreadable; retry required. The successful handler remains claimed so a fresh board sync/requeue can restore the input before completion is retried."
+      printf '%s\n' "$panel_freshness_diagnostic" >>"$capture"
+      log "$panel_freshness_diagnostic"
+    elif ! cp -- "$jobfile" "$panel_freshness_job" \
+      || ! cp -- "$report" "$panel_freshness_report"; then
+      hrc=12
+      panel_freshness_diagnostic="panel-head-freshness: could not preserve completion inputs for $base from job file $jobfile and report $report; retry required. The successful handler remains claimed; check temporary-storage health and retry completion."
+      printf '%s\n' "$panel_freshness_diagnostic" >>"$capture"
+      log "$panel_freshness_diagnostic"
+    fi
+  fi
+
   # AUTOMATIC GAUNTLET HANDOFF. A successful producer that names its new draft PR
   # must durably stage the review it calls for before the producer settles. The
   # hook is deliberately completion-local: it never scans historical drafts, never
@@ -1022,7 +1055,8 @@ while :; do
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     panel_freshness_output="$(mktemp "${TMPDIR:-/tmp}/garden-panel-freshness-$base.XXXXXX")"
     set +e
-    "$HERE/assert-panel-head-fresh.sh" completion "$base" "$jobfile" "$report" \
+    "$HERE/assert-panel-head-fresh.sh" completion "$base" \
+      "$panel_freshness_job" "$panel_freshness_report" \
       >"$panel_freshness_output" 2>>"$capture"
     panel_freshness_rc=$?
     set -e
@@ -1083,6 +1117,7 @@ while :; do
     fi
     rm -f "$panel_freshness_output"
   fi
+  [ -z "$panel_freshness_inputs" ] || rm -rf -- "$panel_freshness_inputs"
 
   # A completed staged-gauntlet clean/fix child may identify a genuine
   # maintainer decision in addition to the next-panel transition the driver

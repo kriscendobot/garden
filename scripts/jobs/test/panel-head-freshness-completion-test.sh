@@ -70,4 +70,44 @@ grep -q '## Panel-head freshness' "$stale_tada" || fail 'tada report lacks fresh
 ! grep -qE 'pr (ready|merge|edit|close|reopen)' "$TR/gh-calls.log" || fail 'freshness gate mutated the PR'
 grep -q 'panel-head freshness disposition recorded' "$TR/gardener.log" || fail 'freshness disposition was not logged'
 
-echo 'PASS: stale post-panel completion terminalizes with one explicit review-required action, no PR mutation, and no automatic gauntlet'
+# Regression: a provider completion nudge may succeed and emit its sentinel after
+# its transient job/report inputs have disappeared.  The freshness gate must not
+# leak the sensor's bare usage text/rc=2; it diagnoses the missing inputs as a
+# retryable completion failure and leaves the durable claim in doin.
+printf -- '---\nrole: shepherd\n---\nExercise missing completion inputs.\n' \
+  >"$TR/verify/jobs/todo/missinginput.md"
+git -C "$TR/verify" add jobs/todo/missinginput.md
+git -C "$TR/verify" -c user.name=test -c user.email=test@example.invalid \
+  commit -q -m 'seed missing-input regression'
+git -C "$TR/verify" push -q origin HEAD:journal2
+
+env GARDEN=panel-fresh-terminal-test GARDEN_STATE="$TR/state-missing" \
+  JOURNAL_REMOTE="$TR/journal.git" JOURNAL_BRANCH=journal2 \
+  GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_BOT_LOGIN=kriscendobot \
+  GARDEN_PRODUCER_CLONE="$TR/state-missing/producer/journal" \
+  GARDEN_GH="$HERE/panel-head-freshness-completion-gh-stub.sh" \
+  GARDEN_GH_CALL_LOG="$TR/gh-calls.log" \
+  GARDEN_GARDENER_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh" \
+  GARDEN_DOCKET_SPY_LOG="$TR/docket.log" \
+  GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
+  GARDEN_STUB_REPORT='Successful completion nudge report.' \
+  GARDEN_STUB_REMOVE_INPUTS=1 GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
+  GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
+  "$JOBS/gardener.sh" 2 >"$TR/missing-input.log" 2>&1 || true
+
+rm -rf "$TR/verify-missing"
+git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify-missing"
+[ -e "$TR/verify-missing/jobs/doin/missinginput.md" ] \
+  || fail 'successful handler with missing freshness inputs did not remain retryable in doin'
+[ ! -e "$TR/verify-missing/jobs/tada/missinginput.md" ] \
+  || fail 'successful handler with missing freshness inputs terminalized'
+grep -q 'panel-head-freshness: completion input unavailable for missinginput' "$TR/missing-input.log" \
+  || fail 'missing freshness input lacked an actionable retryable diagnostic'
+grep -q 'fresh board sync/requeue can restore the input' "$TR/missing-input.log" \
+  || fail 'missing freshness input diagnostic did not explain the retry action'
+! grep -q '^usage:' "$TR/missing-input.log" \
+  || fail 'missing freshness input leaked the sensor usage diagnostic'
+grep -q "handler FAILED (rc=12) for 'missinginput'" "$TR/missing-input.log" \
+  || fail 'missing freshness input did not enter the retryable completion-failure path'
+
+echo 'PASS: stale post-panel completion terminalizes explicitly, and successful handlers with missing freshness inputs retain a retryable claim with an actionable diagnostic'

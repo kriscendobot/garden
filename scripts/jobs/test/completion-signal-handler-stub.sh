@@ -31,6 +31,9 @@
 #                           final report), under the claim env gardener.sh exports.
 #   GARDEN_STUB_RESULT_FP    override the claim fingerprint that result is stamped
 #                           with (models a predecessor claim's record).
+#   GARDEN_STUB_REMOVE_INPUTS 1 -> remove the job/report inputs after signaling,
+#                           modeling a successful handler whose ephemeral inputs
+#                           vanished before the completion gates inspect them.
 #
 # Used by completion-signal-test.sh and productive-cycle-test.sh.
 set -uo pipefail
@@ -73,6 +76,10 @@ fi
 # Emit the completion sentinel ONLY when told to model a genuine completion.
 if [ "${GARDEN_STUB_SIGNAL:-0}" = "1" ] && [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ]; then
   : > "$GARDEN_COMPLETION_SENTINEL"
+fi
+
+if [ "${GARDEN_STUB_REMOVE_INPUTS:-0}" = "1" ]; then
+  rm -f -- "$jobfile" "$report"
 fi
 
 exit "${GARDEN_STUB_RC:-0}"
