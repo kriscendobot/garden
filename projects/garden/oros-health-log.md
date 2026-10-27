@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-27T05:30Z (oros-health-checkup-20261027-052011): healthy; deployed `aa5d10d`, 4 commits behind a tip upgrade-ready since 05:22Z, self-deploy deferring on a busy monk; no changes
+
+- **Load/mem:** load 4.81/4.27/4.01 at 05:26Z. 4 monks are running. 13 GiB of 15 GiB is available. Swap reads 909M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (402G free), inodes 1%.
+- **Uptime:** 25d12h10m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `aa5d10d`; origin/main2 is `89a77e7` (4 commits, the budget-road series). `upgrade-ready` was written at 05:22Z. self-deploy (pid running since 05:21Z) wrote `deploy/deferred` at 05:22Z: it is waiting for monk 4's in-flight job (646s elapsed) before draining. That is the normal busy-worker deferral, not a gate failure. fleet/health/oros: `roll_status: deployed`, 0 of 290 units failing, 0 advisory (04:55Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running; the 6 `activating` units are oneshot ticks in progress. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** claude-oros snapshot sampled 05:03:49Z (file mtime 05:15Z), status ok. Spend is 89.70M of 180M, up from 89.64M at the last run; `used_percent: 28` is the ledger-derived calibrated figure (window opened 2026-10-20T10:00Z), not spend/cap.
+- **State clones:** 33 journal clones. The largest are reaper (47 packs), sysop (44), leader and repo-watcher (42), all under the threshold of 50. No tmp_pack, no `gc.log`, and no `.git` lock older than 30 minutes.
+- **rc=124 (3h):** none. No `Failed with result` lines for garden units.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-27T02:30Z (oros-health-checkup-20261027-022010): healthy; deployed = origin/main2 `9feb659`, no changes
 
 - **Load/mem:** load 4.20/4.41/4.10 at 02:26Z. 4 monks are running. 13 GiB of 15 GiB is available. Swap reads 884M of 1.0 GiB, the usual steady level; page cache, not pressure.
