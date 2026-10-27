@@ -1,4 +1,5 @@
 ---
+child-improve-enforce-handler-wall-bound-watchdog-reap-count: 0
 order: serial
 children: improve-enforce-handler-wall-bound-watchdog improve-enforce-handler-wall-bound-regression
 on-child-failure: halt
