@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T11:41:40Z_
+_As of 2026-10-27T11:44:14Z_
 
 ## Latest
 
@@ -1492,12 +1490,12 @@ _Fleet token-unlock pace: 57230906 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.891034s/45s (/home/kris/garden/.garden-state/transcripts/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`oros-health-checkup-20261027-113513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261027-113513.md) — ---
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (4)
 - [`oros-health-watch-20261027-113513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261027-113513.md) — ---
+- [`oros-health-checkup-20261027-113513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261027-113513.md) — ---
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1349
 - [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027.md) — ---
 
