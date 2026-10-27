@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T19:54:26Z_
+_As of 2026-10-27T19:57:54Z_
 
 ## Latest
 
@@ -1518,10 +1518,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.5M | $217.19 _(notional, rate-card)_ | 27% of 271.0M (ok) |
+| Claude | 73.6M | $217.19 _(notional, rate-card)_ | 27% of 271.0M (ok) |
 | Codex | 169.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57340748 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 59961336 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
@@ -1534,11 +1534,11 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 - [`improve-enforce-handler-wall-bound-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-regression.md) — ---
 
 ### tada (15353)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet.md) — Panel-head freshness
 - [`improve-enforce-handler-wall-bound-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split.md) — orchestration improve-enforce-handler-wall-bound-split — HALTED
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-watchdog.md) — Completion report: improve-enforce-handler-wall-bound-watchdog
 - [`endojs-endo-but-for-bots-pr1349-fix-pr-body-range`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-pr-body-range.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1578-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1578-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1578-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-browser-test-ubuntu-latest-recheck-20261027-185020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-browser-test-ubuntu-latest-recheck-20261027-185020.md) — Cost
 - … and 15348 more
 
 ## Plan queue (parked — not claimable until promoted)
