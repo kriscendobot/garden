@@ -171,3 +171,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - sparse checkout, virtualized checkout, optional working copy, demand-materialized working copy, sparse working tree -> sparse-virtualized-working-copy
 - Endo Gateway, host gateway, gateway bootstrap registrar, public-key-keyed routing table, `@endo/gateway` -> endo-gateway
 - endopi edit tool, edit-by-replacement, exact-string replacement, `oldText`, `newText`, `editText`, structured diff preview -> llm-exact-string-editing
+inference provider broker, AgentInference, brokered Messages, inference reservation, provider spend cap, pre-secret admission, typed model fallback -> inference-provider-broker
