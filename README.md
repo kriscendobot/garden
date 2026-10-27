@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T15:47:39Z_
+_As of 2026-10-27T15:51:48Z_
 
 ## Latest
 
@@ -1180,10 +1178,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=128571691 cap=271000000 pace-bias=0 window-start=2026-10-17T03:00Z(calendar) deadline=2026-10-24T03:00Z(calendar) ceiling=4 backoff=0.5657(ramp) target=1
-
-- `20261027T154454Z-b44ea4` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T154454Z-b44ea4.md)
-
-> foreman: proposed next step 'endojs-endo-but-for-bots-pr1573-shepherd-20261027' is already completed. It was not re-posted; choose a different step, or use an ISO-date suffix for genuinely recurring work.
 
 - `msg-reset-credit-watch-20261019-160508-4e0a7e09c87c` — from gardener:reset-credit-watch-20261019-160508, reply_to `reset-credit-watch-20261019-160508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261019-160508-4e0a7e09c87c.md)
 
