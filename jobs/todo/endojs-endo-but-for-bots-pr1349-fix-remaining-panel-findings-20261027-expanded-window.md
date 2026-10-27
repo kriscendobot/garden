@@ -1,16 +1,15 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split
+role: fixer
+tier: mentor
+posted_at: 2026-10-27T14:14:15Z
 handler-timeout: 7800
 split-indivisible-reason: 'remaining work is one atomic verify-and-report step on already-pushed head f66740e9ba (code fixes done; only CI completion wait plus one summary comment remain)'
 split-lineage-root: endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027
 split-lineage-parent: endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-10-27T14:14:15Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-27T14:17:39Z cleared=none -->
 
 ---
 role: fixer
