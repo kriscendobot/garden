@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T04:41:41Z_
+_As of 2026-10-27T04:55:31Z_
 
 ## Latest
 
@@ -195,11 +193,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` has CLEARED (first seen 2026-10-17T14:43:37Z, cleared 2026-10-26T22:43:20Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #8 (first seen 2026-10-17T14:43:37Z, latest 2026-10-27T04:45:48Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.020148s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `kriscendobot-minion.town-pr184-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr184-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr184-gauntlet-review-budget-reached.md)
 
@@ -515,11 +513,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-16T22:47:31Z, latest 2026-10-26T20:45:06Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_proxy_journal`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` has CLEARED (first seen 2026-10-16T22:47:31Z, cleared 2026-10-27T04:48:40Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.012304s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal.md)
 
@@ -822,11 +820,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_screening_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-10-16T22:47:42Z, latest 2026-10-26T22:40:09Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_screening_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_screening_journal` has CLEARED (first seen 2026-10-16T22:47:42Z, cleared 2026-10-27T04:48:47Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.012811s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_screening_journal` cleared on endolin-garden-ece02cb4.
 
 - `kriscendobot-minion.town-pr178-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr178-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr178-gauntlet-review-budget-reached.md)
 
@@ -1173,6 +1171,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_monks_1_journal` cleared on endolin-garden-ece02cb4.
 
+- `msg-claude-api-p1-registry-0fd78e5b0e44` — from gardener:claude-api-p1-registry, reply_to `claude-api-p1-registry` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-api-p1-registry-0fd78e5b0e44.md)
+
+> During [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) validation, the project warm cache contained `better-sqlite3` built for Node ABI 137 while the active runtime required ABI 127. Daemon tests could not start until `yarn rebuild better-sqlite3`. Please make the project-worktree warm-cache path verify/rebuild native modules against the active Node ABI so jobs do not inherit an incompatible cached binary.
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
 > WATCHDOG notice — occurrence #10 (first seen 2026-10-18T14:45:48Z, latest 2026-10-26T16:44:16Z).
@@ -1402,13 +1404,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.1M | $181.46 _(notional, rate-card)_ | 22% of 271.0M (ok) |
-| Codex | 147.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 59.6M | $193.46 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Codex | 148.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 6.523860s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
+worst fetch p95 6.523860s/45s (/home/kris/garden/.garden-state/deadmail/verify); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1416,16 +1418,16 @@ worst fetch p95 6.523860s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 
 ### doin (3)
 - [`build-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-budget-road.md) — Build the budget road
+- [`endojs-endo-but-for-bots-pr1573-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1573
 - [`claude-api-p1-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p1-registry.md) — Phase 1: Endo provider registry, ownership, and facets
-- [`design-claude-api-agent-workbench-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-claude-api-agent-workbench-20261027.md) — Design: the agent workbench on minion.town (chat clip, budgeted subagent spaw...
 
-### tada (15240)
+### tada (15243)
+- [`endojs-endo-but-for-bots-pr1574-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-viability.md) — Cost
+- [`design-claude-api-agent-workbench-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/design-claude-api-agent-workbench-20261027.md) — Completion report: design-claude-api-agent-workbench-20261027
+- [`endojs-endo-but-for-bots-pr1573-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1573-gauntlet-viability.md) — Cost
 - [`revise-budget-road-decisions-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/revise-budget-road-decisions-20261027.md) — Cost
 - [`deadmail-issue-comment-6433663795`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/deadmail-issue-comment-6433663795.md) — Cost
-- [`claude-api-p0-design-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-api-p0-design-fix.md) — Cost
-- [`oros-health-watch-20261027-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-022010.md) — Cost
-- [`oros-health-checkup-20261027-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-checkup-20261027-022010.md) — Cost
-- … and 15235 more
+- … and 15238 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1515,6 +1517,7 @@ worst fetch p95 6.523860s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`migrate-coupons-onto-exo-dynamodb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-coupons-onto-exo-dynamodb.md) — awaiting `build-recursive-dynamodb-capabilities` · ---
+- [`build-claude-api-agent-workbench-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-api-agent-workbench-20261027.md) — awaiting `endojs-endo-but-for-bots-pr1574-gauntlet` · Build: the design in endojs/endo-but-for-bots#1574
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`build-minion-town-guest-coupons-phase1-rest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-guest-coupons-phase1-rest.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/199` · Build the rest of guest-coupons phase 1 on kriscendobot/minion.town
