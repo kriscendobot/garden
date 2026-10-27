@@ -21,3 +21,13 @@ At 2026-10-27T17:45Z the `build` check was red and the `test` legs were pending;
 
 Do NOT run repo-wide `yarn lint:fix` / pre-push-gates over the whole monorepo on this host. In the parent run, eslint OOMed at 8 GB and starved the host. Lint only the touched files.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T17:46:17Z
