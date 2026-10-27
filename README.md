@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T20:46:17Z_
+_As of 2026-10-27T20:55:54Z_
 
 ## Latest
 
@@ -343,14 +341,14 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #147 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T20:43:06Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 147 times; this is ONE
-> coalesced notice that updates in place, not 147 messages. Latest detail:
+> WATCHDOG notice — occurrence #148 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T20:51:27Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 148 times; this is ONE
+> coalesced notice that updates in place, not 148 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=8443s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=8389s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=8309s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=8757s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=8703s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=8623s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1533,28 +1531,29 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.3M | $221.60 _(notional, rate-card)_ | 28% of 271.0M (ok) |
-| Codex | 169.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 75.5M | $222.19 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Codex | 170.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57170914 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57176886 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.261321s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-minion.town); 6 open notice(s); checker healthy
+worst fetch p95 3.059838s/45s (/home/kris/garden/.garden-state/deadmail/verify); 6 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`oros-health-checkup-20261027-205012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261027-205012.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`oros-health-watch-20261027-205012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261027-205012.md) — ---
 
-### tada (15362)
+### tada (15364)
+- [`claude-on-minion-town-completion-press-20261027-205012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-on-minion-town-completion-press-20261027-205012.md) — Cost
+- [`minion-town-arc-press-20261027-205012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/minion-town-arc-press-20261027-205012.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-d583c985dfe5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-d583c985dfe5.md) — rolling-deploy canary probe — round trip OK
 - [`improve-enforce-handler-wall-bound-split-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split-resume.md) — orchestration improve-enforce-handler-wall-bound-split-resume — complete
 - [`improve-enforce-handler-wall-bound-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-regression.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5 — complete
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-undraft.md) — Cost
-- … and 15357 more
+- … and 15359 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
