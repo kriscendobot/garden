@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T04:30:45Z_
+_As of 2026-10-27T04:34:18Z_
 
 ## Latest
 
@@ -1402,8 +1400,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.5M | $174.03 _(notional, rate-card)_ | 22% of 271.0M (ok) |
-| Codex | 147.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 58.6M | $174.07 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Codex | 147.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1415,16 +1413,16 @@ worst fetch p95 6.523860s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (2)
+- [`build-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-budget-road.md) — Build the budget road
 - [`claude-api-p1-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p1-registry.md) — Phase 1: Endo provider registry, ownership, and facets
-- [`revise-budget-road-decisions-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-budget-road-decisions-20261027.md) — Revise designs/budget-road.md with the maintainer's decisions, then close out...
 
-### tada (15239)
+### tada (15240)
+- [`revise-budget-road-decisions-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/revise-budget-road-decisions-20261027.md) — Cost
 - [`deadmail-issue-comment-6433663795`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/deadmail-issue-comment-6433663795.md) — Cost
 - [`claude-api-p0-design-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-api-p0-design-fix.md) — Cost
 - [`oros-health-watch-20261027-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-022010.md) — Cost
 - [`oros-health-checkup-20261027-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-checkup-20261027-022010.md) — Cost
-- [`claude-on-minion-town-completion-press-20261027-023509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-on-minion-town-completion-press-20261027-023509.md) — Cost
-- … and 15234 more
+- … and 15235 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
