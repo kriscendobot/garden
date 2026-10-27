@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T02:07:41Z_
+_As of 2026-10-27T02:12:27Z_
 
 ## Latest
 
@@ -1405,7 +1403,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 58.1M | $172.21 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 144.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63465695 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 2.841713s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 8 open notice(s); checker healthy
@@ -1417,13 +1415,13 @@ worst fetch p95 2.841713s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### doin (0)
 (none)
 
-### tada (15231)
+### tada (15232)
+- [`canary-probe-oros-studio-garden-ce242c49-9feb65909870`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-9feb65909870.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1543-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1543-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1543-gauntlet — complete
 - [`fix-oros-endojs-review-403-panel-routing-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/fix-oros-endojs-review-403-panel-routing-20261027.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1543-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1543-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1543-gauntlet-panel-6.md) — Cost
-- [`fix-endo-but-for-bots-pr1543-panel-failure-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/fix-endo-but-for-bots-pr1543-panel-failure-20261027.md) — Cost
-- … and 15226 more
+- … and 15227 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
