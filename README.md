@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T22:13:36Z_
+_As of 2026-10-27T22:15:49Z_
 
 ## Latest
 
@@ -341,14 +341,14 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #157 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T21:58:39Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 157 times; this is ONE
-> coalesced notice that updates in place, not 157 messages. Latest detail:
+> WATCHDOG notice — occurrence #158 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T22:14:56Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 158 times; this is ONE
+> coalesced notice that updates in place, not 158 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=12975s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=12921s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=12841s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=13890s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=13836s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=13756s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
