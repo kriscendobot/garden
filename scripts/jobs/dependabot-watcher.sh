@@ -190,7 +190,10 @@ fleet_draining && { log "fleet draining; skipping"; exit 0; }
 # A sibling watcher already proved GitHub's API transiently unreadable this window.
 # Do no API work and emit no per-repo log line; the detector's single warning owns it.
 # (Shared host-wide across every gh-api watcher — see api_cooldown_active in common.sh.)
-api_cooldown_active && exit 0
+# The PR source is the REST pulls list, so only the host-wide (REST) latch gates the
+# tick: a GraphQL-only latch must not silence it. The one GraphQL reader, the
+# fail-open base-CI preflight, checks the graphql scope itself below.
+api_cooldown_active rest && exit 0
 # Low priority: defer to the maintainer-facing watchers once the host REST core
 # budget reaches its reserve (common.sh gh_rest_budget_defer).
 gh_rest_budget_defer && exit 0
@@ -647,6 +650,12 @@ base_ci_preflight() {
   case "$GARDEN_DEP_BASE_CI_MAX_CHECKS" in
     ''|*[!0-9]*) die "GARDEN_DEP_BASE_CI_MAX_CHECKS must be a non-negative integer" ;;
   esac
+  # The base-CI oracle reads GraphQL rollups; under a GraphQL latch skip it (every PR
+  # falls open to the ordinary full review) rather than spend doomed calls.
+  if api_cooldown_active graphql; then
+    log "preflight: GraphQL cooldown active; base-CI comparison skipped, PRs fall open to full review"
+    return 0
+  fi
   while IFS=$'\t' read -r pr _pkg _old _new; do
     [ -n "$pr" ] && [ -z "${DOM_PEER[$pr]:-}" ] && [ -z "${INCOMP_KIND[$pr]:-}" ] || continue
     posted_anywhere "$slug-pr$pr-dependabot" && continue

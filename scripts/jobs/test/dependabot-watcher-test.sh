@@ -639,6 +639,41 @@ set -e
   || bad "later tick polled the source ($(cat "$Q_CNT") calls, rc $ql_rc) inside the quota window"
 
 # ============================================================================
+hr; echo "RG — a GraphQL-only latch does not silence the REST PR source"; hr
+# The PR source is the REST pulls list, so the tick gates on the REST scope only;
+# an unrelated GraphQL quota latch must leave it running. The one GraphQL reader
+# (the base-CI oracle) is skipped under that latch and the PR falls open to the
+# ordinary full review.
+ROOT_RG="$TR/root-graphql"; mkdir -p "$ROOT_RG/.garden-state/gh-api-cooldown"
+printf '%s\n%s\n' "$(( $(date +%s) + 3600 ))" "test:graphql:primary-quota" \
+  > "$ROOT_RG/.garden-state/gh-api-cooldown/marker-graphql"
+BARE_RG="$TR/graphql-latch.git"; seed_bare "$BARE_RG"
+FIX_RG="$TR/fix-graphql-latch.tsv"; depline 870 'Bump epsilon from 1.0.0 to 1.1.0' > "$FIX_RG"
+BASE_CI_FIX_RG="$TR/base-ci-graphql-latch.tsv"
+printf '870\tshared\t%s\t%s\t1\t1\t1\t1\n' "$BASE_A" "$HEAD_810" > "$BASE_CI_FIX_RG"
+BASE_CI_LOG_RG="$TR/base-ci-graphql-latch.log"; : > "$BASE_CI_LOG_RG"
+GARDEN_ROOT="$ROOT_RG" GARDEN_API_COOLDOWN_SECS=300 \
+  BASE_CI_FIXTURE="$BASE_CI_FIX_RG" BASE_CI_LOG="$BASE_CI_LOG_RG" \
+  run_dep "$TR/state-graphql-latch" "$BARE_RG" "$FIX_RG"
+board_has "$BARE_RG" "$SLUG-pr870-dependabot" \
+  && ok "REST source still runs and posts under a GraphQL-only latch" \
+  || bad "GraphQL-only latch silenced the REST dependabot source"
+[ ! -s "$BASE_CI_LOG_RG" ] && ! has_in_body "$BARE_RG" "$SLUG-pr870-dependabot" 'dependabot-base-ci: v1' \
+  && ok "the GraphQL base-CI oracle is skipped under the latch; the PR falls open to full review" \
+  || bad "base-CI oracle consulted under a GraphQL latch ($(tr '\n' ' ' < "$BASE_CI_LOG_RG"))"
+
+# The host-wide (REST) latch still blocks the tick before the source is polled.
+ROOT_GR="$TR/root-graphql-rest"; mkdir -p "$ROOT_GR/.garden-state/gh-api-cooldown"
+printf '%s\n%s\n' "$(( $(date +%s) + 3600 ))" "test:rest:primary-quota" \
+  > "$ROOT_GR/.garden-state/gh-api-cooldown/marker"
+BARE_GR="$TR/rg-rest.git"; seed_bare "$BARE_GR"
+GARDEN_ROOT="$ROOT_GR" GARDEN_API_COOLDOWN_SECS=300 \
+  run_dep "$TR/state-rg-rest" "$BARE_GR" "$FIX_RG"
+[ "$(todo_count "$BARE_GR")" -eq 0 ] \
+  && ok "the host-wide REST latch still skips the tick" \
+  || bad "posted a job despite the host-wide REST latch"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
