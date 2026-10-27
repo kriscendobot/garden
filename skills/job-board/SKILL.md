@@ -269,7 +269,12 @@ posted_at: <iso8601>
 - **Park** (`post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--budget-hold]
   [--question Q --asked-at URL] [--priority L] [--roadmap I] [--arc A]
   [--not-before ISO-UTC] [--by R] <base> [body]`): write
-  `jobs/plan/<base>.md`. Default gate `--deferred`. `--arc` stamps the arc of
+  `jobs/plan/<base>.md`. Default gate `--deferred`. `--arc` stamps the arc the
+  plan draws from (under the [budget road](../../context/operations/road.md):
+  promotion by lane group then road rank, a held arc's plans skipped as
+  `arc-held:`, and a warning for an arc not on the road); `post-plan.sh` and
+  `post-job.sh` stamp `posted_at:`, which the road reads as activity. Under the
+  old slate it is the arc of
   the weekly apportionment the plan draws from; the foreman ranks deferred plans
   by arc and holds a plan whose arc is exhausted
   ([context/operations/accountant.md](../../context/operations/accountant.md)). A deferred plan carrying

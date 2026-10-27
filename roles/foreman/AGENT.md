@@ -42,6 +42,15 @@ milestone work. Do not conflate the two.
   is empty. **go-ahead** and **awaiting-maintainer** plan jobs are never
   auto-promoted. The latter records the pending question and answer URL, and
   requires an explicit `promote-plan.sh --maintainer` call after the answer lands.
+- **Under the budget road, follow the road.** Once `allocation/road.json`
+  exists ([design](../../designs/budget-road.md)) the digest carries
+  `allocation/mandate.md` as the priority mandate and an `arc_admission` block
+  (rank, arc, lane, admit). Generate a step only for an arc that is not `held`,
+  prefer lower ranks (the maintainer's order, lane holders first), and name it on
+  the `ARC` line; omit `ARC` for unarced work, which draws on discretion. The
+  service promotes deferred plans by lane group, then road rank, and sends one
+  "Budget spent" notice when everything is spent. The rule below applies only
+  while the old slate is in force.
 - **Draw only from arcs with headroom.** The accountant apportions your weekly
   token budget across ranked arcs ([design](../../designs/accountant-arc-apportionment.md)).
   The digest lists each arc's rank and remaining headroom; generate a step only
@@ -87,7 +96,9 @@ milestone work. Do not conflate the two.
    ENDJOB
    ```
 
-   `ARC` names the arc of the week's apportionment the step draws from. When the
+   Under the budget road the digest carries `arc_admission` instead: name an arc
+   that is not `held`, or omit `ARC` for unarced work.
+   Under the old slate, `ARC` names the arc of the week's apportionment the step draws from. When the
    digest carries `arc_headroom`, pick a step serving an arc marked `ok` (lower
    rank first) and name it; omit `ARC` to charge the `unallocated` reserve. The
    service refuses a step for an arc with no headroom, and does not invoke you

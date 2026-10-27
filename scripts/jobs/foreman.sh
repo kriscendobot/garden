@@ -289,10 +289,31 @@ provider_fallback_enabled=false
 if [ "$GARDEN_FOREMAN_HANDLER" = "$HERE/handlers/foreman-claude.sh" ]; then
   case ",${GARDEN_FOREMAN_PROVIDER_ORDER:-anthropic}," in *,openai,*|*,local,*) provider_fallback_enabled=true ;; esac
 fi
+# road_notice <pool> — under the budget road (designs/budget-road.md § The
+# foreman's part, step 1) the two backoff notes collapse into one "Budget spent"
+# notice: only for the `spent` subtype, at most once a day per pool, never for a
+# pin or the maintainer's reserve. Returns 0 when the road handled the notice.
+road_notice() {
+  local pool="$1" v sub stamp today
+  road_armed "$DIR" || return 1
+  [ -n "$pool" ] || return 0
+  v="$(road_pool_verdict "$DIR" "$pool" 2>/dev/null || true)"
+  sub="${v#*$'\t'}"
+  log "budget road holds pool $pool (${v:-unknown})"
+  [ "$sub" = spent ] || return 0
+  today="$(date -u -d "@$NOW" +%F)"
+  stamp="$GARDEN_STATE/foreman/budget-spent-${pool//[^A-Za-z0-9._-]/_}"
+  [ "$(cat "$stamp" 2>/dev/null || true)" != "$today" ] || return 0
+  printf 'foreman: Budget spent on %s: every lane reservation and the discretion are used for this window (budget_road). New work waits for the window to advance or the reset; change focus with set-road.sh via the liaison.\n' "$pool" \
+    | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER=foreman "$HERE/inbox-send.sh" maintainer || true
+  printf '%s\n' "$today" > "$stamp"
+  return 0
+}
+
 resolve_token_backoff_fraction "$DIR"
 if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status "" "$DIR")" in
   backoff)
-    note_once "token-backoff" "foreman: this host's Anthropic subscription ${GARDEN_TOKEN_BACKOFF_POOL:-(unresolved)} is at/over its ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark (source ${GARDEN_TOKEN_BACKOFF_SOURCE:-unknown}: ${GARDEN_TOKEN_BACKOFF_DETAIL:--}). Pausing the autonomous pump until the ramp rises or its independently tracked reset."
+    road_notice "${GARDEN_TOKEN_BACKOFF_POOL:-}" || note_once "token-backoff" "foreman: this host's Anthropic subscription ${GARDEN_TOKEN_BACKOFF_POOL:-(unresolved)} is at/over its ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark (source ${GARDEN_TOKEN_BACKOFF_SOURCE:-unknown}: ${GARDEN_TOKEN_BACKOFF_DETAIL:--}). Pausing the autonomous pump until the ramp rises or its independently tracked reset."
     log "token quota high-water reached; backing off (no pump this tick)"
     decide token-backoff
     record_budget_halt current-host-token-quota backoff \
@@ -314,7 +335,10 @@ esac; fi
 # makes the precise host/account decision.
 case "$(budget_fleet_status "$DIR")" in
   backoff)
-    note_once "fleet-budget-backoff" "foreman: every configured subscription is at its high-water mark; deferred-plan promotion and new pumping are paused until a recorded subscription reset restores capacity."
+    if road_armed "$DIR"; then
+      for _pool in $(road_pools "$DIR"); do road_notice "$_pool"; done
+    else note_once "fleet-budget-backoff" "foreman: every configured subscription is at its high-water mark; deferred-plan promotion and new pumping are paused until a recorded subscription reset restores capacity."
+    fi
     log "all configured budget pools at high water; stopping promotion/pump this tick"
     decide budget-backoff
     record_budget_halt fleet-budget-pools backoff \
@@ -394,8 +418,19 @@ last_step="$(cat "$LAST_STEP" 2>/dev/null || true)"
 # generate a step for an arc with headroom; with none anywhere (the reserve
 # included) the agent is not invoked at all, and the accountant's edge-latched
 # re-slice nudge gets a chance to fire.
-arc_headroom=""; arcs_open=""
-if arc_reserve_armed "$DIR"; then
+arc_headroom=""; arcs_open=""; arc_admission=""; road_on=0
+if road_file "$DIR" >/dev/null; then
+  # The budget road: the agent sees each arc's admission and may draw only from
+  # an arc that is not held. `-` (no ARC line) is unarced work, on discretion.
+  road_on=1
+  arc_admission="$(road_arc_admission "$DIR" 2>/dev/null || true)"
+  arcs_open="$(awk -F'\t' '$4 != "held" { print $2 }' <<<"$arc_admission")"
+  if [ -z "$arcs_open" ]; then
+    log "every arc on the road is held; not invoking the foreman agent"
+    decide arc-held "$skip_detail"
+    exit 0
+  fi
+elif arc_reserve_armed "$DIR"; then
   arc_headroom="$(arc_headroom_lines "$DIR" "$NOW" 2>/dev/null || true)"
   arcs_open="$(awk -F'\t' '$6 == "ok" && $5 > 0 { print $2 }' <<<"$arc_headroom")"
   if [ -z "$arcs_open" ]; then
@@ -412,7 +447,16 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
   printf 'project: %s\n'           "$GARDEN_FOREMAN_PROJECT"
   printf 'board: below active-job target %s (todo=%s doin=%s, in-flight=%s); sustained for %ss\n' "$GARDEN_FOREMAN_ACTIVE_TARGET" "$todo_n" "$doin_n" "$inflight" "$elapsed"
   printf 'last_step_posted: %s\n'  "${last_step:-(none)}"
-  if [ -s "$DIR/config/foreman-mandate" ]; then
+  if [ "$road_on" -eq 1 ]; then
+    if [ -s "$DIR/allocation/mandate.md" ]; then
+      printf 'priority_mandate: |\n'
+      sed 's/^/  /' "$DIR/allocation/mandate.md"
+      [ -z "$(tail -c 1 "$DIR/allocation/mandate.md" 2>/dev/null)" ] || printf '\n'
+    fi
+    printf 'arc_admission: |\n'
+    printf '  # rank arc lane admit. Draw only from an arc that is not held; omit ARC for unarced work.\n'
+    awk -F'\t' '{ printf "  %s %s %s %s\n", $1, $2, $3, $4 }' <<<"$arc_admission"
+  elif [ -s "$DIR/config/foreman-mandate" ]; then
     printf 'priority_mandate: |\n'
     sed 's/^/  /' "$DIR/config/foreman-mandate"
     # Keep the digest line-oriented even when the journal file lacks a final LF.
@@ -510,14 +554,21 @@ case "$btype" in
       note_once "repeat:$base" "foreman: next step '$base' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck."
       log "anti-flap: '$base' repeats last posted step; surfaced to maintainer, not re-posted"
       decide anti-flap "base=$base$skip_detail"
-    elif [ -n "$arcs_open" ] && ! grep -qxF "${job_arc_line:-$GARDEN_ARC_RESERVE}" <<<"$arcs_open"; then
+    elif [ "$road_on" -eq 1 ] && [ "$(road_arc_admit "$DIR" "$(road_alias_target "$DIR" "${job_arc_line:-}")")" = held ]; then
+      log "refusing step '$base': arc '${job_arc_line:--}' is held on the road"
+      decide arc-refused "base=$base arc=${job_arc_line:--}$skip_detail"
+    elif [ "$road_on" -eq 0 ] && [ -n "$arcs_open" ] && ! grep -qxF "${job_arc_line:-$GARDEN_ARC_RESERVE}" <<<"$arcs_open"; then
       log "refusing step '$base': arc '${job_arc_line:-$GARDEN_ARC_RESERVE}' has no headroom (open: $(paste -sd, <<<"$arcs_open"))"
       decide arc-refused "base=$base arc=${job_arc_line:-$GARDEN_ARC_RESERVE}$skip_detail"
     else
       post_args=()
       [ -n "$role" ] && post_args+=(--role "$role")
       # Stamp the arc the step was drawn from; unarced steps charge the reserve.
-      [ -n "$arcs_open" ] && post_args+=(--arc "${job_arc_line:-$GARDEN_ARC_RESERVE}")
+      if [ "$road_on" -eq 1 ]; then
+        [ -z "$job_arc_line" ] || post_args+=(--arc "$job_arc_line")
+      elif [ -n "$arcs_open" ]; then
+        post_args+=(--arc "${job_arc_line:-$GARDEN_ARC_RESERVE}")
+      fi
       post_rc=0
       printf '%s' "$body" | "$HERE/post-job.sh" "${post_args[@]}" "$base" || post_rc=$?
       if [ "$post_rc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ]; then

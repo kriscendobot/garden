@@ -237,7 +237,13 @@ The shipped
 foreman active target is 10, not 0 (raised 2026-09-27 to saturate the fleet's
 physical worker slots; the standing per-subscription token-backoff ramp is the
 spend brake, controlled by `config/token-backoff-initial`, with
-`set-token-backoff-fraction.sh` reserved for intervention pins).
+`set-token-backoff-fraction.sh` reserved for intervention pins). The **budget
+road** ([designs/budget-road.md](designs/budget-road.md),
+[context/operations/road.md](context/operations/road.md)) is built and dormant:
+its cutover (`set-road.sh init`, with `config/maintainer-reserve` replacing
+`token-backoff-initial`) replaces the weekly slate and the ramp with a 0.90
+ceiling, a decaying maintainer reserve, and two lanes that follow the
+maintainer's *focus*; it waits on the maintainer's go-ahead.
 Pool limits, budget pacing, subscription
 calibration, and known gaps live in
 [context/operations/cybernetics.md](context/operations/cybernetics.md);

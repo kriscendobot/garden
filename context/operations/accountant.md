@@ -6,6 +6,12 @@ author: gardener (job build-accountant-arc-apportionment)
 
 # The accountant's tools: weekly arc apportionment
 
+**Being replaced by the budget road.** Once `allocation/road.json` exists (the
+`set-road.sh init` cutover, [road.md](road.md)), the weekly slate below is gone:
+`set-apportionment.sh` refuses, the re-slice nudge is silent, and the weekly
+engagement sends `accountant-statement.sh` as a statement without asking for
+approval. This page describes the slate while it is still in force.
+
 Command reference for the [accountant](../../roles/accountant/AGENT.md). The
 rationale is [designs/accountant-arc-apportionment.md](../../designs/accountant-arc-apportionment.md);
 this page is only the how-to.

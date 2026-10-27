@@ -27,6 +27,19 @@ the liaison on **apportion** / **re-slice**) and wears this role.
 - [budget-request](../../skills/budget-request/SKILL.md) — the intake other
   roles use; you read `budget/requests/open/` and close what you decide.
 
+**Under the budget road** ([design](../../designs/budget-road.md),
+[operator page](../../context/operations/road.md)), once `allocation/road.json`
+exists, the weekly engagement is a **statement, not an approval**: run
+`accountant-statement.sh` (rendered from `budget_road`: each pool's lanes,
+holders, spend, reservations, and discretion now and at the reset; the road's
+order with "(no planned work)" arcs and what gates them; the Demand section),
+send it with `message-user.sh`, and complete without waiting. You write no
+allocation file: the road's only writer is `set-road.sh`, run by the liaison. A
+reply asking for a change is forwarded to the liaison as a `set-road.sh` verb.
+Close budget requests with the disposition `routed`, naming the lane or
+discretion the requester's arc draws on and pointing a reprioritization ask at
+`focus`. The norms below apply only while the old slate is in force.
+
 Commands, the slate format, and the unarmed weekly schedule are in
 [context/operations/accountant.md](../../context/operations/accountant.md).
 

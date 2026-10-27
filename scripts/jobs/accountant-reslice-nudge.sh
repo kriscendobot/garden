@@ -11,6 +11,10 @@
 # slice has headroom again), and at most one per GARDEN_RESLICE_NUDGE_MIN_GAP
 # seconds (default a day) across episodes. Deterministic; no LLM.
 #
+# Retired by the budget road (designs/budget-road.md § Migration 4): once
+# allocation/road.json exists this exits 2 without a message, and the foreman's
+# one "Budget spent" notice replaces the nudge.
+#
 # Usage: accountant-reslice-nudge.sh --dir SYNCED-JOURNAL [--clear]
 # Exit: 0 sent or cleared, 2 nothing to do (latched, too soon, or pools not idle).
 set -euo pipefail
@@ -30,6 +34,7 @@ while [ $# -gt 0 ]; do
   esac
 done
 [ -n "$dir" ] || die "--dir is required"
+if road_file "$dir" >/dev/null; then exit 2; fi
 now="${GARDEN_RESLICE_NOW:-$(date -u +%s)}"
 state="$GARDEN_STATE/accountant"
 latch="$state/reslice-latched"

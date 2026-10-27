@@ -173,6 +173,10 @@ DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
+  # The budget road replaced the weekly slate (designs/budget-road.md).
+  if [ -f "$DIR/allocation/road.json" ]; then
+    die "the budget road replaced the weekly slate; use set-road.sh (show, focus, add, drop, alias, lanes)"
+  fi
   carried=""
   if [ "$carry" -eq 1 ]; then
     rec="$DIR/config/apportionment"

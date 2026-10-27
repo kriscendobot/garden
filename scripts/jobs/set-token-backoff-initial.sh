@@ -6,12 +6,17 @@
 # regular-operation control surface; set-token-backoff-fraction.sh is the
 # intervention pin.
 #
+# Being renamed set-maintainer-reserve.sh (designs/budget-road.md § Migration
+# 2): once the budget road is armed, k = 1 - r0 replaces r0, and this name only
+# redirects. Until the cutover the ramp still reads r0, so it still writes it.
+#
 # Usage: set-token-backoff-initial.sh <fraction 0<f<=1>
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 export GARDEN_TAG="set-token-backoff-initial"
+echo "note: set-token-backoff-initial.sh is being renamed set-maintainer-reserve.sh <k> (k = 1 - r0) by the budget road" >&2
 
 r0="${1:?usage: set-token-backoff-initial.sh <fraction 0<f<=1>}"
 [ "$#" -eq 1 ] || { echo "usage: set-token-backoff-initial.sh <fraction 0<f<=1>" >&2; exit 1; }

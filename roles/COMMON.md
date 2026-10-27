@@ -154,7 +154,7 @@ Never route issue-scoped or PR-scoped feedback to the maintainer anywhere but th
 
 ## Asking for budget
 
-When your effort needs foreman tokens beyond what it has (a large build, a campaign, a press, or a job parked on `--budget-hold`), file an advisory request per [budget-request](../skills/budget-request/SKILL.md) with `scripts/jobs/request-budget.sh`. Never write `config/arc-budgets/` or `config/foreman-mandate` yourself; the accountant does that from a maintainer-approved slate.
+When your effort needs foreman tokens beyond what it has (a large build, a campaign, a press, or a job parked on `--budget-hold`), file an advisory request per [budget-request](../skills/budget-request/SKILL.md) with `scripts/jobs/request-budget.sh`. Never write `config/arc-budgets/`, `config/foreman-mandate`, or `allocation/` yourself: the accountant writes the slate from a maintainer-approved slate, and once the [budget road](../context/operations/road.md) is cut over its only writer is `set-road.sh`, run by the liaison on the maintainer's word.
 
 ## Authority structure of upstream projects
 

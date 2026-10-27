@@ -101,6 +101,7 @@ deterministically. `#N` is a pull-request number.
 | **shepherd #N** ★ | drive CI back to green |
 | **fix #N** | address review feedback with commits and thread replies |
 | **merge #N** ★ | conduct the merge onto the right branch (or just approve the PR) |
+| **show the road** / **focus X** | read or steer the budget road, the standing ordered list of arcs whose two lanes follow the maintainer's focus; the liaison runs `set-road.sh show` / `set-road.sh focus X` and checks `show` after every focus ([designs/budget-road.md](designs/budget-road.md), [context/operations/road.md](context/operations/road.md)) |
 | **ferry #N** | stage a ferry directive (`journal/jobs/ferry/`); you run `scripts/ferry.sh` on the credentialed host to carry it upstream under your own identity — authorization required |
 | **defer X** / park X | park a job on the plan queue; the foreman promotes it when the board idles |
 | **await maintainer on X** | park a job with the exact pending question and its issue/PR/comment URL; only an explicit maintainer promotion can release it |

@@ -4,7 +4,7 @@
 | --- | --- |
 | Created | 2026-09-28 |
 | Author | designer (job `design-standing-token-backoff-ramp`) |
-| Status | Implemented (build `build-standing-token-backoff-ramp`; deployed by `release-standing-token-backoff-ramp`) |
+| Status | Implemented (build `build-standing-token-backoff-ramp`; deployed by `release-standing-token-backoff-ramp`); subsumed by [budget-road.md](budget-road.md) at its cutover (bound 0.40 + 0.50·t, reaching 0.90 at reset) |
 
 ## Directive
 

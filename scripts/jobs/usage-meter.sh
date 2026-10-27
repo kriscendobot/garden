@@ -1275,6 +1275,10 @@ _budget_publish_local_pool_once() {
     # An anthropic used_percent is read back out of the ledger, not observed
     # here; mark it so subscription_used_percent never re-reads its own echo.
     [ -z "${used_percent:-}" ] || [ "$provider" != anthropic ] || printf 'used_percent_source: derived\n'
+    # The budget road's owning-host figures (designs/budget-road.md § Turning
+    # tokens into utilization): the maintainer's weighted tokens this window and
+    # this host's calibration P, so the leader reads what the claim gate reads.
+    [ "$provider" != anthropic ] || road_snapshot_lines "$pool" "$cutoff"
   } > "$file.tmp.$$"
   # Write-then-rename: a reader in meter_remote_snapshot_total must never see a
   # truncated snapshot (a half-written spend line would read as a smaller number).
@@ -1805,7 +1809,7 @@ subscription_allocation_weight() {
 #   backoff  — at/over the high-water mark (pause the pump).
 meter_quota_status() {
   local pool="${1:-}" dir="${2:-}" quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}"
-  local row provider kind total cutoff frac
+  local row provider kind total cutoff frac pin
   if [ -z "$pool" ]; then
     pool="$(budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null || true)"
     # Preserve the standalone/env-only meter interface used by diagnostics and
@@ -1828,12 +1832,23 @@ meter_quota_status() {
   fi
   # The high-water fraction belongs to the pool being admitted against.
   frac="$(token_backoff_fraction_for "$pool" "$dir" | cut -f1)"
+  # Once the budget road is armed (designs/budget-road.md), the reserve-eligible
+  # pools read its verdict, and no other pool plans past the 0.90 ceiling.
+  local road_on=0
+  if road_armed "$dir"; then
+    road_on=1
+    frac="$(awk -v f="$frac" -v c="$GARDEN_ROAD_CEILING" 'BEGIN { print (f < c ? f : c) }')"
+  fi
 
   case "$kind" in
     unmetered) printf 'ok\n'; return 0 ;;
     weekly-tokens)
       case "$quota" in ''|0|*[!0-9]*) printf 'off\n'; return 0 ;; esac
       if [ "$provider" != anthropic ]; then printf 'unknown\n'; return 0; fi
+      if [ "$road_on" -eq 1 ] && token_backoff_ramp_window "$pool" "$dir" >/dev/null 2>&1; then
+        total="$(road_pool_verdict "$dir" "$pool" | cut -f1)"
+        case "$total" in ok|backoff|unknown) printf '%s\n' "$total"; return 0 ;; esac
+      fi
       # Claude's real seven-day utilization is authoritative when present.  The
       # hand-calibrated token ceiling below is retained only as fallback.
       total="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
@@ -1858,6 +1873,12 @@ meter_quota_status() {
       ;;
     percent)
       [[ "$quota" =~ ^[1-9][0-9]*([.][0-9]+)?$ ]] || { printf 'off\n'; return 0; }
+      if [ "$road_on" -eq 1 ]; then
+        quota="$(awk -v q="$quota" -v c="$GARDEN_ROAD_CEILING" 'BEGIN { print (q < c * 100 ? q : c * 100) }')"
+        frac=1
+        if pin="$(token_backoff_override "$(_token_backoff_journal_dir "$dir")" 2>/dev/null)"; then frac="${pin%%$'\t'*}"; fi
+        [ "${_GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV:-0}" -ne 1 ] || frac="$GARDEN_TOKEN_BACKOFF_FRACTION"
+      fi
       total="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
       [[ "$total" =~ ^[0-9]+([.][0-9]+)?$ ]] || { printf 'unknown\n'; return 0; }
       ;;

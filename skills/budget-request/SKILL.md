@@ -9,7 +9,10 @@ author: designer
 ## Purpose
 
 Tell the [accountant](../../roles/accountant/AGENT.md) that an effort needs
-tokens, so its weekly statement can add up demand and propose a slate informed
+tokens, so its weekly statement can add up demand (under the
+[budget road](../../designs/budget-road.md), a request is closed `routed`: it
+names the lane or discretion the requester's arc draws on, and a
+reprioritization ask goes to the liaison as `set-road.sh focus`) and propose a slate informed
 by the foreman's priorities. A request is **advisory**. It never grants budget:
 only a maintainer-authorized slate does. Design:
 [accountant-arc-apportionment](../../designs/accountant-arc-apportionment.md)

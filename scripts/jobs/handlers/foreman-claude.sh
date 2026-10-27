@@ -99,11 +99,13 @@ work's default model (both a designer and a builder run on Opus). Use \`designer
 for a design-only step and \`builder\` for a mergeable-feature step. Omit the line
 only if no single role fits.
 
-The ARC line names the arc of the week's token apportionment the step draws
-from. When the digest carries \`arc_headroom\`, choose a step serving an arc
-marked \`ok\` (prefer lower rank numbers, which the maintainer ranked higher) and
-name it; omit the line to charge the \`unallocated\` reserve. A step for an arc
-with no headroom is refused. With no \`arc_headroom\` in the digest, omit the line.
+The ARC line names the arc on the budget road the step serves. When the digest
+carries \`arc_admission\`, choose a step serving an arc that is not \`held\`
+(prefer lower rank numbers: the road is the maintainer's order, and lane holders
+come first) and name it; omit the line for unarced work, which draws on
+discretion. A step for a held arc is refused. (An older digest may carry
+\`arc_headroom\` instead: then choose an arc marked \`ok\`, or omit the line to
+charge the \`unallocated\` reserve.) With neither block in the digest, omit the line.
 
 or, if the next step is genuinely blocked on a maintainer decision:
 

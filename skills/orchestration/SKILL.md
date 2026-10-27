@@ -111,7 +111,9 @@ progress, and applies a failure policy rather than silently stalling.
    each child, then writes the record.
    `--arc` names the arc the campaign draws from: children inherit `arc:` when
    they are promoted, and the next serial child waits while that arc's weekly
-   slice has no headroom. A `--budget-tokens` cap is a sub-budget inside the arc
+   slice has no headroom (under the [budget road](../../designs/budget-road.md):
+   while the road holds the arc; a schema-1 rolling arc still bounds it through
+   `arc-spend.sh`). A `--budget-tokens` cap is a sub-budget inside the arc
    ([accountant-arc-apportionment](../../designs/accountant-arc-apportionment.md)).
    Validation is not existence-only: each parked child must already be **this**
    orchestration's own — `gate: orchestrated` with `orchestrated_by: <orch-base>`

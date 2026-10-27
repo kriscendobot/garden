@@ -9,7 +9,7 @@ amended_by: designer (job design-accountant-budget-request-intake)
 
 | Created | 2026-09-30 |
 | Author | designer (job `design-accountant-role-budget-apportionment`); § Budget requests by designer (job `design-accountant-budget-request-intake`) |
-| Status | Core built (job `build-accountant-arc-apportionment`: schema-2 arcs, `arc:` stamping, rank and headroom in the foreman, `set-apportionment.sh`, `accountant-statement.sh`, re-slice nudge; operator page [context/operations/accountant.md](../context/operations/accountant.md)). The `accountant-weekly` schedule is not armed yet, pending maintainer approval. The § Budget requests intake scripts are not built yet. |
+| Status | Core built (job `build-accountant-arc-apportionment`: schema-2 arcs, `arc:` stamping, rank and headroom in the foreman, `set-apportionment.sh`, `accountant-statement.sh`, re-slice nudge; operator page [context/operations/accountant.md](../context/operations/accountant.md)). The `accountant-weekly` schedule is not armed yet, pending maintainer approval. The § Budget requests intake scripts are not built yet. **Superseded by [budget-road.md](budget-road.md)** (built by `build-budget-road`; takes effect at the maintainer-authorized `set-road.sh init` cutover). |
 | Superseded by | [budget-road.md](budget-road.md) (Accepted, 2026-10-27): the weekly slate, schema-2 arcs, and `unallocated` reserve give way to a standing road of arcs and two lanes |
 | Layers on | [live-budget-admission](live-budget-admission.md), [subscription-budget-model](subscription-budget-model.md), [budgeted-campaign-dispatch](budgeted-campaign-dispatch.md), [recurring-budget-calibration](recurring-budget-calibration.md), [ironhorse-ratchet](../context/operations/ironhorse-ratchet.md) |
 

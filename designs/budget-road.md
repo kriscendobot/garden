@@ -4,7 +4,7 @@
 | --- | --- |
 | Created | 2026-10-27 |
 | Author | designer (job `design-budget-road`) |
-| Status | Accepted (maintainer decisions, liaison session 2026-10-27; review [kriscendobot/garden#127](https://github.com/kriscendobot/garden/pull/127)) |
+| Status | Accepted (maintainer decisions, liaison session 2026-10-27; review [kriscendobot/garden#127](https://github.com/kriscendobot/garden/pull/127)). Built and dormant (job `build-budget-road`; operator page [context/operations/road.md](../context/operations/road.md)); cutover (`set-road.sh init`) awaits the maintainer's go-ahead. |
 | Source | The tower's [*The road and its lanes: budgeting a fleet by focus*](https://tower.kriskowal.com/f7koc4preplunizm7bx55vtxf4/) (Kris Kowal, 2026-10-26), written for the garden to rebuild |
 | Replaces | [accountant-arc-apportionment.md](accountant-arc-apportionment.md) (the weekly slate, the schema-2 arcs, the `unallocated` reserve, the re-slice nudge); [foreman-discretion-budget-pool.md](foreman-discretion-budget-pool.md) (Proposed, unbuilt: its three linear pools are this design's maintainer reserve, lanes, and discretion) |
 | Subsumes | [standing-token-backoff-ramp.md](standing-token-backoff-ramp.md) (with no maintainer spend, the road's ceiling is that ramp lowered by 0.10: 0.40 → 0.90) |

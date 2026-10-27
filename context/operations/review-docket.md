@@ -22,7 +22,10 @@ five minutes and covers missed review/terminal events while refreshing head and
 CI metadata. All three units are leader-only. The deploy unit
 reconciler discovers and enables them from the tracked systemd sources.
 
-The accountant remains the only allocation-policy writer. Every
+Under the [budget road](road.md) the docket's allocation table becomes "The
+road" (rank, lane, admission from `budget_road`) and review requests sort by
+road rank; `set-road.sh` is then the only allocation writer. Until the cutover:
+the accountant remains the only allocation-policy writer. Every
 `set-apportionment.sh` transaction invokes the clerk renderer before committing,
 so an arc rank change and the resulting docket order land together. Review waits
 do not consume arc headroom.

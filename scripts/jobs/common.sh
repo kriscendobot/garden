@@ -2188,6 +2188,9 @@ journal_graft_push() {
 # and the documented choice of usage source.
 # shellcheck source=usage-meter.sh
 source "$(dirname "${BASH_SOURCE[0]}")/usage-meter.sh"
+# The budget road (designs/budget-road.md): budget_road, the one budget function.
+# shellcheck source=budget-road.sh
+source "$(dirname "${BASH_SOURCE[0]}")/budget-road.sh"
 # shellcheck source=review-write-deny.sh
 source "$(dirname "${BASH_SOURCE[0]}")/review-write-deny.sh"
 
@@ -11899,15 +11902,48 @@ arc_reserve_armed() {
 admission_arc() {
   local a
   a="$(job_arc "$2")"
+  # Under the budget road, aliases fold and unarced work stays unarced: the
+  # `unallocated` reserve retires (designs/budget-road.md § Laning).
+  if road_file "$1" >/dev/null; then road_alias_target "$1" "$a"; return 0; fi
   if [ -z "$a" ] && arc_reserve_armed "$1"; then a="$GARDEN_ARC_RESERVE"; fi
   printf '%s\n' "$a"
+}
+
+# _road_admission_load <dir> — cache road_arc_admission for <dir> in this shell:
+# _ROAD_ADM[_<arc>] = "<admit>\t<rank>" (unarced is `_-`).
+_road_admission_load() {
+  local dir="$1" rank arc lane admit
+  [ "${_ROAD_ADM_DIR:-}" = "$dir" ] && return 0
+  declare -gA _ROAD_ADM=()
+  while IFS=$'\t' read -r rank arc lane admit _; do
+    [ -n "$arc" ] && _ROAD_ADM[_$arc]="$admit"$'\t'"$rank"
+  done < <(road_arc_admission "$dir" 2>/dev/null || true)
+  _ROAD_ADM_DIR="$dir"
+}
+
+# road_arc_admit <dir> <arc> — the road's admission word for an arc (reserved,
+# discretion, held, open); an arc the road has not seen draws on discretion.
+road_arc_admit() {
+  local v
+  _road_admission_load "$1"
+  v="${_ROAD_ADM[_${2:--}]:-${_ROAD_ADM[_*]:-discretion}}"
+  printf '%s\n' "${v%%$'\t'*}"
 }
 
 # arc_rank <dir> <arc> — the slate rank of an arc (lower = drawn first). Arcs
 # without a schema-2 rank, and unarced work, sort after every ranked arc so the
 # pre-apportionment order is unchanged.
 arc_rank() {
-  local dir="${1:?}" arc="${2:-}" r=""
+  local dir="${1:?}" arc="${2:-}" r="" v group
+  # Under the road: lane holders with reservation first, then discretion, each
+  # by road rank (designs/budget-road.md § The foreman's part, step 2).
+  if road_file "$dir" >/dev/null; then
+    _road_admission_load "$dir"
+    v="${_ROAD_ADM[_${arc:--}]:-discretion$'\t'99999}"
+    case "${v%%$'\t'*}" in reserved) group=0 ;; held) group=2 ;; *) group=1 ;; esac
+    printf '%d\n' $(( group * 100000 + ${v#*$'\t'} ))
+    return 0
+  fi
   if [ -n "$arc" ] && [ -f "$dir/config/arc-budgets/$arc" ]; then
     r="$(jq -r 'select(.schema == 2 and .status == "active") | .rank // empty' \
       "$dir/config/arc-budgets/$arc" 2>/dev/null || true)"
@@ -11962,6 +11998,15 @@ plan_deferred_status() {
     fi
   fi
   arc="$(admission_arc "$dir" "$f")"
+  # The budget road replaces the arc caps: a plan on a held arc stays parked.
+  if road_file "$dir" >/dev/null; then
+    if [ "$(road_arc_admit "$dir" "${arc:--}")" = held ]; then
+      printf 'arc-held:%s\n' "${arc:--}"
+      return 1
+    fi
+    printf 'ready\n'
+    return 0
+  fi
   if [ -n "$arc" ]; then
     rc=0
     snapshot="$(GARDEN_ARC_BUDGET_NOW="$now" \
@@ -11990,6 +12035,8 @@ plan_deferred_status() {
 # durable per-tick decision log.
 plan_deferred_skipped() {
   local dir="$1" base f status
+  # Load the road admission once; per-plan subshells inherit it.
+  if road_file "$dir" >/dev/null; then _road_admission_load "$dir"; fi
   for base in $(list_jobs "$dir" "$JOBS_PLAN"); do
     f="$dir/$JOBS_PLAN/$base"
     [ -f "$f" ] || continue
@@ -12007,6 +12054,8 @@ plan_deferred_skipped() {
 # $1 = a synced journal clone root.
 plan_deferred_ranked() {
   local dir="$1" base f gate rank mtime status
+  # Load the road admission once; per-plan subshells inherit it.
+  if road_file "$dir" >/dev/null; then _road_admission_load "$dir"; fi
   for base in $(list_jobs "$dir" "$JOBS_PLAN"); do
     f="$dir/$JOBS_PLAN/$base"
     [ -f "$f" ] || continue

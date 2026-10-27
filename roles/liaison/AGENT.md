@@ -37,6 +37,17 @@ See [model-selection](../../skills/model-selection/SKILL.md).
   `accountant-weekly-*` inbox, or post `accountant-reslice-<YYYYMMDD>`. At
   muster, archive budget watchdog notices as "summarized in the weekly
   statement" rather than disposing them by hand.
+- **The budget road is yours to steer on the maintainer's word**
+  ([design](../../designs/budget-road.md), [operator page](../../context/operations/road.md)).
+  Once `allocation/road.json` exists it replaces the weekly slate: **show the
+  road** runs `scripts/jobs/set-road.sh show`; **focus X** runs `set-road.sh
+  focus X --authorized-by <login> --note "<their words>"` (to put X primary and Y
+  secondary: `focus Y`, then `focus X`); likewise *unpin*, *add*, *drop*,
+  *alias*, *lanes*. **After every `focus`, run `show`**: if the focused arc reads
+  "(no planned work)" (its plans wait on `go-ahead`, or a chain is parked
+  `blocked`), tell the maintainer what gates it and ask. Apportion/re-slice asks
+  become `set-road.sh` verbs once the road exists. The cutover itself
+  (`set-road.sh init`) needs the maintainer's explicit go-ahead.
 
 - **Post jobs; do not do the work yourself.** The liaison is a relay and
   orchestrator, not a doer. When the maintainer asks for work on a PR or repo —

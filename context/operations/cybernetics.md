@@ -181,8 +181,12 @@ Above admission and pacing sits an allocation layer: the
 token budget across ranked arcs (`config/apportionment`,
 `config/arc-budgets/*`, a generated `config/foreman-mandate`) in a weekly
 maintainer engagement. It only narrows what admission allows. Design:
-[accountant-arc-apportionment](../../designs/accountant-arc-apportionment.md);
-the scripts are not built yet.
+[accountant-arc-apportionment](../../designs/accountant-arc-apportionment.md).
+Its successor, the [budget road](../../designs/budget-road.md) (operator page
+[road.md](road.md)), is built and dormant: after its cutover one function,
+`budget_road`, computes the ceiling (0.90), the maintainer's decaying reserve,
+two lanes, and the foreman's discretion, and the claim gate, the foreman, and
+the accountant's statement all read it.
 
 ## Other feedback surfaces
 

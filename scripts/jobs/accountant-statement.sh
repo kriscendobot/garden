@@ -48,6 +48,57 @@ week_iso="$(date -u -d "@$week_epoch" +%FT%TZ)"
 human() { jq -rn --argjson v "${1:-0}" 'def h: if . >= 1000000 then "\((. / 100000 | floor) / 10)M"
   elif . >= 1000 then "\((. / 100 | floor) / 10)K" else tostring end; $v | h'; }
 
+# road_statement — the statement under the budget road (designs/budget-road.md §
+# The accountant becomes a statement): every figure from budget_road, no approval.
+road_statement() {
+  local out gates arc
+  out="$(budget_road "$dir")"
+  printf '# Budget statement: week of %s\n\n' "$week_iso"
+  printf 'As of %s. The road stands until the maintainer changes it; no approval is asked.\n' "$now_iso"
+  printf 'To change focus, reply with the arc to focus (the liaison runs set-road.sh).\n'
+  printf '\n## Pools\n\n'
+  if grep -q '^pool' <<<"$out"; then
+    printf '| pool | u | t | maintainer reserve | lane reservations | discretion now | discretion at reset | verdict | P (from) | resets |\n'
+    printf '| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: | --- |\n'
+    awk -F'\t' '$1 == "pool" { printf "| %s | %s | %s | %s | %s | %s | %s | %s%s | %s (%s) | %s |\n",
+      $2, $4, $3, $8, $9, $10, $13, $11, ($12 == "-" ? "" : "/" $12), $5, $6, $19 }' <<<"$out"
+    printf '\nCeiling %s; the maintainer share k starts at %s and decays to zero at each reset.\n' \
+      "$GARDEN_ROAD_CEILING" "$(road_maintainer_reserve "$dir")"
+  else
+    printf 'No reserve-eligible pool (Anthropic weekly-tokens with a reset window).\n'
+  fi
+  printf '\n## Lanes\n\n'
+  awk -F'\t' '$1 == "arc" && $5 != "-" { printf "- %s: %s %s (share %s): spend %s, reservation %s, admit %s\n", $2, $5, $4, $6, $7, $8, $9 }' <<<"$out"
+  grep -qP '^arc\t[^\t]*\t[^\t]*\t[^\t]*\t(primary|secondary)' <<<"$out" || printf 'No lane is held (no road arc has planned work).\n'
+  printf '\n## The road\n\n'
+  road_arc_admission "$dir" | while IFS=$'\t' read -r rank arc lane admit planned summary; do
+    [ "$arc" != "*" ] || continue
+    if [ "$planned" -gt 0 ] 2>/dev/null; then
+      printf '%s. %s%s: %s, %s planned. %s\n' "$rank" "$arc" "$([ "$lane" = - ] || printf ' (%s)' "$lane")" "$admit" "$planned" "$summary"
+    else
+      gates="$(for f in "$dir/$JOBS_PLAN"/*.md; do
+          [ -f "$f" ] || continue
+          [ "$(admission_arc "$dir" "$f")" = "$arc" ] || continue
+          plan_gate "$f"
+        done | sort | uniq -c | awk '{ printf "%s%s %s", (NR > 1 ? ", " : ""), $1, $2 }')"
+      printf '%s. %s: (no planned work)%s. %s\n' "$rank" "$arc" "${gates:+; gated: $gates}" "$summary"
+    fi
+  done
+  printf '\n## Demand\n\n'
+  if ls "$dir"/budget/requests/open/*.md >/dev/null 2>&1; then
+    for f in "$dir"/budget/requests/open/*.md; do
+      printf -- '- %s (arc %s)\n' "$(basename "$f" .md)" "$(plan_field "$f" arc 2>/dev/null || echo -)"
+    done
+  else
+    printf 'No open budget requests.\n'
+  fi
+}
+
+# Held plans per arc, from the same admission the foreman applies.
+skipped="$(GARDEN_PLAN_NOW="$now" plan_deferred_skipped "$dir" 2>/dev/null || true)"
+if [ -f "$dir/$GARDEN_ROAD_PATH" ]; then
+  road_statement
+else
 printf '# Accountant statement: week of %s\n\n' "$week_iso"
 printf 'As of %s.\n\n' "$now_iso"
 if [ -f "$rec" ]; then
@@ -58,8 +109,6 @@ else
   printf 'No apportionment is recorded yet (config/apportionment is absent). Foreman-drawn work is unbudgeted.\n'
 fi
 
-# Held plans per arc, from the same admission the foreman applies.
-skipped="$(GARDEN_PLAN_NOW="$now" plan_deferred_skipped "$dir" 2>/dev/null || true)"
 held_for() {  # held_for <arc> — count deferred plans parked on that arc's budget
   awk -F'\t' -v a="$1" '{ split($2, r, ":"); if (r[2] == a && r[1] ~ /^arc-/) n++ } END { print n + 0 }' <<<"$skipped"
 }
@@ -165,6 +214,8 @@ else
   reset="$(meter_next_reset_epoch "$now" "$dir" 2>/dev/null || true)"
   [[ "$reset" =~ ^[0-9]+$ ]] && printf '\nNext subscription reset: %s (%sh away).\n' \
     "$(date -u -d "@$reset" +%FT%TZ)" "$(( (reset - now) / 3600 ))"
+fi
+
 fi
 
 printf '\n## Foreman decisions since the week began (this host)\n\n'

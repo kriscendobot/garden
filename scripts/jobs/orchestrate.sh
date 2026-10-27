@@ -970,6 +970,17 @@ advance_serial() {  # <base> <policy> <child>...
         # and resumes at the next window or re-slice
         # (designs/accountant-arc-apportionment.md § Composition with --budget-tokens).
         orch_arc="$(plan_field "$DIR/$JOBS_ORCH/$base.md" arc)"
+        # Under the budget road the weekly slices are gone: the child waits only
+        # while the road holds its arc. A schema-1 rolling arc (a press) still
+        # bounds its campaign through arc-spend.sh (designs/budget-road.md).
+        if [ -n "$orch_arc" ] && road_file "$DIR" >/dev/null \
+           && ! jq -e '.schema == 1' "$DIR/config/arc-budgets/$orch_arc" >/dev/null 2>&1; then
+          if [ "$(road_arc_admit "$DIR" "$(road_alias_target "$DIR" "$orch_arc")")" = held ]; then
+            log "orchestration '$base': holding child $((i+1))/$total '$c' — arc '$orch_arc' is held on the budget road"
+            return 0
+          fi
+          orch_arc=""
+        fi
         if [ -n "$orch_arc" ]; then
           arc_rc=0
           arc_snap="$("$HERE/arc-spend.sh" --dir "$DIR" "$orch_arc" 2>/dev/null)" || arc_rc=$?
