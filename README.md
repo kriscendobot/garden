@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T04:55:31Z_
+_As of 2026-10-27T05:06:07Z_
 
 ## Latest
 
@@ -1173,10 +1171,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_monks_1_journal` cleared on endolin-garden-ece02cb4.
 
-- `msg-claude-api-p1-registry-0fd78e5b0e44` — from gardener:claude-api-p1-registry, reply_to `claude-api-p1-registry` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-api-p1-registry-0fd78e5b0e44.md)
-
-> During [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) validation, the project warm cache contained `better-sqlite3` built for Node ABI 137 while the active runtime required ABI 127. Daemon tests could not start until `yarn rebuild better-sqlite3`. Please make the project-worktree warm-cache path verify/rebuild native modules against the active Node ABI so jobs do not inherit an incompatible cached binary.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
 > WATCHDOG notice — occurrence #10 (first seen 2026-10-18T14:45:48Z, latest 2026-10-26T16:44:16Z).
@@ -1304,6 +1298,26 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_review_docket_journal` cleared on oros-studio-garden-ce242c49.
 
+- `20261027T045910Z-521539` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T045910Z-521539.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: claude-api-p1-registry
+> - question (msgid msg-claude-api-p1-registry-0fd78e5b0e44.md)
+> - tentative answer: Proxy/tentative (maintainer may revise): This is a progress/engineering request, so I'm treating it as proxyable. It is a garden-internal infrastructure fix with no authority grant, no outward-facing action, and no agoric-sdk scope.
+>
+> Direction to try first: add an ABI check to the project-worktree warm-cache path, probably in `scripts/jobs/ensure-project-worktree.sh`.
+> 1. After the cache is restored or linked, probe each native module that is present, starting with `better-sqlite3`. Run `node -e "require('better-sqlite3')"` from the worktree, or compare the `process.versions.modules` value recorded at cache-build time with the active one.
+> 2. If the probe fails with `NODE_MODULE_VERSION`, or the recorded ABI differs, run `yarn rebuild <module>` in the per-job worktree. Don't touch the shared cache from a job.
+> 3. Stamp the warm cache with the Node ABI, for example a `.node-abi` file. On mismatch, either rebuild into the per-job copy or treat the cache as cold for native modules. Prefer the per-job rebuild, since it is cheapest and cannot poison peers.
+> 4. Apply the `YARN_NODE_LINKER=node-modules YARN_NM_MODE=classic YARN_ENABLE_SCRIPTS=0` workaround only if the rebuild hits the EMLINK or native-build abort. Note that `YARN_ENABLE_SCRIPTS=0` skips build scripts, so the rebuild step must run explicitly.
+>
+> Options I considered:
+> - Key the cache by ABI. This is cleaner but a bigger change.
+> - Always rebuild natives. This is simple but slow.
+> - Probe, then rebuild on failure. This is the cheapest correct option, and I'm picking it.
+>
+> Post this as a normal garden job, for example a fix job against the warm-cache script. Land it direct to `main2` as usual for garden-repo changes. Throw-away iteration is fine.
+
 - `20261024T042224Z-4f5bf8` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261024T042224Z-4f5bf8.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1406,30 +1420,32 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.6M | $193.46 _(notional, rate-card)_ | 22% of 271.0M (ok) |
-| Codex | 148.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Claude | 60.6M | $198.54 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Codex | 148.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 6.523860s/45s (/home/kris/garden/.garden-state/deadmail/verify); 7 open notice(s); checker healthy
+worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1574-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1574
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (4)
 - [`build-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-budget-road.md) — Build the budget road
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1573
 - [`claude-api-p1-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p1-registry.md) — Phase 1: Endo provider registry, ownership, and facets
+- [`apply-claude-api-open-question-answers-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/apply-claude-api-open-question-answers-20261027.md) — Fold the maintainer's open-question answers into the #1543 design
 
-### tada (15243)
+### tada (15246)
+- [`canary-probe-oros-studio-garden-ce242c49-aa5d10dc5f6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-aa5d10dc5f6a.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-panel-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr1574-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-viability.md) — Cost
 - [`design-claude-api-agent-workbench-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/design-claude-api-agent-workbench-20261027.md) — Completion report: design-claude-api-agent-workbench-20261027
-- [`endojs-endo-but-for-bots-pr1573-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1573-gauntlet-viability.md) — Cost
-- [`revise-budget-road-decisions-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/revise-budget-road-decisions-20261027.md) — Cost
-- [`deadmail-issue-comment-6433663795`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/deadmail-issue-comment-6433663795.md) — Cost
-- … and 15238 more
+- … and 15241 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
