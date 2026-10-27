@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-27T11:50Z (oros-health-checkup-20261027-113513): healthy; deployed = origin/main2 `c9bdc1f`; one daemon-reload
+
+- **Load/mem:** load 4.41/3.95/3.57 at 11:44Z. 13 GiB of 15 GiB available. Swap reads 887M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 60% (189G free), inodes 1%.
+- **Uptime:** 25d18h28m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `c9bdc1f` (written 09:33Z), equal to the origin/main2 tip. fleet/health/oros: `roll_status: deployed`, 0 of 290 units failing, 0 advisory (09:34Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. Only this job holds a claim, so monks 1-3 are idle. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 10:02 to 11:33Z, all ok. The weekly window reset at 10:00Z (window_start 1793095200), so spend went from 90.05M (09:49Z) to 0. 0 is correct: a direct `meter_subscription_window_total` shows about 60K tokens since 10:00Z, all from this run. The fleet was otherwise idle. Note that the live `$GARDEN_ROOT/journal` worktree lagged origin by about 30 min; read heartbeat freshness from origin/journal2.
+- **State clones:** 46 journal clones. The largest are monitors/monk-4 (50 packs, at but not over the maintenance threshold of `>50`), monks/1 (49), and reaper and monks/3 (47). No tmp_pack, no `gc.log`, and no stale git lock (the `*.lock` files older than 30 minutes are persistent flock files).
+- **rc=124 (3h):** none. No `Failed with result` lines. journal-contention-watch keeps hitting its 210s tick deadline with 8-10 of 504 clones uninspected (busy). That is benign carry-over.
+- **Changed:** `systemctl --user daemon-reload`. Every unit reported `NeedDaemonReload=yes` even though no unit file changed after 2026-10-25. The flag is now clear. It is cosmetic, probably virtiofs mtime drift; watch for recurrence.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-27T08:30Z (oros-health-checkup-20261027-082024): healthy; deployed = origin/main2 `fd441b0`, no changes
 
 - **Load/mem:** load 5.00/4.78/4.04 at 08:26Z. 4 monks are running. 13 GiB of 15 GiB is available. Swap reads 888M of 1.0 GiB, the usual steady level.
