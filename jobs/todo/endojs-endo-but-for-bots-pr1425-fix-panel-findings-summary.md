@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1425-fix-panel-findings-split
-priority: normal
-posted_by: producer
+role: fixer
+tier: mentor
+arc: endo-ocapn-background
 posted_at: 2026-10-27T17:44:07Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-27T17:50:08Z cleared=none -->
 
 ---
 role: fixer
