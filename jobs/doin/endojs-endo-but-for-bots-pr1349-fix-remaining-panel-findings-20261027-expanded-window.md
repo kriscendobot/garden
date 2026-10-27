@@ -34,3 +34,13 @@ Left unresolved on purpose:
 - spec-keeper 3, whether to gate on the restricted `caller`/`arguments` feature-detect: this is @naugtur's open conditional-taming thread on `packages/ses/src/lockdown.js` (the reply in review 5665535461). Leave it for the maintainer and do not change the code.
 
 Steps: (1) Wait in a bounded foreground loop until all 16 checks on f66740e9ba (or the current head, if a peer has pushed) complete. At the parent's last look, 15 were green and `test (22.x, macos-15)` was in progress. A macOS `restore-context`/cli exit-leak red is a known cross-PR flake, so rerun it with `--failed`. (2) Post one top-level PR comment in the house "**Review follow-up** · CI: … · next: maintainer re-review" shape, listing the above. (3) Do not re-request review from the bot itself.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-27T14:17:54Z
