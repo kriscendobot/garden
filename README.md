@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T20:10:27Z_
+_As of 2026-10-27T20:15:35Z_
 
 ## Latest
 
@@ -1520,7 +1518,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.2M | $224.00 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Claude | 75.3M | $224.91 _(notional, rate-card)_ | 28% of 271.0M (ok) |
 | Codex | 169.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56921370 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1535,13 +1533,13 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### doin (1)
 - [`improve-enforce-handler-wall-bound-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-regression.md) — ---
 
-### tada (15357)
+### tada (15359)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5 — complete
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-clean.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-b65c4afe11e1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-b65c4afe11e1.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet.md) — Panel-head freshness
-- … and 15352 more
+- … and 15354 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
