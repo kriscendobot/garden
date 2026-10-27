@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T10:38:59Z_
+_As of 2026-10-27T10:44:10Z_
 
 ## Latest
 
@@ -268,6 +266,19 @@ Delegation: **active**
 > coalesced notice that updates in place, not 11 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.012781s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `msg-endojs-endo-but-for-bots-pr1349-fix-20261027-f799e92862c0` — from gardener:endojs-endo-but-for-bots-pr1349-fix-20261027, reply_to `endojs-endo-but-for-bots-pr1349-fix-20261027` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1349-fix-20261027-f799e92862c0.md)
+
+> Policy conflict found on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). Your decision is needed.
+>
+> `scripts/jobs/gardening/pre-push-gates/probes/typist-friendly-code-points.sh --fix` rewrites curly quotes in the WHOLE of any changed `.md` file. That is "fix on encounter", per your directive on [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124). On [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) it turned about 10 lines in each of `docs/guide.md` and `packages/ses/docs/guide.md` into curly-to-straight churn. The integrator seat then flagged that churn as unrelated and asked for it to be reverted. I reverted it at `1dc303910f`, but the next fixer who runs the gate will put it back.
+>
+> Options:
+> (a) Scope `--fix` to added lines only, which matches what the probe already checks.
+> (b) Keep whole-file fixing and land the result as its own `chore:` typography commit that the integrator accepts.
+> (c) Leave it as is.
+>
+> Reply with a letter and the matching job will be posted.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_producer_journal.md)
 
@@ -1479,10 +1490,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.6M | $198.17 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 66.7M | $195.25 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 155.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57179472 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journal); 10 open notice(s); checker healthy
@@ -1491,17 +1502,16 @@ worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1349-shepherd-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-shepherd-20261027.md) — ---
-- [`endojs-endo-but-for-bots-pr1349-fix-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-20261027.md) — ---
+### doin (0)
+(none)
 
-### tada (15283)
+### tada (15285)
+- [`endojs-endo-but-for-bots-pr1349-fix-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-20261027.md) — Panel-head freshness
+- [`endojs-endo-but-for-bots-pr1349-shepherd-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-shepherd-20261027.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-c9bdc1fba651`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-c9bdc1fba651.md) — rolling-deploy canary probe — round trip OK
 - [`improve-gardener-panel-freshness-inputs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-gardener-panel-freshness-inputs.md) — Cost
 - [`claude-on-minion-town-completion-press-20261027-083511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-on-minion-town-completion-press-20261027-083511.md) — Cost
-- [`oros-health-checkup-20261027-082024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-checkup-20261027-082024.md) — Cost
-- [`oros-health-watch-20261027-082024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-082024.md) — Cost
-- … and 15278 more
+- … and 15280 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
