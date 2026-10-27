@@ -35,3 +35,13 @@ A design (Endo-side parts in endo-but-for-bots `designs/` on its normal review p
 - ends in builder-sized phases that slot after #1543's phase 5, with acceptance tests including a live end-to-end run of the scenario above using the dedicated canary key;
 - lists unresolved maintainer questions explicitly (use the review-PR path for them).
 Design only: do not implement. Do not touch the in-flight #1543 phases.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T04:37:07Z
