@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T22:05:58Z_
+_As of 2026-10-27T22:10:06Z_
 
 ## Latest
 
@@ -1533,7 +1531,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.9M | $221.75 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Claude | 76.0M | $222.57 _(notional, rate-card)_ | 28% of 271.0M (ok) |
 | Codex | 171.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57269561 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1546,15 +1544,15 @@ worst fetch p95 3.059838s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1349
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1349
 
-### tada (15373)
+### tada (15374)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-b122ff91-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-b122ff91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-b122ff91.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-weave-ferry-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-weave-ferry-20261027.md) — orchestration endojs-endo-but-for-bots-pr1349-weave-ferry-20261027 — complete
-- [`endojs-endo-but-for-bots-pr1349-ferry-restage-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-ferry-restage-20261027.md) — Panel-head freshness
-- … and 15368 more
+- … and 15369 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
