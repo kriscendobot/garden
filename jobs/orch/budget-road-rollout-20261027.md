@@ -2,7 +2,7 @@
 order: serial
 children: revise-budget-road-decisions-20261027 build-budget-road
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-27T04:27:11Z
 ---
