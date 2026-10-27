@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1425-fix-panel-findings-ci-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1425-fix-panel-findings-ci endojs-endo-but-for-bots-pr1425-fix-panel-findings-summary
 on-child-failure: halt
