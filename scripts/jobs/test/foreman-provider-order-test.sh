@@ -266,6 +266,22 @@ set -e
   && ok "the first tick past expiry performs the bounded re-probe" \
   || bad "expired window did not re-probe (rc=$rc trace=$(tr '\n' ' ' < "$LOG12"))"
 
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST — a Claude call hands its measurement to the foreman (budget-road)"; hr
+USAGE_OUT="$TR/foreman-usage.json"
+run_handler anthropic GARDEN_FOREMAN_USAGE_OUT="$USAGE_OUT" >/dev/null 2>&1 || true
+jq -e '.source == "result" and .input_tokens == 1 and .output_tokens == 1' "$USAGE_OUT" >/dev/null 2>&1 \
+  && ok "the handler writes the call's usage measurement" \
+  || bad "no usage measurement: $(cat "$USAGE_OUT" 2>/dev/null)"
+rm -f "$USAGE_OUT"
+run_handler anthropic GARDEN_FOREMAN_USAGE_OUT="$USAGE_OUT" GARDEN_TEST_ANTHROPIC_RC=1 >/dev/null 2>&1 || true
+jq -e '.source == "result" or .source == "none"' "$USAGE_OUT" >/dev/null 2>&1 \
+  && ok "a failed call still leaves a measurement (never silence)" \
+  || bad "failed call left no measurement"
+rm -f "$USAGE_OUT"
+run_handler openai GARDEN_TEST_OPENAI_OUTPUT='JOB x\nbody\nENDJOB\n' >/dev/null 2>&1 || true
+[ ! -e "$USAGE_OUT" ] && ok "a non-Claude route writes no Claude measurement" || bad "openai route wrote a measurement"
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

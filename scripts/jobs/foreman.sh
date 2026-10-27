@@ -443,12 +443,22 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
 # tick still idles rather than crashing, since a broken pump must not take the
 # rest of the foreman down with it.
 herrf="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-err.XXXXXX")"
+# The live handler writes its Claude call's measurement here; the row is written
+# below once the block's arc is known (designs/budget-road.md § The foreman's part).
+usagef="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-usage.XXXXXX")"
 hrc=0
+foreman_usage_row() { # <arc> <step>
+  if [ -s "$usagef" ]; then
+    GARDEN_FOREMAN_CLONE="$DIR" "$HERE/usage-append-foreman.sh" "$1" "$2" "$usagef" >/dev/null 2>&1 \
+      || log "WARN: foreman usage row not written"
+  fi
+  rm -f "$usagef"
+}
 # Point the handler's quota meter at THIS tick's synced clone. Unset, the meter
 # falls back to the first $GARDEN_STATE/*/journal it finds (alphabetically the
 # accountant's), and a stale one there read a retired backoff pin and held the
 # whole provider route at rc=75 for hours (2026-10-07).
-out="$(GARDEN_PRODUCER_CLONE="$DIR" "$GARDEN_FOREMAN_HANDLER" "$digest" 2>"$herrf")" || hrc=$?
+out="$(GARDEN_PRODUCER_CLONE="$DIR" GARDEN_FOREMAN_USAGE_OUT="$usagef" "$GARDEN_FOREMAN_HANDLER" "$digest" 2>"$herrf")" || hrc=$?
 if [ "$hrc" -ne 0 ]; then
   if [ "$hrc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
     # The live handler uses EX_TEMPFAIL when every configured inference route is
@@ -459,6 +469,7 @@ if [ "$hrc" -ne 0 ]; then
     # after its expiry performs the bounded re-probe immediately.
     log "foreman handler transiently unavailable rc=$hrc; inference deferred to its bounded re-probe"
     decide handler-transient "rc=$hrc"
+    foreman_usage_row "" ""
     rm -f "$digest" "$herrf"
     exit 0
   fi
@@ -485,6 +496,7 @@ while IFS= read -r line; do
   elif [ -n "$btype" ];                        then body+="$line"$'\n'
   fi
 done <<< "$out"
+foreman_usage_row "$job_arc_line" "$(printf '%s' "$base" | tr -d '[:space:]')"
 
 case "$btype" in
   JOB)

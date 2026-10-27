@@ -2053,6 +2053,11 @@ meter_claude() {
   # documented pass-through-with-log branch below was dead code and the caller
   # (foreman-claude.sh) crashed with no output and no diagnostic instead.
   if json="$("$cli" -p --output-format json "$@")"; then rc=0; else rc=$?; fi
+  # A caller that writes its own usage row (the foreman, which has no job session
+  # to measure) names a private file to receive the raw result envelope.
+  if [ -n "${GARDEN_METER_CLAUDE_ENVELOPE:-}" ]; then
+    printf '%s' "$json" > "$GARDEN_METER_CLAUDE_ENVELOPE" 2>/dev/null || true
+  fi
   if [ "$rc" -ne 0 ]; then
     log "usage-meter: claude exited rc=$rc; usage not recorded"
     printf '%s' "$json"

@@ -396,6 +396,22 @@ foreman_codex_attempt() { # <openai|local> <prompt>
   rm -f "$output" "$json_capture"
 }
 
+# foreman_capture_usage <envelope-file> — hand foreman.sh this call's measurement
+# (GARDEN_FOREMAN_USAGE_OUT) so it can write the usage row the road charges to the
+# fleet (designs/budget-road.md § The foreman's part). A failed capture is
+# recorded as source:none, never as zero.
+foreman_capture_usage() {
+  local out="${GARDEN_FOREMAN_USAGE_OUT:-}" envelope="$1"
+  [ -n "$out" ] || return 0
+  if [ -s "$envelope" ] && usage_capture_result "$out.tmp" "" "$(cat "$envelope")"; then
+    mv -f "$out.tmp" "$out"
+  else
+    rm -f "$out.tmp"
+    printf '{"source":"none"}\n' > "$out"
+  fi
+  return 0
+}
+
 foreman_anthropic_attempt() { # <prompt>
   local prompt="$1" quota rc
   quota="$(meter_quota_status "" "$meter_dir")"
@@ -408,10 +424,14 @@ foreman_anthropic_attempt() { # <prompt>
   # is a soft skip that falls through to the next configured provider. meter_claude
   # resolves the same way at its own call site.
   claude_bin_now >/dev/null 2>&1 || { log "foreman anthropic provider unavailable: claude not found on PATH nor in any known install location"; return 10; }
+  local envelope=""
+  envelope="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-envelope.XXXXXX")"
   set +e
-  meter_claude --dangerously-skip-permissions "$prompt"
+  GARDEN_METER_CLAUDE_ENVELOPE="$envelope" meter_claude --dangerously-skip-permissions "$prompt"
   rc=$?
   set -e
+  foreman_capture_usage "$envelope"
+  rm -f "$envelope"
   [ "$rc" -eq 0 ] || { log "foreman anthropic provider unavailable or quota-limited (rc=$rc)"; return 10; }
 }
 
