@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T08:01:33Z_
+_As of 2026-10-27T08:13:09Z_
 
 ## Latest
 
@@ -811,11 +809,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #6 (first seen 2026-10-23T13:27:09Z, latest 2026-10-27T02:52:51Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 6 times; this is
-> ONE entry that updates in place, not 6 messages. Latest detail:
+> COALESCED message — occurrence #7 (first seen 2026-10-23T13:27:09Z, latest 2026-10-27T08:07:07Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 7 times; this is
+> ONE entry that updates in place, not 7 messages. Latest detail:
 >
-> M3’s highest-priority API-key-agent path is blocked on approval of [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543), whose resolved design would authorize the child-agent-factory stack (#1558, #1560–#1564). Approve it or direct revisions to its remaining maintainer-facing decisions.
+> Milestone M3’s API-key agent workbench design, [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574), exhausted its six gauntlet review/fix rounds with unresolved must-fix findings. Decide whether to merge/review it manually or authorize additional gauntlet rounds; its implementation job remains blocked on that decision.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1476,7 +1474,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 66.3M | $194.93 _(notional, rate-card)_ | 24% of 271.0M (ok) |
-| Codex | 153.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Codex | 153.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
