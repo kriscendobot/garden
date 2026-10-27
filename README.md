@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T05:14:06Z_
+_As of 2026-10-27T05:23:17Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-163 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+164 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -1165,6 +1163,19 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
+- `budget-road-rollout-20261027-terminal-complete` — from orchestrator:budget-road-rollout-20261027-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/budget-road-rollout-20261027-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: budget-road-rollout-20261027
+> orchestration-status: complete
+> order: serial
+> children-total: 2
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration budget-road-rollout-20261027 complete (serial): all 2 children reached tada without a machine-readable failure declaration.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_1_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_monks_1_journal` has CLEARED (first seen 2026-10-23T19:01:02Z, cleared 2026-10-23T20:19:03Z).
@@ -1422,8 +1433,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.7M | $200.13 _(notional, rate-card)_ | 22% of 271.0M (ok) |
-| Codex | 148.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Claude | 60.8M | $182.98 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Codex | 149.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1431,23 +1442,23 @@ _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a su
 worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`oros-health-checkup-20261027-052011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261027-052011.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
-- [`build-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-budget-road.md) — Build the budget road
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1573
 - [`claude-api-p1-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p1-registry.md) — Phase 1: Endo provider registry, ownership, and facets
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1574-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1574
-- [`apply-claude-api-open-question-answers-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/apply-claude-api-open-question-answers-20261027.md) — Fold the maintainer's open-question answers into the #1543 design
+- [`oros-health-watch-20261027-052011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261027-052011.md) — ---
 
-### tada (15246)
+### tada (15250)
+- [`minion-town-arc-press-20261027-052011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/minion-town-arc-press-20261027-052011.md) — Cost
+- [`budget-road-rollout-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/budget-road-rollout-20261027.md) — orchestration budget-road-rollout-20261027 — complete
+- [`apply-claude-api-open-question-answers-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/apply-claude-api-open-question-answers-20261027.md) — Panel-head freshness
+- [`build-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/build-budget-road.md) — Report: build-budget-road
 - [`canary-probe-oros-studio-garden-ce242c49-aa5d10dc5f6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-aa5d10dc5f6a.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-viability.md) — Cost
-- [`design-claude-api-agent-workbench-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/design-claude-api-agent-workbench-20261027.md) — Completion report: design-claude-api-agent-workbench-20261027
-- … and 15241 more
+- … and 15245 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1475,6 +1486,7 @@ worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`endojs-endo-but-for-bots-pr1433-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1433-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1433
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
+- [`cutover-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/cutover-budget-road.md) — _normal_ · Cut over to the budget road
 - [`minion-town-coupon-admission-flip-20261019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-coupon-admission-flip-20261019.md) — _normal_ · Flip minion.town to guest coupon admission (closed beta)
 - [`endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #546
 - [`endojs-endo-but-for-bots-pr1486-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1486-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1486
