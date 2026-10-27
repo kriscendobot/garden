@@ -12,11 +12,11 @@ created_by: producer
 created_at: 2026-10-23T03:33:11Z
 arc: 
 stage_requires: host=endolin-garden-ece02cb4
-stage: panel
+stage: undraft
 iteration: 6
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1543-gauntlet-panel-6
+current_child: endojs-endo-but-for-bots-pr1543-gauntlet-undraft
 state: running
 resumed_at: 2026-10-27T01:37:04Z
 resumed_from_stage: panel
