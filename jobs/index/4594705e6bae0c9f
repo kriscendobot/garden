@@ -1,2 +1,2 @@
-base: improve-gardener-panel-freshness-inputs
+base: improve-enforce-handler-wall-bound
 identity: mentor:scripts/jobs/gardener.sh
