@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1576
 build_job: endojs-endo-but-for-bots-hardened-text-codecs-shim-downstream-audit
 kind: feature
-stage: fix
-iteration: 1
+stage: panel
+iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1576-gauntlet-fix-1
+current_child: endojs-endo-but-for-bots-pr1576-gauntlet-panel-2
 state: running
 created_by: producer
 arc: unallocated
