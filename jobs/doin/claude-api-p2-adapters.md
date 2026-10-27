@@ -20,3 +20,13 @@ If a design open question this phase depends on is still unanswered on the track
 
 Implement build-plan phase 2 (Anthropic API-key adapter first; other provider kinds only per the maintainer's answer to open question 1) with its tests. Depends on phase 1 being merged or its PR head available.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-27T06:38:26Z
