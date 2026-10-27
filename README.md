@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T07:25:45Z_
+_As of 2026-10-27T07:27:20Z_
 
 ## Latest
 
@@ -849,6 +849,10 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 12 -> 14 (N is yours to choose).
 
+- `20261027T072624Z-fd0733` — from gardener:claude-api-p3-minion-ui, reply_to `claude-api-p3-minion-ui` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T072624Z-fd0733.md)
+
+> Phase 3 is blocked on [endojs/endo-but-for-bots#1575](https://github.com/endojs/endo-but-for-bots/issues/1575). The approved UI needs provider-creation operation status/list/cancel and an upstream-revocation assertion, but the current Phase 2 directory/admin facets do not expose them. The tracker records the exact maintainer decision and review request at [https://github.com/kriscendobot/minion.town/issues/227](https://github.com/kriscendobot/minion.town/issues/227).
+
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr198-gauntlet-20261019 REVIEW-BUDGET-REACHED: Applied 3 panel/fix round(s); fix round 3 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=3, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds N
@@ -1459,7 +1463,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.2M | $201.36 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 66.2M | $201.55 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 151.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
