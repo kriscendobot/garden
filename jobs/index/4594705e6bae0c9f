@@ -1,2 +1,2 @@
-base: improve-handler-wall-watchdog-lag
+base: improve-gardener-panel-freshness-inputs
 identity: mentor:scripts/jobs/gardener.sh
