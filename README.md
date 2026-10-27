@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T17:18:40Z_
+_As of 2026-10-27T17:22:35Z_
 
 ## Latest
 
@@ -1507,7 +1507,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.4M | $212.74 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.5M | $213.51 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 166.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57320016 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1519,7 +1519,8 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1566-fix-ci-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1566-fix-ci-failures.md) — ---
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
 - [`endojs-endo-but-for-bots-pr1425-fix-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1425-fix-panel-findings.md) — ---
 
