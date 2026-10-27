@@ -1,6 +1,3 @@
-once: 2026-10-27T00:15:00Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots-pr1555
----
 ---
 role: botanist
 tier: mentor
