@@ -23,3 +23,13 @@ Post the fixer's top-level summary comment on draft https://github.com/endojs/en
 
 Also check https://github.com/endojs/endo-but-for-bots/pull/1425 for inline threads that need replies. Do not re-request review from the bot itself. The PR stays draft.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-27T17:50:40Z
