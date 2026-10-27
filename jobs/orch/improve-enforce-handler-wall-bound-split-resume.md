@@ -2,7 +2,7 @@
 order: serial
 children: improve-enforce-handler-wall-bound-regression
 on-child-failure: halt
-state: pending
+state: running
 resume_from: improve-enforce-handler-wall-bound-split
 created_by: orchestrator-resume
 created_at: 2026-10-27T19:40:14Z
