@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T19:57:54Z_
+_As of 2026-10-27T20:06:35Z_
 
 ## Latest
 
@@ -343,14 +341,14 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #142 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T19:43:10Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 142 times; this is ONE
-> coalesced notice that updates in place, not 142 messages. Latest detail:
+> WATCHDOG notice — occurrence #143 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T20:01:32Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 143 times; this is ONE
+> coalesced notice that updates in place, not 143 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=4824s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=4770s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=4690s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=5760s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=5706s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=5626s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1520,10 +1518,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.6M | $217.19 _(notional, rate-card)_ | 27% of 271.0M (ok) |
-| Codex | 169.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 73.7M | $217.83 _(notional, rate-card)_ | 27% of 271.0M (ok) |
+| Codex | 169.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59961336 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57367319 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
@@ -1532,16 +1530,17 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1349
 - [`improve-enforce-handler-wall-bound-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-regression.md) — ---
 
-### tada (15353)
+### tada (15356)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-clean.md) — Cost
+- [`canary-probe-oros-studio-garden-ce242c49-b65c4afe11e1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-b65c4afe11e1.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet.md) — Panel-head freshness
 - [`improve-enforce-handler-wall-bound-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split.md) — orchestration improve-enforce-handler-wall-bound-split — HALTED
-- [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-watchdog.md) — Completion report: improve-enforce-handler-wall-bound-watchdog
-- [`endojs-endo-but-for-bots-pr1349-fix-pr-body-range`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-pr-body-range.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1578-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1578-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1578-gauntlet — HALTED
-- … and 15348 more
+- … and 15351 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
