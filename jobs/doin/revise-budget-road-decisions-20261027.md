@@ -20,3 +20,13 @@ The maintainer (kriskowal, liaison session 2026-10-27) answered the design's thr
 
 Then set the doc's status to Accepted, remove the empty Open questions section, update the index rows, push to main2. Comment on https://github.com/kriscendobot/garden/pull/127 recording the three decisions and close it as resolved (the content is on main2 already). Design only: do not implement.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T04:29:31Z
