@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T06:15:54Z_
+_As of 2026-10-27T06:22:30Z_
 
 ## Latest
 
@@ -243,6 +241,19 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` cleared on endolin-garden-ece02cb4.
+
+- `claude-api-build-20261027-halted` — from orchestrator:claude-api-build-20261027-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-api-build-20261027-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: claude-api-build-20261027
+> orchestration-status: halted
+> child: claude-api-p1-registry
+> failure-kind: handler-timeout
+> children-completed: 1
+> children-total: 8
+> halt-parked-remainder: claude-api-p2-adapters claude-api-p3-minion-ui claude-api-p4-agent-factory claude-api-p5-responder claude-api-p6-canary claude-api-p7-migration
+>
+> Orchestration claude-api-build-20261027 HALTED: child claude-api-p1-registry stalled in flight for 7253s on host endolin-garden-ece02cb4 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 1/8 done before halt; parked remainder: claude-api-p2-adapters claude-api-p3-minion-ui claude-api-p4-agent-factory claude-api-p5-responder claude-api-p6-canary claude-api-p7-migration
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
@@ -1123,6 +1134,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden_journal` cleared on endolin-garden-ece02cb4.
 
+- `claude-api-build-20261027-child-claude-api-p1-registry-failed` — from orchestrator:claude-api-build-20261027-child-claude-api-p1-registry-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-api-build-20261027-child-claude-api-p1-registry-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: claude-api-build-20261027
+> orchestration-status: running
+> child: claude-api-p1-registry
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 7253s on host endolin-garden-ece02cb4 (handler-timeout=7200s, multiplier=1)
+>
+> Orchestration claude-api-build-20261027 observed child claude-api-p1-registry: stalled in flight for 7253s on host endolin-garden-ece02cb4 (handler-timeout=7200s, multiplier=1).
+
 - `msg-oros-health-watch-20261018-123528-expanded-window-110d8e6241bc` — from gardener:oros-health-watch-20261018-123528-expanded-window, reply_to `oros-health-watch-20261018-123528-expanded-window` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-expanded-window-110d8e6241bc.md)
 
 > Oros health watcher recovery succeeded. The authorized garden-monk@1.service restart (20261018T132252Z-05edf6) was applied and acked at 14:02Z; oros-health-checkup-20261018-123528 claimed monk 1 at 14:03Z and remains active. Its budget heartbeat advanced to 14:17Z. The earlier reset-failed (20261018T132111Z-51adcc) was also applied and acked. Oros is deployed at main2 05d833a2 with zero reported unit failures and no derotation marker. No person-at-machine action is currently needed.
@@ -1226,6 +1250,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 15 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.059380s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-handler-budget-overrun-claude-api-p1-registry` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-claude-api-p1-registry.md)
+
+> gardener job 'claude-api-p1-registry' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7208s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `kriscendobot-minion.town-pr199-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr199-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr199-gauntlet-review-budget-reached.md)
 
@@ -1435,8 +1463,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.9M | $187.33 _(notional, rate-card)_ | 23% of 271.0M (ok) |
-| Codex | 149.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 63.0M | $189.88 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Codex | 150.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1447,18 +1475,19 @@ worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1573
 - [`claude-api-p1-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p1-registry.md) — Phase 1: Endo provider registry, ownership, and facets
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261027.md) — ---
+- [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1574-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1574
 
-### tada (15257)
+### tada (15258)
+- [`claude-api-build-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-api-build-20261027.md) — orchestration claude-api-build-20261027 — HALTED
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-panel-2.md) — Cost
 - [`fix-project-worktree-native-abi-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/fix-project-worktree-native-abi-cache.md) — Cost
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1574-gauntlet-fix-1.md) — Cost
-- … and 15252 more
+- … and 15253 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
