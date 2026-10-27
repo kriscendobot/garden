@@ -20,12 +20,5 @@ Inspect the handler launch, watchdog, cgroup/process-tree ownership, wait/reap b
 
 This is the first serial slice of `improve-enforce-handler-wall-bound-split`. Its successor `improve-enforce-handler-wall-bound-regression` owns the adversarial descendant regression and final wall-bound validation. End with the orchestrated failure signal only if you genuinely finish this slice but cannot achieve its gated outcome.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-27T15:11:49Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-27T19:23:04Z -->
