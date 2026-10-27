@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T14:22:59Z_
+_As of 2026-10-27T14:25:05Z_
 
 ## Latest
 
@@ -123,9 +123,9 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #184 (first seen 2026-10-16T17:37:14Z, latest 2026-10-27T14:21:42Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 184 times; this is ONE
-> coalesced notice that updates in place, not 184 messages. Latest detail:
+> WATCHDOG notice — occurrence #185 (first seen 2026-10-16T17:37:14Z, latest 2026-10-27T14:23:39Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 185 times; this is ONE
+> coalesced notice that updates in place, not 185 messages. Latest detail:
 >
 > Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
 > - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.039932s, giveups=1, steals=1 (max 3/window), wait floor=60s.
@@ -864,6 +864,19 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 12 -> 14 (N is yours to choose).
 
+- `endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split
+> orchestration-status: complete
+> order: serial
+> children-total: 1
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
+
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr198-gauntlet-20261019 REVIEW-BUDGET-REACHED: Applied 3 panel/fix round(s); fix round 3 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=3, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds N
@@ -1488,13 +1501,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.9M | $204.94 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 69.9M | $205.62 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 162.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57221899 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.891034s/45s (/home/kris/garden/.garden-state/transcripts/journal); 10 open notice(s); checker healthy
+worst fetch p95 3.891034s/45s (/home/kris/garden/.garden-state/transcripts/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1503,13 +1516,13 @@ worst fetch p95 3.891034s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### doin (1)
 - [`improve-enforce-handler-wall-bound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound.md) — ---
 
-### tada (15313)
+### tada (15314)
+- [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split.md) — orchestration endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20...
 - [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-expanded-window.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027.md) — Cost
 - [`endojs-endo-but-for-bots-pr1576-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1576-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1576-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1576-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1576-gauntlet-undraft.md) — Cost
-- [`endojs-endo-but-for-bots-pr1576-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1576-gauntlet-panel-3.md) — Cost
-- … and 15308 more
+- … and 15309 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
