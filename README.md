@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T18:34:24Z_
+_As of 2026-10-27T18:42:41Z_
 
 ## Latest
 
@@ -151,11 +149,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #15 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T15:12:07Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 15 times; this is
-> ONE entry that updates in place, not 15 messages. Latest detail:
+> COALESCED message — occurrence #16 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T18:36:02Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 16 times; this is
+> ONE entry that updates in place, not 16 messages. Latest detail:
 >
-> Milestone M2 is blocked on the hardened-text-codecs-shim: decide whether PR #1349 should always replace host text codecs or only on hosts with restricted `caller`/`arguments` properties. This governs its remaining review finding and dependent PRs #1425 and #1431.
+> Milestone M2 remains blocked at `hardened-text-codecs-shim`: PR #1349 depends on PR #1425, whose remaining CI failure requires the already-prepared Graphviz fix to enter its base ancestry. Decide the merge/retarget sequence for #1566, #1427, and #1425 before M2 can advance.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -343,11 +341,12 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> RECOVERED — the watchdog condition `comment-ack-blind-endojs-endo-but-for-bots` has CLEARED (first seen 2026-10-22T05:52:17Z, cleared 2026-10-23T02:49:02Z).
-> It was observed 132 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #133 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T18:41:12Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 133 times; this is ONE
+> coalesced notice that updates in place, not 133 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=949s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1387,6 +1386,14 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_review_docket_journal` cleared on oros-studio-garden-ce242c49.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
+
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-10-27T18:36:44Z, cleared 2026-10-27T18:39:16Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
+
 - `20261027T045910Z-521539` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T045910Z-521539.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1509,7 +1516,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.8M | $218.16 _(notional, rate-card)_ | 27% of 271.0M (ok) |
+| Claude | 73.1M | $218.16 _(notional, rate-card)_ | 27% of 271.0M (ok) |
 | Codex | 167.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57241310 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1521,16 +1528,17 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
+- [`endojs-endo-but-for-bots-pr1349-fix-changeset-range-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-changeset-range-20261027.md) — ---
 
-### tada (15342)
+### tada (15346)
+- [`endojs-endo-but-for-bots-pr1349-review-51e3944c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-review-51e3944c-retro.md) — Retrospective: endojs/endo-but-for-bots#1349, review 5672187123
+- [`deadmail-20261027T183728Z-afe09f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/deadmail-20261027T183728Z-afe09f.md) — Cost
+- [`endojs-endo-but-for-bots-depcheck-tred-alternative`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-depcheck-tred-alternative.md) — Completion report: endojs-endo-but-for-bots-depcheck-tred-alternative
+- [`endojs-endo-but-for-bots-pr1349-review-51e3944c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-review-51e3944c.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-conditional`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-conditional.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261027-conditional — comp...
-- [`canary-probe-oros-studio-garden-ce242c49-9b83c6e34e00`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-9b83c6e34e00.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-conditional-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-conditional-undraft.md) — Cost
-- [`improve-foreman-completed-collision-identity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-foreman-completed-collision-identity.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-conditional-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-conditional-panel-1.md) — Cost
-- … and 15337 more
+- … and 15341 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
