@@ -1,10 +1,9 @@
 #!/bin/bash
-# foreman-completed-collision-test.sh — a completed basename proposed by the
-# foreman is a healthy, visible no-op rather than a fatal post-job rc=79; the
-# foreman re-prompts once with the base excluded and notes the maintainer only
-# when that replacement is absent or also invalid.
-#
-# Hermetic: a throwaway bare journal; no real garden, journal, or network.
+# foreman-completed-collision-test.sh — foreman occurrence identity comes from
+# normalized milestone context: an old tada basename does not block a fresh
+# recurrence, an unchanged delivered decision dedups, and changed context can
+# post the same deterministic basename again. Malformed/duplicate proposals keep
+# the bounded one-reprompt fallback.
 
 set -euo pipefail
 export GARDEN_TEST=1
@@ -14,8 +13,6 @@ PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 
-# A live gardener may carry fleet configuration in its environment. Keep every
-# board and host-local write inside this fixture.
 # shellcheck disable=SC2046
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 export GARDEN_TEST=1
@@ -33,13 +30,15 @@ git init -q "$SEED"
 git -C "$SEED" checkout -q -b "$BRANCH"
 (
   cd "$SEED"
-  mkdir -p jobs/todo jobs/doin jobs/tada/2026/10/24 jobs/plan work repos msgs \
-    hosts entries schedules cursors config inbox/maintainer/unread inbox/maintainer/read
-  for d in jobs/todo jobs/doin jobs/plan work repos msgs hosts entries schedules \
-    cursors config inbox/maintainer/unread inbox/maintainer/read; do
+  mkdir -p jobs/todo jobs/doin jobs/tada/2026/10/24 jobs/plan jobs/index \
+    plan/milestones plan/designs work repos msgs hosts entries schedules cursors \
+    config inbox/maintainer/unread inbox/maintainer/read
+  for d in jobs/todo jobs/doin jobs/plan jobs/index plan/designs work repos msgs \
+    hosts entries schedules cursors config inbox/maintainer/unread inbox/maintainer/read; do
     touch "$d/.gitkeep"
   done
-  printf '# completed\n' > "jobs/tada/2026/10/24/$BASE.md"
+  printf '# completed old occurrence\n' > "jobs/tada/2026/10/24/$BASE.md"
+  printf '%s\n' '---' 'status: active' '---' '# M1' > plan/milestones/M1.md
 )
 git -C "$SEED" add -A
 git -C "$SEED" -c user.name=test -c user.email=test@localhost commit -q -m seed
@@ -59,116 +58,91 @@ tick() {
     "$JOBS/foreman.sh" >"$TR/tick-$now.log" 2>&1
 }
 
-echo "================================================================"
-echo "FOREMAN COMPLETED-BASENAME COLLISION"
-echo "================================================================"
-
-tick 1000 # establish the below-target settle marker
-if tick 1001; then
-  ok "a foreman pump whose base collides with tada/ exits 0"
-else
-  bad "the completed collision escaped as a failed foreman tick"
-fi
-
-tree="$(git -C "$BARE" ls-tree -r --name-only "$BRANCH")"
-if ! grep -qx "jobs/todo/$BASE.md" <<<"$tree"; then
-  ok "the completed base was not posted back into todo/"
-else
-  bad "the completed base was re-posted into todo/"
-fi
-
-if [ "$(cat "$STATE/foreman/last-step")" = previously-posted-step ]; then
-  ok "the refused proposal did not overwrite LAST_STEP"
-else
-  bad "LAST_STEP changed for a proposal that was not posted"
-fi
-
-if grep -q "guard=completed-collision base=$BASE" "$STATE/foreman/decisions.log"; then
-  ok "the collision is recorded as a completed-collision decision"
-else
-  bad "decisions.log lacks the completed-collision disposition"
-fi
-
-if grep -q "next milestone step '$BASE' collides with a completed job; not posted" "$TR/tick-1001.log"; then
-  ok "the collision is logged"
-else
-  bad "the foreman log does not explain the completed collision"
-fi
-
-# Re-proposal on a later eligible tick stays healthy, while note_once retains one
-# maintainer surface for this base.
-tick 1002 || bad "a repeated completed collision failed the foreman tick"
-VERIFY="$TR/verify"
-git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERIFY" 2>/dev/null
-notice_count="$(find "$VERIFY/inbox/maintainer/unread" -maxdepth 1 -type f -name '*.md' | wc -l)"
-if [ "$notice_count" -eq 1 ] && grep -Rqs "proposed next step '$BASE' is already completed" "$VERIFY/inbox/maintainer/unread"; then
-  ok "the completed collision is surfaced to the maintainer once"
-else
-  bad "expected one completed-collision maintainer note, found $notice_count"
-fi
-
-notices() { # <verify-dir>
-  find "$1/inbox/maintainer/unread" -maxdepth 1 -type f -name '*.md' | wc -l
+tree() { git -C "$BARE" ls-tree -r --name-only "$BRANCH"; }
+index_identities() {
+  local path
+  while read -r path; do
+    git -C "$BARE" show "$BRANCH:$path" 2>/dev/null | sed -n 's/^identity:[[:space:]]*//p'
+  done < <(tree | grep '^jobs/index/' || true)
 }
 
-echo "--- the re-prompt yields a valid replacement: posted, no maintainer note"
-STATE="$TR/state-replace"; mkdir -p "$STATE/foreman"
-printf '%s\n' previously-posted-step > "$STATE/foreman/last-step"
-tick 2000
-tick 2001 GARDEN_FOREMAN_STUB_DIGEST="$TR/first-digest" \
-  GARDEN_FOREMAN_STUB_RETRY_BASE=fresh-replacement-step \
-  GARDEN_FOREMAN_STUB_RETRY_DIGEST="$TR/retry-digest" || bad "the replacement tick failed"
-if grep -qx '  already-completed-step' "$TR/first-digest" && grep -q '^completed_job_bases: |' "$TR/first-digest"; then
-  ok "the handler digest lists the completed job bases"
+echo "================================================================"
+echo "FOREMAN DECISION IDENTITY"
+echo "================================================================"
+
+tick 1000 # establish settle marker
+tick 1001 || bad "fresh recurrence tick failed"
+if tree | grep -qx "jobs/todo/$BASE.md"; then
+  ok "a fresh recurrence reuses the deterministic basename despite old tada/"
 else
-  bad "the handler digest lacks completed_job_bases"
+  bad "fresh recurrence was swallowed by the completed basename"
 fi
-if grep -qx "rejected_completed_base: $BASE" "$TR/retry-digest"; then
-  ok "the re-prompt digest names the rejected completed base"
+first_identity="$(index_identities | head -1)"
+if [[ "$first_identity" =~ ^foreman-decision:[0-9a-f]{24}$ ]]; then
+  ok "the posted recurrence carries a scripted foreman decision identity"
 else
-  bad "the re-prompt digest does not exclude the rejected base"
+  bad "missing or malformed decision identity: '$first_identity'"
 fi
-tree="$(git -C "$BARE" ls-tree -r --name-only "$BRANCH")"
-if grep -qx "jobs/todo/fresh-replacement-step.md" <<<"$tree"; then
-  ok "the replacement proposal was posted"
+if grep -q "guard=pumped base=$BASE identity=$first_identity" "$STATE/foreman/decisions.log"; then
+  ok "the pump decision records its occurrence identity"
 else
-  bad "the replacement proposal was not posted"
-fi
-if [ "$(cat "$STATE/foreman/last-step")" = fresh-replacement-step ]; then
-  ok "LAST_STEP records the replacement"
-else
-  bad "LAST_STEP does not record the replacement"
-fi
-if grep -q "guard=pumped base=fresh-replacement-step.* replaced=$BASE" "$STATE/foreman/decisions.log"; then
-  ok "the pump decision records the replaced base"
-else
-  bad "decisions.log lacks the replaced pump"
-fi
-rm -rf "$VERIFY"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERIFY" 2>/dev/null
-if [ "$(notices "$VERIFY")" -eq "$notice_count" ]; then
-  ok "a successful replacement sends no maintainer note"
-else
-  bad "a successful replacement still noted the maintainer"
+  bad "decisions.log does not record the occurrence identity"
 fi
 
-echo "--- the re-prompt yields nothing: one maintainer note"
-STATE="$TR/state-absent"; mkdir -p "$STATE/foreman"
-printf '%s\n' previously-posted-step > "$STATE/foreman/last-step"
-CALLS="$TR/absent-calls"
-# fresh-replacement-step is now in flight; leave room below the target.
-tick 3000 GARDEN_FOREMAN_ACTIVE_TARGET=2
-tick 3001 GARDEN_FOREMAN_ACTIVE_TARGET=2 GARDEN_FOREMAN_STUB_RETRY_BASE=none GARDEN_FOREMAN_STUB_CALLS="$CALLS" \
-  || bad "the absent-replacement tick failed"
-if [ "$(wc -l < "$CALLS")" -eq 2 ]; then
-  ok "the re-prompt is bounded to one extra handler call"
+# Complete the new occurrence under another dated tada path. The normalized
+# completed-base set is unchanged (duplicate rows collapse), as is the plan.
+MUTATE="$TR/mutate"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$MUTATE"
+mkdir -p "$MUTATE/jobs/tada/2026/10/27"
+git -C "$MUTATE" mv "jobs/todo/$BASE.md" "jobs/tada/2026/10/27/$BASE.md"
+git -C "$MUTATE" -c user.name=test -c user.email=test@localhost commit -q -m complete-recurrence
+git -C "$MUTATE" push -q origin "$BRANCH"
+printf '%s\n' another-posted-step > "$STATE/foreman/last-step"
+CALLS="$TR/duplicate-calls"
+tick 1002 GARDEN_FOREMAN_STUB_RETRY_BASE=none GARDEN_FOREMAN_STUB_CALLS="$CALLS" \
+  || bad "unchanged duplicate tick failed"
+if ! tree | grep -qx "jobs/todo/$BASE.md" && [ "$(index_identities | grep -cxF "$first_identity")" -eq 1 ]; then
+  ok "an unchanged delivered decision is idempotent"
 else
-  bad "expected 2 handler calls, saw $(wc -l < "$CALLS")"
+  bad "unchanged decision reminted work or changed identity ownership"
 fi
-rm -rf "$VERIFY"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERIFY" 2>/dev/null
-if [ "$(notices "$VERIFY")" -eq $((notice_count + 1)) ]; then
-  ok "an absent replacement surfaces the collision once"
+if [ "$(wc -l < "$CALLS")" -eq 2 ] \
+   && grep -q "guard=duplicate-proposal base=$BASE" "$STATE/foreman/decisions.log"; then
+  ok "an unchanged duplicate gets exactly one replacement prompt"
 else
-  bad "expected one new note for an absent replacement, found $(( $(notices "$VERIFY") - notice_count ))"
+  bad "duplicate fallback was not bounded to one re-prompt"
+fi
+
+# A semantic plan change is a fresh milestone context. The same agent basename
+# now gets a different scripted identity and may recur again.
+git -C "$MUTATE" pull -q --ff-only
+printf '%s\n' '---' 'status: active' 'phase: recurrence-two' '---' '# M1' > "$MUTATE/plan/milestones/M1.md"
+git -C "$MUTATE" add plan/milestones/M1.md
+git -C "$MUTATE" -c user.name=test -c user.email=test@localhost commit -q -m advance-context
+git -C "$MUTATE" push -q origin "$BRANCH"
+printf '%s\n' another-posted-step > "$STATE/foreman/last-step"
+tick 1003 || bad "changed-context recurrence tick failed"
+second_identity="$(index_identities | grep -vF "$first_identity" | head -1)"
+if tree | grep -qx "jobs/todo/$BASE.md" \
+   && [[ "$second_identity" =~ ^foreman-decision:[0-9a-f]{24}$ ]]; then
+  ok "changed milestone context posts the recurrence under a new identity"
+else
+  bad "changed context did not disambiguate the recurring basename"
+fi
+
+echo "--- malformed proposal fallback"
+STATE="$TR/state-malformed"; mkdir -p "$STATE/foreman"
+printf '%s\n' another-posted-step > "$STATE/foreman/last-step"
+MALFORMED_CALLS="$TR/malformed-calls"
+tick 2000 GARDEN_FOREMAN_ACTIVE_TARGET=2 GARDEN_FOREMAN_STUB_BASE='bad/name'
+tick 2001 GARDEN_FOREMAN_ACTIVE_TARGET=2 GARDEN_FOREMAN_STUB_BASE='bad/name' \
+  GARDEN_FOREMAN_STUB_RETRY_BASE=fresh-replacement-step \
+  GARDEN_FOREMAN_STUB_CALLS="$MALFORMED_CALLS" || bad "malformed replacement tick failed"
+if [ "$(wc -l < "$MALFORMED_CALLS")" -eq 2 ] \
+   && tree | grep -qx 'jobs/todo/fresh-replacement-step.md'; then
+  ok "a malformed proposal is re-prompted once and replaced"
+else
+  bad "malformed proposal fallback did not post one valid replacement"
 fi
 
 echo "RESULTS: $PASS passed, $FAIL failed"

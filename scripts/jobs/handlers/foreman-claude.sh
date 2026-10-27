@@ -80,11 +80,13 @@ step, per your role brief:
   - Cross-reference merged and in-flight PRs, the designs, the board
     (journal/jobs/), and recent journal progress to see which steps are done, in
     flight, or not started. Never propose a base already present under
-    journal/jobs/tada/: skip it as already done, or, only for genuinely recurring
-    work, give this occurrence an ISO-date suffix (-YYYYMMDD).
+    journal/jobs/tada/: skip it as already done unless the current milestone
+    context genuinely calls for the work to recur. The scripted caller, not you,
+    disambiguates a fresh recurrence; always use the step's deterministic slug.
     The digest's completed_job_bases lists the most recent ones; a
-    rejected_completed_base line means your previous proposal this tick was
-    already completed, so propose a DIFFERENT step.
+    rejected_completed_base, rejected_duplicate_base, or
+    rejected_malformed_base line means your previous proposal this tick was
+    refused, so propose a DIFFERENT valid step.
   - Respect dependencies: read journal/pr-deps/ and apply the topological sort so
     a blocked step is never chosen.
 

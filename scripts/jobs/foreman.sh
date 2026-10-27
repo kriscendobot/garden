@@ -45,11 +45,12 @@
 #      identical step again (the board redrained without milestone progress) the
 #      foreman does NOT blindly re-post it. It surfaces the repeat as a one-line
 #      maintainer note so a stuck step is seen rather than silently looped.
-#   7. COMPLETED COLLISION: the digest lists the most recently completed bases
-#      (GARDEN_FOREMAN_DIGEST_COMPLETED, default 200). If the handler still proposes
-#      a base post-job.sh refuses as completed (rc=79), the foreman re-prompts ONCE
-#      with that base marked rejected, and surfaces a maintainer note only when the
-#      replacement is absent or also invalid.
+#   7. DECISION IDENTITY: generated work carries a deterministic identity derived
+#      from the normalized milestone context plus the proposed step. Re-running an
+#      unchanged decision is idempotent, while a later recurrence in changed
+#      milestone context may reuse the agent's basename despite an old tada/ entry.
+#      Malformed and already-delivered proposals retain the bounded one-reprompt
+#      fallback; naming a recurrence is never delegated to the agent.
 #
 # State (host-local, outside any reset-prone worktree) lives in
 # GARDEN_STATE/foreman/: `idle-since` (the below-target settle clock), `last-step`
@@ -497,6 +498,53 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
   fi
 } > "$digest"
 
+# The LLM chooses the step, but scripted context owns occurrence identity.  Hash
+# the stable planning inputs rather than the clock-bearing board line or the
+# host-local anti-flap marker.  Whitespace and duplicate digest rows normalize
+# away, which is important for a basename that has more than one dated tada/
+# record.  The journal-local plan records are included directly: a real milestone
+# transition therefore changes the context even when the short digest happens to
+# render the same bounded completed-job window.
+foreman_milestone_context_hash() {
+  {
+    sed -E \
+      -e '/^(board|last_step_posted|rejected_[a-z_-]+_base):/d' \
+      -e '/^[[:space:]]*#/d' \
+      -e 's/[[:space:]]+$//' \
+      "$digest" \
+      | awk 'NF { $1=$1; print }' \
+      | LC_ALL=C sort -u
+    local root file rel
+    for root in "$DIR/plan/milestones" "$DIR/plan/designs"; do
+      [ -d "$root" ] || continue
+      while IFS= read -r -d '' file; do
+        rel="${file#"$DIR/"}"
+        printf 'file %s\n' "$rel"
+        sed -E -e 's/[[:space:]]+$//' "$file" | awk 'NF { $1=$1; print }'
+      done < <(find "$root" -type f -print0 | LC_ALL=C sort -z)
+    done
+  } | sha256sum | awk '{print $1}'
+}
+
+milestone_context_hash="$(foreman_milestone_context_hash)"
+
+foreman_decision_identity() { # <base> <role> <arc>
+  printf 'foreman\0%s\0%s\0%s\0%s\0%s' \
+    "$GARDEN_FOREMAN_PROJECT" "$milestone_context_hash" "$1" "$2" "$3" \
+    | sha256sum | awk '{print "foreman-decision:" substr($1,1,24)}'
+}
+
+foreman_decision_owner() { # <identity> — print a still-live owner, if any
+  local identity="$1" idx owner owner_id
+  idx="$DIR/$JOBS_INDEX/$(job_id_hash "$identity")"
+  [ -f "$idx" ] || return 1
+  owner_id="$(sed -n 's/^identity:[[:space:]]*//p' "$idx" | head -1)"
+  [ "$owner_id" = "$identity" ] || return 1
+  owner="$(sed -n 's/^base:[[:space:]]*//p' "$idx" | head -1)"
+  [ -n "$owner" ] && job_in_lifecycle "$DIR" "$owner" || return 1
+  printf '%s\n' "$owner"
+}
+
 # Capture the handler's stderr and rc EXPLICITLY. The old `2>/dev/null || true`
 # made a permanently broken handler (claude not on PATH, an auth failure, a
 # crash) indistinguishable from a healthy "no next step": the pump starved
@@ -546,7 +594,7 @@ run_handler() { # <attempt>
       rm -f "$digest" "$herrf"
       exit 0
     elif [ "$hrc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
-      # A transient outage on the collision re-prompt is an absent replacement.
+      # A transient outage on the bounded proposal re-prompt is an absent replacement.
       log "foreman handler transiently unavailable rc=$hrc on the re-prompt"
     else
       log "WARN: foreman handler failed rc=$hrc: $(tail -c 500 "$herrf" 2>/dev/null || echo '<no stderr>')"
@@ -570,22 +618,31 @@ run_handler() { # <attempt>
   foreman_usage_row "$job_arc_line" "$base"
 }
 
-# A completed-basename collision (post-job rc=79) is routine candidate selection,
-# not a maintainer matter: re-prompt ONCE with the rejected base excluded. Only an
-# absent or again-invalid replacement surfaces the collision to the maintainer.
-attempt=0; rejected_base=""; outcome=""
+# A malformed or already-delivered decision is routine candidate selection, not
+# a maintainer matter: re-prompt ONCE with the rejected proposal excluded.  The
+# old rc=79 branch remains as a defensive fallback, but a valid decision always
+# carries an identity and therefore disambiguates a fresh completed-base recurrence.
+attempt=0; rejected_base=""; rejected_reason=""; outcome=""
 while :; do
   run_handler "$attempt"
   outcome=""
   case "$btype" in
     JOB)
-      if [ -z "$base" ]; then
-        log "handler returned an empty JOB base; staying idle"
-        decide noop "empty-base$skip_detail"
+      if [ -z "$base" ] || [[ ! "$base" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]]; then
+        log "handler returned malformed JOB base '${base:-(empty)}'"
+        decide malformed-proposal "base=${base:-(empty)}${attempt:+ retry=$attempt}"
+        if [ "$attempt" -eq 0 ]; then
+          rejected_base="$base"; rejected_reason="malformed"
+          printf 'rejected_malformed_base: %s\n  # The previous basename was malformed. Propose a DIFFERENT valid slug.\n' \
+            "${base:-(empty)}" >> "$digest"
+          attempt=1
+          log "re-prompting the foreman handler once after a malformed proposal"
+          continue
+        fi
         outcome=invalid
       elif [ -n "$rejected_base" ] && [ "$base" = "$rejected_base" ]; then
-        log "re-prompt proposed the rejected completed step '$base' again; not posted"
-        decide completed-collision "base=$base retry=1"
+        log "re-prompt proposed the rejected $rejected_reason step '$base' again; not posted"
+        decide duplicate-proposal "base=$base reason=$rejected_reason retry=1"
         outcome=invalid
       elif [ "$base" = "$last_step" ]; then
         # Anti-flap: the same step recurred after the previous post drained without
@@ -603,7 +660,23 @@ while :; do
         decide arc-refused "base=$base arc=${job_arc_line:-$GARDEN_ARC_RESERVE}$skip_detail"
         outcome=invalid
       else
+        decision_identity="$(foreman_decision_identity "$base" "$role" "$job_arc_line")"
+        if decision_owner="$(foreman_decision_owner "$decision_identity")"; then
+          log "foreman decision '$decision_identity' already delivered by '$decision_owner'; not re-posting '$base'"
+          decide duplicate-proposal "base=$base owner=$decision_owner${attempt:+ retry=$attempt}"
+          if [ "$attempt" -eq 0 ]; then
+            rejected_base="$base"; rejected_reason="duplicate"
+            printf 'rejected_duplicate_base: %s\n  # This unchanged decision was already delivered. Propose a DIFFERENT step.\n' \
+              "$base" >> "$digest"
+            attempt=1
+            log "re-prompting the foreman handler once after an already-delivered decision"
+            continue
+          fi
+          outcome=invalid
+          break
+        fi
         post_args=()
+        post_args+=(--identity "$decision_identity")
         [ -n "$role" ] && post_args+=(--role "$role")
         # Stamp the arc the step was drawn from; unarced steps charge the reserve.
         if [ "$road_on" -eq 1 ]; then
@@ -621,7 +694,7 @@ while :; do
           log "next milestone step '$base' collides with a completed job; not posted"
           decide completed-collision "base=$base${rejected_base:+ retry=1}"
           if [ "$attempt" -eq 0 ]; then
-            rejected_base="$base"
+            rejected_base="$base"; rejected_reason="completed-collision"
             {
               printf 'rejected_completed_base: %s\n' "$base"
               printf '  # Your previous proposal is already completed in jobs/tada/. Propose a DIFFERENT step.\n'
@@ -639,7 +712,7 @@ while :; do
           printf '%s\n' "$base" > "$LAST_STEP"
           : > "$NOTED"           # forward progress clears the maintainer-note dedupe
           log "pumped next milestone step '$base'"
-          decide pumped "base=$base${role:+ role=$role}${arcs_open:+ arc=${job_arc_line:-$GARDEN_ARC_RESERVE}}${rejected_base:+ replaced=$rejected_base}$skip_detail"
+          decide pumped "base=$base identity=$decision_identity${role:+ role=$role}${arcs_open:+ arc=${job_arc_line:-$GARDEN_ARC_RESERVE}}${rejected_base:+ replaced=$rejected_base}$skip_detail"
           outcome=pumped
         fi
       fi
@@ -667,7 +740,7 @@ if [ -n "$rejected_base" ] && { [ "$outcome" = invalid ] || [ "$outcome" = absen
   # worth a maintainer's eye, so the next-step policy can be corrected. (An
   # anti-flap replacement already surfaced its own note; a second note_once key
   # in the same tick would only make the single-key dedupe re-fire each tick.)
-  note_once "collision:$rejected_base" "foreman: proposed next step '$rejected_base' is already completed, and the one re-prompt excluding it produced no valid replacement. It was not re-posted; choose a different step, or use an ISO-date suffix for genuinely recurring work."
+  note_once "proposal:$rejected_reason:$rejected_base" "foreman: proposed next step '${rejected_base:-(empty)}' was rejected ($rejected_reason), and the one re-prompt produced no valid replacement. The scripted foreman did not post it."
 fi
 
 # Reset the settle clock so the next pump is a fresh sustained-below-target window
