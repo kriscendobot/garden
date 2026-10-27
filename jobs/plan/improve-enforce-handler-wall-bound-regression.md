@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: improve-enforce-handler-wall-bound-split
+orchestrated_by: improve-enforce-handler-wall-bound-split-resume
 priority: normal
 posted_by: producer
 posted_at: 2026-10-27T15:05:52Z
