@@ -136,11 +136,21 @@ fi
 # the advertised budget + kill-after bound (+ ≤1s of polling), which the
 # reaper's GARDEN_REAP_SAFETY_SLACK (30s) already covers in its reap_age_threshold
 # floor, so the claim-TTL INVARIANT above holds. The grace must be below
-# GARDEN_HANDLER_KILL_AFTER so the tree TERM precedes the KILL.
+# GARDEN_HANDLER_KILL_AFTER so the tree TERM precedes the KILL. The bound is on
+# the HANDLER: its recorded elapsed is stamped when it returns, so slow journal
+# bookkeeping afterwards (logged separately as post-handler latency) can no longer
+# masquerade as a handler that outlived its wall (2026-10-27T14:04:07Z: a handler
+# that returned at ~budget+60s was recorded as elapsed=10265s against 7200s).
 : "${GARDEN_HANDLER_WATCHDOG_GRACE:=10}"
 if ! [[ "$GARDEN_HANDLER_WATCHDOG_GRACE" =~ ^[0-9]+$ ]] || [ "$GARDEN_HANDLER_WATCHDOG_GRACE" -ge "$GARDEN_HANDLER_KILL_AFTER" ]; then
   GARDEN_HANDLER_WATCHDOG_GRACE=$(( GARDEN_HANDLER_KILL_AFTER / 2 ))
 fi
+# Last-resort bound on the gardener's own wait. A handler that is still live this
+# many seconds past budget + GARDEN_HANDLER_KILL_AFTER has survived SIGKILL (an
+# uninterruptible sleep); the gardener records UNREAPED watchdog evidence and stops
+# waiting instead of blocking in wait(1). Only an unkillable handler reaches it.
+: "${GARDEN_HANDLER_UNREAPABLE_WAIT:=20}"
+[[ "$GARDEN_HANDLER_UNREAPABLE_WAIT" =~ ^[0-9]+$ ]] || GARDEN_HANDLER_UNREAPABLE_WAIT=20
 # A restarted worker can inherit detached descendants from its prior incarnation
 # in the systemd service cgroup. Process-group reaping cannot reach a descendant
 # that called setsid/setpgid, and KillMode=mixed intentionally preserves the
@@ -742,33 +752,74 @@ while :; do
   # or late watchdog otherwise leaves no enforcer. This parent independently polls
   # both the absolute deadline and watchdog liveness. If either invariant fails
   # while the handler remains live, snapshot and reap the whole tree immediately.
+  # The loop never exits on a fail-closed reap alone: it keeps polling until the
+  # handler is gone or a zombie, so the blocking wait(1) below only ever collects
+  # an already-dead child. A handler that survives even SIGKILL (uninterruptible
+  # sleep) is abandoned after GARDEN_HANDLER_UNREAPABLE_WAIT seconds past its
+  # absolute KILL deadline (re-KILLed each second meanwhile) rather than letting
+  # wait(1) wedge this worker indefinitely. Bash still reaps it asynchronously
+  # whenever it finally dies.
   watchdog_fail_reason=""
+  handler_unreaped=0
+  handler_abandon_at=$(( watchdog_kill_deadline + GARDEN_HANDLER_UNREAPABLE_WAIT ))
   while kill -0 "$handler_pgid" 2>/dev/null; do
     handler_stat="$(ps -o stat= -p "$handler_pgid" 2>/dev/null | awk '{print $1}')"
     [[ "$handler_stat" = Z* ]] && break
-    watchdog_stat="$(ps -o stat= -p "$watchdog_pid" 2>/dev/null | awk '{print $1}')"
-    if ! kill -0 "$watchdog_pid" 2>/dev/null || [[ "$watchdog_stat" = Z* ]]; then
-      watchdog_fail_reason="disappeared"
-    elif [ "$(date +%s)" -gt "$watchdog_kill_deadline" ] \
-      && ! grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
-      watchdog_fail_reason="late"
-    fi
-    if [ -n "$watchdog_fail_reason" ]; then
-      printf 'FAIL_CLOSED reason=%s observed=%s deadline=%s\n' \
-        "$watchdog_fail_reason" "$(date +%s)" "$watchdog_kill_deadline" >> "$watchdog_marker"
-      reap_process_tree "$handler_pgid" 0 0 "$watchdog_marker"
+    watchdog_now="$(date +%s)"
+    if [ -z "$watchdog_fail_reason" ]; then
+      watchdog_stat="$(ps -o stat= -p "$watchdog_pid" 2>/dev/null | awk '{print $1}')"
+      if ! kill -0 "$watchdog_pid" 2>/dev/null || [[ "$watchdog_stat" = Z* ]]; then
+        watchdog_fail_reason="disappeared"
+      elif [ "$watchdog_now" -gt "$watchdog_kill_deadline" ] \
+        && ! grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
+        watchdog_fail_reason="late"
+      fi
+      if [ -n "$watchdog_fail_reason" ]; then
+        printf 'FAIL_CLOSED reason=%s observed=%s deadline=%s\n' \
+          "$watchdog_fail_reason" "$watchdog_now" "$watchdog_kill_deadline" >> "$watchdog_marker"
+        reap_process_tree "$handler_pgid" 0 0 "$watchdog_marker"
+        continue
+      fi
+    elif [ "$watchdog_now" -ge "$handler_abandon_at" ]; then
+      printf 'UNREAPED pid=%s stat=%s observed=%s abandon=%s\n' \
+        "$handler_pgid" "${handler_stat:-?}" "$watchdog_now" "$handler_abandon_at" >> "$watchdog_marker"
+      handler_unreaped=1
       break
+    else
+      # Already fail-closed: anything still alive is past its KILL deadline.
+      kill -KILL -"$handler_pgid" 2>/dev/null || true
+      kill -KILL "$handler_pgid" 2>/dev/null || true
+    fi
+    if [ -z "$watchdog_fail_reason" ] && [ "$watchdog_now" -ge "$handler_abandon_at" ]; then
+      # The watchdog is alive and claims to have KILLed, yet the handler persists.
+      watchdog_fail_reason="survived-kill"
+      printf 'FAIL_CLOSED reason=%s observed=%s deadline=%s\n' \
+        "$watchdog_fail_reason" "$watchdog_now" "$watchdog_kill_deadline" >> "$watchdog_marker"
+      reap_process_tree "$handler_pgid" 0 0 "$watchdog_marker"
+      handler_abandon_at=$(( watchdog_now + GARDEN_HANDLER_UNREAPABLE_WAIT ))
     fi
     sleep 1
   done
-  # Preserve the handler's actual status, resuming across a deploy-drain signal
-  # that interrupts wait while the process is still alive.
-  while :; do
-    wait "$handler_pgid"; hrc=$?
-    kill -0 "$handler_pgid" 2>/dev/null || break
-    handler_stat="$(ps -o stat= -p "$handler_pgid" 2>/dev/null | awk '{print $1}')"
-    [[ "$handler_stat" = Z* ]] && break
-  done
+  if [ "$handler_unreaped" -eq 1 ]; then
+    hrc=124
+  else
+    # Preserve the handler's actual status. The pid is gone or a zombie here, so
+    # wait(1) cannot block; the loop only resumes across a signal interrupting it.
+    while :; do
+      wait "$handler_pgid"; hrc=$?
+      kill -0 "$handler_pgid" 2>/dev/null || break
+      handler_stat="$(ps -o stat= -p "$handler_pgid" 2>/dev/null | awk '{print $1}')"
+      [[ "$handler_stat" = Z* ]] && break
+    done
+  fi
+  # The handler's own wall time, stamped the moment it returned. Post-handler
+  # bookkeeping (journal syncs under the repo lock, usage metering, the tree
+  # reap) can take far longer than the handler on a contended host — 2026-10-27:
+  # a 7200s-budget handler returned at ~budget+60s, yet the failure measured
+  # elapsed=10265s ~67 minutes later and reported it as handler runtime. Every
+  # classification below uses this value; post-handler latency is logged apart.
+  handler_elapsed=$((SECONDS - handler_start))
+  handler_returned_at=$SECONDS
   # Cancel the watchdog on every exit path. It holds no resources beyond a ≤1s
   # `sleep`; SIGKILL is safe because it only ever signals the handler tree, which
   # the unconditional reap below sweeps regardless.
@@ -776,12 +827,23 @@ while :; do
   wait "$watchdog_pid" 2>/dev/null || true
   # Only the watchdog's KILL proves `timeout` failed (its --kill-after was due
   # first); a group TERM alone leaves timeout's own rc (124, or 137 after its
-  # escalation) authoritative.
-  if grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
-    log "handler wall watchdog fired for '$base' ($(tr '\n' ' ' < "$watchdog_marker")); timeout did not bound the handler, recording rc=124 (was rc=$hrc)"
+  # escalation) authoritative. Either way the marker's timestamps are kept as
+  # concrete watchdog evidence for the failure record below.
+  watchdog_evidence=""
+  watchdog_fired=0
+  watchdog_termed=0
+  grep -q '^TERM ' "$watchdog_marker" 2>/dev/null && watchdog_termed=1
+  if grep -q '^\(TERM\|KILL\|FAIL_CLOSED\|UNREAPED\) ' "$watchdog_marker" 2>/dev/null; then
+    watchdog_fired=1
+    watchdog_evidence="$(tr '\n' ' ' < "$watchdog_marker" | sed 's/ *$//') handler_elapsed=${handler_elapsed}s rc=$hrc"
+  fi
+  if [ "$handler_unreaped" -eq 1 ]; then
+    log "handler wall watchdog could NOT reap '$base' (pid $handler_pgid stat ${handler_stat:-?} survived SIGKILL; $watchdog_evidence); abandoning the wait so this worker is not wedged, recording rc=124"
+  elif grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
+    log "handler wall watchdog fired for '$base' ($watchdog_evidence); timeout did not bound the handler, recording rc=124 (was rc=$hrc)"
     hrc=124
   elif grep -q '^TERM ' "$watchdog_marker" 2>/dev/null; then
-    log "handler wall watchdog TERMed the process tree of '$base' past its budget; timeout returned rc=$hrc"
+    log "handler wall watchdog TERMed the process tree of '$base' past its budget ($watchdog_evidence); timeout returned rc=$hrc"
   fi
   rm -f "$watchdog_marker"
   set -e
@@ -802,7 +864,7 @@ while :; do
   # session transcript.  Provider terminal usage wins; otherwise subtract the
   # per-base session snapshots.  A failure at every layer is explicitly recorded
   # as source:none, never mistaken for a zero-token engagement.
-  elapsed_usage=$((SECONDS - handler_start))
+  elapsed_usage=$handler_elapsed
   if command -v jq >/dev/null 2>&1 && [ -s "$usage_file" ] && jq -e . >/dev/null 2>&1 < "$usage_file"; then
     usage_measurement="$(cat "$usage_file")"
   else
@@ -1253,7 +1315,7 @@ while :; do
     # its driver immediately, whose max_stage_retries is the sole retry budget. No $capture
     # diagnostic is escalated: a clean exit-0 produced no failure output, so this
     # is a kind:progress note, not a kind:error.
-    elapsed=$((SECONDS - handler_start))
+    elapsed=$handler_elapsed
     cycle="$(reap_count "$jobfile")"
     log "handler for '$base' exited 0 WITHOUT the completion signal (exit-0-unsatisfying: quota/API/clean-but-unfinished); requeueing (requeue cycle $cycle, elapsed=${elapsed}s), left in doin for reaper requeue"
     # SILENT-UNTIL-REPEAT. A `kind:progress` note on EVERY exit-0-unsatisfying
@@ -1446,7 +1508,11 @@ while :; do
     idle_backoff "$fail_attempt"; fail_attempt=$((fail_attempt+1))
   else
     rc=$hrc  # exit code of the failed handler (captured explicitly above)
-    elapsed=$((SECONDS - handler_start))  # wall-clock seconds the handler ran before it died
+    elapsed=$handler_elapsed  # wall-clock seconds the handler ran before it died
+    post_handler_secs=$((SECONDS - handler_returned_at))
+    if [ "$post_handler_secs" -ge 60 ]; then
+      log "post-handler bookkeeping for '$base' took ${post_handler_secs}s after the handler returned (handler elapsed=${elapsed}s); this latency is NOT handler runtime"
+    fi
     # Detect both forms of timeout's OWN deterministic wall kill before the generic
     # signal classifier gets first refusal: rc=124 when the handler honored TERM at
     # the wall, and rc=137 when it ignored TERM until --kill-after escalated at wall
@@ -1465,6 +1531,12 @@ while :; do
          && [ "$elapsed" -ge "$(( handler_budget + GARDEN_HANDLER_KILL_AFTER ))" ]; then
       deadline_overrun=1
       deadline_overrun_kind="kill-after-wall"
+    elif [ "$watchdog_termed" -eq 1 ] && is_external_kill_rc "$rc"; then
+      # The independent watchdog only TERMs at budget + grace, so a signal death
+      # with its TERM on record is this handler's own wall, whatever the elapsed
+      # rounding or whichever signal won the race with timeout's escalation.
+      deadline_overrun=1
+      deadline_overrun_kind="watchdog-wall"
     fi
     # The job handler — the gardening state machine / a `claude -p` inner agent —
     # exited non-zero. Its combined stdout+stderr is in $capture. DO NOT discard
@@ -1480,7 +1552,12 @@ while :; do
     # state-machine design decision deliberately left out of this change. Leaving
     # it in doin means a deterministically-failing job is retried after the TTL;
     # which lane is permanent is the question this surfaces.
-    log "handler FAILED (rc=$rc) for '$base'; capturing output and classifying transient-vs-real (job left in doin for the reaper)"
+    # Concrete watchdog evidence (absolute deadlines, TERM/KILL/FAIL_CLOSED/UNREAPED
+    # observations, handler elapsed) rides every failure record below. It is kept
+    # out of $capture so it can never change the transient-vs-real classification.
+    watchdog_note=""
+    [ -n "$watchdog_evidence" ] && watchdog_note="; watchdog: $watchdog_evidence"
+    log "handler FAILED (rc=$rc) for '$base' (handler elapsed=${elapsed}s$watchdog_note); capturing output and classifying transient-vs-real (job left in doin for the reaper)"
     # Most handlers (the default handlers/monk-claude.sh among them) write their
     # real output to $report, not to their own stdout/stderr, so $capture is often
     # empty even though the handler produced diagnostics. Fold the tail of $report
@@ -1804,9 +1881,9 @@ while :; do
         # split-eligible on this first hit; gauntlet stages hand the failure directly
         # to their driver's max_stage_retries. A productive wall-hit (HEAD advanced — the sanctioned resume
         # treadmill) is spared: the reaper RESETS this counter on a productive cycle.
-        log "handler for '$base' hit its OWN wall-clock budget (rc=$rc, kind=$deadline_overrun_kind, elapsed=${elapsed}s, handler-budget=${handler_budget}s, kill-grace=${GARDEN_HANDLER_KILL_AFTER}s): deterministic deadline overrun, stamping the overrun counter for early doom"
-        printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=%s, %s, elapsed=%ss, handler-budget=%ss, kill-grace=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper applies the bounded wall-hit disposition (ordinary job: split-orchestrator immediately; gauntlet stage: immediate handoff to driver-owned max_stage_retries); left in doin for the reaper\n' \
-          "$id" "$GARDEN" "$base" "$rc" "$deadline_overrun_kind" "$elapsed" "$handler_budget" "$GARDEN_HANDLER_KILL_AFTER" \
+        log "handler for '$base' hit its OWN wall-clock budget (rc=$rc, kind=$deadline_overrun_kind, elapsed=${elapsed}s, handler-budget=${handler_budget}s, kill-grace=${GARDEN_HANDLER_KILL_AFTER}s$watchdog_note): deterministic deadline overrun, stamping the overrun counter for early doom"
+        printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=%s, %s, elapsed=%ss, handler-budget=%ss, kill-grace=%ss%s) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper applies the bounded wall-hit disposition (ordinary job: split-orchestrator immediately; gauntlet stage: immediate handoff to driver-owned max_stage_retries); left in doin for the reaper\n' \
+          "$id" "$GARDEN" "$base" "$rc" "$deadline_overrun_kind" "$elapsed" "$handler_budget" "$GARDEN_HANDLER_KILL_AFTER" "$watchdog_note" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
         if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
           log "stamped deadline-overrun hint on '$base'; reaper will act before TTL (ordinary split-orchestrator immediately; gauntlet driver handoff immediately)"
@@ -1829,7 +1906,7 @@ while :; do
         # held this worker's busy marker, so the deploy deferred on
         # `long-job monk N` long after the handler had died.
         ( alert_maintainer "handler-budget-overrun-$base" \
-            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=$rc, $deadline_overrun_kind, elapsed=${elapsed}s, handler-budget=${handler_budget}s, kill-grace=${GARDEN_HANDLER_KILL_AFTER}s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) </dev/null >/dev/null 2>&1 &
+            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=$rc, $deadline_overrun_kind, elapsed=${elapsed}s, handler-budget=${handler_budget}s, kill-grace=${GARDEN_HANDLER_KILL_AFTER}s$watchdog_note). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) </dev/null >/dev/null 2>&1 &
         disown $! 2>/dev/null || true
       else
         quota_text="$(tail -c 65536 "$capture" 2>/dev/null || true)"

@@ -7380,18 +7380,28 @@ handler_wall_watchdog() {
 # chain is intact — which is exactly the leftover-`node` case a bare process-group
 # signal misses (the child detached into its own group). Order is unspecified. On a
 # host without /proc it degrades to echoing just the root. Never fails its caller.
+# The pid→ppid table comes from ONE `ps` snapshot. The former per-/proc-entry awk
+# spawn cost seconds per walk on a busy host, and reap_process_tree walks twice on
+# the watchdog's fail-closed path, so the walk itself delayed the wall KILL.
 process_tree_pids() {
   local root="${1:-}"
   case "$root" in ''|*[!0-9]*) return 0 ;; esac
   if [ ! -d /proc ]; then printf '%s\n' "$root"; return 0; fi
-  local pid ppid procdir
+  local pid ppid procdir table
   local -A kids=()
-  for procdir in /proc/[0-9]*; do
-    pid="${procdir#/proc/}"
-    ppid="$(awk '/^PPid:/{print $2; exit}' "$procdir/status" 2>/dev/null || true)"
-    [ -n "$ppid" ] || continue
-    kids[$ppid]="${kids[$ppid]:-} $pid"
-  done
+  if table="$(ps -e -o pid= -o ppid= 2>/dev/null)" && [ -n "$table" ]; then
+    while read -r pid ppid; do
+      [ -n "$ppid" ] || continue
+      kids[$ppid]="${kids[$ppid]:-} $pid"
+    done <<< "$table"
+  else
+    for procdir in /proc/[0-9]*; do
+      pid="${procdir#/proc/}"
+      ppid="$(awk '/^PPid:/{print $2; exit}' "$procdir/status" 2>/dev/null || true)"
+      [ -n "$ppid" ] || continue
+      kids[$ppid]="${kids[$ppid]:-} $pid"
+    done
+  fi
   local -a stack=("$root")
   local -A seen=()
   local cur c

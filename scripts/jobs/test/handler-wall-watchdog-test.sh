@@ -177,6 +177,23 @@ if grep -Eq "rc=124" "$TR/gardener.log"; then
 else
   bad "rc=124 not recorded; log: $(grep -i 'rc=' "$TR/gardener.log" | tail -5)"
 fi
+# The failure record carries the handler's OWN wall time, stamped when it
+# returned (not after post-handler journal bookkeeping, the 2026-10-27
+# elapsed=10265s misattribution), plus the concrete watchdog evidence.
+rec_elapsed="$(sed -n "s/.*handler FAILED (rc=124) for 'walljob' (handler elapsed=\([0-9]*\)s; watchdog: DEADLINE start=.*FAIL_CLOSED reason=late.*KILL observed=.*/\1/p" "$TR/gardener.log" | head -1)"
+# One extra second: the gardener stamps its start before the stub stamps its own,
+# and SECONDS ticks at whole-second granularity.
+rec_bound=$((bound + 1))
+if [ -n "$rec_elapsed" ] && [ "$rec_elapsed" -le "$rec_bound" ]; then
+  ok "the failure record carries handler elapsed=${rec_elapsed}s (bound ${rec_bound}s) and the watchdog evidence"
+else
+  bad "failure record lacks bounded handler elapsed + watchdog evidence: $(grep 'handler FAILED' "$TR/gardener.log" | tail -2)"
+fi
+if grep -q "hit its OWN wall-clock budget (rc=124, kind=term-at-wall, elapsed=[0-9]*s, .*; watchdog: DEADLINE" "$TR/gardener.log"; then
+  ok "the deadline-overrun record carries the watchdog evidence"
+else
+  bad "deadline-overrun record lacks watchdog evidence: $(grep 'OWN wall-clock' "$TR/gardener.log" | tail -2)"
+fi
 if ls "${TMPDIR:-/tmp}"/garden-watchdog-walljob.* >/dev/null 2>&1; then
   bad "watchdog marker file leaked"
 else
@@ -206,7 +223,10 @@ env GARDEN="wallhost" GARDEN_STATE="$TR/state" \
     GARDEN_JOB_HANDLER="$HERE/wall-bypass-handler-stub.sh" \
     "$JOBS/gardener.sh" 1 > "$TR/gardener-disappear.log" 2>&1 &
 gardener_pid=$!
-for _ in $(seq 1 40); do
+# The worker's return includes post-handler journal bookkeeping (several local
+# git pushes), which is host-load dependent; the handler bound itself is
+# asserted from the recorded elapsed below.
+for _ in $(seq 1 240); do
   kill -0 "$gardener_pid" 2>/dev/null || break
   sleep 0.25
 done
@@ -222,6 +242,13 @@ if grep -q 'FAIL_CLOSED reason=disappeared.*deadline=' "$TR/gardener-disappear.l
   ok "watchdog disappearance caused an immediate auditable fail-closed reap"
 else
   bad "watchdog-disappearance evidence missing: $(grep -i 'watchdog\|FAIL_CLOSED' "$TR/gardener-disappear.log" | tail -5)"
+fi
+
+vanish_elapsed="$(sed -n 's/.*handler FAILED (rc=124) for .aaa-vanishjob. (handler elapsed=\([0-9]*\)s; watchdog: .*FAIL_CLOSED reason=disappeared.*/\1/p' "$TR/gardener-disappear.log" | head -1)"
+if [ -n "$vanish_elapsed" ] && [ "$vanish_elapsed" -lt $((BUDGET + KILL_AFTER)) ]; then
+  ok "the vanished-watchdog reap ended the handler in ${vanish_elapsed}s, before its KILL deadline"
+else
+  bad "vanished-watchdog handler elapsed not bounded: $(grep 'handler FAILED' "$TR/gardener-disappear.log" | tail -2)"
 fi
 
 hr
