@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T14:29:40Z_
+_As of 2026-10-27T14:37:58Z_
 
 ## Latest
 
@@ -156,11 +156,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #13 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T13:30:57Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 13 times; this is
-> ONE entry that updates in place, not 13 messages. Latest detail:
+> COALESCED message — occurrence #14 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T14:35:39Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 14 times; this is
+> ONE entry that updates in place, not 14 messages. Latest detail:
 >
-> Milestone M2 is blocked on prerequisite PR #1425, which exhausted its gauntlet review budget while remaining a clean, draft PR; please decide whether to review/approve it for readiness. PR #1349 and its downstream-audit PR #1576 are already in flight.
+> M2 is blocked: PR #1349 depends on draft #1425, whose gauntlet is blocked by open, clean PR #1427. Please decide whether to merge #1427 so #1425 can be re-gauntleted and then unblock #1349.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1488,10 +1488,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.9M | $206.77 _(notional, rate-card)_ | 26% of 271.0M (ok) |
-| Codex | 162.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 70.0M | $206.77 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Codex | 162.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57221899 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57244809 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.696388s/45s (unknown); 11 open notice(s); checker healthy
@@ -1503,13 +1503,13 @@ worst fetch p95 3.696388s/45s (unknown); 11 open notice(s); checker healthy
 ### doin (1)
 - [`improve-enforce-handler-wall-bound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound.md) — ---
 
-### tada (15314)
+### tada (15315)
+- [`claude-on-minion-town-completion-press-20261027-143512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-on-minion-town-completion-press-20261027-143512.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split.md) — orchestration endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20...
 - [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-expanded-window.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027.md) — Cost
 - [`endojs-endo-but-for-bots-pr1576-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1576-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1576-gauntlet — complete
-- [`endojs-endo-but-for-bots-pr1576-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1576-gauntlet-undraft.md) — Cost
-- … and 15309 more
+- … and 15310 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
