@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T04:26:54Z_
+_As of 2026-10-27T04:30:45Z_
 
 ## Latest
 
@@ -1400,13 +1400,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.5M | $173.94 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Claude | 58.5M | $174.03 _(notional, rate-card)_ | 22% of 271.0M (ok) |
 | Codex | 147.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.803301s/45s (/home/kris/garden/.garden-state/comment-watcher/verify); 8 open notice(s); checker healthy
+worst fetch p95 6.523860s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1414,15 +1414,15 @@ worst fetch p95 3.803301s/45s (/home/kris/garden/.garden-state/comment-watcher/v
 
 ### doin (2)
 - [`claude-api-p1-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p1-registry.md) — Phase 1: Endo provider registry, ownership, and facets
-- [`deadmail-issue-comment-6433663795`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-6433663795.md) — Issue follow-up — fold a late comment into the issue work
+- [`revise-budget-road-decisions-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-budget-road-decisions-20261027.md) — Revise designs/budget-road.md with the maintainer's decisions, then close out...
 
-### tada (15238)
+### tada (15239)
+- [`deadmail-issue-comment-6433663795`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/deadmail-issue-comment-6433663795.md) — Cost
 - [`claude-api-p0-design-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-api-p0-design-fix.md) — Cost
 - [`oros-health-watch-20261027-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-022010.md) — Cost
 - [`oros-health-checkup-20261027-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-checkup-20261027-022010.md) — Cost
 - [`claude-on-minion-town-completion-press-20261027-023509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-on-minion-town-completion-press-20261027-023509.md) — Cost
-- [`claude-on-minion-town-press-20261027-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-on-minion-town-press-20261027-022010.md) — Cost
-- … and 15233 more
+- … and 15234 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
