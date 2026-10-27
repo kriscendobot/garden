@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T19:29:54Z_
+_As of 2026-10-27T19:34:47Z_
 
 ## Latest
 
@@ -343,14 +341,14 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #139 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T19:21:54Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 139 times; this is ONE
-> coalesced notice that updates in place, not 139 messages. Latest detail:
+> WATCHDOG notice — occurrence #140 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T19:31:52Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 140 times; this is ONE
+> coalesced notice that updates in place, not 140 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=3550s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=3496s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=3416s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=3884s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=3830s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=3750s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -1520,10 +1518,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.4M | $219.23 _(notional, rate-card)_ | 27% of 271.0M (ok) |
-| Codex | 168.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 73.4M | $219.31 _(notional, rate-card)_ | 27% of 271.0M (ok) |
+| Codex | 168.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57303786 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57324245 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
