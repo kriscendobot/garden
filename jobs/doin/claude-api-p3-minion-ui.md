@@ -20,3 +20,13 @@ If a design open question this phase depends on is still unanswered on the track
 
 Repo kriscendobot/minion.town. Implement build-plan phase 3, including the keyboard and assistive-technology requirements in the User experience section. Clips and pages must never see key material.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-27T07:21:04Z
