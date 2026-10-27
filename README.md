@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T00:43:20Z_
+_As of 2026-10-27T00:45:18Z_
 
 ## Latest
 
@@ -701,11 +701,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-10-16T18:44:04Z, latest 2026-10-26T18:44:30Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-10-16T18:44:04Z, cleared 2026-10-27T00:44:29Z).
+> It was observed 10 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.130196s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` cleared on oros-studio-garden-ce242c49.
 
 - `oros-health-watch-20261018-123528-split-terminal-complete` — from orchestrator:oros-health-watch-20261018-123528-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/oros-health-watch-20261018-123528-split-terminal-complete.md)
 
