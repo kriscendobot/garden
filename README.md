@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T14:25:05Z_
+_As of 2026-10-27T14:29:40Z_
 
 ## Latest
 
@@ -864,19 +864,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 12 -> 14 (N is yours to choose).
 
-- `endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split
-> orchestration-status: complete
-> order: serial
-> children-total: 1
-> children-failed: 0
-> failed-children: 
-> recovered-children: 
->
-> Orchestration endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
-
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr198-gauntlet-20261019 REVIEW-BUDGET-REACHED: Applied 3 panel/fix round(s); fix round 3 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=3, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds N
@@ -1501,13 +1488,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.9M | $205.62 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 69.9M | $206.77 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 162.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57221899 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.891034s/45s (/home/kris/garden/.garden-state/transcripts/journal); 11 open notice(s); checker healthy
+worst fetch p95 3.696388s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
