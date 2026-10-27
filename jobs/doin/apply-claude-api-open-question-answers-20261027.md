@@ -14,3 +14,13 @@ PR https://github.com/endojs/endo-but-for-bots/pull/1543, branch `design/claude-
 - Q4 and Q7 become concrete default values and an owner-wide aggregate cap in the abuse-controls section and in phase 2/3 acceptance tests.
 - Keep the in-flight phase 1 (registry) compatible: if a change affects phase 1's scope, say so in the PR comment and on the tracker rather than editing the phase 1 job.
 Docs only. Push to the PR branch, keep CI and the panel green, and comment the new head SHA on the tracker.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T05:02:58Z
