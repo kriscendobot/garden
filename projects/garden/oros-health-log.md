@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-27T15:00Z (oros-health-checkup-20261027-145008): healthy; deployed = origin/main2 `f82e508`, no changes
+
+- **Load/mem:** load 3.83/3.67/3.44 at 14:54Z. 12 GiB of 15 GiB available. Swap reads 886M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 58% (195G free), inodes 1%.
+- **Uptime:** 25d21h38m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `f82e508` (written 13:06Z), equal to the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed`, 0 of 290 units failing, 0 advisory (13:06Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker. `NeedDaemonReload` is still clear (sampled monk@1, scheduler.timer), so the 11:50Z daemon-reload held.
+- **Budget heartbeat:** claude-oros pushed every ~15 min from 13:48 to 14:48Z, all ok. Spend is flat at 79,429 of 180M since 13:48Z because the fleet is quiet.
+- **State clones:** 46 journal clones. The largest are monks/4 (50 packs, at but not over the `>50` threshold), sysop and fork-watch (49 each). No tmp_pack, no `gc.log`, and no `*.lock` older than 30 minutes in any clone's `.git`.
+- **rc=124 (3h):** none. No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-27T11:50Z (oros-health-checkup-20261027-113513): healthy; deployed = origin/main2 `c9bdc1f`; one daemon-reload
 
 - **Load/mem:** load 4.41/3.95/3.57 at 11:44Z. 13 GiB of 15 GiB available. Swap reads 887M of 1.0 GiB, the usual steady level.
