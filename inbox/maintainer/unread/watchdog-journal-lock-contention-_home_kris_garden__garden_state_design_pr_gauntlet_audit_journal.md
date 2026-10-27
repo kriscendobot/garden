@@ -1,13 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-27T12:28:38Z
+sent_at: 2026-10-27T12:44:34Z
 watchdog_key: journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal
 notice_count: 5
 first_seen: 2026-10-18T06:14:13Z
-last_seen: 2026-10-27T12:28:38Z
+last_seen: 2026-10-27T12:44:34Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #5 (first seen 2026-10-18T06:14:13Z, latest 2026-10-27T12:28:38Z).
-The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal`) has now been observed 5 times; this is ONE
-coalesced notice that updates in place, not 5 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` has CLEARED (first seen 2026-10-18T06:14:13Z, cleared 2026-10-27T12:44:34Z).
+It was observed 5 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.044207s, giveups=1, steals=2 (max 3/window), wait floor=60s.
+Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` cleared on endolin-garden-ece02cb4.
