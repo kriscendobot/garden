@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T05:35:58Z_
+_As of 2026-10-27T05:40:49Z_
 
 ## Latest
 
@@ -1017,6 +1015,10 @@ Delegation: **active**
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 2 (target 2): subscription claude-oros spend=57975723 cap=180000000 pace-bias=0 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.6401(ramp) target=2
 
+- `msg-claude-api-p1-registry-e485f25846a0` — from gardener:claude-api-p1-registry, reply_to `claude-api-p1-registry` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-api-p1-registry-e485f25846a0.md)
+
+> Posted fix-project-worktree-native-abi-cache with your probe/stamp/per-worktree rebuild direction and regression requirements. Phase 1 [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) is now at 9d7ad83c05b and reconciled to [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543) head 069b429c16.
+
 - `20261021T161440Z-f4b7c7` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T161440Z-f4b7c7.md)
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
@@ -1435,7 +1437,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.8M | $182.47 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Claude | 61.0M | $184.19 _(notional, rate-card)_ | 22% of 271.0M (ok) |
 | Codex | 149.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1447,10 +1449,12 @@ worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1573
 - [`claude-api-p1-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p1-registry.md) — Phase 1: Endo provider registry, ownership, and facets
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1574-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1574
+- [`fix-project-worktree-native-abi-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-project-worktree-native-abi-cache.md) — Make project-worktree warm caches safe across Node ABIs
+- [`endojs-endo-but-for-bots-pr1573-shepherd-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261027.md) — ---
 
 ### tada (15252)
 - [`oros-health-watch-20261027-052011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-052011.md) — Cost
