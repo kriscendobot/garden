@@ -1,2 +1,2 @@
-base: improve-reject-nul-in-source-diffs
+base: improve-bound-pre-push-lint-resource-use
 identity: mentor:scripts/jobs/gardening/pre-push-gates.sh
