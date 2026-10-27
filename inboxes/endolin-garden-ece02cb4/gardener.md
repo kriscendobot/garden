@@ -5088,3 +5088,14 @@ Inspect via `git -C journal cat-file -p 19888ef1ae791f4fa35d81a0e54cad6d995de536
 
 Inspect via `git -C journal cat-file -p 028581b0306870674f7a5b72e6a8db05becded56` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/028581b0306870674f7a5b72e6a8db05becded56`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-10-27T08:43:30Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b6f50178e0789370cd391db7258969defdff890b
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'claude-api-p3-minion-ui' handler exited rc=2
+- Capture: inboxes/endolin-garden-ece02cb4/captures/b6f50178e0789370cd391db7258969defdff890b
+
+Inspect via `git -C journal cat-file -p b6f50178e0789370cd391db7258969defdff890b` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/b6f50178e0789370cd391db7258969defdff890b`) -- both work off-host after a plain `journal2` fetch.

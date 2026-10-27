@@ -1,0 +1,14 @@
+<6>07:21:09 [cleric/1] job 'claude-api-p3-minion-ui' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>07:21:09 [cleric/1] job 'claude-api-p3-minion-ui' attaching minion.town MCP (stdio bridge as minion-town)
+<6>07:30:48 [cleric/1] job 'claude-api-p3-minion-ui' ended its turn without the completion signal; nudging codex session 01a17c3c-0287-7961-ad57-7f3aea126c09 to verify and complete (nudge 1/1)
+usage:
+  assert-panel-head-fresh.sh compare <reviewed-head> <presented-head> [label]
+  assert-panel-head-fresh.sh pr [--require-reviewed-head] <owner/repo> <pr-number>
+  assert-panel-head-fresh.sh completion <job-base> <job-file> <completion-report>
+
+--- handler report (partial) ---
+Implemented Phase 3 in draft PR #229 at commit `793d1c2b`: provider endpoint, accessible provider wizard and Providers page, lifecycle controls, rollout gating, and secret-containment safeguards.
+
+Added endpoint and cross-browser acceptance coverage. Typecheck, Vitest, Chromium/Firefox/WebKit gates, and amd64/arm64 Claude harness CI are green.
+
+Updated tracker #227 with progress and the maintainer review request. Follow-up: production rollout remains gated until the Endo daemon provides the required lifecycle and agent-reattachment contract.
