@@ -24,3 +24,13 @@ Order (the design's gap first):
 7. DO NOT cut over live in this job. Stop with `set-road.sh init --dry-run` output and a rollback note; leave the actual cutover (which removes `config/apportionment`, `config/foreman-mandate`, and schema-2 arc-budget files in one commit) for a maintainer go-ahead, because it re-keys every budget decision in the fleet.
 Update docs/skills/roles listed in the design's touch list. Keep the shell tests passing and run the repo's pre-push gates.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T04:33:26Z
