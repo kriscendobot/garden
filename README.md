@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T13:54:57Z_
+_As of 2026-10-27T14:06:56Z_
 
 ## Latest
 
@@ -1275,6 +1273,10 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.059380s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027' DETERMINISTICALLY overran its handler budget (rc=137, kill-after-wall, elapsed=10265s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `kriscendobot-minion.town-pr199-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr199-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr199-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr199-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet panel --add-rounds N
@@ -1483,13 +1485,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 69.7M | $206.91 _(notional, rate-card)_ | 26% of 271.0M (ok) |
-| Codex | 162.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 69.7M | $207.55 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Codex | 162.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57210300 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 72.969888s/45s (/home/kris/garden/.garden-state/monks/2/journal); 10 open notice(s); checker healthy
+worst fetch p95 72.969888s/45s (/home/kris/garden/.garden-state/monks/2/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
