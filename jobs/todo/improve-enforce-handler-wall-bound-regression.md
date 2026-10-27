@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: improve-enforce-handler-wall-bound-split-resume
-priority: normal
-posted_by: producer
+role: gardener
+tier: mentor
 posted_at: 2026-10-27T15:05:52Z
+handler-timeout: 2400
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-27T19:43:03Z cleared=none -->
 
 ---
 role: gardener
