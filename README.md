@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T00:35:09Z_
+_As of 2026-10-27T00:39:28Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-163 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+164 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -333,6 +331,10 @@ Delegation: **active**
 > claude-endolin1 cap restored after the 2026-10-17T03:00Z reset: 430000000 -> 271000000 (provenance manual-implied-301M-90pct-20261006-maintainer, 2026-10-06; journal commit d2cdb7c3587). The window rolled (window_start 2026-10-17T03:00Z, spend 14.6M at 04:01Z). This host (endolin-garden-ece02cb4) has 4 monks, unchanged.
 >
 > Question: which Claude login are this host's workers on now, endolin1 or endolin2? `claude auth status` here says a claude.ai Max login is active, but nothing local says whether it is the endolin1 or endolin2 account. If endolin2 is still logged in here, the ledger will again charge its spend to claude-endolin1, which now has the restored 271M cap. That combined spend will reach 271M and the claim gate will refuse work again, while endolin2's own remaining quota stays unmetered. To prevent this, re-login this host to endolin1, or tell me to raise the cap again.
+
+- `liaison-followup-660eb7ab360b` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-660eb7ab360b.md)
+
+> Report design-budget-road: the `build-budget-road` job is blocked until you answer the open questions on #127 (design § Migration, step 1). Please answer them there, or tell me to go ahead, and I'll post the build. A second follow-up, making `budget-level.sh` use the road's ceiling for worker leveling, will be filed after that build lands. I haven't posted it.
 
 - `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
 
@@ -767,6 +769,14 @@ Delegation: **active**
 > Scrub checklist (enforced by build.py's SCRUB list, which passed; I also re-checked the published file by hand): no GitHub tokens, no AWS keys or ARNs, no 12-digit account ids, no garden host names, no home paths, no email addresses, no IP addresses, no bearer/secret/password strings, no exploit wording. Review hints are topic-level only: the security-adjacent ones on [kriscendobot/minion.town#200](https://github.com/kriscendobot/minion.town/issues/200) and [kriscendobot/minion.town#180](https://github.com/kriscendobot/minion.town/issues/180) are stated as topics, not findings. No comment text from outside parties. No maintainer-private matters. The word "secrets" appears only inside two public PR titles ([kriscendobot/minion.town#183](https://github.com/kriscendobot/minion.town/issues/183), [kriscendobot/minion.town#191](https://github.com/kriscendobot/minion.town/issues/191)).
 >
 > I checked the page at 390px in light and dark, with no horizontal overflow. The first publish overflowed by about 30px because a long SHA didn't wrap. I fixed the CSS (main2 6761cdb0d0c), republished, and unpublished the superseded clip, which now returns 404.
+
+- `followup-gate-design-budget-road` — from followup-gate:design-budget-road, reply_to `design-budget-road` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-budget-road.md)
+
+> Job "design-budget-road" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
+>
+> ## Follow-ups
+> - `build-budget-road`, after the maintainer answers the open questions on #127 (design § Migration, step 1).
+> - Have `budget-level.sh` use the road's ceiling for worker leveling (to be filed after the build).
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_fork_watch_journal.md)
 
@@ -1390,7 +1400,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.5M | $173.90 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Claude | 57.6M | $171.73 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 143.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1402,16 +1412,16 @@ worst fetch p95 4.055245s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`design-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-budget-road.md) — ---
+### doin (0)
+(none)
 
-### tada (15226)
+### tada (15227)
+- [`design-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/design-budget-road.md) — Completion report: design-budget-road
 - [`dependabotany-recheck-endo-but-for-bots-pr1555`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/dependabotany-recheck-endo-but-for-bots-pr1555.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-79377c2dbb43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/canary-probe-oros-studio-garden-ce242c49-79377c2dbb43.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-watch-20261026-230509.md) — Cost
 - [`oros-health-checkup-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/oros-health-checkup-20261026-230509.md) — Cost
-- [`minion-town-arc-press-20261026-230509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/26/minion-town-arc-press-20261026-230509.md) — Cost
-- … and 15221 more
+- … and 15222 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
