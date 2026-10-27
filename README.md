@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T17:55:41Z_
+_As of 2026-10-27T17:57:21Z_
 
 ## Latest
 
@@ -1520,7 +1520,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.8M | $212.70 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.9M | $211.71 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 166.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57350907 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1533,17 +1533,17 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
+- [`endojs-endo-but-for-bots-pr1349-fix-maintainer-findings-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-maintainer-findings-20261027.md) — ---
 - [`oros-health-checkup-20261027-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261027-175011.md) — ---
-- [`improve-bound-pre-push-lint-resource-use`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-bound-pre-push-lint-resource-use.md) — ---
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
 
-### tada (15329)
+### tada (15330)
+- [`improve-bound-pre-push-lint-resource-use`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-bound-pre-push-lint-resource-use.md) — Cost
 - [`endojs-endo-but-for-bots-pr1425-fix-panel-findings-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings-split.md) — orchestration endojs-endo-but-for-bots-pr1425-fix-panel-findings-split — comp...
 - [`endojs-endo-but-for-bots-pr1425-fix-panel-findings-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings-summary.md) — Panel-head freshness
 - [`minion-town-arc-press-20261027-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/minion-town-arc-press-20261027-175011.md) — Cost
 - [`oros-health-watch-20261027-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-175011.md) — Cost
-- [`endojs-endo-but-for-bots-pr1425-fix-panel-findings-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings-ci.md) — Cost
-- … and 15324 more
+- … and 15325 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
