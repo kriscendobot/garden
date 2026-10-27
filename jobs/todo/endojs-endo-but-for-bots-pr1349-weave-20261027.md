@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1349-weave-ferry-20261027
-priority: normal
-posted_by: gardener
+role: weaver
+tier: mentor
 posted_at: 2026-10-27T21:03:52Z
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-27T21:07:31Z cleared=none -->
 
 ---
 role: weaver
