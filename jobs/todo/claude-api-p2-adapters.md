@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: claude-api-build-20261027-resume
-priority: normal
-posted_by: producer
-posted_at: 2026-10-27T04:11:50Z
+role: builder
+tier: mentor
+arc: minion-town-claude-api
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-27T06:37:41Z cleared=none -->
 
 ---
 role: builder
