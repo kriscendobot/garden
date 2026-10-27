@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T14:37:58Z_
+_As of 2026-10-27T14:41:51Z_
 
 ## Latest
 
@@ -123,18 +123,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #185 (first seen 2026-10-16T17:37:14Z, latest 2026-10-27T14:23:39Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 185 times; this is ONE
-> coalesced notice that updates in place, not 185 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-27T14:38:40Z).
+> It was observed 185 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.039932s, giveups=1, steals=1 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.052394s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.040070s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.050207s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.056871s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/scheduler/journal: p95=0.083997s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.043065s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1021,6 +1014,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_monitors_monk_1_journal` cleared on endolin-garden-ece02cb4.
 
+- `20261027T143944Z-fff0e8` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T143944Z-fff0e8.md)
+
+> foreman: proposed next step 'endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027-expanded-window' is already completed. It was not re-posted; choose a different step, or use an ISO-date suffix for genuinely recurring work.
+
 - `msg-endo-zip-native-node-fallthrough-investigation-20261013-baa30a00edee` — from gardener:endo-zip-native-node-fallthrough-investigation-20261013, reply_to `endo-zip-native-node-fallthrough-investigation-20261013` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endo-zip-native-node-fallthrough-investigation-20261013-baa30a00edee.md)
 
 > Finding: @endo/zip native-Node ZIP fall-through (endojs/endo-but-for-bots @ llm). Recommendation: DO NOT proceed.
@@ -1488,13 +1485,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.0M | $206.77 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.0M | $206.91 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 162.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57244809 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.696388s/45s (unknown); 11 open notice(s); checker healthy
+worst fetch p95 3.696388s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
