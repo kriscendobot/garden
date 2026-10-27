@@ -22,3 +22,13 @@ This is the first serial slice of `improve-enforce-handler-wall-bound-split`. It
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-27T19:23:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T19:23:07Z
