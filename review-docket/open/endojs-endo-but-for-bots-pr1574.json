@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1574,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1574",
+  "head_oid": "e63abd611ad1e43cc43342251ecd7d3e7d055cbf",
+  "ask": "re-review",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Automated review rounds were exhausted after a green fix: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1574-gauntlet panel --add-rounds N",
+  "unblocks": [],
+  "source": "endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached",
+  "requested_at": "2026-10-27T07:35:05Z",
+  "first_requested_at": "2026-10-27T07:35:05Z",
+  "generation": 1,
+  "ci": {
+    "state": "green",
+    "observed_at": "2026-10-27T07:35:07Z"
+  }
+}
