@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T15:10:57Z_
+_As of 2026-10-27T15:15:07Z_
 
 ## Latest
 
@@ -151,11 +149,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #14 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T14:35:39Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 14 times; this is
-> ONE entry that updates in place, not 14 messages. Latest detail:
+> COALESCED message — occurrence #15 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T15:12:07Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 15 times; this is
+> ONE entry that updates in place, not 15 messages. Latest detail:
 >
-> M2 is blocked: PR #1349 depends on draft #1425, whose gauntlet is blocked by open, clean PR #1427. Please decide whether to merge #1427 so #1425 can be re-gauntleted and then unblock #1349.
+> Milestone M2 is blocked on the hardened-text-codecs-shim: decide whether PR #1349 should always replace host text codecs or only on hosts with restricted `caller`/`arguments` properties. This governs its remaining review finding and dependent PRs #1425 and #1431.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1483,7 +1481,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.2M | $207.52 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.2M | $208.75 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 163.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57278520 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1495,8 +1493,8 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
 
 ### tada (15320)
 - [`improve-enforce-handler-wall-bound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound.md) — Cost
