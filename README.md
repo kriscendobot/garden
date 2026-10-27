@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T18:04:27Z_
+_As of 2026-10-27T18:06:12Z_
 
 ## Latest
 
@@ -1507,10 +1507,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.9M | $214.23 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.9M | $214.31 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 166.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57406408 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
@@ -1519,9 +1519,10 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1349-fix-maintainer-findings-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-maintainer-findings-20261027.md) — ---
 - [`oros-health-checkup-20261027-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261027-175011.md) — ---
+- [`endojs-endo-but-for-bots-pr1349-shepherd-post-maintainer-fixes-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-shepherd-post-maintainer-fixes-20261027.md) — ---
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
 
 ### tada (15330)
