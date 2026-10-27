@@ -8,6 +8,8 @@ dispatch: automatic
 ---
 Fix `endojs/endo-but-for-bots` PR #1349 on `build/hardened-text-codecs-shim` by addressing the remaining actionable panel findings for the M2 `hardened-text-codecs-shim` design. Preserve the pending maintainer decision as unresolved and verify the resulting head.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
