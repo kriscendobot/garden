@@ -5,7 +5,7 @@
 | Created | 2026-10-06 |
 | Author | designer (job `design-foreman-discretion-pool`) |
 | Status | Proposed |
-| Superseded by | [budget-road.md](budget-road.md) (Proposed, 2026-10-27): its maintainer, foreman, and accountant pools become the road's maintainer reserve, discretion, and lanes |
+| Superseded by | [budget-road.md](budget-road.md) (Accepted, 2026-10-27): its maintainer, foreman, and accountant pools become the road's maintainer reserve, discretion, and lanes |
 | Amends | [accountant-arc-apportionment.md](accountant-arc-apportionment.md) (`planning_ceiling`, `unallocated`), [standing-token-backoff-ramp.md](standing-token-backoff-ramp.md) (curve endpoints; open PR [kriscendobot/garden#116](https://github.com/kriscendobot/garden/pull/116)) |
 
 ## Directive

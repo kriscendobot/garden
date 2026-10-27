@@ -1,13 +1,13 @@
-# The budget road: an ordered list of arcs and three lanes
+# The budget road: an ordered list of arcs and two lanes
 
 | | |
 | --- | --- |
 | Created | 2026-10-27 |
 | Author | designer (job `design-budget-road`) |
-| Status | Proposed |
+| Status | Accepted (maintainer decisions, liaison session 2026-10-27; review [kriscendobot/garden#127](https://github.com/kriscendobot/garden/pull/127)) |
 | Source | The tower's [*The road and its lanes: budgeting a fleet by focus*](https://tower.kriskowal.com/f7koc4preplunizm7bx55vtxf4/) (Kris Kowal, 2026-10-26), written for the garden to rebuild |
 | Replaces | [accountant-arc-apportionment.md](accountant-arc-apportionment.md) (the weekly slate, the schema-2 arcs, the `unallocated` reserve, the re-slice nudge); [foreman-discretion-budget-pool.md](foreman-discretion-budget-pool.md) (Proposed, unbuilt: its three linear pools are this design's maintainer reserve, lanes, and discretion) |
-| Subsumes | [standing-token-backoff-ramp.md](standing-token-backoff-ramp.md) (with no maintainer spend, the road's ceiling is the same 0.50 → 1.00 ramp) |
+| Subsumes | [standing-token-backoff-ramp.md](standing-token-backoff-ramp.md) (with no maintainer spend, the road's ceiling is that ramp lowered by 0.10: 0.40 → 0.90) |
 | Keeps | [subscription-budget-model.md](subscription-budget-model.md), [live-budget-admission.md](live-budget-admission.md) (meter, pools, claim gate), [budgeted-campaign-dispatch.md](budgeted-campaign-dispatch.md) (`--budget-tokens`), the schema-1 rolling arcs ([ironhorse-ratchet](../context/operations/ironhorse-ratchet.md)) |
 
 ## Why
@@ -26,27 +26,38 @@ The road replaces the slate with:
 
 - a standing ordered list of arcs, **the road**, which the maintainer reorders
   when their focus moves; and
-- three **lanes**, fixed shares that follow that focus down the road to whichever
+- two **lanes**, fixed shares that follow that focus down the road to whichever
   arcs have work.
 
 Nothing is approved weekly. The road stands until the maintainer changes it.
 
 ## The model
 
-Each subscription pool's week is split in two. Half belongs to the **maintainer's
-own sessions**, and that reserve decays to zero at the pool's reset. The other
-half belongs to the **arcs**, split among three lanes:
+The fleet never plans past **0.90** of any subscription: that is the
+**ceiling**, fixed, not configurable per road (the 2026-10-02 directive, "spend
+each subscription to 90%, never 100%", confirmed by the maintainer 2026-10-27).
+The last 0.10 of every week is never the fleet's.
 
-| Lane | Share of the arcs' half | Held by |
-| --- | --- | --- |
-| primary | 0.5 | the first arc on the road with planned work |
-| secondary | 0.3 | the next arc on the road with planned work |
-| library | 0.2 | the library arc, when it has planned work (see Open questions) |
+Below the ceiling, each subscription pool's week is split in two. Half the pool
+(k = 0.50) belongs to the **maintainer's own sessions**, and that reserve decays
+to zero at the pool's reset. The rest under the ceiling, 0.40 of the pool,
+belongs to the **arcs**, split between two lanes:
+
+| Lane | Share of the arcs' part | Of the pool at window start | Held by |
+| --- | --- | --- | --- |
+| primary | 0.6 | 0.24 | the first arc on the road with planned work |
+| secondary | 0.4 | 0.16 | the next arc on the road with planned work |
+
+The 0.6 / 0.4 split is the designer's choice, not the maintainer's, and it is
+easy to change: `set-road.sh lanes <primary> <secondary>` rewrites it in
+`road.json` with no code change. There is no library lane, because the garden
+has no ongoing library curation yet (maintainer, 2026-10-27). One can be added as
+a third entry in `lanes` once curation is ongoing.
 
 Each lane's reservation also decays over the week. Whatever nobody has reserved
 is the foreman's **discretion**, spent in road order. Discretion is zero at the
-start of the week, and it can reach the whole pool by the end of a week in which
-nobody else spent.
+start of the week, and it can reach the whole ceiling, 0.90 of the pool, by the
+end of a week in which nobody else spent.
 
 ### Terms
 
@@ -54,7 +65,7 @@ nobody else spent.
 | --- | --- |
 | arc | A named stream of work, stamped on a job as `arc:` (`job_arc` in `common.sh`; `ratchet-arc:` stays a legacy alias). The unit the budget meters. |
 | road | Every arc, in order: a pinned head in the maintainer's order, then the rest by recency of activity. |
-| lane | A share of the arcs' half. Each lane is held by at most one arc at a time. |
+| lane | A share of the arcs' part (c − k). Each lane is held by at most one arc at a time. |
 | planned work | Work the foreman could admit or make right now (§ Planned work). |
 | reservation | What remains of a lane's decaying share after its holder's spend this week. |
 | discretion | Everything not used and not reserved. Arcs without a lane, lane holders past their reservation, and unarced work draw on it. |
@@ -77,21 +88,28 @@ Everything is a fraction of the pool's week, 1.0.
 
 | Term | Value |
 | --- | --- |
+| c | the ceiling, fixed at 0.90 |
 | k | the maintainer's share at window start, default 0.50 (`config/maintainer-reserve`) |
 | maintainer's reserve R_k | max(0, k·(1 − t) − kris_u) |
-| lane share s_l | primary 0.5, secondary 0.3, library 0.2 |
-| lane reservation R_l | max(0, s_l·(1 − k)·(1 − t) − arc_u_h), where h is the lane's holder now; 0 for an empty lane |
-| discretion D | 1 − u − R_k − Σ R_l |
+| lane share s_l | primary 0.6, secondary 0.4 (`road.json` `lanes`) |
+| lane reservation R_l | max(0, s_l·(c − k)·(1 − t) − arc_u_h), where h is the lane's holder now; 0 for an empty lane |
+| discretion D | c − u − R_k − Σ R_l |
 
-With no spend, D is 0 at window start and 1 at the reset. Spending inside a
-reservation moves u and that reservation by the same amount, so D does not
+With no spend, D is 0 at window start and c = 0.90 at the reset. Spending inside
+a reservation moves u and that reservation by the same amount, so D does not
 move. Only time, overspending, unlaned work, and a change of holder move it.
 
-The fleet's **ceiling** is u < 1 − R_k. When the maintainer has spent nothing,
-that is 0.5 + 0.5·t, exactly the standing ramp from
-`config/token-backoff-initial = 0.50`. The difference is that the maintainer's own
-spend inside the reserve no longer counts against the fleet. That is the point of
-the reserve, and it is why the ramp is subsumed rather than kept alongside.
+The fleet may admit work while **u < c − R_k = 0.90 − R_k**. R_k is never
+negative, so the fleet never plans past 0.90, even at the reset. When the
+maintainer has spent nothing, the bound is 0.40 + 0.50·t: the standing ramp from
+`config/token-backoff-initial = 0.50` (0.50 + 0.50·t, reaching 1.00 at reset),
+lowered by the 0.10 the fleet never plans to spend. The old ramp's "reaches 100%
+at reset" (2026-09-28) therefore does not survive; the newer 2026-10-02 directive
+governs, and the road's bound reaches 0.90 at reset. The other difference is that
+the maintainer's own spend inside the reserve no longer counts against the
+fleet. That is the point of the reserve, and it is why the ramp is subsumed
+rather than kept alongside. The ceiling binds only the fleet's admission: the
+maintainer's own sessions are never gated, and they may take u past 0.90.
 
 ### Turning tokens into utilization
 
@@ -130,7 +148,7 @@ utilization.
 
 ## Admission, per arc, at each tick
 
-- **reserved:** a lane holder whose lane has R_l > 0, while u < 1 − R_k. The
+- **reserved:** a lane holder whose lane has R_l > 0, while u < c − R_k. The
   maintainer's reserve is senior.
 - **discretion:** a lane holder past its reservation, every arc without a lane,
   and unarced work, while D > 0, in road order.
@@ -140,8 +158,9 @@ The **pool verdict** replaces `meter_quota_status`'s high-water comparison for
 `weekly-tokens` Anthropic pools. It keeps the existing words, so `pool_admits`,
 `claim-job.sh`, `budget_fleet_status`, and the foreman need no new vocabulary:
 
-- `ok` while u < 1 − R_k and some arc has reservation or D > 0;
-- `backoff` when R_k holds the fleet (subtype `reserve`), or when every
+- `ok` while u < c − R_k and some arc has reservation or D > 0;
+- `backoff` when R_k holds the fleet (subtype `reserve`), when u ≥ c (subtype
+  `ceiling`, which is the same condition as `reserve` once R_k reaches 0), or when every
   reservation and the discretion are spent (subtype `spent`); only `spent`
   notifies the maintainer;
 - `unknown` with no u sample yet, which fails open under the claim gate's
@@ -153,13 +172,15 @@ minutes, so the claim gate and the foreman do not each rescan the ledger.
 
 The **pin** stays as an independent brake. `config/token-backoff-fraction`, with
 its optional `until`, written by `set-token-backoff-fraction.sh`, means `backoff`
-while u ≥ the pinned fraction, whatever the reserves say. An environment
+while u ≥ the pinned fraction, whatever the reserves say. A pin can only lower
+the bound: a pinned fraction above 0.90 does not lift the ceiling. An environment
 `GARDEN_TOKEN_BACKOFF_FRACTION` keeps highest precedence, as now.
 
 **Other pools.** A pool without a reported utilization *and* a projected reset
 gets no reserves. Today that is `codex-endolin` (`percent` kind,
 `cadence: manual`) and any `weekly-usd` pool. Such a pool keeps today's flat
-verdict against its configured ceiling (95 for codex-endolin), or the pin.
+verdict against its configured ceiling, capped at 90 (codex-endolin's 95
+becomes 90), or the pin.
 Without a projected reset there is no window to decay across. An `unmetered`
 pool stays a refusal, never unbounded. Arcs still order the foreman's work on
 such pools by road rank. They have no reservations there.
@@ -200,8 +221,6 @@ only work is ungenerated milestones holds no lane.
 
 - Primary and secondary go to the first two arcs on the road with planned work.
   An arc with none cedes its lane to the next arc down.
-- The library lane is held by `library_arc` when it has planned work. The library
-  arc is never on the road and never fills another lane.
 - A lane with no holder is empty, and its share becomes discretion.
 - A lane's spend is the week's spend of the arc holding it **now**. An arc drawn
   into a lane brings its spend with it, and the arc it displaced takes its own
@@ -226,10 +245,10 @@ allocation/README.md   generated: the road rendered for people
 ```json
 {
   "schema": 1,
-  "lanes": { "primary": 0.5, "secondary": 0.3, "library": 0.2 },
-  "library_arc": "garden-library",
-  "pinned": ["minion-town-mcp-ocapn", "minion-town-git-remote", "minion-town-ui"],
+  "lanes": { "primary": 0.6, "secondary": 0.4 },
+  "pinned": ["minion-town-claude-api", "minion-town-mcp-ocapn", "minion-town-git-remote", "minion-town-ui"],
   "arcs": [
+    { "arc": "minion-town-claude-api", "summary": "minion.town agents on the Claude API" },
     { "arc": "minion-town-mcp-ocapn", "summary": "minion.town operational over MCP and OCapN" },
     { "arc": "endo-ocapn-background", "summary": "Background Endo/OCapN: SturdyRef, byte arrays, streams" }
   ],
@@ -243,8 +262,9 @@ allocation/README.md   generated: the road rendered for people
 ```
 
 The lanes are armed whenever `road.json` exists. Without it there are no lane
-reservations, the arcs' half is all discretion, and the foreman stamps no arc.
-`R_k` and the pin apply either way. `git log -- allocation` is the record of the
+reservations, the arcs' part is all discretion, and the foreman stamps no arc.
+`R_k`, the 0.90 ceiling, and the pin apply either way. The ceiling is a constant
+in `budget_road`, not a `road.json` field, so no road edit can raise it. `git log -- allocation` is the record of the
 maintainer's focus. `config/maintainer-reserve` (k, default 0.50) is fleet
 config beside `config/budget-pools`, not part of the road. The calibration and
 the maintainer's weekly sums are host-local state (§ Turning tokens into
@@ -259,7 +279,7 @@ set-road.sh unpin <arc>                             leave it on the road, ordere
 set-road.sh add <arc> --summary T                   a new arc, unpinned
 set-road.sh drop <arc>                              take an arc off the road (its work draws only on discretion)
 set-road.sh alias <old> <arc>                       fold a retired arc into another
-set-road.sh lanes <primary> <secondary> <library>   shares, summing to 1
+set-road.sh lanes <primary> <secondary>             shares, summing to 1
 set-road.sh init < road.json                        write the whole road, retiring the old slate
 ```
 
@@ -290,7 +310,7 @@ budget_road <journal-dir> [<subscription>]
 It emits TSV. An unknown number is `-`:
 
 ```
-pool   sub t u P P_from kris_u R_k sum_R_l D verdict subtype D_at_reset k fleet_u W_fleet W_kris resets_at
+pool   sub t u P P_from kris_u R_k sum_R_l D verdict subtype D_at_reset c k fleet_u W_fleet W_kris resets_at
 arc    sub rank arc lane share spend_u R admit W planned pinned last summary
 alias  from to
 ```
@@ -366,16 +386,19 @@ One deploy, then one authorized `init`:
    and its snapshot publication; foreman usage rows; `posted_at:` stamping;
    `set-road.sh`; the foreman's promotion order and digest; the accountant
    statement rewrite. Tests: a hermetic fixture per formula row and per
-   admission case. Cases include the holder change mid-week, the `go-ahead`-only
+   admission case. Cases include the 0.90 ceiling at reset (u = 0.90 with
+   R_k = 0 is `backoff`), a pin above 0.90 not lifting it, the holder change mid-week, the `go-ahead`-only
    arc that cedes its lane, a blocked chain, no u sample (`unknown`), P unknown
    (R_k whole), the pin overriding `ok`, and codex-endolin staying flat.
 2. **Seed k.** Write `config/maintainer-reserve = 1 − token-backoff-initial`
    (0.50 today). `set-token-backoff-initial.sh` becomes `set-maintainer-reserve.sh`
    (a thin rename; the old name prints a redirect).
 3. **`set-road.sh init`**, authorized by the maintainer, writes a `road.json`
-   from the live slate. The pinned head is the old slate's top arcs in rank
-   order (see Open questions for how many). The other slate arcs are unpinned,
-   keeping slate order as the stored order. `garden-book` and `endo-backlog`
+   from the live slate. The pinned head is the maintainer's minion.town focus
+   (2026-10-27), in this order: `minion-town-claude-api`, `minion-town-mcp-ocapn`,
+   `minion-town-git-remote`, `minion-town-ui`. Any of the four not already a slate
+   arc is added. The other slate arcs are unpinned, keeping slate order as the
+   stored order, and rank by recency of activity. `garden-book` and `endo-backlog`
    carry over as ordinary arcs, and `unallocated` becomes an alias to null
    (unarced). In the **same commit**, `init` removes `config/apportionment`,
    `config/foreman-mandate`, and every **schema-2** `config/arc-budgets/<arc>`.
@@ -397,7 +420,7 @@ ramp-and-cap behavior.
 
 | Path | Change |
 | --- | --- |
-| `scripts/jobs/budget-road.sh` (new) | `budget_road`, the one function: t, u, P, spends, R_k, R_l, D, laning, verdict, admission |
+| `scripts/jobs/budget-road.sh` (new) | `budget_road`, the one function: the 0.90 ceiling, t, u, P, spends, R_k, R_l, D, laning, verdict, admission |
 | `scripts/jobs/set-road.sh` (new) | the road's single writer; regenerates `allocation/{mandate,README}.md` |
 | `scripts/jobs/usage-meter.sh` | `meter_quota_status` reads the road verdict for reserve-eligible pools; `token_backoff_fraction_for` survives only for the pin and as the dormant fallback; W_maintainer excludes job sessions; snapshots publish P/W_kris; verdict cache |
 | `scripts/jobs/common.sh` | `arc_rank`, `arc_headroom_lines`, `arc_reserve_armed`, `admission_arc`, `GARDEN_ARC_RESERVE` replaced by `budget_road` readers; `plan_deferred_status` drops its arc-cap half; promotion order gains the lane groups |
@@ -412,7 +435,7 @@ ramp-and-cap behavior.
 | `scripts/jobs/accountant-statement.sh` | rendered from `budget_road` |
 | `scripts/jobs/review-docket.sh`, `quota-panel.sh` | read the road instead of `config/apportionment` |
 | `scripts/jobs/post-job.sh`, `post-plan.sh`, `promote-plan.sh` | stamp `posted_at:`; `--arc` warns on an arc not on the road or in `aliases` |
-| `scripts/jobs/budget-level.sh` | unchanged in this design (levels workers against calibrated caps); reading 1 − R_k as its ceiling is a follow-up |
+| `scripts/jobs/budget-level.sh` | unchanged in this design (levels workers against calibrated caps); reading 0.90 − R_k as its ceiling is a follow-up |
 | `scripts/jobs/test/accountant-arc-apportionment-test.sh` | replaced by `budget-road-test.sh` |
 | `roles/accountant/AGENT.md` | statement, not approval; no allocation writes |
 | `roles/foreman/AGENT.md`, `roles/liaison/AGENT.md` | lanes and admission; liaison vocabulary *focus X*, *show the road*, the after-`focus` check |
@@ -426,6 +449,7 @@ ramp-and-cap behavior.
 | --- | --- | --- | --- |
 | Focus (the road) | maintainer, via the liaison running `set-road.sh` | `allocation/*` | everyone through `budget_road` |
 | Maintainer share k, the pin | maintainer / operators | `config/maintainer-reserve`, `config/token-backoff-fraction` | `budget_road` |
+| The 0.90 ceiling | maintainer (2026-10-02, confirmed 2026-10-27) | a constant in `budget_road` | `budget_road` |
 | Measurement (u, W, P) | each subscription's owning host | usage rows, host-local calibration, `budget/live/` snapshots | `budget_road` |
 | Admission | `budget_road` (pure, no writes beyond its cache) | — | claim gate, foreman |
 | Spending order | foreman | promotions, stamped posts | — |
@@ -445,34 +469,26 @@ ramp-and-cap behavior.
   calibrate to utilization. The road's lanes are fractions of u, through the
   weighted P.
 
-## Open questions
+## Decisions
 
-1. **Which arc holds the library lane?** In the tower, the library arc maintains
-   the fleet's knowledge library. The garden's slate has no such arc:
-   `garden-upkeep` is self-heal, watchdog fixes, and deploys, and `garden-book`
-   is the book. The library lane is 0.2 of the arcs' half (10% of each pool at
-   window start). Recommendation: a new `garden-library` arc for `roles/`,
-   `skills/`, and `context/` work (*encode this*, self-improvement, reference
-   imports), with `garden-upkeep` staying on the road. Alternatives: make
-   `garden-upkeep` the library arc, or start with the library lane at 0 until
-   one exists.
-2. **Does the 90% ceiling survive?** The 2026-10-02 mandate says "spend each
-   subscription to 90%, never 100%". The standing ramp
-   (2026-09-28: "increase that gradually to 100% as we approach a reset") and
-   the road's ceiling 1 − R_k both reach 1.0 at reset. Recommendation: honor the
-   newer directive with an optional `ceiling` field in `road.json` (default
-   0.90), so the verdict is `backoff` at u ≥ ceiling. The pin remains available
-   for one-off interventions. The alternative is to drop the 90% rule, because
-   the maintainer's own reserve already keeps them headroom.
-3. **How many of the old slate's arcs does `init` pin?** The tower says "the old
-   slate's top arcs". Recommendation: pin the three minion.town arcs (ranks 1-3,
-   the current focus) and let the rest order by recency. Alternatively, pin all
-   eight to reproduce the 2026-10-02 ranking exactly; recency would then decide
-   nothing until the maintainer unpins.
+The maintainer (kriskowal) answered the three open questions in a liaison
+session on 2026-10-27, recorded on
+[kriscendobot/garden#127](https://github.com/kriscendobot/garden/pull/127):
+
+1. **No library lane.** The garden has no ongoing curation yet. The road has two
+   lanes, primary and secondary; no `garden-library` arc is created. The
+   0.6 / 0.4 split is the designer's default (§ The model), changeable with
+   `set-road.sh lanes`. A library lane can be added when curation is ongoing.
+2. **0.90 is the ceiling.** The fleet never plans past 0.90 of any subscription
+   (the 2026-10-02 directive). It is a fixed constant in the formulas
+   (u < 0.90 − R_k, D = 0.90 − u − R_k − Σ R_l), not an optional field.
+3. **Focus on minion.town.** `init` pins, in order, `minion-town-claude-api`,
+   `minion-town-mcp-ocapn`, `minion-town-git-remote`, `minion-town-ui`. The rest
+   rank by recent activity.
 
 ## Follow-ups
 
-- `build-budget-road`, after the open questions are answered (§ Migration
-  step 1).
+- `build-budget-road` (§ Migration step 1); the open questions are answered
+  (§ Decisions).
 - `budget-level.sh` reads the road's ceiling for worker leveling (to be filed
   after the build).
