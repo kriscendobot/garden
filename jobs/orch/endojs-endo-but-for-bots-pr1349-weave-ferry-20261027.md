@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1349-weave-20261027-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1349-weave-20261027 endojs-endo-but-for-bots-pr1349-ferry-restage-20261027
 on-child-failure: halt
