@@ -3,18 +3,18 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 1425,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/1425",
-  "head_oid": "2fa058354ac3da2ee419ab6d5333687056a71767",
+  "head_oid": "c72a8f356448564b94048c54860bfa81fd42f8bd",
   "ask": "re-review",
   "arc": "endo-ocapn-background",
   "milestone": "-",
-  "summary": "Automated review rounds were exhausted after a green fix: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.",
+  "summary": "Panel reviewed 6a90463e36a7, but the presented head is c72a8f356448",
   "unblocks": [],
-  "source": "endojs-endo-but-for-bots-pr1425-gauntlet-20261007-review-budget-reached",
-  "requested_at": "2026-10-08T15:50:17Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1425-6a90463e-c72a8f35",
+  "requested_at": "2026-10-27T17:44:40Z",
   "first_requested_at": "2026-10-08T15:50:17Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
-    "state": "green",
-    "observed_at": "2026-10-27T17:17:25Z"
+    "state": "red",
+    "observed_at": "2026-10-27T17:44:43Z"
   }
 }
