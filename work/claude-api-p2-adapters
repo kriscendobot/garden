@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-10-27T06:38:26Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-claude-api-p2-adapters
+pr_number: 1575
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1575
+pr_head: feature/api-key-provider-adapters
