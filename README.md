@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T17:36:10Z_
+_As of 2026-10-27T17:40:04Z_
 
 ## Latest
 
@@ -102,6 +100,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.052394s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1425-fix-panel-findings` — from watchdog:monk/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1425-fix-panel-findings.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr1425-fix-panel-findings' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=8447s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `msg-oros-health-checkup-20261018-093508-f054cd1e7164` — from gardener:oros-health-checkup-20261018-093508, reply_to `oros-health-checkup-20261018-093508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261018-093508-f054cd1e7164.md)
 
@@ -1509,10 +1511,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.5M | $212.80 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.5M | $213.41 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 166.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57332551 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
