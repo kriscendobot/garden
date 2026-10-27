@@ -1,10 +1,10 @@
 ---
-gate: deferred
-priority: low
 role: prosecutor
-posted_by: producer
+tier: mentor
+arc: unallocated
 posted_at: 2026-10-27T18:34:58Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-10-27T18:38:26Z cleared=none -->
 
 ---
 tier: mentor
