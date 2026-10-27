@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T19:39:43Z_
+_As of 2026-10-27T19:41:52Z_
 
 ## Latest
 
@@ -1534,11 +1534,11 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 (none)
 
 ### tada (15353)
+- [`improve-enforce-handler-wall-bound-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split.md) — orchestration improve-enforce-handler-wall-bound-split — HALTED
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-watchdog.md) — Completion report: improve-enforce-handler-wall-bound-watchdog
 - [`endojs-endo-but-for-bots-pr1349-fix-pr-body-range`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-fix-pr-body-range.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1578-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1578-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1578-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-browser-test-ubuntu-latest-recheck-20261027-185020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-browser-test-ubuntu-latest-recheck-20261027-185020.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-9e45ede85f55`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-9e45ede85f55.md) — rolling-deploy canary probe — round trip OK
 - … and 15348 more
 
 ## Plan queue (parked — not claimable until promoted)
