@@ -22,6 +22,14 @@ case "${1:-} ${2:-}" in
     [ -n "$body" ] || exit 2
     cp "$body" "${PANEL_GH_BODY:?PANEL_GH_BODY is required}"
     [ "${PANEL_GH_FAIL_REVIEW:-0}" != 1 ] || exit 1
+    if [ "${PANEL_GH_FAIL_REVIEW:-0}" = 403 ]; then
+      echo 'GraphQL: Resource not accessible by personal access token (addPullRequestReview)' >&2
+      exit 1
+    fi
+    if [ "${PANEL_GH_FAIL_REVIEW:-0}" = ratelimit ]; then
+      echo 'HTTP 403: You have exceeded a secondary rate limit' >&2
+      exit 1
+    fi
     ;;
   *)
     printf 'panel-review-submit-gh-stub: unexpected invocation: %s\n' "$*" >&2

@@ -398,6 +398,11 @@ common commands. See `CLAUDE.md` under "Monitoring safety constraint" and
   (raises `max_iterations` by N; see `designs/staged-gauntlet.md`). Add
   `--stage-requires host=<GARDEN>` to pin every later stage to hosts satisfying
   those `requires:` tokens, such as when one host's token cannot post reviews.
+  Usually unnecessary now: the first token-grant 403 on a panel's review post
+  arms a host-local, per-owner marker under `$GARDEN_STATE/review-write-deny/`
+  (7-day TTL, `scripts/jobs/review-write-deny.sh`), after which that host skips
+  panel/undraft stages for that owner at claim time and `panel.sh` refuses before
+  the seat fan-out. Delete the marker file once the token gains access.
 - **`garden-follow-up.timer`, `garden-follow-up.service`:** leader-only at
   `:08/10`; runs `scripts/jobs/follow-up.sh`. It skips under drain, converts
   structured `follow-up:` report fields into jobs, schedules, or maintainer

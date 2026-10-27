@@ -2188,6 +2188,8 @@ journal_graft_push() {
 # and the documented choice of usage source.
 # shellcheck source=usage-meter.sh
 source "$(dirname "${BASH_SOURCE[0]}")/usage-meter.sh"
+# shellcheck source=review-write-deny.sh
+source "$(dirname "${BASH_SOURCE[0]}")/review-write-deny.sh"
 
 # --- per-provider spend & quota panel (the bulletin's maintainer view) --------
 # Sourced AFTER usage-meter so render_quota_panel can reuse meter_window_total /

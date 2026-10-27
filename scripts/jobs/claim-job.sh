@@ -482,6 +482,15 @@ while [ "${#cand[@]}" -gt 0 ]; do
     continue
   fi
 
+  # Learned review-write exclusion (review-write-deny.sh): this host's token got a
+  # token-grant 403 posting a PR review for this owner, so a panel/undraft stage
+  # for it would spend its fan-out and fail at the post. Leave it for a capable
+  # host. Host-local state only; nothing about the credential reaches the journal.
+  if deny_owner="$(job_review_write_denied_owner "$DIR/$JOBS_TODO/$base.md")"; then
+    log "'$base' posts a PR review for '$deny_owner', which this host's token cannot write (learned 403); skipping (review-write)"
+    continue
+  fi
+
   # Project-pause chokepoint (designs/project-pause-enforcement.md). Defense in depth:
   # even if a stale producer already POSTED a paused-project job onto the board, no
   # worker claims it. A claimable paused job means the post gate was bypassed (a stale

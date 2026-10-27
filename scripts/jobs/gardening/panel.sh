@@ -54,6 +54,10 @@ source "$HERE/panel-llm.sh"
 # shellcheck source=/dev/null
 [ -r "$GARDEN_ROOT/scripts/jobs/comment-provenance.sh" ] \
   && . "$GARDEN_ROOT/scripts/jobs/comment-provenance.sh" || true
+# The host-local learned review-write exclusion (review-write-deny.sh): consulted
+# before the seat fan-out and armed by a token-grant 403 on the review post.
+# shellcheck source=../review-write-deny.sh
+. "$HERE/../review-write-deny.sh"
 
 wt="${1:?usage: panel.sh <worktree> <pr> [base]}"
 pr="${2:?pr number}"
@@ -126,6 +130,15 @@ if [ "${GARDEN_TRACE:-0}" = "1" ]; then
 fi
 
 fail() { echo "panel #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
+
+# Pre-spend review-write gate. This host already learned (a token-grant 403 on an
+# earlier review post) that its bot token cannot post reviews for this owner, so
+# the review this panel exists to produce cannot land. Refuse BEFORE the juror
+# fan-out rather than spend ~30 seats and die at the post (endojs PR #1543).
+# claim-job.sh honors the same marker, so a capable host takes the stage.
+if [ -n "$wt_repo" ] && review_write_denied "${wt_repo%%/*}"; then
+  fail "review-write preflight (this host's token cannot post PR reviews for '${wt_repo%%/*}' (learned 403, host-local marker in $(review_write_deny_dir)); no seats were run — let another host claim this stage)"
+fi
 
 GARDEN_PANEL_PROVIDER="$(panel_provider)"
 export GARDEN_PANEL_PROVIDER
@@ -460,8 +473,17 @@ panel_submit_review() {
   esac
 
   panel_qualify_bare_refs "$agg" "$wt_repo"
-  "$gh_cmd" pr review "$pr" -R "$wt_repo" "$review_flag" --body-file "$agg" \
-    || fail "review submission (gh pr review failed)"
+  local errf="$GARDEN_PANEL_RUNDIR/review-submit.stderr"
+  if ! "$gh_cmd" pr review "$pr" -R "$wt_repo" "$review_flag" --body-file "$agg" 2>"$errf"; then
+    cat "$errf" >&2 2>/dev/null || true
+    # A token-grant refusal is a property of this host's credential, not of the
+    # PR: learn it so this host stops claiming review stages for the owner.
+    if review_write_forbidden_text "$errf"; then
+      review_write_deny_record "${wt_repo%%/*}" "$wt_repo" "gh pr review 403 on PR #$pr"
+      fail "review submission (gh pr review: token cannot post reviews for '${wt_repo%%/*}'; learned host-local exclusion for ${GARDEN_REVIEW_WRITE_DENY_TTL}s)"
+    fi
+    fail "review submission (gh pr review failed)"
+  fi
 }
 
 # finish_single_round <aggregate> <disposition>
