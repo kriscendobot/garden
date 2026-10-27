@@ -1,4 +1,5 @@
 ---
+child-claude-api-p1-registry-host: endolin-garden-ece02cb4
 child-claude-api-p1-registry-reap-count: 0
 child-claude-api-p0-design-fix-reap-count: 0
 order: serial
