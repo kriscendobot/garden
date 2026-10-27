@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T07:27:20Z_
+_As of 2026-10-27T07:30:20Z_
 
 ## Latest
 
@@ -849,10 +849,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 12 -> 14 (N is yours to choose).
 
-- `20261027T072624Z-fd0733` — from gardener:claude-api-p3-minion-ui, reply_to `claude-api-p3-minion-ui` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T072624Z-fd0733.md)
-
-> Phase 3 is blocked on [endojs/endo-but-for-bots#1575](https://github.com/endojs/endo-but-for-bots/issues/1575). The approved UI needs provider-creation operation status/list/cancel and an upstream-revocation assertion, but the current Phase 2 directory/admin facets do not expose them. The tracker records the exact maintainer decision and review request at [https://github.com/kriscendobot/minion.town/issues/227](https://github.com/kriscendobot/minion.town/issues/227).
-
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr198-gauntlet-20261019 REVIEW-BUDGET-REACHED: Applied 3 panel/fix round(s); fix round 3 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=3, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds N
@@ -1463,7 +1459,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.2M | $201.55 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 66.2M | $201.74 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 151.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58712662 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1475,8 +1471,7 @@ worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
-- [`claude-api-p3-minion-ui`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-api-p3-minion-ui.md) — Phase 3: minion.town provider endpoint, UI step, and Providers page
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1575
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261027.md) — ---
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1574-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1574
@@ -1567,6 +1562,7 @@ worst fetch p95 7.423514s/45s (/home/kris/garden/.garden-state/maintainer/journa
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
+- [`claude-api-p3-minion-ui`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-api-p3-minion-ui.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1575` · Phase 3: minion.town provider endpoint, UI step, and Providers page
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
