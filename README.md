@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T21:24:41Z_
+_As of 2026-10-27T21:30:25Z_
 
 ## Latest
 
@@ -343,14 +341,14 @@ Delegation: **active**
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #150 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T21:21:31Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 150 times; this is ONE
-> coalesced notice that updates in place, not 150 messages. Latest detail:
+> WATCHDOG notice — occurrence #151 (first seen 2026-10-22T05:52:17Z, latest 2026-10-27T21:27:57Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 151 times; this is ONE
+> coalesced notice that updates in place, not 151 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=10512s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=10458s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=10378s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392486550 (age=11062s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392495217 (age=11008s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#discussion_r4392508405 (age=10928s; heartbeat=full-poll)
 
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
@@ -694,6 +692,19 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration orchestrate-endo-exo-agent-factory-remaining complete (serial): all 4 children reached tada without a machine-readable failure declaration.
+
+- `endojs-endo-but-for-bots-pr1349-weave-ferry-20261027-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-pr1349-weave-ferry-20261027-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1349-weave-ferry-20261027-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: endojs-endo-but-for-bots-pr1349-weave-ferry-20261027
+> orchestration-status: complete
+> order: serial
+> children-total: 2
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration endojs-endo-but-for-bots-pr1349-weave-ferry-20261027 complete (serial): all 2 children reached tada without a machine-readable failure declaration.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot.md)
 
@@ -1351,11 +1362,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-10-24T04:51:52Z, latest 2026-10-27T14:45:53Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_foreman_journal`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` has CLEARED (first seen 2026-10-24T04:51:52Z, cleared 2026-10-27T21:29:22Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.048793s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` cleared on endolin-garden-ece02cb4.
 
 - `followup-gate-design-recursive-dynamodb-capabilities` — from followup-gate:design-recursive-dynamodb-capabilities, reply_to `design-recursive-dynamodb-capabilities` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-recursive-dynamodb-capabilities.md)
 
@@ -1533,13 +1544,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.7M | $221.75 _(notional, rate-card)_ | 28% of 271.0M (ok) |
+| Claude | 75.8M | $221.75 _(notional, rate-card)_ | 28% of 271.0M (ok) |
 | Codex | 170.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57230470 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.059838s/45s (/home/kris/garden/.garden-state/deadmail/verify); 6 open notice(s); checker healthy
+worst fetch p95 3.059838s/45s (/home/kris/garden/.garden-state/deadmail/verify); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1548,13 +1559,13 @@ worst fetch p95 3.059838s/45s (/home/kris/garden/.garden-state/deadmail/verify);
 ### doin (0)
 (none)
 
-### tada (15368)
+### tada (15370)
+- [`endojs-endo-but-for-bots-pr1349-weave-ferry-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-weave-ferry-20261027.md) — orchestration endojs-endo-but-for-bots-pr1349-weave-ferry-20261027 — complete
+- [`endojs-endo-but-for-bots-pr1349-ferry-restage-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-ferry-restage-20261027.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-weave-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-weave-20261027.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-0282c446`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-0282c446.md) — Cost
 - [`oros-health-watch-20261027-205012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-205012.md) — Cost
-- [`oros-health-checkup-20261027-205012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-checkup-20261027-205012.md) — Cost
-- [`claude-on-minion-town-completion-press-20261027-205012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/claude-on-minion-town-completion-press-20261027-205012.md) — Cost
-- … and 15363 more
+- … and 15365 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
