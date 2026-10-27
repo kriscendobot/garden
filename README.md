@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T20:19:47Z_
+_As of 2026-10-27T20:22:05Z_
 
 ## Latest
 
@@ -1320,6 +1320,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden_journal` cleared on oros-studio-garden-ce242c49.
 
+- `improve-enforce-handler-wall-bound-split-resume-terminal-complete` — from orchestrator:improve-enforce-handler-wall-bound-split-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-enforce-handler-wall-bound-split-resume-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: improve-enforce-handler-wall-bound-split-resume
+> orchestration-status: complete
+> order: serial
+> children-total: 1
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration improve-enforce-handler-wall-bound-split-resume complete (serial): all 1 children reached tada without a machine-readable failure declaration.
+
 - `kriscendobot-minion.town-pr192-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr192-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr192-gauntlet-review-budget-reached.md)
 
 > COALESCED message — occurrence #2 (first seen 2026-10-17T03:56:41Z, latest 2026-10-17T08:44:29Z).
@@ -1524,7 +1537,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 57170429 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
+worst fetch p95 3.345460s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-endo-but-for-bots); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1533,13 +1546,13 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### doin (0)
 (none)
 
-### tada (15360)
+### tada (15361)
+- [`improve-enforce-handler-wall-bound-split-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split-resume.md) — orchestration improve-enforce-handler-wall-bound-split-resume — complete
 - [`improve-enforce-handler-wall-bound-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-regression.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5 — complete
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-91cca8a5-clean.md) — Cost
-- … and 15355 more
+- … and 15356 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
