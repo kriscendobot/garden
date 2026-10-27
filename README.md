@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T17:50:00Z_
+_As of 2026-10-27T17:55:41Z_
 
 ## Latest
 
@@ -1194,6 +1192,19 @@ Delegation: **active**
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=128571691 cap=271000000 pace-bias=0 window-start=2026-10-17T03:00Z(calendar) deadline=2026-10-24T03:00Z(calendar) ceiling=4 backoff=0.5657(ramp) target=1
 
+- `endojs-endo-but-for-bots-pr1425-fix-panel-findings-split-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-pr1425-fix-panel-findings-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1425-fix-panel-findings-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: endojs-endo-but-for-bots-pr1425-fix-panel-findings-split
+> orchestration-status: complete
+> order: serial
+> children-total: 2
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration endojs-endo-but-for-bots-pr1425-fix-panel-findings-split complete (serial): all 2 children reached tada without a machine-readable failure declaration.
+
 - `msg-reset-credit-watch-20261019-160508-4e0a7e09c87c` — from gardener:reset-credit-watch-20261019-160508, reply_to `reset-credit-watch-20261019-160508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261019-160508-4e0a7e09c87c.md)
 
 > Correction to the reset-credit-watch note: claude-endolin1 is projected to cross 90% around **Tue 10-20 ~20Z**, not 'Mon'. Everything else stands.
@@ -1509,7 +1520,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.6M | $211.07 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.8M | $212.70 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 166.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57350907 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1521,16 +1532,18 @@ worst fetch p95 3.696388s/45s (unknown); 6 open notice(s); checker healthy
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (3)
+- [`oros-health-checkup-20261027-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261027-175011.md) — ---
+- [`improve-bound-pre-push-lint-resource-use`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-bound-pre-push-lint-resource-use.md) — ---
 - [`improve-enforce-handler-wall-bound-watchdog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-enforce-handler-wall-bound-watchdog.md) — ---
 
-### tada (15325)
+### tada (15329)
+- [`endojs-endo-but-for-bots-pr1425-fix-panel-findings-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings-split.md) — orchestration endojs-endo-but-for-bots-pr1425-fix-panel-findings-split — comp...
+- [`endojs-endo-but-for-bots-pr1425-fix-panel-findings-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings-summary.md) — Panel-head freshness
+- [`minion-town-arc-press-20261027-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/minion-town-arc-press-20261027-175011.md) — Cost
+- [`oros-health-watch-20261027-175011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/oros-health-watch-20261027-175011.md) — Cost
 - [`endojs-endo-but-for-bots-pr1425-fix-panel-findings-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings-ci.md) — Cost
-- [`endojs-endo-but-for-bots-pr1425-fix-panel-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1425-fix-panel-findings.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1566-fix-ci-failures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/endojs-endo-but-for-bots-pr1566-fix-ci-failures.md) — Completion report: endojs-endo-but-for-bots-pr1566-fix-ci-failures
-- [`improve-enforce-handler-wall-bound-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/improve-enforce-handler-wall-bound-split.md) — orchestration improve-enforce-handler-wall-bound-split — HALTED
-- [`canary-probe-oros-studio-garden-ce242c49-c0b632f5670b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/27/canary-probe-oros-studio-garden-ce242c49-c0b632f5670b.md) — rolling-deploy canary probe — round trip OK
-- … and 15320 more
+- … and 15324 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
