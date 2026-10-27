@@ -49,3 +49,8 @@ says otherwise.
 
 Follow the standard single-author ferry shape: Kris Kowal is the author of
 every commit, and Co-Authored-By and Generated-with trailers are stripped.
+
+---
+ferry_claim:
+  host: kmkmbp2026
+  claimed_at: 2026-10-27T20:54:05Z
