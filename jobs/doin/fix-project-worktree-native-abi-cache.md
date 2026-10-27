@@ -18,3 +18,13 @@ Implement the maintainer's chosen probe-then-rebuild fix in `scripts/jobs/ensure
 - add deterministic regression coverage for matching and mismatched ABIs and document the emitted cache/rebuild signal.
 
 Land the garden change to `main2` with the normal locked rebase/CAS push.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T05:39:03Z
