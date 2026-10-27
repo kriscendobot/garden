@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-27T08:54:40Z_
+_As of 2026-10-27T08:56:53Z_
 
 ## Latest
 
@@ -809,11 +809,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #7 (first seen 2026-10-23T13:27:09Z, latest 2026-10-27T08:07:07Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 7 times; this is
-> ONE entry that updates in place, not 7 messages. Latest detail:
+> COALESCED message — occurrence #8 (first seen 2026-10-23T13:27:09Z, latest 2026-10-27T08:56:05Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 8 times; this is
+> ONE entry that updates in place, not 8 messages. Latest detail:
 >
-> Milestone M3’s API-key agent workbench design, [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574), exhausted its six gauntlet review/fix rounds with unresolved must-fix findings. Decide whether to merge/review it manually or authorize additional gauntlet rounds; its implementation job remains blocked on that decision.
+> M3’s Claude API-key path is blocked: merge #1567, then #1566, so phase 1 PR #1573 can be woven and its dependent phase 2 PR #1575 resumed.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
