@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-27T11:37:47Z_
+_As of 2026-10-27T11:41:40Z_
 
 ## Latest
 
@@ -151,11 +149,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #11 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T00:54:53Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 11 times; this is
-> ONE entry that updates in place, not 11 messages. Latest detail:
+> COALESCED message — occurrence #12 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T11:40:28Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 12 times; this is
+> ONE entry that updates in place, not 12 messages. Latest detail:
 >
-> Milestone M2 is blocked at hardened-text-codecs-shim ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349)): CI is green and the PR is ready. Please decide whether to merge it, completing the milestone.
+> M2’s hardened-text-codecs-shim (#1349) remains blocked on its prerequisite, [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425), whose gauntlet reached its review budget. A maintainer must decide whether to accept/review and merge #1425 so #1349 can proceed.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1483,10 +1481,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.1M | $197.59 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 67.1M | $198.33 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 158.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58851212 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57230906 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.891034s/45s (/home/kris/garden/.garden-state/transcripts/journal); 10 open notice(s); checker healthy
@@ -1496,8 +1494,9 @@ worst fetch p95 3.891034s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`oros-health-checkup-20261027-113513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261027-113513.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`oros-health-watch-20261027-113513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261027-113513.md) — ---
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261027-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261027-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1349
 - [`endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-remaining-panel-findings-20261027.md) — ---
 
 ### tada (15293)
