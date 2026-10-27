@@ -391,7 +391,7 @@ PKG
 
   provision() {  # provision <base> [extra env assignments...] → path on stdout
     local b="$1"; shift
-    env GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$GROOT/scratch" \
+    env -u GARDEN_DEP_CACHE_ROOT GARDEN_ROOT="$GROOT" GARDEN_STATE="$GROOT/.garden-state" GARDEN_SCRATCH="$GROOT/scratch" \
         GARDEN_DEP_INSTALL_CMD="bash $STUB install" "$@" \
         bash "$EPW" "$b" endojs/warm llm 2>"$W/err-$b.txt"
   }

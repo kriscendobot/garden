@@ -332,3 +332,21 @@ like one of these recurring classes.
   cache is built. General lesson: a cache can carry the right compatibility key
   and still be wrong when producers and consumers choose that key through
   different runtime-selection paths.
+- _2026-10-27_: added probe-then-rebuild to `ensure-project-worktree.sh` (job
+  `fix-project-worktree-native-abi-cache`). The runtime-selection fix above was
+  not enough: job `claude-api-p1-registry` was still handed a `better-sqlite3`
+  built for `NODE_MODULE_VERSION 137` under an ABI-127 Node, and daemon restart
+  acceptance failed until `yarn rebuild better-sqlite3`. Every provisioned tree
+  (a HIT after its reconcile, a cold build before its snapshot) now loads each
+  native package under the selected Node. For `better-sqlite3` that means
+  opening an in-memory database, because its binding loads lazily. On a
+  mismatch the package is copied off its cache hardlinks and rebuilt in the
+  per-job worktree only. The classic-linker, scripts-disabled reinstall plus an
+  explicit rebuild runs only when the rebuild dies on EMLINK or a native-build
+  abort. Tell and signal: `NATIVE-PROBE mismatch: … built for
+  NODE_MODULE_VERSION <m>, active node ABI <n>` followed by `NATIVE-REBUILD ok`
+  or `WARN: NATIVE-REBUILD FAILED` (vocabulary in the script header,
+  § Native probe). The same section of
+  `test/project-worktree-isolation-test.sh` also stopped the suite from writing
+  its fixture caches into the host's real `.garden-state/dep-cache`: it
+  inherited the worker's exported `GARDEN_STATE`.

@@ -26,6 +26,9 @@
 #      ref is verified before checkout.
 #  10. Warm dependency caches are keyed by, and revalidated against, the
 #      repository-selected Node native-module ABI before any tree is hardlinked.
+#  11. Every provisioned native module is probed under the selected Node; an
+#      ABI mismatch is rebuilt in the per-job worktree only (classic-linker
+#      fallback on EMLINK), never writing through to the shared cache.
 #
 # Hermetic: throwaway bare "fork" clones + a throwaway garden root, no network.
 
@@ -76,8 +79,13 @@ git_id=(-c user.name=test -c user.email=test@localhost)
 # <branch>, then produce the bare clone the helper reads (worktrees/<o>-<n>.git),
 # wired with the fork fetch refspec exactly like a real garden fork clone.
 GROOT="$TR/garden"
-mkdir -p "$GROOT/scripts/jobs" "$GROOT/worktrees"
+# A worker shell exports the host's GARDEN_STATE; inheriting it would publish
+# these fixtures into the host's real dependency cache. Pin both to the fixture.
+export GARDEN_STATE="$GROOT/.garden-state"
+unset GARDEN_DEP_CACHE_ROOT
+mkdir -p "$GROOT/scripts/jobs/bin" "$GROOT/worktrees"
 cp "$JOBS_SRC/common.sh" "$JOBS_SRC/usage-meter.sh" "$JOBS_SRC/quota-panel.sh" \
+   "$JOBS_SRC/budget-road.sh" "$JOBS_SRC/review-write-deny.sh" \
    "$JOBS_SRC/ensure-project-worktree.sh" "$GROOT/scripts/jobs/"
 chmod +x "$GROOT/scripts/jobs/ensure-project-worktree.sh"
 # The garden root is a git repo so bot_name/bot_email resolve to a pinned identity.
@@ -551,6 +559,122 @@ STUBNODE
   grep -q 'WARM-CACHE built:.*node ABI 222' "$PW2_ERR" \
     && ok "the selected runtime builds and records its own ABI cache entry" \
     || bad "the selected runtime ABI was not used before cache lookup"
+
+  # Probe-then-rebuild (job fix-project-worktree-native-abi-cache). The cache key
+  # alone did not stop a better-sqlite3 built for NODE_MODULE_VERSION 137 from
+  # reaching an ABI-127 runtime, so every provisioned tree is now probed by
+  # actually opening a database. The shim node reports a fixed ABI and "loads"
+  # the addon only when its stamped build ABI matches, failing otherwise with
+  # Node's real NODE_MODULE_VERSION diagnostic.
+  mkdir -p "$EXECDIR/probe-333"
+  cat > "$EXECDIR/probe-333/node" <<'STUBNODE'
+#!/bin/sh
+case "${1:-}" in
+  -p) echo 333; exit 0 ;;
+  -e)
+    printf '%s\n' "$2" >> "$PROBE_LOG"
+    f=node_modules/better-sqlite3/build/Release/better_sqlite3.node
+    [ -f "$f" ] || { echo "Error: Could not locate the bindings file." >&2; exit 1; }
+    built="$(sed -n 's/^abi=//p' "$f")"
+    [ "$built" = 333 ] && exit 0
+    echo "Error: The module '$PWD/$f' was compiled against a different Node.js version using NODE_MODULE_VERSION $built. This version of Node.js requires NODE_MODULE_VERSION 333." >&2
+    exit 1 ;;
+esac
+exit 1
+STUBNODE
+  chmod +x "$EXECDIR/probe-333/node"
+  NATIVE_DIR='node_modules/better-sqlite3/build/Release'
+  NATIVE_PKG='mkdir -p node_modules/better-sqlite3; echo "{\"name\":\"better-sqlite3\"}" > node_modules/better-sqlite3/package.json'
+  NATIVE_INSTALL="$NATIVE_PKG; mkdir -p $NATIVE_DIR; echo \"abi=\$(node -p x)\" > $NATIVE_DIR/better_sqlite3.node"
+  # The rebuild truncates the binary IN PLACE, the write a hardlinked cache
+  # cannot survive unless the helper unshares the package first.
+  NATIVE_REBUILD="echo \"rebuild \$GARDEN_DEP_REBUILD_PKG classic=\${GARDEN_DEP_CLASSIC:-0}\" >> \"\$REBUILD_LOG\"; mkdir -p $NATIVE_DIR; echo \"abi=\$(node -p x)\" > $NATIVE_DIR/better_sqlite3.node"
+  PROBE_LOG="$TR/native-probe.log"; REBUILD_LOG="$TR/native-rebuild.log"
+  run_probe_helper() { # run_probe_helper <base> <owner/repo> <install> <rebuild> [classic-install]
+    PATH="$EXECDIR/probe-333:$PATH" PROBE_LOG="$PROBE_LOG" REBUILD_LOG="$REBUILD_LOG" \
+      GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" \
+      GARDEN_DEP_INSTALL_CMD="$3" GARDEN_DEP_RECONCILE_CMD=: GARDEN_DEP_REBUILD_CMD="$4" \
+      GARDEN_DEP_CLASSIC_INSTALL_CMD="${5:-false}" \
+      bash "$HELPER" "$1" "$2" main
+  }
+
+  make_node_fork endojs native-probe main
+  NP1_ERR="$TR/native-probe-cold.stderr"
+  NP1="$(run_probe_helper garden-np-cold endojs/native-probe "$NATIVE_INSTALL" "$NATIVE_REBUILD" 2>"$NP1_ERR")"
+  grep -q "NATIVE-PROBE ok: better-sqlite3 (.) loads under node ABI 333" "$NP1_ERR" \
+    && [ ! -s "$REBUILD_LOG" ] \
+    && ok "matching ABI: the cold build's better-sqlite3 passes its probe without a rebuild" \
+    || bad "matching ABI: cold-build probe did not pass cleanly ($(cat "$NP1_ERR" | grep NATIVE))"
+  grep -q "new D(':memory:')" "$PROBE_LOG" \
+    && ok "the better-sqlite3 probe constructs a database, not a bare (lazy) require" \
+    || bad "the better-sqlite3 probe does not exercise database construction"
+  NP_ROOT="$GROOT/.garden-state/dep-cache/endojs-native-probe"
+  NP_ENTRY="$(find "$NP_ROOT" -maxdepth 1 -type d -name '*-nodeabi-333' -print -quit)"
+  NP_CACHED="$NP_ENTRY/trees/$NATIVE_DIR/better_sqlite3.node"
+  NP2_ERR="$TR/native-probe-hit.stderr"
+  NP2="$(run_probe_helper garden-np-hit endojs/native-probe "$NATIVE_INSTALL" "$NATIVE_REBUILD" 2>"$NP2_ERR")"
+  grep -q "WARM-CACHE hit:" "$NP2_ERR" \
+    && grep -q "NATIVE-PROBE ok: better-sqlite3" "$NP2_ERR" && [ ! -s "$REBUILD_LOG" ] \
+    && { [ "$NP2/$NATIVE_DIR/better_sqlite3.node" -ef "$NP_CACHED" ] || ! [ "$NP1/$NATIVE_DIR/better_sqlite3.node" -ef "$NP_CACHED" ]; } \
+    && ok "matching ABI: a warm hit probes clean and keeps the shared native inode" \
+    || bad "matching ABI: the warm hit rebuilt or failed its probe"
+
+  # Mismatch: stamp the cached binary as built for NODE_MODULE_VERSION 137 (the
+  # observed incident) behind a correctly ABI-stamped entry. Replace rather than
+  # truncate so the earlier worktrees' hardlinks keep their own content.
+  rm -f "$NP_CACHED"; echo abi=137 > "$NP_CACHED"
+  NP3_ERR="$TR/native-probe-mismatch.stderr"
+  NP3="$(run_probe_helper garden-np-mismatch endojs/native-probe "$NATIVE_INSTALL" "$NATIVE_REBUILD" 2>"$NP3_ERR")"
+  [ "$(cat "$NP3/$NATIVE_DIR/better_sqlite3.node" 2>/dev/null)" = abi=333 ] \
+    && grep -q '^rebuild better-sqlite3 classic=0$' "$REBUILD_LOG" \
+    && ok "ABI mismatch: better-sqlite3 is rebuilt in the per-job worktree and then loads" \
+    || bad "ABI mismatch: the worktree was not repaired"
+  [ "$(cat "$NP_CACHED")" = abi=137 ] && [ ! "$NP3/$NATIVE_DIR/better_sqlite3.node" -ef "$NP_CACHED" ] \
+    && ok "ABI mismatch: the in-place rebuild never wrote through to the shared cache" \
+    || bad "ABI mismatch: the rebuild mutated the shared cache entry"
+  grep -q "NATIVE-PROBE mismatch: better-sqlite3 (.) built for NODE_MODULE_VERSION 137, active node ABI 333; rebuilding in $NP3 only (shared cache untouched)" "$NP3_ERR" \
+    && grep -q "NATIVE-REBUILD ok: better-sqlite3 (.) rebuilt via '.*' in [0-9]*s; probe passes under node ABI 333" "$NP3_ERR" \
+    && ok "ABI mismatch emits the documented NATIVE-PROBE / NATIVE-REBUILD signal" \
+    || bad "ABI mismatch signal missing: $(grep NATIVE "$NP3_ERR")"
+
+  # EMLINK during the rebuild: fall back to the classic copy linker with scripts
+  # disabled, which builds nothing, so the explicit rebuild must follow it.
+  : > "$REBUILD_LOG"
+  EMLINK_REBUILD="if [ \"\${GARDEN_DEP_CLASSIC:-0}\" = 1 ]; then $NATIVE_REBUILD; else echo 'Error: EMLINK: too many links, link ~/.yarn/berry/index/x' >&2; exit 1; fi"
+  CLASSIC_INSTALL="echo classic-install >> \"\$REBUILD_LOG\"; $NATIVE_PKG"
+  NP4_ERR="$TR/native-probe-emlink.stderr"
+  NP4="$(run_probe_helper garden-np-emlink endojs/native-probe "$NATIVE_INSTALL" "$EMLINK_REBUILD" "$CLASSIC_INSTALL" 2>"$NP4_ERR")"
+  [ "$(cat "$NP4/$NATIVE_DIR/better_sqlite3.node" 2>/dev/null)" = abi=333 ] \
+    && [ "$(cat "$REBUILD_LOG")" = "$(printf 'classic-install\nrebuild better-sqlite3 classic=1')" ] \
+    && [ "$(cat "$NP_CACHED")" = abi=137 ] \
+    && grep -q "NATIVE-REBUILD classic-fallback:" "$NP4_ERR" \
+    && grep -q "NATIVE-REBUILD ok:.*after classic-linker reinstall" "$NP4_ERR" \
+    && ok "EMLINK rebuild: classic-linker reinstall, then an explicit rebuild, cache untouched" \
+    || bad "EMLINK fallback misbehaved (log: $(tr '\n' '|' < "$REBUILD_LOG"); $(grep NATIVE "$NP4_ERR"))"
+
+  # An unrelated rebuild failure never takes the classic path, never blocks the
+  # handoff, and says so.
+  : > "$REBUILD_LOG"
+  NP5_ERR="$TR/native-probe-fail.stderr"
+  NP5="$(run_probe_helper garden-np-fail endojs/native-probe "$NATIVE_INSTALL" \
+    'echo "gyp ERR! stack Error: not found: make" >&2; exit 1' "$CLASSIC_INSTALL" 2>"$NP5_ERR")"
+  [ -d "$NP5" ] && ! grep -q classic-install "$REBUILD_LOG" \
+    && grep -q "WARN: NATIVE-REBUILD FAILED: better-sqlite3 (.) still fails its probe under node ABI 333" "$NP5_ERR" \
+    && ok "an unrecoverable rebuild warns, skips the classic fallback, and still hands back the tree" \
+    || bad "an unrecoverable rebuild was mishandled ($(grep NATIVE "$NP5_ERR"))"
+
+  # Cold build whose addon does not load (a wrong prebuilt download): repaired
+  # BEFORE the snapshot, so the published entry carries the working build.
+  : > "$REBUILD_LOG"
+  make_node_fork endojs native-probe-cold main
+  NP6="$(run_probe_helper garden-np-cold-bad endojs/native-probe-cold \
+    "$NATIVE_PKG; mkdir -p $NATIVE_DIR; echo abi=137 > $NATIVE_DIR/better_sqlite3.node" "$NATIVE_REBUILD" 2>/dev/null)"
+  NP6_ENTRY="$(find "$GROOT/.garden-state/dep-cache/endojs-native-probe-cold" -maxdepth 1 -type d -name '*-nodeabi-333' -print -quit)"
+  [ "$(cat "$NP6/$NATIVE_DIR/better_sqlite3.node" 2>/dev/null)" = abi=333 ] \
+    && [ -f "$NP6_ENTRY/.complete" ] \
+    && [ "$(cat "$NP6_ENTRY/trees/$NATIVE_DIR/better_sqlite3.node" 2>/dev/null)" = abi=333 ] \
+    && ok "a cold build is probed and repaired before its cache entry is published" \
+    || bad "a cold build published a native module that fails its probe"
 fi
 
 # Resume-reuse must NOT repopulate: re-run the first base, mutate its node_modules,

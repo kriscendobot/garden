@@ -62,8 +62,12 @@ trap 'rm -rf "$TR"' EXIT
 git_id=(-c user.name=test -c user.email=test@localhost)
 
 GROOT="$TR/garden"
-mkdir -p "$GROOT/scripts/jobs" "$GROOT/worktrees"
+# Never inherit the worker's GARDEN_STATE: fixtures must not reach the host cache.
+export GARDEN_STATE="$GROOT/.garden-state"
+unset GARDEN_DEP_CACHE_ROOT
+mkdir -p "$GROOT/scripts/jobs/bin" "$GROOT/worktrees"
 cp "$JOBS_SRC/common.sh" "$JOBS_SRC/usage-meter.sh" "$JOBS_SRC/quota-panel.sh" \
+   "$JOBS_SRC/budget-road.sh" "$JOBS_SRC/review-write-deny.sh" \
    "$JOBS_SRC/ensure-project-worktree.sh" "$GROOT/scripts/jobs/"
 chmod +x "$GROOT/scripts/jobs/ensure-project-worktree.sh"
 git -C "$GROOT" init -q

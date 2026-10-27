@@ -82,6 +82,36 @@
 # whose marker disagrees is discarded and rebuilt; if the selected ABI cannot be
 # resolved consistently, caching is bypassed.
 #
+# ── Native probe (why a correctly keyed tree is still probed) ────────────────
+# The ABI key did not prevent a better-sqlite3 built for NODE_MODULE_VERSION 137
+# from reaching an ABI-127 runtime (job claude-api-p1-registry: daemon restart
+# acceptance failed until `yarn rebuild better-sqlite3`). A prebuilt download or
+# an install under a different Node can bake the wrong ABI into a
+# correctly-labeled entry. So after every successful provision (a HIT after its
+# reconcile, a cold build BEFORE its snapshot) each present native package is
+# LOADED under the selected Node: better-sqlite3 first, by opening an in-memory
+# database (its binding loads lazily, so require alone proves nothing), then
+# any other package carrying binding.gyp and a built .node. On a
+# NODE_MODULE_VERSION/ABI mismatch or a missing binding, the package directory
+# is first UNSHARED (copied off its cache hardlinks) and then rebuilt with the
+# package manager's targeted rebuild in this worktree only. The shared cache is
+# never written. Only when that rebuild dies on EMLINK or a native-build abort
+# do we fall back to the classic copy linker with scripts disabled, which
+# builds nothing, so an explicit rebuild follows it. A cold build that needed
+# that fallback, or still fails its probe, is not published. Scripts-disabled
+# (botanist) installs are never probed, because a rebuild runs lifecycle scripts.
+# Signals, one log line each (stderr / the job journal):
+#   NATIVE-PROBE ok: <pkg> (<dir>) loads under node ABI <n>
+#   NATIVE-PROBE mismatch|missing: <pkg> (<dir>) built for NODE_MODULE_VERSION <m>, active node ABI <n>; rebuilding in <wt> only (shared cache untouched)
+#   NATIVE-REBUILD classic-fallback: '<cmd>' hit EMLINK/native-build abort ...
+#   NATIVE-REBUILD ok: <pkg> (<dir>) rebuilt via '<cmd>' in <s>s[ after classic-linker reinstall]; probe passes ...
+#   WARN: NATIVE-REBUILD FAILED: <pkg> (<dir>) still fails its probe ... log blob: <sha>
+#   NATIVE-PROBE inconclusive: <pkg> failed for a non-ABI reason; not rebuilding
+#   NATIVE-PROBE skip: GARDEN_SKIP_NATIVE_PROBE=1 | scripts-disabled policy
+# A repeated `NATIVE-PROBE mismatch` on HITs from one entry means that entry
+# holds a wrong-ABI binary. Delete the entry directory under
+# $GARDEN_DEP_CACHE_ROOT and the next fresh worktree rebuilds it.
+#
 # ── Isolation guarantees asserted by test/project-worktree-isolation-test.sh ──
 #   * two DIFFERENT bases, same repo+branch  → DISTINCT paths (the #58 fix);
 #   * same base, same repo+branch (a requeue) → the SAME path, work preserved;
@@ -239,6 +269,176 @@ dep_cache_prune() {
   return 0
 }
 
+# ── native-module probe-then-rebuild (see the file header § Native probe) ─────
+: "${GARDEN_DEP_PROBE_TIMEOUT:=60}"        # seconds one native-module probe may take
+
+# native_probe_targets <wt> — one "<require-dir>\t<package>" line per native
+# package present in an outermost node_modules tree, better-sqlite3 first. Any
+# better-sqlite3 is probed (a missing binding is itself a defect); any other
+# package is probed only when it ships binding.gyp AND a compiled .node, since a
+# bare require of an unbuilt optional addon proves nothing.
+native_probe_targets() {
+  local wt="$1" rel nm dir pkgdir pkg
+  while IFS= read -r rel; do
+    [ -n "$rel" ] || continue
+    nm="$wt/$rel"; dir="$(dirname "$rel")"
+    [ -f "$nm/better-sqlite3/package.json" ] && printf '%s\tbetter-sqlite3\n' "$dir"
+    for pkgdir in "$nm"/*/ "$nm"/@*/*/; do
+      [ -f "$pkgdir/binding.gyp" ] || continue
+      pkg="${pkgdir%/}"; pkg="${pkg#"$nm"/}"
+      [ "$pkg" = better-sqlite3 ] && continue
+      case "$pkg" in *[!A-Za-z0-9@._/-]*) continue ;; esac
+      find "$pkgdir" -name '*.node' -type f -print -quit 2>/dev/null | grep -q . || continue
+      printf '%s\t%s\n' "$dir" "$pkg"
+    done
+  done < <(list_node_modules "$wt")
+}
+
+# native_probe_script <package> — JavaScript that LOADS the addon. better-sqlite3
+# binds its .node lazily, so a bare require succeeds under the wrong ABI; opening
+# an in-memory database and running a statement forces the dlopen.
+native_probe_script() {
+  case "$1" in
+    better-sqlite3) printf '%s' "const D=require('better-sqlite3');const db=new D(':memory:');db.prepare('select 1 as x').get();db.close();" ;;
+    *) printf "require('%s');" "$1" ;;
+  esac
+}
+
+# native_probe <wt> <dir> <package> <out> — run the probe under the selected
+# Node; prints its class: ok | mismatch | missing | inconclusive.
+native_probe() {
+  local wt="$1" dir="$2" pkg="$3" out="$4" rc=0
+  ( cd "$wt/$dir" && TMPDIR="$tmpexec" timeout --kill-after=10 "$GARDEN_DEP_PROBE_TIMEOUT" \
+      node -e "$(native_probe_script "$pkg")" ) >"$out" 2>&1 || rc=$?
+  if [ "$rc" -eq 0 ]; then
+    echo ok
+  elif grep -qE 'NODE_MODULE_VERSION|compiled against a different Node\.js version|Module did not self-register' "$out"; then
+    echo mismatch
+  elif grep -qE 'Could not locate the bindings file|Cannot find module .*\.node' "$out"; then
+    echo missing
+  else
+    echo inconclusive
+  fi
+}
+
+# unshare_package <wt> <pkgdir> — replace a hardlinked package directory with a
+# private copy so a rebuild that writes in place cannot reach the cache inodes
+# (or any sibling worktree's). Refuses any directory that resolves outside <wt>.
+unshare_package() {
+  local wt="$1" real tmp
+  real="$(realpath -e "$2" 2>/dev/null)" || return 1
+  case "$real" in "$(realpath -e "$wt")"/*) : ;; *) return 1 ;; esac
+  tmp="$real.garden-unshare.$$"
+  rm -rf "$tmp" 2>/dev/null
+  cp -a "$real" "$tmp" 2>/dev/null && rm -rf "$real" && mv "$tmp" "$real"
+}
+
+# dep_rebuild_cmd <wt> <package> — the package manager's targeted rebuild.
+# GARDEN_DEP_REBUILD_CMD overrides it (tests); the override reads the package
+# from $GARDEN_DEP_REBUILD_PKG.
+dep_rebuild_cmd() {
+  local wt="$1" pkg="$2" pm=""
+  if [ -n "${GARDEN_DEP_REBUILD_CMD:-}" ]; then
+    printf '%s\n' "$GARDEN_DEP_REBUILD_CMD"; return 0
+  fi
+  if [ -f "$wt/yarn.lock" ]; then
+    if command -v yarn >/dev/null 2>&1; then pm=yarn
+    elif command -v corepack >/dev/null 2>&1; then pm="corepack yarn"; fi
+  elif [ -f "$wt/pnpm-lock.yaml" ] && command -v pnpm >/dev/null 2>&1; then pm=pnpm
+  elif command -v npm >/dev/null 2>&1; then pm=npm
+  fi
+  [ -n "$pm" ] || return 1
+  printf '%s rebuild %s\n' "$pm" "$pkg"
+}
+
+# dep_classic_install_cmd <wt> — the documented Yarn workaround for an install
+# or rebuild that dies on EMLINK (the shared berry index's hardlink cap) or a
+# native-build abort: the node-modules linker in classic copy mode with scripts
+# DISABLED. Disabled scripts mean no addon is built, so the caller must follow
+# it with an explicit rebuild. Yarn projects only.
+dep_classic_install_cmd() {
+  local wt="$1" pm=""
+  if [ -n "${GARDEN_DEP_CLASSIC_INSTALL_CMD:-}" ]; then
+    printf '%s\n' "$GARDEN_DEP_CLASSIC_INSTALL_CMD"; return 0
+  fi
+  [ -f "$wt/yarn.lock" ] || return 1
+  if command -v yarn >/dev/null 2>&1; then pm=yarn
+  elif command -v corepack >/dev/null 2>&1; then pm="corepack yarn"; fi
+  [ -n "$pm" ] || return 1
+  printf 'YARN_ENABLE_SCRIPTS=0 YARN_NODE_LINKER=node-modules YARN_NM_MODE=classic %s install --immutable\n' "$pm"
+}
+
+# native_rebuild <wt> <dir> <package> <out> — unshare, then rebuild one package in
+# <wt>. Falls back to the classic install + explicit rebuild only on the known
+# EMLINK/native-build-abort signatures. Sets native_used_classic=1 on fallback.
+native_rebuild() {
+  local wt="$1" dir="$2" pkg="$3" out="$4" cmd ccmd rc=0 rel
+  unshare_package "$wt" "$wt/$dir/node_modules/$pkg" || {
+    echo "could not unshare $dir/node_modules/$pkg from the warm cache; refusing an in-place rebuild" >"$out"
+    return 1
+  }
+  cmd="$(dep_rebuild_cmd "$wt" "$pkg")" || { echo "no package manager can rebuild $pkg" >"$out"; return 1; }
+  native_rebuild_cmd="$cmd"
+  ( cd "$wt/$dir" && GARDEN_DEP_REBUILD_PKG="$pkg" TMPDIR="$tmpexec" \
+      timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$cmd" ) >"$out" 2>&1 || rc=$?
+  [ "$rc" -eq 0 ] && return 0
+  grep -qE 'EMLINK|too many links|YN0009|couldn.t be built successfully' "$out" || return "$rc"
+  ccmd="$(dep_classic_install_cmd "$wt")" || return "$rc"
+  log "NATIVE-REBUILD classic-fallback: '${cmd}' hit EMLINK/native-build abort for ${pkg} in ${wt}; reinstalling with '${ccmd}' then rebuilding explicitly (scripts were disabled)"
+  native_used_classic=1
+  # Unlinking a hardlinked tree leaves the cache's inodes intact.
+  while IFS= read -r rel; do
+    [ -n "$rel" ] && rm -rf "${wt:?}/$rel"
+  done < <(list_node_modules "$wt")
+  rc=0
+  ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" \
+      bash -c "$ccmd" ) >"$out" 2>&1 || rc=$?
+  [ "$rc" -eq 0 ] || return "$rc"
+  case "$cmd" in *" rebuild "*) cmd="YARN_NODE_LINKER=node-modules YARN_NM_MODE=classic $cmd" ;; esac
+  native_rebuild_cmd="$cmd"
+  ( cd "$wt/$dir" && GARDEN_DEP_REBUILD_PKG="$pkg" GARDEN_DEP_CLASSIC=1 TMPDIR="$tmpexec" \
+      timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$cmd" ) >"$out" 2>&1
+}
+
+# native_probe_repair <wt> <abi> — probe every native package present in <wt>
+# under the selected Node and rebuild, in <wt> only, any that is built for another
+# ABI (or has no binding). Returns 1 when a probe still fails afterwards. Sets
+# native_used_classic=1 when the classic-linker fallback replaced the trees.
+native_probe_repair() {
+  local wt="$1" abi="$2" dir pkg out cls built rsecs r0 r1 rc fails=0 sha
+  native_used_classic=0
+  if [ "${GARDEN_SKIP_NATIVE_PROBE:-0}" = 1 ]; then
+    log "NATIVE-PROBE skip: GARDEN_SKIP_NATIVE_PROBE=1"; return 0
+  fi
+  if [ "$dep_install_policy" = scripts-disabled ]; then
+    log "NATIVE-PROBE skip: scripts-disabled policy (a rebuild would run lifecycle scripts)"; return 0
+  fi
+  out="$(mktemp "$GARDEN_SCRATCH/native-probe.XXXXXX" 2>/dev/null)" || return 0
+  while IFS=$'\t' read -r dir pkg; do
+    [ -n "$pkg" ] || continue
+    cls="$(native_probe "$wt" "$dir" "$pkg" "$out")"
+    case "$cls" in
+      ok) log "NATIVE-PROBE ok: ${pkg} (${dir}) loads under node ABI ${abi}"; continue ;;
+      inconclusive) log "NATIVE-PROBE inconclusive: ${pkg} (${dir}) failed to load for a non-ABI reason under node ABI ${abi}; not rebuilding: $(head -c 300 "$out" | tr '\n' ' ')"; continue ;;
+    esac
+    built="$(grep -oE 'NODE_MODULE_VERSION [0-9]+' "$out" | head -1 | grep -oE '[0-9]+')"
+    log "NATIVE-PROBE ${cls}: ${pkg} (${dir}) built for NODE_MODULE_VERSION ${built:-unknown}, active node ABI ${abi}; rebuilding in ${wt} only (shared cache untouched)"
+    native_rebuild_cmd=""
+    r0="$(date +%s 2>/dev/null || echo 0)"; rc=0
+    native_rebuild "$wt" "$dir" "$pkg" "$out" || rc=$?
+    r1="$(date +%s 2>/dev/null || echo 0)"; rsecs=$((r1 - r0))
+    if [ "$rc" -eq 0 ] && [ "$(native_probe "$wt" "$dir" "$pkg" "$out")" = ok ]; then
+      log "NATIVE-REBUILD ok: ${pkg} (${dir}) rebuilt via '${native_rebuild_cmd}' in ${rsecs}s$([ "$native_used_classic" = 1 ] && printf ' after classic-linker reinstall'); probe passes under node ABI ${abi}"
+    else
+      fails=$((fails+1)); sha=""
+      [ -s "$out" ] && sha="$(git -C "$wt" hash-object -w --stdin < "$out" 2>/dev/null || true)"
+      log "WARN: NATIVE-REBUILD FAILED: ${pkg} (${dir}) still fails its probe under node ABI ${abi} after '${native_rebuild_cmd:-<none>}' (rc=${rc}, ${rsecs}s); run it by hand in ${wt}. log blob: ${sha:-<none>}$([ -n "$sha" ] && printf ' (inspect: git -C %s cat-file -p %s)' "$wt" "$sha")"
+    fi
+  done < <(native_probe_targets "$wt")
+  rm -f "$out" 2>/dev/null
+  [ "$fails" -eq 0 ]
+}
+
 # provision_deps <wt> <slug> — populate <wt>'s node_modules from the warm cache,
 # building the cache once if this lockfile has not been seen on this host. Every
 # path returns 0: this is best-effort and never fails the worktree handoff. All
@@ -283,6 +483,7 @@ provision_deps() {
     }
 
     local t0 t1 secs rel n node_abi cache_key="" cache_dir="" complete="" abi_marker="" cache_enabled=1
+    local native_used_classic=0 native_rebuild_cmd=""
     t0="$(date +%s 2>/dev/null || echo 0)"
 
     # Resolve the ABI under the same serialization lock used to select/build the
@@ -378,6 +579,11 @@ provision_deps() {
           rrunner="(none: no usable package manager)"
         fi
 
+        # Probe after link + reconcile: the reconcile is what lets a targeted
+        # `yarn rebuild` run, and a rebuild here touches only this worktree.
+        native_probe_repair "$wt" "$node_abi" \
+          || log "WARN: WARM-CACHE hit: ${cache_dir} served a native module that fails its probe under node ABI ${node_abi} even after a per-worktree rebuild"
+
         t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
         log "WARM-CACHE hit: ${slug}@${lockhash:0:12} [${dep_install_policy}, node ABI ${node_abi}] populated ${n} node_modules tree(s) into ${wt} in ${secs}s (of which ${rsecs}s link-state reconcile '${rrunner}' rc=${rrc}; ${coldnote})"
         exit 0
@@ -402,6 +608,17 @@ provision_deps() {
     i1="$(date +%s 2>/dev/null || echo 0)"; isecs=$((i1 - i0))
 
     if [ "$rc" -eq 0 ]; then
+      # Probe BEFORE publishing, so a cold build whose addon does not load under
+      # this ABI is repaired before it is snapshotted, and never cached broken.
+      # A classic-linker fallback produced a different tree layout than the
+      # ordinary install this key names, so it is not published either.
+      if ! native_probe_repair "$wt" "$node_abi"; then
+        [ "$cache_enabled" -eq 1 ] && log "WARN: dep-cache: native probe still failing after rebuild for ${slug}@${lockhash:0:12} [node ABI ${node_abi}]; not caching"
+        cache_enabled=0
+      elif [ "$native_used_classic" = 1 ]; then
+        [ "$cache_enabled" -eq 1 ] && log "dep-cache: classic-linker fallback used for ${slug}@${lockhash:0:12}; not caching that layout"
+        cache_enabled=0
+      fi
       if [ "$cache_enabled" -eq 0 ]; then
         log "WARM-CACHE bypass: ${slug}@${lockhash:0:12} [${dep_install_policy}, node ABI ${node_abi}] installed uncached in ${isecs}s"
         [ -n "$out" ] && rm -f "$out" 2>/dev/null
