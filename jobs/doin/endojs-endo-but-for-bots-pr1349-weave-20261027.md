@@ -33,3 +33,13 @@ branch. Then drive CI to green at the new head (shepherd inline or post a shephe
 child), and post one PR comment summarizing the new base/head and CI status.
 Do NOT ferry; the next orchestration child re-stages the ferry directive.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-27T21:08:04Z
