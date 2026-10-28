@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: foreman
 msg_key: foreman-milestone-M3
-notice_count: 9
+notice_count: 10
 first_seen: 2026-10-23T13:27:09Z
-last_seen: 2026-10-28T10:21:36Z
-sent_at: 2026-10-28T10:21:36Z
+last_seen: 2026-10-28T15:09:50Z
+sent_at: 2026-10-28T15:09:50Z
 ---
-COALESCED message — occurrence #9 (first seen 2026-10-23T13:27:09Z, latest 2026-10-28T10:21:36Z).
-The SAME message (episode key `foreman-milestone-M3`) has now been sent 9 times; this is
-ONE entry that updates in place, not 9 messages. Latest detail:
+COALESCED message — occurrence #10 (first seen 2026-10-23T13:27:09Z, latest 2026-10-28T15:09:50Z).
+The SAME message (episode key `foreman-milestone-M3`) has now been sent 10 times; this is
+ONE entry that updates in place, not 10 messages. Latest detail:
 
-Milestone M3’s API-key provider stack is blocked: Phase 3 waits on #1575, which depends on #1573 becoming green after the CI remediation lands. Please review and merge design #1543 and choose/merge the already-ready CI fixes #1542 and #1546 (rather than duplicate #1566) so the stack can be woven forward.
+M3’s API-key-agent critical path is blocked: phase 3 and the workbench build await the open design PRs #1543 and #1574. Please resolve #1574’s remaining open question—especially its minion.town workbench-mount backing—and accept or merge the reviewed design stack so implementation can resume.
