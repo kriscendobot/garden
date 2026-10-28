@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T11:13:39Z_
+_As of 2026-10-28T11:19:56Z_
 
 ## Latest
 
@@ -1546,9 +1544,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 82.5M | $242.92 _(notional, rate-card)_ | 30% of 271.0M (ok) |
-| Codex | 187.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 187.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57371842 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57375692 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 2.874026s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 10 open notice(s); checker healthy
@@ -1561,11 +1559,11 @@ worst fetch p95 2.874026s/45s (/home/kris/garden/.garden-state/library-source-dr
 (none)
 
 ### tada (15415)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1.md) — Cost
 - [`oros-health-checkup-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-checkup-20261028-090509.md) — Cost
 - [`claude-on-minion-town-completion-press-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/claude-on-minion-town-completion-press-20261028-090509.md) — Cost
 - [`minion-town-arc-press-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/minion-town-arc-press-20261028-090509.md) — Cost
 - [`oros-health-watch-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-watch-20261028-090509.md) — Cost
-- [`daily-progress-summary-20261028-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/daily-progress-summary-20261028-070510.md) — Cost
 - … and 15410 more
 
 ## Plan queue (parked — not claimable until promoted)
