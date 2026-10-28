@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T16:29:51Z_
+_As of 2026-10-28T16:39:49Z_
 
 ## Latest
 
@@ -125,17 +123,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #209 (first seen 2026-10-16T17:37:14Z, latest 2026-10-28T16:25:31Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 209 times; this is ONE
-> coalesced notice that updates in place, not 209 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-28T16:35:02Z).
+> It was observed 209 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.033791s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.040781s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.036213s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.027552s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.028018s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.025580s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -293,18 +285,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-10-18T10:57:22Z, latest 2026-10-28T16:25:20Z).
-> The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-10-18T10:57:22Z, cleared 2026-10-28T16:30:02Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-topics-counts/journal: p95=45.002188s max=45.002188s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for _home_kris_garden_journal: p95=25.478733s max=25.478733s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/progress/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/clerics/1/journal: p95=4.512026s max=45.002539s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-vattr97: p95=3.975945s max=36.403672s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/gardener-scaler/journal: p95=3.589349s max=45.002225s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-> - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monks/2/journal: p95=4.089386s max=37.409456s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -956,11 +941,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262` has CLEARED (first seen 2026-10-28T09:11:55Z, cleared 2026-10-28T09:15:07Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-28T09:11:55Z, latest 2026-10-28T16:35:18Z).
+> The SAME condition (`journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262` cleared on endolin-garden-ece02cb4.
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-test262: p95=22.779109s max=45.001662s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
 
 - `endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached.md)
 
@@ -1122,11 +1107,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-10-23T13:21:18Z, cleared 2026-10-28T14:10:11Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-23T13:21:18Z, latest 2026-10-28T16:35:33Z).
+> The SAME condition (`journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: p95=4.292974s max=37.776571s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
 
 - `liaison-followup-d31d9dcee79e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-d31d9dcee79e.md)
 
@@ -1210,6 +1195,10 @@ Delegation: **active**
 - `msg-oros-health-watch-20261018-123528-expanded-window-110d8e6241bc` — from gardener:oros-health-watch-20261018-123528-expanded-window, reply_to `oros-health-watch-20261018-123528-expanded-window` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-expanded-window-110d8e6241bc.md)
 
 > Oros health watcher recovery succeeded. The authorized garden-monk@1.service restart (20261018T132252Z-05edf6) was applied and acked at 14:02Z; oros-health-checkup-20261018-123528 claimed monk 1 at 14:03Z and remains active. Its budget heartbeat advanced to 14:17Z. The earlier reset-failed (20261018T132111Z-51adcc) was also applied and acked. Oros is deployed at main2 05d833a2 with zero reported unit failures and no derotation marker. No person-at-machine action is currently needed.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monitors_monk_2_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monitors_monk_2_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monitors/monk-2/journal: p95=5.374775s max=33.970783s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
@@ -1472,6 +1461,10 @@ Delegation: **active**
 > 2. Building against [kriscendobot/minion.town#221](https://github.com/kriscendobot/minion.town/issues/221) at commit 7eca8b82 is a reasonable reading of "landed design". The design is still a draft PR, so its shape is provisional. Say so in the [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) PR body. Add a short gap report listing where the implementation diverged from, or exposed holes in, the design. If the design changes, [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) may need rework, and that's acceptable throw-away cost.
 > 3. Don't wait for the maintainer to confirm the spec. Finish the gap report and run the usual local checks. Then post your completion summary, noting that the build is provisional on the draft design. Per the probe convention, no panel, fix-loop or un-draft chain should follow. If the maintainer later wants it parked, they can close or park it.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_approval_reconciler_verify.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/approval-reconciler/verify: p95=3.372422s max=33.759400s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > WATCHDOG notice — occurrence #7 (first seen 2026-10-17T11:18:19Z, latest 2026-10-28T15:00:03Z).
@@ -1563,13 +1556,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.1M | $243.10 _(notional, rate-card)_ | 31% of 271.0M (ok) |
-| Codex | 191.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 83.2M | $243.10 _(notional, rate-card)_ | 31% of 271.0M (ok) |
+| Codex | 192.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57459705 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.002188s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 16 open notice(s); checker healthy
+worst fetch p95 45.002188s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 19 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1578,13 +1571,13 @@ worst fetch p95 45.002188s/45s (/home/kris/garden/.garden-state/regenerate-topic
 ### doin (0)
 (none)
 
-### tada (15426)
+### tada (15427)
+- [`fu-qwen-model-watch-20260728-180502-1-20261028-163513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/fu-qwen-model-watch-20260728-180502-1-20261028-163513.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-7c47efb426af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/canary-probe-oros-studio-garden-ce242c49-7c47efb426af.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261028-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-watch-20261028-152017.md) — Cost
 - [`oros-health-checkup-20261028-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-checkup-20261028-152017.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1553-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/dependabotany-recheck-endo-but-for-bots-pr1553-20261028.md) — Cost
-- [`improve-one-shot-dependabot-handler-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/improve-one-shot-dependabot-handler-budget.md) — Cost
-- … and 15421 more
+- … and 15422 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
