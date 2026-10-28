@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-28T09:35Z (oros-health-checkup-20261028-090509): healthy; deployed = origin/main2 `d583c98`; regenerate-sections-index clone repacked 53 → 1 pack
+
+- **Load/mem:** load 3.00/3.25/3.34 at 09:18Z. 13 GiB of 15 GiB available. Swap reads 892M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 56% (203G free), inodes 1%.
+- **Uptime:** 26d16h02m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `d583c98`, equal to the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed`, 0 of 290 units failing, 0 advisory (20:37Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** on origin/journal2, claude-oros was sampled at 09:17:49Z (pushed 09:18:16Z). The pushes at 08:33, 08:48, 09:03, and 09:18Z were all ok. Spend is flat at 423,078 of 180M.
+- **State clones:** 43 journal git clones. regenerate-sections-index was at **53 packs** (over the `>50` threshold). Its journal auto-gc check had hit rc=124 three times in 3h (06:39, 07:41, 08:39Z). The 08:37Z maintenance pass ran before it crossed 50. I repacked it by hand at nice/ionice idle: 53 → 1 pack in 90s, 422M → 380M. The next largest are unblock (49), reaper (47), and regenerate-topics-counts (46). No tmp_pack, no `gc.log`, and no `.git` lock older than 30 minutes.
+- **rc=124 (3h):** 4 in 35k system-journal lines, all auto-gc checks: the three above, plus one in library-link-check (08:24Z). No job or gate timeouts. No `Failed with result` or rc=137 lines.
+- **Changed:** repacked `regenerate-sections-index/journal`.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-28T06:15Z (oros-health-checkup-20261028-060509): healthy; deployed = origin/main2 `d583c98`, no changes
 
 - **Load/mem:** load 3.37/3.07/3.04 at 06:09Z. 12 GiB of 15 GiB available. Swap reads 884M of 1.0 GiB, the usual steady level.
