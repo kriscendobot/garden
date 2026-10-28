@@ -1,2 +1,2 @@
-base: improve-budget-snapshot-regression-floor
+base: improve-usage-meter-recheck-warning
 identity: mentor:scripts/jobs/usage-meter.sh
