@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T08:39:01Z_
+_As of 2026-10-28T08:44:29Z_
 
 ## Latest
 
@@ -700,13 +698,16 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot` cleared on endolin-garden-ece02cb4.
 
-- `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
+- `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `namespace-clone-packs-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-21T14:40:21Z, cleared 2026-10-21T15:53:55Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-21T14:40:21Z, latest 2026-10-28T08:41:56Z).
+> The SAME condition (`namespace-clone-packs-oros-studio-garden-ce242c49`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
+> Per-namespace journal clones on oros-studio-garden-ce242c49 are still over the 50-pack threshold after maintenance:
+>   /Users/dom/garden/.garden-state/regenerate-sections-index/journal: 53 packs
+>
+> A pack/tmp_pack buildup makes every git read slow (2026-10-08: 57 s leader read wedged ~100 leader-gated units). Inspect by hand: `nice ionice -c3 git -C <clone> repack -a -d`.
 
 - `kriscendobot-minion.town-pr216-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr216-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr216-gauntlet-review-budget-reached.md)
 
