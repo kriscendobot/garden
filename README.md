@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T15:50:34Z_
+_As of 2026-10-28T15:56:18Z_
 
 ## Latest
 
@@ -1580,8 +1578,8 @@ worst fetch p95 45.002188s/45s (/home/kris/garden/.garden-state/regenerate-topic
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`canary-probe-oros-studio-garden-ce242c49-7c47efb426af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-7c47efb426af.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 7c47efb426af
 
 ### tada (15425)
 - [`oros-health-watch-20261028-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-watch-20261028-152017.md) — Cost
