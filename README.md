@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-28T05:43:56Z_
+_As of 2026-10-28T05:46:59Z_
 
 ## Latest
 
@@ -1528,7 +1528,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.2M | $237.17 _(notional, rate-card)_ | 30% of 271.0M (ok) |
+| Claude | 80.3M | $237.77 _(notional, rate-card)_ | 30% of 271.0M (ok) |
 | Codex | 182.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57449734 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1540,7 +1540,8 @@ worst fetch p95 6.650528s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1349-fix-maintainer-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-maintainer-review.md) — ---
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261028.md) — ---
 
 ### tada (15398)
