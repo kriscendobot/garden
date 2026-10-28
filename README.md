@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-28T15:56:18Z_
+_As of 2026-10-28T15:57:56Z_
 
 ## Latest
 
@@ -1578,16 +1578,16 @@ worst fetch p95 45.002188s/45s (/home/kris/garden/.garden-state/regenerate-topic
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-7c47efb426af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-7c47efb426af.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 7c47efb426af
+### doin (0)
+(none)
 
-### tada (15425)
+### tada (15426)
+- [`canary-probe-oros-studio-garden-ce242c49-7c47efb426af`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/canary-probe-oros-studio-garden-ce242c49-7c47efb426af.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261028-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-watch-20261028-152017.md) — Cost
 - [`oros-health-checkup-20261028-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-checkup-20261028-152017.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1553-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/dependabotany-recheck-endo-but-for-bots-pr1553-20261028.md) — Cost
 - [`improve-one-shot-dependabot-handler-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/improve-one-shot-dependabot-handler-budget.md) — Cost
-- [`minion-town-arc-press-20261028-152017`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/minion-town-arc-press-20261028-152017.md) — Cost
-- … and 15420 more
+- … and 15421 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
