@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T05:00:05Z_
+_As of 2026-10-28T05:04:38Z_
 
 ## Latest
 
@@ -921,6 +919,21 @@ Delegation: **active**
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 4 -> 3 (target 3): subscription claude-endolin1 spend=25411241 cap=271000000 pace-bias=0.010435 window-start=2026-10-24T03:00Z(calendar) deadline=2026-10-31T03:00Z(calendar) ceiling=4 backoff=0.5523(ramp) target=3
 
+- `msg-endojs-endo-but-for-bots-pr1349-ferry-restage-20261028-018bed2a350d` — from gardener:endojs-endo-but-for-bots-pr1349-ferry-restage-20261028, reply_to `endojs-endo-but-for-bots-pr1349-ferry-restage-20261028` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1349-ferry-restage-20261028-018bed2a350d.md)
+
+> I did not restage the ferry for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). The directive `jobs/ferry/endojs-endo-but-for-bots-pr1349.md` still pins the old head `b122ff91ef` and is unchanged, so `scripts/ferry.sh` will refuse it (the head moved).
+>
+> Where it stands:
+> - Gauntlet `endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e` is complete. Panel round 2 decided "pass" at head `1e19cde89b`, which is the current head. CI is green there (15/15).
+> - That panel review ([https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#pullrequestreview-5677937470) still has an open integrator **must-fix**. [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) carries the XS lockdown-compartment commits that [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425) also makes, and [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425) is still an open draft with no review. The integrator wants that reconciled, or [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) put back into draft behind [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425). Fix-1 rewrote the body to "Overlaps: [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425); whichever lands second drops the duplicate", but the integrator still flags it. The restage job required this item to be closed.
+> - The `ci.yml` body claim (the other integrator item) is fixed.
+> - Also open, but not blocking: changeset-auditor request-changes on sentence-per-line in `.changeset/ses-xs-lockdown-compartment-intrinsics.md`, and should-fix items to autosquash the fixups and split the CI changes into their own PR.
+>
+> Your call. Options:
+> (a) Accept the overlap. Say "restage the ferry for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) at 1e19cde8" and a gardener will pin it.
+> (b) Drop the XS slice from [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) so [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425) owns it, then re-gauntlet.
+> (c) Land [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425) first, then weave [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-10-20T03:59:33Z, cleared 2026-10-23T19:16:08Z).
@@ -1530,10 +1543,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.9M | $235.86 _(notional, rate-card)_ | 29% of 271.0M (ok) |
-| Codex | 181.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 80.0M | $235.86 _(notional, rate-card)_ | 30% of 271.0M (ok) |
+| Codex | 181.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57191515 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57424816 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 6.650528s/45s (/home/kris/garden/.garden-state/transcripts/journal); 9 open notice(s); checker healthy
@@ -1545,13 +1558,13 @@ worst fetch p95 6.650528s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### doin (0)
 (none)
 
-### tada (15396)
+### tada (15397)
+- [`endojs-endo-but-for-bots-pr1349-ferry-restage-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-ferry-restage-20261028.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e — complete
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-fix-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-panel-1.md) — Cost
-- … and 15391 more
+- … and 15392 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1636,7 +1649,6 @@ worst fetch p95 6.650528s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
-- [`endojs-endo-but-for-bots-pr1349-ferry-restage-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1349-ferry-restage-20261028.md) — awaiting `endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e` · ---
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
 - [`ebfb-parcel-layer2-build-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-parcel-layer2-build-20261024.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/774` · Build: Parcel layer 2 (SES %InitialParcel% / %SharedParcel%), endojs/endo-but...
