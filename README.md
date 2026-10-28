@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T03:07:39Z_
+_As of 2026-10-28T03:10:41Z_
 
 ## Latest
 
@@ -1539,11 +1537,11 @@ _Fleet token-unlock pace: 57108725 tokens/day lower bound; incomplete where a su
 worst fetch p95 6.650528s/45s (/home/kris/garden/.garden-state/transcripts/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`oros-health-checkup-20261028-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261028-030509.md) — ---
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
+- [`oros-health-checkup-20261028-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261028-030509.md) — ---
 - [`oros-health-watch-20261028-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261028-030509.md) — ---
 - [`endojs-endo-but-for-bots-pr1566-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1566-weave.md) — ---
 
