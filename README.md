@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T09:04:06Z_
+_As of 2026-10-28T09:09:25Z_
 
 ## Latest
 
@@ -1533,7 +1531,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 82.3M | $242.92 _(notional, rate-card)_ | 30% of 271.0M (ok) |
+| Claude | 82.5M | $242.92 _(notional, rate-card)_ | 30% of 271.0M (ok) |
 | Codex | 185.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57349396 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1542,19 +1540,20 @@ _Fleet token-unlock pace: 57349396 tokens/day lower bound; incomplete where a su
 worst fetch p95 2.874026s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`oros-health-checkup-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261028-090509.md) — ---
 
 ### doin (0)
 (none)
 
-### tada (15411)
+### tada (15414)
+- [`claude-on-minion-town-completion-press-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/claude-on-minion-town-completion-press-20261028-090509.md) — Cost
+- [`minion-town-arc-press-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/minion-town-arc-press-20261028-090509.md) — Cost
+- [`oros-health-watch-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-watch-20261028-090509.md) — Cost
 - [`daily-progress-summary-20261028-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/daily-progress-summary-20261028-070510.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4 — complete
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-undraft.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-clean.md) — Cost
-- … and 15406 more
+- … and 15409 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
