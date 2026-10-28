@@ -1,13 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-27T21:51:07Z
+sent_at: 2026-10-28T02:44:47Z
 watchdog_key: journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal
 notice_count: 7
 first_seen: 2026-10-17T00:47:40Z
-last_seen: 2026-10-27T21:51:07Z
+last_seen: 2026-10-28T02:44:47Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #7 (first seen 2026-10-17T00:47:40Z, latest 2026-10-27T21:51:07Z).
-The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal`) has now been observed 7 times; this is ONE
-coalesced notice that updates in place, not 7 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-10-17T00:47:40Z, cleared 2026-10-28T02:44:47Z).
+It was observed 7 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.035290s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
