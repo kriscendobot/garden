@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-28T20:24:06Z_
+_As of 2026-10-28T20:25:32Z_
 
 ## Latest
 
@@ -149,11 +149,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #17 (first seen 2026-10-18T09:20:28Z, latest 2026-10-28T18:40:06Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 17 times; this is
-> ONE entry that updates in place, not 17 messages. Latest detail:
+> COALESCED message — occurrence #18 (first seen 2026-10-18T09:20:28Z, latest 2026-10-28T20:24:25Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 18 times; this is
+> ONE entry that updates in place, not 18 messages. Latest detail:
 >
-> M2 is blocked at [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): decide whether its overlapping XS lockdown work should remain for an upstream ferry, move to #1425, or wait for #1425 to land first.
+> Milestone M2 is blocked on completing [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). Decide whether to accept its known dependency-check failure for ferry purposes or land #1582 into the frozen base first.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1568,7 +1568,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.0M | $257.16 _(notional, rate-card)_ | 32% of 271.0M (ok) |
+| Claude | 87.0M | $257.20 _(notional, rate-card)_ | 32% of 271.0M (ok) |
 | Codex | 195.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57567797 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
