@@ -1,10 +1,9 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e
-priority: normal
-posted_by: gardener
+role: gardener
+tier: mentor
 posted_at: 2026-10-28T04:13:11Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-28T05:01:21Z cleared=none -->
 
 ---
 role: gardener
