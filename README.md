@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T21:50:06Z_
+_As of 2026-10-28T21:54:32Z_
 
 ## Latest
 
@@ -825,6 +823,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_3_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_3_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monks/3/journal: p95=2.222798s max=33.623094s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
 > COALESCED message — occurrence #11 (first seen 2026-10-23T13:27:09Z, latest 2026-10-28T16:25:54Z).
@@ -1570,28 +1572,29 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.1M | $257.12 _(notional, rate-card)_ | 32% of 271.0M (ok) |
+| Claude | 87.2M | $257.60 _(notional, rate-card)_ | 32% of 271.0M (ok) |
 | Codex | 197.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57593026 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57205396 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 9.080429s/45s (/home/kris/garden/.garden-state/mentor/journal); 8 open notice(s); checker healthy
+worst fetch p95 9.080429s/45s (/home/kris/garden/.garden-state/mentor/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`oros-health-checkup-20261028-215008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261028-215008.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`oros-health-watch-20261028-215008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261028-215008.md) — ---
 
-### tada (15451)
+### tada (15452)
+- [`minion-town-arc-press-20261028-215008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/minion-town-arc-press-20261028-215008.md) — Cost
 - [`claude-on-minion-town-completion-press-20261028-212009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/claude-on-minion-town-completion-press-20261028-212009.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-abed1bbfc344`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/canary-probe-oros-studio-garden-ce242c49-abed1bbfc344.md) — rolling-deploy canary probe — round trip OK
 - [`improve-usage-meter-recheck-warning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/improve-usage-meter-recheck-warning.md) — Cost
 - [`fix-endo-pr1349-stray-depcheck-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/fix-endo-pr1349-stray-depcheck-20261028.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349 — complete
-- … and 15446 more
+- … and 15447 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
