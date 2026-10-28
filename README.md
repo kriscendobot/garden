@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T06:51:51Z_
+_As of 2026-10-28T06:55:21Z_
 
 ## Latest
 
@@ -1545,13 +1543,13 @@ worst fetch p95 2.494059s/45s (/home/kris/garden/.garden-state/screening-control
 ### doin (0)
 (none)
 
-### tada (15408)
+### tada (15409)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-991f8af4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-991f8af4.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1573-shepherd-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1573-shepherd-20261028.md) — Cost
-- … and 15403 more
+- … and 15404 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
