@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T05:54:58Z_
+_As of 2026-10-28T05:59:55Z_
 
 ## Latest
 
@@ -947,6 +945,10 @@ Delegation: **active**
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=89100667 cap=180000000 pace-bias=0.845860 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.8976(ramp) target=4
 
+- `msg-endojs-endo-but-for-bots-pr1349-fix-maintainer-review-b85d7da0a838` — from gardener:endojs-endo-but-for-bots-pr1349-fix-maintainer-review, reply_to `endojs-endo-but-for-bots-pr1349-fix-maintainer-review` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1349-fix-maintainer-review-b85d7da0a838.md)
+
+> PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): the staged ferry directive jobs/ferry/endojs-endo-but-for-bots-pr1349.md pins downstream_head b122ff91ef, but the head has moved. Panel follow-ups took it to 1e19cde89b, and this fix job (it restored the measured Chromium codec range kriskowal asked for in r4392486550) took it to 991f8af47e. CI is green there (15/15). As written, the boatman will block on the head check, so the directive needs re-staging at 991f8af47e before ferrying.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal` has CLEARED (first seen 2026-10-20T09:21:58Z, cleared 2026-10-23T20:31:18Z).
@@ -1530,7 +1532,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.3M | $238.75 _(notional, rate-card)_ | 30% of 271.0M (ok) |
+| Claude | 80.3M | $237.85 _(notional, rate-card)_ | 30% of 271.0M (ok) |
 | Codex | 182.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57472136 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1542,18 +1544,17 @@ worst fetch p95 6.650528s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1349-shepherd-991f8af4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-shepherd-991f8af4.md) — ---
-- [`endojs-endo-but-for-bots-pr1349-fix-maintainer-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-maintainer-review.md) — ---
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261028.md) — ---
 
-### tada (15398)
+### tada (15399)
+- [`endojs-endo-but-for-bots-pr1349-fix-maintainer-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-fix-maintainer-review.md) — Completion report: endojs-endo-but-for-bots-pr1349-fix-maintainer-review
 - [`endojs-endo-but-for-bots-pr1566-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1566-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-ferry-restage-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-ferry-restage-20261028.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e — complete
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-undraft.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e-panel-2.md) — Cost
-- … and 15393 more
+- … and 15394 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
