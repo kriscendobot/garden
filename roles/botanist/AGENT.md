@@ -137,7 +137,7 @@ On a `dependabot[bot]`-authored PR on a repo where the bot holds merge authority
        dependabotany-recheck-<project>-pr<N> <body-file>
      ```
 
-     The one-shot body instructs a gardener to wear this role and re-evaluate **this PR (`#N`)**, executing the now-due verdict. The scheduler fires it once at `recheck_iso` and DELETES the schedule file in the same CAS commit, so it self-cleans after firing (`scripts/jobs/set-schedule-once.sh`). The basename carries no timestamp, so a retried dispatch is idempotent.
+     The one-shot body instructs a gardener to wear this role and re-evaluate **this PR (`#N`)**, executing the now-due verdict. The scheduler fires it once at `recheck_iso` and DELETES the schedule file in the same CAS commit, so it self-cleans after firing (`scripts/jobs/set-schedule-once.sh`). The basename carries no timestamp, so a retried dispatch is idempotent. `set-schedule-once.sh` automatically stamps `handler-timeout: 7200` into the leading frontmatter of every `dependabotany-recheck-*` one-shot body (an explicit `handler-timeout:` already in that frontmatter wins), so the dispatched recheck gets the same budget as the daily backstop instead of the 2400s generic wall that killed the PR #1553 one-shot.
 
   2. **Daily heartbeat over the ledger (backstop).** Idempotently ensure the per-project daily sweep exists, as a safety net that catches any PR whose precise one-shot was lost (a rejected push, a hand-edited ledger, a floor recorded without a one-shot):
 

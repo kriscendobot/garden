@@ -207,6 +207,10 @@ job_basename_prefix: <p>   # dispatched job basename = <p> (no timestamp → ide
   timestamp), so a retried dispatch is basename-idempotent. If the shared
   producer clone is wedged or corrupt, it falls back after a bounded wait to a
   fresh temporary clone, so a deferral does not wait on clone repair.
+  A one-shot has no schedule-header `handler-timeout:`: its body is the job
+  file, so a budget goes in the body's leading frontmatter. A
+  `dependabotany-recheck-*` one-shot gets `handler-timeout: 7200` stamped there
+  automatically unless that frontmatter already declares one.
 - Remove: delete `schedules/<name>.md` and push (a normal CAS commit).
 - The scheduler (`scheduler.sh`, `garden-scheduler.timer`) does the dispatching;
   you only post the schedule definition.

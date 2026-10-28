@@ -20,6 +20,9 @@
 # phase 2 writes the schedule through a fresh shallow temporary clone, up to
 # GARDEN_SCHEDULE_ONCE_ISOLATED_ATTEMPTS times, so a deferral never waits on
 # someone repairing the producer clone.
+#
+# A dependabotany-recheck-* one-shot body gets `handler-timeout: 7200` stamped
+# into its leading frontmatter unless it already declares one (see below).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -54,6 +57,31 @@ fi
 if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"
 else BODY="# one-time scheduled job: $name"; fi
+
+# A once: schedule dispatches its body verbatim as the job file, so a handler
+# budget must live in the BODY's leading frontmatter (the recurring path's
+# schedule-header `handler-timeout:` has no once: equivalent). The botanist's
+# precise per-PR dependabotany-recheck-* one-shot fans out into review, CI
+# shepherding, and merge handling exactly like the recurring backstop, and the
+# 2400s generic wall deterministically killed the PR #1553 one-shot
+# (2026-10-28T15:03Z). Stamp the family's 7200s budget unless the body's leading
+# frontmatter already declares a handler-timeout (an explicit override wins).
+stamp_body_handler_timeout() {  # $1=seconds; filters stdin → stdout
+  awk -v ht="$1" '
+    { line[++n]=$0 }
+    END {
+      if (n && line[1]=="---") for(i=2;i<=n;i++) if(line[i]=="---"){end=i;break}
+      if (!end) { print "---"; print "handler-timeout: " ht; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
+      for(i=2;i<end;i++) if(line[i] ~ /^handler-timeout:/) { for(j=1;j<=n;j++) print line[j]; exit }
+      print line[1]; print "handler-timeout: " ht
+      for(i=2;i<=n;i++) print line[i]
+    }'
+}
+case "$name|$prefix" in
+  dependabotany-recheck-*|*'|'dependabotany-recheck-*)
+    BODY="$(printf '%s\n' "$BODY" | stamp_body_handler_timeout 7200)" ;;
+esac
+
 render() {  # the schedule file's exact bytes
   printf 'once: %s\njob_basename_prefix: %s\n---\n' "$when" "$prefix"
   printf '%s\n' "$BODY"
