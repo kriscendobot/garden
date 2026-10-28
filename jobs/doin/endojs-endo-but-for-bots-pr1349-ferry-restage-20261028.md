@@ -39,3 +39,13 @@ Procedure:
 3. If not (the gauntlet halted, hit its review budget, or the head moved again),
    do NOT restage. Report what blocks it and message the maintainer through
    message-user.sh.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-28T05:01:32Z
