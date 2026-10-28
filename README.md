@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T14:03:58Z_
+_As of 2026-10-28T14:09:09Z_
 
 ## Latest
 
@@ -929,6 +927,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=2.477845s max=37.720824s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262` has CLEARED (first seen 2026-10-28T09:11:55Z, cleared 2026-10-28T09:15:07Z).
@@ -1544,7 +1546,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 57407618 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 25.478733s/45s (unknown); 15 open notice(s); checker healthy
+worst fetch p95 25.478733s/45s (unknown); 16 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1554,11 +1556,11 @@ worst fetch p95 25.478733s/45s (unknown); 15 open notice(s); checker healthy
 (none)
 
 ### tada (15419)
+- [`claude-on-minion-town-completion-press-20261028-090509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/claude-on-minion-town-completion-press-20261028-090509.md) — Cost
+- [`daily-progress-summary-20261028-070510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/daily-progress-summary-20261028-070510.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261028-113508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/dependabotany-recheck-endo-but-for-bots-20261028-113508.md) — Cost
-- [`oros-health-watch-20261028-120512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-watch-20261028-120512.md) — Cost
-- [`oros-health-checkup-20261028-120512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-checkup-20261028-120512.md) — Cost
-- [`minion-town-arc-press-20261028-120512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/minion-town-arc-press-20261028-120512.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr1349-ferry-restage-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-ferry-restage-20261028.md) — Cost
+- [`endojs-endo-but-for-bots-pr1349-fix-maintainer-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-fix-maintainer-review.md) — Completion report: endojs-endo-but-for-bots-pr1349-fix-maintainer-review
 - … and 15414 more
 
 ## Plan queue (parked — not claimable until promoted)
