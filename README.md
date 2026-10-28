@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T20:57:16Z_
+_As of 2026-10-28T21:00:41Z_
 
 ## Latest
 
@@ -1579,20 +1577,19 @@ _Fleet token-unlock pace: 57581239 tokens/day lower bound; incomplete where a su
 worst fetch p95 9.207313s/45s (/home/kris/garden/.garden-state/screening/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`canary-probe-oros-studio-garden-ce242c49-abed1bbfc344`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-abed1bbfc344.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ abed1bbfc344
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (0)
 (none)
 
-### tada (15449)
+### tada (15450)
+- [`canary-probe-oros-studio-garden-ce242c49-abed1bbfc344`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/canary-probe-oros-studio-garden-ce242c49-abed1bbfc344.md) — rolling-deploy canary probe — round trip OK
 - [`improve-usage-meter-recheck-warning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/improve-usage-meter-recheck-warning.md) — Cost
 - [`fix-endo-pr1349-stray-depcheck-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/fix-endo-pr1349-stray-depcheck-20261028.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349 — complete
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-undraft.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-panel-1.md) — Cost
-- … and 15444 more
+- … and 15445 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
