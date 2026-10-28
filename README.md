@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T20:49:48Z_
+_As of 2026-10-28T20:57:16Z_
 
 ## Latest
 
@@ -1579,7 +1577,8 @@ _Fleet token-unlock pace: 57581239 tokens/day lower bound; incomplete where a su
 worst fetch p95 9.207313s/45s (/home/kris/garden/.garden-state/screening/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`canary-probe-oros-studio-garden-ce242c49-abed1bbfc344`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-abed1bbfc344.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ abed1bbfc344
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (0)
