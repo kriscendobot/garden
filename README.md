@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-28T18:41:14Z_
+_As of 2026-10-28T18:43:15Z_
 
 ## Latest
 
@@ -1583,12 +1583,12 @@ _Fleet token-unlock pace: 57473485 tokens/day lower bound; incomplete where a su
 worst fetch p95 25.478733s/45s (unknown); 13 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`oros-health-checkup-20261028-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261028-183511.md) — ---
 
-### doin (1)
+### doin (2)
 - [`oros-health-watch-20261028-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261028-183511.md) — ---
+- [`oros-health-checkup-20261028-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261028-183511.md) — ---
 
 ### tada (15428)
 - [`minion-town-arc-press-20261028-183511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/minion-town-arc-press-20261028-183511.md) — Cost
