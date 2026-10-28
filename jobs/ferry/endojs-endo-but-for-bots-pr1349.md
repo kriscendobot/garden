@@ -2,7 +2,7 @@
 downstream: endojs/endo-but-for-bots#1349
 downstream_branch: build/hardened-text-codecs-shim
 downstream_base: master-ebc7904
-downstream_head: b122ff91ef98ac3e151852b58d2cb1110060fb26
+downstream_head: 2262b4bafa9f06177b311869b91c71d4fcd2ac96
 upstream: endojs/endo
 upstream_base: master
 upstream_base_sha: ebc7904d87b130922a6ead072075420d507843e4
@@ -23,10 +23,22 @@ The PR was re-woven on 2026-10-27 (job
 `master-ebc7904`, 0 behind; only this PR's files). It is master-shaped. Weave
 summary: https://github.com/endojs/endo-but-for-bots/pull/1349#issuecomment-6453887493
 
+The PR was then retconned on 2026-10-28 (job `retcon-endo-pr1349-20261028`).
+The retcon autosquashed the `fixup!` commits and split the workflow edits out of
+this PR into endojs/endo-but-for-bots#1582
+(`ci/browser-tests-any-base-ubuntu-24.04`, draft, base `master-ebc7904`). The
+new head is `2262b4bafa9f06177b311869b91c71d4fcd2ac96`, 51 commits ahead of `master-ebc7904` and 0 behind. Its tree
+differs from the pre-retcon head `991f8af47e` only in having no
+`.github/workflows/` changes. Retcon summary:
+https://github.com/endojs/endo-but-for-bots/pull/1349#issuecomment-6479099635
+**#1349 no longer touches `browser-test.yml` or `depcheck.yml`. Do not carry
+any workflow edits upstream with this ferry.** #1582 is a separate PR with no
+ferry authorization.
+
 If upstream `endojs/endo` `master` has moved past `ebc7904d87b1` when you run,
 that is fine as long as the head still rebases cleanly; if it does not, stop with
 a blocked report rather than resolving conflicts under the maintainer's identity.
-If the PR head is no longer `b122ff91ef`, stop with a blocked report: the head
+If the PR head is no longer `2262b4bafa`, stop with a blocked report: the head
 moved after this directive was staged and needs a fresh review.
 
 ## Authorization provenance
@@ -43,7 +55,9 @@ https://github.com/endojs/endo-but-for-bots/pull/1349#issuecomment-6453429130
 re-staging was done by the gardener job
 `endojs-endo-but-for-bots-pr1349-ferry-restage-20261027` (orchestration
 `endojs-endo-but-for-bots-pr1349-weave-ferry-20261027`), which kept the
-maintainer-transcribed authorization unchanged. The maintainer still has the
+maintainer-transcribed authorization unchanged. The 2026-10-28 retcon
+(job `retcon-endo-pr1349-20261028`) re-staged it again against the new head,
+with the same maintainer-transcribed authorization. The maintainer still has the
 final say by choosing whether to run `scripts/ferry.sh`.
 
 ## Prior attempt
@@ -56,38 +70,28 @@ maintainer asked for the weave. The directive is moved back from
 `jobs/ferry/doing/` to `jobs/ferry/` so the next `scripts/ferry.sh` pass picks it
 up.
 
-## Preconditions (checked at re-staging, 2026-10-27)
+## Preconditions (checked at re-staging, 2026-10-28)
 
-All satisfied at re-staging time:
+- The 2026-10-27 preconditions still hold: both fix jobs are in `jobs/tada/`,
+  and `.changeset/hardened-text-codecs-encapsulated.md` keeps the measured
+  Chromium range.
+- CI is green at `2262b4bafa`: all 14 check runs succeeded (build, cover, lint,
+  test 22.x/24.x on ubuntu and macos-15, test-hermes, test262 22.x/24.x,
+  test-ocapn-python, test-xs, viable-release, zizmor). Browser Tests do not
+  trigger for a frozen `master-<sha>` base once the workflow edits are split out,
+  so they did not run at `2262b4bafa`. They passed at the pre-retcon head
+  `991f8af47e`, whose tree is byte-identical outside `.github/`.
+- The head has no `fixup!` commits left.
 
-- `endojs-endo-but-for-bots-pr1349-fix-maintainer-findings-20261027` is in
-  `jobs/tada/` (2026-10-27).
-- `endojs-endo-but-for-bots-pr1349-fix-changeset-range-20261027` is in
-  `jobs/tada/` (2026-10-27). Its fix landed as `91cca8a551` ("docs(ses): state
-  measured codec range (#1349)") and was carried through the weave. At
-  `b122ff91ef` the changeset
-  `.changeset/hardened-text-codecs-encapsulated.md` names the measured range
-  (affected: Chromium 120, 126, 127, 133, 136, 137; clean: 138, 139, 140), not
-  "all Chromium before 138".
-- CI is green at the woven head `b122ff91ef`: all 16 check runs succeeded
-  (lint, build, browser-tests, cover, test-xs, test-hermes, test262 22.x/24.x,
-  test 22.x/24.x on ubuntu and macOS-15, viable-release, zizmor,
-  copilot-setup-steps, test-ocapn-python).
-
-Before you push anything, re-check that the PR head is still `b122ff91ef` and CI
+Before you push anything, re-check that the PR head is still `2262b4bafa` and CI
 is still green at it. If not, stop with a blocked report naming what changed, and
 leave the directive in `doing/`.
 
-The other two inline asks from the 2026-10-27 review (a weekly recheck to revert
-the `ubuntu-24.04` pin in browser-test.yml, and finding a `tred` alternative so
-depcheck.yml can unpin) are follow-ups on the bot repo, tracked as schedule
-`endojs-endo-but-for-bots-browser-test-ubuntu-latest-recheck` and job
-`endojs-endo-but-for-bots-depcheck-tred-alternative`. They do not block this
-ferry. Carry the PR's workflow pins upstream as they are, unless the maintainer
-says otherwise.
-
-The head contains `fixup!` commits; squash them into their targets when
-preparing the upstream branch.
+The `ubuntu-24.04` runner pins and the any-base Browser Tests trigger now live
+only in #1582. Follow-ups on the bot repo cover the pins: schedule
+`endojs-endo-but-for-bots-browser-test-ubuntu-latest-recheck`, job
+`endojs-endo-but-for-bots-depcheck-tred-alternative`, and open PRs #1556, #1578,
+#1566, and #1546 against `llm`. None of them block this ferry.
 
 Follow the standard single-author ferry shape: Kris Kowal is the author of
 every commit, and Co-Authored-By and Generated-with trailers are stripped.
