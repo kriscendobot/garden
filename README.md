@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-28T10:20:30Z_
+_As of 2026-10-28T10:22:35Z_
 
 ## Latest
 
@@ -820,11 +820,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #8 (first seen 2026-10-23T13:27:09Z, latest 2026-10-27T08:56:05Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 8 times; this is
-> ONE entry that updates in place, not 8 messages. Latest detail:
+> COALESCED message — occurrence #9 (first seen 2026-10-23T13:27:09Z, latest 2026-10-28T10:21:36Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 9 times; this is
+> ONE entry that updates in place, not 9 messages. Latest detail:
 >
-> M3’s Claude API-key path is blocked: merge #1567, then #1566, so phase 1 PR #1573 can be woven and its dependent phase 2 PR #1575 resumed.
+> Milestone M3’s API-key provider stack is blocked: Phase 3 waits on #1575, which depends on #1573 becoming green after the CI remediation lands. Please review and merge design #1543 and choose/merge the already-ready CI fixes #1542 and #1546 (rather than duplicate #1566) so the stack can be woven forward.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
