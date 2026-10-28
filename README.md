@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T05:04:38Z_
+_As of 2026-10-28T05:09:33Z_
 
 ## Latest
 
@@ -920,21 +918,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 5 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 4 -> 3 (target 3): subscription claude-endolin1 spend=25411241 cap=271000000 pace-bias=0.010435 window-start=2026-10-24T03:00Z(calendar) deadline=2026-10-31T03:00Z(calendar) ceiling=4 backoff=0.5523(ramp) target=3
-
-- `msg-endojs-endo-but-for-bots-pr1349-ferry-restage-20261028-018bed2a350d` — from gardener:endojs-endo-but-for-bots-pr1349-ferry-restage-20261028, reply_to `endojs-endo-but-for-bots-pr1349-ferry-restage-20261028` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1349-ferry-restage-20261028-018bed2a350d.md)
-
-> I did not restage the ferry for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). The directive `jobs/ferry/endojs-endo-but-for-bots-pr1349.md` still pins the old head `b122ff91ef` and is unchanged, so `scripts/ferry.sh` will refuse it (the head moved).
->
-> Where it stands:
-> - Gauntlet `endojs-endo-but-for-bots-pr1349-gauntlet-20261028-fe74338e` is complete. Panel round 2 decided "pass" at head `1e19cde89b`, which is the current head. CI is green there (15/15).
-> - That panel review ([https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349)#pullrequestreview-5677937470) still has an open integrator **must-fix**. [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) carries the XS lockdown-compartment commits that [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425) also makes, and [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425) is still an open draft with no review. The integrator wants that reconciled, or [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) put back into draft behind [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425). Fix-1 rewrote the body to "Overlaps: [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425); whichever lands second drops the duplicate", but the integrator still flags it. The restage job required this item to be closed.
-> - The `ci.yml` body claim (the other integrator item) is fixed.
-> - Also open, but not blocking: changeset-auditor request-changes on sentence-per-line in `.changeset/ses-xs-lockdown-compartment-intrinsics.md`, and should-fix items to autosquash the fixups and split the CI changes into their own PR.
->
-> Your call. Options:
-> (a) Accept the overlap. Say "restage the ferry for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) at 1e19cde8" and a gardener will pin it.
-> (b) Drop the XS slice from [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) so [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425) owns it, then re-gauntlet.
-> (c) Land [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425) first, then weave [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349).
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
