@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T20:15:30Z_
+_As of 2026-10-28T20:22:36Z_
 
 ## Latest
 
@@ -1487,19 +1485,6 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.020868s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `msg-fix-endo-pr1349-stray-depcheck-20261028-dd79958cb084` — from gardener:fix-endo-pr1349-stray-depcheck-20261028, reply_to `fix-endo-pr1349-stray-depcheck-20261028` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fix-endo-pr1349-stray-depcheck-20261028-dd79958cb084.md)
-
-> I confirmed and removed the sole stray commit from [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): head is now
-> 2262b4bafa and the only 2262..281 diff was `.github/workflows/depcheck.yml`.
-> [endojs/endo-but-for-bots#1582](https://github.com/endojs/endo-but-for-bots/issues/1582) already contains the ubuntu-24.04 depcheck pin and is green. However,
-> [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349)'s freshly triggered depcheck run 40760370513 now fails exactly because its
-> restored workflow uses ubuntu-latest, where `tred` is absent. Thus "drop the pin
-> / preserve the net tree" and "wait for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) CI green" are mutually incompatible
-> unless [endojs/endo-but-for-bots#1582](https://github.com/endojs/endo-but-for-bots/issues/1582) is merged into/moves the frozen base or [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) regains the workflow
-> change. Neither is authorized. Should I treat the requested green as [endojs/endo-but-for-bots#1582](https://github.com/endojs/endo-but-for-bots/issues/1582)'s
-> green state and close out [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) with the known depcheck failure, or is a
-> base/merge change intended?
-
 - `watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49.md)
 
 > RECOVERED — the watchdog condition `worker-agent-bin-monk-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-21T13:46:58Z, cleared 2026-10-26T07:47:57Z).
@@ -1583,10 +1568,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.8M | $256.61 _(notional, rate-card)_ | 32% of 271.0M (ok) |
-| Codex | 195.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 87.0M | $257.08 _(notional, rate-card)_ | 32% of 271.0M (ok) |
+| Codex | 195.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57337281 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57567797 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 9.207313s/45s (/home/kris/garden/.garden-state/screening/journal); 11 open notice(s); checker healthy
@@ -1595,17 +1580,16 @@ worst fetch p95 9.207313s/45s (/home/kris/garden/.garden-state/screening/journal
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`fix-endo-pr1349-stray-depcheck-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-pr1349-stray-depcheck-20261028.md) — ---
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1349
+### doin (1)
+- [`improve-usage-meter-recheck-warning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-usage-meter-recheck-warning.md) — ---
 
-### tada (15445)
+### tada (15448)
+- [`fix-endo-pr1349-stray-depcheck-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/fix-endo-pr1349-stray-depcheck-20261028.md) — Cost
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349 — complete
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-28177349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-28177349.md) — Panel-head freshness
-- [`retcon-endo-pr1349-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/retcon-endo-pr1349-20261028.md) — Panel-head freshness
-- … and 15440 more
+- … and 15443 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1671,6 +1655,7 @@ worst fetch p95 9.207313s/45s (/home/kris/garden/.garden-state/screening/journal
 - [`minion-town-claude-cli-production-canary-after-connection-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-cli-production-canary-after-connection-20261004.md) - [Connect the real Claude subscription through the stable account page and reply connected; no setup token may be sent through the journal.](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-canary-20261004-224cae8c9188.md)
 - [`endo-cli-no-autostart-exit-codes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cli-no-autostart-exit-codes-build.md) - [Design OQ1/OQ3: should the CLI default to no-autostart under a service manager, and are the proposed exit codes acceptable?](https://github.com/endojs/endo-but-for-bots/pull/1383)
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) - [Reconcile the historical floor with current verdict/resource policy, or restore all 901 genuinely under unchanged pins and policy?](https://github.com/kriscendobot/garden/issues/51#issuecomment-5877917421)
+- [`resolve-endo-pr1349-depcheck-ci-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resolve-endo-pr1349-depcheck-ci-20261028.md) - [Should endojs/endo-but-for-bots#1349 accept the known dependency-check failure for ferry purposes, or should endojs/endo-but-for-bots#1582 land into the frozen base first?](https://github.com/endojs/endo-but-for-bots/pull/1349#issuecomment-6479686667)
 - [`endojs-endo-but-for-bots-pr1477-location-reshape`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1477-location-reshape.md) - [Now that OCapN designator = peer key (not swissnum/network), should the in-memory OcapnLocation still be reshaped to {network, peer, at:[{transport,address}]} (value/swiss-num on sturdyref only), and in #1477 or a follow-up?](https://github.com/endojs/endo-but-for-bots/pull/1477#discussion_r4344979384)
 - [`minion-town-public-browser-caddy-gate-smoke-after-mfa-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-public-browser-caddy-gate-smoke-after-mfa-20261006.md) - [When can you promptly relay the one-time GitHub SMS code for kriscendobot so the final public-browser gate smoke can run?](https://github.com/kriscendobot/garden/issues/89#issuecomment-6019568536)
 - [`endo-daemon-orphan-safe-stop-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-daemon-orphan-safe-stop-build.md) - [Design OQ2: should run-daemon run the manager in-process, or keep the child process and forward signals?](https://github.com/endojs/endo-but-for-bots/pull/1383)
