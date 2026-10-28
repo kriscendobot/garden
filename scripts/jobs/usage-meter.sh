@@ -1163,7 +1163,8 @@ _budget_publish_legacy_local_pool_once() {
 # published only when an entitlement transition is deterministically identified:
 # the meter's effective cutoff (_meter_entitlement_cutoff) has moved past the
 # window start to a boundary later than the published sample, so that sample
-# counted the previous server epoch.
+# counted the previous server epoch. Only those two outcomes log WARN; a
+# re-measure that recovers to at least the published spend logs at info.
 _budget_spend_regression_recheck() {
   local file="$1" cutoff="$2" spend="$3" pool="$4" dir="$5" old_window old_spend old_at again effective
   old_window="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
@@ -1183,7 +1184,9 @@ _budget_spend_regression_recheck() {
         spend="$old_spend"
       fi
     else
-      log "WARN: $pool spend reading below the published $old_spend for window $cutoff; re-measured $spend"
+      # A recovered transient undercount is routine, not a regression: log it at
+      # info and reserve WARN for a held regression or an entitlement drop.
+      log "$pool spend re-measure recovered a transient low reading below the published $old_spend for window $cutoff; publishing $spend"
     fi
   fi
   printf '%s\n' "$spend"

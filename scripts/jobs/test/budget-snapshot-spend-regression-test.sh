@@ -55,14 +55,17 @@ published() { sed -n 's/^spend:[[:space:]]*//p' "$SNAP"; }
 
 # 1. A transient undercount is re-measured and the recovered reading published.
 seed 1755820800 900; READINGS="600 950"
-budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
+budget_publish_local_pool "$D" 2>"$TR/err" || fail "publication failed"
 [ "$(published)" = 950 ] || fail "transient undercount published $(published), want 950"
 [ "$(cat "$SCANS")" = 2 ] || fail "expected exactly one re-measure"
-echo "PASS: a reading below the published spend is re-measured"
+grep -q 'recovered a transient low reading' "$TR/err" || fail "recovered recheck was not logged"
+! grep -q 'WARN' "$TR/err" || fail "a recovered recheck logged WARN: $(cat "$TR/err")"
+echo "PASS: a reading below the published spend is re-measured and logged at info"
 
 # 2. A re-measure that still reads low holds the published high-water spend.
 seed 1755820800 47944967 1755830000; READINGS="47900000 47922983"
-budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
+budget_publish_local_pool "$D" 2>"$TR/err" || fail "publication failed"
+grep -q 'WARN: .*holding 47944967' "$TR/err" || fail "a held regression did not WARN"
 [ "$(published)" = 47944967 ] || fail "confirmed undercount published $(published), want 47944967"
 echo "PASS: a low re-measure without an entitlement transition holds the high-water spend"
 
@@ -78,7 +81,8 @@ echo "PASS: two consecutive undercounts keep the high-water spend"
 
 # 2c. An entitlement boundary after the published sample lets a drop publish.
 seed 1755820800 900 1755830000; ENTITLEMENT=1755840000; READINGS="300 200"
-budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
+budget_publish_local_pool "$D" 2>"$TR/err" || fail "publication failed"
+grep -q 'WARN: .*publishing the drop' "$TR/err" || fail "an entitlement drop did not WARN"
 [ "$(published)" = 300 ] || fail "entitlement drop published $(published), want 300"
 echo "PASS: a drop across an identified entitlement transition still publishes"
 
