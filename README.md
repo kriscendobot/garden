@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-28T18:39:54Z_
+_As of 2026-10-28T18:41:14Z_
 
 ## Latest
 
@@ -149,11 +149,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #16 (first seen 2026-10-18T09:20:28Z, latest 2026-10-27T18:36:02Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 16 times; this is
-> ONE entry that updates in place, not 16 messages. Latest detail:
+> COALESCED message — occurrence #17 (first seen 2026-10-18T09:20:28Z, latest 2026-10-28T18:40:06Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 17 times; this is
+> ONE entry that updates in place, not 17 messages. Latest detail:
 >
-> Milestone M2 remains blocked at `hardened-text-codecs-shim`: PR #1349 depends on PR #1425, whose remaining CI failure requires the already-prepared Graphviz fix to enter its base ancestry. Decide the merge/retarget sequence for #1566, #1427, and #1425 before M2 can advance.
+> M2 is blocked at [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): decide whether its overlapping XS lockdown work should remain for an upstream ferry, move to #1425, or wait for #1425 to land first.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1580,7 +1580,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 57473485 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.002188s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 13 open notice(s); checker healthy
+worst fetch p95 25.478733s/45s (unknown); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
