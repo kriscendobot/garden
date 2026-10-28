@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1349 at head 2262b4ba: diagnose and repair the failing dependency-cycle CI check, then drive the exact head back to green.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-28T19:35:34Z
