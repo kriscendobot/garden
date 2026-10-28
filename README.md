@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T13:57:12Z_
+_As of 2026-10-28T13:59:40Z_
 
 ## Latest
 
@@ -755,10 +753,6 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration endojs-endo-but-for-bots-no-any-typecheck-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_vattr97` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_vattr97.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-vattr97: p95=1.876143s max=45.000923s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
