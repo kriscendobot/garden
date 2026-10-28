@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T08:05:05Z_
+_As of 2026-10-28T08:09:14Z_
 
 ## Latest
 
@@ -1536,7 +1534,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 57349396 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 2.494059s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
+worst fetch p95 2.874026s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
