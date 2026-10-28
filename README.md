@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T21:19:01Z_
+_As of 2026-10-28T21:24:24Z_
 
 ## Latest
 
@@ -1576,7 +1574,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 57586220 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 9.207313s/45s (/home/kris/garden/.garden-state/screening/journal); 10 open notice(s); checker healthy
+worst fetch p95 9.080429s/45s (/home/kris/garden/.garden-state/mentor/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1585,13 +1583,13 @@ worst fetch p95 9.207313s/45s (/home/kris/garden/.garden-state/screening/journal
 ### doin (0)
 (none)
 
-### tada (15450)
+### tada (15451)
+- [`claude-on-minion-town-completion-press-20261028-212009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/claude-on-minion-town-completion-press-20261028-212009.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-abed1bbfc344`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/canary-probe-oros-studio-garden-ce242c49-abed1bbfc344.md) — rolling-deploy canary probe — round trip OK
 - [`improve-usage-meter-recheck-warning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/improve-usage-meter-recheck-warning.md) — Cost
 - [`fix-endo-pr1349-stray-depcheck-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/fix-endo-pr1349-stray-depcheck-20261028.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349 — complete
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-28177349-undraft.md) — Cost
-- … and 15445 more
+- … and 15446 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
