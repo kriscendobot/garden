@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T06:46:42Z_
+_As of 2026-10-28T06:49:39Z_
 
 ## Latest
 
@@ -1530,10 +1528,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.6M | $235.86 _(notional, rate-card)_ | 30% of 271.0M (ok) |
-| Codex | 182.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
+| Claude | 81.8M | $241.68 _(notional, rate-card)_ | 30% of 271.0M (ok) |
+| Codex | 183.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57083860 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57110788 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 2.494059s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
@@ -1542,8 +1540,8 @@ worst fetch p95 2.494059s/45s (/home/kris/garden/.garden-state/screening-control
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1349
 
 ### tada (15407)
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-gauntlet-20261028-991f8af4-clean.md) — Cost
