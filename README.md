@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-28T03:43:26Z_
+_As of 2026-10-28T03:45:20Z_
 
 ## Latest
 
@@ -1540,16 +1540,16 @@ worst fetch p95 6.650528s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1566-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1566-weave.md) — ---
+### doin (0)
+(none)
 
-### tada (15386)
+### tada (15387)
+- [`endojs-endo-but-for-bots-pr1566-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1566-weave.md) — Cost
 - [`oros-health-watch-20261028-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-watch-20261028-030509.md) — Cost
 - [`oros-health-checkup-20261028-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-checkup-20261028-030509.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-shepherd-fe74338e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-shepherd-fe74338e.md) — Cost
 - [`claude-on-minion-town-completion-press-20261028-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/claude-on-minion-town-completion-press-20261028-030509.md) — Cost
-- [`minion-town-arc-press-20261028-030509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/minion-town-arc-press-20261028-030509.md) — Cost
-- … and 15381 more
+- … and 15382 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
