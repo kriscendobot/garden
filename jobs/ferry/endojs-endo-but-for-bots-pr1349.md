@@ -26,11 +26,18 @@ summary: https://github.com/endojs/endo-but-for-bots/pull/1349#issuecomment-6453
 The PR was then retconned on 2026-10-28 (job `retcon-endo-pr1349-20261028`).
 The retcon autosquashed the `fixup!` commits and split the workflow edits out of
 this PR into endojs/endo-but-for-bots#1582
-(`ci/browser-tests-any-base-ubuntu-24.04`, draft, base `master-ebc7904`). The
+(`ci/browser-tests-any-base-ubuntu-24.04`, base `master-ebc7904`). The
 new head is `2262b4bafa9f06177b311869b91c71d4fcd2ac96`, 51 commits ahead of `master-ebc7904` and 0 behind. Its tree
 differs from the pre-retcon head `991f8af47e` only in having no
 `.github/workflows/` changes. Retcon summary:
 https://github.com/endojs/endo-but-for-bots/pull/1349#issuecomment-6479099635
+
+After that retcon, a stray commit `28177349d0180f4a515e2bb17833ffcbe2ad6749`
+temporarily reintroduced only the `depcheck.yml` Ubuntu 24.04 runner pin. Job
+`fix-endo-pr1349-stray-depcheck-20261028` verified that its parent is exactly
+`2262b4bafa9f06177b311869b91c71d4fcd2ac96`, verified that the commit's entire
+diff is `.github/workflows/depcheck.yml`, and force-restored the branch to that
+parent. PR #1582 already carries the runner pin.
 **#1349 no longer touches `browser-test.yml` or `depcheck.yml`. Do not carry
 any workflow edits upstream with this ferry.** #1582 is a separate PR with no
 ferry authorization.
@@ -75,16 +82,16 @@ up.
 - The 2026-10-27 preconditions still hold: both fix jobs are in `jobs/tada/`,
   and `.changeset/hardened-text-codecs-encapsulated.md` keeps the measured
   Chromium range.
-- CI is green at `2262b4bafa`: all 14 check runs succeeded (build, cover, lint,
-  test 22.x/24.x on ubuntu and macos-15, test-hermes, test262 22.x/24.x,
-  test-ocapn-python, test-xs, viable-release, zizmor). Browser Tests do not
-  trigger for a frozen `master-<sha>` base once the workflow edits are split out,
-  so they did not run at `2262b4bafa`. They passed at the pre-retcon head
-  `991f8af47e`, whose tree is byte-identical outside `.github/`.
+- PR #1582 is green at `55f7733e83fc94b140259b61436e8c364a8e123a` and
+  carries the Ubuntu 24.04 depcheck runner pin. A fresh run on #1349 after
+  restoring `2262b4bafa` fails only the dependency-cycle workflow because its
+  intentionally restored `ubuntu-latest` runner lacks `tred`; the main CI
+  workflow completed successfully. Do not run this ferry until the maintainer resolves
+  that CI/precondition conflict without reintroducing workflow edits to #1349.
 - The head has no `fixup!` commits left.
 
 Before you push anything, re-check that the PR head is still `2262b4bafa` and CI
-is still green at it. If not, stop with a blocked report naming what changed, and
+is green at it. If not, stop with a blocked report naming what changed, and
 leave the directive in `doing/`.
 
 The `ubuntu-24.04` runner pins and the any-base Browser Tests trigger now live
