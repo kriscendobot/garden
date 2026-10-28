@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T06:33:50Z_
+_As of 2026-10-28T06:39:30Z_
 
 ## Latest
 
@@ -1530,7 +1528,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.5M | $237.62 _(notional, rate-card)_ | 30% of 271.0M (ok) |
+| Claude | 80.5M | $235.86 _(notional, rate-card)_ | 30% of 271.0M (ok) |
 | Codex | 182.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57083860 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1542,16 +1540,16 @@ worst fetch p95 2.494059s/45s (/home/kris/garden/.garden-state/screening-control
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1573-shepherd-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261028.md) — ---
+### doin (0)
+(none)
 
-### tada (15403)
+### tada (15404)
+- [`endojs-endo-but-for-bots-pr1573-shepherd-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1573-shepherd-20261028.md) — Cost
 - [`oros-health-watch-20261028-060509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-watch-20261028-060509.md) — Cost
 - [`oros-health-checkup-20261028-060509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/oros-health-checkup-20261028-060509.md) — Cost
 - [`minion-town-arc-press-20261028-060509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/minion-town-arc-press-20261028-060509.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-shepherd-991f8af4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-shepherd-991f8af4.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-fix-maintainer-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/28/endojs-endo-but-for-bots-pr1349-fix-maintainer-review.md) — Completion report: endojs-endo-but-for-bots-pr1349-fix-maintainer-review
-- … and 15398 more
+- … and 15399 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
