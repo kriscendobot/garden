@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-28T13:52:13Z_
+_As of 2026-10-28T13:54:52Z_
 
 ## Latest
 
@@ -817,10 +815,6 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.058496s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_3_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_3_journal.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monks/3/journal: p95=1.935858s max=35.791846s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
 > COALESCED message — occurrence #9 (first seen 2026-10-23T13:27:09Z, latest 2026-10-28T10:21:36Z).
@@ -1545,7 +1539,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 82.8M | $242.92 _(notional, rate-card)_ | 31% of 271.0M (ok) |
 | Codex | 189.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57407618 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 25.478733s/45s (unknown); 12 open notice(s); checker healthy
