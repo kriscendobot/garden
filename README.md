@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T04:53:42Z_
+_As of 2026-10-29T04:59:45Z_
 
 ## Latest
 
@@ -1591,7 +1589,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.7M | $268.19 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 90.7M | $269.82 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 204.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57282785 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1603,8 +1601,8 @@ worst fetch p95 2.760502s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-hardened-text-codecs-shim-xs-smoke`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-hardened-text-codecs-shim-xs-smoke.md) — ---
 
 ### tada (15479)
 - [`fix-minion-town-pr230-maintainer-answers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/fix-minion-town-pr230-maintainer-answers.md) — Cost
