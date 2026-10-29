@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-10-27T07:12:24Z
 arc: 
-stage: panel
+stage: fix
 iteration: 3
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1575-gauntlet-panel-3
+current_child: endojs-endo-but-for-bots-pr1575-gauntlet-fix-3
 state: running
 resumed_at: 2026-10-29T16:01:41Z
 resumed_from_stage: clean
