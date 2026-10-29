@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T03:34:32Z_
+_As of 2026-10-29T03:39:31Z_
 
 ## Latest
 
@@ -1606,13 +1604,13 @@ worst fetch p95 4.689984s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 ### doin (0)
 (none)
 
-### tada (15468)
+### tada (15469)
+- [`claude-on-minion-town-completion-press-20261029-033509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/claude-on-minion-town-completion-press-20261029-033509.md) — Cost
 - [`design-minion-town-clip-governor-column`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/design-minion-town-clip-governor-column.md) — Completion report: design-minion-town-clip-governor-column
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-2262b4ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-2262b4ba.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-fix-depcheck-scope-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-fix-depcheck-scope-20261029.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15 — complete
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-undraft.md) — Cost
-- … and 15463 more
+- … and 15464 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
