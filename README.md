@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T01:07:52Z_
+_As of 2026-10-29T01:11:03Z_
 
 ## Latest
 
@@ -1597,13 +1595,13 @@ worst fetch p95 4.689984s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 ### doin (0)
 (none)
 
-### tada (15464)
+### tada (15465)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15 — complete
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-undraft.md) — Cost
 - [`oros-health-checkup-20261029-005026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-checkup-20261029-005026.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-panel-1.md) — Cost
 - [`oros-health-watch-20261029-005026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-watch-20261029-005026.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-clean.md) — Cost
-- … and 15459 more
+- … and 15460 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
