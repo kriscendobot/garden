@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T20:50:39Z_
+_As of 2026-10-29T20:52:38Z_
 
 ## Latest
 
@@ -1621,21 +1621,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.7M | $337.51 _(notional, rate-card)_ | 40% of 271.0M (ok) |
+| Claude | 108.7M | $337.57 _(notional, rate-card)_ | 40% of 271.0M (ok) |
 | Codex | 222.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57651644 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 5.227400s/45s (/home/kris/garden/.garden-state/follow-up/journal); 6 open notice(s); checker healthy
+worst fetch p95 3.426532s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1575
+- [`improve-deploy-coherent-release-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-coherent-release-retry.md) — ---
 
 ### tada (15547)
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1575-gauntlet-panel-4.md) — Cost
