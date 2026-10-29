@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T03:19:26Z_
+_As of 2026-10-29T03:21:22Z_
 
 ## Latest
 
@@ -1580,10 +1580,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.4M | $264.83 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 89.5M | $265.95 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 202.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57501585 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.689984s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 8 open notice(s); checker healthy
@@ -1592,8 +1592,8 @@ worst fetch p95 4.689984s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`design-minion-town-clip-governor-column`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-clip-governor-column.md) — Design the smallest increment: a governor column to the left of a clip
 
 ### tada (15467)
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-2262b4ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-2262b4ba.md) — Panel-head freshness
