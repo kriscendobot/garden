@@ -502,6 +502,10 @@ for name in $(list_jobs "$DIR" schedules); do
   base="${prefix:-$name}-$(date -u -d "@$now" +%Y%m%d-%H%M%S)"
   for attempt in $(seq 1 50); do
     sync_clone "$DIR"
+    # A preflight (dependabotany-preflight.sh) or a producer may retire the
+    # schedule mid-tick through remove-schedule.sh. Our stamp then loses the CAS;
+    # never resurrect the file on the retry.
+    [ -f "$DIR/schedules/$name" ] || { log "schedule $name retired mid-tick; skip"; break; }
     # re-check due against the freshest state (another host may have dispatched)
     last_iso="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
     last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"

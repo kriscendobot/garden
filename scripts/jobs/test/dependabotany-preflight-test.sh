@@ -117,12 +117,13 @@ add_entry() {  # add_entry <relpath> <body>
 }
 
 run_pre() {  # run_pre [pr-fixture] [src-stub]  -> fills $OUT/$RC/$CONTEXT
-  rm -rf "$TR/clone"
+  rm -rf "$TR/clone" "$TR/producer"
   CONTEXT_FILE="$TR/preflight-context"; rm -f "$CONTEXT_FILE"
   set +e
   OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
              GARDEN=testhost GARDEN_STATE="$TR/state" \
              GARDEN_DEPB_PREFLIGHT_CLONE="$TR/clone" \
+             GARDEN_PRODUCER_CLONE="$TR/producer" \
              GARDEN_DEPB_TODAY="$TODAY" \
              GARDEN_BOT_LOGIN=kriscendobot \
              GARDEN_DEPB_PR_SOURCE="${2:-$SRCSTUB}" PR_FIXTURE="${1:-}" \
@@ -136,6 +137,9 @@ run_pre() {  # run_pre [pr-fixture] [src-stub]  -> fills $OUT/$RC/$CONTEXT
   set -e
   CONTEXT=""; [ ! -f "$CONTEXT_FILE" ] || CONTEXT="$(cat "$CONTEXT_FILE")"
 }
+
+# Is the schedule still on the bare origin?
+sched_present() { git --git-dir="$BARE" cat-file -e "$BRANCH:schedules/$SCHED" 2>/dev/null; }
 
 # Ledger-entry bodies -----------------------------------------------------------
 # A live embargo verdict for one PR, maturing on <date>.
@@ -463,6 +467,77 @@ OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN=testhost \
 set -e
 # die → exit 1; the scheduler treats any non-0/non-2 exit as work-present (fail open).
 [ "$RC" -ne 0 ] && [ "$RC" -ne 2 ] && ok "wrong schedule name → non-{0,2} exit (scheduler fails open)" || bad "exit $RC (want neither 0 nor 2); OUT=$OUT"
+
+# ============================================================================
+hr; echo "RETIRE — drained ledger + zero open PRs retires the schedule itself"; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 900 2026-08-05)"
+add_entry 2026/08/06/000002Z-b "$(drained_body)"
+run_pre ""
+[ "$RC" -eq 2 ] && ok "still the idle verdict (exit 2)" || bad "exit $RC (want 2); OUT=$OUT"
+! sched_present && ok "schedule removed from the journal" || bad "schedule survived; OUT=$OUT"
+grep -q "retired schedule ${SCHED%.md}" <<<"$OUT" && ok "logged the retirement" || bad "no retirement log; OUT=$OUT"
+run_pre ""
+[ "$RC" -eq 2 ] && ! sched_present && ok "a re-run with the schedule gone stays idle" || bad "re-run rc=$RC; OUT=$OUT"
+
+hr; echo "RETIRE — a deterministic close that empties the ledger also retires"; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 1174 2026-08-05)"
+COMP_FIXTURE="$TR/compat.tsv"
+printf '1174\tincompatible\tnode\t20.0.0\t>=20\t20.19.0 || 22.12.0 || >=23\tpackage.json\n' > "$COMP_FIXTURE"
+CLOSE_LOG=""; CLOSE_RC=0
+run_pre "$FIX_COMPAT"
+[ "$RC" -eq 2 ] && ! sched_present && ok "closed last PR → schedule retired" || bad "rc=$RC present=$(sched_present && echo y); OUT=$OUT"
+COMP_FIXTURE=""
+
+hr; echo "PRESERVE — a live embargo not yet due keeps the schedule"; hr
+reset_bare
+add_entry 2026/08/10/000001Z-a "$(embargo_body 901 2026-08-20)"
+run_pre ""
+[ "$RC" -eq 2 ] && sched_present && ok "future-maturity row preserves the backstop" || bad "rc=$RC; OUT=$OUT"
+
+hr; echo "PRESERVE — an open dependabot PR (drained ledger) keeps the schedule"; hr
+reset_bare
+add_entry 2026/08/06/000002Z-b "$(drained_body)"
+run_pre "$FIX"
+[ "$RC" -eq 0 ] && sched_present && ok "dispatch path never retires" || bad "rc=$RC; OUT=$OUT"
+
+hr; echo "PRESERVE — no recovered ledger (repo override) keeps the schedule"; hr
+reset_bare
+GARDEN_DEPB_REPO="$REPO" run_pre ""
+[ "$RC" -eq 2 ] && sched_present && ok "unverified (empty) ledger never retires" || bad "rc=$RC; OUT=$OUT"
+
+hr; echo "PRESERVE — GARDEN_DEPB_RETIRE=0 disables self-retirement"; hr
+reset_bare
+add_entry 2026/08/06/000002Z-b "$(drained_body)"
+GARDEN_DEPB_RETIRE=0 run_pre ""
+[ "$RC" -eq 2 ] && sched_present && ok "retirement disabled" || bad "rc=$RC; OUT=$OUT"
+
+hr; echo "PRESERVE — remover failure / timeout keeps the schedule, verdict stays 2"; hr
+RMFAIL="$TR/remove-fail.sh"; printf '#!/bin/bash\nexit 1\n' > "$RMFAIL"; chmod +x "$RMFAIL"
+RMHANG="$TR/remove-hang.sh"; printf '#!/bin/bash\nexec sleep 300\n' > "$RMHANG"; chmod +x "$RMHANG"
+reset_bare
+add_entry 2026/08/06/000002Z-b "$(drained_body)"
+GARDEN_DEPB_SCHEDULE_REMOVE="$RMFAIL" run_pre ""
+[ "$RC" -eq 2 ] && sched_present && grep -q "failed (rc=1) — schedule preserved" <<<"$OUT" \
+  && ok "remover failure → preserved, exit 2" || bad "rc=$RC; OUT=$OUT"
+start=$SECONDS
+GARDEN_DEPB_SCHEDULE_REMOVE="$RMHANG" GARDEN_DEPB_RETIRE_TIMEOUT_SECS=2 GARDEN_DEPB_KILL_AFTER=1 run_pre ""
+[ "$RC" -eq 2 ] && sched_present && [ $((SECONDS - start)) -lt 15 ] \
+  && ok "hung remover is bounded → preserved, exit 2" || bad "rc=$RC elapsed=$((SECONDS-start)); OUT=$OUT"
+
+hr; echo "CAS — remove-schedule.sh --expect-blob preserves a rewritten schedule"; hr
+reset_bare
+blob="$(git --git-dir="$BARE" rev-parse "$BRANCH:schedules/$SCHED")"
+rmrun() { env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN=testhost \
+  GARDEN_STATE="$TR/state" GARDEN_PRODUCER_CLONE="$TR/producer-cas" \
+  "$JOBS/remove-schedule.sh" "$@" 2>&1; }
+set +e; OUT="$(rmrun --expect-blob 0123456789abcdef0123456789abcdef01234567 "${SCHED%.md}")"; RC=$?; set -e
+[ "$RC" -eq 3 ] && sched_present && ok "stale blob → exit 3, preserved" || bad "rc=$RC; OUT=$OUT"
+set +e; OUT="$(rmrun --expect-blob "$blob" "${SCHED%.md}")"; RC=$?; set -e
+[ "$RC" -eq 0 ] && ! sched_present && ok "matching blob → retired" || bad "rc=$RC; OUT=$OUT"
+set +e; OUT="$(rmrun --expect-blob "$blob" "${SCHED%.md}")"; RC=$?; set -e
+[ "$RC" -eq 0 ] && grep -q "already absent" <<<"$OUT" && ok "absent schedule → idempotent exit 0" || bad "rc=$RC; OUT=$OUT"
 
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"

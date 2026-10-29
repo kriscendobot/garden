@@ -13,7 +13,9 @@
 # for this schedule family). The scheduler runs this when the daily cadence
 # has elapsed and acts on the exit code (skills/schedule/SKILL.md):
 #   exit 0 = work remains → dispatch the botanist ledger sweep + advance the clock
-#   exit 2 = no work remains (including conflicts closed here) → advance only
+#   exit 2 = no work remains (including conflicts closed here) → advance only;
+#            when the ledger is verifiably drained (no active row at all), first
+#            retire this schedule itself through remove-schedule.sh
 #   exit 75 = deferred    → the gate reached its total deadline without a verdict,
 #                           or the open-PR source hit the gh-api cooldown; the
 #                           scheduler leaves the schedule due and retries later
@@ -60,9 +62,15 @@
 #   GARDEN_DEPB_REPO                               -> owner/name override (else derived from the ledger)
 #   GARDEN_DEPB_TODAY                              -> UTC YYYY-MM-DD override for the due comparison
 #   GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS             -> total wall-clock budget (default 110)
+#   GARDEN_DEPB_SCHEDULE_REMOVE [--expect-blob <sha>] <name> -> retire the schedule
+#                                                  (remove-schedule.sh); 0 retired,
+#                                                  3 changed+preserved, else preserved
+#   GARDEN_DEPB_RETIRE=0                           -> disable self-retirement
 # Ledger discovery is read-only. The one terminal exception is an unchanged,
 # twice-proven Node-engine conflict on a bot-owned repo: a hardened helper posts a
 # fixed verdict, closes it, and appends its structured terminal journal result.
+# The other write is retiring this schedule once the ledger is verifiably drained
+# (see the end of this script).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -81,6 +89,9 @@ export GARDEN_TAG="dependabotany-preflight"
 : "${GARDEN_DEPB_COMPAT_TIMEOUT_SECS:=45}"
 : "${GARDEN_DEPB_COMPAT_MAX_CHECKS:=8}"
 : "${GARDEN_DEPB_KILL_AFTER:=2s}"
+: "${GARDEN_DEPB_SCHEDULE_REMOVE:=$HERE/remove-schedule.sh}"
+: "${GARDEN_DEPB_RETIRE_TIMEOUT_SECS:=30}"
+: "${GARDEN_DEPB_RETIRE_ATTEMPTS:=3}"
 
 case "$GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS" in
   ''|*[!0-9]*|0) die "GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS must be a positive integer" ;;
@@ -622,4 +633,33 @@ fi
 
 # (A) zero open dependabot PRs AND (B) no due ledger row → genuinely idle.
 log "preflight gated: no work for $name — $repo has no open dependabot PRs and the '$project' ledger has no due row"
+
+# Self-retirement (roles/botanist/AGENT.md: "when the ledger holds no project rows
+# the daily heartbeat may be deleted"). Idle is not enough: a live embargo whose
+# maturity has not arrived is still a reason to keep the backstop. Retire only
+# when the ledger was actually recovered AND its fold left no active row at all
+# (drained, terminal-marked, or closed by this run). The retirement is CAS-pinned
+# to the schedule blob this gate read at $journal_head, so a schedule rewritten
+# since is preserved. Every failure, deferral, or timeout leaves the schedule in
+# place and still exits 2: the idle verdict stands, and tomorrow's tick retries.
+# A later embargo re-arms the schedule through set-schedule.sh.
+if [ "${GARDEN_DEPB_RETIRE:-1}" != 0 ] && [ "${#LEDGER[@]}" -gt 0 ] && [ "${#SNAPSHOT_ROWS[@]}" -eq 0 ]; then
+  sched_blob="$(git -C "$CLONE" rev-parse -q --verify "$journal_head:schedules/$stem.md" 2>/dev/null || true)"
+  if [[ ! "$sched_blob" =~ ^[0-9a-f]{40}$ ]]; then
+    log "retire: schedules/$stem.md is absent at $journal_head — nothing to retire"
+  elif ! stage_timeout "$GARDEN_DEPB_RETIRE_TIMEOUT_SECS"; then
+    log "retire: no preflight budget left to retire $stem — schedule preserved"
+  else
+    retire_rc=0
+    timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" "${STAGE_TIMEOUT}s" \
+      env GARDEN_POST_ATTEMPTS="$GARDEN_DEPB_RETIRE_ATTEMPTS" \
+      "$GARDEN_DEPB_SCHEDULE_REMOVE" --expect-blob "$sched_blob" "$stem" || retire_rc=$?
+    case "$retire_rc" in
+      0) log "retire: drained ledger and zero open dependabot PRs — retired schedule $stem" ;;
+      3) log "retire: schedule $stem changed since $journal_head — preserved" ;;
+      124|137) log "WARN: retire: removing $stem exceeded ${STAGE_TIMEOUT}s — outcome uncertain; schedule preserved unless the push already landed" ;;
+      *) log "WARN: retire: removing $stem failed (rc=$retire_rc) — schedule preserved" ;;
+    esac
+  fi
+fi
 exit 2
