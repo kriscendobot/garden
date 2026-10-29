@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T04:59:45Z_
+_As of 2026-10-29T05:06:34Z_
 
 ## Latest
 
@@ -55,6 +53,10 @@ Delegation: **active**
 - `msg-oros-health-watch-20261029-005026-f2a7896d797e` — from gardener:oros-health-watch-20261029-005026, reply_to `oros-health-watch-20261029-005026` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261029-005026-f2a7896d797e.md)
 
 > oros health watch: oros host heartbeat is fresh (sampled 2026-10-29T00:33:18Z), the latest checkup reports healthy, and fleet health reports deployed at abed1bb with no failures. However, the sysop control bridge did not acknowledge benign reset-failed op 20261029T005109Z-d40d28 within 10 minutes; the prior sysop-log entry was 2026-10-26T10:52:45Z. A person at the machine should inspect garden-sysop.service/timer and the host's journal access.
+
+- `20261029T050122Z-c036cb` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261029T050122Z-c036cb.md)
+
+> foreman: next step 'build-hardened-text-codecs-shim-xs-smoke' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
 - `kriscendobot-minion.town-pr218-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr218-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr218-gauntlet-review-budget-reached.md)
 
@@ -155,11 +157,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #20 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T04:49:08Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 20 times; this is
-> ONE entry that updates in place, not 20 messages. Latest detail:
+> COALESCED message — occurrence #21 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T05:04:03Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 21 times; this is
+> ONE entry that updates in place, not 21 messages. Latest detail:
 >
-> Milestone M2 is blocked pending review and merge of the clean, gauntleted documentation reconciliation PR [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583). Approve its supersession disposition so the final M2 design record can become Complete.
+> Milestone M2 is blocked on maintainer merge authority for the clean, panel-passed documentation PR #1583; its supersession record is needed before the overlapping Phase 3 audit PR #1576 can be woven and landed. Decide to merge #1583 first, then direct the follow-up weave/merge order for #1576.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1591,10 +1593,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.7M | $269.82 _(notional, rate-card)_ | 33% of 271.0M (ok) |
-| Codex | 204.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 90.9M | $268.65 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Codex | 204.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57282785 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57297320 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 2.760502s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 6 open notice(s); checker healthy
@@ -1604,15 +1606,15 @@ worst fetch p95 2.760502s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (1)
-- [`build-hardened-text-codecs-shim-xs-smoke`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-hardened-text-codecs-shim-xs-smoke.md) — ---
+- [`endojs-endo-but-for-bots-pr1584-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1584-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1584
 
-### tada (15479)
+### tada (15481)
+- [`endojs-endo-but-for-bots-pr1584-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1584-gauntlet-viability.md) — Cost
+- [`build-hardened-text-codecs-shim-xs-smoke`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/build-hardened-text-codecs-shim-xs-smoke.md) — Cost
 - [`fix-minion-town-pr230-maintainer-answers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/fix-minion-town-pr230-maintainer-answers.md) — Cost
 - [`oros-health-watch-20261029-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-watch-20261029-040509.md) — Cost
 - [`oros-health-checkup-20261029-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-checkup-20261029-040509.md) — Cost
-- [`endojs-endo-but-for-bots-pr1583-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1583-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1583-gauntlet — complete
-- [`endojs-endo-but-for-bots-pr1583-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1583-gauntlet-undraft.md) — Cost
-- … and 15474 more
+- … and 15476 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
