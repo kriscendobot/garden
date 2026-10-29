@@ -19,6 +19,7 @@ A gardener claims a `design` job off the board and wears this role. The job may 
 - [cherry-pick-followup]: when a design lives on a long-lived `design/<slug>` branch maintained in parallel, picks let the designer keep the branch coherent.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the gardener's per-job `project/` worktree.
 - [budget-request](../../skills/budget-request/SKILL.md): when the design's build is large (more than one build job, an orchestration, or a press), file a whole-build token estimate for the accountant as you land the design, and name the effort slug in your report.
+- [api-transport-rubric](../../skills/api-transport-rubric/SKILL.md): when a design adds or changes an interface in a system that mixes HTTP with capability transfer (minion.town, Familiar), score each feature REST-versus-CapTP and record the choice in the design.
 - [ownership-map](../../skills/ownership-map/SKILL.md): when a design spans two or more components or architectural layers, state the ownership map (who owns durable state, commit/discard, restart/replay, and execution classification at each boundary) **before** review. See the operating norm below.
 
 ## Operating norms

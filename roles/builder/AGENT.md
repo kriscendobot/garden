@@ -24,6 +24,7 @@ Implement a change (a feature, a fix, a test) from an issue or design document a
 - [regression-evidence]: prove every new test is load-bearing by demonstrating it fails when the target code path is broken. Equivalence claims in comments or docs get the same backing assertion.
 - [rename-discipline]: leave existing identifiers alone unless the rename earns its place in the diff.
 - [sibling-family-sweep](../../skills/sibling-family-sweep/SKILL.md): when a change generalizes an operation across a family of sibling sites (twin packages, duplicated helper copies, paired constructors), enumerate every sibling and verify each was converted before pushing — the dual of rename-discipline. See the operating norm below.
+- [api-transport-rubric](../../skills/api-transport-rubric/SKILL.md): before adding an HTTP endpoint or a CapTP method in a system that mixes the two, check the design's transport choice against the rubric; surface a mismatch in the PR body instead of silently picking.
 - [url-path-math](../../skills/url-path-math/SKILL.md): use URL-relative resolution for Endo module paths, converting to a native path only at the API boundary that requires it.
 - [yarn-lock-separate-commit]: lockfile churn ships in its own commit.
 - [changeset-discipline]: add a changeset entry per project convention when the change is observable downstream; keep it current as the PR evolves and consolidate to one per release cycle.
