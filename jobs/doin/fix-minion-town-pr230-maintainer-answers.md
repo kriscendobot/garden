@@ -14,3 +14,13 @@ Revise the design PR https://github.com/kriscendobot/minion.town/pull/230 (`desi
 5. (d) Clone copies powers (reverses the draft: same powers, same attenuation, never more). Update the Clone endpoint description and the tests.
 
 Remove the answered items from `## Open questions` (keep any still genuinely open and add new ones the answers raise). Keep the PR a draft and keep the `<!-- garden-design-open-questions -->` marker if any open question remains. Do not post the build job; the liaison will after the maintainer reviews.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-29T04:45:21Z
