@@ -42,6 +42,11 @@
 #      bound rather than approaching the unit's 900-second timeout
 #   R. MERGEABILITY PROBE TIMEOUT — a timed-out eligibility read is cooled down
 #      and cannot be misclassified as the ordinary rc-1 shepherd path
+#   S. ALLOWLIST SNAPSHOT — the REAL approval handler, run per PR across several
+#      PRs, reads maintainers/allowlist from the reconciler's one per-tick snapshot:
+#      it never creates/syncs its own journal clone, a maintainer approval still
+#      authorizes, a non-maintainer approval still does not, and the snapshot file
+#      is removed when the tick exits
 #   T. PRIMARY-QUOTA SOURCE REFUSAL — the shared PR source's primary-quota 403 arms
 #      the host-wide gh-api latch for the full primary-quota window (not the 300s
 #      transient default), and a later tick inside that window skips the source
@@ -574,6 +579,49 @@ run_ar "$TR/st2" "$BARE" "$FIX" "940=0" "940=0" "$SLUG" \
 [ "$tl_rc" -eq 0 ] && [ "$(cat "$T_CNT")" -eq 0 ] \
   && ok "a tick 600s into the quota window skips before polling the doomed source" \
   || bad "later tick polled the source ($(cat "$T_CNT") calls, rc $tl_rc) inside the quota window"
+
+# ============================================================================
+hr; echo "S. ALLOWLIST SNAPSHOT — repeated real approval probes never fetch the journal"; hr
+BARE="$TR/allow.git"; seed_bare "$BARE"
+FIX="$TR/allow.tsv"
+{ prline 950 kriscendobot "$BOThead"; prline 951 kriscendobot "$BOThead"
+  prline 952 kriscendobot "$BOThead"; prline 953 kriscendobot "$BOThead"; } > "$FIX"
+S_GH="$TR/s-gh-stub.sh"; S_SEEN="$TR/allow.allowlists"; : > "$S_SEEN"
+cat > "$S_GH" <<'EOF'
+#!/bin/bash
+# Record which allowlist each handler invocation was given, then answer like gh.
+printf '%s\n' "${GARDEN_MAINTAINERS_ALLOWLIST:-<unset>}" >> "$AR_S_SEEN"
+case "$1" in
+  pr) printf '{"reviewDecision":"","headRefOid":"abc123"}\n' ;;
+  api)
+    case "$*" in
+      */pulls/953/reviews*) who=mallory ;;   # untrusted approver
+      *) who=kriskowal ;;
+    esac
+    printf '[{"user":{"login":"%s"},"state":"APPROVED"}]\n' "$who" ;;
+  *) exit 1 ;;
+esac
+EOF
+chmod +x "$S_GH"
+SLOG="$TR/allow.log"; RUN_AR_LOG="$SLOG"
+run_ar "$TR/sallow" "$BARE" "$FIX" "" "950=0 951=0 952=0 953=0" "$SLUG" \
+  GARDEN_AR_APPROVAL="$JOBS/handlers/pr-maintainer-approval-gh.sh" \
+  GARDEN_GH="$S_GH" AR_S_SEEN="$S_SEEN" GARDEN_AR_PROBE_TIMEOUT_SECS=30
+RUN_AR_LOG=/dev/null
+s_calls="$(grep -c . "$S_SEEN" || true)"
+s_distinct="$(sort -u "$S_SEEN" | grep -c . || true)"
+s_snap="$(sort -u "$S_SEEN" | head -1)"
+if [ ! -e "$TR/sallow/maintainer-approval/verify" ] && [ "$s_calls" -ge 8 ]; then
+  ok "four real approval probes ran without the handler ever cloning/syncing the journal"
+else bad "handler touched its own journal clone or did not run (calls=$s_calls; log=$(tr '\n' ' ' < "$SLOG"))"; fi
+if [ "$s_distinct" = 1 ] && [ "$s_snap" != "<unset>" ]; then
+  ok "every probe in the tick read the one shared allowlist snapshot"
+else bad "probes saw $s_distinct allowlist sources ($(sort -u "$S_SEEN" | tr '\n' ' '))"; fi
+[ ! -e "$s_snap" ] && ok "the per-tick snapshot is removed on exit" \
+  || bad "snapshot $s_snap leaked past the tick"
+if [ "$(lane_count "$BARE" todo "conduct")" = 3 ] && ! board_has "$BARE" "$SLUG-pr953-conduct"; then
+  ok "the snapshot still authorizes maintainer approvals and refuses an untrusted approver"
+else bad "expected conductors for 950-952 only ($(tr '\n' ' ' < "$SLOG"))"; fi
 
 # ============================================================================
 hr

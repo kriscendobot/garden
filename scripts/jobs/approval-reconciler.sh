@@ -390,6 +390,7 @@ post_and_confirm() {
 # (reap_cgroup_stragglers, below), the hardened reap dependabot-watcher.sh and
 # comment-watcher.sh landed after the same leak.
 SRC="$(mktemp)"; ERRF="$(mktemp)"
+MAINT_SNAPSHOT=""
 SOURCE_TIMEOUT_PID=""
 # Final cgroup-wide straggler sweep — the EXIT-path complement to the stop-time cgroup
 # SIGKILL backstop, which never covers a clean tick exit. Safety: a strict no-op unless
@@ -474,7 +475,7 @@ reap_cgroup_stragglers() {
   done
 }
 cleanup() {
-  rm -f "$SRC" "$ERRF"
+  rm -f "$SRC" "$ERRF" ${MAINT_SNAPSHOT:+"$MAINT_SNAPSHOT"}
   local pid="$SOURCE_TIMEOUT_PID"
   SOURCE_TIMEOUT_PID=""                 # idempotent: the TERM and EXIT traps both fire
   if [ -n "$pid" ]; then
@@ -663,6 +664,21 @@ run_pr_probe() {  # run_pr_probe <stage> <pr> <command> [args...]
 if ! verify_fetch; then
   log "WARN: journal fetch failed — skipping tick (never guess board state)"
   exit 0
+fi
+
+# Snapshot maintainers/allowlist ONCE per tick from the VERIFY clone just fetched,
+# and hand it to every approval/mergeability probe (both run
+# pr-maintainer-approval-gh.sh) via its GARDEN_MAINTAINERS_ALLOWLIST override.
+# Without this, each per-PR probe re-synced its own maintainer clone, spending the
+# 60s per-PR bound on journal I/O (six probe timeouts across repos, 2026-10-29
+# 14:38–14:48Z). A missing file snapshots as empty, which the handler maps to its
+# documented bootstrap owners — the same result as its own unreadable-file read.
+# An operator-supplied override is honored as-is.
+if [ -z "${GARDEN_MAINTAINERS_ALLOWLIST:-}" ]; then
+  MAINT_SNAPSHOT="$(mktemp "${TMPDIR:-/tmp}/ar-maintainers.XXXXXX")"
+  git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:maintainers/allowlist" \
+    > "$MAINT_SNAPSHOT" 2>/dev/null || : > "$MAINT_SNAPSHOT"
+  export GARDEN_MAINTAINERS_ALLOWLIST="$MAINT_SNAPSHOT"
 fi
 
 while IFS=$'\t' read -r pr author head updated _title; do
