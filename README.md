@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T11:34:57Z_
+_As of 2026-10-29T11:39:58Z_
 
 ## Latest
 
@@ -1610,13 +1608,13 @@ worst fetch p95 7.165390s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1565-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1565-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1565
 
-### tada (15513)
+### tada (15514)
+- [`dependabotany-recheck-endo-but-for-bots-20261029-113508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/dependabotany-recheck-endo-but-for-bots-20261029-113508.md) — Cost
 - [`endojs-endo-but-for-bots-pr1565-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1565-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1565-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1565-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1575-shepherd-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1575-shepherd-20261029.md) — Cost
 - [`endojs-endo-but-for-bots-pr1565-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1565-gauntlet-panel-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr1565-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1565-gauntlet-fix-1.md) — Fix round 1 report: endojs/endo-but-for-bots#1565
-- … and 15508 more
+- … and 15509 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
