@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1576,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1576",
+  "head_oid": "02dbd31bf297e77c03582c614b7717fd88a28b6d",
+  "ask": "re-review",
+  "arc": "minion-town-claude-api",
+  "milestone": "-",
+  "summary": "Panel reviewed 6b5f2625450c, but the presented head is 02dbd31bf297",
+  "unblocks": [],
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1576-6b5f2625-02dbd31b",
+  "requested_at": "2026-10-29T09:42:58Z",
+  "first_requested_at": "2026-10-29T09:42:58Z",
+  "generation": 1,
+  "ci": {
+    "state": "red",
+    "observed_at": "2026-10-29T09:43:15Z"
+  }
+}
