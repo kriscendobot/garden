@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T04:09:44Z_
+_As of 2026-10-29T04:16:18Z_
 
 ## Latest
 
@@ -1600,21 +1598,21 @@ _Fleet token-unlock pace: 57542336 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.254835s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`oros-health-checkup-20261029-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261029-040509.md) — ---
 
-### doin (2)
+### doin (3)
 - [`assess-hardened-text-codecs-shim-supersession`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/assess-hardened-text-codecs-shim-supersession.md) — ---
+- [`oros-health-checkup-20261029-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261029-040509.md) — ---
 - [`oros-health-watch-20261029-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261029-040509.md) — ---
 
-### tada (15470)
+### tada (15471)
+- [`endojs-endo-but-for-bots-pr1583-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1583-gauntlet-viability.md) — Cost
 - [`minion-town-arc-press-20261029-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/minion-town-arc-press-20261029-040509.md) — Cost
 - [`claude-on-minion-town-completion-press-20261029-033509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/claude-on-minion-town-completion-press-20261029-033509.md) — Cost
 - [`design-minion-town-clip-governor-column`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/design-minion-town-clip-governor-column.md) — Completion report: design-minion-town-clip-governor-column
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-2262b4ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-2262b4ba.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1349-fix-depcheck-scope-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-fix-depcheck-scope-20261029.md) — Panel-head freshness
-- … and 15465 more
+- … and 15466 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
