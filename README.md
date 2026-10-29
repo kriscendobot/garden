@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T07:09:39Z_
+_As of 2026-10-29T07:13:43Z_
 
 ## Latest
 
@@ -1595,21 +1593,21 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.7M | $276.10 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.7M | $276.38 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 206.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57513642 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 2.760502s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 7 open notice(s); checker healthy
+worst fetch p95 6.629237s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`oros-health-checkup-20261029-070509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261029-070509.md) — ---
 
-### doin (2)
+### doin (3)
 - [`oros-health-watch-20261029-070509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261029-070509.md) — ---
+- [`oros-health-checkup-20261029-070509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261029-070509.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1561-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1561-ci.md) — ---
 
 ### tada (15492)
