@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T05:23:47Z_
+_As of 2026-10-29T05:27:28Z_
 
 ## Latest
 
@@ -1605,16 +1605,16 @@ worst fetch p95 2.760502s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`fix-endojs-endo-but-for-bots-pr1584-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1584-ci.md) — ---
+### doin (0)
+(none)
 
-### tada (15483)
+### tada (15484)
 - [`endojs-endo-but-for-bots-pr1584-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1584-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1584-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1584-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1584-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1584-gauntlet-restage-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1584-gauntlet-restage-20261029.md) — Cost
+- [`fix-endojs-endo-but-for-bots-pr1584-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/fix-endojs-endo-but-for-bots-pr1584-ci.md) — Cost
 - [`endojs-endo-but-for-bots-pr1584-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1584-gauntlet-viability.md) — Cost
 - [`build-hardened-text-codecs-shim-xs-smoke`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/build-hardened-text-codecs-shim-xs-smoke.md) — Cost
-- [`fix-minion-town-pr230-maintainer-answers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/fix-minion-town-pr230-maintainer-answers.md) — Cost
-- … and 15478 more
+- … and 15479 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
