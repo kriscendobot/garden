@@ -1,13 +1,14 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-28T12:51:38Z
+sent_at: 2026-10-29T18:52:14Z
 watchdog_key: journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal
 notice_count: 11
 first_seen: 2026-10-18T06:45:14Z
-last_seen: 2026-10-28T12:51:38Z
+last_seen: 2026-10-29T18:52:14Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #11 (first seen 2026-10-18T06:45:14Z, latest 2026-10-28T12:51:38Z).
-The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal`) has now been observed 11 times; this is ONE
-coalesced notice that updates in place, not 11 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-10-18T06:45:14Z, cleared 2026-10-29T18:52:14Z).
+It was observed 11 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.077429s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
