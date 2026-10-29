@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T23:46:38Z_
+_As of 2026-10-29T23:54:46Z_
 
 ## Latest
 
@@ -1022,7 +1020,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2-M3.md)
 
-> M2 is stalled on the hardened-text-codecs-shim closeout: #1349 is closed, while green PRs #1583 and #1584 await review. Decide whether their approval and merge completes M2 so the plan can advance to M3.
+> COALESCED message — occurrence #2 (first seen 2026-10-29T14:41:06Z, latest 2026-10-29T23:49:39Z).
+> The SAME message (episode key `foreman-milestone-M2-M3`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
+>
+> M2’s only incomplete record, hardened-text-codecs-shim (#1349), was closed unmerged when its upstream mirror #3377 closed. Decide whether to mark it terminal or authorize a fresh replacement build before advancing to M3.
 
 - `minion-town-pr-screening-paused-8a3ce66` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-8a3ce66.md)
 
@@ -1388,10 +1390,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1573-gauntlet-fix-1` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1573-gauntlet-fix-1.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr1573-gauntlet-fix-1' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7201s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-journal-fetch-slow-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden_journal` has CLEARED (first seen 2026-10-17T13:21:46Z, cleared 2026-10-18T16:20:55Z).
@@ -1627,10 +1625,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 114.8M | $370.52 _(notional, rate-card)_ | 42% of 271.0M (ok) |
-| Codex | 225.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 114.9M | $371.59 _(notional, rate-card)_ | 42% of 271.0M (ok) |
+| Codex | 225.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58874184 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58874367 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.690716s/45s (/home/kris/garden/.garden-state/reaper/journal); 6 open notice(s); checker healthy
@@ -1640,9 +1638,10 @@ worst fetch p95 3.690716s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1575
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1573
+- [`improve-gauntlet-fix-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-fix-budget.md) — ---
 
 ### tada (15559)
 - [`oros-health-checkup-20261029-223511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-checkup-20261029-223511.md) — Cost
