@@ -1,2 +1,2 @@
-base: improve-transient-deploy-fetch
+base: improve-deploy-coherent-release-retry
 identity: mentor:scripts/jobs/deploy-garden.sh
