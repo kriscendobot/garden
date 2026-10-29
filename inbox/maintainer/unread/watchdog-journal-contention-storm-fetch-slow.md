@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-29T14:33:33Z
+sent_at: 2026-10-29T14:36:08Z
 watchdog_key: journal-contention-storm-fetch-slow
-notice_count: 17
+notice_count: 18
 first_seen: 2026-10-18T10:57:22Z
-last_seen: 2026-10-29T14:33:33Z
+last_seen: 2026-10-29T14:36:08Z
 ---
-WATCHDOG notice — occurrence #17 (first seen 2026-10-18T10:57:22Z, latest 2026-10-29T14:33:33Z).
-The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 17 times; this is ONE
-coalesced notice that updates in place, not 17 messages. Latest detail:
+WATCHDOG notice — occurrence #18 (first seen 2026-10-18T10:57:22Z, latest 2026-10-29T14:36:08Z).
+The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 18 times; this is ONE
+coalesced notice that updates in place, not 18 messages. Latest detail:
 
 Journal contention storm on endolin-garden-ece02cb4: 6 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
 - Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/progress/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
