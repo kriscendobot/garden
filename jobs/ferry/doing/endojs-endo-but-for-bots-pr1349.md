@@ -109,3 +109,8 @@ only in #1582. Follow-ups on the bot repo cover the pins: schedule
 
 Follow the standard single-author ferry shape: Kris Kowal is the author of
 every commit, and Co-Authored-By and Generated-with trailers are stripped.
+
+---
+ferry_claim:
+  host: kmkmbp2026
+  claimed_at: 2026-10-29T02:11:42Z
