@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1431
 build_job: endojs-endo-but-for-bots-pr1431-design-panel-20261029
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-viability
+current_child: endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-clean
 state: running
 created_by: endojs-endo-but-for-bots-pr1431-design-panel-20261029
 created_at: 2026-10-29T15:27:03Z
