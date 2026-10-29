@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T11:49:07Z_
+_As of 2026-10-29T11:54:06Z_
 
 ## Latest
 
@@ -732,11 +730,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-10-16T18:44:04Z, latest 2026-10-28T16:41:59Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-10-16T18:44:04Z, cleared 2026-10-29T11:51:50Z).
+> It was observed 12 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.109388s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` cleared on oros-studio-garden-ce242c49.
 
 - `oros-health-watch-20261018-123528-split-terminal-complete` — from orchestrator:oros-health-watch-20261018-123528-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/oros-health-watch-20261018-123528-split-terminal-complete.md)
 
@@ -1595,7 +1593,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.3M | $302.08 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 99.4M | $303.48 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 212.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57611051 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1607,8 +1605,9 @@ worst fetch p95 7.165390s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1565-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1565-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1565
+- [`improve-retire-drained-dependabotany-schedule`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-retire-drained-dependabotany-schedule.md) — ---
 
 ### tada (15514)
 - [`dependabotany-recheck-endo-but-for-bots-20261029-113508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/dependabotany-recheck-endo-but-for-bots-20261029-113508.md) — Cost
