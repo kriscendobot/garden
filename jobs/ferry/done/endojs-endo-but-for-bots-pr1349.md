@@ -114,3 +114,9 @@ every commit, and Co-Authored-By and Generated-with trailers are stripped.
 ferry_claim:
   host: kmkmbp2026
   claimed_at: 2026-10-29T02:11:42Z
+
+---
+ferry_done:
+  completed_at: 2026-10-29T02:16:14Z
+  exit: 0
+  log: /Users/kris/garden/.garden-ferry/logs/endojs-endo-but-for-bots-pr1349.20261029T021145Z.log
