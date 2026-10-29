@@ -5,14 +5,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1576
 build_job: 
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1576-gauntlet-02dbd31-panel-1
+current_child: endojs-endo-but-for-bots-pr1576-gauntlet-02dbd31-undraft
 state: running
 created_by: gardener
 created_at: 2026-10-29T09:42:25Z
