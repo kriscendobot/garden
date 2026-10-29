@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T22:50:44Z_
+_As of 2026-10-29T22:51:49Z_
 
 ## Latest
 
@@ -157,11 +157,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #24 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T15:25:51Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 24 times; this is
-> ONE entry that updates in place, not 24 messages. Latest detail:
+> COALESCED message — occurrence #25 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T22:50:49Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 25 times; this is
+> ONE entry that updates in place, not 25 messages. Latest detail:
 >
-> Milestone M2 is blocked: #1349 closed unmerged after upstream #3377 closed; replacement PRs #1583 (supersession record) and #1584 (XS smoke coverage) are clean and green. Decide whether to approve and merge those replacements, and retire draft design PR #1431.
+> M2 is blocked: confirm the hardened-text-codecs reconciliation in [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583), and merge #1427 so #1425 can retarget and complete its remaining XS smoke coverage.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
