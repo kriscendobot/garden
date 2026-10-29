@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T20:54:33Z_
+_As of 2026-10-29T20:56:02Z_
 
 ## Latest
 
@@ -1634,17 +1634,16 @@ worst fetch p95 6.786255s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1575
-- [`improve-deploy-coherent-release-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-coherent-release-retry.md) — ---
 
-### tada (15547)
+### tada (15548)
+- [`improve-deploy-coherent-release-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/improve-deploy-coherent-release-retry.md) — Cost
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1575-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1573-shepherd-20261029.md) — Shepherd report: endojs/endo-but-for-bots#1573 (feature/api-key-provider-regi...
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1575-gauntlet-fix-3.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-6667f7095d9d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/canary-probe-oros-studio-garden-ce242c49-6667f7095d9d.md) — rolling-deploy canary probe — round trip OK
-- [`oros-health-checkup-20261029-193509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-checkup-20261029-193509.md) — Cost
-- … and 15542 more
+- … and 15543 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
