@@ -1,2 +1,2 @@
-base: improve-approval-probe-timeout-backoff
+base: improve-approval-probe-snapshot
 identity: mentor:scripts/jobs/approval-reconciler.sh
