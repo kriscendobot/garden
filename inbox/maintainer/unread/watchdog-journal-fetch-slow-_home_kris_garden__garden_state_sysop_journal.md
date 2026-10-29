@@ -1,13 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-29T10:48:16Z
+sent_at: 2026-10-29T12:06:35Z
 watchdog_key: journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal
 notice_count: 4
 first_seen: 2026-10-23T13:21:18Z
-last_seen: 2026-10-29T10:48:16Z
+last_seen: 2026-10-29T12:06:35Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #4 (first seen 2026-10-23T13:21:18Z, latest 2026-10-29T10:48:16Z).
-The SAME condition (`journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal`) has now been observed 4 times; this is ONE
-coalesced notice that updates in place, not 4 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-10-23T13:21:18Z, cleared 2026-10-29T12:06:35Z).
+It was observed 4 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: p95=2.566977s max=32.014350s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
