@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T12:36:24Z_
+_As of 2026-10-29T12:37:53Z_
 
 ## Latest
 
@@ -1593,10 +1593,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.2M | $307.64 _(notional, rate-card)_ | 37% of 271.0M (ok) |
+| Claude | 101.3M | $307.71 _(notional, rate-card)_ | 37% of 271.0M (ok) |
 | Codex | 212.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57807076 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 63961221 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.364463s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 10 open notice(s); checker healthy
@@ -1605,16 +1605,16 @@ worst fetch p95 8.364463s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1565-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1565-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1565
+### doin (0)
+(none)
 
-### tada (15518)
+### tada (15519)
+- [`endojs-endo-but-for-bots-pr1565-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1565-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1565-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1565-gauntlet-panel-4.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-3b98faac7004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/canary-probe-oros-studio-garden-ce242c49-3b98faac7004.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1565-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1565-gauntlet-fix-3.md) — Fix round 3 report: endojs/endo-but-for-bots#1565
 - [`improve-retire-drained-dependabotany-schedule`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/improve-retire-drained-dependabotany-schedule.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20261029-113508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/dependabotany-recheck-endo-but-for-bots-20261029-113508.md) — Cost
-- … and 15513 more
+- … and 15514 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
