@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T21:58:42Z_
+_As of 2026-10-29T22:10:07Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-166 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+167 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -843,11 +841,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #13 (first seen 2026-10-23T13:27:09Z, latest 2026-10-29T19:05:05Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 13 times; this is
-> ONE entry that updates in place, not 13 messages. Latest detail:
+> COALESCED message — occurrence #14 (first seen 2026-10-23T13:27:09Z, latest 2026-10-29T22:05:58Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 14 times; this is
+> ONE entry that updates in place, not 14 messages. Latest detail:
 >
-> M3’s next child-agent-factory implementation step is blocked pending maintainer approval of [endojs/endo-but-for-bots#1558](https://github.com/endojs/endo-but-for-bots/issues/1558); approve or redirect that design before advancing draft PR #1560.
+> M3’s API-key agent-workbench design, [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574), exhausted its six-round gauntlet and blocks its downstream build. Please decide whether to accept it for merge or direct the remaining design changes.  
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1623,10 +1621,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 112.5M | $363.12 _(notional, rate-card)_ | 42% of 271.0M (ok) |
-| Codex | 223.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 112.6M | $363.40 _(notional, rate-card)_ | 42% of 271.0M (ok) |
+| Codex | 223.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58040386 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57735464 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.690716s/45s (/home/kris/garden/.garden-state/reaper/journal); 6 open notice(s); checker healthy
@@ -1641,13 +1639,13 @@ worst fetch p95 3.690716s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1573
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1575
 
-### tada (15552)
+### tada (15553)
+- [`claude-on-minion-town-completion-press-20261029-220509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/claude-on-minion-town-completion-press-20261029-220509.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1573-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1573-gauntlet-20261029.md) — Cost
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1573-gauntlet-clean.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-020321e1e9ec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/canary-probe-oros-studio-garden-ce242c49-020321e1e9ec.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1575-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1575-gauntlet-panel-5.md) — Cost
-- … and 15547 more
+- … and 15548 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
