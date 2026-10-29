@@ -7,14 +7,14 @@
   "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Panel reviewed 991f8af47e27, but the presented head is 28177349d018",
+  "summary": "Panel reviewed 2262b4bafa9f, but the presented head is d8b86e158d33",
   "unblocks": [],
-  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1349-991f8af4-28177349",
-  "requested_at": "2026-10-28T19:55:45Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1349-2262b4ba-d8b86e15",
+  "requested_at": "2026-10-29T00:52:29Z",
   "first_requested_at": "2026-10-08T07:44:34Z",
-  "generation": 17,
+  "generation": 18,
   "ci": {
     "state": "green",
-    "observed_at": "2026-10-29T00:54:58Z"
+    "observed_at": "2026-10-29T00:55:12Z"
   }
 }
