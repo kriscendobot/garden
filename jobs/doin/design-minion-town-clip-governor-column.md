@@ -25,3 +25,13 @@ Out of scope: freeze, grant/revoke UI, subagent spawning, the primer, pet icons,
 Open questions the maintainer must decide (put these in `## Open questions`; this makes the design a review PR per the garden carve-out, mark the PR body with `<!-- garden-design-open-questions -->`): (a) is the New Clip itself the governor of an agent in a child column, or does the chrome always render a governor beside any agent-bearing clip (the liaison leans to the former); (b) may a governor read its child's mail or only grant/revoke; (c) is "persona bounded to the clip" a data boundary (conversation history held by the governor).
 
 Do not use GitHub to talk to other instances (garden instances use the message bus). Spec only: no live change.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-29T03:19:49Z
