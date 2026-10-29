@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T03:59:27Z_
+_As of 2026-10-29T04:04:36Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-165 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+164 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -1591,10 +1589,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.7M | $265.75 _(notional, rate-card)_ | 33% of 271.0M (ok) |
-| Codex | 203.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 89.7M | $265.80 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Codex | 203.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57542030 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57542336 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.254835s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 8 open notice(s); checker healthy
@@ -1603,8 +1601,8 @@ worst fetch p95 3.254835s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`assess-hardened-text-codecs-shim-supersession`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/assess-hardened-text-codecs-shim-supersession.md) — ---
 
 ### tada (15469)
 - [`claude-on-minion-town-completion-press-20261029-033509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/claude-on-minion-town-completion-press-20261029-033509.md) — Cost
