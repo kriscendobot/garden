@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T17:24:57Z_
+_As of 2026-10-29T17:26:44Z_
 
 ## Latest
 
@@ -624,10 +624,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 11 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.077429s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `watchdog-unclaimable-host-requirements-scholar-ingest-meta-harnesses-codefall-ycc-20261029` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-scholar-ingest-meta-harnesses-codefall-ycc-20261029.md)
-
-> Host-requirements gate: job 'scholar-ingest-meta-harnesses-codefall-ycc-20261029' has remained unclaimed for 900s with requires: typesafe. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-accountant-weekly-20261024-160509-6764902e87b9` — from gardener:accountant-weekly-20261024-160509, reply_to `accountant-weekly-20261024-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261024-160509-6764902e87b9.md)
 
@@ -1615,7 +1611,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.3M | $328.75 _(notional, rate-card)_ | 39% of 271.0M (ok) |
+| Claude | 106.3M | $329.29 _(notional, rate-card)_ | 39% of 271.0M (ok) |
 | Codex | 218.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57709767 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
