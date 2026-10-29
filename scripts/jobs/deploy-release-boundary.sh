@@ -12,6 +12,8 @@
 #   verify_coherent_release  confirm the restarted fleet + thawed timers are active,
 #                            and the deployed sha is the new one — i.e. every unit
 #                            runs from ONE release.
+#   retry_verified_inactive_units  immediately restart only the units the verifier
+#                            found inactive, with every restart individually bounded.
 #
 # WHY THIS EXISTS — the RESIDUAL after the per-file rename (deploy-tree-swap.sh).
 # The per-file rename made each changed blob swap atomically, so an opener never
@@ -66,6 +68,10 @@
 # THAWED_TIMERS, which verify_coherent_release re-checks.
 FROZEN_TIMERS=()
 THAWED_TIMERS=()
+# Refilled on every verify_coherent_release call. Keeping the exact inactive set
+# separate from the recorded-sha pseudo-straggler lets the deploy retry only units
+# that systemd actually reported inactive.
+VERIFIED_INACTIVE_UNITS=()
 
 # The frozen set is ALSO persisted to disk, written BEFORE the first stop and removed
 # once thaw_timers has run. Process memory alone lost it on 2026-10-02 (oros-studio):
@@ -208,16 +214,16 @@ _long_running_service_units() {
 #   * the recorded deployed sha equals the new sha (the swap advanced exactly once),
 #   * every long-running service the restart re-exec'd is active,
 #   * every thawed timer is active again.
-# Returns 0 when the fleet is coherent; non-zero (with a loud, itemized WARN) when a
-# unit failed to come back. The tree is already advanced, so a failure here is an
-# ALERT, never a clobber: a later scaler/reconcile tick restarts the stragglers. The
-# caller surfaces it but does not roll back.
-verify_coherent_release() {  # <expected_sha> [<deployed-sha-marker-value>]
-  local expected="${1:?expected_sha}" recorded="${2:-}" unit down=0 total=0
+# Returns 0 when the fleet is coherent; non-zero when a unit failed to come back.
+# Pass `defer-warn` for the first probe when the caller will immediately retry the
+# populated VERIFIED_INACTIVE_UNITS; only a subsequent ordinary verify warns.
+# The tree is already advanced, so a surviving failure is an alert, never a clobber.
+verify_coherent_release() {  # <expected_sha> [<deployed-sha-marker-value>] [defer-warn]
+  local expected="${1:?expected_sha}" recorded="${2:-}" mode="${3:-}" unit down=0 total=0
   local -a stragglers=()
+  VERIFIED_INACTIVE_UNITS=()
 
   if [ -n "$recorded" ] && [ "$recorded" != "$expected" ]; then
-    log "release-boundary: VERIFY WARN recorded deployed sha ($recorded) != new sha ($expected)"
     stragglers+=("deployed-sha:$recorded")
   fi
 
@@ -225,15 +231,50 @@ verify_coherent_release() {  # <expected_sha> [<deployed-sha-marker-value>]
     [ -n "$unit" ] || continue
     total=$((total+1))
     if ! unit_ctl is-active "$unit" >/dev/null 2>&1; then
-      stragglers+=("$unit"); down=$((down+1))
+      stragglers+=("$unit")
+      VERIFIED_INACTIVE_UNITS+=("$unit")
+      down=$((down+1))
     fi
   done < <({ _long_running_service_units; printf '%s\n' "${THAWED_TIMERS[@]:-}"; })
 
   if [ "${#stragglers[@]}" -gt 0 ]; then
+    if [ "$mode" = "defer-warn" ]; then
+      log "release-boundary: verification found $down of $total unit(s) inactive; immediate retry pending: ${VERIFIED_INACTIVE_UNITS[*]:-none}"
+      return 1
+    fi
+    if [ -n "$recorded" ] && [ "$recorded" != "$expected" ]; then
+      log "release-boundary: VERIFY WARN recorded deployed sha ($recorded) != new sha ($expected)"
+    fi
     log "release-boundary: VERIFY WARN $down of $total unit(s) NOT active after the deploy: ${stragglers[*]}"
     log "release-boundary:   the tree is advanced to $expected; a later scaler/reconcile tick restarts the stragglers."
     return 1
   fi
   log "release-boundary: verified coherent release — deployed=$expected, all $total restarted/thawed unit(s) active"
   return 0
+}
+
+# retry_verified_inactive_units — restart exactly the units recorded by the most
+# recent verify_coherent_release call. Restarts run concurrently and each uses
+# unit_ctl_bounded, so a wedged user manager costs at most one bounded wave rather
+# than one timeout per unit. The caller always re-verifies; command failure here is
+# therefore informational, and only units still inactive on that second probe warn.
+retry_verified_inactive_units() {
+  local -a units=("${VERIFIED_INACTIVE_UNITS[@]}") pids=()
+  local unit i restarted=0 failed=0
+
+  [ "${#units[@]}" -gt 0 ] || return 0
+  log "release-boundary: immediately retrying ${#units[@]} verified inactive unit(s): ${units[*]}"
+  for unit in "${units[@]}"; do
+    unit_ctl_bounded restart "$unit" >/dev/null 2>&1 &
+    pids+=("$!")
+  done
+  for i in "${!pids[@]}"; do
+    if wait "${pids[$i]}"; then
+      restarted=$((restarted+1))
+    else
+      failed=$((failed+1))
+    fi
+  done
+  log "release-boundary: immediate inactive-unit retry complete: restarted=$restarted command-failed=$failed; re-verifying"
+  [ "$failed" -eq 0 ]
 }

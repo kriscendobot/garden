@@ -920,10 +920,16 @@ restart_long_running_fleet "$old_sha" "$new_sha" 0
 
 # VERIFY the fleet runs from ONE release: the recorded deployed sha is the new sha,
 # every restarted long-running service is active, and every thawed timer is active.
-# A straggler is an ALERT (a later scaler/reconcile tick restarts it), not a clobber
-# — the tree is already advanced — so a verify miss is surfaced, never rolled back.
-if ! verify_coherent_release "$new_sha" "$(cat "$GARDEN_DEPLOYED_SHA_MARKER" 2>/dev/null || true)"; then
-  log "WARN: coherent-release verification found stragglers (see above); the deploy advanced the tree but a unit did not come back — a later reconcile tick retries it."
+# A transient systemd restart/thaw race gets one immediate bounded retry of ONLY the
+# units the verifier found inactive, followed by a fresh verify. A survivor is an
+# ALERT, not a clobber — the tree is already advanced — so it is surfaced but never
+# rolled back. The first probe defers its WARN so recovered units leave no false alarm.
+deployed_sha_recorded="$(cat "$GARDEN_DEPLOYED_SHA_MARKER" 2>/dev/null || true)"
+if ! verify_coherent_release "$new_sha" "$deployed_sha_recorded" defer-warn; then
+  retry_verified_inactive_units || true
+  if ! verify_coherent_release "$new_sha" "$deployed_sha_recorded"; then
+    log "WARN: coherent-release verification found surviving stragglers after the immediate retry (see above); the deploy advanced the tree but a unit did not come back — a later reconcile tick retries it."
+  fi
 fi
 
 # Publish this host's post-deploy health to the journal (fleet/deployed + fleet/health,

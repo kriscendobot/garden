@@ -25,13 +25,14 @@ TR=/home/kris/.garden-release-boundary-test
 rm -rf "$TR"; mkdir -p "$TR"
 ACTIVE="$TR/active"       # one active unit per line
 FAILSTOP="$TR/failstop"   # units whose `stop` returns non-zero
-: > "$ACTIVE"; : > "$FAILSTOP"
+FAILRESTART="$TR/failrestart" # units whose `restart` returns non-zero
+: > "$ACTIVE"; : > "$FAILSTOP"; : > "$FAILRESTART"
 
 # Inline stub for `systemctl --user`. Models the verbs the boundary lib uses.
 STUB="$TR/unit_ctl.sh"
 cat > "$STUB" <<'STUBEOF'
 #!/bin/bash
-ACTIVE="${STUB_ACTIVE:?}"; FAILSTOP="${STUB_FAILSTOP:?}"
+ACTIVE="${STUB_ACTIVE:?}"; FAILSTOP="${STUB_FAILSTOP:?}"; FAILRESTART="${STUB_FAILRESTART:?}"
 cmd="${1:-}"; shift || true
 unit_of() { for a in "$@"; do case "$a" in *.service|*.timer|*@*) printf '%s' "$a"; return;; esac; done; }
 case "$cmd" in
@@ -45,12 +46,16 @@ case "$cmd" in
     grep -vxF "$u" "$ACTIVE" > "$ACTIVE.t" 2>/dev/null || true; mv "$ACTIVE.t" "$ACTIVE" ;;
   start)
     u="$(unit_of "$@")"; grep -qxF "$u" "$ACTIVE" 2>/dev/null || echo "$u" >> "$ACTIVE" ;;
+  restart)
+    u="$(unit_of "$@")"; grep -qxF "$u" "$FAILRESTART" 2>/dev/null && exit 1
+    grep -qxF "$u" "$ACTIVE" 2>/dev/null || echo "$u" >> "$ACTIVE" ;;
   *) : ;;
 esac
 STUBEOF
 chmod +x "$STUB"
 
-export GARDEN_UNIT_CTL="$STUB" STUB_ACTIVE="$ACTIVE" STUB_FAILSTOP="$FAILSTOP" GARDEN_UNIT_CTL_TIMEOUT=3
+export GARDEN_UNIT_CTL="$STUB" STUB_ACTIVE="$ACTIVE" STUB_FAILSTOP="$FAILSTOP" \
+  STUB_FAILRESTART="$FAILRESTART" GARDEN_UNIT_CTL_TIMEOUT=3
 # Silence log() output from the lib during the suite (it goes to stderr via common.sh).
 export GARDEN_QUIET=1
 
@@ -114,6 +119,29 @@ freeze_timers >/dev/null 2>&1; thaw_timers >/dev/null 2>&1
 # Simulate the thawed timer dying right after: remove it from the active set.
 grep -vxF garden-reaper.timer "$ACTIVE" > "$ACTIVE.t"; mv "$ACTIVE.t" "$ACTIVE"
 if verify_coherent_release deadbeef deadbeef >/dev/null 2>&1; then bad "verify passed with an inactive thawed timer"; else ok "verify fails when a thawed timer is not active"; fi
+
+# ============================================================================
+hr; echo "verify retry — a transient inactive unit is restarted, then verifies clean"; hr
+: > "$FAILRESTART"; reset_active garden-monk@1.service garden-reaper.timer
+freeze_timers >/dev/null 2>&1; thaw_timers >/dev/null 2>&1
+grep -vxF garden-reaper.timer "$ACTIVE" > "$ACTIVE.t"; mv "$ACTIVE.t" "$ACTIVE"
+first_out="$(verify_coherent_release deadbeef deadbeef defer-warn 2>&1 || true)"
+[ "${VERIFIED_INACTIVE_UNITS[*]}" = garden-reaper.timer ] \
+  && ok "first verify records exactly the inactive timer" || bad "recorded inactive set: ${VERIFIED_INACTIVE_UNITS[*]}"
+grep -q 'VERIFY WARN' <<<"$first_out" \
+  && bad "first verify warned before the retry" || ok "first verify defers the survivor warning"
+retry_verified_inactive_units >/dev/null 2>&1 || bad "bounded retry command failed for transient unit"
+if verify_coherent_release deadbeef deadbeef >/dev/null 2>&1; then ok "re-verify passes after immediate retry"; else bad "re-verify failed after recovery"; fi
+
+# ============================================================================
+hr; echo "verify retry — only a persistent survivor retains the warning"; hr
+printf '%s\n' garden-reaper.timer > "$FAILRESTART"
+grep -vxF garden-reaper.timer "$ACTIVE" > "$ACTIVE.t"; mv "$ACTIVE.t" "$ACTIVE"
+verify_coherent_release deadbeef deadbeef defer-warn >/dev/null 2>&1 || true
+if retry_verified_inactive_units >/dev/null 2>&1; then bad "persistent restart unexpectedly succeeded"; else ok "bounded retry reports the persistent command failure"; fi
+survivor_out="$(verify_coherent_release deadbeef deadbeef 2>&1 || true)"
+grep -q 'VERIFY WARN.*garden-reaper.timer' <<<"$survivor_out" \
+  && ok "re-verify warns for the surviving inactive timer" || bad "survivor warning missing: $survivor_out"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
