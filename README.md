@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T19:43:41Z_
+_As of 2026-10-29T19:45:27Z_
 
 ## Latest
 
@@ -1626,14 +1626,14 @@ _Fleet token-unlock pace: 57752701 tokens/day lower bound; incomplete where a su
 worst fetch p95 17.764585s/45s (/home/kris/garden/.garden-state/reaper/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (2)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`oros-health-checkup-20261029-193509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261029-193509.md) — ---
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1575
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261029.md) — ---
+- [`oros-health-checkup-20261029-193509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261029-193509.md) — ---
 
 ### tada (15542)
 - [`minion-town-arc-press-20261029-193509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/minion-town-arc-press-20261029-193509.md) — Report: minion-town-arc-press-20261029-193509 (supervisor tick, 19:40Z)
