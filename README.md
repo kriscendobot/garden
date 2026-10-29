@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T07:43:54Z_
+_As of 2026-10-29T07:49:42Z_
 
 ## Latest
 
@@ -1595,10 +1593,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.8M | $277.19 _(notional, rate-card)_ | 34% of 271.0M (ok) |
-| Codex | 207.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 92.8M | $275.19 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Codex | 207.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57541881 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57552313 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 6.629237s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 7 open notice(s); checker healthy
@@ -1607,17 +1605,16 @@ worst fetch p95 6.629237s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`fix-endojs-endo-but-for-bots-pr1560-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1560-ci.md) — ---
-- [`fix-endojs-endo-but-for-bots-pr1561-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1561-ci.md) — ---
 
-### tada (15494)
+### tada (15495)
+- [`fix-endojs-endo-but-for-bots-pr1561-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/fix-endojs-endo-but-for-bots-pr1561-ci.md) — PR #1561 fix-CI report: CI is still red, but none of the failures come from t...
 - [`oros-health-watch-20261029-070509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-watch-20261029-070509.md) — Cost
 - [`oros-health-checkup-20261029-070509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-checkup-20261029-070509.md) — Cost
 - [`daily-progress-summary-20261029-070509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/daily-progress-summary-20261029-070509.md) — Cost
 - [`minion-town-arc-press-20261029-070509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/minion-town-arc-press-20261029-070509.md) — Cost
-- [`fix-endojs-endo-but-for-bots-pr1565-ci-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/fix-endojs-endo-but-for-bots-pr1565-ci-20261029.md) — Cost
-- … and 15489 more
+- … and 15490 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
