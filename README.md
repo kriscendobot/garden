@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T03:21:22Z_
+_As of 2026-10-29T03:24:44Z_
 
 ## Latest
 
@@ -957,6 +955,15 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
 
+- `followup-gate-design-minion-town-clip-governor-column` — from followup-gate:design-minion-town-clip-governor-column, reply_to `design-minion-town-clip-governor-column` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-minion-town-clip-governor-column.md)
+
+> Job "design-minion-town-clip-governor-column" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
+>
+> ## Follow-ups
+> - **Build:** `build-minion-town-clip-governor-column`. It covers the two owner-only endpoints, a new `governor.js` in the shell, unit tests, and Chromium tests against a hostile clip titled "Settings" in a new `test/browser/governor-column.ts`. It needs nothing that is still open; if #179 hasn't landed, clip names fall back to "Clip N".
+> - **Maintainer:** open questions (a)–(d) on #230. The PR body carries `<!-- garden-design-open-questions -->` and the PR is left draft.
+> - **Other PRs:** #228 and the `claude-api-p4-agent-factory` job should pick up the changes listed in § 5 of the design.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262` has CLEARED (first seen 2026-10-28T09:11:55Z, cleared 2026-10-28T21:45:36Z).
@@ -1582,10 +1589,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.5M | $265.95 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 89.5M | $265.01 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 202.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57501585 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.689984s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 8 open notice(s); checker healthy
@@ -1594,16 +1601,16 @@ worst fetch p95 4.689984s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`design-minion-town-clip-governor-column`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-clip-governor-column.md) — Design the smallest increment: a governor column to the left of a clip
+### doin (0)
+(none)
 
-### tada (15467)
+### tada (15468)
+- [`design-minion-town-clip-governor-column`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/design-minion-town-clip-governor-column.md) — Completion report: design-minion-town-clip-governor-column
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-2262b4ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-2262b4ba.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-fix-depcheck-scope-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-fix-depcheck-scope-20261029.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15 — complete
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1349-gauntlet-20261029-d8b86e15-undraft.md) — Cost
-- [`oros-health-checkup-20261029-005026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-checkup-20261029-005026.md) — Cost
-- … and 15462 more
+- … and 15463 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
