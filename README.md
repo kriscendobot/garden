@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T05:53:45Z_
+_As of 2026-10-29T05:56:44Z_
 
 ## Latest
 
@@ -157,11 +157,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #21 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T05:04:03Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 21 times; this is
-> ONE entry that updates in place, not 21 messages. Latest detail:
+> COALESCED message — occurrence #22 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T05:55:51Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 22 times; this is
+> ONE entry that updates in place, not 22 messages. Latest detail:
 >
-> Milestone M2 is blocked on maintainer merge authority for the clean, panel-passed documentation PR #1583; its supersession record is needed before the overlapping Phase 3 audit PR #1576 can be woven and landed. Decide to merge #1583 first, then direct the follow-up weave/merge order for #1576.
+> Milestone M2’s remaining work is in the active gauntlet for [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584); once it passes, maintainer review and merge decisions for #1583 and #1584 are needed to complete the supersession and XS-smoke path.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1593,7 +1593,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.4M | $274.84 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.4M | $274.89 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 205.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57485302 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
