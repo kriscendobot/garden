@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-29T06:23:41Z_
+_As of 2026-10-29T06:25:55Z_
 
 ## Latest
 
@@ -157,11 +157,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #22 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T05:55:51Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 22 times; this is
-> ONE entry that updates in place, not 22 messages. Latest detail:
+> COALESCED message — occurrence #23 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T06:24:58Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 23 times; this is
+> ONE entry that updates in place, not 23 messages. Latest detail:
 >
-> Milestone M2’s remaining work is in the active gauntlet for [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584); once it passes, maintainer review and merge decisions for #1583 and #1584 are needed to complete the supersession and XS-smoke path.
+> Milestone M2 remains open only for hardened-text-codecs-shim: #1584’s XS smoke coverage has a clean completed gauntlet and green CI, while #1583 reconciles the design after upstream #3376. Please decide whether to accept and merge those ready PRs so the milestone record can be completed.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
