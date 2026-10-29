@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T15:44:35Z_
+_As of 2026-10-29T15:56:58Z_
 
 ## Latest
 
@@ -133,11 +131,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-29T15:43:31Z).
-> It was observed 223 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #224 (first seen 2026-10-16T17:37:14Z, latest 2026-10-29T15:48:21Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 224 times; this is ONE
+> coalesced notice that updates in place, not 224 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.013797s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.013830s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/gauntlet/journal: p95=0.014926s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.013395s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.013937s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014303s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1613,28 +1617,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.8M | $309.58 _(notional, rate-card)_ | 38% of 271.0M (ok) |
-| Codex | 216.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Claude | 102.4M | $309.79 _(notional, rate-card)_ | 38% of 271.0M (ok) |
+| Codex | 216.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57543588 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57555631 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 21.978806s/45s (/home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-list); 11 open notice(s); checker healthy
+worst fetch p95 17.764585s/45s (/home/kris/garden/.garden-state/reaper/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1431
+### doin (0)
+(none)
 
-### tada (15527)
-- [`endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1431-design-panel-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1431-design-panel-20261029.md) — Panel-head freshness
-- [`canary-probe-oros-studio-garden-ce242c49-f943afdabc48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/canary-probe-oros-studio-garden-ce242c49-f943afdabc48.md) — rolling-deploy canary probe — round trip OK
-- [`improve-approval-probe-snapshot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/improve-approval-probe-snapshot.md) — Cost
-- [`oros-health-watch-20261029-130510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/oros-health-watch-20261029-130510.md) — Cost
-- … and 15522 more
+### tada (15532)
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b.md) — gauntlet endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b — com...
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-undraft.md) — Cost
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-panel-1.md) — Cost
+- [`claude-on-minion-town-completion-press-20261029-155014`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/claude-on-minion-town-completion-press-20261029-155014.md) — Cost
+- [`endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/29/endojs-endo-but-for-bots-pr1431-gauntlet-20261029-c3ab267ef93b-clean.md) — Clean stage: endojs/endo-but-for-bots PR #1431 — CI green after a re-trigger
+- … and 15527 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
