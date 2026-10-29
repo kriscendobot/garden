@@ -1,2 +1,2 @@
-base: improve-dependabot-ledger-pr-parser
+base: improve-retire-drained-dependabotany-schedule
 identity: mentor:scripts/jobs/dependabotany-preflight.sh
