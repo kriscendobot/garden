@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-29T04:16:18Z_
+_As of 2026-10-29T04:19:57Z_
 
 ## Latest
 
@@ -1591,10 +1589,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.9M | $266.52 _(notional, rate-card)_ | 33% of 271.0M (ok) |
-| Codex | 203.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 89.9M | $266.96 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Codex | 203.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57542336 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 57564201 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.254835s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 8 open notice(s); checker healthy
@@ -1603,7 +1601,8 @@ worst fetch p95 3.254835s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (1)
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1583-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1583-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1583
 - [`assess-hardened-text-codecs-shim-supersession`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/assess-hardened-text-codecs-shim-supersession.md) — ---
 - [`oros-health-checkup-20261029-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261029-040509.md) — ---
 - [`oros-health-watch-20261029-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261029-040509.md) — ---
