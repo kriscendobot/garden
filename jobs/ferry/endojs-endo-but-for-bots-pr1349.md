@@ -48,6 +48,13 @@ a blocked report rather than resolving conflicts under the maintainer's identity
 If the PR head is no longer `2262b4bafa`, stop with a blocked report: the head
 moved after this directive was staged and needs a fresh review.
 
+**Known fork-only CI red (maintainer decision, 2026-10-29).** The fork's
+dependency-cycle check (`build`, Graphviz `tred` missing on `ubuntu-latest`) is
+red on `2262b4bafa` because the Ubuntu 24.04 pin lives only in #1582. The
+maintainer said: "We only need a clean check on the upstream CI." Do not block
+the ferry on that fork check, and do not add the pin to this PR. Judge CI on the
+upstream `endojs/endo` PR once it is opened.
+
 ## Authorization provenance
 
 The maintainer (kriskowal) asked for this ferry directly in review
