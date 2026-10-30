@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T11:25:48Z_
+_As of 2026-10-30T11:28:52Z_
 
 ## Latest
 
@@ -1724,13 +1722,13 @@ _Fleet token-unlock pace: 58593661 tokens/day lower bound; incomplete where a su
 worst fetch p95 35.070847s/45s (unknown); 13 open notice(s); checker healthy
 
 ## Board
-### todo (4)
-- [`oros-health-checkup-20261030-110507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261030-110507.md) — ---
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`oros-health-checkup-20261030-110507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261030-110507.md) — ---
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261030.md) — ---
 
 ### tada (15620)
