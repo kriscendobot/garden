@@ -1,4 +1,10 @@
 ---
+gate: deferred
+priority: normal
+foreman_only: true
+not_before: 2026-10-30T04:17:12Z
+posted_by: ironhorse-test262-ratchet
+posted_at: 2026-10-30T03:17:12Z
 tier: mentat
 dispatch: ratchet-delegated
 role: conductor
@@ -30,13 +36,3 @@ endojs/endo-but-for-bots, base llm, marker
 The driver posts the gauntlet, shepherd, builder or conductor as needed; it
 updates https://github.com/kriscendobot/garden/issues/51 after a confirmed merge.
 No omnibus PR, no next crank before the previous PR merges, no queued auto-merge.
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-30T03:14:20Z
