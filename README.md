@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T09:39:30Z_
+_As of 2026-10-30T09:41:23Z_
 
 ## Latest
 
@@ -956,6 +956,10 @@ Delegation: **active**
 > detail: stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1)
 >
 > Orchestration improve-enforce-handler-wall-bound-split observed child improve-enforce-handler-wall-bound-watchdog: stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
+
+- `watchdog-journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git.md)
+
+> Journal fetch drift on endolin-garden-ece02cb4 for _home_kris_garden_worktrees_kriscendobot_vattr97_git: oldest-third median=1.059738s newest-third median=10.027982s over 19854s/14 samples; floor=10s, 1.5x rise or projected-to-guard=47535s within 86400s.
 
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
