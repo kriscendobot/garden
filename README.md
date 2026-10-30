@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T15:28:53Z_
+_As of 2026-10-30T15:31:04Z_
 
 ## Latest
 
@@ -145,17 +145,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #255 (first seen 2026-10-16T17:37:14Z, latest 2026-10-30T15:19:34Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 255 times; this is ONE
-> coalesced notice that updates in place, not 255 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-30T15:29:55Z).
+> It was observed 255 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.015194s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.015194s, giveups=1, steals=1 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.015752s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.013845s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013456s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.013490s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1735,7 +1729,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 59079265 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 35.070847s/45s (unknown); 16 open notice(s); checker healthy
+worst fetch p95 35.070847s/45s (unknown); 15 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
