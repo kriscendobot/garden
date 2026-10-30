@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Build the unstarted M3 `endopi-stdio-rpc-bridge` design in endojs/endo-but-for-bots as a draft PR, implementing the confined stdio RPC bridge needed for MCP-facing agent access.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-30T04:37:17Z
