@@ -309,8 +309,15 @@ trap 'write_comment_heartbeat' EXIT
 COMMENT_SOURCE_TIMEOUT_BACKOFF="$GARDEN_COMMENT_TIMEOUT_BACKOFF_DIR/$slug"
 COMMENT_SOURCE_TIMEOUT_BACKOFF_LOCK="$COMMENT_SOURCE_TIMEOUT_BACKOFF.lock"
 
+# The window must span one whole watcher round, not one source budget. Instances
+# fire on a 90s OnUnitActiveSec cadence with a 30s RandomizedDelaySec, so one round
+# of timeouts across distinct slugs lands up to ~120s apart plus per-source runtime
+# skew. The original 60s window could never hold five of them: on 2026-10-30 five
+# slugs timed out over 78s (06:47:38Z..06:48:56Z) and each only took a local strike.
+# 180s still sits inside the 300s first-strike slug backoff, so one slug cannot
+# recur within a window and the count stays one-event-per-slug-per-round.
 : "${GARDEN_COMMENT_TIMEOUT_FANOUT_THRESHOLD:=5}"
-: "${GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS:=60}"
+: "${GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS:=180}"
 : "${GARDEN_COMMENT_TIMEOUT_FANOUT_DIR:=$GARDEN_ROOT/.garden-state/comment-watcher/source-timeout-fanout}"
 COMMENT_SOURCE_TIMEOUT_FANOUT="$GARDEN_COMMENT_TIMEOUT_FANOUT_DIR/events"
 COMMENT_SOURCE_TIMEOUT_FANOUT_LOCK="$GARDEN_COMMENT_TIMEOUT_FANOUT_DIR/events.lock"
@@ -320,7 +327,7 @@ comment_source_timeout_fanout_threshold_reached() {  # rc 0 = this caller crosse
   local window="$GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS"
   local now floor tmp count
   case "$threshold" in ''|*[!0-9]*) threshold=5;; esac
-  case "$window" in ''|*[!0-9]*) window=60;; esac
+  case "$window" in ''|*[!0-9]*) window=180;; esac
   [ "$threshold" -gt 1 ] && [ "$window" -gt 0 ] || return 1
   mkdir -p "$GARDEN_COMMENT_TIMEOUT_FANOUT_DIR"
   (

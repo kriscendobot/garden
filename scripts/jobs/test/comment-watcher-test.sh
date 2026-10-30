@@ -2429,6 +2429,75 @@ run_timeout_fanout endojs-five "$TR/timeout-fanout-5.err"
   && ok "multi-slug timeout episode emits one threshold warning" \
   || bad "multi-slug timeout warning was missing or duplicated"
 
+# Incident replay (2026-10-30): five distinct slugs timed out over 78s, one watcher
+# round under the 90s cadence + 30s spread. The DEFAULT window must hold one whole
+# round, so the fifth slug trips the shared cooldown with no window override.
+SPREAD_STATE="$TR/state-timeout-fanout-spread"
+SPREAD_COOL="$SPREAD_STATE/gh-api-cooldown"
+SPREAD_DIR="$SPREAD_STATE/comment-watcher/source-timeout-fanout"
+mkdir -p "$SPREAD_DIR"
+spread_now="$(date +%s)"
+printf '%s\t%s\n' \
+  "$((spread_now - 78))" kriscendobot-minion.town \
+  "$((spread_now - 48))" kriscendobot-moddable \
+  "$((spread_now - 14))" endojs-endo-but-for-bots \
+  "$((spread_now - 2))" kriscendobot-garden > "$SPREAD_DIR/events"
+env -u GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS \
+    GARDEN_STATE="$SPREAD_STATE" GARDEN_API_COOLDOWN_DIR="$SPREAD_COOL" \
+    GARDEN_COMMENT_TIMEOUT_FANOUT_DIR="$SPREAD_DIR" \
+    GARDEN_API_COOLDOWN_SECS=10 GARDEN_API_COOLDOWN_MAX_SECS=80 \
+    JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$BACKOFF_SOURCE" \
+    BACKOFF_MODE="$BACKOFF_MODE" GARDEN_COMMENT_SELFTEST=/bin/true \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/comment-watcher.sh" kriscendobot-vattr97 >/dev/null 2>"$TR/timeout-fanout-spread.err"
+[ "$(sed -n '2p' "$SPREAD_COOL/marker" 2>/dev/null)" = 'comment:source-timeout-fanout' ] \
+  && grep -q '5 distinct comment sources timed out within 180s' "$TR/timeout-fanout-spread.err" \
+  && ok "default fanout window spans one watcher round (five slugs over 78s trip the cooldown)" \
+  || bad "five slugs over 78s did not trip the default-window fanout: $(cat "$TR/timeout-fanout-spread.err")"
+
+# Concurrent instances: five distinct-slug watchers time out together (a barrier
+# releases every source at once), as systemd runs them in parallel. The locked
+# host-wide ledger must count all five, open exactly one shared cooldown, emit
+# exactly one threshold warning, and consume the episode's ledger.
+CONC_STATE="$TR/state-timeout-fanout-concurrent"
+CONC_COOL="$CONC_STATE/gh-api-cooldown"
+CONC_DIR="$CONC_STATE/comment-watcher/source-timeout-fanout"
+CONC_BARRIER="$TR/timeout-fanout-barrier"
+CONC_SOURCE="$TR/timeout-fanout-barrier-source.sh"
+mkdir -p "$CONC_BARRIER"
+printf '%s\n' '#!/bin/bash' \
+  ': > "${CONC_BARRIER:?}/$$"' \
+  'for _ in $(seq 1 100); do' \
+  '  [ "$(find "$CONC_BARRIER" -type f | wc -l)" -ge 5 ] && break' \
+  '  sleep 0.1' \
+  'done' \
+  'exit 124' > "$CONC_SOURCE"
+chmod +x "$CONC_SOURCE"
+conc_pids=()
+for conc_slug in conc-one conc-two conc-three conc-four conc-five; do
+  env GARDEN_STATE="$CONC_STATE" GARDEN_API_COOLDOWN_DIR="$CONC_COOL" \
+      GARDEN_COMMENT_TIMEOUT_FANOUT_DIR="$CONC_DIR" \
+      GARDEN_API_COOLDOWN_SECS=10 GARDEN_API_COOLDOWN_MAX_SECS=80 \
+      JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$CONC_SOURCE" \
+      CONC_BARRIER="$CONC_BARRIER" GARDEN_COMMENT_SELFTEST=/bin/true \
+      GARDEN_NO_MAINTAINER_ALERT=1 \
+      "$JOBS/comment-watcher.sh" "$conc_slug" >/dev/null 2>"$TR/timeout-fanout-conc-$conc_slug.err" &
+  conc_pids+=("$!")
+done
+conc_rc=0
+for conc_pid in "${conc_pids[@]}"; do wait "$conc_pid" || conc_rc=$?; done
+conc_warns="$(cat "$TR"/timeout-fanout-conc-*.err | grep -c 'distinct comment sources timed out' || true)"
+conc_local="$(cat "$TR"/timeout-fanout-conc-*.err | grep -c 'backing off only' || true)"
+[ "$conc_rc" -eq 0 ] \
+  && [ "$(sed -n '2p' "$CONC_COOL/marker" 2>/dev/null)" = 'comment:source-timeout-fanout' ] \
+  && [ "$conc_warns" -eq 1 ] && [ "$conc_local" -eq 4 ] \
+  && [ ! -s "$CONC_DIR/events" ] \
+  && [ "$(find "$CONC_STATE/comment-watcher/source-timeout-backoff" -type f ! -name '*.lock' | wc -l)" -eq 5 ] \
+  && ok "five concurrent timed-out instances share one ledger and trip one cooldown" \
+  || bad "concurrent fanout failed (rc=$conc_rc warns=$conc_warns local=$conc_local events=$(cat "$CONC_DIR/events" 2>/dev/null)): $(cat "$TR"/timeout-fanout-conc-*.err)"
+
 # A timeout accompanied by a positive shared-network signature is the deliberate
 # exception: it opens the host latch and does not create a slug-local strike.
 NETWORK_TIMEOUT_SOURCE="$TR/network-timeout-source.sh"
