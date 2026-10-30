@@ -28,7 +28,10 @@
 # `openai,anthropic` while the Claude subscription is constrained. `local` is
 # rejected: the local-qwen hermit lane was retired 2026-09-13. A provider
 # outage or quota error advances to the next provider. A malformed model response
-# is a semantic error, not an availability signal, and stops safely without posting.
+# is a semantic error, not an availability signal: the SAME provider gets one
+# bounded repair attempt with a fixed protocol-only correction, and a second
+# malformed reply (or a failed repair call) stops safely without posting. A
+# malformed reply never advances to another provider.
 # Exhausting the whole order arms a bounded, order/quota-keyed cooldown and returns
 # EX_TEMPFAIL; foreman.sh normalizes that expected deferral to a healthy timer tick.
 # Test harnesses may still override GARDEN_FOREMAN_HANDLER with a deterministic stub.
@@ -442,9 +445,58 @@ foreman_anthropic_attempt() { # <prompt>
   [ "$rc" -eq 0 ] || { log "foreman anthropic provider unavailable or quota-limited (rc=$rc)"; return 10; }
 }
 
+# Bounded malformed-reply repair. A malformed reply is a recoverable format error
+# of ONE provider (2026-10-30T00:14:31Z: OpenAI returned a MAINTAINER block with no
+# ENDMAINTAINER), so the handler re-asks that same provider exactly once with the
+# original prompt plus this FIXED correction. It is protocol-only on purpose: it
+# interpolates nothing (not the malformed reply, not the digest), so the repair
+# adds no new data to the prompt and cannot carry injected text forward.
+# Set GARDEN_FOREMAN_MALFORMED_REPAIR_ATTEMPTS=0 to disable; values above 1 are
+# clamped to 1.
+: "${GARDEN_FOREMAN_MALFORMED_REPAIR_ATTEMPTS:=1}"
+case "$GARDEN_FOREMAN_MALFORMED_REPAIR_ATTEMPTS" in
+  ''|*[!0-9]*) GARDEN_FOREMAN_MALFORMED_REPAIR_ATTEMPTS=1 ;;
+esac
+[ "$GARDEN_FOREMAN_MALFORMED_REPAIR_ATTEMPTS" -le 1 ] || GARDEN_FOREMAN_MALFORMED_REPAIR_ATTEMPTS=1
+FOREMAN_REPAIR_SUFFIX='
+
+----- PROTOCOL CORRECTION -----
+Your previous reply to this prompt did not follow the output protocol and was
+rejected. Reply again with EXACTLY ONE complete block and nothing after it:
+either a JOB <slug> line, optional ROLE and ARC lines, a non-empty body, and a
+closing ENDJOB line; or a MAINTAINER line, a non-empty body, and a closing
+ENDMAINTAINER line. Never emit two blocks, never omit the closing line, and add
+no text after it. Emit nothing at all if there is genuinely no next step.
+----- END PROTOCOL CORRECTION -----'
+
+# A repair attempt is a second metered Claude call: fold its measurement into the
+# first (summing the counters) rather than letting it overwrite the handoff.
+# Called after the repair attempt; a no-op off the anthropic route.
+foreman_merge_repair_usage() {
+  local out="${GARDEN_FOREMAN_USAGE_OUT:-}" merged
+  [ -n "$out" ] && [ -s "$usage_first" ] || return 0
+  if [ -s "$out" ] && command -v jq >/dev/null 2>&1 \
+     && merged="$(jq -cs '
+          . as $a
+          | if ($a[0].source == "result" and $a[1].source == "result") then
+              $a[1]
+              + (reduce ("input_tokens","output_tokens","cache_creation_tokens",
+                         "cache_read_tokens","total_cost_usd","elapsed_s","num_turns") as $k
+                   ({}; if ($a[0][$k] != null or $a[1][$k] != null)
+                        then . + {($k): (($a[0][$k] // 0) + ($a[1][$k] // 0))} else . end))
+              + {repair_attempts: 1}
+            else error("unmergeable") end' "$usage_first" "$out" 2>/dev/null)"; then
+    printf '%s\n' "$merged" > "$out"
+  else
+    # An unmergeable pair keeps the first measurement (never records zero).
+    cp -f "$usage_first" "$out" 2>/dev/null || true
+  fi
+}
+
 raw="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-provider-raw.XXXXXX")"
 canonical="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-provider-canonical.XXXXXX")"
-trap 'rm -f "$raw" "$canonical"' EXIT
+usage_first="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-usage-first.XXXXXX")"
+trap 'rm -f "$raw" "$canonical" "$usage_first"' EXIT
 order="$(provider_order)"
 outage_key="$(foreman_provider_quota_key "$order")"
 if foreman_provider_outage_cooldown_active "$outage_key"; then
@@ -470,7 +522,34 @@ for provider in $order; do
     exit 0
   fi
   record_malformed_reply "$provider" "$raw"
-  die "foreman provider '$provider' returned malformed semantic output; refusing fallback to avoid multiplying work"
+  # One bounded repair: re-ask the SAME provider with the original prompt plus
+  # the fixed protocol-only correction. Never another provider (that would be an
+  # alternate decision, multiplying work), never a second repair, and any failure
+  # of the repair itself — unavailable, errored, or still malformed — fails closed.
+  if [ "$GARDEN_FOREMAN_MALFORMED_REPAIR_ATTEMPTS" -lt 1 ]; then
+    die "foreman provider '$provider' returned malformed semantic output; refusing fallback to avoid multiplying work"
+  fi
+  log "foreman provider '$provider' returned malformed semantic output; making one same-provider protocol repair attempt"
+  repair_prompt="$prompt$FOREMAN_REPAIR_SUFFIX"
+  : > "$usage_first"
+  [ -z "${GARDEN_FOREMAN_USAGE_OUT:-}" ] || cp -f "$GARDEN_FOREMAN_USAGE_OUT" "$usage_first" 2>/dev/null || true
+  : > "$raw"
+  rc=0
+  case "$provider" in
+    openai)       foreman_codex_attempt "$provider" "$repair_prompt" > "$raw" || rc=$? ;;
+    anthropic)    foreman_anthropic_attempt "$repair_prompt" > "$raw" || rc=$? ;;
+  esac
+  foreman_merge_repair_usage
+  if [ "$rc" -ne 0 ]; then
+    die "foreman provider '$provider' repair attempt failed (rc=$rc) after malformed semantic output; refusing fallback to avoid multiplying work"
+  fi
+  if validate_foreman_response "$raw" > "$canonical"; then
+    log "foreman provider '$provider' repair attempt returned a valid protocol block"
+    cat "$canonical"
+    exit 0
+  fi
+  record_malformed_reply "$provider-repair" "$raw"
+  die "foreman provider '$provider' returned malformed semantic output again after one repair attempt; refusing fallback to avoid multiplying work"
 done
 start_foreman_provider_outage_cooldown "$outage_key" || true
 log "TRANSIENT: no configured foreman inference provider was available; bounded re-probe cooldown armed (order: $order)"

@@ -106,9 +106,69 @@ if run_handler openai,anthropic \
 else
   ok "malformed multi-job output is rejected"
 fi
-[ "$(tr '\n' ' ' < "$LOG3")" = "openai " ] \
-  && ok "semantic rejection does not ask another provider" \
-  || bad "semantic rejection fanned out: $(tr '\n' ' ' < "$LOG3")"
+[ "$(tr '\n' ' ' < "$LOG3")" = "openai openai-repair " ] \
+  && ok "semantic rejection repairs once on the same provider and never asks another" \
+  || bad "semantic rejection trace: $(tr '\n' ' ' < "$LOG3")"
+grep -q 'malformed semantic output again after one repair attempt' "$TR/malformed.err" \
+  && ok "a second malformed reply fails closed after exactly one repair" \
+  || bad "repeat-malformed diagnostic: $(cat "$TR/malformed.err")"
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 3b — a recoverable format error is repaired by the same provider"; hr
+LOG3B="$TR/log3b"
+if out="$(run_handler openai,anthropic GARDEN_TEST_PROVIDER_LOG="$LOG3B" \
+  GARDEN_TEST_OPENAI_OUTPUT='MAINTAINER\nM2 is blocked on a decision.\n' \
+  GARDEN_TEST_OPENAI_REPAIR_OUTPUT='MAINTAINER\nM2 is blocked on a decision.\nENDMAINTAINER\n' \
+  2>"$TR/repair.err")"; then
+  [ "$out" = $'MAINTAINER\nM2 is blocked on a decision.\nENDMAINTAINER' ] \
+    && ok "repaired reply is returned" || bad "unexpected repaired output: '$out'"
+else
+  bad "unterminated MAINTAINER block was not repaired: $(cat "$TR/repair.err")"
+fi
+[ "$(tr '\n' ' ' < "$LOG3B")" = "openai openai-repair " ] \
+  && ok "repair stays on the same provider (no cross-provider fallback)" \
+  || bad "repair trace: $(tr '\n' ' ' < "$LOG3B")"
+find "$TR/state/foreman/rejected" -name '*-openai.txt' 2>/dev/null | grep -q . \
+  && ok "the original malformed reply is still captured" || bad "original malformed reply not captured"
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 3c — a failed repair call never falls through to another provider"; hr
+LOG3C="$TR/log3c"
+if run_handler openai,anthropic GARDEN_TEST_PROVIDER_LOG="$LOG3C" \
+  GARDEN_TEST_OPENAI_OUTPUT='MAINTAINER\nbody\n' GARDEN_TEST_OPENAI_REPAIR_RC=1 \
+  >"$TR/repairfail.out" 2>"$TR/repairfail.err"; then
+  bad "a failed repair call was accepted"
+else
+  ok "a failed repair call fails closed"
+fi
+[ "$(tr '\n' ' ' < "$LOG3C")" = "openai openai-repair " ] \
+  && ok "a failed repair does not ask Claude" || bad "failed-repair trace: $(tr '\n' ' ' < "$LOG3C")"
+[ ! -s "$TR/repairfail.out" ] && ok "a failed repair posts nothing" || bad "failed repair emitted: $(cat "$TR/repairfail.out")"
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 3d — repair can be disabled; the correction prompt is fixed"; hr
+LOG3D="$TR/log3d"
+if run_handler openai GARDEN_TEST_PROVIDER_LOG="$LOG3D" GARDEN_FOREMAN_MALFORMED_REPAIR_ATTEMPTS=0 \
+  GARDEN_TEST_OPENAI_OUTPUT='MAINTAINER\nbody\n' >/dev/null 2>&1; then
+  bad "malformed reply accepted with repair disabled"
+else ok "repair disabled: malformed reply FATALs immediately"; fi
+[ "$(tr '\n' ' ' < "$LOG3D")" = "openai " ] && ok "disabled repair makes no second call" \
+  || bad "disabled-repair trace: $(tr '\n' ' ' < "$LOG3D")"
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+APROMPT="$TR/anthropic-repair-prompt"
+if out="$(run_handler anthropic GARDEN_TEST_ANTHROPIC_PROMPT_LOG="$APROMPT" GARDEN_TEST_ANTHROPIC_FIRST_OUTPUT='JOB x\n' 2>/dev/null)"; then
+  [ "$out" = $'JOB anthropic-step\nanthropic fallback body\nENDJOB' ] \
+    && ok "Anthropic malformed reply is repaired on Anthropic" || bad "anthropic repair output: '$out'"
+else bad "Anthropic malformed reply was not repaired"; fi
+grep -q 'PROTOCOL CORRECTION' "$APROMPT" && ! grep -q '^JOB x' "$APROMPT" \
+  && ok "repair prompt carries the fixed correction and never echoes the malformed reply" \
+  || bad "repair prompt shape wrong"
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+RUSAGE="$TR/repair-usage.json"; rm -f "$RUSAGE"
+run_handler anthropic GARDEN_FOREMAN_USAGE_OUT="$RUSAGE" GARDEN_TEST_ANTHROPIC_FIRST_OUTPUT='JOB x\n' >/dev/null 2>&1 || true
+[ "$(jq -r '"\(.input_tokens) \(.output_tokens) \(.repair_attempts)"' "$RUSAGE" 2>/dev/null)" = "2 2 1" ] \
+  && ok "repair call's usage is summed into the foreman measurement, not overwritten" \
+  || bad "repair usage handoff: $(cat "$RUSAGE" 2>/dev/null)"
 
 hr; echo "SUBTEST 4 — default normal order stays Anthropic-only"; hr
 LOG4="$TR/log4"
