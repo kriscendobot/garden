@@ -31,3 +31,13 @@ behavior, which the build directive excluded. This job owns that remainder.
 4. Update the PR body's phase-and-evidence ledger to `Disposition: deliverable`
    with `Rung 0a: satisfied` and `Acceptance: satisfied` citing those observations,
    then run the gauntlet on #231 again so a passing panel can un-draft it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-30T07:04:34Z
