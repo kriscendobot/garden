@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T16:13:49Z_
+_As of 2026-10-30T16:22:45Z_
 
 ## Latest
 
@@ -1702,7 +1700,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 133.4M | $432.23 _(notional, rate-card)_ | 49% of 271.0M (ok) |
-| Codex | 251.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 60% _(plan; codex-reported)_ |
+| Codex | 251.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59106403 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1718,13 +1716,13 @@ worst fetch p95 11.379483s/45s (/home/kris/garden/.garden-state/state-clone-keep
 ### doin (0)
 (none)
 
-### tada (15643)
+### tada (15644)
+- [`claude-on-minion-town-completion-press-20261030-162010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/claude-on-minion-town-completion-press-20261030-162010.md) — Cost
 - [`endojs-endo-but-for-bots-pr1583-gauntlet-a08c450`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1583-gauntlet-a08c450.md) — gauntlet endojs-endo-but-for-bots-pr1583-gauntlet-a08c450 - not viable
 - [`endojs-endo-but-for-bots-pr1583-gauntlet-a08c450-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1583-gauntlet-a08c450-viability.md) — Viability report: endojs/endo-but-for-bots#1583, gauntlet a08c450
 - [`canary-probe-oros-studio-garden-ce242c49-7f22f5baf713`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/canary-probe-oros-studio-garden-ce242c49-7f22f5baf713.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1583-fix-panel-findings-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1583-fix-panel-findings-20261030.md) — Completion report: endojs/endo-but-for-bots#1583, fix panel findings
-- [`endojs-endo-but-for-bots-pr1583-shepherd-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1583-shepherd-20261030.md) — Shepherd report: endojs/endo-but-for-bots#1583, 2026-10-30
-- … and 15638 more
+- … and 15639 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
