@@ -3,7 +3,7 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 1575,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/1575",
-  "head_oid": "37511121120b6f11109e866cf4af24afa74bd6eb",
+  "head_oid": "529203838d1164842a81579f67ccc3a4f2463a72",
   "ask": "re-review",
   "arc": "minion-town-claude-api",
   "milestone": "-",
@@ -14,7 +14,7 @@
   "first_requested_at": "2026-10-29T22:06:20Z",
   "generation": 2,
   "ci": {
-    "state": "green",
-    "observed_at": "2026-10-30T06:03:46Z"
+    "state": "pending",
+    "observed_at": "2026-10-30T06:38:21Z"
   }
 }
