@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T14:50:40Z_
+_As of 2026-10-30T14:52:48Z_
 
 ## Latest
 
@@ -1725,7 +1725,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.9M | $433.51 _(notional, rate-card)_ | 49% of 271.0M (ok) |
+| Claude | 133.0M | $435.53 _(notional, rate-card)_ | 49% of 271.0M (ok) |
 | Codex | 249.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59059724 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1739,8 +1739,10 @@ worst fetch p95 35.070847s/45s (unknown); 16 open notice(s); checker healthy
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1573
+- [`improve-repo-watcher-tempfail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-repo-watcher-tempfail.md) — ---
+- [`improve-approval-reconciler-fetch-latch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-approval-reconciler-fetch-latch.md) — ---
 
 ### tada (15634)
 - [`oros-health-watch-20261030-140509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/oros-health-watch-20261030-140509.md) — Cost
