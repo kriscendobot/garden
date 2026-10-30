@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T00:12:37Z_
+_As of 2026-10-30T00:16:21Z_
 
 ## Latest
 
@@ -883,6 +881,15 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_screening_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-foreman-handler-failed-endolin-garden-ece02cb4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-foreman-handler-failed-endolin-garden-ece02cb4.md)
+
+> WATCHDOG notice — occurrence #12 (first seen 2026-09-28T08:35:57Z, latest 2026-10-30T00:14:31Z).
+> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
+>
+> garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: ened-text-codecs-shim after [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) closed unmerged. Decide whether to reopen/rebuild it and whether #1582 must land in its frozen base before proceeding.  …  MAINTAINER M2 is blocked on completing hardened-text-codecs-shim after [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) closed unmerged. Decide whether to reopen/rebuild it and whether #1582 mu
+> <3>00:14:31 [foreman-claude] FATAL: foreman provider 'openai' returned malformed semantic output; refusing fallback to avoid multiplying work
+
 - `kriscendobot-minion.town-pr178-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr178-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr178-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr178-gauntlet REVIEW-BUDGET-REACHED: Applied 12 panel/fix round(s); fix round 12 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=12, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds N
@@ -1637,7 +1644,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.6M | $371.32 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 116.6M | $373.08 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 226.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58574617 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
