@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T01:55:12Z_
+_As of 2026-10-30T01:57:02Z_
 
 ## Latest
 
@@ -1657,13 +1657,13 @@ _Fleet token-unlock pace: 58758967 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.690716s/45s (/home/kris/garden/.garden-state/reaper/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (2)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`oros-health-checkup-20261030-015009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261030-015009.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1573
+- [`oros-health-checkup-20261030-015009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261030-015009.md) — ---
 - [`oros-health-watch-20261030-015009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261030-015009.md) — ---
 
 ### tada (15567)
