@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T07:07:44Z_
+_As of 2026-10-30T07:11:51Z_
 
 ## Latest
 
@@ -1666,16 +1664,16 @@ _Fleet token-unlock pace: 58443370 tokens/day lower bound; incomplete where a su
 worst fetch p95 5.188881s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`daily-progress-summary-20261030-070518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261030-070518.md) — Daily midnight Pacific progress summary
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
+### doin (6)
 - [`improve-comment-timeout-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-timeout-fanout.md) — ---
 - [`minion-town-shell-captp-session-rung0a-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-captp-session-rung0a-deploy.md) — Deploy and evidence rung 0a of the shell CapTP session (kriscendobot/minion.t...
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-fix-7.md) — ---
+- [`daily-progress-summary-20261030-070518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261030-070518.md) — Daily midnight Pacific progress summary
 - [`kriscendobot-minion.town-pr231-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr231-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #231
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1573
 
