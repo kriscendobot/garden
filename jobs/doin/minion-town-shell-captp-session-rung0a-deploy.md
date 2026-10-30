@@ -32,6 +32,7 @@ behavior, which the build directive excluded. This job owns that remainder.
    with `Rung 0a: satisfied` and `Acceptance: satisfied` citing those observations,
    then run the gauntlet on #231 again so a passing panel can un-draft it.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
