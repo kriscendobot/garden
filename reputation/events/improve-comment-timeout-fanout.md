@@ -1,23 +1,23 @@
 ---
 base: improve-comment-timeout-fanout
-kind: cleric
-provider: openai
-model: gpt-5.6-sol
+kind: monk
+provider: anthropic
+model: claude-opus-5-5
 thoughtfulness: medium
 work_class: other:s
 target: main2
 accepted: true
-agentic_dollars: censored
+agentic_dollars: 1.107153
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 5.798250
+estimated_dollars: 0.093150
 attempts: 1
-duration_secs: 1125
+duration_secs: 1350
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-2
-recorded_at: 2026-10-15T04:18:28Z
+recorded_by: endolin-garden-ece02cb4/monk-1
+recorded_at: 2026-10-30T07:14:13Z
 ---
-reputation event for improve-comment-timeout-fanout: arm openai/gpt-5.6-sol/medium work_class other:s target main2 accepted true
+reputation event for improve-comment-timeout-fanout: arm anthropic/claude-opus-5-5/medium work_class other:s target main2 accepted true
