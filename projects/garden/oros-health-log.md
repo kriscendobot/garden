@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-30T17:20Z (oros-health-checkup-20261030-170510): healthy; deployed = origin/main2 `7f22f5b`, no changes
+
+- **Load/mem:** load 3.65/3.40/3.43 at 17:11Z, the usual level. 12 GiB of 15 GiB available. Swap reads 911M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (402G free). The virtiofs garden mount is at 58% (197G free), inodes 1%.
+- **Uptime:** 28d23h55m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `7f22f5b` (deployed 15:38Z), equal to the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed` at `7f22f5b`, 0 of 290 units failing, 0 advisory (15:39Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker; the two unread maintainer derotate notices date from 2026-10-18 and are marked `recovered: true`.
+- **Budget heartbeat:** on origin/journal2, the last claude-oros push was 17:04:08Z. The fourteen pushes from 13:48 to 17:04Z were all ok, at a steady ~15-minute cadence. Spend is 1,548,502 of 180M.
+- **State clones:** 33 journal clones. The largest are worktree-sweeper and state-clone-keeper (50 packs each, at but not over the `>50` threshold) and reaper (47). No `gc.log`, tmp_pack, `.git` lock older than 30 minutes, or `*.tmp.*`/`*.seed.*` directory older than an hour.
+- **rc=124 (3h):** none in 36.0k system-journal lines. There was one `Failed with result` line: at 15:39Z `garden-repo-watcher` exited rc=2 with "repo-watcher.sh: error reading input file". The 15:38Z deploy had swapped the script while bash was still reading it. That is a one-off deploy-time race. The next tick was clean, and the unit is not failed.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-30T14:15Z (oros-health-checkup-20261030-140509): healthy; deployed = origin/main2 `8d4dd01`, no changes
 
 - **Load/mem:** load 2.92/3.03/3.09 at 14:12Z, the usual level. 13 GiB of 15 GiB available. Swap reads 910M of 1.0 GiB, the usual steady level.
