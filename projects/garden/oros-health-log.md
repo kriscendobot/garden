@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-30T11:40Z (oros-health-checkup-20261030-110507): healthy; deployed = origin/main2 `8d4dd01`; removed one orphaned 457M temp clone
+
+- **Load/mem:** load 1.99/2.81/3.04 at 11:28Z, below the usual level. 12 GiB of 15 GiB available. Swap reads 910M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (403G free). The virtiofs garden mount is at 57% (201G free), inodes 1%.
+- **Uptime:** 28d18h13m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `8d4dd01`, equal to the origin/main2 tip per `ls-remote`. The 08:05Z run's one-commit lag rolled through. fleet/health/oros: `roll_status: deployed` at `8d4dd01`, 0 of 290 units failing, 0 advisory (08:19Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** on origin/journal2, the last claude-oros push was 11:19:20Z. The thirteen pushes from 08:03 to 11:19Z were all ok, at a steady ~15-minute cadence. Spend has been flat at 1,378,340 of 180M since 08:18Z.
+- **State clones:** 33 journal clones (43 git clones in all, counting verify/receipt clones). The largest are reaper (47 packs), regenerate-topics-counts (46) and state-clone-keeper (45), all under the `>50` threshold. No `gc.log`, tmp_pack, or `.git` lock older than 30 minutes.
+- **Orphan:** `.garden-state/transcripts/journal.tmp.141364` (457M, dated 2026-09-26) was left by a clone that was killed under older code. Its pid was dead, so I removed it. The current `_seed_clone_from_root` uses `.seed.<pid>` temps and sweeps dead-owner ones, so this does not recur and needs no code change. No other `*.tmp.*` or `*.seed.*` directory is older than an hour.
+- **rc=124 (3h):** none in 38.1k system-journal lines since 08:20Z. No `Failed with result` or rc=137 lines.
+- **Changed:** removed the orphan temp clone, 457M.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-30T08:05Z (oros-health-checkup-20261030-075013): healthy; deployed `892bc5a`, one commit behind a main2 tip that is minutes old; no changes
 
 - **Load/mem:** load 4.28/3.57/3.53 at 07:56Z, near the usual level. 12 GiB of 15 GiB available. Swap reads 905M of 1.0 GiB, the usual steady level.
