@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T23:53:50Z_
+_As of 2026-10-30T23:55:42Z_
 
 ## Latest
 
@@ -171,11 +171,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #29 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T23:19:48Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 29 times; this is
-> ONE entry that updates in place, not 29 messages. Latest detail:
+> COALESCED message — occurrence #30 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T23:54:37Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 30 times; this is
+> ONE entry that updates in place, not 30 messages. Latest detail:
 >
-> M2 remains in progress: the hardened-text-codecs-shim XS smoke PR #1584 is blocked on merge approval for its prerequisite, [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425). Please decide #1425’s disposition; the overlapping status PRs #1431, #1576, and #1583 also need consolidation before the plan can be reconciled.
+> M2 is blocked on the hardened-text-codecs-shim: fork PR #1349 and its upstream ferry PR #3377 are closed unmerged. Decide whether the remaining XS-smoke/audit work should be restaged, or whether the existing upstream implementation completes M2.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
