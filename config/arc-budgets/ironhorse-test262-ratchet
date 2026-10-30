@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "status": "active",
+  "arc": "ironhorse-test262-ratchet",
+  "token_cap": 20000000,
+  "window_seconds": 604800,
+  "press_interval_seconds": 3600,
+  "set_by": "producer",
+  "set_at": "2026-10-30T03:09:29Z"
+}
