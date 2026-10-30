@@ -335,6 +335,25 @@ read_body() {
   fi
 }
 BODY="$(read_body)"
+inferred_handler_timeout=""
+
+# A deploy followed by live-production observation is structurally longer than
+# the ordinary 2400-second handler wall: the worker must perform the rollout,
+# wait for it to settle, exercise production, and record the evidence.  These
+# jobs are often parked as ordinary deferred plans rather than orchestration
+# children, so the orchestrated-child admission check below does not protect
+# them.  Recognize the conjunction (not a bare mention of either deployment or
+# evidence) and give an otherwise unclassified plan an explicit long wall.
+plan_is_deployment_production_observation() {
+  local f="$1" plan_base="$2"
+  if ! grep -Eiq '(^|[^[:alpha:]])(deploy(|ed|ing|ment)|roll[ -]?out)([^[:alpha:]]|$)' \
+       <<<"$plan_base" \
+     && ! grep -Eiq '(^|[^[:alpha:]])(deploy(|ed|ing|ment)|roll[ -]?out)([^[:alpha:]]|$)' "$f"; then
+    return 1
+  fi
+  grep -Eiq '(^|[^[:alpha:]])production([^[:alpha:]]|$)' "$f" \
+    && grep -Eiq '(^|[^[:alpha:]])(observ(e|ed|es|ing|ation|ations)|evidence|probe(|d|s)|canary|verify|verified|verification)([^[:alpha:]]|$)' "$f"
+}
 
 # Write-side frontmatter validation (cybernetics audit § 7 [wrong sensor]): a
 # `tier:` outside the closed dispatch vocabulary or a non-integer
@@ -349,6 +368,28 @@ printf '%s\n' "$BODY" > "$_fm_tmp"
 if ! validate_job_frontmatter "$_fm_tmp"; then
   rm -f "$_fm_tmp"
   die "refusing to park '$base': job frontmatter failed validation (unset GARDEN_JOB_FRONTMATTER_STRICT to WARN and park anyway)"
+fi
+# The explicit producer option is composed outside BODY, just as it is for the
+# orchestrated-child check.  Preserve any producer-chosen execution class; only
+# infer when role, handler-budget-role, and handler-timeout are all absent.
+if [ -z "$role" ] && [ -z "$split_indivisible_handler_timeout" ] \
+   && ! job_has_execution_budget_declaration "$_fm_tmp" \
+   && plan_is_deployment_production_observation "$_fm_tmp" "$base"; then
+  inferred_handler_timeout="${GARDEN_PRODUCTION_OBSERVATION_HANDLER_TIMEOUT:-10800}"
+  case "$inferred_handler_timeout" in
+    0|*[!0-9]*)
+      rm -f "$_fm_tmp"
+      die "GARDEN_PRODUCTION_OBSERVATION_HANDLER_TIMEOUT must be a positive base-10 integer"
+      ;;
+  esac
+  claim_safe_max=$(( ${GARDEN_CLAIM_TTL:-14400} - ${GARDEN_HANDLER_KILL_AFTER:-60} - 1 ))
+  [ "$inferred_handler_timeout" -le "$claim_safe_max" ] \
+    || inferred_handler_timeout="$claim_safe_max"
+  if [ "$inferred_handler_timeout" -le "${GARDEN_HANDLER_TIMEOUT:-2400}" ]; then
+    rm -f "$_fm_tmp"
+    die "refusing to park deployment/production-observation plan '$base': claim settings leave no long handler wall; add --role, leading handler-budget-role:, or a claim-safe positive handler-timeout:"
+  fi
+  log "stamping deployment/production-observation plan '$base' with claim-safe handler-timeout: $inferred_handler_timeout"
 fi
 # Orchestrated children are promoted by a deterministic watcher and become
 # runnable without a maintainer revisiting their runtime shape. Refuse an
@@ -419,6 +460,7 @@ compose() {
   printf 'priority: %s\n' "$priority"
   [ -n "$roadmap" ] && printf 'roadmap: %s\n' "$roadmap"
   [ -n "$role" ] && printf 'role: %s\n' "$role"
+  [ -n "$inferred_handler_timeout" ] && printf 'handler-timeout: %s\n' "$inferred_handler_timeout"
   [ -n "$arc" ] && printf 'arc: %s\n' "$arc"
   printf 'posted_by: %s\n' "$by"
   printf 'posted_at: %s\n' "$(date -u +%FT%TZ)"

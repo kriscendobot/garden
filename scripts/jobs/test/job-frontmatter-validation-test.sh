@@ -28,9 +28,11 @@
 #   7. An orchestrated post is REFUSED unless it declares role:,
 #      handler-budget-role:, or a positive handler-timeout:; each declaration
 #      form is accepted, while metadata-shaped prose is not.
-#   8. job_tier logs ONE WARN on the silent rc-1 path (a non-empty tier outside
+#   8. A deferred deploy-and-production-observation plan with no execution class
+#      receives a claim-safe long timeout, preserved in promoted frontmatter.
+#   9. job_tier logs ONE WARN on the silent rc-1 path (a non-empty tier outside
 #      the vocabulary): rc is 1 AND a WARN was emitted (previously silent).
-#   9. job_tier stays SILENT and rc-1 for an EMPTY tier with an unknown model
+#  10. job_tier stays SILENT and rc-1 for an EMPTY tier with an unknown model
 #      (the empty-tier fall-through is NOT a mis-spec; no WARN there).
 #
 # Hermetic: a throwaway bare journal; no real garden, journal, or network.
@@ -204,18 +206,38 @@ err="$("$JOBS/post-plan.sh" --orchestrated --orchestrated-by exec-orch \
   && ok "7e metadata-shaped prose does not satisfy the execution contract" \
   || bad "7e prose role was accepted as structured metadata (rc=$rc; $err)"
 
-# --- 8: job_tier logs ONE WARN on the silent rc-1 path ---------------------
+# --- 8: deploy + production observation gets a durable long budget ---------
+DEPLOY_OBSERVE_BODY='# Deploy and evidence the shell session
+
+Deploy the app to production, observe the production behavior, and record
+evidence for reconnect and revocation.'
+err="$("$JOBS/post-plan.sh" --deferred deploy-observe-budget \
+  "$(bodyfile "$DEPLOY_OBSERVE_BODY")" 2>&1 >/dev/null)"; rc=$?
+[ "$rc" -eq 0 ] && has plan/deploy-observe-budget \
+  && git --git-dir="$BARE" show journal2:jobs/plan/deploy-observe-budget.md \
+       | grep -qx 'handler-timeout: 10800' \
+  && ok "8a deferred deployment/production observation is stamped with a long budget" \
+  || bad "8a deployment/production observation was not budgeted (rc=$rc; $err)"
+
+err="$("$JOBS/promote-plan.sh" deploy-observe-budget 2>&1 >/dev/null)"; rc=$?
+[ "$rc" -eq 0 ] && has todo/deploy-observe-budget \
+  && git --git-dir="$BARE" show journal2:jobs/todo/deploy-observe-budget.md \
+       | sed -n '1,/^---$/p' | grep -qx 'handler-timeout: 10800' \
+  && ok "8b promoted job frontmatter preserves the inferred long budget" \
+  || bad "8b promoted job lost the inferred budget (rc=$rc; $err)"
+
+# --- 9: job_tier logs ONE WARN on the silent rc-1 path ---------------------
 jt="$TR/jt-bad.md"; printf '%s\n' "$BAD_TIER_BODY" > "$jt"
 out="$(job_tier "$jt" 2>/dev/null)"; rc=$?
 [ "$rc" -ne 0 ] && [ -z "$out" ] \
-  && ok "8a job_tier still fails closed (rc-1, no stdout) on a bad tier" \
-  || bad "8a job_tier did not fail closed (rc=$rc out='$out')"
+  && ok "9a job_tier still fails closed (rc-1, no stdout) on a bad tier" \
+  || bad "9a job_tier did not fail closed (rc=$rc out='$out')"
 werr="$(job_tier "$jt" 2>&1 >/dev/null || true)"
 printf '%s' "$werr" | grep -qi "WARN.*tier 'builder'" \
-  && ok "8b job_tier logs a WARN on the previously-silent rc-1 path" \
-  || bad "8b job_tier did not WARN on the rc-1 path (got: $werr)"
+  && ok "9b job_tier logs a WARN on the previously-silent rc-1 path" \
+  || bad "9b job_tier did not WARN on the rc-1 path (got: $werr)"
 
-# --- 9: job_tier stays SILENT for an EMPTY tier (not a mis-spec) ------------
+# --- 10: job_tier stays SILENT for an EMPTY tier (not a mis-spec) -----------
 jt2="$TR/jt-empty.md"; printf '%s\n' '---
 model: no-such-model-xyz
 ---
@@ -223,8 +245,8 @@ model: no-such-model-xyz
 empty tier, unknown model' > "$jt2"
 werr="$(job_tier "$jt2" 2>&1 >/dev/null || true)"
 printf '%s' "$werr" | grep -qi 'WARN.*tier' \
-  && bad "9 job_tier wrongly WARNed on an EMPTY tier (empty is not a mis-spec)" \
-  || ok "9 job_tier stays silent on an empty tier (only the closed-vocab violation WARNs)"
+  && bad "10 job_tier wrongly WARNed on an EMPTY tier (empty is not a mis-spec)" \
+  || ok "10 job_tier stays silent on an empty tier (only the closed-vocab violation WARNs)"
 
 echo "----------------------------------------------------------------"
 echo "job-frontmatter-validation-test: PASS=$PASS FAIL=$FAIL"
