@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T03:13:40Z_
+_As of 2026-10-30T03:20:45Z_
 
 ## Latest
 
@@ -133,18 +131,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #234 (first seen 2026-10-16T17:37:14Z, latest 2026-10-30T03:04:08Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 234 times; this is ONE
-> coalesced notice that updates in place, not 234 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-30T03:14:16Z).
+> It was observed 234 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.015023s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.013619s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.013656s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.014016s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013485s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.013822s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.015957s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1657,13 +1648,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.2M | $373.50 _(notional, rate-card)_ | 43% of 271.0M (ok) |
-| Codex | 229.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 117.3M | $372.73 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Codex | 229.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58935743 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58966323 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.000989s/45s (/home/kris/garden/.garden-state/ratchet-control/journal); 11 open notice(s); checker healthy
+worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
@@ -1671,17 +1662,16 @@ worst fetch p95 45.000989s/45s (/home/kris/garden/.garden-state/ratchet-control/
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`fix-minion-town-pr230-captp-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-pr230-captp-default.md) — ---
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1573
 
-### tada (15574)
+### tada (15576)
+- [`ironhorse-test262-press-20260929-173306`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/ironhorse-test262-press-20260929-173306.md) — Cost
+- [`fix-minion-town-pr230-captp-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/fix-minion-town-pr230-captp-default.md) — Cost
 - [`endojs-endo-but-for-bots-pr1575-fix-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1575-fix-20261030.md) — Panel-head freshness
 - [`fix-minion-town-pr230-increment-ladder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/fix-minion-town-pr230-increment-ladder.md) — Cost
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-gauntlet-panel-3.md) — Cost
-- [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-gauntlet-fix-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr1584-weave-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1584-weave-20261030.md) — Weave of endojs/endo-but-for-bots#1584: no changes needed
-- … and 15569 more
+- … and 15571 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1757,7 +1747,7 @@ worst fetch p95 45.000989s/45s (/home/kris/garden/.garden-state/ratchet-control/
 - [`build-endor-tui-phase-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-2.md) - [endor-tui Phase 2: minimal Rust CapTP client over the existing socket (recommended) or a manager-side adapter serving the bus-verb table?](https://github.com/endojs/endo-but-for-bots/pull/1526)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`ironhorse-test262-press-20260929-173306`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-press-20260929-173306.md) — _normal_ · ---
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
