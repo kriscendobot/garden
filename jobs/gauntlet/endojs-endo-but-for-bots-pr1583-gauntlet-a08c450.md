@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1583-gauntlet-a08c450-viability
+state: running
 created_by: shepherd
 arc: endo-backlog
 created_at: 2026-10-30T15:43:22Z
