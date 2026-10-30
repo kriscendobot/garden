@@ -1,2 +1,2 @@
-base: improve-repo-watcher-provisioner-offline
+base: improve-repo-watcher-tempfail
 identity: mentor:scripts/jobs/repo-watcher.sh
