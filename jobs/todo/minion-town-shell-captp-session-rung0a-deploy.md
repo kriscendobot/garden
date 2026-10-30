@@ -1,10 +1,9 @@
 ---
-gate: deferred
-priority: normal
+tier: mentor
 arc: minion-town-ui
-posted_by: producer
 posted_at: 2026-10-30T07:02:45Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-30T07:04:06Z cleared=none -->
 
 ---
 tier: mentor
