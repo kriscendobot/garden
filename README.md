@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T23:13:50Z_
+_As of 2026-10-30T23:22:35Z_
 
 ## Latest
 
@@ -173,11 +171,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #28 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T23:10:36Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 28 times; this is
-> ONE entry that updates in place, not 28 messages. Latest detail:
+> COALESCED message — occurrence #29 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T23:19:48Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 29 times; this is
+> ONE entry that updates in place, not 29 messages. Latest detail:
 >
-> M2 is blocked on choosing a single canonical carrier for the overlapping hardened-text-codecs documentation: retain #1583 or treat it as superseded by #1431, #1576, and #1584. Please decide which PR set to keep before further work or closure actions.
+> M2 remains in progress: the hardened-text-codecs-shim XS smoke PR #1584 is blocked on merge approval for its prerequisite, [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425). Please decide #1425’s disposition; the overlapping status PRs #1431, #1576, and #1583 also need consolidation before the plan can be reconciled.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1719,16 +1717,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 139.3M | $455.60 _(notional, rate-card)_ | 51% of 271.0M (ok) |
-| Codex | 260.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 139.4M | $455.65 _(notional, rate-card)_ | 51% of 271.0M (ok) |
+| Codex | 260.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59625738 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 59626141 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.887862s/45s (/home/kris/garden/.garden-state/reaper/journal); 11 open notice(s); checker healthy
+worst fetch p95 4.927788s/45s (/home/kris/garden/.garden-state/transcripts/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
+- [`oros-health-checkup-20261030-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261030-232010.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
@@ -1736,13 +1735,13 @@ worst fetch p95 3.887862s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1560-shepherd-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-shepherd-20261030.md) — ---
 
-### tada (15670)
+### tada (15672)
+- [`minion-town-arc-press-20261030-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/minion-town-arc-press-20261030-232010.md) — Cost
+- [`oros-health-watch-20261030-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/oros-health-watch-20261030-232010.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-f1955db74b78`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/canary-probe-oros-studio-garden-ce242c49-f1955db74b78.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261030-macos-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-shepherd-20261030-macos-failure.md) — Completion report: shepherd #1573, macOS CI failure
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1575-gauntlet-fix-8.md) — Cost
-- [`minion-town-ci-runner-to-hosted-202610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/minion-town-ci-runner-to-hosted-202610.md) — Cost
-- [`claude-on-minion-town-completion-press-20261030-222010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/claude-on-minion-town-completion-press-20261030-222010.md) — Cost
-- … and 15665 more
+- … and 15667 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
