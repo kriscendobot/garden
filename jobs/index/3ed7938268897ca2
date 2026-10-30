@@ -1,2 +1,2 @@
-base: improve-approval-probe-snapshot
+base: improve-approval-reconciler-fetch-latch
 identity: mentor:scripts/jobs/approval-reconciler.sh
