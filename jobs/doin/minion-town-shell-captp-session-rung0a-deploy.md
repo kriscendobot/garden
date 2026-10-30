@@ -33,3 +33,13 @@ behavior, which the build directive excluded. This job owns that remainder.
    then run the gauntlet on #231 again so a passing panel can un-draft it.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-30T07:53:24Z
