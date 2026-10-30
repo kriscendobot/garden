@@ -1,10 +1,13 @@
 {
-  "schema": 1,
+  "schema": 2,
   "status": "active",
   "arc": "ironhorse-test262-ratchet",
-  "token_cap": 20000000,
-  "window_seconds": 604800,
+  "rank": 1,
+  "summary": "Ironhorse test262 ratchet: crank coverage up before the quota reset (press interval 3600s)",
+  "token_cap": 356960121,
+  "window": "week",
+  "window_start": "2026-10-24T03:00:00Z",
   "press_interval_seconds": 3600,
-  "set_by": "producer",
-  "set_at": "2026-10-30T03:09:29Z"
+  "set_by": "accountant",
+  "set_at": "2026-10-30T04:35:59Z"
 }
