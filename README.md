@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T08:15:58Z_
+_As of 2026-10-30T08:22:46Z_
 
 ## Latest
 
@@ -94,6 +92,16 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` cleared on oros-studio-garden-ce242c49.
+
+- `endojs-endo-but-for-bots-pr1573-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1573-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1573-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1573-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1573-gauntlet-fix-4' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 4/6 · cost so far: $16.91
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1573-gauntlet panel --iteration 4 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-4.md)
 
@@ -1657,10 +1665,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.8M | $406.79 _(notional, rate-card)_ | 46% of 271.0M (ok) |
-| Codex | 239.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Claude | 125.9M | $409.49 _(notional, rate-card)_ | 46% of 271.0M (ok) |
+| Codex | 241.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58349272 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58391223 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 5.649990s/45s (/home/kris/garden/.garden-state/screening-control/journal); 11 open notice(s); checker healthy
@@ -1674,13 +1682,13 @@ worst fetch p95 5.649990s/45s (/home/kris/garden/.garden-state/screening-control
 ### doin (1)
 - [`kriscendobot-minion.town-pr231-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr231-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #231
 
-### tada (15611)
+### tada (15612)
+- [`endojs-endo-but-for-bots-pr1573-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1573-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-gauntlet-fix-4.md) — What was in round 4
 - [`kriscendobot-minion.town-pr231-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/kriscendobot-minion.town-pr231-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1575-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1575-gauntlet-fix-7.md) — Cost
 - [`oros-health-checkup-20261030-075013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/oros-health-checkup-20261030-075013.md) — Cost
-- [`minion-town-shell-captp-session-rung0a-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/minion-town-shell-captp-session-rung0a-deploy.md) — Rung 0a of the shell CapTP session: kriscendobot/minion.town PR #231
-- … and 15606 more
+- … and 15607 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
