@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T04:23:56Z_
+_As of 2026-10-30T04:28:01Z_
 
 ## Latest
 
@@ -1655,10 +1655,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.6M | $373.94 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 117.7M | $375.71 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 231.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58687259 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 65980392 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 11 open notice(s); checker healthy
@@ -1669,17 +1669,18 @@ worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegati
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1573
+- [`endojs-endo-but-for-bots-pr1575-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1575
 - [`build-minion-town-shell-captp-session-rung0a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-shell-captp-session-rung0a.md) — ---
 
-### tada (15582)
+### tada (15581)
+- [`endojs-endo-but-for-bots-pr1575-gauntlet-restage-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1575-gauntlet-restage-20261030.md) — Cost
 - [`ironhorse-test262-press-20261030-031712`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/ironhorse-test262-press-20261030-031712.md) — Cost
 - [`claude-on-minion-town-completion-press-20261030-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/claude-on-minion-town-completion-press-20261030-040509.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-d3604334bf30`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/canary-probe-oros-studio-garden-ce242c49-d3604334bf30.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1359-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1359-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1359-gauntlet - not viable
-- [`endojs-endo-but-for-bots-pr1359-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1359-gauntlet-viability.md) — Cost
-- … and 15577 more
+- … and 15576 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
