@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T23:44:00Z_
+_As of 2026-10-30T23:49:39Z_
 
 ## Latest
 
@@ -1719,10 +1717,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 139.4M | $455.76 _(notional, rate-card)_ | 51% of 271.0M (ok) |
-| Codex | 260.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 139.4M | $455.82 _(notional, rate-card)_ | 51% of 271.0M (ok) |
+| Codex | 261.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59635788 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 59635843 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.927788s/45s (/home/kris/garden/.garden-state/transcripts/journal); 11 open notice(s); checker healthy
