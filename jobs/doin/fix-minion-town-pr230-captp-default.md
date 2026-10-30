@@ -15,3 +15,13 @@ Answers:
 This surfaces a prerequisite: the shell (the chrome page, `deploy/aws/www/shell.js`) currently speaks REST only and holds no CapTP session to the owner's facet (verify this on `main`). Add a **rung 0: the shell opens an authenticated CapTP session to an owner facet**, bootstrapped by the minimum REST (login cookie, then a minted, expiring, revocable locator, following the #228/#88 nonce-locator pattern), carrying no powers beyond the facet it names. Specify it with the same detail as rungs 1-3 (what the session is, how it is bound to the chrome origin and unreachable from any clip, reconnect and revoke, tests including a hostile clip that cannot reach it). Rung 1 then reads powers through that session. Keep rung 0 as small as it can honestly be; if it can be split (session + one trivial method first), split it.
 
 Also: remove (g), (h), (i) from `## Open questions`; keep (f) (rung 9 only) and add any new ones. Re-run the mermaid parse check on touched diagrams, keep the PR a draft, update the PR body, leave a summary comment. Do not post any build job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-30T03:10:14Z
