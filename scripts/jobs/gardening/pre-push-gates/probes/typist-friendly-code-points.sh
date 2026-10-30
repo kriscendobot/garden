@@ -162,7 +162,21 @@ engine() {
 # is_exempt — a file that opts out with a `typist-code-points-exempt` marker in
 # its first five lines (mirrors the ascii-exempt / spell-out-exempt hatches).
 is_exempt() {
-  head -5 "$1" 2>/dev/null | grep -q 'typist-code-points-exempt'
+  head -5 "$1" 2>/dev/null | grep -q 'typist-code-points-exempt' && return 0
+  is_canonical_copy "$1"
+}
+
+# is_canonical_copy — Endo's lint job (scripts/check-security-md.sh) requires
+# every packages/*/SECURITY.md to be byte-identical to packages/skel/SECURITY.md,
+# so neither a fix nor an exempt marker is possible there (endo-but-for-bots
+# #1560, where the "fix" turned lint red).
+is_canonical_copy() {
+  case "$1" in
+    packages/*/SECURITY.md)
+      [ "$1" != packages/skel/SECURITY.md ] && [ -f packages/skel/SECURITY.md ] \
+        && cmp -s "$1" packages/skel/SECURITY.md ;;
+    *) return 1 ;;
+  esac
 }
 
 # wants_scan — whether a path is in the probe's scope.
