@@ -33,6 +33,8 @@ behavior, which the build directive excluded. This job owns that remainder.
    then run the gauntlet on #231 again so a passing panel can un-draft it.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
