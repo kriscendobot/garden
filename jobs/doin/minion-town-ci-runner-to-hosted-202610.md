@@ -20,3 +20,13 @@ The kriscendobot Actions billing block began 2026-10-08 07:59Z. The previous blo
 4. **On success:**
    - Leave the `ci.minion.town` host up as a warm standby. Do not tear it down.
    - Tell the maintainer in one line, with the URL of the passing hosted run.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-30T22:05:22Z
