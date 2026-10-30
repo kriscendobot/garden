@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T22:59:46Z_
+_As of 2026-10-30T23:07:12Z_
 
 ## Latest
 
@@ -173,11 +171,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #26 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T22:54:41Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 26 times; this is
-> ONE entry that updates in place, not 26 messages. Latest detail:
+> COALESCED message — occurrence #27 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T23:05:22Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 27 times; this is
+> ONE entry that updates in place, not 27 messages. Latest detail:
 >
-> Milestone M2 is blocked on hardened-text-codecs-shim / [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): decide whether its known dependency-check failure may be accepted for ferrying or whether PR #1582 must land in its frozen base first.
+> M2 (Project Hygiene) is blocked on resolving overlapping hardened-text-codec PRs: choose #1431 as the carrier and close #1583/#1576 as superseded, or retain #1583 and close the alternatives. The remaining PRs are otherwise clean and await maintainer authority.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1389,11 +1387,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-10-18T14:45:48Z, latest 2026-10-29T22:43:51Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` has CLEARED (first seen 2026-10-18T14:45:48Z, cleared 2026-10-30T23:04:04Z).
+> It was observed 12 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.082874s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
 
 - `followup-gate-daemon-agent-tools-design-build` — from followup-gate:daemon-agent-tools-design-build, reply_to `daemon-agent-tools-design-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-daemon-agent-tools-design-build.md)
 
@@ -1719,10 +1717,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 139.2M | $454.58 _(notional, rate-card)_ | 51% of 271.0M (ok) |
-| Codex | 259.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 139.3M | $455.54 _(notional, rate-card)_ | 51% of 271.0M (ok) |
+| Codex | 260.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59615586 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 59625738 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.887862s/45s (/home/kris/garden/.garden-state/reaper/journal); 11 open notice(s); checker healthy
@@ -1733,8 +1731,8 @@ worst fetch p95 3.887862s/45s (/home/kris/garden/.garden-state/reaper/journal); 
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1560-shepherd-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-shepherd-20261030.md) — ---
 
 ### tada (15670)
 - [`canary-probe-oros-studio-garden-ce242c49-f1955db74b78`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/canary-probe-oros-studio-garden-ce242c49-f1955db74b78.md) — rolling-deploy canary probe — round trip OK
