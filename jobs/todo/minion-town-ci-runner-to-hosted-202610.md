@@ -1,10 +1,8 @@
-once: 2026-10-30T22:00:00Z
-job_basename_prefix: minion-town-ci-runner-to-hosted-202610
----
 ---
 role: shepherd
 tier: mentor
 fallback-tier: minion
+dispatch: automatic
 ---
 
 # Move minion.town CI back to GitHub-hosted runners after the October billing reset
