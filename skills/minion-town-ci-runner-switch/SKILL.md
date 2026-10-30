@@ -90,9 +90,15 @@ old hard-coded `runs-on`; weave it onto a base that includes #145.
 
 1. **Probe hosted runners first.** Flip with
    `gh variable set CI_RUNS_ON -R kriscendobot/minion.town --body '"ubuntu-latest"'`,
-   then dispatch *ci-runner selftest*
-   (`gh workflow run ci-runner-selftest.yml -R kriscendobot/minion.town`) or
-   rerun a recent run.
+   then rerun a recent `test.yml` run
+   (`gh run rerun <id> -R kriscendobot/minion.town`) and check that its jobs
+   carry the `ubuntu-latest` label. Do not probe with *ci-runner selftest*:
+   its jobs hard-code `[self-hosted, ci-minion-town]` and ignore `CI_RUNS_ON`,
+   so it goes green on the self-hosted box and proves nothing (2026-10-30).
+   A billing refusal appears in the failed job's annotations
+   (`gh api repos/kriscendobot/minion.town/check-runs/<job-id>/annotations`):
+   "recent account payments have failed or your spending limit needs to be
+   increased".
 2. **If a hosted job starts and passes,** leave it there and report. The same
    flip has moved CD back to hosted too (see Notes). Confirm the next `main`
    deploy run (`gh run list -R kriscendobot/minion.town -w deploy.yml -L 1`)
