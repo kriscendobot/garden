@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T09:41:23Z_
+_As of 2026-10-30T09:44:21Z_
 
 ## Latest
 
@@ -961,6 +959,10 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-30T09:40:18Z, latest 2026-10-30T09:42:16Z).
+> The SAME condition (`journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > Journal fetch drift on endolin-garden-ece02cb4 for _home_kris_garden_worktrees_kriscendobot_vattr97_git: oldest-third median=1.059738s newest-third median=10.027982s over 19854s/14 samples; floor=10s, 1.5x rise or projected-to-guard=47535s within 86400s.
 
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
@@ -1711,7 +1713,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 58293150 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 35.070847s/45s (unknown); 12 open notice(s); checker healthy
+worst fetch p95 35.070847s/45s (unknown); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
