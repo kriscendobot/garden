@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T21:58:57Z_
+_As of 2026-10-30T22:01:05Z_
 
 ## Latest
 
@@ -873,11 +873,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #17 (first seen 2026-10-23T13:27:09Z, latest 2026-10-30T12:32:24Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 17 times; this is
-> ONE entry that updates in place, not 17 messages. Latest detail:
+> COALESCED message — occurrence #18 (first seen 2026-10-23T13:27:09Z, latest 2026-10-30T21:59:58Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 18 times; this is
+> ONE entry that updates in place, not 18 messages. Latest detail:
 >
-> M3’s API-key provider-registry prerequisite, [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573), is CI-green but its gauntlet halted with no structured must-fix list and needs your review disposition before the stacked #1575 work can advance.
+> M3’s rank-one Ironhorse ratchet is paused because PR #1359 targets a frozen base, and the rank-two API-key workbench PR #1574 exhausted its gauntlet rounds with must-fix review still open. Decide whether to re-land #1359 on live `llm` and whether #1574 should receive further review rounds or a maintainer disposition.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1707,7 +1707,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.4M | $450.29 _(notional, rate-card)_ | 51% of 271.0M (ok) |
+| Claude | 137.4M | $450.45 _(notional, rate-card)_ | 51% of 271.0M (ok) |
 | Codex | 258.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59457605 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
