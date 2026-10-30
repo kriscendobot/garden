@@ -25,3 +25,13 @@ This plan unblocks when the press job lands in tada/. Then:
 3. Confirm the engagement parked exactly one continuation press plan and did not spend beyond the installed arc budget.
 4. Report the runtime evidence on https://github.com/kriscendobot/garden/issues/51 (do not close it; do not resolve the 901-path historical-floor question).
 Never recreate or unsnooze the legacy schedule, never invent an arc-budget cap, never originate a sysop deploy op.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-30T03:21:26Z
