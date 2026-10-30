@@ -1,10 +1,10 @@
 ---
-gate: blocked
-blocked_on: ironhorse-test262-press-20260929-173306
-priority: normal
-posted_by: builder
+role: builder
+tier: mentor
 posted_at: 2026-09-29T18:39:34Z
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-30T03:21:17Z cleared=none -->
 
 ---
 role: builder
