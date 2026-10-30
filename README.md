@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T12:16:28Z_
+_As of 2026-10-30T12:21:14Z_
 
 ## Latest
 
@@ -1093,11 +1091,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2-M3.md)
 
-> COALESCED message — occurrence #2 (first seen 2026-10-29T14:41:06Z, latest 2026-10-29T23:49:39Z).
-> The SAME message (episode key `foreman-milestone-M2-M3`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
+> COALESCED message — occurrence #3 (first seen 2026-10-29T14:41:06Z, latest 2026-10-30T12:19:42Z).
+> The SAME message (episode key `foreman-milestone-M2-M3`) has now been sent 3 times; this is
+> ONE entry that updates in place, not 3 messages. Latest detail:
 >
-> M2’s only incomplete record, hardened-text-codecs-shim (#1349), was closed unmerged when its upstream mirror #3377 closed. Decide whether to mark it terminal or authorize a fresh replacement build before advancing to M3.
+> Milestone M2 is blocked on acceptance: PR #1584 has completed its gauntlet with green CI, while #1576 reconciles the codecs design audit. Decide whether to merge/accept these PRs and mark `hardened-text-codecs-shim` complete so M3 may proceed.
 
 - `minion-town-pr-screening-paused-8a3ce66` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-8a3ce66.md)
 
@@ -1709,10 +1707,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.1M | $417.09 _(notional, rate-card)_ | 48% of 271.0M (ok) |
-| Codex | 245.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Claude | 129.2M | $418.60 _(notional, rate-card)_ | 48% of 271.0M (ok) |
+| Codex | 246.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58708089 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58643239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 35.070847s/45s (unknown); 12 open notice(s); checker healthy
