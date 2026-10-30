@@ -1,10 +1,4 @@
 ---
-gate: deferred
-priority: normal
-foreman_only: true
-not_before: 2026-10-30T04:17:12Z
-posted_by: ironhorse-test262-ratchet
-posted_at: 2026-10-30T03:17:12Z
 tier: mentat
 dispatch: ratchet-delegated
 role: conductor
