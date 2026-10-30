@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T05:26:50Z_
+_As of 2026-10-30T05:37:56Z_
 
 ## Latest
 
@@ -853,11 +851,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #14 (first seen 2026-10-23T13:27:09Z, latest 2026-10-29T22:05:58Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 14 times; this is
-> ONE entry that updates in place, not 14 messages. Latest detail:
+> COALESCED message — occurrence #15 (first seen 2026-10-23T13:27:09Z, latest 2026-10-30T05:28:00Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 15 times; this is
+> ONE entry that updates in place, not 15 messages. Latest detail:
 >
-> M3’s API-key agent-workbench design, [endojs/endo-but-for-bots#1574](https://github.com/endojs/endo-but-for-bots/issues/1574), exhausted its six-round gauntlet and blocks its downstream build. Please decide whether to accept it for merge or direct the remaining design changes.  
+> M3’s child-agent-factory chain is blocked at [endojs/endo-but-for-bots#1561](https://github.com/endojs/endo-but-for-bots/issues/1561) until the green CI portability PR #1566 is undrafted and merged. Please decide whether to advance #1566 so the stack can be re-woven and retested.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1657,10 +1655,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.7M | $393.15 _(notional, rate-card)_ | 45% of 271.0M (ok) |
-| Codex | 232.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 123.2M | $400.63 _(notional, rate-card)_ | 45% of 271.0M (ok) |
+| Codex | 233.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58934710 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58737073 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 11 open notice(s); checker healthy
@@ -1672,16 +1670,16 @@ worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegati
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (2)
-- [`kriscendobot-minion.town-pr231-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr231-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #231
+- [`kriscendobot-minion.town-pr231-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr231-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #231
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1573
 
-### tada (15592)
+### tada (15594)
+- [`kriscendobot-minion.town-pr231-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/kriscendobot-minion.town-pr231-gauntlet-panel-1.md) — Cost
+- [`kriscendobot-minion.town-pr231-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/kriscendobot-minion.town-pr231-gauntlet-clean.md) — Gauntlet CLEAN stage: kriscendobot/minion.town PR #231 ("feat(shell): add aut...
 - [`endojs-endo-but-for-bots-pr667-shepherd-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr667-shepherd-20261030.md) — Manual gauntlet handoff
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-gauntlet-fix-3.md) — Cost
-- [`oros-health-watch-20261030-045012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/oros-health-watch-20261030-045012.md) — Cost
-- [`oros-health-checkup-20261030-045012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/oros-health-checkup-20261030-045012.md) — Cost
-- … and 15587 more
+- … and 15589 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
