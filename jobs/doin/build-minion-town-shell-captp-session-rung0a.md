@@ -19,3 +19,13 @@ Scope, exactly rung 0a and nothing more: the shell (chrome page, `deploy/aws/www
 Out of scope: moving the clip list (rung 0b), the governor column (rung 1), clone, destroy, children. Do not deploy anything and do not touch prod config beyond what the feature needs behind an off-by-default gate if the repo's convention requires one; say which in the PR body. The base is the repository's current `main` pinned per frozen-base-branch; the PR is a DRAFT (the gauntlet follows automatically). Surface in the completion report any place where the design is wrong or underspecified once you meet the real code.
 
 Open questions (j) per-tab vs per-browser session and (k) REST list retention are unanswered; this rung assumes one session per tab (as the locator is specified) and does not touch the REST clip list.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-30T03:25:11Z
