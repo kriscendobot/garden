@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T03:06:54Z_
+_As of 2026-10-30T03:11:44Z_
 
 ## Latest
 
@@ -1657,13 +1655,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.1M | $371.65 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 117.2M | $373.12 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 229.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58935743 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.486266s/45s (/home/kris/garden/.garden-state/transcripts/journal); 10 open notice(s); checker healthy
+worst fetch p95 45.000989s/45s (/home/kris/garden/.garden-state/ratchet-control/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
@@ -1672,16 +1670,16 @@ worst fetch p95 3.486266s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (2)
+- [`fix-minion-town-pr230-captp-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-pr230-captp-default.md) — ---
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1573
-- [`endojs-endo-but-for-bots-pr1575-fix-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-fix-20261030.md) — ---
 
-### tada (15573)
+### tada (15574)
+- [`endojs-endo-but-for-bots-pr1575-fix-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1575-fix-20261030.md) — Panel-head freshness
 - [`fix-minion-town-pr230-increment-ladder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/fix-minion-town-pr230-increment-ladder.md) — Cost
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1584-weave-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1584-weave-20261030.md) — Weave of endojs/endo-but-for-bots#1584: no changes needed
-- [`oros-health-watch-20261030-015009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/oros-health-watch-20261030-015009.md) — Cost
-- … and 15568 more
+- … and 15569 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1757,7 +1755,7 @@ worst fetch p95 3.486266s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`build-endor-tui-phase-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-2.md) - [endor-tui Phase 2: minimal Rust CapTP client over the existing socket (recommended) or a manager-side adapter serving the bus-verb table?](https://github.com/endojs/endo-but-for-bots/pull/1526)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`ironhorse-test262-press-20260929-173306`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-press-20260929-173306.md) — _normal_ · ---
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
