@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T17:23:49Z_
+_As of 2026-10-30T17:27:20Z_
 
 ## Latest
 
@@ -1713,17 +1713,16 @@ worst fetch p95 11.379483s/45s (/home/kris/garden/.garden-state/state-clone-keep
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`oros-health-watch-20261030-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261030-170510.md) — ---
-- [`oros-health-checkup-20261030-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261030-170510.md) — ---
 
-### tada (15645)
+### tada (15646)
+- [`oros-health-checkup-20261030-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/oros-health-checkup-20261030-170510.md) — Cost
 - [`minion-town-arc-press-20261030-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/minion-town-arc-press-20261030-170510.md) — Cost
 - [`claude-on-minion-town-completion-press-20261030-162010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/claude-on-minion-town-completion-press-20261030-162010.md) — Cost
 - [`endojs-endo-but-for-bots-pr1583-gauntlet-a08c450`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1583-gauntlet-a08c450.md) — gauntlet endojs-endo-but-for-bots-pr1583-gauntlet-a08c450 - not viable
 - [`endojs-endo-but-for-bots-pr1583-gauntlet-a08c450-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1583-gauntlet-a08c450-viability.md) — Viability report: endojs/endo-but-for-bots#1583, gauntlet a08c450
-- [`canary-probe-oros-studio-garden-ce242c49-7f22f5baf713`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/canary-probe-oros-studio-garden-ce242c49-7f22f5baf713.md) — rolling-deploy canary probe — round trip OK
-- … and 15640 more
+- … and 15641 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
