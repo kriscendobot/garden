@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T21:00:16Z_
+_As of 2026-10-30T21:04:31Z_
 
 ## Latest
 
@@ -1709,10 +1707,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.5M | $439.62 _(notional, rate-card)_ | 50% of 271.0M (ok) |
-| Codex | 256.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Claude | 135.5M | $440.28 _(notional, rate-card)_ | 50% of 271.0M (ok) |
+| Codex | 257.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59156531 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 59295919 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.910027s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 11 open notice(s); checker healthy
@@ -1723,8 +1721,9 @@ worst fetch p95 4.910027s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1560
+- [`endojs-endo-but-for-bots-pr1573-shepherd-20261030-macos-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-shepherd-20261030-macos-failure.md) — ---
 
 ### tada (15658)
 - [`endojs-endo-but-for-bots-pr1425-gauntlet-20261030-run`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1425-gauntlet-20261030-run.md) — gauntlet endojs-endo-but-for-bots-pr1425-gauntlet-20261030-run — complete
