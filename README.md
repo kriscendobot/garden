@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T12:30:40Z_
+_As of 2026-10-30T12:34:19Z_
 
 ## Latest
 
@@ -887,11 +885,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #16 (first seen 2026-10-23T13:27:09Z, latest 2026-10-30T07:41:04Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 16 times; this is
-> ONE entry that updates in place, not 16 messages. Latest detail:
+> COALESCED message — occurrence #17 (first seen 2026-10-23T13:27:09Z, latest 2026-10-30T12:32:24Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 17 times; this is
+> ONE entry that updates in place, not 17 messages. Latest detail:
 >
-> Milestone M3’s next minion-town Claude API phase is blocked on in-flight PR #1575, while the git-remote critical path at [endojs/endo-but-for-bots#1538](https://github.com/endojs/endo-but-for-bots/issues/1538) needs a decision: must concurrent-writer destination mounts be supported for `provideGitClone`?
+> M3’s API-key provider-registry prerequisite, [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573), is CI-green but its gauntlet halted with no structured must-fix list and needs your review disposition before the stacked #1575 work can advance.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1408,13 +1406,17 @@ Delegation: **active**
 
 - `endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached.md)
 
-> Gauntlet endojs-endo-but-for-bots-pr1574-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1574-gauntlet panel --add-rounds N
+> COALESCED message — occurrence #2 (first seen 2026-10-27T07:35:31Z, latest 2026-10-30T12:33:03Z).
+> The SAME message (episode key `endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
 >
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $12.73
+> Gauntlet endojs-endo-but-for-bots-pr1574-gauntlet REVIEW-BUDGET-REACHED: Applied 8 panel/fix round(s); fix round 8 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=8, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1574-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 8/8 · cost so far: $16.82
 > Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1574-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 8 -> 10 (N is yours to choose).
 
 - `watchdog-minion-mcp-connection-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-mcp-connection-endolin-garden-ece02cb4.md)
 
@@ -1710,9 +1712,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 129.2M | $416.28 _(notional, rate-card)_ | 48% of 271.0M (ok) |
-| Codex | 246.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Codex | 247.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58722347 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58725283 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 35.070847s/45s (unknown); 12 open notice(s); checker healthy
@@ -1726,13 +1728,13 @@ worst fetch p95 35.070847s/45s (unknown); 12 open notice(s); checker healthy
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1557-shepherd-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1557-shepherd-20261030.md) — ---
 
-### tada (15626)
+### tada (15627)
+- [`endojs-endo-but-for-bots-pr1574-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1574-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1574-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1574-gauntlet-fix-8.md) — Fix round 8 report: endojs/endo-but-for-bots PR #1574
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1574-gauntlet-panel-8.md) — Cost
 - [`endojs-endo-but-for-bots-pr1574-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1574-gauntlet-fix-7.md) — Cost
 - [`endojs-endo-but-for-bots-pr1573-shepherd-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1573-shepherd-20261030.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1574-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1574-gauntlet-panel-7.md) — Cost
-- … and 15621 more
+- … and 15622 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
