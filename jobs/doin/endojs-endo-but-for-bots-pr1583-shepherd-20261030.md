@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1583 through the current CI run for head a08c4505c0, then restage its required fresh panel review because the panel fixes changed the reviewed head.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-30T15:41:33Z
