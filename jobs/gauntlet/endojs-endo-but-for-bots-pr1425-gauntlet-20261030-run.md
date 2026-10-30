@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: shepherd
 created_at: 2026-10-30T20:47:05Z
 arc: endo-backlog
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1425-gauntlet-20261030-run-clean
+current_child: endojs-endo-but-for-bots-pr1425-gauntlet-20261030-run-panel-1
 state: running
 resumed_at: 2026-10-30T20:48:21Z
 resumed_from_stage: viability
