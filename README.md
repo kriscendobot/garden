@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T03:58:38Z_
+_As of 2026-10-30T04:10:02Z_
 
 ## Latest
 
@@ -1650,10 +1648,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.5M | $373.58 _(notional, rate-card)_ | 43% of 271.0M (ok) |
-| Codex | 230.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 117.5M | $373.85 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Codex | 231.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58980710 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58682228 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 11 open notice(s); checker healthy
@@ -1668,13 +1666,13 @@ worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegati
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1573
 - [`build-minion-town-shell-captp-session-rung0a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-shell-captp-session-rung0a.md) — ---
 
-### tada (15580)
+### tada (15581)
+- [`claude-on-minion-town-completion-press-20261030-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/claude-on-minion-town-completion-press-20261030-040509.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-d3604334bf30`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/canary-probe-oros-studio-garden-ce242c49-d3604334bf30.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1359-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1359-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1359-gauntlet - not viable
 - [`endojs-endo-but-for-bots-pr1359-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1359-gauntlet-viability.md) — Cost
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/verify-ironhorse-press-first-engagement-20260929.md) — Completion report: verify-ironhorse-press-first-engagement-20260929
-- [`ironhorse-test262-press-20260929-173306`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/ironhorse-test262-press-20260929-173306.md) — Cost
-- … and 15575 more
+- … and 15576 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
