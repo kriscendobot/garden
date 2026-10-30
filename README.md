@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T15:12:48Z_
+_As of 2026-10-30T15:16:39Z_
 
 ## Latest
 
@@ -145,18 +145,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #254 (first seen 2026-10-16T17:37:14Z, latest 2026-10-30T14:59:44Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 254 times; this is ONE
-> coalesced notice that updates in place, not 254 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-10-16T17:37:14Z, cleared 2026-10-30T15:14:38Z).
+> It was observed 254 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.015425s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.015194s, giveups=1, steals=1 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.015779s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.013845s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013456s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014078s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.013490s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1359,16 +1352,6 @@ Delegation: **active**
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=128571691 cap=271000000 pace-bias=0 window-start=2026-10-17T03:00Z(calendar) deadline=2026-10-24T03:00Z(calendar) ceiling=4 backoff=0.5657(ramp) target=1
 
-- `followup-gate-endojs-endo-but-for-bots-pr1573-gauntlet-fix-6` — from followup-gate:endojs-endo-but-for-bots-pr1573-gauntlet-fix-6, reply_to `endojs-endo-but-for-bots-pr1573-gauntlet-fix-6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-endojs-endo-but-for-bots-pr1573-gauntlet-fix-6.md)
-
-> Job "endojs-endo-but-for-bots-pr1573-gauntlet-fix-6" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
->
-> ## Follow-ups
-> - If the rerun of the macOS leg goes green, the PR is ready for panel-7.
-> - decomplector 1 is a real design question. If the maintainer wants `createBase64` to bind the name in the same atomic step instead of keeping `provideBase64`, that is a design change, not a fix-round change.
->
-> <<<GARDEN-ORCHESTRATION-FAILED>>>
-
 - `msg-reset-credit-watch-20261019-160508-4e0a7e09c87c` — from gardener:reset-credit-watch-20261019-160508, reply_to `reset-credit-watch-20261019-160508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261019-160508-4e0a7e09c87c.md)
 
 > Correction to the reset-credit-watch note: claude-endolin1 is projected to cross 90% around **Tue 10-20 ~20Z**, not 'Mon'. Everything else stands.
@@ -1746,7 +1729,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 59076239 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 35.070847s/45s (unknown); 16 open notice(s); checker healthy
+worst fetch p95 35.070847s/45s (unknown); 15 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
