@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T22:50:02Z_
+_As of 2026-10-30T22:55:49Z_
 
 ## Latest
 
@@ -173,11 +171,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #25 (first seen 2026-10-18T09:20:28Z, latest 2026-10-29T22:50:49Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 25 times; this is
-> ONE entry that updates in place, not 25 messages. Latest detail:
+> COALESCED message — occurrence #26 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T22:54:41Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 26 times; this is
+> ONE entry that updates in place, not 26 messages. Latest detail:
 >
-> M2 is blocked: confirm the hardened-text-codecs reconciliation in [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583), and merge #1427 so #1425 can retarget and complete its remaining XS smoke coverage.
+> Milestone M2 is blocked on hardened-text-codecs-shim / [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): decide whether its known dependency-check failure may be accepted for ferrying or whether PR #1582 must land in its frozen base first.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1668,11 +1666,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` has CLEARED (first seen 2026-10-17T08:44:39Z, cleared 2026-10-20T02:43:41Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-17T08:44:39Z, latest 2026-10-30T22:50:07Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=0.049881s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gauntlet_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gauntlet_journal.md)
 
@@ -1719,7 +1717,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 139.2M | $454.41 _(notional, rate-card)_ | 51% of 271.0M (ok) |
+| Claude | 139.2M | $454.58 _(notional, rate-card)_ | 51% of 271.0M (ok) |
 | Codex | 259.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59615586 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
