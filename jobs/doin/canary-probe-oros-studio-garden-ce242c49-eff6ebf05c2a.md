@@ -10,3 +10,13 @@ dispatch: automatic
 # rolling-deploy canary probe for oros-studio-garden-ce242c49 @ eff6ebf05c2a
 
 Synthetic no-op round-trip probe: claim -> complete -> tada on the freshly deployed code.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-30T21:42:21Z
