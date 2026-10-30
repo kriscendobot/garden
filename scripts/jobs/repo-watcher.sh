@@ -86,6 +86,7 @@ if [ -x "$PROVISIONER" ]; then
 fi
 
 DIR="${GARDEN_WATCHER_CLONE:-$GARDEN_STATE/repo-watcher/journal}"
+JOURNAL_OFFLINE_MARKER="${GARDEN_REPOWATCH_JOURNAL_OFFLINE_MARKER:-$GARDEN_STATE/repo-watcher/journal-offline}"
 PREREQ_ERR="$(mktemp)"
 prereq_rc=0
 set +e
@@ -99,12 +100,35 @@ if [ "$prereq_rc" -ne 0 ]; then
     rm -f "$PREREQ_ERR"
     exit 0
   fi
+  if [ "$prereq_rc" -eq "$OFFLINE_RC" ]; then
+    # Transient shared availability (rc=75, EX_TEMPFAIL): ensure_clone/sync_clone
+    # classified the journal clone/fetch as offline, timed out, or behind a busy
+    # repository lock. Every timer tick of one shared outage used to escalate this
+    # into a FATAL, and with it a self-heal responder run, though it self-heals and
+    # is not this host's fault. Skip the tick cleanly (exit 0: the already-armed
+    # units keep running; there is nothing safe to reconcile against a stale set),
+    # edge-latched like the provisioner outage above: the prerequisite stderr and
+    # one outage line at the edge, silence while it persists, one recovery line
+    # once a later tick syncs cleanly. Any other rc stays a loud FATAL below.
+    if [ ! -f "$JOURNAL_OFFLINE_MARKER" ]; then
+      cat "$PREREQ_ERR" >&2
+      mkdir -p "${JOURNAL_OFFLINE_MARKER%/*}" 2>/dev/null || true
+      date -u +%FT%TZ > "$JOURNAL_OFFLINE_MARKER" 2>/dev/null || true
+      log "repo watcher journal temporarily unavailable (rc=$OFFLINE_RC, transient); skipping reconcile, suppressing repeats until it recovers"
+    fi
+    rm -f "$PREREQ_ERR"
+    exit 0
+  fi
   cat "$PREREQ_ERR" >&2
   rm -f "$PREREQ_ERR"
   die "repo watcher journal prerequisite failed (rc=$prereq_rc; see prerequisite stderr above)"
 fi
 cat "$PREREQ_ERR" >&2
 rm -f "$PREREQ_ERR"
+if [ -f "$JOURNAL_OFFLINE_MARKER" ]; then
+  log "repo watcher journal availability RECOVERED (outage since $(cat "$JOURNAL_OFFLINE_MARKER" 2>/dev/null || echo '?')); reconcile resumed"
+  rm -f "$JOURNAL_OFFLINE_MARKER" 2>/dev/null || true
+fi
 
 # Where install-units.sh renders the systemd --user unit files. repo-watcher
 # derives it identically so it can tell whether a template unit for a given

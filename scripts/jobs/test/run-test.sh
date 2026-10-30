@@ -449,6 +449,54 @@ else
   bad "repo-watcher live-peer clone-lock contention escaped as a failure"
 fi
 
+# A shared journal outage makes sync_clone exit GARDEN_OFFLINE_RC (75). That is
+# transient availability, not a structural failure: the tick must skip cleanly
+# (exit 0, no FATAL), report the outage ONCE at its edge, stay silent on repeat
+# ticks of the same outage, and log a single recovery line on the next clean sync.
+# Drive the outage through journal_fetch's GARDEN_FETCH_CMD seam (never a git
+# shim on PATH: it would recurse with the scripts/jobs/bin/git wrapper).
+RWOFFFETCH="$TR/repo-watcher-offline-fetch"
+cat > "$RWOFFFETCH" <<'EOF2'
+#!/bin/bash
+echo "fatal: unable to access 'https://github.com/x/y/': Could not resolve host: github.com" >&2
+exit 128
+EOF2
+chmod +x "$RWOFFFETCH"
+rwoff() {  # rwoff <errfile> [fetch-cmd] — one repo-watcher tick; echo its rc
+  local rc=0
+  env GARDEN_FETCH_CMD="${2:-}" GARDEN_FORK_PROVISIONER="$TR/no-provisioner" \
+    GARDEN_FETCH_MAX_AGE_OVERRIDE=0 GARDEN_FETCH_RETRIES=1 \
+    "$JOBS/repo-watcher.sh" >/dev/null 2>"$1" || rc=$?
+  echo "$rc"
+}
+RWOFF_MARKER="$GARDEN_STATE/repo-watcher/journal-offline"
+rm -f "$RWOFF_MARKER"
+rwoffrc1="$(rwoff "$TR/rw-offline-1.err" "$RWOFFFETCH")"
+if [ "$rwoffrc1" = 0 ] && ! grep -q 'FATAL:' "$TR/rw-offline-1.err" \
+   && grep -q 'journal temporarily unavailable (rc=75, transient)' "$TR/rw-offline-1.err" \
+   && [ -f "$RWOFF_MARKER" ]; then
+  ok "repo-watcher journal rc=75 skips cleanly with one edge diagnostic (no FATAL)"
+else
+  bad "repo-watcher journal rc=75 not classified transient (rc=$rwoffrc1: $(tr '\n' '|' <"$TR/rw-offline-1.err"))"
+fi
+rwoffrc2="$(rwoff "$TR/rw-offline-2.err" "$RWOFFFETCH")"
+if [ "$rwoffrc2" = 0 ] && ! grep -qE 'FATAL:|temporarily unavailable|offline; skipping' "$TR/rw-offline-2.err"; then
+  ok "repo-watcher stays silent on a repeat tick of the same journal outage"
+else
+  bad "repo-watcher repeated its outage diagnostic (rc=$rwoffrc2: $(tr '\n' '|' <"$TR/rw-offline-2.err"))"
+fi
+rwoffrc3="$(rwoff "$TR/rw-offline-3.err")"
+if [ "$rwoffrc3" = 0 ] && grep -q 'journal availability RECOVERED' "$TR/rw-offline-3.err" \
+   && [ ! -f "$RWOFF_MARKER" ]; then
+  ok "repo-watcher logs one recovery line and clears the outage latch"
+else
+  bad "repo-watcher recovery not edge-latched (rc=$rwoffrc3: $(tr '\n' '|' <"$TR/rw-offline-3.err"))"
+fi
+rwoffrc4="$(rwoff "$TR/rw-offline-4.err")"
+grep -q 'RECOVERED' "$TR/rw-offline-4.err" \
+  && bad "repo-watcher repeated its recovery line on a healthy tick" \
+  || ok "repo-watcher healthy tick after recovery is quiet"
+
 # --- self-heal a missing template unit ---------------------------------------
 # A comment-repo wants garden-comment-watcher@ AND garden-ci-watcher@. With a
 # FRESH empty $DEST (neither template rendered), the pre-fix behavior armed the
