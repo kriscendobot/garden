@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-30T14:24:47Z
+sent_at: 2026-10-30T14:27:31Z
 watchdog_key: journal-contention-storm-lock-contention
-notice_count: 251
+notice_count: 252
 first_seen: 2026-10-16T17:37:14Z
-last_seen: 2026-10-30T14:24:47Z
+last_seen: 2026-10-30T14:27:31Z
 ---
-WATCHDOG notice — occurrence #251 (first seen 2026-10-16T17:37:14Z, latest 2026-10-30T14:24:47Z).
-The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 251 times; this is ONE
-coalesced notice that updates in place, not 251 messages. Latest detail:
+WATCHDOG notice — occurrence #252 (first seen 2026-10-16T17:37:14Z, latest 2026-10-30T14:27:31Z).
+The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 252 times; this is ONE
+coalesced notice that updates in place, not 252 messages. Latest detail:
 
 Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
 - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.015194s, giveups=2, steals=0 (max 3/window), wait floor=60s.
