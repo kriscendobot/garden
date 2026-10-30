@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-30T23:08:58Z_
+_As of 2026-10-30T23:11:40Z_
 
 ## Latest
 
@@ -171,11 +171,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #27 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T23:05:22Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 27 times; this is
-> ONE entry that updates in place, not 27 messages. Latest detail:
+> COALESCED message — occurrence #28 (first seen 2026-10-18T09:20:28Z, latest 2026-10-30T23:10:36Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 28 times; this is
+> ONE entry that updates in place, not 28 messages. Latest detail:
 >
-> M2 (Project Hygiene) is blocked on resolving overlapping hardened-text-codec PRs: choose #1431 as the carrier and close #1583/#1576 as superseded, or retain #1583 and close the alternatives. The remaining PRs are otherwise clean and await maintainer authority.
+> M2 is blocked on choosing a single canonical carrier for the overlapping hardened-text-codecs documentation: retain #1583 or treat it as superseded by #1431, #1576, and #1584. Please decide which PR set to keep before further work or closure actions.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -1717,7 +1717,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 139.3M | $455.54 _(notional, rate-card)_ | 51% of 271.0M (ok) |
+| Claude | 139.3M | $455.60 _(notional, rate-card)_ | 51% of 271.0M (ok) |
 | Codex | 260.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59625738 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
