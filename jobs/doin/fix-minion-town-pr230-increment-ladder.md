@@ -30,3 +30,13 @@ Keep full detail only for rungs 1 to 3; give each later rung a short paragraph w
 Open question (f) was not understood by the maintainer; reword it plainly or drop it into rung 9: "If a governor passes its child a power through a wrapper that the governor controls (so it can watch or block calls), and the governor is then destroyed, does the child's power stop working, or does the wrapper vanish and leave the child holding the real power?" Rung 9 only; it is not needed before it.
 
 Keep the PR a draft and keep the `<!-- garden-design-open-questions -->` marker if an open question remains. Update the PR body and leave a summary comment. Do not post any build job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-30T02:55:04Z
