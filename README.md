@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T17:53:44Z_
+_As of 2026-10-30T17:59:16Z_
 
 ## Latest
 
@@ -1701,7 +1699,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.6M | $432.23 _(notional, rate-card)_ | 49% of 271.0M (ok) |
+| Claude | 133.6M | $433.26 _(notional, rate-card)_ | 49% of 271.0M (ok) |
 | Codex | 253.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59121401 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1715,8 +1713,8 @@ worst fetch p95 11.379483s/45s (/home/kris/garden/.garden-state/state-clone-keep
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1559-weave-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1559-weave-20261030.md) — ---
 
 ### tada (15647)
 - [`oros-health-watch-20261030-170510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/oros-health-watch-20261030-170510.md) — Cost
