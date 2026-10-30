@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-30T04:13:48Z_
+_As of 2026-10-30T04:22:19Z_
 
 ## Latest
 
@@ -1628,6 +1626,13 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.074557s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `ironhorse-ratchet-halted-ironhorse-test262-press-20261030-031712` — from ironhorse-test262-ratchet, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ratchet-halted-ironhorse-test262-press-20261030-031712.md)
+
+> Ironhorse ratchet halted: wrong base
+> Tracker: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)
+> Inspect ratchets/ironhorse-test262-ratchet/state.json and
+> context/operations/ironhorse-ratchet.md. Explicitly resume only after resolution.
+
 - `minion-town-pr-screening-paused-17e5b95` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-17e5b95.md)
 
 > minion.town screening PAUSED: merge 17e5b956aec of [https://github.com/kriscendobot/minion.town/pull/220](https://github.com/kriscendobot/minion.town/pull/220) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/40186091316
@@ -1650,10 +1655,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.5M | $373.89 _(notional, rate-card)_ | 43% of 271.0M (ok) |
-| Codex | 231.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 117.6M | $373.94 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Codex | 231.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58682228 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58687259 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegation/journal); 11 open notice(s); checker healthy
@@ -1668,13 +1673,13 @@ worst fetch p95 45.000974s/45s (/home/kris/garden/.garden-state/ratchet-delegati
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1573
 - [`build-minion-town-shell-captp-session-rung0a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-shell-captp-session-rung0a.md) — ---
 
-### tada (15581)
+### tada (15582)
+- [`ironhorse-test262-press-20261030-031712`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/ironhorse-test262-press-20261030-031712.md) — Cost
 - [`claude-on-minion-town-completion-press-20261030-040509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/claude-on-minion-town-completion-press-20261030-040509.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-d3604334bf30`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/canary-probe-oros-studio-garden-ce242c49-d3604334bf30.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1359-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1359-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1359-gauntlet - not viable
 - [`endojs-endo-but-for-bots-pr1359-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/endojs-endo-but-for-bots-pr1359-gauntlet-viability.md) — Cost
-- [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/30/verify-ironhorse-press-first-engagement-20260929.md) — Completion report: verify-ironhorse-press-first-engagement-20260929
-- … and 15576 more
+- … and 15577 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
