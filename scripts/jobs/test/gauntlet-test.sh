@@ -113,9 +113,9 @@ export GARDEN_CLAIM_TTL=14400 GARDEN_HANDLER_KILL_AFTER=60
 # Keep the CI-blocking-stage budget line deterministic (not required by the test, but
 # stamped into the stage bodies the driver posts).
 export GARDEN_SHEPHERD_HANDLER_TIMEOUT=7200
-# Leave GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT unset: this suite guards the shipped
-# 10800s default, including its claim-TTL headroom, rather than merely testing an
-# explicit override of the knob.
+# Leave GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT and GARDEN_GAUNTLET_FIX_HANDLER_TIMEOUT
+# unset: this suite guards their shipped 10800s defaults, including their claim-TTL
+# headroom, rather than merely testing an explicit override of the knobs.
 
 # --- board inspection helpers (fresh clone each call) -----------------------
 V="$TR/verify"
@@ -335,6 +335,16 @@ fix_body="$(todo_body g2-fix-1)"
     && ! printf '%s' "$fix_body" | grep -Fq "$POSTING_GARDEN_ROOT/"; } \
   && ok "fix stage emits repo-relative garden script paths (no posting-host root)" \
   || bad "fix stage baked the posting host's garden root into its body"
+fix_timeout="$(handler_timeout g2-fix-1)"
+[ "$fix_timeout" = 10800 ] \
+  && ok "fix stage carries its dedicated 10800s handler-timeout (above the 7200s shepherd wall)" \
+  || bad "fix handler-timeout=[$fix_timeout] (expected 10800)"
+[ $((fix_timeout + GARDEN_HANDLER_KILL_AFTER)) -lt "$GARDEN_CLAIM_TTL" ] \
+  && ok "fix round remains claim-sized (${fix_timeout}s + ${GARDEN_HANDLER_KILL_AFTER}s < ${GARDEN_CLAIM_TTL}s TTL)" \
+  || bad "fix round exhausts claim TTL (${fix_timeout}s + ${GARDEN_HANDLER_KILL_AFTER}s >= ${GARDEN_CLAIM_TTL}s)"
+[ "$(handler_budget_role g2-fix-1)" = shepherd ] \
+  && ok "fix stage is protected by the shepherd budget role" \
+  || bad "fix handler-budget-role=[$(handler_budget_role g2-fix-1)] (expected shepherd)"
 complete_stage g2-fix-1 fix=done
 tick   # fix-1 done → panel-2 (iteration+1)
 { in_dir jobs/todo g2-panel-2 && [ "$(record_field g2 iteration)" = 2 ]; } \

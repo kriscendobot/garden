@@ -166,7 +166,7 @@ The canonical table is `role_default_handler_timeout` in `common.sh`:
 |---|---|---|
 | `builder`, `web-builder` | `GARDEN_BUILD_HANDLER_TIMEOUT` | 7200 s |
 | `fixer` | `GARDEN_FIXER_HANDLER_TIMEOUT` | 7200 s |
-| `shepherd` (including gauntlet clean/fix) | `GARDEN_SHEPHERD_HANDLER_TIMEOUT` | 7200 s |
+| `shepherd` (including the gauntlet clean/fix base) | `GARDEN_SHEPHERD_HANDLER_TIMEOUT` | 7200 s |
 | `conductor` | `GARDEN_CONDUCTOR_HANDLER_TIMEOUT` | 7200 s |
 | review directive | `GARDEN_REVIEW_HANDLER_TIMEOUT` | 7200 s |
 | panel / repanel | `GARDEN_PANEL_HANDLER_TIMEOUT` | 7200 s |
@@ -181,6 +181,13 @@ resolves that runtime role (and recognizes `gauntlet_stage` as a compatibility
 fallback). `gardener.sh`, `reaper.sh`, and `deadline-nudge.sh` all consume the same
 `applied_handler_budget`, so execution, staleness, warnings, and doom notices cannot
 drift.
+
+`gauntlet.sh` additionally stamps an explicit `handler-timeout:` on its long
+stages, which `applied_handler_budget` honors over the role base: clean uses
+`GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT` (defaults to the shepherd budget), fix uses
+`GARDEN_GAUNTLET_FIX_HANDLER_TIMEOUT` (10800 s: fix work precedes its CI wait),
+and panel uses `GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT` (10800 s). Each stays under
+the claim ceiling (`GARDEN_CLAIM_TTL − GARDEN_HANDLER_KILL_AFTER − 1`).
 
 **Invariant:** any handler that hosts `ci-wait-merge.sh`, or fans out a panel, MUST
 have a handler budget greater than the bounded CI wait or panel fan-out cost. The

@@ -1,6 +1,7 @@
 #!/bin/bash
-# Gauntlet clean/fix follow-ups retain the CI-sized stage wall instead of
-# falling back to the ordinary 2400-second handler budget.
+# Gauntlet clean/fix follow-ups retain their stage wall (clean: the CI-sized
+# shepherd budget; fix: the dedicated fix budget) instead of falling back to the
+# ordinary 2400-second handler budget.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HANDLER="$HERE/../handlers/follow-up-claude.sh"
@@ -53,7 +54,7 @@ env GARDEN_ROOT="$(cd "$HERE/../../.." && pwd)" \
   GARDEN_FOLLOWUP_POST_JOB="$HERE/follow-up-design-build-producer-stub.sh" \
   "$HANDLER" "$TR/digest"
 
-body_for() {
+body_for() {  # body_for <fu-base> [calls-file]
   awk -v call="CALL follow-up-design-build-producer-stub.sh <$1>" '
     $0 == call { in_call=1; next }
     in_call && $0 == "BODY" { in_body=1; next }
@@ -62,7 +63,7 @@ body_for() {
       if (sub(/ENDBODY$/, "")) { print; exit }
       print
     }
-  ' "$TR/calls"
+  ' "${2:-$TR/calls}"
 }
 
 fix_body="$(body_for fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-1)"
@@ -72,7 +73,8 @@ invalid_body="$(body_for fu-demo-pr9-gauntlet-clean-4)"
 lookalike_body="$(body_for fu-demo-pr9-gauntlet-fix-3-extra-3)"
 ordinary_body="$(body_for fu-ordinary-report-1)"
 
-grep -q '^handler-timeout: 6543$' <<< "$fix_body"
+# Fix follow-ups ride the shipped dedicated fix default, NOT the shepherd budget.
+grep -q '^handler-timeout: 10800$' <<< "$fix_body"
 [ "$(grep -c '^handler-timeout:' <<< "$fix_body")" -eq 1 ]
 grep -q '^handler-timeout: 6543$' <<< "$clean_body"
 grep -q '^role: gardener$' <<< "$clean_body"
@@ -84,5 +86,17 @@ grep -q '^handler-timeout: 6543$' <<< "$invalid_body"
 [ "$(grep -c '^handler-timeout:' <<< "$invalid_body")" -eq 1 ]
 ! grep -q '^handler-timeout:' <<< "$lookalike_body"
 ! grep -q '^handler-timeout:' <<< "$ordinary_body"
+
+# The fix knob is independently tunable.
+env GARDEN_ROOT="$(cd "$HERE/../../.." && pwd)" \
+  GARDEN_STATE="$TR/state2" GARDEN=test GARDEN_TEST=1 \
+  GARDEN_SHEPHERD_HANDLER_TIMEOUT=6543 GARDEN_GAUNTLET_FIX_HANDLER_TIMEOUT=9876 \
+  GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" \
+  FAKE_CLAUDE_BLOCKS="$TR/blocks" FDB_LOG="$TR/calls2" \
+  GARDEN_FOLLOWUP_POST_JOB="$HERE/follow-up-design-build-producer-stub.sh" \
+  "$HANDLER" "$TR/digest"
+grep -q '^handler-timeout: 9876$' \
+  <<< "$(body_for fu-endojs-endo-but-for-bots-pr1538-gauntlet-fix-2-1 "$TR/calls2")"
+grep -q '^handler-timeout: 6543$' <<< "$(body_for fu-demo-pr9-gauntlet-clean-4 "$TR/calls2")"
 
 echo 'PASS: clean/fix follow-ups inherit the gauntlet stage budget unless a valid timeout is explicit'

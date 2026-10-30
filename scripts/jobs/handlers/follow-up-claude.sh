@@ -246,6 +246,7 @@ INBOX_SEND="${GARDEN_FOLLOWUP_INBOX_SEND:-$HERE/../inbox-send.sh}"
 # and leave a valid explicit timeout authoritative. An invalid timeout does not
 # count as an override: replace it with the known-good value.
 : "${GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT:=$GARDEN_SHEPHERD_HANDLER_TIMEOUT}"
+: "${GARDEN_GAUNTLET_FIX_HANDLER_TIMEOUT:=10800}"   # must match gauntlet.sh
 
 gauntlet_stage_followup_base() {  # gauntlet_stage_followup_base <fu-base>
   [[ "${1:-}" =~ ^fu-.+-gauntlet-(clean|fix-[1-9][0-9]*)-[1-9][0-9]*$ ]]
@@ -264,9 +265,12 @@ preserve_gauntlet_stage_budget() {  # preserve_gauntlet_stage_budget <fu-base>; 
   local action_base="$1"
   gauntlet_stage_followup_base "$action_base" || return 0
   printf '%s' "$body" | body_has_valid_handler_timeout && return 0
+  local timeout="$GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT"
+  [[ "$action_base" =~ -gauntlet-fix-[1-9][0-9]*-[1-9][0-9]*$ ]] \
+    && timeout="$GARDEN_GAUNTLET_FIX_HANDLER_TIMEOUT"
 
   if [ "${body%%$'\n'*}" = "---" ]; then
-    body="$(printf '%s' "$body" | awk -v timeout="$GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT" '
+    body="$(printf '%s' "$body" | awk -v timeout="$timeout" '
       NR == 1 { in_frontmatter=1; print; print "handler-timeout: " timeout; next }
       in_frontmatter && $0 == "---" { in_frontmatter=0; print; next }
       in_frontmatter && $0 ~ /^handler-timeout:[ \t]*/ { next }
@@ -274,7 +278,7 @@ preserve_gauntlet_stage_budget() {  # preserve_gauntlet_stage_budget <fu-base>; 
     ')"
   else
     body="$(printf -- '---\nhandler-timeout: %s\n---\n\n%s' \
-      "$GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT" "$body")"
+      "$timeout" "$body")"
   fi
 }
 

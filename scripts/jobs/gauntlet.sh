@@ -135,7 +135,7 @@ fi
 
 # The CI-blocking stages (clean/fix) need a CI-sized handler budget; only the short
 # undraft stage fits the plain default. Kept under GARDEN_CLAIM_TTL so the reaper
-# invariant holds.
+# invariant holds. Clean uses this knob; fix has its own (below).
 : "${GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT:=$GARDEN_SHEPHERD_HANDLER_TIMEOUT}"
 # The panel stage is a SCRIPTED juror fan-out + aggregation, not a CI wait, but one
 # round routinely runs LONGER than the plain GARDEN_HANDLER_TIMEOUT (2400s / 40min):
@@ -149,6 +149,16 @@ fi
 # round remains one claim-sized unit and the gardener honors the budget verbatim
 # rather than clamping and escalating.
 : "${GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT:=10800}"
+# The fix stage is a CI-blocking stage like clean, but it also does the review-fix
+# work (apply the panel's must-fix findings, run local checks, push) BEFORE its CI
+# wait, so the shepherd-sized 7200s budget it used to share with clean is too
+# tight: endojs-endo-but-for-bots-pr1573-gauntlet-fix-1 was deterministically
+# killed at 7201s (2026-10-29), spending a gauntlet stage retry on a wall rather
+# than on a genuine failure. Give fix its OWN knob with the same 10800s / 3h
+# default as panel — still about an hour under the claim ceiling (≈14339s at the
+# shipped defaults), so a fix round stays one claim-sized unit. The CI-wait
+# deadline below is unchanged, so the wait still returns rc=4 well inside it.
+: "${GARDEN_GAUNTLET_FIX_HANDLER_TIMEOUT:=10800}"
 # CI-wait deadline for the clean/fix stages — comfortably UNDER the stage handler
 # budget so ci-wait-merge returns rc=4 (still-pending) and the stage re-posts CLEANLY
 # rather than the handler being killed mid-wait (which the reaper dooms after one
@@ -925,11 +935,12 @@ compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
   pr="$(gauntlet_pr "$rec")"; repo="$(gauntlet_repo "$rec")"
   prnum="$(gauntlet_pr_number "$rec")"; kind="$(gauntlet_kind "$rec")"
 
-  # CI-blocking stages carry the CI-sized handler budget; the panel stage carries its
-  # own (longer-than-default) scripted-fan-out budget; only undraft takes the default.
+  # Clean carries the CI-sized handler budget; fix carries its own (fix work + CI
+  # wait) budget; panel carries its scripted-fan-out budget; undraft takes the default.
   local timeout_line=""
   case "$stage" in
-    clean|fix) timeout_line="handler-timeout: $GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT";;
+    clean)     timeout_line="handler-timeout: $GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT";;
+    fix)       timeout_line="handler-timeout: $GARDEN_GAUNTLET_FIX_HANDLER_TIMEOUT";;
     panel)     timeout_line="handler-timeout: $GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT";;
   esac
 
