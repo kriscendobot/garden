@@ -50,6 +50,11 @@
 #   T. PRIMARY-QUOTA SOURCE REFUSAL — the shared PR source's primary-quota 403 arms
 #      the host-wide gh-api latch for the full primary-quota window (not the 300s
 #      transient default), and a later tick inside that window skips the source
+#   U. JOURNAL FETCH OUTAGE LATCH — a transient tick-start fetch failure (rc=75)
+#      opens ONE host-scoped episode (one WARN with its rc + diagnostic); sibling
+#      ticks skip before fetching while the shared cooldown is live, stay silent
+#      once it lapses, and the first successful fetch reports recovery exactly once;
+#      a definite (auth) failure is never latched and WARNs on every tick
 #
 # Usage: approval-reconciler-test.sh
 set -euo pipefail
@@ -622,6 +627,65 @@ else bad "probes saw $s_distinct allowlist sources ($(sort -u "$S_SEEN" | tr '\n
 if [ "$(lane_count "$BARE" todo "conduct")" = 3 ] && ! board_has "$BARE" "$SLUG-pr953-conduct"; then
   ok "the snapshot still authorizes maintainer approvals and refuses an untrusted approver"
 else bad "expected conductors for 950-952 only ($(tr '\n' ' ' < "$SLOG"))"; fi
+
+# ============================================================================
+hr; echo "U. JOURNAL FETCH OUTAGE LATCH — one diagnostic, quiet siblings, one recovery"; hr
+BARE="$TR/outage.git"; seed_bare "$BARE"
+FIX="$TR/outage.tsv"; prline 960 kriscendobot "$BOThead" > "$FIX"
+ROOT_U="$TR/root-outage"; mkdir -p "$ROOT_U"
+U_CNT="$TR/outage.count"; printf '0\n' > "$U_CNT"
+U_FETCH="$TR/outage-fetch.sh"
+cat > "$U_FETCH" <<EOF
+#!/bin/bash
+n=\$(( \$(cat "$U_CNT" 2>/dev/null || echo 0) + 1 )); printf '%s\n' "\$n" > "$U_CNT"
+printf '%s\n' "\${U_FETCH_DIAG:-fatal: unable to access 'https://github.com/x/garden/': Could not resolve host: github.com}" >&2
+exit "\${U_FETCH_RC:-75}"
+EOF
+chmod +x "$U_FETCH"
+U_LATCH="$ROOT_U/.garden-state/approval-reconciler/journal-outage"
+U_COOL="$ROOT_U/.garden-state/journal-outage-cooldown/marker"
+u_run() {  # u_run <state> <log> [KEY=VAL ...]
+  local st="$1" lg="$2"; shift 2
+  RUN_AR_LOG="$lg"
+  run_ar "$st" "$BARE" "$FIX" "960=1" "960=1" "$SLUG" \
+    GARDEN_ROOT="$ROOT_U" GARDEN_FETCH_RETRIES=1 GARDEN_AR_LEADER_GUARD=0 "$@" || true
+  RUN_AR_LOG=/dev/null
+}
+
+u_run "$TR/su1" "$TR/u1.log" GARDEN_FETCH_CMD="$U_FETCH"
+if [ "$(grep -c 'WARN: journal fetch failed (rc=75, transient: .*Could not resolve host.*host outage episode opened' "$TR/u1.log")" = 1 ] \
+   && [ -d "$U_LATCH" ] && [ -e "$U_COOL" ]; then
+  ok "the first transient failure (rc=75) emits one classified diagnostic and opens the host episode"
+else bad "expected one opened-episode WARN + latch + cooldown ($(tr '\n' ' ' < "$TR/u1.log"))"; fi
+
+printf '0\n' > "$U_CNT"
+u_run "$TR/su2" "$TR/u2.log" GARDEN_FETCH_CMD="$U_FETCH"
+if [ "$(cat "$U_CNT")" = 0 ] && ! grep -q 'WARN' "$TR/u2.log"; then
+  ok "a sibling tick inside the shared cooldown skips before fetching, silently"
+else bad "sibling fetched ($(cat "$U_CNT")) or warned ($(tr '\n' ' ' < "$TR/u2.log"))"; fi
+
+rm -f "$U_COOL"
+u_run "$TR/su3" "$TR/u3.log" GARDEN_FETCH_CMD="$U_FETCH"
+if [ "$(cat "$U_CNT")" -ge 1 ] && ! grep -q 'WARN' "$TR/u3.log" && [ -d "$U_LATCH" ]; then
+  ok "a later failure in the same episode retries the fetch but stays quiet"
+else bad "expected a quiet repeat failure ($(tr '\n' ' ' < "$TR/u3.log"))"; fi
+
+rm -f "$U_COOL"
+u_run "$TR/su4" "$TR/u4.log"
+u_run "$TR/su5" "$TR/u5.log"
+if [ "$(cat "$TR/u4.log" "$TR/u5.log" | grep -c 'journal reachable again (outage since ')" = 1 ] \
+   && grep -q 'journal reachable again' "$TR/u4.log" && [ ! -d "$U_LATCH" ]; then
+  ok "the first successful fetch reports recovery exactly once and closes the episode"
+else bad "expected one recovery notice ($(cat "$TR/u4.log" "$TR/u5.log" | tr '\n' ' '))"; fi
+
+u_run "$TR/su6" "$TR/u6.log" GARDEN_FETCH_CMD="$U_FETCH" U_FETCH_RC=128 \
+  U_FETCH_DIAG="fatal: Authentication failed for 'https://github.com/x/garden/'"
+u_run "$TR/su7" "$TR/u7.log" GARDEN_FETCH_CMD="$U_FETCH" U_FETCH_RC=128 \
+  U_FETCH_DIAG="fatal: Authentication failed for 'https://github.com/x/garden/'"
+if grep -q 'WARN: journal fetch failed (rc=128, not a transient outage: .*Authentication failed' "$TR/u6.log" \
+   && grep -q 'not a transient outage' "$TR/u7.log" && [ ! -d "$U_LATCH" ] && [ ! -e "$U_COOL" ]; then
+  ok "a definite auth failure is never latched and warns on every tick"
+else bad "auth failure was latched or silenced ($(cat "$TR/u6.log" "$TR/u7.log" | tr '\n' ' '))"; fi
 
 # ============================================================================
 hr

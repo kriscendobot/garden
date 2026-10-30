@@ -224,14 +224,87 @@ head_pushable() {  # head_pushable <head-repo-full-name>
 
 # Reuse a persistent VERIFY clone (under $GARDEN_STATE, never torn down) for the
 # board dedup reads and the post-confirm.
+# A failed fetch leaves its rc and diagnostic in VERIFY_FETCH_RC/VERIFY_FETCH_DIAG
+# so the tick-start gate can classify it (journal_fetch's own log lines stay
+# suppressed; the diagnostic is git's stderr against the garden's own journal).
 _VERIFY_FETCHED=""
+VERIFY_FETCH_RC=0
+VERIFY_FETCH_DIAG=""
 verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
   ensure_clone_or_latch_outage "$VERIFY" approval-reconciler-verify  # timeout → quiet exit 75, not FATAL
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
-    journal_fetch "$VERIFY" "${1:+0}" >/dev/null 2>&1 || return 1
+    VERIFY_FETCH_RC=0; VERIFY_FETCH_DIAG=""
+    if journal_fetch "$VERIFY" "${1:+0}" >/dev/null 2>&1; then
+      :
+    else
+      VERIFY_FETCH_RC=$?
+      VERIFY_FETCH_DIAG="${GARDEN_FETCH_STDERR:-}"
+      return 1
+    fi
     _VERIFY_FETCHED=1
   fi
   return 0
+}
+
+# ── Journal-outage latch (one diagnostic per host outage, one recovery notice) ──
+# Every garden-approval-reconciler@<repo> instance fetches the same journal on the
+# same 15-minute cadence, so one journal outage made each template emit its own
+# indistinguishable "journal fetch failed" WARN (four between 14:21:22Z and
+# 14:22:28Z on 2026-10-30). A transient failure (GARDEN_OFFLINE_RC, a fetch
+# timeout, a known offline signature, or the bounded ambiguous rc=1 shape) now
+# opens a HOST-SCOPED episode latch — keyed by neither slug nor GARDEN_STATE, so
+# every template opens the same directory under the same flock — and arms the
+# shared journal-outage cooldown so siblings skip before fetching at all. Only the
+# process that opens the episode logs the diagnostic; only the process that
+# closes it logs the recovery. A positively-identified definite failure (auth,
+# missing upstream, corruption, local fault) is never latched: it WARNs loudly on
+# every tick with its rc and diagnostic so a real fault is not hidden as weather.
+: "${GARDEN_AR_JOURNAL_OUTAGE_LATCH:=$GARDEN_ROOT/.garden-state/approval-reconciler/journal-outage}"
+
+verify_fetch_is_transient() {  # <rc> <diagnostic>
+  local rc="$1" diag="$2"
+  journal_diagnostic_is_definite_failure "$diag" && return 1
+  case "$rc" in
+    "${GARDEN_OFFLINE_RC:-75}"|124|137) return 0 ;;
+  esac
+  _fetch_stderr_is_offline "$diag" && return 0
+  journal_bounded_fetch_is_ambiguous_outage "$rc" "$diag"
+}
+
+ar_diag_tail() {  # one bounded line of a captured diagnostic
+  printf '%s' "$1" | tr '\n' ' ' | tail -c 300
+}
+
+note_ar_journal_outage() {  # <rc> <diagnostic>; rc 0 = this process opened the episode
+  local rc="$1" diag="$2" latch="$GARDEN_AR_JOURNAL_OUTAGE_LATCH"
+  mkdir -p "$(dirname "$latch")" 2>/dev/null || true
+  start_journal_outage_cooldown "approval-reconciler/$slug" || true
+  if (
+    flock 9 || exit 2
+    [ -d "$latch" ] && exit 1
+    mkdir "$latch" 2>/dev/null || exit 2
+    date -u +%FT%TZ > "$latch/since" 2>/dev/null || true
+    printf '%s\n' "$slug" > "$latch/first" 2>/dev/null || true
+  ) 9>"$latch.lock"; then
+    log "WARN: journal fetch failed (rc=$rc, transient: $(ar_diag_tail "$diag")) — skipping tick (never guess board state); host outage episode opened, sibling reconcilers skip quietly until it recovers"
+  else
+    local lrc=$?
+    [ "$lrc" -eq 1 ] \
+      || log "WARN: journal fetch failed (rc=$rc) and the host outage latch could not be armed — skipping tick"
+  fi
+}
+
+note_ar_journal_recovered() {  # a successful tick-start fetch closes an open episode
+  local latch="$GARDEN_AR_JOURNAL_OUTAGE_LATCH"
+  [ -d "$latch" ] || return 0                      # no episode open: cheap no-op
+  (
+    flock 9 || exit 0
+    [ -d "$latch" ] || exit 0                       # a sibling already reported recovery
+    local since=""
+    [ -r "$latch/since" ] && since="$(cat "$latch/since" 2>/dev/null || true)"
+    rm -rf "$latch" 2>/dev/null || exit 0
+    log "journal reachable again${since:+ (outage since $since)} — approval reconcilers resuming; host outage episode closed"
+  ) 9>"$latch.lock" || true
 }
 
 # --- deterministic board dedup ----------------------------------------------
@@ -661,10 +734,20 @@ run_pr_probe() {  # run_pr_probe <stage> <pr> <command> [args...]
 
 # Fetch the board once up front; if we cannot read it, skip the tick (never guess
 # board state → never double-dispatch).
-if ! verify_fetch; then
-  log "WARN: journal fetch failed — skipping tick (never guess board state)"
+# A live shared journal-outage window (armed by a sibling template or any other
+# journal reader on this host) means this fetch is doomed: skip without probing.
+if journal_outage_active; then
   exit 0
 fi
+if ! verify_fetch; then
+  if verify_fetch_is_transient "$VERIFY_FETCH_RC" "$VERIFY_FETCH_DIAG"; then
+    note_ar_journal_outage "$VERIFY_FETCH_RC" "$VERIFY_FETCH_DIAG"
+  else
+    log "WARN: journal fetch failed (rc=$VERIFY_FETCH_RC, not a transient outage: $(ar_diag_tail "$VERIFY_FETCH_DIAG")) — skipping tick (never guess board state)"
+  fi
+  exit 0
+fi
+note_ar_journal_recovered
 
 # Snapshot maintainers/allowlist ONCE per tick from the VERIFY clone just fetched,
 # and hand it to every approval/mergeability probe (both run
