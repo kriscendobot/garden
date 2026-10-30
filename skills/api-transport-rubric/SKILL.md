@@ -1,6 +1,6 @@
 ---
 created: 2026-10-29
-updated: 2026-10-29
+updated: 2026-10-30
 author: liaison
 status: draft
 ---
@@ -14,6 +14,10 @@ Decide, for one feature of an object-capability system, whether it belongs on a 
 ## Inputs
 
 The feature's caller, the authority the call needs, and whether the call passes or returns authority.
+
+## Default (maintainer, 2026-10-30)
+
+**Use CapTP in general; use REST only where it is absolutely necessary.** REST is necessary when the caller has no reference yet (login, minting the first locator, opening the session), when the caller cannot speak CapTP (curl, a login page, static content, webhooks), or when a platform boundary demands HTTP. The scoring table below finds the exceptions; it does not make REST the starting point. A feature that scores REST because the shell "has no session yet" is a missing prerequisite (build the session), not a REST feature.
 
 ## The question
 
@@ -42,7 +46,7 @@ Answer each row. Count the leans, then apply the overrides. A close count means 
 2. **No REST endpoint takes a capability as an argument.** A string naming a power is a forgeable bearer name. If a call must pass one, it belongs on CapTP. A bearer token is acceptable only when it designates one specific object, not an identity.
 3. **No ambient authority over the powerbox through REST.** If a cookie can reach a clip's powers directly, ask whether the clip could trigger the call. Chrome-only endpoints (clone, destroy) pass when only chrome code calls them; they still need CSRF checks and owner scoping.
 4. **Secrets do not come back out.** Project responses onto an explicit non-secret schema. A feature that must return a secret is a design flaw, not a transport choice.
-5. **Reads that mirror chrome state may be REST.** A listing of what the owner owns is fine if it carries no powers. When the listed things are live objects, plan the CapTP facet and say so in the design.
+5. **A plain-data listing is not a reason for REST.** It may stay REST while no session exists; say so, and plan the CapTP facet.
 
 ## Output shape
 
@@ -52,16 +56,17 @@ A short table in the design or PR body: one row per feature, the transport chose
 
 | Feature | Verdict | Why |
 | --- | --- | --- |
-| Provider key entry (#229) | REST | Rows 1, 5; secrets never returned |
-| Clip list for the gutter (#179) | REST | Rows 1, 6 |
-| Governor powers read (#230) | REST now, CapTP facet later | Row 1 today; powers are objects (row 6) |
-| Clone and destroy (#230) | REST | Chrome-only, owner-derived, CSRF-checked |
+| Provider key entry (#229) | REST today | Secrets never returned; revisit once the shell holds a session |
+| Clip list for the gutter (#179) | REST today, CapTP once the shell has a session | Default is CapTP; REST only because the session does not exist yet |
+| Governor powers read (#230) | CapTP | Powers are objects (row 6); needs the shell session |
+| Clone and destroy (#230) | CapTP | Chrome-only calls on the owner's facet |
 | Chat turn stream (#228) | Locator by REST, turns by CapTP | Rows 2, 3, 4 |
 | Attaching a pet name to a message | CapTP | Rows 2, 6 |
 | Spawning a subagent | CapTP | Rows 2, 4 |
 
 ## Notes
 
+- The maintainer's default (CapTP unless REST is absolutely necessary) is recorded in the section above; older text in this skill that treats REST as the home for owner-derived calls is superseded by it.
 - Status is draft: the rubric was derived from four open minion.town designs, not from shipped code. Revise as the first features are scored against it.
 - A review-juror check (flag a capability passed as a string; flag a cookie re-deriving authority on every call) is a candidate follow-up, not part of this skill.
 - Companion skills: [ownership-map](../ownership-map/SKILL.md) for who owns state at each boundary; [ocap-attenuation-authoring](../ocap-attenuation-authoring/SKILL.md) for narrowing a power.
