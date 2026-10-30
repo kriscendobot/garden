@@ -3,18 +3,18 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 667,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/667",
-  "head_oid": "4f9d899d509b9c7858ef69b10b6183a3227e15ab",
+  "head_oid": "7e7e4481b830994d86f9a9fb33b3636187de2ebd",
   "ask": "decide",
-  "arc": "minion-town-mcp-ocapn",
+  "arc": "unallocated",
   "milestone": "-",
   "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
   "unblocks": [],
-  "source": "manual-gauntlet-handoff-endojs-endo-but-for-bots-pr667",
-  "requested_at": "2026-10-30T04:39:00Z",
+  "source": "readiness-audit-endojs-endo-but-for-bots-pr667-7e7e4481b830",
+  "requested_at": "2026-10-30T04:46:51Z",
   "first_requested_at": "2026-10-30T04:39:00Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
-    "state": "green",
-    "observed_at": "2026-10-30T04:39:02Z"
+    "state": "red",
+    "observed_at": "2026-10-30T04:46:53Z"
   }
 }
