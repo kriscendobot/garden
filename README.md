@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T05:15:57Z_
+_As of 2026-10-31T05:19:43Z_
 
 ## Latest
 
@@ -196,15 +196,6 @@ Delegation: **active**
 - `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
 
 > Oros health watcher intervened: the 12:35Z check-up stayed unclaimed for 45+ minutes. Oros is otherwise reachable (budget heartbeat refreshed 13:17Z, 05d833a2 deployed = main2, no derotation marker). The sole monk finished its preceding 11:04Z gauntlet job at about 13:05Z but did not claim the check-up. reset-failed was applied and acked (20261018T132111Z-51adcc). I then sent the authorized restart of garden-monk@1.service (20261018T132252Z-05edf6); it remained unacknowledged through 13:35Z and the check-up was still in todo. Please inspect the oros monk service/sysop queue if the next sysop tick does not apply it.
-
-- `msg-endojs-endo-but-for-bots-pr1572-shepherd-1028c5e5a887` — from gardener:endojs-endo-but-for-bots-pr1572-shepherd, reply_to `endojs-endo-but-for-bots-pr1572-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1572-shepherd-1028c5e5a887.md)
-
-> [endojs/endo-but-for-bots#1572](https://github.com/endojs/endo-but-for-bots/issues/1572) (M3 git: narrow read-only Git provisioning, stacked on [endojs/endo-but-for-bots#1571](https://github.com/endojs/endo-but-for-bots/issues/1571)) is red for the same reason as [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573). The cause is the runner image, not anything in the PR's diff.
->
-> - sandbox-drivers, cover 22/24, and test 22/24 ubuntu all fail on the same two @endo/sandbox bwrap tests: `ulimit -u` is rejected by dash, and "parent death leaves no owned process group". I reran the failed jobs on 2026-10-31 and they failed the same way, so this is deterministic, not a flake.
-> - The PR's own packages pass in that same CI job: @endo/daemon 1611, @endo/exo-git 59, @endo/git 36, @endo/cli 39. The macOS legs are green.
->
-> The fix is still undecided. The [endojs/endo-but-for-bots#1566](https://github.com/endojs/endo-but-for-bots/issues/1566) gauntlet halted on 2026-10-28 because it overlaps [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542) (bwrap) and [endojs/endo-but-for-bots#1546](https://github.com/endojs/endo-but-for-bots/issues/1546) (depcheck), and none of the three has merged. To unblock, pick one: merge [endojs/endo-but-for-bots#1566](https://github.com/endojs/endo-but-for-bots/issues/1566), or merge [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542) and [endojs/endo-but-for-bots#1546](https://github.com/endojs/endo-but-for-bots/issues/1546) together. After that, say "weave [endojs/endo-but-for-bots#1571](https://github.com/endojs/endo-but-for-bots/issues/1571)" and then "weave [endojs/endo-but-for-bots#1572](https://github.com/endojs/endo-but-for-bots/issues/1572)" so the M3 stack picks up the fix. I did not copy the CI fix into [endojs/endo-but-for-bots#1572](https://github.com/endojs/endo-but-for-bots/issues/1572) because it would put unrelated changes in a feature PR.
 
 - `msg-claude-on-minion-town-press-20261023-172020-61211fe15744` — from gardener:claude-on-minion-town-press-20261023-172020, reply_to `claude-on-minion-town-press-20261023-172020` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261023-172020-61211fe15744.md)
 
@@ -1744,8 +1735,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 904.4k | $5.52 _(notional, rate-card)_ | 0% of 271.0M (ok) |
-| Codex | 268.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 995.5k | $7.19 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Codex | 268.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1758,10 +1749,11 @@ worst fetch p95 6.421600s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
+### doin (5)
 - [`endo-ironhorse-oracle-stage3-math-ulp-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ironhorse-oracle-stage3-math-ulp-drift.md) — Fix: ironhorse oracle stage3-math/054,055 last-digit mismatch reds every PR o...
 - [`build-fs-interface-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-fs-interface-reconciliation.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1572-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1572-ci.md) — ---
+- [`ironhorse-fuzz-f9cde0bda6f97f6c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-f9cde0bda6f97f6c-repair.md) — ---
 - [`endojs-endo-but-for-bots-pr1501-shepherd-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1501-shepherd-20261031.md) — ---
 
 ### tada (15696)
