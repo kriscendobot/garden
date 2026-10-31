@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: cleric
-claimed_at: 2026-10-31T18:21:00Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-mvs-resolver
-pr_number: 1596
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1596
-pr_head: build/m3-mvs-resolver-reference
