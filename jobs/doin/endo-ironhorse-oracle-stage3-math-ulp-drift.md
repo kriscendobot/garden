@@ -32,6 +32,8 @@ weaken the gate silently. Open a PR against `llm`. Once it lands, PR gauntlets t
 (e.g. #1117 clean stage) can be re-run.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
