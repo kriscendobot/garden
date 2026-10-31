@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T04:44:27Z_
+_As of 2026-10-31T04:45:48Z_
 
 ## Latest
 
@@ -346,6 +346,10 @@ Delegation: **active**
 >    Tell me if you object to any of them. If you don't, they stand.
 >
 > 3. **Invitation count.** This waits on #199 adding a per-holder count. I'm not acting on it yet, since the dependency hasn't landed. Tell me if you want it tracked on a schedule instead.
+
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1117-gauntlet-clean` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1117-gauntlet-clean.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr1117-gauntlet-clean' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7201s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `kriscendobot-minion.town-pr210-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr210-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr210-gauntlet-review-budget-reached.md)
 
@@ -867,11 +871,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
 
-> WATCHDOG notice — occurrence #19 (first seen 2026-10-16T18:43:50Z, latest 2026-10-30T22:45:22Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal`) has now been observed 19 times; this is ONE
-> coalesced notice that updates in place, not 19 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-10-16T18:43:50Z, cleared 2026-10-31T04:44:32Z).
+> It was observed 19 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.129173s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_3_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_monks_3_journal.md)
 
