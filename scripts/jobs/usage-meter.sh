@@ -110,6 +110,9 @@ fi
 # Soft cap on ledger lines before an opportunistic prune of out-of-window rows.
 : "${GARDEN_USAGE_LEDGER_MAXLINES:=20000}"
 : "${GARDEN_BUDGET_SNAPSHOT_SECS:=900}"
+# Per-pool fingerprints of the held spend regression already warned about, so an
+# unchanged regression WARNs once rather than on every snapshot tick.
+: "${GARDEN_BUDGET_HELD_REGRESSION_DIR:=$GARDEN_STATE/usage/held-regression}"
 : "${GARDEN_BUDGET_SNAPSHOT_MAX_AGE:=1800}"
 # Total snapshot pushes per scaler tick: the first push plus three CAS retries.
 : "${GARDEN_BUDGET_PUBLISH_ATTEMPTS:=4}"
@@ -1165,8 +1168,16 @@ _budget_publish_legacy_local_pool_once() {
 # window start to a boundary later than the published sample, so that sample
 # counted the previous server epoch. Only those two outcomes log WARN; a
 # re-measure that recovers to at least the published spend logs at info.
+# A held regression WARNs once per fingerprint (pool, window, held spend,
+# effective entitlement cutoff), persisted under GARDEN_BUDGET_HELD_REGRESSION_DIR:
+# endolin repeated the identical WARN at 2026-10-31T13:31:40Z and 13:46:42Z for an
+# unchanged published sample. Later ticks with the same fingerprint log at info
+# and still hold the spend; the fingerprint clears once the reading recovers or
+# advances, and a moved window, held spend, or boundary is a new fingerprint.
 _budget_spend_regression_recheck() {
   local file="$1" cutoff="$2" spend="$3" pool="$4" dir="$5" old_window old_spend old_at again effective
+  local held_file fingerprint
+  held_file="$GARDEN_BUDGET_HELD_REGRESSION_DIR/$(printf '%s' "$pool" | tr -c 'A-Za-z0-9._-' '_')"
   old_window="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   old_spend="$(sed -n 's/^spend:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   if [ "$old_window" = "$cutoff" ] && [[ "$old_spend" =~ ^[0-9]+$ ]] \
@@ -1178,16 +1189,27 @@ _budget_spend_regression_recheck() {
       effective="$(_meter_entitlement_cutoff "$GARDEN_CCUSAGE_LOGDIR" "$cutoff" 2>/dev/null || true)"
       if [[ "$effective" =~ ^[0-9]+$ ]] && [ "$effective" -gt "$cutoff" ] \
         && [[ "$old_at" =~ ^[0-9]+$ ]] && [ "$old_at" -lt "$effective" ]; then
+        rm -f "$held_file"
         log "WARN: $pool spend reading $spend is below the published $old_spend for window $cutoff; re-measured ${again:-unknown}; entitlement boundary $effective follows the published sample, publishing the drop"
       else
-        log "WARN: $pool spend reading $spend is below the published $old_spend for window $cutoff; re-measured ${again:-unknown}; no entitlement transition identified, holding $old_spend"
+        fingerprint="$cutoff $old_spend ${effective:-none}"
+        if [ "$(cat "$held_file" 2>/dev/null)" = "$fingerprint" ]; then
+          log "$pool spend reading $spend is still below the published $old_spend for window $cutoff; re-measured ${again:-unknown}; holding $old_spend (already warned)"
+        else
+          log "WARN: $pool spend reading $spend is below the published $old_spend for window $cutoff; re-measured ${again:-unknown}; no entitlement transition identified, holding $old_spend"
+          mkdir -p "$GARDEN_BUDGET_HELD_REGRESSION_DIR" 2>/dev/null \
+            && printf '%s\n' "$fingerprint" > "$held_file" 2>/dev/null || true
+        fi
         spend="$old_spend"
       fi
     else
       # A recovered transient undercount is routine, not a regression: log it at
       # info and reserve WARN for a held regression or an entitlement drop.
+      rm -f "$held_file"
       log "$pool spend re-measure recovered a transient low reading below the published $old_spend for window $cutoff; publishing $spend"
     fi
+  else
+    rm -f "$held_file"
   fi
   printf '%s\n' "$spend"
 }

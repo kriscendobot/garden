@@ -14,6 +14,8 @@ trap 'rm -rf "$TR"' EXIT
 export GARDEN_TEST=1
 export GARDEN=testhost
 export GARDEN_STATE="$TR/state"
+# Keep the meter off the real session logs: a live scan takes minutes.
+export GARDEN_CCUSAGE_LOGDIR="$TR/logs" GARDEN_RETIRED_TRANSCRIPTS="$TR/retired"
 GARDEN_USAGE_NOW="$(date -u -d 2026-08-22T12:00:00Z +%s)"
 export GARDEN_USAGE_NOW
 export GARDEN_BUDGET_PUBLISH_ATTEMPTS=1
@@ -78,6 +80,32 @@ budget_publish_local_pool "$D" 2>/dev/null || fail "publication failed"
 [ "$(published)" = 900 ] || fail "second undercount published $(published), want 900"
 [ "$(cat "$SCANS")" = 2 ] || fail "second undercount did not re-measure once"
 echo "PASS: two consecutive undercounts keep the high-water spend"
+
+# 2b'. An unchanged held regression WARNs once; recovery re-arms the warning.
+# Regression for endolin 2026-10-31, which repeated the identical held-regression
+# WARN at 13:31:40Z and 13:46:42Z for an unchanged published sample.
+tick() {  # tick <bucket> <readings> — run one snapshot tick into $TR/err
+  sed -i "s/^sample_bucket:.*/sample_bucket: $1/" "$SNAP"; : > "$SCANS"; READINGS="$2"
+  budget_publish_local_pool "$D" 2>"$TR/err" || fail "publication failed"
+}
+rm -rf "$GARDEN_STATE/usage/held-regression"
+seed 1755820800 900; tick 3 "600 650"
+grep -q 'WARN: .*holding 900' "$TR/err" || fail "first held regression did not WARN"
+tick 4 "700 720"
+[ "$(published)" = 900 ] || fail "repeat tick published $(published), want 900"
+! grep -q 'WARN' "$TR/err" || fail "an unchanged held regression re-WARNed: $(cat "$TR/err")"
+grep -q 'holding 900 (already warned)' "$TR/err" || fail "repeat hold was not logged at info"
+tick 5 "800 820"; [ "$(published)" = 900 ] || fail "third tick published $(published)"
+! grep -q 'WARN' "$TR/err" || fail "third tick re-WARNed"
+tick 6 "950 1"; [ "$(published)" = 950 ] || fail "advance published $(published), want 950"
+tick 7 "600 650"
+grep -q 'WARN: .*holding 950' "$TR/err" || fail "a regression below the advanced spend did not WARN"
+tick 8 "700 960"; [ "$(published)" = 960 ] || fail "recovery published $(published), want 960"
+sed -i 's/^spend:.*/spend: 950/' "$SNAP"; tick 9 "600 650"
+grep -q 'WARN: .*holding 950' "$TR/err" || fail "a regression after recovery did not re-WARN"
+ENTITLEMENT=1755800000; tick 10 "600 650"
+grep -q 'WARN: .*holding 950' "$TR/err" || fail "a changed entitlement boundary did not re-WARN"
+echo "PASS: an unchanged held regression WARNs once until it recovers, advances, or the boundary moves"
 
 # 2c. An entitlement boundary after the published sample lets a drop publish.
 seed 1755820800 900 1755830000; ENTITLEMENT=1755840000; READINGS="300 200"
