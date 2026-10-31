@@ -5,14 +5,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1597
 build_job: build-daemon-agent-tools-phase-five-contract-test
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1597-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr1597-gauntlet-undraft
 state: running
 created_by: producer
 arc: minion-town-claude-api
