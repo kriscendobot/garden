@@ -12,7 +12,7 @@ created_at: 2026-10-26T02:10:30Z
 arc: minion-town-mcp-ocapn
 stage: fix
 iteration: 3
-resumes: 0
+resumes: 1
 stage_retries: 0
 current_child: endojs-endo-but-for-bots-pr1560-gauntlet-fix-3
 state: running
