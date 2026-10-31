@@ -6,7 +6,7 @@
   "summary": "Garden upkeep: self-heal, watchdog fixes, and deploys",
   "token_cap": 1092500,
   "window": "week",
-  "window_start": "2026-10-24T03:00:00Z",
-  "set_by": "accountant",
-  "set_at": "2026-10-30T04:35:59Z"
+  "window_start": "2026-10-31T03:00:00Z",
+  "set_by": "accountant-weekly-20261031-160509",
+  "set_at": "2026-10-31T16:08:01Z"
 }

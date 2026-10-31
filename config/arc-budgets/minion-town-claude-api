@@ -6,7 +6,7 @@
   "summary": "Harnessing Claude from minion.town by API key (API-key agents via @secrets, replacing the claude --bare / subscription-token CLI wrapper)",
   "token_cap": 70375511,
   "window": "week",
-  "window_start": "2026-10-24T03:00:00Z",
-  "set_by": "accountant",
-  "set_at": "2026-10-30T04:35:59Z"
+  "window_start": "2026-10-31T03:00:00Z",
+  "set_by": "accountant-weekly-20261031-160509",
+  "set_at": "2026-10-31T16:08:01Z"
 }
