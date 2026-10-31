@@ -2,7 +2,7 @@
 order: serial
 children: shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-31T22:14:57Z
 ---
