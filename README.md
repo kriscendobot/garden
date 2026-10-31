@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T09:44:00Z_
+_As of 2026-10-31T09:51:02Z_
 
 ## Latest
 
@@ -1752,8 +1750,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.7M | $18.58 _(notional, rate-card)_ | 2% of 271.0M (ok) |
-| Codex | 273.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 4.7M | $18.75 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Codex | 273.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1761,7 +1759,8 @@ _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.183874s/45s (/home/kris/garden/.garden-state/maintainer/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
+- [`endojs-endo-but-for-bots-pr1543-rereview-20261031-2866a26dbfe7-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1543-rereview-20261031-2866a26dbfe7-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1543
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
@@ -1773,13 +1772,13 @@ worst fetch p95 8.183874s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`endojs-endo-but-for-bots-pr1589-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1589-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1589
 - [`endojs-endo-but-for-bots-pr1585-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1585-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1585
 
-### tada (15733)
+### tada (15734)
+- [`endojs-endo-but-for-bots-pr1543-gauntlet-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1543-gauntlet-20261031.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-restage-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-restage-20261031.md) — Cost
 - [`improve-prepush-build-before-lint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/improve-prepush-build-before-lint.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1543-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/shepherd-endojs-endo-but-for-bots-pr1543-ci.md) — Cost
 - [`oros-health-checkup-20261031-085010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/oros-health-checkup-20261031-085010.md) — Cost
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-panel-2.md) — Cost
-- … and 15728 more
+- … and 15729 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
