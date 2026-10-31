@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T22:52:14Z_
+_As of 2026-10-31T22:54:06Z_
 
 ## Latest
 
@@ -1042,19 +1040,6 @@ Delegation: **active**
 >
 > Orchestration improve-enforce-handler-wall-bound-split observed child improve-enforce-handler-wall-bound-watchdog: stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
 
-- `shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-split-terminal-complete` — from orchestrator:shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-split-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-split
-> orchestration-status: complete
-> order: serial
-> children-total: 1
-> children-failed: 0
-> failed-children: 
-> recovered-children: 
->
-> Orchestration shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
-
 - `watchdog-journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git` has CLEARED (first seen 2026-10-30T09:40:18Z, cleared 2026-10-30T10:34:43Z).
@@ -1849,7 +1834,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.7M | $110.18 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 29.8M | $111.10 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 296.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59755609 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
