@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T17:40:55Z_
+_As of 2026-10-31T17:57:37Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-174 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+175 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -403,29 +401,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `20261031T173905Z-812ca7` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261031T173905Z-812ca7.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endojs-endo-but-for-bots-pr1586-gauntlet-fix-3
-> - question (msgid msg-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-8dd9685e1b51.md)
-> - tentative answer: (proxy, tentative: the maintainer may revise.)
->
-> Rename `subView` to `mount`. The maintainer asked for that name on [endojs/endo-but-for-bots#464](https://github.com/endojs/endo-but-for-bots/issues/464), so that request is the best evidence of what they want. Keeping `subView` would mean going against it.
->
-> Options considered:
-> 1. Keep `subView`. This avoids churn, but it contradicts the maintainer's stated name and would likely draw the same objection again.
-> 2. Rename to `mount` across `EndoMount` and the extended `Directory`. This matches the maintainer's request and is cheap to undo while the work is still on the `llm` fork.
-> 3. Support both names, with `subView` as a deprecated alias. This is only worth doing if something outside this repo already depends on `subView`. Check with a quick grep first. If nothing does, skip the alias.
->
-> Try option 2 first.
->
-> Sequencing:
-> - Leave [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) as fix-3 narrowed it. Don't add the rename to that PR, so its gauntlet isn't disturbed.
-> - Do the rename, and the later promotion of the attenuator into the portable `Directory`/`SnapshotTree` contracts, as a separate follow-up change. Post it as its own job or PR.
-> - Keep `makeFile` mount-specific, since `EndoMountFile` is not a platform `File`.
->
-> Because this is provisional, the follow-up can be thrown away if the maintainer decides differently. This does not authorize merging or closing anything.
 
 - `minion-town-pr-screening-stalled-pr218-5e2b623` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-stalled-pr218-5e2b623.md)
 
@@ -977,11 +952,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #20 (first seen 2026-10-23T13:27:09Z, latest 2026-10-31T13:20:18Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 20 times; this is
-> ONE entry that updates in place, not 20 messages. Latest detail:
+> COALESCED message — occurrence #21 (first seen 2026-10-23T13:27:09Z, latest 2026-10-31T17:50:45Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 21 times; this is
+> ONE entry that updates in place, not 21 messages. Latest detail:
 >
-> M3’s API-key agent path is blocked on maintainer review and merge of [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543), the completed API-provider design that gates the in-flight provider implementation stack. Please decide whether to approve it.
+> M3’s next unblocked follow-up, [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/issues/1588), is gated by the shared bwrap CI repair in PR #1566. Please decide whether to merge or otherwise resolve #1566 so #1588 can be woven and its gauntlet resumed.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1833,36 +1808,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.1M | $38.30 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 12.4M | $37.15 _(notional, rate-card)_ | 5% of 271.0M (ok) |
 | Codex | 287.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 50105713 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 50183690 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1594-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1594-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1594
 
-### doin (6)
-- [`endojs-endo-but-for-bots-pr1595-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1595
-- [`shepherd-endojs-endo-but-for-bots-pr1593-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1593-ci.md) — ---
+### doin (5)
+- [`endojs-endo-but-for-bots-pr1594-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1594
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1560
-- [`fix-endojs-endo-but-for-bots-pr1593-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1593-ci.md) — ---
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1595
 - [`build-daemon-git-capability-lal-genie-agent-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-capability-lal-genie-agent-adapters.md) — ---
-- [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1586-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1586
+- [`shepherd-endojs-endo-but-for-bots-pr1588-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1588-ci.md) — ---
 
-### tada (15806)
-- [`endojs-endo-but-for-bots-pr1594-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1594-gauntlet-clean.md) — Cost
-- [`build-daemon-rename-to-manager-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-daemon-rename-to-manager-split.md) — orchestration build-daemon-rename-to-manager-split — complete
-- [`build-daemon-rename-to-manager-surface`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-daemon-rename-to-manager-surface.md) — Cost
-- [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-pr-body.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1593-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1593-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1593-gauntlet — HALTED
-- … and 15801 more
+### tada (15813)
+- [`fix-endojs-endo-but-for-bots-pr1593-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/fix-endojs-endo-but-for-bots-pr1593-ci.md) — Panel-head freshness
+- [`endojs-endo-but-for-bots-pr1586-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1586-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1586-gauntlet — HALTED
+- [`shepherd-endojs-endo-but-for-bots-pr1593-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/shepherd-endojs-endo-but-for-bots-pr1593-ci.md) — Cost
+- [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1586-gauntlet-fix-3.md) — What I did
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1595-gauntlet-panel-1.md) — Cost
+- … and 15808 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
