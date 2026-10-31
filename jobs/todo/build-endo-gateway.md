@@ -8,15 +8,4 @@ dispatch: automatic
 ---
 Build the unblocked M3 `endo-gateway` design in endojs/endo-but-for-bots, opening a draft implementation PR against the current `llm` base with its gateway acceptance tests.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-31T09:51:41Z
+<!-- garden-reaped: 0 -->
