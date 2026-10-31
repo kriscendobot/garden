@@ -1,0 +1,10 @@
+---
+order: serial
+children: build-daemon-rename-to-manager-runtime build-daemon-rename-to-manager-surface
+on-child-failure: halt
+state: pending
+created_by: orchestrator
+created_at: 2026-10-31T15:08:23Z
+---
+
+The rename is genuinely divisible into a production-code/API migration followed by a repository-wide supporting-surface and validation pass. Run the slices serially because the second adopts and completes the first slice's branch and draft PR. Halt on failure so an incomplete runtime rename cannot release the finishing pass.
