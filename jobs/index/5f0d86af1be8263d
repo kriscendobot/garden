@@ -1,2 +1,2 @@
-base: improve-dependabot-panel-gate
+base: improve-ci-wait-respect-handler-deadline
 identity: mentor:scripts/jobs/gardening/ci-wait-merge.sh
