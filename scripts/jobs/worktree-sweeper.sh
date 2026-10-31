@@ -65,11 +65,15 @@ budget_remains() { under_limit && ! past_deadline; }
 
 has_live_process() { # has_live_process <directory>
   local target="$1"
-  # One find process is materially cheaper than spawning one readlink for every
-  # process on a large fleet host.  Match the directory itself or a descendant.
-  find /proc -mindepth 2 -maxdepth 2 -path '/proc/[0-9]*/cwd' \
-    \( -lname "$target" -o -lname "$target/*" \) -print -quit 2>/dev/null \
-    | grep -q .
+  # Resolve all cwd links in one readlink process (not one process per PID).
+  # Walking /proc recursively with find can miss a stable target amid
+  # concurrently vanishing process directories.  Match the directory itself or
+  # a descendant, and consume the whole stream so pipefail cannot turn an early
+  # reader exit into a false negative.
+  awk -v target="$target" '
+      $0 == target || index($0, target "/") == 1 { found = 1 }
+      END { exit(found ? 0 : 1) }
+    ' < <(readlink /proc/[0-9]*/cwd 2>/dev/null || true)
 }
 
 # Cache live PR disposition for this tick. Multiple completed jobs commonly name
@@ -138,23 +142,94 @@ terminal_worktree_exists() {
   return 1
 }
 
-remove_garden_worktree() { # remove_garden_worktree <path>
-  local path="$1"
+# base_has_live_or_queued_record <base>
+# A completion report is evidence about one attempt, not every future attempt
+# which happens to reuse its basename.  In particular, never let an old tada
+# report authorize removing a current claim or a queued/parked successor.
+# A doomed plan is the terminal record consumed by the first sweep below, rather
+# than queued work, so it is the sole plan exception.
+base_has_live_or_queued_record() {
+  local base="$1" plan
+  plan="$CLONE/$JOBS_PLAN/$base.md"
+  [ -e "$CLONE/$JOBS_DOIN/$base.md" ] && return 0
+  [ -e "$CLONE/$JOBS_TODO/$base.md" ] && return 0
+  if [ -e "$plan" ] && ! grep -q '^doomed:[[:space:]]*true[[:space:]]*$' "$plan"; then
+    return 0
+  fi
+  return 1
+}
+
+remove_garden_worktree() { # remove_garden_worktree <base> <path>
+  local base="$1" path="$2"
   [ -e "$path" ] || return 0
-  has_live_process "$path" && { log "keeping $path: a live process is rooted there"; return 0; }
-  git -C "$GARDEN_ROOT" worktree remove --force "$path" >/dev/null 2>&1 || return 0
+
+  # git is repository-locked by the fleet wrapper.  Acquire that same lock
+  # explicitly so the liveness sample happens AFTER the wait, immediately before
+  # worktree remove, rather than going stale while git waits behind another user.
+  garden_repo_lock "$GARDEN_ROOT" exclusive \
+    || { log "keeping $path: repository lock unavailable"; return 0; }
+  if base_has_live_or_queued_record "$base"; then
+    log "keeping worktrees for '$base': a live or queued job record exists"
+    garden_repo_unlock "$GARDEN_ROOT"
+    return 0
+  fi
+  if has_live_process "$path"; then
+    log "keeping $path: a live process is rooted there"
+    garden_repo_unlock "$GARDEN_ROOT"
+    return 0
+  fi
+  if ! git -C "$GARDEN_ROOT" worktree remove --force "$path" >/dev/null 2>&1; then
+    garden_repo_unlock "$GARDEN_ROOT"
+    return 0
+  fi
+  garden_repo_unlock "$GARDEN_ROOT"
   removed=$((removed + 1))
   log "removed terminal garden worktree $path"
+}
+
+remove_project_worktree() { # remove_project_worktree <base> <path>
+  local base="$1" path="$2" gitdir
+  [ -e "$path" ] || return 1
+
+  # Resolve the owner before taking its exclusive lock.  scratch_cleanup's git
+  # operations then borrow this lock, so no lock wait separates the final
+  # liveness check from either deregistration or directory removal.
+  gitdir="$(git -C "$path" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+  if [ -e "$path/.git" ] && [ -z "$gitdir" ]; then
+    log "keeping $path: cannot resolve its owning repository"
+    return 1
+  fi
+  if [ -n "$gitdir" ]; then
+    garden_repo_lock "$gitdir" exclusive \
+      || { log "keeping $path: repository lock unavailable"; return 1; }
+  fi
+  if base_has_live_or_queued_record "$base"; then
+    log "keeping worktrees for '$base': a live or queued job record exists"
+    [ -z "$gitdir" ] || garden_repo_unlock "$gitdir"
+    return 1
+  fi
+  if has_live_process "$path"; then
+    log "keeping $path: a live process is rooted there"
+    [ -z "$gitdir" ] || garden_repo_unlock "$gitdir"
+    return 1
+  fi
+  scratch_cleanup "$path"
+  [ -z "$gitdir" ] || garden_repo_unlock "$gitdir"
+  return 0
 }
 
 sweep_terminal_base() { # sweep_terminal_base <base> <job-file> <github-check:true|false>
   local base="$1" file="$2" verify="$3" key legacy path name suffix before
   budget_remains || return 0
+  if base_has_live_or_queued_record "$base"; then
+    log "keeping worktrees for '$base': a live or queued job record exists"
+    return 0
+  fi
   terminal_worktree_exists "$base" || return 0
   if [ "$verify" = true ] && ! pr_disposition_allows_sweep "$file"; then return 0; fi
 
   path="$GARDEN_SCRATCH/gardener-wt-$base"
-  remove_garden_worktree "$path"
+  remove_garden_worktree "$base" "$path"
   under_limit || return 0
 
   # Use the shared terminal helper, but account its removals so the whole tick
@@ -171,9 +246,9 @@ sweep_terminal_base() { # sweep_terminal_base <base> <job-file> <github-check:tr
       suffix="${name#project-wt-"${legacy}"-}"
       [[ "$suffix" =~ ^[0-9a-f]{8}$ ]] || continue
     fi
-    has_live_process "$path" && continue
-    scratch_cleanup "$path"
-    before=$((before + 1)); removed=$((removed + 1))
+    if remove_project_worktree "$base" "$path"; then
+      before=$((before + 1)); removed=$((removed + 1))
+    fi
     under_limit || break
   done
   [ "$before" -eq 0 ] || log "removed $before terminal project checkout(s) for '$base'"

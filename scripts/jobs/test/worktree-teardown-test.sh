@@ -75,14 +75,20 @@ fi
 JBARE="$TR/journal.git"; JSEED="$TR/journal-seed"
 git init -q --bare "$JBARE"
 git init -q "$JSEED"; git -C "$JSEED" checkout -qb journal2
-mkdir -p "$JSEED/jobs/tada/2026/01/01" "$JSEED/jobs/doin" "$JSEED/jobs/plan"
+mkdir -p "$JSEED/jobs/tada/2026/01/01" "$JSEED/jobs/doin" "$JSEED/jobs/todo" "$JSEED/jobs/plan"
 printf 'internal terminal job\n' > "$JSEED/jobs/tada/2026/01/01/swept.md"
+printf 'old completed attempt\n' > "$JSEED/jobs/tada/2026/01/01/reused.md"
+printf 'old completed queued attempt\n' > "$JSEED/jobs/tada/2026/01/01/queued.md"
+printf 'old completed parked attempt\n' > "$JSEED/jobs/tada/2026/01/01/parked.md"
 printf 'closed PR https://github.com/acme/proj/pull/10\n' > "$JSEED/jobs/tada/2026/01/01/closed-pr.md"
 printf 'same closed PR https://github.com/acme/proj/pull/10\n' > "$JSEED/jobs/tada/2026/01/01/closed-pr-again.md"
 printf 'open PR https://github.com/acme/proj/pull/11\n' > "$JSEED/jobs/tada/2026/01/01/open-pr.md"
 printf 'no residue https://github.com/acme/proj/pull/12\n' > "$JSEED/jobs/tada/2026/01/01/no-residue-pr.md"
 printf '%s\n' '---' 'doomed: true' '---' > "$JSEED/jobs/plan/doomed.md"
 printf 'still live\n' > "$JSEED/jobs/doin/live.md"
+printf 'current attempt with reused base\n' > "$JSEED/jobs/doin/reused.md"
+printf 'current queued attempt with reused base\n' > "$JSEED/jobs/todo/queued.md"
+printf 'current parked attempt with reused base\n' > "$JSEED/jobs/plan/parked.md"
 printf '%s\n' 'complete this job' '---' 'claim:' '  host: testhost' '  gardener: 1' > "$JSEED/jobs/doin/complete-now.md"
 git -C "$JSEED" "${git_id[@]}" add jobs
 git -C "$JSEED" "${git_id[@]}" commit -qm journal
@@ -104,7 +110,7 @@ else
   bad "completion left its project checkout or registration behind"
 fi
 
-for base in swept doomed live closed-pr closed-pr-again open-pr; do
+for base in swept doomed live reused queued parked closed-pr closed-pr-again open-pr; do
   # closed-pr-again exercises project-only residue detection; every other fixture
   # carries both checkout shapes.
   [ "$base" = closed-pr-again ] \
@@ -135,6 +141,22 @@ if [ -d "$SCRATCH/gardener-wt-live" ] && [ -d "$SCRATCH/project-wt-${livekey}-00
   ok "sweeper preserves non-terminal doin worktrees"
 else
   bad "sweeper removed a live doin worktree"
+fi
+
+reusedkey="$(project_worktree_base_key reused)"
+if [ -d "$SCRATCH/gardener-wt-reused" ] && [ -d "$SCRATCH/project-wt-${reusedkey}-00000002" ]; then
+  ok "sweeper ignores an old tada record when the same base has a live doin claim"
+else
+  bad "old tada record caused a reused live base's worktrees to be removed"
+fi
+
+queuedkey="$(project_worktree_base_key queued)"
+parkedkey="$(project_worktree_base_key parked)"
+if [ -d "$SCRATCH/gardener-wt-queued" ] && [ -d "$SCRATCH/project-wt-${queuedkey}-00000002" ] \
+   && [ -d "$SCRATCH/gardener-wt-parked" ] && [ -d "$SCRATCH/project-wt-${parkedkey}-00000002" ]; then
+  ok "sweeper ignores old tada records when the same bases are queued or parked"
+else
+  bad "old tada records caused queued or parked reused bases' worktrees to be removed"
 fi
 
 [ ! -e "$GROOT/worktrees/acme-proj/legacy-orphan" ] \
