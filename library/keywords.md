@@ -174,3 +174,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 inference provider broker, AgentInference, brokered Messages, inference reservation, provider spend cap, pre-secret admission, typed model fallback -> inference-provider-broker
 - hardened text codecs, hardened TextEncoder, hardened TextDecoder, `TextEncoder`, `TextDecoder`, `hardened-text-codecs-shim` -> permits-buckets
 - `HttpClient`, `HttpClientControl`, origin allowlist, network fetch, `http-confine`, `confined-fetch` -> endoclaw
+- Git capability, capability-scoped agent tools, confined agent tools -> policy-vs-capability-authorization
