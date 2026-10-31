@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T06:02:55Z_
+_As of 2026-10-31T06:06:07Z_
 
 ## Latest
 
@@ -1750,13 +1750,13 @@ _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a su
 worst fetch p95 6.421600s/45s (/home/kris/garden/.garden-state/transcripts/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (4)
-- [`improve-latency-mid-sweep-rest-reserve`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-latency-mid-sweep-rest-reserve.md) — ---
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (6)
+### doin (7)
+- [`improve-latency-mid-sweep-rest-reserve`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-latency-mid-sweep-rest-reserve.md) — ---
 - [`endo-ironhorse-oracle-stage3-math-ulp-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ironhorse-oracle-stage3-math-ulp-drift.md) — Fix: ironhorse oracle stage3-math/054,055 last-digit mismatch reds every PR o...
 - [`build-fs-interface-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-fs-interface-reconciliation.md) — ---
 - [`endojs-endo-but-for-bots-pr1544-shepherd-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1544-shepherd-20261031.md) — ---
