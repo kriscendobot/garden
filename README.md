@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T13:14:20Z_
+_As of 2026-10-31T13:15:49Z_
 
 ## Latest
 
@@ -544,6 +544,13 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` cleared on endolin-garden-ece02cb4.
+
+- `endojs-endo-but-for-bots-pr1590-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1590-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1590-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1590-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1590-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1590-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_dependabot_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_dependabot_watcher_verify.md)
 
@@ -1772,13 +1779,13 @@ worst fetch p95 4.555125s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`build-daemon-rename-to-manager`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1588
 
-### tada (15757)
+### tada (15758)
+- [`endojs-endo-but-for-bots-pr1590-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1590-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1590-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1590-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1590-gauntlet-clean.md) — Gauntlet CLEAN stage: endojs/endo-but-for-bots PR #1590 (CI is red)
 - [`oros-health-watch-20261031-115011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/oros-health-watch-20261031-115011.md) — Cost
 - [`oros-health-checkup-20261031-115011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/oros-health-checkup-20261031-115011.md) — Cost
 - [`build-endo-gateway`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-endo-gateway.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-panel-3.md) — Cost
-- … and 15752 more
+- … and 15753 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
