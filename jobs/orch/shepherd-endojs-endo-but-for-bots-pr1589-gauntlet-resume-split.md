@@ -1,4 +1,5 @@
 ---
+child-shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-expanded-window-reap-count: 0
 order: serial
 children: shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-expanded-window
 on-child-failure: halt
