@@ -8,6 +8,8 @@ dispatch: automatic
 ---
 Build `daemon-rename-to-manager` in endojs/endo-but-for-bots on a fresh `llm`-based branch, implementing the design’s Daemon/Mignonic-to-Manager/Worker rename as a mergeable draft PR.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
