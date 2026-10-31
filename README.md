@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T06:27:42Z_
+_As of 2026-10-31T06:39:05Z_
 
 ## Latest
 
@@ -320,6 +318,21 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
+
+- `20261031T063820Z-b3abb6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261031T063820Z-b3abb6.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: build-endopi-provider-registry-and-oauth
+> - question (msgid msg-build-endopi-provider-registry-and-oauth-ae4bb518ffda.md)
+> - tentative answer: Proxy/tentative (the maintainer may revise): choose (A). It is progress-oriented, reversible, and doesn't touch any reserved authority.
+>
+> - Build only the registry-level `authMode` / oauth plumbing over the existing renewable credential broker. Extend the API-key path in [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) and [endojs/endo-but-for-bots#1575](https://github.com/endojs/endo-but-for-bots/issues/1575), and don't duplicate the stdio bridge.
+> - Leave the Claude, ChatGPT and Copilot subscription modes registered as explicitly unavailable. Each should fail closed with a clear "not enabled" reason.
+> - Treat the newer merged hosted-agent-broker-oauth design as controlling. It deliberately keeps Claude subscription mode closed and Codex unproven, and the older design shouldn't override it.
+> - Design the plumbing so a provider can be enabled later by flipping a registry entry and adding an adapter, with no schema change. That way a later provider-specific OAuth decision or evidence costs almost nothing.
+> - Don't implement any real subscription OAuth flow, and don't use any third-party broker role that isn't documented. That would need maintainer-level evidence and a decision.
+> - In the PR description, note the conflict between the two designs and list the provider-specific questions still open, so the maintainer can answer them in review.
+> - If the work turns out to depend on [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) or [endojs/endo-but-for-bots#1575](https://github.com/endojs/endo-but-for-bots/issues/1575) landing first, stack on those branches. Don't wait on them.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
@@ -1485,10 +1498,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
-- `msg-build-endopi-provider-registry-and-oauth-ae4bb518ffda` — from gardener:build-endopi-provider-registry-and-oauth, reply_to `build-endopi-provider-registry-and-oauth` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-endopi-provider-registry-and-oauth-ae4bb518ffda.md)
-
-> I found a design conflict before building endopi-provider-registry-and-oauth. The older design asks for Claude/ChatGPT/Copilot subscription OAuth, but the newer merged hosted-agent-broker-oauth design deliberately keeps Claude subscription mode closed (no documented third-party broker role) and Codex only unproven; the live API-key registry/adapters are still draft PRs [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) and [endojs/endo-but-for-bots#1575](https://github.com/endojs/endo-but-for-bots/issues/1575). The job says to extend that API-key path and avoid duplicating the stdio bridge. Should I (A) add only registry-level authMode/oauth plumbing over the existing renewable credential broker, leaving provider subscription modes unavailable, or (B) wait for a provider-specific OAuth decision/evidence? I will continue with safe read-only analysis while awaiting guidance.
-
 - `watchdog-token-backoff-reset-unknown-codex-endolin` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-token-backoff-reset-unknown-codex-endolin.md)
 
 > token backoff for codex-endolin is on the 0.95 fallback: next reset for codex-endolin after 2026-10-30T00:20Z unclear; record it (append-reset-event.sh codex-endolin --type expected-next-scheduled --precision scheduled --at <ISO>). Record the next reset time so the standing ramp can resume.
@@ -1747,8 +1756,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.3M | $8.68 _(notional, rate-card)_ | 0% of 271.0M (ok) |
-| Codex | 269.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 1.3M | $9.03 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Codex | 269.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
