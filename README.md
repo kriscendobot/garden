@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T18:50:03Z_
+_As of 2026-10-31T18:53:32Z_
 
 ## Latest
 
@@ -1810,7 +1808,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.2M | $52.32 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 16.2M | $52.72 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 288.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53027937 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1824,7 +1822,8 @@ worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
+### doin (6)
+- [`fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-rerun.md) — ---
 - [`build-mvs-resolver`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-mvs-resolver.md) — ---
 - [`fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3.md) — ---
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1594
