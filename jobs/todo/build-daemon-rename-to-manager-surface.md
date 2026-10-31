@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: build-daemon-rename-to-manager-split
-priority: normal
 role: fixer
-posted_by: producer
+tier: mentor
 posted_at: 2026-10-31T15:07:55Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-31T15:24:00Z cleared=none -->
 
 ---
 role: fixer
