@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T23:00:48Z_
+_As of 2026-10-31T23:01:37Z_
 
 ## Latest
 
@@ -1486,11 +1486,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-10-18T14:45:48Z, latest 2026-10-31T08:46:03Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` has CLEARED (first seen 2026-10-18T14:45:48Z, cleared 2026-10-31T23:00:49Z).
+> It was observed 13 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.083580s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` cleared on oros-studio-garden-ce242c49.
 
 - `followup-gate-daemon-agent-tools-design-build` — from followup-gate:daemon-agent-tools-design-build, reply_to `daemon-agent-tools-design-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-daemon-agent-tools-design-build.md)
 
@@ -1834,7 +1834,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.0M | $110.14 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.0M | $110.71 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 296.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59755609 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
