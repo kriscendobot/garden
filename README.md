@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T17:35:38Z_
+_As of 2026-10-31T17:40:55Z_
 
 ## Latest
 
@@ -386,18 +384,6 @@ Delegation: **active**
 >
 > Comment acknowledgment condition cleared.
 
-- `msg-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-8dd9685e1b51` — from gardener:endojs-endo-but-for-bots-pr1586-gauntlet-fix-3, reply_to `endojs-endo-but-for-bots-pr1586-gauntlet-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-8dd9685e1b51.md)
-
-> COALESCED message — occurrence [#2](https://github.com/endojs/endo-but-for-bots/issues/2) (first seen 2026-10-31T17:16:16Z, latest 2026-10-31T17:23:25Z).
-> The SAME message (episode key `msg-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-8dd9685e1b51`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
->
-> [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) (fs interface reconciliation), gauntlet fix-3: FYI, plus one decision for you.
->
-> The panel blocked on promoting `subView` into the portable `Directory`/`SnapshotTree` contracts, because on [endojs/endo-but-for-bots#464](https://github.com/endojs/endo-but-for-bots/issues/464) you asked for the attenuator to be named `mount`. Fix-3 narrowed the PR: `subView` stays only where it already shipped (`EndoMount`, the extended `Directory`). `makeFile` stays mount-specific because `EndoMountFile` is not a platform `File`.
->
-> Decision needed: keep the name `subView`, or rename it to `mount` across EndoMount and the extended Directory? Promoting the attenuator into the lite contracts waits on your answer and will be its own change. No action is needed for [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) to proceed.
-
 - `msg-restore-endolin1-cap-20261017-01c510f7239c` — from gardener:restore-endolin1-cap-20261017, reply_to `restore-endolin1-cap-20261017` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-restore-endolin1-cap-20261017-01c510f7239c.md)
 
 > claude-endolin1 cap restored after the 2026-10-17T03:00Z reset: 430000000 -> 271000000 (provenance manual-implied-301M-90pct-20261006-maintainer, 2026-10-06; journal commit d2cdb7c3587). The window rolled (window_start 2026-10-17T03:00Z, spend 14.6M at 04:01Z). This host (endolin-garden-ece02cb4) has 4 monks, unchanged.
@@ -415,6 +401,29 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `20261031T173905Z-812ca7` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261031T173905Z-812ca7.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr1586-gauntlet-fix-3
+> - question (msgid msg-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-8dd9685e1b51.md)
+> - tentative answer: (proxy, tentative: the maintainer may revise.)
+>
+> Rename `subView` to `mount`. The maintainer asked for that name on [endojs/endo-but-for-bots#464](https://github.com/endojs/endo-but-for-bots/issues/464), so that request is the best evidence of what they want. Keeping `subView` would mean going against it.
+>
+> Options considered:
+> 1. Keep `subView`. This avoids churn, but it contradicts the maintainer's stated name and would likely draw the same objection again.
+> 2. Rename to `mount` across `EndoMount` and the extended `Directory`. This matches the maintainer's request and is cheap to undo while the work is still on the `llm` fork.
+> 3. Support both names, with `subView` as a deprecated alias. This is only worth doing if something outside this repo already depends on `subView`. Check with a quick grep first. If nothing does, skip the alias.
+>
+> Try option 2 first.
+>
+> Sequencing:
+> - Leave [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) as fix-3 narrowed it. Don't add the rename to that PR, so its gauntlet isn't disturbed.
+> - Do the rename, and the later promotion of the attenuator into the portable `Directory`/`SnapshotTree` contracts, as a separate follow-up change. Post it as its own job or PR.
+> - Keep `makeFile` mount-specific, since `EndoMountFile` is not a platform `File`.
+>
+> Because this is provisional, the follow-up can be thrown away if the maintainer decides differently. This does not authorize merging or closing anything.
 
 - `minion-town-pr-screening-stalled-pr218-5e2b623` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-stalled-pr218-5e2b623.md)
 
@@ -1822,7 +1831,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.1M | $38.01 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 12.1M | $38.30 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 287.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 50105713 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
