@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T13:15:49Z_
+_As of 2026-10-31T13:20:05Z_
 
 ## Latest
 
@@ -546,13 +544,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` cleared on endolin-garden-ece02cb4.
-
-- `endojs-endo-but-for-bots-pr1590-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1590-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1590-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1590-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1590-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1590-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_dependabot_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_dependabot_watcher_verify.md)
 
@@ -1762,7 +1753,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 6.0M | $30.24 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 281.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 43966407 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 43975171 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.555125s/45s (/home/kris/garden/.garden-state/transcripts/journal); 13 open notice(s); checker healthy
