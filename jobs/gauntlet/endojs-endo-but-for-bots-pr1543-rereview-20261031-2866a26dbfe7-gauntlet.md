@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1543-rereview-20261031-2866a26dbfe7-gauntlet-viability
+state: running
 created_by: shepherd
 arc: minion-town-claude-api
 created_at: 2026-10-31T09:47:45Z
