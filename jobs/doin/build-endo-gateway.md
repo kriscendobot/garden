@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Build the unblocked M3 `endo-gateway` design in endojs/endo-but-for-bots, opening a draft implementation PR against the current `llm` base with its gateway acceptance tests.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
