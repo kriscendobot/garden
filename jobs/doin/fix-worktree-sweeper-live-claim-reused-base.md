@@ -25,3 +25,13 @@ Fix so that:
 2. Liveness is re-checked right before the destructive step, after any lock wait.
 Add a regression test in scripts/jobs/test/ (a tada record plus a doin record for the same
 base: the sweeper must keep the worktrees).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-31T15:22:30Z
