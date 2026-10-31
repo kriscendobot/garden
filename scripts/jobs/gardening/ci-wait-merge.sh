@@ -84,8 +84,9 @@
 #   2  already CLOSED on entry                      → nothing to finalize
 #   3  CI red (terminal failure), OR a CONFLICTING head whose rollup is empty
 #      (CI can never run until the head is rebased)  → stall: needs shepherd
-#   4  timed out with CI still pending, OR live head changed after this job's
-#      rebase                                         → re-enqueue, still unmerged
+#   4  timed out with CI still pending, too little handler time left to wait
+#      (GARDEN_HANDLER_DEADLINE_EPOCH less the reserve), OR live head changed
+#      after this job's rebase                        → re-enqueue, still unmerged
 #   5  CI billing-blocked: every failed check is an Actions job the account's
 #      payment/spending limit kept from starting (maintainer alerted)
 #                                                     → park until billing is fixed
@@ -125,7 +126,9 @@
 # GARDEN_PR_WORKTREE. GARDEN_PR_REMOTE / GARDEN_BASE_REMOTE override its head/base
 # remotes (both default to origin).
 # Tunables (env): GARDEN_CI_DEADLINE_SECS (default 5400 = 90 min),
-#   GARDEN_CI_POLL_SECS (default 60), GARDEN_CI_POLL_MAX_SECS (backoff cap, 60).
+#   GARDEN_CI_POLL_SECS (default 60), GARDEN_CI_POLL_MAX_SECS (backoff cap, 60),
+#   GARDEN_CI_HANDLER_RESERVE_SECS (default 300: the wait ends at least this long
+#   before GARDEN_HANDLER_DEADLINE_EPOCH, the claim deadline gardener.sh exports).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -265,6 +268,34 @@ deadline_secs="${GARDEN_CI_DEADLINE_SECS:-5400}"
 poll_secs="${GARDEN_CI_POLL_SECS:-60}"
 poll_max="${GARDEN_CI_POLL_MAX_SECS:-60}"
 start="$(date +%s)"
+
+# The CI wait must end inside the claim that hosts it. gardener.sh exports
+# GARDEN_HANDLER_DEADLINE_EPOCH; a deadline past it gets this wait killed by the
+# worker wall before it can report `still-pending` (a gauntlet clean stage hit its
+# 7200s wall mid-wait, 2026-10-31). Clip the wait to that deadline less a reserve
+# for the exit and the caller's report. With too little time left, exit 4 before
+# any mutation so the caller re-posts the stage cleanly.
+: "${GARDEN_CI_HANDLER_RESERVE_SECS:=300}"
+handler_deadline="${GARDEN_HANDLER_DEADLINE_EPOCH:-}"
+case "$handler_deadline" in ''|*[!0-9]*) handler_deadline="" ;; esac
+case "$GARDEN_CI_HANDLER_RESERVE_SECS" in
+  ''|*[!0-9]*) die "GARDEN_CI_HANDLER_RESERVE_SECS must be a non-negative integer: $GARDEN_CI_HANDLER_RESERVE_SECS" ;;
+esac
+# wait_end <window-start> -> the epoch this wait must give up at.
+wait_end() {
+  local end=$(( $1 + deadline_secs ))
+  if [ -n "$handler_deadline" ] && [ $(( handler_deadline - GARDEN_CI_HANDLER_RESERVE_SECS )) -lt "$end" ]; then
+    end=$(( handler_deadline - GARDEN_CI_HANDLER_RESERVE_SECS ))
+  fi
+  echo "$end"
+}
+end_epoch="$(wait_end "$start")"
+if [ "$end_epoch" -le "$start" ]; then
+  echo "ci-wait-timeout repo=$repo pr=$pr insufficient handler time (deadline $handler_deadline, reserve ${GARDEN_CI_HANDLER_RESERVE_SECS}s) — STILL UNMERGED, re-enqueue"
+  exit 4
+fi
+[ "$end_epoch" -ge $(( start + deadline_secs )) ] \
+  || log "CI wait clipped to $(( end_epoch - start ))s by the handler deadline (configured ${deadline_secs}s, reserve ${GARDEN_CI_HANDLER_RESERVE_SECS}s)"
 
 # A rerun or a superseding push leaves the earlier check run in the rollup next
 # to the new one, so a commit whose latest runs are all green can still carry a
@@ -537,7 +568,15 @@ actions_billing_blocked() {
 
 # A persistent read failure must NOT loop past the deadline. Honor the same bound
 # the pending branch does, so a flapping gh/network can never spin unbounded.
-past_deadline() { [ $(( $(date +%s) - start )) -ge "$deadline_secs" ]; }
+past_deadline() { [ "$(date +%s)" -ge "$end_epoch" ]; }
+
+# sleep_poll <secs>: sleep, but never past the wait's end.
+sleep_poll() {
+  local left=$(( end_epoch - $(date +%s) ))
+  [ "$left" -gt 0 ] || return 0
+  [ "$1" -le "$left" ] || set -- "$left"
+  sleep "$1"
+}
 
 # Read one field of a $repo REST resource. Prints it and returns 0; returns 2 when
 # GitHub says the resource does not exist (HTTP 404/422 — no such branch or
@@ -731,10 +770,10 @@ while :; do
   [ "$read_rc" -ne 6 ] || ci_read_forbidden_exit
   if [ "$read_rc" -ne 0 ]; then
     if past_deadline; then
-      echo "ci-wait-timeout repo=$repo pr=$pr (gh read kept failing) after ${deadline_secs}s — STILL UNMERGED, re-enqueue"
+      echo "ci-wait-timeout repo=$repo pr=$pr (gh read kept failing) after $(( $(date +%s) - start ))s — STILL UNMERGED, re-enqueue"
       exit 4
     fi
-    sleep "$poll_secs"; continue
+    sleep_poll "$poll_secs"; continue
   fi
   IFS='|' read -r state pending failed total review observed_head mergeable <<<"$rollup"
 
@@ -779,16 +818,16 @@ while :; do
       fi
       prev_conflicting=1
       log "waiting: $repo#$pr reads mergeable=CONFLICTING with an empty rollup; confirming on the next tick"
-      sleep "$poll_secs"; continue
+      sleep_poll "$poll_secs"; continue
     fi
     prev_conflicting=0
     now="$(date +%s)"
-    if [ $(( now - start )) -ge "$deadline_secs" ]; then
-      echo "ci-wait-timeout repo=$repo pr=$pr rollup stayed EMPTY after ${deadline_secs}s — STILL UNMERGED, re-enqueue (set GARDEN_CI_ALLOW_NO_CHECKS=1 for a checkless repo)"
+    if [ "$now" -ge "$end_epoch" ]; then
+      echo "ci-wait-timeout repo=$repo pr=$pr rollup stayed EMPTY after $(( now - start ))s — STILL UNMERGED, re-enqueue (set GARDEN_CI_ALLOW_NO_CHECKS=1 for a checkless repo)"
       exit 4
     fi
-    log "waiting: $repo#$pr rollup empty (checks not attached yet; elapsed $(( now - start ))s / ${deadline_secs}s)"
-    sleep "$poll_secs"; continue
+    log "waiting: $repo#$pr rollup empty (checks not attached yet; elapsed $(( now - start ))s / $(( end_epoch - start ))s)"
+    sleep_poll "$poll_secs"; continue
   fi
 
   if [ "${pending:-0}" -eq 0 ]; then
@@ -832,6 +871,11 @@ while :; do
         echo "base-moved repo=$repo pr=$pr head=${post_rebase_head:0:11} → ${refreshed_head:0:11}; invalidating prior green and re-waiting"
         post_rebase_head="$refreshed_head"
         start="$(date +%s)"
+        end_epoch="$(wait_end "$start")"
+        if [ "$end_epoch" -le "$start" ]; then
+          echo "ci-wait-timeout repo=$repo pr=$pr head moved with insufficient handler time left — STILL UNMERGED, re-enqueue"
+          exit 4
+        fi
         poll_secs="${GARDEN_CI_POLL_SECS:-60}"
         continue
       fi
@@ -840,12 +884,12 @@ while :; do
   fi
 
   now="$(date +%s)"
-  if [ $(( now - start )) -ge "$deadline_secs" ]; then
-    echo "ci-wait-timeout repo=$repo pr=$pr pending=$pending total=$total after ${deadline_secs}s — STILL UNMERGED, re-enqueue"
+  if [ "$now" -ge "$end_epoch" ]; then
+    echo "ci-wait-timeout repo=$repo pr=$pr pending=$pending total=$total after $(( now - start ))s — STILL UNMERGED, re-enqueue"
     exit 4
   fi
-  log "waiting: $repo#$pr pending=$pending/$total (elapsed $(( now - start ))s / ${deadline_secs}s)"
-  sleep "$poll_secs"
+  log "waiting: $repo#$pr pending=$pending/$total (elapsed $(( now - start ))s / $(( end_epoch - start ))s)"
+  sleep_poll "$poll_secs"
   # Gentle backoff so a long wait isn't a tight poll, capped so we never miss a
   # transition by more than poll_max.
   poll_secs=$(( poll_secs + 15 )); [ "$poll_secs" -gt "$poll_max" ] && poll_secs="$poll_max"

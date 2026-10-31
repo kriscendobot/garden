@@ -108,6 +108,9 @@ export GARDEN_PANEL_HEAD_FRESHNESS_SENSOR="$TR/panel-head-freshness"
 export GARDEN_CI_DOCKET_REQUEST=/bin/true
 export GARDEN_NO_MAINTAINER_ALERT=1
 export GARDEN_CI_POLL_SECS=0 GARDEN_CI_POLL_MAX_SECS=0 GARDEN_CI_DEADLINE_SECS=5
+# A gardener running this suite exports its own claim deadline; the cases below
+# set it explicitly when they exercise the clamp.
+unset GARDEN_HANDLER_DEADLINE_EPOCH
 printf 'kriskowal\n' > "$TR/maintainers"
 export GARDEN_MAINTAINERS_ALLOWLIST="$TR/maintainers"
 
@@ -684,6 +687,25 @@ ATTACHED_GREEN="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\
 seq_add "$ATTACHED_GREEN"; runs_body "$(wf_run test completed '"success"' 988)" > "$STUBDIR/runs"
 run_capture o/r 1559 --no-merge; chk "$rc" 0 T60
 grep -q 'CI GREEN' "$STUBDIR/output" && ok "T60 attached workflow accepted" || bad "T60 green missing: $(cat "$STUBDIR/output")"
+
+echo "T61 handler deadline inside the reserve → exit 4 before any rebase or merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+GARDEN_HANDLER_DEADLINE_EPOCH=$(( $(date +%s) + 100 )) GARDEN_CI_HANDLER_RESERVE_SECS=300 GARDEN_CI_DEADLINE_SECS=999 \
+  run_capture o/r 178; chk "$rc" 4 T61; nomerge T61
+[ -f "$STUBDIR/rebase.log" ] && bad "T61 rebase WAS run" || ok "T61 no rebase"
+grep -q 'insufficient handler time' "$STUBDIR/output" && ok "T61 names the handler deadline" || bad "T61 reason missing: $(cat "$STUBDIR/output")"
+
+echo "T62 handler deadline clips a long CI deadline → exit 4 at the clipped end"
+reset_seq; seq_add "$PEND"
+t0=$(date +%s)
+GARDEN_HANDLER_DEADLINE_EPOCH=$(( t0 + 302 )) GARDEN_CI_HANDLER_RESERVE_SECS=300 GARDEN_CI_DEADLINE_SECS=999 \
+  run_capture o/r 178 --no-merge; chk "$rc" 4 T62; nomerge T62
+[ $(( $(date +%s) - t0 )) -lt 30 ] && ok "T62 ended near the clipped deadline" || bad "T62 waited past the clipped deadline"
+grep -q 'clipped to' "$STUBDIR/output" && ok "T62 logs the clip" || bad "T62 clip log missing: $(cat "$STUBDIR/output")"
+
+echo "T63 ample handler time → unaffected green merge"
+reset_seq; seq_add "$PEND"; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+GARDEN_HANDLER_DEADLINE_EPOCH=$(( $(date +%s) + 7200 )) run o/r 178; chk "$rc" 0 T63; merged T63
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"
