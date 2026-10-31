@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T18:57:49Z_
+_As of 2026-10-31T19:01:48Z_
 
 ## Latest
 
@@ -1170,19 +1168,6 @@ Delegation: **active**
 >
 > M2 is stalled on hardened-text-codecs-shim: its PR #1349 closed after upstream merged different fix [endojs/endo#3376](https://github.com/endojs/endo/issues/3376). Decide whether #3376 completes or supersedes the design so the journal record can advance and M3 can begin.
 
-- `msg-fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-3a480cadecb1` — from gardener:fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3, reply_to `fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-3a480cadecb1.md)
-
-> endojs/endo-but-for-bots: the recurring red check `bwrap › bwrap timeout and repeated cancellation reap process groups` ("process group N survived bounded cleanup") is a real containment race in the bwrap driver, not a CI flake. It also turned [https://github.com/endojs/endo-but-for-bots/pull/1586](https://github.com/endojs/endo-but-for-bots/pull/1586)'s cover job red. Your merge of [https://github.com/endojs/endo-but-for-bots/pull/1542](https://github.com/endojs/endo-but-for-bots/pull/1542) is what clears it.
->
-> - Cause: a group SIGTERM that lands during bwrap's namespace setup kills the outer launcher before the sandbox init arms `--die-with-parent`. The init is a pid-namespace init, so it ignores the SIGTERM. It then either stays stuck in the group (the CI signature) or calls `setsid` and runs the sandboxed command orphaned.
-> - I reproduced it against real bwrap 0.9 on oros. Leaked sandboxes per 350 kills, 0–30ms after spawn:
->   - group SIGTERM (the current driver): 65
->   - group SIGKILL: 3
->   - SIGTERM, then a group SIGKILL when the leader exits (the [https://github.com/endojs/endo-but-for-bots/pull/1591](https://github.com/endojs/endo-but-for-bots/pull/1591) approach): 12
->   - group SIGKILL plus SIGKILL of the init pid reported by bwrap's status fd: 0, across 700 trials
-> - [https://github.com/endojs/endo-but-for-bots/pull/1542](https://github.com/endojs/endo-but-for-bots/pull/1542) (green, un-drafted, waiting on your merge since 2026-10-24) takes the init-kill approach via `--info-fd` and adds a setup-window regression test. [https://github.com/endojs/endo-but-for-bots/pull/1591](https://github.com/endojs/endo-but-for-bots/pull/1591) is the weaker leader-exit sweep. Its viability stage already called it superseded by [https://github.com/endojs/endo-but-for-bots/pull/1542](https://github.com/endojs/endo-but-for-bots/pull/1542), and these numbers back that up.
-> - Ask: merge [https://github.com/endojs/endo-but-for-bots/pull/1542](https://github.com/endojs/endo-but-for-bots/pull/1542) and close [https://github.com/endojs/endo-but-for-bots/pull/1591](https://github.com/endojs/endo-but-for-bots/pull/1591). PRs on the `llm-9a14ddf` base, [https://github.com/endojs/endo-but-for-bots/pull/1586](https://github.com/endojs/endo-but-for-bots/pull/1586) among them, need a weave to pick up the fix. Meanwhile, job `fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-rerun` (pinned to endolin) reruns [https://github.com/endojs/endo-but-for-bots/pull/1586](https://github.com/endojs/endo-but-for-bots/pull/1586)'s cover job and reports on the PR.
-
 - `minion-town-pr-screening-paused-8a3ce66` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-8a3ce66.md)
 
 > minion.town screening PAUSED: merge 8a3ce66c4e8 of [https://github.com/kriscendobot/minion.town/pull/204](https://github.com/kriscendobot/minion.town/pull/204) broke production (deploy.yml failure). Run: https://github.com/kriscendobot/minion.town/actions/runs/39281790117
@@ -1823,10 +1808,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.3M | $53.54 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Claude | 16.4M | $52.81 _(notional, rate-card)_ | 6% of 271.0M (ok) |
 | Codex | 288.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 53027937 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 14 open notice(s); checker healthy
@@ -1837,20 +1822,19 @@ worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
-- [`fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-rerun.md) — ---
+### doin (4)
 - [`build-mvs-resolver`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-mvs-resolver.md) — ---
-- [`fix-endojs-endo-but-for-bots-pr1347-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1347-ci.md) — ---
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1594
+- [`build-endo-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability.md) — ---
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1595
 
-### tada (15826)
+### tada (15828)
+- [`fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3-rerun.md) — Panel-head freshness
+- [`fix-endojs-endo-but-for-bots-pr1347-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/fix-endojs-endo-but-for-bots-pr1347-ci.md) — Cost
 - [`build-daemon-git-capability-lal-genie-agent-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-daemon-git-capability-lal-genie-agent-adapters.md) — Panel-head freshness
 - [`fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1560-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1560-gauntlet — complete
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-undraft.md) — Cost
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-panel-6.md) — Cost
-- … and 15821 more
+- … and 15823 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1931,6 +1915,7 @@ worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journ
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
+- [`endojs-endo-but-for-bots-pr1347-weave-after-pr1585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1347-weave-after-pr1585.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1585` · ---
 - [`claude-api-p3-minion-ui`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-api-p3-minion-ui.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1575` · Phase 3: minion.town provider endpoint, UI step, and Providers page
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
