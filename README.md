@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T03:49:43Z_
+_As of 2026-10-31T03:52:15Z_
 
 ## Latest
 
@@ -1089,11 +1089,11 @@ Delegation: **active**
 
 - `foreman-milestone-M2-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2-M3.md)
 
-> COALESCED message — occurrence #4 (first seen 2026-10-29T14:41:06Z, latest 2026-10-30T16:24:46Z).
-> The SAME message (episode key `foreman-milestone-M2-M3`) has now been sent 4 times; this is
-> ONE entry that updates in place, not 4 messages. Latest detail:
+> COALESCED message — occurrence #5 (first seen 2026-10-29T14:41:06Z, latest 2026-10-31T03:51:24Z).
+> The SAME message (episode key `foreman-milestone-M2-M3`) has now been sent 5 times; this is
+> ONE entry that updates in place, not 5 messages. Latest detail:
 >
-> M2 is blocked on acceptance: [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584) has a passing gauntlet and green CI, but the remaining hardened-text-codecs documentation is split across overlapping #1431, #1576, and #1583. Decide which PRs to accept or retire and when to mark `hardened-text-codecs-shim` complete so M3 can proceed.
+> M2 is stalled on hardened-text-codecs-shim: its PR #1349 closed after upstream merged different fix [endojs/endo#3376](https://github.com/endojs/endo/issues/3376). Decide whether #3376 completes or supersedes the design so the journal record can advance and M3 can begin.
 
 - `minion-town-pr-screening-paused-8a3ce66` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-paused-8a3ce66.md)
 
