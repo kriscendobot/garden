@@ -61,3 +61,13 @@ None. Formulas persisted before this change reconstitute as host-engine shells.
 
 <!-- garden-job: daemon-agent-tools-design-build -->
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-31T22:17:37Z
