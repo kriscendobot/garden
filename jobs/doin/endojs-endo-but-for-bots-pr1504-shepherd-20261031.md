@@ -11,6 +11,8 @@ Shepherd endojs/endo-but-for-bots PR #1504, the M3 sandbox Shell engine that blo
 <!-- garden-reaped: 0 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
