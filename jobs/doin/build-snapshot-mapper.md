@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Build the unblocked M3 `snapshot-mapper` design in endojs/endo-but-for-bots on a new draft PR, implementing the package-snapshot mapping layer that follows the queued MVS resolver and unblocks worker import from mount.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-31T18:39:11Z
