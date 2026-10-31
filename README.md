@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T16:29:48Z_
+_As of 2026-10-31T16:36:44Z_
 
 ## Latest
 
@@ -1803,37 +1803,37 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 8.3M | $26.54 _(notional, rate-card)_ | 3% of 271.0M (ok) |
-| Codex | 286.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Claude | 10.0M | $33.79 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Codex | 286.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 46507261 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 48205015 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 16 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (5)
+- [`claude-on-minion-town-completion-press-20261031-163518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261031-163518.md) — Completion press: Claude-on-minion.town arc
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`endojs-endo-but-for-bots-pr1593-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1593-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1593
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (8)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1589-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1589-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1589
-- [`build-daemon-git-remotes-interactive-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-interactive-provisioning.md) — ---
-- [`endojs-endo-but-for-bots-pr1592-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1592-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1592
-- [`endojs-endo-but-for-bots-pr1593-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1593-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1593
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1595
 - [`build-daemon-rename-to-manager-surface`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager-surface.md) — ---
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1560
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1594
 - [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1586-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1586
 
-### tada (15790)
-- [`accountant-weekly-20261031-160509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/accountant-weekly-20261031-160509.md) — Cost
-- [`endojs-endo-but-for-bots-pr1592-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1592-gauntlet-clean.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-ff8840946e50`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/canary-probe-oros-studio-garden-ce242c49-ff8840946e50.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1593-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1593-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1593-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1593-gauntlet-clean.md) — Cost
-- … and 15785 more
+### tada (15795)
+- [`endojs-endo-but-for-bots-pr1592-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1592-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1592-gauntlet — complete
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1595-gauntlet-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1592-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1592-gauntlet-undraft.md) — Cost
+- [`endojs-endo-but-for-bots-pr1592-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1592-gauntlet-panel-1.md) — Cost
+- [`build-daemon-git-remotes-interactive-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-daemon-git-remotes-interactive-provisioning.md) — Cost
+- … and 15790 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
