@@ -29,3 +29,13 @@ at 2026-10-31T03:00:00Z. He wants a report on the increased coverage at the end 
 Land `reports/ironhorse-coverage-quota-week-20261031.md` on journal2 per
 `skills/liaison-reports/SKILL.md` § Landing convention and give the fully qualified
 https://github.com/kriscendobot/garden/blob/journal2/reports/ URL in the completion report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-31T04:05:26Z
