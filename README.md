@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T18:11:20Z_
+_As of 2026-10-31T18:14:31Z_
 
 ## Latest
 
@@ -1810,7 +1808,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.5M | $37.55 _(notional, rate-card)_ | 5% of 271.0M (ok) |
+| Claude | 12.5M | $37.69 _(notional, rate-card)_ | 5% of 271.0M (ok) |
 | Codex | 288.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 50413648 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1819,16 +1817,16 @@ _Fleet token-unlock pace: 50413648 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (5)
 - [`build-mvs-resolver`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-mvs-resolver.md) — ---
-- [`oros-health-checkup-20261031-180512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261031-180512.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-watch-20261031-180512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261031-180512.md) — ---
 
-### doin (7)
+### doin (8)
 - [`fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-3.md) — ---
+- [`oros-health-checkup-20261031-180512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261031-180512.md) — ---
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1594
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1560
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1595
