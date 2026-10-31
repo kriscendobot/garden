@@ -1,2 +1,2 @@
-base: improve-comment-latency-quota-warning-coalesce
+base: improve-latency-mid-sweep-rest-reserve
 identity: mentor:scripts/jobs/comment-latency-watch.sh
