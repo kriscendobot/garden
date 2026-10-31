@@ -1,4 +1,5 @@
 ---
+child-shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-expanded-window-host: endolin-garden-ece02cb4
 child-shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-expanded-window-reap-count: 0
 order: serial
 children: shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume-expanded-window
