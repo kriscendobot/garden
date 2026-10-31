@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "repo": "endojs/endo-but-for-bots",
+  "pr": 1298,
+  "url": "https://github.com/endojs/endo-but-for-bots/pull/1298",
+  "head_oid": "168f38e5e42e1b5d1e1e83ef8d7a963bfec77b08",
+  "ask": "re-review",
+  "arc": "unallocated",
+  "milestone": "-",
+  "summary": "Panel reviewed 558a9b7d, but the presented head is 168f38e5e42e",
+  "unblocks": [],
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1298-558a9b7d-168f38e5",
+  "requested_at": "2026-10-31T05:33:19Z",
+  "first_requested_at": "2026-10-31T05:33:19Z",
+  "generation": 1,
+  "ci": {
+    "state": "pending",
+    "observed_at": "2026-10-31T05:33:21Z"
+  }
+}
