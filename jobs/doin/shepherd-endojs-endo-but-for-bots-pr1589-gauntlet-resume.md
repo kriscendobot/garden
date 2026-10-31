@@ -31,3 +31,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1589 on `build-daemon-git-capability`: resume its halted gauntlet now that CI is green, obtain a fresh panel verdict, and drive the remaining review work.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-31T22:13:52Z
