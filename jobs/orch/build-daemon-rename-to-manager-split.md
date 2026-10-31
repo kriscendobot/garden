@@ -1,4 +1,5 @@
 ---
+child-build-daemon-rename-to-manager-surface-host: endolin-garden-ece02cb4
 child-build-daemon-rename-to-manager-surface-reap-count: 0
 child-build-daemon-rename-to-manager-runtime-host: endolin-garden-ece02cb4
 child-build-daemon-rename-to-manager-runtime-reap-count: 0
