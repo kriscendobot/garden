@@ -17,9 +17,15 @@
 //   stdin (so the caller can feed `git show base:file` or the working tree).
 //
 //   stdout: zero or more lines, each a JSON object:
-//     {"key":"<stable-descriptor>","line":<n>,"deprecated":<bool>,"form":"<form>"}
+//     {"key":"<stable-descriptor>","line":<n>,"position":<n>,"source":"<module>",
+//      "arity":<n>,"deprecated":<bool>,"form":"<form>"}
 //     - key         identity independent of position, for the set difference.
 //     - line        1-based line of the re-export in THIS source (for reporting).
+//     - position    zero-based ordinal among qualified re-export statements.
+//     - source      source-module specifier, used with position to recognize a
+//                   binding-only rename whose key necessarily changed.
+//     - arity       number of value bindings; prevents an added binding from
+//                   hiding behind a rename of an existing statement.
 //     - deprecated  true iff the node's immediately-preceding leading comment is a
 //                   JSDoc block containing `@deprecated` (Decision 2).
 //     - form        named | wildcard | namespace  (for the human message).
@@ -126,7 +132,7 @@ function quote(value) {
 
 // One descriptor per VALUE re-export statement. The key is order-independent
 // within a statement (specifiers sorted) so a reordering is not a "new" export.
-function describe(node) {
+function describe(node, position) {
   const line = node.loc ? node.loc.start.line : 0;
   const deprecated = isDeprecated(node);
   const source = node.source.value;
@@ -140,11 +146,22 @@ function describe(node) {
       return {
         key: `namespace|${quote(node.exported.name)}|${quote(source)}`,
         line,
+        position,
+        source,
+        arity: 1,
         deprecated,
         form: 'namespace',
       };
     }
-    return { key: `wildcard|${quote(source)}`, line, deprecated, form: 'wildcard' };
+    return {
+      key: `wildcard|${quote(source)}`,
+      line,
+      position,
+      source,
+      arity: 1,
+      deprecated,
+      form: 'wildcard',
+    };
   }
 
   if (node.type === 'ExportNamedDeclaration' && node.source) {
@@ -170,6 +187,9 @@ function describe(node) {
     return {
       key: `named|${quote(source)}|${pairs.map(quote).join(',')}`,
       line,
+      position,
+      source,
+      arity: pairs.length,
       deprecated,
       form: 'named',
     };
@@ -178,12 +198,14 @@ function describe(node) {
   return null;
 }
 
+let position = 0;
 for (const node of ast.program.body) {
   if (
     node.type === 'ExportAllDeclaration' ||
     (node.type === 'ExportNamedDeclaration' && node.source)
   ) {
-    const descriptor = describe(node);
+    const descriptor = describe(node, position);
+    position += 1;
     if (descriptor) process.stdout.write(`${JSON.stringify(descriptor)}\n`);
   }
 }

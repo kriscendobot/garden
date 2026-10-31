@@ -101,10 +101,12 @@ detector's dependency travels **inside this skill**:
   `vendor/README.md` (provenance + how to refresh).
 - **`reexport-parse.cjs`** — the small parse helper the probe and seat call. It reads
   a module's source on stdin and prints one JSON descriptor per **value** qualified
-  re-export: a position-independent `key` (for the set difference), the `line`, and
-  whether the node is a `@deprecated` shim. It selects Babel plugins by file
-  extension (TypeScript for `.ts`/`.tsx`, JSX otherwise) and parses with
-  `errorRecovery` so one stray syntax error does not blind the detector.
+  re-export: a position-independent `key` (for the set difference), the `line`, its
+  source module, ordinal position, value-binding count, and whether the node is a
+  `@deprecated` shim. Source plus position, form, and binding count preserve identity
+  across a binding-only rename without hiding an added binding. It selects Babel
+  plugins by file extension (TypeScript for `.ts`/`.tsx`, JSX otherwise) and parses
+  with `errorRecovery` so one stray syntax error does not blind the detector.
 
 ## The detector pipeline (Decision 3)
 
@@ -116,8 +118,10 @@ detector's dependency travels **inside this skill**:
   `export` word is never parsed.
 - **(b) Babel set-difference** — parse the file BEFORE and AFTER (via
   `reexport-parse.cjs`), take the set difference of qualified value re-exports
-  (after − before) so only a **newly introduced** re-export is a candidate, and drop
-  any candidate immediately preceded by a `@deprecated` JSDoc block.
+  (after − before) so only a **newly introduced** re-export is a candidate. A changed
+  key is also retained as pre-existing when the base has a re-export with the same
+  source module, ordinal position, form, and binding count. Drop any remaining
+  candidate immediately preceded by a `@deprecated` JSDoc block.
 - **(c) LLM responder** — the `reexport-auditor` jury seat spends a `claude -p` only
   when (a)+(b) surface at least one candidate, to adjudicate plain-vs-value-adding and
   deprecation adequacy (`seat-gate-reexport-auditor.sh`).

@@ -73,7 +73,7 @@ function git(args, { allowFail = false } = {}) {
   return null;
 }
 
-// --- the diff: [{ file, content, added:Set<line> }] ---------------------------
+// --- the diff: [{ file, content, added:Set<line>, hunks:[{added,removed}] }] ----
 function diffArgs() {
   if (options.mode === 'base') return [`${options.base}...HEAD`];
   if (options.mode === 'staged') return ['--staged'];
@@ -90,22 +90,40 @@ function headContent(file) {
   }
 }
 
-function addedLines(file) {
+function diffChanges(file) {
   const out = git(['diff', '-U0', '--no-color', ...diffArgs(), '--', file], { allowFail: true }) || '';
   const added = new Set();
-  for (const match of out.matchAll(/^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/gm)) {
-    const start = Number(match[1]);
-    const count = match[2] === undefined ? 1 : Number(match[2]);
-    for (let n = start; n < start + count; n += 1) added.add(n);
+  const hunks = [];
+  let hunk = null;
+  let afterLine = 0;
+  for (const line of out.split('\n')) {
+    const header = line.match(/^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/);
+    if (header) {
+      afterLine = Number(header[1]);
+      hunk = { added: [], removed: [] };
+      hunks.push(hunk);
+      continue;
+    }
+    if (!hunk || line.startsWith('+++') || line.startsWith('---')) continue;
+    if (line.startsWith('+')) {
+      added.add(afterLine);
+      hunk.added.push({ line: afterLine, text: line.slice(1) });
+      afterLine += 1;
+    } else if (line.startsWith('-')) {
+      hunk.removed.push(line.slice(1));
+    } else if (!line.startsWith('\\')) {
+      afterLine += 1;
+    }
   }
-  return added;
+  return { added, hunks };
 }
 
 function changedFiles() {
   if (options.mode === 'stdin') {
     const content = fs.readFileSync(0, 'utf8');
     const lines = content.split('\n');
-    return [{ file: options.label, content, added: new Set(lines.map((_, n) => n + 1)) }];
+    const added = lines.map((text, n) => ({ line: n + 1, text }));
+    return [{ file: options.label, content, added: new Set(added.map(change => change.line)), hunks: [{ added, removed: [] }] }];
   }
   if (!options.mode) {
     const staged = git(['diff', '--staged', '--name-only'], { allowFail: true }) || '';
@@ -119,7 +137,7 @@ function changedFiles() {
   for (const file of names) {
     const content = headContent(file);
     if (content === null) continue;
-    files.push({ file, content, added: addedLines(file) });
+    files.push({ file, content, ...diffChanges(file) });
   }
   return files;
 }
@@ -280,7 +298,7 @@ function main() {
     lib.segments(name).length >= 2 && !generic(name) && (packagesByName.get(name) || new Set()).size === 1;
 
   const out = [];
-  for (const { file, content, added } of changedFiles()) {
+  for (const { file, content, added, hunks } of changedFiles()) {
     const exempt = exemptMarkers(content);
     if (exempt.all) continue;
     const lines = content.split('\n');
@@ -288,29 +306,50 @@ function main() {
     // Idiom pass: every matching added line, remembered for strength too.
     const idiomLines = [];
     const emitted = new Set();
-    lines.forEach((text, n) => {
-      if (!added.has(n + 1) || isCommentLine(text)) return;
-      for (const idiom of idioms) {
-        if (!idiom.re.test(text)) continue;
-        idiomLines.push({ line: n + 1, idiom });
-        if (!options.passes.has('idiom') || exempt.idiom) continue;
-        if (idiom.waiver === 'import' && importsSpecifier(content, idiom.specifier)) continue;
-        const key = `${idiom.specifier}\0${idiom.description}`;
-        if (emitted.has(key)) continue;
-        emitted.add(key);
-        out.push({
-          pass: 'idiom',
-          file,
-          line: n + 1,
-          id: idiom.id,
-          name: idiom.exportName,
-          description: idiom.description,
-          advice: idiom.waiver === 'none' && idiom.exportName ? `${idiom.exportName} from ${idiom.specifier}` : idiom.specifier,
-          provider: { specifier: idiom.specifier, export: idiom.exportName },
-          waiver: null,
-        });
+    for (const hunk of hunks) {
+      // A replacement that still contains the same idiom is an edit to an
+      // existing occurrence, not a newly introduced one. Cancel matching
+      // removed/added occurrences as a multiset so an additional occurrence in
+      // the same hunk remains reportable.
+      const removedCounts = new Map();
+      for (const text of hunk.removed) {
+        if (isCommentLine(text)) continue;
+        for (const idiom of idioms) {
+          if (idiom.re.test(text)) removedCounts.set(idiom.id, (removedCounts.get(idiom.id) || 0) + 1);
+        }
       }
-    });
+      for (const { line, text } of hunk.added) {
+        if (isCommentLine(text)) continue;
+        for (const idiom of idioms) {
+          if (!idiom.re.test(text)) continue;
+          idiomLines.push({ line, idiom });
+          const removed = removedCounts.get(idiom.id) || 0;
+          if (removed > 0) {
+            removedCounts.set(idiom.id, removed - 1);
+            continue;
+          }
+          if (!options.passes.has('idiom') || exempt.idiom) continue;
+          if (idiom.waiver === 'import' && importsSpecifier(content, idiom.specifier)) continue;
+          const key = `${idiom.specifier}\0${idiom.description}`;
+          if (emitted.has(key)) continue;
+          emitted.add(key);
+          out.push({
+            pass: 'idiom',
+            file,
+            line,
+            id: idiom.id,
+            name: idiom.exportName,
+            description: idiom.description,
+            advice:
+              idiom.waiver === 'none' && idiom.exportName
+                ? `${idiom.exportName} from ${idiom.specifier}`
+                : idiom.specifier,
+            provider: { specifier: idiom.specifier, export: idiom.exportName },
+            waiver: null,
+          });
+        }
+      }
+    }
 
     if (!options.passes.has('name') || fnRows.length === 0) continue;
     const program = lib.parse(content, file);

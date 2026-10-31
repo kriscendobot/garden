@@ -6,6 +6,8 @@ set -uo pipefail
 
 ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
 PREFER="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/prefer-endo-primitives.sh"
+REEXPORT="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/no-plain-reexport.sh"
+export GARDEN_REEXPORT_PARSER="$ROOT/skills/re-export-deprecation-policy/reexport-parse.cjs"
 SPELL="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/spell-out-identifiers.sh"
 TYPEDEFS="$ROOT/scripts/jobs/gardening/pre-push-gates/probes/typedefs-belong-in-dts.sh"
 PURIST="$ROOT/skills/panel-hints/probes/C-purist.sh"
@@ -188,6 +190,80 @@ if "$PREFER" "$REPOSITORY" | grep -qx pass; then
   ok 'a pre-existing matching import suppresses a staged finding'
 else
   bad 'the staged-diff path ignored a pre-existing matching import'
+fi
+
+# Pure identifier renames retain an existing idiom rather than introducing it.
+git -C "$REPOSITORY" reset -q --hard HEAD
+printf '%s\n' \
+  'export const facets = {' \
+  "  workerDaemonFacet: Far('Worker', {})," \
+  '};' > "$REPOSITORY/worker.js"
+git -C "$REPOSITORY" add worker.js
+git -C "$REPOSITORY" commit -qm far-base
+printf '%s\n' \
+  'export const facets = {' \
+  "  workerManagerFacet: Far('Worker', {})," \
+  '};' > "$REPOSITORY/worker.js"
+git -C "$REPOSITORY" add worker.js
+if "$PREFER" "$REPOSITORY" | grep -qx pass; then
+  ok 'renaming a property beside an existing Far idiom does not introduce bare Far'
+else
+  bad 'pure identifier rename re-reported an existing Far idiom'
+fi
+
+# Cancellation is multiset-based: a second occurrence added in the replacement
+# hunk must still be reported even though one old occurrence remains.
+printf '%s\n' \
+  'export const facets = {' \
+  "  workerManagerFacet: Far('Worker', {})," \
+  "  otherFacet: Far('Other', {})," \
+  '};' > "$REPOSITORY/worker.js"
+git -C "$REPOSITORY" add worker.js
+far_output=$("$PREFER" "$REPOSITORY" 2>&1) || true
+if printf '%s\n' "$far_output" | grep -Fq 'adds bare Far'; then
+  ok 'an additional Far occurrence beside a rename remains reportable'
+else
+  bad "additional Far occurrence was hidden by rename matching: $far_output"
+fi
+
+# A re-export whose binding alone is renamed retains its source and ordinal
+# position, so it is not a newly introduced plain re-export.
+git -C "$REPOSITORY" reset -q --hard HEAD
+printf '%s\n' \
+  "export { WorkerFacetForDaemonInterface } from './worker-facet-interface.js';" \
+  "export const marker = true;" > "$REPOSITORY/interfaces.js"
+git -C "$REPOSITORY" add interfaces.js
+git -C "$REPOSITORY" commit -qm reexport-base
+printf '%s\n' \
+  "export { WorkerFacetForManagerInterface } from './worker-facet-interface.js';" \
+  "export const marker = true;" > "$REPOSITORY/interfaces.js"
+git -C "$REPOSITORY" add interfaces.js
+if "$REEXPORT" "$REPOSITORY" | grep -qx pass; then
+  ok 'renaming a re-exported binding at the same source and position is not new'
+else
+  bad 'pure binding rename re-reported an existing plain re-export'
+fi
+
+printf '%s\n' \
+  "export { WorkerFacetForManagerInterface, NewInterface } from './worker-facet-interface.js';" \
+  "export const marker = true;" > "$REPOSITORY/interfaces.js"
+git -C "$REPOSITORY" add interfaces.js
+reexport_output=$("$REEXPORT" "$REPOSITORY" 2>&1) || true
+if printf '%s\n' "$reexport_output" | grep -Fq 'new plain named re-export'; then
+  ok 'an added binding beside a re-export rename remains reportable'
+else
+  bad "added binding was hidden by re-export rename matching: $reexport_output"
+fi
+
+printf '%s\n' \
+  "export { WorkerFacetForManagerInterface } from './manager-facet-interface.js';" \
+  "export const marker = true;" > "$REPOSITORY/interfaces.js"
+git -C "$REPOSITORY" add interfaces.js
+reexport_output=$("$REEXPORT" "$REPOSITORY" 2>&1) || true
+if printf '%s\n' "$reexport_output" | grep -Fq 'new plain named re-export'; then
+  ok 'changing a re-export source remains reportable'
+else
+  bad "changed re-export source escaped the probe: $reexport_output"
 fi
 
 git -C "$REPOSITORY" reset -q --hard HEAD

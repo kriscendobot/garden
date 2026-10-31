@@ -121,7 +121,7 @@ parse_keys() {  # $1=filename (for plugin selection); reads blob on stdin
 # Findings for one file, as `fail: <file>:<line> …`. Returns 0 = clean,
 # 1 = at least one finding, 2 = undetermined (parse failure on AFTER).
 scan_file() {
-  local file="$1" after before after_json before_keys rc=0
+  local file="$1" after before after_json before_json before_keys before_locations rc=0
   after="$(after_content "$file")"
 
   # AFTER parse. A helper exit 3 (unparseable) => undetermined for this file.
@@ -134,9 +134,12 @@ scan_file() {
 
   before="$(before_content "$file")"
   if [ -n "$before" ]; then
-    before_keys="$("$NODE_BIN" "$PARSER" "$file" <<<"$before" 2>/dev/null | sed -n 's/.*"key":"\(\([^"\\]\|\\.\)*\)".*/\1/p')"
+    before_json="$("$NODE_BIN" "$PARSER" "$file" <<<"$before" 2>/dev/null)"
+    before_keys="$(sed -n 's/.*"key":"\(\([^"\\]\|\\.\)*\)".*/\1/p' <<<"$before_json")"
+    before_locations="$(sed -n 's/.*"position":\([0-9]*\),"source":"\(\([^"\\]\|\\.\)*\)","arity":\([0-9]*\).*"form":"\([a-z]*\)".*/\1|\2|\4|\5/p' <<<"$before_json")"
   else
     before_keys=""   # newly added file: every re-export is new
+    before_locations=""
   fi
 
   # For each AFTER descriptor whose key is NOT in the before set and which is NOT
@@ -144,17 +147,26 @@ scan_file() {
   local findings=0 line
   while IFS= read -r line; do
     [ -n "$line" ] || continue
-    local key form ln deprecated src
+    local key form ln deprecated src position arity location
     key="$(sed -n 's/.*"key":"\(\([^"\\]\|\\.\)*\)".*/\1/p' <<<"$line")"
     ln="$(sed -n 's/.*"line":\([0-9]*\).*/\1/p' <<<"$line")"
     form="$(sed -n 's/.*"form":"\([a-z]*\)".*/\1/p' <<<"$line")"
+    position="$(sed -n 's/.*"position":\([0-9]*\).*/\1/p' <<<"$line")"
+    src="$(sed -n 's/.*"source":"\(\([^"\\]\|\\.\)*\)".*/\1/p' <<<"$line")"
+    arity="$(sed -n 's/.*"arity":\([0-9]*\).*/\1/p' <<<"$line")"
     deprecated="$(grep -q '"deprecated":true' <<<"$line" && echo true || echo false)"
     [ "$deprecated" = true ] && continue
     # set membership: exact-line match against the before key set
     if [ -n "$before_keys" ] && grep -Fxq "$key" <<<"$before_keys"; then
       continue
     fi
-    src="$(sed 's/^[a-z]*|//; s/|.*//' <<<"$key")"
+    # A binding rename changes the descriptor key, but not the re-export's
+    # source module or ordinal position among qualified re-exports. Preserve
+    # that identity so a rename is not treated as a newly introduced re-export.
+    location="${position}|${src}|${arity}|${form}"
+    if [ -n "$before_locations" ] && grep -Fxq "$location" <<<"$before_locations"; then
+      continue
+    fi
     printf 'fail: %s:%s new plain %s re-export from %s%s%s lacks a @deprecated JSDoc pointing importers at the original; make it a deprecated compatibility shim and migrate importers, or mark the file reexport-policy-exempt\n' \
       "$file" "${ln:-0}" "$form" "'" "$src" "'"
     findings=$((findings + 1))

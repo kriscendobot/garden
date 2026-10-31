@@ -56,8 +56,11 @@ Two passes over each changed `.js/.mjs/.cjs/.jsx/.ts/.tsx` file (skipping `.d.ts
   expressions, `class`, at any depth, `harden(...)`-wrapped too). A name equal to
   an indexed `function`/`class`/`const-function` row is a **hit**.
 - **Idiom pass.** Regex rows from [idioms.tsv](idioms.tsv) over added,
-  non-comment lines. An idiom is waived when the file imports the row's provider
-  (waiver `import`); a `none` row (bare `Far`) is waived only by the per-file marker.
+  non-comment lines, after cancelling matching occurrences on removed lines in the
+  same diff hunk. Thus an identifier-only edit around an existing idiom is not new,
+  while an additional occurrence remains reportable. An idiom is waived when the
+  file imports the row's provider (waiver `import`); a `none` row (bare `Far`) is
+  waived only by the per-file marker.
 
 Strength of a name hit:
 
