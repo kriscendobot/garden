@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T17:04:49Z_
+_As of 2026-10-31T17:06:30Z_
 
 ## Latest
 
@@ -1795,7 +1795,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.4M | $40.48 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Claude | 11.8M | $41.64 _(notional, rate-card)_ | 4% of 271.0M (ok) |
 | Codex | 287.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 48484829 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1809,22 +1809,21 @@ worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1595
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1560
 - [`endojs-endo-but-for-bots-pr1593-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1593-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1593
 - [`build-daemon-rename-to-manager-surface`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager-surface.md) — ---
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1594
 - [`build-daemon-git-capability-lal-genie-agent-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-capability-lal-genie-agent-adapters.md) — ---
 - [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1586-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1586
 
-### tada (15799)
+### tada (15800)
+- [`endojs-endo-but-for-bots-pr1560-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-fix-4.md) — Fix round 4 for endojs/endo-but-for-bots PR #1560: done, CI green
 - [`claude-on-minion-town-completion-press-20261031-163518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/claude-on-minion-town-completion-press-20261031-163518.md) — Cost
 - [`endojs-endo-but-for-bots-pr1589-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1589-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1589-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1589-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1589-gauntlet-fix-3.md) — Gauntlet FIX round 3 (PR #1589): fixes are in, but CI is red on a test this P...
-- [`endojs-endo-but-for-bots-pr1592-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1592-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1592-gauntlet — complete
-- … and 15794 more
+- … and 15795 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
