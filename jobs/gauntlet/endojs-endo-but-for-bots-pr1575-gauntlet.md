@@ -11,11 +11,11 @@ created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-10-27T07:12:24Z
 arc: 
 added_rounds: 3
-stage: panel
+stage: fix
 iteration: 9
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1575-gauntlet-panel-9
+current_child: endojs-endo-but-for-bots-pr1575-gauntlet-fix-9
 state: running
 resumed_at: 2026-10-31T00:46:46Z
 resumed_from_stage: fix
