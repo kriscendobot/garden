@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Fix the failing lint check on endojs/endo-but-for-bots PR #1593 and verify its HTTP workspace-tool composition is ready to resume the halted gauntlet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-31T17:25:06Z
