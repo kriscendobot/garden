@@ -31,3 +31,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Build `daemon-rename-to-manager` in endojs/endo-but-for-bots on a fresh `llm`-based branch, implementing the design’s Daemon/Mignonic-to-Manager/Worker rename as a mergeable draft PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-31T15:06:45Z
