@@ -1,8 +1,8 @@
-once: 2026-10-31T04:00:00Z
-job_basename_prefix: ironhorse-coverage-report-20261031
----
 ---
 role: researcher
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Report: Ironhorse test262 coverage gained during the 2026-10-24 quota week
 
