@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T06:06:07Z_
+_As of 2026-10-31T06:11:00Z_
 
 ## Latest
 
@@ -1741,7 +1741,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.2M | $10.47 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 1.2M | $10.71 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 269.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1755,22 +1755,20 @@ worst fetch p95 6.421600s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (7)
-- [`improve-latency-mid-sweep-rest-reserve`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-latency-mid-sweep-rest-reserve.md) — ---
+### doin (5)
 - [`endo-ironhorse-oracle-stage3-math-ulp-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ironhorse-oracle-stage3-math-ulp-drift.md) — Fix: ironhorse oracle stage3-math/054,055 last-digit mismatch reds every PR o...
-- [`build-fs-interface-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-fs-interface-reconciliation.md) — ---
 - [`endojs-endo-but-for-bots-pr1544-shepherd-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1544-shepherd-20261031.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1572-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1572-ci.md) — ---
 - [`endojs-endo-but-for-bots-pr1585-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1585-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1585
 - [`endojs-endo-but-for-bots-pr1501-shepherd-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1501-shepherd-20261031.md) — ---
 
-### tada (15702)
+### tada (15704)
+- [`build-fs-interface-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-fs-interface-reconciliation.md) — Cost
+- [`improve-latency-mid-sweep-rest-reserve`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/improve-latency-mid-sweep-rest-reserve.md) — Cost
 - [`minion-town-arc-press-20261031-053512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/minion-town-arc-press-20261031-053512.md) — Cost
 - [`oros-health-watch-20261031-053512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/oros-health-watch-20261031-053512.md) — Cost
 - [`oros-health-checkup-20261031-053512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/oros-health-checkup-20261031-053512.md) — Cost
-- [`endojs-endo-but-for-bots-pr1585-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1585-gauntlet-viability.md) — Cost
-- [`ironhorse-fuzz-f9cde0bda6f97f6c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/ironhorse-fuzz-f9cde0bda6f97f6c-repair.md) — Panel-head freshness
-- … and 15697 more
+- … and 15699 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
