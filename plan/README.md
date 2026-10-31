@@ -99,7 +99,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | hardened-text-codecs-shim | endo-but-for-bots | M2 | Complete | — | endojs/endo#3376 |
 | hardened-url-shim | endo-but-for-bots | M2 | Complete | — | endo-but-for-bots#1356 |
 | hex-package | endo-but-for-bots | M2 | Complete | M | — |
-| daemon-agent-tools | endo-but-for-bots | M3 | Not Started | L | — |
+| daemon-agent-tools | endo-but-for-bots | M3 | In Progress | L | — |
 | daemon-capability-filesystem | endo-but-for-bots | M3 | Reference | L | — |
 | daemon-content-store-gc | endo-but-for-bots | M3 | Complete | S | — |
 | daemon-docker-selfhost | endo-but-for-bots | M3 | Declined | M | — |
@@ -211,6 +211,7 @@ flowchart LR
   endor_tui_phase_3 --> endor_tui_phase_8
   endor_tui_phase_4 --> endor_tui_phase_8
   endor_tui_phase_6 --> endor_tui_phase_8
+  endo_posix_sandbox --> daemon_agent_tools
   endo_claude --> endo_claude_agents_capability
   daemon_git_remotes --> git_remote_capability
   daemon_git_next_steps --> git_remote_capability
