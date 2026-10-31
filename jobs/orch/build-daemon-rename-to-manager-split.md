@@ -1,4 +1,5 @@
 ---
+child-build-daemon-rename-to-manager-runtime-reap-count: 0
 order: serial
 children: build-daemon-rename-to-manager-runtime build-daemon-rename-to-manager-surface
 on-child-failure: halt
