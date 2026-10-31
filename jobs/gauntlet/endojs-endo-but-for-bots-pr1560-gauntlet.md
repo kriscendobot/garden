@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-26T02:10:30Z
 arc: minion-town-mcp-ocapn
-stage: fix
-iteration: 2
-resumes: 1
+stage: panel
+iteration: 3
+resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1560-gauntlet-fix-2
+current_child: endojs-endo-but-for-bots-pr1560-gauntlet-panel-3
 state: running
 resumed_at: 2026-10-31T09:17:58Z
 resumed_from_stage: fix
