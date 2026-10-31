@@ -250,4 +250,54 @@ run_watch 2>"$ERRLOG" && { echo 'FAIL: unlatched source failure passed silently'
 grep -q 'WARN: latency source failed' "$ERRLOG" || { echo 'FAIL: unlatched source failure not logged'; cat "$ERRLOG"; exit 1; }
 SOURCE="$SOURCE_SAVED"
 
+# Mid-sweep gates (2026-10-31 05:31:39Z / 05:39:26Z): the start-of-tick checks pass,
+# then the first source's reads latch the shared cooldown or drain the REST budget
+# to its reserve. The sweep must recheck before the NEXT source, stop with a quiet
+# cooldown heartbeat, and never call the remaining sources.
+SECOND_CALLED="$TR/second-called"; SECOND_SOURCE="$TR/source-second.sh"
+printf '#!/bin/bash\ntouch "%s"\n' "$SECOND_CALLED" > "$SECOND_SOURCE"; chmod +x "$SECOND_SOURCE"
+LATCH_FIRST="$TR/source-latch-first.sh"
+cat > "$LATCH_FIRST" <<EOF
+#!/bin/bash
+source "$JOBS/common.sh"
+start_api_cooldown sibling-watcher:primary-quota 3600 rest
+cat "\$CLW_FIXTURE"
+EOF
+chmod +x "$LATCH_FIRST"
+row 2026-09-23T17:30:00Z 103 trusted https://example/103 '@kriscendobot please build this' > "$FIXTURE"
+: > "$REACTIONS"; : > "$NOTICES"; rm -rf "$STATE/latency" "$COOLDOWN" "$SECOND_CALLED"
+SOURCE="$LATCH_FIRST:$SECOND_SOURCE"
+run_watch 2>"$ERRLOG" || { echo 'FAIL: mid-sweep cooldown gate failed the tick'; cat "$ERRLOG"; exit 1; }
+[ ! -e "$SECOND_CALLED" ] || { echo 'FAIL: source swept after a mid-sweep cooldown latch'; exit 1; }
+grep -q 'WARN' "$ERRLOG" && { echo 'FAIL: mid-sweep cooldown gate logged a warning'; cat "$ERRLOG"; exit 1; }
+[ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = cooldown ] || { echo 'FAIL: no cooldown heartbeat after mid-sweep cooldown gate'; exit 1; }
+[ -s "$NOTICES" ] && { echo 'FAIL: mid-sweep cooldown gate emitted notices'; cat "$NOTICES"; exit 1; }
+
+# The REST budget reaches the low-priority reserve during the first source.
+GH_STUB="$TR/gh-fail.sh"; printf '#!/bin/bash\nexit 1\n' > "$GH_STUB"; chmod +x "$GH_STUB"
+DRAIN_FIRST="$TR/source-drain-first.sh"
+cat > "$DRAIN_FIRST" <<'EOF'
+#!/bin/bash
+n="$(date +%s)"; mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+printf '5000 300 %s %s %s 300\n' "$(( n + 3000 ))" "$n" "$n" > "$GARDEN_API_COOLDOWN_DIR/rest-budget"
+cat "$CLW_FIXTURE"
+EOF
+chmod +x "$DRAIN_FIRST"
+: > "$REACTIONS"; : > "$NOTICES"; rm -rf "$STATE/latency" "$COOLDOWN" "$SECOND_CALLED"
+SOURCE="$DRAIN_FIRST:$SECOND_SOURCE"
+GARDEN_GH_REST_BUDGET=1 GARDEN_GH="$GH_STUB" run_watch 2>"$ERRLOG" \
+  || { echo 'FAIL: mid-sweep budget gate failed the tick'; cat "$ERRLOG"; exit 1; }
+[ ! -e "$SECOND_CALLED" ] || { echo 'FAIL: source swept after the REST reserve was reached'; exit 1; }
+grep -q 'deferring low-priority GitHub REST reads' "$ERRLOG" || { echo 'FAIL: mid-sweep budget deferral not logged'; cat "$ERRLOG"; exit 1; }
+grep -q 'WARN' "$ERRLOG" && { echo 'FAIL: mid-sweep budget gate logged a warning'; cat "$ERRLOG"; exit 1; }
+[ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = cooldown ] || { echo 'FAIL: no cooldown heartbeat after mid-sweep budget gate'; exit 1; }
+[ -s "$NOTICES" ] && { echo 'FAIL: mid-sweep budget gate emitted notices'; cat "$NOTICES"; exit 1; }
+# With budget to spare, both sources sweep.
+: > "$REACTIONS"; rm -rf "$STATE/latency" "$COOLDOWN" "$SECOND_CALLED"
+SOURCE="$SOURCE_SAVED:$SECOND_SOURCE"
+run_watch || { echo 'FAIL: two-source sweep failed'; exit 1; }
+[ -e "$SECOND_CALLED" ] || { echo 'FAIL: second source not swept with budget to spare'; exit 1; }
+[ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = full-poll ] || { echo 'FAIL: two-source sweep heartbeat not full-poll'; exit 1; }
+SOURCE="$SOURCE_SAVED"
+
 echo 'PASS: comment latency watch scenarios'

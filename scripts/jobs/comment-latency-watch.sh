@@ -179,7 +179,27 @@ source_failed() {
   log "WARN: latency source failed for $1; heartbeat checks still run"
   return 1
 }
-sweep_stopped() { [ "$PRIMARY_QUOTA_HIT" -eq 1 ] || [ "$SHARED_COOLDOWN_HIT" -eq 1 ]; }
+sweep_stopped() { [ "$PRIMARY_QUOTA_HIT" -eq 1 ] || [ "$SHARED_COOLDOWN_HIT" -eq 1 ] || [ "$BUDGET_DEFER_HIT" -eq 1 ]; }
+
+# The start-of-tick gates (shared REST cooldown, gh_rest_budget_defer) see the
+# budget only once, but one sweep reads every armed repository, the issue inbox,
+# and GitHub-wide mentions; the sweep itself and its siblings can drain the bucket
+# to the reserve or latch the cooldown before it finishes (primary-quota refusals
+# 2026-10-31 05:31:39Z and 05:39:26Z). source_gate runs before each source after
+# the first (the first is covered by the start-of-tick gates) and returns rc 1 to
+# stop the sweep: a live shared cooldown sets SHARED_COOLDOWN_HIT, a reached
+# reserve sets BUDGET_DEFER_HIT. Either way the tick ends with a quiet cooldown
+# heartbeat and leaves the remaining quota to the acknowledgment watchers.
+BUDGET_DEFER_HIT=0
+SOURCES_STARTED=0
+source_gate() {
+  if [ "$SOURCES_STARTED" -gt 0 ]; then
+    if api_cooldown_active rest; then SHARED_COOLDOWN_HIT=1; return 1; fi
+    if gh_rest_budget_defer comment-latency-watch; then BUDGET_DEFER_HIT=1; return 1; fi
+  fi
+  SOURCES_STARTED=$(( SOURCES_STARTED + 1 ))
+  return 0
+}
 
 # Unified rows:
 # created source cadence repo slug surface id number author url body
@@ -198,10 +218,17 @@ collect_sources() {
         [ -n "$author" ] && MAINTAINERS+=("$author")
       done < "$GARDEN_COMMENT_LATENCY_MAINTAINERS_FILE"
     fi
+    # Test seam: a colon-separated list of handlers, gated like the real sources.
     source_label="${GARDEN_COMMENT_LATENCY_SOURCE_LABEL:-test-source}"
-    run_source_handler "$source_label" "$GARDEN_COMMENT_LATENCY_SOURCE" "$since" \
-      || source_failed "$source_label" || sweep_stopped
-    return
+    local -a test_sources=()
+    IFS=: read -r -a test_sources <<<"$GARDEN_COMMENT_LATENCY_SOURCE"
+    for p in "${test_sources[@]}"; do
+      source_gate || return 0
+      run_source_handler "$source_label" "$p" "$since" \
+        || source_failed "$source_label" || sweep_stopped || return 1
+      ! sweep_stopped || return 0
+    done
+    return 0
   fi
   load_journal
   load_names trusted-senders/allowlist TRUSTED
@@ -213,6 +240,7 @@ collect_sources() {
     [ -n "$repo" ] || continue
     pr_only=0
     printf '%s\n' "$armed" | grep -Eqi '^[[:space:]]*surfaces:[[:space:]]*pr-only[[:space:]]*$' && pr_only=1
+    source_gate || return 0
     ACTIVE_SLUGS[$slug]="$repo"
     source_file="$(mktemp)"
     if run_source_handler "$repo" "$HERE/handlers/comment-source-gh.sh" "$repo" "$since" "$GARDEN_BOT_LOGIN" > "$source_file"; then
@@ -231,6 +259,7 @@ collect_sources() {
   repo="$(git -C "$JOURNAL_VIEW" show "origin/$JOURNAL_BRANCH:config/garden-repo" 2>/dev/null \
     | sed -e 's/#.*//' -e 's/[[:space:]]//g' | head -1)"
   if [ -n "$repo" ]; then
+    source_gate || return 0
     slug="$(printf '%s' "$repo" | tr '/' '-')"; source_file="$(mktemp)"
     ACTIVE_SLUGS[$slug]="$repo"
     if run_source_handler "$repo issue inbox" "$HERE/handlers/issue-source-gh.sh" "$repo" "$since" > "$source_file"; then
@@ -246,6 +275,7 @@ collect_sources() {
     ! sweep_stopped || return 0
   fi
 
+  source_gate || return 0
   source_file="$(mktemp)"
   if run_source_handler "github-wide mentions" "$HERE/handlers/mention-source-gh.sh" "$since" "$GARDEN_BOT_LOGIN" > "$source_file"; then
     while IFS=$'\t' read -r created surface id repo number author url body; do
@@ -296,7 +326,9 @@ if [ "$PRIMARY_QUOTA_HIT" -eq 1 ]; then
 fi
 # A sibling latched the shared REST cooldown mid-sweep: the latch is already armed
 # (never re-armed or extended here), so stop exactly as if it had been live at start.
-if [ "$SHARED_COOLDOWN_HIT" -eq 1 ]; then
+# A mid-sweep budget deferral (source_gate) is the low-priority reserve working:
+# gh_rest_budget_defer already logged it once per quota window.
+if [ "$SHARED_COOLDOWN_HIT" -eq 1 ] || [ "$BUDGET_DEFER_HIT" -eq 1 ]; then
   [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
   exit 0
 fi
