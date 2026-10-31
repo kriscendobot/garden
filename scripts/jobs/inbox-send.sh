@@ -77,13 +77,90 @@ if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"
 else BODY="(empty message)"; fi
 
+# Find the recipient's one live directive. A lifecycle invariant says a job has
+# exactly one copy across plan/todo/doin; fail closed if a corrupt board presents
+# more than one because those copies need not name the same project.
+recipient_directive() {  # recipient_directive <base>
+  local base="$1" d found=""
+  for d in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
+    [ -f "$DIR/$d/$base.md" ] || continue
+    [ -z "$found" ] || return 1
+    found="$DIR/$d/$base.md"
+  done
+  [ -n "$found" ] || return 1
+  printf '%s\n' "$found"
+}
+
+# Derive one canonical GitHub repository from a job directive. An explicit
+# leading-frontmatter `repo: owner/name` is authoritative. Otherwise collect the
+# repositories from canonical GitHub URLs and owner/name#N references; exactly
+# one distinct repository is required. This deliberately does not guess from the
+# job basename: hyphens make that representation non-invertible.
+directive_repo() {  # directive_repo <directive-file>
+  local f="$1" repo candidates count
+  repo="$(plan_field "$f" repo 2>/dev/null || true)"
+  if [[ "$repo" =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$ ]]; then
+    printf '%s\n' "$repo"
+    return 0
+  fi
+  candidates="$({
+    grep -Eo 'https?://github\.com/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+' "$f" 2>/dev/null \
+      | sed -E 's#https?://github\.com/##'
+    grep -Eo 'https?://api\.github\.com/repos/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+' "$f" 2>/dev/null \
+      | sed -E 's#https?://api\.github\.com/repos/##'
+    grep -Eo '(^|[^A-Za-z0-9._/#-])[A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+' "$f" 2>/dev/null \
+      | grep -Eo '[A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+' \
+      | sed -E 's/#[0-9]+$//'
+  } | sort -u)"
+  count="$(grep -c . <<<"$candidates" || true)"
+  [ "$count" -eq 1 ] || return 1
+  printf '%s\n' "$candidates"
+}
+
+# Qualify bare issue/PR references outside Markdown code. The subsequent
+# check-issue-refs pass remains authoritative and rejects any partial form this
+# narrow rewrite does not understand (owner#N, GH-N, or an ambiguous construct).
+qualify_bare_refs() {  # qualify_bare_refs <owner/repo>
+  local repo="$1"
+  REPO="$repo" perl -pe '
+    BEGIN { $fence = 0; $repo = $ENV{REPO} }
+    if (/^[[:space:]]*(?:```|~~~)/) { $fence = !$fence; next }
+    next if $fence;
+    my @part = split /(`[^`]*`)/, $_, -1;
+    for (my $i = 0; $i < @part; $i += 2) {
+      $part[$i] =~ s/(?<![A-Za-z0-9._\/&#-])#([0-9]{1,6})(?![A-Za-z0-9])/$repo#$1/g;
+    }
+    $_ = join "", @part;
+  '
+}
+
 # Forbid partially-qualified issue/PR references in an AUTHOR-written body: a bare
-# `#N` never enters the bus, so rendering it downstream is unambiguous everywhere
-# (see skills/message-bus/SKILL.md, check-issue-refs.sh). Machine/relay callers
-# that post generated or forwarded bodies set GARDEN_SKIP_REF_CHECK=1 to bypass.
+# `#N` is first repaired when the recipient directive identifies exactly one
+# canonical repository. Rendering downstream then stays unambiguous without
+# bouncing a completed handler's otherwise-valid handoff. No unique directive
+# repository means no safe rewrite, so rejection remains fail-closed. Machine/
+# relay callers that post generated or forwarded bodies set
+# GARDEN_SKIP_REF_CHECK=1 to bypass.
 if [ "${GARDEN_SKIP_REF_CHECK:-0}" != "1" ]; then
-  printf '%s\n' "$BODY" | "$HERE/check-issue-refs.sh" - \
-    || die "message not posted — fully-qualify the issue/PR reference(s) reported above, then retry"
+  if ! ref_diagnostics="$(printf '%s\n' "$BODY" | "$HERE/check-issue-refs.sh" - 2>&1)"; then
+    # Resolve against fresh journal state: the recipient may just have moved from
+    # todo to doin, and a stale producer clone must not turn that into ambiguity.
+    sync_clone "$DIR"
+    directive="$(recipient_directive "$doer" 2>/dev/null || true)"
+    repo=""
+    [ -z "$directive" ] || repo="$(directive_repo "$directive" 2>/dev/null || true)"
+    if [ -n "$repo" ]; then
+      BODY="$(printf '%s\n' "$BODY" | qualify_bare_refs "$repo")"
+      if printf '%s\n' "$BODY" | "$HERE/check-issue-refs.sh" -; then
+        log "qualified bare issue/PR reference(s) for '$doer' as $repo#N from its directive"
+      else
+        die "message not posted — fully-qualify the issue/PR reference(s) reported above, then retry"
+      fi
+    else
+      printf '%s\n' "$ref_diagnostics" >&2
+      die "message not posted — recipient '$doer' has no unique canonical GitHub repository; fully-qualify the issue/PR reference(s) reported above, then retry"
+    fi
+  fi
 fi
 
 # Message id: a caller can supply a DETERMINISTIC id via GARDEN_MSG_ID so a

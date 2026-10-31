@@ -75,6 +75,7 @@ jobs:
             scripts/jobs/test/classify-foreign-content-test.sh \
             scripts/jobs/test/deadmail-completed-collision-test.sh \
             scripts/jobs/test/deadmail-tempfail-short-circuit-test.sh \
+            scripts/jobs/test/inbox-qualified-refs-test.sh \
             scripts/jobs/test/follow-up-gauntlet-budget-test.sh \
             scripts/jobs/test/report-error-reachable-test.sh \
             scripts/jobs/test/reputation-reduce-incremental-test.sh \
@@ -122,6 +123,7 @@ jobs:
           bash scripts/jobs/test/docs-claim-accuracy-probe-test.sh
           bash scripts/jobs/test/deadmail-completed-collision-test.sh
           bash scripts/jobs/test/deadmail-tempfail-short-circuit-test.sh
+          bash scripts/jobs/test/inbox-qualified-refs-test.sh
           bash scripts/jobs/test/follow-up-gauntlet-budget-test.sh
           bash scripts/jobs/test/cursor-outage-cooldown-test.sh
           bash scripts/jobs/test/bulletin-fetch-outage-backoff-test.sh
