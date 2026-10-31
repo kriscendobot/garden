@@ -72,8 +72,8 @@ tada_body() { # <base>
 tick() { "$JOBS/gauntlet.sh" >"$TEST_ROOT/tick.log" 2>&1; }
 post_gauntlet() { "$JOBS/post-gauntlet.sh" "$@" >/dev/null 2>&1; }
 
-complete_viability() { # <base> <result> [report-prefix]
-  local base="$1" result="$2" prefix="${3:-}"
+complete_viability() { # <base> <result> [report-prefix] [question-label]
+  local base="$1" result="$2" prefix="${3:-}" label="${4:-Deciding question:}"
   local edit="$TEST_ROOT/complete-$base" shard
   rm -rf "$edit"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$edit"
@@ -82,7 +82,7 @@ complete_viability() { # <base> <result> [report-prefix]
   mkdir -p "$edit/jobs/tada/$shard"
   {
     [ -z "$prefix" ] || printf '%s\n' "$prefix"
-    printf 'Deciding question: Does this PR still implement a needed, unsuperseded change?\n'
+    printf '%s Does this PR still implement a needed, unsuperseded change?\n' "$label"
     printf 'Evidence: current PR and base history inspected.\n'
     printf '<!-- gauntlet-stage-result: viability=%s -->\n' "$result"
   } > "$edit/jobs/tada/$shard/$base-viability.md"
@@ -179,6 +179,19 @@ if exists inbox/maintainer/unread overtaken-not-viable; then
   ok "the refusal is reported to the maintainer inbox"
 else
   ko "the refusal is reported to the maintainer inbox"
+fi
+
+post_gauntlet bolded testowner/testrepo#206
+tick
+complete_viability bolded overtaken '**Option: close as superseded**' '**Deciding question:**'
+tick
+bolded_body=$(tada_body bolded)
+if printf '%s\n' "$bolded_body" | grep -Fq 'gauntlet-status: not-viable' \
+  && printf '%s\n' "$bolded_body" | grep -Fq 'Deciding question: Does this PR' \
+  && ! printf '%s\n' "$bolded_body" | grep -Fq 'orchestration-status: halted'; then
+  ok "Markdown-bolded overtaken labels retire as not-viable, not halted"
+else
+  ko "Markdown-bolded overtaken labels retire as not-viable, not halted"
 fi
 
 post_gauntlet malformed testowner/testrepo#203

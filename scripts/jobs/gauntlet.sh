@@ -747,13 +747,19 @@ coalesce_gauntlet() {  # <base> <winner> <repo> <pr>
 # Retire it without an orchestration-failed marker, preserve the report as evidence,
 # and tell the maintainer why no clean/panel/fix budget was admitted.
 finish_not_viable() {  # <base> <result> <viability-report>
-  local base="$1" result="$2" report="$3" sf question="" reason key value
+  local base="$1" result="$2" report="$3" sf question="" plain="" reason key value
   case "$result" in
     closed) reason="the PR is closed; the gauntlet did not enter its budgeted loop." ;;
     merged) reason="the PR is already merged; the gauntlet did not enter its budgeted loop." ;;
     overtaken)
-      question="$(sed -n 's/^Deciding question:[[:space:]]*//p' "$report" | head -1)"
-      if [ -z "$question" ] || ! grep -Fxq 'Option: close as superseded' "$report"; then
+      # Agents habitually bold the labels (`**Deciding question:** ...`,
+      # `**Option: close as superseded**`); PR #1591's viability report was a
+      # correct overtaken verdict halted only for that markup. Match on a copy
+      # with Markdown emphasis markers and edge whitespace stripped, so the
+      # gate stays fail-closed on a missing line but not on its formatting.
+      plain="$(sed -E 's/\*\*|__//g; s/^[[:space:]*_>-]+//; s/[[:space:]*_]+$//' "$report")"
+      question="$(printf '%s\n' "$plain" | sed -n 's/^Deciding question:[[:space:]]*//p' | head -1)"
+      if [ -z "$question" ] || ! printf '%s\n' "$plain" | grep -Fxq 'Option: close as superseded'; then
         halt_gauntlet "$base" "viability stage reported an overtaken premise without both a named 'Deciding question:' and the exact 'Option: close as superseded' line; halting fail-closed."
         return 0
       fi
