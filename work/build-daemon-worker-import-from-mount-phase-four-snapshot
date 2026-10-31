@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-10-31T12:46:15Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-daemon-worker-import-from-mount-phase-four-snapshot
+pr_number: 1592
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1592
+pr_head: daemon-worker-import-from-mount-phase-four-snapshot
