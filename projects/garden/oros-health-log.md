@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-31T15:20Z (oros-health-checkup-20261031-145019): healthy; deployed `a257ff3`, one commit behind origin/main2 `895d6de` (landed 15:12Z), no changes
+
+- **Load/mem:** load 3.91/3.56/3.42 at 15:18Z, the usual level. 12 GiB of 15 GiB available. Swap reads 926M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (402G free). The virtiofs garden mount is at 61% (184G free), inodes 1%.
+- **Uptime:** 29d22h02m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `a257ff3` (deployed 15:05Z). origin/main2 is `895d6de`, landed at 15:12Z; `upgrade-ready` was refreshed at 15:17Z, which is ordinary roll lag, not a stall. fleet/health/oros: `roll_status: deployed` at `a257ff3`, 0 advisory (15:05Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** on origin/journal2, the last claude-oros push was 15:19:24Z (sampled 15:17:52Z). The eight pushes from 13:33 to 15:19Z were all ok, at a steady ~15-minute cadence. Spend is 3,930,204 of 180M.
+- **State clones:** 33 journal clones. The largest are reaper (47 packs), worktree-sweeper (46) and fleet-health (42), all under the `>50` threshold. No `gc.log` or tmp_pack. The only `.git` lock is a fresh `index.lock` in gardener-scaler (1 minute old). No `*.tmp.*`/`*.seed.*` directory older than an hour.
+- **rc=124 (3h):** 34.1k system-journal lines. One job timeout: `build-daemon-rename-to-manager` hit its own 7200s handler budget at 15:01Z, was classified transient, and was left for reaper requeue. The handler code is behaving as designed. The other seven rc=124 lines are `journal-contention-watch` notice deliveries deferred against its tick budget. The chronic `journal-contention-storm` notice is at occurrence #277, and there are per-clone contention notices (self-deploy, producer, worktree-sweeper, regenerate-sections-index). No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing new. The journal-lock contention storm is already a standing watchdog notice.
+
 ## 2026-10-31T12:25Z (oros-health-checkup-20261031-115011): healthy; deployed = origin/main2 `bc4384e`, no changes
 
 - **Load/mem:** load 4.22/3.81/3.48 at 12:22Z, slightly above the usual ~3.4. 12 GiB of 15 GiB available. Swap reads 921M of 1.0 GiB, the usual steady level.
