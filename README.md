@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T08:25:29Z_
+_As of 2026-10-31T08:26:41Z_
 
 ## Latest
 
@@ -1750,7 +1750,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $6.54 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 2.6M | $6.72 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 270.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1759,7 +1759,8 @@ _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.183874s/45s (/home/kris/garden/.garden-state/maintainer/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
+- [`canary-probe-oros-studio-garden-ce242c49-af590fb1fa42`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-af590fb1fa42.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ af590fb1fa42
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
