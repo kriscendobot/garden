@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T12:30:18Z_
+_As of 2026-10-31T12:33:50Z_
 
 ## Latest
 
@@ -1684,6 +1684,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_gauntlet_journal` cleared on endolin-garden-ece02cb4.
 
+- `msg-endojs-endo-but-for-bots-pr1586-gauntlet-fix-2-abd14435323c` — from gardener:endojs-endo-but-for-bots-pr1586-gauntlet-fix-2, reply_to `endojs-endo-but-for-bots-pr1586-gauntlet-fix-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1586-gauntlet-fix-2-abd14435323c.md)
+
+> [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) (fs interface reconciliation), panel-2 decomplector finding: you asked on [endojs/endo-but-for-bots#464](https://github.com/endojs/endo-but-for-bots/issues/464) ([https://github.com/endojs/endo-but-for-bots/pull/464](https://github.com/endojs/endo-but-for-bots/pull/464)#discussion_r3434032260, 2026-06-18) to rename the re-root attenuator `mount` ("Fold all these into a unified `mount` verb", r3434147255). The design's D5 records `subView` instead, citing no maintainer reversal, and [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) broadens `subView` onto platform `Directory` and `SnapshotTree`. Should the name be `mount` (a repo-wide rename, also of the existing `EndoMount.subView` on llm, best done as its own PR), or is `subView` acceptable? I am leaving `subView` in place in this fix round; reply here and a follow-up can do the rename.
+
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-23T06:17:01Z, latest 2026-10-30T18:17:03Z).
@@ -1750,10 +1754,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.6M | $18.21 _(notional, rate-card)_ | 2% of 271.0M (ok) |
-| Codex | 279.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
+| Claude | 5.7M | $21.75 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Codex | 280.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 43275035 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 43506981 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.183874s/45s (/home/kris/garden/.garden-state/maintainer/journal); 12 open notice(s); checker healthy
