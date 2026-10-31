@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T17:14:02Z_
+_As of 2026-10-31T17:22:03Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-173 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+174 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -642,6 +640,19 @@ Delegation: **active**
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 3 (target 3): subscription claude-oros spend=88841607 cap=180000000 pace-bias=0.508342 window-start=2026-10-20T10:00Z(calendar) deadline=2026-10-27T10:00Z(calendar) ceiling=4 backoff=0.8574(ramp) target=3
+
+- `build-daemon-rename-to-manager-split-terminal-complete` — from orchestrator:build-daemon-rename-to-manager-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-daemon-rename-to-manager-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: build-daemon-rename-to-manager-split
+> orchestration-status: complete
+> order: serial
+> children-total: 2
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration build-daemon-rename-to-manager-split complete (serial): all 2 children reached tada without a machine-readable failure declaration.
 
 - `liaison-followup-012ad029ea29` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-012ad029ea29.md)
 
@@ -1797,10 +1808,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.9M | $42.80 _(notional, rate-card)_ | 4% of 271.0M (ok) |
-| Codex | 287.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Claude | 12.0M | $36.95 _(notional, rate-card)_ | 4% of 271.0M (ok) |
+| Codex | 287.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 48484829 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 50008896 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 13 open notice(s); checker healthy
@@ -1813,19 +1824,19 @@ worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journ
 
 ### doin (6)
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1595
+- [`shepherd-endojs-endo-but-for-bots-pr1593-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1593-ci.md) — ---
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1560
-- [`build-daemon-rename-to-manager-surface`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager-surface.md) — ---
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1594
 - [`build-daemon-git-capability-lal-genie-agent-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-capability-lal-genie-agent-adapters.md) — ---
 - [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1586-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1586
 
-### tada (15801)
+### tada (15805)
+- [`build-daemon-rename-to-manager-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-daemon-rename-to-manager-split.md) — orchestration build-daemon-rename-to-manager-split — complete
+- [`build-daemon-rename-to-manager-surface`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-daemon-rename-to-manager-surface.md) — Cost
+- [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1586-gauntlet-fix-3-pr-body.md) — Panel-head freshness
+- [`endojs-endo-but-for-bots-pr1593-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1593-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1593-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1593-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1593-gauntlet-fix-1.md) — Gauntlet FIX round 1: PR #1593
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-panel-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1560-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1560-gauntlet-fix-4.md) — Fix round 4 for endojs/endo-but-for-bots PR #1560: done, CI green
-- [`claude-on-minion-town-completion-press-20261031-163518`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/claude-on-minion-town-completion-press-20261031-163518.md) — Cost
-- [`endojs-endo-but-for-bots-pr1589-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1589-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1589-gauntlet — HALTED
-- … and 15796 more
+- … and 15800 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
