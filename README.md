@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T21:34:12Z_
+_As of 2026-10-31T21:36:48Z_
 
 ## Latest
 
@@ -153,9 +153,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #25 (first seen 2026-09-09T20:50:15Z, latest 2026-10-31T18:20:21Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 25 times; this is ONE
-> coalesced notice that updates in place, not 25 messages. Latest detail:
+> WATCHDOG notice — occurrence #26 (first seen 2026-09-09T20:50:15Z, latest 2026-10-31T21:35:25Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-2`) has now been observed 26 times; this is ONE
+> coalesced notice that updates in place, not 26 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=2
 
@@ -1808,7 +1808,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.1M | $105.36 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 29.1M | $105.66 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 292.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59536899 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1817,7 +1817,7 @@ _Fleet token-unlock pace: 59536899 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 15 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1596-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1596-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1596
 - [`endojs-endo-but-for-bots-pr1504-body-edit-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1504-body-edit-20261031.md) — Replace the PR body of endojs/endo-but-for-bots#1504 (pruner + coverage-audit...
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -1825,15 +1825,15 @@ worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`oros-health-watch-20261031-210513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261031-210513.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1596-gauntlet-fix-3-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1596-gauntlet-fix-3-pr-body.md) — Relay: update the PR body of endojs/endo-but-for-bots PR #1596
-- [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1595-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1595
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1588
 - [`endojs-endo-but-for-bots-pr1589-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1589-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1589
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1504-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1504
 - [`oros-health-checkup-20261031-210513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261031-210513.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1589-gauntlet-resume.md) — ---
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1594
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1595
 
 ### tada (15859)
 - [`endojs-endo-but-for-bots-pr1596-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1596-gauntlet-fix-3.md) — Cost
