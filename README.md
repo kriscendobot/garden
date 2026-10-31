@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T19:17:29Z_
+_As of 2026-10-31T19:22:24Z_
 
 ## Latest
 
@@ -557,9 +555,9 @@ Delegation: **active**
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #17 (first seen 2026-09-09T21:05:16Z, latest 2026-10-31T15:50:31Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 17 times; this is ONE
-> coalesced notice that updates in place, not 17 messages. Latest detail:
+> WATCHDOG notice — occurrence #18 (first seen 2026-09-09T21:05:16Z, latest 2026-10-31T19:20:35Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 18 times; this is ONE
+> coalesced notice that updates in place, not 18 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
 
@@ -1810,10 +1808,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.7M | $53.53 _(notional, rate-card)_ | 6% of 271.0M (ok) |
-| Codex | 288.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Claude | 16.9M | $54.27 _(notional, rate-card)_ | 6% of 271.0M (ok) |
+| Codex | 289.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53163419 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 53364676 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 14 open notice(s); checker healthy
@@ -1825,19 +1823,19 @@ worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journ
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (5)
-- [`endojs-endo-but-for-bots-pr1593-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1593-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1593
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1594
-- [`endojs-endo-but-for-bots-pr1596-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1596-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1596
+- [`build-daemon-agent-tools-phase-five-contract-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools-phase-five-contract-test.md) — ---
+- [`endojs-endo-but-for-bots-pr1596-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1596-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1596
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1595
 - [`shepherd-endojs-endo-but-for-bots-pr1593-gauntlet-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1593-gauntlet-resume.md) — ---
 
-### tada (15831)
+### tada (15833)
+- [`endojs-endo-but-for-bots-pr1593-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1593-gauntlet-panel-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr1596-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1596-gauntlet-clean.md) — Cost
 - [`reconcile-daemon-agent-tools-plan-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/reconcile-daemon-agent-tools-plan-status.md) — Completion report: reconcile-daemon-agent-tools-plan-status
 - [`endojs-endo-but-for-bots-pr1596-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1596-gauntlet-viability.md) — PR #1596 viability check: proceed
 - [`build-mvs-resolver`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-mvs-resolver.md) — Cost
-- [`reconcile-endo-claude-agents-capability-plan-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/reconcile-endo-claude-agents-capability-plan-status.md) — Cost
-- [`build-endo-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-endo-claude-agents-capability.md) — Panel-head freshness
-- … and 15826 more
+- … and 15828 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
