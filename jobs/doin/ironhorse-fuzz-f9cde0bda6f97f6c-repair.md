@@ -13,3 +13,13 @@ Repair an Ironhorse fuzz **timeout** finding in `differential_regexp`, found on 
 - Reproduce: `cargo +nightly-2026-08-15 fuzz run -s none differential_regexp <input> -- -runs=1 -timeout=60` in rust/engine/ironhorse-fuzz.
 
 Lock the input with a regression test on the standing branch, the way earlier findings were locked, and fix the hang if it is in Ironhorse.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-31T05:18:15Z
