@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T05:12:01Z_
+_As of 2026-10-31T05:12:57Z_
 
 ## Latest
 
@@ -1744,7 +1744,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 814.6k | $6.91 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 835.5k | $5.66 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 268.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1758,20 +1758,19 @@ worst fetch p95 6.421600s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
+### doin (4)
 - [`endo-ironhorse-oracle-stage3-math-ulp-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ironhorse-oracle-stage3-math-ulp-drift.md) — Fix: ironhorse oracle stage3-math/054,055 last-digit mismatch reds every PR o...
-- [`endojs-endo-but-for-bots-pr1572-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1572-shepherd.md) — ---
 - [`build-fs-interface-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-fs-interface-reconciliation.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1572-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1572-ci.md) — ---
 - [`endojs-endo-but-for-bots-pr1544-weave-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1544-weave-20261031.md) — ---
 
-### tada (15694)
+### tada (15695)
+- [`endojs-endo-but-for-bots-pr1572-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1572-shepherd.md) — Shepherd report: endojs/endo-but-for-bots#1572 is red because of the CI runne...
 - [`endojs-endo-but-for-bots-pr1543-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1543-weave.md) — Cost
 - [`endojs-endo-but-for-bots-pr1117-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1117-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1117-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1117-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1117-gauntlet-clean.md) — PR #1117 gauntlet clean stage: CI is red on one check this PR didn't cause
 - [`fix-endojs-endo-but-for-bots-pr1572-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/fix-endojs-endo-but-for-bots-pr1572-ci.md) — Cost
-- [`improve-ci-wait-respect-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/improve-ci-wait-respect-handler-deadline.md) — Cost
-- … and 15689 more
+- … and 15690 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
