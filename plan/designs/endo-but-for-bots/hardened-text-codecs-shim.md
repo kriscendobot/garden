@@ -1,12 +1,12 @@
 ---
 slug: hardened-text-codecs-shim
 repository: endo-but-for-bots
-status: In Progress
+status: Complete
 milestone: M2
 depends_on: []
-pr: endo-but-for-bots#1349
+pr: endojs/endo#3376
 created: 2026-05-04
-updated: 2026-09-27
+updated: 2026-10-31
 source: imported from origin/llm designs/README.md
 ---
 
@@ -16,7 +16,7 @@ source: imported from origin/llm designs/README.md
 |---|---|
 | **Created** | 2026-05-04 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | In Progress |
+| **Status** | Complete |
 
 ## What is the Problem Being Solved?
 
@@ -216,3 +216,12 @@ _Reconciled 2026-09-27 (job `reconcile-hardened-text-codecs-shim-status`): **In 
 - **Test-plan item 6 (XS smoke test): open.** Draft [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (head `build/hardened-text-codecs-shim`, base frozen `master-6ee3fda`, job `build-hardened-text-codecs-shim`) adds a host-independent check to `packages/ses/test/_xs.js`: post-lockdown compartments see the host's codecs, or their absence, and each codec is frozen. CI was all green on 2026-09-27. The PR notes that current Moddable `xst` defines both codecs, so on today's toolchain the check exercises the pass-through-and-harden path, not the degradation path this design assumes (Design Decision 3).
 - **Phase 3 (downstream audit): no work on `master`, open on `llm`.** #1349 reports no `Buffer.from(` or `.toString('utf` call sites in `master`'s `packages/*/src`. `llm` still has some, for example in `9p-server`, `daemon/src/manager-node-powers.js`, `git/src/native-git-backend.js`, `platform/src/http-node`, and the `sandbox` drivers. Most of these are Node host-power code that does not run under SES, so they are probably out of this design's scope, but nobody has audited them.
 - **Completion:** `plan/reconcile.sh` flips this record to Complete when #1349 merges. Whether the `llm` Phase 3 audit must be done before then is a maintainer call. Until #1349 is promoted with **run the gauntlet #1349**, it stays draft.
+
+---
+_Reconciled 2026-10-31 (job `reconcile-hardened-text-codecs-shim-status`): **Complete**. The implementation exit is satisfied upstream; the remaining XS smoke PR is verification follow-up work and does not gate M2._
+
+- **The functional implementation is upstream.** [endojs/endo#3322](https://github.com/endojs/endo/pull/3322) supplied the permits, sampling, Node coverage, and release changeset. [endojs/endo#3376](https://github.com/endojs/endo/pull/3376) merged on 2026-10-29 as commit `679d9afaa4acd089f578055118b6711a22537f05`; its generic `cauterizeProperty` rule tolerates exactly the frozen, non-writable, non-configurable `arguments: null` and `caller: null` pills that made permitted Web IDL codec constructors fail lockdown on affected Chromium versions.
+- **The former implementation PR is superseded.** [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and its upstream mirror [endojs/endo#3377](https://github.com/endojs/endo/pull/3377) closed unmerged. Their codec-specific constructor encapsulation, browser tests, documentation, and changeset are not needed after the generic #3376 repair and must not be revived.
+- **Phase 3 has no implementation delta.** The `llm` downstream audit found that the matching `Buffer` conversions run in Node-host powers, drivers, servers, and backends rather than inside SES compartments. [endojs/endo-but-for-bots#1576](https://github.com/endojs/endo-but-for-bots/pull/1576) records that audit; no migration is required for this design.
+- **XS smoke coverage remains a non-blocking follow-up.** [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/pull/1584) carries the test-plan item 6 assertions and had all checks green at head `6ff4138d1a12086e2b70c3256e377b3d16c1f24d` on 2026-10-31, but remains open. This status change records implementation completion and M2 exit, not that #1584 has merged.
+- **M2 exit:** the milestone criterion concerns the landed byte/encoding libraries and other hygiene substrate. It does not require this XS-specific redundant smoke arm. With the codec implementation on upstream `master` and the downstream audit closed with no code delta, this record no longer blocks M2's rollup.
