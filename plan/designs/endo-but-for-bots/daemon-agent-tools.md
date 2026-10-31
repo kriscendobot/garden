@@ -1,12 +1,12 @@
 ---
 slug: daemon-agent-tools
 repository: endo-but-for-bots
-status: Not Started
+status: In Progress
 size: L
 milestone: M3
-depends_on: []
+depends_on: [endo-posix-sandbox]
 created: 2026-03-02
-updated: 2026-03-02
+updated: 2026-10-31
 source: imported from origin/llm designs/README.md
 ---
 
@@ -15,9 +15,93 @@ source: imported from origin/llm designs/README.md
 | | |
 |---|---|
 | **Created** | 2026-03-02 |
-| **Updated** | 2026-05-18 |
+| **Updated** | 2026-10-31 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | Not Started |
+| **Status** | In Progress |
+
+## Implementation status (reconciled 2026-10-31)
+
+This record was imported from the 2026-03-02 sketch and had never been
+advanced. The authoritative design is now `designs/daemon-agent-tools.md`
+on `llm` (rewritten by #611 on 2026-07-09, last updated 2026-10-06), and
+its pending re-sweep, design PR
+[#1497](https://github.com/endojs/endo-but-for-bots/pull/1497), adds
+§ Next Slice and Phases 7–8. The phase numbering below follows that
+design. The sketch's *Phased implementation* section at the end of this
+record is kept for history only. Do not dispatch from it.
+
+### Landed on `llm` (do not re-dispatch)
+
+| Phase | Deliverable | PR(s) |
+|---|---|---|
+| 0 | Substrate: `EndoMount`, local `Git` over the mount, `GitRemote` + askpass, `Git.filesystemAt`, `@endo/agent-tools` `ToolRecord` + code-mode renderer | #364, #371, #367, #365, #368, #408, #523, #524 |
+| 1 | File tools `list` / `edit` / `stat` (`makeMountFsTools`); mount search tools | #614; #681, #986 |
+| 2a / 2b | `Shell` capability (`provideShell`, host-spawner engine) + `makeShellTool` | #615 |
+| 3 | Push tier `makeGitRemoteTool`, `push({ forceWithLease })` | #705 |
+| 3.5 | Mount-bridged local git tools (`status`, `add`, `checkoutConflict`) | #616 |
+| 3.6 | `makeHttpTool` + daemon `provideHttpClient`; `@endo/fetch` plugin | #661; #723 |
+| 4 | Workspace provisioning (`makeWorkspaceTools` / `provisionWorkspaceTools`) + the worked edit → build → commit → push → `filesystemAt` loop | #707 |
+| 5 / 6 | `commit({ amend })`, `reword`, `cherryPick`, rebase controls, `checkoutConflict` (agentry eval lane) | landed per the `llm` design; contract-test item still open (below) |
+| — | MCP-adapter projection of the tool surface | #1336 |
+
+The sketch's original Phase 4, *dynamic tool discovery* by probing the
+petstore for `fs` / `shell` / `git`, is **intentionally not built**. The
+landed model takes explicit grants (`provisionWorkspaceTools`; #1348's
+`defineWorkspaceAgent` "without reviving dynamic capability discovery").
+The JSON `ToolRecord` wrappers are parked behind code mode (#731, scoped
+by #733). Only the reviewed tail (#705, #707, #950) is grandfathered.
+
+### In flight (open PRs, as of 2026-10-31)
+
+| Phase | PR | State | Note |
+|---|---|---|---|
+| design | [#1497](https://github.com/endojs/endo-but-for-bots/pull/1497) re-sweep: § Next Slice, Phases 7–8, OQ 4–6 | ready, unmerged | gauntlet completed and un-drafted 2026-10-19; needs a maintainer merge |
+| 2c | [#1504](https://github.com/endojs/endo-but-for-bots/pull/1504) sandbox engine for `Shell` (`makeSandboxSpawner`, `ShellPolicy.engine`) | draft, CI green, mergeable | gauntlet halted 2026-10-19 on a panel **review-submission permission error**, not a verdict; bwrap fixes split out as [#1591](https://github.com/endojs/endo-but-for-bots/pull/1591) (draft) and [#1542](https://github.com/endojs/endo-but-for-bots/pull/1542) |
+| 7 | [#1544](https://github.com/endojs/endo-but-for-bots/pull/1544) endo-claude sandboxed acceptance loop | draft, CI green | stacked on #1504 (pinned `17c61dd8e4`); **canonical** Phase 7 PR |
+| 7 (dup) | [#1547](https://github.com/endojs/endo-but-for-bots/pull/1547) | draft, CI red | duplicate of #1544 (viability = overtaken, 2026-10-24); close it |
+| 8b | [#1593](https://github.com/endojs/endo-but-for-bots/pull/1593) `http` group in `makeWorkspaceTools` | draft, CI green | gauntlet halted 2026-10-31 after panel round 1 (must-fix); the open item is the cross-maker tool-name collision (`fetch`: HTTP vs `GitRemote`; `inspect`: Shell vs `GitRemote`) |
+| 8a | [#1588](https://github.com/endojs/endo-but-for-bots/pull/1588) `@endo/fetch` / `@endo/confined-fetch` split | draft, CI green | advances the plugin side of Open Question 4; gauntlet halted 2026-10-31 |
+| 4 consumer | [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) explicit-grant `defineWorkspaceAgent` harness | ready, **CHANGES_REQUESTED**, idle since 2026-10-05 | already qualifies composed names as `inspectShell` / `inspectGitRemote`, which overlaps #1593's collision question |
+| 4 consumer | [#1589](https://github.com/endojs/endo-but-for-bots/pull/1589) lal / fae on one `@endo/agent-tools` catalog over daemon `Git` | draft | `daemon-git-capability` Phase 6; gauntlet halted after 3 panel rounds |
+| tail | [#950](https://github.com/endojs/endo-but-for-bots/pull/950) package-manager facet projection; [#1017](https://github.com/endojs/endo-but-for-bots/pull/1017) result presentation policy | draft, idle since Aug/Sep | #950 is #731-grandfathered |
+
+### Remaining unblocked integration work
+
+In order. None of these duplicates a landed phase.
+
+1. **Merge the design re-sweep #1497** (maintainer). It is the only
+   record of Phases 2c, 7, and 8 on `llm`. Until it lands, the `llm`
+   design still lists 3.6 and 4 as open.
+2. **Land Phase 2c.** Land #1591 (and #1542) first, then re-run #1504's
+   panel on a host whose token can post reviews, and un-draft it. This
+   is the gate for Phase 7: a host-engine `Shell` granted to a confined
+   guest escapes its OS slice.
+3. **Close #1547** as a duplicate of #1544 (maintainer).
+4. **Settle one workspace-catalog naming rule** for colliding tool names
+   across makers. #1348 qualifies them (`inspectShell`,
+   `inspectGitRemote`); #1593 fails closed on `fetch` / `inspect`. Then
+   finish #1593's fix round and resolve #1348's requested changes on
+   the same rule.
+5. **Phase 5 contract-test item.** Extend the `473b718b3` contract test
+   so the exo type, `GitInterface`, `exo-git` types, and the generated
+   code-mode declarations cannot drift. It is unblocked and has no PR.
+
+Gated, not yet dispatchable:
+
+- **Phase 7 (#1544)** waits on step 2. It also waits on a maintainer
+  call on design PR [#1543](https://github.com/endojs/endo-but-for-bots/pull/1543),
+  which proposes superseding `endo-claude` because `claude --bare`
+  rejects subscription credentials. If #1543 lands, Phase 7's guest
+  target changes and #1544 may need re-targeting rather than a merge.
+- **Phase 8a, the canonical HTTP provisioning path** (daemon
+  `provideHttpClient` vs the `@endo/fetch` plugin, Open Question 4), is a
+  maintainer decision. #1588 advances the plugin side; removing the
+  losing path follows that decision.
+- **#1589** waits on its panel must-fix list.
+
+Status stays **In Progress**. The M3 pillar is demonstrated with the host
+engine (#707). What remains is the confined-guest half: Phase 2c, then
+Phase 7.
 
 ## What is the Problem Being Solved?
 
@@ -294,6 +378,10 @@ capabilities and grants them to the new worker agent.
 | [daemon-os-sandbox-plugin](daemon-os-sandbox-plugin.md) | OS-level process confinement for `Shell` |
 
 ## Phased implementation
+
+> **Historical (2026-03 sketch).** Superseded by § Implementation status
+> above. Phases 1–3 and the provisioning half of Phase 4 have landed;
+> dynamic discovery was dropped in favor of explicit grants.
 
 ### Phase 1: Filesystem tools (depends on daemon-capability-filesystem)
 
