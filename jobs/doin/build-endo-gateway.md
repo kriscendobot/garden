@@ -9,3 +9,13 @@ dispatch: automatic
 Build the unblocked M3 `endo-gateway` design in endojs/endo-but-for-bots, opening a draft implementation PR against the current `llm` base with its gateway acceptance tests.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-31T11:56:20Z
