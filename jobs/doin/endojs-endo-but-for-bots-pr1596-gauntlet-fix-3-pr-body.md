@@ -61,3 +61,13 @@ No live-state migration or operator action is required. Resolutions recomputed a
 
 <!-- garden-job: build-mvs-resolver -->
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-31T21:49:00Z
