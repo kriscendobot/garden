@@ -89,3 +89,13 @@ Head: `71b6970c5c` (commits `3b9923b6`, `c529b93f`, `12beca5e`, `71b6970c` on to
 **Verification:** `@endo/platform` (380 tests), the daemon mount suites, and agent-tools `code-mode-types` pass. `tsc` passes for platform, daemon (including `test:types`), exo-git, agent-tools, and agentry. Daemon `git` / `git-remote` fixture tests could not run on the fixing host because its fake-git and askpass fixtures fail there; those files only lost type casts. CI is authoritative.
 
 =====SUMMARY END=====
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-31T17:16:24Z
