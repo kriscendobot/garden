@@ -165,8 +165,8 @@ The canonical table is `role_default_handler_timeout` in `common.sh`:
 | Runtime role/stage | Knob | Default |
 |---|---|---|
 | `builder`, `web-builder` | `GARDEN_BUILD_HANDLER_TIMEOUT` | 7200 s |
-| `fixer` | `GARDEN_FIXER_HANDLER_TIMEOUT` | 7200 s |
-| `shepherd` (including the gauntlet clean/fix base) | `GARDEN_SHEPHERD_HANDLER_TIMEOUT` | 7200 s |
+| `fixer` | `GARDEN_FIXER_HANDLER_TIMEOUT` | 10800 s |
+| `shepherd` (including the gauntlet clean/fix base) | `GARDEN_SHEPHERD_HANDLER_TIMEOUT` | 10800 s |
 | `conductor` | `GARDEN_CONDUCTOR_HANDLER_TIMEOUT` | 7200 s |
 | review directive | `GARDEN_REVIEW_HANDLER_TIMEOUT` | 7200 s |
 | panel / repanel | `GARDEN_PANEL_HANDLER_TIMEOUT` | 7200 s |
@@ -191,7 +191,7 @@ the claim ceiling (`GARDEN_CLAIM_TTL − GARDEN_HANDLER_KILL_AFTER − 1`).
 
 **Invariant:** any handler that hosts `ci-wait-merge.sh`, or fans out a panel, MUST
 have a handler budget greater than the bounded CI wait or panel fan-out cost. The
-default CI deadline is 5400 s, so the 7200 s conductor/botanist/shepherd defaults
+default CI deadline is 5400 s, so the 7200 s conductor/botanist and 10800 s shepherd defaults
 strictly exceed it. A producer for a new such stage must assign one of the long
 runtime roles above (use `handler-budget-role` when the performing role differs),
 or stamp a larger explicit `handler-timeout:`.

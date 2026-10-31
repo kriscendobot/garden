@@ -315,24 +315,26 @@ if [ "${GARDEN_REPO_HELPERS_ONLY:-0}" = 1 ]; then return 0; fi
 # so the gardener honors it in place of the default (gardener.sh per-job budget).
 # Both read it from here so the two producers never drift and an idempotent re-post
 # does not flap the header. Sized for a full CI wait plus headroom for a couple of
-# fix→CI cycles: endojs/endo-but-for-bots CI runs land on the order of 20–40min, so
-# 2h covers ~2–3 cycles. It MUST stay ≤ the claim budget max (GARDEN_CLAIM_TTL −
-# GARDEN_HANDLER_KILL_AFTER − 1 ≈ 14339s / 3.98h at the shipped defaults); 7200 is
+# fix→CI cycles: endojs/endo-but-for-bots CI runs land on the order of 20–40min.
+# 2h proved too tight — productive shepherds hit the 7202s wall (2026-10-31) — so
+# 3h covers ~3–4 cycles. It MUST stay ≤ the claim budget max (GARDEN_CLAIM_TTL −
+# GARDEN_HANDLER_KILL_AFTER − 1 ≈ 14339s / 3.98h at the shipped defaults); 10800 is
 # comfortably under, so the gardener honors it verbatim rather than clamping and
 # escalating (gardener.sh). A shepherd genuinely needing longer than ONE claim
 # (>~3.98h of CI-driving) cannot be helped by a larger header — it would clamp+
 # escalate; that pathological case is out of scope for the common minutes-to-a-
 # couple-hours shepherd this targets.
-: "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:=7200}"
+: "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:=10800}"
 
-# These roles/stage types have the same shipped two-hour budget for different structural
+# These roles/stage types have shipped two- or three-hour budgets for different structural
 # reasons, but keep separate knobs so operators can tune one workload without
 # widening all of them. A conductor/botanist can host ci-wait-merge.sh, whose
 # bounded wait alone defaults to 5400s. A fixer or review directive may have to
 # implement every item in a review and then drive CI. A panel fans out up to 35
-# seats. Every such default must remain larger than the bounded wait/fan-out it
+# seats. Fixer is 3h: a complex review fix plus its CI drive hit the 7202s wall
+# (2026-10-31). Every such default must remain larger than the bounded wait/fan-out it
 # contains and below the single-claim ceiling enforced by applied_handler_budget.
-: "${GARDEN_FIXER_HANDLER_TIMEOUT:=7200}"
+: "${GARDEN_FIXER_HANDLER_TIMEOUT:=10800}"
 : "${GARDEN_CONDUCTOR_HANDLER_TIMEOUT:=7200}"
 : "${GARDEN_REVIEW_HANDLER_TIMEOUT:=7200}"
 : "${GARDEN_PANEL_HANDLER_TIMEOUT:=7200}"
@@ -11153,7 +11155,7 @@ role_default_effort() {
 # for a fixer job's `handler-budget-role:`; left as-is it matches no arm of
 # role_default_handler_timeout/role_default_token_budget and silently falls
 # through to the 2400s fleet default -- a deterministic deadline overrun for work
-# that needs the 7200s fixer budget. Canonicalize the known aliases here, at the
+# that needs the 10800s fixer budget. Canonicalize the known aliases here, at the
 # single point every budget read passes through, so the alias can never decay to
 # the wrong budget. Unknown values pass through untouched (role-less jobs and
 # genuine role names must reach their own arms, or the fleet default, unchanged).
@@ -11172,8 +11174,8 @@ role_default_handler_timeout() {
   local role="${1:-}"
   case "$role" in
     builder|web-builder) printf '%s\n' "${GARDEN_BUILD_HANDLER_TIMEOUT:-7200}" ;;
-    fixer)               printf '%s\n' "${GARDEN_FIXER_HANDLER_TIMEOUT:-7200}" ;;
-    shepherd)            printf '%s\n' "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:-7200}" ;;
+    fixer)               printf '%s\n' "${GARDEN_FIXER_HANDLER_TIMEOUT:-10800}" ;;
+    shepherd)            printf '%s\n' "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:-10800}" ;;
     conductor)           printf '%s\n' "${GARDEN_CONDUCTOR_HANDLER_TIMEOUT:-7200}" ;;
     review)              printf '%s\n' "${GARDEN_REVIEW_HANDLER_TIMEOUT:-7200}" ;;
     panel)               printf '%s\n' "${GARDEN_PANEL_HANDLER_TIMEOUT:-7200}" ;;

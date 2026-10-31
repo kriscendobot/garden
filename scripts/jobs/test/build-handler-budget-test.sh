@@ -50,8 +50,8 @@ mk shepherd    'role: shepherd'
   && ok "builder defaults to 7200s" || bad "builder base = $(job_handler_budget_base "$TMP/builder.md")"
 [ "$(job_handler_budget_base "$TMP/webbuilder.md")" = 7200 ] \
   && ok "web-builder defaults to 7200s" || bad "web-builder base wrong"
-[ "$(job_handler_budget_base "$TMP/fixer.md")" = 7200 ] \
-  && ok "fixer defaults to 7200s for review fixes plus CI" || bad "fixer base wrong"
+[ "$(job_handler_budget_base "$TMP/fixer.md")" = 10800 ] \
+  && ok "fixer defaults to 10800s for review fixes plus CI" || bad "fixer base wrong"
 [ "$(job_handler_budget_base "$TMP/designer.md")" = 2400 ] \
   && ok "designer keeps the fleet default (a design is not a build)" || bad "designer base changed"
 [ "$(job_handler_budget_base "$TMP/norole.md")" = 2400 ] \
@@ -73,13 +73,13 @@ mk shepherd    'role: shepherd'
 [ "$(applied_handler_budget "$TMP/weaver.md")" = 7200 ] \
   && ok "weaver applied budget (gardener/reaper/nudge) is 7200s" \
   || bad "weaver applied budget = $(applied_handler_budget "$TMP/weaver.md")"
-[ "$(job_handler_budget_base "$TMP/shepherd.md")" = 7200 ] \
-  && ok "shepherd defaults to 7200s" || bad "shepherd base wrong"
+[ "$(job_handler_budget_base "$TMP/shepherd.md")" = 10800 ] \
+  && ok "shepherd defaults to 10800s" || bad "shepherd base wrong"
 
 hr; echo "handler-budget-role ALIAS CANONICALIZATION"; hr
 # `fix` is the common stage-name alias a producer writes for a fixer job; left
 # uncanonicalized it matches no budget arm and falls through to the 2400s fleet
-# default — a deterministic overrun for work that needs the 7200s fixer budget.
+# default — a deterministic overrun for work that needs the 10800s fixer budget.
 mk fixalias   'handler-budget-role: fix'
 mk fixertoken 'handler-budget-role: fix'
 mk fixerplain 'role: fixer'
@@ -91,9 +91,9 @@ mk fixerplain 'role: fixer'
   && ok "canonical_budget_role passes an unrelated role through" || bad "canonical_budget_role designer changed"
 [ -z "$(canonical_budget_role "")" ] \
   && ok "canonical_budget_role passes empty through" || bad "canonical_budget_role empty changed"
-[ "$(job_handler_budget_base "$TMP/fixalias.md")" = 7200 ] \
-  && ok "handler-budget-role: fix resolves to the 7200s fixer budget" \
-  || bad "handler-budget-role: fix base = $(job_handler_budget_base "$TMP/fixalias.md") (expected 7200)"
+[ "$(job_handler_budget_base "$TMP/fixalias.md")" = 10800 ] \
+  && ok "handler-budget-role: fix resolves to the 10800s fixer budget" \
+  || bad "handler-budget-role: fix base = $(job_handler_budget_base "$TMP/fixalias.md") (expected 10800)"
 [ "$(applied_token_budget "$TMP/fixertoken.md")" = "$(applied_token_budget "$TMP/fixerplain.md")" ] \
   && ok "handler-budget-role: fix resolves to the same token budget as role: fixer" \
   || bad "handler-budget-role: fix token budget = $(applied_token_budget "$TMP/fixertoken.md") != role: fixer $(applied_token_budget "$TMP/fixerplain.md")"
