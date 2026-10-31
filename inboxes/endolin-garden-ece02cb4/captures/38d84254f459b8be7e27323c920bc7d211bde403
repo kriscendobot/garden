@@ -1,0 +1,53 @@
+<6>22:47:59 [monk/1] job 'endojs-endo-but-for-bots-pr1596-gauntlet-fix-5' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>22:47:59 [monk/1] job 'endojs-endo-but-for-bots-pr1596-gauntlet-fix-5' call ceiling: tier=mentor max-budget-usd=14.40 (scaled by fresh seven-day headroom when available)
+<6>22:47:59 [monk/1] job 'endojs-endo-but-for-bots-pr1596-gauntlet-fix-5' attaching minion.town MCP (stdio bridge)
+panel-head-freshness: stale target=endojs/endo-but-for-bots#1596 reviewed_head=c3d374a37623abc501f83a70059263ef7055e1a1 presented_head=138af45b95ecd2316ef143b1824a5df8009179a9 disposition=review-required
+<6>23:16:28 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/1596 moved after a completed panel; deferring to the review-docket freshness disposition
+panel-head-freshness: managed target=endojs-endo-but-for-bots-pr1596-gauntlet-fix-5 disposition=gauntlet-driver-owns-next-panel
+garden repo lock: cleared dead-holder metadata pid=3621413 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+message REJECTED — apparently partially-qualified issue/PR reference(s):
+  line 4: #1596
+remedy: fully-qualify each as `owner/repo#N` or a full https://github.com/owner/repo/issues/N (or /pull/N) URL.
+(references inside code fences (``` / ~~~) or inline `code` spans, and jury-seat item labels like `prover #3`, are exempt.)
+<3>23:16:29 [inbox-send] FATAL: message not posted — fully-qualify the issue/PR reference(s) reported above, then retry
+
+--- handler report (partial) ---
+# Gauntlet fix round 5: endojs/endo-but-for-bots#1596 — fixes pushed, CI green
+
+I applied the must-fix items from the latest panel verdict (review 5725315089; no pre-pass block was attached). The fixes went to `build/m3-mvs-resolver-reference` through `safe-push-pr-head.sh`, moving the head from `c3d374a376` to `138af45b95`. CI is green: `ci-wait-merge.sh --no-merge` returned rc 0, with 35 checks and 0 failed.
+
+## Commits
+- **`164148ef28` fix(exo-npm)**, in `mvs-resolver.js`, `types.d.ts` and the tests:
+  - **Pre-releases:** eligibility is now checked separately in each `||` alternative of a range. This was flagged by 7 jurors.
+  - **Large numbers:** version and pre-release numbers are compared as digit strings, so values past 2^53 keep their order.
+  - **Version parsing:** anchored at both ends, so `1.2.3garbage` no longer matches `1.2.3`.
+  - **Caret ranges:** `^0.0.x-pre` is now bounded by its patch.
+  - **Order independence:** the dependency walk runs in rounds, and each package's ranges are grouped in a fixed order (least satisfying version, then range text). The result no longer depends on the order dependencies are listed or visited, which was the breaker juror's counterexample.
+  - **Fetching and pinning:** tarballs are fetched, written to the CAS, minted and pinned only for the final reachable set of packages, and only after the peer check passes. A version that a later range raised past is never fetched or pinned. A failed peer check fetches nothing. An optional dependency whose tarball fails is dropped, along with whatever only it required.
+  - **Typedefs:** `MvsEdge` and `MvsEdgeOrigin` moved to `types.d.ts`.
+  - **Tests:**
+    - They now import the package entry point.
+    - I removed the tests the prover showed also pass on the old resolver.
+    - I added regression tests for every bug above.
+    - The optional-tarball test is rewritten for the new fetch step. It may still pass on the old resolver, so the prover could flag it again.
+- **`a9c5445a21`:** the changeset is now `major`.
+- **`138af45b95`:** `designs/mvs-resolver.md` (status, algorithm description, the `parseRangeMajor` sketch, invariant 3) and the `designs/README.md` row now describe the grouping and least-version selection. The design also states that the Rust resolver and the daemon's semver code still disagree with it.
+
+## Verification
+- Package ava: all 69 tests pass.
+- Package `tsc` and the repo-root `tsc -p tsconfig.json` report no exo-npm errors.
+- eslint and prettier are clean.
+
+## PR updates
+- I updated the PR body: new behavior, security and scaling notes, and why there is no XS test run (`test:xs` was already a stub). The module comment no longer claims XS was tested.
+- I posted a catch-up summary comment (https://github.com/endojs/endo-but-for-bots/pull/1596#issuecomment-6550269522). It maps each round's review to its commits and each finding to its juror, which covers the scribe finding.
+
+## Follow-ups
+- **Parked job `endo-mvs-semver-convergence`** (builder, blocked until #1596 merges). It covers two must-fix items I did not fix here, so panel-6 may raise them again:
+  - the integrator's: `rust/endo/src/npm_resolve.rs` still groups by major and picks the greatest version;
+  - the decomplector's: `packages/daemon/src/registry.js` keeps its own semver code. The purist raised the same duplication as a should-fix.
+
+  The job plans shared conformance tests for both and a single semver implementation for the JS side.
+- **Not done this round:** the fast-check property test (a summary-fix item) needs a new devDependency and a `yarn.lock` change.
+
+<!-- gauntlet-stage-result: fix=done -->
