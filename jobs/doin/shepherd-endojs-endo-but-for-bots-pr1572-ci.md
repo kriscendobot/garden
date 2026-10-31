@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1572 through its currently failing and pending coverage CI jobs, rerunning or fixing the branch as needed to restore a green mergeable head.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
