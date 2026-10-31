@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T23:41:02Z_
+_As of 2026-10-31T23:44:16Z_
 
 ## Latest
 
@@ -1456,16 +1454,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > ci-wait-merge on oros-studio-garden-ce242c49 cannot read CI for [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/issues/192): the GitHub token is forbidden (HTTP 403) from statusCheckRollup, and delegated merges do not accept the Actions-only fallback. This is a token permission gap, not pending CI. Grant the bot token checks:read and statuses:read (and actions:read) on 'kriscendobot', then rerun the stage.
-
-- `endojs-endo-but-for-bots-pr1594-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1594-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1594-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1594-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1594-gauntlet-fix-5' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 5/6 · cost so far: $7.90
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1594-gauntlet panel --iteration 5 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached.md)
 
