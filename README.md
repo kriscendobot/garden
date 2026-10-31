@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T21:09:10Z_
+_As of 2026-10-31T21:11:11Z_
 
 ## Latest
 
@@ -1808,7 +1808,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.0M | $104.11 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 29.0M | $104.25 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 292.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59525576 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1817,13 +1817,14 @@ _Fleet token-unlock pace: 59525576 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 15 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`minion-town-arc-press-20261031-210513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261031-210513.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`oros-health-checkup-20261031-210513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261031-210513.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`oros-health-watch-20261031-210513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261031-210513.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1596-gauntlet-fix-3-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1596-gauntlet-fix-3-pr-body.md) — Relay: update the PR body of endojs/endo-but-for-bots PR #1596
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1595-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1595
 
 ### doin (6)
