@@ -35,5 +35,5 @@ Confinement is a **combination** of Claude Code flags (`--bare` +
   `@endo/agent-tools` MCP-adapter projection `endo-agent-tools`, lives in M3).
 - **Confinement core impl:** PR endo-but-for-bots#1015 (open draft) — `@endo/claude`
   + `@endo/claude-sandbox`, 56 passing tests.
-- **Companion:** [[endo-claude-agents-capability]] (child-guest provisioning, #1102).
+- **Companion:** [[endo-claude-agents-capability]] (child-guest provisioning; design #1558 superseding closed #1102, implementation #1560).
 - **Ledger PR:** endo-but-for-bots#1127 (the groom that carved this into M3, spec only).
