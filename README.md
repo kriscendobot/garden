@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T07:13:08Z_
+_As of 2026-10-31T07:16:29Z_
 
 ## Latest
 
@@ -1750,7 +1750,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.9M | $10.64 _(notional, rate-card)_ | 1% of 271.0M (ok) |
+| Claude | 2.0M | $12.60 _(notional, rate-card)_ | 1% of 271.0M (ok) |
 | Codex | 269.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1764,8 +1764,9 @@ worst fetch p95 8.183874s/45s (/home/kris/garden/.garden-state/maintainer/journa
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1544-shepherd-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1544-shepherd-20261031.md) — ---
+- [`build-daemon-git-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-capability.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1572-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1572-ci.md) — ---
 - [`build-endoclaw-network-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endoclaw-network-fetch.md) — ---
 - [`endojs-endo-but-for-bots-pr1586-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1586-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1586
