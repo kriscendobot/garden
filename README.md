@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T16:22:27Z_
+_As of 2026-10-31T16:23:25Z_
 
 ## Latest
 
@@ -200,10 +200,6 @@ Delegation: **active**
 - `msg-claude-on-minion-town-press-20261023-172020-61211fe15744` — from gardener:claude-on-minion-town-press-20261023-172020, reply_to `claude-on-minion-town-press-20261023-172020` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261023-172020-61211fe15744.md)
 
 > Claude-on-minion.town arc ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)): one decision gates the arc now. Do you adopt the course correction in [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543) (retire subscription-backed `claude --bare` inference, replace with API-key providers + mail-pinned Lal/Fae guest agents), and how do you answer its open questions Q1 (Agent SDK retention) and Q4 (garden inference sourcing)? [kriscendobot/minion.town#217](https://github.com/kriscendobot/minion.town/issues/217) reaches the same conclusion from the Claude Code terms. Until you answer, the press posts no new arc builds. Answer on [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543) or reply here.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_accountant_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_accountant_journal.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/accountant/journal: p95=18.088027s max=18.088027s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `liaison-followup-ebf85c34f5bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ebf85c34f5bc.md)
 
