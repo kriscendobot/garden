@@ -9,6 +9,8 @@ dispatch: automatic
 Shepherd endojs/endo-but-for-bots PR #1504, the M3 sandbox Shell engine that blocks the Claude coding-agent stack, by diagnosing and fixing its red CI until the draft is green.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
