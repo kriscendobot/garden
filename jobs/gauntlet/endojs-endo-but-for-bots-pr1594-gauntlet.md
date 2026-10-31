@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1594
 build_job: build-daemon-rename-to-manager-runtime
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1594-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr1594-gauntlet-fix-1
 state: running
 created_by: producer
 created_at: 2026-10-31T15:22:05Z
