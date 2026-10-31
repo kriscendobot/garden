@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T05:19:43Z_
+_As of 2026-10-31T05:24:06Z_
 
 ## Latest
 
@@ -1737,7 +1735,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 995.5k | $7.19 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 1.0M | $7.67 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 268.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1746,10 +1744,13 @@ _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a su
 worst fetch p95 6.421600s/45s (/home/kris/garden/.garden-state/transcripts/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (6)
+- [`endojs-endo-but-for-bots-pr1544-shepherd-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1544-shepherd-20261031.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1585-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1585-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1585
+- [`canary-probe-oros-studio-garden-ce242c49-a8afe6dde596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a8afe6dde596.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a8afe6dde596
 
 ### doin (5)
 - [`endo-ironhorse-oracle-stage3-math-ulp-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ironhorse-oracle-stage3-math-ulp-drift.md) — Fix: ironhorse oracle stage3-math/054,055 last-digit mismatch reds every PR o...
