@@ -31,15 +31,4 @@ in the engine/oracle, regenerated corpus pins, or a documented tolerance/skip wi
 weaken the gate silently. Open a PR against `llm`. Once it lands, PR gauntlets that halted on this
 (e.g. #1117 clean stage) can be re-run.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-31T05:00:32Z
+<!-- garden-reaped: 0 -->
