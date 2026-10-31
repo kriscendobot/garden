@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T06:21:14Z_
+_As of 2026-10-31T06:22:57Z_
 
 ## Latest
 
@@ -1482,6 +1482,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
+- `msg-build-endopi-provider-registry-and-oauth-ae4bb518ffda` — from gardener:build-endopi-provider-registry-and-oauth, reply_to `build-endopi-provider-registry-and-oauth` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-endopi-provider-registry-and-oauth-ae4bb518ffda.md)
+
+> I found a design conflict before building endopi-provider-registry-and-oauth. The older design asks for Claude/ChatGPT/Copilot subscription OAuth, but the newer merged hosted-agent-broker-oauth design deliberately keeps Claude subscription mode closed (no documented third-party broker role) and Codex only unproven; the live API-key registry/adapters are still draft PRs [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) and [endojs/endo-but-for-bots#1575](https://github.com/endojs/endo-but-for-bots/issues/1575). The job says to extend that API-key path and avoid duplicating the stdio bridge. Should I (A) add only registry-level authMode/oauth plumbing over the existing renewable credential broker, leaving provider subscription modes unavailable, or (B) wait for a provider-specific OAuth decision/evidence? I will continue with safe read-only analysis while awaiting guidance.
 
 - `watchdog-token-backoff-reset-unknown-codex-endolin` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-token-backoff-reset-unknown-codex-endolin.md)
 
