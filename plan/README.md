@@ -112,7 +112,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-rename-to-manager | endo-but-for-bots | M3 | Not Started | S | — |
 | daemon-worker-import-from-mount | endo-but-for-bots | M3 | Proposed | M | — |
 | endo-claude | endo-but-for-bots | M3 | In Progress | L | endo-but-for-bots#1015 |
-| endo-claude-agents-capability | endo-but-for-bots | M3 | Proposed | M | endo-but-for-bots#1102 |
+| endo-claude-agents-capability | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1560 |
 | endo-fs-from-git | endo-but-for-bots | M3 | In Progress | — | — |
 | endo-gateway | endo-but-for-bots | M3 | Proposed | L | — |
 | endoclaw-network-fetch | endo-but-for-bots | M3 | Not Started | M | — |
