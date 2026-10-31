@@ -3,18 +3,18 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 670,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/670",
-  "head_oid": "9c120d7b5ed1bf7306877dbf43199e436cd1de35",
-  "ask": "approve",
+  "head_oid": "d14737fb6543ba7125f2b66cd8406d823d72ee26",
+  "ask": "decide",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "feat(lal): subscription OAuth flow and encrypted auth store (M3)",
+  "summary": "Choose whether to run the gauntlet or review this uncovered ready PR directly",
   "unblocks": [],
-  "source": "native-review-request-endojs-endo-but-for-bots-pr670",
-  "requested_at": "2026-10-08T07:42:21Z",
+  "source": "readiness-audit-endojs-endo-but-for-bots-pr670-d14737fb6543",
+  "requested_at": "2026-10-31T06:46:46Z",
   "first_requested_at": "2026-10-08T07:42:21Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
-    "state": "green",
-    "observed_at": "2026-10-31T05:07:48Z"
+    "state": "red",
+    "observed_at": "2026-10-31T06:46:48Z"
   }
 }
