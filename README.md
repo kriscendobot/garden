@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T23:13:16Z_
+_As of 2026-10-31T23:16:05Z_
 
 ## Latest
 
@@ -964,11 +962,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #23 (first seen 2026-10-23T13:27:09Z, latest 2026-10-31T23:09:44Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 23 times; this is
-> ONE entry that updates in place, not 23 messages. Latest detail:
+> COALESCED message — occurrence #24 (first seen 2026-10-23T13:27:09Z, latest 2026-10-31T23:14:52Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 24 times; this is
+> ONE entry that updates in place, not 24 messages. Latest detail:
 >
-> Milestone M3’s next critical step is merging the ready design re-sweep PR #1497; it is maintainer-only and records the Phase 2c/7/8 sequence. The remaining unblocked catalog naming work also needs a decision between qualified names and fail-closed collisions before #1593 and #1348 can finish.
+> M3’s Phase 7 acceptance-loop step is blocked pending a disposition of [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543): whether API-key providers supersede the `endo-claude` subscription-credential design. That decision determines how canonical PR #1544 is retargeted after in-flight sandbox PR #1504 lands.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1830,7 +1828,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.9M | $112.14 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 29.9M | $112.22 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 296.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59913836 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1839,10 +1837,11 @@ _Fleet token-unlock pace: 59913836 tokens/day lower bound; incomplete where a su
 worst fetch p95 16.796674s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1595-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1595
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr1589-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1589-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1589
