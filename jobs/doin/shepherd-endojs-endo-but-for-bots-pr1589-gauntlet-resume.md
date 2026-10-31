@@ -8,6 +8,8 @@ dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1589 on `build-daemon-git-capability`: resume its halted gauntlet now that CI is green, obtain a fresh panel verdict, and drive the remaining review work.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
