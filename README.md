@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T19:34:09Z_
+_As of 2026-10-31T19:36:46Z_
 
 ## Latest
 
@@ -959,11 +959,11 @@ Delegation: **active**
 
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
-> COALESCED message — occurrence #21 (first seen 2026-10-23T13:27:09Z, latest 2026-10-31T17:50:45Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 21 times; this is
-> ONE entry that updates in place, not 21 messages. Latest detail:
+> COALESCED message — occurrence #22 (first seen 2026-10-23T13:27:09Z, latest 2026-10-31T19:35:12Z).
+> The SAME message (episode key `foreman-milestone-M3`) has now been sent 22 times; this is
+> ONE entry that updates in place, not 22 messages. Latest detail:
 >
-> M3’s next unblocked follow-up, [endojs/endo-but-for-bots#1588](https://github.com/endojs/endo-but-for-bots/issues/1588), is gated by the shared bwrap CI repair in PR #1566. Please decide whether to merge or otherwise resolve #1566 so #1588 can be woven and its gauntlet resumed.
+> M3’s highest-priority Claude API path is blocked on merging ready PRs #1560 and #1575; those merges unlock the parked child-agent-factory and Minion Town Phase 3 work. Please decide whether to merge them, and settle the Phase 8 HTTP provisioning direction for #1588/#1593.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1815,7 +1815,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.1M | $60.82 _(notional, rate-card)_ | 7% of 271.0M (ok) |
+| Claude | 20.2M | $65.57 _(notional, rate-card)_ | 7% of 271.0M (ok) |
 | Codex | 289.4M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 54518144 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1824,26 +1824,24 @@ _Fleet token-unlock pace: 54518144 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.088027s/45s (/home/kris/garden/.garden-state/accountant/journal); 15 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1597-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1597-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1597
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1596-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1596-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1596
 - [`endojs-endo-but-for-bots-pr1593-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1593-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1593
-- [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1595
 - [`shepherd-endojs-endo-but-for-bots-pr1593-gauntlet-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1593-gauntlet-resume.md) — ---
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1594
 
-### tada (15838)
+### tada (15840)
+- [`endojs-endo-but-for-bots-pr1597-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1597-gauntlet-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1595-gauntlet-panel-2.md) — Cost
 - [`build-daemon-agent-tools-phase-five-contract-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-daemon-agent-tools-phase-five-contract-test.md) — Completion report: build-daemon-agent-tools-phase-five-contract-test
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1595-gauntlet-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1594-gauntlet-panel-3.md) — Cost
-- [`build-endoclaw-timer-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/build-endoclaw-timer-daemon-integration.md) — Cost
-- [`endojs-endo-but-for-bots-pr1596-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1596-gauntlet-panel-1.md) — Cost
-- … and 15833 more
+- … and 15835 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
