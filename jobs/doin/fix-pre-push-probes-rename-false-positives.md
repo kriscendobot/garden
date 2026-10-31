@@ -22,3 +22,13 @@ Seen on the endojs/endo-but-for-bots daemon->manager rename (job
 Make both probes rename-aware: an idiom or re-export that is present on the paired removed
 line (or at the same source module and position in the base) is not newly introduced. Add
 regression cases to `scripts/jobs/test/review-convention-probes-test.sh`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-31T15:09:18Z
