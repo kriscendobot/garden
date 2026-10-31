@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T13:58:18Z_
+_As of 2026-10-31T13:59:59Z_
 
 ## Latest
 
@@ -1750,7 +1750,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.1M | $25.75 _(notional, rate-card)_ | 2% of 271.0M (ok) |
+| Claude | 6.1M | $25.95 _(notional, rate-card)_ | 2% of 271.0M (ok) |
 | Codex | 281.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 43975171 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1759,8 +1759,9 @@ _Fleet token-unlock pace: 43975171 tokens/day lower bound; incomplete where a su
 worst fetch p95 6.699011s/45s (/home/kris/garden/.garden-state/monitors/monk-3/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1589-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1589-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1589
+- [`build-sandbox-bwrap-leader-exit-group-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-sandbox-bwrap-leader-exit-group-sweep.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
