@@ -7,7 +7,7 @@ kind: feature
 stage: clean
 iteration: 0
 max_iterations: 6
-resumes: 3
+resumes: 4
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
