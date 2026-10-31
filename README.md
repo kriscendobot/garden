@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T16:01:53Z_
+_As of 2026-10-31T16:06:13Z_
 
 ## Latest
 
@@ -1752,17 +1750,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 8.1M | $26.90 _(notional, rate-card)_ | 3% of 271.0M (ok) |
-| Codex | 285.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 8.1M | $27.17 _(notional, rate-card)_ | 3% of 271.0M (ok) |
+| Codex | 286.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 46389855 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 46430525 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 6.699011s/45s (/home/kris/garden/.garden-state/monitors/monk-3/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1589-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1589-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1589
+- [`accountant-weekly-20261031-160509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-weekly-20261031-160509.md) — Weekly arc apportionment
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1593-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1593-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1593
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1776,13 +1775,13 @@ worst fetch p95 6.699011s/45s (/home/kris/garden/.garden-state/monitors/monk-3/j
 - [`endojs-endo-but-for-bots-pr1560-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1560-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1560
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1594-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1594
 
-### tada (15787)
+### tada (15788)
+- [`canary-probe-oros-studio-garden-ce242c49-ff8840946e50`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/canary-probe-oros-studio-garden-ce242c49-ff8840946e50.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1593-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1593-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1593-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1593-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1594-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1594-gauntlet-viability.md) — Cost
 - [`fix-worktree-sweeper-live-claim-reused-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/fix-worktree-sweeper-live-claim-reused-base.md) — Cost
-- [`endojs-endo-but-for-bots-pr1586-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1586-gauntlet-panel-3.md) — Cost
-- … and 15782 more
+- … and 15783 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
