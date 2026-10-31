@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-10-31T18:25Z (oros-health-checkup-20261031-180512): healthy; deployed = origin/main2 `ff88409`, one clone repacked
+
+- **Load/mem:** load 4.10/3.20/3.20 at 18:15Z, a brief bump over the usual ~3.4. 12 GiB of 15 GiB available. Swap reads 930M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (402G free). The virtiofs garden mount is at 61% (184G free), inodes 1%.
+- **Uptime:** 30d00h59m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `ff88409`, equal to the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed` at `ff88409`, 0 advisory (15:59Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** on origin/journal2, the last claude-oros push was 18:03:43Z. The ten pushes from 15:48 to 18:03Z were all ok, at a steady ~15-minute cadence. Spend is 4,460,811 of 180M.
+- **State clones:** 33 journal clones. repo-watcher had 52 packs, over the `>50` threshold, and its geometric auto-gc had timed out (rc=124, 18:12Z). A manual `namespace-clone-maintenance.sh` pass brought it to 1 pack. Next largest are reaper (47), producer (46) and fleet-health (44). No `gc.log` or tmp_pack. The `.git` locks are fresh in-use `index.lock`s. The worktree-sweeper repo lock was reported "overdue", but its holder is a live `worktree-sweeper.sh` tick, 8m41s old, so it was left alone.
+- **rc=124 (3h):** 34.5k system-journal lines. The only rc=124 is the repo-watcher auto-gc above, which is now resolved. No `Failed with result` or rc=137 lines.
+- **Changed:** repacked the repo-watcher journal clone (52→1 packs) through the standard maintenance script.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-31T15:20Z (oros-health-checkup-20261031-145019): healthy; deployed `a257ff3`, one commit behind origin/main2 `895d6de` (landed 15:12Z), no changes
 
 - **Load/mem:** load 3.91/3.56/3.42 at 15:18Z, the usual level. 12 GiB of 15 GiB available. Swap reads 926M of 1.0 GiB, the usual steady level.
