@@ -2,7 +2,7 @@
 order: serial
 children: build-daemon-rename-to-manager-runtime build-daemon-rename-to-manager-surface
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-31T15:08:23Z
 ---
