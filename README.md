@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T06:22:57Z_
+_As of 2026-10-31T06:25:55Z_
 
 ## Latest
 
@@ -1745,7 +1745,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.3M | $11.25 _(notional, rate-card)_ | 0% of 271.0M (ok) |
+| Claude | 1.3M | $11.32 _(notional, rate-card)_ | 0% of 271.0M (ok) |
 | Codex | 269.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1754,16 +1754,16 @@ _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a su
 worst fetch p95 6.421600s/45s (/home/kris/garden/.garden-state/transcripts/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`endojs-endo-but-for-bots-pr1586-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1586-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1586
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (6)
+### doin (7)
 - [`endo-ironhorse-oracle-stage3-math-ulp-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ironhorse-oracle-stage3-math-ulp-drift.md) — Fix: ironhorse oracle stage3-math/054,055 last-digit mismatch reds every PR o...
 - [`endojs-endo-but-for-bots-pr1544-shepherd-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1544-shepherd-20261031.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1572-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1572-ci.md) — ---
+- [`endojs-endo-but-for-bots-pr1586-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1586-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1586
 - [`endojs-endo-but-for-bots-pr1585-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1585-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1585
 - [`endojs-endo-but-for-bots-pr1501-shepherd-20261031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1501-shepherd-20261031.md) — ---
 - [`build-endopi-provider-registry-and-oauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endopi-provider-registry-and-oauth.md) — ---
