@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-31T04:45:48Z_
+_As of 2026-10-31T04:47:52Z_
 
 ## Latest
 
@@ -346,10 +346,6 @@ Delegation: **active**
 >    Tell me if you object to any of them. If you don't, they stand.
 >
 > 3. **Invitation count.** This waits on #199 adding a per-holder count. I'm not acting on it yet, since the dependency hasn't landed. Tell me if you want it tracked on a schedule instead.
-
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1117-gauntlet-clean` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1117-gauntlet-clean.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr1117-gauntlet-clean' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7201s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `kriscendobot-minion.town-pr210-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr210-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr210-gauntlet-review-budget-reached.md)
 
@@ -1740,7 +1736,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 239.3k | $1.96 _(notional, rate-card)_ | 0% of 271.0M (ok) |
-| Codex | 267.2M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Codex | 267.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
