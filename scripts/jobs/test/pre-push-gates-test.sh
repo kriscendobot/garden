@@ -147,6 +147,64 @@ grep -Fxq 'run lint -- --fix' "$FAKE_NPM_LOG" || {
 }
 echo "ok - packageManager selects npm for format, lint-fix, lint, and typecheck"
 
+# Regression (improve-prepush-build-before-lint, 2026-10-31): a typed linter on an
+# unbuilt tree reports `Parsing error: ... was not found by the project service`
+# for files a build brings into the TypeScript project. The gate must build
+# before lint, as local-verify.sh and CI do, so that lint comes out clean; the
+# build's own outputs must never be staged into the candidate.
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+printf '%s\n' '{"scripts":{"build":"x","lint":"x","typecheck":"x"}}' \
+  >"$REPOSITORY/package.json"
+git -C "$REPOSITORY" add package.json
+FAKE_TYPED="$TEMPORARY_DIRECTORY/fake-typed-yarn.sh"
+cat >"$FAKE_TYPED" <<'SCRIPT'
+#!/bin/bash
+printf '%s\n' "$*" >>"$FAKE_TYPED_LOG"
+case "$*" in
+  "run build")
+    mkdir -p generated
+    printf '%s\n' 'export const built = true;' >generated/types.ts
+    ;;
+  "run lint"*)
+    if [ ! -f generated/types.ts ]; then
+      echo 'src/index.ts  0:0  error  Parsing error: generated/types.ts was not found by the project service'
+      exit 1
+    fi
+    ;;
+esac
+SCRIPT
+chmod +x "$FAKE_TYPED"
+export FAKE_TYPED_LOG="$TEMPORARY_DIRECTORY/typed.log"
+rm -f "$FAKE_TYPED_LOG"
+(cd "$REPOSITORY" && bash "$FAKE_TYPED" run lint --fix) >/dev/null && {
+  echo "not ok - fixture lint passed on an unbuilt tree"
+  exit 1
+}
+rm -f "$FAKE_TYPED_LOG"
+output=$(GARDEN_YARN="bash $FAKE_TYPED" "$DRIVER" --summary "$REPOSITORY" 2>&1) || {
+  echo "not ok - project-service lint failure survived the build"
+  printf '%s\n' "$output"
+  exit 1
+}
+[ "$(head -n 2 "$FAKE_TYPED_LOG" | tr '\n' '|')" = "run build|run lint --fix|" ] || {
+  echo "not ok - driver did not run build before lint"
+  cat "$FAKE_TYPED_LOG"
+  exit 1
+}
+printf '%s\n' "$output" | grep -Fq 'yarn build' || {
+  echo "not ok - summary did not report the build stage"
+  printf '%s\n' "$output"
+  exit 1
+}
+if git -C "$REPOSITORY" diff --staged --name-only | grep -Fq generated/; then
+  echo "not ok - build output was staged into the candidate"
+  exit 1
+fi
+echo "ok - build runs before lint, clearing project-service lint failures, and its output stays unstaged"
+git -C "$REPOSITORY" reset -q --hard HEAD
+git -C "$REPOSITORY" clean -qfd
+
 # Regression (endojs/endo-but-for-bots#1014): a file whose `spell-out-exempt`
 # marker sits in the first five lines must stay exempt even when the file is far
 # longer than the head window. The old exemption check piped the whole file

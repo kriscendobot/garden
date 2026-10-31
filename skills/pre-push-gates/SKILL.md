@@ -44,7 +44,7 @@ Each stage's exit code is captured; the script exits with the highest non-zero c
 
 ### Resource bounds on project-script stages
 
-The project-script stages (format, lint-fix / `lint:fix` / `lint --fix`, typecheck) each run in their own session under a wall-clock bound and a memory bound on the summed RSS of the stage's whole process tree. A stage that exceeds either bound is killed with its whole session. A Node heap-exhaustion abort or a SIGKILL death (the kernel OOM killer's signature) counts the same way. Any of these is a **resource-exhausted** result: the driver prints `resource-exhausted (<reason>)` for the stage and stops at once with **exit 3**, without running later stages or probes. The calling step must not retry with a larger heap or a raised bound, which is how an OOM-ing whole-repository `lint:fix` starves the host; it narrows the stage (lint only the changed packages or files) or reports the bound.
+The project-script stages (format, build, lint-fix / `lint:fix` / `lint --fix`, typecheck) each run in their own session under a wall-clock bound and a memory bound on the summed RSS of the stage's whole process tree. A stage that exceeds either bound is killed with its whole session. A Node heap-exhaustion abort or a SIGKILL death (the kernel OOM killer's signature) counts the same way. Any of these is a **resource-exhausted** result: the driver prints `resource-exhausted (<reason>)` for the stage and stops at once with **exit 3**, without running later stages or probes. The calling step must not retry with a larger heap or a raised bound, which is how an OOM-ing whole-repository `lint:fix` starves the host; it narrows the stage (lint only the changed packages or files) or reports the bound.
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
@@ -82,7 +82,20 @@ fi
 
 A project without a `format` script in its `package.json` skips this stage. The garden's primary repos (`endojs/endo-but-for-bots`, `endojs/endo`, `Agoric/agoric-sdk`) all carry the script.
 
-### 3. Auto-fix stage: `lint --fix`
+### 3. Build before lint
+
+```sh
+for script in build compile build:js; do   # first match wins, as in local-verify
+  if jq -e --arg s "$script" '.scripts[$s]' package.json >/dev/null 2>&1; then
+    "$PACKAGE_RUNNER" run "$script"
+    break
+  fi
+done
+```
+
+Runs only in auto-fix mode (the mode that runs lint). A typed linter resolves each file through the TypeScript project service; on an unbuilt tree it reports `Parsing error: <file> was not found by the project service` for files a build brings into a project. That is an ordering failure, not a real one, so the build runs first, matching [local-verify](../local-verify/SKILL.md) and CI. The build is not a fixer: the paths it dirties (unignored artifacts, regenerated files) are kept out of the index by every later re-stage. A failing build is reported, and lint still runs so both results surface in one pass.
+
+### 4. Auto-fix stage: `lint --fix`
 
 ```sh
 if jq -e '.scripts.lint' package.json >/dev/null 2>&1; then
@@ -93,7 +106,7 @@ fi
 
 If a project's `lint` script does not accept `--fix`, the stage fails loudly. Such a project can invoke the driver with `--probes-only` after running its own format and lint pipeline.
 
-### 4. Garden-specific deterministic probes
+### 5. Garden-specific deterministic probes
 
 The probes live in `scripts/jobs/gardening/pre-push-gates/probes/<rule>.sh`, one script per rule. Each script reads `<base>...HEAD` when the driver supplies `--base-ref`; otherwise it reads the staged diff, falling back to the unstaged working-tree diff when nothing is staged. It prints `pass` or `fail: <reason>` and exits 0 or 1. The driver discovers every executable `probes/*.sh`, so adding a probe requires no driver edit.
 
@@ -124,7 +137,7 @@ A probe's first finding is enough to fail it; the driver runs every probe so the
 
 After the failing-probe pass, the driver runs the comment-concision advisory. It scans the staged diff, or `<base-ref>...HEAD` when `--base-ref` is supplied, and prints the first added multi-line prose comment. A hit is `warn (non-blocking)`: the author rereads the comment, but a legitimate invariant or rationale does not fail the gate merely because it is a comment.
 
-### 5. Non-auto-fixable stage: `typecheck`
+### 6. Non-auto-fixable stage: `typecheck`
 
 ```sh
 if jq -e '.scripts.typecheck' package.json >/dev/null 2>&1; then
@@ -134,7 +147,7 @@ fi
 
 A typecheck failure is the gate's terminal failure. The calling step addresses the underlying type error and re-runs.
 
-### 6. Summary
+### 7. Summary
 
 ```
 yarn format     pass (auto-fixed 3 files; re-staged)
@@ -221,3 +234,4 @@ The
 - _2026-09-23_: added `no-plain-reexport` probe (`scripts/jobs/gardening/pre-push-gates/probes/no-plain-reexport.sh`) — the author-time preventive for the garden's re-export deprecation policy ([re-export-deprecation-policy](../re-export-deprecation-policy/SKILL.md)). @erights asked on `endojs/endo-but-for-bots#475` that the garden follow the re-export policy and prevent every future violation; the design `designs/reexport-deprecation-policy-gauntlet.md` (approved PR #95, five open questions resolved) specifies a three-stage detector: a cheap grep for added `export` words gates a full Babel parse taking the set difference of qualified re-exports (after − before) so only newly-introduced ones are flagged; the `reexport-auditor` jury seat is the LLM stage. Because the garden does not `npm install` at run time, the skill **vendors** a self-contained `@babel/parser` bundle and a parse helper (`reexport-parse.cjs`); the probe is one detector reused as the seat's pre-pass (`check`/`report` subcommands). Barrels are in scope (Decision 1); type-only re-exports and `.d.ts` are skipped (Decision 5); the `@deprecated`-adjacency rule is Decision 2; per-file `reexport-policy-exempt` marker. Regression coverage: `scripts/jobs/test/no-plain-reexport-probe-test.sh` and `scripts/jobs/test/seat-gate-reexport-auditor-test.sh`.
 - _2026-09-12_: added `no-nul-bytes` probe (`scripts/jobs/gardening/pre-push-gates/probes/no-nul-bytes.sh`). A literal NUL byte makes git treat a file as binary, so `git diff` and GitHub's review UI render only "Binary files differ" and suppress the line-level diff — a NUL smuggled into an otherwise-textual file (a test file, precipitatingly) hides that file's substantive change from human review. The probe fails when a changed text file carries any NUL, whole-file (a NUL leaves no added-line ranges to scope to), across the staged, unstaged, and `--base-ref` committed diffs; the content is streamed straight into the detector so the NUL is never stripped by a shell variable. Non-auto-fixable: the author must spell the character with a textual escape (`\0`, `\x00`, `String.fromCharCode(0)`). It skips genuinely-binary paths — a curated known-binary extension denylist, `references/`/`node_modules/`, and any file the repo declares binary via a gitattributes `-diff`/`binary` attribute (the principled per-file escape hatch). Regression coverage in `scripts/jobs/test/pre-push-gates-test.sh`: a staged NUL and a committed `--base-ref` NUL are both rejected with the textual-escape suggestion, and a known-binary asset (`.png`) passes untouched.
 - _2026-10-27_: project-script stages now run under a claim-safe wall and a process-tree memory bound. An unbounded whole-repository `lint:fix` exhausted host memory and the job's 2026-10-27T17:38:39Z timeout was spent recovering from the OOM. Exceeding a bound, a Node heap abort, or an OOM-kill is a distinct resource-exhausted result (exit 3) that stops the gate at once so agents do not retry with a larger heap; `GARDEN_PRE_PUSH_RESOURCE_LIMITS=0` restores the unbounded behavior. Regression coverage: `scripts/jobs/test/pre-push-gates-test.sh`.
+- _2026-10-31_: the gate now runs the project's build script (`build`, `compile`, or `build:js`, first match) before `lint --fix`, matching `local-verify.sh` and CI. A builder result that day reported a root-lint TypeScript project-service error (`... was not found by the project service`) after its changed-package checks passed: the gate had linted an unbuilt tree. Paths the build dirties are never re-staged into the candidate. Regression coverage: `scripts/jobs/test/pre-push-gates-test.sh` (a fixture whose lint fails before the build and passes after it).

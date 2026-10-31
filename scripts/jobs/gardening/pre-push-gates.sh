@@ -262,10 +262,49 @@ package_script_command() { # package_script_command <script> [arguments]
   fi
 }
 
+# dirty_paths -> NUL-separated paths that differ from the index or are untracked
+# and not ignored, so a stage's effects can be told apart from the candidate's.
+dirty_paths() {
+  {
+    git -C "$project_root" diff -z --name-only
+    git -C "$project_root" ls-files -z --others --exclude-standard
+  } | sort -zu
+}
+
+# build_paths_file lists what the build stage changed. Build output is never part
+# of the candidate commit, so stage_fixes re-stages auto-fixes but unstages any
+# path the build alone dirtied (an unignored artifact or a regenerated file).
+build_paths_file="$temporary_directory/build-paths"
+: >"$build_paths_file"
+stage_fixes() {
+  git -C "$project_root" add -A
+  [ -s "$build_paths_file" ] || return 0
+  (cd "$project_root" && xargs -0 git reset -q -- <"$build_paths_file") 2>/dev/null || true
+}
+
 if [ "$probes_only" -eq 0 ] && [ "$auto_fix" -eq 1 ]; then
   if has_script format; then
     run_project_stage "$package_manager format" "$(package_script_command format)"
-    git -C "$project_root" add -A
+    stage_fixes
+  fi
+  # BUILD RUNS BEFORE LINT, as in local-verify.sh and CI (install -> build ->
+  # lint). A typed linter resolves each file through the TypeScript project
+  # service; on an unbuilt tree that service does not know the files a build
+  # brings into a project, so eslint reports `Parsing error: <file> was not found
+  # by the project service`: an ordering failure, not a real one, which builders
+  # then report as a known root-lint error (2026-10-31). The build is read-only
+  # with respect to the candidate: its outputs are never staged. A failing build
+  # is recorded and lint still runs, so both results surface in one pass.
+  build_script=""
+  for candidate in build compile build:js; do
+    if has_script "$candidate"; then build_script="$candidate"; break; fi
+  done
+  if [ -n "$build_script" ]; then
+    dirty_paths >"$temporary_directory/before-build"
+    run_project_stage "$package_manager $build_script" "$(package_script_command "$build_script")"
+    dirty_paths >"$temporary_directory/after-build"
+    comm -z -13 "$temporary_directory/before-build" "$temporary_directory/after-build" \
+      >"$build_paths_file"
   fi
   # Prefer a dedicated fix script over appending `--fix` to `lint`: package
   # runners append extra args to the END of the script string, so on a chained
@@ -274,14 +313,14 @@ if [ "$probes_only" -eq 0 ] && [ "$auto_fix" -eq 1 ]; then
   # stage even though every real linter passed.
   if has_script lint-fix; then
     run_project_stage "$package_manager lint-fix" "$(package_script_command lint-fix)"
-    git -C "$project_root" add -A
+    stage_fixes
   elif has_script lint:fix; then
     run_project_stage "$package_manager lint:fix" "$(package_script_command lint:fix)"
-    git -C "$project_root" add -A
+    stage_fixes
   elif has_script lint; then
     run_project_stage "$package_manager lint --fix" \
       "$(package_script_command lint --fix)"
-    git -C "$project_root" add -A
+    stage_fixes
   fi
 fi
 
