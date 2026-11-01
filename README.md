@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T19:33:09Z_
+_As of 2026-11-01T19:35:59Z_
 
 ## Latest
 
@@ -1220,10 +1220,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.1M | $222.03 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Claude | 60.2M | $217.50 _(notional, rate-card)_ | 22% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 69062344 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
@@ -1232,15 +1232,16 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (6)
 - [`endojs-endo-but-for-bots-pr1628-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1628-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1628
 - [`oros-health-checkup-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-192009.md) — ---
+- [`endojs-endo-but-for-bots-pr1478-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1478-gauntlet.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101.md) — ---
 
-### doin (3)
+### doin (4)
 - [`oros-health-watch-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-192009.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1561-pr1563-pr1625-onto-pr1560-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1561-pr1563-pr1625-onto-pr1560-20261101.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1561-onto-pr1560-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1561-onto-pr1560-20261101.md) — ---
+- [`weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101.md) — ---
 
 ### tada (16094)
 - [`shepherd-endojs-endo-but-for-bots-pr1560-ci-after-weave-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/shepherd-endojs-endo-but-for-bots-pr1560-ci-after-weave-20261101.md) — Cost
