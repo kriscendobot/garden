@@ -11,3 +11,13 @@ Weave job on endojs/endo-but-for-bots: restack the stale-based daemon wiring PR 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-01T19:53:16Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T19:55:51Z
