@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-01T16:40Z (oros-health-checkup-20261101-160514): degraded → fixed; deployed = origin/main2 `d1e41a9`; freed 47G of virtiofs disk
+
+- **Load/mem:** load 3.82/3.43/3.37 at 16:12Z, the usual level. 12 GiB of 15 GiB available. Swap reads 970M of 1.0 GiB, the usual steady level.
+- **Disk/inodes (the defect):** the virtiofs garden mount had reached **91% (43G free)**, down from 91G free at 13:20Z. The cause was `scratch/tenth-target-test/`, a **46G cargo target dir** (42G in `debug/deps`) left by `ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101`. That job reached tada at 14:52Z, and its `-open-pr` successor finished on endolin at 15:02Z. The dir was last written at 14:41Z, and no process referenced it in cwd, cmdline or environ. I removed it and its 1.5G sibling `scratch/tenth-target/`. The mount is now at **81% (88G free)**, and inodes are at 3%. The overlay is at 7% (402G free). This also explains most of the growth reported at 13:20Z.
+- **Uptime:** 30d22h56m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `d1e41a9`, equal to the origin/main2 tip per `ls-remote`. fleet/health/oros shows `roll_status: deployed` @ `d1e41a9`, 0 of 290 units failing, 0 advisory (15:20Z). The roll un-stranded oros as predicted.
+- **Drain/units:** `drain-fleet.sh status` reports not draining, so the 12:57Z stale quiesce is gone. 0 failed user units. `garden-monk@1..4` are running. The worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** last claude-oros push at 16:04:05Z. The six pushes from 14:17 to 16:04Z were all ok, at a ~15-minute cadence. Spend is 10,043,123 of 180M.
+- **State clones:** 84 journal clones. The largest are regenerate-topics-counts (50 packs, at the threshold but not over it), state-clone-keeper (49), worktree-sweeper (48) and reaper (47). No `gc.log`. The four `.git/index.lock`s present were all less than 5 minutes old (live). A deeper tmp_pack/lock `find` timed out on virtiofs.
+- **rc=124 (3h):** the only line is one benign `journal-contention-watch` deferred notice delivery at 14:49Z. No rc=137 and no `Failed with result`.
+- **Changed:** removed the 47.5G orphaned cargo caches above. No code change.
+- **Needs the maintainer / follow-up:** ironhorse crank jobs leave multi-GiB `scratch/*target*` dirs behind. The older ones still present are `cargo-target-pr1379/1527/1531/1533/1535/1535-188/hostcall` (Sep–Oct) and `cargo-target-pr1614`. Their sizes are not measured; `du` is slow on virtiofs. Consider having the worktree sweeper reap `scratch/` cargo target dirs whose owning job is done.
+
 ## 2026-11-01T13:20Z (oros-health-checkup-20261101-125015): degraded; deployed = `ef0bbf4` (origin/main2 before this run's fix), stranded under a stale quiesce drain; fix landed as `d1e41a9`
 
 - **Load/mem:** load 2.93/3.31/3.56 at 13:03Z, the usual level. 13 GiB of 15 GiB available. Swap reads 963M of 1.0 GiB, the usual steady level.
