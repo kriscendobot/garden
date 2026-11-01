@@ -312,7 +312,18 @@ compose_atomic_child() {
   printf '\n'
 }
 
+# Overall wall-clock deadline for the retry loop (same bound as post-job.sh). Attempt
+# COUNT alone does not bound elapsed time: each sync_clone can burn
+# ~GARDEN_FETCH_TIMEOUT+GARDEN_FETCH_KILL_AFTER seconds under a degraded journal
+# remote, and every attempt holds the producer clone lock, so 50 attempts starve
+# every other producer for tens of minutes (the 2026-11-01 30-minute lock hold).
+# Bail EX_TEMPFAIL once the bound is exceeded, before starting a fresh attempt.
+post_loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  if [ $((SECONDS - post_loop_start)) -ge "${GARDEN_POST_DEADLINE_SECS:-300}" ]; then
+    log "post-orchestration of '$base' exceeded ${GARDEN_POST_DEADLINE_SECS:-300}s wall-clock deadline under degraded connectivity (attempt $attempt); skipping tick (rc=$GARDEN_OFFLINE_RC)"
+    exit "$GARDEN_OFFLINE_RC"
+  fi
   sync_clone "$DIR"
   if [ -e "$DIR/$JOBS_ORCH/$base.md" ] || tada_exists "$DIR" "$base"; then
     log "orchestration '$base' already recorded; nothing to do"

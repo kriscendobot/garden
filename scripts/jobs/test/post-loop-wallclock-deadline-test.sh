@@ -1,7 +1,8 @@
 #!/bin/bash
 # post-loop-wallclock-deadline-test.sh — the overall wall-clock deadline on the
-# push-CAS retry loops of post-job.sh and post-plan.sh
-# (improve-post-job-push-loop-wallclock-deadline).
+# push-CAS retry loops of post-job.sh, post-plan.sh, and post-orchestration.sh
+# (improve-post-job-push-loop-wallclock-deadline,
+# improve-post-orchestration-loop-deadline).
 #
 # The gap it closes: both loops were bounded only by attempt COUNT
 # (GARDEN_POST_ATTEMPTS), not elapsed wall-clock time. Each attempt's sync_clone can
@@ -19,6 +20,13 @@
 #      (it never reaches sync_clone/commit for that attempt).
 #   2. With the default (ample) deadline, a healthy post still succeeds and lands the
 #      job — the deadline never trims a fast, well-connected loop.
+# And for post-orchestration.sh (whose every attempt holds the producer clone lock,
+# so an unbounded loop starves every other producer — the 2026-11-01 30-minute hold):
+#   4. A blown deadline bails rc=75 on the first attempt and records nothing.
+#   5. A degraded journal (every push fails) with a 50-attempt budget gives up at the
+#      wall-clock deadline with rc=75, quickly, records nothing, and releases the
+#      producer clone so the next producer can post.
+#   6. A healthy orchestration still records under the default deadline.
 #
 # Hermetic: a throwaway bare journal; no real garden, journal, or network.
 #
@@ -95,6 +103,47 @@ rc=$?
                || bad "3c post-plan.sh rc was $rc under the default deadline"
 has_plan healthy-plan && ok "3d post-plan.sh parked the healthy job" \
                       || bad "3d post-plan.sh did not park the healthy job"
+
+has_orch() { tree | grep -qx "jobs/orch/$1.md"; }
+
+# --- 4: post-orchestration.sh bails EX_TEMPFAIL past the deadline -----------
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-past --role gardener oc-past </dev/null >/dev/null 2>&1
+GARDEN_POST_DEADLINE_SECS=0 "$JOBS/post-orchestration.sh" --serial orch-past oc-past </dev/null \
+  >/dev/null 2>&1
+rc=$?
+[ "$rc" -eq 75 ] && ok "4a post-orchestration.sh bailed with GARDEN_OFFLINE_RC (75), got $rc" \
+                 || bad "4a post-orchestration.sh exit code was $rc, expected 75"
+! has_orch orch-past && ok "4b post-orchestration.sh recorded nothing past the deadline" \
+                     || bad "4b post-orchestration.sh recorded despite the blown deadline"
+
+# --- 5: a degraded journal (every push fails) ends at the deadline ----------
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-degraded --role gardener oc-deg </dev/null >/dev/null 2>&1
+start=$SECONDS
+GARDEN_PUSH_CMD=false GARDEN_POST_ATTEMPTS=50 GARDEN_POST_DEADLINE_SECS=1 \
+  "$JOBS/post-orchestration.sh" --serial orch-degraded oc-deg </dev/null > "$TR/degraded.out" 2>&1
+rc=$?
+elapsed=$((SECONDS - start))
+[ "$rc" -eq 75 ] && ok "5a degraded post-orchestration.sh gave up with rc=75" \
+                 || { cat "$TR/degraded.out"; bad "5a degraded post-orchestration.sh rc was $rc, expected 75"; }
+[ "$elapsed" -lt 30 ] && ok "5b gave up in ${elapsed}s, not the whole 50-attempt budget" \
+                      || bad "5b degraded give-up took ${elapsed}s"
+grep -q 'wall-clock deadline' "$TR/degraded.out" \
+  && ok "5c the deadline give-up was logged" || bad "5c the deadline give-up was not logged"
+! has_orch orch-degraded && ok "5d nothing was recorded through the failing push" \
+                         || bad "5d an orchestration landed despite the failing push"
+"$JOBS/post-job.sh" after-degraded "$(bodyfile 'producer clone is free again')" >/dev/null 2>&1
+rc=$?
+{ [ "$rc" -eq 0 ] && has_todo after-degraded; } \
+  && ok "5e the next producer posted through the released clone" \
+  || bad "5e the next producer could not post after the deadline give-up (rc=$rc)"
+
+# --- 6: default deadline still records a healthy orchestration --------------
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-healthy --role gardener oc-ok </dev/null >/dev/null 2>&1
+"$JOBS/post-orchestration.sh" --serial orch-healthy oc-ok </dev/null >/dev/null 2>&1
+rc=$?
+{ [ "$rc" -eq 0 ] && has_orch orch-healthy; } \
+  && ok "6 post-orchestration.sh recorded the healthy orchestration (rc=0)" \
+  || bad "6 healthy post-orchestration.sh rc=$rc or no record"
 
 echo "----------------------------------------------------------------"
 echo "post-loop wall-clock deadline: $PASS passed, $FAIL failed"
