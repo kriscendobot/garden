@@ -11,3 +11,13 @@ In endojs/endo-but-for-bots PR #1591, repair the malformed gauntlet-viability co
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-01T00:23:23Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-01T00:35:40Z
