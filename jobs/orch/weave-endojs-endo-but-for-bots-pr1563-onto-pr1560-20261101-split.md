@@ -2,7 +2,7 @@
 order: serial
 children: weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-11-01T22:05:25Z
 ---
