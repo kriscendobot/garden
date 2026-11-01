@@ -1,16 +1,16 @@
 ---
-gate: orchestrated
-orchestrated_by: weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101-split
+role: weaver
+tier: mentor
+arc: minion-town-claude-api
+posted_at: 2026-11-01T21:58:53Z
 handler-timeout: 7800
 split-indivisible-reason: 'rebase+force-push+base-move is one atomic git unit (already landed: head 5065a8de is 3 ahead/0 behind 21d142a, base moved); only verify-and-close remains, not separable further'
 split-lineage-root: weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101
 split-lineage-parent: weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-11-01T21:58:53Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-01T22:08:52Z cleared=none -->
 
 ---
 role: weaver
