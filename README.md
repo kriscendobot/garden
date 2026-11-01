@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T13:41:12Z_
+_As of 2026-11-01T13:43:55Z_
 
 ## Latest
 
@@ -528,6 +526,19 @@ Delegation: **active**
 > Keep the approved 2026-10-02 ranking and the carried-forward 460M total unchanged for this week. The eight named slices preserve the approved 30/20/15/20/8/5/2 distribution over 95% of total, with the standing 5M garden-book slice taken from the reserve; 18M remains unallocated. This honors the standing instruction to distribute capacity to the approved ranking each reset, applies the 90% ceiling, and does not count an unconfirmed reset-credit amount.
 >
 > Reply with any desired re-slice. If there is no reply, the carried-forward slate above remains in force.
+
+- `deadmail-20261101T112108Z-fd9876-split-terminal-complete` — from orchestrator:deadmail-20261101T112108Z-fd9876-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/deadmail-20261101T112108Z-fd9876-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: deadmail-20261101T112108Z-fd9876-split
+> orchestration-status: complete
+> order: serial
+> children-total: 1
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration deadmail-20261101T112108Z-fd9876-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
 
 - `msg-build-ocapn-noise-session-reconnect-phase-four-resume-20572d9e0e42` — from gardener:build-ocapn-noise-session-reconnect-phase-four-resume, reply_to `build-ocapn-noise-session-reconnect-phase-four-resume` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-ocapn-noise-session-reconnect-phase-four-resume-20572d9e0e42.md)
 
@@ -1157,7 +1168,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.9M | $180.94 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 44.9M | $181.04 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 65015884 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1179,13 +1190,13 @@ worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`endojs-endo-but-for-bots-pr1612-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1612-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1612
 - [`endojs-endo-but-for-bots-pr1613-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1613-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1613
 
-### tada (15999)
+### tada (16000)
+- [`deadmail-20261101T112108Z-fd9876-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T112108Z-fd9876-split.md) — orchestration deadmail-20261101T112108Z-fd9876-split — complete
 - [`deadmail-20261101T112108Z-fd9876-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T112108Z-fd9876-expanded-window.md) — Cost
 - [`oros-health-watch-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-watch-20261101-125015.md) — Cost
 - [`oros-health-checkup-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-checkup-20261101-125015.md) — Cost
 - [`endojs-endo-but-for-bots-pr1611-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1611-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1611-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1611-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1611-gauntlet-clean.md) — Cost
-- … and 15994 more
+- … and 15995 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
