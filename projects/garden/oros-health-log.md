@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-01T13:20Z (oros-health-checkup-20261101-125015): degraded; deployed = `ef0bbf4` (origin/main2 before this run's fix), stranded under a stale quiesce drain; fix landed as `d1e41a9`
+
+- **Load/mem:** load 2.93/3.31/3.56 at 13:03Z, the usual level. 13 GiB of 15 GiB available. Swap reads 963M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (402G free, unchanged). **The virtiofs garden mount is at 81% (91G free), up from 66% (158G free) at 07:50Z.** That is about 66G in 5.5 hours, still climbing about 1G every 10 minutes. Inodes are at 2%. The overlay, and so the container's own disk, did not grow. The bounded `find`/`du` scans timed out on virtiofs, so the cause is not identified. It may be on the Mac side of the shared disk.
+- **Uptime:** 30d19h47m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `ef0bbf4` (self-deploy finished at 12:58:29Z). fleet/health/oros shows `roll_status: deployed` @ `ef0bbf4`, 0 of 290 units failing. The leader's conductor passed the canary and cleared `deploy/roll/oros`.
+- **Drain (the defect):** the host has been **draining since 12:57:17Z** (`source: rolling-deploy-quiesce`). The leader sent the quiesce at 12:56:02Z, based on oros's stale `deferred` record from 12:46Z. deploy-garden.sh landed and lifted its own drain at about 12:57:10Z. The sysop then applied the quiesce 7 seconds later. No one owns it now: there is no upgrade-ready marker, so self-deploy exits silently, and the conductor has already passed the host. Monks 2 and 3 cycle (start, see drain, exit). Monks 1 and 4 are finishing in-flight claims. Per the job rules, I did not lift the drain by hand.
+- **Units:** 0 failed user units. The worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** last claude-oros push at 13:02:41Z. The six pushes from 11:50 to 13:02Z were all ok, at a ~15-minute cadence. Spend is 9,016,557 of 180M.
+- **State clones:** 84 journal clones. The largest are reaper and monitors/monk-3 (47 packs each), and monks/2 and regenerate-topics-counts (46 each), all under the `>50` threshold. No `gc.log` or tmp_pack. No `.git` lock older than 30 minutes.
+- **rc=124 (3h):** 33.5k system-journal lines. Two ironhorse test262 crank slices (eighth, tenth) hit their 7200s walls at 10:22Z and 10:41Z. `deadmail-20261101T112108Z-fd9876` hit its 2400s wall at 12:21Z. **The previous check-up, `oros-health-checkup-20261101-093536`, hit its 3600s wall at 12:32Z without logging a note.** All were classified transient. No rc=137.
+- **Changed:** landed `d1e41a9` `fix(self-deploy): lift a quiesce drain that lands after its deploy`. When this host is current, or its release is already deployed, it lifts a `rolling-deploy-quiesce` drain. It never touches other drain sources, and never acts mid-deploy. rolling-deploy-test passes 134/0. The roll of `d1e41a9` should un-strand oros, because the released deploy runs under the quiesce and deploy-garden lifts it.
+- **Needs the maintainer:** if oros is still drained after the `d1e41a9` roll, run `drain-fleet.sh off` on oros (the drain is roll-owned and stale). Someone on the Mac side should look at the virtiofs disk growth (66G in 5.5 hours).
+
 ## 2026-11-01T07:50Z (oros-health-checkup-20261101-063511): healthy; deployed = origin/main2 `6c28bb5`, no changes
 
 - **Load/mem:** load 3.77/3.27/2.40 at 07:42Z, the usual level. 13 GiB of 15 GiB available. Swap reads 958M of 1.0 GiB, the usual steady level.
