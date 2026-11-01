@@ -5,14 +5,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1613
 build_job: 
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1613-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr1613-gauntlet-undraft
 state: running
 created_by: design-pr-gauntlet-coverage-audit
 created_at: 2026-11-01T11:52:17Z
