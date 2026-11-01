@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T11:37:57Z_
+_As of 2026-11-01T11:40:04Z_
 
 ## Latest
 
@@ -87,16 +87,6 @@ Delegation: **active**
 >
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1573-gauntlet panel --iteration 6 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `followup-gate-endojs-endo-but-for-bots-pr1609-gauntlet-clean` — from followup-gate:endojs-endo-but-for-bots-pr1609-gauntlet-clean, reply_to `endojs-endo-but-for-bots-pr1609-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-endojs-endo-but-for-bots-pr1609-gauntlet-clean.md)
-
-> Job "endojs-endo-but-for-bots-pr1609-gauntlet-clean" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
->
-> ## Follow-ups
-> - A single fix for stage3-math 054/055 on `llm` would unblock all the ratchet gauntlets.
-> - After that, run [#1609](https://github.com/endojs/endo-but-for-bots/issues/1609)'s clean stage again; the PR itself needs no changes.
->
-> <<<GARDEN-ORCHESTRATION-FAILED>>>
 
 - `msg-oros-health-checkup-20261018-093508-f054cd1e7164` — from gardener:oros-health-checkup-20261018-093508, reply_to `oros-health-checkup-20261018-093508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261018-093508-f054cd1e7164.md)
 
@@ -690,6 +680,13 @@ Delegation: **active**
 
 > gardener job 'shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2401s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `endojs-endo-but-for-bots-pr1609-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1609-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1609-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1609-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1609-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1609-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr198-gauntlet-20261019 REVIEW-BUDGET-REACHED: Applied 3 panel/fix round(s); fix round 3 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=3, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds N
@@ -1153,10 +1150,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.8M | $177.65 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 43.9M | $178.29 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 64700083 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal); 8 open notice(s); checker healthy
@@ -1167,21 +1164,22 @@ worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (6)
+### doin (7)
 - [`deadmail-20261101T112108Z-fd9876`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T112108Z-fd9876.md) — Dead-lettered message — pick up its intent
+- [`fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-1.md) — ---
 - [`oros-health-checkup-20261101-093536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-093536.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-fourteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourteenth-slice-20261101.md) — ---
 
-### tada (15980)
+### tada (15981)
+- [`endojs-endo-but-for-bots-pr1609-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1609-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1609-gauntlet — HALTED
 - [`deadmail-20261101T112102Z-eccac7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T112102Z-eccac7.md) — Cost
 - [`endojs-endo-but-for-bots-pr1609-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1609-gauntlet-clean.md) — Gauntlet CLEAN stage: endojs/endo-but-for-bots#1609 failed (CI RED)
 - [`deadmail-20261101T110209Z-a037e1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T110209Z-a037e1.md) — Completion report: deadmail-20261101T110209Z-a037e1
 - [`ironhorse-test262-ratchet-coverage-crank-thirteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-thirteenth-slice-20261101.md) — Cost
-- [`claude-on-minion-town-completion-press-20261101-105013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/claude-on-minion-town-completion-press-20261101-105013.md) — Panel-head freshness
-- … and 15975 more
+- … and 15976 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
