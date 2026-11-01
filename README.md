@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T07:58:43Z_
+_As of 2026-11-01T08:00:13Z_
 
 ## Latest
 
@@ -1132,17 +1132,17 @@ _Fleet token-unlock pace: 63931984 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md) — ---
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1605-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1605-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1605
 - [`oros-health-checkup-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-063511.md) — ---
 - [`endojs-endo-but-for-bots-pr1604-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1604-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1604
+- [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1602-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1602-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1602
 
