@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T11:40:04Z_
+_As of 2026-11-01T11:41:34Z_
 
 ## Latest
 
@@ -1150,7 +1150,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.9M | $178.29 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 43.9M | $179.28 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64700083 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1159,8 +1159,10 @@ _Fleet token-unlock pace: 64700083 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (5)
+- [`deadmail-20261101T113530Z-87db46`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T113530Z-87db46.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`deadmail-20261101T113535Z-cdcfa0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T113535Z-cdcfa0.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
