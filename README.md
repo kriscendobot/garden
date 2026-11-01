@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T03:42:25Z_
+_As of 2026-11-01T03:44:53Z_
 
 ## Latest
 
@@ -1854,7 +1852,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.9M | $165.70 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 34.0M | $141.57 _(notional, rate-card)_ | 13% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61420743 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1863,10 +1861,9 @@ _Fleet token-unlock pace: 61420743 tokens/day lower bound; incomplete where a su
 worst fetch p95 46.455988s/45s (/home/kris/garden/.garden-state/monks/3/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`minion-town-arc-press-20261101-033510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-033510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1595-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1595
-- [`oros-health-watch-20261101-033510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261101-033510.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`oros-health-checkup-20261101-033510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-033510.md) — ---
@@ -1874,18 +1871,18 @@ worst fetch p95 46.455988s/45s (/home/kris/garden/.garden-state/monks/3/journal)
 
 ### doin (5)
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
+- [`oros-health-watch-20261101-033510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-033510.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-third-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-third-slice-20261101.md) — ---
-- [`ironhorse-test262-ratchet-coverage-crank-second-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-second-slice-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1504-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1504
 
-### tada (15912)
+### tada (15913)
+- [`ironhorse-test262-ratchet-coverage-crank-second-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-second-slice-20261101.md) — Ironhorse test262 ratchet, second slice: AsyncFromSyncIterator (+116 covered,...
 - [`shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101.md) — Cost
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1595-gauntlet-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1599-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1599-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1599-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1504-gauntlet-panel-3.md) — Cost
-- [`endojs-endo-but-for-bots-pr1589-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1589-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1589-gauntlet — review budget reached
-- … and 15907 more
+- … and 15908 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
