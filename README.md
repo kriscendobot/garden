@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T02:58:03Z_
+_As of 2026-11-01T02:59:36Z_
 
 ## Latest
 
@@ -1275,13 +1273,6 @@ Delegation: **active**
 > - Possible small follow-up (not posted): an opt-in `@endo/zip/node.js` exporting `inflateNow`/`deflateNow` via `zlib.*RawSync`.
 >
 > Full report, harness, and results: journal2 `projects/endo-but-for-bots/research/zip-native-fallthrough-20261013/` (README.md, parity.mjs, results-node26.jsonl).
-
-- `endojs-endo-but-for-bots-pr1599-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1599-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1599-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1599-gauntlet HALTED: PR [endojs/endo-but-for-bots#1599](https://github.com/endojs/endo-but-for-bots/issues/1599) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #1599') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1599-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
