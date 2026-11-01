@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T04:19:51Z_
+_As of 2026-11-01T04:24:17Z_
 
 ## Latest
 
@@ -1083,7 +1083,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.7M | $146.82 _(notional, rate-card)_ | 13% of 271.0M (ok) |
+| Claude | 37.5M | $155.49 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61612741 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1098,9 +1098,8 @@ worst fetch p95 30.940634s/45s (/home/kris/garden/.garden-state/monks/3/journal)
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
+### doin (4)
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
-- [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1595
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1504-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1504
 - [`ironhorse-test262-ratchet-coverage-crank-third-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-third-slice-20261101.md) — ---
@@ -1125,6 +1124,7 @@ worst fetch p95 30.940634s/45s (/home/kris/garden/.garden-state/monks/3/journal)
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-lint-warnings.md) — _normal_ · ---
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1595-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1595
 - [`moddable-10-0-0-ironhorse-callability-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-callability-port.md) — _normal_ · Port revoked-Proxy callability and constructability to IronHorse
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
