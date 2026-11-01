@@ -91,6 +91,15 @@ export GARDEN_TAG="foreman"
 # an alias so an env/unit that sets it keeps working.
 : "${GARDEN_FOREMAN_ACTIVE_TARGET:=${GARDEN_FOREMAN_WIP:-5}}"
 : "${GARDEN_FOREMAN_PROJECT:=endo-but-for-bots}"
+# post-job.sh EX_TEMPFAIL (a busy producer journal lock or an offline skip) is
+# retried in place: up to RETRIES more attempts, the first after DELAY seconds and
+# doubling, never starting a sleep that would pass DEADLINE seconds since the first
+# attempt. One attempt can itself spend minutes in the clone-lock ladder, so the
+# deadline keeps the tick well inside the unit's TimeoutStartSec=900.
+: "${GARDEN_FOREMAN_POST_JOB:=$HERE/post-job.sh}"
+: "${GARDEN_FOREMAN_POST_TEMPFAIL_RETRIES:=3}"
+: "${GARDEN_FOREMAN_POST_TEMPFAIL_DELAY:=15}"
+: "${GARDEN_FOREMAN_POST_TEMPFAIL_DEADLINE:=240}"
 
 # Token-quota back-off knobs (defaults declared in usage-meter.sh; restated here so
 # the foreman's tunables read together). The foreman pumps spend autonomously, so
@@ -684,8 +693,22 @@ while :; do
         elif [ -n "$arcs_open" ]; then
           post_args+=(--arc "${job_arc_line:-$GARDEN_ARC_RESERVE}")
         fi
-        post_rc=0
-        printf '%s' "$body" | "$HERE/post-job.sh" "${post_args[@]}" "$base" || post_rc=$?
+        # EX_TEMPFAIL from post-job.sh is a busy journal clone/repository lock or a
+        # connectivity skip, not a defect: retry in place with doubling backoff,
+        # bounded by attempt count and wall-clock so the tick fits its unit timeout.
+        # A retry is idempotent (base + identity dedup in post-job.sh).
+        post_rc=0 post_try=0 post_t0=$SECONDS post_delay="$GARDEN_FOREMAN_POST_TEMPFAIL_DELAY"
+        while :; do
+          post_rc=0
+          printf '%s' "$body" | "$GARDEN_FOREMAN_POST_JOB" "${post_args[@]}" "$base" || post_rc=$?
+          [ "$post_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ] || break
+          [ "$post_try" -lt "$GARDEN_FOREMAN_POST_TEMPFAIL_RETRIES" ] || break
+          [ $((SECONDS - post_t0 + post_delay)) -lt "$GARDEN_FOREMAN_POST_TEMPFAIL_DEADLINE" ] || break
+          post_try=$((post_try + 1))
+          log "post-job tempfail for '$base' (rc=$post_rc); retry $post_try/$GARDEN_FOREMAN_POST_TEMPFAIL_RETRIES in ${post_delay}s"
+          sleep "$post_delay"
+          post_delay=$((post_delay * 2))
+        done
         if [ "$post_rc" -eq "$GARDEN_COMPLETED_COLLISION_RC" ]; then
           # A no-identity base already in tada/ is a deliberate post-job refusal,
           # not a broken foreman tick. Do not record it as forward progress: keeping
@@ -704,6 +727,13 @@ while :; do
             continue
           fi
           outcome=invalid
+        elif [ "$post_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
+          # Still contended after the bounded retries. LAST_STEP and the settle clock
+          # are untouched, so the next tick re-proposes and re-posts this step.
+          log "WARN: post-job tempfail persisted for next milestone step '$base' (rc=$post_rc) after $post_try retr$([ "$post_try" -eq 1 ] && echo y || echo ies) in $((SECONDS - post_t0))s; deferring to the next tick"
+          decide post-tempfail "base=$base rc=$post_rc retries=$post_try"
+          rm -f "$digest" "$herrf"
+          exit "$post_rc"
         elif [ "$post_rc" -ne 0 ]; then
           log "ERROR: post-job failed for next milestone step '$base' (rc=$post_rc)"
           rm -f "$digest" "$herrf"
