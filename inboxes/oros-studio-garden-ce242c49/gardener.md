@@ -463,3 +463,14 @@ Inspect via `git -C journal cat-file -p 0c269d8cdced24e81d2112612f74211b78f71c5d
 
 Inspect via `git -C journal cat-file -p 11ba94785816edf5475d43916a3f30bf7b7d32cc` (or read
 `journal/inboxes/oros-studio-garden-ce242c49/captures/11ba94785816edf5475d43916a3f30bf7b7d32cc`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-11-01T21:01:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6e125d7f936cadb87b2bec35c54cc2b4edb006c6
+- Context: gardener-2 on oros-studio-garden-ce242c49: job 'endojs-endo-but-for-bots-pr1573-gauntlet' handler exited rc=76
+- Capture: inboxes/oros-studio-garden-ce242c49/captures/6e125d7f936cadb87b2bec35c54cc2b4edb006c6
+
+Inspect via `git -C journal cat-file -p 6e125d7f936cadb87b2bec35c54cc2b4edb006c6` (or read
+`journal/inboxes/oros-studio-garden-ce242c49/captures/6e125d7f936cadb87b2bec35c54cc2b4edb006c6`) -- both work off-host after a plain `journal2` fetch.
