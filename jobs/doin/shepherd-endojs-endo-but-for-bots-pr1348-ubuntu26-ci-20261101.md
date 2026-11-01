@@ -8,6 +8,7 @@ Shepherd endojs/endo-but-for-bots PR #1348 at head eb7ce77af1 after the 2026-11-
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
