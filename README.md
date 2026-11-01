@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T23:08:19Z_
+_As of 2026-11-01T23:09:51Z_
 
 ## Latest
 
@@ -1261,7 +1261,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.9M | $234.85 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 64.9M | $235.23 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70156108 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1271,26 +1271,26 @@ worst fetch p95 8.756625s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 
 ## Board
 ### todo (6)
+- [`endojs-endo-but-for-bots-pr1593-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1593-gauntlet.md) — ---
 - [`claude-on-minion-town-completion-press-20261101-230531`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261101-230531.md) — Completion press: Claude-on-minion.town arc
-- [`minion-town-ci-runner-to-hosted-202610-retry2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-ci-runner-to-hosted-202610-retry2.md) — Move minion.town CI back to GitHub-hosted runners after the October billing r...
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261101-222009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-222009.md) — ---
 
 ### doin (4)
+- [`minion-town-ci-runner-to-hosted-202610-retry2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-to-hosted-202610-retry2.md) — Move minion.town CI back to GitHub-hosted runners after the October billing r...
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — endojs/endo-but-for-bots PR #1573
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin.md) — Relay: post botanist MERGE-NOW verdict and conduct endojs/endo-but-for-bots P...
 - [`endojs-endo-but-for-bots-pr1631-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1631-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1631
-- [`endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1478
 
-### tada (16124)
+### tada (16125)
+- [`endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261101-223511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/dependabotany-recheck-endo-but-for-bots-20261101-223511.md) — Cost
 - [`endojs-endo-but-for-bots-pr1635-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1635-dependabot.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261101-192009-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-watch-20261101-192009-split.md) — orchestration oros-health-watch-20261101-192009-split — complete
-- [`oros-health-watch-20261101-192009-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-watch-20261101-192009-expanded-window.md) — Cost
-- … and 16119 more
+- … and 16120 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
