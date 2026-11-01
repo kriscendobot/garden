@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T22:55:20Z_
+_As of 2026-11-01T22:56:49Z_
 
 ## Latest
 
@@ -1276,10 +1276,11 @@ _Fleet token-unlock pace: 70143900 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.756625s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (9)
 - [`minion-town-ci-runner-to-hosted-202610-retry2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-ci-runner-to-hosted-202610-retry2.md) — Move minion.town CI back to GitHub-hosted runners after the October billing r...
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`dependabotany-recheck-endo-but-for-bots-20261101-223511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261101-223511.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a60ae08cc14d
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1631-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1631-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1631
