@@ -24,3 +24,13 @@ Verify and close out the weave of endojs/endo-but-for-bots PR #1563 (https://git
 State observed 2026-11-01T22:00Z by the split orchestrator: #1563 base is already the frozen build/exo-agent-factory-core-21d142a, head build/exo-agent-factory-turn-ledger at 5065a8de89 is 3 ahead / 0 behind 21d142af2d (#1560's head), and every Actions run on 5065a8de (CI, IronHorse oracle sanitizers, OCapN Guile interop, Floot Android, mutual deps, security audit) concluded success.
 
 Task: re-check from fresh GitHub state. If #1560's head is still 21d142af2d, the base is still build/exo-agent-factory-core-21d142a, #1563's head still contains it, and CI on #1563's current head is green, the job is complete. Report and stop; do no further git work. If #1560 has moved, or CI on #1563 is red, do the normal weaver work: snapshot a new frozen base, rebase, force-push with lease, move the PR base, and drive CI green. Do NOT touch #1560 itself.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T22:14:53Z
