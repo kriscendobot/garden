@@ -87,3 +87,13 @@ None.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 =====END BODY=====
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T15:50:58Z
