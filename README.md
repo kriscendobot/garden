@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T10:25:37Z_
+_As of 2026-11-01T10:27:30Z_
 
 ## Latest
 
@@ -378,6 +378,10 @@ Delegation: **active**
 >    - removing Copy guest URL and Forget this browser;
 >    - removing mail before the chat clip exists;
 >    - leaving daemon state on disk while garbage collection is off.
+
+- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_screening_control_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_screening_control_journal.md)
+
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/screening-control/journal: p95=0.076741s, giveups=1, steals=1 (max 3/window), wait floor=60s.
 
 - `watchdog-worker-derotate-sysop-stale-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-sysop-stale-oros-studio-garden-ce242c49.md)
 
@@ -1127,7 +1131,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.7M | $192.03 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 42.7M | $192.07 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64339760 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
