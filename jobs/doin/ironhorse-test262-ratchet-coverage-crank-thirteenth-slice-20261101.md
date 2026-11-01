@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Builder job on endojs/endo-but-for-bots (Ironhorse): continue the test262 ratchet coverage crank with the next unclaimed, non-Temporal slice after the twelfth. Raise covered test262 subtrees, record the ratchet baseline, and open a DRAFT PR.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
