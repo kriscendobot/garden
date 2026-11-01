@@ -35,6 +35,8 @@ export GARDEN_TAG="watchman"
 : "${GARDEN_WATCH_HANDLER:=$HERE/handlers/watchman-claude.sh}"
 : "${GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS:=3}"
 : "${GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP:=1}"
+: "${GARDEN_WATCHMAN_SEND_MSG:=$HERE/send-msg.sh}"
+: "${GARDEN_WATCHMAN_BROADCAST_ATTEMPTS:=3}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
@@ -132,14 +134,43 @@ if [ "$old_sha" = "$target" ]; then
 fi
 log "$GARDEN_MAIN_BRANCH at $target (was ${old_sha:-<none>}); notifying gardeners"
 
-# Deterministic reread notice to every active gardener (required).
-printf 'main2 advanced to %s — reread your role and skills as needed.\n' "$target" \
-  | GARDEN_SENDER=watchman "$HERE/send-msg.sh" broadcast \
-  || die "could not broadcast reread notice"
+# Deterministic reread notice to every active gardener (required). The producer
+# journal clone is shared with every other producer on the host, so its lock can
+# stay busy past send-msg's own wait ladder (2026-11-01 04:32: "cannot acquire
+# clone lock .../producer/journal.lock after 3 waits of 60s", which died here and
+# failed the unit). That is contention, not a fault: retry with backoff, and if
+# the lock is still busy, WARN and exit 0 WITHOUT advancing $SEEN so the next
+# tick re-attempts this same advance. Any other send failure stays fatal.
+broadcast_lock_busy() {  # <rc> <diagnostic>
+  [ "$1" -eq "$GARDEN_OFFLINE_RC" ] || clone_lock_is_busy_contention "$1" "$2"
+}
+broadcast_err="$(mktemp)"
+trap 'rm -f "$broadcast_err"' EXIT
+broadcast_rc=0
+for ((attempt = 1; attempt <= GARDEN_WATCHMAN_BROADCAST_ATTEMPTS; attempt += 1)); do
+  broadcast_rc=0
+  printf 'main2 advanced to %s — reread your role and skills as needed.\n' "$target" \
+    | GARDEN_SENDER=watchman "$GARDEN_WATCHMAN_SEND_MSG" broadcast 2>"$broadcast_err" \
+    || broadcast_rc=$?
+  cat "$broadcast_err" >&2
+  [ "$broadcast_rc" -ne 0 ] || break
+  broadcast_lock_busy "$broadcast_rc" "$(cat "$broadcast_err")" \
+    || die "could not broadcast reread notice (rc=$broadcast_rc)"
+  if [ "$attempt" -lt "$GARDEN_WATCHMAN_BROADCAST_ATTEMPTS" ]; then
+    log "WARN: producer journal lock busy broadcasting reread (attempt $attempt/$GARDEN_WATCHMAN_BROADCAST_ATTEMPTS, rc=$broadcast_rc); backing off"
+    backoff "$attempt"
+  fi
+done
+if [ "$broadcast_rc" -ne 0 ]; then
+  log "WARN: producer journal lock still busy after $GARDEN_WATCHMAN_BROADCAST_ATTEMPTS broadcast attempt(s); leaving $GARDEN_MAIN_BRANCH advance to $target for the next tick"
+  exit 0
+fi
+
+# The broadcast landed: record the advance now, before the slow best-effort
+# handler, so a handler that dies or is killed never causes a duplicate notice.
+printf '%s\n' "$target" > "$SEEN"
+log "broadcast reread up to $target"
 
 # Richer, targeted evolution notes (best-effort; needs claude).
 "$GARDEN_WATCH_HANDLER" "${old_sha:-}" "$target" "$GARDEN_ROOT" \
   || log "evolution handler skipped (no claude or nothing to add)"
-
-printf '%s\n' "$target" > "$SEEN"
-log "broadcast reread up to $target"
