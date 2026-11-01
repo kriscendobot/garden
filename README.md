@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T07:36:53Z_
+_As of 2026-11-01T07:40:00Z_
 
 ## Latest
 
@@ -1123,7 +1123,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.2M | $162.61 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 41.2M | $163.28 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63823103 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1132,26 +1132,26 @@ _Fleet token-unlock pace: 63823103 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`oros-health-checkup-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-063511.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
+- [`ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1605-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1605-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1605
 - [`endojs-endo-but-for-bots-pr1604-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1604-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1604
 - [`endojs-endo-but-for-bots-pr1602-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1602-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1602
-- [`canary-probe-oros-studio-garden-ce242c49-6c28bb5812ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-6c28bb5812ba.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6c28bb5812ba
 
-### tada (15950)
+### tada (15951)
+- [`canary-probe-oros-studio-garden-ce242c49-6c28bb5812ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/canary-probe-oros-studio-garden-ce242c49-6c28bb5812ba.md) — rolling-deploy canary probe — round trip OK
 - [`daily-progress-summary-20261101-070513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/daily-progress-summary-20261101-070513.md) — Cost
 - [`endojs-endo-but-for-bots-pr1604-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1604-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1605-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1605-gauntlet-viability.md) — Cost
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — Ironhorse test262 ratchet, fourth slice: separate String and Array iterator p...
-- [`endojs-endo-but-for-bots-pr1603-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1603-gauntlet-clean.md) — Cost
-- … and 15945 more
+- … and 15946 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
