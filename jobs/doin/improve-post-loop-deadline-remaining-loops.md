@@ -10,3 +10,13 @@ Follow-up to improve-unblock-post-loop-deadline (main2 af7b58c191b). That job ad
 - Call `post_deadline_exceeded ... && exit "$GARDEN_OFFLINE_RC"` at the top of each attempt. Inside a function whose caller must keep going, use `return` instead of `exit`.
 - Check how each caller treats rc=75.
 Extend scripts/jobs/test/unblock-post-loop-deadline-test.sh or post-loop-wallclock-deadline-test.sh with an unreachable-push case (GARDEN_PUSH_CMD failing, GARDEN_POST_DEADLINE_SECS=1) for the producer-clone ones.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T07:03:31Z
