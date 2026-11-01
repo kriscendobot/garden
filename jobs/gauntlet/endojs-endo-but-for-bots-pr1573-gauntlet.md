@@ -13,7 +13,7 @@ arc:
 added_rounds: 1
 stage: fix
 iteration: 7
-resumes: 0
+resumes: 1
 stage_retries: 0
 current_child: endojs-endo-but-for-bots-pr1573-gauntlet-fix-7
 state: running
