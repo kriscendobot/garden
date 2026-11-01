@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T10:27:30Z_
+_As of 2026-11-01T10:30:51Z_
 
 ## Latest
 
@@ -1131,7 +1131,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.7M | $192.07 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 42.7M | $192.20 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64339760 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1140,9 +1140,8 @@ _Fleet token-unlock pace: 64339760 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1606-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1606-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1606
-- [`endojs-endo-but-for-bots-pr1607-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1607-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1607
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`oros-health-checkup-20261101-093536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-093536.md) — ---
 - [`endojs-endo-but-for-bots-pr1609-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1609-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1609
@@ -1151,7 +1150,8 @@ worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`endojs-endo-but-for-bots-pr1608-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1608-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1608
 - [`ironhorse-test262-ratchet-coverage-crank-eleventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-eleventh-slice-20261101.md) — ---
 
-### doin (6)
+### doin (7)
+- [`endojs-endo-but-for-bots-pr1607-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1607-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1607
 - [`oros-health-watch-20261101-093536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-093536.md) — ---
 - [`ironhorse-test262-ratchet-global-object-prototype-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-global-object-prototype-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
