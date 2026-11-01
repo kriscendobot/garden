@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T12:37:50Z_
+_As of 2026-11-01T12:42:03Z_
 
 ## Latest
 
@@ -846,6 +846,10 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-handler-budget-overrun-deadmail-20261101T112108Z-fd9876` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-deadmail-20261101T112108Z-fd9876.md)
+
+> gardener job 'deadmail-20261101T112108Z-fd9876' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2402s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `20261017T175349Z-6b9fd0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T175349Z-6b9fd0.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1143,7 +1147,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.3M | $190.31 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 44.3M | $190.45 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64844788 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
