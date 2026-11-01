@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-10-31T23:57:36Z_
+_As of 2026-11-01T00:00:04Z_
 
 ## Latest
 
@@ -1019,6 +1017,15 @@ Delegation: **active**
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: ened-text-codecs-shim after [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) closed unmerged. Decide whether to reopen/rebuild it and whether #1582 must land in its frozen base before proceeding.  …  MAINTAINER M2 is blocked on completing hardened-text-codecs-shim after [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) closed unmerged. Decide whether to reopen/rebuild it and whether #1582 mu
 > <3>00:14:31 [foreman-claude] FATAL: foreman provider 'openai' returned malformed semantic output; refusing fallback to avoid multiplying work
 
+- `msg-fix-endojs-endo-but-for-bots-pr1591-gauntlet-viability-8b97192e20e1` — from gardener:fix-endojs-endo-but-for-bots-pr1591-gauntlet-viability, reply_to `fix-endojs-endo-but-for-bots-pr1591-gauntlet-viability` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fix-endojs-endo-but-for-bots-pr1591-gauntlet-viability-8b97192e20e1.md)
+
+> [endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/issues/1591) gauntlet: the 14:17Z "halted — maintainer action required" notice was a parser defect, not a malformed verdict. The viability report did carry both required lines, just in Markdown bold; fixed on main2 in b616710ae8e (labels now matched on an emphasis-stripped copy; missing lines still fail closed).
+>
+> Corrected disposition: viability=overtaken. [endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/issues/1591) duplicates [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542) (same bwrap.js orphaned-init bug, out of draft, panel + 3 fix rounds, green CI; it kills the init by pid via --info-fd, while the [endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/issues/1591) process-group kill may not reach an init that called setsid()). [endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/issues/1591)'s own CI is green, but I did NOT resume its panel: that would override the gate and spend review on a competing fix.
+>
+> Option: close as superseded ([endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/issues/1591) -> [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542)), and merge [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542) to unblock [endojs/endo-but-for-bots#1504](https://github.com/endojs/endo-but-for-bots/issues/1504).
+> If you want [endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/issues/1591) reviewed anyway: `scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1591-gauntlet panel --iteration 1 --add-rounds 2`
+
 - `kriscendobot-minion.town-pr178-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr178-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr178-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr178-gauntlet REVIEW-BUDGET-REACHED: Applied 12 panel/fix round(s); fix round 12 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=12, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr178-gauntlet panel --add-rounds N
@@ -1836,7 +1843,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.2M | $120.04 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.2M | $120.21 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 299.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60006365 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
