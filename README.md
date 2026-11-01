@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T21:28:18Z_
+_As of 2026-11-01T21:31:17Z_
 
 ## Latest
 
@@ -1236,26 +1236,26 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.5M | $229.86 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Claude | 62.5M | $229.92 _(notional, rate-card)_ | 23% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 69629018 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 12.351139s/45s (/home/kris/garden/.garden-state/dependabot-watcher/verify); 7 open notice(s); checker healthy
+worst fetch p95 7.614600s/45s (/home/kris/garden/.garden-state/budget-level/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`oros-health-watch-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261101-192009.md) — Deliberate overrun decomposition for oros-health-watch-20261101-192009
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`fix-sysop-restore-dormant-follower-clones-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-sysop-restore-dormant-follower-clones-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1573-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — endojs/endo-but-for-bots PR #1573
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1628-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1628-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1628
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1635-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1635-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1635
+- [`fix-sysop-restore-dormant-follower-clones-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-sysop-restore-dormant-follower-clones-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1629-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1629-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1629
 - [`endojs-endo-but-for-bots-pr1633-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1633
 - [`endojs-endo-but-for-bots-pr1631-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1631-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1631
