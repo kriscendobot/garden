@@ -10,3 +10,13 @@ Builder work on endojs/endo-but-for-bots, Ironhorse test262 ratchet: take the ne
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-01T12:13:53Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T12:51:16Z
