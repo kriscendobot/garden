@@ -1,5 +1,0 @@
-host: oros-studio-garden-ce242c49
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-11-01T05:42:51Z
-worktree_dir: /Users/dom/garden/scratch/gardener-wt-investigate-producer-journal-lock-long-holder-20261101
