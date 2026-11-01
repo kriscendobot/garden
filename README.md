@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T20:19:55Z_
+_As of 2026-11-01T20:22:18Z_
 
 ## Latest
 
@@ -520,6 +520,10 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.102948s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-handler-budget-overrun-oros-health-watch-20261101-192009` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-oros-health-watch-20261101-192009.md)
+
+> gardener job 'oros-health-watch-20261101-192009' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=3602s, handler-budget=3600s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `msg-accountant-weekly-20261024-160509-6764902e87b9` — from gardener:accountant-weekly-20261024-160509, reply_to `accountant-weekly-20261024-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261024-160509-6764902e87b9.md)
 
@@ -1220,7 +1224,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.2M | $224.80 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Claude | 62.3M | $226.44 _(notional, rate-card)_ | 23% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 69560551 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1229,21 +1233,21 @@ _Fleet token-unlock pace: 69560551 tokens/day lower bound; incomplete where a su
 worst fetch p95 12.351139s/45s (/home/kris/garden/.garden-state/dependabot-watcher/verify); 9 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (8)
 - [`improve-followup-gate-fail-soft-on-success`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-followup-gate-fail-soft-on-success.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1629-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1629-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1629
 - [`endojs-endo-but-for-bots-pr1628-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1628-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1628
 - [`endojs-endo-but-for-bots-pr1573-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1573-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr1633-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1633-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1633
 - [`endojs-endo-but-for-bots-pr1631-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1631-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1631
 
-### doin (5)
+### doin (6)
 - [`oros-health-watch-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-192009.md) — ---
 - [`oros-health-checkup-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-192009.md) — ---
 - [`endojs-endo-but-for-bots-pr1635-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1635-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1635
+- [`endojs-endo-but-for-bots-pr1629-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1629-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1629
 - [`weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1478
 
