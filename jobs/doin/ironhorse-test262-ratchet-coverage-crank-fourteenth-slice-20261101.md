@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Builder work in endojs/endo-but-for-bots on the Ironhorse test262 ratchet. Take the next coverage-crank slice after the thirteenth: pick test262 rows no in-flight slice has claimed, announce the rows and files to peer slices first, and gate with a local whole-tree sweep. Open a PR for the slice.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T10:59:46Z
