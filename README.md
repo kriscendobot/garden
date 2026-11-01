@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T17:55:45Z_
+_As of 2026-11-01T17:58:22Z_
 
 ## Latest
 
@@ -1214,7 +1212,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.4M | $197.48 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 52.6M | $199.44 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 67075673 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1223,24 +1221,23 @@ _Fleet token-unlock pace: 67075673 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`build-endo-claude-agents-capability-slice-after-1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-agents-capability-slice-after-1596.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
+- [`build-endo-claude-agents-capability-slice-after-1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-slice-after-1596.md) — ---
 - [`build-endo-claude-agents-capability-slice-after-1593`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-slice-after-1593.md) — ---
 - [`build-ironhorse-in-crank-string-garbage-chunk-ceiling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-in-crank-string-garbage-chunk-ceiling.md) — Build: the design in endojs/endo-but-for-bots#1622
-- [`endojs-endo-but-for-bots-pr1623-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1623-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1623
 
-### tada (16065)
+### tada (16066)
+- [`endojs-endo-but-for-bots-pr1623-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1623-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1619-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1619-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1619-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1619-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1619-gauntlet-clean.md) — Clean stage for endojs/endo-but-for-bots#1619: CI is red, but not because of ...
 - [`endojs-endo-but-for-bots-pr1617-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1617-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1617-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1617-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1617-gauntlet-clean.md) — Clean stage, endojs/endo-but-for-bots PR #1617: CI is red because of a known ...
-- [`shepherd-endojs-endo-but-for-bots-pr1573-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/shepherd-endojs-endo-but-for-bots-pr1573-ci.md) — Panel-head freshness
-- … and 16060 more
+- … and 16061 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
