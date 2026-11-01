@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T18:52:48Z_
+_As of 2026-11-01T18:55:56Z_
 
 ## Latest
 
@@ -518,6 +516,10 @@ Delegation: **active**
 > Reply "A", "B", or a slate. With no reply, the carried-forward slate stays in force.
 >
 > Open questions carried: (1) did codex-endolin's 2026-10-23T00:20Z manual reset spend the 11-06 credit? (2) claude-oros status/credits and current meter.
+
+- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
+
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.102948s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-accountant-weekly-20261024-160509-6764902e87b9` — from gardener:accountant-weekly-20261024-160509, reply_to `accountant-weekly-20261024-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261024-160509-6764902e87b9.md)
 
@@ -1202,10 +1204,6 @@ Delegation: **active**
 > Inspect ratchets/ironhorse-test262-ratchet/state.json and
 > context/operations/ironhorse-ratchet.md. Explicitly resume only after resolution.
 
-- `endojs-endo-but-for-bots-pr1626-gauntlet-held-draft` — from gauntlet:endojs-endo-but-for-bots-pr1626-gauntlet-held-draft, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1626-gauntlet-held-draft.md)
-
-> INFO: Gauntlet endojs-endo-but-for-bots-pr1626-gauntlet passed the code panel but is held draft: Panel round passed on the code. The PR's phase/evidence ledger says ledger disposition orchestrated-slice; remaining phases owned by minion-town-claude-api, so the PR stays DRAFT: no stage un-drafts it until the ledger says deliverable, after which a new gauntlet run reviews the completing head.
-
 - `endojs-endo-but-for-bots-pr1538-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1538-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1538-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1538-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1538-gauntlet-panel-6' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
@@ -1222,10 +1220,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.6M | $208.23 _(notional, rate-card)_ | 21% of 271.0M (ok) |
+| Claude | 57.7M | $208.50 _(notional, rate-card)_ | 21% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 68209526 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
@@ -1240,13 +1238,13 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`endojs-endo-but-for-bots-pr1627-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1627-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1627
 - [`endojs-endo-but-for-bots-pr1624-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1624-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1624
 
-### tada (16084)
+### tada (16085)
+- [`endojs-endo-but-for-bots-pr1628-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1628-gauntlet-viability.md) — Cost
 - [`build-endo-claude-agents-capability-slice-after-1609`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-endo-claude-agents-capability-slice-after-1609.md) — Cost
 - [`endojs-endo-but-for-bots-pr1626-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1626-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1626-gauntlet — code passed, held draft
 - [`endojs-endo-but-for-bots-pr1626-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1626-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1627-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1627-gauntlet-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1625-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1625-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1625-gauntlet — complete
-- … and 16079 more
+- … and 16080 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
