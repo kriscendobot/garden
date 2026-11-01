@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T06:31:06Z_
+_As of 2026-11-01T06:36:29Z_
 
 ## Latest
 
@@ -884,6 +884,13 @@ Delegation: **active**
 >
 > ci-wait-merge on oros-studio-garden-ce242c49 cannot read CI for [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/issues/192): the GitHub token is forbidden (HTTP 403) from statusCheckRollup, and delegated merges do not accept the Actions-only fallback. This is a token permission gap, not pending CI. Grant the bot token checks:read and statuses:read (and actions:read) on 'kriscendobot', then rerun the stage.
 
+- `endojs-endo-but-for-bots-pr1601-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1601-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1601-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1601-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1601-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1601-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet panel --add-rounds N
@@ -1125,37 +1132,39 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.9M | $174.39 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 39.9M | $176.83 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63416611 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 63481039 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (9)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`oros-health-checkup-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-063511.md) — ---
+- [`oros-health-watch-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261101-063511.md) — ---
 - [`endojs-endo-but-for-bots-pr1600-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1600-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1600
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`endojs-endo-but-for-bots-pr1602-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1602-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1602
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`minion-town-arc-press-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-063511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`deadmail-20261101T060812Z-1be3a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T060812Z-1be3a1.md) — Dead-lettered message — pick up its intent
 
-### doin (5)
+### doin (4)
 - [`improve-unblock-post-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-unblock-post-loop-deadline.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
-- [`endojs-endo-but-for-bots-pr1601-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1601-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1601
 
-### tada (15931)
+### tada (15933)
+- [`endojs-endo-but-for-bots-pr1601-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1601-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1601-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1601-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1601-gauntlet-clean.md) — Gauntlet clean stage: endojs/endo-but-for-bots PR #1601. Result: CI red
 - [`ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101.md) — Ironhorse test262 ratchet, fifth slice: explicit resource management (+46 row...
 - [`improve-post-orchestration-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-post-orchestration-loop-deadline.md) — Cost
 - [`endojs-endo-but-for-bots-pr1602-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1602-gauntlet-viability.md) — Cost
-- [`ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101.md) — Ironhorse test262 ratchet, sixth slice: with bindings deleted mid-reference (...
-- [`investigate-producer-journal-lock-long-holder-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/investigate-producer-journal-lock-long-holder-20261101.md) — Completion report
-- … and 15926 more
+- … and 15928 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
