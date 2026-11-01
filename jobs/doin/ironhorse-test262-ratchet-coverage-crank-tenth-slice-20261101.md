@@ -11,6 +11,8 @@ Builder job on endojs/endo-but-for-bots (llm): continue the Ironhorse test262 ra
 <!-- garden-reaped: 0 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
