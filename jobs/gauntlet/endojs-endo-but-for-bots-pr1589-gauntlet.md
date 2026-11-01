@@ -12,7 +12,7 @@ created_at: 2026-10-31T07:37:17Z
 arc: 
 stage: fix
 iteration: 5
-resumes: 0
+resumes: 1
 stage_retries: 0
 current_child: endojs-endo-but-for-bots-pr1589-gauntlet-fix-5
 state: running
