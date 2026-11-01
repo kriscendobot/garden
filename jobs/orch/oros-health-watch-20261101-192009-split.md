@@ -2,7 +2,7 @@
 order: serial
 children: oros-health-watch-20261101-192009-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-11-01T21:37:00Z
 ---
