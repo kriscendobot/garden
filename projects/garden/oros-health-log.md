@@ -1,6 +1,22 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-01T20:20Z (oros-health-checkup-20261101-192009): degraded (sysop `restore` fails here); deployed = origin/main2 `d1e41a9`; refreshed two dormant clones
+
+- **Load/mem:** load 3.47/3.44/3.58 at 19:53Z, the usual level. 13 GiB of 15 GiB available. Swap reads 941M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** the virtiofs garden mount is at 82% (87G free), up 1 point from 16:40Z; inodes are at 2%. The overlay is at 7% (402G free).
+- **Uptime:** 31d02h38m, no reboot.
+- **Deployed vs main2:** fleet/health/oros shows `roll_status: deployed` @ `d1e41a9`, 0 of 290 units failing (15:20Z). That equals the origin/main2 tip per `ls-remote`, so there is no deploy to help along.
+- **Drain/units:** not draining, 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, no derotation marker.
+- **Budget heartbeat:** last claude-oros push at 19:34:54Z. The six pushes from 18:19 to 19:34Z were all ok, at a ~15-minute cadence. Spend has been flat at 10,452,103 of 180M since 17:33Z. That matches the workload: monks claimed almost nothing after 17:37Z. The eligible todo jobs were either `requires: typesafe` scholar ingests or endojs panel stages this host's token cannot write.
+- **Claims:** each claim candidate costs about 50s, mostly the per-candidate `sync_clone` `reset --hard` on an 82k-file tree on virtiofs. Monk 3 lost the CAS race on this job three times (19:34–19:47Z) before monk 1 claimed it at 19:52Z, 32 minutes after it was posted.
+- **The defect (sysop `restore`):** `oros-health-watch` sent `restore` at 19:52:57Z, 49 seconds after the claim. It **failed** (`restore partial: ran reset-failed`). On a follower, the reaper and deadmail clones are synced only by `restore`, and both were frozen at **2026-09-28** (about 81k commits behind). The reaper step's first `reset --hard` ran over 300s, and the deadmail sync took 373s, against the 150s step budget. When `timeout` killed `reaper.sh`, the bounded-git children survived and kept holding the reaper clone lock until about 20:00Z. Other leader-only clones here are just as dormant: foreman, deadline-nudge, requirements-watch, library-source-drift-scan, transcripts and reducer (Sep 28–30), and self-heal (Sep 26).
+- **State clones:** 84 journal clones. The largest are transcripts (48 packs), sysop and reaper (47), and monks/2 (44), all under the threshold. No lock older than 30 minutes, apart from the restore orphan above, which has since finished.
+- **rc=124 (4h):** one self-heal `garden-unblock` handler timeout at 17:16Z (600s, bounded and clean). No journal fetch timeouts.
+- **Changed:** the orphaned reset finished and brought the reaper clone current. I synced the deadmail clone under its lock (373s). The next `restore` should now get through both steps. I left the two Oct-10 `scholar-staging/*` clones in place: the `literate-ai-remainder-2` clone holds an unpushed staging commit `330533f5b`, and only part of its content is on origin, so deleting it would not be lossless.
+- **Follow-up posted:** `fix-sysop-restore-dormant-follower-clones-20261101`. It covers skipping the reaper step in `restore` on a follower, or keeping dormant clones warm, and killing the whole tree on a step timeout.
+- **Needs the maintainer:** nothing urgent. The ~50s-per-candidate claim cost on virtiofs would be fixed properly by moving `$GARDEN_STATE` onto the container overlay (402G free, not virtiofs), which is a host decision.
+
 ## 2026-11-01T16:40Z (oros-health-checkup-20261101-160514): degraded → fixed; deployed = origin/main2 `d1e41a9`; freed 47G of virtiofs disk
 
 - **Load/mem:** load 3.82/3.43/3.37 at 16:12Z, the usual level. 12 GiB of 15 GiB available. Swap reads 970M of 1.0 GiB, the usual steady level.
