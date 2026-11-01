@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Builder work on endojs/endo-but-for-bots, design `endo-claude-agents-capability` (PR #1560, milestone M3): build the next unbuilt slice of the Claude-backed child-guest provisioning capability. Start from the merged and in-flight slices (#1543, #1558, #1573, #1576, #1593) and stack on the current head of that line.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T18:20:24Z
