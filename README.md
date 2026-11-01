@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T07:01:06Z_
+_As of 2026-11-01T07:10:30Z_
 
 ## Latest
 
@@ -92,17 +90,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-01T04:46:54Z, latest 2026-11-01T06:51:27Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-01T07:06:27Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.116899s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.127577s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.104089s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.044147s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=44.900939s, giveups=1, steals=1 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.116992s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -176,15 +168,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr184-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 16 -> 18 (N is yours to choose).
-
-- `followup-gate-endojs-endo-but-for-bots-pr1600-gauntlet-clean` — from followup-gate:endojs-endo-but-for-bots-pr1600-gauntlet-clean, reply_to `endojs-endo-but-for-bots-pr1600-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-endojs-endo-but-for-bots-pr1600-gauntlet-clean.md)
-
-> Job "endojs-endo-but-for-bots-pr1600-gauntlet-clean" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
->
-> ## Follow-ups
-> The maintainer or driver should decide whether to accept the known stage3-math red for this gauntlet or wait for the base to be fixed.
->
-> <<<GARDEN-ORCHESTRATION-FAILED>>>
 
 - `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
 
@@ -347,13 +330,6 @@ Delegation: **active**
 - `msg-oros-health-watch-20261025-005027-55b42d912920` — from gardener:oros-health-watch-20261025-005027, reply_to `oros-health-watch-20261025-005027` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261025-005027-55b42d912920.md)
 
 > oros sysop is unreachable: its last sysop-log activity was 2026-10-23T15:07:10Z, and a benign reset-failed probe sent at 2026-10-25T00:52:17Z received no ack after 12 minutes. The host heartbeat and fleet/health remain fresh, so please inspect the garden-sysop timer/service on the oros machine (and Docker Desktop/VM state if needed).
-
-- `endojs-endo-but-for-bots-pr1600-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1600-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1600-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1600-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1600-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1600-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `20261021T143920Z-cca5e1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T143920Z-cca5e1.md)
 
@@ -978,6 +954,10 @@ Delegation: **active**
 
 > token backoff for codex-endolin is on the 0.95 fallback: next reset for codex-endolin after 2026-10-30T00:20Z unclear; record it (append-reset-event.sh codex-endolin --type expected-next-scheduled --precision scheduled --at <ISO>). Record the next reset time so the standing ramp can resume.
 
+- `liaison-followup-610bde66cd4e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-610bde66cd4e.md)
+
+> Gauntlet for [endojs/endo-but-for-bots#1600](https://github.com/endojs/endo-but-for-bots/issues/1600) finished clean except a known stage3-math red, which is the base's problem and not the PR's (report: endojs-endo-but-for-bots-pr1600-gauntlet-clean). Decision needed: accept that red and proceed with this PR as is, or hold it until the base is fixed?
+
 - `endojs-endo-but-for-bots-pr1588-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1588-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1588-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1588-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1588-gauntlet-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -1147,17 +1127,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.1M | $169.58 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 40.3M | $172.13 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63492091 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 63550390 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`endojs-endo-but-for-bots-pr1604-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1604-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1604
+- [`daily-progress-summary-20261101-070513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261101-070513.md) — Daily midnight Pacific progress summary
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1603-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1603-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1603
 - [`oros-health-checkup-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-063511.md) — ---
@@ -1168,10 +1149,11 @@ worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify)
 - [`minion-town-arc-press-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-063511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`deadmail-20261101T060812Z-1be3a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T060812Z-1be3a1.md) — Dead-lettered message — pick up its intent
 
-### doin (4)
+### doin (5)
 - [`improve-unblock-post-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-unblock-post-loop-deadline.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
+- [`improve-post-loop-deadline-remaining-loops`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-post-loop-deadline-remaining-loops.md) — ---
 - [`oros-health-watch-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-063511.md) — ---
 
 ### tada (15936)
