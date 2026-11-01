@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T21:39:38Z_
+_As of 2026-11-01T21:41:34Z_
 
 ## Latest
 
@@ -1245,7 +1245,8 @@ _Fleet token-unlock pace: 69639113 tokens/day lower bound; incomplete where a su
 worst fetch p95 7.614600s/45s (/home/kris/garden/.garden-state/budget-level/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
+- [`oros-health-watch-20261101-192009-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261101-192009-expanded-window.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-panel-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1573-gauntlet-panel-7.md) — Gauntlet stage: PANEL round 7 — endojs/endo-but-for-bots PR #1573
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
