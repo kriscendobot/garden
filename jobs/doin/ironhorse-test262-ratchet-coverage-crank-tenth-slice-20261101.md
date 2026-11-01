@@ -9,6 +9,8 @@ dispatch: automatic
 Builder job on endojs/endo-but-for-bots (llm): continue the Ironhorse test262 ratchet coverage crank with the tenth slice. Pick the next uncovered test262 subtree after the ninth slice, convert unsupported tests to passing or skipped, and open a DRAFT PR with the updated ratchet floor.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
