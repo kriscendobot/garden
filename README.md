@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T15:25:52Z_
+_As of 2026-11-01T15:27:26Z_
 
 ## Latest
 
@@ -1188,7 +1188,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.9M | $191.52 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 47.9M | $191.74 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 65902486 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1213,19 +1213,18 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`deadmail-20261101T151121Z-3c2899`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T151121Z-3c2899.md) — Dead-lettered message — pick up its intent
 
-### doin (4)
-- [`canary-probe-oros-studio-garden-ce242c49-d1e41a90e6ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-d1e41a90e6ba.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ d1e41a90e6ba
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1615-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1615-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1615
 - [`ironhorse-test262-ratchet-coverage-crank-nineteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-nineteenth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-eighteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighteenth-slice-20261101.md) — ---
 
-### tada (16016)
+### tada (16017)
+- [`canary-probe-oros-studio-garden-ce242c49-d1e41a90e6ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/canary-probe-oros-studio-garden-ce242c49-d1e41a90e6ba.md) — rolling-deploy canary probe — round trip OK
 - [`ironhorse-test262-ratchet-coverage-crank-sixteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-sixteenth-slice-20261101.md) — Cost
 - [`endojs-endo-but-for-bots-pr1617-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1617-gauntlet-viability.md) — Cost
 - [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101-open-pr.md) — Cost
 - [`ironhorse-test262-ratchet-coverage-crank-fifteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-fifteenth-slice-20261101.md) — Cost
-- [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md) — Cost
-- … and 16011 more
+- … and 16012 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
