@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T05:24:34Z_
+_As of 2026-11-01T05:25:33Z_
 
 ## Latest
 
@@ -1132,20 +1132,19 @@ worst fetch p95 8.735678s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1602-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1602-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1602
 
-### doin (5)
+### doin (4)
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101.md) — ---
-- [`ironhorse-test262-ratchet-coverage-crank-third-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-third-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101.md) — ---
 
-### tada (15924)
+### tada (15925)
+- [`ironhorse-test262-ratchet-coverage-crank-third-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-third-slice-20261101.md) — Cost
 - [`endojs-endo-but-for-bots-pr1600-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1600-gauntlet-viability.md) — Cost
 - [`ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr.md) — Cost
 - [`improve-foreman-post-job-tempfail-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-foreman-post-job-tempfail-handling.md) — Cost
 - [`improve-watchman-broadcast-lock-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-watchman-broadcast-lock-retry.md) — Completion report: improve-watchman-broadcast-lock-retry
-- [`claude-on-minion-town-completion-press-20261101-045013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/claude-on-minion-town-completion-press-20261101-045013.md) — Cost
-- … and 15919 more
+- … and 15920 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
