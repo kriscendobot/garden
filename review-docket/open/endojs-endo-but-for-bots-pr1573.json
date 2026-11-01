@@ -7,14 +7,14 @@
   "ask": "re-review",
   "arc": "minion-town-claude-api",
   "milestone": "-",
-  "summary": "Panel reviewed aec86ec537f7, but the presented head is ecfbdb2ac96d",
+  "summary": "Panel reviewed 10519bbc8f79, but the presented head is a70129db642c",
   "unblocks": [],
-  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1573-aec86ec5-ecfbdb2a",
-  "requested_at": "2026-10-30T11:54:56Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1573-10519bbc-a70129db",
+  "requested_at": "2026-11-01T17:32:02Z",
   "first_requested_at": "2026-10-30T11:54:56Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "green",
-    "observed_at": "2026-11-01T16:54:32Z"
+    "observed_at": "2026-11-01T17:33:08Z"
   }
 }
