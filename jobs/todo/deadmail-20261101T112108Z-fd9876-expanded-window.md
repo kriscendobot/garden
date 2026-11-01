@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: deadmail-20261101T112108Z-fd9876-split
+tier: mentor
+posted_at: 2026-11-01T12:53:45Z
 handler-timeout: 3600
 split-indivisible-reason: 'coordination-relay-only: the dead letter is a single informational row-claim note whose rows are owned by the live tenth slice; the only work is forwarding it to live peer slices, which has no separable parts'
 split-lineage-root: deadmail-20261101T112108Z-fd9876
 split-lineage-parent: deadmail-20261101T112108Z-fd9876-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-11-01T12:53:45Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-01T12:58:01Z cleared=none -->
 
 ---
 tier: mentor
