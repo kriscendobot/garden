@@ -909,6 +909,33 @@ grep -q '^roll_status: deferred' <<<"$(from_bare "fleet/health/$F1")" && ok "FOL
   || bad "FOLLOWER: quiesce drain misreported: $(from_bare "fleet/health/$F1" | grep roll_status)"
 rm -f "$TR/sd-state-$F1/draining"
 
+# STALE QUIESCE (oros 2026-11-01 12:57Z): the leader's quiesce op was applied AFTER
+# deploy-garden.sh landed the target and lifted its drain. A current host (no
+# upgrade-ready marker) lifts a quiesce drain; an operator or roll-failure drain stays.
+mkdir -p "$TR/sd-state-stale-q/deploy"
+printf 'draining\nsource: rolling-deploy-quiesce\nreason: rolling-deploy: quiesce for deploy\n' > "$TR/sd-state-stale-q/draining"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" GARDEN_STATE="$TR/sd-state-stale-q" \
+  GARDEN_UPGRADE_READY_MARKER="$TR/sd-state-stale-q/deploy/upgrade-ready" || true
+[ ! -e "$TR/sd-state-stale-q/draining" ] && ok "STALE QUIESCE: a current host lifts a quiesce drain that arrived after its deploy" \
+  || bad "STALE QUIESCE: current host stayed quiesce-drained"
+printf 'draining\nsource: rolling-deploy-quiesce\n' > "$TR/sd-state-stale-q/draining"
+printf 'target: x\n' > "$TR/sd-state-stale-q/deploy/in-progress"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" GARDEN_STATE="$TR/sd-state-stale-q" \
+  GARDEN_UPGRADE_READY_MARKER="$TR/sd-state-stale-q/deploy/upgrade-ready" \
+  GARDEN_DEPLOY_IN_PROGRESS_RECORD="$TR/sd-state-stale-q/deploy/in-progress" \
+  GARDEN_DEPLOY_STRAND_RECOVER_CMD=/bin/true || true
+[ -e "$TR/sd-state-stale-q/draining" ] && ok "STALE QUIESCE: not lifted while a deploy is in progress" \
+  || bad "STALE QUIESCE: lifted the quiesce mid-deploy"
+rm -f "$TR/sd-state-stale-q/deploy/in-progress"
+for src in rolling-deploy operator; do
+  printf 'draining\nsource: %s\n' "$src" > "$TR/sd-state-stale-q/draining"
+  run_self_deploy "$F1" GARDEN_LEADER="$LEADER" GARDEN_STATE="$TR/sd-state-stale-q" \
+    GARDEN_UPGRADE_READY_MARKER="$TR/sd-state-stale-q/deploy/upgrade-ready" || true
+  [ -e "$TR/sd-state-stale-q/draining" ] && ok "STALE QUIESCE: a current host keeps a source=$src drain" \
+    || bad "STALE QUIESCE: lifted a source=$src drain"
+done
+rm -f "$TR/sd-state-stale-q/draining"
+
 # FOLLOWER PUBLISH RETRY: a transient journal fetch failure must not lose the deferred
 # status (2026-10-07 16:56Z/16:59Z). The fetch seam fails the FLEET-HEALTH clone's fetches
 # while a counter is positive; each publish attempt is one fetch (GARDEN_FETCH_RETRIES=1).

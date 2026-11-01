@@ -176,9 +176,30 @@ republish_pending_deployed() {
 
 republish_pending_deployed
 
+# lift_stale_quiesce <why> — lift the conductor's "quiesce for deploy" drain once the
+# deploy it existed for can no longer happen. deploy-garden.sh lifts the quiesce when
+# its deploy lands, but the leader's quiesce op travels over the bus and can be APPLIED
+# AFTER that lift: on oros 2026-11-01 the leader sent it at 12:56:02 from a stale
+# `deferred` record, deploy-garden.sh landed ef0bbf4 and lifted its drain at ~12:57:10,
+# and the sysop applied the quiesce at 12:57:17. The conductor then passed the canary
+# and cleared its release, so no one owned the drain and the host sat drained at the
+# target. Only the quiesce source is lifted here; an operator or roll-failure drain is
+# never touched, and nothing is lifted while a deploy is in flight.
+lift_stale_quiesce() {
+  drain_is_deploy_quiesce || return 0
+  [ -e "$GARDEN_DEPLOY_IN_PROGRESS_RECORD" ] && return 0
+  if "$HERE/drain-fleet.sh" off >/dev/null 2>&1; then
+    log "lifted a stale quiesce-for-deploy drain: $1"
+  else
+    log "WARN: could not lift the stale quiesce-for-deploy drain ($1)"
+  fi
+}
+
 # --- 1. the host-local deploy DECISION (never a bus message) -----------------
 if [ ! -e "$GARDEN_UPGRADE_READY_MARKER" ]; then
-  # Current: nothing to do. Silent (autonomous posture).
+  # Current: nothing to do. Silent (autonomous posture), except that a quiesce drain
+  # on a current host has no deploy left to wait for.
+  lift_stale_quiesce "this host is current (no upgrade-ready marker)"
   exit 0
 fi
 target="$( { sed -n 's/^available:[[:space:]]*//p' "$GARDEN_UPGRADE_READY_MARKER" 2>/dev/null || true; } | head -1 | tr -d '[:space:]')"
@@ -233,6 +254,7 @@ if [ -n "$release" ] && is_ancestor "$release" "$target"; then
     if [ -n "$deployed" ] && is_ancestor "$release" "$deployed"; then
       released=0
       log "release ${release:0:12} is already deployed here (at ${deployed:0:12}); upgrade-ready ${target:0:12} awaits a new release"
+      lift_stale_quiesce "release ${release:0:12} is already deployed here"
     else
       log "release ${release:0:12} is older than upgrade-ready ${target:0:12} (main2 advanced after the release); deploying the RELEASED sha"
     fi
