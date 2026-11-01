@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Shepherd job on endojs/endo-but-for-bots PR #1560 (endo-claude-agents-capability, the base of the Claude API stack). Drive CI to green now that #1561, #1563 and #1625 have been woven onto it, so the parked claude-api phase jobs (p3 to p7) can be promoted.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T19:29:38Z
