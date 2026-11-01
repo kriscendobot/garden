@@ -815,6 +815,15 @@ GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 # instead of requiring a systemd kill. A push race (the design-intended retry) is
 # sub-second, so this never trims a healthy loop.
 : "${GARDEN_POST_DEADLINE_SECS:=300}"  # seconds; producer push-CAS loop bails EX_TEMPFAIL past this
+# The shared check for that bound. Record `loop_start=$SECONDS` before the loop and
+# call this at the top of each attempt; it logs and returns 0 once the loop has run
+# GARDEN_POST_DEADLINE_SECS or longer, 1 otherwise. The caller then exits (or
+# returns) GARDEN_OFFLINE_RC:
+#   post_deadline_exceeded "$loop_start" "post of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
+post_deadline_exceeded() {  # <loop-start-SECONDS> <what> <attempt>
+  [ $((SECONDS - $1)) -ge "$GARDEN_POST_DEADLINE_SECS" ] || return 1
+  log "$2 exceeded ${GARDEN_POST_DEADLINE_SECS}s wall-clock deadline under degraded connectivity (attempt $3); skipping tick (rc=$GARDEN_OFFLINE_RC)"
+}
 : "${GARDEN_HANDOFF_UNVERIFIED_RC:=76}" # soft job-level verdict: declared handoff successor is absent
 : "${GARDEN_COMPLETED_COLLISION_RC:=79}" # post-job: unidentified basename collides with a completed job
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off

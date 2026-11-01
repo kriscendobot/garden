@@ -184,10 +184,7 @@ watchdog_notice_push() {
 # minutes (endolin-garden-ece02cb4, 2026-11-01, a detached handler-overrun alert).
 post_loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
-  if [ $((SECONDS - post_loop_start)) -ge "${GARDEN_POST_DEADLINE_SECS:-300}" ]; then
-    log "watchdog-notice '$skey' exceeded ${GARDEN_POST_DEADLINE_SECS:-300}s wall-clock deadline (attempt $attempt); giving up this delivery (rc=$GARDEN_OFFLINE_RC)"
-    exit "$GARDEN_OFFLINE_RC"
-  fi
+  post_deadline_exceeded "$post_loop_start" "watchdog-notice '$skey'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   rc=0; watchdog_notice_push || rc=$?
   if [ "$rc" -eq 0 ]; then
     if [ "$WATCHDOG_ACTION" = amended ]; then

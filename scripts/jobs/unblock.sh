@@ -83,10 +83,17 @@ notify_maintainer() {  # <subject> ; body on stdin
 # requires gate=blocked), record the reason on the plan for a human, and surface
 # it to the maintainer. The work survives in plan/ (held) — a human can override
 # with promote-plan.sh if the decline is acceptable, or discard it. CAS-retried
-# like promote-plan.sh; touches only this base.
+# like promote-plan.sh; touches only this base. The retry loop is bounded by
+# GARDEN_POST_DEADLINE_SECS as well as GARDEN_POST_ATTEMPTS: under a degraded
+# journal remote each attempt's sync_clone can take a full fetch timeout, so 50
+# attempts would run for tens of minutes (the 2026-11-01 30-minute producer-lock
+# hold). Past the deadline the whole tick exits GARDEN_OFFLINE_RC, since every
+# other plan's promotion would hit the same remote; the plan stays gate=blocked
+# and the next tick retries it.
 hold_failed() {  # <base> <blocker>
-  local base="$1" blocker="$2" f attempt rc
+  local base="$1" blocker="$2" f attempt rc loop_start=$SECONDS
   for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+    post_deadline_exceeded "$loop_start" "hold of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
     sync_clone "$DIR"
     f="$DIR/jobs/plan/$base.md"
     [ -f "$f" ] || return 0                            # already gone / changed
@@ -160,9 +167,15 @@ while IFS= read -r j; do
   fi
 
   if [ "$do_promote" = yes ]; then
-    if "$HERE/promote-plan.sh" --unblock "$base" >/dev/null 2>&1; then
+    rc=0; "$HERE/promote-plan.sh" --unblock "$base" >/dev/null 2>&1 || rc=$?
+    if [ "$rc" -eq 0 ]; then
       log "unblocked '$base' (blocker '$artifact' completed); promoted plan→todo"
       promoted=$((promoted+1))
+    elif [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+      # Journal offline or the push loop's deadline expired: every remaining
+      # promotion would wait on the same remote, so end the tick here.
+      log "promotion of unblocked '$base' hit an unreachable journal; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+      exit "$GARDEN_OFFLINE_RC"
     else
       log "promotion of unblocked '$base' failed; will retry next tick"
     fi

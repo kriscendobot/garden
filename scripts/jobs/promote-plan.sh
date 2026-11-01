@@ -156,7 +156,11 @@ strip_frontmatter() {
 # spelling of "the family", so a marker-format change (or a sixth marker) cannot
 # half-land.
 
+# Wall-clock bound, as in post-job.sh: attempt COUNT alone lets a degraded journal
+# remote hold the producer clone for tens of minutes.
+post_loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$post_loop_start" "promotion of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
 
   if [ ! -e "$DIR/$JOBS_PLAN/$base.md" ]; then

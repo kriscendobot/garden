@@ -352,10 +352,7 @@ fi
 # offline-style skip sync_clone takes, before starting a fresh attempt.
 post_loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
-  if [ $((SECONDS - post_loop_start)) -ge "${GARDEN_POST_DEADLINE_SECS:-300}" ]; then
-    log "post of '$base' exceeded ${GARDEN_POST_DEADLINE_SECS:-300}s wall-clock deadline under degraded connectivity (attempt $attempt); skipping tick (rc=$GARDEN_OFFLINE_RC)"
-    exit "$GARDEN_OFFLINE_RC"
-  fi
+  post_deadline_exceeded "$post_loop_start" "post of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   # Basename dedup. A same-named LIVE job (plan/todo/doin) is always a no-op — the base
   # is the reservation spine, and a live copy means the work is queued/running (this is
