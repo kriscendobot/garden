@@ -83,3 +83,13 @@ The cause is ava 8.1.0's lazy `createRequire(import.meta.url)('concordance')`, w
 The other red leg, test (22.x, macos-15) `restore-context.test.js` "Uncaught exception", is a **pre-existing macOS flake**: the same failure occurs on an unrelated ava-8.0.1 branch (job 124899623720).
 
 **Next:** once the fixer's repair is green, the daily dependabotany recheck re-evaluates this PR from the ledger and conducts it through `ci-wait-merge.sh --dependabot-auto-merge`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T23:37:42Z
