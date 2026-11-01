@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T12:52:36Z_
+_As of 2026-11-01T13:04:04Z_
 
 ## Latest
 
@@ -1149,39 +1147,39 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.5M | $177.23 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 44.6M | $177.59 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 64851722 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 64965776 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (9)
-- [`deadmail-20261101T112108Z-fd9876`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T112108Z-fd9876.md) — Deliberate overrun decomposition for deadmail-20261101T112108Z-fd9876
+### todo (8)
+- [`endojs-endo-but-for-bots-pr1614-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1614-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1614
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`oros-health-watch-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261101-125015.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`oros-health-checkup-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-125015.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1612-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1612-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1612
-- [`endojs-endo-but-for-bots-pr1613-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1613-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1613
-- [`minion-town-arc-press-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-125015.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`endojs-endo-but-for-bots-pr1613-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1613-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1613
+- [`deadmail-20261101T112108Z-fd9876-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T112108Z-fd9876-expanded-window.md) — Relay a dead-lettered crank-slice row-claim note (coordination only — do NOT ...
 
-### doin (4)
-- [`oros-health-checkup-20261101-093536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-093536.md) — ---
+### doin (5)
+- [`endojs-endo-but-for-bots-pr1611-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1611-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1611
 - [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
-- [`ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101.md) — ---
+- [`oros-health-checkup-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-125015.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md) — ---
+- [`minion-town-arc-press-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261101-125015.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (15988)
-- [`endojs-endo-but-for-bots-pr1614-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1614-gauntlet-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1611-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1611-gauntlet-viability.md) — Cost
-- [`ironhorse-test262-ratchet-coverage-crank-fourteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-fourteenth-slice-20261101.md) — Ironhorse test262 ratchet, fourteenth slice: class static blocks and TypedArr...
-- [`endojs-endo-but-for-bots-pr1612-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1612-gauntlet-viability.md) — Cost
-- [`deadmail-20261101T113530Z-87db46`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T113530Z-87db46.md) — Cost
-- … and 15983 more
+### tada (15993)
+- [`canary-probe-oros-studio-garden-ce242c49-ef0bbf49ab7b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/canary-probe-oros-studio-garden-ce242c49-ef0bbf49ab7b.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-pr1613-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1613-gauntlet-viability.md) — Cost
+- [`deadmail-20261101T112108Z-fd9876`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T112108Z-fd9876.md) — Cost
+- [`oros-health-checkup-20261101-093536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-checkup-20261101-093536.md) — ---
+- [`ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101.md) — Cost
+- … and 15988 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
