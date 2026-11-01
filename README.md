@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T03:04:40Z_
+_As of 2026-11-01T03:07:20Z_
 
 ## Latest
 
@@ -1044,6 +1044,10 @@ Delegation: **active**
 >
 > Orchestration improve-enforce-handler-wall-bound-split observed child improve-enforce-handler-wall-bound-watchdog: stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
 
+- `watchdog-handler-budget-overrun-shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101.md)
+
+> gardener job 'shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2401s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-drift-_home_kris_garden_worktrees_kriscendobot_vattr97_git` has CLEARED (first seen 2026-10-30T09:40:18Z, cleared 2026-10-30T10:34:43Z).
@@ -1848,7 +1852,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $161.84 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 33.8M | $161.90 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61390700 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
