@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Duplicate: the daemon wiring, durable facet formulas, and Fae/Lal/inference maker adapters it asks for are already built in endojs/endo-but-for-bots #1561, #1562, #1625, #1626 (with #1563/#1564 for the ledger and reply collapse). Three build reports (next-slice, slice-after-1593, slice-after-1573) concur. Remaining work is review + weave of that stack.
+withdrawn_by: build-endo-claude-agents-capability-slice-after-1573
+withdrawn_at: 2026-11-01T18:22:38Z
+withdrawn_from_gate: blocked
+---
+
+---
 gate: blocked
 blocked_on: https://github.com/endojs/endo-but-for-bots/pull/1560
 priority: normal
