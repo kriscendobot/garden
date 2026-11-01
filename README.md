@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T06:20:36Z_
+_As of 2026-11-01T06:25:35Z_
 
 ## Latest
 
@@ -1119,7 +1117,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.7M | $185.05 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 39.8M | $172.19 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63416611 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1128,8 +1126,7 @@ _Fleet token-unlock pace: 63416611 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
 
 ## Board
-### todo (7)
-- [`improve-unblock-post-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-unblock-post-loop-deadline.md) — ---
+### todo (6)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1600-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1600-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1600
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1138,19 +1135,19 @@ worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify)
 - [`deadmail-20261101T060812Z-1be3a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T060812Z-1be3a1.md) — Dead-lettered message — pick up its intent
 
 ### doin (5)
+- [`improve-unblock-post-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-unblock-post-loop-deadline.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
-- [`ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1601-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1601-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1601
 
-### tada (15930)
+### tada (15931)
+- [`ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101.md) — Ironhorse test262 ratchet, fifth slice: explicit resource management (+46 row...
 - [`improve-post-orchestration-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-post-orchestration-loop-deadline.md) — Cost
 - [`endojs-endo-but-for-bots-pr1602-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1602-gauntlet-viability.md) — Cost
 - [`ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101.md) — Ironhorse test262 ratchet, sixth slice: with bindings deleted mid-reference (...
 - [`investigate-producer-journal-lock-long-holder-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/investigate-producer-journal-lock-long-holder-20261101.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1601-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1601-gauntlet-viability.md) — Cost
-- … and 15925 more
+- … and 15926 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
