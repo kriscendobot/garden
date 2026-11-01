@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T01:50:19Z_
+_As of 2026-11-01T01:54:11Z_
 
 ## Latest
 
@@ -1278,10 +1276,6 @@ Delegation: **active**
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
-- `foreman-milestone-general` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-general.md)
-
-> Milestone: the Ironhorse test262 ratchet (arc rank 1). The step that re-lands crank 3 (PR #1359) on live `llm` is parked as `ironhorse-test262-ratchet-round3-floor-resolution-20260928`. It needs your answer on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51): reconcile the historical 30,233 floor with the current verdict and resource policy, or restore all 901 lost paths under the unchanged policy. Once you answer, run `scripts/jobs/ironhorse-ratchet.sh resume` to restart the press cadence.
-
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots` has CLEARED (first seen 2026-10-29T13:28:24Z, cleared 2026-10-29T19:24:11Z).
@@ -1844,7 +1838,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.2M | $131.90 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 31.2M | $132.36 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60375766 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
