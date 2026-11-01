@@ -57,3 +57,20 @@ grep -q 'replaying from the fresh tip' "$TR/output" \
   || fail "the lost CAS was not reported as a replay"
 
 echo 'PASS: watchdog notice replayed a lost same-key CAS without touching the worktree'
+
+# A journal remote that keeps failing must not hold the producer clone for the
+# whole attempt budget: the wall-clock deadline ends delivery with EX_TEMPFAIL.
+start=$SECONDS
+rc=0
+printf 'unreachable detail\n' | env GARDEN_FETCH_CMD=false GARDEN_FETCH_RETRIES=1 \
+  GARDEN_POST_ATTEMPTS=50 GARDEN_POST_DEADLINE_SECS=1 \
+  JOURNAL_REMOTE="$BARE" GARDEN_PRODUCER_CLONE="$CLONE" \
+  "$JOBS/watchdog-notice.sh" deadline > "$TR/deadline-output" 2>&1 || rc=$?
+[ "$rc" -eq 75 ] || { cat "$TR/deadline-output"; fail "deadline give-up exited rc=$rc, want 75"; }
+[ $((SECONDS - start)) -lt 30 ] || fail "deadline give-up took $((SECONDS - start))s"
+grep -q 'wall-clock deadline' "$TR/deadline-output" || fail "the deadline give-up was not logged"
+grep -q 'could not fetch the journal' "$TR/deadline-output" || fail "a fetch failure was reported as a push race"
+! "$REAL_GIT" --git-dir="$BARE" cat-file -e journal2:inbox/maintainer/unread/watchdog-deadline.md 2>/dev/null \
+  || fail "a notice landed despite the failing fetch"
+
+echo 'PASS: watchdog notice gives up at the wall-clock deadline when the journal is unreachable'

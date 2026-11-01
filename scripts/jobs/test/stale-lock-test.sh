@@ -96,6 +96,29 @@ kill "$h3" 2>/dev/null || true; wait "$h3" 2>/dev/null || true
                       || bad "recovery took ${elapsed}s"
 
 # ============================================================================
+hr; echo "SUBTEST 3b — a live-but-ANCIENT holder of a GIT clone is named, not stolen from"; hr
+# On a git clone, clone_lock nests garden_repo_lock, which the live holder still
+# holds, so a steal can only end in a skipped tick. Expect the skip (rc=75) at once,
+# with the holder named and its lock file left in place.
+D3B="$TR/d3b"; git init -q "$D3B"; LF3B="$D3B.lock"
+h3b="$(hold_lock "$LF3B" "$$ 100 script=holder-test tag=hold unit=test.service")"
+sleep 1
+start="$(date +%s)"
+if out3b="$( ( export GARDEN_LOCK_WAIT=1 GARDEN_LOCK_RETRIES=3 GARDEN_LOCK_STEALS=2 GARDEN_LOCK_TTL=300
+      clone_lock "$D3B" ) 2>&1 )"; then wrc=0; else wrc=$?; fi
+elapsed=$(( $(date +%s) - start ))
+inode_kept=0; [ -e "$LF3B" ] && inode_kept=1
+kill "$h3b" 2>/dev/null || true; wait "$h3b" 2>/dev/null || true
+[ "$wrc" -eq 75 ] && ok "waiter skipped the tick (rc=75) instead of stealing" \
+                  || bad "waiter rc=$wrc, want 75 (out=$out3b)"
+[ "$inode_kept" -eq 1 ] && ok "the live holder's lock file was not unlinked" \
+                        || bad "the live holder's lock file was unlinked"
+grep -q 'LIVE holder pid=.*unit=test.service' <<<"$out3b" \
+  && ok "the skip names the holder's unit" || bad "the skip did not name the holder ($out3b)"
+[ "$elapsed" -lt 10 ] && ok "skip was immediate (${elapsed}s, no retry ladder)" \
+                      || bad "skip took ${elapsed}s"
+
+# ============================================================================
 hr; echo "SUBTEST 4 — a stale tombstone on a real producer clone does not wedge a post"; hr
 # Seed a throwaway journal origin so post-job runs end to end.
 BARE="$TR/journal.git"; git init -q --bare "$BARE"

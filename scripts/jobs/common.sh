@@ -66,18 +66,43 @@ garden_repo_key() {
   printf '%s' "$gd" | sha256sum | cut -d' ' -f1
 }
 
+# Who is holding a lock, for the "overdue-holder pid=N" diagnostics: the script,
+# its GARDEN_TAG, and its systemd unit. Builtins only (no fork): /proc/self under
+# `read` is this shell. A detached child (an alert delivery) names its parent's unit.
+garden_lock_identity() {
+  local cg='' script="${0##*/}"
+  read -r cg < /proc/self/cgroup 2>/dev/null || cg=''
+  cg="${cg##*/}"
+  printf 'script=%s tag=%s unit=%s' "${script//[[:space:]]/_}" "${GARDEN_TAG:--}" "${cg:--}"
+}
+
+# Remove holder records under <lock-path> whose pid has exited. Records are
+# advisory; the flock inode is never touched.
+_garden_lock_clear_dead() { # <lock-path>
+  local record old_pid
+  for record in "$1".holder.*; do
+    [ -f "$record" ] || continue
+    read -r old_pid _ < "$record" || continue
+    [[ "$old_pid" =~ ^[0-9]+$ ]] || continue
+    if ! kill -0 "$old_pid" 2>/dev/null; then
+      printf 'garden repo lock: cleared dead-holder metadata pid=%s after acquiring %s\n' "$old_pid" "$1" >&2
+      rm -f "$record"
+    fi
+  done
+}
+
 _garden_lock_wait() { # <fd> <shared|exclusive> <lock-path>
-  local fd="$1" mode="$2" path="$3" stamp pid started now status
+  local fd="$1" mode="$2" path="$3" stamp pid started who now status
   if flock "--$mode" -w "$GARDEN_REPO_LOCK_WAIT" "$fd"; then return 0; fi
   now="$(date +%s)"
   printf 'garden repo lock: timeout after %ss: %s (%s)\n' "$GARDEN_REPO_LOCK_WAIT" "$path" "$mode" >&2
   for stamp in "$path".holder.*; do
     [ -f "$stamp" ] || continue
-    read -r pid started < "$stamp" || continue
+    who=''; read -r pid started who < "$stamp" || continue
     status=busy
     if ! kill -0 "$pid" 2>/dev/null; then status=dead-holder;
     elif [[ "$started" =~ ^[0-9]+$ ]] && (( now - started >= GARDEN_REPO_LOCK_STALE )); then status=overdue-holder; fi
-    printf 'garden repo lock: %s pid=%s since=%s; retaining lock inode\n' "$status" "$pid" "$started" >&2
+    printf 'garden repo lock: %s pid=%s since=%s%s; retaining lock inode\n' "$status" "$pid" "$started" "${who:+ $who}" >&2
   done
   return 124
 }
@@ -147,17 +172,8 @@ garden_repo_lock() { # <repo> <shared|exclusive>; held until unlock or process e
   fd="$_GARDEN_LOCK_FD"
   # Metadata is advisory. Only remove records for exited processes, never the
   # flock inode, even if a surviving child still inherited the descriptor.
-  local record old_pid
-  for record in "$path".holder.*; do
-    [ -f "$record" ] || continue
-    read -r old_pid _ < "$record" || continue
-    [[ "$old_pid" =~ ^[0-9]+$ ]] || continue
-    if ! kill -0 "$old_pid" 2>/dev/null; then
-      printf 'garden repo lock: cleared dead-holder metadata pid=%s after acquiring %s\n' "$old_pid" "$path" >&2
-      rm -f "$record"
-    fi
-  done
-  printf '%s %s\n' "$BASHPID" "$(date +%s)" > "$path.holder.$BASHPID"
+  _garden_lock_clear_dead "$path"
+  printf '%s %s %s\n' "$BASHPID" "$(date +%s)" "$(garden_lock_identity)" > "$path.holder.$BASHPID"
   _GARDEN_REPO_FDS["$key"]="$fd"
   _GARDEN_REPO_MODES["$key"]="$BASHPID"
   export "$marker=$mode:$fd"
@@ -194,7 +210,10 @@ _garden_repo_fetch() {
   path="$GARDEN_STATE/repo-locks/$key/fetch.lock"
   _garden_lock_open exclusive "$path" || return
   fd="$_GARDEN_LOCK_FD"
-  printf '%s %s\n' "$BASHPID" "$(date +%s)" > "$path.holder.$BASHPID"
+  # A fetch killed by its timeout never reaches the rm below; sweep such records
+  # here so they do not accumulate per key.
+  _garden_lock_clear_dead "$path" 2>/dev/null
+  printf '%s %s %s\n' "$BASHPID" "$(date +%s)" "$(garden_lock_identity)" > "$path.holder.$BASHPID"
   # Only the unambiguous garden branch fetch form is cacheable. Options with
   # different semantics (--refetch, --prune, refspecs, filters) always run.
   local -a positional=()
@@ -814,7 +833,9 @@ GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 # holder hangs forever holding it, a waiter that would otherwise give up loudly
 # first tries to reclaim. The TTL must sit comfortably ABOVE the longest
 # legitimate hold (worst case ~GARDEN_FETCH_TIMEOUT * GARDEN_FETCH_RETRIES + a
-# push) so a slow-but-live holder is never stolen from.
+# push) so a slow-but-live holder is never stolen from. On a git clone a live holder
+# past the TTL is never stolen from either: it still holds the nested repository
+# lock, so clone_lock names it and skips the tick (EX_TEMPFAIL) instead.
 : "${GARDEN_LOCK_TTL:=300}"       # seconds; a still-held lock older than this is reclaimable
 : "${GARDEN_LOCK_STEALS:=2}"      # bounded reclaim attempts before giving up loudly
 # Bounded wait for the cursor-IO lock that serializes cursor-get/cursor-set against
@@ -3271,11 +3292,14 @@ $msg"
     printf '0\n' > "$cfile" 2>/dev/null || true
     return 0
   fi
-  printf '%s\n' "$msg" \
+  # Reset the folded count only on delivery; a give-up (watchdog-notice's wall-clock
+  # deadline) carries it into the next window's notice.
+  if printf '%s\n' "$msg" \
     | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="watchdog:${GARDEN_TAG:-jobs}" \
       "$GARDEN_ROOT/scripts/jobs/watchdog-notice.sh" \
-        --count "$n" ${first:+--first-seen "$first"} "$key" >/dev/null 2>&1 || true
-  printf '0\n' > "$cfile" 2>/dev/null || true
+        --count "$n" ${first:+--first-seen "$first"} "$key" >/dev/null 2>&1; then
+    printf '0\n' > "$cfile" 2>/dev/null || true
+  fi
   return 0
 }
 
@@ -4966,13 +4990,13 @@ _clone_lockfile() {
 
 # Stamp the acquiring process's identity into an already-flocked lock fd so a
 # future waiter can tell a crashed/hung holder from a busy one. Written at offset
-# 0 of the <>-opened fd as "PID EPOCH" on the first line; a waiter reads only that
+# 0 of the <>-opened fd as "PID EPOCH script=… tag=… unit=…" on the first line; a waiter reads only that
 # line, so trailing bytes from a longer prior stamp are harmless. Best-effort: a
 # failed stamp must never abort the holder that already owns the lock.
 _clone_lock_stamp() {
   local fd="$1" now
   now="$(date +%s 2>/dev/null)" || now=0
-  { printf '%s %s\n' "$$" "$now" >&"$fd"; } 2>/dev/null || true
+  { printf '%s %s %s\n' "$$" "$now" "$(garden_lock_identity)" >&"$fd"; } 2>/dev/null || true
 }
 
 # Decide whether the lock file <lf> is held by a crashed/hung holder and may be
@@ -5125,6 +5149,18 @@ clone_lock() {
     # is clean and needs no suppression.
     exec {fd}>&- || true
     if [ "$steals" -lt "$GARDEN_LOCK_STEALS" ] && _clone_lock_is_stale "$lf"; then
+      # A LIVE holder past the TTL on a git clone also holds the nested repository
+      # lock, so unlinking journal.lock only lets us block on that lock for
+      # GARDEN_REPO_LOCK_WAIT and skip anyway. Skip now and name the holder;
+      # the lock-giveup sample lets journal-contention-watch flag a repeat.
+      # Dead holders and non-git dirs (tombstones, a fresh clone) are still reclaimed.
+      local holder_pid='' holder_ts='' holder_who=''
+      read -r holder_pid holder_ts holder_who < "$lf" 2>/dev/null || true
+      if [ -e "$dir/.git" ] && [[ "$holder_pid" =~ ^[0-9]+$ ]] && kill -0 "$holder_pid" 2>/dev/null; then
+        contention_record "$dir" lock-giveup 1
+        log "clone lock $lf held by LIVE holder pid=$holder_pid for $(( $(date +%s) - ${holder_ts:-0} ))s${holder_who:+ ($holder_who)}, past GARDEN_LOCK_TTL=${GARDEN_LOCK_TTL}s; not reclaiming (its repository lock would still exclude us); skipping tick (rc=$GARDEN_OFFLINE_RC)"
+        exit "$GARDEN_OFFLINE_RC"
+      fi
       contention_record "$dir" lock-steal 1
       log "clone lock $lf stale (holder dead or >${GARDEN_LOCK_TTL}s old); reclaiming ($((steals+1))/$GARDEN_LOCK_STEALS)"
       rm -f "$lf"; steals=$((steals+1)); continue       # drop the tombstone, reopen a fresh inode, retry now

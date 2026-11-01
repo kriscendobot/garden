@@ -137,7 +137,7 @@ watchdog_notice_push() {
   WATCHDOG_ACTION=""; WATCHDOG_TOTAL=""
   clone_lock "$DIR"
   if ! journal_fetch "$DIR" 0 >/dev/null 2>&1; then
-    clone_unlock "$DIR"; return 1
+    clone_unlock "$DIR"; return 3
   fi
   base="$(git -C "$DIR" rev-parse -q --verify "origin/$JOURNAL_BRANCH^{commit}")" || rc=1
   if [ "$rc" -eq 0 ] && git -C "$DIR" cat-file -e "$base:$REL" 2>/dev/null; then
@@ -178,7 +178,16 @@ watchdog_notice_push() {
   return "$rc"
 }
 
+# Wall-clock bound, as in post-job.sh. Each attempt holds the shared producer
+# clone's lock through a fetch that may itself retry, so under a degraded journal
+# remote 50 attempts kept every other producer on the host off that clone for 30
+# minutes (endolin-garden-ece02cb4, 2026-11-01, a detached handler-overrun alert).
+post_loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  if [ $((SECONDS - post_loop_start)) -ge "${GARDEN_POST_DEADLINE_SECS:-300}" ]; then
+    log "watchdog-notice '$skey' exceeded ${GARDEN_POST_DEADLINE_SECS:-300}s wall-clock deadline (attempt $attempt); giving up this delivery (rc=$GARDEN_OFFLINE_RC)"
+    exit "$GARDEN_OFFLINE_RC"
+  fi
   rc=0; watchdog_notice_push || rc=$?
   if [ "$rc" -eq 0 ]; then
     if [ "$WATCHDOG_ACTION" = amended ]; then
@@ -191,7 +200,11 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     log "watchdog recovery for '$skey': no open notice (already archived); staying quiet"
     exit 0
   fi
-  log "watchdog-notice '$skey' lost a push race (attempt $attempt); replaying from the fresh tip"
+  if [ "$rc" -eq 3 ]; then
+    log "watchdog-notice '$skey' could not fetch the journal (attempt $attempt); retrying"
+  else
+    log "watchdog-notice '$skey' lost a push race (attempt $attempt); replaying from the fresh tip"
+  fi
   backoff "$attempt"
 done
 die "could not deliver watchdog notice '$skey' after retries"

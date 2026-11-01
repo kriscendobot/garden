@@ -250,6 +250,31 @@ grep -q 'dead-holder pid=99999999' "$TR/stale" || fail 'stale holder not logged'
 wait "$holder"
 echo 'PASS: stale holder detected without stealing the lock'
 
+# A live holder's record names its script, tag, and unit so a timed-out waiter's
+# overdue-holder line identifies the culprit.
+rm "$TR/held"
+(
+  GARDEN_TAG=holder-tag garden_repo_lock "$TR/repo" exclusive
+  touch "$TR/held"
+  sleep 1
+) & holder=$!
+for n in {1..100}; do [ -f "$TR/held" ] && break; sleep 0.01; done
+rc=0
+GARDEN_REPO_LOCK_WAIT=0.1 git -C "$TR/repo" rev-parse HEAD 2>"$TR/named" || rc=$?
+[ "$rc" = 124 ] || fail 'named holder bypassed exclusion'
+grep -q 'busy pid=[0-9]* since=[0-9]* script=[^ ]* tag=holder-tag unit=' "$TR/named" \
+  || fail "holder identity missing from the timeout diagnostic: $(cat "$TR/named")"
+wait "$holder"
+echo 'PASS: holder record names the script, tag, and unit'
+
+# A fetch killed by its timeout leaves fetch.lock.holder.<pid>; the next fetch on
+# the key sweeps dead records.
+printf '99999999 1\n' > "$GARDEN_STATE/repo-locks/$key/fetch.lock.holder.99999999"
+GARDEN_FETCH_MAX_AGE_OVERRIDE=0 git -C "$TR/repo" fetch -q origin 2>/dev/null || true
+[ ! -e "$GARDEN_STATE/repo-locks/$key/fetch.lock.holder.99999999" ] \
+  || fail 'dead fetch holder record was not swept'
+echo 'PASS: dead fetch holder records are swept'
+
 # A leader fetch failure must not stamp stale remote refs into a fresh cache.
 export GARDEN_LEADER_CLONE="$TR/repo" GARDEN_LEADER_CACHE="$TR/leader-cache" GARDEN_LEADER=''
 echo old-leader > "$GARDEN_LEADER_CACHE"
