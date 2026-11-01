@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T00:23:01Z_
+_As of 2026-11-01T00:27:19Z_
 
 ## Latest
 
@@ -1849,7 +1847,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.3M | $122.04 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.5M | $123.34 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 299.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60059478 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1858,30 +1856,31 @@ _Fleet token-unlock pace: 60059478 tokens/day lower bound; incomplete where a su
 worst fetch p95 6.000822s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
+- [`endojs-endo-but-for-bots-pr1589-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1589-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1589
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1504-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1504
-- [`oros-health-watch-20261101-002012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261101-002012.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-b616710ae8e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-b616710ae8e9.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ b616710ae8e9
 - [`oros-health-checkup-20261101-002012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-002012.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`improve-review-docket-spool-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-review-docket-spool-completion.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
+- [`endojs-endo-but-for-bots-pr1598-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1598-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1598
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`minion-town-arc-press-20261101-002012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-002012.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`fix-endojs-endo-but-for-bots-pr1591-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1591-gauntlet-viability.md) — ---
 
 ### doin (4)
-- [`endojs-endo-but-for-bots-pr1589-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1589-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1589
 - [`fu-endojs-endo-but-for-bots-pr1594-gauntlet-fix-4-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1594-gauntlet-fix-4-1.md) — ---
+- [`oros-health-watch-20261101-002012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-002012.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1348-confined-command-grammar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1348-confined-command-grammar.md) — ---
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1595
 
-### tada (15889)
+### tada (15891)
+- [`improve-review-docket-spool-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-review-docket-spool-completion.md) — Cost
+- [`endojs-endo-but-for-bots-pr1589-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1589-gauntlet-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1596-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1596-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1596-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1596-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1596-gauntlet-fix-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1594-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1594-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1594-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1594-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1594-gauntlet-fix-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1596-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/31/endojs-endo-but-for-bots-pr1596-gauntlet-panel-6.md) — Cost
-- … and 15884 more
+- … and 15886 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
