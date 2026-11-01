@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T18:21:06Z_
+_As of 2026-11-01T18:24:37Z_
 
 ## Latest
 
@@ -1212,7 +1212,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.5M | $192.78 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 53.6M | $193.07 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 67403429 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1221,23 +1221,24 @@ _Fleet token-unlock pace: 67403429 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
+- [`build-endo-claude-agents-capability-slice-after-1576`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-agents-capability-slice-after-1576.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr1626-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1626-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1626
-- [`build-endo-claude-agents-capability-slice-after-1573`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-slice-after-1573.md) — ---
+- [`endojs-endo-but-for-bots-pr1625-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1625-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1625
 - [`endojs-endo-but-for-bots-pr1624-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1624-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1624
 
-### tada (16074)
+### tada (16075)
+- [`build-endo-claude-agents-capability-slice-after-1573`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-endo-claude-agents-capability-slice-after-1573.md) — Cost
 - [`endojs-endo-but-for-bots-pr1625-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1625-gauntlet-clean.md) — Cost
 - [`build-daemon-locator-terminology`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-daemon-locator-terminology.md) — build-daemon-locator-terminology: duplicate of the open PR #1498, so I did no...
 - [`endojs-endo-but-for-bots-pr1626-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1626-gauntlet-viability.md) — Cost
 - [`build-endo-claude-agents-capability-slice-after-1593`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-endo-claude-agents-capability-slice-after-1593.md) — Cost
-- [`endojs-endo-but-for-bots-pr1624-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1624-gauntlet-viability.md) — Cost
-- … and 16069 more
+- … and 16070 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1328,7 +1329,6 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
-- [`build-endo-child-agent-factory-slice-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-child-agent-factory-slice-2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1560` · Build the second slice of the child-agent factory (endo-but-for-bots)
 - [`endo-mvs-semver-convergence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-mvs-semver-convergence.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1596` · Converge the Rust npm resolver and the daemon semver copy on exo-npm's MVS rule
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
