@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T19:25:52Z_
+_As of 2026-11-01T19:27:46Z_
 
 ## Latest
 
@@ -1220,10 +1220,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.7M | $215.34 _(notional, rate-card)_ | 22% of 271.0M (ok) |
+| Claude | 59.8M | $215.53 _(notional, rate-card)_ | 22% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 68917019 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
@@ -1235,18 +1235,17 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1628-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1628-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1628
+### doin (2)
 - [`oros-health-watch-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-192009.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1561-pr1563-pr1625-onto-pr1560-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1561-pr1563-pr1625-onto-pr1560-20261101.md) — ---
 
-### tada (16092)
+### tada (16093)
+- [`endojs-endo-but-for-bots-pr1628-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1628-gauntlet-clean.md) — Cost
 - [`minion-town-arc-press-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/minion-town-arc-press-20261101-192009.md) — Cost
 - [`endojs-endo-but-for-bots-pr1624-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1624-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1624-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1624-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1624-gauntlet-clean.md) — Gauntlet CLEAN stage for endojs/endo-but-for-bots#1624: CI red on a known ora...
 - [`endojs-endo-but-for-bots-pr1627-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1627-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1627-gauntlet — complete
-- [`endojs-endo-but-for-bots-pr1627-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1627-gauntlet-undraft.md) — Cost
-- … and 16087 more
+- … and 16088 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
