@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1617-gauntlet-viability
+state: running
 created_by: producer
 arc: ironhorse-test262-ratchet
 created_at: 2026-11-01T15:01:47Z
