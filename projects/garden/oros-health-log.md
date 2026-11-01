@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-01T23:25Z (oros-health-checkup-20261101-222009): healthy; deployed = origin/main2 `a60ae08`, no changes
+
+- **Load/mem:** load 5.28/4.29/3.42 at 23:17Z, a little above the usual level, with three claude sessions running. 12 GiB of 15 GiB available. Swap reads 954M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** the virtiofs garden mount is at 83% (81G free), up 1 point since 20:20Z. Inodes are at 2%. The overlay is at 7% (402G free).
+- **Uptime:** 31d06h02m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `a60ae08`, written at 22:53Z, and it equals the origin/main2 tip per `ls-remote`. fleet/health/oros on origin shows `roll_status: deployed` @ `a60ae08`, 0 of 290 units failing, 0 advisory (22:53:49Z). The roll had deferred at 22:39Z (`long-job monk 1 6868s`). The long job was `endojs-endo-but-for-bots-pr1631-dependabot`. It hit its 7200s wall at 22:46Z and was classified transient, and the deploy went through 7 minutes later. This deploy brings in the `restore` fix from the 20:20Z follow-up.
+- **Drain/units:** not draining, 0 failed user units, `garden-monk@1..4` running (restarted by the 22:53Z deploy), worker-leveling row `4 0`, no derotation marker.
+- **Budget heartbeat:** last claude-oros push at 23:04:05Z. The pushes from 22:19 to 23:04Z were all ok, at a ~15-minute cadence. Spend is 11,348,420 of 180M.
+- **State clones:** 45 journal clones. The largest are monitors/monk-2 (50 packs, at the threshold but not over it), self-deploy (46) and decisions (45). No `gc.log`, and no `.git` lock older than 30 minutes. The older `*.lock` files under `.garden-state` are persistent flock files, not stale locks.
+- **rc=124 (3h):** the pr1631 dependabot 7200s wall above. One benign `journal-contention-watch` deferred notice delivery at 21:03Z. No rc=137 and no `Failed with result`.
+- **Observation:** the root `journal/` worktree trailed origin by about 30 minutes (HEAD was a 22:44Z commit at 23:18Z). Its keeper runs every 30 minutes, so this is within design.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing. A dependabot botanist job that runs into a 2-hour wall is worth a look by whoever owns pr1631.
+
 ## 2026-11-01T20:20Z (oros-health-checkup-20261101-192009): degraded (sysop `restore` fails here); deployed = origin/main2 `d1e41a9`; refreshed two dormant clones
 
 - **Load/mem:** load 3.47/3.44/3.58 at 19:53Z, the usual level. 13 GiB of 15 GiB available. Swap reads 941M of 1.0 GiB, the usual steady level.
