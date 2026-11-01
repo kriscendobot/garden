@@ -1024,8 +1024,10 @@ while :; do
   # leader's periodic reconcile applies once CI turns green, so it never fails a
   # finished job. The PR is the job's own (fixer_reentry_pr), not the report's
   # first citation. rc 2 (nothing to re-enter) and rc 3 (CI not green, from a
-  # clerk that predates the pending path) are deferrals; any other nonzero rc is
-  # a hard error that leaves this completion retryable.
+  # clerk that predates the pending path) are deferrals. rc 76 means the docket
+  # could not commit now but durably spooled the re-entry on this host, so a
+  # later transaction drains it; that is also a deferral. Any other nonzero rc
+  # is a hard error that leaves this completion retryable.
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ] \
      && [ "$(plan_role "$jobfile" 2>/dev/null || true)" = fixer ]; then
     fixer_pr="$(fixer_reentry_pr "$jobfile" "$report" "$base" || true)"
@@ -1037,6 +1039,7 @@ while :; do
       case "$fixer_docket_rc" in
         0) ;;
         2|3) log "fixer review-docket re-entry for '$base' ($fixer_pr) deferred (rc=$fixer_docket_rc); completing the job" ;;
+        76) log "fixer review-docket re-entry for '$base' ($fixer_pr) spooled (rc=76); a later docket transaction drains it; completing the job" ;;
         *)
           hrc=$fixer_docket_rc
           log "fixer review-docket re-entry FAILED for '$base' ($fixer_pr, rc=$hrc); leaving in doin for retry"
