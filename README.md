@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T22:59:28Z_
+_As of 2026-11-01T23:00:24Z_
 
 ## Latest
 
@@ -1280,19 +1280,18 @@ worst fetch p95 8.756625s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`oros-health-checkup-20261101-222009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-222009.md) — ---
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1478
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1635-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1635-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1635
-- [`canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ a60ae08cc14d
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — endojs/endo-but-for-bots PR #1573
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin.md) — Relay: post botanist MERGE-NOW verdict and conduct endojs/endo-but-for-bots P...
 
-### tada (16121)
+### tada (16122)
+- [`canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261101-192009-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-watch-20261101-192009-split.md) — orchestration oros-health-watch-20261101-192009-split — complete
 - [`oros-health-watch-20261101-192009-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-watch-20261101-192009-expanded-window.md) — Cost
 - [`endojs-endo-but-for-bots-pr1633-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1633-dependabot.md) — Cost
 - [`oros-health-watch-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-watch-20261101-192009.md) — ---
-- [`endojs-endo-but-for-bots-pr1629-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1629-dependabot.md) — Cost
-- … and 16116 more
+- … and 16117 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
