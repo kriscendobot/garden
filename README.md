@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T11:08:30Z_
+_As of 2026-11-01T11:15:17Z_
 
 ## Latest
 
@@ -1145,7 +1143,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.5M | $186.13 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 43.5M | $188.58 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64590150 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1154,16 +1152,16 @@ _Fleet token-unlock pace: 64590150 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (6)
-- [`deadmail-20261101T110209Z-a037e1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T110209Z-a037e1.md) — Dead-lettered message — pick up its intent
+### todo (4)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`oros-health-checkup-20261101-093536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-093536.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md) — ---
 
-### doin (5)
+### doin (7)
+- [`deadmail-20261101T110209Z-a037e1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T110209Z-a037e1.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1609-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1609-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1609
+- [`oros-health-checkup-20261101-093536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-093536.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-ninth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-thirteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-thirteenth-slice-20261101.md) — ---
