@@ -1,2 +1,2 @@
-base: improve-followup-external-prerequisites
+base: improve-followup-gate-fail-soft-on-success
 identity: mentor:scripts/jobs/assert-followup-posted.sh
