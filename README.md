@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T18:14:11Z_
+_As of 2026-11-01T18:15:44Z_
 
 ## Latest
 
@@ -1212,7 +1212,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.3M | $195.46 _(notional, rate-card)_ | 20% of 271.0M (ok) |
+| Claude | 53.4M | $192.01 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 67227601 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1223,21 +1223,21 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ## Board
 ### todo (4)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`endojs-endo-but-for-bots-pr1626-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1626-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1626
+- [`build-endo-claude-agents-capability-slice-after-1573`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-agents-capability-slice-after-1573.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
+- [`endojs-endo-but-for-bots-pr1626-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1626-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1626
 - [`endojs-endo-but-for-bots-pr1625-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1625-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1625
 - [`endojs-endo-but-for-bots-pr1624-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1624-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1624
-- [`build-daemon-locator-terminology`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-locator-terminology.md) — ---
 
 ### tada (16073)
+- [`build-daemon-locator-terminology`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-daemon-locator-terminology.md) — build-daemon-locator-terminology: duplicate of the open PR #1498, so I did no...
 - [`endojs-endo-but-for-bots-pr1626-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1626-gauntlet-viability.md) — Cost
 - [`build-endo-claude-agents-capability-slice-after-1593`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-endo-claude-agents-capability-slice-after-1593.md) — Cost
 - [`endojs-endo-but-for-bots-pr1624-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1624-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1625-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1625-gauntlet-viability.md) — Cost
-- [`build-endo-claude-agents-capability-slice-after-1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-endo-claude-agents-capability-slice-after-1596.md) — Cost
 - … and 16068 more
 
 ## Plan queue (parked — not claimable until promoted)
