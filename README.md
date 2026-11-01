@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T06:36:29Z_
+_As of 2026-11-01T06:40:25Z_
 
 ## Latest
 
@@ -884,13 +884,6 @@ Delegation: **active**
 >
 > ci-wait-merge on oros-studio-garden-ce242c49 cannot read CI for [kriscendobot/minion.town#192](https://github.com/kriscendobot/minion.town/issues/192): the GitHub token is forbidden (HTTP 403) from statusCheckRollup, and delegated merges do not accept the Actions-only fallback. This is a token permission gap, not pending CI. Grant the bot token checks:read and statuses:read (and actions:read) on 'kriscendobot', then rerun the stage.
 
-- `endojs-endo-but-for-bots-pr1601-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1601-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1601-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1601-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1601-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1601-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr201-screen-9b5e8df4-gauntlet panel --add-rounds N
@@ -1132,13 +1125,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.9M | $176.83 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 39.9M | $176.89 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63481039 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
+worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (9)
