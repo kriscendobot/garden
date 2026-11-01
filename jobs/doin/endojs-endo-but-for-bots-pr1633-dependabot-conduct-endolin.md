@@ -51,3 +51,13 @@ The consuming packages use none of these: they have no `defaultProps`, no `.base
 
 **Next step:** conduct through `ci-wait-merge.sh --dependabot-auto-merge`.
 ----- END VERDICT -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T22:46:01Z
