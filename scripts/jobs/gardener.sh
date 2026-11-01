@@ -1294,13 +1294,32 @@ while :; do
     elif handoff_successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
       completion_args=(--handed-off "$handoff_successor")
     fi
-    set +e
-    GARDEN_JOB_DURATION_SECS=$elapsed_usage GARDEN_ENGAGEMENT_USAGE="$usage_measurement" \
-      "$HERE/complete-job.sh" "${completion_args[@]}" "$id" "$base" "$report"; crc=$?
-    set -e
+    #
+    # The handler's work is already done (a builder slice can be two hours of
+    # it), so a single EX_TEMPFAIL must not discard the report: re-try the
+    # completion a bounded number of times first. complete-job.sh is idempotent
+    # (it touches only this base; an already-landed completion is rc=2 -> 0).
+    # 2026-11-01 oros: a finished ninth-slice builder lost its completion to one
+    # 10s repo-lock wait behind an orphaned fd holder and was left for a TTL
+    # requeue that re-runs completed work.
+    complete_job_bin="${GARDEN_GARDENER_COMPLETE_JOB:-$HERE/complete-job.sh}"
+    completion_offline_retries="${GARDEN_COMPLETION_OFFLINE_RETRIES:-3}"
+    completion_offline_backoff="${GARDEN_COMPLETION_OFFLINE_BACKOFF_SECS:-30}"
+    completion_try=0
+    while :; do
+      set +e
+      GARDEN_JOB_DURATION_SECS=$elapsed_usage GARDEN_ENGAGEMENT_USAGE="$usage_measurement" \
+        "$complete_job_bin" "${completion_args[@]}" "$id" "$base" "$report"; crc=$?
+      set -e
+      [ "$crc" -eq "${GARDEN_OFFLINE_RC:-75}" ] || break
+      [ "$completion_try" -lt "$completion_offline_retries" ] || break
+      completion_try=$((completion_try+1))
+      log "completion of '$base' hit a temporary outage (rc=$crc); retrying ($completion_try/$completion_offline_retries) in $((completion_offline_backoff * completion_try))s"
+      sleep "$((completion_offline_backoff * completion_try))"
+    done
     if [ "$crc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
       append_usage requeue
-      log "offline during completion of '$base' (rc=$crc); left in doin for TTL requeue"
+      log "offline during completion of '$base' (rc=$crc, after $completion_try retries); left in doin for TTL requeue"
       rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
       idle_backoff "$idle_attempt"; idle_attempt=$((idle_attempt+1))
       continue
