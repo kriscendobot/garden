@@ -5,14 +5,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1625
 build_job: build-endo-claude-agents-capability-slice-after-1596
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1625-gauntlet-panel-1
+current_child: endojs-endo-but-for-bots-pr1625-gauntlet-undraft
 state: running
 created_by: producer
 arc: minion-town-claude-api
