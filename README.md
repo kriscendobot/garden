@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T23:12:27Z_
+_As of 2026-11-01T23:13:23Z_
 
 ## Latest
 
@@ -882,7 +882,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/decisions/journal: p95=28.996348s max=28.996348s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal` has CLEARED (first seen 2026-11-01T17:23:29Z, cleared 2026-11-01T23:12:28Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal` cleared on oros-studio-garden-ce242c49.
 
 - `followup-gate-minion-town-docs-tower-report-20261016` — from followup-gate:minion-town-docs-tower-report-20261016, reply_to `minion-town-docs-tower-report-20261016` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-minion-town-docs-tower-report-20261016.md)
 
