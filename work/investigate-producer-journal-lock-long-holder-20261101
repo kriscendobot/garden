@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 3
-worker_kind: monk
-claimed_at: 2026-11-01T04:57:03Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-investigate-producer-journal-lock-long-holder-20261101

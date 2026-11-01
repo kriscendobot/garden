@@ -1,7 +1,8 @@
 ---
 posted_at: 2026-11-01T04:56:21Z
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 garden (main2): scripts/jobs/common.sh clone_lock / garden_repo_lock, producer journal clone ($GARDEN_STATE/producer/journal).
@@ -16,13 +17,5 @@ Also noticed: repo-locks/*/fetch.lock.holder.<pid> records leak (60+ dead-pid re
 
 Context: the foreman side was fixed in main2 a9310301aae (improve-foreman-post-job-tempfail-handling), which retries post-job rc=75 in place.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-01T04:57:03Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-01T05:23:20Z -->
