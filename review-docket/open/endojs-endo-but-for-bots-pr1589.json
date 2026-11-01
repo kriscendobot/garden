@@ -7,14 +7,14 @@
   "ask": "re-review",
   "arc": "unallocated",
   "milestone": "-",
-  "summary": "Panel reviewed deaf3d9e2ecc, but the presented head is a7eb50d6f8f9",
+  "summary": "Automated review rounds were exhausted after a green fix: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1589-gauntlet panel --add-rounds N",
   "unblocks": [],
-  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1589-deaf3d9e-a7eb50d6",
-  "requested_at": "2026-10-31T18:56:12Z",
+  "source": "endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached",
+  "requested_at": "2026-11-01T02:38:33Z",
   "first_requested_at": "2026-10-31T18:56:12Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
-    "state": "red",
-    "observed_at": "2026-11-01T01:52:43Z"
+    "state": "green",
+    "observed_at": "2026-11-01T02:38:35Z"
   }
 }
