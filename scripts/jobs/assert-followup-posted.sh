@@ -78,7 +78,12 @@
 # board read shows that message. A failed send or unverified write blocks.
 # A follow-up item gated only on host access or credentials the fleet lacks
 # ("on a host that has Docker and AWS access") counts as no fleet work
-# (followup_item_needs_external_access), so it is escalated, not rerun.
+# (followup_item_needs_external_access), so it is escalated, not rerun. So does
+# a purely ADVISORY maintainer note (followup_item_is_advisory): a maintainer
+# decision such as a changeset call, a "CI not yet reported" status note, or
+# work conditional on a future merge. Grounding: a finished force-push weave was
+# blocked over exactly those three notes at 2026-11-01T19:33:48Z and left in doin
+# for a reaper re-run.
 #
 # Four INFORMATIONAL carve-outs additionally pass without a worker-authored
 # disposition, because they name no owed successor work (all deterministic and
@@ -251,8 +256,17 @@ fi
 # no basename is named, accept only a single new candidate and only when the
 # follow-up section itself says work was posted/parked/staged. Merely saying a job
 # is needed or warranted must not capture an unrelated concurrent board post.
+#
+# Advisory items (followup_item_is_advisory: a maintainer decision note, a CI
+# status note, or work conditional on a future merge) are skipped, so "the CI
+# watcher will post a shepherd if it goes red" is not read as a posting claim.
 section_claims_posted() {
-  printf '%s\n' "$section" | grep -Eqi \
+  local item owed=""
+  while IFS= read -r item; do
+    [ -n "$item" ] || continue
+    followup_item_is_advisory "$item" || owed="${owed}${item}"$'\n'
+  done <<< "$(followup_section_items "$section")"
+  printf '%s' "$owed" | grep -Eqi \
     '(^|[^[:alpha:]])(post(ed|ing)?|park(ed|ing)?|stag(ed|ing)?)([^[:alpha:]]|$)'
 }
 claim_commit="$(

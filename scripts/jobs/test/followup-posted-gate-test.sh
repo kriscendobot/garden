@@ -434,6 +434,68 @@ if "$GATE" external-prereq-fleet "$JOB" "$TR/r4e.md"; then
 fi
 echo '   gate escalated the external prerequisite and still blocked fleet work beside it'
 
+echo '== (d6) PASS: a finished weave whose follow-ups are only advisory maintainer notes is escalated, not left in doin =='
+# Grounding: weave-endojs-endo-but-for-bots-pr1561-pr1563-pr1625-onto-pr1560-
+# 20261101 pushed every head and moved every PR base, then this gate blocked it
+# at 2026-11-01T19:33:48Z (rc 1, left in doin) over three advisory notes: a
+# changeset decision, CI not yet reported, and retargeting after a merge. A
+# reaper re-run of a finished force-push weave is the hazard.
+cat >"$TR/r4f.md" <<'EOF2'
+Wove #1561, #1563, and #1625 onto the current head of #1560: froze
+`build/exo-agent-factory-core-21d142a`, rebased each head, force-pushed all
+three, and moved every PR base field. All three are MERGEABLE.
+
+## Follow-ups
+- **Changeset decision (maintainer):** no changeset was added because the
+  restack changes no package behavior; whether #1625 should carry one is the
+  maintainer's call.
+- **CI not yet reported:** CI has not yet reported on the force-pushed heads;
+  if it goes red, the CI watcher will post a shepherd.
+- **Retargeting after merge:** once #1560 merges, #1625 and #1563 need to be
+  rebased and retargeted onto the new frozen base with a fresh weave.
+EOF2
+reset_clone
+board_claim weave-pr1561-sample
+"$GATE" weave-pr1561-sample "$JOB" "$TR/r4f.md" \
+  || fail 'gate blocked a finished weave whose follow-ups are only advisory maintainer notes'
+git --git-dir="$TR/journal.git" show journal2:inbox/maintainer/unread/followup-gate-weave-pr1561-sample.md \
+  | grep -qF 'Changeset decision (maintainer)' \
+  || fail 'advisory weave follow-ups were not escalated to the maintainer inbox'
+# Fail-soft must still be durable: a failed escalation keeps the block.
+reset_clone
+if GARDEN_FOLLOWUP_GATE_MESSAGE_USER=false "$GATE" weave-pr1561-unsent "$JOB" "$TR/r4f.md"; then
+  fail 'gate accepted advisory follow-ups it could not durably escalate'
+fi
+# An advisory-looking note that says the work is owed now still gates.
+cat >"$TR/r4g.md" <<'EOF2'
+Wove the stack.
+
+## Follow-ups
+- CI has not yet reported; a fresh shepherd job is warranted now.
+- Once #1560 merges, a weave should be posted for #1625.
+EOF2
+reset_clone
+if "$GATE" weave-pr1561-owed "$JOB" "$TR/r4g.md"; then
+  fail 'gate waved through owed fleet work dressed as an advisory note'
+fi
+for item in \
+  '- Changeset decision (maintainer): none added.' \
+  '- CI has not yet reported on the pushed heads.' \
+  '- Once #1560 merges, #1625 needs retargeting.' \
+  '- If the maintainer wants a changeset, a fixer can add one.'; do
+  ( source "$JOBS/common.sh"; followup_item_is_advisory "$item" ) \
+    || fail "followup_item_is_advisory rejected advisory item: $item"
+done
+for item in \
+  '- The maintainer'"'"'s latest comment is "Conduct." — a conductor job is warranted now.' \
+  '- A fresh shepherd and then conduct are warranted now.' \
+  '- Conduct #1560 next.'; do
+  if ( source "$JOBS/common.sh"; followup_item_is_advisory "$item" ); then
+    fail "followup_item_is_advisory accepted owed work: $item"
+  fi
+done
+echo '   gate escalated advisory weave notes durably and still blocked owed work'
+
 echo '== (e) PASS: an explicit override marker with a reason is the safety valve =='
 cat >"$TR/r5.md" <<'EOF'
 Fixed the bug and pushed.

@@ -8205,6 +8205,53 @@ followup_item_needs_external_access() {
 '(on|from|in|via|with) (a|an|the|another) ([a-z0-9-]+ ){0,2}(host|machine|box|runner|environment|workstation|laptop|account)s? (that|which|where|with|holding|having)[^.]*(docker|aws|gcp|azure|kubernetes|credentials?|secrets?|api keys?|access|permissions?|gpus?|hardware)|(requires?|required|needs?|needing|requiring|gated on|blocked on) ([a-z0-9-]+ ){0,3}(docker|(real |live )?aws( access| credentials?| account| iam)?|(cloud|maintainer|human|production|prod) (credentials?|access)|credentials?|interactive (login|auth[a-z]*)|mfa)([^[:alnum:]_-]|$)'
 }
 
+# followup_section_items <section-text> — print one line per follow-up item:
+# a list item (`-`, `*`, `•`) joined with its wrapped continuation lines, or a
+# leading non-list paragraph as one item. HTML comments and blank lines drop out
+# and whitespace runs collapse to one space. Case is preserved.
+followup_section_items() {
+  printf '%s\n' "${1:-}" \
+    | sed -E '/^[[:space:]]*<!--/d; /^[[:space:]]*$/d' \
+    | awk '
+        /^[[:space:]]*[-*•]/ { if (item != "") print item; item = $0; next }
+        { item = (item == "" ? $0 : item " " $0) }
+        END { if (item != "") print item }
+      ' \
+    | sed -E 's/[[:space:]]+/ /g; s/^ //'
+}
+
+# followup_item_is_advisory <item-text> — 0 iff one follow-up item is a purely
+# ADVISORY maintainer note with no successor the fleet can post now:
+#   - a maintainer decision or option ("changeset decision (maintainer)",
+#     "if the maintainer wants a changeset", "at the maintainer's discretion");
+#   - a CI status note ("CI has not yet reported on the pushed heads", "CI is
+#     pending"); the CI watcher posts a shepherd on red, so nothing is owed now;
+#   - work conditional on a future merge or landing ("after #1560 merges,
+#     #1625 needs retargeting", "once the parent lands, re-weave").
+# An item that also says the work is warranted, or is owed now/immediately, is
+# never advisory, nor is one that says a job should be or is to be posted,
+# dispatched, staged, or scheduled; so the pr910 ("a conductor job is warranted now") and pr876
+# ("a fresh shepherd and then conduct are warranted now") shapes still gate.
+# Grounding: weave-endojs-endo-but-for-bots-pr1561-pr1563-pr1625-onto-pr1560-
+# 20261101 had pushed every head and moved every PR base when this gate blocked
+# it at 2026-11-01T19:33:48Z over exactly these three note kinds, leaving a
+# finished force-push weave in doin for a reaper re-run.
+followup_item_is_advisory() {
+  local item
+  item="$(printf '%s' "${1:-}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+/ /g')"
+  # A watcher that "will post" its own job on a future event owes nothing now;
+  # mask that future tense so it does not read as a job owed now.
+  printf '%s' "$item" \
+    | sed -E 's/(will|would) (auto-?)?(post|dispatch|stage|schedule)/\1 _/g' \
+    | grep -Eq \
+'warrant|(^|[^[:alnum:]_])(now|immediately|right away)([^[:alnum:]_-]|$)|(should|must|needs? to|has to|have to) (be )?(post|dispatch|stag|schedul)|(post|dispatch|stage|schedule) (a|an|the|another) ' \
+    && return 1
+  printf '%s' "$item" | grep -Eq \
+'(maintainer|kriskowal|human|reviewer)([^[:alnum:]]|$)[^.]{0,40}(decision|decides?|decided|call|choice|discretion|judg(e)?ment)|(decision|call|choice|discretion|judg(e)?ment|preference)[^.]{0,30}(maintainer|kriskowal|human|reviewer)|(if|whether|unless) (the )?(maintainer|kriskowal|human|reviewer)|(^|[^[:alnum:]_])ci([^[:alnum:]_][^.]{0,40})?(not yet|has ?n.t|has not|have not|yet to|no results|pending|queued|in progress|still running|unstable|not (yet )?(reported|run|started|finished|completed))|awaiting ci|(after|once|when|if|until) [^.]{0,60}(merges?|merged|lands?|landed|is merged)' \
+    || return 1
+  return 0
+}
+
 # followups_prescribe_fleet_work <section-text> — 0 iff the follow-up section
 # prescribes new board-postable fleet work: a role/job to be posted, run, or
 # "warranted" (the pr910 "a conductor job is warranted" and pr876 "a fresh
@@ -8223,31 +8270,25 @@ followup_item_needs_external_access() {
 # "on a host that has Docker and AWS access", "requires real AWS credentials")
 # is skipped by the prose patterns below: no gardener can claim it, so it is a
 # maintainer item, not a successor to post (followup_item_needs_external_access).
-# The imperative-verb check above still applies to every item.
+# The imperative-verb check above still applies to every item that is not
+# ADVISORY (followup_item_is_advisory): a maintainer decision note, a CI-status
+# note, or work conditional on a future merge names nothing postable now, so it
+# is skipped by both checks and escalated to the maintainer instead.
 followups_prescribe_fleet_work() {
-  local normalized
-  printf '%s\n' "${1:-}" \
-    | awk '/^[[:space:]]*[-*•]/ || (!seen && NF) { print } NF { seen=1 }' \
-    | grep -Eqi \
+  local items item
+  items="$(followup_section_items "${1:-}")"
+  while IFS= read -r item; do
+    [ -n "$item" ] || continue
+    followup_item_is_advisory "$item" && continue
+    printf '%s' "$item" | grep -Eqi \
 '^[[:space:]]*([-*•][[:space:]]*)?(conduct|shepherd|weave|rebase|retcon|refresh|merge|ferry|build|fix|probe|design|investigate|post|dispatch|schedule|run[[:space:]]+the[[:space:]]+gauntlet)([[:space:]]|[.,:;!]|$)' \
-    && return 0
-  normalized="$(
-    printf '%s\n' "${1:-}" \
-      | sed -E '/^[[:space:]]*<!--/d; /^[[:space:]]*$/d' \
-      | awk '
-          /^[[:space:]]*[-*•]/ { if (item != "") print item; item = $0; next }
-          { item = (item == "" ? $0 : item " " $0) }
-          END { if (item != "") print item }
-        ' \
-      | sed -E 's/[[:space:]]+/ /g' \
-      | tr '[:upper:]' '[:lower:]' \
-      | while IFS= read -r item; do
-          followup_item_needs_external_access "$item" || printf '%s\n' "$item"
-        done \
-      | tr '\n' ' '
-  )"
-  printf '%s' "$normalized" | grep -Eq \
-'warrant|(should|must|needs?|need to|ought to|has to|have to)[[:space:]]+(be[[:space:]]+)?(a[[:space:]]+)?(post|dispatch|conduct|shepherd|weav|rebase|retcon|schedul|run|open|file|stage)|(post|dispatch|open|file|stage|schedule|run)[[:space:]]+(a|an|the|another)[[:space:]]+|then[[:space:]]+(conduct|shepherd|weave|rebase|run)|(a[[:space:]]+)?(fresh|new|another)[[:space:]]+(conductor|shepherd|fixer|weaver|builder|gauntlet|panel|job)'
+      && return 0
+    followup_item_needs_external_access "$item" && continue
+    printf '%s' "$item" | tr '[:upper:]' '[:lower:]' | grep -Eq \
+'warrant|(should|must|needs?|need to|ought to|has to|have to)[[:space:]]+(be[[:space:]]+)?(a[[:space:]]+)?(post|dispatch|conduct|shepherd|weav|rebase|retcon|schedul|run|open|file|stage)|(post|dispatch|open|file|stage|schedule|run)[[:space:]]+(a|an|the|another)[[:space:]]+|then[[:space:]]+(conduct|shepherd|weave|rebase|run)|(a[[:space:]]+)?(fresh|new|another)[[:space:]]+(conductor|shepherd|fixer|weaver|builder|gauntlet|panel|job)' \
+      && return 0
+  done <<< "$items"
+  return 1
 }
 
 # followups_only_surface_decision <section-text> — 0 iff the ENTIRE follow-up
