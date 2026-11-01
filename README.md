@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T06:54:42Z_
+_As of 2026-11-01T06:55:44Z_
 
 ## Latest
 
@@ -1138,7 +1138,7 @@ _Fleet token-unlock pace: 63492091 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify); 8 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`endojs-endo-but-for-bots-pr1604-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1604-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1604
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1603-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1603-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1603
@@ -1148,6 +1148,7 @@ worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify)
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`endojs-endo-but-for-bots-pr1602-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1602-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1602
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`ironhorse-test262-ratchet-coverage-crank-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-20261101-open-pr.md) — Description
 - [`minion-town-arc-press-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-063511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`deadmail-20261101T060812Z-1be3a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T060812Z-1be3a1.md) — Dead-lettered message — pick up its intent
 
