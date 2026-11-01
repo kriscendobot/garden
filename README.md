@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T23:23:21Z_
+_As of 2026-11-01T23:26:53Z_
 
 ## Latest
 
@@ -254,6 +254,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr221-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
+- `msg-claude-on-minion-town-completion-press-20261101-230531-e09f0e6e0afe` — from gardener:claude-on-minion-town-completion-press-20261101-230531, reply_to `claude-on-minion-town-completion-press-20261101-230531` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261101-230531-e09f0e6e0afe.md)
+
+> Claude-on-minion.town completion press (window 2026-11-01T16:50Z–23:05Z): one prior-roster job is absent without a tada report — build-endo-child-agent-factory-slice-2. It was deliberately withdrawn (journal cc94fdf68a4, 2026-11-01T18:22Z, endolin-garden-ece02cb4) as a duplicate of the already-built stack [https://github.com/endojs/endo-but-for-bots/pull/1561](https://github.com/endojs/endo-but-for-bots/pull/1561), /pull/1562, /pull/1625, /pull/1626; the remaining work there is review + weave. Informational only, no action needed unless you disagree with the withdrawal. Otherwise: 6 completions, 0 new dooms, 0 stalled claims; the claude-api orchestration is still held at p3 on draft [https://github.com/endojs/endo-but-for-bots/pull/1575](https://github.com/endojs/endo-but-for-bots/pull/1575) (unchanged since 2026-10-31).
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached.md)
 
@@ -1269,7 +1273,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.0M | $235.13 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 65.1M | $235.52 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70192623 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
