@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T16:39:40Z_
+_As of 2026-11-01T16:42:05Z_
 
 ## Latest
 
@@ -1213,27 +1213,27 @@ _Fleet token-unlock pace: 66592896 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
+- [`endojs-endo-but-for-bots-pr1622-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1622-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1622
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1620-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1620-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1620
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1619-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1619-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1619
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1617-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1617-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1617
-- [`endojs-endo-but-for-bots-pr1622-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1622-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1622
 - [`oros-health-watch-20261101-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-160514.md) — ---
 - [`oros-health-checkup-20261101-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-160514.md) — ---
 - [`endojs-endo-but-for-bots-pr1618-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1618-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1618
 
-### tada (16045)
+### tada (16046)
+- [`endojs-endo-but-for-bots-pr1622-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1622-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1619-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1619-gauntlet-viability.md) — Viability report: endojs/endo-but-for-bots#1619
 - [`endojs-endo-but-for-bots-pr1622-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1622-gauntlet-viability.md) — Viability report: endojs/endo-but-for-bots PR #1622
 - [`minion-town-arc-press-20261101-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/minion-town-arc-press-20261101-160514.md) — Cost
 - [`endojs-endo-but-for-bots-pr1620-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1620-gauntlet-panel-1.md) — Cost
-- [`design-ironhorse-in-crank-string-garbage-chunk-ceiling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/design-ironhorse-in-crank-string-garbage-chunk-ceiling.md) — Completion report: design-ironhorse-in-crank-string-garbage-chunk-ceiling
-- … and 16040 more
+- … and 16041 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
