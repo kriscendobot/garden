@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-viability
+state: running
 created_by: fixer
 arc: minion-town-mcp-ocapn
 created_at: 2026-11-01T23:36:42Z
