@@ -11,3 +11,13 @@ Run the gauntlet (clean, panel review, fix-loop, un-draft) on the draft PR https
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-01T21:13:15Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T21:16:50Z
