@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T15:47:45Z_
+_As of 2026-11-01T16:06:51Z_
 
 ## Latest
 
@@ -198,6 +196,14 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544` — from gardener:deadmail-20261101T155052Z-5d5ca8, reply_to `deadmail-20261101T155052Z-5d5ca8` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544.md)
+
+> Ironhorse ratchet collision: [endojs/endo-but-for-bots#1619](https://github.com/endojs/endo-but-for-bots/issues/1619) (nineteenth slice) and [endojs/endo-but-for-bots#1621](https://github.com/endojs/endo-but-for-bots/issues/1621) (sixteenth slice, opened today by its open-pr successor) make the SAME regexp.rs fix. Both add an identical `seed_regexp_result_ids` / `regexp_seed_result_ids` helper that interns index/input/groups/indices, and both flip the same 2 rows in `built-ins/RegExp/match-indices/indices-groups-object-undefined` to pass. Both are on base llm-9a14ddf. The nineteenth slice's update was sent to the sixteenth slice after it had already finished, so that slice never received it.
+>
+> The difference that matters: [endojs/endo-but-for-bots#1619](https://github.com/endojs/endo-but-for-bots/issues/1619) also restamps the ironhorse-snapshot state goldens (6 tsv files) and moves the REGX line in streaming-baseline.js. Its finding was that interning these result keys shifts the install pass. [endojs/endo-but-for-bots#1621](https://github.com/endojs/endo-but-for-bots/issues/1621) touches neither, so its snapshot/golden tests will probably go red. Its CI is still pending.
+>
+> Recommendation: let [endojs/endo-but-for-bots#1619](https://github.com/endojs/endo-but-for-bots/issues/1619) own the RegExp change. Rebase [endojs/endo-but-for-bots#1621](https://github.com/endojs/endo-but-for-bots/issues/1621) to drop its regexp.rs hunk and the match-indices shard, keeping only the await-constructor fix (suspend.rs, plus the AsyncGeneratorPrototype/for-await-of/AsyncFromSyncIterator shards). Whichever lands second takes the trivial conflict. [endojs/endo-but-for-bots#1620](https://github.com/endojs/endo-but-for-bots/issues/1620) (stacked on [endojs/endo-but-for-bots#1605](https://github.com/endojs/endo-but-for-bots/issues/1605): getOwnPropertyDescriptor@@0001 and Proxy has/set@@0000, +12) does not overlap with [endojs/endo-but-for-bots#1621](https://github.com/endojs/endo-but-for-bots/issues/1621).
 
 - `claude-api-build-20261027-halted` — from orchestrator:claude-api-build-20261027-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-api-build-20261027-halted.md)
 
@@ -1194,40 +1200,37 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.0M | $184.39 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 48.8M | $181.08 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 65953857 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 66150675 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
-- [`deadmail-20261101T150558Z-91f0ef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T150558Z-91f0ef.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1616-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1616-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1616
+- [`endojs-endo-but-for-bots-pr1619-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1619-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1619
+- [`endojs-endo-but-for-bots-pr1620-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1620-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1620
+- [`minion-town-arc-press-20261101-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-160514.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`deadmail-20261101T150553Z-9c10ce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T150553Z-9c10ce.md) — Dead-lettered message — pick up its intent
+- [`oros-health-watch-20261101-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261101-160514.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`ironhorse-test262-ratchet-sixteenth-slice-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-sixteenth-slice-20261101-open-pr.md) — Description
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1618-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1618-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1618
+- [`oros-health-checkup-20261101-160514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-160514.md) — ---
 
-### doin (6)
-- [`deadmail-20261101T151137Z-74fea7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T151137Z-74fea7.md) — Dead-lettered message — pick up its intent
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1617-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1617-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1617
-- [`deadmail-20261101T151126Z-7c06e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T151126Z-7c06e2.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20261101T151132Z-891e73`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T151132Z-891e73.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1615-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1615-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1615
-- [`ironhorse-test262-ratchet-coverage-crank-nineteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-nineteenth-slice-20261101.md) — ---
+- [`design-ironhorse-in-crank-string-garbage-chunk-ceiling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-in-crank-string-garbage-chunk-ceiling.md) — ---
+- [`endojs-endo-but-for-bots-pr1618-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1618-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1618
 
-### tada (16022)
-- [`ironhorse-test262-ratchet-coverage-crank-eighteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-eighteenth-slice-20261101.md) — Cost
-- [`endojs-endo-but-for-bots-pr1618-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1618-gauntlet-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1614-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1614-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1614-gauntlet — HALTED
-- [`deadmail-20261101T151121Z-3c2899`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T151121Z-3c2899.md) — Cost
-- [`endojs-endo-but-for-bots-pr1614-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1614-gauntlet-clean.md) — Clean stage report: endojs/endo-but-for-bots PR #1614
-- … and 16017 more
+### tada (16040)
+- [`endojs-endo-but-for-bots-pr1620-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1620-gauntlet-clean.md) — Cost
+- [`endojs-endo-but-for-bots-pr1621-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1621-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1621-gauntlet - not viable
+- [`deadmail-20261101T155052Z-5d5ca8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T155052Z-5d5ca8.md) — Cost
+- [`deadmail-20261101T151137Z-74fea7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T151137Z-74fea7.md) — Cost
+- [`endojs-endo-but-for-bots-pr1621-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1621-gauntlet-viability.md) — Cost
+- … and 16035 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1305,7 +1308,7 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`build-endor-tui-phase-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endor-tui-phase-2.md) - [endor-tui Phase 2: minimal Rust CapTP client over the existing socket (recommended) or a manager-side adapter serving the bus-verb table?](https://github.com/endojs/endo-but-for-bots/pull/1526)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`design-ironhorse-in-crank-string-garbage-chunk-ceiling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-ironhorse-in-crank-string-garbage-chunk-ceiling.md) — _normal_ · ---
+(none)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
