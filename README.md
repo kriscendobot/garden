@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T20:45:12Z_
+_As of 2026-11-01T20:50:59Z_
 
 ## Latest
 
@@ -92,7 +90,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.043963s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-11-01T15:11:56Z, cleared 2026-11-01T20:48:02Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` cleared on endolin-garden-ece02cb4.
 
 - `msg-oros-health-checkup-20261018-093508-f054cd1e7164` — from gardener:oros-health-checkup-20261018-093508, reply_to `oros-health-checkup-20261018-093508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261018-093508-f054cd1e7164.md)
 
@@ -445,7 +447,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal.md)
 
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.035580s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-11-01T14:54:51Z, cleared 2026-11-01T20:47:53Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` cleared on endolin-garden-ece02cb4.
 
 - `foreman-milestone-M1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M1.md)
 
@@ -1222,13 +1228,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.4M | $228.58 _(notional, rate-card)_ | 23% of 271.0M (ok) |
+| Claude | 62.4M | $228.75 _(notional, rate-card)_ | 23% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 69613727 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 12.351139s/45s (/home/kris/garden/.garden-state/dependabot-watcher/verify); 9 open notice(s); checker healthy
+worst fetch p95 12.351139s/45s (/home/kris/garden/.garden-state/dependabot-watcher/verify); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
@@ -1241,8 +1247,7 @@ worst fetch p95 12.351139s/45s (/home/kris/garden/.garden-state/dependabot-watch
 - [`endojs-endo-but-for-bots-pr1628-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1628-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1628
 - [`endojs-endo-but-for-bots-pr1633-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1633-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1633
 
-### doin (7)
-- [`improve-followup-gate-fail-soft-on-success`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-followup-gate-fail-soft-on-success.md) — ---
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1635-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1635-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1635
 - [`endojs-endo-but-for-bots-pr1629-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1629-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1629
 - [`endojs-endo-but-for-bots-pr1573-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet.md) — ---
@@ -1250,13 +1255,13 @@ worst fetch p95 12.351139s/45s (/home/kris/garden/.garden-state/dependabot-watch
 - [`weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1563-onto-pr1560-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1478
 
-### tada (16105)
+### tada (16106)
+- [`improve-followup-gate-fail-soft-on-success`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-followup-gate-fail-soft-on-success.md) — Cost
 - [`oros-health-checkup-20261101-192009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-checkup-20261101-192009.md) — Cost
 - [`endojs-endo-but-for-bots-pr1632-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1632-dependabot.md) — dependabot-terminal-close: complete
 - [`endojs-endo-but-for-bots-pr1634-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1634-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr1630-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1630-dependabot.md) — Botanist report: endojs/endo-but-for-bots#1630 (zizmorcore/zizmor-action v0.7...
-- [`endojs-endo-but-for-bots-pr1628-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1628-gauntlet-panel-2.md) — Cost
-- … and 16100 more
+- … and 16101 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
