@@ -1,12 +1,10 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1622-gauntlet
-priority: normal
 role: builder
+tier: mentor
 arc: ironhorse-test262-ratchet
-posted_by: design-build-handoff
 posted_at: 2026-11-01T16:13:09Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-11-01T17:08:12Z cleared=none -->
 
 ---
 role: builder
