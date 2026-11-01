@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-01T04:15Z (oros-health-checkup-20261101-033510): healthy; deployed = origin/main2 `d45a2d7`, no changes
+
+- **Load/mem:** load 5.61/5.43/4.81 at 04:10Z, above the usual ~3.4. A job's Rust build (rustc + ld for ironhorse) accounts for it. 12 GiB of 15 GiB available. Swap reads 969M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (402G free). The virtiofs garden mount is at 64% (170G free), inodes 1%.
+- **Uptime:** 30d10h54m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `d45a2d7` (deployed 00:49Z), equal to the origin/main2 tip per `ls-remote`. fleet/health/oros: `roll_status: deployed` at `d45a2d7`, 0 of 290 units failing, 0 advisory (00:50Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** on origin/journal2, the last claude-oros push was 04:03:54Z. All twelve pushes from 01:18 to 04:03Z were ok, at a ~15-minute cadence. Spend is 6,568,787 of 180M.
+- **State clones:** 43 journal clones. The largest are fork-watch (50 packs, at the threshold but not over it), unblock and reaper (47 each), and monks/1 (45). No `gc.log` or tmp_pack. No `.git` lock older than 30 minutes.
+- **rc=124 (3h):** 33.4k system-journal lines. One job timeout: `shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101` hit its own 2401s handler budget at 02:51Z, was classified transient, and was left for reaper requeue. That is the designed behavior. No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-11-01T00:35Z (oros-health-checkup-20261101-002012): healthy; deployed `b616710`, one commit behind origin/main2 `d45a2d7` (landed 00:26Z), no changes
 
 - **Load/mem:** load 3.60/3.60/3.65 at 00:32Z, the usual level. 13 GiB of 15 GiB available. Swap reads 943M of 1.0 GiB, the usual steady level.
