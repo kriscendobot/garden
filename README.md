@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T05:06:51Z_
+_As of 2026-11-01T05:11:18Z_
 
 ## Latest
 
@@ -1109,7 +1107,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.1M | $170.83 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 39.2M | $174.02 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63196984 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1119,27 +1117,27 @@ worst fetch p95 8.735678s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 
 ## Board
 ### todo (4)
-- [`ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101.md) — ---
+- [`endojs-endo-but-for-bots-pr1600-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1600-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1600
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (7)
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
+- [`ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101.md) — ---
 - [`investigate-producer-journal-lock-long-holder-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-producer-journal-lock-long-holder-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-third-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-third-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101.md) — ---
-- [`ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr.md) — Open the draft PR for the TypedArray change-array-by-copy ratchet slice
 
-### tada (15922)
+### tada (15923)
+- [`ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr.md) — Cost
 - [`improve-foreman-post-job-tempfail-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-foreman-post-job-tempfail-handling.md) — Cost
 - [`improve-watchman-broadcast-lock-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-watchman-broadcast-lock-retry.md) — Completion report: improve-watchman-broadcast-lock-retry
 - [`claude-on-minion-town-completion-press-20261101-045013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/claude-on-minion-town-completion-press-20261101-045013.md) — Cost
 - [`endojs-endo-but-for-bots-pr1504-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1504-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1504-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1595-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1595-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1595-gauntlet — HALTED
-- … and 15917 more
+- … and 15918 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
