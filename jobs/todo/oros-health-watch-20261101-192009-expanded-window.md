@@ -1,16 +1,15 @@
 ---
-gate: orchestrated
-orchestrated_by: oros-health-watch-20261101-192009-split
+role: fixer
+tier: mentor
+posted_at: 2026-11-01T21:36:49Z
 handler-timeout: 7200
 split-indivisible-reason: 'sequential single-checkup observation with built-in ~45min claim + ~40min progress wait windows plus sysop ack round-trips exceeds 3600s'
 split-lineage-root: oros-health-watch-20261101-192009
 split-lineage-parent: oros-health-watch-20261101-192009-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-11-01T21:36:49Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-01T21:40:08Z cleared=none -->
 
 ---
 role: fixer
