@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-01T00:35Z (oros-health-checkup-20261101-002012): healthy; deployed `b616710`, one commit behind origin/main2 `d45a2d7` (landed 00:26Z), no changes
+
+- **Load/mem:** load 3.60/3.60/3.65 at 00:32Z, the usual level. 13 GiB of 15 GiB available. Swap reads 943M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (402G free). The virtiofs garden mount is at 63% (175G free), inodes 1%.
+- **Uptime:** 30d07h16m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `b616710` (deployed 00:23Z). origin/main2 is `d45a2d7`, landed at 00:26Z; `upgrade-ready` was refreshed at 00:32Z, which is ordinary roll lag, not a stall. fleet/health/oros: `roll_status: deployed` at `b616710`, 0 of 290 units failing, 0 advisory (00:24Z).
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** on origin/journal2, the last claude-oros push was 00:18:50Z. All twelve pushes from 21:35 to 00:18Z were ok, at a steady ~15-minute cadence. Spend is 5,752,410 of 180M.
+- **State clones:** 33 journal clones. The largest are reaper (47 packs), library-link-check (40) and regenerate-sections-index (39), all under the `>50` threshold. No `gc.log` or tmp_pack, no `.git` lock older than 30 minutes, no `*.tmp.*`/`*.seed.*` directory older than an hour.
+- **rc=124 (3h):** 34.8k system-journal lines. The one rc=124 line is a `journal-contention-watch` notice delivery deferred against its tick budget, which is benign. No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-10-31T21:28Z (oros-health-checkup-20261031-210513): healthy; deployed = origin/main2 `ff88409`, no changes
 
 - **Load/mem:** load 2.23/2.84/3.29 at 21:24Z, below the usual ~3.4. 13 GiB of 15 GiB available. Swap reads 957M of 1.0 GiB, the usual steady level.
