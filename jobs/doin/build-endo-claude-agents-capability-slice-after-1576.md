@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Builder work on endojs/endo-but-for-bots (base `llm`): build the next capability slice of the Claude-agents wiring (API-key agents via @secrets), picking up where PR #1576 left off. Open a DRAFT PR for the gauntlet to pick up.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T18:26:43Z
