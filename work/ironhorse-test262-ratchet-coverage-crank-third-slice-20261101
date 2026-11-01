@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-11-01T03:10:35Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-ironhorse-test262-ratchet-coverage-crank-third-slice-20261101
+pr_number: 1600
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1600
+pr_head: ironhorse-test262-ratchet-typedarray-change-by-copy-20261101
