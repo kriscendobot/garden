@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 In endojs/endo-but-for-bots PR #1591, repair the malformed gauntlet-viability conclusion and resume its review path using the already-green CI evidence, so the bwrap containment fix can unblock PR #1504.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
