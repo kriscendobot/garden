@@ -16,6 +16,7 @@ Also noticed: repo-locks/*/fetch.lock.holder.<pid> records leak (60+ dead-pid re
 
 Context: the foreman side was fixed in main2 a9310301aae (improve-foreman-post-job-tempfail-handling), which retries post-job rc=75 in place.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
