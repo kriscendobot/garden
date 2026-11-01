@@ -1,6 +1,3 @@
-once: 2026-11-01T22:22:00Z
-job_basename_prefix: minion-town-ci-runner-to-hosted-202610-retry2
----
 ---
 role: shepherd
 tier: mentor
