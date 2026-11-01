@@ -1,0 +1,13 @@
+kind: cleric
+provider: openai
+model: gpt-5.6-sol
+thoughtfulness: medium
+work_class: orchestrator:m
+target: main2
+attempts: 2
+accepts: 2
+censored: 2
+estimated: 2
+mean_dollars: 0.512823
+m2: 0.002245
+acceptance_rate: 1.0000
