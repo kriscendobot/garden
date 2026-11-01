@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Shepherd job on endojs/endo-but-for-bots PR #1573, part of the Claude-by-API-key agents arc. Drive CI to green and resolve any failures, then hand it back to the gauntlet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T17:31:28Z
