@@ -2,22 +2,22 @@
 base: endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1
 kind: monk
 provider: anthropic
-model: claude-opus-5-5
+model: claude-default
 thoughtfulness: medium
 work_class: gardener:l
 target: main2
 accepted: true
-agentic_dollars: 0.914950
+agentic_dollars: 1.334422
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.333822
+estimated_dollars: 0.277380
 attempts: 1
-duration_secs: 4838
+duration_secs: 4020
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: oros-studio-garden-ce242c49/monk-3
-recorded_at: 2026-11-01T21:34:13Z
+recorded_by: endolin-garden-ece02cb4/monk-3
+recorded_at: 2026-11-01T22:44:56Z
 ---
-reputation event for endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1: arm anthropic/claude-opus-5-5/medium work_class gardener:l target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1: arm anthropic/claude-default/medium work_class gardener:l target main2 accepted true
