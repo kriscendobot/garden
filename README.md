@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T00:27:19Z_
+_As of 2026-11-01T00:28:07Z_
 
 ## Latest
 
@@ -1847,7 +1847,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.5M | $123.34 _(notional, rate-card)_ | 11% of 271.0M (ok) |
+| Claude | 30.5M | $123.78 _(notional, rate-card)_ | 11% of 271.0M (ok) |
 | Codex | 299.5M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60059478 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1856,10 +1856,9 @@ _Fleet token-unlock pace: 60059478 tokens/day lower bound; incomplete where a su
 worst fetch p95 6.000822s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (9)
 - [`endojs-endo-but-for-bots-pr1589-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1589-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1589
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1504-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1504
-- [`canary-probe-oros-studio-garden-ce242c49-b616710ae8e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-b616710ae8e9.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ b616710ae8e9
 - [`oros-health-checkup-20261101-002012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-002012.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1868,8 +1867,9 @@ worst fetch p95 6.000822s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`minion-town-arc-press-20261101-002012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-002012.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`fix-endojs-endo-but-for-bots-pr1591-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr1591-gauntlet-viability.md) — ---
 
-### doin (4)
+### doin (5)
 - [`fu-endojs-endo-but-for-bots-pr1594-gauntlet-fix-4-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1594-gauntlet-fix-4-1.md) — ---
+- [`canary-probe-oros-studio-garden-ce242c49-b616710ae8e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-b616710ae8e9.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ b616710ae8e9
 - [`oros-health-watch-20261101-002012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-002012.md) — ---
 - [`fix-endojs-endo-but-for-bots-pr1348-confined-command-grammar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr1348-confined-command-grammar.md) — ---
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1595
