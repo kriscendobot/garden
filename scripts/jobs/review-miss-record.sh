@@ -236,8 +236,9 @@ cmd_record() {
   local content; content="$(cat "$rec")"
 
   ensure_clone "$DIR"
-  local attempt
+  local attempt loop_start=$SECONDS
   for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+    post_deadline_exceeded "$loop_start" "review-miss record of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
     sync_clone "$DIR"
     # Idempotency: a prior tick or a requeued retro already recorded this primary.
     if [ -e "$DIR/$STORE/misses/$base.md" ]; then
@@ -360,8 +361,9 @@ cmd_cluster_status() {
   [ -z "$rationale_file" ] || [ -f "$rationale_file" ] || die "rationale file '$rationale_file' is not readable"
 
   ensure_clone "$DIR"
-  local attempt
+  local attempt loop_start=$SECONDS
   for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+    post_deadline_exceeded "$loop_start" "cluster-status of '$slug'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
     sync_clone "$DIR"
     local cf="$DIR/$STORE/clusters/$slug.md"
     [ -e "$cf" ] || die "cluster '$slug' does not exist ($STORE/clusters/$slug.md)"

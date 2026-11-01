@@ -18,7 +18,9 @@ done
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "arc budget '$arc'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   mkdir -p "$DIR/config/arc-budgets"
   jq -n --arg arc "$arc" --arg by "${GARDEN_SENDER:-producer}" \

@@ -95,7 +95,9 @@ base="${base%.md}"
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "withdraw of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
 
   if [ ! -e "$DIR/$JOBS_PLAN/$base.md" ]; then

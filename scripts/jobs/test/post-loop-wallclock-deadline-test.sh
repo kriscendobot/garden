@@ -27,6 +27,11 @@
 #      wall-clock deadline with rc=75, quickly, records nothing, and releases the
 #      producer clone so the next producer can post.
 #   6. A healthy orchestration still records under the default deadline.
+# And for the other producer push-CAS loops (annotate-plan, withdraw-plan,
+# remove-schedule, post-gauntlet, unarchive-gauntlet, set-arc-budget,
+# defer-doomed-plan, doom-notice, record-mirror):
+#   7. A journal whose every push fails ends each loop at the deadline with rc=75,
+#      lands nothing, and frees the producer clone.
 #
 # Hermetic: a throwaway bare journal; no real garden, journal, or network.
 #
@@ -144,6 +149,54 @@ rc=$?
 { [ "$rc" -eq 0 ] && has_orch orch-healthy; } \
   && ok "6 post-orchestration.sh recorded the healthy orchestration (rc=0)" \
   || bad "6 healthy post-orchestration.sh rc=$rc or no record"
+
+# --- 7: the other producer push-CAS loops end at the deadline too ------------
+# (improve-post-loop-deadline-remaining-loops) Each script below ran up to
+# GARDEN_POST_ATTEMPTS attempts with no wall-clock bound. Against a journal that
+# fetches but cannot be pushed to, each must give up with rc=75 within seconds,
+# land nothing, and leave the producer clone free for the next producer.
+W="$TR/work"; git clone -q -b journal2 "$BARE" "$W"
+( cd "$W" || exit 1
+  mkdir -p schedules jobs/gauntlet-archived
+  printf -- '---\ncadence: daily\n---\nbody\n' > schedules/deg-sched.md
+  printf -- '---\nstate: pending\n---\narchived\n' > jobs/gauntlet-archived/deg-archived.md
+  printf -- '---\ngate: go-ahead\ndoomed: true\n---\ndoomed work\n' > jobs/plan/deg-doomed.md
+  git add -A
+  git -c user.name=test -c user.email=test@localhost commit -q -m "seed degraded cases"
+  git push -q origin journal2 )
+"$JOBS/post-plan.sh" deg-parked "$(bodyfile 'parked for annotate/withdraw')" >/dev/null 2>&1
+
+degraded() {  # degraded <label> <cmd...> ; stdin is passed through
+  local label="$1" before after rc start elapsed out; shift
+  out="$TR/deg-$label.out"
+  before="$(git -C "$BARE" rev-parse journal2)"
+  start=$SECONDS
+  GARDEN_PUSH_CMD=false GARDEN_POST_ATTEMPTS=50 GARDEN_POST_DEADLINE_SECS=1 "$@" > "$out" 2>&1
+  rc=$?
+  elapsed=$((SECONDS - start))
+  after="$(git -C "$BARE" rev-parse journal2)"
+  { [ "$rc" -eq 75 ] && [ "$elapsed" -lt 30 ] && grep -q 'wall-clock deadline' "$out" \
+      && [ "$before" = "$after" ]; } \
+    && ok "7 $label gave up at the deadline (rc=75 in ${elapsed}s, nothing landed)" \
+    || { cat "$out"; bad "7 $label: rc=$rc in ${elapsed}s, journal moved: $([ "$before" = "$after" ] && echo no || echo yes)"; }
+}
+
+degraded annotate-plan "$JOBS/annotate-plan.sh" --note 'never lands' deg-parked </dev/null
+degraded withdraw-plan "$JOBS/withdraw-plan.sh" deg-parked 'never lands' </dev/null
+degraded remove-schedule "$JOBS/remove-schedule.sh" deg-sched </dev/null
+degraded post-gauntlet "$JOBS/post-gauntlet.sh" deg-gauntlet https://github.com/o/r/pull/1 </dev/null
+degraded unarchive-gauntlet "$JOBS/unarchive-gauntlet.sh" deg-archived </dev/null
+degraded set-arc-budget "$JOBS/set-arc-budget.sh" deg-arc 1000 3600 600 </dev/null
+degraded defer-doomed-plan "$JOBS/defer-doomed-plan.sh" </dev/null
+degraded doom-notice "$JOBS/doom-notice.sh" deg-doomed deg-signature <<<'never lands'
+degraded record-mirror env GARDEN_MIRROR_CLONE="$TR/state/mirror/journal" \
+  "$JOBS/record-mirror.sh" 'up/repo#1' 'o/r#2' test </dev/null
+
+"$JOBS/post-job.sh" after-degraded-loops "$(bodyfile 'producer clone is free again')" >/dev/null 2>&1
+rc=$?
+{ [ "$rc" -eq 0 ] && has_todo after-degraded-loops; } \
+  && ok "7 the next producer posted through the released clone" \
+  || bad "7 the next producer could not post after the degraded loops (rc=$rc)"
 
 echo "----------------------------------------------------------------"
 echo "post-loop wall-clock deadline: $PASS passed, $FAIL failed"

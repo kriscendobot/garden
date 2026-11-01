@@ -95,7 +95,9 @@ compose() {  # compose <count> <first_seen>
   printf '%s\n' "$BODY"
 }
 
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "doom-notice '$key'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   mkdir -p "$DIR/inbox/maintainer/unread"
   if [ -e "$DIR/$REL" ]; then

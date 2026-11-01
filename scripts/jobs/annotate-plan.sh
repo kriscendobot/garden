@@ -303,7 +303,9 @@ apply_fields() {  # apply_fields <src-file>  -> stdout
   ' "$1"
 }
 
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "annotate of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
 
   src="$DIR/$JOBS_PLAN/$base.md"

@@ -24,7 +24,9 @@ base="${base%.md}"
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "unarchive of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   active="$DIR/$JOBS_GAUNTLET/$base.md"
   archived="$DIR/jobs/gauntlet-archived/$base.md"

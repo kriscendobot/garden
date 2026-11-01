@@ -162,10 +162,13 @@ pr_url() { local r="${1%%#*}" num="${1##*#}"; printf 'https://github.com/%s/pull
 # Stamp closed_at + upstream_outcome onto a mapping (CAS, idempotent). Its own
 # sync→edit→push retry loop so it is safe under cross-host contention and always
 # rebases on the authoritative tip. A mapping that already carries closed_at is a
-# no-op (a peer host resolved it first).
+# no-op (a peer host resolved it first). Past GARDEN_POST_DEADLINE_SECS the whole
+# tick exits GARDEN_OFFLINE_RC: every later stamp would wait on the same remote, and
+# an unstamped mapping whose mirror is closed is reconciled on the next tick.
 mark_resolved() {  # mark_resolved <key> <outcome>
-  local key="$1" outcome="$2" attempt
+  local key="$1" outcome="$2" attempt loop_start=$SECONDS
   for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+    post_deadline_exceeded "$loop_start" "resolve stamp on $key" "$attempt" && exit "$GARDEN_OFFLINE_RC"
     sync_clone "$DIR"
     if [ ! -e "$DIR/$key" ]; then clone_unlock "$DIR"; log "WARN: $key vanished before resolve"; return 0; fi
     if grep -q '^closed_at:' "$DIR/$key"; then

@@ -164,7 +164,9 @@ compose() {
   printf 'spans the loop; each stage is its own fresh-budget claimable job.\n'
 }
 
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "post-gauntlet of '$base'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   if [ -e "$DIR/$JOBS_GAUNTLET/$base.md" ] || tada_exists "$DIR" "$base"; then
     log "gauntlet '$base' already recorded; nothing to do"

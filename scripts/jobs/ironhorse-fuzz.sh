@@ -229,8 +229,9 @@ is_allowed_target() { [ -n "${ALLOWED[$1]:-}" ]; }
 # Mirrors land-journal-edit.sh's loop but confined to our ironhorse-fuzz/ subtree so
 # the service is self-contained and hermetically testable against a bare-repo stub.
 journal_put() {  # journal_put <journal2-relative-path> <src-file> <commit-msg>
-  local rel="$1" src="$2" msg="$3" attempt
+  local rel="$1" src="$2" msg="$3" attempt loop_start=$SECONDS
   for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+    post_deadline_exceeded "$loop_start" "journal write of $rel" "$attempt" && return "$GARDEN_OFFLINE_RC"
     sync_clone "$CLONE"
     mkdir -p "$CLONE/$(dirname "$rel")"
     cp "$src" "$CLONE/$rel"

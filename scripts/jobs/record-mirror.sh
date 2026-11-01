@@ -58,7 +58,9 @@ key="pr-mirrors/${up_owner}-${up_name}-${up_num}.md"
 DIR="${GARDEN_MIRROR_CLONE:-$GARDEN_STATE/mirror-closer/journal}"
 ensure_clone "$DIR"
 
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "record of '$key'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   if [ -e "$DIR/$key" ]; then
     # Already recorded. If the mirror matches, it is a true no-op (re-ferry of the

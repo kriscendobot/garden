@@ -60,7 +60,9 @@ if [ "$dry_run" -eq 1 ]; then
   exit 0
 fi
 
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "deferral of doomed plan jobs" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   changed=0
   for file in "$DIR/$JOBS_PLAN"/*.md; do

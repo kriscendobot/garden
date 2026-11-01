@@ -10,7 +10,8 @@
 #                        re-gated) is preserved rather than retired on a stale
 #                        verdict.
 # Exit: 0 retired (or already absent); 3 precondition no longer holds (schedule
-# preserved); 75 journal offline; 1 retries exhausted (GARDEN_POST_ATTEMPTS).
+# preserved); 75 journal offline or GARDEN_POST_DEADLINE_SECS passed; 1 retries
+# exhausted (GARDEN_POST_ATTEMPTS).
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
@@ -26,7 +27,9 @@ name="${1:?$usage}"
 case "$name" in -*|*/*|.*|'') die "illegal schedule name '$name'" ;; esac
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "retire of schedule '$name'" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   path="schedules/${name%.md}.md"
   [ -e "$DIR/$path" ] || { log "schedule '$name' already absent"; exit 0; }

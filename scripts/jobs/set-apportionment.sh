@@ -171,7 +171,9 @@ authorized() {  # authorized <dir> <login>
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "apportionment" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   sync_clone "$DIR"
   # The budget road replaced the weekly slate (designs/budget-road.md).
   if [ -f "$DIR/allocation/road.json" ]; then

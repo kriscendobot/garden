@@ -275,8 +275,9 @@ _panel_record_push() {
   (
     set -uo pipefail
     ensure_clone "$DIR"
-    local attempt
+    local attempt loop_start=$SECONDS
     for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-25}"); do
+      post_deadline_exceeded "$loop_start" "panel-run record of $rel" "$attempt" && exit "$GARDEN_OFFLINE_RC"
       sync_clone "$DIR"
       mkdir -p "$DIR/$STORE/$slug"
       printf '%s\n' "$content" > "$DIR/$rel"
@@ -343,8 +344,9 @@ _panel_record_migrate() {
     set -uo pipefail
     shopt -s nullglob
     ensure_clone "$DIR"
-    local attempt
+    local attempt loop_start=$SECONDS
     for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-25}"); do
+      post_deadline_exceeded "$loop_start" "panel-run legacy-slug migration" "$attempt" && exit "$GARDEN_OFFLINE_RC"
       sync_clone "$DIR"
       local moved=0 deduped=0 collided=0
       local legacy canonname slug f base src reldest dest

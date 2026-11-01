@@ -190,7 +190,9 @@ if [ "$verb" = init ] && [ "$from_slate" -eq 0 ]; then
   jq -e . >/dev/null 2>&1 <<<"$input" || die "init reads a road.json on stdin (or pass --from-slate)"
 fi
 
+loop_start=$SECONDS
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
+  post_deadline_exceeded "$loop_start" "road $verb" "$attempt" && exit "$GARDEN_OFFLINE_RC"
   [ "$attempt" -eq 1 ] || [ "$no_sync" -eq 1 ] || sync_clone "$DIR"
   authorized "$DIR" "$authorized_by" || die "'$authorized_by' is not on maintainers/allowlist; refusing"
   if [ "$verb" = init ]; then
