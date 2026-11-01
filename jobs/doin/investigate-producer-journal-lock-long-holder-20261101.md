@@ -19,3 +19,13 @@ Context: the foreman side was fixed in main2 a9310301aae (improve-foreman-post-j
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-01T05:23:20Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T05:42:51Z
