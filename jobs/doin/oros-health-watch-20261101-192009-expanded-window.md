@@ -26,3 +26,13 @@ State carried forward from the first attempt (as of 2026-11-01 ~20:20Z):
 - One benign op was sent: `op=restore` (msgid 20261101T195257Z-9406f2). It was acked at 19:59:27Z as `failed` with the detail `restore partial: ran reset-failed`, so the sysop is alive and the reset-failed step was applied.
 
 **Do:** read the tada report of `oros-health-checkup-20261101-192009`. If it is healthy, finish with a one-line OK. If it reports problems it could not fix, intervene from afar per the standing watcher spec (`schedules/oros-health-watch.md` on journal2), escalating only as needed. Do NOT resend `op=restore` this run. Recheck the heartbeat age, derotation, roll_status/sha and sysop-log freshness. Message the maintainer only if you send an attested op or oros is unreachable. Do not change worker leveling, derotation markers, budget pools or schedules, and do not post duplicate oros jobs.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T22:45:16Z
