@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-11-01T18:45:44Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-endo-claude-agents-capability-slice-after-1609
+pr_number: 1628
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1628
+pr_head: build/exo-agent-factory-crash-recovery
