@@ -27,3 +27,13 @@ Dispatched by design-build-handoff.sh from the design report's follow-ups:
 >   2. Safepoint collection, once the maintainer agrees to the change to the quiescent rule.
 > - Ropes for the string-append slowdown (review finding NVAL-3) would be a separate design. Not yet filed.
 > - I'm leaving the PR as a draft; the design-review gauntlet is recorded automatically when this job completes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T17:21:06Z
