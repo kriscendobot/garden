@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T13:25:32Z_
+_As of 2026-11-01T13:26:21Z_
 
 ## Latest
 
@@ -394,6 +394,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Host oros-studio-garden-ce242c49 control-plane operations are available again: no unlogged sysop operations. (leader=endolin-garden-ece02cb4)
+
+- `msg-oros-health-checkup-20261101-125015-bdfe15cd214f` — from gardener:oros-health-checkup-20261101-125015, reply_to `oros-health-checkup-20261101-125015` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261101-125015-bdfe15cd214f.md)
+
+> oros health (13:25Z): the virtiofs garden disk on oros-studio is at 81% (91G free), up from 66% (158G free) at 07:50Z. That is about 66G in 5.5h, still climbing about 1G per 10 min. The container overlay did not grow; a bounded du from inside timed out, so I could not find the cause. It may be Mac-side. At the current rate the disk fills in about 15h, so please look at it from the Mac. Second issue: oros has been stranded under a stale rolling-deploy-quiesce drain since 12:57Z. The quiesce arrived 7s after its deploy had lifted its own drain. The fix is on main2 as d1e41a9; the roll of d1e41a9 should lift the drain. If oros is still drained after that roll, run 'scripts/jobs/drain-fleet.sh off' on oros.
 
 - `endojs-endo-but-for-bots-pr1560-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1560-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1560-gauntlet-halted.md)
 
@@ -1151,7 +1155,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.8M | $179.67 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 44.8M | $179.74 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64986028 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
