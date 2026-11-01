@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T13:34:57Z_
+_As of 2026-11-01T13:37:03Z_
 
 ## Latest
 
@@ -1164,18 +1164,18 @@ _Fleet token-unlock pace: 65015884 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1614-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1614-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1614
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`deadmail-20261101T112108Z-fd9876-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T112108Z-fd9876-expanded-window.md) — Relay a dead-lettered crank-slice row-claim note (coordination only — do NOT ...
 
-### doin (4)
+### doin (5)
 - [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1612-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1612-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1612
 - [`endojs-endo-but-for-bots-pr1613-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1613-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1613
+- [`deadmail-20261101T112108Z-fd9876-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T112108Z-fd9876-expanded-window.md) — Relay a dead-lettered crank-slice row-claim note (coordination only — do NOT ...
 
 ### tada (15998)
 - [`oros-health-watch-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-watch-20261101-125015.md) — Cost
