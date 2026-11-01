@@ -83,3 +83,13 @@ The snapshot format and store schema are unchanged. The boot fingerprint moves, 
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T05:05:50Z
