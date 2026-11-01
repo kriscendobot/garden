@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T18:00:28Z_
+_As of 2026-11-01T18:10:45Z_
 
 ## Latest
 
@@ -127,13 +125,6 @@ Delegation: **active**
 > ONE entry that updates in place, not 31 messages. Latest detail:
 >
 > Milestone M2 is blocked on `hardened-text-codecs-shim`: bot PR #1349 closed when upstream #3377 was superseded by merged upstream #3376. Decide whether #3376 completes this design or whether its XS-smoke/audit residual needs a fresh implementation step.
-
-- `endojs-endo-but-for-bots-pr1623-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1623-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1623-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1623-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1623-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1623-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
 
@@ -1221,10 +1212,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $196.50 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 53.2M | $194.18 _(notional, rate-card)_ | 20% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 67075673 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 67227601 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 9 open notice(s); checker healthy
@@ -1235,17 +1226,18 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`build-endo-claude-agents-capability-slice-after-1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-slice-after-1596.md) — ---
-- [`build-endo-claude-agents-capability-slice-after-1593`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-slice-after-1593.md) — ---
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1625-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1625-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1625
+- [`endojs-endo-but-for-bots-pr1624-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1624-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1624
+- [`build-daemon-locator-terminology`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-locator-terminology.md) — ---
 
-### tada (16068)
-- [`build-ironhorse-in-crank-string-garbage-chunk-ceiling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-ironhorse-in-crank-string-garbage-chunk-ceiling.md) — Cost
-- [`endojs-endo-but-for-bots-pr1623-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1623-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1623-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1623-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1623-gauntlet-clean.md) — Cost
-- [`endojs-endo-but-for-bots-pr1619-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1619-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1619-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1619-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1619-gauntlet-clean.md) — Clean stage for endojs/endo-but-for-bots#1619: CI is red, but not because of ...
-- … and 16063 more
+### tada (16073)
+- [`endojs-endo-but-for-bots-pr1626-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1626-gauntlet-viability.md) — Cost
+- [`build-endo-claude-agents-capability-slice-after-1593`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-endo-claude-agents-capability-slice-after-1593.md) — Cost
+- [`endojs-endo-but-for-bots-pr1624-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1624-gauntlet-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1625-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1625-gauntlet-viability.md) — Cost
+- [`build-endo-claude-agents-capability-slice-after-1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-endo-claude-agents-capability-slice-after-1596.md) — Cost
+- … and 16068 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
