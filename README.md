@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T05:21:39Z_
+_As of 2026-11-01T05:24:34Z_
 
 ## Latest
 
@@ -65,6 +65,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 15 -> 17 (N is yours to choose).
+
+- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
+
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=45.823047s, giveups=1, steals=1 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1573-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1573-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1573-gauntlet-halted.md)
 
@@ -1107,7 +1111,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.4M | $181.94 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 39.4M | $182.20 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63302797 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1116,30 +1120,32 @@ _Fleet token-unlock pace: 63302797 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.735678s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (10)
 - [`improve-unblock-post-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-unblock-post-loop-deadline.md) — ---
 - [`improve-post-orchestration-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-post-orchestration-loop-deadline.md) — ---
 - [`investigate-producer-journal-lock-long-holder-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/investigate-producer-journal-lock-long-holder-20261101.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
+- [`endojs-endo-but-for-bots-pr1600-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1600-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1600
+- [`endojs-endo-but-for-bots-pr1601-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1601-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1601
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1602-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1602-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1602
 
-### doin (7)
+### doin (5)
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101.md) — ---
-- [`endojs-endo-but-for-bots-pr1600-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1600-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1600
-- [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-third-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-third-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101.md) — ---
 
-### tada (15923)
+### tada (15924)
+- [`endojs-endo-but-for-bots-pr1600-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1600-gauntlet-viability.md) — Cost
 - [`ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr.md) — Cost
 - [`improve-foreman-post-job-tempfail-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-foreman-post-job-tempfail-handling.md) — Cost
 - [`improve-watchman-broadcast-lock-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-watchman-broadcast-lock-retry.md) — Completion report: improve-watchman-broadcast-lock-retry
 - [`claude-on-minion-town-completion-press-20261101-045013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/claude-on-minion-town-completion-press-20261101-045013.md) — Cost
-- [`endojs-endo-but-for-bots-pr1504-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1504-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1504-gauntlet — HALTED
-- … and 15918 more
+- … and 15919 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
