@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-11-01T11:20:09Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101
-pr_number: 1612
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1612
-pr_head: ironhorse-test262-ratchet-strict-set-string-generator-20261101
