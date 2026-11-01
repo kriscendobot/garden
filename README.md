@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T17:58:22Z_
+_As of 2026-11-01T18:00:28Z_
 
 ## Latest
 
@@ -125,6 +125,13 @@ Delegation: **active**
 > ONE entry that updates in place, not 31 messages. Latest detail:
 >
 > Milestone M2 is blocked on `hardened-text-codecs-shim`: bot PR #1349 closed when upstream #3377 was superseded by merged upstream #3376. Decide whether #3376 completes this design or whether its XS-smoke/audit residual needs a fresh implementation step.
+
+- `endojs-endo-but-for-bots-pr1623-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1623-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1623-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1623-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1623-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1623-gauntlet panel --iteration 0 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
 
@@ -1212,7 +1219,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.6M | $199.44 _(notional, rate-card)_ | 19% of 271.0M (ok) |
+| Claude | 52.7M | $196.50 _(notional, rate-card)_ | 19% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 67075673 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1226,18 +1233,17 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`build-endo-claude-agents-capability-slice-after-1596`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-slice-after-1596.md) — ---
 - [`build-endo-claude-agents-capability-slice-after-1593`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-agents-capability-slice-after-1593.md) — ---
-- [`build-ironhorse-in-crank-string-garbage-chunk-ceiling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-in-crank-string-garbage-chunk-ceiling.md) — Build: the design in endojs/endo-but-for-bots#1622
 
-### tada (16066)
+### tada (16068)
+- [`build-ironhorse-in-crank-string-garbage-chunk-ceiling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/build-ironhorse-in-crank-string-garbage-chunk-ceiling.md) — Cost
+- [`endojs-endo-but-for-bots-pr1623-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1623-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1623-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1623-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1623-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1619-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1619-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1619-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1619-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1619-gauntlet-clean.md) — Clean stage for endojs/endo-but-for-bots#1619: CI is red, but not because of ...
-- [`endojs-endo-but-for-bots-pr1617-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1617-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1617-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1617-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1617-gauntlet-clean.md) — Clean stage, endojs/endo-but-for-bots PR #1617: CI is red because of a known ...
-- … and 16061 more
+- … and 16063 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1305,6 +1311,7 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`minion-town-claude-cli-production-canary-after-connection-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-cli-production-canary-after-connection-20261004.md) - [Connect the real Claude subscription through the stable account page and reply connected; no setup token may be sent through the journal.](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-canary-20261004-224cae8c9188.md)
 - [`endo-cli-no-autostart-exit-codes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cli-no-autostart-exit-codes-build.md) - [Design OQ1/OQ3: should the CLI default to no-autostart under a service manager, and are the proposed exit codes acceptable?](https://github.com/endojs/endo-but-for-bots/pull/1383)
 - [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) - [Reconcile the historical floor with current verdict/resource policy, or restore all 901 genuinely under unchanged pins and policy?](https://github.com/kriscendobot/garden/issues/51#issuecomment-5877917421)
+- [`build-ironhorse-in-crank-safepoint-collection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-ironhorse-in-crank-safepoint-collection.md) - [Agree to amend ironhorse-quiescent-gc to admit a native-depth-zero dispatch safepoint collection inside a crank (design #1622, open question 1), or wait for ropes?](https://github.com/endojs/endo-but-for-bots/pull/1622)
 - [`resolve-endo-pr1349-depcheck-ci-20261028`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resolve-endo-pr1349-depcheck-ci-20261028.md) - [Should endojs/endo-but-for-bots#1349 accept the known dependency-check failure for ferry purposes, or should endojs/endo-but-for-bots#1582 land into the frozen base first?](https://github.com/endojs/endo-but-for-bots/pull/1349#issuecomment-6479686667)
 - [`endojs-endo-but-for-bots-pr1477-location-reshape`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1477-location-reshape.md) - [Now that OCapN designator = peer key (not swissnum/network), should the in-memory OcapnLocation still be reshaped to {network, peer, at:[{transport,address}]} (value/swiss-num on sturdyref only), and in #1477 or a follow-up?](https://github.com/endojs/endo-but-for-bots/pull/1477#discussion_r4344979384)
 - [`minion-town-public-browser-caddy-gate-smoke-after-mfa-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-public-browser-caddy-gate-smoke-after-mfa-20261006.md) - [When can you promptly relay the one-time GitHub SMS code for kriscendobot so the final public-browser gate smoke can run?](https://github.com/kriscendobot/garden/issues/89#issuecomment-6019568536)
