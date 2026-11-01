@@ -1,2 +1,2 @@
-base: improve-watchman-detached-head
+base: improve-watchman-broadcast-lock-retry
 identity: mentor:scripts/jobs/watchman.sh
