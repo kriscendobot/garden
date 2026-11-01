@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T04:45:26Z_
+_As of 2026-11-01T05:01:06Z_
 
 ## Latest
 
@@ -85,6 +83,16 @@ Delegation: **active**
 - `msg-oros-health-checkup-20261018-093508-f054cd1e7164` — from gardener:oros-health-checkup-20261018-093508, reply_to `oros-health-checkup-20261018-093508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261018-093508-f054cd1e7164.md)
 
 > oros health check-up 09:58Z: oros is healthy, but the fleet deploy is stalled on the LEADER. endolin-garden-ece02cb4 has been deployed at b8abbe64 since 2026-10-16 16:52Z: its own self-advance has not landed through 4 rolls in which the oros canary passed. deploy/leader-sha and roll-completed are frozen, and endolin has not released oros for main2 05d833a2 (85+ min). Oros is correctly holding: it is leaderless and the target is ahead of the last-known-good sha. Please have someone check endolin's garden-rolling-deploy journal for a rejected-candidate marker or a 'did not land' loop. Details are in journal2:projects/garden/oros-health-log.md.
+
+- `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
+
+> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/screening-control/journal: p95=0.048614s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.118232s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.102923s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.140955s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.130384s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.110471s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -600,6 +608,10 @@ Delegation: **active**
 >
 > M3’s Phase 7 acceptance-loop step is blocked pending a disposition of [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543): whether API-key providers supersede the `endo-claude` subscription-credential design. That decision determines how canonical PR #1544 is retargeted after in-flight sandbox PR #1504 lands.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: p95=2.669826s, giveups=4, steals=4 (max 3/window), wait floor=60s.
+
 - `kriscendobot-minion.town-pr231-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr231-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr231-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr231-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr231-gauntlet panel --add-rounds N
@@ -804,6 +816,14 @@ Delegation: **active**
 > - claude-endolin2: retired, no credits.
 > - claude-oros: meter 89M of 180M tokens (about 50%), though the published figure says 11%, so treat the % as suspect. Natural reset Tue 10-27T10:00Z (04:00 MT). Credits unknown, treated as none.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_producer_journal.md)
+
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` has CLEARED (first seen 2026-11-01T04:54:19Z, cleared 2026-11-01T04:56:49Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` cleared on endolin-garden-ece02cb4.
+
 - `20261017T175349Z-6b9fd0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T175349Z-6b9fd0.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -952,6 +972,10 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr192-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 10 -> 12 (N is yours to choose).
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/foreman/journal: p95=0.020066s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `followup-gate-design-recursive-dynamodb-capabilities` — from followup-gate:design-recursive-dynamodb-capabilities, reply_to `design-recursive-dynamodb-capabilities` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-recursive-dynamodb-capabilities.md)
 
 > Job "design-recursive-dynamodb-capabilities" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -1085,32 +1109,37 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.0M | $156.94 _(notional, rate-card)_ | 14% of 271.0M (ok) |
+| Claude | 39.0M | $170.55 _(notional, rate-card)_ | 14% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 62785718 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 62869863 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 30.940634s/45s (/home/kris/garden/.garden-state/monks/3/journal); 8 open notice(s); checker healthy
+worst fetch p95 8.735678s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (5)
+- [`ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-typedarray-change-by-copy-20261101-open-pr.md) — Open the draft PR for the TypedArray change-array-by-copy ratchet slice
 
-### doin (3)
+### doin (6)
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
+- [`investigate-producer-journal-lock-long-holder-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-producer-journal-lock-long-holder-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-third-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-third-slice-20261101.md) — ---
+- [`ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-sixth-slice-20261101.md) — ---
+- [`ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fifth-slice-20261101.md) — ---
 
-### tada (15919)
+### tada (15922)
+- [`improve-foreman-post-job-tempfail-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-foreman-post-job-tempfail-handling.md) — Cost
+- [`improve-watchman-broadcast-lock-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-watchman-broadcast-lock-retry.md) — Completion report: improve-watchman-broadcast-lock-retry
+- [`claude-on-minion-town-completion-press-20261101-045013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/claude-on-minion-town-completion-press-20261101-045013.md) — Cost
 - [`endojs-endo-but-for-bots-pr1504-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1504-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1504-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1595-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1595-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1595-gauntlet — HALTED
-- [`minion-town-arc-press-20261101-033510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/minion-town-arc-press-20261101-033510.md) — Cost
-- [`oros-health-watch-20261101-033510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-watch-20261101-033510.md) — Cost
-- [`oros-health-checkup-20261101-033510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-checkup-20261101-033510.md) — Cost
-- … and 15914 more
+- … and 15917 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
