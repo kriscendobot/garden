@@ -18,3 +18,13 @@ Possible directions (pick what is simplest and correct):
 (b) Keep dormant service clones warm: a cheap periodic sync, or reclone-if-stale beyond N days, done in state-clone-keeper or the restore pre-step.
 (c) Make the restore step timeout kill the whole process tree, including the nested bounded-git process groups, so a failed step does not leave orphaned lock holders.
 Check designs/sysop.md §4/§9 before changing `restore`'s semantics.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T21:29:48Z
