@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T12:18:10Z_
+_As of 2026-11-01T12:22:35Z_
 
 ## Latest
 
@@ -1145,7 +1143,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.2M | $184.60 _(notional, rate-card)_ | 16% of 271.0M (ok) |
+| Claude | 44.2M | $187.42 _(notional, rate-card)_ | 16% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64820208 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1163,21 +1161,20 @@ worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`endojs-endo-but-for-bots-pr1613-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1613-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1613
 - [`endojs-endo-but-for-bots-pr1612-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1612-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1612
 
-### doin (6)
+### doin (5)
 - [`deadmail-20261101T112108Z-fd9876`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T112108Z-fd9876.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20261101T113530Z-87db46`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T113530Z-87db46.md) — Dead-lettered message — pick up its intent
 - [`oros-health-checkup-20261101-093536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-093536.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-fourteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourteenth-slice-20261101.md) — ---
 
-### tada (15983)
+### tada (15984)
+- [`deadmail-20261101T113530Z-87db46`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T113530Z-87db46.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-1.md) — Fix for the stage3-math 054/055 failures: draft PR #1613
 - [`deadmail-20261101T113535Z-cdcfa0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T113535Z-cdcfa0.md) — Cost
 - [`endojs-endo-but-for-bots-pr1609-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1609-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1609-gauntlet — HALTED
 - [`deadmail-20261101T112102Z-eccac7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T112102Z-eccac7.md) — Cost
-- [`endojs-endo-but-for-bots-pr1609-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1609-gauntlet-clean.md) — Gauntlet CLEAN stage: endojs/endo-but-for-bots#1609 failed (CI RED)
-- … and 15978 more
+- … and 15979 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
