@@ -1,0 +1,33 @@
+<6>21:36:25 [monk/3] resuming session 6ffb91c3-5aac-5f6f-b736-17ba23a0dbd4 for requeued job 'oros-health-watch-20261101-192009' in worktree /home/kris/garden/scratch/gardener-wt-oros-health-watch-20261101-192009
+<6>21:36:25 [monk/3] job 'oros-health-watch-20261101-192009' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>21:36:25 [monk/3] job 'oros-health-watch-20261101-192009' call ceiling: tier=mentor max-budget-usd=13.60 (scaled by fresh seven-day headroom when available)
+<6>21:36:25 [monk/3] job 'oros-health-watch-20261101-192009' attaching minion.town MCP (stdio bridge)
+panel-head-freshness: not-applicable target=oros-health-watch-20261101-192009 reason=no-presented-pr
+<6>21:37:22 [assert-overrun-split] gate: BLOCK — indivisible child 'oros-health-watch-20261101-192009-expanded-window' does not carry the orchestration's reason and larger timeout
+
+--- handler report (partial) ---
+**Verdict: I sent one benign op to oros; nothing needs a person.** The 19:20Z cycle's checkup ran to completion, but I didn't finish the watch inside the 3600s window, so the rest is handed off as one child job.
+
+**Checkup:** `oros-health-checkup-20261101-192009` sat unclaimed for about 32 minutes. Oros monk-1 claimed it at 19:52:08Z and it is now in `jobs/tada`. I have not read its report; the child job will.
+
+**Host checks (as of about 20:10Z):**
+- **Heartbeat:** fresh, last refreshed at 20:03Z. Token spend rose after the claim, so the checkup was doing work.
+- **Derotation:** no `worker-derotate` marker.
+- **Deploy:** `fleet/health` shows `roll_status: deployed` at `d1e41a90e6`, the current tip of main2.
+
+**Op sent:** one benign `op=restore` (msgid `20261101T195257Z-9406f2`), sent while the checkup was still unclaimed. Oros claimed it about a minute before the op went out, so the restore turned out to be unnecessary.
+- **Ack:** at 19:59:27Z, outcome `failed`, detail `restore partial: ran reset-failed`. The `reset-failed` step was applied, but the reaper and deadmail steps did not complete.
+- **Sysop:** it answered within about 7 minutes, so it is alive.
+
+I sent no attested ops and did not message the maintainer.
+
+**Handoff:** the job was requeued under the split protocol because it ran past its deadline. Its wait windows (up to about 45 minutes for the claim, then about 40 minutes watching progress, plus sysop ack round-trips) cannot fit in 3600s and can't be split up, so I treated it as one job.
+- **Child:** `oros-health-watch-20261101-192009-expanded-window` is parked in plan/, with handler timeout 7200s and reason "sequential single-checkup observation".
+- **Orchestration:** `oros-health-watch-20261101-192009-split` is recorded as serial, halt on failure. I confirmed both on `origin/journal2`.
+- **Child's task:** read the checkup's report and finish with OK if healthy. If it shows problems the checkup couldn't fix, intervene from afar per the standing spec, without sending `restore` again.
+
+**Follow-ups:**
+- Running this watch to completion takes longer than its own 3600s handler timeout. Raising the timeout in the `oros-health-watch` schedule would avoid a split every cycle; I left schedules alone as instructed.
+- Oros took 5–95 minutes to claim checkups today, even though its workers poll every 30 seconds or less when idle. That points to something on the host intermittently holding back its workers. The pinned checkup should look into it from inside.
+
+<<<GARDEN-JOB-HANDED-OFF: oros-health-watch-20261101-192009-split>>>
