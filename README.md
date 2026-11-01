@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T07:12:33Z_
+_As of 2026-11-01T07:16:17Z_
 
 ## Latest
 
@@ -962,10 +960,6 @@ Delegation: **active**
 
 > token backoff for codex-endolin is on the 0.95 fallback: next reset for codex-endolin after 2026-10-30T00:20Z unclear; record it (append-reset-event.sh codex-endolin --type expected-next-scheduled --precision scheduled --at <ISO>). Record the next reset time so the standing ramp can resume.
 
-- `liaison-followup-610bde66cd4e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-610bde66cd4e.md)
-
-> Gauntlet for [endojs/endo-but-for-bots#1600](https://github.com/endojs/endo-but-for-bots/issues/1600) finished clean except a known stage3-math red, which is the base's problem and not the PR's (report: endojs-endo-but-for-bots-pr1600-gauntlet-clean). Decision needed: accept that red and proceed with this PR as is, or hold it until the base is fixed?
-
 - `endojs-endo-but-for-bots-pr1588-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1588-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1588-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1588-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1588-gauntlet-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -1135,7 +1129,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.3M | $172.32 _(notional, rate-card)_ | 15% of 271.0M (ok) |
+| Claude | 40.3M | $171.18 _(notional, rate-card)_ | 15% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63550390 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1146,31 +1140,30 @@ worst fetch p95 11.853769s/45s (/home/kris/garden/.garden-state/deadmail/verify)
 ## Board
 ### todo (11)
 - [`endojs-endo-but-for-bots-pr1604-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1604-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1604
+- [`improve-unblock-post-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-unblock-post-loop-deadline.md) — ---
 - [`daily-progress-summary-20261101-070513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261101-070513.md) — Daily midnight Pacific progress summary
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1603-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1603-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1603
 - [`oros-health-checkup-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-063511.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`endojs-endo-but-for-bots-pr1602-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1602-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1602
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`ironhorse-test262-ratchet-coverage-crank-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-coverage-crank-20261101-open-pr.md) — Description
 - [`minion-town-arc-press-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261101-063511.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`deadmail-20261101T060812Z-1be3a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T060812Z-1be3a1.md) — Dead-lettered message — pick up its intent
 
-### doin (5)
-- [`improve-unblock-post-loop-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-unblock-post-loop-deadline.md) — ---
+### doin (4)
 - [`ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
-- [`improve-post-loop-deadline-remaining-loops`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-post-loop-deadline-remaining-loops.md) — ---
 - [`oros-health-watch-20261101-063511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-063511.md) — ---
+- [`endojs-endo-but-for-bots-pr1602-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1602-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1602
 
-### tada (15936)
+### tada (15937)
+- [`improve-post-loop-deadline-remaining-loops`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/improve-post-loop-deadline-remaining-loops.md) — Completion report: improve-post-loop-deadline-remaining-loops
 - [`endojs-endo-but-for-bots-pr1600-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1600-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1600-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1600-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1600-gauntlet-clean.md) — PR #1600 gauntlet, clean stage: CI is red (2 failures, both pre-existing and ...
 - [`ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-seventh-slice-20261101.md) — Seventh Ironhorse test262 ratchet slice: built-ins/Promise (16 rows fixed, no...
 - [`endojs-endo-but-for-bots-pr1601-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1601-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1601-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1601-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1601-gauntlet-clean.md) — Gauntlet clean stage: endojs/endo-but-for-bots PR #1601. Result: CI red
-- … and 15931 more
+- … and 15932 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
