@@ -1,0 +1,39 @@
+<6>04:57:08 [monk/3] job 'investigate-producer-journal-lock-long-holder-20261101' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>04:57:08 [monk/3] job 'investigate-producer-journal-lock-long-holder-20261101' call ceiling: tier=mentor max-budget-usd=13.60 (scaled by fresh seven-day headroom when available)
+<6>04:57:08 [monk/3] job 'investigate-producer-journal-lock-long-holder-20261101' attaching minion.town MCP (stdio bridge)
+panel-head-freshness: not-applicable target=investigate-producer-journal-lock-long-holder-20261101 reason=no-presented-pr
+<6>05:05:23 [assert-followup-posted] gate: BLOCK — 'investigate-producer-journal-lock-long-holder-20261101' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Completion report: investigate-producer-journal-lock-long-holder-20261101
+
+The 30-minute hold on the producer journal clone came from a maintainer alert that retried 50 times with no time limit. That is now fixed in main2 `7a27474163b`, along with the lock-steal problem and the leaking fetch records. The related test suites pass, including new regression checks.
+
+## What held the lock
+- **Process:** pid 708218 was a `watchdog-notice.sh` run. monk/3 (`garden-monk@3`) started it in the background at 04:15:41, when its job `ironhorse-test262-ratchet-coverage-crank-20261101` overran its time budget (`gardener.sh:1928`, `( alert_maintainer "handler-budget-overrun-$base" … ) & disown`). The evidence:
+  - the pid falls in the range the host was assigning at about 04:15:49;
+  - the hold began right after monk/3 logged "stamped deadline-overrun hint" at 04:15:41;
+  - it ended when monk/3 got SIGTERM at 04:45:13, and the last overdue-holder line is at 04:45:37.
+- **Why it held so long:** `watchdog-notice.sh` makes up to 50 push attempts with no time limit. Each attempt holds the producer clone lock through a journal fetch that can itself retry 3×45s. The journal remote was degraded at the time: monk-3's own monitor fetches timed out at 04:30–04:36. Between attempts the script waits only milliseconds before taking the lock again, so other producers never got in. The repo-lock records re-stamped at 04:18:50, 04:27:17 and 04:37:59 are the starts of separate attempts.
+
+## Changes (main2 `7a27474163b`)
+1. **Time limit:** `watchdog-notice.sh` now stops after `GARDEN_POST_DEADLINE_SECS` (default 300s) and exits rc=75, the same way `post-job.sh` and `post-plan.sh` do. A failed fetch is now logged as a fetch failure instead of as a lost push race.
+   - `alert_maintainer` now only resets its occurrence count when delivery succeeds, so an alert that gives up is still counted in the next notice.
+2. **Holder names:** repo-lock and clone-lock holder records now include `script=… tag=… unit=…`, read from `/proc/self/cgroup` without spawning a process. Next time, the "overdue-holder pid=N" line names the culprit directly.
+3. **TTL steal (decision):** the steal is pointless against a live holder on a git clone. That holder still has the repository lock inside the clone lock, so stealing `journal.lock` only led to waiting 10s and exiting rc=75 anyway (the 04:32:19 and 04:42:20 cases).
+   - `clone_lock` now logs the holder's pid, age and unit, records a `lock-giveup` sample (which journal-contention-watch already counts), and exits rc=75 straight away without deleting the holder's lock file.
+   - Dead holders and non-git directories (leftover lock files, a clone still being created) are still reclaimed.
+   - I chose not to send a watchdog notice from inside `clone_lock`, because that notice would go through the same stuck producer clone.
+4. **Fetch-lock leak:** `_garden_repo_fetch` now removes `fetch.lock.holder.<pid>` records whose process is gone. Existing leaked records under that key are cleared the next time a fetch runs on it.
+
+## Tests
+- New checks:
+  - `stale-lock-test` subtest 3b: a live holder of a git clone past the TTL causes an immediate rc=75, is named, and is not stolen from. This check fails against the old code.
+  - `watchdog-notice-cas-test`: the time limit when the journal is unreachable.
+  - `repo-locks-test`: the holder name appears in the diagnostic, and dead fetch records are removed.
+- Passing: repo-locks, stale-lock (13/13), watchdog-notice-cas, watchdog-notice-dedup, alert-maintainer-edge, post-loop-wallclock-deadline, wedge-resolve, journal-worktree-keeper and worktree-sweeper-lock-liveness. shellcheck is clean.
+
+## Follow-ups (not done)
+- **Other unbounded loops:** many other scripts still have the same `GARDEN_POST_ATTEMPTS` loop with no time limit, for example `annotate-plan`, `post-orchestration`, `remove-schedule`, `unblock`, `review-miss-record`, `mirror-closer`, `record-mirror` and `withdraw-plan`. A shared helper that bounds the loop would close this whole class.
+- **Old lock records:** records written before this change have no name fields. The overdue-holder lines will only name holders once hosts have deployed this commit.
+- **Same pattern elsewhere:** `garden-design-pr-gauntlet-audit` holds its own repo-lock key for about 10 minutes every run (pids 3569004 and 2965313 show up as overdue holders under key 99dd…). It isn't the producer clone, but it may be worth a look.
