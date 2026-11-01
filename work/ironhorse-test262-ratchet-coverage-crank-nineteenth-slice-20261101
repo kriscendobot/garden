@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-11-01T15:03:52Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-test262-ratchet-coverage-crank-nineteenth-slice-20261101
-pr_number: 1619
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1619
-pr_head: ironhorse-test262-ratchet-regexp-exec-result-keys-20261101
