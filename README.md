@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T13:26:21Z_
+_As of 2026-11-01T13:27:24Z_
 
 ## Latest
 
@@ -1155,7 +1155,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.8M | $179.74 _(notional, rate-card)_ | 17% of 271.0M (ok) |
+| Claude | 44.8M | $179.86 _(notional, rate-card)_ | 17% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64986028 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1173,19 +1173,18 @@ worst fetch p95 11.902597s/45s (/home/kris/garden/.garden-state/mentor/journal);
 - [`endojs-endo-but-for-bots-pr1613-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1613-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1613
 - [`deadmail-20261101T112108Z-fd9876-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T112108Z-fd9876-expanded-window.md) — Relay a dead-lettered crank-slice row-claim note (coordination only — do NOT ...
 
-### doin (4)
+### doin (3)
 - [`oros-health-watch-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261101-125015.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighth-slice-20261101.md) — ---
-- [`oros-health-checkup-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-125015.md) — ---
 - [`endojs-endo-but-for-bots-pr1612-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1612-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1612
 
-### tada (15996)
+### tada (15997)
+- [`oros-health-checkup-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/oros-health-checkup-20261101-125015.md) — Cost
 - [`endojs-endo-but-for-bots-pr1611-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1611-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1611-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1611-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1611-gauntlet-clean.md) — Cost
 - [`minion-town-arc-press-20261101-125015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/minion-town-arc-press-20261101-125015.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-ef0bbf49ab7b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/canary-probe-oros-studio-garden-ce242c49-ef0bbf49ab7b.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1613-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1613-gauntlet-viability.md) — Cost
-- … and 15991 more
+- … and 15992 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
