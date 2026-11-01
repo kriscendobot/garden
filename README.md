@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T02:59:36Z_
+_As of 2026-11-01T03:01:17Z_
 
 ## Latest
 
@@ -1848,7 +1848,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $158.68 _(notional, rate-card)_ | 12% of 271.0M (ok) |
+| Claude | 33.8M | $159.83 _(notional, rate-card)_ | 12% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61321717 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1864,20 +1864,19 @@ worst fetch p95 7.517938s/45s (/home/kris/garden/.garden-state/monitors/monk-2/j
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
+### doin (4)
 - [`shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101.md) — ---
-- [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1595-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1595
 - [`ironhorse-test262-ratchet-coverage-crank-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-20261101.md) — ---
 - [`ironhorse-test262-ratchet-coverage-crank-second-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-second-slice-20261101.md) — ---
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1504-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1504
 
-### tada (15910)
+### tada (15911)
+- [`endojs-endo-but-for-bots-pr1595-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1595-gauntlet-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1599-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1599-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1599-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1504-gauntlet-panel-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1589-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1589-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1589-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1598-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1598-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1598-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1598-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1598-gauntlet-clean.md) — Gauntlet clean stage, endojs/endo-but-for-bots PR #1598: CI RED, but not beca...
-- … and 15905 more
+- … and 15906 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
