@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T23:15:09Z_
+_As of 2026-11-01T23:21:44Z_
 
 ## Latest
 
@@ -1251,6 +1249,10 @@ Delegation: **active**
 > Inspect ratchets/ironhorse-test262-ratchet/state.json and
 > context/operations/ironhorse-ratchet.md. Explicitly resume only after resolution.
 
+- `msg-minion-town-ci-runner-to-hosted-202610-retry2-f1ea05a1d94d` — from gardener:minion-town-ci-runner-to-hosted-202610-retry2, reply_to `minion-town-ci-runner-to-hosted-202610-retry2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-ci-runner-to-hosted-202610-retry2-f1ea05a1d94d.md)
+
+> minion.town CI is back on GitHub-hosted runners (CI_RUNS_ON="ubuntu-latest"); billing block cleared — probe run passed all 4 jobs on ubuntu-latest: https://github.com/kriscendobot/minion.town/actions/runs/41030164479/attempt/6 (ci.minion.town left up as warm standby; no deploy dispatched — next main push's deploy.yml will be the first hosted CD run).
+
 - `endojs-endo-but-for-bots-pr1538-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1538-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1538-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1538-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1538-gauntlet-panel-6' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
@@ -1267,36 +1269,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.9M | $235.23 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 65.0M | $235.13 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 70156108 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 70192623 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.756625s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`endojs-endo-but-for-bots-pr1593-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1593-gauntlet.md) — ---
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`oros-health-checkup-20261101-222009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261101-222009.md) — ---
 
 ### doin (5)
 - [`claude-on-minion-town-completion-press-20261101-230531`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261101-230531.md) — Completion press: Claude-on-minion.town arc
-- [`minion-town-ci-runner-to-hosted-202610-retry2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ci-runner-to-hosted-202610-retry2.md) — Move minion.town CI back to GitHub-hosted runners after the October billing r...
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — endojs/endo-but-for-bots PR #1573
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin.md) — Relay: post botanist MERGE-NOW verdict and conduct endojs/endo-but-for-bots P...
 - [`endojs-endo-but-for-bots-pr1631-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1631-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1631
+- [`oros-health-checkup-20261101-222009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261101-222009.md) — ---
 
-### tada (16126)
+### tada (16127)
+- [`endojs-endo-but-for-bots-pr1593-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1593-gauntlet.md) — Cost
+- [`minion-town-ci-runner-to-hosted-202610-retry2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/minion-town-ci-runner-to-hosted-202610-retry2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3.md) — gauntlet endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3 — HALTED
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3-fix-1.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261101-223511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/dependabotany-recheck-endo-but-for-bots-20261101-223511.md) — Cost
-- [`endojs-endo-but-for-bots-pr1635-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1635-dependabot.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/canary-probe-oros-studio-garden-ce242c49-a60ae08cc14d.md) — rolling-deploy canary probe — round trip OK
-- … and 16121 more
+- … and 16122 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
