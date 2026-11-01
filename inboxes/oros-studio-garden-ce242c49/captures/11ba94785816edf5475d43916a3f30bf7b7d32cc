@@ -1,0 +1,39 @@
+<6>16:53:55 [monk/1] job 'endojs-endo-but-for-bots-pr1617-gauntlet-clean' call ceiling: tier=minion max-budget-usd=9.80 (scaled by fresh seven-day headroom when available)
+<4>16:53:55 [monk/1] WARN minion-mcp: token preflight failed; job 'endojs-endo-but-for-bots-pr1617-gauntlet-clean' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+panel-head-freshness: managed target=endojs-endo-but-for-bots-pr1617-gauntlet-clean disposition=gauntlet-driver-owns-next-panel
+<6>16:59:01 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-pr1617-gauntlet-clean' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+orchestration-failed: true
+
+# Clean stage report: endojs/endo-but-for-bots PR #1617, gauntlet iteration 0
+
+**Result: CI is RED, so this stage failed.** I changed nothing and pushed nothing. The two red checks come from a known problem on the base branch, not from this PR's code.
+
+## What I did
+- **Checked the PR first.** It is a draft and open. Head is `80d33e0e3` on `ironhorse-test262-ratchet-strict-store-wrappers-20261101`, base is `llm-9a14ddf`. CI was already red, so the stage could not skip.
+- **Looked for dead code.** I read the PR diff through the GitHub API, because the isolated project checkout timed out and then failed. The four `ironhorse-vm` changes only add code: `property_write.rs`, `link.rs`, `natives/dispatch.rs` and `property.rs`. Nothing is left orphaned.
+- **Checked test coverage.** The new `ironhorse-262/tests/strict_store_and_wrapper_integrity.rs` tests every new branch against the XS oracle:
+  - a strict computed-key store that is refused throws (both `property.rs` paths: symbol, string, frozen, non-extensible, sealed, getter-only, global `undefined`);
+  - the same store outside strict mode fails silently;
+  - `delete s.length` on a `new String` object returns false outside strict mode and throws in strict mode;
+  - `delete 'ab'.length` on a plain string does the same;
+  - deleting a key the string does not own still returns true;
+  - `new String(Symbol())` throws, while `String(Symbol())` still works;
+  - the `constructor` and `prototype` properties on the generator, async-generator and async function prototypes have the right attributes.
+  
+  No follow-up tests were needed.
+- **Waited for CI.** `ci-wait-merge.sh endojs/endo-but-for-bots 1617 --no-merge` returned **rc=3**: 38 checks, 2 failed.
+
+## Why CI is red
+- **`test-ironhorse-oracle`** fails `corpus_conversion_equivalence::generated_cases_reproduce_corpus_coverage`.
+- **`ironhorse-oracle-sanitizers`** fails that same test, plus `generated_multi_crank::converted_corpus_runs_as_crank_sequences`.
+- Both failures are only `test/ironhorse/built-ins/stage3-math/054.js` and `055.js`. Ironhorse and the XS oracle disagree in the last digit of `Math.asinh(1.7)` (1.3008204268406467 vs 1.300820426840647) and `Math.acosh(2.3)` (1.4750447812414251 vs 1.475044781241425).
+- Every `ironhorse-test262-ratchet-*-20261101` PR fails the same way (for example #1607 and #1614), since the switch of GitHub's runners to Ubuntu 26.04. The PR diff does not touch Math.
+
+## Follow-ups
+- The base fixes are all still **open**: #1585 (accept both roundings for 054/055) and #1613 (run the XS oracle lanes on ubuntu-24.04). Both target `llm-9a14ddf`.
+- Once those merge, PR #1617 needs a **weave** to pick them up, then this clean stage can run again. No change inside this PR will fix the red checks.
+- I added PR #1617 to the host memory note `ebfb-ci-ubuntu-2604-sandbox-ulimit.md`.
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
