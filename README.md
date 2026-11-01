@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-01T23:39:35Z_
+_As of 2026-11-01T23:46:03Z_
 
 ## Latest
 
@@ -256,10 +254,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr221-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `msg-claude-on-minion-town-completion-press-20261101-230531-e09f0e6e0afe` — from gardener:claude-on-minion-town-completion-press-20261101-230531, reply_to `claude-on-minion-town-completion-press-20261101-230531` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261101-230531-e09f0e6e0afe.md)
-
-> Claude-on-minion.town completion press (window 2026-11-01T16:50Z–23:05Z): one prior-roster job is absent without a tada report — build-endo-child-agent-factory-slice-2. It was deliberately withdrawn (journal cc94fdf68a4, 2026-11-01T18:22Z, endolin-garden-ece02cb4) as a duplicate of the already-built stack [https://github.com/endojs/endo-but-for-bots/pull/1561](https://github.com/endojs/endo-but-for-bots/pull/1561), /pull/1562, /pull/1625, /pull/1626; the remaining work there is review + weave. Informational only, no action needed unless you disagree with the withdrawal. Otherwise: 6 completions, 0 new dooms, 0 stalled claims; the claude-api orchestration is still held at p3 on draft [https://github.com/endojs/endo-but-for-bots/pull/1575](https://github.com/endojs/endo-but-for-bots/pull/1575) (unchanged since 2026-10-31).
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached.md)
 
@@ -1227,6 +1221,18 @@ Delegation: **active**
 >
 > If the maintainer would rather have the implementation start from an informal spec, they can say so and the job can be unblocked.
 
+- `20261101T234424Z-a456a4` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261101T234424Z-a456a4.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: claude-on-minion-town-completion-press-20261101-230531
+> - question (msgid msg-claude-on-minion-town-completion-press-20261101-230531-e09f0e6e0afe.md)
+> - tentative answer: Proxy/tentative: this is informational, so no policy question is in play. The withdrawal of build-endo-child-agent-factory-slice-2 as a duplicate of the already-built stack ([https://github.com/endojs/endo-but-for-bots/pull/1561](https://github.com/endojs/endo-but-for-bots/pull/1561), [https://github.com/endojs/endo-but-for-bots/pull/1562](https://github.com/endojs/endo-but-for-bots/pull/1562), [https://github.com/endojs/endo-but-for-bots/pull/1625](https://github.com/endojs/endo-but-for-bots/pull/1625), [https://github.com/endojs/endo-but-for-bots/pull/1626](https://github.com/endojs/endo-but-for-bots/pull/1626)) looks reasonable. Rebuilding work that already exists would only create churn, so I don't object. Treat the missing tada report as expected and don't count it as a doom.
+>
+> Suggested follow-up, to be revised if the maintainer disagrees:
+> - Keep the remaining work as review plus weave on that stack. Don't post a new build job.
+> - Leave the claude-api orchestration held at p3 on draft [https://github.com/endojs/endo-but-for-bots/pull/1575](https://github.com/endojs/endo-but-for-bots/pull/1575) until the maintainer says otherwise. Don't promote it on a proxy's authority.
+> - Don't merge or close anything. Those actions stay with the maintainer.
+
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-10-23T06:17:01Z, latest 2026-10-30T18:17:03Z).
@@ -1275,7 +1281,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.4M | $235.34 _(notional, rate-card)_ | 24% of 271.0M (ok) |
+| Claude | 65.5M | $235.92 _(notional, rate-card)_ | 24% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70260062 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1284,14 +1290,14 @@ _Fleet token-unlock pace: 70260062 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.756625s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1482
+- [`claude-on-minion-town-completion-press-20261101-230531`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261101-230531.md) — Completion press: Claude-on-minion.town arc
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
-- [`claude-on-minion-town-completion-press-20261101-230531`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261101-230531.md) — Completion press: Claude-on-minion.town arc
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1573-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — endojs/endo-but-for-bots PR #1573
 - [`endojs-endo-but-for-bots-pr1631-ava-lazy-concordance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1631-ava-lazy-concordance.md) — fixer: ava 8.1 lazy-concordance regression in @endo/claude-sandbox mcp-bridge...
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin.md) — Relay: post botanist MERGE-NOW verdict and conduct endojs/endo-but-for-bots P...
