@@ -215,10 +215,19 @@ run_sysop "$TR/s-rf"
 grep -q "reset-failed garden-\*" "$TR/mock-log" && ok "reset-failed → systemctl reset-failed 'garden-*'" || bad "reset-failed not delegated (mock: $(cat "$TR/mock-log"))"
 : > "$REC_LOG"; : > "$TR/mock-log"
 seed_op "$ISSUER" "$TARGET" op=restore
-run_sysop "$TR/s-restore"
+run_sysop "$TR/s-restore" GARDEN_LEADER="$TARGET"
 { grep -q "reset-failed garden-\*" "$TR/mock-log" && grep -qx reaper "$REC_LOG" && grep -qx deadmail "$REC_LOG"; } \
-  && ok "restore ran reset-failed + reaper + deadmail (deterministic one-shots only)" \
+  && ok "restore on the leader ran reset-failed + reaper + deadmail (deterministic one-shots only)" \
   || bad "restore did not run all three one-shots (mock: $(cat "$TR/mock-log"); rec: $(cat "$REC_LOG"))"
+# On a follower the reaper/deadmail are leader-only singletons whose clones are
+# never synced there; restore must not run them (oros-studio, 2026-11-01).
+: > "$REC_LOG"; : > "$ACK_LOG"; : > "$TR/mock-log"
+seed_op "$ISSUER" "$TARGET" op=restore
+run_sysop "$TR/s-restore-follower"
+{ grep -q "reset-failed garden-\*" "$TR/mock-log" && ! grep -qx reaper "$REC_LOG" && ! grep -qx deadmail "$REC_LOG" \
+    && grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" && grep -q 'skipped: follower' "$ACK_LOG"; } \
+  && ok "restore on a follower runs reset-failed only, skips the leader-only reaper/deadmail, acks applied" \
+  || bad "follower restore ran leader-only steps or failed (rec: $(cat "$REC_LOG"); ack: $(cat "$ACK_LOG"))"
 
 # A stale-snapshot request is host-scoped by the subscription mapping and runs
 # the existing local scaler/publisher; it cannot name an arbitrary command.
@@ -246,10 +255,30 @@ run_sysop "$TR/s-refresh-budget-refuse"
 printf '#!/bin/sh\nsleep 30\n' > "$TR/hang-reaper.sh"; chmod +x "$TR/hang-reaper.sh"
 seed_op "$ISSUER" "$TARGET" op=restore
 t0=$(date +%s)
-run_sysop "$TR/s-restore-hang" GARDEN_SYSOP_REAPER="$TR/hang-reaper.sh" GARDEN_SYSOP_RESTORE_STEP_TIMEOUT=2
+run_sysop "$TR/s-restore-hang" GARDEN_LEADER="$TARGET" GARDEN_SYSOP_REAPER="$TR/hang-reaper.sh" GARDEN_SYSOP_RESTORE_STEP_TIMEOUT=2
 [ $(( $(date +%s) - t0 )) -lt 25 ] && grep -qx deadmail "$REC_LOG" && grep -q 'sysop_ack: failed' "$ACK_LOG" \
   && ok "a hung reaper is bounded by the restore step budget; deadmail still runs, op acked failed" \
   || bad "restore step budget not enforced (rec: $(cat "$REC_LOG"); ack: $(cat "$ACK_LOG"))"
+
+# An expired step must take its WHOLE tree down, including a nested `timeout` in
+# its own process group (the fleet git wrapper's shape) — no orphaned lock holder.
+: > "$REC_LOG"; : > "$ACK_LOG"
+cat > "$TR/nested-reaper.sh" <<EOF
+#!/bin/bash
+timeout 60 sleep 60 &
+echo \$! > "$TR/nested-pid"
+wait
+EOF
+chmod +x "$TR/nested-reaper.sh"; rm -f "$TR/nested-pid"
+seed_op "$ISSUER" "$TARGET" op=restore
+run_sysop "$TR/s-restore-nested" GARDEN_LEADER="$TARGET" GARDEN_SYSOP_REAPER="$TR/nested-reaper.sh" GARDEN_SYSOP_RESTORE_STEP_TIMEOUT=2
+np="$(cat "$TR/nested-pid" 2>/dev/null)"
+if [ -n "$np" ] && ! kill -0 "$np" 2>/dev/null && grep -q 'sysop_ack: failed' "$ACK_LOG"; then
+  ok "an expired restore step reaps a nested process-group child (no orphaned bounded git)"
+else
+  bad "nested process-group child survived the restore step budget (pid=${np:-none})"
+  [ -n "$np" ] && kill "$np" 2>/dev/null
+fi
 
 # ============================================================================
 hr; echo "SPOOL — a completed op is marked seen before its record/ack; a killed tick resumes"; hr

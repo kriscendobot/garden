@@ -526,6 +526,30 @@ poll_root_maintenance() {
   return 0
 }
 
+# restore_step <secs> <cmd> [args...] — run one restore one-shot under a wall
+# budget and, on expiry, reap its WHOLE process tree. A bare `timeout` signals only
+# its own process group, but the fleet git wrapper runs each git under a nested
+# `timeout` in a NEW process group: killing reaper.sh left its `reset --hard`
+# children orphaned, holding the clone's repo lock ~6 minutes after the op was
+# recorded failed (oros-studio, 2026-11-01). reap_process_tree walks the intact
+# descendant tree before signalling, so those nested groups are caught too.
+# Returns the step's status, or 124 on expiry.
+restore_step() {
+  local t="$1" pid waited=0 rc=0; shift
+  "$@" >/dev/null 2>&1 </dev/null &
+  pid=$!
+  while kill -0 "$pid" 2>/dev/null; do
+    if [ "$waited" -ge "$t" ]; then
+      reap_process_tree "$pid"
+      wait "$pid" 2>/dev/null || true
+      return 124
+    fi
+    sleep 1; waited=$((waited + 1))
+  done
+  wait "$pid" || rc=$?
+  return "$rc"
+}
+
 # =============================================================================
 # --- the closed operation vocabulary (designs/sysop.md §4) ----------------------
 # Sets OUTCOME + DETAIL and (except deploy, which acks BEFORE self-restart) performs
@@ -580,16 +604,24 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
     restore)
       # The DETERMINISTIC recovery one-shots only (designs/sysop.md §4/§9): the
       # liaison-judgement half (doom triage / redispatch) stays with a human.
-      local rc=0 steps=()
+      local rc=0 steps=() skipped=""
       unit_ctl reset-failed 'garden-*' >/dev/null 2>&1 && steps+=(reset-failed) || rc=1
-      # Each recovery one-shot runs under its own wall budget so a slow step (a
-      # follower's reaper losing push races) cannot outlive the handler timeout and
-      # head-of-line block the queue. The reaper's fleet requeue is the leader's
-      # standing job; here it gets only a small push budget and yields on contention.
-      local t="$GARDEN_SYSOP_RESTORE_STEP_TIMEOUT"
-      GARDEN_REAP_PUSH_ATTEMPTS="$GARDEN_SYSOP_RESTORE_REAP_ATTEMPTS" timeout "$t" "$GARDEN_SYSOP_REAPER" >/dev/null 2>&1 && steps+=(reaper)   || rc=1
-      timeout "$t" "$GARDEN_SYSOP_DEADMAIL" >/dev/null 2>&1 && steps+=(deadmail) || rc=1
-      if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="restore: ${steps[*]}"; else OUTCOME="failed"; DETAIL="restore partial: ran ${steps[*]:-none}"; fi
+      if is_main_host; then
+        # Each recovery one-shot runs under its own wall budget so a slow step
+        # cannot outlive the handler timeout and head-of-line block the queue. The
+        # reaper gets only a small push budget and yields on contention.
+        local t="$GARDEN_SYSOP_RESTORE_STEP_TIMEOUT"
+        restore_step "$t" env GARDEN_REAP_PUSH_ATTEMPTS="$GARDEN_SYSOP_RESTORE_REAP_ATTEMPTS" "$GARDEN_SYSOP_REAPER" && steps+=(reaper) || rc=1
+        restore_step "$t" "$GARDEN_SYSOP_DEADMAIL" && steps+=(deadmail) || rc=1
+      else
+        # reaper and deadmail are leader-only singletons (their units carry
+        # ExecCondition=is-main-host.sh): the fleet requeue and dead-letter
+        # promotion are the leader's job. On a follower their namespace clones
+        # are never synced, so a restore-time run first rewrites a weeks-stale
+        # tree and blows the step budget (oros-studio, 2026-11-01). Skip them.
+        skipped=" (reaper, deadmail skipped: follower; the leader owns them)"
+      fi
+      if [ "$rc" -eq 0 ]; then OUTCOME="accepted-and-applied"; DETAIL="restore: ${steps[*]}$skipped"; else OUTCOME="failed"; DETAIL="restore partial: ran ${steps[*]:-none}$skipped"; fi
       ;;
     refresh-budget-snapshot)
       local pool rc=0 out

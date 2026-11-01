@@ -33,8 +33,11 @@ scripts/jobs/send-host-op.sh <GARDEN> op=reset-failed
 scripts/jobs/send-host-op.sh <GARDEN> op=restore
 ```
 
-`restore` here runs only the deterministic recovery one-shots. Doom triage and
-redispatch still require the liaison's judgment (`skills/restore/SKILL.md`).
+`restore` here runs only the deterministic recovery one-shots: `reset-failed`
+everywhere, plus the reaper and deadmail sweeps on the leader only (a follower
+skips them; the fleet requeue and dead-letter promotion are the leader's job).
+Doom triage and redispatch still require the liaison's judgment
+(`skills/restore/SKILL.md`).
 
 ## Authorization boundary
 
