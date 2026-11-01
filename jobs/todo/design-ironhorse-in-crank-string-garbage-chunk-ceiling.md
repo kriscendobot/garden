@@ -1,9 +1,10 @@
 ---
-gate: deferred
-priority: normal
-posted_by: producer
+role: designer
+tier: mentor
+arc: ironhorse-test262-ratchet
 posted_at: 2026-11-01T15:11:12Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-11-01T16:04:11Z cleared=none -->
 
 ---
 arc: ironhorse-test262-ratchet
