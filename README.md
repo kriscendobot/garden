@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-01T15:34:21Z_
+_As of 2026-11-01T15:40:04Z_
 
 ## Latest
 
@@ -95,6 +95,10 @@ Delegation: **active**
 - `msg-oros-health-checkup-20261018-093508-f054cd1e7164` — from gardener:oros-health-checkup-20261018-093508, reply_to `oros-health-checkup-20261018-093508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261018-093508-f054cd1e7164.md)
 
 > oros health check-up 09:58Z: oros is healthy, but the fleet deploy is stalled on the LEADER. endolin-garden-ece02cb4 has been deployed at b8abbe64 since 2026-10-16 16:52Z: its own self-advance has not landed through 4 rolls in which the oros canary passed. deploy/leader-sha and roll-completed are frozen, and endolin has not released oros for main2 05d833a2 (85+ min). Oros is correctly holding: it is leaderless and the target is ahead of the last-known-good sha. Please have someone check endolin's garden-rolling-deploy journal for a rejected-candidate marker or a 'did not land' loop. Details are in journal2:projects/garden/oros-health-log.md.
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.028689s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
@@ -1188,16 +1192,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.9M | $192.66 _(notional, rate-card)_ | 18% of 271.0M (ok) |
+| Claude | 48.0M | $193.86 _(notional, rate-card)_ | 18% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 65923122 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 7 open notice(s); checker healthy
+worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`deadmail-20261101T150558Z-91f0ef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T150558Z-91f0ef.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1616-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1616-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1616
 - [`endojs-endo-but-for-bots-pr1617-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1617-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1617
@@ -1205,26 +1209,24 @@ worst fetch p95 8.130865s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`deadmail-20261101T150553Z-9c10ce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T150553Z-9c10ce.md) — Dead-lettered message — pick up its intent
 - [`deadmail-20261101T151126Z-7c06e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T151126Z-7c06e2.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`endojs-endo-but-for-bots-pr1618-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1618-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1618
 - [`ironhorse-test262-ratchet-sixteenth-slice-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-test262-ratchet-sixteenth-slice-20261101-open-pr.md) — Description
 - [`deadmail-20261101T151132Z-891e73`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261101T151132Z-891e73.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (6)
+### doin (5)
 - [`deadmail-20261101T151137Z-74fea7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T151137Z-74fea7.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr1614-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1614-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1614
+- [`endojs-endo-but-for-bots-pr1618-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1618-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1618
 - [`endojs-endo-but-for-bots-pr1615-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1615-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1615
 - [`ironhorse-test262-ratchet-coverage-crank-nineteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-nineteenth-slice-20261101.md) — ---
-- [`deadmail-20261101T151121Z-3c2899`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261101T151121Z-3c2899.md) — Dead-lettered message — pick up its intent
 - [`ironhorse-test262-ratchet-coverage-crank-eighteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-coverage-crank-eighteenth-slice-20261101.md) — ---
 
-### tada (16017)
+### tada (16020)
+- [`endojs-endo-but-for-bots-pr1614-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1614-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1614-gauntlet — HALTED
+- [`deadmail-20261101T151121Z-3c2899`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/deadmail-20261101T151121Z-3c2899.md) — Cost
+- [`endojs-endo-but-for-bots-pr1614-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1614-gauntlet-clean.md) — Clean stage report: endojs/endo-but-for-bots PR #1614
 - [`canary-probe-oros-studio-garden-ce242c49-d1e41a90e6ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/canary-probe-oros-studio-garden-ce242c49-d1e41a90e6ba.md) — rolling-deploy canary probe — round trip OK
 - [`ironhorse-test262-ratchet-coverage-crank-sixteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-sixteenth-slice-20261101.md) — Cost
-- [`endojs-endo-but-for-bots-pr1617-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/endojs-endo-but-for-bots-pr1617-gauntlet-viability.md) — Cost
-- [`ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101-open-pr.md) — Cost
-- [`ironhorse-test262-ratchet-coverage-crank-fifteenth-slice-20261101`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/01/ironhorse-test262-ratchet-coverage-crank-fifteenth-slice-20261101.md) — Cost
-- … and 16012 more
+- … and 16015 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
