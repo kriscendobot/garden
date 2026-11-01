@@ -1,6 +1,19 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-01T07:50Z (oros-health-checkup-20261101-063511): healthy; deployed = origin/main2 `6c28bb5`, no changes
+
+- **Load/mem:** load 3.77/3.27/2.40 at 07:42Z, the usual level. 13 GiB of 15 GiB available. Swap reads 958M of 1.0 GiB, the usual steady level.
+- **Disk/inodes:** 7% of the overlay used (402G free). The virtiofs garden mount is at 66% (158G free), inodes 1%.
+- **Uptime:** 30d14h27m, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `6c28bb5` (deployed 07:32Z), equal to the origin/main2 tip per `ls-remote`. The fleet/health/oros record still shows `roll_status: deferred` at `d45a2d7` (07:03Z), stamped before the 07:32Z deploy; 0 advisory.
+- **Units:** 0 failed user units. `garden-monk@1..4` are running. `drain-fleet.sh status`: not draining. Worker-leveling row is `4 0`. No derotation marker.
+- **Budget heartbeat:** the last claude-oros push seen was 07:01:59Z. All eight pushes from 05:18 to 07:01Z were ok, at a ~15-minute cadence. Spend is 7,583,687 of 180M.
+- **State clones:** 45 journal clones. The largest are monks/4 (48 packs), and regenerate-sections-index, reaper and library-link-check (47 each), all under the `>50` threshold. No `gc.log` or tmp_pack. No `.git` lock older than 30 minutes.
+- **rc=124 (3h):** 35.7k system-journal lines. One job timeout: `ironhorse-test262-ratchet-coverage-crank-fourth-slice-20261101` hit its own 7202s wall at 05:27Z, was classified transient, and was left for reaper requeue. A one-off `garden-library-link-scan` self-heal handler timeout at 05:32Z was followed by clean scans at 06:23Z and 07:23Z. Three `journal-contention-watch` deferred notice deliveries (04:53–04:58Z) are benign. No `Failed with result` or rc=137 lines.
+- **Changed:** nothing.
+- **Needs the maintainer:** nothing.
+
 ## 2026-11-01T04:15Z (oros-health-checkup-20261101-033510): healthy; deployed = origin/main2 `d45a2d7`, no changes
 
 - **Load/mem:** load 5.61/5.43/4.81 at 04:10Z, above the usual ~3.4. A job's Rust build (rustc + ld for ironhorse) accounts for it. 12 GiB of 15 GiB available. Swap reads 969M of 1.0 GiB, the usual steady level.
