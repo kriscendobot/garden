@@ -10,3 +10,13 @@ Builder work in endojs/endo-but-for-bots on the Ironhorse test262 ratchet. Run t
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-01T05:33:20Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-01T05:38:29Z
