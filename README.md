@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T09:26:05Z_
+_As of 2026-11-02T09:27:38Z_
 
 ## Latest
 
@@ -1043,14 +1043,6 @@ Delegation: **active**
 - `watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md)
 
 > gardener job 'ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7202s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `msg-endojs-endo-but-for-bots-pr667-ci-rerun-20261102-648823477227` — from gardener:endojs-endo-but-for-bots-pr667-ci-rerun-20261102, reply_to `endojs-endo-but-for-bots-pr667-ci-rerun-20261102` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr667-ci-rerun-20261102-648823477227.md)
-
-> [endojs/endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/issues/667) (head 067cf8ceda): I reran the failed jobs of run 41396781102 (attempt 2). `test-xs` FAILED AGAIN with the same @endo/hardened262 baseline flip: sesNode/module test/intrinsics/ThrowTypeError/intrinsic-metadata.js passed -> failed (job 125178578488). This is a repeat, not a one-off flake. The gauntlet was NOT resumed and no `yarn test262:update` was run.
->
-> Evidence that it's environmental, not the PR: the turbo task hash for @endo/hardened262:test:xs is identical (92c7a5da07fd3e8d) in the green run 41379457776 (head 2bb8c7e6c7, 02:59Z) and in both red attempts (~08:5xZ). So the inputs are the same and the result flipped. The 2bb8c7e6c7..067cf8ceda diff touches only packages/agentry/** and .gitignore. Suspects: a runner image or xst/Moddable toolchain change between those times, or a time-dependent test. Other llm-based PRs probably share the flip; this needs investigation as a real defect. The `test (24.x, macos-15)` rerun is still queued (macOS runner starvation), so its result is unknown.
->
-> Gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830 is still halted on fix-3. Resume it with `--resume-from-stage ... panel --iteration 4` once test-xs is green.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
