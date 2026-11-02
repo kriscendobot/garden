@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T09:20:23Z_
+_As of 2026-11-02T09:26:05Z_
 
 ## Latest
 
@@ -1046,6 +1044,14 @@ Delegation: **active**
 
 > gardener job 'ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7202s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `msg-endojs-endo-but-for-bots-pr667-ci-rerun-20261102-648823477227` — from gardener:endojs-endo-but-for-bots-pr667-ci-rerun-20261102, reply_to `endojs-endo-but-for-bots-pr667-ci-rerun-20261102` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr667-ci-rerun-20261102-648823477227.md)
+
+> [endojs/endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/issues/667) (head 067cf8ceda): I reran the failed jobs of run 41396781102 (attempt 2). `test-xs` FAILED AGAIN with the same @endo/hardened262 baseline flip: sesNode/module test/intrinsics/ThrowTypeError/intrinsic-metadata.js passed -> failed (job 125178578488). This is a repeat, not a one-off flake. The gauntlet was NOT resumed and no `yarn test262:update` was run.
+>
+> Evidence that it's environmental, not the PR: the turbo task hash for @endo/hardened262:test:xs is identical (92c7a5da07fd3e8d) in the green run 41379457776 (head 2bb8c7e6c7, 02:59Z) and in both red attempts (~08:5xZ). So the inputs are the same and the result flipped. The 2bb8c7e6c7..067cf8ceda diff touches only packages/agentry/** and .gitignore. Suspects: a runner image or xst/Moddable toolchain change between those times, or a time-dependent test. Other llm-based PRs probably share the flip; this needs investigation as a real defect. The `test (24.x, macos-15)` rerun is still queued (macOS runner starvation), so its result is unknown.
+>
+> Gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830 is still halted on fix-3. Resume it with `--resume-from-stage ... panel --iteration 4` once test-xs is green.
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` has CLEARED (first seen 2026-11-01T06:46:47Z, cleared 2026-11-01T22:40:44Z).
@@ -1331,7 +1337,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.3M | $336.38 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 91.5M | $336.33 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75399871 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1344,23 +1350,23 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`daemon-locator-terminology-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-locator-terminology-build.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1588-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1588
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endo-gateway-mcp-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-gateway-mcp-build.md) — ---
 - [`cbors-byte-string-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cbors-byte-string-framing-build.md) — ---
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1538
-- [`endojs-endo-but-for-bots-pr667-ci-rerun-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-ci-rerun-20261102.md) — Rerun two failed CI jobs on endojs/endo-but-for-bots PR #667, then resume its...
+- [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1588
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 
-### tada (16216)
+### tada (16217)
+- [`endojs-endo-but-for-bots-pr667-ci-rerun-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-ci-rerun-20261102.md) — Cost
 - [`endojs-endo-but-for-bots-pr1583-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1583-gauntlet-20261102.md) — PR #1583 gauntlet: not run, maintainer decision needed
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4-pr-body.md) — Panel-head freshness
 - [`oros-health-watch-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-watch-20261102-072031.md) — Cost
-- [`daily-progress-summary-20261102-080514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daily-progress-summary-20261102-080514.md) — Cost
-- … and 16211 more
+- … and 16212 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
