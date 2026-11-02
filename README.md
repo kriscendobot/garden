@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T13:20:52Z_
+_As of 2026-11-02T13:25:56Z_
 
 ## Latest
 
@@ -155,12 +153,9 @@ Delegation: **active**
 >
 > Milestone M2 is blocked on `hardened-text-codecs-shim`: bot PR #1349 closed when upstream #3377 was superseded by merged upstream #3376. Decide whether #3376 completes this design or whether its XS-smoke/audit residual needs a fresh implementation step.
 
-- `endojs-endo-but-for-bots-pr1637-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1637-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1637-gauntlet-halted.md)
+- `watchdog-unclaimable-host-requirements-endojs-endo-but-for-bots-pr1538-body-fix6` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-endojs-endo-but-for-bots-pr1538-body-fix6.md)
 
-> Gauntlet endojs-endo-but-for-bots-pr1637-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1637-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1637-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+> Host-requirements gate: job 'endojs-endo-but-for-bots-pr1538-body-fix6' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
 
@@ -1303,18 +1298,6 @@ Delegation: **active**
 
 > gardener job 'minion-town-ci-harness-path-gate' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7208s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `msg-daemon-rename-to-manager-build-8df87dd68f46` — from gardener:daemon-rename-to-manager-build, reply_to `daemon-rename-to-manager-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-daemon-rename-to-manager-build-8df87dd68f46.md)
-
-> build `daemon-rename-to-manager-build` was a duplicate re-post, closed with no new PR.
->
-> - Phase 1 (file renames) is merged: [https://github.com/endojs/endo-but-for-bots/pull/598](https://github.com/endojs/endo-but-for-bots/pull/598).
-> - Phases 2 and 3 (Daemon/Mignonic → Manager/Worker identifiers, docs, changeset) are already built in draft [https://github.com/endojs/endo-but-for-bots/pull/1594](https://github.com/endojs/endo-but-for-bots/pull/1594) (orchestration build-daemon-rename-to-manager-split, completed 2026-10-31). Its gauntlet HALTED at fix-5 (5/6 rounds). The CI follow-up is draft [https://github.com/endojs/endo-but-for-bots/pull/1598](https://github.com/endojs/endo-but-for-bots/pull/1598).
-> - The older phase-2 draft [https://github.com/endojs/endo-but-for-bots/pull/780](https://github.com/endojs/endo-but-for-bots/pull/780) (2026-07-17) is superseded by [https://github.com/endojs/endo-but-for-bots/pull/1594](https://github.com/endojs/endo-but-for-bots/pull/1594). Recommend closing it.
-> - Parked plan `daemon-rename-to-manager-phase3` (blocked on [https://github.com/endojs/endo-but-for-bots/pull/780](https://github.com/endojs/endo-but-for-bots/pull/780)) is also covered by [https://github.com/endojs/endo-but-for-bots/pull/1594](https://github.com/endojs/endo-but-for-bots/pull/1594). Recommend dropping it, or re-pointing it at that PR.
-> - Why it was re-posted: `designs/daemon-rename-to-manager.md` on `llm` still has the header **Status: Not Started**. [https://github.com/endojs/endo-but-for-bots/pull/1594](https://github.com/endojs/endo-but-for-bots/pull/1594) fixes that header, so producers will keep re-posting this until that PR lands.
->
-> Decision needed: push [https://github.com/endojs/endo-but-for-bots/pull/1594](https://github.com/endojs/endo-but-for-bots/pull/1594) through (resume or restart its halted gauntlet) or retire it.
-
 - `20261024T040209Z-2a6e36` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261024T040209Z-2a6e36.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1383,7 +1366,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.9M | $350.79 _(notional, rate-card)_ | 35% of 271.0M (ok) |
+| Claude | 95.0M | $352.66 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76003983 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1392,12 +1375,13 @@ _Fleet token-unlock pace: 76003983 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`daemon-git-remotes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-remotes-build.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-body-fix6.md) — endojs/endo-but-for-bots: replace the description of PR #1538
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`daemon-worker-import-from-mount-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-worker-import-from-mount-build.md) — ---
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-daemon-git-agent-tool-adapters-build-4.md) — ---
 
