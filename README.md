@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T11:22:57Z_
+_As of 2026-11-02T11:24:45Z_
 
 ## Latest
 
@@ -1347,17 +1345,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.2M | $341.22 _(notional, rate-card)_ | 34% of 271.0M (backoff) |
+| Claude | 92.2M | $341.22 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49084137 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 75558695 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`oros-health-watch-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-103514.md) — ---
+- [`daemon-git-clone-bootstrap-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-clone-bootstrap-design.md) — Deliberate overrun decomposition for daemon-git-clone-bootstrap-design
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`daemon-git-agent-tool-adapters-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1365,8 +1364,7 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`oros-health-checkup-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-103514.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 
-### doin (3)
-- [`daemon-git-clone-bootstrap-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-clone-bootstrap-design.md) — ---
+### doin (2)
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 
