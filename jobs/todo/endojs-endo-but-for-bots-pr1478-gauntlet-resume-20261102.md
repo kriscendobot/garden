@@ -23,14 +23,5 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1478. The staged gauntlet r
    (it records 1/6 rounds spent; add `--add-rounds 1` only if the resume refuses for budget).
 3. Confirm `jobs/gauntlet/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3.md` on origin/journal2 is active with `current_child` at the panel-2 stage, and report that. The gauntlet driver runs panel → fix-loop → un-draft from there.
 
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-02T04:59:34Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-02T05:43:05Z -->
