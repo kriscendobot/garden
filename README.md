@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T21:23:21Z_
+_As of 2026-11-02T21:27:28Z_
 
 ## Latest
 
@@ -65,20 +65,6 @@ Delegation: **active**
 
 > foreman: next step 'build-hardened-text-codecs-shim-xs-smoke' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
-- `kriscendobot-minion.town-pr218-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr218-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr218-gauntlet-review-budget-reached.md)
-
-> COALESCED message — occurrence #6 (first seen 2026-10-23T18:23:42Z, latest 2026-10-24T10:38:15Z).
-> The SAME message (episode key `kriscendobot-minion.town-pr218-gauntlet-review-budget-reached`) has now been sent 6 times; this is
-> ONE entry that updates in place, not 6 messages. Latest detail:
->
-> Gauntlet kriscendobot-minion.town-pr218-gauntlet REVIEW-BUDGET-REACHED: Applied 15 panel/fix round(s); fix round 15 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=15, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 15/15 · cost so far: $27.36
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 15 -> 17 (N is yours to choose).
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` has CLEARED (first seen 2026-11-01T05:22:49Z, cleared 2026-11-02T20:43:55Z).
@@ -119,10 +105,6 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.014015s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
-- `msg-oros-health-checkup-20261018-093508-f054cd1e7164` — from gardener:oros-health-checkup-20261018-093508, reply_to `oros-health-checkup-20261018-093508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261018-093508-f054cd1e7164.md)
-
-> oros health check-up 09:58Z: oros is healthy, but the fleet deploy is stalled on the LEADER. endolin-garden-ece02cb4 has been deployed at b8abbe64 since 2026-10-16 16:52Z: its own self-advance has not landed through 4 rolls in which the oros canary passed. deploy/leader-sha and roll-completed are frozen, and endolin has not released oros for main2 05d833a2 (85+ min). Oros is correctly holding: it is leaderless and the target is ahead of the last-known-good sha. Please have someone check endolin's garden-rolling-deploy journal for a rejected-candidate marker or a 'did not land' loop. Details are in journal2:projects/garden/oros-health-log.md.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.028689s, giveups=1, steals=0 (max 3/window), wait floor=60s.
@@ -145,18 +127,6 @@ Delegation: **active**
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1542-gauntlet panel --iteration 4 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
-- `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
-
-> COALESCED message — occurrence #31 (first seen 2026-10-18T09:20:28Z, latest 2026-10-31T03:29:45Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 31 times; this is
-> ONE entry that updates in place, not 31 messages. Latest detail:
->
-> Milestone M2 is blocked on `hardened-text-codecs-shim`: bot PR #1349 closed when upstream #3377 was superseded by merged upstream #3376. Decide whether #3376 completes this design or whether its XS-smoke/audit residual needs a fresh implementation step.
-
-- `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
-
-> Oros health watcher intervened: the 12:35Z check-up stayed unclaimed for 45+ minutes. Oros is otherwise reachable (budget heartbeat refreshed 13:17Z, 05d833a2 deployed = main2, no derotation marker). The sole monk finished its preceding 11:04Z gauntlet job at about 13:05Z but did not claim the check-up. reset-failed was applied and acked (20261018T132111Z-51adcc). I then sent the authorized restart of garden-monk@1.service (20261018T132252Z-05edf6); it remained unacknowledged through 13:35Z and the check-up was still in todo. Please inspect the oros monk service/sysop queue if the next sysop tick does not apply it.
-
 - `msg-claude-on-minion-town-press-20261023-172020-61211fe15744` — from gardener:claude-on-minion-town-press-20261023-172020, reply_to `claude-on-minion-town-press-20261023-172020` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261023-172020-61211fe15744.md)
 
 > Claude-on-minion.town arc ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)): one decision gates the arc now. Do you adopt the course correction in [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543) (retire subscription-backed `claude --bare` inference, replace with API-key providers + mail-pinned Lal/Fae guest agents), and how do you answer its open questions Q1 (Agent SDK retention) and Q4 (garden inference sourcing)? [kriscendobot/minion.town#217](https://github.com/kriscendobot/minion.town/issues/217) reaches the same conclusion from the Claude Code terms. Until you answer, the press posts no new arc builds. Answer on [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543) or reply here.
@@ -171,16 +141,6 @@ Delegation: **active**
 
 > Report build-endor-run-expanded-phase-4-entry-point-input (follow-up 3): [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279) (on `llm`) is a separate Phase 4 attempt. It builds the archive in Rust instead of running the mapper in XS, which overlaps the new Phase 4 work. Decision needed: close #279, or reconcile it with the new PR once that PR is opened. Also note that archives with files more than one level deep now ingest to a different, correct root hash. Any hash recorded earlier for such an archive will no longer match a fresh ingest.
 
-- `kriscendobot-minion.town-pr222-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr222-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr222-gauntlet-review-budget-reached.md)
-
-> Gauntlet kriscendobot-minion.town-pr222-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr222-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $8.37
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr222-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` has CLEARED (first seen 2026-11-01T08:44:33Z, cleared 2026-11-01T14:49:50Z).
@@ -188,33 +148,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
-
-- `kriscendobot-minion.town-pr184-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr184-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr184-gauntlet-review-budget-reached.md)
-
-> Gauntlet kriscendobot-minion.town-pr184-gauntlet REVIEW-BUDGET-REACHED: Applied 16 panel/fix round(s); fix round 16 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=16, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr184-gauntlet panel --add-rounds N
->
-> **Unaddressed must-fix: 19** · verdict: moving target · rounds spent: 16/16 · cost so far: $34.02
-> Trend: r1 raised 20; r2 n/a; r3 raised 20; r4 raised 20 (fixed 20, carried 0); r5 n/a; r6 n/a; r7 raised 20; r8 n/a; r9 n/a; r10 n/a; r11 raised 20; r12 n/a; r13 n/a; r14 n/a; r15 n/a; r16 raised 19
-> Classes: 0 persistent, 19 new in last round, 0 addressed-then-reintroduced
-> ```text
-> [new, since r16] breaker: should-fix: the seed check accepts secrets that tokenFromSecret rejects, which breaks the invariant the seed ch...
-> [new, since r16] breaker: (deploy/aws/ci-runner/provision-ci-runner.sh:75) The comment at deploy/aws/ci-runner/provision-ci-runner.sh:75-76 says a seed "cannot replace a working secret with ...
-> [new, since r16] breaker: I checked with jq 1.7 and node. jq -e exits 0 on all of these, but JSON.parse rejects each one:
-> [new, since r16] breaker: {"token":"a"}{"token":"b"} (two JSON texts in one stream)
-> [new, since r16] breaker: {"token":"ab","x":nan}
-> [new, since r16] breaker: How it fails: a rotation via --seed-token-stdin (or the probe variant) with stdin holding two concatenated objects ...
-> [new, since r16] breaker: Fix: validate with the same parser the Lambda uses. Either run node -e importing lambda/github.mjs's tokenFromSe...
-> [new, since r16] breaker: proposed-rule: when a provisioning-time check guards a run-time invariant, run the run-time parser or validator, not...
-> [new, since r16] breaker: comment-only (mitigated): "resource policy admits only its EventBridge rule" (DEPLOYMENT.md § Credentials).
-> [new, since r16] breaker: (provision-ci-runner.sh:182) Attack: plant a stray statement with any Sid. The reconcile loop at provision-ci-runner.sh:182-190 removes every Si...
-> [new, since r16] breaker: The host role's policy (:203-204) names only $FUNCTION_ARN, so the CI host can't reach the probe credential. The ...
-> [new, since r16] breaker: The window between remove and add only denies access; it never grants it.
-> … and 7 more
-> ```
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr184-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 16 -> 18 (N is yours to choose).
 
 - `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
 
@@ -283,16 +216,6 @@ Delegation: **active**
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.112839s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `kriscendobot-minion.town-pr221-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr221-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr221-gauntlet-review-budget-reached.md)
-
-> Gauntlet kriscendobot-minion.town-pr221-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr221-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $10.91
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr221-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached.md)
 
@@ -388,16 +311,6 @@ Delegation: **active**
 > minion.town delegated merge STALLED: [https://github.com/kriscendobot/minion.town/pull/218](https://github.com/kriscendobot/minion.town/pull/218) (head 5e2b6232bc4) was screened, but 3 conductors finished without merging it. Read their reports under jobs/tada/ (base screen-minion-town-pr218-5e2b623-conduct*).
 > Operations: context/operations/minion-town-screening.md
 
-- `kriscendobot-minion.town-pr198-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-review-budget-reached.md)
-
-> Gauntlet kriscendobot-minion.town-pr198-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $20.80
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `kriscendobot-minion.town-pr180-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr180-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr180-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr180-gauntlet REVIEW-BUDGET-REACHED: Applied 16 panel/fix round(s); fix round 16 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=16, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds N
@@ -424,10 +337,6 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 16 -> 18 (N is yours to choose).
-
-- `msg-oros-health-watch-20261025-005027-55b42d912920` — from gardener:oros-health-watch-20261025-005027, reply_to `oros-health-watch-20261025-005027` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261025-005027-55b42d912920.md)
-
-> oros sysop is unreachable: its last sysop-log activity was 2026-10-23T15:07:10Z, and a benign reset-failed probe sent at 2026-10-25T00:52:17Z received no ack after 12 minutes. The host heartbeat and fleet/health remain fresh, so please inspect the garden-sysop timer/service on the oros machine (and Docker Desktop/VM state if needed).
 
 - `20261021T143920Z-cca5e1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T143920Z-cca5e1.md)
 
@@ -501,10 +410,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` cleared on endolin-garden-ece02cb4.
 
-- `msg-oros-health-checkup-20261101-125015-bdfe15cd214f` — from gardener:oros-health-checkup-20261101-125015, reply_to `oros-health-checkup-20261101-125015` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-checkup-20261101-125015-bdfe15cd214f.md)
-
-> oros health (13:25Z): the virtiofs garden disk on oros-studio is at 81% (91G free), up from 66% (158G free) at 07:50Z. That is about 66G in 5.5h, still climbing about 1G per 10 min. The container overlay did not grow; a bounded du from inside timed out, so I could not find the cause. It may be Mac-side. At the current rate the disk fills in about 15h, so please look at it from the Mac. Second issue: oros has been stranded under a stale rolling-deploy-quiesce drain since 12:57Z. The quiesce arrived 7s after its deploy had lifted its own drain. The fix is on main2 as d1e41a9; the roll of d1e41a9 should lift the drain. If oros is still drained after that roll, run 'scripts/jobs/drain-fleet.sh off' on oros.
-
 - `endojs-endo-but-for-bots-pr1560-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1560-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1560-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1560-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1560-gauntlet-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -531,28 +436,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` cleared on endolin-garden-ece02cb4.
 
-- `foreman-milestone-M1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M1.md)
-
-> Milestone M1 is blocked on [endojs/endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/issues/1426): its gauntlet exhausted six review/fix rounds with green CI and remains draft. Decide whether to un-draft/merge it or authorize another review run.
-
-- `foreman-milestone-M11` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M11.md)
-
-> Milestone M11 (the endo-but-for-bots designs in progress, such as daemon-xs-worker-snapshot, endor-tui-phase-1 and endor-npm-registry-proxy) has no step I can post. The arcs those designs draw from are out of budget: minion-town-mcp-ocapn, endo-ocapn-background and moonshots show 0 tokens remaining. The arcs that still have headroom are outside my bounds: the minion-town ones are in other repos, garden-upkeep and garden-book are garden work, and endo-backlog is limited to gauntlets already staged. Decision needed: re-slice the apportionment toward an endo arc, or approve drawing the next M11 step from the unallocated reserve (also 0 remaining).
-
-- `kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached.md)
-
-> COALESCED message — occurrence #4 (first seen 2026-10-20T21:59:27Z, latest 2026-10-21T08:50:17Z).
-> The SAME message (episode key `kriscendobot-minion-town-pr200-gauntlet-20261020-review-budget-reached`) has now been sent 4 times; this is
-> ONE entry that updates in place, not 4 messages. Latest detail:
->
-> Gauntlet kriscendobot-minion-town-pr200-gauntlet-20261020 REVIEW-BUDGET-REACHED: Applied 12 panel/fix round(s); fix round 12 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=12, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr200-gauntlet-20261020 panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 12/12 · cost so far: $29.54
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr200-gauntlet-20261020 panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 12 -> 14 (N is yours to choose).
-
 - `liaison-followup-012ad029ea29` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-012ad029ea29.md)
 
 > Report build-endo-bun-ses-permits-20261021 suggests sending the AVA stack-frame fix upstream. That is an upstream push, so I did not act on it. Please decide whether to send it, and to which repo. The report names no PR URL.
@@ -562,47 +445,6 @@ Delegation: **active**
 > minion.town delegated merge STALLED: [https://github.com/kriscendobot/minion.town/pull/197](https://github.com/kriscendobot/minion.town/pull/197) (head f55f6a21148) was screened, but 3 conductors finished without merging it. Read their reports under jobs/tada/ (base screen-minion-town-pr197-f55f6a2-conduct*).
 > Operations: context/operations/minion-town-screening.md
 
-- `msg-accountant-weekly-20261031-160509-559ca58540a3` — from gardener:accountant-weekly-20261031-160509, reply_to `accountant-weekly-20261031-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261031-160509-559ca58540a3.md)
-
-> Accountant weekly — week of 2026-10-31T03:00Z (statement + proposal)
->
-> CARRIED FORWARD (in force now): the 10-30 re-slice unchanged, 460M total, 90% ceiling, authorized_by kriskowal.
-> rank | arc | slice | spend so far
-> 1 ironhorse-test262-ratchet 356.9M | 0
-> 2 minion-town-claude-api 70.3M | 583K (9 completions)
-> 3 minion-town-mcp-ocapn 8.0M | 595K
-> 4 minion-town-git-remote 7.8M | 525K
-> 5 minion-town-ui 3.3M | 0
-> 6 endo-ocapn-background 4.5M | 18K
-> 7 moonshots 2.1M | 461K (21%)
-> 8 garden-upkeep 1.0M | 0
-> 9 garden-book 250K | 0
-> 10 endo-backlog 886K | 0
-> 11 unallocated 4.5M | 2.0M (45%)
->
-> POOLS: claude-endolin1 8% used (~21.6M; 84% of it unattributed: gauntlets/watchers/liaison). claude-oros: meter unknown. codex-endolin 81% used. Next reset 2026-11-07T04:00Z. No open budget requests.
->
-> PROBLEM: 78% of the week (357M) sits on ironhorse-test262-ratchet, but the ratchet is HALTED ("wrong base", 2026-10-30T04:20Z; tracker [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51)) and has spent 0. The 10-30 re-slice was framed "crank coverage up before the quota reset" — that reset has passed. Slices never borrow, so while the ratchet stays halted that 357M is idle and every other arc is capped at its small 10-30 residue (minion-town-ui 3.3M, upkeep 1M).
->
-> PROPOSAL (recommended, A): return to the 10-27 shape with a small ratchet slice kept for a resume:
-> 1 minion-town-claude-api 325M
-> 2 ironhorse-test262-ratchet 20M (resume after the base is fixed)
-> 3 minion-town-mcp-ocapn 32.8M
-> 4 minion-town-git-remote 21.85M
-> 5 minion-town-ui 16.4M
-> 6 endo-ocapn-background 21.85M
-> 7 moonshots 8.75M
-> 8 garden-upkeep 5.45M
-> 9 garden-book 1.25M
-> 10 endo-backlog 2.2M
-> reserve 4.45M  (total 460M)
-> B: keep the carried-forward slate (ironhorse first) and get the ratchet unhalted.
-> C: something else — name shares/ranking.
->
-> Reply "A", "B", or a slate. With no reply, the carried-forward slate stays in force.
->
-> Open questions carried: (1) did codex-endolin's 2026-10-23T00:20Z manual reset spend the 11-06 credit? (2) claude-oros status/credits and current meter.
-
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-11-01T18:53:11Z, latest 2026-11-02T14:54:52Z).
@@ -610,44 +452,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.069755s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `msg-accountant-weekly-20261024-160509-6764902e87b9` — from gardener:accountant-weekly-20261024-160509, reply_to `accountant-weekly-20261024-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261024-160509-6764902e87b9.md)
-
-> # Weekly accountant statement and proposal — week of 2026-10-24T03:00:00Z
->
-> The carried-forward slate is in force. As of 2026-10-24T16:05:59Z, total foreman-drawn allocation is 460M tokens at the 90% planning ceiling, authorized by kriskowal under message 20261002T043717Z-c66a59.
->
-> ## Current slices and spend
->
-> | rank | arc | slice | spend | remaining |
-> | ---: | --- | ---: | ---: | ---: |
-> | 1 | minion-town-mcp-ocapn | 131.1M | 63.6K | 131M |
-> | 2 | minion-town-git-remote | 87.4M | 862.1K | 86.5M |
-> | 3 | minion-town-ui | 65.55M | 0 | 65.55M |
-> | 4 | endo-ocapn-background | 87.4M | 57K | 87.3M |
-> | 5 | moonshots | 34.96M | 0 | 34.96M |
-> | 6 | garden-upkeep | 21.85M | 0 | 21.85M |
-> | 7 | garden-book | 5M | 0 | 5M |
-> | 8 | endo-backlog | 8.74M | 0 | 8.74M |
-> | 9 | unallocated | 18M | 1.8M | 16.1M |
->
-> No arc has held plans or overshoot. There are no open budget requests.
->
-> ## Capacity
->
-> - claude-endolin1: active, calibrated 271M weekly tokens; current utilization unavailable.
-> - claude-oros: active, calibrated 180M weekly tokens; current utilization unavailable. Credits remain unknown and are treated as none pending confirmation.
-> - codex-endolin: active percent-metered pool, 26% used. Its token capacity remains uncalibrated; the carried-forward total retains the provisional 60.7M fit from last week rather than inventing a new estimate.
-> - Reset-credit inventory records one inferred codex-endolin credit expiring 2026-11-06. I have not added unknown credit capacity to the slate. Standing policy is to use it mid-week before expiry after spending toward 90%; please confirm the credit still exists.
-> - claude-endolin2 remains retired and contributes no capacity.
->
-> Next reset: 2026-10-31T03:00:00Z.
->
-> ## Proposal
->
-> Keep the approved 2026-10-02 ranking and the carried-forward 460M total unchanged for this week. The eight named slices preserve the approved 30/20/15/20/8/5/2 distribution over 95% of total, with the standing 5M garden-book slice taken from the reserve; 18M remains unallocated. This honors the standing instruction to distribute capacity to the approved ranking each reset, applies the 90% ceiling, and does not count an unconfirmed reset-credit amount.
->
-> Reply with any desired re-slice. If there is no reply, the carried-forward slate above remains in force.
 
 - `deadmail-20261101T112108Z-fd9876-split-terminal-complete` — from orchestrator:deadmail-20261101T112108Z-fd9876-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/deadmail-20261101T112108Z-fd9876-split-terminal-complete.md)
 
@@ -693,20 +497,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
-
-- `kriscendobot-minion.town-pr216-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr216-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr216-gauntlet-review-budget-reached.md)
-
-> COALESCED message — occurrence #6 (first seen 2026-10-22T15:29:32Z, latest 2026-10-23T06:02:17Z).
-> The SAME message (episode key `kriscendobot-minion.town-pr216-gauntlet-review-budget-reached`) has now been sent 6 times; this is
-> ONE entry that updates in place, not 6 messages. Latest detail:
->
-> Gauntlet kriscendobot-minion.town-pr216-gauntlet REVIEW-BUDGET-REACHED: Applied 11 panel/fix round(s); fix round 11 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=11, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr216-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 11/11 · cost so far: $25.38
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr216-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 11 -> 13 (N is yours to choose).
 
 - `endojs-endo-but-for-bots-pr1575-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1575-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1575-gauntlet-halted.md)
 
@@ -781,14 +571,6 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.069621s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
-
-> COALESCED message — occurrence #24 (first seen 2026-10-23T13:27:09Z, latest 2026-10-31T23:14:52Z).
-> The SAME message (episode key `foreman-milestone-M3`) has now been sent 24 times; this is
-> ONE entry that updates in place, not 24 messages. Latest detail:
->
-> M3’s Phase 7 acceptance-loop step is blocked pending a disposition of [endojs/endo-but-for-bots#1543](https://github.com/endojs/endo-but-for-bots/issues/1543): whether API-key providers supersede the `endo-claude` subscription-credential design. That decision determines how canonical PR #1544 is retargeted after in-flight sandbox PR #1504 lands.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_producer_journal` has CLEARED (first seen 2026-11-01T04:54:25Z, cleared 2026-11-01T10:46:50Z).
@@ -855,47 +637,6 @@ Delegation: **active**
 
 > foreman: next step 'endopi-provider-registry-and-oauth-build' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
-- `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
-
-> Gauntlet kriscendobot-minion.town-pr198-gauntlet-20261019 REVIEW-BUDGET-REACHED: Applied 3 panel/fix round(s); fix round 3 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=3, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds N
->
-> **Unaddressed must-fix: 20** · verdict: moving target · rounds spent: 3/3 · cost so far: $6.56
-> Trend: r1 n/a; r2 n/a; r3 raised 20
-> Classes: 0 persistent, 20 new in last round, 0 addressed-then-reintroduced
-> ```text
-> [new, since r3] archivist: (designs/closed-beta-waitlist.md:147) should-fix designs/closed-beta-waitlist.md:147: the doc names "(at)endo/http-confine's limiter" as an existing t...
-> [new, since r3] archivist: (src/waitlist/waitlist.ts:249) Rate limit (5/hour, /24 or /48 key, Retry-After: 3600): src/waitlist/waitlist.ts:249,258-259.
-> [new, since r3] archivist: (src/waitlist/stores/dynamodb.ts:42) Dedupe via conditional put (attribute_not_exists(email)): src/waitlist/stores/dynamodb.ts:42.
-> [new, since r3] archivist: (deploy/aws/caddy/conf.d/minion-town.caddy:181) Caddy 308 for /index.html, /guest.html, /shell.html: deploy/aws/caddy/conf.d/minion-town.caddy:181-183.
-> [new, since r3] archivist: Public handle / carries the full CSP with frame-ancestors 'none' and X-Frame-Options: DENY: same file, lines 16...
-> [new, since r3] archivist: (src/waitlist/waitlist.ts:24) Table name default and the PutItem-only grant with ReturnValues NONE: src/waitlist/waitlist.ts:24, deploy/aws/sc...
-> [new, since r3] archivist: (src/waitlist-cli.ts:31) list / remove CLI and the oldest-first sort: src/waitlist-cli.ts:31-44, src/waitlist/stores/dynamodb.ts:93.
-> [new, since r3] archivist: (deploy/aws/www/index.html:358) Honeypot is off-screen (deploy/aws/www/index.html:358-360).
-> [new, since r3] archivist: The "tab and CR are refused by the email grammar" claim in the csvField JSDoc holds: EMAIL_PATTERN excludes \s ...
-> [new, since r3] archivist: Cross-doc anchors resolve: invitation-only-guest-onboarding.md § 7, closed-beta-waitlist.md § The one landing.
-> [new, since r3] locksmith: comment-only: the waitlist writer facet is structural, as POLA asks.
-> [new, since r3] locksmith: src/waitlist/stores/dynamodb.ts makeDynamoWaitlistWriter builds a frozen { add } that never closes over ScanCo...
-> … and 8 more
-> ```
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 3 -> 5 (N is yours to choose).
-
-- `msg-reset-credit-watch-20261019-160508-0057ea5c9586` — from gardener:reset-credit-watch-20261019-160508, reply_to `reset-credit-watch-20261019-160508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261019-160508-0057ea5c9586.md)
-
-> **Reset-credit watch (week of 10-19): codex-endolin, use the credit Tue 10-20.** Needs a decision within about 24h.
->
-> **Plan:** let codex-endolin reach about 90% (at current pace about **Tue 10-20, ~13–15Z / 06–08 PT**), then reset it **Tue 10-20, daytime PT**. Its natural reset is 10-23T03:51Z (Wed 20:51 PT), so a Tuesday reset gains about 2.5 days. No acceleration is needed because pace already gets it there. The credit to spend is the 11-06 one, which is the only one left if my inference below is right. A second credit would arrive next week. The window that opens Tuesday would cross 90% around 10-24, with natural reset 10-27, so nothing would be at risk of expiring unused.
->
-> **Please confirm:** your 10-16T03:51Z codex manual reset came 3 days after its natural reset, so I recorded it as using the **10-29** credit. `reset-credits.md` now shows codex with 1 credit (exp 11-06). If you still hold 2, tell me. In that case, use the 10-29 one Tuesday.
->
-> **Status:**
-> - codex-endolin: 72% (meter, 10-19T16:32Z), ~20%/day. Window from 10-16T03:51Z, natural reset 10-23T03:51Z. Credits: 1 (11-06), inferred.
-> - claude-endolin1: meter 60% (derived; 263M tokens, which would be ~85% against the ~310M cap your checkpoints imply), ~23%/day. It will cross 90% around **Mon 10-20Z**, well before the Fri 10-24T03:00Z reset, and there's **no credit**. A dashboard check is worth doing, and you may want to brake.
-> - claude-endolin2: retired, no credits.
-> - claude-oros: meter 74%, resets Tue 10-20T10:00Z (04:00 MT). Credits unknown, treated as none. The inventory still says "offline since 09-28" but it's in use, so please confirm.
-
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=88658378 cap=271000000 pace-bias=0 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.6548(ramp) target=3
@@ -953,14 +694,6 @@ Delegation: **active**
 
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.025929s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `foreman-milestone-M2-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2-M3.md)
-
-> COALESCED message — occurrence #5 (first seen 2026-10-29T14:41:06Z, latest 2026-10-31T03:51:24Z).
-> The SAME message (episode key `foreman-milestone-M2-M3`) has now been sent 5 times; this is
-> ONE entry that updates in place, not 5 messages. Latest detail:
->
-> M2 is stalled on hardened-text-codecs-shim: its PR #1349 closed after upstream merged different fix [endojs/endo#3376](https://github.com/endojs/endo/issues/3376). Decide whether #3376 completes or supersedes the design so the journal record can advance and M3 can begin.
-
 - `oros-health-watch-20261101-192009-split-terminal-complete` — from orchestrator:oros-health-watch-20261101-192009-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/oros-health-watch-20261101-192009-split-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -973,16 +706,6 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration oros-health-watch-20261101-192009-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
-
-- `kriscendobot-minion.town-pr218-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr218-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr218-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr218-gauntlet HALTED: panel stage reported prepass-failed without one non-empty exact-output block; refusing to dispatch a fixer without deterministic evidence.
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 16/17 · cost so far: $27.56
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr218-gauntlet panel --iteration 16 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 17 -> 19 (N is yours to choose).
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal.md)
 
@@ -1022,16 +745,6 @@ Delegation: **active**
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
-- `kriscendobot-minion.town-pr200-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr200-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr200-gauntlet-review-budget-reached.md)
-
-> Gauntlet kriscendobot-minion.town-pr200-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr200-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $18.61
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr200-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `liaison-followup-d31d9dcee79e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-d31d9dcee79e.md)
 
 > daemon-agent-tools-design-build (endojs/endo-but-for-bots): Phase 8 of the daemon agent tools design needs your decision on Open Question 4. Should the HTTP client be a daemon `provideHttpClient` formula, or the `@endo/fetch` plugin? Phase 8 is blocked until you answer. Separately, the Phase 2c checkbox in the design document should be ticked once #1497 lands. Phase 7 (the endo-claude acceptance loop) is unblocked for its build step whenever you want it posted.
@@ -1045,20 +758,6 @@ Delegation: **active**
 >
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1586-gauntlet panel --iteration 5 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `msg-reset-credit-watch-20261026-160508-45bea52063ab` — from gardener:reset-credit-watch-20261026-160508, reply_to `reset-credit-watch-20261026-160508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261026-160508-45bea52063ab.md)
-
-> **Reset-credit watch (week of 10-26): no reset this week. If you still have a codex credit (exp 11-06), plan to use it Mon 11-03 or Tue 11-04.** Needs your answer by about Thu 10-30.
->
-> **Please confirm:** was your codex reset at **10-23T00:20Z** a credit? It came about 3.5h before the 10-23T03:51Z natural reset, so if it was a credit, the 11-06 credit is gone and that reset gained almost nothing. If it was the natural rollover, you still hold 1 credit (exp 11-06). `reset-credits.md` now shows codex as "0 or 1, unconfirmed". The 10-19 plan to reset codex on Tue 10-20 was not acted on.
->
-> **If the credit exists:** this week won't use it. codex is at 9% and gaining about 2.5%/day, so it ends this window around 18% at the 10-30T00:20Z natural reset. Next window runs 10-30 to 11-06T00:20Z, the same day the credit expires. At this pace codex never gets near 90%, so **the credit is at risk of expiring unused.** To use it well, accelerate codex starting 10-30: set an `expected-next-scheduled` deadline of about **Mon 11-03 15:00Z** and give it more cleric workers so it reaches about 90% by then. Then reset **Mon 11-03 or Tue 11-04, daytime PT**, which gains about 2.5–3 days.
->
-> **Status:**
-> - codex-endolin: 9% (meter, 10-26T15:32Z), about 2.5%/day. Window from 10-23T00:20Z, natural reset 10-30T00:20Z. Credits: 0 or 1 (exp 11-06), unconfirmed.
-> - claude-endolin1: 18% (derived, 55M of 271M), about 7%/day, so roughly 50% by its natural reset Fri 10-31T03:00Z. No credits; there's spare headroom if you want more work on it.
-> - claude-endolin2: retired, no credits.
-> - claude-oros: meter 89M of 180M tokens (about 50%), though the published figure says 11%, so treat the % as suspect. Natural reset Tue 10-27T10:00Z (04:00 MT). Credits unknown, treated as none.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1104,10 +803,6 @@ Delegation: **active**
 >
 > Orchestration claude-api-build-20261027 observed child claude-api-p1-registry: stalled in flight for 7253s on host endolin-garden-ece02cb4 (handler-timeout=7200s, multiplier=1).
 
-- `msg-oros-health-watch-20261018-123528-expanded-window-110d8e6241bc` — from gardener:oros-health-watch-20261018-123528-expanded-window, reply_to `oros-health-watch-20261018-123528-expanded-window` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-expanded-window-110d8e6241bc.md)
-
-> Oros health watcher recovery succeeded. The authorized garden-monk@1.service restart (20261018T132252Z-05edf6) was applied and acked at 14:02Z; oros-health-checkup-20261018-123528 claimed monk 1 at 14:03Z and remains active. Its budget heartbeat advanced to 14:17Z. The earlier reset-failed (20261018T132111Z-51adcc) was also applied and acked. Oros is deployed at main2 05d833a2 with zero reported unit failures and no derotation marker. No person-at-machine action is currently needed.
-
 - `watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md)
 
 > gardener job 'ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7202s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1119,10 +814,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` cleared on endolin-garden-ece02cb4.
-
-- `msg-reset-credit-watch-20261019-160508-4e0a7e09c87c` — from gardener:reset-credit-watch-20261019-160508, reply_to `reset-credit-watch-20261019-160508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261019-160508-4e0a7e09c87c.md)
-
-> Correction to the reset-credit-watch note: claude-endolin1 is projected to cross 90% around **Tue 10-20 ~20Z**, not 'Mon'. Everything else stands.
 
 - `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot.md)
 
@@ -1225,20 +916,6 @@ Delegation: **active**
 >
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1588-gauntlet panel --iteration 2 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
-- `kriscendobot-minion.town-pr192-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr192-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr192-gauntlet-review-budget-reached.md)
-
-> COALESCED message — occurrence #2 (first seen 2026-10-17T03:56:41Z, latest 2026-10-17T08:44:29Z).
-> The SAME message (episode key `kriscendobot-minion.town-pr192-gauntlet-review-budget-reached`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
->
-> Gauntlet kriscendobot-minion.town-pr192-gauntlet REVIEW-BUDGET-REACHED: Applied 10 panel/fix round(s); fix round 10 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=10, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr192-gauntlet panel --add-rounds N
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 10/10 · cost so far: $26.18
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr192-gauntlet panel --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 10 -> 12 (N is yours to choose).
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal.md)
 
@@ -1421,7 +1098,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.6M | $352.64 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
+| Claude | 95.7M | $353.10 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 51399804 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
