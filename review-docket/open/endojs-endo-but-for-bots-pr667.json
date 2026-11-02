@@ -3,7 +3,7 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 667,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/667",
-  "head_oid": "4e580b435e96ccd208dd9bb15e549c564fe78d18",
+  "head_oid": "79f210a961718d181f750c3b8571e697f6b2124a",
   "ask": "decide",
   "arc": "minion-town-mcp-ocapn",
   "milestone": "-",
@@ -14,7 +14,7 @@
   "first_requested_at": "2026-10-30T04:39:00Z",
   "generation": 3,
   "ci": {
-    "state": "green",
-    "observed_at": "2026-11-02T01:47:26Z"
+    "state": "pending",
+    "observed_at": "2026-11-02T02:27:48Z"
   }
 }
