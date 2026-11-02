@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T20:35:24Z_
+_As of 2026-11-02T20:37:55Z_
 
 ## Latest
 
@@ -717,6 +717,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.106518s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261102-202009` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261102-202009.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261102-202009' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-halted.md)
 
