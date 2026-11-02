@@ -1,23 +1,23 @@
 ---
 base: endopi-edit-tool-build
-kind: cleric
-provider: openai
-model: gpt-5.6-sol
+kind: monk
+provider: anthropic
+model: claude-opus-5-5
 thoughtfulness: high
 work_class: build:s
 target: main2
 accepted: true
-agentic_dollars: censored
+agentic_dollars: 1.026650
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 21.631338
+estimated_dollars: 0.050301
 attempts: 1
-duration_secs: 4197
+duration_secs: 729
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-1
-recorded_at: 2026-10-19T05:36:37Z
+recorded_by: oros-studio-garden-ce242c49/monk-3
+recorded_at: 2026-11-02T15:51:41Z
 ---
-reputation event for endopi-edit-tool-build: arm openai/gpt-5.6-sol/high work_class build:s target main2 accepted true
+reputation event for endopi-edit-tool-build: arm anthropic/claude-opus-5-5/high work_class build:s target main2 accepted true
