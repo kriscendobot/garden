@@ -1,6 +1,3 @@
-once: 2026-11-02T23:15:00Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots-pr1629
----
 ---
 handler-timeout: 7200
 tier: mentor
