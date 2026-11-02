@@ -1,12 +1,13 @@
 ---
 slug: cbors
 repository: endo-but-for-bots
-status: Not Started
+status: Complete
 size: M
 milestone: M4
 depends_on: []
 created: 2026-05-04
-updated: 2026-05-05
+updated: 2026-11-02
+pr: endo-but-for-bots#288
 source: imported from origin/llm designs/README.md
 ---
 
@@ -17,7 +18,7 @@ source: imported from origin/llm designs/README.md
 | **Created** | 2026-05-04 |
 | **Updated** | 2026-05-04 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | Not Started |
+| **Status** | Complete (landed as `@endo/cbor-frame`, PR 288, 2026-10-19; `designs/cbor-frame.md` on `llm` is the current design. The maintainer made tag 24 mandatory on that PR, so the `tagged` writer option below did not ship.) |
 
 ## What is the Problem Being Solved?
 
