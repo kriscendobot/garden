@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T15:09:27Z_
+_As of 2026-11-02T15:10:43Z_
 
 ## Latest
 
@@ -1383,7 +1383,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.2M | $350.13 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 78292181 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 71362514 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
@@ -1398,16 +1398,16 @@ worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (1)
-- [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-end-to-end-reference-flow-build.md) — ---
+### doin (0)
+(none)
 
-### tada (16254)
+### tada (16255)
+- [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-end-to-end-reference-flow-build.md) — Cost
 - [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/fu-daemon-git-agent-tool-adapters-build-4.md) — Cost
 - [`daemon-worker-import-from-mount-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-worker-import-from-mount-build.md) — Report: daemon-worker-import-from-mount-build is a stale re-mint, so I opened...
 - [`oros-health-checkup-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-135010.md) — Cost
 - [`minion-town-arc-press-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-135010.md) — Cost
-- [`endojs-endo-but-for-bots-pr1638-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1638-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1638-gauntlet - not viable
-- … and 16249 more
+- … and 16250 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
