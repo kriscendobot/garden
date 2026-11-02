@@ -110,7 +110,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-locator-terminology | endo-but-for-bots | M3 | In Progress | S | endo-but-for-bots#1498 |
 | daemon-mount | endo-but-for-bots | M3 | In Progress | L | — |
 | daemon-rename-to-manager | endo-but-for-bots | M3 | Not Started | S | — |
-| daemon-worker-import-from-mount | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1559, endo-but-for-bots#1590, endo-but-for-bots#1592 |
+| daemon-worker-import-from-mount | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1592 |
 | endo-claude | endo-but-for-bots | M3 | In Progress | L | endo-but-for-bots#1015 |
 | endo-claude-agents-capability | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1560 |
 | endo-fetch | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1588 |
