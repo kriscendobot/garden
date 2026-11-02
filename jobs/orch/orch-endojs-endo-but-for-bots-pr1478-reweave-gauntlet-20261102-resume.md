@@ -1,4 +1,5 @@
 ---
+child-weave-endojs-endo-but-for-bots-pr1478-onto-pr1476-20261102-host: endolin-garden-ece02cb4
 child-weave-endojs-endo-but-for-bots-pr1478-onto-pr1476-20261102-reap-count: 0
 order: serial
 children: weave-endojs-endo-but-for-bots-pr1478-onto-pr1476-20261102 endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102
