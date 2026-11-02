@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T14:16:53Z_
+_As of 2026-11-02T14:21:09Z_
 
 ## Latest
 
@@ -1367,13 +1365,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.1M | $349.79 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 76057389 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (11)
 - [`oros-health-watch-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-135010.md) — ---
 - [`minion-town-arc-press-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261102-135010.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-body-fix6.md) — endojs/endo-but-for-bots: replace the description of PR #1538
@@ -1383,21 +1381,20 @@ worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`daemon-worker-import-from-mount-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-worker-import-from-mount-build.md) — ---
-- [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-end-to-end-reference-flow-build.md) — ---
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
-- [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-daemon-git-agent-tool-adapters-build-4.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 9f4eb64a1033
+### doin (2)
+- [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-end-to-end-reference-flow-build.md) — ---
+- [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-daemon-git-agent-tool-adapters-build-4.md) — ---
 
-### tada (16247)
+### tada (16248)
+- [`canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102.md) — gauntlet endojs-endo-but-for-bots-pr1538-gauntlet-20261102 — HALTED
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6.md) — Cost
 - [`daemon-git-remotes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-remotes-build.md) — Cost
 - [`daemon-rename-to-manager-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-rename-to-manager-build.md) — Cost
-- [`endojs-endo-but-for-bots-pr1637-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1637-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1637-gauntlet — HALTED
-- … and 16242 more
+- … and 16243 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
