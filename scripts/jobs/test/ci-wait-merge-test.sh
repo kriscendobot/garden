@@ -665,6 +665,28 @@ reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 
 DB_HEAD_META "$HEAD" "[$DB_AUTHOR,{\"login\":\"kriscendobot\",\"email\":\"bot@example.com\"}]" > "$STUBDIR/dependabotmeta"
 GARDEN_BOT_LOGIN=kriscendobot run endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 0 T57; merged T57
 
+CLAUDE_COAUTHOR='{"login":"claude","email":"noreply@anthropic.com"}'
+BOT_AUTHOR='{"login":"kriscendobot","email":"bot@example.com"}'
+DB_HEAD_META_2() {  # DB_HEAD_META_2 <head> <authors-a> <authors-b>: two commits
+  printf '{"headRefOid":"%s","author":{"login":"dependabot[bot]"},"commits":[{"oid":"aaa","authors":%s},{"oid":"%s","authors":%s}]}' "$1" "$2" "$1" "$3"
+}
+
+echo "T57b verified dependabot mode + bot commit with Claude co-author trailer → merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+DB_HEAD_META_2 "$HEAD" "[$DB_AUTHOR]" "[$BOT_AUTHOR,$CLAUDE_COAUTHOR]" > "$STUBDIR/dependabotmeta"
+GARDEN_BOT_LOGIN=kriscendobot run endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 0 T57b; merged T57b
+
+echo "T57c verified dependabot mode + Claude as PRIMARY commit author → no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+DB_HEAD_META_2 "$HEAD" "[$DB_AUTHOR]" "[$CLAUDE_COAUTHOR,$BOT_AUTHOR]" > "$STUBDIR/dependabotmeta"
+GARDEN_BOT_LOGIN=kriscendobot run_capture endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 1 T57c; nomerge T57c
+grep -q 'dependabot-head-blocked .*reason=foreign-commit-author' "$STUBDIR/output" && ok "T57c primary-author refusal" || bad "T57c refusal missing: $(cat "$STUBDIR/output")"
+
+echo "T57d verified dependabot mode + foreign co-author with a non-agent email → no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
+DB_HEAD_META_2 "$HEAD" "[$DB_AUTHOR]" "[$BOT_AUTHOR,{\"login\":\"claude\",\"email\":\"m@example.com\"}]" > "$STUBDIR/dependabotmeta"
+GARDEN_BOT_LOGIN=kriscendobot run endojs/endo-but-for-bots 1550 --dependabot-auto-merge; chk "$rc" 1 T57d; nomerge T57d
+
 echo "T58 verified dependabot mode + CHANGES_REQUESTED + no panel → no merge"
 reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"; echo 11 > "$STUBDIR/panel-head-rc"
 printf '{"reviewDecision":"CHANGES_REQUESTED"}' > "$STUBDIR/finalreview"

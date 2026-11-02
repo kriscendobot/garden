@@ -954,7 +954,11 @@ fi
 # Its substitute is deterministic, not a skip. One live read at the final merge
 # point must show the author is still Dependabot, the head is exactly the OID whose
 # CI was accepted, and every commit on it is authored only by Dependabot or this
-# bot (the botanist's step-6 migration commits). Any other author, an empty
+# bot (the botanist's step-6 migration commits). A fleet commit's
+# `Co-Authored-By: Claude <noreply@anthropic.com>` trailer surfaces as a second
+# author (login `claude`); that exact email is accepted as a CO-author only,
+# never as a commit's primary author (endo-but-for-bots#1631 stalled
+# `foreign-commit-author` on its own fixer commits). Any other author, an empty
 # author list, a moved head, or an unreadable answer fails closed. The merge below
 # is then pinned to that head so nothing can land between this read and the merge.
 dependabot_head_gate() {
@@ -969,13 +973,17 @@ dependabot_head_gate() {
     reason="head-changed"
   elif ! printf '%s' "$meta" | jq -e \
       --arg dependabot "$(canonical_bot_login "$GARDEN_DEPENDABOT_LOGIN")" \
-      --arg bot "$(printf '%s' "$GARDEN_BOT_LOGIN" | tr '[:upper:]' '[:lower:]')" '
+      --arg bot "$(printf '%s' "$GARDEN_BOT_LOGIN" | tr '[:upper:]' '[:lower:]')" \
+      --arg agent_email noreply@anthropic.com '
         def canon: ascii_downcase | sub("^app/"; "") | sub("\\[bot\\]$"; "");
+        def trusted: (.login // "" | canon) as $login
+                     | $login != "" and ($login == $dependabot or $login == $bot);
         (.commits | type == "array" and length > 0)
         and all(.commits[];
           (.authors | type == "array" and length > 0)
-          and all(.authors[]; (.login // "" | canon) as $login
-                              | $login != "" and ($login == $dependabot or $login == $bot)))
+          and (.authors[0] | trusted)
+          and all(.authors[1:][];
+                  trusted or ((.email // "" | ascii_downcase) == $agent_email)))
       ' >/dev/null; then
     reason="foreign-commit-author"
   else
