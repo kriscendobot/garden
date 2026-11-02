@@ -23,3 +23,13 @@ Why: the PR's base `llm-61cd656` (2026-10-16) predates llm commit 27705a4cdf ("t
 
 Do not touch the dependent PRs; a separate child weaves #1478 next. Leave the PR draft. In your report, name the new #1476 head SHA.
 
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T00:39:27Z
