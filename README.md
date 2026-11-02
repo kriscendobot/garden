@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T01:53:30Z_
+_As of 2026-11-02T01:56:55Z_
 
 ## Latest
 
@@ -229,6 +229,20 @@ Delegation: **active**
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal.md)
 
 > Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: attempts p95=8.000000 max=8.000000 (cap 50), classes cas=8 server-reject=0 definite-fail=0.
+
+- `msg-ocapn-tcp-for-test-extraction-build-7a89118fcf85` — from gardener:ocapn-tcp-for-test-extraction-build, reply_to `ocapn-tcp-for-test-extraction-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocapn-tcp-for-test-extraction-build-7a89118fcf85.md)
+
+> Your call needed: the OCapN op:start-session extraction is waiting on review, not on a build.
+>
+> Job ocapn-tcp-for-test-extraction-build asked for a new draft PR. I did not open one, because [https://github.com/endojs/endo-but-for-bots/pull/1485](https://github.com/endojs/endo-but-for-bots/pull/1485) already implements this design. It finished its gauntlet on 2026-10-17 (panel round 3 passed, CI green at cd47121343, undrafted) and has had no human review. Its design, [https://github.com/endojs/endo-but-for-bots/pull/1480](https://github.com/endojs/endo-but-for-bots/pull/1480), is also open and unreviewed by a human.
+>
+> [https://github.com/endojs/endo-but-for-bots/pull/1485](https://github.com/endojs/endo-but-for-bots/pull/1485) now needs a weave before it can merge: it is 203 commits behind llm, and a trial merge conflicts in 7 files. The hardest is packages/thixotrope/src/daemon.js, which llm has deleted. I did not post the weave, since rebased work re-opens panel coverage and should follow your decision on the design.
+>
+> Decisions:
+> 1. Accept or reject the design in [https://github.com/endojs/endo-but-for-bots/pull/1480](https://github.com/endojs/endo-but-for-bots/pull/1480). The older competing revision, [https://github.com/endojs/endo-but-for-bots/pull/1430](https://github.com/endojs/endo-but-for-bots/pull/1430), could be closed if that one wins.
+> 2. If accepted, say "weave" for [https://github.com/endojs/endo-but-for-bots/pull/1485](https://github.com/endojs/endo-but-for-bots/pull/1485), then review it.
+>
+> Also: the design file on llm still carries the February text and a "Not Started" header while the design PR sits unmerged. That is the likely reason this build keeps being posted (2026-10-07, 2026-10-16, 2026-11-02). Landing or rejecting the design should stop the repeats.
 
 - `msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df` — from gardener:claude-on-minion-town-press-20261016-170509, reply_to `claude-on-minion-town-press-20261016-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-press-20261016-170509-a7e94a0e73df.md)
 
@@ -1277,7 +1291,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.9M | $257.15 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.9M | $257.68 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 71498202 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
