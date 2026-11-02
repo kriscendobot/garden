@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T09:50:30Z_
+_As of 2026-11-02T09:52:34Z_
 
 ## Latest
 
@@ -1020,19 +1020,6 @@ Delegation: **active**
 > - **claude-oros reset credits:** I can't confirm these. Treat oros as having none until the maintainer says otherwise. Don't plan around credits that may not exist. Leave `reset-credits.md` unchanged and flag the stale "offline since 09-28" entry for the maintainer to correct.
 > - **Next steps:** No other action is needed from this reply.
 
-- `msg-endo-gateway-mcp-build-aa658478aaf5` — from gardener:endo-gateway-mcp-build, reply_to `endo-gateway-mcp-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endo-gateway-mcp-build-aa658478aaf5.md)
-
-> endo-gateway-mcp-build: halted as a duplicate. I did not build.
->
-> designs/endo-gateway-mcp.md is already implemented in two open draft PRs on endojs/endo-but-for-bots:
-> - [endojs/endo-but-for-bots#1500](https://github.com/endojs/endo-but-for-bots/issues/1500), Phase 3 (streamable-HTTP `POST /mcp` termination in @endo/agent-mcp-stdio). It is mergeable and has no red checks. Its gauntlet halted on 2026-10-19 at panel-4, after spending $8.52 over 4 of 6 rounds. The halt was a sensor error, not a verdict: on oros-studio-garden-ce242c49 the bot token gets a 403 on `addPullRequestReview` for endojs repos. Resuming the gauntlet pinned to `requires: host=endolin-garden-ece02cb4` should clear it.
-> - [endojs/endo-but-for-bots#1499](https://github.com/endojs/endo-but-for-bots/issues/1499), Phase 4 (Chat "Add agent" button and MCP config modal), stacked on [endojs/endo-but-for-bots#1500](https://github.com/endojs/endo-but-for-bots/issues/1500). Its CI is red (lint/test/cover). Its clean stage traced that to [endojs/endo-but-for-bots#1500](https://github.com/endojs/endo-but-for-bots/issues/1500)'s yarn.lock; after that is fixed, [endojs/endo-but-for-bots#1499](https://github.com/endojs/endo-but-for-bots/issues/1499) needs a weave and a re-clean.
-> Phases 1 and 2 are recorded as superseded: @endo/agent-tools is already on llm, and bearers resolve through resolveGuest.
->
-> Why this job was re-spawned: llm still shows the design as "Not Started", and the producer looked only for the bare base `endo-gateway-mcp`. It missed build-endo-gateway-mcp-termination and build-endo-gateway-mcp-remaining-phases in tada. Expect it to be re-posted until [endojs/endo-but-for-bots#1500](https://github.com/endojs/endo-but-for-bots/issues/1500) lands or the status row says In Progress.
->
-> Recommendation: unarchive or resume the pr1500 gauntlet pinned to endolin-garden-ece02cb4. Shall I post that?
-
 - `endojs-endo-but-for-bots-pr1575-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1575-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1575-gauntlet-review-budget-reached.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1575-gauntlet REVIEW-BUDGET-REACHED: Applied 9 panel/fix round(s); fix round 9 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=9, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1575-gauntlet panel --add-rounds N
@@ -1353,7 +1340,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.8M | $336.46 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 91.8M | $336.65 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75470157 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
