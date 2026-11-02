@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T07:54:42Z_
+_As of 2026-11-02T08:06:56Z_
 
 ## Latest
 
@@ -1085,16 +1083,6 @@ Delegation: **active**
 > - Phase 7 (the endo-claude acceptance loop) is unblocked for its build step.
 > - Phase 8 still needs your decision on Open Question 4: a daemon `provideHttpClient` formula or the `@endo/fetch` plugin.
 
-- `endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-halted` — from gauntlet:endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830 HALTED: stage 'endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 3/6 · cost so far: $8.20
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830 panel --iteration 3 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached.md)
 
 > COALESCED message — occurrence #2 (first seen 2026-10-27T07:35:31Z, latest 2026-10-30T12:33:03Z).
@@ -1337,28 +1325,29 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.8M | $337.02 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 90.9M | $338.00 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 75300373 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 75328348 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (7)
 - [`oros-health-watch-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-072031.md) — ---
-- [`oros-health-checkup-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-072031.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr667-ci-rerun-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-ci-rerun-20261102.md) — Rerun two failed CI jobs on endojs/endo-but-for-bots PR #667, then resume its...
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
+- [`daily-progress-summary-20261102-080514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261102-080514.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4-pr-body.md) — endojs/endo-but-for-bots #1538: replace the PR body
 
-### doin (4)
+### doin (6)
+- [`oros-health-checkup-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261102-072031.md) — ---
 - [`fu-endojs-endo-but-for-bots-pr1503-gauntlet-fix-1-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1503-gauntlet-fix-1-1.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1588
+- [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
 
