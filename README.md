@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T23:46:15Z_
+_As of 2026-11-02T23:50:21Z_
 
 ## Latest
 
@@ -1107,7 +1105,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.9M | $353.26 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51337494 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51378128 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
@@ -1127,19 +1125,17 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (4)
-- [`minion-town-arc-press-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261102-232010.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (2)
 - [`oros-health-checkup-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261102-232010.md) — ---
 - [`endojs-endo-but-for-bots-pr1639-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1639-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1639
-- [`dependabotany-recheck-endo-but-for-bots-pr1629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr1629.md) — ---
 
-### tada (16271)
+### tada (16273)
+- [`minion-town-arc-press-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-232010.md) — Cost
+- [`dependabotany-recheck-endo-but-for-bots-pr1629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/dependabotany-recheck-endo-but-for-bots-pr1629.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261102-225009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/dependabotany-recheck-endo-but-for-bots-20261102-225009.md) — Cost
 - [`endojs-endo-but-for-bots-pr1639-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1639-gauntlet-viability.md) — Cost
 - [`endopi-extension-package-manifest-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-extension-package-manifest-build-open-pr.md) — Cost
-- [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-body-fix6.md) — Panel-head freshness
-- [`canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5.md) — rolling-deploy canary probe — round trip OK
-- … and 16266 more
+- … and 16268 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
