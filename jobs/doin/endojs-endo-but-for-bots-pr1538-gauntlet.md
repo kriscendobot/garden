@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Run the gauntlet (clean → panel review → fix-loop → un-draft) on endojs/endo-but-for-bots PR #1538, the draft "feat(daemon): provideGitClone(destMount, petName, { origin }) with discard on failure". It is CI-green and mergeable, has no gauntlet on record, and serves the git-remote arc.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T00:25:31Z
