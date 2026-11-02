@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-02T08:35Z (oros-health-checkup-20261102-072031): degraded (disk); deployed `11fe1c6`, main2 `6d9c658`; pruned tmpexec, landed a sweeper fix
+
+- **Load/mem:** load 4.58, 5.04, 4.36 at 08:35Z; it reached 10.10 at 08:22Z during the tmpexec prune. 12 GiB of 15 GiB available. Swap is full (1.0 GiB, about 160 KiB free), the same as the last two runs.
+- **Disk/inodes (the defect):** the virtiofs garden mount is at 67G free, 86%, down from 72G at 05:15Z. Inodes are at 2%. The overlay is at 7% (402G free).
+- **Disk accounting:** removing 6.2G (by `du`) did not raise `df`: 71.4G free before the prune, 69.5G after. The source is still unidentified. Project worktrees total about 12G, with the largest at 2.5G, so they are not it. No file over 200M search finished within 200s.
+- **Uptime:** 31d15h, no reboot.
+- **Deployed vs main2:** the root is at `11fe1c6`. fleet/health/oros shows `roll_status: deployed`, 0 of 290 units failing (04:26:27Z). origin/main2 is `6d9c658`, one commit ahead, which is this run's fix. It has not been rolled out yet, and nothing was seen blocking it.
+- **Drain/units:** no drain marker seen, 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, no derotation marker seen.
+- **Budget heartbeat:** last claude-oros push at 2026-11-02T08:18:44+00:00. The eight pushes from 06:03Z were all ok, at a ~15-minute cadence. Spend is 14108578 of 180M. The gardener-scaler logged four "spend reading below published" warnings in 6 hours, each holding the published value; not investigated beyond that.
+- **State clones:** the largest are gardener-scaler (50 packs, at the threshold but not over it), sysop and monks/3 (49). No `gc.log` and no temp packs. The search for `.git` locks older than 30 minutes hit its 60s bound without finding any, so it is not a complete check.
+- **rc=124 (3h):** one benign `journal-contention-watch` deferred notice delivery at 05:25Z. No rc=137 and no `Failed with result`.
+- **Changed:** removed 7,990 entries from `scratch/tmpexec` (6.2G by `du`), each with no writes in 7 days and no process holding a cwd or fd in it; 190 entries remain. Landed `6d9c658` on main2: the worktree sweeper now does the same each tick, within a 300s budget, with a new test (`worktree-sweeper-tmpexec-test.sh`, 16 passing; the build-cache and follower sweeper tests still pass, and the lock-liveness test's last line was a PASS).
+- **Needs the maintainer:** same as the last two runs, someone at the Mac should find what is using the shared disk. Free space fell about 2.5G in 3h20m, on top of whatever the prune did not give back.
+
 ## 2026-11-02T05:15Z (oros-health-checkup-20261102-042009): degraded (disk); deployed = origin/main2 `11fe1c6`; removed leaked test dirs
 
 - **Load/mem:** load 3.48/3.85/3.83 at 05:14Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB, 192 KiB free), the same as last run.
