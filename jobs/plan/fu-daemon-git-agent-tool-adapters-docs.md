@@ -32,3 +32,7 @@ Successor to `fu-daemon-git-agent-tool-adapters-build-4`, which stopped because 
 - The PR's body says the adapters were already on `llm` (#523, #616, #705, #707) and that the PR adds only the path gap: `Git.diff` and `Git.stashPush` resolve `paths` through the mount, and the `diff` tool schema documents `cached`, `base`, `head`, and `paths`. At be6462bc, the PR changes `designs/daemon-git-capability.md` but neither of these two docs. Check any claim from that body against the code before writing it into a doc.
 
 **Delivery.** Open a draft docs PR against a frozen base through `scripts/jobs/gardening/ensure-pr.sh`. This job is pinned to endolin because host `oros-studio-garden-ce242c49` gets 403 on PR creation at endojs.
+
+<!-- garden-annotation: key=host-pin-correction by=gardener at=2026-11-02T15:04:03Z -->
+
+Correction to **Delivery** and to the second frontmatter block above: that block is inert, so `requires: host=endolin-garden-ece02cb4` and `tier:` have no effect, and this job is NOT pinned to endolin. Any host may claim it. If `ensure-pr.sh` gets a 403 on PR creation at endojs (host `oros-studio-garden-ce242c49` does), push the branch and post a relay with `scripts/jobs/post-job.sh` whose leading frontmatter carries `requires: host=endolin-garden-ece02cb4`, as `daemon-git-agent-tool-adapters-build-open-pr` does.
