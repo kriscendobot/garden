@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T16:54:40Z_
+_As of 2026-11-02T17:00:21Z_
 
 ## Latest
 
@@ -131,11 +129,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-02T16:43:31Z).
-> It was observed 26 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #27 (first seen 2026-11-01T04:46:54Z, latest 2026-11-02T16:58:32Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.016105s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.027556s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.016762s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.020933s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014507s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.025562s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -1383,10 +1387,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.6M | $352.48 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51565581 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51234172 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 2.931956s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 11 open notice(s); checker healthy
+worst fetch p95 2.931956s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (8)
@@ -1399,18 +1403,17 @@ worst fetch p95 2.931956s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (3)
-- [`endopi-provider-registry-and-oauth-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-provider-registry-and-oauth-build.md) — ---
+### doin (2)
 - [`endopi-prompt-templates-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-prompt-templates-build.md) — ---
 - [`endopi-extension-package-manifest-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-extension-package-manifest-build.md) — ---
 
-### tada (16257)
+### tada (16258)
+- [`endopi-provider-registry-and-oauth-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-provider-registry-and-oauth-build.md) — Cost
 - [`endopi-jsonl-transcript-format-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-jsonl-transcript-format-build.md) — Completion report: endopi-jsonl-transcript-format-build
 - [`endopi-edit-tool-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-edit-tool-build.md) — Cost
 - [`endopi-stdio-rpc-bridge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-stdio-rpc-bridge-build.md) — Cost
 - [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-end-to-end-reference-flow-build.md) — Cost
-- [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/fu-daemon-git-agent-tool-adapters-build-4.md) — Cost
-- … and 16252 more
+- … and 16253 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
