@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T02:21:15Z_
+_As of 2026-11-02T02:27:06Z_
 
 ## Latest
 
@@ -1279,7 +1277,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.3M | $257.83 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 71.5M | $257.86 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 71580807 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1288,29 +1286,27 @@ _Fleet token-unlock pace: 71580807 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (6)
-- [`endojs-endo-but-for-bots-pr1586-gauntlet-resume-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1586-gauntlet-resume-panel-4.md) — ---
+### todo (4)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`ocapn-tcp-syrups-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-tcp-syrups-framing-build.md) — ---
 - [`oros-health-checkup-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-012009.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (6)
+- [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1586-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1586
 - [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-fs-interface-reconciliation-build.md) — ---
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1-pr-body.md) — Relay PR title, body and fix summary to endojs/endo-but-for-bots PR 1538
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #667
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1538
 - [`endojs-endo-but-for-bots-pr1636-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1636-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1636
 
-### tada (16156)
+### tada (16159)
+- [`endojs-endo-but-for-bots-pr1586-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1586-gauntlet-panel-4.md) — Cost
+- [`endojs-endo-but-for-bots-pr1586-gauntlet-resume-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1586-gauntlet-resume-panel-4.md) — Panel-head freshness
+- [`ocapn-tcp-syrups-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/ocapn-tcp-syrups-framing-build.md) — Cost
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1-pr-body.md) — Panel-head freshness
 - [`ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/ocapn-network-transport-separation-build.md) — Cost
-- [`endojs-endo-but-for-bots-pr1636-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1636-gauntlet-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-1.md) — Cost
-- [`oros-health-watch-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-watch-20261102-012009.md) — Cost
-- [`ocapn-tcp-for-test-extraction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/ocapn-tcp-for-test-extraction-build.md) — Cost
-- … and 16151 more
+- … and 16154 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
