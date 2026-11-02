@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T00:57:52Z_
+_As of 2026-11-02T01:01:51Z_
 
 ## Latest
 
@@ -1279,34 +1277,33 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.1M | $245.67 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 68.4M | $246.28 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 47134995 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 70847900 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (4)
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1538
+### todo (3)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (4)
-- [`endoclaw-timer-reminder-plugin-redraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endoclaw-timer-reminder-plugin-redraft.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
+- [`deadmail-20261102T005616Z-00c7a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261102T005616Z-00c7a5.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102.md) — Continue conducting endojs/endo-but-for-bots PR #1633 (dependabot preact 10.2...
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #667
 
-### tada (16142)
+### tada (16145)
+- [`endo-fs-from-git-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endo-fs-from-git-build.md) — Cost
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean.md) — Cost
+- [`endoclaw-timer-reminder-plugin-redraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endoclaw-timer-reminder-plugin-redraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1631-ava-lazy-concordance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1631-ava-lazy-concordance.md) — Cost
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e.md) — gauntlet endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e — HALTED
-- [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1.md) — FIX round 1 — endojs/endo-but-for-bots PR #1482: fixes pushed, CI red on test...
-- … and 16137 more
+- … and 16140 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
