@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T23:10:10Z_
+_As of 2026-11-02T23:15:56Z_
 
 ## Latest
 
@@ -113,11 +111,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-02T18:59:58Z).
-> It was observed 31 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #32 (first seen 2026-11-01T04:46:54Z, latest 2026-11-02T23:14:00Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 32 times; this is ONE
+> coalesced notice that updates in place, not 32 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.167291s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.061956s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/inbox-list/journal: p95=0.053569s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.091318s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.095166s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.093768s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -1113,7 +1117,7 @@ _Fleet token-unlock pace: 51299991 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`oros-health-watch-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-135010.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`oros-health-watch-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-202009.md) — ---
@@ -1122,6 +1126,7 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`oros-health-watch-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-170509.md) — ---
+- [`endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin.md) — ---
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
