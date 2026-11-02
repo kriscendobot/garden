@@ -18,3 +18,13 @@ Task:
 2. Add a CI lane that runs at least the daemon's `content-store-gc` test under `test:rust`, so the XS `removeDirectory` runs on real host globals. PR #1538 adds `scratch-mount reclamation unlinks symlinks without following them` for this. Size the lane from what the rest of the suite does once the daemon starts.
 
 Evidence: on PR #1538's head, skipping that registration when `fetch` is absent lets `content-store-gc` pass on endor; with the base branch's `removeDirectory` the new test fails because the symlink target's file was deleted. The build needs `git submodule update --init c/moddable`, `yarn workspace @endo/thixotrope run build:xs-bundles`, and `yarn bundle:xs` before `cargo build --release -p endo --bin endor`.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T07:59:30Z
