@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T07:52:26Z_
+_As of 2026-11-02T07:54:42Z_
 
 ## Latest
 
@@ -1085,6 +1083,16 @@ Delegation: **active**
 > - Phase 7 (the endo-claude acceptance loop) is unblocked for its build step.
 > - Phase 8 still needs your decision on Open Question 4: a daemon `provideHttpClient` formula or the `@endo/fetch` plugin.
 
+- `endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-halted` — from gauntlet:endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830 HALTED: stage 'endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 3/6 · cost so far: $8.20
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830 panel --iteration 3 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1574-gauntlet-review-budget-reached.md)
 
 > COALESCED message — occurrence #2 (first seen 2026-10-27T07:35:31Z, latest 2026-10-30T12:33:03Z).
@@ -1327,7 +1335,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.8M | $335.88 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 90.8M | $337.02 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75300373 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1352,13 +1360,13 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
 
-### tada (16207)
+### tada (16208)
+- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830.md) — gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830 — HALTED
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3.md) — PR #667 fix round 3: CI is red, on two jobs that look like flakes
 - [`shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102.md) — Panel-head freshness
 - [`minion-town-arc-press-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-072031.md) — Cost
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1588-gauntlet-panel-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr1588-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1588-gauntlet-20261102.md) — Cost
-- … and 16202 more
+- … and 16203 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
