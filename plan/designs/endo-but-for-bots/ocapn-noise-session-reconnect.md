@@ -12,8 +12,8 @@ source: imported from origin/llm designs/README.md
 
 > **Build status (2026-11-02):** already being built; do not post another build job.
 > The stack is endojs/endo-but-for-bots #1476 (Phase 1), #1478 (Phase 2), #1481 (Phase 3),
-> #1482 (Phase 5), #1483 (capability bit, daemon default), #1515 (conformance tests, B1); all are draft
-> and being rewoven and reviewed by their own gauntlet jobs. The Phase 4 Resume path awaits the C1
+> #1482 (Phase 5), #1483 (capability bit, daemon default), #1515 (conformance tests, B1), all draft.
+> The stack still needs weaving and review from #1478 upward. The Phase 4 Resume path awaits the C1
 > decision on #1487, which rewrites this design to Rekey only. The `pr` field names the stack tip, #1515.
 > The remaining slices in #1512's build breakdown (B2, B3, B4, D1) are held by the parked job
 > `build-endo-but-for-bots-ocapn-noise-session-reconnect-open-pr`, so they are still open if #1515 merges first.
