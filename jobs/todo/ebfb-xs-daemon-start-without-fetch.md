@@ -19,15 +19,4 @@ Task:
 
 Evidence: on PR #1538's head, skipping that registration when `fetch` is absent lets `content-store-gc` pass on endor; with the base branch's `removeDirectory` the new test fails because the symlink target's file was deleted. The build needs `git submodule update --init c/moddable`, `yarn workspace @endo/thixotrope run build:xs-bundles`, and `yarn bundle:xs` before `cargo build --release -p endo --bin endor`.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-02T07:59:30Z
+<!-- garden-reaped: 0 -->
