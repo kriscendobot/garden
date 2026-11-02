@@ -1,14 +1,30 @@
 ---
 slug: endopi-edit-tool
 repository: endo-but-for-bots
-status: Proposed
+status: In Progress
 size: M
 milestone: M3
 depends_on: []
 created: 2026-05-15
-updated: 2026-05-15
+updated: 2026-11-02
+pr: endo-but-for-bots#1501
 source: imported from origin/llm designs/README.md
 ---
+
+## Implementation status (reconciled 2026-11-02)
+
+This record was stale: the import left it at `Proposed`, which let the build be
+minted twice more after the tool had landed. The design on `llm` reads In Progress.
+
+- Landed: the edit tool for Lal and Fae, with tests and a changeset, in
+  endo-but-for-bots PR 668 (merged 2026-07-13). The shared core is
+  `@endo/agentry/edit-text`; Fae exposes `edit` and Lal exposes `editText`.
+- Open: the Chat diff preview, in draft endo-but-for-bots PR 1501. Its `pr:` field
+  above flips this record to Complete when it merges.
+- Conditional, no work to mint: moving the tool onto a dedicated `File` capability,
+  only if `Dir.lookup(name) -> File` lands.
+
+Do not mint another build from this design.
 
 # EndoPi: LLM-Friendly Edit Tool
 
