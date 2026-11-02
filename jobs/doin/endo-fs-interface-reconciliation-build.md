@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Builder job on endojs/endo-but-for-bots (base `llm`): implement the next unlanded phase of the M3 design `fs-interface-reconciliation` (journal/plan/designs/endo-but-for-bots/fs-interface-reconciliation.md). Check which of Phase 1 (catalog land), Phase 1.5 (endo-fs retires into `@endo/platform/fs`), and Phase 2 are already on `llm`, then open a DRAFT PR for the first remaining one.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
