@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Builder work on endojs/endo-but-for-bots (base `llm`), design `endoclaw-timer` (M3): redraft the heartbeat scheduler from the superseded daemon-formula PRs (#609/#617/#619) as an unconfined `@endo/reminder` plugin with vfs persistence, then open a DRAFT PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T00:57:00Z
