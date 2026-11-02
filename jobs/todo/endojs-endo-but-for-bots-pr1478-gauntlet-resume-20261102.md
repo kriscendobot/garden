@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume
-priority: normal
-posted_by: fixer
+role: fixer
+tier: mentor
+arc: minion-town-mcp-ocapn
 posted_at: 2026-11-02T00:08:37Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-02T04:52:59Z cleared=none -->
 
 ---
 role: fixer
