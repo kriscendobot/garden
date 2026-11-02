@@ -119,7 +119,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | endoclaw-network-fetch | endo-but-for-bots | M3 | Superseded | M | endo-but-for-bots#566 |
 | endoclaw-timer | endo-but-for-bots | M3 | In Progress | M | — |
 | endopi-edit-tool | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1501 |
-| endopi-jsonl-transcript-format | endo-but-for-bots | M3 | Proposed | M | — |
+| endopi-jsonl-transcript-format | endo-but-for-bots | M3 | In Progress | M | — |
 | endopi-provider-registry-and-oauth | endo-but-for-bots | M3 | Proposed | M | — |
 | endopi-stdio-rpc-bridge | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#667 |
 | filesystem-watchers | endo-but-for-bots | M3 | Complete | S | — |
