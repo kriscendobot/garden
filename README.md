@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T00:28:21Z_
+_As of 2026-11-02T00:31:01Z_
 
 ## Latest
 
@@ -1269,7 +1269,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.8M | $246.14 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 67.8M | $246.33 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70819651 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1278,16 +1278,16 @@ _Fleet token-unlock pace: 70819651 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.756625s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (5)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`endojs-endo-but-for-bots-pr667-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-gauntlet.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1542-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1542-gauntlet.md) — ---
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1482
+- [`endojs-endo-but-for-bots-pr667-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102.md) — Continue conducting endojs/endo-but-for-bots PR #1633 (dependabot preact 10.2...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr1631-ava-lazy-concordance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1631-ava-lazy-concordance.md) — fixer: ava 8.1 lazy-concordance regression in @endo/claude-sandbox mcp-bridge...
