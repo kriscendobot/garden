@@ -5,7 +5,7 @@ hand-edit. Edit a design by editing its record; this view recomputes. The
 per-design files are the single source of truth (design: garden#4,
 designs/plan-in-journal.md)._
 
-This roadmap aggregates **152** design record(s) across all plan repositories.
+This roadmap aggregates **153** design record(s) across all plan repositories.
 Milestone totals, completion, and the dependency graph are computed over the union
 of records, so a milestone spanning repositories rolls up as one.
 
@@ -22,7 +22,7 @@ of records, so a milestone spanning repositories rolls up as one.
 |---|---|---|---|---|
 | M1 | 8 | 8 | 100% | 0 |
 | M2 | 8 | 8 | 100% | 0 |
-| M3 | 31 | 8 | 25% | 70 |
+| M3 | 32 | 8 | 25% | 73 |
 | M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
@@ -113,6 +113,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-worker-import-from-mount | endo-but-for-bots | M3 | Proposed | M | — |
 | endo-claude | endo-but-for-bots | M3 | In Progress | L | endo-but-for-bots#1015 |
 | endo-claude-agents-capability | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1560 |
+| endo-fetch | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1588 |
 | endo-fs-from-git | endo-but-for-bots | M3 | In Progress | — | — |
 | endo-gateway | endo-but-for-bots | M3 | Proposed | L | — |
 | endoclaw-network-fetch | endo-but-for-bots | M3 | Superseded | M | endo-but-for-bots#566 |
