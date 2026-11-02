@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T23:38:40Z_
+_As of 2026-11-02T23:39:55Z_
 
 ## Latest
 
@@ -1130,7 +1130,7 @@ _Fleet token-unlock pace: 51337494 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.103944s/45s (unknown); 12 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (14)
 - [`oros-health-watch-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-135010.md) — ---
 - [`minion-town-arc-press-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261102-232010.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`oros-health-checkup-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-232010.md) — ---
@@ -1144,11 +1144,11 @@ worst fetch p95 10.103944s/45s (unknown); 12 open notice(s); checker healthy
 - [`oros-health-watch-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-170509.md) — ---
 - [`endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin.md) — ---
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
-- [`dependabotany-recheck-endo-but-for-bots-pr1629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-pr1629.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1639-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1639-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1639
+- [`dependabotany-recheck-endo-but-for-bots-pr1629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr1629.md) — ---
 
 ### tada (16271)
 - [`dependabotany-recheck-endo-but-for-bots-20261102-225009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/dependabotany-recheck-endo-but-for-bots-20261102-225009.md) — Cost
