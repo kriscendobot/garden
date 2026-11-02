@@ -12,3 +12,13 @@ Builder job on endojs/endo-but-for-bots (base `llm`): implement the worked end-t
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-02T13:53:02Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T14:19:26Z
