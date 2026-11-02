@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T13:25:56Z_
+_As of 2026-11-02T13:27:35Z_
 
 ## Latest
 
@@ -152,10 +152,6 @@ Delegation: **active**
 > ONE entry that updates in place, not 31 messages. Latest detail:
 >
 > Milestone M2 is blocked on `hardened-text-codecs-shim`: bot PR #1349 closed when upstream #3377 was superseded by merged upstream #3376. Decide whether #3376 completes this design or whether its XS-smoke/audit residual needs a fresh implementation step.
-
-- `watchdog-unclaimable-host-requirements-endojs-endo-but-for-bots-pr1538-body-fix6` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-endojs-endo-but-for-bots-pr1538-body-fix6.md)
-
-> Host-requirements gate: job 'endojs-endo-but-for-bots-pr1538-body-fix6' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-oros-health-watch-20261018-123528-a52676a4207d` — from gardener:oros-health-watch-20261018-123528, reply_to `oros-health-watch-20261018-123528` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261018-123528-a52676a4207d.md)
 
