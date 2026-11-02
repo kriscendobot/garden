@@ -18,3 +18,13 @@ Do NOT redo the diligence. Do only these steps:
 1. Re-read the live PR. If it is closed or merged, or its head carries a commit not authored by dependabot[bot] or kriscendobot, stop and report.
 2. Get an isolated project worktree: `scripts/jobs/ensure-project-worktree.sh <this-job-base> endojs/endo-but-for-bots dependabot/npm_and_yarn/preact-11.0.2`. Run `scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1633 --dependabot-auto-merge` in the FOREGROUND, with no short outer `timeout`. If it exits with rc=4 "ci-head-changed ... re-enqueue", that is a stale-read race after its own rebase, so re-run it. Verify `gh pr view 1633 -R endojs/endo-but-for-bots --json state` reads MERGED, or that auto-merge is enqueued.
 3. Write the terminal ledger row as a journal `message` entry. Use the heading `# Dependabotany — endojs/endo-but-for-bots PR #1633 — MERGE-NOW conducted` and the body line `project: endo-but-for-bots`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T00:12:54Z
