@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T14:36:03Z_
+_As of 2026-11-02T14:37:37Z_
 
 ## Latest
 
@@ -858,10 +858,6 @@ Delegation: **active**
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=88658378 cap=271000000 pace-bias=0 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.6548(ramp) target=3
-
-- `endojs-endo-but-for-bots-pr1638-gauntlet-not-viable` — from gauntlet:endojs-endo-but-for-bots-pr1638-gauntlet-not-viable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1638-gauntlet-not-viable.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1638-gauntlet REFUSED by its pre-spend viability gate: the premise was overtaken. Deciding question: Is the roadmap's worked end-to-end reference flow still an unmet need on current `llm`, not yet delivered by a landed implementation? Option: close as superseded.
 
 - `followup-gate-design-minion-town-clip-governor-column` — from followup-gate:design-minion-town-clip-governor-column, reply_to `design-minion-town-clip-governor-column` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-minion-town-clip-governor-column.md)
 
