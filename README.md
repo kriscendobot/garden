@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T08:40:18Z_
+_As of 2026-11-02T08:42:38Z_
 
 ## Latest
 
@@ -1236,10 +1236,6 @@ Delegation: **active**
 > 1. Keep [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) as a DRAFT. Treat it as the gap-revealing build the job asked for, and don't take it out of draft. Make no outward-facing moves: no merging, no closing, no un-drafting, and no ferrying upstream.
 > 2. Building against [kriscendobot/minion.town#221](https://github.com/kriscendobot/minion.town/issues/221) at commit 7eca8b82 is a reasonable reading of "landed design". The design is still a draft PR, so its shape is provisional. Say so in the [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) PR body. Add a short gap report listing where the implementation diverged from, or exposed holes in, the design. If the design changes, [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) may need rework, and that's acceptable throw-away cost.
 > 3. Don't wait for the maintainer to confirm the spec. Finish the gap report and run the usual local checks. Then post your completion summary, noting that the build is provisional on the draft design. Per the probe convention, no panel, fix-loop or un-draft chain should follow. If the maintainer later wants it parked, they can close or park it.
-
-- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_self_deploy_journal.md)
-
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=15.464118s max=15.464118s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
