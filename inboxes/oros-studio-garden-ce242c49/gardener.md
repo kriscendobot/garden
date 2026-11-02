@@ -485,3 +485,14 @@ Inspect via `git -C journal cat-file -p 6e125d7f936cadb87b2bec35c54cc2b4edb006c6
 
 Inspect via `git -C journal cat-file -p b00f4dc491ea82bbb1c45e93f1530bf218e8ba29` (or read
 `journal/inboxes/oros-studio-garden-ce242c49/captures/b00f4dc491ea82bbb1c45e93f1530bf218e8ba29`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-11-02T01:33:43Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3d80ca48a7750ceae5ea50b2d50756c57dc336ef
+- Context: gardener-4 on oros-studio-garden-ce242c49: job 'endo-fs-interface-reconciliation-build' handler exited rc=76
+- Capture: inboxes/oros-studio-garden-ce242c49/captures/3d80ca48a7750ceae5ea50b2d50756c57dc336ef
+
+Inspect via `git -C journal cat-file -p 3d80ca48a7750ceae5ea50b2d50756c57dc336ef` (or read
+`journal/inboxes/oros-studio-garden-ce242c49/captures/3d80ca48a7750ceae5ea50b2d50756c57dc336ef`) -- both work off-host after a plain `journal2` fetch.
