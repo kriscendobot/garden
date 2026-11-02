@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T03:19:18Z_
+_As of 2026-11-02T03:21:31Z_
 
 ## Latest
 
@@ -1300,10 +1300,10 @@ worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-secti
 - [`endojs-endo-but-for-bots-pr1636-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1636-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1636
 
 ### tada (16166)
+- [`orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102 ...
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-d0690e9c0dad`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-d0690e9c0dad.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1.md) — Cost
-- [`orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102 ...
 - [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endo-fs-interface-reconciliation-build.md) — Panel-head freshness
 - … and 16161 more
 
