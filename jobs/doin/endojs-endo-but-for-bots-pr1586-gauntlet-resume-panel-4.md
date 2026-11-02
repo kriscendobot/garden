@@ -21,3 +21,13 @@ Rules:
 - Do not merge, close, or un-draft the PR, and do not start a second dated gauntlet.
 
 Verification: exit 0 alone proves nothing, because a draining host also exits 0. Confirm `jobs/gauntlet/endojs-endo-but-for-bots-pr1586-gauntlet.md` now exists on `origin/journal2` with `iteration: 4` and `max_iterations: 6`. If this host is also draining, do not lift the drain: report it, emit `<<<GARDEN-ORCHESTRATION-FAILED>>>`, and let the maintainer decide.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T02:23:42Z
