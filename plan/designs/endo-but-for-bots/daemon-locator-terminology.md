@@ -1,14 +1,32 @@
 ---
 slug: daemon-locator-terminology
 repository: endo-but-for-bots
-status: Not Started
+status: In Progress
 size: S
 milestone: M3
 depends_on: []
 created: 2026-02-24
-updated: 2026-02-24
+updated: 2026-11-02
+pr: endo-but-for-bots#1498
 source: imported from origin/llm designs/README.md
 ---
+
+## Implementation status (reconciled 2026-11-02)
+
+Delivered by the open PR https://github.com/endojs/endo-but-for-bots/pull/1498
+(head `build/daemon-locator-terminology`, base `llm-ca5aaef`), which marks the
+design Complete on its branch. As of 2026-11-02 it is out of draft, mergeable,
+and CI is green. It waits on the maintainer. This record is In Progress only
+until that PR merges or closes.
+
+Do not mint another build from this record. The March import's `Not Started`
+re-minted build jobs on 2026-11-01 (`build-daemon-locator-terminology`) and
+2026-11-02 (`daemon-locator-terminology-build`), and both found #1498.
+
+Optional follow-up, not posted as a job: commit `3f42eca6ca` on
+`kriscendobot:daemon-locator-terminology-followup` holds the remaining rename
+(`parseLocator` returning `peerKey`/`formulaAddress`, and `formula-identifier.js`
+diagnostics). Whether to take it is the maintainer's call once #1498 lands.
 
 # Daemon Locator Terminology
 
