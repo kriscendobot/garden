@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T10:24:49Z_
+_As of 2026-11-02T10:26:28Z_
 
 ## Latest
 
@@ -1351,18 +1351,17 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 
-### doin (3)
-- [`daemon-git-clone-bootstrap-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-clone-bootstrap-build.md) — ---
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 - [`cbors-byte-string-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cbors-byte-string-framing-build.md) — ---
 
-### tada (16224)
+### tada (16225)
+- [`daemon-git-clone-bootstrap-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-clone-bootstrap-build.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-6d9c65806704`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-6d9c65806704.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5.md) — Cost
 - [`endo-gateway-mcp-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endo-gateway-mcp-build.md) — Cost
 - [`kriscendobot-minion.town-pr232-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/kriscendobot-minion.town-pr232-dependabot.md) — Cost
-- [`endojs-endo-but-for-bots-pr1588-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1588-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1588-gauntlet — HALTED
-- … and 16219 more
+- … and 16220 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
