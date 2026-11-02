@@ -8,6 +8,8 @@ dispatch: automatic
 ---
 Designer step for endojs/endo-but-for-bots (base branch `llm`): write the new `designs/daemon-git-clone.md` named in `designs/daemon-git-next-steps.md` § Open Work. It covers `provideGitClone` repository bootstrap (mount creation, endpoint policy, sealed credential authority, and clone into the new mount, returning `EndoMount` + `Git`) and the commit-author / identity boundary as a capability shape. It builds on `daemon-git-remotes` § Repository Bootstrap, and it should put any unresolved questions in an Open questions section.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
