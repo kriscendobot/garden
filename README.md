@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T10:26:28Z_
+_As of 2026-11-02T10:29:30Z_
 
 ## Latest
 
@@ -1216,6 +1214,10 @@ Delegation: **active**
 >
 > Because a clip is immutable, a refresh will publish under a new hash.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=1.674665s max=31.788999s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `20261027T045910Z-521539` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T045910Z-521539.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1335,13 +1337,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.0M | $337.76 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.0M | $337.79 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75514849 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
+worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
