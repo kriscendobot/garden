@@ -1,0 +1,61 @@
+<6>05:00:40 [monk/3] job 'endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>05:00:57 [monk/3] job 'endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102' call ceiling: tier=mentor max-budget-usd=18.60 (scaled by fresh seven-day headroom when available)
+<4>05:00:57 [monk/3] WARN minion-mcp: token preflight failed; job 'endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+panel-head-freshness: stale target=endojs/endo-but-for-bots#1478 reviewed_head=750929d3b57e04b46ccca07225c8844dc4ab7df8 presented_head=583a7793a8a9f8650392878974ff69016c433003 disposition=review-required
+<6>05:05:16 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/1478 moved after a completed panel; deferring to the review-docket freshness disposition
+<6>05:05:17 [review-docket] swept 1 stray tmp_pack file(s) left by killed fetches in /Users/dom/garden/.garden-state/review-docket/journal/.git/objects/pack
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 55966 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>05:06:46 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/216 failed (rc=124, attempt 10); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=55966 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+<6>05:07:42 [review-docket] https://github.com/endojs/endo-but-for-bots/pull/1478 has no retired request to inherit
+<6>05:07:42 [review-docket] reenter is an idempotent no-op
+panel-head-freshness: stale target=endojs/endo-but-for-bots#1478 reviewed_head=750929d3b57e04b46ccca07225c8844dc4ab7df8 presented_head=583a7793a8a9f8650392878974ff69016c433003 disposition=review-required
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 144336 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>05:11:47 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/216 failed (rc=124, attempt 11); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=144336 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 155463 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>05:13:17 [review-docket] spooled upsert https://github.com/endojs/endo-but-for-bots/pull/1478 to /Users/dom/garden/.garden-state/review-docket/spool (d5bb00052b25cbf6); the next transaction on this host drains it
+<6>05:13:17 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+**Gauntlet not resumed: #1478 failed the CI gate in step 1, so I stopped there as the job instructs.** I pushed nothing and did not change the gauntlet record.
+
+## Gate results
+PR: https://github.com/endojs/endo-but-for-bots/pull/1478, head `583a7793a8`, base `build/ocapn-noise-session-reconnect-heartbeat-e530cc4`
+
+| Requirement | Result |
+| --- | --- |
+| Open and draft | Yes |
+| Mergeable | `MERGEABLE`, with merge state `UNSTABLE` |
+| CI green | **No:** 4 failing, 20 passing, 16 skipped |
+
+## Failing checks
+**One real failure: `ironhorse-oracle-sanitizers`** ([run 41385445751](https://github.com/endojs/endo-but-for-bots/actions/runs/41385445751/job/125093565888)), in the step "Run ASAN and UBSAN over the C oracle". Two test targets in `ironhorse-262` fail:
+- **`corpus_conversion_equivalence`:** `generated_cases_reproduce_corpus_coverage` reports over-acceptance on `built-ins/stage3-math` for two values that differ only in the last digits:
+  - `1.300820426840647` vs `1.3008204268406467`
+  - `1.475044781241425` vs `1.4750447812414251`
+- **`generated_multi_crank`:** `converted_corpus_runs_as_crank_sequences` fails on the same cases, `Math.asinh(1.7)` (054.js) and `Math.acosh(2.3)` (055.js).
+
+**Three that look like failures but aren't: `test`, `cover` and `viable-release`** (run 41385445621).
+- They show as `fail` with 0s duration, but the jobs API reports them as `cancelled` with no steps.
+- That duplicate CI run was cancelled within about 2s, and the other CI run on the same SHA (41385445799) passed, including the matching `test`, `cover` and `viable-release` jobs. These three may still keep the rollup red until that run is re-run or cleared.
+
+## Likely cause
+This is probably not caused by the PR. Its diff only touches `packages/ocapn-noise` and a changeset, and the signature matches the Ubuntu 26.04 oracle breakage already seen on other PRs, such as the `ironhorse-test262-ratchet-*-20261101` set including #1607.
+
+The job's premise needs correcting: the bwrap sandbox failures have cleared after the reweave, but this oracle failure remains. Another weave won't help until a fix lands, and these are still open:
+- **#1585:** accepts both roundings for 054/055.
+- **#1613:** runs the XS oracle lanes on Ubuntu 24.04.
+
+## Gauntlet record
+- **Not found:** `jobs/gauntlet/endojs-endo-but-for-bots-pr1478-gauntlet-20261101-750929d3.md` returns 404 on `journal2`, and so does the same path under `gauntlet-archived`. It is not active and has no `current_child`.
+- **Budget for the later resume:** whoever resumes it should check that `--resume-from-stage` can still find this record. The memory notes on resume traps also warn that a draining host makes it exit 0 silently, so check that the record reappears afterwards.
+
+## Follow-ups for the maintainer
+The orchestration `orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume` uses `on-child-failure: halt`, so this failure should stop it and notify you. Two ways forward:
+1. **Fix first (my recommendation):** merge #1585 or #1613, weave #1476 and #1478 again, then re-post this resume. This keeps the gate intact.
+2. **Waive the check:** explicitly accept the sanitizer failure as base breakage and resume at `panel --iteration 2`.
+
+I also added the still-open fixes and the cancelled-run false failures to the existing memory note on the Ubuntu 26.04 CI breakage.
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
