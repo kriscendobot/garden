@@ -1,6 +1,21 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-02T14:53Z (oros-health-checkup-20261102-135010): degraded (disk only); deployed `9f4eb64` = main2; cleared stale lock records only
+
+- **Load/mem:** load 4.41, 4.06, 3.68 at 14:50Z and 2.43, 3.40, 3.49 at 14:53Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB, 32 KiB free), the same as the last four runs.
+- **Disk/inodes:** the virtiofs garden mount has 58.6G free (60023 MiB), 88%, against 60G at 11:55Z. That is about 0.5G/h, down from about 1.8G/h over the previous six hours, though `df` rounding makes the earlier figures coarse and one interval is not a trend. Inodes are at 2%. The overlay is at 7% (402G free). The source is still unidentified; I did not repeat the `du` sweep, which has timed out on earlier runs.
+- **Uptime:** 31d21h, no reboot.
+- **Deployed vs main2:** the root and origin/main2 are both `9f4eb64`. fleet/health/oros shows `roll_status: deployed`, 0 of 290 units failing (14:11:31Z). The deploy deferred behind monk 1's long job from 14:00Z, then completed at 14:11:50Z. A 14:12:27Z re-run found the root already at the pin.
+- **Drain/units:** 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, no derotation marker seen. I did not find a local drain marker, and workers are claiming.
+- **Budget heartbeat:** last claude-oros push at 14:34:25Z, sampled 14:34:02Z, 16 minutes old at the snapshot. The 8 pushes from 12:48Z all show status ok, at a 13-17 minute cadence. Spend is 16224528 of 180M.
+- **State clones:** the largest are monitors/monk-3 and decisions (50 packs each), then monks/1 and monks/3 (48). No `gc.log` and no temp packs. No journal-clone `.git` lock older than 30 minutes. A wider search of `.garden-state` hit its 30s bound, so it is not a complete check. Under `repo-locks/`, I removed 249 dead-holder metadata records older than 30 minutes (under 1 MB, oldest seen 10-27), keeping 0 whose pid is live. These are the records the lock code clears itself when it next acquires that lock. The lock files themselves were not touched.
+- **rc=124 (3h):** none. The last were the two job-wall timeouts already logged in the previous run (10:00Z and 11:12Z).
+- **Claim races (the check from last run):** 45 lost races from 08:52 to 11:45Z, 3 from 11:45 to 14:11Z, and 5 from 14:11 to 14:53Z, when `9f4eb64` was live. Since the deploy, 7 claims landed, 5 of them through replay. Lost races had already fallen before the deploy, so the drop is not all down to the fix, and 40 minutes is a small sample.
+- **Mount:** the bind mount at `/tmp/ebfbxs` is still there, last modified 08:21Z. No process has a cwd or open file under it. Left in place because a requeued job could reuse it.
+- **Changed:** removed the 249 dead-holder records above and added this note. Nothing else.
+- **Needs the maintainer:** someone at the Mac should still find what is using the shared disk. No new message this run; the earlier notices are still in the maintainer inbox.
+
 ## 2026-11-02T11:55Z (oros-health-checkup-20261102-103514): degraded (disk, claims); deployed `6d9c658`, main2 `9f4eb64`; landed a claim fix, disk source still not found
 
 - **Load/mem:** load 3.37, 4.07, 4.16 at 11:27Z and 5.31, 4.40, 4.13 at 11:54Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB, 264 KiB free), the same as the last three runs.
