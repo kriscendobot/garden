@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T21:40:04Z_
+_As of 2026-11-02T21:42:04Z_
 
 ## Latest
 
@@ -1121,16 +1121,16 @@ worst fetch p95 2.640547s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ e97673ac7ec5
+### doin (0)
+(none)
 
-### tada (16266)
+### tada (16267)
+- [`canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-checkup-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-202009.md) — Cost
 - [`minion-town-arc-press-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-202009.md) — Cost
 - [`claude-on-minion-town-completion-press-20261102-175012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/claude-on-minion-town-completion-press-20261102-175012.md) — Cost
 - [`reset-credit-watch-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/reset-credit-watch-20261102-170509.md) — Cost
-- [`oros-health-checkup-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-170509.md) — Cost
-- … and 16261 more
+- … and 16262 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
