@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T01:17:51Z_
+_As of 2026-11-02T01:24:49Z_
 
 ## Latest
 
@@ -1279,7 +1277,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.5M | $256.93 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.7M | $255.78 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 71426309 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1288,27 +1286,30 @@ _Fleet token-unlock pace: 71426309 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (8)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`oros-health-checkup-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-012009.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-network-transport-separation-build.md) — ---
+- [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102-retarget-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-endojs-endo-but-for-bots-pr1476-llm-20261102-retarget-base.md) — Retarget endojs/endo-but-for-bots#1476 base to llm-4ae452c (finish the weave)
 - [`ocapn-tcp-for-test-extraction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-tcp-for-test-extraction-build.md) — ---
+- [`oros-health-watch-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-012009.md) — ---
+- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #667
 
 ### doin (5)
 - [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-fs-interface-reconciliation-build.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102.md) — Continue conducting endojs/endo-but-for-bots PR #1633 (dependabot preact 10.2...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1538
-- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #667
+- [`ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-network-transport-separation-build.md) — ---
 
-### tada (16147)
+### tada (16149)
+- [`minion-town-arc-press-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-012009.md) — Cost
+- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean.md) — Clean stage report: endojs/endo-but-for-bots PR #667 (stdio JSONL RPC bridge,...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-1.md) — Cost
 - [`deadmail-20261102T005616Z-00c7a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/deadmail-20261102T005616Z-00c7a5.md) — Completion report: deadmail-20261102T005616Z-00c7a5
 - [`endo-fs-from-git-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endo-fs-from-git-build.md) — Cost
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean.md) — Cost
-- [`endoclaw-timer-reminder-plugin-redraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endoclaw-timer-reminder-plugin-redraft.md) — Cost
-- … and 16142 more
+- … and 16144 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
