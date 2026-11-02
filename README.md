@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T17:40:31Z_
+_As of 2026-11-02T17:42:12Z_
 
 ## Latest
 
@@ -1431,16 +1431,16 @@ worst fetch p95 2.931956s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (1)
-- [`reset-credit-watch-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reset-credit-watch-20261102-170509.md) — ---
+### doin (0)
+(none)
 
-### tada (16262)
+### tada (16263)
+- [`reset-credit-watch-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/reset-credit-watch-20261102-170509.md) — Cost
 - [`oros-health-checkup-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-170509.md) — Cost
 - [`endopi-prompt-templates-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-prompt-templates-build.md) — Branches
 - [`minion-town-arc-press-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-170509.md) — Cost
 - [`endopi-extension-package-manifest-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-extension-package-manifest-build.md) — What changed
-- [`endopi-provider-registry-and-oauth-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-provider-registry-and-oauth-build.md) — Cost
-- … and 16257 more
+- … and 16258 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
