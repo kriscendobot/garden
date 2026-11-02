@@ -1,4 +1,5 @@
 ---
+child-daemon-git-clone-bootstrap-design-expanded-window-reap-count: 0
 order: serial
 children: daemon-git-clone-bootstrap-design-expanded-window
 on-child-failure: halt
