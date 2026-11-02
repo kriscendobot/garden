@@ -7,14 +7,14 @@
   "ask": "re-review",
   "arc": "minion-town-git-remote",
   "milestone": "-",
-  "summary": "Panel reviewed 5724cc6e, but the presented head is fa01c112f2c5",
+  "summary": "Panel reviewed 5724cc6e, but the presented head is d8f2555574bb",
   "unblocks": [],
-  "source": "stale-panel-head-endojs-endo-but-for-bots-pr709-5724cc6e-fa01c112",
-  "requested_at": "2026-10-22T15:09:59Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr709-5724cc6e-d8f25555",
+  "requested_at": "2026-11-02T12:20:47Z",
   "first_requested_at": "2026-10-22T15:09:59Z",
-  "generation": 1,
+  "generation": 2,
   "ci": {
     "state": "green",
-    "observed_at": "2026-11-02T11:52:46Z"
+    "observed_at": "2026-11-02T12:20:49Z"
   }
 }
