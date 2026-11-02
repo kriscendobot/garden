@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T17:38:25Z_
+_As of 2026-11-02T17:40:31Z_
 
 ## Latest
 
@@ -363,6 +363,29 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `msg-reset-credit-watch-20261102-170509-424e85c26861` — from gardener:reset-credit-watch-20261102-170509, reply_to `reset-credit-watch-20261102-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261102-170509-424e85c26861.md)
+
+> **Reset-credit watch, Mon 11-02: if you still hold the codex credit (expires Fri 11-06), reset codex-endolin today or by Tue 11-03 evening PT.** No acceleration is needed, since the meter already reads 91%. This needs a decision within 1–2 days, and it depends on two things only your dashboard can show.
+>
+> **Please check the endolin-codex1 dashboard:**
+> 1. **Is the credit still there?** You haven't confirmed whether your 10-23T00:20Z reset spent it, so the inventory says "0 or 1".
+> 2. **What are the current % and "resets in"?** The 91% is about 38 hours old, because codex has spent nothing since about 11-01T03:30Z. The natural reset expected at 10-30T00:20Z never showed in the meter (13% before and after), so I don't know the real window.
+>
+> **Then:**
+> - **Credit held, about 90%, and more than a day to the natural reset:** reset now. If the window actually ends around 11-06T00:20Z, resetting today gains about 3 days and Tuesday evening about 2. After that it is mostly wasted.
+> - **Dashboard already low (the window rolled):** skip it and let the credit expire. Burning back to 90% by 11-06 isn't worth forcing.
+> - **No credit:** nothing to do. Tell me and I'll record it.
+>
+> A reset only pays off if codex has work: no spend for 38 hours and no jobs on the board that I could identify as codex-only. I didn't establish why it went idle. Please also give the liaison the new "resets in" for the reset event: codex token backoff has been on its 0.95 fallback since 10-30 for lack of one.
+>
+> **Status:**
+> - **codex-endolin:** 91% (stale), idle. Natural reset unknown. Credits: 0 or 1, expires 11-06, at risk.
+> - **claude-endolin1:** 70% about 2.6 days into the week, averaging about 27%/day, but flat for the last several hours. Natural reset Fri 20:00 PT (11-07T04:00Z, now PST). No credits. At the average pace it crosses 90% around Tue 11-03 with 3+ days left and nothing to reset with, so it has to be paced rather than rescued.
+> - **claude-oros:** 11% (17.6M tokens). Natural reset Tue 11-03T11:00Z (04:00 MST), about 18 hours away, so most of this week's quota will go unused. Credits still unconfirmed, treated as none.
+> - **claude-endolin2:** retired, no credits.
+>
+> `reset-credits.md` is updated. I changed nothing else.
 
 - `minion-town-pr-screening-stalled-pr218-5e2b623` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-stalled-pr218-5e2b623.md)
 
@@ -1386,7 +1409,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.6M | $352.48 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
+| Claude | 95.6M | $352.64 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 51334088 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
