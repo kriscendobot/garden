@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T07:15:09Z_
+_As of 2026-11-02T07:23:52Z_
 
 ## Latest
 
@@ -89,6 +87,16 @@ Delegation: **active**
 >
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1573-gauntlet panel --iteration 7 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 7 -> 9 (N is yours to choose).
+
+- `endojs-endo-but-for-bots-pr1503-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1503-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1503-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1503-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1503-gauntlet-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6 · cost so far: $4.42
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1503-gauntlet panel --iteration 1 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
@@ -824,6 +832,10 @@ Delegation: **active**
 > - claude-endolin2: retired, no credits.
 > - claude-oros: meter 74%, resets Tue 10-20T10:00Z (04:00 MT). Credits unknown, treated as none. The inventory still says "offline since 09-28" but it's in use, so please confirm.
 
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=88658378 cap=271000000 pace-bias=0 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.6548(ramp) target=3
+
 - `followup-gate-design-minion-town-clip-governor-column` — from followup-gate:design-minion-town-clip-governor-column, reply_to `design-minion-town-clip-governor-column` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-minion-town-clip-governor-column.md)
 
 > Job "design-minion-town-clip-governor-column" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -1313,36 +1325,38 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.6M | $330.41 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 90.5M | $335.84 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 74929527 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 74939425 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (6)
-- [`endojs-endo-but-for-bots-pr1588-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1588-gauntlet-20261102.md) — ---
+### todo (8)
+- [`oros-health-watch-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-072031.md) — ---
+- [`oros-health-checkup-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-072031.md) — ---
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #667
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`fu-endojs-endo-but-for-bots-pr1503-gauntlet-fix-1-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr1503-gauntlet-fix-1-1.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr667-body-seam-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-body-seam-20261102.md) — Reword one sentence in the body of endojs/endo-but-for-bots PR #667
+- [`minion-town-arc-press-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261102-072031.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### doin (4)
 - [`shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102.md) — ---
-- [`endojs-endo-but-for-bots-pr1503-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1503-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1503
+- [`endojs-endo-but-for-bots-pr1588-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1588
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
 
-### tada (16200)
+### tada (16203)
+- [`endojs-endo-but-for-bots-pr1588-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1588-gauntlet-20261102.md) — Cost
+- [`endojs-endo-but-for-bots-pr667-body-seam-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-body-seam-20261102.md) — Cost
+- [`endojs-endo-but-for-bots-pr1503-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1503-gauntlet-fix-1.md) — Fix round 1: endojs/endo-but-for-bots PR #1503
+- [`endojs-endo-but-for-bots-pr1503-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1503-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1503-gauntlet — HALTED
 - [`shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102.md) — Cost
-- [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1503-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1503-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-4.md) — Cost
-- [`shepherd-endojs-endo-but-for-bots-pr1476-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/shepherd-endojs-endo-but-for-bots-pr1476-ci-after-weave-20261102.md) — Panel-head freshness
-- … and 16195 more
+- … and 16198 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1454,7 +1468,7 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
