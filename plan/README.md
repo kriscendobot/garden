@@ -23,7 +23,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | M1 | 8 | 8 | 100% | 0 |
 | M2 | 8 | 8 | 100% | 0 |
 | M3 | 32 | 8 | 25% | 73 |
-| M4 | 9 | 1 | 11% | 21 |
+| M4 | 9 | 2 | 22% | 18 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
 | M8 | 4 | 0 | 0% | 9 |
@@ -131,7 +131,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | registry-capability | endo-but-for-bots | M3 | Proposed | M | — |
 | snapshot-mapper | endo-but-for-bots | M3 | Proposed | M | — |
 | git-remote-capability | minion-town | M3 | Complete | M | minion-town#41 |
-| cbors | endo-but-for-bots | M4 | Not Started | M | — |
+| cbors | endo-but-for-bots | M4 | Complete | M | endo-but-for-bots#288 |
 | daemon-agent-network-identity | endo-but-for-bots | M4 | Not Started | M | — |
 | ocapn-network-transport-separation | endo-but-for-bots | M4 | In Progress | L | — |
 | ocapn-noise-cryptographic-review | endo-but-for-bots | M4 | Not Started | S | — |
