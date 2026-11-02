@@ -1,10 +1,11 @@
 #!/bin/bash
-# claim-probe-replay-test.sh — a canary probe's claim replays a lost CAS onto the
-# fresh journal tip instead of falling back to the next candidate. On a slow clone
-# every claim lost to some peer write, so the probe never left todo/ and the roll
-# failed a healthy canary (oros 2026-10-14 00:52-01:04Z). The replay is still a CAS
-# on the claim's own paths: a peer that claimed the probe first keeps it, and an
-# ordinary job's claim still re-derives from the fresh tip.
+# claim-probe-replay-test.sh — a race claim replays a lost CAS onto the fresh journal
+# tip instead of falling back to the next candidate. On a slow clone every claim lost
+# to some peer write, so a canary probe never left todo/ and the roll failed a healthy
+# canary (oros 2026-10-14 00:52-01:04Z), and idle monks left ordinary jobs unclaimed
+# for an hour (oros 2026-11-02). The replay is still a CAS on the claim's own paths: a
+# peer that claimed the job first keeps it, and an awarded auction claim still
+# re-derives from the fresh tip.
 set -euo pipefail
 export GARDEN_TEST=1 GARDEN_NO_MAINTAINER_ALERT=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -67,7 +68,29 @@ if [ "$1" = 3 ] && [ "$2" = - ]; then ok "a probe a peer already claimed is not 
 if git --git-dir="$TR/peerclaim/journal.git" show journal2:jobs/doin/probe-y.md | grep -q '^claim: peer'; then ok "the peer keeps its claim"; else bad "the peer's claim was clobbered"; fi
 
 set -- $(run ordinary job-z '# ordinary\n' disjoint)
-if [ "$1" = 3 ] && [ "$(cat "$TR/ordinary/count")" = 1 ]; then ok "an ordinary claim is not replayed (one push, re-derives next pass)"; else bad "ordinary: rc=$1 pushes=$(cat "$TR/ordinary/count")"; fi
+if [ "$1" = 0 ] && [ "$2" = job-z ] && [ "$(cat "$TR/ordinary/count")" = 2 ]; then ok "an ordinary claim that lost to a disjoint write lands by replay"; else bad "ordinary disjoint: rc=$1 got=$2"; fi
+B="$TR/ordinary/journal.git"
+if git --git-dir="$B" cat-file -e journal2:msgs-peer && git --git-dir="$B" cat-file -e journal2:jobs/doin/job-z.md \
+   && ! git --git-dir="$B" cat-file -e journal2:jobs/todo/job-z.md 2>/dev/null; then ok "both the peer write and the ordinary claim are on the tip"; else bad "ordinary replay did not land both writes"; fi
+
+set -- $(run ordinarypeer job-y '# ordinary\n' claim)
+if [ "$1" = 3 ] && [ "$2" = - ]; then ok "an ordinary job a peer already claimed is not replayed over"; else bad "ordinary peer claim: rc=$1 got=$2"; fi
+if git --git-dir="$TR/ordinarypeer/journal.git" show journal2:jobs/doin/job-y.md | grep -q '^claim: peer'; then ok "the peer keeps the ordinary job"; else bad "the peer lost the ordinary job"; fi
+
+# An awarded auction claim depends on bid files outside its own paths. First bid with
+# the window open, then lose the award's CAS to a disjoint write: no replay.
+AUC_START=1000000000
+AUC_JOB="---\nmarket: bid\nbid_window: 120\nposted_at: $(date -u -d "@$AUC_START" +%FT%TZ)\n---\n# auction\n"
+GARDEN_AUCTION_NOW=$((AUC_START + 10)) run auction job-a "$AUC_JOB" none >/dev/null
+d="$TR/auction"; rm -f "$d/count"
+set +e
+got="$(env -u GARDEN_JOB_BASE -u GARDEN_COMPLETION_SENTINEL -u GARDEN_JOURNAL_REPLAY_ATTEMPTS \
+  GARDEN=host-a GARDEN_WORKER_KIND=monk GARDEN_STATE="$d/state" GARDEN_AUCTION_NOW=$((AUC_START + 121)) \
+  JOURNAL_REMOTE="$d/journal.git" JOURNAL_BRANCH=journal2 GARDEN_WORKER_CLONE="$d/clone" \
+  GARDEN_PUSH_CMD="$PUSH" COUNT="$d/count" PEER="$d/peer" BARE="$d/journal.git" \
+  PEER_MODE=disjoint JOB=job-a "$JOBS/claim-job.sh" 1 2>"$d/log2")"; rc=$?
+set -e
+if [ "$rc" = 3 ] && [ -z "$got" ] && [ "$(cat "$d/count")" = 1 ] && grep -q "auction: monk-host-a-1 is eligible" "$d/log2"; then ok "an awarded auction claim is not replayed (one push, re-derives next pass)"; else bad "auction: rc=$rc got=$got count=$(cat "$d/count" 2>/dev/null)"; fi
 
 echo "claim-probe-replay-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

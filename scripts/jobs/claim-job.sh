@@ -536,16 +536,18 @@ while [ "${#cand[@]}" -gt 0 ]; do
     log "'$base' auction: $bidder is eligible; claiming (committed arm $awarded_provider/$awarded_model/$awarded_tht)"
   fi
 
-  # A canary probe's claim replays a lost CAS onto the fresh tip without the
-  # worktree (journal_replay_head) instead of falling back to the next candidate.
-  # On a slow clone every claim is decided at a tip ~90s old and loses to any peer
-  # write, so the probe never left todo/ and the roll failed a healthy canary (oros
-  # 2026-10-14 00:52-01:04Z: five idle monks lost r2 and r3, every loss `cas`, then
-  # the roll re-drained the host). The replay stays a CAS on the claim's own paths:
-  # it is refused once a peer claimed, the roller withdrew, or anyone edited the
-  # probe's todo/ file. Ordinary claims keep re-deriving from the fresh tip.
-  claim_replay="${GARDEN_JOURNAL_REPLAY_ATTEMPTS:-0}"
-  grep -q '^canary-probe: true' "$jf" 2>/dev/null && claim_replay="${GARDEN_CLAIM_PROBE_REPLAY_ATTEMPTS:-3}"
+  # A race claim replays a lost CAS onto the fresh tip without the worktree
+  # (journal_replay_head) instead of falling back to the next candidate. On a slow
+  # clone every claim is decided at a tip ~90s old and loses to any peer write:
+  # oros 2026-10-14 had five idle monks fail a healthy canary this way, and on
+  # 2026-11-02 two idle monks lost a builder job six times over 55 minutes while it
+  # sat in todo/. The replay stays a CAS on the claim's own paths: it is refused once
+  # a peer claimed, the poster withdrew, or anyone edited the job's todo/ file. The
+  # other gates above read host state or a pause marker, so a replayed claim only
+  # orders itself as if it had landed moments earlier. An awarded auction claim still
+  # re-derives, because its award depends on bid files outside the claim's paths.
+  claim_replay="${GARDEN_CLAIM_REPLAY_ATTEMPTS:-3}"
+  [ -z "$awarded_bidder" ] || claim_replay=0
 
   mkdir -p "$DIR/$JOBS_DOIN" "$DIR/work"
   git -C "$DIR" mv "$JOBS_TODO/$base.md" "$JOBS_DOIN/$base.md"

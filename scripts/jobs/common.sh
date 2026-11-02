@@ -797,7 +797,9 @@ GARDEN_DEPLOY_DRAIN_REASON="deploy-garden: deliberate deploy in progress"
 # loss back to its caller's slow sync_clone loop (journal_replay_head). Opt-in (0 by
 # default): a replay keeps the edit derived from the old tip, so only a writer whose
 # commit touches paths it alone owns may enable it. A check-then-write caller (a
-# dedup, a claim) must re-derive from the fresh tip on every loss. Left unset here
+# dedup) must re-derive from the fresh tip on every loss; a race claim may replay
+# because its only check that a peer can invalidate is on the paths it writes.
+# Left unset here
 # so an opting-in script's own `: "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"` applies.
 # A tmp_pack_* older than any bounded git transfer can run is a killed fetch's
 # leftover, never a live transfer's in-progress pack.
