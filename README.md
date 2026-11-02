@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T21:13:31Z_
+_As of 2026-11-02T21:20:28Z_
 
 ## Latest
 
@@ -1426,7 +1424,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.6M | $352.64 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51395083 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51399804 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 2.640547s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 9 open notice(s); checker healthy
@@ -1446,16 +1444,16 @@ worst fetch p95 2.640547s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (1)
-- [`oros-health-checkup-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261102-202009.md) — ---
+### doin (0)
+(none)
 
-### tada (16265)
+### tada (16266)
+- [`oros-health-checkup-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-202009.md) — Cost
 - [`minion-town-arc-press-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-202009.md) — Cost
 - [`claude-on-minion-town-completion-press-20261102-175012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/claude-on-minion-town-completion-press-20261102-175012.md) — Cost
 - [`reset-credit-watch-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/reset-credit-watch-20261102-170509.md) — Cost
 - [`oros-health-checkup-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-170509.md) — Cost
-- [`endopi-prompt-templates-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-prompt-templates-build.md) — Branches
-- … and 16260 more
+- … and 16261 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
