@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T01:01:51Z_
+_As of 2026-11-02T01:06:15Z_
 
 ## Latest
 
@@ -701,6 +699,10 @@ Delegation: **active**
 
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.091055s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `msg-deadmail-20261102T005616Z-00c7a5-d5dc10919ecb` — from gardener:deadmail-20261102T005616Z-00c7a5, reply_to `deadmail-20261102T005616Z-00c7a5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-deadmail-20261102T005616Z-00c7a5-d5dc10919ecb.md)
+
+> Resolved, no action needed: the 'dependabot auto-merge BLOCKED (foreign-commit-author)' alert for [https://github.com/endojs/endo-but-for-bots/pull/1631](https://github.com/endojs/endo-but-for-bots/pull/1631) was a gate defect. The fleet's Co-Authored-By: Claude trailer counted as a foreign author. Fixed on kriscendobot/garden main2 in `d0690e9c0da` (it's accepted only as a co-author, matched on the exact email). The PR is now merged at `48d6f3e08b`.
+
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
 > COALESCED message — occurrence #24 (first seen 2026-10-23T13:27:09Z, latest 2026-10-31T23:14:52Z).
@@ -1279,33 +1281,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.4M | $246.28 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 68.6M | $246.89 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 70847900 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
+- [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-fs-interface-reconciliation-build.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (4)
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1538
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
-- [`deadmail-20261102T005616Z-00c7a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261102T005616Z-00c7a5.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102.md) — Continue conducting endojs/endo-but-for-bots PR #1633 (dependabot preact 10.2...
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #667
 
-### tada (16145)
+### tada (16146)
+- [`deadmail-20261102T005616Z-00c7a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/deadmail-20261102T005616Z-00c7a5.md) — Completion report: deadmail-20261102T005616Z-00c7a5
 - [`endo-fs-from-git-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endo-fs-from-git-build.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean.md) — Cost
 - [`endoclaw-timer-reminder-plugin-redraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endoclaw-timer-reminder-plugin-redraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1631-ava-lazy-concordance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1631-ava-lazy-concordance.md) — Cost
-- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-viability.md) — Cost
-- … and 16140 more
+- … and 16141 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
