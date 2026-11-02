@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T09:10:55Z_
+_As of 2026-11-02T09:14:04Z_
 
 ## Latest
 
@@ -951,24 +949,6 @@ Delegation: **active**
 > - Possible small follow-up (not posted): an opt-in `@endo/zip/node.js` exporting `inflateNow`/`deflateNow` via `zlib.*RawSync`.
 >
 > Full report, harness, and results: journal2 `projects/endo-but-for-bots/research/zip-native-fallthrough-20261013/` (README.md, parity.mjs, results-node26.jsonl).
-
-- `msg-endojs-endo-but-for-bots-pr1583-gauntlet-20261102-6fc75a5d5d52` — from gardener:endojs-endo-but-for-bots-pr1583-gauntlet-20261102, reply_to `endojs-endo-but-for-bots-pr1583-gauntlet-20261102` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1583-gauntlet-20261102-6fc75a5d5d52.md)
-
-> [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583) still needs your close-or-keep decision, so I did not start a new gauntlet.
->
-> This job said [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583) had no completed gauntlet, but it has two. The first passed its panel on 82de63bdb4. The second, on the current head a08c4505c0, was refused at viability on 2026-10-30 as overtaken. You were notified then, and I can find no decision on the PR or the board.
->
-> I rechecked today and nothing has changed:
-> - [endojs/endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/issues/1431) (the same supersession record), [endojs/endo-but-for-bots#1576](https://github.com/endojs/endo-but-for-bots/issues/1576) (the Phase 3 audit) and [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584) (XS smoke coverage) are still open and unmerged at the heads that gauntlet saw.
-> - [endojs/endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/issues/1431), [endojs/endo-but-for-bots#1576](https://github.com/endojs/endo-but-for-bots/issues/1576) and [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583) all edit the same design doc, so they would conflict.
-> - The PR still says no open pull request carries the XS smoke coverage, which [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584) contradicts.
-> - `llm` is 8 commits past the 9a14ddf660 base, but none of them touch the design doc, `designs/README.md` or `cauterize-property.js`.
->
-> Recommendation: close [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583) as superseded. Its one unique point, separating the XS lockdown-Compartment repair owned by [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425), could move to [endojs/endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/issues/1431) as a small fix.
->
-> If you would rather keep it, say so and ask for a fresh gauntlet. It would need its XS smoke text corrected to cite [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584), and [endojs/endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/issues/1431) and [endojs/endo-but-for-bots#1576](https://github.com/endojs/endo-but-for-bots/issues/1576) closed or reconciled.
->
-> The open re-review item for this PR on your docket is the same decision. A panel is not worth running until you choose.
 
 - `20261021T161440Z-f4b7c7` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T161440Z-f4b7c7.md)
 
