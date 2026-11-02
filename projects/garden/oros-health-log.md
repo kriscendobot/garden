@@ -1,6 +1,23 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-02T11:55Z (oros-health-checkup-20261102-103514): degraded (disk, claims); deployed `6d9c658`, main2 `9f4eb64`; landed a claim fix, disk source still not found
+
+- **Load/mem:** load 3.37, 4.07, 4.16 at 11:27Z and 5.31, 4.40, 4.13 at 11:54Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB, 264 KiB free), the same as the last three runs.
+- **Disk/inodes (the defect):** the virtiofs garden mount is at 60G free, 87%, down from 72G at 05:15Z and 67G at 08:35Z. That is about 1.8G/h, which would empty it in about 33 hours if the rate holds. Inodes are at 2%. The overlay is at 7% (402G free).
+- **Disk accounting:** still no source found. 144 of 157 scratch dirs total 6.3G by `du`, and the largest is 1.7G. The other 12 dirs plus `tmpexec` hit `du` bounds of 60-100s (one more finished at 821M). Home caches are small (`.npm` 5.5G, `.claude` 3.4G, `.rustup` 2.4G; `.yarn` timed out at 90s). A search for files over 50M written in the last 4h hit its 150s bound and found none, so it is not a complete check.
+- **Uptime:** 31d18h, no reboot.
+- **Deployed vs main2:** the root is at `6d9c658`. fleet/health/oros shows `roll_status: deployed`, 0 of 290 units failing (10:05:50Z), after deferring behind monk 3's long job until 10:00Z. origin/main2 is `9f4eb64`, one commit ahead, which is this run's fix. It has not been rolled out yet, and nothing was seen blocking it.
+- **Drain/units:** no drain marker, 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, no derotation marker seen.
+- **Budget heartbeat:** last claude-oros push at 11:35:40Z. The 12 pushes from 08:32 to 11:18Z show status ok, at a 14-17 minute cadence. Spend is 15361013 of 180M.
+- **State clones:** 37 journal clones. The largest are decisions (46 packs), repo-watcher (44) and monitors/monk-3 (43). No `gc.log` and no temp packs. A search of the clones' `.git` for locks older than 30 minutes found none; it had a 25s bound and I did not confirm it finished.
+- **rc=124 (3h):** two, both a job's own wall, not the host: `ebfb-xs-daemon-start-without-fetch` (7200s, 10:00Z, since re-claimed on endolin) and `daemon-git-clone-bootstrap-design` (2400s, 11:12Z, re-claimed by monk 1 at 11:42Z). No rc=137 and no `Failed with result`.
+- **Claim starvation (fixed on main2, not yet deployed):** `daemon-git-agent-tool-adapters-build` waited 67 minutes in todo/ (10:34 to 11:41Z) with monks idle, losing six claims. The 3h before 11:42Z logged 45 lost claim races and 17 passes that claimed nothing. Each candidate costs about a minute here, so a claim is decided at an old tip and loses to any peer write. The 10-14 run left this as an open choice.
+- **Changed:** landed `9f4eb64`: every race claim now replays a lost CAS onto the fresh tip (`GARDEN_CLAIM_REPLAY_ATTEMPTS`, default 3), except an awarded auction claim. `claim-probe-replay-test.sh` passes 9 of 9, and with replay off the disjoint-write cases fail. Five other claim suites pass. `auction-reputation-test.sh` reached a 260s bound at 57 passes and 0 fails, so it did not finish. Tradeoff: a project pause landing in the seconds before a replay can admit one job. No files removed this run, since earlier prunes did not raise `df`.
+- **Check next run:** whether lost claim races fall once `9f4eb64` is deployed.
+- **Not touched:** a bind mount of `scratch/project-wt-ebfb-xs-003d9e7427cb-f4d57e5d` at `/tmp/ebfbxs`, left by an XS job. I did not check whether anything still uses it.
+- **Needs the maintainer:** someone at the Mac should find what is using the shared disk. Sent as a fresh message this run; the 11-01 notice is still unread.
+
 ## 2026-11-02T08:35Z (oros-health-checkup-20261102-072031): degraded (disk); deployed `11fe1c6`, main2 `6d9c658`; pruned tmpexec, landed a sweeper fix
 
 - **Load/mem:** load 4.58, 5.04, 4.36 at 08:35Z; it reached 10.10 at 08:22Z during the tmpexec prune. 12 GiB of 15 GiB available. Swap is full (1.0 GiB, about 160 KiB free), the same as the last two runs.
