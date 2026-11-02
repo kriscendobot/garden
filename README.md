@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T14:33:39Z_
+_As of 2026-11-02T14:36:03Z_
 
 ## Latest
 
@@ -859,6 +859,10 @@ Delegation: **active**
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=88658378 cap=271000000 pace-bias=0 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.6548(ramp) target=3
 
+- `endojs-endo-but-for-bots-pr1638-gauntlet-not-viable` — from gauntlet:endojs-endo-but-for-bots-pr1638-gauntlet-not-viable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1638-gauntlet-not-viable.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1638-gauntlet REFUSED by its pre-spend viability gate: the premise was overtaken. Deciding question: Is the roadmap's worked end-to-end reference flow still an unmet need on current `llm`, not yet delivered by a landed implementation? Option: close as superseded.
+
 - `followup-gate-design-minion-town-clip-governor-column` — from followup-gate:design-minion-town-clip-governor-column, reply_to `design-minion-town-clip-governor-column` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-minion-town-clip-governor-column.md)
 
 > Job "design-minion-town-clip-governor-column" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -1393,13 +1397,13 @@ worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-end-to-end-reference-flow-build.md) — ---
 - [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-daemon-git-agent-tool-adapters-build-4.md) — ---
 
-### tada (16249)
+### tada (16250)
+- [`endojs-endo-but-for-bots-pr1638-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1638-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1638-gauntlet - not viable
 - [`endojs-endo-but-for-bots-pr1638-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1638-gauntlet-viability.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102.md) — gauntlet endojs-endo-but-for-bots-pr1538-gauntlet-20261102 — HALTED
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6.md) — Cost
-- [`daemon-git-remotes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-remotes-build.md) — Cost
-- … and 16244 more
+- … and 16245 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
