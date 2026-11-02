@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T13:45:12Z_
+_As of 2026-11-02T13:49:44Z_
 
 ## Latest
 
@@ -1367,13 +1365,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.1M | $349.60 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 76038033 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 76050603 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-body-fix6.md) — endojs/endo-but-for-bots: replace the description of PR #1538
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1638-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1638-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1638
@@ -1383,6 +1381,7 @@ worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-end-to-end-reference-flow-build.md) — ---
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-daemon-git-agent-tool-adapters-build-4.md) — ---
+- [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1538
