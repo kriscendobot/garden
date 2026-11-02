@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Builder job on endojs/endo-but-for-bots (base `llm`): implement the M4 design `designs/cbors.md` (`@endo/cbors`, CBOR byte-string framing for the daemon bus protocol). Open a DRAFT PR with tests, following the design's scope.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T10:21:54Z
