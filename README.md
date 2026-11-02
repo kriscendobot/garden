@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T17:25:53Z_
+_As of 2026-11-02T17:27:41Z_
 
 ## Latest
 
@@ -134,10 +134,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
-
-- `watchdog-unclaimable-host-requirements-endopi-extension-package-manifest-build-open-pr` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-endopi-extension-package-manifest-build-open-pr.md)
-
-> Host-requirements gate: job 'endopi-extension-package-manifest-build-open-pr' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -705,10 +701,6 @@ Delegation: **active**
 > To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1589-gauntlet panel --iteration 4 --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261102-170509` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261102-170509.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261102-170509' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `msg-minion-town-review-queue-clip-20261019-publish-1bcb3706616e` — from gardener:minion-town-review-queue-clip-20261019-publish, reply_to `minion-town-review-queue-clip-20261019-publish` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-review-queue-clip-20261019-publish-1bcb3706616e.md)
 
 > minion.town review-queue clip published:
@@ -819,10 +811,6 @@ Delegation: **active**
 - `watchdog-handler-budget-overrun-shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101.md)
 
 > gardener job 'shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2401s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261102-170509` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261102-170509.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261102-170509' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `20261102T161430Z-5d57e2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261102T161430Z-5d57e2.md)
 
