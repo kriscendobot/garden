@@ -90,3 +90,13 @@ Commits: `6a504a4c3` (code and tests), `a54166c7b` (design and changesets).
 
 **Verification (local, Node 22):** `rename-no-replace`, `mount-platform-fs-conformance` and `git-remote`: all pass except `GitRemote push round-trips to an independent fetcher over file://`, which hits its 2-second `t.timeout` on this host and fails the same way on the previous head `1509ed043e`. `tsc` for `packages/daemon` reports no errors, and eslint (errors only) and prettier are clean on the touched files. The pre-push probes pass; the full gate run was cut off by a timeout here, so CI is the check for the rest. CI status is on the PR checks.
 ----- END COMMENT -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T02:20:28Z
