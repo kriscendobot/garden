@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T18:45:00Z_
+_As of 2026-11-02T18:46:14Z_
 
 ## Latest
 
@@ -708,11 +708,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-11-01T21:02:59Z, cleared 2026-11-02T10:44:43Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-01T21:02:59Z, latest 2026-11-02T18:45:22Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.106518s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-halted.md)
 
