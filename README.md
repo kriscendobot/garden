@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T15:07:02Z_
+_As of 2026-11-02T15:09:27Z_
 
 ## Latest
 
@@ -1398,18 +1398,16 @@ worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (3)
-- [`daemon-worker-import-from-mount-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-worker-import-from-mount-build.md) — ---
+### doin (1)
 - [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-end-to-end-reference-flow-build.md) — ---
-- [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-daemon-git-agent-tool-adapters-build-4.md) — ---
 
-### tada (16252)
+### tada (16254)
+- [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/fu-daemon-git-agent-tool-adapters-build-4.md) — Cost
+- [`daemon-worker-import-from-mount-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-worker-import-from-mount-build.md) — Report: daemon-worker-import-from-mount-build is a stale re-mint, so I opened...
 - [`oros-health-checkup-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-135010.md) — Cost
 - [`minion-town-arc-press-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-135010.md) — Cost
 - [`endojs-endo-but-for-bots-pr1638-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1638-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1638-gauntlet - not viable
-- [`endojs-endo-but-for-bots-pr1638-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1638-gauntlet-viability.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033.md) — rolling-deploy canary probe — round trip OK
-- … and 16247 more
+- … and 16249 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
