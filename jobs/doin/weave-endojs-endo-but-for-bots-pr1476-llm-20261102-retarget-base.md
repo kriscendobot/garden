@@ -20,3 +20,13 @@ It could NOT move the PR's base field: the oros bot PAT gets 403 on `updatePullR
     gh pr edit 1476 -R endojs/endo-but-for-bots --base llm-4ae452c
 
 First check that the head is still 0f2961224d (or a descendant of llm-4ae452c), and that `git rev-list --count llm-4ae452c..<head>` is 12. Until the base moves, the PR shows 200+ entrained commits. Do NOT touch the dependent PRs (#1478 and later). Confirm with `gh pr view 1476 --json baseRefName,headRefOid`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T01:37:43Z
