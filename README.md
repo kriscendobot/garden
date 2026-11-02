@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T10:14:53Z_
+_As of 2026-11-02T10:16:59Z_
 
 ## Latest
 
@@ -1342,18 +1342,18 @@ _Fleet token-unlock pace: 75514317 tokens/day lower bound; incomplete where a su
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (8)
 - [`daemon-locator-terminology-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-locator-terminology-build.md) — ---
 - [`daemon-git-clone-bootstrap-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-clone-bootstrap-design.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
-- [`daemon-git-clone-bootstrap-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-clone-bootstrap-build.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 - [`cbors-byte-string-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cbors-byte-string-framing-build.md) — ---
 
-### doin (1)
+### doin (2)
+- [`daemon-git-clone-bootstrap-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-clone-bootstrap-build.md) — ---
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 
 ### tada (16224)
