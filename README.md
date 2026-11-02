@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T12:05:06Z_
+_As of 2026-11-02T12:06:48Z_
 
 ## Latest
 
@@ -1358,7 +1358,8 @@ _Fleet token-unlock pace: 75581335 tokens/day lower bound; incomplete where a su
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
+- [`endojs-endo-but-for-bots-pr1637-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1637-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1637
 - [`oros-health-watch-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-103514.md) — ---
 - [`daemon-git-clone-bootstrap-design-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-clone-bootstrap-design-expanded-window.md) — Summary
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
