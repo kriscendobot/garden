@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-02T17:32Z (oros-health-checkup-20261102-170509): degraded (disk only); deployed `9f4eb64` = main2; changed nothing
+
+- **Load/mem:** load 5.61, 4.54, 4.14 at 17:26Z and 3.56, 3.74, 3.91 at 17:31Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
+- **Disk/inodes:** the virtiofs garden mount has 57.4G free (57419 MiB at 17:31Z), 88%, against 60023 MiB at 14:53Z. That is about 1G/h, and at that rate it fills in a little over two days. Inodes are at 2%. The overlay is at 7%.
+- **Disk accounting:** still no source found, but this run makes two places unlikely. Among the 230 `scratch/tmpexec` entries, sized with a 10s bound each, the largest are 182M and 61M. The six largest bare clones including `.git` total about 1.6G. `.cache`, `.npm` and `.yarn` total 12.2G; `.cargo`, `.rustup` and `.local` did not finish inside a 90s bound. Project worktrees remain unmeasured: `du` on `scratch/project-wt-endopi--f733652f629d-f4d57e5d` and `scratch/project-wt-ebfb-xs-003d9e7427cb-f4d57e5d` hit a 12s bound, and I did not sweep the others. The mount's size suggests it reports the Mac host's volume, in which case host-side use outside the garden would also count; I can't confirm that from here. The sweeper is running (removed 1 idle tmpexec entry at 17:20Z) and keeps terminal checkouts that tada reports still reference.
+- **Uptime:** 32d, no reboot.
+- **Deployed vs main2:** the root and origin/main2 are both `9f4eb64`. fleet/health/oros shows `roll_status: deployed`, 0 of 290 units failing (14:11:31Z). No deploy help needed.
+- **Drain/units:** 0 failed user units now, `garden-monk@1..4` running, worker-leveling row `4 0`, no drain or derotation marker at the paths I checked, and workers are claiming. `garden-repo-watcher` failed once at 15:50:45Z with exit 1 (cause not established) and later runs finished normally, so I did not touch it.
+- **Budget heartbeat:** last sample 17:18:51Z, 7 minutes old at the snapshot. Status ok. The last 8 logged pushes (15:19 to 17:03Z) are all ok, at a 14-16 minute cadence. Spend is 17640633 of 180M.
+- **State clones:** the largest are monitors/monk-1 (50 packs) and monitors/monk-2 (47). No `gc.log` and no temp packs in the monk and monitor clones. No `.git` lock older than 30 minutes in those clones; a wider `.garden-state` `find` hit its 30s bound, so this is not a complete check. Under `repo-locks/`, 15 dead-holder and 6 live `repo.lock` records; I left them, since the lock code clears its own.
+- **rc=124 (3h):** none. The only timeouts logged were a `stop-post` termination of `garden-ci-watcher@endojs-endo-but-for-bots` at 14:29:59Z and the repo-watcher self-heal responder at 15:50:44Z.
+- **Claim races:** 2 lost-race lines and 21 replay lines from 14:27 to 17:27Z, against 5 lost in the 40 minutes after the deploy last run. `9f4eb64` looks to be holding, though this is a coarse grep count.
+- **Mount:** the bind mount at `/tmp/ebfbxs` is still there, last modified 08:21Z, and `fuser` shows no users. Left in place because a requeued job could reuse it.
+
 ## 2026-11-02T14:53Z (oros-health-checkup-20261102-135010): degraded (disk only); deployed `9f4eb64` = main2; cleared stale lock records only
 
 - **Load/mem:** load 4.41, 4.06, 3.68 at 14:50Z and 2.43, 3.40, 3.49 at 14:53Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB, 32 KiB free), the same as the last four runs.
