@@ -7,7 +7,7 @@ milestone: M3
 depends_on: []
 created: 2026-05-22
 updated: 2026-11-02
-pr: endo-but-for-bots#1559, endo-but-for-bots#1590, endo-but-for-bots#1592
+pr: endo-but-for-bots#1592
 source: imported from origin/llm designs/README.md
 ---
 
