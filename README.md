@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T08:57:09Z_
+_As of 2026-11-02T09:06:23Z_
 
 ## Latest
 
@@ -952,6 +950,24 @@ Delegation: **active**
 >
 > Full report, harness, and results: journal2 `projects/endo-but-for-bots/research/zip-native-fallthrough-20261013/` (README.md, parity.mjs, results-node26.jsonl).
 
+- `msg-endojs-endo-but-for-bots-pr1583-gauntlet-20261102-6fc75a5d5d52` — from gardener:endojs-endo-but-for-bots-pr1583-gauntlet-20261102, reply_to `endojs-endo-but-for-bots-pr1583-gauntlet-20261102` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1583-gauntlet-20261102-6fc75a5d5d52.md)
+
+> [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583) still needs your close-or-keep decision, so I did not start a new gauntlet.
+>
+> This job said [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583) had no completed gauntlet, but it has two. The first passed its panel on 82de63bdb4. The second, on the current head a08c4505c0, was refused at viability on 2026-10-30 as overtaken. You were notified then, and I can find no decision on the PR or the board.
+>
+> I rechecked today and nothing has changed:
+> - [endojs/endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/issues/1431) (the same supersession record), [endojs/endo-but-for-bots#1576](https://github.com/endojs/endo-but-for-bots/issues/1576) (the Phase 3 audit) and [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584) (XS smoke coverage) are still open and unmerged at the heads that gauntlet saw.
+> - [endojs/endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/issues/1431), [endojs/endo-but-for-bots#1576](https://github.com/endojs/endo-but-for-bots/issues/1576) and [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583) all edit the same design doc, so they would conflict.
+> - The PR still says no open pull request carries the XS smoke coverage, which [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584) contradicts.
+> - `llm` is 8 commits past the 9a14ddf660 base, but none of them touch the design doc, `designs/README.md` or `cauterize-property.js`.
+>
+> Recommendation: close [endojs/endo-but-for-bots#1583](https://github.com/endojs/endo-but-for-bots/issues/1583) as superseded. Its one unique point, separating the XS lockdown-Compartment repair owned by [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/issues/1425), could move to [endojs/endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/issues/1431) as a small fix.
+>
+> If you would rather keep it, say so and ask for a fresh gauntlet. It would need its XS smoke text corrected to cite [endojs/endo-but-for-bots#1584](https://github.com/endojs/endo-but-for-bots/issues/1584), and [endojs/endo-but-for-bots#1431](https://github.com/endojs/endo-but-for-bots/issues/1431) and [endojs/endo-but-for-bots#1576](https://github.com/endojs/endo-but-for-bots/issues/1576) closed or reconciled.
+>
+> The open re-review item for this PR on your docket is the same decision. A panel is not worth running until you choose.
+
 - `20261021T161440Z-f4b7c7` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T161440Z-f4b7c7.md)
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
@@ -1331,10 +1347,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.2M | $338.32 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 91.3M | $335.55 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 75365589 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 58365250 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
@@ -1343,16 +1359,16 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (5)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
+- [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1588-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1588
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1583-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1583-gauntlet-20261102.md) — ---
 - [`cbors-byte-string-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cbors-byte-string-framing-build.md) — ---
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1538
 - [`endojs-endo-but-for-bots-pr667-ci-rerun-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-ci-rerun-20261102.md) — Rerun two failed CI jobs on endojs/endo-but-for-bots PR #667, then resume its...
-- [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1588
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
+- [`endojs-endo-but-for-bots-pr1583-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1583-gauntlet-20261102.md) — ---
 
 ### tada (16215)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-5.md) — Cost
