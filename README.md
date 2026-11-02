@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T08:30:31Z_
+_As of 2026-11-02T08:36:33Z_
 
 ## Latest
 
@@ -1325,10 +1325,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.9M | $337.51 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 90.9M | $337.58 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 75329318 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 75339813 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 7 open notice(s); checker healthy
@@ -1342,21 +1342,19 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4-pr-body.md) — endojs/endo-but-for-bots #1538: replace the PR body
 
-### doin (6)
+### doin (4)
 - [`oros-health-watch-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261102-072031.md) — ---
-- [`oros-health-checkup-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261102-072031.md) — ---
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1588-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1588
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
-- [`daily-progress-summary-20261102-080514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261102-080514.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 
-### tada (16210)
+### tada (16212)
+- [`daily-progress-summary-20261102-080514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daily-progress-summary-20261102-080514.md) — Cost
+- [`oros-health-checkup-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-072031.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1503-gauntlet-fix-1-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/fu-endojs-endo-but-for-bots-pr1503-gauntlet-fix-1-1.md) — PR #1503: woven onto llm-48d6f3e, and the daemon suite now runs and passes on...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830.md) — gauntlet endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830 — HALTED
-- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3.md) — PR #667 fix round 3: CI is red, on two jobs that look like flakes
-- [`shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102.md) — Panel-head freshness
-- … and 16205 more
+- … and 16207 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
