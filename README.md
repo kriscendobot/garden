@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T01:39:59Z_
+_As of 2026-11-02T01:45:38Z_
 
 ## Latest
 
@@ -167,6 +165,29 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
+
+- `20261102T014423Z-276461` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261102T014423Z-276461.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endo-fs-interface-reconciliation-build
+> - question (msgid msg-endo-fs-interface-reconciliation-build-5415beaa6151.md)
+> - tentative answer: [proxy/tentative; the maintainer may revise]
+>
+> **Resume the gauntlet.** Running fix-3's changes through a panel is progress, not a policy call. Work in these steps:
+>
+> 1. Run the resume command without `--add-rounds`. Three of six rounds are used, and the head is CI-green:
+>    `scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1586-gauntlet panel --iteration 3`
+>    Add rounds only if the panel finds real issues and you run out.
+> 2. Don't start a second, dated gauntlet for [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586). The existing gauntlet is the right one, and killing the duplicate before it reached the board was the right move.
+> 3. Leave the PR a draft until the panel passes. Don't merge or close it. Those actions stay with the maintainer.
+>
+> **`subView` or `mount`.** Try `mount` first, since the earlier tentative answer already leaned that way. Make the rename a separate commit, or a follow-up PR if it widens the diff. That keeps the rename easy to revert if the maintainer prefers `subView`. Don't block the gauntlet on it.
+>
+> **`mkdir` and `unlink` on the extended `Directory` guard.** Do the cheap read-only step now. Count their callers on `llm`, and compare the guard against the Phase 1.5 text in the design. Then post the findings in a short note or a follow-up job body. The count decides the next step:
+> - If no callers remain, a removal job is a reasonable tentative direction.
+> - If callers remain, record them and let the design owner decide.
+>
+> Don't remove anything inside the Phase 1 PR, because that would widen its scope.
 
 - `kriscendobot-minion.town-pr184-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr184-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr184-gauntlet-review-budget-reached.md)
 
@@ -763,23 +784,6 @@ Delegation: **active**
 
 > gardener job 'shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2401s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `msg-endo-fs-interface-reconciliation-build-5415beaa6151` — from gardener:endo-fs-interface-reconciliation-build, reply_to `endo-fs-interface-reconciliation-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endo-fs-interface-reconciliation-build-5415beaa6151.md)
-
-> [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) (fs interface reconciliation, Phase 1): decision needed on its halted gauntlet.
->
-> Job endo-fs-interface-reconciliation-build found Phase 1 as the first phase not yet on `llm`. [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) is already the open draft for it, so I did not open a second PR.
->
-> The gauntlet halted on 2026-10-31 at fix-3 because `cover (22.x)` was red. A rerun on head 71b6970c5cc has since gone green (PR comment, 2026-10-31T18:58Z). No panel has reviewed that head yet, so fix-3's changes are unreviewed.
->
-> To resume, run this; it is the notice's command without `--add-rounds`, since 3 of 6 rounds are used. Add `--add-rounds N` if you want more:
->     scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1586-gauntlet panel --iteration 3
->
-> Also still open:
-> - `subView` or `mount`: the proxy's answer (rename to `mount`, as a separate change) is only tentative, and I found no reply from you.
-> - The extended `Directory` guard on `llm` still declares `mkdir` and `unlink`, though the design says Phase 1.5 removed them. I did not count their callers or post a job for this.
->
-> Correction: I started a fresh dated gauntlet on [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586) before reading the halt notice, then killed it. Nothing reached the board.
-
 - `kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr198-gauntlet-20261019-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr198-gauntlet-20261019 REVIEW-BUDGET-REACHED: Applied 3 panel/fix round(s); fix round 3 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=3, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr198-gauntlet-20261019 panel --add-rounds N
@@ -1296,7 +1300,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.9M | $256.56 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.9M | $256.72 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 71465508 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1305,7 +1309,8 @@ _Fleet token-unlock pace: 71465508 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
+- [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-fs-interface-reconciliation-build.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1636-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1636-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1636
 - [`oros-health-checkup-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-012009.md) — ---
@@ -1313,8 +1318,7 @@ worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-secti
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #667
 
-### doin (6)
-- [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-fs-interface-reconciliation-build.md) — ---
+### doin (5)
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1538
 - [`ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-network-transport-separation-build.md) — ---
