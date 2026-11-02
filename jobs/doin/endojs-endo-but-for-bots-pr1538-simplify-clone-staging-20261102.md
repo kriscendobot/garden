@@ -22,3 +22,13 @@ Do:
 - Test the refuse-non-empty check and the failure cleanup, including that pre-existing content survives a failed clone.
 - Push follow-up commits with scripts/jobs/gardening/safe-push-pr-head.sh and get CI green (scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1538 --no-merge).
 - If the maintainer overrides with "keep staging", make no changes and report that.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T05:28:24Z
