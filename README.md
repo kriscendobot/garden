@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T17:10:18Z_
+_As of 2026-11-02T17:13:46Z_
 
 ## Latest
 
@@ -1299,6 +1297,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > canary oros-studio-garden-ce242c49 is no longer stuck (release 6c28bb5812ba7b9cb9dd7d741adbc4c1541a32bb, deployed 6c28bb5812ba7b9cb9dd7d741adbc4c1541a32bb).
+
+- `watchdog-unclaimable-host-requirements-endopi-provider-registry-and-oauth-build-open-pr` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-endopi-provider-registry-and-oauth-build-open-pr.md)
+
+> Host-requirements gate: job 'endopi-provider-registry-and-oauth-build-open-pr' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49.md)
 
