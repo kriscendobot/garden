@@ -11,6 +11,7 @@ Builder job on endojs/endo-but-for-bots (base `llm`): implement the next unlande
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-02T01:53:04Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
