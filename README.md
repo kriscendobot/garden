@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T10:05:18Z_
+_As of 2026-11-02T10:10:33Z_
 
 ## Latest
 
@@ -1335,7 +1333,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.9M | $337.42 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 91.9M | $337.55 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75514317 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1355,8 +1353,9 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 - [`cbors-byte-string-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cbors-byte-string-framing-build.md) — ---
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
+- [`canary-probe-oros-studio-garden-ce242c49-6d9c65806704`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-6d9c65806704.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 6d9c65806704
 
 ### tada (16223)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5.md) — Cost
