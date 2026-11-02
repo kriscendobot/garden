@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Builder job on endojs/endo-but-for-bots: take the in-progress `ocapn-network-transport-separation` design (M4, no dependencies) and build its next unfinished increment as a mergeable PR on `llm`. First confirm against the design and the open PRs which increments have already landed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T01:22:50Z
