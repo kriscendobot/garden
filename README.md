@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T23:23:45Z_
+_As of 2026-11-02T23:29:53Z_
 
 ## Latest
 
@@ -113,17 +111,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #32 (first seen 2026-11-01T04:46:54Z, latest 2026-11-02T23:14:00Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 32 times; this is ONE
-> coalesced notice that updates in place, not 32 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-02T23:28:35Z).
+> It was observed 32 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.167291s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.061956s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/inbox-list/journal: p95=0.053569s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.091318s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.095166s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.093768s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -1136,17 +1128,16 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 - [`dependabotany-recheck-endo-but-for-bots-pr1629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-pr1629.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1639-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1639-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1639
-- [`dependabotany-recheck-endo-but-for-bots-20261102-225009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261102-225009.md) — ---
 
-### tada (16270)
+### tada (16271)
+- [`dependabotany-recheck-endo-but-for-bots-20261102-225009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/dependabotany-recheck-endo-but-for-bots-20261102-225009.md) — Cost
 - [`endojs-endo-but-for-bots-pr1639-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1639-gauntlet-viability.md) — Cost
 - [`endopi-extension-package-manifest-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-extension-package-manifest-build-open-pr.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-body-fix6.md) — Panel-head freshness
 - [`canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5.md) — rolling-deploy canary probe — round trip OK
-- [`oros-health-checkup-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-202009.md) — Cost
-- … and 16265 more
+- … and 16266 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
