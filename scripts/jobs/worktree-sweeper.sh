@@ -33,6 +33,8 @@ export GARDEN_TAG="worktree-sweeper"
 # 1800 comfortably absorbs a single in-flight base's remaining `gh` calls plus the
 # self-heal responder.  0 disables the deadline.
 : "${GARDEN_WORKTREE_SWEEP_DEADLINE_SECS:=1500}"
+# Days without a write before a tagged build cache under scratch is removed; 0 disables.
+: "${GARDEN_SCRATCH_CACHE_IDLE_DAYS:=7}"
 CLONE="${GARDEN_WORKTREE_SWEEPER_CLONE:-$GARDEN_STATE/worktree-sweeper/journal}"
 removed=0
 TICK_START="$(date +%s 2>/dev/null || echo 0)"
@@ -42,6 +44,9 @@ case "$GARDEN_WORKTREE_SWEEP_MAX" in
 esac
 case "$GARDEN_WORKTREE_SWEEP_DEADLINE_SECS" in
   ''|*[!0-9]*) die "GARDEN_WORKTREE_SWEEP_DEADLINE_SECS must be a non-negative integer" ;;
+esac
+case "$GARDEN_SCRATCH_CACHE_IDLE_DAYS" in
+  ''|*[!0-9]*) die "GARDEN_SCRATCH_CACHE_IDLE_DAYS must be a non-negative integer" ;;
 esac
 
 ensure_clone "$CLONE"
@@ -302,6 +307,29 @@ if budget_remains; then
       under_limit || break 2
     done
     git --git-dir="$bare" worktree prune >/dev/null 2>&1 || true
+  done
+fi
+
+# Build caches jobs park directly under scratch (cargo-target-pr1531, tenth-target)
+# belong to no job record, so nothing above can ever reclaim them; single dirs have
+# reached 46G. CACHEDIR.TAG is the standard declaration that a tree is disposable,
+# and cargo writes it at every target root. Idleness is judged on the whole tree,
+# since cargo does not touch the top directory during a build. Any doubt, including
+# a find that fails or overruns, keeps the directory.
+if budget_remains && [ "$GARDEN_SCRATCH_CACHE_IDLE_DAYS" -gt 0 ]; then
+  for tag in "$GARDEN_SCRATCH"/*/CACHEDIR.TAG; do
+    [ -f "$tag" ] || continue
+    path="${tag%/CACHEDIR.TAG}"
+    [ ! -L "$path" ] || continue
+    case "$(basename "$path")" in gardener-wt-*|project-wt-*) continue ;; esac
+    head -c 43 "$tag" 2>/dev/null | grep -qxF 'Signature: 8a477f597d28d172789f06886806bc55' || continue
+    newest="$(timeout 120 find "$path" -mtime "-$GARDEN_SCRATCH_CACHE_IDLE_DAYS" -print -quit 2>/dev/null)" || continue
+    [ -z "$newest" ] || continue
+    has_live_process "$path" && { log "keeping idle build cache $path: a live process is rooted there"; continue; }
+    rm -rf -- "$path"
+    removed=$((removed + 1))
+    log "removed idle build cache $path (no writes in ${GARDEN_SCRATCH_CACHE_IDLE_DAYS}d)"
+    budget_remains || break
   done
 fi
 
