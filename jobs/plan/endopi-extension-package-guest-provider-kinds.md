@@ -20,3 +20,7 @@ That PR installs skills and prompts and reports `guests` and `providers` as decl
 2. **Guests.** The design's "existing `endo install` path" and guest-plugin store were removed in 8a1f07d38 ("Yank you the current version of weblets"). The maintainer must first say where guests go. Do not invent a store.
 
 Then update the PR's phase ledger to `Disposition: deliverable`, so its completion re-stages a gauntlet.
+
+<!-- garden-annotation: key=endopi-manifest-pr-1639 by=builder at=2026-11-02T22:38:24Z -->
+
+The draft PR for `endopi-extension-package-manifest-build` (head `feat/endopi-extension-package-manifest`, base `llm-48d6f3e`) is https://github.com/endojs/endo-but-for-bots/pull/1639.
