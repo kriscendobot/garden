@@ -23,3 +23,13 @@ Expect conflicts in `packages/ocapn-noise/src/network.js` and its tests: #1476 g
 
 Watch CI to green: `scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1478 --no-merge`. The old red (bwrap sandbox tests from the stale base) should be gone; investigate any red that remains. Leave the PR draft and do not touch #1481–#1483 (they are based on frozen snapshots of the old #1478 head; they need their own weave later). Report the new head SHA.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T03:42:00Z
