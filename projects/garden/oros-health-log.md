@@ -1,6 +1,23 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-02T03:55Z (oros-health-checkup-20261102-012009): degraded (disk); deployed `d0690e9`; removed 14G of idle cargo caches, landed a sweeper fix
+
+- **Load/mem:** load 4.10/4.01/3.72 at 03:55Z (5.44 peak at 03:17Z). 12 GiB of 15 GiB available. Swap is full (1.0 GiB, 108 KiB free), up from 954M at 23:17Z. With 12 GiB available this is not memory pressure yet, but there is no swap headroom left.
+- **Disk/inodes (the defect):** the virtiofs garden mount is at 85% (74G free). It was at 59% (190G free) on 10-31 at 09:10Z. Inodes are at 2%, and the overlay is at 7% (402G free).
+- **Disk accounting:** scratch is about 47G and the rest of the garden tree is about 30G by `du`, so most of the 388G in use is not under the garden mount. It is presumably on the Mac side of the shared disk, which can't be seen from here. The 46G cargo dir removed at 16:40Z explains the 11-01 spike, but free space has since fallen from 88G to 74G.
+- **Unexplained:** removing 14.4G (by `du`) moved `df` by nothing: 75G free before, 74G after. No directory measured here grew by that much. Either something outside the mount used the same amount, or the Mac has not released the space yet (an APFS snapshot is one possibility). Neither is confirmed.
+- **Uptime:** 31d10h, no reboot.
+- **Deployed vs main2:** `deployed-sha` is `d0690e9`, written at 02:59Z. fleet/health/oros shows `roll_status: deployed`, 0 of 290 units failing, 0 advisory (02:59:41Z). origin/main2 is now `11fe1c6`, one commit ahead, which is this run's fix. That commit has not been rolled out yet, and nothing is blocking it.
+- **Drain/units:** not draining, 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, no derotation marker.
+- **Budget heartbeat:** last claude-oros push at 03:49:10Z. The pushes from 02:46 to 03:49Z were all ok, at a 12-17 minute cadence. Spend is 12,538,035 of 180M.
+- **State clones:** 52 journal clones. The largest are monks/4 (47 packs), fork-watch (46) and decisions (46), all under the threshold of 50. No `gc.log`, no temp packs, and no `.git` lock older than 30 minutes.
+- **rc=124 (3h):** one, `weave-endojs-endo-but-for-bots-pr1476-llm-20261102` hit its 7200s wall at 02:40Z and was left in doin for reaper requeue. No rc=137 and no `Failed with result`.
+- **CLI:** the Claude Code tree was reinstalled at 03:46:33Z and now reports 2.1.316. A command run during the swap printed `claude native binary not installed`. The journal shows no such errors in the last hour, so no job appears to have been affected.
+- **Changed:** removed seven `scratch/cargo-target-*` caches (hostcall, pr1379, pr1527, pr1531, pr1533, pr1535, pr1535-188). Each had `CACHEDIR.TAG`, no write since before 10-25 and no process using it. Their PRs are still open, so a later job on one will rebuild from cold. Kept `cargo-target-pr1614` (written 11-01). Landed `11fe1c6` on main2: the worktree sweeper now removes top-level scratch dirs tagged `CACHEDIR.TAG` after 7 idle days, with a new test (`worktree-sweeper-build-cache-test.sh`, 11 passing; the follower and lock-liveness sweeper tests still pass).
+- **Limit of the fix:** 7 idle days would not have caught the 46G dir before it filled the disk, because that dir was hours old.
+- **Needs the maintainer:** someone at the Mac should find what is using the shared disk (about 300G outside the garden tree). At the 14G-per-11-hours rate since 16:40Z, 74G lasts about 2.5 days.
+
 ## 2026-11-01T23:25Z (oros-health-checkup-20261101-222009): healthy; deployed = origin/main2 `a60ae08`, no changes
 
 - **Load/mem:** load 5.28/4.29/3.42 at 23:17Z, a little above the usual level, with three claude sessions running. 12 GiB of 15 GiB available. Swap reads 954M of 1.0 GiB, the usual steady level.
