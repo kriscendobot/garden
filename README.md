@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T05:54:22Z_
+_As of 2026-11-02T05:57:11Z_
 
 ## Latest
 
@@ -47,6 +47,19 @@ Delegation: **active**
 - `msg-oros-health-watch-20261029-005026-f2a7896d797e` — from gardener:oros-health-watch-20261029-005026, reply_to `oros-health-watch-20261029-005026` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261029-005026-f2a7896d797e.md)
 
 > oros health watch: oros host heartbeat is fresh (sampled 2026-10-29T00:33:18Z), the latest checkup reports healthy, and fleet health reports deployed at abed1bb with no failures. However, the sysop control bridge did not acknowledge benign reset-failed op 20261029T005109Z-d40d28 within 10 minutes; the prior sysop-log entry was 2026-10-26T10:52:45Z. A person at the machine should inspect garden-sysop.service/timer and the host's journal access.
+
+- `orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume-child-endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102-failed` — from orchestrator:orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume-child-endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume-child-endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume
+> orchestration-status: running
+> child: endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102
+> failure-kind: gated-outcome-unsatisfied
+> order: serial
+> on-child-failure: halt
+> detail: completed but declared its gated outcome unsatisfied
+>
+> Orchestration orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume observed child endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102: completed but declared its gated outcome unsatisfied.
 
 - `20261029T050122Z-c036cb` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261029T050122Z-c036cb.md)
 
@@ -974,6 +987,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_producer_journal` cleared on endolin-garden-ece02cb4.
 
+- `orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume-halted` — from orchestrator:orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume
+> orchestration-status: halted
+> child: endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102
+> failure-kind: gated-outcome-unsatisfied
+> children-completed: 1
+> children-total: 2
+> halt-parked-remainder: 
+>
+> Orchestration orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume HALTED: child endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
+
 - `20261017T175349Z-6b9fd0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T175349Z-6b9fd0.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1303,7 +1329,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.5M | $312.10 _(notional, rate-card)_ | 31% of 271.0M (ok) |
+| Claude | 83.5M | $312.19 _(notional, rate-card)_ | 31% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 73994888 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1312,25 +1338,25 @@ _Fleet token-unlock pace: 73994888 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endoclaw-network-fetch-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endoclaw-network-fetch-build.md) — ---
+- [`endojs-endo-but-for-bots-pr1503-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1503-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1503
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1538-simplify-clone-staging-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-simplify-clone-staging-20261102.md) — Simplify provideGitClone staging — endojs/endo-but-for-bots PR #1538
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #667
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1538
-- [`endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102.md) — Resume the halted gauntlet on endojs/endo-but-for-bots#1478
 - [`daemon-agent-network-identity-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-agent-network-identity-build.md) — ---
 
 ### tada (16189)
+- [`endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102.md) — Cost
+- [`orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume.md) — orchestration orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-...
 - [`endojs-endo-but-for-bots-pr1586-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1586-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1586-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1586-gauntlet-fix-5.md) — Gauntlet fix round 5: PR #1586
 - [`oros-health-watch-20261102-042009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-watch-20261102-042009.md) — Cost
-- [`oros-health-checkup-20261102-042009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-042009.md) — Cost
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-3.md) — Cost
 - … and 16184 more
 
 ## Plan queue (parked — not claimable until promoted)
