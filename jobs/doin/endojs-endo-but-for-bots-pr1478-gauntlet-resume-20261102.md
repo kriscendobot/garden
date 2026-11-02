@@ -25,3 +25,13 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1478. The staged gauntlet r
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-02T05:43:05Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T05:46:27Z
