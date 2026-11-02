@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T12:32:08Z_
+_As of 2026-11-02T12:35:43Z_
 
 ## Latest
 
@@ -1362,23 +1362,24 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.5M | $348.40 _(notional, rate-card)_ | 35% of 271.0M (ok) |
+| Claude | 94.5M | $348.72 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 75582396 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 75951028 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.459215s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-minion.town); 10 open notice(s); checker healthy
+worst fetch p95 3.310903s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (5)
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1538
+- [`daemon-git-remotes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-remotes-build.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`daemon-message-streaming-phase-one-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-message-streaming-phase-one-build.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1538
 - [`daemon-git-agent-tool-adapters-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-agent-tool-adapters-build.md) — ---
 - [`endojs-endo-but-for-bots-pr1637-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1637-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1637
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
