@@ -88,3 +88,13 @@ Head: `7f897e6fa` (commits `f708d1454`, `239c7549f`, `7f897e6fa` on top of `4c85
 
 **Verification:** `@endo/platform` `tsc`, `test:types`, and 380 tests pass. `@endo/daemon` `test:types` and `mount.test.js` (87 tests) pass. Prettier passes on all changed files. I did not run the full daemon suite; the daemon source changes are comments only, and CI is authoritative.
 =====COMMENT-END=====
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T05:21:34Z
