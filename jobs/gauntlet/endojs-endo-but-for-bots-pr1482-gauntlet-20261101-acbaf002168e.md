@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1482
 build_job: 
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-panel-1
+current_child: endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1
 state: running
 created_by: fixer
 arc: minion-town-mcp-ocapn
