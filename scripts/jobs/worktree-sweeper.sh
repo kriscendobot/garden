@@ -35,6 +35,10 @@ export GARDEN_TAG="worktree-sweeper"
 : "${GARDEN_WORKTREE_SWEEP_DEADLINE_SECS:=1500}"
 # Days without a write before a tagged build cache under scratch is removed; 0 disables.
 : "${GARDEN_SCRATCH_CACHE_IDLE_DAYS:=7}"
+# Days without a write before an entry of $GARDEN_SCRATCH/tmpexec is removed; 0 disables.
+: "${GARDEN_TMPEXEC_IDLE_DAYS:=7}"
+# Seconds one tick may spend on that pass; a large backlog drains over several ticks.
+: "${GARDEN_TMPEXEC_SWEEP_SECS:=300}"
 CLONE="${GARDEN_WORKTREE_SWEEPER_CLONE:-$GARDEN_STATE/worktree-sweeper/journal}"
 removed=0
 TICK_START="$(date +%s 2>/dev/null || echo 0)"
@@ -47,6 +51,13 @@ case "$GARDEN_WORKTREE_SWEEP_DEADLINE_SECS" in
 esac
 case "$GARDEN_SCRATCH_CACHE_IDLE_DAYS" in
   ''|*[!0-9]*) die "GARDEN_SCRATCH_CACHE_IDLE_DAYS must be a non-negative integer" ;;
+esac
+
+case "$GARDEN_TMPEXEC_IDLE_DAYS" in
+  ''|*[!0-9]*) die "GARDEN_TMPEXEC_IDLE_DAYS must be a non-negative integer" ;;
+esac
+case "$GARDEN_TMPEXEC_SWEEP_SECS" in
+  ''|*[!0-9]*) die "GARDEN_TMPEXEC_SWEEP_SECS must be a non-negative integer" ;;
 esac
 
 ensure_clone "$CLONE"
@@ -331,6 +342,35 @@ if budget_remains && [ "$GARDEN_SCRATCH_CACHE_IDLE_DAYS" -gt 0 ]; then
     log "removed idle build cache $path (no writes in ${GARDEN_SCRATCH_CACHE_IDLE_DAYS}d)"
     budget_remains || break
   done
+fi
+
+# $GARDEN_SCRATCH/tmpexec stands in for a noexec /tmp (exec_tmpdir in common.sh), so
+# nothing ever cleans it the way a reboot cleans /tmp, and any test or job killed
+# before its EXIT trap leaves its mktemp behind (8,100 entries on oros by 2026-11-02).
+# Removal needs a whole tree idle and no live process holding a cwd or fd in the
+# entry. claude-* is the CLI's own per-user task directory. These entries are small
+# and numerous, so they get their own time budget rather than the checkout cap.
+if ! past_deadline && [ "$GARDEN_TMPEXEC_IDLE_DAYS" -gt 0 ] && [ -d "$GARDEN_SCRATCH/tmpexec" ]; then
+  tmpexec="$GARDEN_SCRATCH/tmpexec"
+  tmpexec_removed=0
+  tmpexec_end=$(( $(date +%s) + GARDEN_TMPEXEC_SWEEP_SECS ))
+  declare -A tmpexec_live=()
+  while IFS= read -r link; do
+    case "$link" in
+      "$tmpexec"/*) link="${link#"$tmpexec"/}"; tmpexec_live["${link%%/*}"]=1 ;;
+    esac
+  done < <(readlink /proc/[0-9]*/cwd /proc/[0-9]*/fd/* 2>/dev/null || true)
+  while IFS= read -r -d '' path; do
+    [ "$(date +%s)" -lt "$tmpexec_end" ] && ! past_deadline || break
+    name="$(basename "$path")"
+    case "$name" in claude-*) continue ;; esac
+    [ -z "${tmpexec_live[$name]:-}" ] || continue
+    newest="$(timeout 60 find "$path" -mtime "-$GARDEN_TMPEXEC_IDLE_DAYS" -print -quit 2>/dev/null)" || continue
+    [ -z "$newest" ] || continue
+    rm -rf -- "$path" || continue
+    tmpexec_removed=$((tmpexec_removed + 1))
+  done < <(find "$tmpexec" -mindepth 1 -maxdepth 1 ! -mtime "-$GARDEN_TMPEXEC_IDLE_DAYS" -print0 2>/dev/null || true)
+  [ "$tmpexec_removed" -eq 0 ] || log "removed $tmpexec_removed idle tmpexec entries (no writes in ${GARDEN_TMPEXEC_IDLE_DAYS}d)"
 fi
 
 # Repair relocation-staled live root registrations before pruning dead ones.
