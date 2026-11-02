@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T03:05:02Z_
+_As of 2026-11-02T03:06:25Z_
 
 ## Latest
 
@@ -1295,19 +1295,18 @@ worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-secti
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1538
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1586-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1586
-- [`canary-probe-oros-studio-garden-ce242c49-d0690e9c0dad`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-d0690e9c0dad.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ d0690e9c0dad
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #667
 - [`endojs-endo-but-for-bots-pr1636-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1636-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1636
 
-### tada (16164)
+### tada (16165)
+- [`canary-probe-oros-studio-garden-ce242c49-d0690e9c0dad`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-d0690e9c0dad.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1.md) — Cost
 - [`orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102.md) — orchestration orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102 ...
 - [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endo-fs-interface-reconciliation-build.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-1.md) — Cost
-- … and 16159 more
+- … and 16160 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
