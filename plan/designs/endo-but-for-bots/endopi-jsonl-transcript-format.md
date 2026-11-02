@@ -1,14 +1,37 @@
 ---
 slug: endopi-jsonl-transcript-format
 repository: endo-but-for-bots
-status: Proposed
+status: In Progress
 size: M
 milestone: M3
 depends_on: []
 created: 2026-05-15
-updated: 2026-05-15
+updated: 2026-11-02
 source: imported from origin/llm designs/README.md
 ---
+
+> **Do not mint another build from this record (2026-11-02).** The format
+> library is merged: `@endo/jsonl-transcript` (endo-but-for-bots#669, on `llm`).
+> It has no `pr:` field on purpose: `plan/reconcile.sh` would flip the record to
+> Complete on that merged PR, and the design is not complete.
+>
+> **Done:** entry types, writer, reader, graph projection, path helpers, and
+> `docs/session-format.md`.
+>
+> **Not done, and blocked on a design decision:**
+> - No package consumes the library, so nothing writes session files.
+> - The `endo session list` / `endo session show` verbs (phase 3) do not exist.
+> - Compaction integration (phase 4) waits on `endopi-iterative-compaction`.
+>
+> **Why the wiring needs design work first:** this design assumes a Lal
+> reply-chain graph and a guest-side writer under `$ENDO_STATE`. Lal now runs on
+> a `PiAgent` with a linear in-memory message list and no cross-restart
+> continuity. kriskowal's review on #669 asked how Chat, Familiar, and Gateway
+> integrate, and assumed a surfaced capability; that question has no recorded
+> answer. A follow-up build needs a revised design that settles it.
+>
+> Draft endo-but-for-bots#692 is an unreviewed duplicate of the format work, in
+> `@endo/conversation-tree`.
 
 # EndoPi: Pi-Compatible JSONL Transcript Format
 
