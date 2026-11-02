@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T09:09:09Z_
+_As of 2026-11-02T09:10:55Z_
 
 ## Latest
 
@@ -1363,20 +1363,19 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`cbors-byte-string-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cbors-byte-string-framing-build.md) — ---
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1538
 - [`endojs-endo-but-for-bots-pr667-ci-rerun-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-ci-rerun-20261102.md) — Rerun two failed CI jobs on endojs/endo-but-for-bots PR #667, then resume its...
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
-- [`endojs-endo-but-for-bots-pr1583-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1583-gauntlet-20261102.md) — ---
 
-### tada (16215)
+### tada (16216)
+- [`endojs-endo-but-for-bots-pr1583-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1583-gauntlet-20261102.md) — PR #1583 gauntlet: not run, maintainer decision needed
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4-pr-body.md) — Panel-head freshness
 - [`oros-health-watch-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-watch-20261102-072031.md) — Cost
 - [`daily-progress-summary-20261102-080514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daily-progress-summary-20261102-080514.md) — Cost
-- [`oros-health-checkup-20261102-072031`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-072031.md) — Cost
-- … and 16210 more
+- … and 16211 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
