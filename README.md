@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T17:58:40Z_
+_As of 2026-11-02T18:01:58Z_
 
 ## Latest
 
@@ -1418,12 +1418,11 @@ _Fleet token-unlock pace: 51341140 tokens/day lower bound; incomplete where a su
 worst fetch p95 2.931956s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (11)
 - [`oros-health-watch-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-135010.md) — ---
 - [`endopi-extension-package-manifest-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-extension-package-manifest-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-body-fix6.md) — endojs/endo-but-for-bots: replace the description of PR #1538
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`claude-on-minion-town-completion-press-20261102-175012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261102-175012.md) — Completion press: Claude-on-minion.town arc
 - [`endopi-prompt-templates-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-prompt-templates-open-pr.md) — Open the draft PR for the endopi prompt-templates build
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
@@ -1432,8 +1431,8 @@ worst fetch p95 2.931956s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20261102-175012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261102-175012.md) — Completion press: Claude-on-minion.town arc
 
 ### tada (16263)
 - [`reset-credit-watch-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/reset-credit-watch-20261102-170509.md) — Cost
