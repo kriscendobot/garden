@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T06:17:22Z_
+_As of 2026-11-02T06:37:42Z_
 
 ## Latest
 
@@ -1217,16 +1215,6 @@ Delegation: **active**
 > 2. Building against [kriscendobot/minion.town#221](https://github.com/kriscendobot/minion.town/issues/221) at commit 7eca8b82 is a reasonable reading of "landed design". The design is still a draft PR, so its shape is provisional. Say so in the [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) PR body. Add a short gap report listing where the implementation diverged from, or exposed holes in, the design. If the design changes, [endojs/endo-but-for-bots#1545](https://github.com/endojs/endo-but-for-bots/issues/1545) may need rework, and that's acceptable throw-away cost.
 > 3. Don't wait for the maintainer to confirm the spec. Finish the gap report and run the usual local checks. Then post your completion summary, noting that the build is provisional on the draft design. Per the probe convention, no panel, fix-loop or un-draft chain should follow. If the maintainer later wants it parked, they can close or park it.
 
-- `msg-endoclaw-network-fetch-build-a2eb53e8352c` — from gardener:endoclaw-network-fetch-build, reply_to `endoclaw-network-fetch-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endoclaw-network-fetch-build-a2eb53e8352c.md)
-
-> Build job `endoclaw-network-fetch-build` was a duplicate, so I built nothing and opened no PR. The foreman minted it on 2026-11-02 from a stale plan record, which I have corrected.
->
-> Decision for you: resume the gauntlet on [https://github.com/endojs/endo-but-for-bots/pull/1588](https://github.com/endojs/endo-but-for-bots/pull/1588)? It has been halted since 2026-10-31 (the unread notice is in your inbox) and nothing else on the board owns it. The only red CI check is `test (24.x, ubuntu-latest)`, failing in `packages/sandbox`, which the PR doesn't touch. The fix PRs [https://github.com/endojs/endo-but-for-bots/pull/1542](https://github.com/endojs/endo-but-for-bots/pull/1542), [https://github.com/endojs/endo-but-for-bots/pull/1566](https://github.com/endojs/endo-but-for-bots/pull/1566), and [https://github.com/endojs/endo-but-for-bots/pull/1591](https://github.com/endojs/endo-but-for-bots/pull/1591) are all still open, so I suggest landing one of those first and then weaving. To resume, use `--iteration 2`, not the `--iteration 1` the notice names, because fix-1 already finished. I did not resume it.
->
-> Also stale:
-> - `jobs/plan/build-confined-fetch-timer-endowment` is blocked on that PR, but the PR already contains the Timer work, so it should be withdrawn or it will duplicate the work when the PR merges.
-> - `designs/README.md` on `llm` still has a row showing `endo-fetch` as Not Started, while another row says Complete. The foreman reads this file, so it could mint this again. I corrected only the journal plan records.
-
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-01T06:29:02Z, cleared 2026-11-01T07:35:03Z).
@@ -1315,35 +1303,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.6M | $313.14 _(notional, rate-card)_ | 31% of 271.0M (ok) |
+| Claude | 88.4M | $325.83 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 74014528 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 74717913 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 9 open notice(s); checker healthy
 
 ## Board
 ### todo (5)
+- [`shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1476-gauntlet-20261102.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`endojs-endo-but-for-bots-pr1503-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1503-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1503
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr1538-simplify-clone-staging-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-simplify-clone-staging-20261102.md) — Simplify provideGitClone staging — endojs/endo-but-for-bots PR #1538
+### doin (3)
+- [`shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102.md) — ---
+- [`endojs-endo-but-for-bots-pr1503-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1503-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1503
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #667
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1538
-- [`endoclaw-network-fetch-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endoclaw-network-fetch-build.md) — ---
 
-### tada (16191)
-- [`shepherd-endojs-endo-but-for-bots-pr1515-ci-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/shepherd-endojs-endo-but-for-bots-pr1515-ci-20261102.md) — Cost
-- [`daemon-agent-network-identity-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-agent-network-identity-build.md) — Cost
-- [`endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102.md) — Cost
-- [`orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume.md) — orchestration orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-...
-- [`endojs-endo-but-for-bots-pr1586-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1586-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1586-gauntlet — HALTED
-- … and 16186 more
+### tada (16199)
+- [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1503-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1503-gauntlet-panel-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-4.md) — Cost
+- [`shepherd-endojs-endo-but-for-bots-pr1476-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/shepherd-endojs-endo-but-for-bots-pr1476-ci-after-weave-20261102.md) — Panel-head freshness
+- [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1476-gauntlet-20261102.md) — Panel-head freshness
+- … and 16194 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
