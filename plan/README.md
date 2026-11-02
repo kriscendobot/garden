@@ -107,7 +107,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-git-next-steps | endo-but-for-bots | M3 | Proposed | — | — |
 | daemon-git-remotes | endo-but-for-bots | M3 | Proposed | — | — |
 | daemon-guest-eval-simplification | endo-but-for-bots | M3 | Complete | — | — |
-| daemon-locator-terminology | endo-but-for-bots | M3 | Not Started | S | — |
+| daemon-locator-terminology | endo-but-for-bots | M3 | In Progress | S | endo-but-for-bots#1498 |
 | daemon-mount | endo-but-for-bots | M3 | In Progress | L | — |
 | daemon-rename-to-manager | endo-but-for-bots | M3 | Not Started | S | — |
 | daemon-worker-import-from-mount | endo-but-for-bots | M3 | Proposed | M | — |
