@@ -1,12 +1,12 @@
 ---
 slug: daemon-message-streaming
 repository: endo-but-for-bots
-status: In Progress
+status: Complete
 milestone: M9
 depends_on: []
-pr: endo-but-for-bots#287
+pr: endo-but-for-bots#125
 created: 2026-03-26
-updated: 2026-07-27
+updated: 2026-11-02
 source: imported from origin/llm designs/README.md
 ---
 
@@ -15,28 +15,18 @@ source: imported from origin/llm designs/README.md
 |             |                          |
 |-------------|--------------------------|
 | **Created** | 2026-03-26               |
-| **Updated** | 2026-06-15               |
+| **Updated** | 2026-07-22               |
 | **Author**  | Joshua T Corbin (evoked) |
-| **Status**  | In Progress              |
+| **Status**  | **Complete**             |
 
 ## Status
 
-**In Progress** (design proposed 2026-03-26; Phase 1 implementation
-open as PR #287, not yet merged to `llm`).
-
-Phase 1 (`streamReply` + `StreamWriter` + `StreamReader`) implemented
-on branch `feat/daemon-message-streaming-phase-1` (commit 4af9cd0ea)
-and forwarded under the bot as
-[PR #287](https://github.com/endojs/endo-but-for-bots/pull/287)
-(open).
-Not yet merged to `llm`.
-
-### Roadmap calibration (per `git blame` on `llm`)
-
-- Design phase: 2026-03-26 (single commit `116f5f06d`, "Mostly
-  bot-written design for daemon message streaming").
-- Implementation phase: open as PR #287 against `llm`. No completion
-  date yet. Calendar gap since design is 54+ days.
+**Complete.** The `editMessage`, `messageHistory`, and `done` envelope
+surface landed on `llm` in
+[PR #125](https://github.com/endojs/endo-but-for-bots/pull/125)
+(merge commit `65b0abe27d205743d412dbb5f2c0e806353930ef`). The earlier
+`streamReply` / `StreamWriter` / `StreamReader` proposal is retired. It was
+superseded by whole-message revision, not left as a parallel protocol.
 
 ## Motivation
 
@@ -322,3 +312,6 @@ _Groomed 2026-07-12: filed under **M9** (UX Polish and Agent Tooling) — the da
 
 ---
 _Groomed 2026-07-27: status drift noted. The recorded `pr: endo-but-for-bots#287` (streamReply + StreamWriter, Phase 1) was **closed unmerged** and no superseding PR exists; the auto-flip reconciler will never advance this record while the pointer names a dead PR. Left `status: In Progress` and the `pr:` pointer intact for the maintainer to decide whether to re-open the Phase-1 work or retire the design; flagged rather than mutated._
+
+---
+_Reconciled 2026-11-02: set `status: Complete` and `pr: endo-but-for-bots#125`, matching `designs/daemon-message-streaming.md` and `designs/README.md` on `llm` (`48d6f3e08`). This answers the re-open-or-retire question flagged on 2026-07-05 and 2026-07-27: the maintainer closed #287 on 2026-05-20 with "This has been coöpted by editMessage", and #125 merged 2026-06-22. The stale record had minted two no-op builds (`build-daemon-message-streaming-phase-2`, `daemon-message-streaming-phase-one-build`). Do not re-mint `streamReply` work. The design's Known Gaps are open design questions, not unbuilt phases._
