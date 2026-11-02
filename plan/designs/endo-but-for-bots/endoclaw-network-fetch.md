@@ -1,12 +1,14 @@
 ---
 slug: endoclaw-network-fetch
 repository: endo-but-for-bots
-status: Not Started
+status: Superseded
 size: M
 milestone: M3
 depends_on: []
 created: 2026-03-03
-updated: 2026-03-03
+updated: 2026-11-02
+superseded_by: endo-fetch
+pr: endo-but-for-bots#566
 source: imported from origin/llm designs/README.md
 ---
 
@@ -15,10 +17,22 @@ source: imported from origin/llm designs/README.md
 | | |
 |---|---|
 | **Created** | 2026-03-03 |
-| **Updated** | 2026-03-03 |
+| **Updated** | 2026-11-02 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | Not Started |
+| **Status** | Superseded by endo-fetch |
 | **Parent** | [endoclaw](endoclaw.md) |
+
+## Implementation status (reconciled 2026-11-02)
+
+**Do not dispatch a build from this record.** `designs/endoclaw-network-fetch.md`
+on `llm` has been Superseded by `endo-fetch` since 2026-07-13; this record kept the
+March import's `Not Started` and so re-minted a build job on 2026-11-02.
+
+- Capability shape below: landed in endo-but-for-bots #566 (`@endo/exo-http-client`
+  over `@endo/http-confine`).
+- Provisioning: #723 landed the first plugin; draft #1588 splits it into
+  `@endo/fetch` and `@endo/confined-fetch`. Track remaining work on the
+  [endo-fetch](endo-fetch.md) record.
 
 ## Summary
 
