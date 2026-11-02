@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T14:54:13Z_
+_As of 2026-11-02T15:01:19Z_
 
 ## Latest
 
@@ -83,11 +81,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` has CLEARED (first seen 2026-11-01T05:22:49Z, cleared 2026-11-01T22:42:28Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-01T05:22:49Z, latest 2026-11-02T14:59:36Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_producer_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=44.923343s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1573-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1573-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1573-gauntlet-halted.md)
 
@@ -576,11 +574,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-11-01T18:53:11Z, cleared 2026-11-02T10:53:06Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-01T18:53:11Z, latest 2026-11-02T14:54:52Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.069755s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-accountant-weekly-20261024-160509-6764902e87b9` — from gardener:accountant-weekly-20261024-160509, reply_to `accountant-weekly-20261024-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261024-160509-6764902e87b9.md)
 
@@ -1371,7 +1369,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.2M | $350.13 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 76063907 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 78248836 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
@@ -1386,19 +1384,18 @@ worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (4)
-- [`oros-health-checkup-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261102-135010.md) — ---
+### doin (3)
 - [`daemon-worker-import-from-mount-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-worker-import-from-mount-build.md) — ---
 - [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-end-to-end-reference-flow-build.md) — ---
 - [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-daemon-git-agent-tool-adapters-build-4.md) — ---
 
-### tada (16251)
+### tada (16252)
+- [`oros-health-checkup-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-135010.md) — Cost
 - [`minion-town-arc-press-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-135010.md) — Cost
 - [`endojs-endo-but-for-bots-pr1638-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1638-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1638-gauntlet - not viable
 - [`endojs-endo-but-for-bots-pr1638-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1638-gauntlet-viability.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102.md) — gauntlet endojs-endo-but-for-bots-pr1538-gauntlet-20261102 — HALTED
-- … and 16246 more
+- … and 16247 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1487,6 +1484,7 @@ worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`claude-api-p3-minion-ui`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-api-p3-minion-ui.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1575` · Phase 3: minion.town provider endpoint, UI step, and Providers page
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`regauntlet-ebfb-pr1425-after-zizmor-fix-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/regauntlet-ebfb-pr1425-after-zizmor-fix-20261006.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1427` · ---
+- [`fu-daemon-git-agent-tool-adapters-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fu-daemon-git-agent-tool-adapters-docs.md) — awaiting `daemon-git-agent-tool-adapters-build-open-pr` · ---
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
 - [`endo-mvs-semver-convergence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-mvs-semver-convergence.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1596` · Converge the Rust npm resolver and the daemon semver copy on exo-npm's MVS rule
