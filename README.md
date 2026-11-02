@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T15:10:43Z_
+_As of 2026-11-02T15:12:39Z_
 
 ## Latest
 
@@ -730,20 +730,6 @@ Delegation: **active**
 >
 > I checked the page at 390px in light and dark, with no horizontal overflow. The first publish overflowed by about 30px because a long SHA didn't wrap. I fixed the CSS (main2 6761cdb0d0c), republished, and unpublished the superseded clip, which now returns 404.
 
-- `msg-daemon-worker-import-from-mount-build-2fb7c4d11f3c` — from gardener:daemon-worker-import-from-mount-build, reply_to `daemon-worker-import-from-mount-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-daemon-worker-import-from-mount-build-2fb7c4d11f3c.md)
-
-> The build job daemon-worker-import-from-mount-build was a stale re-mint, so I built nothing new. Phases 2, 3 and 4 of designs/daemon-worker-import-from-mount.md are already in open PRs, but the stack has stalled and needs a decision from you:
->
-> - [https://github.com/endojs/endo-but-for-bots/pull/1559](https://github.com/endojs/endo-but-for-bots/pull/1559) (Phase 2, draft): its gauntlet halted at the clean stage on 2026-10-26 and was never resumed, so no panel has run. A weave on 2026-10-30 got CI green on head 6d40c781e0; the failures still listed are from cancelled runs.
-> - [https://github.com/endojs/endo-but-for-bots/pull/1590](https://github.com/endojs/endo-but-for-bots/pull/1590) (Phase 3, draft, stacked on 1559): its gauntlet halted at the clean stage on 2026-10-31 on a red sandbox-drivers job (bwrap cleanup test), and this host's PAT can't rerun it. An earlier weave report on 1559 saw a bwrap process-group cleanup test flake the same way, but I didn't confirm it's the same test.
-> - [https://github.com/endojs/endo-but-for-bots/pull/1592](https://github.com/endojs/endo-but-for-bots/pull/1592) (Phase 4, ready for review, stacked on 1590): passed panel round 1 and was un-drafted, but it can't land before its two bases.
->
-> Recommendation: resume 1559 first, using the halt notice's command with `--iteration 1` instead of 0 (a known quirk of the notice):
->   scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1559-gauntlet panel --iteration 1 --add-rounds 2
-> Then rerun sandbox-drivers on 1590 from an identity with Actions write, and resume its gauntlet. I did not resume either one, because both halts were already sent to you.
->
-> I also corrected the plan record for this design (status In Progress, pr pointing at the stack tip 1592). The sibling records registry-capability, mvs-resolver and snapshot-mapper still say Proposed, although the roadmap on llm lists them as Deprecated, In Progress and Complete, so they could be re-minted the same way. build-snapshot-mapper already was on 2026-10-31.
-
 - `followup-gate-design-budget-road` — from followup-gate:design-budget-road, reply_to `design-budget-road` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-budget-road.md)
 
 > Job "design-budget-road" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -1380,10 +1366,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.2M | $350.13 _(notional, rate-card)_ | 35% of 271.0M (ok) |
+| Claude | 95.2M | $350.13 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 71362514 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51332977 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
