@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T09:54:06Z_
+_As of 2026-11-02T09:55:57Z_
 
 ## Latest
 
@@ -1340,7 +1340,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.8M | $336.65 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 91.9M | $337.01 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75470157 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1349,8 +1349,9 @@ _Fleet token-unlock pace: 75470157 tokens/day lower bound; incomplete where a su
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`daemon-locator-terminology-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-locator-terminology-build.md) — ---
+- [`daemon-git-clone-bootstrap-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-clone-bootstrap-design.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
