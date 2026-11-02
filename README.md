@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T01:56:55Z_
+_As of 2026-11-02T02:00:38Z_
 
 ## Latest
 
@@ -234,6 +232,10 @@ Delegation: **active**
 
 - `msg-ocapn-tcp-for-test-extraction-build-7a89118fcf85` — from gardener:ocapn-tcp-for-test-extraction-build, reply_to `ocapn-tcp-for-test-extraction-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocapn-tcp-for-test-extraction-build-7a89118fcf85.md)
 
+> COALESCED message — occurrence #3 (first seen 2026-11-02T01:53:51Z, latest 2026-11-02T01:58:19Z).
+> The SAME message (episode key `msg-ocapn-tcp-for-test-extraction-build-7a89118fcf85`) has now been sent 3 times; this is
+> ONE entry that updates in place, not 3 messages. Latest detail:
+>
 > Your call needed: the OCapN op:start-session extraction is waiting on review, not on a build.
 >
 > Job ocapn-tcp-for-test-extraction-build asked for a new draft PR. I did not open one, because [https://github.com/endojs/endo-but-for-bots/pull/1485](https://github.com/endojs/endo-but-for-bots/pull/1485) already implements this design. It finished its gauntlet on 2026-10-17 (panel round 3 passed, CI green at cd47121343, undrafted) and has had no human review. Its design, [https://github.com/endojs/endo-but-for-bots/pull/1480](https://github.com/endojs/endo-but-for-bots/pull/1480), is also open and unreviewed by a human.
@@ -1293,7 +1295,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.9M | $257.68 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.9M | $257.74 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 71498202 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1302,8 +1304,7 @@ _Fleet token-unlock pace: 71498202 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (7)
-- [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-fs-interface-reconciliation-build.md) — ---
+### todo (6)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endojs-endo-but-for-bots-pr1636-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1636-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1636
 - [`oros-health-checkup-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-012009.md) — ---
@@ -1312,19 +1313,19 @@ worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-secti
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #667
 
 ### doin (5)
+- [`endo-fs-interface-reconciliation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-fs-interface-reconciliation-build.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1538
 - [`ocapn-network-transport-separation-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-network-transport-separation-build.md) — ---
-- [`ocapn-tcp-for-test-extraction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-tcp-for-test-extraction-build.md) — ---
 - [`oros-health-watch-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261102-012009.md) — ---
 
-### tada (16151)
+### tada (16152)
+- [`ocapn-tcp-for-test-extraction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/ocapn-tcp-for-test-extraction-build.md) — Cost
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102-retarget-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/weave-endojs-endo-but-for-bots-pr1476-llm-20261102-retarget-base.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102.md) — Cost
 - [`minion-town-arc-press-20261102-012009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-012009.md) — Cost
 - [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean.md) — Clean stage report: endojs/endo-but-for-bots PR #667 (stdio JSONL RPC bridge,...
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-1.md) — Cost
-- … and 16146 more
+- … and 16147 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
