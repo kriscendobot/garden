@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T06:58:34Z_
+_As of 2026-11-02T07:01:43Z_
 
 ## Latest
 
@@ -1311,7 +1311,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.6M | $329.43 _(notional, rate-card)_ | 33% of 271.0M (ok) |
+| Claude | 88.6M | $330.13 _(notional, rate-card)_ | 33% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 74925913 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1320,12 +1320,13 @@ _Fleet token-unlock pace: 74925913 tokens/day lower bound; incomplete where a su
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr1588-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1588-gauntlet-20261102.md) — ---
 - [`shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr667-body-seam-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-body-seam-20261102.md) — Reword one sentence in the body of endojs/endo-but-for-bots PR #667
 
 ### doin (5)
 - [`shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102.md) — ---
