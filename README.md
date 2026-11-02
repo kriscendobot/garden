@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T12:23:50Z_
+_As of 2026-11-02T12:27:49Z_
 
 ## Latest
 
@@ -1362,7 +1362,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.8M | $346.05 _(notional, rate-card)_ | 35% of 271.0M (ok) |
+| Claude | 94.4M | $348.01 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75582396 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1372,23 +1372,23 @@ worst fetch p95 8.834563s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 
 ## Board
 ### todo (4)
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1538
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`endojs-endo-but-for-bots-pr1637-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1637-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1637
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
 - [`daemon-git-agent-tool-adapters-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-agent-tool-adapters-build.md) — ---
+- [`endojs-endo-but-for-bots-pr1637-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1637-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1637
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 
-### tada (16236)
+### tada (16237)
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6.md) — Cost
 - [`daemon-git-clone-bootstrap-design-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-clone-bootstrap-design-split.md) — orchestration daemon-git-clone-bootstrap-design-split — complete
 - [`claude-on-minion-town-completion-press-20261102-113511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/claude-on-minion-town-completion-press-20261102-113511.md) — Cost
 - [`daemon-git-clone-bootstrap-design-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-clone-bootstrap-design-expanded-window.md) — Completion report: daemon-git-clone-bootstrap-design-expanded-window
 - [`oros-health-watch-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-watch-20261102-103514.md) — Cost
-- [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/ebfb-xs-daemon-start-without-fetch.md) — Cost
-- … and 16231 more
+- … and 16232 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
