@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1538
 build_job: 
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-3
+current_child: endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-3
 state: running
 created_by: gardener
 arc: minion-town-git-remote
