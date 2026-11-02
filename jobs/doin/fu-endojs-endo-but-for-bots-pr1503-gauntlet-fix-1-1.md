@@ -7,3 +7,13 @@ dispatch: automatic
 ---
 
 In endojs/endo-but-for-bots, PR #1503 (gauntlet-fix report endojs-endo-but-for-bots-pr1503-gauntlet-fix-1): the daemon suite did not run in CI because of the bwrap runner failure. Check whether the fix in #1566 has landed on llm. If it has, weave PR #1503 onto the current base and re-run CI. If it has not, carry the bwrap fix into #1503 or re-run once runners are fixed. Confirm that the daemon suite actually runs and report the result.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T07:25:37Z
