@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T22:28:26Z_
+_As of 2026-11-02T22:40:14Z_
 
 ## Latest
 
@@ -1100,19 +1098,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.8M | $353.26 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
+| Claude | 95.9M | $353.26 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51411732 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51278963 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 2.640547s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (10)
 - [`oros-health-watch-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-135010.md) — ---
-- [`endopi-extension-package-manifest-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-extension-package-manifest-build-open-pr.md) — Description
-- [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-body-fix6.md) — endojs/endo-but-for-bots: replace the description of PR #1538
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`oros-health-watch-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-202009.md) — ---
 - [`endopi-prompt-templates-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-prompt-templates-open-pr.md) — Open the draft PR for the endopi prompt-templates build
@@ -1126,13 +1122,13 @@ worst fetch p95 2.640547s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### doin (0)
 (none)
 
-### tada (16267)
+### tada (16269)
+- [`endopi-extension-package-manifest-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-extension-package-manifest-build-open-pr.md) — Cost
+- [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-body-fix6.md) — Panel-head freshness
 - [`canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-e97673ac7ec5.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-checkup-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-202009.md) — Cost
 - [`minion-town-arc-press-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-202009.md) — Cost
-- [`claude-on-minion-town-completion-press-20261102-175012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/claude-on-minion-town-completion-press-20261102-175012.md) — Cost
-- [`reset-credit-watch-20261102-170509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/reset-credit-watch-20261102-170509.md) — Cost
-- … and 16262 more
+- … and 16264 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
