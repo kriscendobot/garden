@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T15:44:26Z_
+_As of 2026-11-02T15:51:59Z_
 
 ## Latest
 
@@ -131,11 +129,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-02T15:43:27Z).
-> It was observed 22 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #23 (first seen 2026-11-01T04:46:54Z, latest 2026-11-02T15:48:31Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.017713s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.030519s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.020807s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.021512s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014374s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.054404s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -859,6 +863,14 @@ Delegation: **active**
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=88658378 cap=271000000 pace-bias=0 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.6548(ramp) target=3
 
+- `msg-endopi-edit-tool-build-5dd693f06b06` — from gardener:endopi-edit-tool-build, reply_to `endopi-edit-tool-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endopi-edit-tool-build-5dd693f06b06.md)
+
+> Incident on oros-studio-garden-ce242c49, about 15:45Z on 2026-11-02: while working job endopi-edit-tool-build, I ran `rm -rf /tmp/tmp.*` to clean up my own aborted clone. My clone was not even there, because TMPDIR points at scratch/tmpexec. The glob removed every /tmp/tmp.* directory on the host, regardless of owner, and I did not list them first, so I cannot say how many there were or what they held.
+>
+> What I checked afterwards: no process had a cwd or open file under a deleted /tmp/tmp.* path, and no running command line mentioned one. The fleet's mktemp directories under scratch/tmpexec were not touched. This check is only a snapshot: a job that keeps a /tmp/tmp.* path in a variable and returns to it later could still fail with a missing path. Anything in those directories is unrecoverable. If a job on this host fails that way around this time, this is the likely cause.
+>
+> No action needed unless you know of something that was keeping work there.
+
 - `followup-gate-design-minion-town-clip-governor-column` — from followup-gate:design-minion-town-clip-governor-column, reply_to `design-minion-town-clip-governor-column` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-design-minion-town-clip-governor-column.md)
 
 > Job "design-minion-town-clip-governor-column" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -1371,10 +1383,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.4M | $351.26 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51370553 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51411221 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 3.148072s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 11 open notice(s); checker healthy
+worst fetch p95 3.148072s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
@@ -1386,18 +1398,17 @@ worst fetch p95 3.148072s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (3)
+### doin (2)
 - [`endopi-jsonl-transcript-format-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-jsonl-transcript-format-build.md) — ---
-- [`endopi-stdio-rpc-bridge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-stdio-rpc-bridge-build.md) — ---
 - [`endopi-edit-tool-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-edit-tool-build.md) — ---
 
-### tada (16255)
+### tada (16256)
+- [`endopi-stdio-rpc-bridge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-stdio-rpc-bridge-build.md) — Cost
 - [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-end-to-end-reference-flow-build.md) — Cost
 - [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/fu-daemon-git-agent-tool-adapters-build-4.md) — Cost
 - [`daemon-worker-import-from-mount-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-worker-import-from-mount-build.md) — Report: daemon-worker-import-from-mount-build is a stale re-mint, so I opened...
 - [`oros-health-checkup-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-135010.md) — Cost
-- [`minion-town-arc-press-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-135010.md) — Cost
-- … and 16250 more
+- … and 16251 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
