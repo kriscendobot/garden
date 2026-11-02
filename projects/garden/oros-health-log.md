@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-02T05:15Z (oros-health-checkup-20261102-042009): degraded (disk); deployed = origin/main2 `11fe1c6`; removed leaked test dirs
+
+- **Load/mem:** load 3.48/3.85/3.83 at 05:14Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB, 192 KiB free), the same as last run.
+- **Disk/inodes (the defect):** the virtiofs garden mount is at 85% with 72G free, down from 74G at 03:55Z. Inodes are at 2%. The overlay is at 7% (402G free). The ~300G outside the garden tree is still unidentified. The 2G drop over 80 minutes is too short a sample to project from, and I did not find its source: `du` timed out at 12s on the two active project worktrees and on `tmpexec`.
+- **Uptime:** 31d11h58m, no reboot.
+- **Deployed vs main2:** root HEAD is `11fe1c6`, equal to the origin/main2 tip per `ls-remote`. fleet/health/oros shows `roll_status: deployed` @ `11fe1c6`, 0 of 290 units failing, 0 advisory (04:26:27Z). The deploy deferred behind monk 4 from 04:07Z to 04:16Z and landed at 04:26Z.
+- **Drain/units:** no drain marker seen, 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, no derotation marker seen.
+- **Budget heartbeat:** last claude-oros push at 05:03:58Z. The six pushes from 03:49 to 05:03Z were all ok, at a ~15-minute cadence. Spend is 12,864,729 of 180M.
+- **State clones:** 43 journal clones found. The largest are unblock (50 packs, at the threshold but not over it), gardener-scaler (47) and decisions (46). No `gc.log`, no temp packs, and no `.git` lock older than 30 minutes.
+- **rc=124 (3h):** one, the `weave-endojs-endo-but-for-bots-pr1476-llm-20261102` 7200s wall at 02:40Z already logged last run. No rc=137 and no `Failed with result`.
+- **Changed:** removed seven leaked test dirs from the garden root (3 `.garden-auto-gc-test.*`, 4 `.garden-deadline-nudge-test.*`), about 37.5k entries, newest file 10-12. These tests clean up in an EXIT trap, which a killed run skips. No new ones since 10-12, so no code change. `df` did not visibly move.
+- **Slow I/O:** metadata work on the garden mount is slow. `rm` of those dirs took several minutes, and `du`/`find` across `.garden-state` did not finish within 100s.
+- **Needs the maintainer:** same as last run, someone at the Mac should find what is using the shared disk.
+
 ## 2026-11-02T03:55Z (oros-health-checkup-20261102-012009): degraded (disk); deployed `d0690e9`; removed 14G of idle cargo caches, landed a sweeper fix
 
 - **Load/mem:** load 4.10/4.01/3.72 at 03:55Z (5.44 peak at 03:17Z). 12 GiB of 15 GiB available. Swap is full (1.0 GiB, 108 KiB free), up from 954M at 23:17Z. With 12 GiB available this is not memory pressure yet, but there is no swap headroom left.
