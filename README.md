@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T00:42:34Z_
+_As of 2026-11-02T00:45:14Z_
 
 ## Latest
 
@@ -1298,22 +1296,20 @@ worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-secti
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (7)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1482
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
-- [`endojs-endo-but-for-bots-pr667-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102.md) — Continue conducting endojs/endo-but-for-bots PR #1633 (dependabot preact 10.2...
-- [`endojs-endo-but-for-bots-pr1538-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr1631-ava-lazy-concordance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1631-ava-lazy-concordance.md) — fixer: ava 8.1 lazy-concordance regression in @endo/claude-sandbox mcp-bridge...
 - [`endojs-endo-but-for-bots-pr1542-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1542-gauntlet.md) — ---
 
-### tada (16136)
+### tada (16137)
+- [`endojs-endo-but-for-bots-pr1538-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet.md) — Cost
+- [`endojs-endo-but-for-bots-pr667-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet.md) — Cost
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin.md) — Cost
 - [`endojs-endo-but-for-bots-pr1478-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1478-gauntlet.md) — Cost
 - [`claude-on-minion-town-completion-press-20261101-230531`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/claude-on-minion-town-completion-press-20261101-230531.md) — Cost
-- [`endojs-endo-but-for-bots-pr1482-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1482-gauntlet.md) — Cost
-- [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-panel-1.md) — Cost
-- … and 16131 more
+- … and 16132 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
