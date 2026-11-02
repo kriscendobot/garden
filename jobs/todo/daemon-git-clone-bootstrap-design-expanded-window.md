@@ -1,16 +1,16 @@
 ---
-gate: orchestrated
-orchestrated_by: daemon-git-clone-bootstrap-design-split
+role: designer
+tier: mentor
+arc: minion-town-git-remote
+posted_at: 2026-11-02T11:46:08Z
 handler-timeout: 3600
 split-indivisible-reason: 'one atomic PR-body edit on endojs/endo-but-for-bots#709 that only an endolin host can perform; the design commit is already pushed'
 split-lineage-root: daemon-git-clone-bootstrap-design
 split-lineage-parent: daemon-git-clone-bootstrap-design-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-11-02T11:46:08Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-02T11:53:29Z cleared=none -->
 
 ---
 role: designer
