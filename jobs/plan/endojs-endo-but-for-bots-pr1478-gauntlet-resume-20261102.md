@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102
+orchestrated_by: orch-endojs-endo-but-for-bots-pr1478-reweave-gauntlet-20261102-resume
 priority: normal
 posted_by: fixer
 posted_at: 2026-11-02T00:08:37Z
