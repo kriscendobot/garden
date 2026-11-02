@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Shepherd endojs/endo-but-for-bots PR #1478, which was just woven onto PR #1476 and had its weave completed. Drive CI to green on the rebased head, classify any failures, and fix or re-run them as appropriate so the gauntlet can resume.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T06:30:50Z
