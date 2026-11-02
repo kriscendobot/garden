@@ -1644,6 +1644,11 @@ subscription_used_percent() {
   cutoff="$(subscription_window_start_epoch "$subscription" "$dir" 2>/dev/null || echo 0)"
   # PRIMARY: Claude Code's per-call seven-day utilization from rate_limit_event.
   # The ledger is immutable and shared across hosts; newest valid observation wins.
+  # A large ledger overflows one xargs command line, so jq runs per batch and emits
+  # one row each; fold those rows to the newest. Reading only the first row made
+  # the figure depend on directory order, and a first batch with no samples read
+  # as "unknown", dropping admission to the token estimate (2026-11-02: 35% for a
+  # pool really at 70%, flipping backoff to ok).
   # Utilization is a 0..1 ratio, while this helper's historical contract is 0..100.
   # Rows carry only their host, so only hosts the mapping assigns to THIS
   # subscription count: distinct accounts must never read each other's figure.
@@ -1656,7 +1661,8 @@ subscription_used_percent() {
               | select($hosts == null or (.host as $h | any($hosts[]; . == $h)))
               | . + {sample_epoch:((.rate_limit.sampled_at//.ts//"")|fromdateiso8601? // -1)})
           | map(select(.sample_epoch >= $cutoff)) | sort_by(.sample_epoch) | last // {}
-          | [(.sample_epoch//-1),((.rate_limit.seven_day.utilization//-1)*10000|round/100)] | @tsv' 2>/dev/null || true)"
+          | [(.sample_epoch//-1),((.rate_limit.seven_day.utilization//-1)*10000|round/100)] | @tsv' 2>/dev/null \
+      | sort -t$'\t' -k1,1n | tail -n 1 || true)"
     if [ -n "$ledger" ]; then
       IFS=$'\t' read -r epoch value <<<"$ledger"
       if [[ "$epoch" =~ ^[0-9]+$ ]] && [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]]; then

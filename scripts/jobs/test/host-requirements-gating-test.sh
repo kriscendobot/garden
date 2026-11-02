@@ -77,6 +77,29 @@ env -u GARDEN_NO_MAINTAINER_ALERT GARDEN=leader GARDEN_STATE="$TR/watch-state" J
   GARDEN_ALERT_CMD="$ALERT" ALERT_OUT="$TR/alert.out" "$JOBS/requirements-watch.sh" >"$TR/watch.log" 2>&1
 grep -q "job 'aws'.*requires: quantum" "$TR/alert.out" && ok "unclaimable requirement produces maintainer notice" || bad "no maintainer notice naming aws/quantum ($(tr '\n' ' ' < "$TR/watch.log" 2>/dev/null))"
 
+# A host pin whose pools are at high water is budget pacing, not a missing
+# capability; the notice must say so, and name only the backed-off pool.
+W="$TR/budget-seed"; git clone -q --branch "$BRANCH" "$BARE" "$W"
+mkdir -p "$W/config" "$W/budget/live/pool-hot" "$W/budget/live/pool-cool"
+printf 'pool-hot\topenai\tpercent\t95\tt\t2026-01-01\npool-cool\topenai\tpercent\t95\tt\t2026-01-01\n' > "$W/config/budget-pools"
+printf 'pool-hot\thost-hot\tmonk\npool-cool\thost-cool\tmonk\n' > "$W/config/subscription-mapping"
+printf '0.90\n' > "$W/config/token-backoff-initial"
+live_now="$(date -u +%s)"
+for pair in pool-hot:host-hot:99 pool-cool:host-cool:10; do
+  IFS=: read -r p h u <<<"$pair"
+  printf 'subscription: %s\nhost: %s\nspend: 1\ncap: 1000\nstatus: ok\nsampled_at_epoch: %s\nused_percent: %s\n' "$p" "$h" "$live_now" "$u" > "$W/budget/live/$p/$h"
+done
+printf '%s\n' '---' 'requires: host=host-hot' '---' > "$W/jobs/todo/pinned-hot.md"
+printf '%s\n' '---' 'requires: host=host-cool' '---' > "$W/jobs/todo/pinned-cool.md"
+git -C "$W" add -A; git -C "$W" -c user.name=t -c user.email=t@l commit -qm pinned; git -C "$W" push -q; rm -rf "$W"
+ALERT2="$TR/alert2"; printf '#!/bin/sh\nprintf "%%s\\n%%s\\n" "$1" "$2" >> "$ALERT_OUT"\n' > "$ALERT2"; chmod +x "$ALERT2"
+env -u GARDEN_NO_MAINTAINER_ALERT GARDEN=leader GARDEN_STATE="$TR/watch-state2" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+  GARDEN_REQUIREMENTS_DWELL_SECS=0 GARDEN_REQUIREMENTS_WATCH_CLONE="$TR/watch-clone2" \
+  GARDEN_ALERT_CMD="$ALERT2" ALERT_OUT="$TR/alert2.out" "$JOBS/requirements-watch.sh" >"$TR/watch2.log" 2>&1
+grep "job 'pinned-hot'" "$TR/alert2.out" | grep -q 'Budget pacing.*pool-hot' && ok "backed-off pinned host: notice names budget pacing and the pool" || bad "hot notice: $(grep pinned-hot "$TR/alert2.out")"
+grep "job 'pinned-cool'" "$TR/alert2.out" | grep -q 'Budget pacing' && bad "healthy pinned host wrongly blamed on budget" || ok "healthy pinned host: notice keeps the plain capability wording"
+grep "job 'pinned-cool'" "$TR/alert2.out" | grep -q 'requires: host=host-cool' && ok "healthy pinned host still notifies" || bad "no notice for pinned-cool"
+
 # scholar-ingest-* jobs implicitly require `typesafe`, probed from the worker env.
 T="$TR/typesafe"; mkdir -p "$T"
 printf '# ingest\n' > "$T/scholar-ingest-foo.md"
