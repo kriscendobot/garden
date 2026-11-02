@@ -11,11 +11,11 @@ created_by: producer
 created_at: 2026-10-19T14:08:46Z
 arc: endo-ocapn-background
 stage_requires: host=endolin-garden-ece02cb4
-stage: panel
+stage: fix
 iteration: 1
 resumes: 0
-stage_retries: 1
-current_child: endojs-endo-but-for-bots-pr1503-gauntlet-panel-1
+stage_retries: 0
+current_child: endojs-endo-but-for-bots-pr1503-gauntlet-fix-1
 state: running
 resumed_at: 2026-11-02T05:55:23Z
 resumed_from_stage: panel
