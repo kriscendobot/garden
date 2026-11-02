@@ -2,7 +2,7 @@
 order: serial
 children: daemon-git-clone-bootstrap-design-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 arc: minion-town-git-remote
 created_by: producer
 created_at: 2026-11-02T11:51:36Z
