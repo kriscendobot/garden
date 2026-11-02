@@ -27,7 +27,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
 | M8 | 4 | 0 | 0% | 9 |
-| M9 | 33 | 17 | 51% | 44 |
+| M9 | 33 | 18 | 54% | 44 |
 | M10 | 9 | 0 | 0% | 53 |
 | M11 | 20 | 4 | 20% | 54 |
 | (unfiled) | 18 | 11 | 61% | 0 |
@@ -176,7 +176,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | chat-test-coverage | endo-but-for-bots | M9 | Complete | — | — |
 | chat-view-edit-commands | endo-but-for-bots | M9 | Complete | M | — |
 | daemon-commands-as-messages | endo-but-for-bots | M9 | Not Started | L | — |
-| daemon-message-streaming | endo-but-for-bots | M9 | In Progress | — | endo-but-for-bots#287 |
+| daemon-message-streaming | endo-but-for-bots | M9 | Complete | — | endo-but-for-bots#125 |
 | daemon-retention-paths | endo-but-for-bots | M9 | Complete | L | endo-but-for-bots#284 |
 | endopi-iterative-compaction | endo-but-for-bots | M9 | Proposed | M | — |
 | endopi-prompt-templates | endo-but-for-bots | M9 | Proposed | S | — |
