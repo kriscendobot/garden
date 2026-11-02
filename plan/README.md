@@ -135,7 +135,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | ocapn-network-transport-separation | endo-but-for-bots | M4 | In Progress | L | — |
 | ocapn-noise-cryptographic-review | endo-but-for-bots | M4 | Not Started | S | — |
 | ocapn-noise-network | endo-but-for-bots | M4 | Complete | L | — |
-| ocapn-noise-session-reconnect | endo-but-for-bots | M4 | Proposed | — | — |
+| ocapn-noise-session-reconnect | endo-but-for-bots | M4 | In Progress | — | endo-but-for-bots#1515 |
 | ocapn-tcp-for-test-extraction | endo-but-for-bots | M4 | Not Started | M | — |
 | ocapn-tcp-syrups-framing | endo-but-for-bots | M4 | Not Started | M | — |
 | syrups | endo-but-for-bots | M4 | Deprecated | — | — |
