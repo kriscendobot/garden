@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Builder job on endojs/endo-but-for-bots (base `llm`): implement the M3 design `designs/daemon-locator-terminology.md` (size S, no dependencies), which settles the daemon's locator terminology. Open a DRAFT PR with tests following the design's scope.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T10:54:00Z
