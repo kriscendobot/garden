@@ -57,3 +57,13 @@ Existing clone formulas are unaffected.
 
 <!-- garden-job: fu-design-daemon-git-clone-provide-git-clone-bootstrap-1 -->
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T08:43:10Z
