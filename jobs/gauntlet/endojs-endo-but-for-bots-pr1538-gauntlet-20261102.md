@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr1538-gauntlet-20261102-viability
+state: running
 created_by: gardener
 arc: minion-town-git-remote
 created_at: 2026-11-02T00:32:04Z
