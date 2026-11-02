@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T05:51:16Z_
+_As of 2026-11-02T05:54:22Z_
 
 ## Latest
 
@@ -944,6 +942,16 @@ Delegation: **active**
 
 > daemon-agent-tools-design-build (endojs/endo-but-for-bots): Phase 8 of the daemon agent tools design needs your decision on Open Question 4. Should the HTTP client be a daemon `provideHttpClient` formula, or the `@endo/fetch` plugin? Phase 8 is blocked until you answer. Separately, the Phase 2c checkbox in the design document should be ticked once #1497 lands. Phase 7 (the endo-claude acceptance loop) is unblocked for its build step whenever you want it posted.
 
+- `endojs-endo-but-for-bots-pr1586-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1586-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1586-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1586-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1586-gauntlet-fix-5' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 5/6 · cost so far: $15.89
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1586-gauntlet panel --iteration 5 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `msg-reset-credit-watch-20261026-160508-45bea52063ab` — from gardener:reset-credit-watch-20261026-160508, reply_to `reset-credit-watch-20261026-160508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261026-160508-45bea52063ab.md)
 
 > **Reset-credit watch (week of 10-26): no reset this week. If you still have a codex credit (exp 11-06), plan to use it Mon 11-03 or Tue 11-04.** Needs your answer by about Thu 10-30.
@@ -1317,13 +1325,13 @@ worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-secti
 - [`endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1478-gauntlet-resume-20261102.md) — Resume the halted gauntlet on endojs/endo-but-for-bots#1478
 - [`daemon-agent-network-identity-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-agent-network-identity-build.md) — ---
 
-### tada (16188)
+### tada (16189)
+- [`endojs-endo-but-for-bots-pr1586-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1586-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1586-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1586-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1586-gauntlet-fix-5.md) — Gauntlet fix round 5: PR #1586
 - [`oros-health-watch-20261102-042009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-watch-20261102-042009.md) — Cost
 - [`oros-health-checkup-20261102-042009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/oros-health-checkup-20261102-042009.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-3.md) — Cost
-- [`claude-on-minion-town-completion-press-20261102-052011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/claude-on-minion-town-completion-press-20261102-052011.md) — Cost
-- … and 16183 more
+- … and 16184 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
