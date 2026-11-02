@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T10:31:31Z_
+_As of 2026-11-02T10:37:26Z_
 
 ## Latest
 
@@ -1216,7 +1216,11 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=1.674665s max=31.788999s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-11-02T10:28:36Z, cleared 2026-11-02T10:31:35Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
 - `20261027T045910Z-521539` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261027T045910Z-521539.md)
 
@@ -1337,20 +1341,24 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.0M | $337.84 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.0M | $338.23 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 75514849 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 75522807 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 10 open notice(s); checker healthy
+worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (10)
+- [`oros-health-watch-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-103514.md) — ---
 - [`daemon-locator-terminology-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-locator-terminology-build.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`daemon-git-agent-tool-adapters-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build.md) — ---
+- [`minion-town-arc-press-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261102-103514.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`oros-health-checkup-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261102-103514.md) — ---
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 
