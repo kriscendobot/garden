@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T07:13:19Z_
+_As of 2026-11-02T07:15:09Z_
 
 ## Latest
 
@@ -1328,20 +1328,19 @@ worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr667-body-seam-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-body-seam-20261102.md) — Reword one sentence in the body of endojs/endo-but-for-bots PR #667
 
-### doin (5)
+### doin (4)
 - [`shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1478-ci-after-weave-20261102.md) — ---
 - [`endojs-endo-but-for-bots-pr1503-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1503-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1503
-- [`shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102.md) — ---
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1538
 
-### tada (16199)
+### tada (16200)
+- [`shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/shepherd-endojs-endo-but-for-bots-pr1482-ci-20261102.md) — Cost
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1503-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1503-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-4.md) — Cost
 - [`shepherd-endojs-endo-but-for-bots-pr1476-ci-after-weave-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/shepherd-endojs-endo-but-for-bots-pr1476-ci-after-weave-20261102.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1476-gauntlet-20261102.md) — Panel-head freshness
-- … and 16194 more
+- … and 16195 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
