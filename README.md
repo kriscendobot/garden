@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T17:06:48Z_
+_As of 2026-11-02T17:10:18Z_
 
 ## Latest
 
@@ -1404,17 +1402,16 @@ worst fetch p95 2.931956s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (2)
+### doin (1)
 - [`endopi-prompt-templates-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-prompt-templates-build.md) — ---
-- [`endopi-extension-package-manifest-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-extension-package-manifest-build.md) — ---
 
-### tada (16258)
+### tada (16259)
+- [`endopi-extension-package-manifest-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-extension-package-manifest-build.md) — What changed
 - [`endopi-provider-registry-and-oauth-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-provider-registry-and-oauth-build.md) — Cost
 - [`endopi-jsonl-transcript-format-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-jsonl-transcript-format-build.md) — Completion report: endopi-jsonl-transcript-format-build
 - [`endopi-edit-tool-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-edit-tool-build.md) — Cost
 - [`endopi-stdio-rpc-bridge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endopi-stdio-rpc-bridge-build.md) — Cost
-- [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-end-to-end-reference-flow-build.md) — Cost
-- … and 16253 more
+- … and 16254 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
