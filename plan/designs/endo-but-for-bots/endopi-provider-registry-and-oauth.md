@@ -1,14 +1,16 @@
 ---
 slug: endopi-provider-registry-and-oauth
 repository: endo-but-for-bots
-status: Proposed
+status: In Progress
 size: M
 milestone: M3
 depends_on: []
 created: 2026-05-15
-updated: 2026-05-15
+updated: 2026-11-02
 source: imported from origin/llm designs/README.md
 ---
+
+> **Do not re-mint a build (2026-11-02).** Every phase has an owner: phase 5 is in head `feat/lal-model-command` (job `endopi-provider-registry-and-oauth-build-open-pr`), phases 1 to 4 in #1573, #1575, #1587, and #670, and phase 6 has landed. The design text below predates that; see its refreshed status on `llm` once the phase 5 PR merges.
 
 # EndoPi: Multi-Provider Registry and Subscription OAuth
 
