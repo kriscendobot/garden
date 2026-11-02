@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T10:56:05Z_
+_As of 2026-11-02T10:57:26Z_
 
 ## Latest
 
@@ -175,10 +175,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
-
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261102-103514` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261102-103514.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261102-103514' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `kriscendobot-minion.town-pr184-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr184-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr184-gauntlet-review-budget-reached.md)
 
@@ -1292,10 +1288,6 @@ Delegation: **active**
 > 3. If you want to make progress meanwhile, a throw-away spike is fine. Keep it to a clearly labeled DRAFT and a short gap report, in the style of [gap-revealing-build](skills/gap-revealing-build/SKILL.md). It must not be presented as the implementation, and it must not invent the design.
 >
 > If the maintainer would rather have the implementation start from an informal spec, they can say so and the job can be unblocked.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261102-103514` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261102-103514.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261102-103514' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
