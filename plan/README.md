@@ -115,7 +115,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | endo-claude-agents-capability | endo-but-for-bots | M3 | In Progress | M | endo-but-for-bots#1560 |
 | endo-fs-from-git | endo-but-for-bots | M3 | In Progress | — | — |
 | endo-gateway | endo-but-for-bots | M3 | Proposed | L | — |
-| endoclaw-network-fetch | endo-but-for-bots | M3 | Not Started | M | — |
+| endoclaw-network-fetch | endo-but-for-bots | M3 | Superseded | M | endo-but-for-bots#566 |
 | endoclaw-timer | endo-but-for-bots | M3 | In Progress | M | — |
 | endopi-edit-tool | endo-but-for-bots | M3 | Proposed | M | — |
 | endopi-jsonl-transcript-format | endo-but-for-bots | M3 | Proposed | M | — |
