@@ -7,14 +7,14 @@
   "ask": "re-review",
   "arc": "minion-town-mcp-ocapn",
   "milestone": "-",
-  "summary": "Panel reviewed 385e99301d18, but the presented head is 44389592bd4b",
+  "summary": "Panel reviewed 750929d3b57e, but the presented head is 1b750a1d47c5",
   "unblocks": [],
-  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1478-385e9930-44389592",
-  "requested_at": "2026-10-19T22:52:04Z",
+  "source": "stale-panel-head-endojs-endo-but-for-bots-pr1478-750929d3-1b750a1d",
+  "requested_at": "2026-11-02T07:50:40Z",
   "first_requested_at": "2026-10-16T22:28:48Z",
-  "generation": 3,
+  "generation": 4,
   "ci": {
-    "state": "red",
-    "observed_at": "2026-11-02T07:22:18Z"
+    "state": "green",
+    "observed_at": "2026-11-02T07:50:42Z"
   }
 }
