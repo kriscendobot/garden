@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T11:49:45Z_
+_As of 2026-11-02T11:55:17Z_
 
 ## Latest
 
@@ -1347,7 +1345,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.3M | $341.77 _(notional, rate-card)_ | 34% of 271.0M (ok) |
+| Claude | 92.3M | $342.68 _(notional, rate-card)_ | 34% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75571402 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1356,28 +1354,28 @@ _Fleet token-unlock pace: 75571402 tokens/day lower bound; incomplete where a su
 worst fetch p95 9.013505s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
 - [`oros-health-watch-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-103514.md) — ---
+- [`daemon-git-clone-bootstrap-design-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-clone-bootstrap-design-expanded-window.md) — Summary
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`claude-on-minion-town-completion-press-20261102-113511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261102-113511.md) — Completion press: Claude-on-minion.town arc
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 
-### doin (5)
-- [`daemon-git-clone-bootstrap-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-clone-bootstrap-design.md) — Deliberate overrun decomposition for daemon-git-clone-bootstrap-design
+### doin (4)
 - [`daemon-git-agent-tool-adapters-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-agent-tool-adapters-build.md) — ---
 - [`oros-health-checkup-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261102-103514.md) — ---
 - [`ebfb-xs-daemon-start-without-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-xs-daemon-start-without-fetch.md) — endojs/endo-but-for-bots: make the daemon start under endor's XS manager, the...
 - [`endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1476-gauntlet-20261102-e530cc47c626-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1476
 
-### tada (16228)
+### tada (16229)
+- [`daemon-git-clone-bootstrap-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-clone-bootstrap-design.md) — Cost
 - [`daemon-locator-terminology-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-locator-terminology-build.md) — daemon-locator-terminology-build: duplicate of open PR #1498, so I opened no ...
 - [`minion-town-arc-press-20261102-103514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-103514.md) — Cost
 - [`cbors-byte-string-framing-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/cbors-byte-string-framing-build.md) — Cost
 - [`daemon-git-clone-bootstrap-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-clone-bootstrap-build.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-6d9c65806704`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-6d9c65806704.md) — rolling-deploy canary probe — round trip OK
-- … and 16223 more
+- … and 16224 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
