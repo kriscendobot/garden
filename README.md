@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T15:28:44Z_
+_As of 2026-11-02T15:30:39Z_
 
 ## Latest
 
@@ -1381,20 +1381,19 @@ _Fleet token-unlock pace: 51344055 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.148072s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (8)
 - [`oros-health-watch-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-135010.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-body-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-body-fix6.md) — endojs/endo-but-for-bots: replace the description of PR #1538
-- [`endopi-jsonl-transcript-format-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-jsonl-transcript-format-build.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`endopi-stdio-rpc-bridge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-stdio-rpc-bridge-build.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`endopi-edit-tool-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-edit-tool-build.md) — ---
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (0)
-(none)
+### doin (2)
+- [`endopi-jsonl-transcript-format-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-jsonl-transcript-format-build.md) — ---
+- [`endopi-stdio-rpc-bridge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-stdio-rpc-bridge-build.md) — ---
 
 ### tada (16255)
 - [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-end-to-end-reference-flow-build.md) — Cost
