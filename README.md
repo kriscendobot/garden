@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T00:45:14Z_
+_As of 2026-11-02T00:57:52Z_
 
 ## Latest
 
@@ -223,6 +221,10 @@ Delegation: **active**
 > halt-parked-remainder: claude-api-p2-adapters claude-api-p3-minion-ui claude-api-p4-agent-factory claude-api-p5-responder claude-api-p6-canary claude-api-p7-migration
 >
 > Orchestration claude-api-build-20261027 HALTED: child claude-api-p1-registry stalled in flight for 7253s on host endolin-garden-ece02cb4 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 1/8 done before halt; parked remainder: claude-api-p2-adapters claude-api-p3-minion-ui claude-api-p4-agent-factory claude-api-p5-responder claude-api-p6-canary claude-api-p7-migration
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.019470s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal.md)
 
@@ -533,7 +535,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal.md)
 
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.102948s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-11-01T18:53:11Z, cleared 2026-11-02T00:52:27Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
 
 - `msg-accountant-weekly-20261024-160509-6764902e87b9` — from gardener:accountant-weekly-20261024-160509, reply_to `accountant-weekly-20261024-160509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-weekly-20261024-160509-6764902e87b9.md)
 
@@ -1129,17 +1135,6 @@ Delegation: **active**
 >
 > Self-improvement: reported that the budget-request skill references a missing `request-budget.sh`; also notified the scholar of the missing DynamoDB library index entry.
 
-- `msg-endojs-endo-but-for-bots-pr1538-gauntlet-a9b76aad7a00` — from gardener:endojs-endo-but-for-bots-pr1538-gauntlet, reply_to `endojs-endo-but-for-bots-pr1538-gauntlet` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1538-gauntlet-a9b76aad7a00.md)
-
-> [endojs/endo-but-for-bots#1538](https://github.com/endojs/endo-but-for-bots/issues/1538) (provideGitClone, head 1509ed043e): re-asking a design question that was never answered. The proxy auto-cleared the 2026-10-25 message msg-endojs-endo-but-for-bots-pr1538-gauntlet-panel-20261025-r2-211ca9986aee.
->
-> The only must-fix left from the last panel ([https://github.com/endojs/endo-but-for-bots/pull/1538](https://github.com/endojs/endo-but-for-bots/pull/1538)#pullrequestreview-5644388916) is the decomplector's question: is a destination mount shared with CONCURRENT writers a supported provideGitClone target?
->
-> - YES: the design records your decision. The staging, move-without-replace, entry-identity and restart-sweep mechanism stays, and the fix round only handles the should-fixes.
-> - NO: the fixer drops that mechanism for a simpler shape (clone in place and clean up on failure, an exclusive daemon-held mount, or a daemon-private directory that becomes the mount).
->
-> I've just staged a fresh gauntlet, endojs-endo-but-for-bots-pr1538-gauntlet-20261102. Without your answer, its panel will probably raise the same question again, and the fix loop will spend rounds on it. Reply YES or NO, plus any constraints.
-
 - `kriscendobot-minion.town-pr202-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr202-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr202-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr202-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr202-gauntlet panel --add-rounds N
@@ -1282,36 +1277,34 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.9M | $246.64 _(notional, rate-card)_ | 25% of 271.0M (ok) |
+| Claude | 68.1M | $245.67 _(notional, rate-card)_ | 25% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 70846543 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 47134995 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 9 open notice(s); checker healthy
+worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #667
+### todo (4)
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1538
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1538
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
-- [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1482
+### doin (4)
+- [`endoclaw-timer-reminder-plugin-redraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endoclaw-timer-reminder-plugin-redraft.md) — ---
 - [`weave-endojs-endo-but-for-bots-pr1476-llm-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endojs-endo-but-for-bots-pr1476-llm-20261102.md) — Weave endojs/endo-but-for-bots#1476 onto current llm (pin the merge base)
 - [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin-20261102.md) — Continue conducting endojs/endo-but-for-bots PR #1633 (dependabot preact 10.2...
-- [`endojs-endo-but-for-bots-pr1631-ava-lazy-concordance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1631-ava-lazy-concordance.md) — fixer: ava 8.1 lazy-concordance regression in @endo/claude-sandbox mcp-bridge...
-- [`endojs-endo-but-for-bots-pr1542-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1542-gauntlet.md) — ---
+- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #667
 
-### tada (16137)
-- [`endojs-endo-but-for-bots-pr1538-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet.md) — Cost
-- [`endojs-endo-but-for-bots-pr667-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet.md) — Cost
-- [`endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1633-dependabot-conduct-endolin.md) — Cost
-- [`endojs-endo-but-for-bots-pr1478-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1478-gauntlet.md) — Cost
-- [`claude-on-minion-town-completion-press-20261101-230531`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/claude-on-minion-town-completion-press-20261101-230531.md) — Cost
-- … and 16132 more
+### tada (16142)
+- [`endojs-endo-but-for-bots-pr1631-ava-lazy-concordance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1631-ava-lazy-concordance.md) — Cost
+- [`endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr667-gauntlet-20261102-7e7e4481b830-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-viability.md) — Cost
+- [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e.md) — gauntlet endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e — HALTED
+- [`endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1482-gauntlet-20261101-acbaf002168e-fix-1.md) — FIX round 1 — endojs/endo-but-for-bots PR #1482: fixes pushed, CI red on test...
+- … and 16137 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
