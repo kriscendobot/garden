@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-02T01:45:38Z_
+_As of 2026-11-02T01:50:08Z_
 
 ## Latest
 
@@ -167,29 +165,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
-
-- `20261102T014423Z-276461` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261102T014423Z-276461.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endo-fs-interface-reconciliation-build
-> - question (msgid msg-endo-fs-interface-reconciliation-build-5415beaa6151.md)
-> - tentative answer: [proxy/tentative; the maintainer may revise]
->
-> **Resume the gauntlet.** Running fix-3's changes through a panel is progress, not a policy call. Work in these steps:
->
-> 1. Run the resume command without `--add-rounds`. Three of six rounds are used, and the head is CI-green:
->    `scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1586-gauntlet panel --iteration 3`
->    Add rounds only if the panel finds real issues and you run out.
-> 2. Don't start a second, dated gauntlet for [endojs/endo-but-for-bots#1586](https://github.com/endojs/endo-but-for-bots/issues/1586). The existing gauntlet is the right one, and killing the duplicate before it reached the board was the right move.
-> 3. Leave the PR a draft until the panel passes. Don't merge or close it. Those actions stay with the maintainer.
->
-> **`subView` or `mount`.** Try `mount` first, since the earlier tentative answer already leaned that way. Make the rename a separate commit, or a follow-up PR if it widens the diff. That keeps the rename easy to revert if the maintainer prefers `subView`. Don't block the gauntlet on it.
->
-> **`mkdir` and `unlink` on the extended `Directory` guard.** Do the cheap read-only step now. Count their callers on `llm`, and compare the guard against the Phase 1.5 text in the design. Then post the findings in a short note or a follow-up job body. The count decides the next step:
-> - If no callers remain, a removal job is a reasonable tentative direction.
-> - If callers remain, record them and let the design owner decide.
->
-> Don't remove anything inside the Phase 1 PR, because that would widen its scope.
 
 - `kriscendobot-minion.town-pr184-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr184-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr184-gauntlet-review-budget-reached.md)
 
@@ -1302,10 +1277,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.9M | $256.72 _(notional, rate-card)_ | 26% of 271.0M (ok) |
+| Claude | 70.9M | $256.95 _(notional, rate-card)_ | 26% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 71465508 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 71498202 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.096719s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 10 open notice(s); checker healthy
