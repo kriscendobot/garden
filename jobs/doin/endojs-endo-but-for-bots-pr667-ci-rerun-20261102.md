@@ -26,3 +26,13 @@ Steps:
 5. On rc 3 (still red), do not resume and do not run `yarn test262:update`. Report which jobs failed and tell the maintainer with `scripts/jobs/message-user.sh`; a repeat of the same XS flip is a real defect to investigate.
 
 Do not push to the PR branch.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-02T08:46:53Z
