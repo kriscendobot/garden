@@ -3,7 +3,7 @@
   "repo": "endojs/endo-but-for-bots",
   "pr": 1538,
   "url": "https://github.com/endojs/endo-but-for-bots/pull/1538",
-  "head_oid": "4a4d360d9917c7464b36907b2e64dd106c58ee51",
+  "head_oid": "ae607f965f423c15dd073756173954bac6cede30",
   "ask": "re-review",
   "arc": "minion-town-git-remote",
   "milestone": "-",
@@ -15,6 +15,6 @@
   "generation": 6,
   "ci": {
     "state": "green",
-    "observed_at": "2026-11-02T07:22:23Z"
+    "observed_at": "2026-11-02T08:12:41Z"
   }
 }
