@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-02T14:30:53Z_
+_As of 2026-11-02T14:33:39Z_
 
 ## Latest
 
@@ -1371,7 +1371,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 95.1M | $349.94 _(notional, rate-card)_ | 35% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 76057389 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 76063907 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 11 open notice(s); checker healthy
@@ -1388,19 +1388,18 @@ worst fetch p95 3.247520s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`daemon-git-agent-tool-adapters-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-git-agent-tool-adapters-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (4)
+### doin (3)
 - [`minion-town-arc-press-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261102-135010.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`endojs-endo-but-for-bots-pr1638-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1638-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1638
 - [`daemon-git-end-to-end-reference-flow-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-git-end-to-end-reference-flow-build.md) — ---
 - [`fu-daemon-git-agent-tool-adapters-build-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-daemon-git-agent-tool-adapters-build-4.md) — ---
 
-### tada (16248)
+### tada (16249)
+- [`endojs-endo-but-for-bots-pr1638-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1638-gauntlet-viability.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/canary-probe-oros-studio-garden-ce242c49-9f4eb64a1033.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102.md) — gauntlet endojs-endo-but-for-bots-pr1538-gauntlet-20261102 — HALTED
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6.md) — Cost
 - [`daemon-git-remotes-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-git-remotes-build.md) — Cost
-- [`daemon-rename-to-manager-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/daemon-rename-to-manager-build.md) — Cost
-- … and 16243 more
+- … and 16244 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
