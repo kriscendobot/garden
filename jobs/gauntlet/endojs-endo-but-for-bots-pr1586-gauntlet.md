@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-31T06:09:51Z
 arc: unallocated
-stage: panel
+stage: fix
 iteration: 4
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1586-gauntlet-panel-4
+current_child: endojs-endo-but-for-bots-pr1586-gauntlet-fix-4
 state: running
 resumed_at: 2026-11-02T02:24:00Z
 resumed_from_stage: fix
