@@ -29,3 +29,13 @@ Guards (the reconciler already enforced these; re-verify before merging):
 PR: https://github.com/kriscendobot/minion.town/pull/199
 Head: kriscendobot/minion.town (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T06:10:04Z
