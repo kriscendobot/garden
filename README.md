@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T06:25:01Z_
+_As of 2026-11-03T06:27:24Z_
 
 ## Latest
 
@@ -1126,7 +1126,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.6M | $381.03 _(notional, rate-card)_ | 38% of 271.0M (backoff) |
+| Claude | 103.8M | $380.74 _(notional, rate-card)_ | 38% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 51648381 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1135,28 +1135,28 @@ _Fleet token-unlock pace: 51648381 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1641-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1641
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1645-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1645
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`prove-minion-town-invitations-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/prove-minion-town-invitations-20261103.md) — ---
+- [`endojs-endo-but-for-bots-pr1644-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1644-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1644
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1646-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1646
 - [`kriscendobot-minion.town-pr199-weave-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-weave-20261103.md) — Weave kriscendobot/minion.town#199 onto current main
 - [`oros-health-checkup-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-053509.md) — ---
-- [`endojs-endo-but-for-bots-pr1644-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1644-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1644
 
-### tada (16323)
+### tada (16324)
+- [`endojs-endo-but-for-bots-pr1644-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1644-gauntlet-panel-1.md) — Cost
 - [`oros-health-watch-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-053509.md) — Cost
 - [`claude-on-minion-town-completion-press-20261103-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/claude-on-minion-town-completion-press-20261103-062010.md) — Cost
 - [`kriscendobot-minion.town-pr199-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr199-review-4460eb00`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-review-4460eb00.md) — Cost
-- [`endojs-endo-but-for-bots-pr1645-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1645-gauntlet-clean.md) — Gauntlet clean stage: endojs/endo-but-for-bots#1645 (fix/agentry-pi-agent-sys...
-- … and 16318 more
+- … and 16319 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
