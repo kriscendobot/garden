@@ -1,4 +1,5 @@
 ---
+child-improve-gardener-handler-rc76-collision-expanded-window-failure-notified: true
 child-improve-gardener-handler-rc76-collision-expanded-window-host: oros-studio-garden-ce242c49
 child-improve-gardener-handler-rc76-collision-expanded-window-reap-count: 0
 order: serial
