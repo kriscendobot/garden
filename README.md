@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T19:00:53Z_
+_As of 2026-11-03T19:01:42Z_
 
 ## Latest
 
@@ -703,6 +703,10 @@ Delegation: **active**
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=95944153 cap=271000000 pace-bias=0.086885 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.7088(ramp) target=3
 
+- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_monks_3_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_monks_3_journal.md)
+
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/monks/3/journal: p95=0.108995s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+
 - `msg-endopi-edit-tool-build-5dd693f06b06` — from gardener:endopi-edit-tool-build, reply_to `endopi-edit-tool-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endopi-edit-tool-build-5dd693f06b06.md)
 
 > Incident on oros-studio-garden-ce242c49, about 15:45Z on 2026-11-02: while working job endopi-edit-tool-build, I ran `rm -rf /tmp/tmp.*` to clean up my own aborted clone. My clone was not even there, because TMPDIR points at scratch/tmpexec. The glob removed every /tmp/tmp.* directory on the host, regardless of owner, and I did not list them first, so I cannot say how many there were or what they held.
@@ -1248,7 +1252,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.7M | $419.38 _(notional, rate-card)_ | 42% of 271.0M (ok) |
+| Claude | 113.7M | $419.72 _(notional, rate-card)_ | 42% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52466471 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
