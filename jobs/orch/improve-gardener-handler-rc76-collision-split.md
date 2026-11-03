@@ -2,7 +2,7 @@
 order: serial
 children: improve-gardener-handler-rc76-collision-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-11-03T20:29:41Z
 ---
