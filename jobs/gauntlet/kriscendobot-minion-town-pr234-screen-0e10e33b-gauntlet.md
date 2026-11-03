@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-viability
+state: running
 created_by: proxy:screen
 created_at: 2026-11-03T18:17:57Z
 ---
