@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T07:23:49Z_
+_As of 2026-11-03T07:34:47Z_
 
 ## Latest
 
@@ -513,6 +513,41 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
+
+- `doomed-kriscendobot-minion.town-pr199-weave-20261103-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr199-weave-20261103-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/kriscendobot-minion.town-pr199-weave-20261103; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-minion.town-pr199-weave-20261103) or removes it, so nothing is lost.
+> Original job base: kriscendobot-minion.town-pr199-weave-20261103
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-03T06:06:41Z
+> role: weaver
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> # Weave [kriscendobot/minion.town#199](https://github.com/kriscendobot/minion.town/issues/199) onto current main
+>
+> PR: [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199) (`feat/guest-coupons`, base `main-bda7739`, 246 commits behind `main`).
+> Why: kriskowal approved and asked to integrate and enable it ([https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199)#pullrequestreview-5747577467), and a trial merge onto main c5c35044 conflicts, so the conductor would stall on `needs weave`.
+>
+> Pin the merge base per roles/weaver/AGENT.md. A trial `git merge-tree` reports these conflicts:
+>
+> - `deploy/aws/www/guest.html` and `deploy/aws/www/guest.js`: modified here, DELETED on main. Do not resurrect the deleted files. Find what replaced them and port the coupon redemption (the `#v=1&coupon=` fragment and the `POST /api/guest/coupon` call) there, so a newcomer can still redeem. This is the part that decides whether the feature works once enabled. If no surface can carry it without a design decision, escalate rather than guess.
+> - `src/config.ts`, `src/web/guest-web-router.ts`: content conflicts.
+>
+> Keep the PR draft and keep the defaults `GUEST_ADMISSION=open`, `COUPON_STORE=off`. Run the coupon, config, and web suites locally.
+>
+> **After the force-push and green CI, stage the re-review of the moved head:**
+>
+>     scripts/jobs/post-gauntlet.sh kriscendobot-minion.town-pr199-gauntlet-20261103 [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199)
+>
+> The merge job `kriscendobot-minion.town-pr199-conduct-20261103` is parked `blocked_on` that gauntlet, and the production flip `minion-town-coupon-admission-flip-20261103` is parked `blocked_on` the merge. If you cannot complete the weave, do not post the gauntlet: message the maintainer, so the chain visibly waits.
 
 - `endojs-endo-but-for-bots-pr1575-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1575-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1575-gauntlet-halted.md)
 
@@ -1145,32 +1180,31 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 103.8M | $380.74 _(notional, rate-card)_ | 38% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51661526 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51682727 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1641-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1641
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1645-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1645
+- [`endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body.md) — Update the PR body of endojs/endo-but-for-bots PR #1644
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1644-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1644-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1644
-- [`kriscendobot-minion.town-pr199-weave-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-weave-20261103.md) — Weave kriscendobot/minion.town#199 onto current main
+### doin (1)
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-gauntlet-20261103-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #199
 
-### tada (16329)
+### tada (16330)
+- [`endojs-endo-but-for-bots-pr1644-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1644-gauntlet-fix-1.md) — CI failure
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-viability.md) — Cost
 - [`oros-health-checkup-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-053509.md) — Cost
 - [`prove-minion-town-invitations-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/prove-minion-town-invitations-20261103.md) — Completion report — prove-minion-town-invitations-20261103
 - [`endojs-endo-but-for-bots-pr1646-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1646-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1646-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1646-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1646-gauntlet-clean.md) — Cost
-- … and 16324 more
+- … and 16325 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1193,6 +1227,7 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 - [`kriscendobot-minion-town-pr183-open-findings-fix-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr183-open-findings-fix-20261015.md) — _normal_ · Fix the structural findings left open on kriscendobot/minion.town#183
 - [`endojs-endo-but-for-bots-pr1498-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1498-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1498
 - [`endopi-extension-package-guest-provider-kinds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endopi-extension-package-guest-provider-kinds.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr199-weave-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-weave-20261103.md) — _normal_ · Weave kriscendobot/minion.town#199 onto current main
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1504-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1504
