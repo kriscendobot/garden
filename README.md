@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T01:37:04Z_
+_As of 2026-11-03T01:40:30Z_
 
 ## Latest
 
@@ -111,11 +111,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-03T01:34:42Z).
-> It was observed 37 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #38 (first seen 2026-11-01T04:46:54Z, latest 2026-11-03T01:38:58Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 38 times; this is ONE
+> coalesced notice that updates in place, not 38 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.014547s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.014073s, giveups=2, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.013637s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013850s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.013393s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014117s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -1112,7 +1118,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 51429969 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
+worst fetch p95 10.103944s/45s (unknown); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (12)
@@ -1129,16 +1135,16 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-0844a5d7552f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-0844a5d7552f.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 0844a5d7552f
+### doin (0)
+(none)
 
-### tada (16278)
+### tada (16279)
+- [`canary-probe-oros-studio-garden-ce242c49-0844a5d7552f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-0844a5d7552f.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1639-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1639-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1639-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1639-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1639-gauntlet-clean.md) — The remaining failure: test-xs
 - [`claude-on-minion-town-completion-press-20261103-000509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/claude-on-minion-town-completion-press-20261103-000509.md) — Panel-head freshness
 - [`fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-2.md) — Still pending: stage3-math 054/055 fix has not landed on llm
-- [`oros-health-checkup-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261102-232010.md) — Cost
-- … and 16273 more
+- … and 16274 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
