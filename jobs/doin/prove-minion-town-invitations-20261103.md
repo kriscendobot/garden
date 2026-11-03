@@ -16,3 +16,13 @@ Steps:
 6. Note remote invitations: still no connection hints, so they cannot be dialed. Record current behavior only; do not attempt a fix.
 
 Output: a report in the job result with PASS/FAIL per step, exact requests (no secrets), and a gap list ranked by what blocks "root invites, others accept". Do not change code, open PRs, or modify existing guests. Do not publish clips. Created guests cannot be deleted, so create no more than the two needed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T06:12:00Z
