@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T13:25:42Z_
+_As of 2026-11-03T13:26:40Z_
 
 ## Latest
 
@@ -1212,7 +1212,8 @@ _Fleet token-unlock pace: 52102380 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.583962s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
+- [`canary-probe-oros-studio-garden-ce242c49-40e4859456a9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-40e4859456a9.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 40e4859456a9
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1221,13 +1222,13 @@ worst fetch p95 3.583962s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### doin (0)
 (none)
 
-### tada (16387)
+### tada (16388)
+- [`kriscendobot-minion.town-pr234-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-gauntlet.md) — gauntlet kriscendobot-minion.town-pr234-gauntlet — complete
 - [`kriscendobot-minion.town-pr234-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-gauntlet-undraft.md) — Cost
 - [`claude-on-minion-town-completion-press-20261103-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/claude-on-minion-town-completion-press-20261103-123508.md) — Cost
 - [`kriscendobot-minion.town-pr199-conduct-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-conduct-20261103.md) — Cost
 - [`kriscendobot-minion.town-pr234-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-gauntlet-panel-4.md) — Cost
-- [`kriscendobot-minion.town-pr199-gauntlet-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103.md) — gauntlet kriscendobot-minion.town-pr199-gauntlet-20261103 — review budget rea...
-- … and 16382 more
+- … and 16383 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
