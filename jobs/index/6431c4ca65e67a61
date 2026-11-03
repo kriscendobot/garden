@@ -1,2 +1,2 @@
-base: improve-mirror-quota-fatal-noise
+base: improve-mirror-pr-state-nonjson-transient
 identity: mentor:scripts/jobs/handlers/mirror-pr-state-gh.sh
