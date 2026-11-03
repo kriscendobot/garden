@@ -390,10 +390,20 @@ job_is_aged() { # <leaf>
   [ -z "${young[$1]:-}" ]
 }
 
-probes=(); aged=(); rest=()
+# A job this host can never run is dropped here, before it costs a re-sync. The pass
+# re-syncs before every candidate, and on a slow clone that is about 45s, so a board
+# of jobs pinned elsewhere kept every idle worker busy for minutes per pass and
+# delayed the jobs behind them (oros 2026-11-03: six aged jobs for other hosts, a
+# health check-up posted at 15:05:10 claimed at 15:15:03 with four monks idle). The
+# per-candidate gate below stays, for a header edited after this snapshot.
+probes=(); aged=(); rest=(); host_ineligible=()
 for ((k=0; k<n; k++)); do
   c="${cand[$(( (off + k) % n ))]}"
-  if grep -q '^canary-probe: true' "$DIR/$JOBS_TODO/$c" 2>/dev/null; then
+  if ! job_requirements_available "$DIR/$JOBS_TODO/$c"; then
+    missing="$(job_requirements_missing "$DIR/$JOBS_TODO/$c")"
+    log "'${c%.md}' requires host capability ${missing:-invalid-requires-header}; skipping (host-requirements)"
+    host_ineligible+=("$c")
+  elif grep -q '^canary-probe: true' "$DIR/$JOBS_TODO/$c" 2>/dev/null; then
     probes+=("$c")
   elif job_is_aged "$c"; then
     aged+=("$c")
@@ -411,7 +421,8 @@ cand=("${probes[@]}" "${aged[@]}" "${rest[@]}")
 # jobs; probes r1 and r2 for 242f944c were never tried and the roll drained a
 # healthy canary). Checked after each re-sync, so the probe waits at most one attempt.
 declare -A in_pass=()
-for c in "${cand[@]}"; do in_pass["$c"]=1; done
+# A probe pinned to another host was already judged above; it is not a late arrival.
+for c in "${cand[@]}" "${host_ineligible[@]}"; do in_pass["$c"]=1; done
 late_canary_probe() {
   local f leaf
   for f in "$DIR/$JOBS_TODO"/*.md; do
