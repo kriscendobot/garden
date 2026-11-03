@@ -18,3 +18,13 @@ Pin the merge base: snapshot current `main` to a frozen `main-<short-sha>`, reba
 onto it, resolve the `guest-web-router.ts` conflict keeping both #233's and #234's
 behavior, run typecheck + vitest locally, force-push the head, and move the PR base.
 Leave the PR out of draft; the proxy screen re-screens the new head and posts the merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T18:07:29Z
