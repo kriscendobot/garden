@@ -1,0 +1,24 @@
+{
+  "base": "main-3f6c2b2",
+  "ci": [
+    "https://github.com/kriscendobot/minion.town/actions/runs/41698926824/job/126136775460",
+    "https://github.com/kriscendobot/minion.town/actions/runs/41698926847/job/126136775802",
+    "https://github.com/kriscendobot/minion.town/actions/runs/41698926824/job/126136775872",
+    "https://github.com/kriscendobot/minion.town/actions/runs/41698926824/job/126136775993",
+    "https://github.com/kriscendobot/minion.town/actions/runs/41698926847/job/126136776237",
+    "https://github.com/kriscendobot/minion.town/actions/runs/41698926847/job/126136884038",
+    "https://github.com/kriscendobot/minion.town/actions/runs/41698926847/job/126136883035"
+  ],
+  "deploy_run": 41664945683,
+  "deploy_url": "https://github.com/kriscendobot/minion.town/actions/runs/41664945683",
+  "gauntlet": "jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet.md",
+  "head": "0b1d85381c5d6fa48bdc30f1809065a7a4f29632",
+  "heal": null,
+  "heartbeat_at": "2026-11-03T19:34:00Z",
+  "panel_head": "0b1d85381c5d6fa48bdc30f1809065a7a4f29632",
+  "panel_match": "exact",
+  "pull_request": 234,
+  "repository": "kriscendobot/minion.town",
+  "schema": 2,
+  "screened_at": "2026-11-03T19:38:56Z"
+}
