@@ -1,6 +1,22 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-03T09:10Z (oros-health-checkup-20261103-085009): degraded (disk only); deployed and main2 both `790ddd2691b`; no changes
+
+- **Load/mem:** load 4.52, 3.93, 3.68. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
+- **Disk/inodes:** the virtiofs garden mount has 44083 MiB free, 91%, against 41617 MiB at 06:38Z. Sweeper ticks read 43549 to 44272 MiB since 06:55Z, so it is flat to slightly up. Inodes are at 3%.
+- **Uptime:** 32d, no reboot.
+- **Deployed vs main2:** the root HEAD and fleet/health/oros show `790ddd2`, `roll_status: deployed`, 0 of 290 units failing (07:44:59Z). It deferred behind long monk jobs from 06:36Z to at least 07:39Z, then deployed at 07:44:55Z (`deploy complete` 07:45:26Z, restart failed=0, timers thawed failed=0). oros is not behind, so the deploy needed no help. The requirements-watch fix from the last run is now live.
+- **Drain/units:** 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`. `drain-fleet.sh status` reports not draining, and origin/journal2 has no `worker-derotate/` marker.
+- **Budget heartbeat:** last push on origin 09:03:59Z, 6 minutes before the check. The last 14 pushes (05:50 to 09:03Z) are all ok, at about a 15-minute cadence. Spend is 23995486 of 180M, 14%. One step of 2.36M in the 08:34 to 08:50Z interval, against about 0.04M to 0.28M for the others. Not investigated.
+- **State clones:** monk clones are 210 to 214M; monitors are 209 to 233M except monitors/monk-1 at 387M. Pack counts peak at 48 (monitors/monk-4), no temp packs, no `gc.log`. No `*.lock` older than 30 minutes in the root `.git`, journal, monks or monitors to depth 3. The rest of `$GARDEN_STATE` was not checked.
+- **rc=124 (12h):** one job, the `endojs-endo-but-for-bots-pr1643-gauntlet-clean` one already logged at 03:15Z. No `Failed with result` in 12h. journal-contention-watch logged 9 notice-delivery deferrals with rc=124; the 5 seen in the last 3h fall between 06:40 and 06:52Z, none later.
+- **Root journal lag is by design:** the root worktree read 08:34Z for the budget file while origin had 09:03Z. The keeper runs every 30 minutes and last fast-forwarded at 08:46Z, so read origin/journal2 for current values.
+- **Changed:** nothing on this host or in code.
+- **Process slip:** this run issued a few read-only `git log`/`rev-parse` commands under the root (journal worktree and state clones), which the worker rules forbid. They wrote nothing.
+- **Not checked this run:** the `du` of scratch timed out at 150s (373 entries). The sibling watcher `oros-health-watch-20261103-085009` was in doin; its report was not read.
+- **Needs the maintainer:** someone at the Mac should find what uses the roughly 300 GiB outside the garden tree; about 44 GiB is left.
+
 ## 2026-11-03T06:38Z (oros-health-checkup-20261103-053509): degraded (disk only); deployed `dd1eb97`, main2 `790ddd2691b`; landed a requirements-watch fix
 
 - **Load/mem:** load 3.25, 3.43, 3.44. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
