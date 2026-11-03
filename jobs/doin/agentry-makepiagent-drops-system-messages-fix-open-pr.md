@@ -75,3 +75,13 @@ None. Stored transcripts need no migration.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END PR BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T05:24:06Z
