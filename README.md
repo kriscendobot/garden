@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T09:31:12Z_
+_As of 2026-11-03T09:32:04Z_
 
 ## Latest
 
@@ -1153,7 +1153,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.1M | $388.20 _(notional, rate-card)_ | 39% of 271.0M (backoff) |
+| Claude | 106.2M | $388.23 _(notional, rate-card)_ | 39% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 51840027 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1169,17 +1169,16 @@ worst fetch p95 4.099407s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr233-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr233-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #233
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1645-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1645
-- [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #199
 
-### tada (16351)
+### tada (16352)
+- [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr234-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-gauntlet-viability.md) — Cost
 - [`build-minion-town-prod-probe-invitation-roundtrip`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/build-minion-town-prod-probe-invitation-roundtrip.md) — Cost
 - [`build-minion-town-mcp-guest-invite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/build-minion-town-mcp-guest-invite.md) — Cost
 - [`minion-town-arc-press-20261103-085009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-085009.md) — Cost
-- [`oros-health-watch-20261103-085009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-085009.md) — Cost
-- … and 16346 more
+- … and 16347 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
