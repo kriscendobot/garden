@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T08:04:41Z_
+_As of 2026-11-03T08:05:45Z_
 
 ## Latest
 
@@ -1151,7 +1151,7 @@ _Fleet token-unlock pace: 51716137 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (9)
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1641-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1641
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1645-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1645
 - [`endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body.md) — Update the PR body of endojs/endo-but-for-bots PR #1644
@@ -1160,6 +1160,7 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`daily-progress-summary-20261103-080509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261103-080509.md) — Daily midnight Pacific progress summary
 
 ### doin (1)
 - [`fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-2.md) — ---
