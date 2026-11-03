@@ -1,5 +1,5 @@
 cadence: daily
-last_dispatched: 2026-11-02T22:50:09Z
+last_dispatched: 2026-11-03T22:50:10Z
 job_basename_prefix: dependabotany-recheck-endo-but-for-bots
 preflight: dependabotany-preflight.sh
 handler-timeout: 7200
