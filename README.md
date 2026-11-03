@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T16:08:32Z_
+_As of 2026-11-03T16:09:11Z_
 
 ## Latest
 
@@ -1226,7 +1226,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.8M | $404.14 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 109.8M | $403.51 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52281712 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1241,17 +1241,16 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (1)
 - [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-150510.md) — ---
-- [`oros-health-watch-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261103-150510.md) — ---
 
-### tada (16394)
+### tada (16395)
+- [`oros-health-watch-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-150510.md) — Cost
 - [`screen-minion-town-pr234-bb6f1be-conduct-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct-r3.md) — Cost
 - [`screen-minion-town-pr234-bb6f1be-conduct-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct-r2.md) — Cost
 - [`minion-town-arc-press-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-150510.md) — Cost
 - [`screen-minion-town-pr234-bb6f1be-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct.md) — Cost
-- [`screen-minion-town-pr233-8991149-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr233-8991149-conduct.md) — Cost
-- … and 16389 more
+- … and 16390 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
