@@ -459,4 +459,33 @@ got="$(GARDEN_STATE="$STATE" bash -c '. "$1/common.sh"; . "$1/journal-contention
 want=".hidden/journal/.git monks/3/journal/.git real/r/.git svc/journal/.git "
 [ "$got" = "$want" ] || { echo "FAIL: clone discovery listed '$got', want '$want'"; exit 1; }
 
+# A slug whose clone vanished is forgotten once its rings age out; a recent ring, a
+# live clone, and a rebuild awaiting its healthy fetch are all kept.
+reset_case
+now="$(date -u +%s)"; old_at="@$(( now - 30000 ))"
+live_clone="$STATE/live/journal"; mkdir -p "$live_clone"; git init -q "$live_clone"
+live_slug="$(GARDEN_STATE="$STATE" bash -c '. "$1/common.sh"; contention_clone_slug "$2"' _ "$JOBS" "$live_clone")"
+for c in gone recent awaiting "$live_slug"; do sample lock-wait "$(( now - 30000 ))" 1000000 "$c"; done
+sample lock-giveup "$(( now - 30000 ))" 1 gone
+sample lock-wait "$now" 1000000 recent
+touch -d "$old_at" "$RINGS/lock-wait/gone" "$RINGS/lock-giveup/gone" "$RINGS/lock-wait/awaiting" "$RINGS/lock-wait/$live_slug"
+mkdir -p "$WATCH_STATE"/{stats,confirm,alerts,remedy-await}
+printf '%s\n' "$now" > "$WATCH_STATE/remedy-await/awaiting"
+: > "$WATCH_STATE/stats/orphan"; touch -d "$old_at" "$WATCH_STATE/stats/orphan"
+: > "$WATCH_STATE/alerts/journal-lock-contention-gone"
+: > "$WATCH_STATE/confirm/journal-lock-contention-gone"
+run_watch "$now"
+for f in lock-wait/gone lock-giveup/gone; do
+  [ ! -e "$RINGS/$f" ] || { echo "FAIL: vanished clone's ring $f was kept"; exit 1; }
+done
+[ ! -e "$WATCH_STATE/stats/gone" ] || { echo 'FAIL: forgotten slug was still analyzed'; exit 1; }
+[ ! -e "$WATCH_STATE/stats/orphan" ] || { echo 'FAIL: orphan stats file was kept'; exit 1; }
+[ ! -e "$WATCH_STATE/confirm/journal-lock-contention-gone" ] || { echo 'FAIL: confirm count was kept'; exit 1; }
+for c in recent awaiting "$live_slug"; do
+  [ -e "$RINGS/lock-wait/$c" ] || { echo "FAIL: ring $c was forgotten"; exit 1; }
+  [ -e "$WATCH_STATE/stats/$c" ] || { echo "FAIL: $c was not analyzed"; exit 1; }
+done
+grep -q '^--recovered journal-lock-contention-gone ' "$NOTICES" || { echo 'FAIL: forgotten slug left its notice open'; cat "$NOTICES"; exit 1; }
+
+echo 'PASS: vanished-clone rings are forgotten once aged out'
 echo 'PASS: contention recorder, thresholds, drift, outage latch, bounded notice/remedy work, notice delivery cannot starve the sweep, recovery, tick deadline, bounded clone discovery, and quiet baseline'

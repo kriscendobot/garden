@@ -393,6 +393,32 @@ mapfile -t all_slugs < <(jc_all_slugs | LC_ALL=C sort -u | while IFS= read -r s;
     rm -f "$GARDEN_CONTENTION_DIR"/*/"$s"
   fi
 done)
+# Per-job inbox clones are deleted with their job, but their rings stayed: 424 of
+# oros's 503 slugs had no clone (2026-11-02), each paying the full stats pass every
+# tick. Forget a slug only once every ring has aged past MAX_AGE (so it can no longer
+# affect a condition) and no rebuild still awaits a healthy fetch from its clone. The
+# stale-notice sweep below closes anything left open; a recorder recreates its ring.
+forget_vanished_slug() { # slug; 0 = forgotten
+  local slug="$1" ring ts
+  [ ! -e "$GARDEN_CONTENTION_STATE/remedy-await/$slug" ] || return 1
+  jc_resolve_clone "$slug" && return 1
+  [ "$?" -eq 1 ] || return 1 # busy: it exists, a producer simply holds it
+  for ring in "$GARDEN_CONTENTION_DIR"/*/"$slug"; do
+    [ -e "$ring" ] || continue
+    ts="$(stat -c %Y "$ring" 2>/dev/null)" || return 1
+    [ "$ts" -lt "$JC_SINCE" ] || return 1
+  done
+  rm -f "$GARDEN_CONTENTION_DIR"/*/"$slug" "$GARDEN_CONTENTION_STATE"/confirm/*-"$slug" \
+    "$GARDEN_CONTENTION_STATE/remedy/$slug" "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug" \
+    "$GARDEN_CONTENTION_STATE/remedy-lock-deferred/$slug"
+}
+live_slugs=()
+for slug in "${all_slugs[@]}"; do
+  forget_vanished_slug "$slug" || live_slugs+=("$slug")
+done
+all_slugs=("${live_slugs[@]}")
+# A live clone's stats are rewritten every pass, so an old one has no slug behind it.
+find "$GARDEN_CONTENTION_STATE/stats" -type f ! -newermt "@$JC_SINCE" -delete 2>/dev/null || true
 pass=()
 if [ -f "$deferred_file" ] && [ "${#all_slugs[@]}" -gt 0 ]; then
   mapfile -t pass < <(grep -Fxf <(printf '%s\n' "${all_slugs[@]}") "$deferred_file" | awk 'NF && !seen[$0]++' || true)
