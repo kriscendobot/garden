@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T12:51:20Z_
+_As of 2026-11-03T12:52:33Z_
 
 ## Latest
 
@@ -976,6 +976,16 @@ Delegation: **active**
 >
 > Orchestration improve-enforce-handler-wall-bound-split HALTED: child improve-enforce-handler-wall-bound-watchdog stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: improve-enforce-handler-wall-bound-regression
 
+- `kriscendobot-minion.town-pr199-gauntlet-20261103-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr199-gauntlet-20261103-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr199-gauntlet-20261103-review-budget-reached.md)
+
+> Gauntlet kriscendobot-minion.town-pr199-gauntlet-20261103 REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet-20261103 panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $12.03
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet-20261103 panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `kriscendobot-minion.town-pr199-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr199-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr199-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr199-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet panel --add-rounds N
@@ -1212,13 +1222,13 @@ worst fetch p95 3.583962s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`claude-on-minion-town-completion-press-20261103-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261103-123508.md) — Completion press: Claude-on-minion.town arc
 - [`kriscendobot-minion.town-pr234-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr234-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #234
 
-### tada (16382)
+### tada (16383)
+- [`kriscendobot-minion.town-pr199-gauntlet-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103.md) — gauntlet kriscendobot-minion.town-pr199-gauntlet-20261103 — review budget rea...
 - [`oros-health-watch-20261103-115009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-115009.md) — Cost
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-fix-6.md) — Cost
 - [`oros-health-checkup-20261103-115009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-115009.md) — Cost
 - [`kriscendobot-minion.town-pr233-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr233-gauntlet.md) — gauntlet kriscendobot-minion.town-pr233-gauntlet — complete
-- [`kriscendobot-minion.town-pr233-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr233-gauntlet-undraft.md) — Cost
-- … and 16377 more
+- … and 16378 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
