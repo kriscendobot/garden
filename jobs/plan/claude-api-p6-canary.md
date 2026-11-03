@@ -21,3 +21,7 @@ If a design open question this phase depends on is still unanswered on the track
 
 Implement build-plan phase 6. Needs a dedicated low-budget API key from the maintainer: never request or handle the key through the journal or GitHub; ask on the tracker for the maintainer to import it through the UI and reply 'imported', using the awaiting-maintainer gate. Record redacted evidence only. Include SSM preflight (requires: aws) and the abuse-control checks.
 
+
+<!-- garden-annotation: key=pr229-panel4-account-deletion by=gardener at=2026-11-03T22:05:12Z -->
+
+Rollout precondition (kriscendobot/minion.town#229, panel round 4): before enabling `INFERENCE_PROVIDERS_ENABLED`, Settings account deletion must retire the owner's providers. Deletion removes the guest and bonds, but providers are keyed by `guestNameForIdentity(iss, sub)`, so a "permanently deleted" account keeps its stored API keys and the same sign-in gets them back. No phase owns this code yet; DEPLOYMENT.md § API-key inference providers states the gate.
