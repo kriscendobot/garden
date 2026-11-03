@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T13:14:56Z_
+_As of 2026-11-03T13:16:06Z_
 
 ## Latest
 
@@ -326,18 +326,6 @@ Delegation: **active**
 
 > minion.town delegated merge STALLED: [https://github.com/kriscendobot/minion.town/pull/218](https://github.com/kriscendobot/minion.town/pull/218) (head 5e2b6232bc4) was screened, but 3 conductors finished without merging it. Read their reports under jobs/tada/ (base screen-minion-town-pr218-5e2b623-conduct*).
 > Operations: context/operations/minion-town-screening.md
-
-- `msg-claude-on-minion-town-completion-press-20261103-123508-5b705c531d5c` — from gardener:claude-on-minion-town-completion-press-20261103-123508, reply_to `claude-on-minion-town-completion-press-20261103-123508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261103-123508-5b705c531d5c.md)
-
-> Completion press: a new doom on the Claude-on-minion.town arc, but the chain is still moving and no action is needed unless you want the record cleared.
->
-> `kriscendobot-minion.town-pr199-weave-20261103` doomed with `requeue-exhausted` on `endolin-garden-ece02cb4` at 07:33Z. It is parked in `jobs/plan/` at gate go-ahead.
->
-> The work appears to have landed anyway. [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199) was force-pushed and rebased onto `main-c5c3504` at 06:33Z, before the failed handler exits (rc=76, then rc=75 after 18s). Its gauntlet was staged at 06:49Z and is now on fix-6. The weave just never wrote a tada report.
->
-> **Don't promote the parked weave** without checking first: it would rewrite a head that has had six panel rounds. I did not touch it, since this press only observes.
->
-> **Worth watching:** the gauntlet is at its cap (iteration 6 of 6), and all six panels returned must-fix. If it ends `review-budget-reached`, `kriscendobot-minion.town-pr199-conduct-20261103` stalls by design, and the coupon flip stays held behind it.
 
 - `kriscendobot-minion.town-pr180-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr180-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr180-gauntlet-review-budget-reached.md)
 
@@ -1334,7 +1322,6 @@ worst fetch p95 3.583962s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
 - [`endo-mvs-semver-convergence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-mvs-semver-convergence.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1596` · Converge the Rust npm resolver and the daemon semver copy on exo-npm's MVS rule
-- [`minion-town-coupon-admission-flip-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-coupon-admission-flip-20261103.md) — awaiting `kriscendobot-minion.town-pr199-conduct-20261103` · Flip minion.town to guest coupon admission (closed beta)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
 - [`ebfb-parcel-layer2-build-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-parcel-layer2-build-20261024.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/774` · Build: Parcel layer 2 (SES %InitialParcel% / %SharedParcel%), endojs/endo-but...
