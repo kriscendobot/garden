@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1641
 build_job: daemon-git-agent-tool-adapters-build-open-pr
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1641-gauntlet-viability
+current_child: endojs-endo-but-for-bots-pr1641-gauntlet-clean
 state: running
 created_by: producer
 arc: minion-town-git-remote
