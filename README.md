@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T20:15:02Z_
+_As of 2026-11-03T20:16:01Z_
 
 ## Latest
 
@@ -1264,15 +1264,15 @@ _Fleet token-unlock pace: 53075693 tokens/day lower bound; incomplete where a su
 worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (5)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
-- [`improve-gardener-handler-rc76-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-gardener-handler-rc76-collision.md) — Deliberate overrun decomposition for improve-gardener-handler-rc76-collision
 - [`screen-minion-town-pr234-0b1d853-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr234-0b1d853-conduct.md) — Screened delegated merge: kriscendobot/minion.town#234 at 0b1d85381c5d6fa48bd...
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`improve-gardener-handler-rc76-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision.md) — Deliberate overrun decomposition for improve-gardener-handler-rc76-collision
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #229
 
 ### tada (16423)
