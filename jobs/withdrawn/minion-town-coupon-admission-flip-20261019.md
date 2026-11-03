@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by minion-town-coupon-admission-flip-20261103: maintainer go-ahead on https://github.com/kriscendobot/minion.town/pull/199#pullrequestreview-5747577467; now chained blocked_on the #199 merge, with requires: aws
+withdrawn_by: gardener
+withdrawn_at: 2026-11-03T06:06:31Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 posted_by: producer
