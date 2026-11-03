@@ -1,5 +1,5 @@
 cadence: 6h
-last_dispatched: 2026-11-03T06:20:10Z
+last_dispatched: 2026-11-03T12:35:08Z
 job_basename_prefix: claude-on-minion-town-completion-press
 ---
 ---
