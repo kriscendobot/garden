@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T19:13:12Z_
+_As of 2026-11-03T19:16:13Z_
 
 ## Latest
 
@@ -1256,7 +1254,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.2M | $425.34 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 115.3M | $426.91 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52646772 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1275,13 +1273,13 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-150510.md) — ---
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #229
 
-### tada (16415)
+### tada (16416)
+- [`kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-viability.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-panel-1.md) — Cost
 - [`oros-health-checkup-20261103-180510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-180510.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-clean.md) — Cost
-- [`kriscendobot-minion-town-pr234-screen-42712293-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-42712293-gauntlet.md) — gauntlet kriscendobot-minion-town-pr234-screen-42712293-gauntlet — review bud...
-- … and 16410 more
+- … and 16411 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
