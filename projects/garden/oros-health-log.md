@@ -1,6 +1,22 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-03T00:02Z (oros-health-checkup-20261102-232010): degraded (disk only); deployed `e97673a`, main2 `0844a5d`; landed a contention-watch fix
+
+- **Load/mem:** load 3.93, 3.81, 3.62 at 23:46Z and 3.04, 2.96, 3.24 at 00:00Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
+- **Disk/inodes:** the virtiofs garden mount has 51489 MiB free at 00:00Z, 90%, against 57389 MiB at 21:13Z, so about 5.9 GiB went in 2.8h after a flat 3.7h. It moved less than 15 MiB over the last 10 minutes or so. The source is still unknown: a 240s `find` for files over 40M written in the last 3h was cut off with no hits, so that check is incomplete. Inodes are at 2%, the overlay at 7%.
+- **Uptime:** 32d, no reboot.
+- **Deployed vs main2:** the root, fleet/deployed and fleet/health/oros show `e97673a`, `roll_status: deployed`, 0 of 290 units failing (21:35:15Z). origin/main2 is `0844a5d`, this run's fix, not yet rolled out.
+- **Drain/units:** 0 failed user units, `garden-monk@1..4` running since the 21:35Z deploy, worker-leveling row `4 0`, no drain or derotation marker seen. The oros watchdog notices still in the maintainer's unread folder are all marked recovered.
+- **Budget heartbeat:** last push 23:48:45Z. The last 8 pushes (22:03 to 23:48Z) are all ok, at about a 15-minute cadence. Spend is 18725908 of 180M.
+- **State clones:** the largest are monks/4 (49 packs) and monks/1 (46). No `gc.log` and no temp packs in the monk and monitor clones, and the root repo has 15 packs. No `.git` lock older than 30 minutes in the monk, monitor or producer clones. I did not check the 58 `.lock` files older than 60 minutes at the top of `$GARDEN_STATE`; I took them for flock files and left them.
+- **rc=124 (3h):** 4, all `journal-contention-watch` notice deferrals between 23:11 and 23:24Z, for the storm notice. No rc=137 or `Failed with result` in 4h.
+- **Claim races:** 6 lines in 3h, a coarse grep count.
+- **Mount:** the bind mount at `/tmp/ebfbxs` is still there. Left in place.
+- **The defect (contention watch):** rings for per-job inbox clones were never removed once the clone was deleted. `$GARDEN_STATE/inbox` holds 4 entries against 424 inbox slugs in `lock-wait` of 503 slugs in all, and each slug paid the stats pass every tick. A tick took about 90s and 36-40s of CPU every 5 minutes. I have not measured the tick with the fix, which reaches oros at its next deploy.
+- **Changed:** landed `0844a5d`: the watcher forgets a slug with no clone once all its rings are older than MAX_AGE (6h) and no rebuild awaits it, and drops stats files with no slug behind them. New case in `journal-contention-watch-test.sh`; the suite passes. I did not run the new case against the unfixed code. No files removed by hand, no units touched.
+- **Needs the maintainer:** (1) Four `oros-health-watch` runs still wait in todo (13:50, 17:05, 20:20, 23:20Z), so no sibling watcher has covered oros since at least 13:50Z. This run also waited 25 minutes for a claim, and `watchdog-unclaimable-host-requirements` fired for it at 23:37Z. claude-endolin1 reads 71%. (2) Someone at the Mac should find what used the shared disk; about 51 GiB is left.
+
 ## 2026-11-02T21:15Z (oros-health-checkup-20261102-202009): degraded (disk only); deployed `9f4eb64`, main2 `e97673a`; landed an admission fix
 
 - **Load/mem:** load 3.23, 3.70, 3.81 at 20:36Z and 3.04, 3.27, 3.64 at 21:13Z. 12.7 GiB of 15.6 GiB available. Swap is full (1.0 GiB), unchanged.
