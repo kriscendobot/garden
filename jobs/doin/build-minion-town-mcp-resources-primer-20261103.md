@@ -17,3 +17,13 @@ Do:
 5. Tool-surface audit: list every current MCP tool and mark which are replaceable by evaluate plus the guide. Propose removals in the PR description only; do not remove any tool.
 
 Constraints: draft PR only; no deploy; no secrets in output. Report PASS/FAIL for each verified recipe and list anything evaluate cannot do that blocks the invite/accept flow, since each such finding is an Endo-interface or primer bug to log.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T21:29:22Z
