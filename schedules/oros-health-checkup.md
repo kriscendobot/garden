@@ -1,5 +1,5 @@
 cadence: 3h
-last_dispatched: 2026-11-02T23:20:10Z
+last_dispatched: 2026-11-03T02:20:25Z
 job_basename_prefix: oros-health-checkup
 handler-timeout: 3600
 ---
