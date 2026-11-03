@@ -17,3 +17,13 @@ State at posting (2026-11-02T23:10Z): the PR is OPEN and CONFLICTING at head dc2
 5. Verify the PR reads MERGED or auto-merge is enqueued, then write a journal `message` ledger entry headed `# Dependabotany - endojs/endo-but-for-bots PR #1633 - ...` containing `project: endo-but-for-bots` and, only if terminal, `dependabotany-terminal-pr: 1633`. If it does not reach a terminal state, say why in the row and name the next owner.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T05:25:07Z
