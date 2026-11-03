@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T08:19:36Z_
+_As of 2026-11-03T08:21:43Z_
 
 ## Latest
 
@@ -1160,17 +1160,16 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`kriscendobot-minion.town-pr199-gauntlet-20261103-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-gauntlet-20261103-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #199
+### doin (1)
 - [`daily-progress-summary-20261103-080509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261103-080509.md) — Daily midnight Pacific progress summary
 
-### tada (16336)
+### tada (16337)
+- [`kriscendobot-minion.town-pr199-gauntlet-20261103-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-fix-1.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-2.md) — Cost
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-1.md) — Cost
 - [`fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-1.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-790ddd2691bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-790ddd2691bb.md) — rolling-deploy canary probe — round trip OK
-- [`kriscendobot-minion.town-pr199-gauntlet-20261103-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-clean.md) — Pushed
-- … and 16331 more
+- … and 16332 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
