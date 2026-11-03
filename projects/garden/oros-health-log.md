@@ -1,6 +1,23 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-03T12:46Z (oros-health-checkup-20261103-115009): degraded (disk, plus journal fetch-slow bursts); deployed `790ddd2691b`, main2 `40e4859456a`; landed a contention-watch fix
+
+- **Load/mem:** load 4.50, 4.41, 3.88 at 12:26Z and 4.73, 4.40, 4.15 at 12:42Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
+- **Disk/inodes:** the virtiofs garden mount has about 40 GiB free (40030 MiB at 12:42Z), 92%, against 44083 MiB at 09:10Z, so about 1.2 GiB/h. Inodes are at 3%.
+- **Uptime:** 32d, no reboot.
+- **Deployed vs main2:** the root and fleet/health/oros show `790ddd2`, `roll_status: deployed`, 0 of 290 units failing (07:44:59Z). origin/main2 is `40e4859456a`, this run's fix, not yet rolled out. Nothing blocks a deploy that I found.
+- **Drain/units:** 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, not draining, no `worker-derotate/` marker.
+- **Budget heartbeat:** last push 12:33:21Z, 9 minutes before the check. The last 8 pushes seen (10:34 to 12:33Z) are all ok. Spend reads 4390397 of 180M. It fell to 1194 at 11:06Z because the weekly window reset at 11:00Z. It then stepped to 2017192 by 11:29Z and rose 1.7M between 12:03 and 12:19Z. Those steps were not investigated.
+- **State clones:** monk and monitor clones have 13 to 40 packs, no temp packs, no `gc.log`. `.git` is 234M on monks/1 and monks/3, 413M on monitors/monk-1. No `*.lock` older than 30 minutes in the root `.git`, journal, monks or monitors to depth 4; the rest of `$GARDEN_STATE` was not checked. A `du` of monks/1/journal took 36s.
+- **Timeouts (3h):** journal fetch rc=124 twice at 11:23Z (library-link-check, state-clone-keeper). Five self-heal handlers hit the 600s limit: gardener-scaler, unblock and sysop at 11:24 to 11:26Z, repo-watcher and ci-watcher@kriscendobot-finbot at 12:13 to 12:15Z. There were none earlier in the 24h journal window. Lock-overdue lines cluster in the same two bursts (21 in 11:20 to 11:29Z, 15 in 12:10 to 12:19Z). My own fetch took 4s at 12:39Z, between bursts. **The trigger of the bursts is not known.**
+- **The defect (contention-watch rebuilds):** `watchdog-journal-contention-storm-fetch-slow` opened at 11:29Z, and the remedy began rebuilding leader, state-clone-keeper and library-link-check. Each attempt renames the live clone aside and writes the whole journal tree (83k files); the tick deadline killed it at about 150s, it restored the clone, and it retried a tick or two later because a failed attempt had no backoff. Measured on 11-03: 0 rebuilds finished from the seed attempts logged by the watch; on 11-01, 18 seeds and 3 rebuilds. The leader clone was absent during these attempts, seen directly at 12:39Z; it came back by 12:42Z. Whether the attempts themselves prolong the fetch slowness is not proven. Rebuilding is unlikely to help a shared cause, which is what the storm notice itself suspects.
+- **Changed:** landed `40e4859456a`: a failed rebuild now waits `GARDEN_CONTENTION_REMEDY_FAIL_BACKOFF` (1h) before its next attempt, and its seed temp is queued for cleanup. `journal-contention-watch-test.sh` passes; the new check fails against the old script. Not yet running on oros; takes effect at the next deploy. On the host I removed three dead-owner seed temps (library-link-check, state-clone-keeper, leader), each checked with `kill -0`. No units touched.
+- **Not a host fault:** 12 `run-u*.service` failures with result `resources` at 10:47 and 10:57Z are a `sudo systemd-run` probe of `GUEST_RECOVERY_KEY` whose environment file does not exist. Which job ran it was not traced.
+- **Sibling watcher:** `oros-health-watch-20261103-115009` is in doin; its report was not read.
+- **Not checked this run:** scratch size (378 entries).
+- **Needs the maintainer:** someone at the Mac should find what uses the roughly 300 GiB outside the garden tree; about 40 GiB is left and it fell about 4 GiB in 3.5h.
+
 ## 2026-11-03T09:10Z (oros-health-checkup-20261103-085009): degraded (disk only); deployed and main2 both `790ddd2691b`; no changes
 
 - **Load/mem:** load 4.52, 3.93, 3.68. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
