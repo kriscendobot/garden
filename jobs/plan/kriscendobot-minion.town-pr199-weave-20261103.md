@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: weaver
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-03T07:33:05Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-03T07:33:05Z
+---
+
+---
 posted_at: 2026-11-03T06:06:41Z
 role: weaver
 tier: minion
@@ -23,17 +44,3 @@ Keep the PR draft and keep the defaults `GUEST_ADMISSION=open`, `COUPON_STORE=of
     scripts/jobs/post-gauntlet.sh kriscendobot-minion.town-pr199-gauntlet-20261103 https://github.com/kriscendobot/minion.town/pull/199
 
 The merge job `kriscendobot-minion.town-pr199-conduct-20261103` is parked `blocked_on` that gauntlet, and the production flip `minion-town-coupon-admission-flip-20261103` is parked `blocked_on` the merge. If you cannot complete the weave, do not post the gauntlet: message the maintainer, so the chain visibly waits.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-03T07:13:04Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-03T07:13:53Z
