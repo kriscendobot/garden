@@ -26,3 +26,13 @@ The merge job `kriscendobot-minion.town-pr199-conduct-20261103` is parked `block
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-03T07:13:04Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T07:13:53Z
