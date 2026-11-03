@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T22:00:05Z_
+_As of 2026-11-03T22:02:58Z_
 
 ## Latest
 
@@ -1255,10 +1255,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.9M | $432.54 _(notional, rate-card)_ | 43% of 271.0M (backoff) |
+| Claude | 116.9M | $432.60 _(notional, rate-card)_ | 43% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53335820 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52774864 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.101028s/45s (unknown); 8 open notice(s); checker healthy
@@ -1272,20 +1272,19 @@ worst fetch p95 10.101028s/45s (unknown); 8 open notice(s); checker healthy
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (5)
+### doin (4)
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #229
 - [`build-minion-town-mcp-resources-primer-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-mcp-resources-primer-20261103.md) — ---
-- [`minion-town-arc-press-20261103-210510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261103-210510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`build-minion-town-remote-invitation-hints-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-remote-invitation-hints-20261103.md) — ---
 
-### tada (16430)
+### tada (16431)
+- [`minion-town-arc-press-20261103-210510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-210510.md) — Completion report — minion.town arc supervision (tick 2026-11-03T~21:55Z)
 - [`oros-health-checkup-20261103-210510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-210510.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-fix-3.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c.md) — rolling-deploy canary probe — round trip OK
-- [`improve-gardener-handler-rc76-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/improve-gardener-handler-rc76-collision.md) — Cost
-- … and 16425 more
+- … and 16426 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
