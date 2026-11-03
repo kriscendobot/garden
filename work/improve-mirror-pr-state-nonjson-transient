@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-11-03T19:22:52Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-improve-mirror-pr-state-nonjson-transient
