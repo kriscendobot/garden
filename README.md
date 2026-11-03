@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T12:58:21Z_
+_As of 2026-11-03T12:59:44Z_
 
 ## Latest
 
@@ -1221,9 +1221,10 @@ _Fleet token-unlock pace: 51005399 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.583962s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`kriscendobot-minion.town-pr199-conduct-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-conduct-20261103.md) — Merge kriscendobot/minion.town#199 (maintainer-approved guest coupons)
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
@@ -1334,7 +1335,6 @@ worst fetch p95 3.583962s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`minion-town-coupon-admission-flip-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-coupon-admission-flip-20261103.md) — awaiting `kriscendobot-minion.town-pr199-conduct-20261103` · Flip minion.town to guest coupon admission (closed beta)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
-- [`kriscendobot-minion.town-pr199-conduct-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-conduct-20261103.md) — awaiting `kriscendobot-minion.town-pr199-gauntlet-20261103` · Merge kriscendobot/minion.town#199 (maintainer-approved guest coupons)
 - [`ebfb-parcel-layer2-build-20261024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-parcel-layer2-build-20261024.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/774` · Build: Parcel layer 2 (SES %InitialParcel% / %SharedParcel%), endojs/endo-but...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
