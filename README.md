@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T04:15:05Z_
+_As of 2026-11-03T04:16:59Z_
 
 ## Latest
 
@@ -1142,18 +1142,17 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 - [`agentry-makepiagent-drops-system-messages-fix-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/agentry-makepiagent-drops-system-messages-fix-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin.md) — ---
 
-### doin (3)
-- [`agentry-makepiagent-drops-system-messages-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/agentry-makepiagent-drops-system-messages-fix.md) — ---
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1643-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1643-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1643
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1641-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1641
 
-### tada (16299)
+### tada (16300)
+- [`agentry-makepiagent-drops-system-messages-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/agentry-makepiagent-drops-system-messages-fix.md) — Cause
 - [`endopi-iterative-compaction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endopi-iterative-compaction-build.md) — What changed
 - [`oros-health-watch-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-022025.md) — Cost
 - [`oros-health-checkup-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-022025.md) — Cost
 - [`endojs-endo-but-for-bots-pr1642-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1642-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1643-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1643-gauntlet-viability.md) — Cost
-- … and 16294 more
+- … and 16295 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
