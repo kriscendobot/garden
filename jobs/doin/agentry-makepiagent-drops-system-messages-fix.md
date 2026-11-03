@@ -20,3 +20,13 @@ Evidence from llm at 48d6f3e, using `makePiAgent` with `systemPrompt: 'SYS'`, on
 Confirm this through a real provider adapter and find which Pi bump introduced it. Fix the filter, and check other `makePiAgent` callers and any custom `convertToLlm`, including `define-agent.js`. Add a regression test that the request carries the system prompt and tools. The likely impact is that Lal workers cannot call tools, so treat this as high priority.
 
 Found while building `endopi-iterative-compaction-build`, whose code neither causes nor depends on this.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T03:44:47Z
