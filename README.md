@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T21:31:41Z_
+_As of 2026-11-03T21:35:02Z_
 
 ## Latest
 
@@ -1260,22 +1258,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 116.9M | $432.35 _(notional, rate-card)_ | 43% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53173359 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 53247132 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 10 open notice(s); checker healthy
+worst fetch p95 10.101028s/45s (unknown); 9 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`oros-health-watch-20261103-210510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261103-210510.md) — ---
-- [`kriscendobot-minion.town-pr229-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr229-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #229
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`screen-minion-town-pr234-0b1d853-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr234-0b1d853-conduct.md) — Screened delegated merge: kriscendobot/minion.town#234 at 0b1d85381c5d6fa48bd...
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
+### doin (5)
+- [`kriscendobot-minion.town-pr229-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #229
 - [`build-minion-town-mcp-resources-primer-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-mcp-resources-primer-20261103.md) — ---
 - [`minion-town-arc-press-20261103-210510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261103-210510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
