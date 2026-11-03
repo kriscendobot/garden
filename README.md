@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T18:19:49Z_
+_As of 2026-11-03T18:21:43Z_
 
 ## Latest
 
@@ -1250,13 +1250,13 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-150510.md) — ---
 - [`oros-health-checkup-20261103-180510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-180510.md) — ---
 
-### tada (16397)
+### tada (16398)
+- [`kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-viability.md) — Cost
 - [`kriscendobot-minion.town-pr234-weave-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-weave-20261103.md) — Panel-head freshness
 - [`minion-town-arc-press-20261103-180510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-180510.md) — Cost
 - [`oros-health-watch-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-150510.md) — Cost
 - [`screen-minion-town-pr234-bb6f1be-conduct-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct-r3.md) — Cost
-- [`screen-minion-town-pr234-bb6f1be-conduct-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct-r2.md) — Cost
-- … and 16392 more
+- … and 16393 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
