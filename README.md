@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T15:49:24Z_
+_As of 2026-11-03T15:51:45Z_
 
 ## Latest
 
@@ -30,7 +30,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 Delegation: **active**
 
-- 2026-11-03T15:32:26Z [#233](https://github.com/kriscendobot/minion.town/pull/233) merged `3f6c2b24a98`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/41664945683)
+- 2026-11-03T15:32:26Z [#233](https://github.com/kriscendobot/minion.town/pull/233) merged `3f6c2b24a98`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/41664945683), watchdog ok — validated
 - 2026-11-03T13:44:57Z [#234](https://github.com/kriscendobot/minion.town/pull/234) `bb6f1bee265` screened
 - 2026-11-03T13:44:57Z [#233](https://github.com/kriscendobot/minion.town/pull/233) `899114970ca` screened
 
@@ -1168,6 +1168,11 @@ Delegation: **active**
 > 3. If you want to make progress meanwhile, a throw-away spike is fine. Keep it to a clearly labeled DRAFT and a short gap report, in the style of [gap-revealing-build](skills/gap-revealing-build/SKILL.md). It must not be presented as the implementation, and it must not invent the design.
 >
 > If the maintainer would rather have the implementation start from an informal spec, they can say so and the job can be unblocked.
+
+- `minion-town-pr-screening-stalled-pr234-bb6f1be` — from proxy:screen, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-pr-screening-stalled-pr234-bb6f1be.md)
+
+> minion.town delegated merge STALLED: [https://github.com/kriscendobot/minion.town/pull/234](https://github.com/kriscendobot/minion.town/pull/234) (head bb6f1bee265) was screened, but 3 conductors finished without merging it. Read their reports under jobs/tada/ (base screen-minion-town-pr234-bb6f1be-conduct*).
+> Operations: context/operations/minion-town-screening.md
 
 - `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
 
