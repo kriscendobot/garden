@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T09:15:18Z_
+_As of 2026-11-03T09:16:44Z_
 
 ## Latest
 
@@ -814,6 +814,17 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1575-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 9 -> 11 (N is yours to choose).
 
+- `msg-minion-town-arc-press-20261103-085009-e3e1aa39dff6` — from gardener:minion-town-arc-press-20261103-085009, reply_to `minion-town-arc-press-20261103-085009` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261103-085009-e3e1aa39dff6.md)
+
+> The result of your 2026-11-03 goal, "the root user can extend invitations and others can accept them": it does not work yet.
+>
+> - Works on production: guest-to-guest local invitations. Invite, accept, contacts on both sides, and mail both ways all passed, and the acceptor gets a correspondent handle only.
+> - Blocked: the root acts through its MCP guest, and the MCP surface has no invite tool. Inviting from browser Settings works, but that browser guest is a different guest from the root's MCP guest, and the `legacy-root` migration that would join them is not built.
+>
+> I posted `build-minion-town-mcp-guest-invite` to close the first gap, and `build-minion-town-prod-probe-invitation-roundtrip` so the prod probe checks invitations on every run.
+>
+> Evidence: https://github.com/kriscendobot/garden/commit/b5aff5eb10b and [https://github.com/kriscendobot/garden/issues/58](https://github.com/kriscendobot/garden/issues/58). No reply is needed unless you meant the browser root specifically; if so, say so and I will put the `legacy-root` migration first.
+
 - `claude-api-build-20261027-child-claude-api-p1-registry-failed` — from orchestrator:claude-api-build-20261027-child-claude-api-p1-registry-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-api-build-20261027-child-claude-api-p1-registry-failed.md)
 
 > orchestration-event: orchestration-child-timeout
@@ -1142,7 +1153,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.4M | $383.70 _(notional, rate-card)_ | 39% of 271.0M (ok) |
+| Claude | 104.5M | $385.04 _(notional, rate-card)_ | 39% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 51924191 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
