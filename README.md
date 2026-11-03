@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T13:58:27Z_
+_As of 2026-11-03T14:04:17Z_
 
 ## Latest
 
@@ -46,6 +44,10 @@ Delegation: **active**
 >
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr201-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
+- `watchdog-unclaimable-host-requirements-screen-minion-town-pr234-bb6f1be-conduct` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-screen-minion-town-pr234-bb6f1be-conduct.md)
+
+> Host-requirements gate: job 'screen-minion-town-pr234-bb6f1be-conduct' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `msg-oros-health-watch-20261029-005026-f2a7896d797e` — from gardener:oros-health-watch-20261029-005026, reply_to `oros-health-watch-20261029-005026` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261029-005026-f2a7896d797e.md)
 
@@ -889,6 +891,10 @@ Delegation: **active**
 - `watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md)
 
 > gardener job 'ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7202s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `watchdog-unclaimable-host-requirements-screen-minion-town-pr233-8991149-conduct` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-screen-minion-town-pr233-8991149-conduct.md)
+
+> Host-requirements gate: job 'screen-minion-town-pr233-8991149-conduct' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
