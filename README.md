@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T00:24:03Z_
+_As of 2026-11-03T00:29:47Z_
 
 ## Latest
 
@@ -1127,18 +1125,16 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (3)
-- [`claude-on-minion-town-completion-press-20261103-000509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261103-000509.md) — Completion press: Claude-on-minion.town arc
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1639-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1639-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1639
-- [`fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-2.md) — ---
 
-### tada (16274)
+### tada (16276)
+- [`claude-on-minion-town-completion-press-20261103-000509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/claude-on-minion-town-completion-press-20261103-000509.md) — Panel-head freshness
+- [`fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/fu-endojs-endo-but-for-bots-pr1609-gauntlet-clean-2.md) — Still pending: stage3-math 054/055 fix has not landed on llm
 - [`oros-health-checkup-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261102-232010.md) — Cost
 - [`minion-town-arc-press-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/minion-town-arc-press-20261102-232010.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-pr1629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/dependabotany-recheck-endo-but-for-bots-pr1629.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20261102-225009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/dependabotany-recheck-endo-but-for-bots-20261102-225009.md) — Cost
-- [`endojs-endo-but-for-bots-pr1639-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/02/endojs-endo-but-for-bots-pr1639-gauntlet-viability.md) — Cost
-- … and 16269 more
+- … and 16271 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
