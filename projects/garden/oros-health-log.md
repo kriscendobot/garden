@@ -1,6 +1,24 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-03T06:38Z (oros-health-checkup-20261103-053509): degraded (disk only); deployed `dd1eb97`, main2 `790ddd2691b`; landed a requirements-watch fix
+
+- **Load/mem:** load 3.25, 3.43, 3.44. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
+- **Disk/inodes:** the virtiofs garden mount has 41617 MiB free, 92%, against 45689 MiB at 03:05Z. Sweeper ticks read 41941 (05:12Z), 41401 (05:42Z) and 41718 MiB (06:12Z), so it has been flat for about 85 minutes after falling about 1.2 GiB/h before that. Inodes are at 3%, the overlay at 7%.
+- **Uptime:** 32d, no reboot.
+- **Deployed vs main2:** the root and fleet/health/oros show `dd1eb97`, `roll_status: deployed`, 0 of 290 units failing (04:50:49Z). It deferred behind a long monk 4 job from at least 04:15Z until 04:45Z, then deployed. origin/main2 is `790ddd2691b`; the only commits ahead are a docs change and this run's fix and its comment correction.
+- **Drain/units:** 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, no drain or derotation marker found.
+- **Budget heartbeat:** last push 06:33:50Z, 5 minutes before the end of this run. The last 9 pushes (04:31 to 06:33Z) are all ok, at about a 15-minute cadence. Spend is 20519146 of 180M. The published value sat at 19997940 from 04:31 to 05:50Z because the scaler's readings were below it (19779917 to 19995096), so the published number lagged for about 80 minutes. Not investigated.
+- **State clones:** the largest are monitors/monk-1 (417M, 42 packs) and monitors/monk-2 (241M, 49 packs). No `gc.log` or temp packs in the monk and monitor clones. No `index.lock` older than 30 minutes in the root or journal. Only those clones were checked.
+- **rc=124 (12h):** one, `endojs-endo-but-for-bots-pr1643-gauntlet-clean` at 03:15Z after 21s, classed transient. No `Failed with result` in 3h. This job's first attempt died with rc=75 after 18s at 05:46Z, also classed transient, and was requeued.
+- **Dep-cache eviction (`dd1eb97`, first run on real data):** it works but gave no free-space jump. Three ticks removed 2, 3 and 2 entries (the 06:12Z tick spent about its full 300s budget), and 11 renamed entries still wait, so the backlog needs about 2.5 more hours at that rate. One sampled entry was 681 of 693 MiB in files with other hardlinks, and the 9 minion.town entries total 1360 MiB deduplicated against about 150 MiB each. The "about 1 GiB each" in the last note was therefore too high as a measure of what eviction frees: most of each entry is shared. Whether the flat free space comes from eviction is not proven; the timing fits, over one hour.
+- **The defect (requirements-watch):** the maintainer got `watchdog-unclaimable-host-requirements-oros-health-checkup-20261103-053509` at 06:07Z, saying this job had been unclaimed for 1801s and no live host met its requirements. That was false: oros claimed it at 05:44Z, and the reaper requeued it at 06:03Z with a retry back-off until 06:13Z, so it had been back in todo for 4 minutes. The first-seen marker survived the claim. Oros was healthy, so the notice can be ignored.
+- **Changed:** landed `1653f78` (comment corrected in `790ddd2691b`): a pass now drops markers for jobs not dwelling in todo, and a job in plain-retry back-off does not count. `host-requirements-gating-test.sh` passes 25 of 25; 5 of the new checks fail against the old script. It runs on the leader and takes effect at the next deploy. I removed no files by hand and touched no units.
+- **Benign, no change:** the `overdue-holder ... worktree-sweeper` lines come from the contention watch seeing the sweeper hold its private clone's `journal.lock` for its whole run; they predate eviction. During this run a `pkill -f` of mine matched its own shell and ended two of my diagnostic commands; nothing else was affected.
+- **Sibling watcher:** `oros-health-watch-20261103-053509`, claimed 05:49Z on endolin, had left doin by 06:38Z. Its report was not read.
+- **Not checked this run:** scratch was not re-measured (375 entries).
+- **Needs the maintainer:** someone at the Mac should find what uses the roughly 300 GiB outside the garden tree; about 41 GiB is left. Eviction will not recover much on its own.
+
 ## 2026-11-03T03:08Z (oros-health-checkup-20261103-022025): degraded (disk only); deployed `0844a5d`, main2 `dd1eb97`; landed a dep-cache eviction fix
 
 - **Load/mem:** load 3.31, 4.23, 4.00 at 02:35Z and 2.67, 2.93, 3.43 at 03:05Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
