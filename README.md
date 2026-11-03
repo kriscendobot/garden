@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T03:35:11Z_
+_As of 2026-11-03T03:36:17Z_
 
 ## Latest
 
@@ -1146,20 +1146,19 @@ worst fetch p95 10.103944s/45s (unknown); 12 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1642-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1642-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1642
 - [`endopi-iterative-compaction-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-iterative-compaction-build-open-pr.md) — Description
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1640-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1640-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1640
 - [`endojs-endo-but-for-bots-pr1643-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1643-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1643
-- [`endopi-iterative-compaction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endopi-iterative-compaction-build.md) — ---
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1641-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1641
 - [`endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin.md) — ---
 
-### tada (16298)
+### tada (16299)
+- [`endopi-iterative-compaction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endopi-iterative-compaction-build.md) — What changed
 - [`oros-health-watch-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-022025.md) — Cost
 - [`oros-health-checkup-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-022025.md) — Cost
 - [`endojs-endo-but-for-bots-pr1642-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1642-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1643-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1643-gauntlet-viability.md) — Cost
-- [`minion-town-arc-press-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-022025.md) — Cost
-- … and 16293 more
+- … and 16294 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
