@@ -26,6 +26,12 @@ export GARDEN_TAG=journal-contention-watch
 : "${GARDEN_CONTENTION_REMEDY:=1}"
 : "${GARDEN_CONTENTION_REMEDY_INTERVAL:=21600}"
 : "${GARDEN_CONTENTION_REMEDY_LOCK_BACKOFF:=900}"
+# After a rebuild that started and failed (usually killed at the tick deadline),
+# wait this long before the next attempt for that clone. A rebuild writes the whole
+# journal tree (83k files) to disk while the real clone is renamed away, so retrying
+# every tick adds load and unavailability with little to show for it (oros
+# 2026-11-03: 7 attempts on 3 clones in an hour, none finished; 2026-11-01: 3 of 18).
+: "${GARDEN_CONTENTION_REMEDY_FAIL_BACKOFF:=3600}"
 : "${GARDEN_CONTENTION_CADENCE:=300}"
 # Fetch drift needs a real trend: enough samples over a long enough span, a newest
 # median at or above the floor, and (a 1.5x rise or a projection to the hard guard
@@ -62,7 +68,7 @@ GARDEN_CONTENTION_SLUG_PREFIX="${GARDEN_CONTENTION_SLUG_PREFIX-$(contention_clon
 : "${GARDEN_CONTENTION_INSPECTION_LOCK_WAIT:=2}"
 : "${GARDEN_CONTENTION_TEST_SLUG_COST:=0}" # test hook: fake seconds charged per analyzed clone
 
-mkdir -p "$GARDEN_CONTENTION_STATE"/{stats,confirm,alerts,remedy,remedy-await,remedy-deferred,remedy-lock-deferred,remedy-cleanup,notice-pending}
+mkdir -p "$GARDEN_CONTENTION_STATE"/{stats,confirm,alerts,remedy,remedy-await,remedy-deferred,remedy-lock-deferred,remedy-fail-backoff,remedy-cleanup,notice-pending}
 now="$GARDEN_CONTENTION_NOW_EPOCH"
 export JC_SINCE=$(( now - GARDEN_CONTENTION_MAX_AGE ))
 hard_fetch="$(awk -v cap="$GARDEN_FETCH_TIMEOUT" 'BEGIN { printf "%.6f", cap * 0.70 }')"
@@ -191,20 +197,41 @@ remedy_cleanup() { # slug old-path; records cleanup before attempting it
 }
 
 flush_remedy_cleanups() {
-  local cleanup_file old
+  local cleanup_file old owner
   for cleanup_file in "$GARDEN_CONTENTION_STATE"/remedy-cleanup/*; do
     [ -e "$cleanup_file" ] || continue
     old="$(cat "$cleanup_file")"
     case "${old%/}/" in "${GARDEN_STATE%/}/"*) ;; *) log "refusing out-of-scope remedy cleanup $old"; continue;; esac
-    case "$old" in *.contention-old.*) ;; *) log "refusing malformed remedy cleanup $old"; continue;; esac
+    case "$old" in
+      *.contention-old.*) ;;
+      *.seed.*)
+        owner="${old##*.seed.}"
+        case "$owner" in ''|*[!0-9]*) log "refusing malformed remedy cleanup $old"; continue;; esac
+        ! kill -0 "$owner" 2>/dev/null || continue
+        ;;
+      *) log "refusing malformed remedy cleanup $old"; continue;;
+    esac
     remedy_cleanup "${cleanup_file##*/}" "$old"
   done
 }
 
-remedy_clone() { # clone slug reason; prints applied|backoff|lock-backoff|disabled|deferred|out-of-scope
+# A rebuild killed mid-checkout leaves its seed temp behind. Only the next attempt
+# for that clone would sweep it, and that is now up to an hour away.
+remedy_cleanup_dead_seeds() { # clone slug
+  local seed owner
+  for seed in "${1%/}".seed.*; do
+    [ -d "$seed" ] || continue
+    owner="${seed##*.seed.}"
+    case "$owner" in ''|*[!0-9]*) continue;; esac
+    kill -0 "$owner" 2>/dev/null || remedy_cleanup "$2" "$seed"
+  done
+}
+
+remedy_clone() { # clone slug reason; prints applied|backoff|lock-backoff|fail-backoff|disabled|deferred|out-of-scope
   local clone="$1" slug="$2" reason="$3" last=0 old ts remaining run_for rc=0
   local stamp="$GARDEN_CONTENTION_STATE/remedy/$slug"
   local lock_deferred="$GARDEN_CONTENTION_STATE/remedy-lock-deferred/$slug" lock_retry=0 err
+  local fail_backoff="$GARDEN_CONTENTION_STATE/remedy-fail-backoff/$slug" fail_retry=0
   [ "$GARDEN_CONTENTION_REMEDY" = 1 ] || { printf 'disabled'; return 0; }
   case "${clone%/}/" in "${GARDEN_STATE%/}/"*) ;; *) printf 'out-of-scope'; return 0;; esac
   [ "${clone%/}" != "${GARDEN_STATE%/}" ] || { printf 'out-of-scope'; return 0; }
@@ -215,6 +242,12 @@ remedy_clone() { # clone slug reason; prints applied|backoff|lock-backoff|disabl
     case "$lock_retry" in *[!0-9]*|'') lock_retry=0;; esac
     if [ "$now" -lt "$lock_retry" ]; then printf 'lock-backoff'; return 0; fi
     rm -f "$lock_deferred"
+  fi
+  if [ -f "$fail_backoff" ]; then
+    read -r fail_retry _ < "$fail_backoff" || true
+    case "$fail_retry" in *[!0-9]*|'') fail_retry=0;; esac
+    if [ "$now" -lt "$fail_retry" ]; then printf 'fail-backoff'; return 0; fi
+    rm -f "$fail_backoff"
   fi
   ts="$(date -u -d "@$now" +%Y%m%dT%H%M%SZ 2>/dev/null || printf '%s' "$now")"
   old="${clone}.contention-old.${ts}"
@@ -243,8 +276,10 @@ remedy_clone() { # clone slug reason; prints applied|backoff|lock-backoff|disabl
   else
     [ ! -s "$err" ] || cat "$err" >&2
     rm -f "$err" "$lock_deferred"
+    printf '%s %s\n' "$(( now + GARDEN_CONTENTION_REMEDY_FAIL_BACKOFF ))" "$reason" > "$fail_backoff"
     printf '%s\n' "$reason" > "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
-    printf 'deferred'
+    remedy_cleanup_dead_seeds "$clone" "$slug"
+    printf 'fail-backoff'
   fi
 }
 
@@ -331,7 +366,7 @@ analyze_clone() {
       printf '%s\n' "${clone_reason:-fetch ${fmax}s near ${hard_fetch}s cap guard}" \
         > "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
     else remedy="$(remedy_clone "$clone" "$slug" "${clone_reason:-fetch ${fmax}s near ${hard_fetch}s cap guard}")"; fi
-    case "$remedy" in deferred|deferred-deadline|lock-backoff) ;; *) rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug";; esac
+    case "$remedy" in deferred|deferred-deadline|lock-backoff|fail-backoff) ;; *) rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug";; esac
     if [ "$remedy" = applied ]; then
       printf '%s %s\n' "$now" "$remedy_class" > "$await_file"
       # Old-clone latency must not keep the rebuilt clone anomalous forever. A
@@ -340,7 +375,8 @@ analyze_clone() {
       : > "$(ring fetch "$slug")"
     fi
   elif [ "$clone_bad" -eq 0 ] && [ "$fetch_hard" -eq 0 ]; then
-    rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug" "$GARDEN_CONTENTION_STATE/remedy-lock-deferred/$slug"
+    rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug" "$GARDEN_CONTENTION_STATE/remedy-lock-deferred/$slug" \
+      "$GARDEN_CONTENTION_STATE/remedy-fail-backoff/$slug"
   fi
 
   {
@@ -410,7 +446,7 @@ forget_vanished_slug() { # slug; 0 = forgotten
   done
   rm -f "$GARDEN_CONTENTION_DIR"/*/"$slug" "$GARDEN_CONTENTION_STATE"/confirm/*-"$slug" \
     "$GARDEN_CONTENTION_STATE/remedy/$slug" "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug" \
-    "$GARDEN_CONTENTION_STATE/remedy-lock-deferred/$slug"
+    "$GARDEN_CONTENTION_STATE/remedy-lock-deferred/$slug" "$GARDEN_CONTENTION_STATE/remedy-fail-backoff/$slug"
 }
 live_slugs=()
 for slug in "${all_slugs[@]}"; do

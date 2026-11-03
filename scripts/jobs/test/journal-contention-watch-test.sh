@@ -395,7 +395,7 @@ CLONE="$STATE/slow-remedy/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q
 printf '%2048s' x > "$CLONE/oversized"; git -C "$CLONE" hash-object -w oversized >/dev/null
 slug="${CLONE//[!A-Za-z0-9]/_}"
 SLOW_ENSURE="$TR/slow-ensure.sh"
-printf '#!/bin/bash\nsleep 10\nmkdir -p "$1/.git"\n' > "$SLOW_ENSURE"; chmod +x "$SLOW_ENSURE"
+printf '#!/bin/bash\nmkdir -p "${1%%/}.seed.$$"\nsleep 10\nmkdir -p "$1/.git"\n' > "$SLOW_ENSURE"; chmod +x "$SLOW_ENSURE"
 start=$SECONDS
 env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
   GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH=1000 \
@@ -408,6 +408,45 @@ elapsed=$(( SECONDS - start ))
 [ -e "$CLONE/oversized" ] || { echo 'FAIL: timed-out remedy did not restore original clone'; exit 1; }
 [ -e "$WATCH_STATE/remedy-deferred/$slug" ] || { echo 'FAIL: timed-out remedy was not recorded'; exit 1; }
 grep -q '^deferred_remedies: 1$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: heartbeat omitted deferred remedy'; exit 1; }
+grep -q '^remedy: fail-backoff$' "$WATCH_STATE/stats/$slug" || { echo 'FAIL: failed remedy did not report fail-backoff'; exit 1; }
+grep -q '^4600 ' "$WATCH_STATE/remedy-fail-backoff/$slug" || { echo 'FAIL: failed remedy retry deadline was not recorded'; exit 1; }
+[ ! -e "$WATCH_STATE/remedy/$slug" ] || { echo 'FAIL: failed remedy stamped the success interval'; exit 1; }
+
+# A failed rebuild must not start again on the next tick: on oros each attempt
+# wrote the whole journal tree and renamed the live clone away, every five minutes.
+# The leftover seed temp goes meanwhile, since no attempt will sweep it for an hour.
+ATTEMPTED="$TR/remedy-attempted"; rm -f "$ATTEMPTED"
+COUNT_ENSURE="$TR/count-ensure.sh"
+printf '#!/bin/bash\n: > "%s"\nmkdir -p "$1/.git"\n' "$ATTEMPTED" > "$COUNT_ENSURE"; chmod +x "$COUNT_ENSURE"
+fail_tick() { # now
+  env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+    GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH="$1" \
+    GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+    GARDEN_CONTENTION_CLONE_MAX_BYTES=4096 GARDEN_CONTENTION_REMEDY_MIN=0 \
+    GARDEN_CONTENTION_ENSURE_CLONE_CMD="$COUNT_ENSURE" GARDEN_CONTENTION_DELETE_SYNC=1 \
+    "$JOBS/journal-contention-watch.sh"
+}
+fail_tick 1300
+[ ! -e "$ATTEMPTED" ] || { echo 'FAIL: failed remedy retried inside its backoff'; exit 1; }
+[ -e "$CLONE/oversized" ] || { echo 'FAIL: backoff tick replaced the clone'; exit 1; }
+grep -q '^remedy: fail-backoff$' "$WATCH_STATE/stats/$slug" || { echo 'FAIL: backoff tick did not report fail-backoff'; exit 1; }
+[ -e "$WATCH_STATE/remedy-deferred/$slug" ] || { echo 'FAIL: backoff tick dropped the deferred remedy'; exit 1; }
+if compgen -G "${CLONE%/}.seed.*" >/dev/null; then echo 'FAIL: dead seed temp was not cleaned up'; exit 1; fi
+fail_tick 4600
+[ -e "$ATTEMPTED" ] || { echo 'FAIL: remedy did not retry at its failure deadline'; exit 1; }
+grep -q '^remedy: applied$' "$WATCH_STATE/stats/$slug" || { echo 'FAIL: retried remedy was not applied'; exit 1; }
+[ ! -e "$WATCH_STATE/remedy-fail-backoff/$slug" ] || { echo 'FAIL: failure deadline survived a successful retry'; exit 1; }
+
+# A cleanup record for a seed whose owner is alive waits, and a malformed one is refused.
+reset_case
+mkdir -p "$WATCH_STATE/remedy-cleanup" "$STATE/seeds"
+LIVE_SEED="$STATE/seeds/journal.seed.$$"; BAD_SEED="$STATE/seeds/journal.seed.abc"
+mkdir -p "$LIVE_SEED" "$BAD_SEED"
+printf '%s\n' "$LIVE_SEED" > "$WATCH_STATE/remedy-cleanup/live"
+printf '%s\n' "$BAD_SEED" > "$WATCH_STATE/remedy-cleanup/bad"
+run_watch 100
+[ -d "$LIVE_SEED" ] || { echo 'FAIL: cleanup removed a seed with a live owner'; exit 1; }
+[ -d "$BAD_SEED" ] || { echo 'FAIL: cleanup removed a malformed seed path'; exit 1; }
 
 # Old samples age out: one lock give-up no longer pages forever, and its open
 # notice recovers once the sample leaves the window.

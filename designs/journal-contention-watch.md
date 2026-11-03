@@ -194,7 +194,10 @@ Scope is strictly the **per-instance `$GARDEN_STATE` clones** (`*/journal`,
 `*/verify`, leader/producer clones). The **shared root repo** and its `journal/`
 worktree are left to [root-repo-guard](root-repo-guard.md) — two actuators must not
 fight over one repo. Backoff mirrors root-repo-guard: at most one rebuild per clone
-per `GARDEN_CONTENTION_REMEDY_INTERVAL` (default 6h). A kill-switch
+per `GARDEN_CONTENTION_REMEDY_INTERVAL` (default 6h). A rebuild that starts and fails,
+usually killed at the tick deadline, waits `GARDEN_CONTENTION_REMEDY_FAIL_BACKOFF`
+(default 1h, `remedy: fail-backoff`) before its next attempt, and its leftover seed temp
+is queued for cleanup. A kill-switch
 `GARDEN_CONTENTION_REMEDY=0` degrades to alert-only. The remedy runs even while the
 fleet is draining (a per-service clone is not the deploy's tree), unlike
 root-repo-guard's maintenance which defers to the deploy.
