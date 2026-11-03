@@ -1,5 +1,17 @@
 #!/bin/bash
 # Fleet git entrypoint; the implementation and lock policy live in common.sh.
+# A PATH shim that execs this wrapper again forms a cycle: the wrapper resolves the
+# shim as the real git, and each pass adds processes until the worker's memory
+# limit stalls the host (13.5k processes on oros, 2026-11-03). Hooks and the
+# timeout re-entry below nest a few levels; nothing legitimate nears the limit.
+_garden_git_depth="${GARDEN_GIT_WRAPPER_DEPTH:-0}"
+case "$_garden_git_depth" in ''|*[!0-9]*) _garden_git_depth=0 ;; esac
+export GARDEN_GIT_WRAPPER_DEPTH=$((_garden_git_depth + 1))
+if [ "$GARDEN_GIT_WRAPPER_DEPTH" -gt "${GARDEN_GIT_WRAPPER_MAX_DEPTH:-32}" ]; then
+  printf 'garden git wrapper: nested %s levels; GARDEN_REAL_GIT=%s re-enters this wrapper. A git shim must exec the real git binary, not "command -v git".\n' \
+    "$GARDEN_GIT_WRAPPER_DEPTH" "${GARDEN_REAL_GIT:-unset}" >&2
+  exit 126
+fi
 # Resolve the real git before sourcing, preserving PATH-injected test shims.
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 : "${GARDEN_ROOT:=$(cd "$here/../../.." && pwd)}"

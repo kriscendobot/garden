@@ -108,6 +108,7 @@ jobs:
           bash scripts/openshell-pilot/test.sh
           bash tests/checks/run.sh
           bash scripts/jobs/test/repo-locks-test.sh
+          bash scripts/jobs/test/git-wrapper-recursion-test.sh
           bash scripts/jobs/test/fallback-warn-dedup-test.sh
           bash scripts/jobs/test/journal-entry-argv-test.sh
           bash scripts/jobs/test/journal-entry-project-test.sh
