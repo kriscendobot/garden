@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T06:01:16Z_
+_As of 2026-11-03T06:09:30Z_
 
 ## Latest
 
@@ -499,6 +497,10 @@ Delegation: **active**
 > minion-town-arc-press-20261024-122008 was claimed 12:20:40Z on endolin-garden-ece02cb4. It is 5368s old against a 2400s handler budget (2968s overdue), with 0 requeues. I found no live process or scratch worktree for it on that host, so it looks orphaned. I took no action: this press only observes, and the reaper should requeue it.
 > Everything else is nominal. 11 completions ([kriscendobot/minion.town#218](https://github.com/kriscendobot/minion.town/issues/218) gauntlet rounds 14–16 included), 0 new dooms, 0 absent jobs.
 > Side note: the report wrapper's schedule-derived window lagged one dispatch (it gave 01:35→07:35), so I passed --since/--until explicitly.
+
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261103-053509` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261103-053509.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261103-053509' has remained unclaimed for 1801s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-namespace-clone-packs-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-namespace-clone-packs-oros-studio-garden-ce242c49.md)
 
@@ -1128,40 +1130,40 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.7M | $375.79 _(notional, rate-card)_ | 38% of 271.0M (ok) |
+| Claude | 101.7M | $376.07 _(notional, rate-card)_ | 38% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51719371 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51748432 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (9)
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1641-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1641
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`prove-minion-town-invitations-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/prove-minion-town-invitations-20261103.md) — ---
 - [`kriscendobot-minion.town-pr199-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #199
+- [`kriscendobot-minion.town-pr199-weave-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-weave-20261103.md) — Weave kriscendobot/minion.town#199 onto current main
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`oros-health-checkup-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261103-053509.md) — ---
 
-### doin (7)
+### doin (5)
 - [`kriscendobot-minion.town-pr199-review-4460eb00`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-review-4460eb00.md) — Review directive on kriscendobot/minion.town PR #199
 - [`oros-health-watch-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261103-053509.md) — ---
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1646-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1646
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1645-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1645
 - [`endojs-endo-but-for-bots-pr1644-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1644-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1644
-- [`minion-town-arc-press-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261103-053509.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`oros-health-checkup-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-053509.md) — ---
 
-### tada (16316)
+### tada (16317)
+- [`minion-town-arc-press-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-053509.md) — Cost
 - [`endojs-endo-but-for-bots-pin-node-version-24`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pin-node-version-24.md) — Cost
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1646-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1644-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1644-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1645-gauntlet-viability.md) — Viability for PR #1645: proceed
-- [`endojs-endo-but-for-bots-pr1641-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1641-gauntlet-panel-1.md) — Cost
-- … and 16311 more
+- … and 16312 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1193,7 +1195,6 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`cutover-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/cutover-budget-road.md) — _normal_ · Cut over to the budget road
-- [`minion-town-coupon-admission-flip-20261019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-coupon-admission-flip-20261019.md) — _normal_ · Flip minion.town to guest coupon admission (closed beta)
 - [`endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #546
 - [`endojs-endo-but-for-bots-pr1486-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1486-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1486
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
@@ -1255,6 +1256,7 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 - [`minion-town-ocapn-canary-live-run-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocapn-canary-live-run-2.md) — awaiting `endo-minion-town-federation-live-acceptance` · Live run of the minion.town OCapN guest canary (resumes minion-town-ocapn-can...
 - [`build-confined-fetch-timer-endowment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-fetch-timer-endowment.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1588` · ---
 - [`endo-mvs-semver-convergence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-mvs-semver-convergence.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1596` · Converge the Rust npm resolver and the daemon semver copy on exo-npm's MVS rule
+- [`minion-town-coupon-admission-flip-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-coupon-admission-flip-20261103.md) — awaiting `kriscendobot-minion.town-pr199-conduct-20261103` · Flip minion.town to guest coupon admission (closed beta)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`kriscendobot-minion-town-node-observed-interpreter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-node-observed-interpreter.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/171` · minion.town: observe the root-owned Node interpreter in the harness layout probe
 - [`kriscendobot-minion.town-pr199-conduct-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-conduct-20261103.md) — awaiting `kriscendobot-minion.town-pr199-gauntlet-20261103` · Merge kriscendobot/minion.town#199 (maintainer-approved guest coupons)
