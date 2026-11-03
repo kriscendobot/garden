@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T09:36:10Z_
+_As of 2026-11-03T09:37:48Z_
 
 ## Latest
 
@@ -1162,7 +1162,7 @@ _Fleet token-unlock pace: 51996766 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.099407s/45s (/home/kris/garden/.garden-state/transcripts/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1645-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1645
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-20261103-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #199
@@ -1170,10 +1170,9 @@ worst fetch p95 4.099407s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`kriscendobot-minion.town-pr234-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr234-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #234
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`kriscendobot-minion.town-pr233-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr233-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #233
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr233-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr233-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #233
 
 ### tada (16353)
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1645-gauntlet-panel-2.md) — Cost
