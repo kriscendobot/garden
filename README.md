@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T13:05:40Z_
+_As of 2026-11-03T13:07:58Z_
 
 ## Latest
 
@@ -1233,14 +1233,14 @@ _Fleet token-unlock pace: 52061584 tokens/day lower bound; incomplete where a su
 worst fetch p95 3.583962s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`kriscendobot-minion.town-pr199-conduct-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-conduct-20261103.md) — Merge kriscendobot/minion.town#199 (maintainer-approved guest coupons)
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
+- [`kriscendobot-minion.town-pr199-conduct-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-conduct-20261103.md) — Merge kriscendobot/minion.town#199 (maintainer-approved guest coupons)
 - [`claude-on-minion-town-completion-press-20261103-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261103-123508.md) — Completion press: Claude-on-minion.town arc
 - [`kriscendobot-minion.town-pr234-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr234-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #234
 
