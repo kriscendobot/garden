@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T15:28:57Z_
+_As of 2026-11-03T15:35:29Z_
 
 ## Latest
 
@@ -215,11 +213,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-03T11:29:32Z, cleared 2026-11-03T14:43:12Z).
+> RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-03T11:29:32Z, cleared 2026-11-03T15:34:32Z).
 > It was observed 7 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
+> Journal contention condition `journal-contention-storm-fetch-slow` cleared on oros-studio-garden-ce242c49.
 
 - `20261031T063820Z-b3abb6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261031T063820Z-b3abb6.md)
 
@@ -548,10 +546,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
-
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261103-150510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261103-150510.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261103-150510' has remained unclaimed for 1201s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `endojs-endo-but-for-bots-pr1575-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1575-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1575-gauntlet-halted.md)
 
@@ -1218,35 +1212,33 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.6M | $403.34 _(notional, rate-card)_ | 40% of 271.0M (backoff) |
+| Claude | 109.7M | $403.93 _(notional, rate-card)_ | 40% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 52163812 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52262119 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 4.264322s/45s (/home/kris/garden/.garden-state/follow-up/journal); 12 open notice(s); checker healthy
+worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (7)
-- [`screen-minion-town-pr234-bb6f1be-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr234-bb6f1be-conduct.md) — Screened delegated merge: kriscendobot/minion.town#234 at bb6f1bee265fa0c7341...
-- [`screen-minion-town-pr233-8991149-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr233-8991149-conduct.md) — Screened delegated merge: kriscendobot/minion.town#233 at 899114970ca9aebe56f...
+### todo (4)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`oros-health-watch-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261103-150510.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-150510.md) — ---
+- [`oros-health-watch-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261103-150510.md) — ---
 - [`minion-town-arc-press-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261103-150510.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (16389)
+### tada (16391)
+- [`screen-minion-town-pr234-bb6f1be-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct.md) — Cost
+- [`screen-minion-town-pr233-8991149-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr233-8991149-conduct.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-40e4859456a9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-40e4859456a9.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr234-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-gauntlet.md) — gauntlet kriscendobot-minion.town-pr234-gauntlet — complete
 - [`kriscendobot-minion.town-pr234-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-gauntlet-undraft.md) — Cost
-- [`claude-on-minion-town-completion-press-20261103-123508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/claude-on-minion-town-completion-press-20261103-123508.md) — Cost
-- [`kriscendobot-minion.town-pr199-conduct-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-conduct-20261103.md) — Cost
-- … and 16384 more
+- … and 16386 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
