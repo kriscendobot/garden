@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T09:18:00Z_
+_As of 2026-11-03T09:21:11Z_
 
 ## Latest
 
@@ -1155,10 +1153,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.5M | $386.36 _(notional, rate-card)_ | 39% of 271.0M (ok) |
+| Claude | 104.6M | $389.14 _(notional, rate-card)_ | 39% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51951392 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51968835 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.099407s/45s (/home/kris/garden/.garden-state/transcripts/journal); 7 open notice(s); checker healthy
@@ -1172,18 +1170,17 @@ worst fetch p95 4.099407s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #199
 
-### doin (3)
-- [`minion-town-arc-press-20261103-085009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261103-085009.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (2)
 - [`build-minion-town-mcp-guest-invite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-mcp-guest-invite.md) — Build the MCP invite tool so the root user can extend minion.town invitations
 - [`build-minion-town-prod-probe-invitation-roundtrip`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-prod-probe-invitation-roundtrip.md) — Add an invitation round trip to the minion.town prod probe
 
-### tada (16347)
+### tada (16348)
+- [`minion-town-arc-press-20261103-085009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-085009.md) — Cost
 - [`oros-health-watch-20261103-085009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-085009.md) — Cost
 - [`oros-health-checkup-20261103-085009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-085009.md) — Cost
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1645-gauntlet-fix-1.md) — Cost
-- [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-2.md) — Cost
-- … and 16342 more
+- … and 16343 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
