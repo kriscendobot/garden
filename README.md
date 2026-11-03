@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T13:24:22Z_
+_As of 2026-11-03T13:25:42Z_
 
 ## Latest
 
@@ -1171,14 +1171,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` cleared on oros-studio-garden-ce242c49.
-
-- `watchdog-self-heal-garden-mirror-closer` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mirror-closer.md)
-
-> self-heal: garden-mirror-closer exited rc=1 with no scoped fix. Capture: c74f8694260c0adefa151c806afa976ee9e7a297 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p c74f8694260c0adefa151c806afa976ee9e7a297). Diagnosis: The failure looks transient, so I'm not posting a fix job.
->
-> The tick ran to completion ("tick complete: closed 0 mirror(s)"). It exited 1 because one mapping hit a non-quota failure: reading upstream state for `Agoric/agoric-sdk#11297` through `gh api graphql` failed. The error was `invalid character 'b' looking for beginning of value`. That is a JSON parse error on a non-JSON body, probably a plain-text GitHub response such as "bad gateway" or "bad credentials". The log shows no sign of quota exhaustion.
->
-> The other five mappings read fine and were correctly left alone because their upstream PRs are still open. The closer skipped the bad mapping and says it will retry next tick. The nonzero exit is the closer's intended way to flag "some mappings unresolved this tick", and systemd restarts
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
