@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T15:44:18Z_
+_As of 2026-11-03T15:44:58Z_
 
 ## Latest
 
@@ -1221,7 +1221,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.8M | $404.35 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 109.8M | $404.01 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52262119 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1236,18 +1236,17 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-150510.md) — ---
 - [`oros-health-watch-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261103-150510.md) — ---
-- [`screen-minion-town-pr234-bb6f1be-conduct-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/screen-minion-town-pr234-bb6f1be-conduct-r3.md) — Screened delegated merge: kriscendobot/minion.town#234 at bb6f1bee265fa0c7341...
 
-### tada (16393)
+### tada (16394)
+- [`screen-minion-town-pr234-bb6f1be-conduct-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct-r3.md) — Cost
 - [`screen-minion-town-pr234-bb6f1be-conduct-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct-r2.md) — Cost
 - [`minion-town-arc-press-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-150510.md) — Cost
 - [`screen-minion-town-pr234-bb6f1be-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr234-bb6f1be-conduct.md) — Cost
 - [`screen-minion-town-pr233-8991149-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/screen-minion-town-pr233-8991149-conduct.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-40e4859456a9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-40e4859456a9.md) — rolling-deploy canary probe — round trip OK
-- … and 16388 more
+- … and 16389 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
