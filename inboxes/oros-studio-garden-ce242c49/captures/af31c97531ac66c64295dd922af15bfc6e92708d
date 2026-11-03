@@ -1,0 +1,44 @@
+<6>06:20:42 [monk/1] job 'kriscendobot-minion.town-pr199-weave-20261103' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>06:21:06 [monk/1] job 'kriscendobot-minion.town-pr199-weave-20261103' call ceiling: tier=mentor max-budget-usd=17.60 (scaled by fresh seven-day headroom when available)
+<4>06:21:07 [monk/1] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion.town-pr199-weave-20261103' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+panel-head-freshness: stale target=kriscendobot/minion.town#199 reviewed_head=085c7445c33504b0c7e67682491b298917fd114d presented_head=90e41d682262e430543eecac171819c9bea477e2 disposition=review-required
+<6>06:51:54 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/199 moved after a completed panel; deferring to the review-docket freshness disposition
+panel-head-freshness: stale target=kriscendobot/minion.town#199 reviewed_head=085c7445c33504b0c7e67682491b298917fd114d presented_head=90e41d682262e430543eecac171819c9bea477e2 disposition=review-required
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 3233899 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>06:54:34 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/218 failed (rc=124, attempt 3); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=3233899 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 3255479 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>06:56:04 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/199 to /Users/dom/garden/.garden-state/review-docket/spool (f6fbc2f210d9091a); the next transaction on this host drains it
+<6>06:56:04 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+kriscendobot/minion.town#199 is woven onto main at `c5c35044`, CI is green, and the re-review gauntlet is staged. The PR's base is now the frozen `main-c5c3504` (was `main-bda7739`), and it is still a draft with a clean merge state.
+
+**Head:** `feat/guest-coupons` went from `085c7445` to `90e41d68` by force-with-lease. That's the 21 original commits, none dropped, plus one new port commit.
+
+**Conflicts**
+- **`src/config.ts` and `src/web/guest-web-router.ts`:** I kept both sides. Main's sign-out, deletion and invitation-error code sits beside the coupon code, and `parseCouponAdmission` replaces the old inline parsing. The coupon routes use main's `service` binding.
+- **`guest.html` and `guest.js`:** not resurrected. Main's `f0fbe2c6` replaced them with the one landing at `/` (`index.html` and `home.js`), which could carry coupons without a design decision. The edits to those files were dropped from four rebased commits, so the parity test can't load between those commits and the port commit.
+
+**Port commit (`feat(landing): redeem guest coupons on the one landing`)**
+- **Parser:** `home.js` `parseFragment` reads `#v=1&coupon=` under the server parser's rules, and the existing parity property test now runs against it.
+- **Bare coupon link:** a browser with no guest gets a new redeem card, and the coupon is spent only on the click.
+- **Invitation with a coupon:** accepting redeems the coupon through `POST /api/guest/coupon` in place of `POST /api/guest`.
+- **Invitation with no coupon under `GUEST_ADMISSION=coupon`:** the newcomer sees the "ask for a coupon" text and no accept form.
+- **Existing guest:** never spends a coupon. A reload mid-redemption keeps the same stored nonce.
+- **Unchanged and docs:** the splash still has no way to create a guest, and the defaults stay `GUEST_ADMISSION=open` and `COUPON_STORE=off`. I also updated `designs/closed-beta-waitlist.md` and `DEPLOYMENT.md`.
+
+**Verification**
+- **CI on `90e41d68`:** all green, including typecheck, vitest, the three live-daemon suites (coupons among them), the clip frame browser gate and the harness builds.
+- **Real Chromium against the local router in coupon mode:** 26 of 26 one-off checks pass, covering all the flows above plus a spent coupon, decline and a malformed link. They found one bug, now fixed: card CSS overrode `hidden` on the accept form. This script isn't committed; the unit tests pin the parser, card selection and nonce logic, but not the end-to-end flows.
+- **Local `npm test`:** 1695 passed, 2 failed.
+  - `test/endo-guest-lockdown.test.ts` passes when run alone.
+  - `test/git-remote/capability.test.ts` still fails alone on this host, but this diff doesn't touch git-remote and it passes in CI.
+- **Local `tsc`:** the only errors shown are in `test/browser/clip-frame-gate.ts`, because `playwright` isn't installed in this worktree.
+
+**Gauntlet:** `kriscendobot-minion.town-pr199-gauntlet-20261103` is posted. The first attempt hit the push-race deadline (rc=75) and the retry succeeded. The record and its `-viability` stage are on `origin/journal2`. The parked conduct job is `blocked_on` this gauntlet, and the production flip is `blocked_on` conduct.
+
+**For the re-review**
+1. **Coupon opt-out checkbox not ported:** main's settings panel is a single-purpose form, so a local invitation now attaches a coupon by the server default. The API still accepts `attachCoupon: false`, and the status line says when a coupon is attached. An invitee who already has a guest ignores it, and an unused coupon expires back to the pool.
+2. **Likely main bug, not fixed here:** from reading `land()` in `home.js`, a browser with a live guest that opens an invitation link goes straight to the shell, so the invitation card never appears. This affects existing guests only; newcomer redemption is not affected. I didn't run this case, and it probably deserves its own fix job.
+3. **No changeset:** this PR has none, though main now uses `.changeset`. I left that for the gauntlet to decide.
