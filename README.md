@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T19:16:13Z_
+_As of 2026-11-03T19:20:15Z_
 
 ## Latest
 
@@ -1256,10 +1254,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.3M | $426.91 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 116.6M | $433.40 _(notional, rate-card)_ | 43% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 52646772 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52789349 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 13 open notice(s); checker healthy
@@ -1271,8 +1269,9 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-150510.md) — ---
+- [`kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #234
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #229
 
 ### tada (16416)
