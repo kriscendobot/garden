@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T00:13:26Z_
+_As of 2026-11-03T00:17:30Z_
 
 ## Latest
 
@@ -1111,9 +1111,8 @@ _Fleet token-unlock pace: 51394634 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (13)
 - [`oros-health-watch-20261102-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-135010.md) — ---
-- [`claude-on-minion-town-completion-press-20261103-000509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261103-000509.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-watch-20261102-232010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-232010.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`oros-health-watch-20261102-202009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261102-202009.md) — ---
@@ -1127,7 +1126,8 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 - [`endopi-provider-registry-and-oauth-build-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-provider-registry-and-oauth-build-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1538-rerun-macos-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1538-rerun-macos-fix6.md) — endojs/endo-but-for-bots: rerun the failed macOS job on PR #1538
 
-### doin (1)
+### doin (2)
+- [`claude-on-minion-town-completion-press-20261103-000509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261103-000509.md) — Completion press: Claude-on-minion.town arc
 - [`endojs-endo-but-for-bots-pr1639-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1639-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1639
 
 ### tada (16274)
