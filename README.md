@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T05:13:51Z_
+_As of 2026-11-03T05:19:16Z_
 
 ## Latest
 
@@ -1148,17 +1146,16 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 - [`agentry-makepiagent-drops-system-messages-fix-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/agentry-makepiagent-drops-system-messages-fix-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin.md) — ---
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1640-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1640-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1640
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1643-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1643-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1643
 
-### tada (16302)
+### tada (16303)
+- [`endojs-endo-but-for-bots-pr1640-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1640-gauntlet-clean.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-dd1eb970254b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-dd1eb970254b.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1641-gauntlet-clean.md) — Clean stage: endojs/endo-but-for-bots #1641
 - [`agentry-makepiagent-drops-system-messages-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/agentry-makepiagent-drops-system-messages-fix.md) — Cause
 - [`endopi-iterative-compaction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endopi-iterative-compaction-build.md) — What changed
-- [`oros-health-watch-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-022025.md) — Cost
-- … and 16297 more
+- … and 16298 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
