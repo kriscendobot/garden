@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T02:49:11Z_
+_As of 2026-11-03T02:50:12Z_
 
 ## Latest
 
@@ -883,6 +883,14 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > minion.town MCP on endolin-garden-ece02cb4 RECOVERED at 2026-10-26T10:14:00Z (down since 2026-10-26T10:04:02Z); tools/list returns 17 tools.
+
+- `watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-fffail-oros-studio-garden-ce242c49.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-09T02:17:23Z, latest 2026-11-03T02:49:11Z).
+> The SAME condition (`journal-worktree-fffail-oros-studio-garden-ce242c49`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> journal worktree /Users/dom/garden/journal could not fast-forward to origin/journal2 despite a clean, non-ahead tree; left UNTOUCHED. Inspect 'git -C /Users/dom/garden/journal status'. (host=oros-studio-garden-ce242c49)
 
 - `20261031T162800Z-32f623` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261031T162800Z-32f623.md)
 
