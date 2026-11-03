@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T19:01:42Z_
+_As of 2026-11-03T19:03:37Z_
 
 ## Latest
 
@@ -572,10 +570,6 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.200165s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `watchdog-handler-budget-overrun-oros-health-checkup-20261103-150510` — from watchdog:monk/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-oros-health-checkup-20261103-150510.md)
-
-> gardener job 'oros-health-checkup-20261103-150510' DETERMINISTICALLY overran its handler budget (rc=137, kill-after-wall, elapsed=4176s, handler-budget=3600s, kill-grace=60s; watchdog: DEADLINE start=1793718984 term=1793722594 kill=1793722644 TERM observed=1793722595 deadline=1793722594 handler_elapsed=4176s rc=137). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `endojs-endo-but-for-bots-pr1589-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1589-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1589-gauntlet-fix-4' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -704,10 +698,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=95944153 cap=271000000 pace-bias=0.086885 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.7088(ramp) target=3
-
-- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_monks_3_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_monks_3_journal.md)
-
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/monks/3/journal: p95=0.108995s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-endopi-edit-tool-build-5dd693f06b06` — from gardener:endopi-edit-tool-build, reply_to `endopi-edit-tool-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endopi-edit-tool-build-5dd693f06b06.md)
 
@@ -1257,7 +1247,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 113.7M | $419.72 _(notional, rate-card)_ | 42% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 52466471 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52631484 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 13 open notice(s); checker healthy
