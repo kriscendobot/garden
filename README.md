@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T20:36:41Z_
+_As of 2026-11-03T20:39:41Z_
 
 ## Latest
 
@@ -1277,10 +1277,10 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`kriscendobot-minion.town-pr229-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr229-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #229
+- [`canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 9f6cb390ae0c
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr229-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #229
 
 ### tada (16426)
 - [`improve-gardener-handler-rc76-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/improve-gardener-handler-rc76-collision.md) — Cost
