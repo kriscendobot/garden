@@ -72,6 +72,10 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
+# The commit touches one path, and a replay refuses if that path moved at the fresh
+# tip, so a --base-blob check stays valid. A sync_clone per retry starved this on oros
+# 2026-11-03: 18:41Z's landing ran 540s without landing, and one with replay took 188s.
+: "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"
 export GARDEN_TAG="land-journal-edit"
 
 require_tools git
