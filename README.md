@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T06:36:10Z_
+_As of 2026-11-03T06:38:16Z_
 
 ## Latest
 
@@ -164,6 +164,10 @@ Delegation: **active**
 > The difference that matters: [endojs/endo-but-for-bots#1619](https://github.com/endojs/endo-but-for-bots/issues/1619) also restamps the ironhorse-snapshot state goldens (6 tsv files) and moves the REGX line in streaming-baseline.js. Its finding was that interning these result keys shifts the install pass. [endojs/endo-but-for-bots#1621](https://github.com/endojs/endo-but-for-bots/issues/1621) touches neither, so its snapshot/golden tests will probably go red. Its CI is still pending.
 >
 > Recommendation: let [endojs/endo-but-for-bots#1619](https://github.com/endojs/endo-but-for-bots/issues/1619) own the RegExp change. Rebase [endojs/endo-but-for-bots#1621](https://github.com/endojs/endo-but-for-bots/issues/1621) to drop its regexp.rs hunk and the match-indices shard, keeping only the await-constructor fix (suspend.rs, plus the AsyncGeneratorPrototype/for-await-of/AsyncFromSyncIterator shards). Whichever lands second takes the trivial conflict. [endojs/endo-but-for-bots#1620](https://github.com/endojs/endo-but-for-bots/issues/1620) (stacked on [endojs/endo-but-for-bots#1605](https://github.com/endojs/endo-but-for-bots/issues/1605): getOwnPropertyDescriptor@@0001 and Proxy has/set@@0000, +12) does not overlap with [endojs/endo-but-for-bots#1621](https://github.com/endojs/endo-but-for-bots/issues/1621).
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.030383s, giveups=3, steals=0 (max 3/window), wait floor=60s.
 
 - `claude-api-build-20261027-halted` — from orchestrator:claude-api-build-20261027-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-api-build-20261027-halted.md)
 
@@ -1139,7 +1143,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 51876059 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
+worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control/journal); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
