@@ -15,3 +15,13 @@ Task (proxy-tentative direction, maintainer may override; see maintainer inbox 2
 - Drive the PR through the normal gauntlet.
 
 Note in the PR that real Node 26 compatibility for the hardened262 caller/arguments assertions is a separate, deliberate follow-up.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T05:27:17Z
