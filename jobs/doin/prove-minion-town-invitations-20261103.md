@@ -18,6 +18,7 @@ Steps:
 Output: a report in the job result with PASS/FAIL per step, exact requests (no secrets), and a gap list ranked by what blocks "root invites, others accept". Do not change code, open PRs, or modify existing guests. Do not publish clips. Created guests cannot be deleted, so create no more than the two needed.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=162 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
