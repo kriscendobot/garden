@@ -18,6 +18,7 @@ Do:
 
 Constraints: draft PR only; no deploy; no secrets in output. Report PASS/FAIL for each verified recipe and list anything evaluate cannot do that blocks the invite/accept flow, since each such finding is an Endo-interface or primer bug to log.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
