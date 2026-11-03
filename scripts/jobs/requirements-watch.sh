@@ -37,7 +37,7 @@ backed_off_pools_for_requirements() {
 # The dwell measures one unbroken stay in todo. A key this pass does not mark as
 # dwelling loses its markers below, so a job that was claimed and later requeued
 # starts a fresh dwell: oros-health-checkup-20261103-053509 was reported "unclaimed
-# for 1801s" 23 minutes after a worker claimed it at 05:44Z and 12 minutes after the
+# for 1801s" 23 minutes after a worker claimed it at 05:44Z and 4 minutes after the
 # reaper returned it for a retry. A job waiting out the reaper's plain-retry back-off
 # (claim-job.sh skips it on purpose) is not dwelling either.
 declare -A dwelling=()
