@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T18:36:13Z_
+_As of 2026-11-03T18:37:54Z_
 
 ## Latest
 
@@ -1236,7 +1234,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.7M | $411.70 _(notional, rate-card)_ | 41% of 271.0M (ok) |
+| Claude | 111.7M | $411.26 _(notional, rate-card)_ | 41% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52553156 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1251,19 +1249,18 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
+### doin (3)
 - [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-150510.md) — ---
-- [`claude-on-minion-town-completion-press-20261103-183515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261103-183515.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261103-180510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-180510.md) — ---
 - [`kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #234
 
-### tada (16401)
+### tada (16402)
+- [`claude-on-minion-town-completion-press-20261103-183515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/claude-on-minion-town-completion-press-20261103-183515.md) — Panel-head freshness
 - [`kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-panel-1.md) — Cost
 - [`oros-health-watch-20261103-180510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-180510.md) — Cost
 - [`kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet-viability.md) — Cost
-- [`kriscendobot-minion.town-pr234-weave-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-weave-20261103.md) — Panel-head freshness
-- … and 16396 more
+- … and 16397 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
