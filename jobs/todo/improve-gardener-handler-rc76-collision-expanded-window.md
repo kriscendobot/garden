@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: improve-gardener-handler-rc76-collision-split
+tier: mentor
+posted_at: 2026-11-03T20:22:22Z
 handler-timeout: 7200
 split-indivisible-reason: 'one already-written patch whose docket helper, rc constant, and regression tests only pass together; the overrun was suite wall time on a loaded host, not scope'
 split-lineage-root: improve-gardener-handler-rc76-collision
 split-lineage-parent: improve-gardener-handler-rc76-collision-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-11-03T20:22:22Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-03T20:31:22Z cleared=none -->
 
 ---
 tier: mentor
