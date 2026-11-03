@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T12:09:51Z_
+_As of 2026-11-03T12:10:35Z_
 
 ## Latest
 
@@ -797,10 +797,6 @@ Delegation: **active**
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261103-115009` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261103-115009.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261103-115009' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `liaison-followup-d31d9dcee79e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-d31d9dcee79e.md)
 
 > daemon-agent-tools-design-build (endojs/endo-but-for-bots): Phase 8 of the daemon agent tools design needs your decision on Open Question 4. Should the HTTP client be a daemon `provideHttpClient` formula, or the `@endo/fetch` plugin? Phase 8 is blocked until you answer. Separately, the Phase 2c checkbox in the design document should be ticked once #1497 lands. Phase 7 (the endo-claude acceptance loop) is unblocked for its build step whenever you want it posted.
@@ -877,10 +873,6 @@ Delegation: **active**
 - `watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md)
 
 > gardener job 'ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7202s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `watchdog-unclaimable-host-requirements-oros-health-watch-20261103-115009` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261103-115009.md)
-
-> Host-requirements gate: job 'oros-health-watch-20261103-115009' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
