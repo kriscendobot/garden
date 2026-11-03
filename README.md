@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T19:34:13Z_
+_As of 2026-11-03T19:36:16Z_
 
 ## Latest
 
@@ -1269,18 +1269,17 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`improve-gardener-handler-rc76-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision.md) — ---
 - [`kriscendobot-minion.town-pr229-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #229
-- [`improve-mirror-pr-state-nonjson-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mirror-pr-state-nonjson-transient.md) — ---
 
-### tada (16421)
+### tada (16422)
+- [`improve-mirror-pr-state-nonjson-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/improve-mirror-pr-state-nonjson-transient.md) — Cost
 - [`kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet.md) — gauntlet kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet — complete
 - [`kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-undraft.md) — Cost
 - [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-150510.md) — ---
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-fix-1.md) — Cost
-- [`kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion-town-pr234-screen-0b1d8538-gauntlet-panel-1.md) — Cost
-- … and 16416 more
+- … and 16417 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
