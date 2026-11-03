@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T22:07:02Z_
+_As of 2026-11-03T22:10:53Z_
 
 ## Latest
 
@@ -1274,19 +1272,18 @@ worst fetch p95 10.101028s/45s (unknown); 8 open notice(s); checker healthy
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (4)
-- [`kriscendobot-minion.town-pr229-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #229
+### doin (3)
 - [`build-minion-town-mcp-resources-primer-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-mcp-resources-primer-20261103.md) — ---
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`build-minion-town-remote-invitation-hints-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-remote-invitation-hints-20261103.md) — ---
 
-### tada (16431)
+### tada (16432)
+- [`kriscendobot-minion.town-pr229-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-fix-4.md) — Cost
 - [`minion-town-arc-press-20261103-210510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/minion-town-arc-press-20261103-210510.md) — Completion report — minion.town arc supervision (tick 2026-11-03T~21:55Z)
 - [`oros-health-checkup-20261103-210510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-210510.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-fix-3.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c.md) — rolling-deploy canary probe — round trip OK
-- … and 16426 more
+- … and 16427 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
