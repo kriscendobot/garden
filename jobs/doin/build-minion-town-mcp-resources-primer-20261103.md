@@ -19,3 +19,13 @@ Do:
 Constraints: draft PR only; no deploy; no secrets in output. Report PASS/FAIL for each verified recipe and list anything evaluate cannot do that blocks the invite/accept flow, since each such finding is an Endo-interface or primer bug to log.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T22:23:28Z
