@@ -35,3 +35,13 @@ Successor to `fu-daemon-git-agent-tool-adapters-build-4`, which stopped because 
 <!-- garden-annotation: key=host-pin-correction by=gardener at=2026-11-02T15:04:03Z -->
 
 Correction to **Delivery** and to the second frontmatter block above: that block is inert, so `requires: host=endolin-garden-ece02cb4` and `tier:` have no effect, and this job is NOT pinned to endolin. Any host may claim it. If `ensure-pr.sh` gets a 403 on PR creation at endojs (host `oros-studio-garden-ce242c49` does), push the branch and post a relay with `scripts/jobs/post-job.sh` whose leading frontmatter carries `requires: host=endolin-garden-ece02cb4`, as `daemon-git-agent-tool-adapters-build-open-pr` does.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T02:06:38Z
