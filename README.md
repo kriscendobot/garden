@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T07:34:47Z_
+_As of 2026-11-03T07:36:12Z_
 
 ## Latest
 
@@ -513,41 +513,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
-
-- `doomed-kriscendobot-minion.town-pr199-weave-20261103-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr199-weave-20261103-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/kriscendobot-minion.town-pr199-weave-20261103; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion.town-pr199-weave-20261103) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion.town-pr199-weave-20261103
->
-> --- original job body ---
-> ---
-> posted_at: 2026-11-03T06:06:41Z
-> role: weaver
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> # Weave [kriscendobot/minion.town#199](https://github.com/kriscendobot/minion.town/issues/199) onto current main
->
-> PR: [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199) (`feat/guest-coupons`, base `main-bda7739`, 246 commits behind `main`).
-> Why: kriskowal approved and asked to integrate and enable it ([https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199)#pullrequestreview-5747577467), and a trial merge onto main c5c35044 conflicts, so the conductor would stall on `needs weave`.
->
-> Pin the merge base per roles/weaver/AGENT.md. A trial `git merge-tree` reports these conflicts:
->
-> - `deploy/aws/www/guest.html` and `deploy/aws/www/guest.js`: modified here, DELETED on main. Do not resurrect the deleted files. Find what replaced them and port the coupon redemption (the `#v=1&coupon=` fragment and the `POST /api/guest/coupon` call) there, so a newcomer can still redeem. This is the part that decides whether the feature works once enabled. If no surface can carry it without a design decision, escalate rather than guess.
-> - `src/config.ts`, `src/web/guest-web-router.ts`: content conflicts.
->
-> Keep the PR draft and keep the defaults `GUEST_ADMISSION=open`, `COUPON_STORE=off`. Run the coupon, config, and web suites locally.
->
-> **After the force-push and green CI, stage the re-review of the moved head:**
->
->     scripts/jobs/post-gauntlet.sh kriscendobot-minion.town-pr199-gauntlet-20261103 [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199)
->
-> The merge job `kriscendobot-minion.town-pr199-conduct-20261103` is parked `blocked_on` that gauntlet, and the production flip `minion-town-coupon-admission-flip-20261103` is parked `blocked_on` the merge. If you cannot complete the weave, do not post the gauntlet: message the maintainer, so the chain visibly waits.
 
 - `endojs-endo-but-for-bots-pr1575-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1575-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1575-gauntlet-halted.md)
 
@@ -1070,6 +1035,16 @@ Delegation: **active**
 >
 > Post this as a normal garden job, for example a fix job against the warm-cache script. Land it direct to `main2` as usual for garden-repo changes. Throw-away iteration is fine.
 
+- `endojs-endo-but-for-bots-pr1644-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1644-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1644-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1644-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1644-gauntlet-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6 · cost so far: $3.01
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1644-gauntlet panel --iteration 1 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `20261024T042224Z-4f5bf8` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261024T042224Z-4f5bf8.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1198,13 +1173,13 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 ### doin (1)
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-gauntlet-20261103-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #199
 
-### tada (16330)
+### tada (16331)
+- [`endojs-endo-but-for-bots-pr1644-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1644-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1644-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1644-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1644-gauntlet-fix-1.md) — CI failure
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-viability.md) — Cost
 - [`oros-health-checkup-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-053509.md) — Cost
 - [`prove-minion-town-invitations-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/prove-minion-town-invitations-20261103.md) — Completion report — prove-minion-town-invitations-20261103
-- [`endojs-endo-but-for-bots-pr1646-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1646-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1646-gauntlet — HALTED
-- … and 16325 more
+- … and 16326 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
