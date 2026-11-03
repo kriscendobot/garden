@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T13:44:08Z_
+_As of 2026-11-03T13:49:42Z_
 
 ## Latest
 
@@ -32,7 +30,8 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 Delegation: **active**
 
-(no screening activity in the last 24 h)
+- 2026-11-03T13:44:57Z [#234](https://github.com/kriscendobot/minion.town/pull/234) `bb6f1bee265` screened
+- 2026-11-03T13:44:57Z [#233](https://github.com/kriscendobot/minion.town/pull/233) `899114970ca` screened
 
 ## Messages to the maintainer
 
@@ -1221,13 +1220,15 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 109.6M | $403.34 _(notional, rate-card)_ | 40% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 52141364 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52144734 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 3.583962s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (6)
+- [`screen-minion-town-pr234-bb6f1be-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr234-bb6f1be-conduct.md) — Screened delegated merge: kriscendobot/minion.town#234 at bb6f1bee265fa0c7341...
+- [`screen-minion-town-pr233-8991149-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr233-8991149-conduct.md) — Screened delegated merge: kriscendobot/minion.town#233 at 899114970ca9aebe56f...
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
