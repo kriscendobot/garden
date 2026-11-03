@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T09:51:43Z_
+_As of 2026-11-03T09:53:53Z_
 
 ## Latest
 
@@ -1167,8 +1165,8 @@ worst fetch p95 4.099407s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (6)
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1645-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1645
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
-- [`kriscendobot-minion.town-pr234-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr234-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #234
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #199
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
@@ -1176,13 +1174,13 @@ worst fetch p95 4.099407s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`kriscendobot-minion.town-pr234-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr234-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #234
 - [`kriscendobot-minion.town-pr233-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr233-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #233
 
-### tada (16355)
+### tada (16356)
+- [`kriscendobot-minion.town-pr234-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-fix-3.md) — Cost
 - [`kriscendobot-minion.town-pr233-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr233-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1645-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-3.md) — Cost
-- [`kriscendobot-minion.town-pr234-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr234-gauntlet-viability.md) — Cost
-- … and 16350 more
+- … and 16351 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
