@@ -5,7 +5,7 @@ unit_failures: 0
 unit_total: 290
 first_bad_unit: -
 advisory_failures: 0
-at: 2026-11-03T22:21:42Z
-deferred_reason: long-job monk 2 353s
+at: 2026-11-03T22:27:22Z
+deferred_reason: long-job monk 2 695s
 deferred_target: 2d1411ccd18aa3b64f30a4d12c4be33d3d2a38d5
-deferred_at_epoch: 1793744460
+deferred_at_epoch: 1793744820
