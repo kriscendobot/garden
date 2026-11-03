@@ -16,6 +16,7 @@ State at posting (2026-11-02T23:10Z): the PR is OPEN and CONFLICTING at head dc2
 4. From this job's isolated project worktree, conduct with scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1633 --dependabot-auto-merge. A red `bwrap timeout and repeated cancellation reap process groups` test is the known sandbox flake (fix PR #1591), so rerun that job. Classify any other red rather than assuming it is a flake. Preact 11 is a major bump, so a real test failure in a consumer goes through botanist step 6.
 5. Verify the PR reads MERGED or auto-merge is enqueued, then write a journal `message` ledger entry headed `# Dependabotany - endojs/endo-but-for-bots PR #1633 - ...` containing `project: endo-but-for-bots` and, only if terminal, `dependabotany-terminal-pr: 1633`. If it does not reach a terminal state, say why in the row and name the next owner.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
