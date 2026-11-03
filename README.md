@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T00:43:58Z_
+_As of 2026-11-03T00:46:25Z_
 
 ## Latest
 
@@ -111,17 +111,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #35 (first seen 2026-11-01T04:46:54Z, latest 2026-11-03T00:33:49Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 35 times; this is ONE
-> coalesced notice that updates in place, not 35 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-03T00:43:58Z).
+> It was observed 35 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.014633s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.013967s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: p95=0.013637s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013765s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.013553s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.014846s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -516,11 +510,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-01T21:02:59Z, latest 2026-11-02T18:45:22Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-11-01T21:02:59Z, cleared 2026-11-03T00:45:32Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.106518s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_unblock_journal` cleared on oros-studio-garden-ce242c49.
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-halted.md)
 
@@ -576,6 +570,14 @@ Delegation: **active**
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.069621s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `msg-endojs-endo-but-for-bots-pr1639-gauntlet-clean-6351887ec94c` — from gardener:endojs-endo-but-for-bots-pr1639-gauntlet-clean, reply_to `endojs-endo-but-for-bots-pr1639-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1639-gauntlet-clean-6351887ec94c.md)
+
+> Root cause for the recurring test-xs red on endo-but-for-bots (the flip reported on [https://github.com/endojs/endo-but-for-bots/pull/667](https://github.com/endojs/endo-but-for-bots/pull/667); also [https://github.com/endojs/endo-but-for-bots/pull/1639](https://github.com/endojs/endo-but-for-bots/pull/1639)): `.node-version` is `lts/*`, and actions/setup-node now resolves that to Node 26.13.0. It resolved to 24.22.1 in the last green base run (41370492445, 2026-11-02 01:04Z).
+>
+> Reproduced locally through the real harness, `node scripts/test.js -a sesNode test/intrinsics/ThrowTypeError/intrinsic-metadata.js` in packages/hardened262: passes on v22.23.2, fails on v26.13.0 with "Function.prototype.caller reuses the %ThrowTypeError% intrinsic Expected SameValue(«function get caller() { [native code] }», «function () { [native code] }»)". On Node 26 `Function.prototype.caller` has its own native getter, so the test's cross-route assertion no longer holds there. I did not test 24 locally, or check the `arguments` assertion that follows it.
+>
+> Not caused by the PRs. It should hit every PR that triggers test-xs, and rerunning won't help. Options, your call: (a) pin `.node-version` to 24 for now, the smaller change, or (b) relax that assertion, or run `yarn test262:update` to record the failure, which accepts Node 26 but needs a check of what else moves under it. Neither is in this clean stage's scope, so I changed nothing for it and posted no job. Say if you want one posted.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
@@ -1114,7 +1116,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 51419218 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 10.103944s/45s (unknown); 12 open notice(s); checker healthy
+worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (12)
