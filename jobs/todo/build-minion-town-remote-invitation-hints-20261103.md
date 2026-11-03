@@ -17,15 +17,4 @@ Do, in order:
 
 Constraints: do NOT deploy and do NOT change production routing, Caddy, ports, or firewalls; any such change is the maintainer's decision and goes in the PR description as an explicit request. No secrets in logs. Pending invitations are process-memory-only, so note the deploy-voids-links caveat. Output: draft PR(s), and a report with the locator before and after, the hint format, and open questions.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-03T21:25:36Z
+<!-- garden-reaped: 0 -->
