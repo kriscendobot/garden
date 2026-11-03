@@ -67,3 +67,13 @@ None. The transcript and its summary last as long as the worker's memory, as bef
 
 <!-- garden-job: endopi-iterative-compaction-build -->
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T08:46:44Z
