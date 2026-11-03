@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T04:23:35Z_
+_As of 2026-11-03T04:27:13Z_
 
 ## Latest
 
@@ -1131,10 +1131,11 @@ _Fleet token-unlock pace: 51497598 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`endojs-endo-but-for-bots-pr1640-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1640-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1640
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`endojs-endo-but-for-bots-pr1641-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1641-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1641
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1642-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1642-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1642
@@ -1142,17 +1143,16 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 - [`agentry-makepiagent-drops-system-messages-fix-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/agentry-makepiagent-drops-system-messages-fix-open-pr.md) — Description
 - [`endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1633-dependabot-rebase-conduct-endolin.md) — ---
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1643-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1643-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1643
-- [`endojs-endo-but-for-bots-pr1641-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1641-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1641
 
-### tada (16300)
+### tada (16301)
+- [`endojs-endo-but-for-bots-pr1641-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1641-gauntlet-clean.md) — Clean stage: endojs/endo-but-for-bots #1641
 - [`agentry-makepiagent-drops-system-messages-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/agentry-makepiagent-drops-system-messages-fix.md) — Cause
 - [`endopi-iterative-compaction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endopi-iterative-compaction-build.md) — What changed
 - [`oros-health-watch-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-watch-20261103-022025.md) — Cost
 - [`oros-health-checkup-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/oros-health-checkup-20261103-022025.md) — Cost
-- [`endojs-endo-but-for-bots-pr1642-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1642-gauntlet-panel-1.md) — Cost
-- … and 16295 more
+- … and 16296 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
