@@ -1,2 +1,2 @@
-base: improve-review-docket-spool-completion
+base: improve-gardener-handler-rc76-collision
 identity: mentor:scripts/jobs/gardener.sh
