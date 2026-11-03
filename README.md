@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T10:23:58Z_
+_As of 2026-11-03T10:25:26Z_
 
 ## Latest
 
@@ -447,6 +447,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-journal-fetch-drift-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden_journal.md)
+
+> Journal fetch drift on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: oldest-third median=5.206105s newest-third median=10.223084s over 19829s/12 samples; floor=10s, 1.5x rise or projected-to-guard=84094s within 86400s.
 
 - `liaison-followup-012ad029ea29` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-012ad029ea29.md)
 
@@ -957,6 +961,10 @@ Delegation: **active**
 - `watchdog-token-backoff-reset-unknown-codex-endolin` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-token-backoff-reset-unknown-codex-endolin.md)
 
 > token backoff for codex-endolin is on the 0.95 fallback: next reset for codex-endolin after 2026-10-30T00:20Z unclear; record it (append-reset-event.sh codex-endolin --type expected-next-scheduled --precision scheduled --at <ISO>). Record the next reset time so the standing ramp can resume.
+
+- `watchdog-journal-fetch-slow-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden_journal.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: p95=17.016504s max=17.016504s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `endojs-endo-but-for-bots-pr1588-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1588-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1588-gauntlet-halted.md)
 
