@@ -1,11 +1,10 @@
 ---
-gate: blocked
-blocked_on: daemon-git-agent-tool-adapters-build-open-pr
-priority: normal
 role: builder
-posted_by: gardener
+tier: mentor
 posted_at: 2026-11-02T14:55:38Z
+handler-budget-role: builder
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-11-03T02:06:27Z cleared=none -->
 
 ---
 handler-budget-role: builder
