@@ -3,6 +3,9 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
+# The row goes to usage/<base>.jsonl, a path only this job writes. A sync_clone per
+# retry starved this on oros 2026-11-03: a requeue row held monk 2 about 8 minutes.
+: "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"
 
 base="${1:?usage: usage-append.sh <base> <elapsed-s> <requeue|fail> [measurement-json]}"
 elapsed="${2:?}" outcome="${3:?}" measurement="${4:-${GARDEN_ENGAGEMENT_USAGE:-}}"

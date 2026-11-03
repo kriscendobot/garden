@@ -95,6 +95,7 @@ grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/inbox-read.sh" || fai
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/send-msg.sh" || fail "send-msg.sh does not opt in"
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/journal-entry.sh" || fail "journal-entry.sh does not opt in"
 grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/land-journal-edit.sh" || fail "land-journal-edit.sh does not opt in"
+grep -qx ': "${GARDEN_JOURNAL_REPLAY_ATTEMPTS:=3}"' "$JOBS/usage-append.sh" || fail "usage-append.sh does not opt in"
 
 # A machine sender can durably correlate its posted message with the consumer's
 # later audit record. The generated id is exposed before posting and is exactly the
