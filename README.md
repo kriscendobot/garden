@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T22:42:08Z_
+_As of 2026-11-03T22:45:59Z_
 
 ## Latest
 
@@ -367,6 +365,19 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr180-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 16 -> 18 (N is yours to choose).
 
+- `improve-gardener-handler-rc76-collision-split-child-improve-gardener-handler-rc76-collision-expanded-window-failed` — from orchestrator:improve-gardener-handler-rc76-collision-split-child-improve-gardener-handler-rc76-collision-expanded-window-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-gardener-handler-rc76-collision-split-child-improve-gardener-handler-rc76-collision-expanded-window-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: improve-gardener-handler-rc76-collision-split
+> orchestration-status: running
+> child: improve-gardener-handler-rc76-collision-expanded-window
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 7270s on host oros-studio-garden-ce242c49 (handler-timeout=7200s, multiplier=1)
+>
+> Orchestration improve-gardener-handler-rc76-collision-split observed child improve-gardener-handler-rc76-collision-expanded-window: stalled in flight for 7270s on host oros-studio-garden-ce242c49 (handler-timeout=7200s, multiplier=1).
+
 - `20261021T143920Z-cca5e1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T143920Z-cca5e1.md)
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-two-http-fetch' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
@@ -471,11 +482,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-11-01T14:54:51Z, latest 2026-11-03T12:43:14Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` has CLEARED (first seen 2026-11-01T14:54:51Z, cleared 2026-11-03T22:43:40Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.012741s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_regenerate_sections_index_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
@@ -813,6 +824,19 @@ Delegation: **active**
 - `20261021T161440Z-f4b7c7` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T161440Z-f4b7c7.md)
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
+
+- `improve-gardener-handler-rc76-collision-split-halted` — from orchestrator:improve-gardener-handler-rc76-collision-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-gardener-handler-rc76-collision-split-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: improve-gardener-handler-rc76-collision-split
+> orchestration-status: halted
+> child: improve-gardener-handler-rc76-collision-expanded-window
+> failure-kind: handler-timeout
+> children-completed: 0
+> children-total: 1
+> halt-parked-remainder: 
+>
+> Orchestration improve-gardener-handler-rc76-collision-split HALTED: child improve-gardener-handler-rc76-collision-expanded-window stalled in flight for 7270s on host oros-studio-garden-ce242c49 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 0/1 done before halt; parked remainder: none
 
 - `liaison-followup-d31d9dcee79e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-d31d9dcee79e.md)
 
@@ -1257,34 +1281,33 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.7M | $433.52 _(notional, rate-card)_ | 43% of 271.0M (ok) |
+| Claude | 119.2M | $440.96 _(notional, rate-card)_ | 44% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53023832 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 10.101028s/45s (unknown); 8 open notice(s); checker healthy
+worst fetch p95 10.101028s/45s (unknown); 7 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
-- [`canary-probe-oros-studio-garden-ce242c49-2d1411ccd18a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-2d1411ccd18a.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 2d1411ccd18a
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
 ### doin (3)
+- [`kriscendobot-minion.town-pr235-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr235-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #235
 - [`endojs-endo-but-for-bots-pr1647-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1647-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1647
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
-- [`kriscendobot-minion.town-pr229-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #229
 
-### tada (16442)
+### tada (16445)
+- [`canary-probe-oros-studio-garden-ce242c49-2d1411ccd18a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-2d1411ccd18a.md) — rolling-deploy canary probe — round trip OK
+- [`kriscendobot-minion.town-pr229-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-panel-6.md) — Cost
+- [`improve-gardener-handler-rc76-collision-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/improve-gardener-handler-rc76-collision-split.md) — orchestration improve-gardener-handler-rc76-collision-split — HALTED
 - [`kriscendobot-minion.town-pr235-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr235-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-fix-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1647-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/endojs-endo-but-for-bots-pr1647-gauntlet-viability.md) — Cost
-- [`kriscendobot-minion.town-pr235-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr235-gauntlet-clean.md) — Cost
-- [`build-minion-town-remote-invitation-hints-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/build-minion-town-remote-invitation-hints-20261103.md) — Completion report: build-minion-town-remote-invitation-hints-20261103
-- … and 16437 more
+- … and 16440 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
