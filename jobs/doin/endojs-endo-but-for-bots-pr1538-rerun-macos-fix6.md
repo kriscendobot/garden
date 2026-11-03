@@ -18,3 +18,13 @@ The gauntlet job `endojs-endo-but-for-bots-pr1538-gauntlet-20261102-fix-6` is po
 Why: `test (24.x, macos-15)` failed on the known `ClientDestroyedError` flake in `packages/daemon/test/http-content-plane.test.js` (every assertion passed, then an unhandled rejection under the debug lockdown). PR #1538 does not change the HTTP content plane in that round, and the same flake passed on rerun on #1573.
 
 Do only this: first check that the PR head is still that sha and the run has not already been rerun; skip the rerun if either has changed, and say so. Do not push, and do not wait for the result.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T02:03:50Z
