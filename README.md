@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T20:42:10Z_
+_As of 2026-11-03T20:44:39Z_
 
 ## Latest
 
@@ -201,11 +199,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-02T00:47:32Z, latest 2026-11-03T15:18:08Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` has CLEARED (first seen 2026-11-02T00:47:32Z, cleared 2026-11-03T20:43:27Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.013787s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_review_docket_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal.md)
 
@@ -1263,7 +1261,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 53109267 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 13 open notice(s); checker healthy
+worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (5)
@@ -1273,18 +1271,17 @@ worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delega
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
-- [`canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 9f6cb390ae0c
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #229
 
-### tada (16426)
+### tada (16427)
+- [`canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/canary-probe-oros-studio-garden-ce242c49-9f6cb390ae0c.md) — rolling-deploy canary probe — round trip OK
 - [`improve-gardener-handler-rc76-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/improve-gardener-handler-rc76-collision.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-fix-2.md) — Must-fix items applied
 - [`kriscendobot-minion.town-pr229-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/kriscendobot-minion.town-pr229-gauntlet-panel-2.md) — Cost
-- [`improve-mirror-pr-state-nonjson-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/03/improve-mirror-pr-state-nonjson-transient.md) — Cost
-- … and 16421 more
+- … and 16422 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
