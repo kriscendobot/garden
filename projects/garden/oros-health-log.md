@@ -1,6 +1,15 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-03T19:03Z (oros-health-checkup-20261103-150510): degraded; this run caused the 15:19 to 18:13Z process runaway; landed a claim fix
+
+- **The incident was mine.** The runaway in the 18:40Z note above came from a test I wrote here: a PATH shim for `git`, without checking how the fleet wrapper resolves git. The 18:05Z check-up found and killed it. My own kill at about 18:15Z only caught what was left, with 7313 processes matching.
+- **Late report:** I noticed only at about 18:14Z, because my tool call blocked for 173 minutes. The handler was TERMed at 16:27Z, so this session has no gardener and its report has no reader, and the job was still in doin at 19:02Z.
+- **Snapshot before the runaway, 15:18Z:** load 4.93, 3.94, 3.48; 12 GiB of 15 GiB available; 38903 MiB free on the garden mount (92%); 0 failed units; deployed `40e4859456a`. Budget last pushed 15:03:30Z, ok.
+- **The defect (claim pass):** the pass re-syncs before each candidate and only then checks `requires:`, and aged jobs go first. At 15:02 to 15:14Z six aged jobs this host cannot run cost monk 2 about 45s each. This job, posted 15:05:10Z, was claimed 15:15:03Z. 637 such skips appear in the 6h before 15:20Z, across all monks.
+- **Changed:** `1218012e3db` judges host requirements when candidates are ordered, so those jobs cost no re-sync. `claim-host-ineligible-no-sync-test.sh` passes 10 of 10 and fails 2 against the old script (6 fetches against 1). `claim-aging-priority`, `claim-late-canary-probe` and `canary-probe-claim-priority` pass. Not yet running on oros. Removed one dead-owner seed temp (151M, `ci-watcher/verify-kriscendobot-finbot.seed.2164132`).
+- **Failing test, not from this change:** `host-requirements-gating-test.sh` fails `with AWS claimed ''` and aborts, on the old and new `claim-job.sh` alike. Cause not traced; unsetting `GARDEN_CAPABILITY_CACHE_DIR` did not help. Its later checks did not run here.
+
 ## 2026-11-03T18:40Z (oros-health-checkup-20261103-180510): unhealthy on arrival, degraded after the fix (disk); deployed `40e4859456a`, main2 `f60b08bc323`; killed a runaway test tree and landed a git-wrapper guard
 
 - **The incident:** at 18:12Z, one process group held 13,525 of the host's 13,630 processes. It was a chain of `bin/git init` wrappers from `claim-host-ineligible-no-sync-test.sh`, then an uncommitted test in the `oros-health-checkup-20261103-150510` worktree, and it had been growing since about 15:19Z. The test's git shim execed `command -v git`, which under a worker's PATH is `bin/git`. The wrapper then resolved the shim as the real git, so the two called each other without end. Memory pressure (some, avg300) read 71%, with processes stuck in `mem_cgroup_handle_over_high`.
