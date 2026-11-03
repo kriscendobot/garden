@@ -22,3 +22,13 @@ Keep the PR draft and keep the defaults `GUEST_ADMISSION=open`, `COUPON_STORE=of
     scripts/jobs/post-gauntlet.sh kriscendobot-minion.town-pr199-gauntlet-20261103 https://github.com/kriscendobot/minion.town/pull/199
 
 The merge job `kriscendobot-minion.town-pr199-conduct-20261103` is parked `blocked_on` that gauntlet, and the production flip `minion-town-coupon-admission-flip-20261103` is parked `blocked_on` the merge. If you cannot complete the weave, do not post the gauntlet: message the maintainer, so the chain visibly waits.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T06:19:19Z
