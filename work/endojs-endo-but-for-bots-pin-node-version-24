@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-11-03T05:27:17Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pin-node-version-24
-pr_number: 1646
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1646
-pr_head: chore/pin-node-version-24
