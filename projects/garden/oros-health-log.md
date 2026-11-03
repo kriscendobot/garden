@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-03T21:27Z (oros-health-checkup-20261103-210510): healthy, with slow journal writes; deployed is main2 minus my fix; landed a usage-row fix
+
+- **Load/mem:** load 5.23, 3.75, 3.55 at 21:19Z and 4.13, 4.23, 3.85 at 21:27Z. 13 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 3% (some, avg300 2.69).
+- **Disk/inodes:** 39855 MiB free, 92%, within the 37658 to 40829 MiB seen today. Inodes 3%. `scratch` has 388 entries; a `du` of `scratch/tmpexec` did not finish in 60s, so its size is unknown.
+- **Uptime:** 33d, no reboot.
+- **Deployed vs main2:** root and fleet/health/oros show `9f6cb390ae0`, `roll_status: deployed`, 0 unit failures (20:35Z). That was the main2 tip until my `2d1411ccd18`. This picks up the claim fix and the git-wrapper guard from the earlier check-ups; I did not test them on the host.
+- **Drain/units:** 0 failed user units, `garden-monk@1..4` running, leveling row `4 0`, not draining, no `worker-derotate/` marker. The stray `claude` pid 2252247 from the runaway is gone.
+- **Budget heartbeat:** last push 21:19:32Z; the last 8 (19:32 to 21:19Z) are all ok. Spend reads 12108228 of 180M, 6%.
+- **State clones:** at most 50 packs per journal clone, no `gc.log`. One temp pack in `transcripts/journal` had gone 3 minutes later. No git `*.lock` older than 30 minutes in the root `.git` top level or `.git/worktrees`, and none in `$GARDEN_STATE` clones found by the depth-5 search. No dead-owner seed temps under `ci-watcher`. Changed nothing on the host.
+- **Timeouts (3h):** the two below, plus the 18:28Z kill already reported. Overdue lock holders: claim-job 14, worktree-sweeper 13, self-deploy 6.
+- **Defect fixed:** `usage-append.sh` retried with a full `sync_clone` over 83k files, so a requeue row for `minion-town-arc-press-20261103-210510` held monk 2 about 8 minutes (21:17 to 21:24Z), with its busy marker still set. `2d1411ccd18` opts it into replay, since `usage/<base>.jsonl` is a path only that job writes. `commit-replay-test.sh` passes, with a new opt-in check; replay itself is not yet exercised on oros. Not yet running on oros.
+- **Not traced:** two handlers exited rc=124 about 20s into budgets far from their wall: `minion-town-arc-press-20261103-210510` (22s, budget not checked) and `endojs-endo-but-for-bots-pr1643-gauntlet-clean` (21s of 10800s, 03:15Z). Both are role `gardener`. For arc-press, no worktree or session transcript existed at 21:23Z, which suggests `claude` never started; that is an inference, and the capture file was not found. `garden_repo_lock` returns 124 on a lock timeout, so a lock wait under `set -e` is one candidate, not proven. These read as transient and count a requeue cycle. arc-press is still in doin for the reaper.
+- **`improve-gardener-handler-rc76-collision`:** its 20:08Z rc=124 at 2401s was a true wall hit, and its split orchestration is running.
+
 ## 2026-11-03T19:03Z (oros-health-checkup-20261103-150510): degraded; this run caused the 15:19 to 18:13Z process runaway; landed a claim fix
 
 - **The incident was mine.** The runaway in the 18:40Z note above came from a test I wrote here: a PATH shim for `git`, without checking how the fleet wrapper resolves git. The 18:05Z check-up found and killed it. My own kill at about 18:15Z only caught what was left, with 7313 processes matching.
