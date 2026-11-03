@@ -34,12 +34,25 @@ backed_off_pools_for_requirements() {
   done | paste -sd, -
 }
 
+# The dwell measures one unbroken stay in todo. A key this pass does not mark as
+# dwelling loses its markers below, so a job that was claimed and later requeued
+# starts a fresh dwell: oros-health-checkup-20261103-053509 was reported "unclaimed
+# for 1801s" 23 minutes after a worker claimed it at 05:44Z and 12 minutes after the
+# reaper returned it for a retry. A job waiting out the reaper's plain-retry back-off
+# (claim-job.sh skips it on purpose) is not dwelling either.
+declare -A dwelling=()
 for f in "$DIR/$JOBS_TODO"/*.md; do
   [ -e "$f" ] || continue
   base="${f##*/}"; base="${base%.md}"
   req="$(job_requirements "$f" | paste -sd, -)"
   [ -n "$req" ] || continue
+  retry_not_before="$(plain_retry_not_before "$f" 2>/dev/null || true)"
+  if [ -n "$retry_not_before" ]; then
+    retry_epoch="$(date -u -d "$retry_not_before" +%s 2>/dev/null || true)"
+    [[ "$retry_epoch" =~ ^[0-9]+$ ]] && [ "$now" -lt "$retry_epoch" ] && continue
+  fi
   key="$(printf '%s\n' "$base:$req" | sha1sum | cut -c1-16)"
+  dwelling[$key]=1
   marker="$STATE/$key.first"
   first="$(cat "$marker" 2>/dev/null || true)"
   [[ "$first" =~ ^[0-9]+$ ]] || { first="$now"; printf '%s\n' "$first" > "$marker"; }
@@ -54,3 +67,11 @@ for f in "$DIR/$JOBS_TODO"/*.md; do
     "Host-requirements gate: job '$base' has remained unclaimed for $(( now - first ))s with requires: $req. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.$budget_note"
   : > "$notice"
 done
+
+if [ -d "$DIR/$JOBS_TODO" ]; then
+  for marker in "$STATE"/*.first "$STATE"/*.noticed; do
+    [ -e "$marker" ] || continue
+    key="${marker##*/}"; key="${key%.*}"
+    [ -n "${dwelling[$key]:-}" ] || rm -f -- "$marker"
+  done
+fi

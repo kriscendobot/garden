@@ -368,7 +368,8 @@ Files: `garden-repo-watcher.timer`, `garden-repo-watcher.service`.
 - **`garden-requirements-watch.timer`, `garden-requirements-watch.service`:**
   leader-only by `ExecCondition`, every five minutes at `:02`; runs
   `scripts/jobs/requirements-watch.sh`. It continues under drain and alerts once
-  after the default 900-second dwell. State is
+  after the default 900-second dwell, which measures one unbroken stay in todo:
+  a claim restarts it, and a plain-retry back-off does not count. State is
   `$GARDEN_STATE/requirements-watch/{journal,*first,*noticed}` and journal
   `jobs/todo`.
 

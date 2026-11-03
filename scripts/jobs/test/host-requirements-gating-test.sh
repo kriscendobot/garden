@@ -100,6 +100,42 @@ grep "job 'pinned-hot'" "$TR/alert2.out" | grep -q 'Budget pacing.*pool-hot' && 
 grep "job 'pinned-cool'" "$TR/alert2.out" | grep -q 'Budget pacing' && bad "healthy pinned host wrongly blamed on budget" || ok "healthy pinned host: notice keeps the plain capability wording"
 grep "job 'pinned-cool'" "$TR/alert2.out" | grep -q 'requires: host=host-cool' && ok "healthy pinned host still notifies" || bad "no notice for pinned-cool"
 
+# The dwell is one unbroken stay in todo: leaving todo restarts it, and so does a
+# plain-retry back-off. Each watch run below shares one state dir and clone, and
+# backdate stands in for the dwell window having passed.
+W3="$TR/dwell-seed"; git clone -q --branch "$BRANCH" "$BARE" "$W3"
+git -C "$W3" config user.name t; git -C "$W3" config user.email t@l
+rm -f "$W3"/jobs/todo/*.md
+land3() { git -C "$W3" add -A; git -C "$W3" commit -qm "$1"; git -C "$W3" push -q; }
+watch3() {
+  : > "$TR/alert3.out"
+  env -u GARDEN_NO_MAINTAINER_ALERT GARDEN=leader GARDEN_STATE="$TR/watch-state3" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_FETCH_MAX_AGE_OVERRIDE=0 GARDEN_REQUIREMENTS_DWELL_SECS=600 GARDEN_REQUIREMENTS_WATCH_CLONE="$TR/watch-clone3" \
+    GARDEN_ALERT_CMD="$ALERT2" ALERT_OUT="$TR/alert3.out" "$JOBS/requirements-watch.sh" >"$TR/watch3.log" 2>&1
+}
+backdate() {
+  local m
+  for m in "$TR/watch-state3/requirements-watch"/*.first; do
+    [ -e "$m" ] && printf '%s\n' "$(( $(date -u +%s) - 1000 ))" > "$m"
+  done
+  return 0
+}
+pinned() { printf '%s\n' '---' 'requires: host=host-dwell' '---'; }
+pinned > "$W3/jobs/todo/dwell.md"; land3 'dwell posted'
+watch3; grep -q dwell "$TR/alert3.out" && bad "fresh job alerted before the dwell window" || ok "fresh job waits out the dwell window"
+backdate; git -C "$W3" mv jobs/todo/dwell.md jobs/doin/dwell.md; land3 'dwell claimed'
+watch3; [ -z "$(ls "$TR/watch-state3/requirements-watch"/*.first 2>/dev/null)" ] && ok "claimed job loses its dwell marker" || bad "dwell marker survived the claim"
+git -C "$W3" mv jobs/doin/dwell.md jobs/todo/dwell.md; land3 'dwell requeued'
+watch3; grep -q dwell "$TR/alert3.out" && bad "requeued job alerted on its pre-claim dwell" || ok "requeued job starts a fresh dwell"
+backdate; watch3; grep -q "job 'dwell'" "$TR/alert3.out" && ok "unbroken dwell past the window still alerts" || bad "real dwell did not alert: $(cat "$TR/watch3.log")"
+watch3; grep -q "job 'dwell'" "$TR/alert3.out" && bad "alert repeated while the job kept dwelling" || ok "alert fires once per dwell"
+git -C "$W3" rm -qf jobs/todo/dwell.md
+{ pinned; printf '<!-- garden-plain-retry-not-before: %s -->\n' "$(date -u -d '+1 hour' +%Y-%m-%dT%H:%M:%SZ)"; } > "$W3/jobs/todo/backoff.md"; land3 'backoff requeued'
+watch3; backdate; watch3; grep -q backoff "$TR/alert3.out" && bad "job in plain-retry back-off alerted" || ok "plain-retry back-off does not count as dwell"
+{ pinned; printf '<!-- garden-plain-retry-not-before: %s -->\n' "$(date -u -d '-1 hour' +%Y-%m-%dT%H:%M:%SZ)"; } > "$W3/jobs/todo/backoff.md"; land3 'backoff expired'
+watch3; grep -q backoff "$TR/alert3.out" && bad "expired back-off alerted before the dwell window" || ok "dwell starts when the back-off expires"
+backdate; watch3; grep -q "job 'backoff'" "$TR/alert3.out" && ok "dwell after an expired back-off alerts" || bad "expired back-off did not alert: $(cat "$TR/watch3.log")"
+
 # scholar-ingest-* jobs implicitly require `typesafe`, probed from the worker env.
 T="$TR/typesafe"; mkdir -p "$T"
 printf '# ingest\n' > "$T/scholar-ingest-foo.md"
