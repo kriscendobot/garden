@@ -97,3 +97,13 @@ None. Run `yarn setup-prompt-templates` in `packages/chat` to opt in.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T01:59:55Z
