@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T09:59:42Z_
+_As of 2026-11-03T10:00:57Z_
 
 ## Latest
 
@@ -421,10 +421,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` cleared on endolin-garden-ece02cb4.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_retire_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_retire_kriscendobot_minion_town.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town: p95=39.686112s max=39.686112s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `endojs-endo-but-for-bots-pr1560-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1560-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1560-gauntlet-halted.md)
 
@@ -1166,16 +1162,16 @@ _Fleet token-unlock pace: 52033443 tokens/day lower bound; incomplete where a su
 worst fetch p95 39.686112s/45s (/home/kris/garden/.garden-state/ci-watcher/retire-kriscendobot-minion.town); 8 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1645-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1645
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #199
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr234-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr234-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #234
 
-### doin (1)
+### doin (2)
+- [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #199
 - [`kriscendobot-minion.town-pr233-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr233-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #233
 
 ### tada (16357)
