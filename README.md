@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T15:15:16Z_
+_As of 2026-11-03T15:16:32Z_
 
 ## Latest
 
@@ -1221,9 +1221,8 @@ _Fleet token-unlock pace: 52144734 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.264322s/45s (/home/kris/garden/.garden-state/follow-up/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (7)
 - [`screen-minion-town-pr234-bb6f1be-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr234-bb6f1be-conduct.md) — Screened delegated merge: kriscendobot/minion.town#234 at bb6f1bee265fa0c7341...
-- [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261103-150510.md) — ---
 - [`screen-minion-town-pr233-8991149-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr233-8991149-conduct.md) — Screened delegated merge: kriscendobot/minion.town#233 at 899114970ca9aebe56f...
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -1231,7 +1230,8 @@ worst fetch p95 4.264322s/45s (/home/kris/garden/.garden-state/follow-up/journal
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (1)
+### doin (2)
+- [`oros-health-checkup-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-150510.md) — ---
 - [`minion-town-arc-press-20261103-150510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261103-150510.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (16389)
