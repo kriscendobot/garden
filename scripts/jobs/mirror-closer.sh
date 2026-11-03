@@ -92,6 +92,13 @@
 # non-quota failure seen BEFORE the break still exits nonzero so a real (404/etc.)
 # failure is never masked by the degrade.
 #
+# TRANSIENT HANDLER DEGRADE: a handler that exits GARDEN_TRANSIENT_RC has already
+# spent its own retries on a failure unrelated to the mapping (the default state
+# reader does this for a non-JSON response body). The mapping stays unresolved and
+# the tick reports one aggregate WARN. The second such failure stops the tick's
+# queries, since each one costs a full retry ladder. Transient failures alone exit
+# zero; a non-transient failure in the same tick still exits nonzero.
+#
 # Pluggable GitHub I/O for deterministic tests (the close path is NEVER exercised
 # against a real upstream in CI — see test/mirror-closer-test.sh):
 #   GARDEN_MIRROR_PR_STATE <owner/repo> <pr>          -> "<state>\t<merged>"
@@ -197,7 +204,7 @@ parse_state() {
 
 # Run one pluggable GitHub handler while retaining its stderr for failure
 # classification. Sets HANDLER_STDERR and a byte-for-byte HANDLER_FINGERPRINT
-# (handler + rc + stdout + stderr). The caller emits diagnostics only after
+# (handler + rc + stdout + stderr), plus HANDLER_RC. The caller emits diagnostics only after
 # deciding whether this is a new failure, a repeat, or a primary-quota refusal,
 # so a shared outage does not print the same handler error once per mapping and a
 # quota refusal is reported only by the aggregate cooldown warning.
@@ -210,6 +217,7 @@ run_handler_captured() {  # run_handler_captured <output-var> <handler> [args...
   stderr="$(cat "$errf" 2>/dev/null || true)"
   rm -f "$errf"
   HANDLER_STDERR="$stderr"
+  HANDLER_RC="$rc"
   HANDLER_FINGERPRINT="$handler"$'\034'"$rc"$'\034'"$output"$'\034'"$stderr"
   [ "$output_var" = - ] || printf -v "$output_var" '%s' "$output"
   return "$rc"
@@ -221,9 +229,12 @@ quota_blocked=0
 quota_break=0
 quota_scope=all
 repeated_failure_break=0
+transient_failed=0
+transient_break=0
 out=''
 mout=''
 HANDLER_STDERR=''
+HANDLER_RC=0
 HANDLER_FINGERPRINT=''
 declare -a FAILURE_FINGERPRINTS=()
 
@@ -239,6 +250,14 @@ count_handler_failure() {  # count_handler_failure <all|graphql> <per-mapping-wa
     quota_blocked=$((quota_blocked+1))
     quota_break=1
     quota_scope="$scope"
+  elif [ "$HANDLER_RC" -eq "$GARDEN_TRANSIENT_RC" ]; then
+    transient_failed=$((transient_failed+1))
+    if [ "$transient_failed" -eq 1 ]; then
+      # Keep the first cause in the journal; the aggregate WARN is the report.
+      [ -z "$HANDLER_STDERR" ] || printf '%s\n' "$HANDLER_STDERR" >&2
+    else
+      transient_break=1
+    fi
   else
     failed=$((failed+1))
     fingerprint="$HANDLER_FINGERPRINT"
@@ -259,6 +278,11 @@ count_handler_failure() {  # count_handler_failure <all|graphql> <per-mapping-wa
   return 0
 }
 
+# True once a breaker has tripped and the rest of this tick's mappings are doomed.
+tick_breaker_tripped() {
+  [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ] || [ "$transient_break" -eq 1 ]
+}
+
 for i in $(seq 0 $((n-1))); do
   key="${KEYS[$i]}"; up="${UPS[$i]}"; mir="${MIRS[$i]}"
   up_repo="${up%%#*}"; up_num="${up##*#}"
@@ -272,7 +296,7 @@ for i in $(seq 0 $((n-1))); do
   # all-primary-quota failure set reports degraded but healthy to systemd.
   if ! run_handler_captured out "$GARDEN_MIRROR_PR_STATE" "$up_repo" "$up_num"; then
     count_handler_failure graphql "WARN: reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
-    { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
+    tick_breaker_tripped && break
     continue
   fi
   parse_state "$out"
@@ -288,7 +312,7 @@ for i in $(seq 0 $((n-1))); do
   # Look at our mirror. Only close it if it is still open; otherwise reconcile.
   if ! run_handler_captured mout "$GARDEN_MIRROR_PR_STATE" "$mir_repo" "$mir_num"; then
     count_handler_failure graphql "WARN: reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
-    { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
+    tick_breaker_tripped && break
     continue
   fi
   parse_state "$mout"
@@ -308,7 +332,7 @@ for i in $(seq 0 $((n-1))); do
   if ! run_handler_captured - "$GARDEN_MIRROR_CLOSE" "$mir_repo" "$mir_num" "$cbody"; then
     rm -f "$cbody"
     count_handler_failure all "WARN: closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); skipping this mapping; will retry next tick"
-    { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
+    tick_breaker_tripped && break
     continue
   fi
   rm -f "$cbody"
@@ -318,6 +342,16 @@ for i in $(seq 0 $((n-1))); do
 done
 
 log "tick complete: closed $acted mirror(s) this run"
+
+# Transient degrade: reported on its own so each branch below keeps its own counts
+# and exit status. It never makes the tick unhealthy by itself.
+if [ "$transient_failed" -gt 0 ]; then
+  skipped=0
+  if [ "$transient_break" -eq 1 ]; then
+    skipped=$(( n - 1 - i )); [ "$skipped" -lt 0 ] && skipped=0
+  fi
+  log "WARN: $transient_failed transient handler failure(s) this tick; $(( transient_failed + skipped )) mapping(s) left unresolved ($transient_failed transient + $skipped unqueried) and will retry next tick"
+fi
 
 # Primary-quota circuit breaker fired: the loop broke at the first quota refusal.
 # `i` holds the index we broke at, so mappings after it were never queried. Emit

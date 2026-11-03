@@ -703,19 +703,92 @@ out_k="$(env GARDEN_GH="$HTMLSTUB" MC_HTML_COUNT="$HTMLCOUNT" MC_HTML_FAILS=2 \
   && ok "gh was retried after the HTML page (called 3×: 2 transient fails + 1 success)" \
   || bad "no retry on the HTML page (gh called $(cat "$HTMLCOUNT")× — expected 3)"
 
-# HTML on EVERY attempt: past GARDEN_GH_API_ATTEMPTS the call still fails LOUD
-# (nonzero, empty) rather than guessing a state — "never guess a state" preserved.
+# HTML on EVERY attempt: past GARDEN_GH_API_ATTEMPTS the call exits the transient rc
+# with empty stdout and no FATAL — "never guess a state" preserved, without failing
+# the unit over a page that says nothing about the PR.
 : > "$HTMLCOUNT"
+kerr="$TR/mirror-state-html.err"
 out_k="$(env GARDEN_GH="$HTMLSTUB" MC_HTML_COUNT="$HTMLCOUNT" MC_HTML_FAILS=99 \
     MC_GQL_STATE=OPEN MC_GQL_MERGED=false \
     GARDEN_GH_API_ATTEMPTS=3 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
-    "$STATE_HANDLER" endojs/endo 3137 2>/dev/null)"; rc_k=$?
-[ "$rc_k" -ne 0 ] && [ -z "$out_k" ] \
-  && ok "persistent HTML past the attempt budget → loud die (nonzero, empty), never a guessed state" \
-  || bad "persistent HTML did not fail loud (rc=$rc_k, out=$(printf %q "$out_k"))"
+    "$STATE_HANDLER" endojs/endo 3137 2>"$kerr")"; rc_k=$?
+[ "$rc_k" -eq 75 ] && [ -z "$out_k" ] \
+  && ok "persistent HTML past the attempt budget → transient rc 75 + empty stdout, never a guessed state" \
+  || bad "persistent HTML did not degrade (rc=$rc_k, out=$(printf %q "$out_k"))"
+! grep -q 'FATAL' "$kerr" && grep -q 'looking for beginning of value' "$kerr" \
+  && ok "persistent HTML emits no FATAL and keeps the decoder error on stderr" \
+  || bad "persistent HTML stderr wrong: $(cat "$kerr")"
 [ "$(cat "$HTMLCOUNT")" -eq 3 ] \
   && ok "the failing call was attempted the full budget (3×) before giving up" \
   || bad "attempt budget not honored (gh called $(cat "$HTMLCOUNT")× — expected 3)"
+
+hr; echo "K2 — plain-text body past the retry budget: the unit stays healthy, the breaker stops the tick, and the next tick retries (agoric-sdk#11297)"; hr
+# The REAL handler under the REAL closer, against a gh stub that always answers with
+# the exact decoder error from the incident.
+BSTUB="$TR/mirror-state-plaintext.sh"
+BCOUNT="$TR/mirror-state-plaintext.count"
+cat > "$BSTUB" <<'EOF'
+#!/bin/bash
+n=$(( $(cat "${MC_B_COUNT:?set MC_B_COUNT}" 2>/dev/null || echo 0) + 1 ))
+printf '%s' "$n" > "${MC_B_COUNT}"
+echo "invalid character 'b' looking for beginning of value" >&2
+exit 1
+EOF
+chmod +x "$BSTUB"
+BARE_K2="$TR/k2.git"; seed_bare "$BARE_K2"
+CL_K2="$TR/close-k2.log"; LOG_K2="$TR/closer-k2.log"; : > "$CL_K2"; : > "$BCOUNT"
+for num in 291 292 293 294; do
+  record "$TR/state-k2" "$BARE_K2" "up/repo#$num" "garden/mir#$((num + 100))"
+done
+env GARDEN_STATE="$TR/state-k2" JOURNAL_REMOTE="$BARE_K2" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_K2" MC_B_COUNT="$BCOUNT" \
+    GARDEN_GH="$BSTUB" GARDEN_GH_API_ATTEMPTS=2 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+    GARDEN_API_COOLDOWN_DIR="$TR/gh-api-cooldown-k2" GARDEN_GH_REST_BUDGET=0 \
+    GARDEN_MIRROR_PR_STATE="$STATE_HANDLER" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >"$LOG_K2" 2>&1; rck2=$?
+[ "$rck2" -eq 0 ] && ok "transient-only tick exits zero, so the unit does not fail" || bad "transient-only tick exited $rck2: $(cat "$LOG_K2")"
+[ "$(cat "$BCOUNT")" -eq 4 ] \
+  && ok "second transient failure stops the tick (2 mappings × 2 attempts, not 4 mappings)" \
+  || bad "transient breaker did not stop queries (gh calls=$(cat "$BCOUNT"))"
+! grep -q 'FATAL' "$LOG_K2" && ok "no FATAL line on the transient path" || bad "transient path logged FATAL: $(cat "$LOG_K2")"
+[ "$(grep -c '2 transient handler failure' "$LOG_K2")" -eq 1 ] \
+  && ok "one aggregate WARN reports the degrade" || bad "aggregate WARN missing: $(cat "$LOG_K2")"
+grep -q '4 mapping(s) left unresolved (2 transient + 2 unqueried)' "$LOG_K2" \
+  && ok "aggregate WARN accounts for failed and unqueried mappings" || bad "aggregate accounting wrong: $(cat "$LOG_K2")"
+for num in 291 292 293 294; do
+  mapping_of "$BARE_K2" "up-repo-$num.md" | grep -q '^closed_at:' \
+    && bad "up-repo-$num stamped on a transient failure" || ok "up-repo-$num left unresolved for retry"
+done
+[ ! -s "$CL_K2" ] && ok "nothing closed on a transient failure" || bad "a mirror was closed: $(cat "$CL_K2")"
+
+RETRY_COUNT_K2="$TR/k2-retry-calls.count"; echo 0 > "$RETRY_COUNT_K2"
+env GARDEN_STATE="$TR/state-k2" JOURNAL_REMOTE="$BARE_K2" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_K2" MC_RETRY_COUNT="$RETRY_COUNT_K2" \
+    GARDEN_MIRROR_PR_STATE="$RETRYSTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >/dev/null 2>&1; rck2_retry=$?
+[ "$rck2_retry" -eq 0 ] && [ "$(cat "$RETRY_COUNT_K2")" -eq 4 ] \
+  && ok "next tick retries all 4 unresolved mappings (no cooldown armed)" \
+  || bad "next tick did not retry every mapping (rc=$rck2_retry, calls=$(cat "$RETRY_COUNT_K2"))"
+
+hr; echo "K3 — a real failure is not masked by a transient one in the same tick"; hr
+MIXSTATE="$TR/state-mixed-fail.sh"
+cat > "$MIXSTATE" <<'EOF'
+#!/bin/bash
+if [ "$2" = 391 ]; then echo "non-JSON body" >&2; exit 75; fi
+echo "gh: Not Found (HTTP 404)" >&2
+exit 1
+EOF
+chmod +x "$MIXSTATE"
+BARE_K3="$TR/k3.git"; seed_bare "$BARE_K3"; CL_K3="$TR/close-k3.log"; LOG_K3="$TR/closer-k3.log"; : > "$CL_K3"
+record "$TR/state-k3" "$BARE_K3" "up/repo#391" "garden/mir#491"
+record "$TR/state-k3" "$BARE_K3" "up/repo#392" "garden/mir#492"
+env GARDEN_STATE="$TR/state-k3" JOURNAL_REMOTE="$BARE_K3" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_K3" \
+    GARDEN_MIRROR_PR_STATE="$MIXSTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >"$LOG_K3" 2>&1; rck3=$?
+[ "$rck3" -ne 0 ] && ok "transient + real failure keeps the tick unhealthy (rc=$rck3)" || bad "a real failure was masked: $(cat "$LOG_K3")"
+grep -q '1 transient handler failure' "$LOG_K3" && grep -q '1 non-quota mapping failure' "$LOG_K3" \
+  && ok "both failure classes are reported" || bad "failure reporting wrong: $(cat "$LOG_K3")"
 
 # ============================================================================
 # PART 2 — synthetic real-repo end-to-end (REQUIRED)

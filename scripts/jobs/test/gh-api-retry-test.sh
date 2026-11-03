@@ -95,6 +95,24 @@ assert_transient  "stream error: stream ID 7; INTERNAL_ERROR; received from peer
 # Go encoding/json truncated/empty response body. The garden-ci-watcher crash signature
 # below (kriscendobot/minion.town) must NEVER regress to definitive again.
 assert_transient  "unexpected end of JSON input"             "truncated/empty response body"
+# Go encoding/json on a non-JSON body names the body's first byte. The 'b' signature
+# (mirror-pr-state on Agoric/agoric-sdk#11297) must NEVER regress to definitive again.
+assert_transient  "gh: invalid character '<' looking for beginning of value" "HTML page in place of JSON"
+assert_transient  "invalid character 'b' looking for beginning of value" "plain-text proxy body in place of JSON"
+assert_transient  "invalid character '\\n' looking for beginning of value" "escaped first byte in the decoder message"
+assert_definitive "invalid character 'x' after top-level value" "a different decoder error is not the non-JSON-body class"
+final_nonjson="WARN: gh api graphql failed after 4 transient attempt(s) (rc=1): invalid character 'b' looking for beginning of value"
+gh_api_exhausted_on_nonjson_body "$final_nonjson" \
+  && ok "exhausted-on-non-JSON predicate matches the give-up line" \
+  || bad "exhausted-on-non-JSON predicate missed the give-up line"
+gh_api_exhausted_on_nonjson_body "gh api graphql transient blip (rc=1); retry 2/4 after backoff: invalid character 'b' looking for beginning of value
+WARN: gh api graphql failed (definitive, rc=1); not retrying: gh: Not Found (HTTP 404)" \
+  && bad "an early non-JSON blip masked a later definitive failure" \
+  || ok "an early non-JSON blip does not mask a later definitive failure"
+gh_api_exhausted_on_nonjson_body "gh api graphql transient blip (rc=1); retry 2/4 after backoff: invalid character 'b' looking for beginning of value
+WARN: gh api graphql failed after 4 transient attempt(s) (rc=1): gh: Bad credentials (HTTP 401)" \
+  && bad "an early non-JSON blip masked a final 401" \
+  || ok "an early non-JSON blip does not mask a final 401"
 assert_definitive "gh: Not Found for GEOFFREY (HTTP 404)"     "EOF mid-word (GEOFFREY) must NOT match \\bEOF\\b"
 assert_definitive "gh: Not Found (HTTP 404)"                  "404 — a deleted/transferred resource"
 assert_definitive "gh: Not Found (HTTP 422)"                  "422 — unprocessable"

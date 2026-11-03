@@ -19,6 +19,10 @@
 # this handler's stderr and reports the whole window with ONE aggregate degraded
 # WARN. A per-mapping FATAL there would double-report a self-resolving throttle at
 # error priority — noise a triage misreads as a real outage. See the block below.
+#
+# A second carve-out: a non-JSON response body that outlasts gh_api_retry's budget
+# exits GARDEN_TRANSIENT_RC, also with empty stdout and no FATAL. The closer counts
+# that exit code as a transient degrade.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -91,7 +95,13 @@ if [ "$rc" -ne 0 ]; then
   if is_gh_primary_rate_limit_text "$stderr"; then
     exit "$rc"
   fi
-  # Any OTHER failure (auth, a bad node id, exhausted transient retries, a null
+  # A proxy or gateway page in place of JSON says nothing about this PR. Once the
+  # retries are spent, report it as transient: still no state on stdout, so nothing
+  # is guessed, and the retained stderr above carries the cause.
+  if gh_api_exhausted_on_nonjson_body "$stderr"; then
+    exit "$GARDEN_TRANSIENT_RC"
+  fi
+  # Any OTHER failure (auth, a bad node id, other exhausted transient retries, a null
   # pullRequest surfacing as a top-level errors array) is a definitive or
   # unavailable state: fail LOUD, exactly as before — a swallowed error must never
   # masquerade as "open" or "closed".

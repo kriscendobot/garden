@@ -6395,6 +6395,15 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # returning HTML past GARDEN_GH_API_ATTEMPTS the call still fails loud (nonzero,
 # empty) rather than guessing. gh-api set ONLY (a Go-decoder string, never git's).
 #
+# The decoder names whatever byte the body opened with, so `<` is only the HTML
+# case: a plain-text proxy or gateway body such as `bad gateway` yields
+# `invalid character 'b' looking for beginning of value` (observed: mirror-pr-state
+# logged it "definitive, rc=1" on Agoric/agoric-sdk#11297, then
+# garden-mirror-closer failed). No GitHub JSON response opens with such a byte, so
+# GARDEN_GH_NONJSON_BODY_SIGNATURE matches any character. The sibling decoder error
+# `invalid character 'x' after top-level value` is a different failure and stays
+# definitive.
+#
 # A truncated or empty response body is the same class a fourth time: when a page
 # ends mid-document (or comes back empty) Go's `encoding/json` reports `unexpected
 # end of JSON input` — again with NO HTTP-status word, so without the signature
@@ -6431,7 +6440,8 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # retried here, so absorbing it under the bounded retry preserves "never guess a
 # state": a reset that outlives GARDEN_GH_API_ATTEMPTS still fails loud (nonzero,
 # empty). gh-api set ONLY (a Go-net/http2 string, never git's curl/SSH transport).
-: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|HTTP 401|Bad credentials|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|unexpected end of JSON input|stream error: stream ID [0-9]+|http2: (server sent GOAWAY|client connection (lost|force closed))|INTERNAL_ERROR|${GARDEN_OFFLINE_SIGNATURES}}"
+: "${GARDEN_GH_NONJSON_BODY_SIGNATURE:=invalid character .+ looking for beginning of value}"
+: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|HTTP 401|Bad credentials|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|${GARDEN_GH_NONJSON_BODY_SIGNATURE}|unexpected end of JSON input|stream error: stream ID [0-9]+|http2: (server sent GOAWAY|client connection (lost|force closed))|INTERNAL_ERROR|${GARDEN_OFFLINE_SIGNATURES}}"
 
 # GitHub's PRIMARY hourly quota refusal. This is deliberately narrower than the
 # transient signature set above: secondary-rate-limit / abuse throttles and HTTP
@@ -6458,6 +6468,18 @@ is_gh_primary_rate_limit_text() {
 # diagnostic). A here-string has no producer process that can fail this way.
 _gh_api_stderr_is_transient() {
   grep -qiE "$GARDEN_TRANSIENT_GH_API_SIGNATURES" <<<"$1"
+}
+
+# gh_api_exhausted_on_nonjson_body <captured-gh_api_retry-stderr> — 0 only when
+# gh_api_retry spent its transient budget and the LAST attempt still got a non-JSON
+# body. It reads from the give-up line onward, so a non-JSON blip on an early
+# attempt cannot hide a later definitive failure or a later 401: those end without
+# the give-up line, or with a different cause on it. The wording is the WARN that
+# gh_api_retry logs below; assumes one gh_api_retry call per capture.
+gh_api_exhausted_on_nonjson_body() {
+  local final
+  final="$(sed -n '/failed after [0-9]* transient attempt/,$p' <<<"${1:-}")"
+  grep -qiE "$GARDEN_GH_NONJSON_BODY_SIGNATURE" <<<"$final"
 }
 
 # The fleet gh wrapper (scripts/jobs/bin/gh) bounds every real-gh call with
