@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T15:23:26Z_
+_As of 2026-11-03T15:27:39Z_
 
 ## Latest
 
@@ -546,6 +546,10 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Per-namespace journal clones on oros-studio-garden-ce242c49 are back under the 50-pack threshold.
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261103-150510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261103-150510.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261103-150510' has remained unclaimed for 1201s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `endojs-endo-but-for-bots-pr1575-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1575-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1575-gauntlet-halted.md)
 
