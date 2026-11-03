@@ -1,7 +1,8 @@
 ---
 posted_at: 2026-11-03T05:44:53Z
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 repo: https://github.com/kriscendobot/minion.town
@@ -18,13 +19,6 @@ Steps:
 Output: a report in the job result with PASS/FAIL per step, exact requests (no secrets), and a gap list ranked by what blocks "root invites, others accept". Do not change code, open PRs, or modify existing guests. Do not publish clips. Created guests cannot be deleted, so create no more than the two needed.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=162 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-03T06:12:00Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-03T06:33:04Z -->
