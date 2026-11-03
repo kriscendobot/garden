@@ -1,6 +1,6 @@
 ---
 created: 2026-09-29
-updated: 2026-10-16
+updated: 2026-11-03
 author: gardener
 ---
 
@@ -188,8 +188,10 @@ Rechecked live on 2026-10-16:
   `formulaIdentifier`, `contacts` and `messages`.
 - **The formula identifier is the bearer.** Every other route reads it from
   `Authorization: Bearer <formulaIdentifier>`. It is a password: anyone holding
-  it acts as that guest, there is no server-side rotation or revocation, and
-  no route deletes a guest. Never log, commit or print one.
+  it acts as that guest, and there is no server-side rotation or revocation.
+  `DELETE /api/guest` with `{confirm: "<typed confirmation>"}` deletes the
+  bearer's own guest (irreversible; live on production, checked 2026-11-03).
+  Never log, commit or print one.
 - **Only creation discloses it.** Since
   [kriscendobot/minion.town#195](https://github.com/kriscendobot/minion.town/pull/195)
   (deployed 2026-10-17), the state answers (`GET /api/guest` and
@@ -204,6 +206,20 @@ Rechecked live on 2026-10-16:
   a capability; see
   [minion-town-clip-publishing](../../skills/minion-town-clip-publishing/SKILL.md)
   § Publishing is reachable only through the MCP.
+- **Local invitations, proven end to end on 2026-11-03** (job
+  `prove-minion-town-invitations-20261103`): invite, accept, contacts on
+  both sides, and mail both ways all worked between two fresh guests. A spent
+  invitation answers 404 `invitation-unavailable` and a re-accept by the same
+  acceptor is idempotent. The pending invitation lives only in the serving
+  process's memory (`invitations` map in `guest-web-router.ts`), so a restart
+  or deploy voids every unredeemed link. The invitation identifier in the link
+  is itself a bearer secret until redeemed. Mail to a name the sender lacks
+  answers 503 `guest service unavailable`, not a 4xx.
+- **The root is not on this path.** The root subject (`ENDO_CLAUDE_ROOT_SUBJECTS`)
+  acts through its MCP guest, named from `iss+sub`, and the MCP has no
+  `invite`/`accept` tool (both are reserved in `src/endo/mcp-tool-names.ts`).
+  A browser guest can invite from Settings, but it is a different guest from
+  the MCP one, and the `legacy-root` migration that would join them is not built.
 
 ### Remote invitations
 
