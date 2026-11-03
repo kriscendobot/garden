@@ -1,6 +1,25 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-03T03:08Z (oros-health-checkup-20261103-022025): degraded (disk only); deployed `0844a5d`, main2 `dd1eb97`; landed a dep-cache eviction fix
+
+- **Load/mem:** load 3.31, 4.23, 4.00 at 02:35Z and 2.67, 2.93, 3.43 at 03:05Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
+- **Disk/inodes:** the virtiofs garden mount has 45689 MiB free at 03:05Z, 90%, against 51489 MiB at 00:00Z, about 1.9 GiB/h. It swung between 44937 and 47332 MiB within minutes while builds ran. Inodes are at 3%.
+- **Uptime:** 32d, no reboot.
+- **Deployed vs main2:** the root and fleet/health/oros show `0844a5d`, `roll_status: deployed`, 0 of 290 units failing (01:32:16Z). origin/main2 is `dd1eb97`, this run's fix, not yet rolled out.
+- **Drain/units:** 0 failed user units, `garden-monk@1..4` running, worker-leveling row `4 0`, no drain or derotation marker found.
+- **Budget heartbeat:** last push seen 02:19:21Z, 16 minutes before the check. The last 8 pushes (00:33 to 02:19Z) are all ok, at about a 15-minute cadence. Spend is 19044510 of 180M.
+- **State clones:** the largest are monitors/monk-1 (409M, 37 packs) and monks/1 (236M, 36 packs). No `gc.log` and no temp packs in the monk and monitor clones, and the root repo has 24 packs. No lock older than 30 minutes in those clones or the root `.git` at depth 2. A find over all of `$GARDEN_STATE` timed out at 60s, so the rest is unchecked.
+- **rc=124 (3h):** none, and no rc=137 or `Failed with result`.
+- **Claim races:** 10 lines in 3h, a coarse grep count.
+- **Contention watch (0844a5d):** the 02:33Z tick took 37s and 11.4s of CPU, against about 90s and 36-40s before. One tick measured.
+- **Sibling watcher:** `oros-health-watch` has caught up; the 17:05, 20:20 and 23:20Z runs reached tada on 11-03, and none waits in todo or doin.
+- **Disk accounting (first complete one for scratch):** scratch's project, gardener and tmp dirs (86 of 377 entries) total 37 GiB, led by two idle ironhorse ratchet checkouts (8.8 and 8.1 GiB) and `ebfb-xs` (5.5 GiB). None has a live process. `$GARDEN_STATE` without dep-cache is about 12 GiB; three dirs timed out, so that is a floor. `.npm` 5.6, `.yarn` 5.4, `.claude` 3.4, `.rustup` 2.4 GiB. The per-dir `du` sums double-count hardlinks. The garden tree is therefore roughly 120 GiB of 415 GiB used, an estimate, so about 300 GiB is outside the tree as earlier notes said. Whether the current growth is inside the tree is not proven.
+- **The defect (dep-cache):** 51 entries under `$GARDEN_STATE/dep-cache`, about 1 GiB each by two samples (1082 and 1050 MiB), not summed. endojs-endo-but-for-bots made 6 entries touched today and 17 in the last three days by mtime. The provisioner prunes a slug only when provisioning it, at a 14-day TTL, so minion.town and garden-book entries sit at 15-23 days. Reinstall cost is about 100s (`install-secs` 102).
+- **Changed:** landed `dd1eb97`: the sweeper now evicts entries past 14 days on every slug, and past `-mtime +2` once under 64 GiB free, keeping each slug's newest entry. Entries are renamed under the provisioner's lock and deleted after it. New `worktree-sweeper-dep-cache-test.sh` passes 18 of 18, and the build-cache test still passes. Not yet run on real data: it reaches oros at its next deploy, so the next run should confirm the free-space jump. Space shared with live checkouts through hardlinks is not freed until those go. I removed no files by hand and touched no units.
+- **Minor, not fixed:** the sweeper keeps 49 terminal checkouts referenced by reports: 48 cite an open PR, and one cites `kriscendobot/garden#89`, which 404s as a PR and so is kept indefinitely. That one costs about 48M.
+- **Needs the maintainer:** someone at the Mac should find what uses the roughly 300 GiB outside the garden tree; about 45 GiB is left.
+
 ## 2026-11-03T00:02Z (oros-health-checkup-20261102-232010): degraded (disk only); deployed `e97673a`, main2 `0844a5d`; landed a contention-watch fix
 
 - **Load/mem:** load 3.93, 3.81, 3.62 at 23:46Z and 3.04, 2.96, 3.24 at 00:00Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged.
