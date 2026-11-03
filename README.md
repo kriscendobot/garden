@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T07:46:03Z_
+_As of 2026-11-03T07:49:02Z_
 
 ## Latest
 
@@ -479,6 +477,10 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration deadmail-20261101T112108Z-fd9876-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
+
+- `watchdog-unclaimable-host-requirements-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body.md)
+
+> Host-requirements gate: job 'endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_inbox_list_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_inbox_list_journal.md)
 
@@ -1147,13 +1149,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 103.8M | $380.91 _(notional, rate-card)_ | 38% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51682727 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51686588 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control/journal); 7 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1641-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1641
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1645-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1645
 - [`endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-pr-body.md) — Update the PR body of endojs/endo-but-for-bots PR #1644
@@ -1161,6 +1163,7 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 - [`fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-2.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #199
+- [`canary-probe-oros-studio-garden-ce242c49-790ddd2691bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-790ddd2691bb.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 790ddd2691bb
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr1644-gauntlet-fix-1-1.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
