@@ -27,6 +27,7 @@ The merge job `kriscendobot-minion.town-pr199-conduct-20261103` is parked `block
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-03T07:13:04Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
