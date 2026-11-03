@@ -1,4 +1,5 @@
 ---
+child-improve-gardener-handler-rc76-collision-expanded-window-reap-count: 0
 order: serial
 children: improve-gardener-handler-rc76-collision-expanded-window
 on-child-failure: halt
