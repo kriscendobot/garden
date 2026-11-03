@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T05:43:21Z_
+_As of 2026-11-03T05:44:47Z_
 
 ## Latest
 
@@ -1135,7 +1135,7 @@ _Fleet token-unlock pace: 51703623 tokens/day lower bound; incomplete where a su
 worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control/journal); 9 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1641-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1641-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1641
 - [`oros-health-watch-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261103-053509.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
@@ -1143,13 +1143,13 @@ worst fetch p95 4.843259s/45s (/home/kris/garden/.garden-state/screening-control
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`minion-town-arc-press-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261103-053509.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`oros-health-checkup-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261103-053509.md) — ---
 
-### doin (5)
+### doin (6)
 - [`kriscendobot-minion.town-pr199-review-4460eb00`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-review-4460eb00.md) — Review directive on kriscendobot/minion.town PR #199
 - [`endojs-endo-but-for-bots-pin-node-version-24`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pin-node-version-24.md) — ---
 - [`endojs-endo-but-for-bots-pr1645-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1645-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1645
 - [`endojs-endo-but-for-bots-pr1644-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1644-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1644
+- [`oros-health-checkup-20261103-053509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261103-053509.md) — ---
 - [`endojs-endo-but-for-bots-pr1646-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1646-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1646
 
 ### tada (16314)
