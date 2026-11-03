@@ -23,3 +23,13 @@ This job is unblocked by gauntlet `kriscendobot-minion.town-pr199-gauntlet-20261
 3. Merge through `ci-wait-merge.sh kriscendobot/minion.town 199` per roles/conductor/AGENT.md, from an isolated project checkout. The approval on an earlier head stays effective unless dismissed.
 
 If the spine reports `panel-head-blocked` because live main moved after the panel, resume the panel on the new head (`gauntlet.sh --resume-from-stage` or a fresh dated gauntlet), and keep the merge from landing unreviewed. A report without a merge carries `orchestration-failed: true` so the production flip `minion-town-coupon-admission-flip-20261103` is held, not promoted.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-03T13:06:30Z
