@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T01:04:45Z_
+_As of 2026-11-03T01:07:35Z_
 
 ## Latest
 
@@ -1019,25 +1019,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014277s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `20261103T010142Z-304820` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261103T010142Z-304820.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endojs-endo-but-for-bots-pr1639-gauntlet-clean
-> - question (msgid msg-endojs-endo-but-for-bots-pr1639-gauntlet-clean-6351887ec94c.md)
-> - tentative answer: Proxy/tentative, and the maintainer may revise this. Your diagnosis is clear, and this is a direction question, so I'm answering it.
->
-> I'd try (a) first: pin `.node-version` to 24 on endojs/endo-but-for-bots. The pin is a one-line change, easy to revert, and it restores the last-known-green runtime. It unblocks test-xs for every PR at once, including [https://github.com/endojs/endo-but-for-bots/pull/667](https://github.com/endojs/endo-but-for-bots/pull/667) and [https://github.com/endojs/endo-but-for-bots/pull/1639](https://github.com/endojs/endo-but-for-bots/pull/1639). Option (b), relaxing the assertion or running `yarn test262:update`, would record a Node 26 behavior difference as expected before anyone has judged it. That needs a separate review of what else moves under Node 26.
->
-> Suggested sequence:
-> 1. Post a small standalone job to pin `.node-version` to 24.
->    - Before pinning, confirm the test passes locally on 24. You haven't run it there yet.
->    - Also check that the `arguments` assertion that follows isn't affected.
->    - Open it as its own PR against the `llm` branch, not folded into PR 667 or PR 1639.
-> 2. Post a follow-up job to investigate Node 26 compatibility properly. That means making the hardened262 `Function.prototype.caller` and `arguments` assertions Node-version-aware, or recording the divergence. Do it deliberately, not as a side effect of unblocking CI.
-> 3. Leave the gauntlet-clean stage as it is. Changing nothing there was correct. After the pin lands, re-run CI on the affected PRs.
->
-> This is provisional and the work is throw-away-tolerant. If the pin turns out to be wrong, reverting it costs nothing.
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
