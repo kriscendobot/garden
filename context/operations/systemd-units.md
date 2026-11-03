@@ -638,7 +638,10 @@ Foreman brake affects none. Inspect and mask the matching pair. See
   host at `:12/30`; runs `scripts/jobs/worktree-sweeper.sh` with a 30-minute unit
   timeout and continues under drain. It removes completed, doomed, and orphaned
   local checkouts after terminality checks. Defaults are 100 removals and a
-  1500-second soft deadline. State is
+  1500-second soft deadline. It also evicts idle dependency-cache entries, keeping
+  each slug's newest: `GARDEN_DEP_CACHE_TTL_DAYS=14`, or
+  `GARDEN_DEP_CACHE_PRESSURE_TTL_DAYS=2` once under
+  `GARDEN_DEP_CACHE_PRESSURE_FREE_MIB=65536` free. State is
   `$GARDEN_STATE/worktree-sweeper/journal`; it reads terminal journal jobs and
   changes local `$GARDEN_SCRATCH`/root worktrees.
 - **`garden-transcript-capture.timer`,

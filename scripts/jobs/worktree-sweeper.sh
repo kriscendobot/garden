@@ -39,6 +39,14 @@ export GARDEN_TAG="worktree-sweeper"
 : "${GARDEN_TMPEXEC_IDLE_DAYS:=7}"
 # Seconds one tick may spend on that pass; a large backlog drains over several ticks.
 : "${GARDEN_TMPEXEC_SWEEP_SECS:=300}"
+# Days idle before a dependency-cache entry is evicted (the provisioner's own TTL); 0 disables.
+: "${GARDEN_DEP_CACHE_ROOT:=$GARDEN_STATE/dep-cache}"
+: "${GARDEN_DEP_CACHE_TTL_DAYS:=14}"
+# The shorter TTL that applies once the cache's filesystem has under this much free.
+: "${GARDEN_DEP_CACHE_PRESSURE_TTL_DAYS:=2}"
+: "${GARDEN_DEP_CACHE_PRESSURE_FREE_MIB:=65536}"
+# Seconds one tick may spend deleting evicted entries; the rest drain over later ticks.
+: "${GARDEN_DEP_CACHE_SWEEP_SECS:=300}"
 CLONE="${GARDEN_WORKTREE_SWEEPER_CLONE:-$GARDEN_STATE/worktree-sweeper/journal}"
 removed=0
 TICK_START="$(date +%s 2>/dev/null || echo 0)"
@@ -56,6 +64,12 @@ esac
 case "$GARDEN_TMPEXEC_IDLE_DAYS" in
   ''|*[!0-9]*) die "GARDEN_TMPEXEC_IDLE_DAYS must be a non-negative integer" ;;
 esac
+for knob in GARDEN_DEP_CACHE_TTL_DAYS GARDEN_DEP_CACHE_PRESSURE_TTL_DAYS \
+            GARDEN_DEP_CACHE_PRESSURE_FREE_MIB GARDEN_DEP_CACHE_SWEEP_SECS; do
+  case "${!knob}" in
+    ''|*[!0-9]*) die "$knob must be a non-negative integer" ;;
+  esac
+done
 case "$GARDEN_TMPEXEC_SWEEP_SECS" in
   ''|*[!0-9]*) die "GARDEN_TMPEXEC_SWEEP_SECS must be a non-negative integer" ;;
 esac
@@ -371,6 +385,52 @@ if ! past_deadline && [ "$GARDEN_TMPEXEC_IDLE_DAYS" -gt 0 ] && [ -d "$GARDEN_SCR
     tmpexec_removed=$((tmpexec_removed + 1))
   done < <(find "$tmpexec" -mindepth 1 -maxdepth 1 ! -mtime "-$GARDEN_TMPEXEC_IDLE_DAYS" -print0 2>/dev/null || true)
   [ "$tmpexec_removed" -eq 0 ] || log "removed $tmpexec_removed idle tmpexec entries (no writes in ${GARDEN_TMPEXEC_IDLE_DAYS}d)"
+fi
+
+# A dependency-cache entry is about 1 GiB of node_modules per distinct lockfile, and
+# the provisioner only prunes a slug when it next provisions that slug, so a repo with
+# no new jobs keeps its entries forever and a busy repo holds two weeks of them (51
+# entries on oros by 2026-11-03, with 45 GiB free). Eviction costs one reinstall, about
+# 100s, and cannot hurt a checkout, whose hardlinks keep the data alive. The newest
+# entry of each slug stays. An entry is renamed under the provisioner's per-slug lock,
+# so no provisioner is linking from it, and deleted after the lock is released, so a
+# slow delete never makes a provisioner wait. A held lock skips the renames this tick.
+if ! past_deadline && [ "$GARDEN_DEP_CACHE_TTL_DAYS" -gt 0 ] && [ -d "$GARDEN_DEP_CACHE_ROOT" ]; then
+  dep_ttl="$GARDEN_DEP_CACHE_TTL_DAYS"
+  dep_free="$(df -Pm "$GARDEN_DEP_CACHE_ROOT" 2>/dev/null | awk 'NR==2 {print $4}' || true)"
+  case "$dep_free" in
+    ''|*[!0-9]*) ;;
+    *) if [ "$dep_free" -lt "$GARDEN_DEP_CACHE_PRESSURE_FREE_MIB" ] \
+          && [ "$GARDEN_DEP_CACHE_PRESSURE_TTL_DAYS" -lt "$dep_ttl" ]; then
+         dep_ttl="$GARDEN_DEP_CACHE_PRESSURE_TTL_DAYS"
+       fi ;;
+  esac
+  dep_removed=0
+  dep_end=$(( $(date +%s) + GARDEN_DEP_CACHE_SWEEP_SECS ))
+  for slug_dir in "$GARDEN_DEP_CACHE_ROOT"/*/; do
+    [ -d "$slug_dir" ] || continue
+    slug_dir="${slug_dir%/}"
+    (
+      flock -n 9 || exit 0
+      keep="$(find "$slug_dir" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -printf '%T@ %f\n' 2>/dev/null \
+        | sort -nr | head -1 | cut -d' ' -f2-)"
+      [ -n "$keep" ] || exit 0
+      find "$slug_dir" -mindepth 1 -maxdepth 1 -type d ! -name '.*' ! -name "$keep" \
+           -mtime +"$dep_ttl" -printf '%f\n' 2>/dev/null \
+        | while IFS= read -r name; do
+            mv -- "$slug_dir/$name" "$slug_dir/.evicting-$name" 2>/dev/null || true
+          done
+    ) 9>>"$slug_dir/.lock" || true
+    # Also finishes any delete that an earlier tick ran out of time on.
+    for evicting in "$slug_dir"/.evicting-*; do
+      [ -d "$evicting" ] || continue
+      dep_left=$(( dep_end - $(date +%s) ))
+      [ "$dep_left" -gt 0 ] && ! past_deadline || break 2
+      timeout "$dep_left" rm -rf -- "$evicting" || continue
+      dep_removed=$((dep_removed + 1))
+    done
+  done
+  [ "$dep_removed" -eq 0 ] || log "removed $dep_removed idle dependency cache entries (idle over ${dep_ttl}d, ${dep_free:-unknown} MiB free before)"
 fi
 
 # Repair relocation-staled live root registrations before pruning dead ones.
