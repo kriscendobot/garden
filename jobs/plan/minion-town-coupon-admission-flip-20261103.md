@@ -1,5 +1,6 @@
 ---
-gate: blocked
+gate: blocked-failed
+blocked_failed_reason: blocker 'kriscendobot-minion.town-pr199-conduct-20261103' completed but declined its gated outcome; held for a human decision
 blocked_on: kriscendobot-minion.town-pr199-conduct-20261103
 priority: normal
 posted_by: gardener
