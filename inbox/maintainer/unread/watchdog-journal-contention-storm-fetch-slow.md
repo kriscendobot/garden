@@ -1,14 +1,22 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:journal-contention-watch
-sent_at: 2026-11-03T14:34:32Z
+sent_at: 2026-11-03T14:36:15Z
 watchdog_key: journal-contention-storm-fetch-slow
-notice_count: 5
+notice_count: 6
 first_seen: 2026-11-03T11:29:32Z
-last_seen: 2026-11-03T14:34:32Z
-recovered: true
+last_seen: 2026-11-03T14:36:15Z
 ---
-RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-03T11:29:32Z, cleared 2026-11-03T14:34:32Z).
-It was observed 5 time(s) while open. Nothing further is required;
-this notice closes the loop so the end of the condition is on the record.
+WATCHDOG notice — occurrence #6 (first seen 2026-11-03T11:29:32Z, latest 2026-11-03T14:36:15Z).
+The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 6 times; this is ONE
+coalesced notice that updates in place, not 6 messages. Latest detail:
 
-Journal contention condition `journal-contention-storm-fetch-slow` cleared on oros-studio-garden-ce242c49.
+Journal contention storm on oros-studio-garden-ce242c49: 9 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 9 independent faults):
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/reaper/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=17.706378s max=17.706378s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=15.318889s max=15.318889s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/comment-watcher/verify: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: p95=24.943728s max=24.943728s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/deadmail/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/library-link-check/journal: p95=45.028712s max=45.028712s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/state-clone-keeper/journal: p95=45.019739s max=45.019739s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+- Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/transcripts/journal: p95=45.006582s max=45.006582s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
