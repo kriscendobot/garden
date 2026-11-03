@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T00:59:00Z_
+_As of 2026-11-03T01:04:45Z_
 
 ## Latest
 
@@ -579,14 +577,6 @@ Delegation: **active**
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.069621s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
-- `msg-endojs-endo-but-for-bots-pr1639-gauntlet-clean-6351887ec94c` — from gardener:endojs-endo-but-for-bots-pr1639-gauntlet-clean, reply_to `endojs-endo-but-for-bots-pr1639-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1639-gauntlet-clean-6351887ec94c.md)
-
-> Root cause for the recurring test-xs red on endo-but-for-bots (the flip reported on [https://github.com/endojs/endo-but-for-bots/pull/667](https://github.com/endojs/endo-but-for-bots/pull/667); also [https://github.com/endojs/endo-but-for-bots/pull/1639](https://github.com/endojs/endo-but-for-bots/pull/1639)): `.node-version` is `lts/*`, and actions/setup-node now resolves that to Node 26.13.0. It resolved to 24.22.1 in the last green base run (41370492445, 2026-11-02 01:04Z).
->
-> Reproduced locally through the real harness, `node scripts/test.js -a sesNode test/intrinsics/ThrowTypeError/intrinsic-metadata.js` in packages/hardened262: passes on v22.23.2, fails on v26.13.0 with "Function.prototype.caller reuses the %ThrowTypeError% intrinsic Expected SameValue(«function get caller() { [native code] }», «function () { [native code] }»)". On Node 26 `Function.prototype.caller` has its own native getter, so the test's cross-route assertion no longer holds there. I did not test 24 locally, or check the `arguments` assertion that follows it.
->
-> Not caused by the PRs. It should hit every PR that triggers test-xs, and rerunning won't help. Options, your call: (a) pin `.node-version` to 24 for now, the smaller change, or (b) relax that assertion, or run `yarn test262:update` to record the failure, which accepts Node 26 but needs a check of what else moves under it. Neither is in this clean stage's scope, so I changed nothing for it and posted no job. Say if you want one posted.
-
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_producer_journal` has CLEARED (first seen 2026-11-01T04:54:25Z, cleared 2026-11-01T10:46:50Z).
@@ -1030,6 +1020,25 @@ Delegation: **active**
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.014277s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
+- `20261103T010142Z-304820` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261103T010142Z-304820.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr1639-gauntlet-clean
+> - question (msgid msg-endojs-endo-but-for-bots-pr1639-gauntlet-clean-6351887ec94c.md)
+> - tentative answer: Proxy/tentative, and the maintainer may revise this. Your diagnosis is clear, and this is a direction question, so I'm answering it.
+>
+> I'd try (a) first: pin `.node-version` to 24 on endojs/endo-but-for-bots. The pin is a one-line change, easy to revert, and it restores the last-known-green runtime. It unblocks test-xs for every PR at once, including [https://github.com/endojs/endo-but-for-bots/pull/667](https://github.com/endojs/endo-but-for-bots/pull/667) and [https://github.com/endojs/endo-but-for-bots/pull/1639](https://github.com/endojs/endo-but-for-bots/pull/1639). Option (b), relaxing the assertion or running `yarn test262:update`, would record a Node 26 behavior difference as expected before anyone has judged it. That needs a separate review of what else moves under Node 26.
+>
+> Suggested sequence:
+> 1. Post a small standalone job to pin `.node-version` to 24.
+>    - Before pinning, confirm the test passes locally on 24. You haven't run it there yet.
+>    - Also check that the `arguments` assertion that follows isn't affected.
+>    - Open it as its own PR against the `llm` branch, not folded into PR 667 or PR 1639.
+> 2. Post a follow-up job to investigate Node 26 compatibility properly. That means making the hardened262 `Function.prototype.caller` and `arguments` assertions Node-version-aware, or recording the divergence. Do it deliberately, not as a side effect of unblocking CI.
+> 3. Leave the gauntlet-clean stage as it is. Changing nothing there was correct. After the pin lands, re-run CI on the affected PRs.
+>
+> This is provisional and the work is throw-away-tolerant. If the pin turns out to be wrong, reverting it costs nothing.
+
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-01T06:29:02Z, cleared 2026-11-01T07:35:03Z).
@@ -1118,10 +1127,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.9M | $353.26 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
+| Claude | 95.9M | $353.43 _(notional, rate-card)_ | 35% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51420157 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 51424761 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
