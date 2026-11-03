@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-03T20:08:17Z_
+_As of 2026-11-03T20:13:51Z_
 
 ## Latest
 
@@ -814,6 +812,10 @@ Delegation: **active**
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-2-package-fetching' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
+- `watchdog-handler-budget-overrun-improve-gardener-handler-rc76-collision` — from watchdog:monk/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-improve-gardener-handler-rc76-collision.md)
+
+> gardener job 'improve-gardener-handler-rc76-collision' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2401s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `liaison-followup-d31d9dcee79e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-d31d9dcee79e.md)
 
 > daemon-agent-tools-design-build (endojs/endo-but-for-bots): Phase 8 of the daemon agent tools design needs your decision on Open Question 4. Should the HTTP client be a daemon `provideHttpClient` formula, or the `@endo/fetch` plugin? Phase 8 is blocked until you answer. Separately, the Phase 2c checkbox in the design document should be ticked once #1497 lands. Phase 7 (the endo-claude acceptance loop) is unblocked for its build step whenever you want it posted.
@@ -1266,15 +1268,15 @@ _Fleet token-unlock pace: 53075693 tokens/day lower bound; incomplete where a su
 worst fetch p95 19.936636s/45s (/home/kris/garden/.garden-state/screening-delegation/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
+- [`improve-gardener-handler-rc76-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-gardener-handler-rc76-collision.md) — Deliberate overrun decomposition for improve-gardener-handler-rc76-collision
 - [`screen-minion-town-pr234-0b1d853-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr234-0b1d853-conduct.md) — Screened delegated merge: kriscendobot/minion.town#234 at 0b1d85381c5d6fa48bd...
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
-- [`improve-gardener-handler-rc76-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision.md) — ---
+### doin (1)
 - [`kriscendobot-minion.town-pr229-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr229-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #229
 
 ### tada (16423)
