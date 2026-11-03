@@ -234,7 +234,15 @@ Two facts matter before anyone tries to use one:
   ([minion-town-ocapn-dispatch](../../skills/minion-town-ocapn-dispatch/SKILL.md)
   § Current status), and a live remote invitation on 2026-10-16 had a single
   path component and only the `type`, `from` and `fromNode` query keys. A
-  daemon elsewhere has no address to reach it at.
+  daemon elsewhere has no address to reach it at. The hints are the root
+  host's `@nets` addresses (`getPeerInfo`), not the guest's. The fix is the
+  existing federation `@nets/ocapn` (TCP+Noise, :8940) advertising a public
+  host: Endo `ocapn-advertise-addr`
+  ([endo-but-for-bots#1647](https://github.com/endojs/endo-but-for-bots/pull/1647),
+  draft) plus minion.town's served-hint filter for invitations
+  ([minion.town#236](https://github.com/kriscendobot/minion.town/pull/236),
+  draft). Both still wait on the federation gate in minion.town
+  `DEPLOYMENT.md` (the peer-gateway fix #1335, the pin bump, `enable`).
 - **Accepting makes the accepting daemon the guest's correspondent, not the
   holder of its powers.** `accept` binds the inviter's handle under a pet name
   the acceptor chooses, and the inviter binds the acceptor in return (the
