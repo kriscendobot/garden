@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-03T02:20:02Z_
+_As of 2026-11-03T02:21:27Z_
 
 ## Latest
 
@@ -400,7 +400,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
-> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=88582678 cap=271000000 pace-bias=0 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.6534(ramp) target=2
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-12T03:20:10Z, latest 2026-11-03T02:20:20Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=97000983 cap=271000000 pace-bias=0.088156 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.7111(ramp) target=2
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_proxy_journal.md)
 
@@ -1106,7 +1110,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.1M | $359.13 _(notional, rate-card)_ | 36% of 271.0M (ok) |
+| Claude | 97.1M | $359.28 _(notional, rate-card)_ | 36% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 51547649 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1115,12 +1119,15 @@ _Fleet token-unlock pace: 51547649 tokens/day lower bound; incomplete where a su
 worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (8)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`endopi-iterative-compaction-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endopi-iterative-compaction-build.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
+- [`oros-health-watch-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261103-022025.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`minion-town-arc-press-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261103-022025.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`oros-health-checkup-20261103-022025`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261103-022025.md) — ---
 
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr1640-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1640-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1640
@@ -1249,7 +1256,7 @@ worst fetch p95 10.103944s/45s (unknown); 11 open notice(s); checker healthy
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
