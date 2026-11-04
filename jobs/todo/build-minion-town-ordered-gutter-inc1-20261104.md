@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: orchestrate-build-minion-town-ordered-gutter-20261104
-priority: normal
-posted_by: producer
+role: builder
+tier: mentor
 posted_at: 2026-11-04T23:43:19Z
+handler-timeout: 3600
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-04T23:44:44Z cleared=none -->
 
 ---
 role: builder
