@@ -21,3 +21,7 @@ Scope: companion § Build and acceptance plan, phase 2 (Anthropic API-key bindin
 
 Everything ships behind the disabled `apiKeyGuestAgents` feature flag (parent § Independently shippable sequence, steps 2-3); the legacy subscription path stays working as rollback. Implement exactly this phase and its listed tests; do not start later phases. Do not decide the parent design's § Open questions (Agent SDK retention, legacy migration window, bulk delegation attachment, garden inference sourcing, deprecation interval) — if this phase cannot proceed without one, stop and message the maintainer. Run CI-equivalent lint/type/test checks locally before pushing.
 
+
+<!-- garden-annotation: key=p2-duplicates-pr1575 by=producer at=2026-11-04T03:40:55Z -->
+
+Correction from build-api-key-agents-p1-provider-registry: phase 2 already exists as endojs/endo-but-for-bots#1575 (head feature/api-key-provider-adapters, stacked on phase-1 #1573), approved by kriskowal on 2026-11-04 with "respond, retcon, conduct"; weave-endojs-endo-but-for-bots-pr1575-onto-llm-after-pr1573 restacks it after #1573 merges. Do not build a second implementation. Before any work, compare #1575 with this job's listed tests. If it covers them, complete with a handoff to that weave job and open no PR; build only a gap #1575 does not cover, stacked on it.
