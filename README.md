@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T13:30:14Z_
+_As of 2026-11-04T13:35:20Z_
 
 ## Latest
 
@@ -1187,11 +1185,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-push-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-push-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-push-contention` has CLEARED (first seen 2026-11-04T11:19:06Z, cleared 2026-11-04T13:29:29Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-11-04T11:19:06Z, latest 2026-11-04T13:34:26Z).
+> The SAME condition (`journal-contention-storm-push-contention`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-push-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit push-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: attempts p95=- max=- (cap 50), classes cas=4 server-reject=2 definite-fail=8.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/decisions/journal: attempts p95=- max=- (cap 50), classes cas=3 server-reject=1 definite-fail=2.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/gardener-scaler/journal: attempts p95=- max=- (cap 50), classes cas=15 server-reject=7 definite-fail=40.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: attempts p95=- max=- (cap 50), classes cas=42 server-reject=0 definite-fail=2.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worker-derotate/journal: attempts p95=- max=- (cap 50), classes cas=2 server-reject=0 definite-fail=1.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: attempts p95=- max=- (cap 50), classes cas=22 server-reject=10 definite-fail=54.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
@@ -1535,10 +1539,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 54273035 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 21 open notice(s); checker healthy
+worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 22 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
 - [`kriscendobot-minion.town-pr239-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #239
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`kriscendobot-minion.town-pr245-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr245-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #245
@@ -1552,18 +1556,17 @@ worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`endojs-endo-but-for-bots-pr1649-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1649-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1649
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-watch-20261104-123510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-123510.md) — ---
+- [`issue-kriscendobot-garden-128-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128-expanded-window.md) — Close out the delivered review of dckc/vattr97#50 (garden issue #128)
 - [`kriscendobot-minion.town-pr244-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr244-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #244
 - [`endojs-endo-but-for-bots-pr1648-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1648-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1648
 - [`screen-minion-town-pr237-b942fb9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr237-b942fb9-conduct.md) — Screened delegated merge: kriscendobot/minion.town#237 at b942fb977133562f8bd...
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`claude-on-minion-town-completion-press-20261104-130508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-130508.md) — Completion press: Claude-on-minion.town arc
 
-### doin (5)
-- [`kriscendobot-minion.town-pr240-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr240-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #240
+### doin (3)
 - [`kriscendobot-minion.town-pr241-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr241-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #241
 - [`oros-health-checkup-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261104-092018.md) — ---
 - [`minion-town-arc-press-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261104-092018.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`issue-kriscendobot-garden-128-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-128-expanded-window.md) — Close out the delivered review of dckc/vattr97#50 (garden issue #128)
 
 ### tada (16573)
 - [`kriscendobot-minion.town-pr244-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr244-gauntlet-fix-1.md) — Cost
@@ -1579,6 +1582,7 @@ worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`review-docket-consolidate-20261008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-docket-consolidate-20261008.md) — _normal_ · ---
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/revive-hermit-lane-qwen3.8-20261001.md) — _normal_ · Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr240-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr240-gauntlet-panel-3.md) — _normal_ · Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #240
 - [`moddable-10-0-0-ironhorse-compiler-safety-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-compiler-safety-port.md) — _normal_ · Port Moddable 10.0.0 compiler safety corrections to IronHorse
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
