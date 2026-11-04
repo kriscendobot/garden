@@ -23,3 +23,13 @@ Garden conventions: land direct to `main2` (no PR for the garden's own repo), ro
 <!-- garden-annotation: key=36f79c57d270 by=producer at=2026-11-04T22:15:51Z -->
 
 SCOPE AMENDMENT (maintainer, 2026-11-04): the mechanic role is general to all leaders and followers and any mechanical host failure; implement the design's full host scope, not oros alone.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-04T22:31:36Z
