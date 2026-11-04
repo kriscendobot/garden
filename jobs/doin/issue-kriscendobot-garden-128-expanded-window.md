@@ -58,6 +58,7 @@ issue_url: https://github.com/kriscendobot/garden/issues/128
 submitter: dckc
 ----- END ISSUE NOTE -----
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
