@@ -11,3 +11,13 @@ task: Add the real-daemon Playwright proof to PR #240 on the SAME branch. Items 
 2. Run a local Caddy using the repo's deploy/aws/caddy conf.d. Adapt the site address and TLS for local use, but keep the @landing route as it is. Give it an access log and front the test with it. Assert that neither the Caddy access log nor the server log contains the locator or any fragment text, only GET /accept. Caddy is not installed on endolin-garden-ece02cb4. Fetch a pinned release binary into a scratch dir, or do this on a host that has Caddy.
 3. Wire the test into CI next to the guest-web-daemon run if that is feasible. Otherwise record the local run in the PR body.
 Constraints: keep the PR a draft. No deploy. No secrets in output. Update PR #240's "Still open" section into a production-outcome result.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T03:31:04Z
