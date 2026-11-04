@@ -1,4 +1,5 @@
 ---
+child-design-mechanic-role-reap-count: 0
 order: serial
 children: design-mechanic-role build-mechanic-role
 on-child-failure: halt
