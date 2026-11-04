@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 239
 build_job: build-minion-town-tool-minimalism-20261104
 kind: feature
-stage: panel
+stage: fix
 iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr239-gauntlet-panel-6
+current_child: kriscendobot-minion.town-pr239-gauntlet-fix-6
 state: running
 created_by: producer
 created_at: 2026-11-04T01:58:47Z
