@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: mechanic-role-orchestration-20261104
-priority: normal
-posted_by: producer
+role: designer
+tier: mentor
 posted_at: 2026-11-04T22:15:15Z
+handler-timeout: 3600
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-04T22:19:16Z cleared=none -->
 
 ---
 role: designer
