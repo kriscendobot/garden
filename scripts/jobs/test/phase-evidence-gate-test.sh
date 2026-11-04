@@ -410,6 +410,77 @@ OUT="$(bash "$GATE" author "$SWT" --base "$STALE_LLM" --head HEAD \
   && ok "an explicit stale sha is honored as given (control: the stale diff does demand a ledger)" \
   || bad "explicit stale sha should still see the base advance (rc=$RC, $OUT)"
 
+echo "== cross-repo design: resolved from a referenced PR, a blob URL, or a fetched copy =="
+# kriscendobot/minion.town#241: the governing design lived on
+# endojs/endo-but-for-bots#1543, so the minion.town worktree could not read it
+# and the authoring gate refused the PR with governing-design-unresolved.
+mkdir -p "$TR/fetched"
+cp "$WT/designs/production.md" "$TR/fetched/remote.md"
+export PHASE_STUB_DESIGN="$TR/fetched/remote.md"
+REMOTE_GH="$HERE/phase-evidence-remote-gh-stub.sh"
+# A code-only diff in a repository that has no copy of the design.
+RWT="$TR/remote-wt"
+mkdir -p "$RWT/src"
+git -C "$RWT" init -q
+git -C "$RWT" config user.email t@localhost
+git -C "$RWT" config user.name test
+printf 'base\n' > "$RWT/src/feature.js"
+git -C "$RWT" add -A
+git -C "$RWT" commit -qm base
+RBASE="$(git -C "$RWT" rev-parse HEAD)"
+printf 'step 1\n' >> "$RWT/src/feature.js"
+git -C "$RWT" commit -qam 'feat: step 1'
+run_remote_gate() { # run_remote_gate <body> [env...]
+  local body="$1"; shift
+  OUT=""; RC=0
+  OUT="$(env GARDEN_GH="$REMOTE_GH" "$@" bash "$GATE" author "$RWT" --base "$RBASE" \
+    --head HEAD --body-file "$body" --draft yes)" || RC=$?
+}
+cat > "$TR/remote-no-ledger.md" <<'EOF'
+Step 2 of `remote.md` in https://github.com/other/designs/pull/7.
+EOF
+run_remote_gate "$TR/remote-no-ledger.md"
+[ "$RC" -eq 20 ] && printf '%s\n' "$OUT" | grep -q 'designs=\[other/designs:designs/remote.md\]' \
+  && ok "a bare filename plus a PR URL resolves the design at the PR head" \
+  || bad "PR-referenced design not resolved (rc=$RC, $OUT)"
+cat > "$TR/remote-ledger.md" <<'EOF'
+Step 1 of `remote.md` in https://github.com/other/designs/pull/7.
+
+<!-- garden-phase-evidence-ledger:v1 -->
+## Phase and evidence ledger
+
+Design: `remote.md` (https://github.com/other/designs/pull/7)
+Disposition: orchestrated-slice
+Successor: later-steps
+Step 1: satisfied | this change
+Step 2: open | later-steps owns it
+Step 3: open | later-steps owns it
+Acceptance: open | the canary belongs to later-steps
+<!-- /garden-phase-evidence-ledger -->
+EOF
+run_remote_gate "$TR/remote-ledger.md"
+[ "$RC" -eq 0 ] && printf '%s\n' "$OUT" | grep -q 'phase-evidence-verdict=slice' \
+  && ok "a ledger naming the cross-repo design by filename with Step rows is accepted" \
+  || bad "cross-repo ledger refused (rc=$RC, $OUT)"
+cat > "$TR/remote-blob.md" <<'EOF'
+Step 2 of https://github.com/other/designs/blob/main/designs/remote.md.
+EOF
+run_remote_gate "$TR/remote-blob.md"
+[ "$RC" -eq 20 ] && printf '%s\n' "$OUT" | grep -q 'other/designs:designs/remote.md' \
+  && ok "a blob URL resolves the design at its ref" \
+  || bad "blob-URL design not resolved (rc=$RC, $OUT)"
+cat > "$TR/remote-path.md" <<'EOF'
+Step 2 of `designs/remote.md`, which lives in another repository.
+EOF
+run_remote_gate "$TR/remote-path.md" GARDEN_PHASE_EVIDENCE_REMOTE=0
+[ "$RC" -eq 3 ] && ok "control: an unreadable cross-repo design is still undetermined" \
+  || bad "expected undetermined (3) without a source, got $RC: $OUT"
+run_remote_gate "$TR/remote-path.md" GARDEN_PHASE_EVIDENCE_REMOTE=0 \
+  GARDEN_PHASE_EVIDENCE_DESIGN_DIR="$TR/fetched"
+[ "$RC" -eq 20 ] && printf '%s\n' "$OUT" | grep -q 'missing-or-duplicate-ledger-markers' \
+  && ok "a fetched copy under GARDEN_PHASE_EVIDENCE_DESIGN_DIR resolves the design offline" \
+  || bad "fetched copy not used (rc=$RC, $OUT)"
+
 echo
 echo "phase-evidence-gate: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

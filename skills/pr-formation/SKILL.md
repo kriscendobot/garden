@@ -94,6 +94,15 @@ Acceptance: satisfied | browser, daemon-log, and canary observations at <durable
 <!-- /garden-phase-evidence-ledger -->
 ```
 
+A row may read `Step N:` instead of `Phase N:` when the design numbers steps.
+When the governing design lives in another repository, link to it: a PR URL
+plus the design's path or filename (`claude-bare-course-correction.md` in
+`https://github.com/endojs/endo-but-for-bots/pull/1543`), or a blob URL to the
+file. The gate reads the design at that PR's head or at the blob's ref, and the
+ledger's `Design:` line may name it by path, filename, or URL. Offline, point
+`GARDEN_PHASE_EVIDENCE_DESIGN_DIR` (or `--design-dir`) at a directory holding a
+fetched copy. Do not drop the design reference or hand-write around the gate.
+
 List every numbered phase from the governing sequence, including superseded or
 not-applicable phases, and give each row its evidence or rationale. A
 `deliverable` row uses only `satisfied`, `superseded`, or `not-applicable`; an

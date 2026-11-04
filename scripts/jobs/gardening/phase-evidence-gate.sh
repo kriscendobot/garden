@@ -9,7 +9,16 @@ usage() {
 usage: phase-evidence-gate.sh <author|panel> <worktree>
        [--base <ref>] [--head <ref>] [--body-file <file>]
        [--repo <owner/name> --pr <number>] [--draft <yes|no>]
-       [--evidence-file <file>]
+       [--evidence-file <file>] [--design-dir <dir>]
+
+A governing design may live in another repository (a minion.town PR whose
+design is on an endo-but-for-bots PR). The gate resolves a design path the
+worktree lacks from, in order: a fetched copy under --design-dir (or
+GARDEN_PHASE_EVIDENCE_DESIGN_DIR), matched by path then by filename; then the
+GitHub URLs in the body: a blob URL names the repo, ref, and path directly, and
+a pull URL contributes the design files that PR touches whose path or bare
+filename the body names, read at the PR's head commit. Set
+GARDEN_PHASE_EVIDENCE_REMOTE=0 to skip the network lookups.
 
 Exit 0: clear (or an author-time draft probe / orchestrated slice)
 Exit 10: relevant ordered design; the integrator must compare the ledger to it
@@ -34,6 +43,7 @@ repo=""
 pr=""
 draft=yes
 evidence_file=""
+design_dir="${GARDEN_PHASE_EVIDENCE_DESIGN_DIR:-}"
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --base) base="${2:?--base needs a ref}"; shift 2 ;;
@@ -43,6 +53,7 @@ while [ "$#" -gt 0 ]; do
     --pr) pr="${2:?--pr needs a number}"; shift 2 ;;
     --draft) draft="${2:?--draft needs yes or no}"; shift 2 ;;
     --evidence-file) evidence_file="${2:?--evidence-file needs a file}"; shift 2 ;;
+    --design-dir) design_dir="${2:?--design-dir needs a directory}"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) usage; exit 2 ;;
   esac
@@ -57,6 +68,7 @@ worktree="$(cd "$worktree" 2>/dev/null && pwd)" || {
 temporary_directory="$(mktemp -d "${TMPDIR:-/tmp}/phase-evidence.XXXXXX")"
 trap 'rm -rf "$temporary_directory"' EXIT
 
+GH="${GARDEN_GH:-gh}"
 body="$temporary_directory/body.md"
 if [ -n "$body_file" ]; then
   [ -r "$body_file" ] || {
@@ -65,7 +77,6 @@ if [ -n "$body_file" ]; then
   }
   cp "$body_file" "$body"
 elif [ -n "$repo" ] && [[ "$pr" =~ ^[0-9]+$ ]]; then
-  GH="${GARDEN_GH:-gh}"
   if ! "$GH" pr view "$pr" --repo "$repo" --json body --jq '.body // ""' > "$body"; then
     echo "phase-evidence-verdict=undetermined reason=body-query-failed"
     exit 3
@@ -97,7 +108,11 @@ has_non_design_change=0
 # A design referenced by the body is governing evidence even when the PR does not
 # edit the design. Changed design files are included because a PR can introduce or
 # amend its own governing contract without naming the path in prose.
-grep -Eo '([[:alnum:]_.-]+/)*designs/[[:alnum:]_./-]+\.md|(^|[[:space:]`(])DESIGN[[:alnum:]_.-]*\.md' "$body" 2>/dev/null \
+# URLs are read separately below; scanning them as paths would turn
+# github.com/<owner>/<repo>/blob/<ref>/designs/x.md into a bogus local path.
+body_without_urls="$temporary_directory/body-without-urls"
+sed -E 's#https?://[^[:space:])>`"]+##g' "$body" > "$body_without_urls"
+grep -Eo '([[:alnum:]_.-]+/)*designs/[[:alnum:]_./-]+\.md|(^|[[:space:]`(])DESIGN[[:alnum:]_.-]*\.md' "$body_without_urls" 2>/dev/null \
   | sed -E 's/^[[:space:]`(]+//' >> "$design_paths" || true
 if [ -n "$base" ] \
    && git -C "$worktree" rev-parse --verify --quiet "$base^{commit}" >/dev/null 2>&1 \
@@ -116,6 +131,104 @@ if [ -n "$base" ] \
 fi
 sort -u "$design_paths" -o "$design_paths"
 
+is_design_path() {
+  case "$1" in
+    designs/*.md|*/designs/*.md|DESIGN*.md|*/DESIGN*.md) return 0 ;;
+  esac
+  return 1
+}
+
+# Cross-repository designs (kriscendobot/minion.town#241: the governing design
+# was on endojs/endo-but-for-bots#1543, so the minion.town worktree could not
+# read it and the authoring gate refused the PR). remote_sources holds one
+# "owner/repo<TAB>ref" per referenced repository state; remote_designs holds
+# "path<TAB>owner/repo<TAB>ref" for each design a URL pins to a repo.
+remote_sources="$temporary_directory/remote-sources"
+remote_designs="$temporary_directory/remote-designs"
+: > "$remote_sources"
+: > "$remote_designs"
+if [ "${GARDEN_PHASE_EVIDENCE_REMOTE:-1}" != 0 ]; then
+  url_owner_repo='[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+'
+  while IFS= read -r url; do
+    [ -n "$url" ] || continue
+    slug="$(printf '%s' "$url" | sed -E "s#^https://github\.com/($url_owner_repo)/.*#\1#")"
+    case "$url" in
+      */pull/*)
+        number="$(printf '%s' "$url" | sed -E 's#.*/pull/([0-9]+).*#\1#')"
+        head_sha="$("$GH" api "repos/$slug/pulls/$number" --jq '.head.sha' 2>/dev/null)" || head_sha=""
+        [[ "$head_sha" =~ ^[0-9a-f]{40}$ ]] || continue
+        printf '%s\t%s\n' "$slug" "$head_sha" >> "$remote_sources"
+        "$GH" api --paginate "repos/$slug/pulls/$number/files" --jq '.[].filename' 2>/dev/null \
+          | while IFS= read -r file; do
+              is_design_path "$file" || continue
+              case "$file" in */README.md|README.md) continue ;; esac
+              if grep -Fq "$file" "$body_without_urls" \
+                 || grep -Eq "(^|[^[:alnum:]_./-])$(printf '%s' "${file##*/}" | sed 's/[.]/\\./g')([^[:alnum:]_-]|$)" "$body_without_urls"; then
+                printf '%s\t%s\t%s\n' "$file" "$slug" "$head_sha"
+              fi
+            done >> "$remote_designs"
+        ;;
+      */blob/*)
+        rest="${url#https://github.com/"$slug"/blob/}"
+        ref="${rest%%/*}"
+        path="${rest#*/}"
+        { [ -n "$ref" ] && [ "$path" != "$rest" ]; } || continue
+        printf '%s\t%s\n' "$slug" "$ref" >> "$remote_sources"
+        is_design_path "$path" && printf '%s\t%s\t%s\n' "$path" "$slug" "$ref" >> "$remote_designs"
+        ;;
+    esac
+  done < <(grep -Eo "https://github\.com/$url_owner_repo/(pull/[0-9]+|blob/[^[:space:])>\`\"#?]+)" "$body" 2>/dev/null | sed -E 's/[.,;:]+$//' | sort -u)
+  sort -u "$remote_sources" -o "$remote_sources"
+  sort -u "$remote_designs" -o "$remote_designs"
+fi
+
+# resolve_design <path> <out> [owner/repo ref]: the local worktree first, then a
+# fetched copy, then the pinned remote (or every referenced remote state).
+# Prints the display name: the path, or owner/repo:path for a remote design.
+resolve_design() {
+  local path="$1" out="$2" pinned_slug="${3:-}" pinned_ref="${4:-}" slug ref candidate
+  if [ -z "$pinned_slug" ]; then
+    if git -C "$worktree" show "$head:$path" > "$out" 2>/dev/null; then
+      printf '%s\n' "$path"; return 0
+    fi
+    if [ "$head" = HEAD ] && [ -r "$worktree/$path" ]; then
+      cp "$worktree/$path" "$out"; printf '%s\n' "$path"; return 0
+    fi
+  fi
+  if [ -n "$design_dir" ]; then
+    for candidate in "$design_dir/$path" "$design_dir/${path##*/}"; do
+      if [ -f "$candidate" ] && [ -r "$candidate" ]; then
+        cp "$candidate" "$out"
+        printf '%s\n' "${pinned_slug:+$pinned_slug:}$path"; return 0
+      fi
+    done
+  fi
+  [ "${GARDEN_PHASE_EVIDENCE_REMOTE:-1}" != 0 ] || return 1
+  while IFS=$'\t' read -r slug ref; do
+    [ -n "$slug" ] || continue
+    if [ -n "$pinned_slug" ] && { [ "$slug" != "$pinned_slug" ] || [ "$ref" != "$pinned_ref" ]; }; then
+      continue
+    fi
+    if "$GH" api "repos/$slug/contents/$path?ref=$ref" \
+         -H 'Accept: application/vnd.github.raw' > "$out" 2>/dev/null && [ -s "$out" ]; then
+      printf '%s\n' "$slug:$path"; return 0
+    fi
+  done < <(if [ -n "$pinned_slug" ]; then printf '%s\t%s\n' "$pinned_slug" "$pinned_ref"; else cat "$remote_sources"; fi)
+  return 1
+}
+
+# One work list, "path<TAB>owner/repo<TAB>ref", with the remote columns empty
+# for a design the body or diff names by local path.
+design_work="$temporary_directory/design-work"
+{
+  while IFS= read -r path; do
+    [ -n "$path" ] || continue
+    awk -F'\t' -v p="$path" '$1 == p { found=1 } END { exit !found }' "$remote_designs" \
+      || printf '%s\t\t\n' "$path"
+  done < "$design_paths"
+  cat "$remote_designs"
+} > "$design_work"
+
 # A design proposal can define the ordered sequence; it is not an implementation
 # claiming to deliver that sequence. Only implementation/code diffs owe the
 # ledger. When the diff is known and design-only, leave it to the design panel.
@@ -132,20 +245,13 @@ phase_ids="$temporary_directory/phase-ids"
 tests_are_not_evidence=0
 unresolved_designs=0
 
-while IFS= read -r path; do
+while IFS=$'\t' read -r path work_slug work_ref; do
   [ -n "$path" ] || continue
-  case "$path" in
-    designs/*.md|*/designs/*.md|DESIGN*.md|*/DESIGN*.md) ;;
-    *) continue ;;
-  esac
-  design="$temporary_directory/design.$(printf '%s' "$path" | cksum | awk '{print $1}')"
-  if ! git -C "$worktree" show "$head:$path" > "$design" 2>/dev/null; then
-    if [ "$head" = HEAD ] && [ -r "$worktree/$path" ]; then
-      cp "$worktree/$path" "$design"
-    else
-      unresolved_designs=$((unresolved_designs + 1))
-      continue
-    fi
+  is_design_path "$path" || continue
+  design="$temporary_directory/design.$(printf '%s %s %s' "$path" "$work_slug" "$work_ref" | cksum | awk '{print $1}')"
+  if ! display="$(resolve_design "$path" "$design" "$work_slug" "$work_ref")"; then
+    unresolved_designs=$((unresolved_designs + 1))
+    continue
   fi
 
   sequence=0
@@ -159,7 +265,7 @@ while IFS= read -r path; do
     && stop_gate=1
 
   if { [ "$sequence" -eq 1 ] && [ "$acceptance" -eq 1 ]; } || [ "$stop_gate" -eq 1 ]; then
-    printf '%s\n' "$path" >> "$triggered_designs"
+    printf '%s\n' "$display" >> "$triggered_designs"
     awk '
       BEGIN { in_sequence=0 }
       /^#{2,}[[:space:]]/ {
@@ -181,7 +287,8 @@ while IFS= read -r path; do
     grep -Eiq '(code inspection|unit tests?).{0,80}(not|aren.t).{0,40}production evidence|unit tests?.{0,80}(prerequisites?|insufficient)' "$design" \
       && tests_are_not_evidence=1
   fi
-done < "$design_paths"
+done < "$design_work"
+sort -u "$triggered_designs" -o "$triggered_designs"
 sort -nu "$phase_ids" -o "$phase_ids"
 
 trigger_count="$(wc -l < "$triggered_designs" | tr -d ' ')"
@@ -255,11 +362,20 @@ ledger_designs="$temporary_directory/ledger-designs"
 grep -Eo '([[:alnum:]_.-]+/)*designs/[[:alnum:]_./-]+\.md|(^|[[:space:]`(])DESIGN[[:alnum:]_.-]*\.md' "$ledger" 2>/dev/null \
   | sed -E 's/^[[:space:]`(]+//' | sort -u > "$ledger_designs" || true
 while IFS= read -r path; do
-  grep -Fqx "$path" "$ledger_designs" || echo "missing-design:$path" >> "$findings"
+  case "$path" in
+    *:*)
+      # A design in another repo: the ledger may name its path, its filename,
+      # or a URL to it, since a repo-relative path reads as a local file there.
+      grep -Fq "${path#*:}" "$ledger" 2>/dev/null \
+        || grep -Fq "${path##*/}" "$ledger" 2>/dev/null \
+        || echo "missing-design:$path" >> "$findings"
+      ;;
+    *) grep -Fqx "$path" "$ledger_designs" || echo "missing-design:$path" >> "$findings" ;;
+  esac
 done < "$triggered_designs"
 
 phase_records="$temporary_directory/phase-records"
-sed -nE 's/^[[:space:]]*[Pp]hase[[:space:]]+([0-9]+):[[:space:]]*([^|]+)\|[[:space:]]*(.+)$/\1|\2|\3/p' "$ledger" \
+sed -nE 's/^[[:space:]]*([Pp]hase|[Ss]tep)[[:space:]]+([0-9]+):[[:space:]]*([^|]+)\|[[:space:]]*(.+)$/\2|\3|\4/p' "$ledger" \
   | sed -E 's/[[:space:]]*\|[[:space:]]*/|/g' > "$phase_records"
 while IFS= read -r id; do
   [ -n "$id" ] || continue
