@@ -27,15 +27,4 @@ Do:
 4. Remove the tools in draft PR(s); report before/after tools/list and its size in bytes. PR description = production-outcome report.
 Constraints: draft PRs, no secrets in logs (a locator is a bearer), no persistent production guests.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-04T02:56:39Z
+<!-- garden-reaped: 0 -->
