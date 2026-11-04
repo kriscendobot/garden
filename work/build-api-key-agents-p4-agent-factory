@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-11-04T05:22:19Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-build-api-key-agents-p4-agent-factory
+pr_number: 244
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/244
+pr_head: feat/api-key-agent-ui
