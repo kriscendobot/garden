@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T15:45:12Z_
+_As of 2026-11-04T15:47:31Z_
 
 ## Latest
 
@@ -1202,11 +1202,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-push-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-push-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-push-contention` has CLEARED (first seen 2026-11-04T11:19:06Z, cleared 2026-11-04T15:39:39Z).
+> RECOVERED — the watchdog condition `journal-contention-storm-push-contention` has CLEARED (first seen 2026-11-04T11:19:06Z, cleared 2026-11-04T15:45:47Z).
 > It was observed 17 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention condition `journal-contention-storm-push-contention` cleared on endolin-garden-ece02cb4.
+> Journal contention condition `journal-contention-storm-push-contention` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
