@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T14:58:42Z_
+_As of 2026-11-04T15:04:57Z_
 
 ## Latest
 
@@ -1571,18 +1569,16 @@ worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`claude-on-minion-town-completion-press-20261104-130508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-130508.md) — Completion press: Claude-on-minion.town arc
 
-### doin (3)
-- [`kriscendobot-minion.town-pr241-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr241-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #241
-- [`oros-health-checkup-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261104-092018.md) — ---
-- [`minion-town-arc-press-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261104-092018.md) — Supervise the minion.town arc: carry its pull requests through review
+### doin (0)
+(none)
 
-### tada (16574)
+### tada (16576)
+- [`minion-town-arc-press-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/minion-town-arc-press-20261104-092018.md) — ---
+- [`oros-health-checkup-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-checkup-20261104-092018.md) — ---
 - [`kriscendobot-minion.town-pr240-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr240-gauntlet.md) — gauntlet kriscendobot-minion.town-pr240-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr244-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr244-gauntlet-fix-1.md) — Cost
 - [`oros-health-watch-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-watch-20261104-092018.md) — Cost
-- [`kriscendobot-minion.town-pr236-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-panel-4.md) — Cost
-- [`endojs-endo-but-for-bots-pr1335-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1335-gauntlet-viability.md) — Cost
-- … and 16569 more
+- … and 16571 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1617,6 +1613,7 @@ worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`cutover-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/cutover-budget-road.md) — _normal_ · Cut over to the budget road
+- [`kriscendobot-minion.town-pr241-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr241-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #241
 - [`endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #546
 - [`endojs-endo-but-for-bots-pr1486-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1486-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1486
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
