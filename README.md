@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T17:21:53Z_
+_As of 2026-11-04T17:26:58Z_
 
 ## Latest
 
@@ -297,34 +297,19 @@ Delegation: **active**
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_monks_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_monks_1_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/monks/1/journal: p95=16.436430s max=28.687167s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_monks_1_journal` has CLEARED (first seen 2026-11-04T12:07:37Z, cleared 2026-11-04T17:25:37Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_monks_1_journal` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
 
-> WATCHDOG notice — occurrence #18 (first seen 2026-11-03T11:29:32Z, latest 2026-11-04T12:27:47Z).
-> The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 18 times; this is ONE
-> coalesced notice that updates in place, not 18 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-fetch-slow` has CLEARED (first seen 2026-11-03T11:29:32Z, cleared 2026-11-04T17:24:42Z).
+> It was observed 18 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on oros-studio-garden-ce242c49: 19 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 19 independent faults):
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: p95=19.886939s max=38.194724s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/monks/1/journal: p95=16.436430s max=28.687167s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=16.235921s max=20.787073s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=16.698110s max=43.419617s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/reaper/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=16.274052s max=27.264986s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=16.386475s max=45.035664s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fleet-health/journal: p95=19.337970s max=33.735670s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/comment-watcher/verify: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/monks/3/journal: p95=16.415610s max=24.969939s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_journal: p95=31.063062s max=31.063062s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/deadmail/journal: p95=-s max=-s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for _Users_dom_garden_worktrees_kriscendobot_vattr97_git: p95=18.002385s max=18.002385s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/monks/2/journal: p95=16.360574s max=23.699945s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/monitors/monk-1/journal: p95=16.414367s max=17.884678s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/state-clone-keeper/journal: p95=16.297244s max=16.297244s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=16.278857s max=16.438544s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=16.572912s max=45.070065s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
-> - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-topics-counts/journal: p95=22.653216s max=22.653216s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden-ece02cb4.
 
 - `20261031T063820Z-b3abb6` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261031T063820Z-b3abb6.md)
 
@@ -577,7 +562,11 @@ Delegation: **active**
 
 - `watchdog-journal-push-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
-> Journal push contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: attempts p95=- max=- (cap 50), classes cas=52 server-reject=4 definite-fail=26.
+> RECOVERED — the watchdog condition `journal-push-contention-_Users_dom_garden__garden_state_producer_journal` has CLEARED (first seen 2026-11-04T12:10:32Z, cleared 2026-11-04T17:25:46Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-push-contention-_Users_dom_garden__garden_state_producer_journal` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal.md)
 
@@ -737,7 +726,11 @@ Delegation: **active**
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_producer_journal.md)
 
-> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: attempts p95=- max=- (cap 50), classes cas=16 server-reject=7 definite-fail=33.
+> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_producer_journal` has CLEARED (first seen 2026-11-04T11:24:57Z, cleared 2026-11-04T17:24:30Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_producer_journal` cleared on endolin-garden-ece02cb4.
 
 - `endojs-endo-but-for-bots-pr1575-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1575-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1575-gauntlet-halted.md)
 
@@ -1334,7 +1327,11 @@ Delegation: **active**
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: attempts p95=- max=- (cap 50), classes cas=180 server-reject=3 definite-fail=18.
+> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-11-04T10:26:13Z, cleared 2026-11-04T17:24:14Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
 
 - `endojs-endo-but-for-bots-pr1588-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1588-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1588-gauntlet-halted.md)
 
@@ -1566,7 +1563,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 54401945 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 16.385893s/45s (/home/kris/garden/.garden-state/orch/journal); 18 open notice(s); checker healthy
+worst fetch p95 16.385893s/45s (/home/kris/garden/.garden-state/orch/journal); 14 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
