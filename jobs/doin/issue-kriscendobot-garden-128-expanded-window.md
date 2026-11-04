@@ -61,6 +61,7 @@ submitter: dckc
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-04T09:03:07Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=100 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
