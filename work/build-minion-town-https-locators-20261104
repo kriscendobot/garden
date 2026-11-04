@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-11-04T02:04:59Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-minion-town-https-locators-20261104
+pr_number: 240
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/240
+pr_head: feat/https-capability-urls
