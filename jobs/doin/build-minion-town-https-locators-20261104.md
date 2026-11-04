@@ -16,3 +16,13 @@ Design and build the first working slice in minion.town (draft PR), per the buil
 4. Prove it: a real-daemon test with Playwright; an invitation minted through evaluate, opened as an https URL in a fresh browser, accepted, mail flows. Check the server and Caddy access logs contain no fragment.
 5. Threat notes in the PR: referrer leakage, link-preview crawlers (fragments are not sent), browser history, the PR 173 crawler/leak signal.
 Constraints: draft PR; no deploy; no secrets in output. Write the PR description as a production-outcome report.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T01:09:15Z
