@@ -2,7 +2,7 @@
 order: serial
 children: build-api-key-agents-p0-freeze-onboarding build-api-key-agents-p1-provider-registry build-api-key-agents-p2-provider-adapters build-api-key-agents-p3-provider-ui build-api-key-agents-p4-agent-factory build-api-key-agents-p5-pinned-responder
 on-child-failure: halt
-state: pending
+state: running
 created_by: endojs-endo-but-for-bots-pr1543-review-ed16aaac
 created_at: 2026-11-04T01:48:04Z
 ---
