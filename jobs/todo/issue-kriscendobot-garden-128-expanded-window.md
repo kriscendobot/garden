@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: issue-kriscendobot-garden-128-split
+tier: mentor
+posted_at: 2026-11-04T06:36:30Z
 handler-timeout: 3600
 split-indivisible-reason: 'the review was already posted before the wall (PR review 5763827196 at 05:48Z, issue reply 05:48:52Z, 25 minutes before the 06:14Z wall), so the only work left is one closeout check of one PR and one issue, with nothing to divide; the larger window covers one conditional panel re-run'
 split-lineage-root: issue-kriscendobot-garden-128
 split-lineage-parent: issue-kriscendobot-garden-128-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-11-04T06:36:30Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-04T06:55:24Z cleared=none -->
 
 ---
 tier: mentor
