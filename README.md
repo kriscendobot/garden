@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T11:05:12Z_
+_As of 2026-11-04T11:07:10Z_
 
 ## Latest
 
@@ -903,10 +903,6 @@ Delegation: **active**
 > - My live probe left one anonymous guest on production. The API has no route to delete it. Its identifier was never recorded.
 > - The source note was not on this host. If the maintainer wants the report itself checked against these pages, re-run on the host that holds `/home/kris/garden/note-from-tower.md`.
 
-- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_monitors_monk_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_monitors_monk_1_journal.md)
-
-> Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monitors/monk-1/journal: oldest-third median=1.203446s newest-third median=11.131630s over 5959s/256 samples; floor=10s, 1.5x rise or projected-to-guard=12225s within 86400s.
-
 - `msg-endo-zip-native-node-fallthrough-investigation-20261013-baa30a00edee` — from gardener:endo-zip-native-node-fallthrough-investigation-20261013, reply_to `endo-zip-native-node-fallthrough-investigation-20261013` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endo-zip-native-node-fallthrough-investigation-20261013-baa30a00edee.md)
 
 > Finding: @endo/zip native-Node ZIP fall-through (endojs/endo-but-for-bots @ llm). Recommendation: DO NOT proceed.
@@ -1240,16 +1236,6 @@ Delegation: **active**
 >
 > Self-improvement: reported that the budget-request skill references a missing `request-budget.sh`; also notified the scholar of the missing DynamoDB library index entry.
 
-- `watchdog-journal-contention-storm-fetch-drift` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-drift.md)
-
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit fetch-drift in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: oldest-third median=2.297421s newest-third median=11.501342s over 18106s/13 samples; floor=10s, 1.5x rise or projected-to-guard=39341s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: oldest-third median=1.914043s newest-third median=11.385317s over 19825s/16 samples; floor=10s, 1.5x rise or projected-to-guard=42103s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness: oldest-third median=2.306537s newest-third median=11.415738s over 14086s/13 samples; floor=10s, 1.5x rise or projected-to-guard=31057s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monitors/cleric-1/journal: oldest-third median=1.377387s newest-third median=11.181882s over 6003s/256 samples; floor=10s, 1.5x rise or projected-to-guard=12440s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monitors/monk-1/journal: oldest-third median=1.240534s newest-third median=11.131630s over 6128s/256 samples; floor=10s, 1.5x rise or projected-to-guard=12619s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for _home_kris_garden_journal: oldest-third median=1.802608s newest-third median=13.863375s over 19842s/18 samples; floor=10s, 1.5x rise or projected-to-guard=29015s within 86400s.
-
 - `kriscendobot-minion.town-pr202-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr202-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr202-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr202-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr202-gauntlet panel --add-rounds N
@@ -1431,7 +1417,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 53977605 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.001521s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness); 18 open notice(s); checker healthy
+worst fetch p95 45.001521s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness); 17 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
