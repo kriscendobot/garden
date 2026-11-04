@@ -1,6 +1,16 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-04T23:10Z (oros-health-checkup-20261104-185019): degraded; deploy deferring behind check-up backlog; gate history for 7f0c3f7cd1c traced; changed nothing on the host
+
+Same snapshot as the 23:05Z note; only what differs or adds is here. Load 2.78, 3.13, 2.74. 36878 MiB free on the garden mount. Budget push 23:03:30Z, ok, spend 44796015 of 180M. Root `.git` 49 packs. No failed units.
+
+- **Target `7f0c3f7cd1c`, 09:26 to 12:20Z, from journald:** the candidate gate passed all four times it ran (09:32:48, 10:58:04, 11:31:57, 12:13:20). No suite failed. Attempts stopped on long-job deferrals (latest 12:13:57, monk 2, 392s, about 2 minutes before `drain on [rolling-deploy]` at 12:16:18), one abort at 11:01:08 (cause not traced), and GitHub/journal trouble below. Sent to `unblock-oros-canary-drain-20261104`, which owns the conclusion.
+- **New, not explained:** 99 `Permission denied (publickey)` lines from 09:38:36 to 11:23:05, then none in that window. Self-deploy's journal fetch failed rc=128 at 10:36, 10:39 and 11:21. Journal fetches work now. I did not find what interrupted SSH auth.
+- **Current deploy:** `1f59625d7b3` deferred at 23:05:31 behind monk 3 at 446s, which is this job. Monk 1's check-up is also past 300s. The deploy needs the backlog to clear, including `oros-health-checkup-20261104-220524`, still in todo. Each check-up should finish fast; mine stops here for that reason.
+- **Disk:** still untraced, and at the low edge of the recorded 37658 to 55600 MiB range (now slightly under). Not urgent at this rate; worth tracing if it keeps falling.
+- **My slip:** a broad `pkill -f '^du -sh /tmp'` at about 23:02Z killed pid 1734621, a sibling check-up's `du`, not mine. Effect is one lost size reading; I told the sibling. `du` of /tmp reads 6.8G because it includes the /tmp/ebfbxs virtiofs mount; `df` says 1.4G.
+
 ## 2026-11-04T23:05Z (oros-health-checkup-20261104-155009): degraded; drained 10.5h, drain now lifted, deploy gate running; changed nothing
 
 - **Load/mem:** load 2.05, 2.93, 2.25 at 23:00Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 2%, memory pressure 0.
