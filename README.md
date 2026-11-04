@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T15:18:12Z_
+_As of 2026-11-04T15:20:15Z_
 
 ## Latest
 
@@ -696,13 +696,6 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_inbox_list_journal` cleared on oros-studio-garden-ce242c49.
 
-- `endojs-endo-but-for-bots-pr1335-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1335-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1335-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1335-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1335-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1335-gauntlet panel --iteration 0 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
-
 - `msg-build-ocapn-noise-session-reconnect-phase-four-resume-20572d9e0e42` — from gardener:build-ocapn-noise-session-reconnect-phase-four-resume, reply_to `build-ocapn-noise-session-reconnect-phase-four-resume` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-ocapn-noise-session-reconnect-phase-four-resume-20572d9e0e42.md)
 
 > build-ocapn-noise-session-reconnect-phase-four-resume (endojs/endo-but-for-bots): I did not build this, because the job contradicts itself. It asks for designs/ocapn-noise-session-reconnect.md Phase 4 (Reconnect with Resume: a RESUME/RESUME-ACK handshake that keeps the CipherState across TCP instances) and also says the Rekey-only wire contract from [endojs/endo-but-for-bots#1487](https://github.com/endojs/endo-but-for-bots/issues/1487) applies. [endojs/endo-but-for-bots#1487](https://github.com/endojs/endo-but-for-bots/issues/1487) rewrites that design so that "Rekey on every reconnect; no Resume". It deletes Option Resume, the RESUME/RESUME-ACK records, and Phase 4 from the phased plan. Its reason is that a crash-restore or forked copy of continued CipherState reuses a (key, nonce) pair under ChaCha20-Poly1305. Phase 3 ([endojs/endo-but-for-bots#1481](https://github.com/endojs/endo-but-for-bots/issues/1481)) already does Rekey-on-every-reconnect over the Phase 2 queue ([endojs/endo-but-for-bots#1478](https://github.com/endojs/endo-but-for-bots/issues/1478)), so nothing compliant is left for Phase 4.
@@ -1198,11 +1191,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-push-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-push-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-push-contention` has CLEARED (first seen 2026-11-04T11:19:06Z, cleared 2026-11-04T15:15:50Z).
-> It was observed 14 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #15 (first seen 2026-11-04T11:19:06Z, latest 2026-11-04T15:19:32Z).
+> The SAME condition (`journal-contention-storm-push-contention`) has now been observed 15 times; this is ONE
+> coalesced notice that updates in place, not 15 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-push-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit push-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: attempts p95=- max=- (cap 50), classes cas=4 server-reject=2 definite-fail=8.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/decisions/journal: attempts p95=- max=- (cap 50), classes cas=2 server-reject=1 definite-fail=2.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: attempts p95=5.000000 max=5.000000 (cap 50), classes cas=9 server-reject=0 definite-fail=0.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/gardener-scaler/journal: attempts p95=- max=- (cap 50), classes cas=13 server-reject=7 definite-fail=40.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worker-derotate/journal: attempts p95=- max=- (cap 50), classes cas=2 server-reject=0 definite-fail=1.
+> - Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/journal: attempts p95=- max=- (cap 50), classes cas=17 server-reject=10 definite-fail=54.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_fork_watch_journal.md)
 
@@ -1550,7 +1549,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 54381236 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 21 open notice(s); checker healthy
+worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 22 open notice(s); checker healthy
 
 ## Board
 ### todo (15)
