@@ -1,4 +1,5 @@
 ---
+child-build-api-key-agents-p4-agent-factory-reap-count: 0
 child-build-api-key-agents-p3-provider-ui-reap-count: 0
 child-build-api-key-agents-p2-provider-adapters-host: oros-studio-garden-ce242c49
 child-build-api-key-agents-p2-provider-adapters-reap-count: 0
