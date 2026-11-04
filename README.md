@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T04:07:10Z_
+_As of 2026-11-04T04:09:28Z_
 
 ## Latest
 
@@ -1359,18 +1359,17 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`kriscendobot-minion.town-pr235-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr235-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #235
 - [`kriscendobot-minion.town-pr238-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr238-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #238
 
-### doin (3)
-- [`kriscendobot-minion.town-pr237-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr237-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #237
+### doin (2)
 - [`build-minion-town-tool-removal-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-tool-removal-20261104.md) — ---
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 
-### tada (16499)
+### tada (16500)
+- [`kriscendobot-minion.town-pr237-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr237-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1647-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1647-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1647-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1647-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1647-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr235-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr235-gauntlet-panel-6.md) — Cost
 - [`build-minion-town-https-locators-browser-proof-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/build-minion-town-https-locators-browser-proof-20261104.md) — Completion report: build-minion-town-https-locators-browser-proof-20261104
-- [`endojs-endo-but-for-bots-pr1573-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1573-conduct.md) — Cost
-- … and 16494 more
+- … and 16495 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
