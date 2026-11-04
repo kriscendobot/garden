@@ -1,4 +1,5 @@
 ---
+child-build-mechanic-role-reap-count: 0
 child-design-mechanic-role-host: endolin-garden-ece02cb4
 child-design-mechanic-role-reap-count: 0
 order: serial
