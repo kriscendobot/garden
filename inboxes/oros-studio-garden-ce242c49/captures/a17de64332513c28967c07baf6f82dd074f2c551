@@ -1,0 +1,41 @@
+<6>08:35:09 [monk/3] job 'issue-kriscendobot-garden-128-expanded-window' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>08:35:18 [monk/3] job 'issue-kriscendobot-garden-128-expanded-window' call ceiling: tier=mentor max-budget-usd=16.80 (scaled by fresh seven-day headroom when available)
+<4>08:35:18 [monk/3] WARN minion-mcp: token preflight failed; job 'issue-kriscendobot-garden-128-expanded-window' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>08:39:46 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/dckc/vattr97/pull/50 is authored by 'dckc', not 'kriscendobot'; treating it as a citation
+panel-head-freshness: stale target=dckc/vattr97#50 reviewed_head=16f8033ca9bd6f2ad16e62cba0fdd660802d57d7 presented_head=2f06eb2b92db00ac0c010faa28535af47a337eec disposition=review-required
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 325997 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>08:41:40 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/218 failed (rc=124, attempt 7); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=325997 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 363574 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>08:43:10 [review-docket] spooled upsert https://github.com/dckc/vattr97/pull/50 to /Users/dom/garden/.garden-state/review-docket/spool (19a392c3cd28de00); the next transaction on this host drains it
+<6>08:43:10 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+**Handoff for `issue-kriscendobot-garden-128-expanded-window`: the re-review of dckc/vattr97#50 isn't done. I posted it as a new job pinned to endolin, because this host can't post the review.**
+
+**What I found**
+- **Head:** dckc force-pushed, moving it from `16f8033` to `2f06eb2` (25 ahead, 21 behind, 88 files differ). This is the job's "head advanced" case, so the panel has to run once on the new head.
+- **Comments and access:** dckc has left no new comment on the issue or the PR. The bot still has pull-only access, and the PR is still an open draft.
+- **Earlier runs:** the only panel record for this PR covers `16f8033`, so no seats have run on `2f06eb2`.
+
+**Why I didn't run the panel here**
+- **No write access from this host:** the token on `oros-studio` gets a 403 ("Resource not accessible by personal access token") on `pulls/50/reviews`. I tested with a deliberately invalid review event, so nothing was written.
+- **Wasted spend:** the panel would have run all its seats and then failed at the post. A must-fix result can't be resumed, so endolin would have had to pay for the seats again.
+- **Time limit:** this claim has a 3600s wall, while panel jobs normally get 7200s.
+
+**What I posted**
+- **Job:** `issue-kriscendobot-garden-128-rerun-2f06eb2` is on `journal2` in `jobs/todo/`, with `requires: host=endolin-garden-ece02cb4` and `handler-timeout: 7200`. Endolin posted the first review.
+- **Its instructions:**
+    - Re-read the live head and skip the review if the PR is closed or that head is already reviewed.
+    - Run one panel round with no fixer or un-draft, which posts the review.
+    - Comment once on issue #128 with the link and disposition.
+    - Finish without waiting for dckc, and leave the issue open.
+- **Issue note:** the job carries the issue note verbatim.
+- **Issue #128:** I didn't comment. dckc made no new request, and the new job comments once the review is up.
+
+**Follow-ups**
+- **Timing:** the job only runs when endolin claims it. Other endolin-pinned jobs are queued, and pinned jobs have waited an hour or more before, so the review may take a while.
+- **Wider token gap:** the `oros-studio` token's review 403 now covers `dckc/vattr97` as well as `endojs`. I didn't set the `review-write-deny` marker for `dckc`, so a future panel stage for that owner could still claim on this host and spend on seats before failing.
+- **Memory:** I added the `dckc/vattr97` case and the no-write probe to the `bot-pat-no-pr-write-endojs` memory.
+
+<<<GARDEN-JOB-HANDED-OFF: issue-kriscendobot-garden-128-rerun-2f06eb2>>>
