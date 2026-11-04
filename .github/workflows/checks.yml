@@ -83,6 +83,7 @@ jobs:
             scripts/jobs/test/ironhorse-test262-ratchet-gate-test.sh \
             scripts/jobs/test/token-backoff-ramp-test.sh \
             scripts/jobs/test/handler-wall-bound-regression-test.sh \
+            scripts/jobs/test/reaper-journal-outage-test.sh \
             scripts/jobs/test/wall-tree-handler-stub.sh
 
       - name: bash -n (syntax check, all scripts/ and skill main scripts)
@@ -134,6 +135,7 @@ jobs:
           bash scripts/jobs/test/token-backoff-ramp-test.sh
           bash scripts/jobs/test/review-docket-pr-gh-test.sh
           timeout -k 10 240 bash scripts/jobs/test/handler-wall-bound-regression-test.sh
+          bash scripts/jobs/test/reaper-journal-outage-test.sh
           python3 scripts/jobs/test/ci-wait-merge-ratchet-test.py
           python3 scripts/jobs/test/ci-wait-merge-screening-test.py
           python3 scripts/jobs/test/minion-town-screening-test.py

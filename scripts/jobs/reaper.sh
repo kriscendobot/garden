@@ -758,6 +758,19 @@ reap_stuck_fetches
 
 # GC abandoned job scratch (best-effort; never blocks the requeue path).
 DIR="${GARDEN_REAPER_CLONE:-$GARDEN_STATE/reaper/journal}"
+
+# A journal outage is weather, not a failed reaper run. Run the whole board tick
+# in a subshell so sync_clone's intentional `exit GARDEN_OFFLINE_RC` is contained:
+# its exit also closes every clone/repository-lock fd before the parent classifies
+# the result.  The shared host cooldown makes later timer ticks skip the doomed
+# fetch quietly until one window expires; the winner logs the outage once.  No
+# board path is inspected or staged before the clone has synchronized, so this
+# fail-open return leaves every claim untouched.
+if journal_outage_active; then
+  exit 0
+fi
+
+reaper_tick() {
 ensure_clone "$DIR"
 sync_clone "$DIR"
 # Scratch janitor AFTER the sync so its live-base protection reads fresh board
@@ -1817,3 +1830,17 @@ if [ "$reaped" -eq 0 ] && [ "$doomed" -eq 0 ] && [ "$dropped" -eq 0 ] \
   exit 1
 fi
 log "reaped $reaped stale claim(s); retired $superseded superseded scheduled claim(s); parked $doomed held claim(s) (doom or budget); dropped $dropped retro telemetry claim(s)"
+}
+
+tick_rc=0
+( reaper_tick ) || tick_rc=$?
+if [ "$tick_rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+  # Defensive in the parent too: normally the subshell exit above already closed
+  # these descriptors, but clone_unlock is idempotent and documents the invariant.
+  clone_unlock "$DIR"
+  if start_journal_outage_cooldown reaper; then
+    log "WARN: reaper journal clone unavailable; claims left untouched, skipping tick and retrying after the $(_journal_outage_secs)s host cooldown"
+  fi
+  exit 0
+fi
+exit "$tick_rc"
