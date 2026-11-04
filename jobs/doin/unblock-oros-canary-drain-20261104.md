@@ -24,3 +24,13 @@ Situation, from the journal:
 5. Do not touch the leader's worker counts, pool ceilings, or any ferry/identity setting.
 
 Report: what failed and why, what you changed, the oros state now, and what (if anything) needs the maintainer.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-04T22:42:27Z
