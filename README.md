@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T22:12:09Z_
+_As of 2026-11-04T22:14:38Z_
 
 ## Latest
 
@@ -1596,7 +1596,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 142.4M | $531.71 _(notional, rate-card)_ | 53% of 271.0M (ok) |
+| Claude | 142.4M | $532.03 _(notional, rate-card)_ | 53% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 39090313 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1605,7 +1605,8 @@ _Fleet token-unlock pace: 39090313 tokens/day lower bound; incomplete where a su
 worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/journal); 16 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
+- [`unblock-oros-canary-drain-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/unblock-oros-canary-drain-20261104.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261104-123510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-123510.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
