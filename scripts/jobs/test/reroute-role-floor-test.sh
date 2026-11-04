@@ -58,15 +58,15 @@ hr; echo "PART A — role_tier_floor / tier_rank / reroute_job_model floor (pure
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
 
-# A1 — the floor map: design/build-heavy roles pin UP to mentor, all else minion.
+# A1 — the floor map: design/build-heavy roles and mechanic pin UP to mentor.
 a1=ok
-for r in designer builder web-designer web-builder; do
+for r in designer builder web-designer web-builder mechanic; do
   [ "$(role_tier_floor "$r")" = mentor ] || a1="role_tier_floor $r != mentor"
 done
 for r in fixer weaver shepherd botanist conductor "" bogus-role; do
   [ "$(role_tier_floor "$r")" = minion ] || a1="role_tier_floor '$r' != minion"
 done
-[ "$a1" = ok ] && ok "A1 role_tier_floor: designer/builder(+web)=mentor, everything else=minion" || bad "A1 $a1"
+[ "$a1" = ok ] && ok "A1 role_tier_floor: designer/builder(+web)/mechanic=mentor, everything else=minion" || bad "A1 $a1"
 
 # A2 — tier_rank orders the closed vocabulary; a non-tier value is unranked (-1).
 { [ "$(tier_rank mentat)" = 0 ] && [ "$(tier_rank mentor)" = 1 ] \

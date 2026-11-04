@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-10-15
+updated: 2026-11-04
 author: gardener
 ---
 
@@ -170,11 +170,12 @@ One invariant keeps the reaper's one-hop reroute (`reroute_job_model`,
 
 - **Per-role floor.** The reroute refuses to demote a job below its role's
   canonical tier (`role_tier_floor`): `designer`/`builder` (and their web variants)
-  floor at **mentor**, every other role at **minion**. A refusal leaves the job at
-  its floor tier and requeues it unchanged, so a designer/builder job is never
-  dropped to a tier that cannot design or build — which would convert one transient
-  failure into a guaranteed doom (the `proposal-compartments-xs-source-phase-design`
-  designer doom, 2026-08-17).
+  plus `mechanic` floor at **mentor**, every other role at **minion**.
+  A refusal
+  leaves the job at its floor tier and requeues it unchanged, so high-floor work
+  is never dropped to a tier that cannot perform it — which would convert one
+  transient failure into a guaranteed doom (the
+  `proposal-compartments-xs-source-phase-design` designer doom, 2026-08-17).
 
 The former "never burn an unserved tier" ceiling-suppression case is gone: because a
 mentor job is now genuinely served at mentor on anthropic too, a mentor failure is

@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-09-28
+updated: 2026-11-04
 author: gardener
 ---
 
@@ -36,6 +36,18 @@ evidence on an unexpected failure and posts a diagnosing fix job (throttled, so
 a crash loop can't burn tokens) — systemd restarts, the wrapper diagnoses — so a
 transient failure often clears itself. A unit that stays failed is the operator's
 cue.
+
+## Repairing one host
+
+Dispatch a [mechanic](../../roles/mechanic/AGENT.md) when a watchdog condition,
+bounded check-up, or maintainer request identifies a mechanical failure on one
+leader or follower.
+Its [host-repair](../../skills/host-repair/SKILL.md)
+playbook fixes the evidence order, sysop operation ladder, drain rules,
+attestation wall, and host-health record.
+A drained or offline target is
+repaired from the leader in controller mode; local mode is only for a present,
+undrained target whose unit or journal logs add necessary evidence.
 
 ## Journal contention and slow clones
 

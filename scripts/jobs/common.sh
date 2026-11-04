@@ -11194,15 +11194,15 @@ role_default_tier() { printf '%s\n' minion; }
 # proposal-compartments-xs-source-phase-design designer doom, 2026-08-17: a
 # `designer` job demoted mentor -> minion, then doomed after four wasted
 # impossible-tier cycles). The canonical role->tier intent is skills/model-selection
-# (echoed in CLAUDE.md § How work reaches workers): `designer` and `builder` ride
-# the latest Opus (mentor); every other role rides the automatic fleet default
-# (minion), which is already the reroute floor, so this only pins UP the
-# design/build-heavy roles. The web variants are the same design/build work on a web
-# surface. An empty/unknown role has no special floor and resolves to minion, so a
-# role-less directive job (weave, shepherd) reroutes exactly as before.
+# (echoed in CLAUDE.md § How work reaches workers): `designer`, `builder`, and
+# `mechanic` ride mentor; every other role rides the automatic fleet default
+# (minion), which is already the reroute floor. The web variants are the same
+# design/build work on a web surface. An empty/unknown role has no special floor
+# and resolves to minion, so a role-less directive job (weave, shepherd) reroutes
+# exactly as before.
 role_tier_floor() {
   case "${1:-}" in
-    designer|builder|web-designer|web-builder) printf '%s\n' mentor ;;
+    designer|builder|web-designer|web-builder|mechanic) printf '%s\n' mentor ;;
     *)                                         printf '%s\n' minion ;;
   esac
 }
