@@ -26,3 +26,13 @@ Do:
 3. minion.town callers: primer/, resources/, tools/guide-recipes/recipes.ts (uses writeText/remove/send tools directly), src/endo/mcp-tool-names.ts manifest, tests (test/endo-guest-tools.test.ts, guest-web-daemon invite-tool test), prod probe, MCP `instructions` string.
 4. Remove the tools in draft PR(s); report before/after tools/list and its size in bytes. PR description = production-outcome report.
 Constraints: draft PRs, no secrets in logs (a locator is a bearer), no persistent production guests.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T02:56:39Z
