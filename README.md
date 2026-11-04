@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T02:52:03Z_
+_As of 2026-11-04T02:58:00Z_
 
 ## Latest
 
@@ -181,6 +179,14 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `followup-gate-build-api-key-agents-p0-freeze-onboarding` — from followup-gate:build-api-key-agents-p0-freeze-onboarding, reply_to `build-api-key-agents-p0-freeze-onboarding` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-build-api-key-agents-p0-freeze-onboarding.md)
+
+> Job "build-api-key-agents-p0-freeze-onboarding" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
+>
+> ## Follow-ups
+> - **Gate limitation:** `phase-evidence-gate.sh` can't read a design in another repo, and it blocked the PR while the body named the path. The body now names the design by filename plus the #1543 URL, with a hand-written ledger, and says why. This bypasses the automated ledger check, so the panel should compare the ledger against the design by hand.
+> - **Later builders:** jobs p1–p5 will likely hit the same gate if they touch minion.town, so I saved a memory note for them. The gate itself is worth a small fix.
 
 - `msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544` — from gardener:deadmail-20261101T155052Z-5d5ca8, reply_to `deadmail-20261101T155052Z-5d5ca8` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544.md)
 
@@ -1328,7 +1334,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.9M | $450.10 _(notional, rate-card)_ | 45% of 271.0M (ok) |
+| Claude | 121.9M | $450.14 _(notional, rate-card)_ | 45% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53651805 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1341,7 +1347,7 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`endojs-endo-but-for-bots-pr1647-conduct-postpanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-conduct-postpanel.md) — Finalize (merge) endojs/endo-but-for-bots PR #1647 after its panel lands
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #236
-- [`build-minion-town-tool-removal-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-tool-removal-20261104.md) — ---
+- [`build-api-key-agents-p1-provider-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p1-provider-registry.md) — Build: Endo inference-provider registry, ownership, and facets (companion pha...
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`kriscendobot-minion.town-pr235-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr235-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #235
 - [`kriscendobot-minion.town-pr239-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #239
@@ -1358,18 +1364,18 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 ### doin (6)
 - [`endojs-endo-but-for-bots-pr1573-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-conduct.md) — Conduct endojs/endo-but-for-bots PR #1573
 - [`endojs-endo-but-for-bots-pr1575-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1575
+- [`build-minion-town-tool-removal-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-tool-removal-20261104.md) — ---
 - [`kriscendobot-minion.town-pr237-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr237-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #237
-- [`build-api-key-agents-p0-freeze-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p0-freeze-onboarding.md) — Build: freeze new Claude-subscription onboarding (course-correction step 1)
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`kriscendobot-minion.town-pr240-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr240-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #240
 
-### tada (16483)
+### tada (16484)
+- [`build-api-key-agents-p0-freeze-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/build-api-key-agents-p0-freeze-onboarding.md) — What changed
 - [`kriscendobot-minion.town-pr236-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr237-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr237-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr238-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr238-gauntlet-viability.md) — Cost
 - [`kriscendobot-minion.town-pr235-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr235-gauntlet-fix-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1543-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1543-conduct.md) — Cost
-- … and 16478 more
+- … and 16479 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
