@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T06:22:05Z_
+_As of 2026-11-04T06:23:47Z_
 
 ## Latest
 
@@ -1354,7 +1354,8 @@ _Fleet token-unlock pace: 53858359 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 13 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (15)
+- [`issue-kriscendobot-garden-128`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128.md) — Deliberate overrun decomposition for issue-kriscendobot-garden-128
 - [`kriscendobot-garden-book-pr17-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr17-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #17
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-062010.md) — ---
@@ -1370,8 +1371,7 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-062010.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (4)
-- [`issue-kriscendobot-garden-128`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-128.md) — Issue from dckc on kriscendobot/garden #128
+### doin (3)
 - [`build-api-key-agents-p4-agent-factory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p4-agent-factory.md) — Build: Lal/Fae agent factory and UI step (companion phase 4)
 - [`kriscendobot-minion.town-pr241-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr241-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #241
 - [`design-issue-inbox-timely-acknowledgement-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-issue-inbox-timely-acknowledgement-20261104.md) — Investigate and design timely, non-redundant acknowledgement for issue-inbox ...
