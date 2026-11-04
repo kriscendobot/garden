@@ -1,5 +1,5 @@
 cadence: weekly
-last_dispatched: 2026-10-28T16:35:13Z
+last_dispatched: 2026-11-04T16:50:08Z
 job_basename_prefix: fu-qwen-model-watch-20260728-180502-1
 ---
 ---
