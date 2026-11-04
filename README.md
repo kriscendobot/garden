@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T22:43:32Z_
+_As of 2026-11-04T22:49:58Z_
 
 ## Latest
 
@@ -1112,6 +1112,19 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_library_link_check_journal` cleared on oros-studio-garden-ce242c49.
 
+- `mechanic-role-orchestration-20261104-terminal-complete` — from orchestrator:mechanic-role-orchestration-20261104-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/mechanic-role-orchestration-20261104-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: mechanic-role-orchestration-20261104
+> orchestration-status: complete
+> order: serial
+> children-total: 2
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration mechanic-role-orchestration-20261104 complete (serial): all 2 children reached tada without a machine-readable failure declaration.
+
 - `20261017T175349Z-6b9fd0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T175349Z-6b9fd0.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -1607,19 +1620,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 142.7M | $532.66 _(notional, rate-card)_ | 53% of 271.0M (ok) |
-| Codex | 309.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 142.7M | $534.14 _(notional, rate-card)_ | 53% of 271.0M (ok) |
+| Codex | 313.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 39112232 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 39113294 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/journal); 14 open notice(s); checker healthy
+worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (15)
 - [`kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #237
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #236
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
+- [`kriscendobot-minion.town-pr245-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr245-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #245
 - [`oros-health-checkup-20261104-123510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-123510.md) — ---
 - [`kriscendobot-minion.town-pr239-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #239
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -1629,22 +1643,22 @@ worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/jo
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`minion-town-arc-press-20261104-220524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-220524.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr1651-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1651-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1651
+- [`endojs-endo-but-for-bots-pr1648-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1648-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1648
 - [`oros-health-checkup-20261104-220524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-220524.md) — ---
 
-### doin (5)
+### doin (4)
 - [`unblock-oros-canary-drain-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/unblock-oros-canary-drain-20261104.md) — ---
-- [`build-mechanic-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-mechanic-role.md) — ---
 - [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
 - [`kriscendobot-minion.town-pr244-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr244-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #244
 - [`oros-health-watch-20261104-220524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261104-220524.md) — ---
 
-### tada (16612)
+### tada (16614)
+- [`mechanic-role-orchestration-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/mechanic-role-orchestration-20261104.md) — orchestration mechanic-role-orchestration-20261104 — complete
+- [`build-mechanic-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/build-mechanic-role.md) — Cost
 - [`kriscendobot-minion.town-pr245-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr245-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1648-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1648-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr239-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr239-gauntlet-panel-6.md) — Cost
-- [`kriscendobot-minion.town-pr236-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-panel-6.md) — Cost
-- [`design-mechanic-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/design-mechanic-role.md) — Cost
-- … and 16607 more
+- … and 16609 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
