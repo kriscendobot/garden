@@ -58,13 +58,5 @@ issue_url: https://github.com/kriscendobot/garden/issues/128
 submitter: dckc
 ----- END ISSUE NOTE -----
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-04T08:34:33Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-04T09:03:07Z -->
