@@ -265,7 +265,7 @@ then, the only output is the readiness check's verdict: either **all pass** or
 
 - **Interim channel.** To act *as* a minion.town guest today, the garden uses the
   MCP connection ([context/operations/minion-town-mcp.md](../../context/operations/minion-town-mcp.md)),
-  whose tools include `send`. That is the `minion-mcp-test-cc` principal's own
+  whose `evaluate` tool reaches `E(agent).send`. That is the `minion-mcp-test-cc` principal's own
   guest talking from inside the town. It is not an OCapN dispatch from a garden
   daemon, and it does not satisfy this skill.
 - **Never use the demo lanes as a stand-in.** `/ocapn`, `/ocapn-daemon`,

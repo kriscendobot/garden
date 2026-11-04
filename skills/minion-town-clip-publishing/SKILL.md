@@ -30,7 +30,7 @@ clip's normal public URL — a visitor to a clip needs no login at all.
   *visitors* through the documented MCP tools. A "live" server-computed value
   (an auto-incrementing visit counter, say) is not achievable today. The best
   a clip can do is bake in a value current as of publish time (e.g. read from
-  the guest's own `writeText`/`readText` store at build time) — and the page
+  the guest's own store with `E(agent).readText` at build time) — and the page
   should say so honestly, rather than presenting a build-time snapshot as a
   live tally.
 - The clip's fixed CSP: `script-src`/`style-src`/`connect-src 'self'`,
@@ -70,7 +70,9 @@ to script around the MCP for publishing.
   (read the live `publish` tool description). Passing `sites` exposes your own
   sites power, and `@agent` exposes full guest authority. For a static clip,
   first create or overwrite a purpose-specific inert pet name with an empty
-  `writeText` value, then pass that name to `publish`. Never overwrite a pet
+  text value, then pass that name to `publish`:
+  `evaluate` with `names: ["agent"]`, `values: ["@agent"]`, and
+  `source: "E(agent).writeText('static-site-inert', '').then(() => 'written')"`. Never overwrite a pet
   name that might hold real authority.
 - **`Invalid pet name "@main"` on publish — diagnosed and FIXED, deployed
   2026-09-01.** Symptom: a `publish` call failed unconditionally with
@@ -81,7 +83,7 @@ to script around the MCP for publishing.
   endow `@main` — its `has` delegates the unknown `@`-prefixed name to the
   ordinary pet-name store, whose grammar *rejects* names containing `@` (it
   throws instead of returning `false`), so the error propagated before the
-  guest evaluation ever ran. `status`/`list` on such a guest show the seeded
+  guest evaluation ever ran. `E(agent).list()` on such a guest shows the seeded
   reserved names (`@agent`, `@host`, `@mail`, `@nets`, `@planes`, `@self`,
   plus `MAIN`) but never `@main`.
   - **Fix**: kriscendobot/minion.town#71 (merged to `main` as `975a035`,
@@ -110,8 +112,8 @@ to script around the MCP for publishing.
   `source scripts/jobs/minion-mcp-lib.sh`, merge `minion_mcp_env_json` into the
   environment, spawn `python3 scripts/jobs/minion-mcp-bridge.py`, and write
   newline-delimited JSON-RPC to it: `initialize`, then
-  `notifications/initialized`, then `tools/call` `writeText` with a unique inert
-  name and empty text, then `tools/call` `publish` with that same inert name as
+  `notifications/initialized`, then `tools/call` `evaluate` writing a unique inert
+  name with empty text (as above), then `tools/call` `publish` with that same inert name as
   `powers` and `content:[{path,contentType,bytes}...]`, where the bytes come from
   `base64 -w0` files. After publishing, `curl` the URL and `cmp` it against the
   local file. The garden-book publisher is a checked example: it accepts only
@@ -126,7 +128,7 @@ to script around the MCP for publishing.
   practice each `values` entry must be the **name of an existing pet name** in
   your guest, not a literal. A literal number errors `Must match one of (a
   string)`; an arbitrary non-pet-name string errors `Unknown pet name`; and
-  even a valid pet name created via `writeText` binds inside the evaluated
+  even a valid pet name created via `E(agent).writeText` binds inside the evaluated
   source as an opaque object, not the plain string you wrote. Treat `names`/
   `values` as capability-passing, not literal-argument binding.
 

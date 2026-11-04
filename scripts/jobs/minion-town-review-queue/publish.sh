@@ -5,7 +5,7 @@
 #   publish.sh --unpublish <clip-hash-or-url>
 #
 # Per skills/minion-town-clip-publishing: static files only, an inert powers pet
-# name (an empty writeText, never "sites" or "@agent"), published through the stdio
+# name (an empty E(agent).writeText through evaluate, never "sites" or "@agent"), published through the stdio
 # MCP bridge, then every file is fetched with curl and cmp'd against the local copy.
 # Needs this host's minion.town MCP credential (requires: aws on the fleet).
 set -euo pipefail
@@ -68,11 +68,8 @@ if os.environ.get("MODE") == "unpublish":
     m = re.search(r"([a-z0-9]{16,})\.ocap\.site", target)
     print(call("unpublish", {req[0]: m.group(1) if m else target}))
     sys.exit(0)
-tools = {t["name"]: t for t in rpc("tools/list")["tools"]}
-wt = tools["writeText"]["inputSchema"].get("properties", {})
-name_key = next((k for k in ("petName", "name", "path") if k in wt), list(wt)[0])
-text_key = next((k for k in ("text", "content", "value") if k in wt), list(wt)[1])
-call("writeText", {name_key: os.environ["PET"], text_key: ""})
+source = "E(agent).writeText(%s, '').then(() => 'written')" % json.dumps(os.environ["PET"])
+call("evaluate", {"source": source, "names": ["agent"], "values": ["@agent"]})
 out = os.environ["OUT"]
 content = []
 for f, ct in (("index.html", "text/html; charset=utf-8"), ("styles.css", "text/css; charset=utf-8")):

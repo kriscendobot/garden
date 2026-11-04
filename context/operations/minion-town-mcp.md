@@ -131,7 +131,8 @@ unit never trips self-heal.
 
 ## Proof record (endolin-garden2-5bcdff64, 2026-09-29)
 
-These runs record identity, scopes and tool names only, never a token.
+These runs record identity, scopes and tool names only, never a token. They predate
+the tool minimalism below, so their tool list and `status` calls are history.
 
 - **Principal.** `client_id`/`sub` `52ivub038n2dnvnk134s6vkqp1`
   (`minion-mcp-test-cc`), scope `mcp/guest mcp/tools`, `expires_in` 3600. Server:
@@ -216,8 +217,8 @@ Rechecked live on 2026-10-16:
   is itself a bearer secret until redeemed. Mail to a name the sender lacks
   answers 503 `guest service unavailable`, not a 4xx.
 - **The root is not on this path.** The root subject (`ENDO_CLAUDE_ROOT_SUBJECTS`)
-  acts through its MCP guest, named from `iss+sub`, and the MCP has no
-  `invite`/`accept` tool (both are reserved in `src/endo/mcp-tool-names.ts`).
+  acts through its MCP guest, named from `iss+sub`, and mints with
+  `E(agent).invite(name)` through `evaluate`.
   A browser guest can invite from Settings, but it is a different guest from
   the MCP one, and the `legacy-root` migration that would join them is not built.
 
@@ -255,15 +256,44 @@ Two facts matter before anyone tries to use one:
 
 The locator is a single-use bearer secret, like the formula identifier.
 
+## Tool minimalism (maintainer decision, 2026-11-03/04)
+
+The server removes every tool redundant with `evaluate` and its served guide. Guest
+methods have no tools of their own, so bind your guest and call them:
+
+```json
+{"tool":"evaluate","arguments":{"source":"E(agent).list()","names":["agent"],"values":["@agent"]}}
+```
+
+| Removed tool | Through `evaluate` |
+| --- | --- |
+| `status`, `list` | `E(agent).list()` |
+| `has` | `E(agent).has(name)` |
+| `writeText` | `E(agent).writeText(name, text).then(() => 'written')` |
+| `readText` | `E(agent).maybeReadText(name)`, or `E(E(agent).lookup(name)).text()` |
+| `remove` | `E(agent).remove(name).then(() => 'removed')` |
+| `listMessages` | `E(agent).listMessages()` |
+| `send` | `E(agent).send(to, [text], [], []).then(() => 'sent')` |
+| `dismiss`, `resolve`, `adopt`, `submit` | The same methods. Write a message number as a bigint, such as `3n`, and read an edge name from `message.names`. |
+| `invite` | `E(E(agent).invite(name)).locate()`. A person gets `https://minion.town/#v=1&locator=<encoded>`. |
+| `cancelInvite` | `E(E(agent).lookup(name)).cancel()`, or `E(agent).remove(name)` |
+
+These calls work whether or not the tools are still listed, so nothing here waits on
+the deploy. Text from anyone else goes in `source` only as an escaped JSON string.
+`-->`, `<!--`, `import(`, and `eval(` fail even in a string, so escape one character,
+such as `--\u003e`. One `source` holds at most 100,000 characters. The removal itself
+lands in [kriscendobot/minion.town](https://github.com/kriscendobot/minion.town)
+(see issue [#227](https://github.com/kriscendobot/minion.town/issues/227)).
+
 ## Open decisions (surfaced to the maintainer 2026-09-29)
 
 1. **The principal.** All jobs share `minion-mcp-test-cc`, a production principal
-   whose guest carries real state and whose tools include `writeText`, `remove`,
-   `send`, `publish` and `evaluate`. The proposal is a dedicated garden
+   whose guest carries real state and whose tools include `publish` and `evaluate`,
+   which reaches every method of that guest. The proposal is a dedicated garden
    client/principal (its own guest), or a read-only scope, if minion.town's
    resource server grows one. No Cognito client or scope was created or changed.
-2. **Context cost.** `tools/list` is about 10.8 KB of JSON, roughly 2.5–3k tokens,
-   and it is loaded into each attached session. The question is whether juror seats
+2. **Context cost.** `tools/list` was about 10.8 KB of JSON, roughly 2.5–3k tokens,
+   when this was asked, and the tool removal below halves it. It is loaded into each attached session. The question is whether juror seats
    and cheap `myrmidon`-tier roles should get no tools or a narrower set. A
    per-role narrowing would hook into `minion_mcp_enabled_here` (by role) or into
    Codex `enabled_tools` and Claude `--allowedTools`.
