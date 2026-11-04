@@ -2,7 +2,7 @@
 order: serial
 children: design-mechanic-role build-mechanic-role
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-11-04T22:15:15Z
 ---
