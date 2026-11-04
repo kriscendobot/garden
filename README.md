@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T06:45:17Z_
+_As of 2026-11-04T06:46:55Z_
 
 ## Latest
 
@@ -64,10 +64,6 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration daemon-git-clone-bootstrap-design-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
-
-- `watchdog-unclaimable-host-requirements-build-api-key-agents-p4-agent-factory-open-pr` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-build-api-key-agents-p4-agent-factory-open-pr.md)
-
-> Host-requirements gate: job 'build-api-key-agents-p4-agent-factory-open-pr' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `20261029T050122Z-c036cb` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261029T050122Z-c036cb.md)
 
