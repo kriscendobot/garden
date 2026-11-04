@@ -20,3 +20,13 @@ Wear roles/conductor/AGENT.md. Pinned to endolin because the oros PAT gets 403 o
 Known red on the approved head: `test (22.x, ubuntu-latest)` in run 41357395256 failed only `bwrap timeout and repeated cancellation reap process groups` (packages/sandbox/test/spawner.test.js). The diff touches no sandbox file. This matches the intermittent signature of open PR #1591. The rebase produces a fresh CI run, so judge that run, not this one. If it reds again on that signature, rerun the failed job (endolin can) before you stall.
 
 After the merge, `weave-endojs-endo-but-for-bots-pr1575-onto-llm-after-pr1573` (parked, blocked on this PR) promotes on its own. Do not post it again.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T02:30:06Z
