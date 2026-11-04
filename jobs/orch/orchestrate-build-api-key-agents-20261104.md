@@ -1,4 +1,5 @@
 ---
+child-build-api-key-agents-p1-provider-registry-reap-count: 0
 child-build-api-key-agents-p0-freeze-onboarding-host: oros-studio-garden-ce242c49
 child-build-api-key-agents-p0-freeze-onboarding-reap-count: 0
 order: serial
