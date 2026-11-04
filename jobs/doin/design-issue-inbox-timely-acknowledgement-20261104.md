@@ -34,3 +34,13 @@ Decide when and how the garden should acknowledge an inbound maintainer issue/co
 
 ## Deliverable
 A short design (designs/) with the chosen rule and thresholds, the root-cause finding for #128, and a follow-on build job posted (or parked) if the design is clear. Report back by a comment on kriscendobot/garden#128 only for the root-cause finding if useful to dckc; otherwise report via the job report.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T05:45:28Z
