@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T09:08:44Z_
+_As of 2026-11-04T09:10:19Z_
 
 ## Latest
 
@@ -1378,7 +1378,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 130.4M | $480.21 _(notional, rate-card)_ | 48% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 54164710 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 53937615 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 11 open notice(s); checker healthy
@@ -1403,18 +1403,17 @@ worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`daily-progress-summary-20261104-080519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261104-080519.md) — Daily midnight Pacific progress summary
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1335-review-a060f580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1335-review-a060f580.md) — Review directive on endojs/endo-but-for-bots PR #1335
 - [`kriscendobot-minion.town-pr239-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr239-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #239
-- [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261104-062010.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### tada (16554)
+### tada (16555)
+- [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/minion-town-arc-press-20261104-062010.md) — Cost
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr241-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr240-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr240-gauntlet-fix-2.md) — Cost
 - [`claude-on-minion-town-completion-press-20261104-065026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/claude-on-minion-town-completion-press-20261104-065026.md) — Cost
 - [`kriscendobot-minion.town-pr236-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-panel-3.md) — Panel round 3 on kriscendobot/minion.town PR #236: must-fix
-- [`build-issue-inbox-timely-acknowledgement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/build-issue-inbox-timely-acknowledgement.md) — Cost
-- … and 16549 more
+- … and 16550 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
