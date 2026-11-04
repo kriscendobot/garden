@@ -18,6 +18,8 @@ Design and build the first working slice in minion.town (draft PR), per the buil
 Constraints: draft PR; no deploy; no secrets in output. Write the PR description as a production-outcome report.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
