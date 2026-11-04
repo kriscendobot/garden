@@ -305,32 +305,40 @@ rows="$(mktemp)"; trap 'rm -f "$rows"' EXIT
 
 # Honor the host-shared REST cooldown (common.sh) before any API work: a sibling
 # watcher already proved GitHub unreadable this window, and every source here is REST.
+# A low-priority sweep also defers once the host's REST core budget is down to its
+# reserve, leaving the remaining quota to the watchers that acknowledge comments.
+# Either gate skips ONLY the API-backed sweep: the quiet heartbeat pass and its
+# notices below make no API calls, so they still run. Exiting here instead meant a
+# continuously held REST latch could never raise comment-watcher-stuck-cooldown-host,
+# the very notice written for that case (garden#128, 2026-11-04).
+SWEEP_SKIPPED=""
 if api_cooldown_active rest; then
-  [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
-  exit 0
+  SWEEP_SKIPPED=rest-cooldown
+elif gh_rest_budget_defer comment-latency-watch; then
+  SWEEP_SKIPPED=budget-defer
 fi
-# A low-priority sweep: once the host's REST core budget is down to its reserve,
-# leave the remaining quota to the watchers that acknowledge comments.
-if gh_rest_budget_defer comment-latency-watch; then
-  [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
-  exit 0
-fi
-collect_sources "$since" > "$rows"
-if [ "$PRIMARY_QUOTA_HIT" -eq 1 ]; then
+if [ -n "$SWEEP_SKIPPED" ] && [ "$report_only" -eq 1 ]; then exit 0; fi
+[ -n "$SWEEP_SKIPPED" ] || collect_sources "$since" > "$rows"
+if [ -z "$SWEEP_SKIPPED" ] && [ "$PRIMARY_QUOTA_HIT" -eq 1 ]; then
   secs="$(api_primary_quota_secs rest)"
   if start_api_cooldown "comment-latency-watch:primary-quota" "$secs"; then
     log "WARN: latency source for ${PRIMARY_QUOTA_SOURCE:-unknown source} hit GitHub primary quota exhaustion; cooling REST gh-api watchers for ${secs}s and stopping this sweep"
   fi
-  [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
-  exit 0
+  SWEEP_SKIPPED=primary-quota
 fi
 # A sibling latched the shared REST cooldown mid-sweep: the latch is already armed
 # (never re-armed or extended here), so stop exactly as if it had been live at start.
 # A mid-sweep budget deferral (source_gate) is the low-priority reserve working:
 # gh_rest_budget_defer already logged it once per quota window.
-if [ "$SHARED_COOLDOWN_HIT" -eq 1 ] || [ "$BUDGET_DEFER_HIT" -eq 1 ]; then
-  [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
-  exit 0
+if [ -z "$SWEEP_SKIPPED" ]; then
+  if [ "$SHARED_COOLDOWN_HIT" -eq 1 ]; then SWEEP_SKIPPED=rest-cooldown-mid-sweep
+  elif [ "$BUDGET_DEFER_HIT" -eq 1 ]; then SWEEP_SKIPPED=budget-defer-mid-sweep; fi
+fi
+if [ -n "$SWEEP_SKIPPED" ]; then
+  [ "$report_only" -eq 1 ] && exit 0
+  # A partial sweep is not a verdict on any comment: discard its rows so no
+  # per-comment class is opened, and (below) none is falsely "recovered".
+  : > "$rows"
 fi
 
 while IFS=$'\t' read -r created source cadence repo slug surface id number author url body; do
@@ -521,13 +529,13 @@ for slug in "${!ACTIVE_SLUGS[@]}"; do
       else
         notice_set "$key" "Comment acknowledgment $class anomaly for $repo:\n$body"
       fi
-    else notice_clear "$key"; fi
+    elif [ -z "$SWEEP_SKIPPED" ]; then notice_clear "$key"; fi
   done
 done
 for class in latency blind dead; do
   if [ -n "${STORM_BODY[$class]:-}" ]; then
     notice_set "comment-latency-storm-$class" "Comment acknowledgment $class anomaly on ${CLASS_COUNT[$class]} repos at once on ${GARDEN:-this host} (storm guard > $GARDEN_COMMENT_LATENCY_STORM_MAX; one shared cause is likelier than ${CLASS_COUNT[$class]} independent faults):\n${STORM_BODY[$class]}"
-  else
+  elif [ -z "$SWEEP_SKIPPED" ]; then
     notice_clear "comment-latency-storm-$class"
   fi
 done
@@ -557,8 +565,12 @@ fi
 
 if fleet_draining && [ "$muted_count" -gt 0 ]; then
   notice_set comment-ack-muted-drain "$muted_count should-ack comment(s) are awaiting acknowledgment while the fleet is deliberately drained. This is informational; the fleet is quiescent, not dead.\n"
-else
+elif [ -z "$SWEEP_SKIPPED" ]; then
   notice_clear comment-ack-muted-drain
 fi
-watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" full-poll
+if [ -n "$SWEEP_SKIPPED" ]; then
+  watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
+else
+  watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" full-poll
+fi
 [ "$NOTICE_FAILURES" -eq 0 ] || log "WARN: $NOTICE_FAILURES watchdog notice delivery failure(s) this tick; heartbeat written, retrying next tick"

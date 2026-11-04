@@ -300,4 +300,22 @@ run_watch || { echo 'FAIL: two-source sweep failed'; exit 1; }
 [ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = full-poll ] || { echo 'FAIL: two-source sweep heartbeat not full-poll'; exit 1; }
 SOURCE="$SOURCE_SAVED"
 
+# garden#128: a CONTINUOUSLY held REST latch must still raise the host-level stuck
+# notice. The quiet heartbeat pass makes no API call, so it runs under the latch;
+# only the sweep is skipped, and no per-repo notice is falsely recovered.
+: > "$NOTICES"; rm -rf "$STATE/latency" "$COOLDOWN"; mkdir -p "$STATE/latency/alerts"
+ARMED="$TR/armed-latched.tsv"; printf 'comment\towner-latched\towner/latched\t90\n' > "$ARMED"
+printf 'last_tick_at: %s\noutcome: cooldown\noutcome_since: %s\n' "$NOW_ISO" "$(date -u -d "@$(( NOW - 7200 ))" +%FT%TZ)" \
+  > "$STATE/comment-watcher/heartbeat/owner-latched"
+: > "$STATE/latency/alerts/comment-ack-blind-owner-latched"
+CALLED="$TR/called-latched"; rm -f "$CALLED"; SOURCE_SAVED="$SOURCE"
+SOURCE="$TR/source-latched.sh"; printf '#!/bin/bash\ntouch "%s"\n' "$CALLED" > "$SOURCE"; chmod +x "$SOURCE"
+( export GARDEN_API_COOLDOWN_DIR="$COOLDOWN"; source "$JOBS/common.sh"; start_api_cooldown sibling-watcher:primary-quota 3600 rest )
+run_watch || { echo 'FAIL: latched tick failed'; exit 1; }
+[ ! -e "$CALLED" ] || { echo 'FAIL: source swept under a held REST latch'; exit 1; }
+[ "$(grep -c '^comment-watcher-stuck-cooldown-host ' "$NOTICES")" -eq 1 ] || { echo 'FAIL: held latch raised no stuck notice'; cat "$NOTICES"; exit 1; }
+grep -q -- '--recovered comment-ack-blind-owner-latched' "$NOTICES" && { echo 'FAIL: skipped sweep falsely recovered a per-repo notice'; exit 1; }
+[ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = cooldown ] || { echo 'FAIL: latched tick heartbeat not cooldown'; exit 1; }
+rm -rf "$COOLDOWN"; SOURCE="$SOURCE_SAVED"; ARMED=""
+
 echo 'PASS: comment latency watch scenarios'
