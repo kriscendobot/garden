@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-04T04:47Z (oros-health-checkup-20261104-032009): healthy; deployed is main2; cleared a spurious reload flag
+
+- **Load/mem:** load 2.88, 3.34, 3.17. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 3%, memory pressure 0.
+- **Disk/inodes:** 47759 MiB free on the garden mount, 90%, down from 55.6 GiB at 00:12Z. Inodes 3%. `scratch` has 406 entries, `scratch/tmpexec` 1110 (795 at 00:12Z), of which 229 are over 24h old. The sweeper covers tmpexec by idle age, so I removed nothing.
+- **Uptime:** 33d, no reboot.
+- **Deployed vs main2:** root and fleet/health/oros show `9c71b5bb62d`, the main2 tip, `roll_status: deployed`, 0 of 290 units failing (04:32Z). The roll drained oros at 04:21Z and deferred behind long jobs on monks 3 and 2 from 04:13Z. The deploy completed at 04:33Z and lifted the drain, so it needed no help.
+- **Drain/units:** 0 failed user units, not draining, no `worker-derotate/` marker. `garden-monk@1..3` are running; monk 4 has been stopped since 00:33Z. That follows a sysop `set-workers monk=3` from endolin at 00:06Z (`20261104T000512Z-9ac19f`), which records no reason. The leveling cap is still `4 0`.
+- **Budget heartbeat:** last push 04:32:32Z; the last 8 (02:49 to 04:32Z) are all ok, the largest gap 21 minutes. Spend reads 27587319 of 180M, 13%.
+- **State clones:** at most 49 packs per journal clone, no temp packs, no `gc.log` in the journal clones checked. Root `.git` has no `*.lock` older than 30 minutes at depth 3 or less, and 32 packs (575M). The `*.lock` search of `$GARDEN_STATE` hit its 40s limit with no match, so it is partial.
+- **Timeouts (3h):** two true wall hits at 2401s, `build-minion-town-https-locators-20261104` (01:55Z) and `build-minion-town-tool-removal-20261104` (03:38Z). Both have since reached `tada`. Two `journal-contention-watch` notice deliveries were deferred with rc=124 or similar (01:48Z, 02:46Z; the second line was cut off before its rc). 18 lock-overdue lines.
+- **Changed:** `systemctl --user daemon-reload` at 04:41Z, and again at 04:43Z after a test. All 290 of 290 units reported `NeedDaemonReload=yes`, which made each scale call log four "changed on disk" warnings, 80 to 220 lines an hour. The flag was spurious: `ExecStopPost` from the 10-23 unit change is loaded, and the unit directory mtime is still 10-23. The flag is now clear on 0 of 290, with no new warnings since.
+- **Not traced:** what raises the flag. The warnings predate 11-01, with no reload logged from then until today, so the 11-03 and 11-04 monk count changes did not start them. `touch` on `default.target.wants` did not raise it, which rules out that directory mtime as the sole trigger. Next run: if the flag is back, it arose after 04:43Z, which narrows the search. I changed no code.
+- **Still open, not this host's to fix:** the `set-workers monk=3` reason above is for whoever sent it; I did not change it.
+
 ## 2026-11-04T00:12Z (oros-health-checkup-20261104-000530): healthy; deployed is main2; changed nothing on the host
 
 - **Load/mem:** load 3.03, 3.26, 3.39. 13 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 2%, memory pressure 0.
