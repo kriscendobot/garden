@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T07:49:52Z_
+_As of 2026-11-04T07:58:10Z_
 
 ## Latest
 
@@ -30,6 +30,8 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 Delegation: **active**
 
+- 2026-11-04T07:55:05Z [#238](https://github.com/kriscendobot/minion.town/pull/238) `d94936ffb73` screened
+- 2026-11-04T07:55:05Z [#237](https://github.com/kriscendobot/minion.town/pull/237) `b942fb97713` screened
 - 2026-11-03T22:17:58Z [#234](https://github.com/kriscendobot/minion.town/pull/234) merged `91968923149`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/41729563986), watchdog ok — validated
 - 2026-11-03T19:38:56Z [#234](https://github.com/kriscendobot/minion.town/pull/234) `0b1d85381c5` screened
 - 2026-11-03T15:32:26Z [#233](https://github.com/kriscendobot/minion.town/pull/233) merged `3f6c2b24a98`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/41664945683), watchdog ok — validated
@@ -1360,12 +1362,13 @@ _Fleet token-unlock pace: 53928508 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 13 open notice(s); checker healthy
 
 ## Board
-### todo (20)
+### todo (22)
 - [`endojs-endo-but-for-bots-pr1335-review-a060f580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1335-review-a060f580.md) — Review directive on endojs/endo-but-for-bots PR #1335
 - [`kriscendobot-garden-book-pr17-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr17-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #17
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-062010.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`screen-minion-town-pr238-d94936f-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr238-d94936f-conduct.md) — Screened delegated merge: kriscendobot/minion.town#238 at d94936ffb7340030dcc...
 - [`kriscendobot-minion.town-pr239-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #239
 - [`build-issue-inbox-timely-acknowledgement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-issue-inbox-timely-acknowledgement.md) — Build timely issue-inbox acknowledgement (status pass plus checker fixes)
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1377,6 +1380,7 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`oros-health-watch-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-062010.md) — ---
 - [`kriscendobot-minion.town-pr236-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #236
 - [`issue-kriscendobot-garden-128-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128-expanded-window.md) — Close out the delivered review of dckc/vattr97#50 (garden issue #128)
+- [`screen-minion-town-pr237-b942fb9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr237-b942fb9-conduct.md) — Screened delegated merge: kriscendobot/minion.town#237 at b942fb977133562f8bd...
 - [`claude-on-minion-town-completion-press-20261104-065026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-065026.md) — Completion press: Claude-on-minion.town arc
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-062010.md) — Supervise the minion.town arc: carry its pull requests through review
