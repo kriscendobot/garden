@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T06:34:18Z_
+_As of 2026-11-04T06:35:37Z_
 
 ## Latest
 
@@ -1354,11 +1354,10 @@ _Fleet token-unlock pace: 53867139 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 13 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (16)
 - [`kriscendobot-garden-book-pr17-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr17-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #17
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-062010.md) — ---
-- [`build-api-key-agents-p5-pinned-responder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p5-pinned-responder.md) — Build: pinned responder for Lal/Fae agents (companion phase 5)
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`kriscendobot-minion.town-pr239-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #239
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #236
@@ -1373,8 +1372,9 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-062010.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #241
 
-### doin (2)
+### doin (3)
 - [`issue-kriscendobot-garden-128`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-128.md) — Deliberate overrun decomposition for issue-kriscendobot-garden-128
+- [`build-api-key-agents-p5-pinned-responder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p5-pinned-responder.md) — Build: pinned responder for Lal/Fae agents (companion phase 5)
 - [`kriscendobot-minion.town-pr240-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr240-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #240
 
 ### tada (16534)
