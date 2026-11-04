@@ -27,3 +27,13 @@ If the panel requested changes or coverage is stale on the current head, stall
 per roles/conductor/AGENT.md (do not merge). Idempotent: if already merged/closed, do nothing.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1647
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T03:24:42Z
