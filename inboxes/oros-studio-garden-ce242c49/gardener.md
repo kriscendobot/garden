@@ -529,3 +529,14 @@ Inspect via `git -C journal cat-file -p f4c5a54e2f4567301f4f1b21356368c28f12a7bb
 
 Inspect via `git -C journal cat-file -p af31c97531ac66c64295dd922af15bfc6e92708d` (or read
 `journal/inboxes/oros-studio-garden-ce242c49/captures/af31c97531ac66c64295dd922af15bfc6e92708d`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-11-04T04:00:11Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: f8ea8733479580b2d00c6af9d5f3bcdac1f0f290
+- Context: gardener-1 on oros-studio-garden-ce242c49: job 'build-api-key-agents-p1-provider-registry' handler exited rc=76
+- Capture: inboxes/oros-studio-garden-ce242c49/captures/f8ea8733479580b2d00c6af9d5f3bcdac1f0f290
+
+Inspect via `git -C journal cat-file -p f8ea8733479580b2d00c6af9d5f3bcdac1f0f290` (or read
+`journal/inboxes/oros-studio-garden-ce242c49/captures/f8ea8733479580b2d00c6af9d5f3bcdac1f0f290`) -- both work off-host after a plain `journal2` fetch.

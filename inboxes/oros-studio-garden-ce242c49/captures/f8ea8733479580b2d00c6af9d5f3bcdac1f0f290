@@ -1,0 +1,37 @@
+<6>03:01:29 [monk/1] job 'build-api-key-agents-p1-provider-registry' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>03:01:40 [monk/1] job 'build-api-key-agents-p1-provider-registry' call ceiling: tier=mentor max-budget-usd=17.80 (scaled by fresh seven-day headroom when available)
+<4>03:01:40 [monk/1] WARN minion-mcp: token preflight failed; job 'build-api-key-agents-p1-provider-registry' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+<6>03:43:15 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/1573 is already non-draft; leaving it untouched for the completion guard
+panel-head-freshness: stale target=endojs/endo-but-for-bots#1573 reviewed_head=a70129db642c31b2f4a17cde267e7c1bbeb8a235 presented_head=50a020ea4b7b45010b19489b6d6581c7ce045b2c disposition=review-required
+readlink: write error: Broken pipe
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 927631 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>03:46:10 [review-docket] spooled upsert https://github.com/kriscendobot/minion.town/pull/218 failed (rc=124, attempt 4); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=927631 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 1014921 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>03:47:40 [review-docket] spooled upsert https://github.com/endojs/endo-but-for-bots/pull/1573 to /Users/dom/garden/.garden-state/review-docket/spool (3989fd8c3de21d22); the next transaction on this host drains it
+<6>03:47:40 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+**Phase 1 is handed off, not delivered by this job: I opened no PR and pushed nothing, because endojs/endo-but-for-bots#1573 already implements it.** kriskowal approved that PR on 2026-11-04 with "Please conduct". `endojs-endo-but-for-bots-pr1573-conduct` holds it on the endolin host, and it had not merged when I last checked.
+
+**How it was missed**
+- The job body doesn't mention #1573, and `ensure-pr.sh` only finds PRs carrying this job's own marker.
+- I ran the builder role's duplicate search only after building, when it should have come first. About $5 went on a rival implementation.
+- That work is one unpushed local commit, `0563fd2133`, which goes away with the worktree. Publishing it would only compete with an approved PR.
+
+**Comparison with #1573**
+- **Coverage:** going by its test titles and PR ledger, #1573 covers this phase's list: ownership and cross-principal denial, supersession, a crash at each creation and retirement boundary, restart rebinding, in-flight cancellation, and an in-process endpoint with no listener. I compared titles, not test bodies.
+- **Review:** it has been through at least seven fix rounds of panel review.
+- **My build's checks:** its 52 unit tests and 2 real-daemon restart tests passed, the pre-push probes passed, and 16 of 16 deliberate code breaks made tests fail. None of this applies to #1573.
+- **Other test failures:** the full `hosted-agent` suite was last run before my final edits. Besides an import error in my own test file, since fixed, its only failures were two `dev-image` tests, whose image build script failed; they don't touch this code. `tsc` also reports `../base64` errors in code I didn't change.
+
+**Gap for the maintainer:** `apiKeyGuestAgents` appears nowhere in #1573. Its registry stays inert only because nothing provisions it yet, so the flag this job specified doesn't gate anything. I left the approved PR alone; the flag would land with `build-api-key-agents-p3-provider-ui` unless the maintainer wants it on the Endo side too.
+
+**What I did instead**
+- **Phase 2 job:** I added a note to `build-api-key-agents-p2-provider-adapters`, because phase 2 is likewise already built and approved as #1575. It now says to compare against #1575 first, build only real gaps, and otherwise hand off to `weave-endojs-endo-but-for-bots-pr1575-onto-llm-after-pr1573`.
+- **Maintainer:** I messaged them with the duplication and the flag gap; no reply is needed unless they want the Endo-side flag.
+- **Memory:** I recorded `api-key-agents-orchestration-duplicates` so later builders on this host search first.
+
+**Follow-up:** jobs p3 to p5 should stack on or wait for #1573 and #1575, not rebuild them.
+
+<<<GARDEN-JOB-HANDED-OFF: endojs-endo-but-for-bots-pr1573-conduct>>>
