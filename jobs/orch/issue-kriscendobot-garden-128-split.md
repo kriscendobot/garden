@@ -2,7 +2,7 @@
 order: serial
 children: issue-kriscendobot-garden-128-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-11-04T06:52:54Z
 ---
