@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T15:40:54Z_
+_As of 2026-11-04T15:42:21Z_
 
 ## Latest
 
@@ -1557,7 +1557,7 @@ _Fleet token-unlock pace: 54511081 tokens/day lower bound; incomplete where a su
 worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 21 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261104-123510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-123510.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -1567,6 +1567,7 @@ worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`endojs-endo-but-for-bots-pr1651-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1651-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1651
 - [`kriscendobot-minion.town-pr245-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr245-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #245
 - [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
+- [`kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #237
 - [`kriscendobot-minion.town-pr244-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr244-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #244
 
 ### doin (2)
