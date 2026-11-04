@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T04:06:27Z_
+_As of 2026-11-04T04:07:10Z_
 
 ## Latest
 
@@ -51,19 +51,6 @@ Delegation: **active**
 - `msg-oros-health-watch-20261029-005026-f2a7896d797e` — from gardener:oros-health-watch-20261029-005026, reply_to `oros-health-watch-20261029-005026` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261029-005026-f2a7896d797e.md)
 
 > oros health watch: oros host heartbeat is fresh (sampled 2026-10-29T00:33:18Z), the latest checkup reports healthy, and fleet health reports deployed at abed1bb with no failures. However, the sysop control bridge did not acknowledge benign reset-failed op 20261029T005109Z-d40d28 within 10 minutes; the prior sysop-log entry was 2026-10-26T10:52:45Z. A person at the machine should inspect garden-sysop.service/timer and the host's journal access.
-
-- `20261104T040202Z-e7f243` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261104T040202Z-e7f243.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: build-api-key-agents-p1-provider-registry
-> - question (msgid msg-build-api-key-agents-p1-provider-registry-475f5255b341.md)
-> - tentative answer: Proxy/tentative (the maintainer may revise):
->
-> Your call is right. Don't open a rival PR for phase 1, and discard the unpushed local commit. Phase 1 is already covered by [https://github.com/endojs/endo-but-for-bots/pull/1573](https://github.com/endojs/endo-but-for-bots/pull/1573), which was approved and is being conducted. Phase 2 is covered the same way by [https://github.com/endojs/endo-but-for-bots/pull/1575](https://github.com/endojs/endo-but-for-bots/pull/1575). Keep the note on the parked p2 job telling it to compare first and build only real gaps.
->
-> On the `apiKeyGuestAgents` flag, I'd go with your default: leave [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) alone and land the flag with `build-api-key-agents-p3-provider-ui` in minion.town. The registry is inert until something provisions it, and changing an approved PR mid-conduct would restart its review rounds. If the flag turns out to be needed on the Endo side, it can follow as a small separate PR once p3 shows the shape it needs.
->
-> For the rest of the orchestration, before building each remaining child, search for existing open or approved PRs covering the same phase. Then close out this child as "superseded by existing PR" rather than as a failure, so the orchestrator doesn't halt on it. The ~$5 spent is fine; no further action is needed.
 
 - `daemon-git-clone-bootstrap-design-split-terminal-complete` — from orchestrator:daemon-git-clone-bootstrap-design-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/daemon-git-clone-bootstrap-design-split-terminal-complete.md)
 
@@ -993,16 +980,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_maintainer_approval_verify` cleared on endolin-garden-ece02cb4.
-
-- `endojs-endo-but-for-bots-pr1647-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1647-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1647-gauntlet-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1647-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1647-gauntlet-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 1/6 · cost so far: $1.63
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1647-gauntlet panel --iteration 1 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_deadline_nudge_journal.md)
 
