@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T17:10:35Z_
+_As of 2026-11-04T17:16:10Z_
 
 ## Latest
 
@@ -421,7 +421,11 @@ Delegation: **active**
 
 - `watchdog-journal-push-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
-> Journal push contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: attempts p95=- max=- (cap 50), classes cas=26 server-reject=1 definite-fail=12.
+> RECOVERED — the watchdog condition `journal-push-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-04T12:07:58Z, cleared 2026-11-04T17:15:33Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-push-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` cleared on oros-studio-garden-ce242c49.
 
 - `msg-reset-credit-watch-20261102-170509-424e85c26861` — from gardener:reset-credit-watch-20261102-170509, reply_to `reset-credit-watch-20261102-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261102-170509-424e85c26861.md)
 
@@ -1556,7 +1560,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.5M | $510.59 _(notional, rate-card)_ | 51% of 271.0M (backoff) |
+| Claude | 137.5M | $510.65 _(notional, rate-card)_ | 51% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 54401841 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
