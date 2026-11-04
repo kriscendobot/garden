@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T17:56:56Z_
+_As of 2026-11-04T18:01:10Z_
 
 ## Latest
 
@@ -215,6 +213,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.078238s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_cursors_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=0.033916s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
 
@@ -1567,13 +1569,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 137.5M | $510.99 _(notional, rate-card)_ | 51% of 271.0M (backoff) |
+| Claude | 137.5M | $511.04 _(notional, rate-card)_ | 51% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 54402244 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 16.349384s/45s (/home/kris/garden/.garden-state/deadline-nudge/journal); 15 open notice(s); checker healthy
+worst fetch p95 16.349384s/45s (/home/kris/garden/.garden-state/deadline-nudge/journal); 16 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
