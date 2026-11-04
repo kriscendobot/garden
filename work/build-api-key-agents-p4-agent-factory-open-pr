@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-11-04T08:34:24Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-api-key-agents-p4-agent-factory-open-pr
+pr_number: 1648
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1648
+pr_head: feature/api-key-agent-factory
