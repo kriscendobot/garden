@@ -24,3 +24,13 @@ Collect, trim to what matters, and send the result (under 150 lines) with
 5. `systemctl --user list-timers garden-issue-inbox.timer garden-comment-latency-watch.timer --no-pager` and whether a drain marker existed in the window (`journalctl` lines from drain/deploy, or `ls` of the marker).
 
 State what you could not read rather than guessing. Do not diagnose beyond reporting; the requester does the analysis.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T08:36:31Z
