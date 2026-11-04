@@ -14,3 +14,13 @@ task: Finish the https capability-URL work on the SAME branch/PR (feat/https-cap
 4. Proof: a real-daemon Playwright test. Mint an invitation through evaluate, open it as an https /accept URL in a fresh browser context, accept it, and send mail both ways. Assert that the server log and a Caddy access log (local Caddy with the repo's conf.d) contain no fragment.
 5. Add the threat notes to the PR body: referrer (Referrer-Policy no-referrer is already on the landing route), link-preview crawlers (fragments are not sent), browser history (replaceState scrub, reload drops the link), the PR 173 crawler/leak signal.
 Constraints: keep the PR a draft. No deploy. No secrets in output. Write the PR description as a production-outcome report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T03:10:11Z
