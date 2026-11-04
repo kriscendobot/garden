@@ -57,3 +57,13 @@ issue_spine: issue-kriscendobot-garden-128
 issue_url: https://github.com/kriscendobot/garden/issues/128
 submitter: dckc
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T08:34:33Z
