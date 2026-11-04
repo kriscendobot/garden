@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T19:36:10Z_
+_As of 2026-11-04T19:40:31Z_
 
 ## Latest
 
@@ -34,7 +34,6 @@ Delegation: **active**
 - 2026-11-04T07:55:05Z [#238](https://github.com/kriscendobot/minion.town/pull/238) `d94936ffb73` screened
 - 2026-11-04T07:55:05Z [#237](https://github.com/kriscendobot/minion.town/pull/237) `b942fb97713` screened
 - 2026-11-03T22:17:58Z [#234](https://github.com/kriscendobot/minion.town/pull/234) merged `91968923149`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/41729563986), watchdog ok — validated
-- 2026-11-03T19:38:56Z [#234](https://github.com/kriscendobot/minion.town/pull/234) `0b1d85381c5` screened
 
 ## Messages to the maintainer
 
@@ -155,17 +154,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #80 (first seen 2026-11-01T04:46:54Z, latest 2026-11-04T19:34:40Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 80 times; this is ONE
-> coalesced notice that updates in place, not 80 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-04T19:39:44Z).
+> It was observed 80 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.020235s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.019610s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.027175s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=0.018219s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: p95=0.017333s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.020862s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -1589,7 +1582,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 54596806 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 12.199014s/45s (unknown); 17 open notice(s); checker healthy
+worst fetch p95 12.199014s/45s (unknown); 16 open notice(s); checker healthy
 
 ## Board
 ### todo (21)
