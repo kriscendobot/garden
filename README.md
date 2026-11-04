@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T08:52:18Z_
+_As of 2026-11-04T08:56:02Z_
 
 ## Latest
 
@@ -1372,7 +1372,7 @@ _Fleet token-unlock pace: 54136664 tokens/day lower bound; incomplete where a su
 worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`kriscendobot-minion.town-pr245-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr245-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #245
 - [`kriscendobot-minion.town-pr240-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #240
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
@@ -1386,13 +1386,13 @@ worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #236
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr244-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr244-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #244
+- [`issue-kriscendobot-garden-128-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128-expanded-window.md) — Close out the delivered review of dckc/vattr97#50 (garden issue #128)
 - [`screen-minion-town-pr237-b942fb9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr237-b942fb9-conduct.md) — Screened delegated merge: kriscendobot/minion.town#237 at b942fb977133562f8bd...
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`daily-progress-summary-20261104-080519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261104-080519.md) — Daily midnight Pacific progress summary
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1335-review-a060f580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1335-review-a060f580.md) — Review directive on endojs/endo-but-for-bots PR #1335
-- [`issue-kriscendobot-garden-128-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-128-expanded-window.md) — Close out the delivered review of dckc/vattr97#50 (garden issue #128)
 - [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261104-062010.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr241-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #241
 
