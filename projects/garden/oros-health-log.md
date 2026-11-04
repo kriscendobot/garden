@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-04T00:12Z (oros-health-checkup-20261104-000530): healthy; deployed is main2; changed nothing on the host
+
+- **Load/mem:** load 3.03, 3.26, 3.39. 13 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 2%, memory pressure 0.
+- **Disk/inodes:** 55.6 GiB free on the garden mount, 89%, up from 39.9 GiB at 21:27Z. What freed about 15.7 GiB was not traced. Inodes 2%. `scratch` has 400 entries, `scratch/tmpexec` 795.
+- **Uptime:** 33d, no reboot.
+- **Deployed vs main2:** root and fleet/health/oros show `23de5f385e9`, the main2 tip, `roll_status: deployed`, 0 of 290 units failing (22:57Z). Deploy needs no help. That docs-only release sits on `2d1411ccd18`, so the usage-row replay, claim fix and git-wrapper guard from earlier check-ups are now live.
+- **Drain/units:** 0 failed user units, `garden-monk@1..4` running, leveling row `4 0`, no `worker-derotate/` marker on the journal tip. I saw no drain marker, and 4 `claude` workers are running.
+- **Budget heartbeat:** last push 00:03:19Z; the last 8 (22:19 to 00:03Z) are all ok, the largest gap 17 minutes. Spend reads 17483978 of 180M, 8%.
+- **State clones:** at most 50 packs per journal clone, no temp packs, no `gc.log`. No git `*.lock` older than 30 minutes in the root `.git` top levels. The search of `$GARDEN_STATE` hit its 40s limit with no match, so it is partial.
+- **Timeouts (3h):** two true wall hits at about 2400s, `build-minion-town-remote-invitation-hints-20261103` (22:09Z) and `build-minion-town-mcp-resources-primer-20261103` (22:13Z). Otherwise only the 21:17Z arc-press line already reported. Lock-overdue lines are down to 29 in 3h and mostly one or two per ten minutes, 7 at 23:40 to 23:49Z.
+- **Not traced:** `garden-monk@4` main process was SIGKILLed at 20:50:32Z and restarted cleanly; one event in 6h, no `--failed` residue. The monks restarted about once a minute at 20:32 to 20:36Z and 22:21 to 22:33Z; I read these as drain cycles around deploys, not checked against the deploy log.
+- **Still open, not this host's to fix:** self-heal reports the minion.town MCP probe down since 2026-10-08 (token helper credential read). `watchdog-journal-worktree-fffail` last fired 11-03T02:49Z. The journal worktree was at the expected keeper-tick lag here, 25 minutes, and I did not check it for that condition.
+- **My slip:** I ran read-only `git` against `journal/` and one `git fetch` in `.garden-state/monitors/monk-1/journal`, outside the job's rule of running git only in its own worktree. Fetch moved only that clone's remote-tracking ref; I then stopped. No other effect seen.
+
 ## 2026-11-03T21:27Z (oros-health-checkup-20261103-210510): healthy, with slow journal writes; deployed is main2 minus my fix; landed a usage-row fix
 
 - **Load/mem:** load 5.23, 3.75, 3.55 at 21:19Z and 4.13, 4.23, 3.85 at 21:27Z. 13 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 3% (some, avg300 2.69).
