@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T22:21:56Z_
+_As of 2026-11-04T22:25:52Z_
 
 ## Latest
 
@@ -1510,6 +1510,10 @@ Delegation: **active**
 > keeps it from advancing. The leader does not advance past an undeployed canary.
 > (leader=endolin-garden-ece02cb4)
 
+- `msg-oros-health-watch-20261104-185019-1236f736a3b1` — from gardener:oros-health-watch-20261104-185019, reply_to `oros-health-watch-20261104-185019` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261104-185019-1236f736a3b1.md)
+
+> oros-health-watch 2026-11-04 22:25Z: INTERVENED (attested op), still stuck. oros-studio-garden-ce242c49 is alive (health fresh, sysop responsive, heartbeat 21:32Z, 20% used) but has been roll-drained since 12:16Z: it is the canary that was released to 7f0c3f7 about 10h ago and still reports deployed 746d220. The leader's roll is HALTED and holding, so three oros-health-checkup jobs (12:35, 15:50, 18:50) sit unclaimed in todo. Sent op=reset-failed and op=unit restart garden-self-deploy.timer (authorized_by=kriskowal); both were acked as applied at 21:57:45Z. 25 minutes later the sha had not moved. I did NOT lift the drain, because it is the leader's deliberate containment of a halted canary. Needs a person: on oros, run journalctl --user -u garden-self-deploy to find the hold or deferral blocking deploy-garden.sh, then either let it deploy 7f0c3f7 or lift the drain. Related: the coalesced watchdog rolling-deploy-canary-stuck-oros (195 notices since 11-01).
+
 - `watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-agent-bin-monk-oros-studio-garden-ce242c49.md)
 
 > RECOVERED — the watchdog condition `worker-agent-bin-monk-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-21T13:46:58Z, cleared 2026-10-26T07:47:57Z).
@@ -1599,16 +1603,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 142.5M | $531.83 _(notional, rate-card)_ | 53% of 271.0M (ok) |
+| Claude | 142.6M | $531.56 _(notional, rate-card)_ | 53% of 271.0M (ok) |
 | Codex | 304.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 39101020 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/journal); 16 open notice(s); checker healthy
+worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (15)
 - [`unblock-oros-canary-drain-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/unblock-oros-canary-drain-20261104.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`oros-health-checkup-20261104-123510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-123510.md) — ---
@@ -1618,28 +1622,27 @@ worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/jo
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`minion-town-arc-press-20261104-220524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-220524.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
 - [`endojs-endo-but-for-bots-pr1651-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1651-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1651
-- [`kriscendobot-minion.town-pr239-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #239
 - [`endojs-endo-but-for-bots-pr1648-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1648-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1648
 - [`kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #237
 - [`kriscendobot-minion.town-pr244-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr244-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #244
 - [`oros-health-checkup-20261104-220524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-220524.md) — ---
 - [`oros-health-watch-20261104-220524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-220524.md) — ---
 
-### doin (4)
-- [`oros-health-watch-20261104-185019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261104-185019.md) — ---
+### doin (5)
 - [`kriscendobot-minion.town-pr236-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr236-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #236
 - [`design-mechanic-role`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-mechanic-role.md) — ---
 - [`kriscendobot-minion.town-pr245-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr245-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #245
+- [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
+- [`kriscendobot-minion.town-pr239-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr239-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #239
 
-### tada (16603)
+### tada (16604)
+- [`oros-health-watch-20261104-185019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-watch-20261104-185019.md) — Cost
 - [`kriscendobot-minion.town-pr240-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr240-gauntlet-panel-3.md) — Cost
 - [`oros-health-watch-20261104-155009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-watch-20261104-155009.md) — Cost
 - [`claude-on-minion-town-completion-press-20261104-190509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/claude-on-minion-town-completion-press-20261104-190509.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-fix-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1651-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1651-gauntlet-viability.md) — Cost
-- … and 16598 more
+- … and 16599 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
