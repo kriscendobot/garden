@@ -2,7 +2,7 @@
 order: serial
 children: build-minion-town-remove-open-in-new-tab-20261104 design-minion-town-ordered-gutter-context-menu-20261104 build-minion-town-ordered-gutter-context-menu-20261104 build-minion-town-new-clip-inference-workflow-20261104
 on-child-failure: continue
-state: pending
+state: running
 created_by: producer
 created_at: 2026-11-04T22:49:16Z
 ---
