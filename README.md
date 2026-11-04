@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T06:26:21Z_
+_As of 2026-11-04T06:27:16Z_
 
 ## Latest
 
@@ -1372,18 +1372,17 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-062010.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (3)
+### doin (2)
 - [`build-api-key-agents-p4-agent-factory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p4-agent-factory.md) — Build: Lal/Fae agent factory and UI step (companion phase 4)
-- [`kriscendobot-minion.town-pr241-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr241-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #241
 - [`design-issue-inbox-timely-acknowledgement-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-issue-inbox-timely-acknowledgement-20261104.md) — Investigate and design timely, non-redundant acknowledgement for issue-inbox ...
 
-### tada (16531)
+### tada (16532)
+- [`kriscendobot-minion.town-pr241-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr241-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr239-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr239-gauntlet-fix-2.md) — Cost
 - [`kriscendobot-garden-book-pr17-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-garden-book-pr17-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr239-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr239-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr241-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr241-gauntlet-clean.md) — Cost
-- [`kriscendobot-minion.town-pr236-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-panel-2.md) — Cost
-- … and 16526 more
+- … and 16527 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
