@@ -96,3 +96,13 @@ The repository-wide local verifier also ran, but its unrelated global checks cou
 No persisted schema changes are required. Daemons that need a public address may add the new pet value and restart the OCapN network formula. This draft carries the change in #1333's existing daemon changeset because it is stacked in the same release unit.
 
 <!-- garden-job: endo-ocapn-gateway-session-binding-build -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T11:47:59Z
