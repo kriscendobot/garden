@@ -1,4 +1,5 @@
 ---
+child-build-minion-town-new-clip-inference-workflow-20261104-host: endolin-garden-ece02cb4
 child-build-minion-town-new-clip-inference-workflow-20261104-reap-count: 0
 child-build-minion-town-ordered-gutter-context-menu-20261104-reap-count: 0
 child-design-minion-town-ordered-gutter-context-menu-20261104-host: endolin-garden-ece02cb4
