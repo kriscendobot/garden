@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T09:00:34Z_
+_As of 2026-11-04T09:02:12Z_
 
 ## Latest
 
@@ -269,10 +269,6 @@ Delegation: **active**
 > - Don't implement any real subscription OAuth flow, and don't use any third-party broker role that isn't documented. That would need maintainer-level evidence and a decision.
 > - In the PR description, note the conflict between the two designs and list the provider-specific questions still open, so the maintainer can answer them in review.
 > - If the work turns out to depend on [endojs/endo-but-for-bots#1573](https://github.com/endojs/endo-but-for-bots/issues/1573) or [endojs/endo-but-for-bots#1575](https://github.com/endojs/endo-but-for-bots/issues/1575) landing first, stack on those branches. Don't wait on them.
-
-- `watchdog-unclaimable-host-requirements-issue-kriscendobot-garden-128-rerun-2f06eb2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-issue-kriscendobot-garden-128-rerun-2f06eb2.md)
-
-> Host-requirements gate: job 'issue-kriscendobot-garden-128-rerun-2f06eb2' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
