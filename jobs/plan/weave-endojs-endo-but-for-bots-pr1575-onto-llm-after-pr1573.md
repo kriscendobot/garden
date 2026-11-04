@@ -25,3 +25,7 @@ The base `feature/api-key-provider-registry-71b9ab5` is a frozen snapshot of par
 3. Run the changed packages' tests (`hosted-agent`, `lal`, `fae`, `daemon` restart test), then push and report the new head.
 
 Known CI reds that were not from this diff on the prior head: `test (24.x, macos-15)` (ClientDestroyedError) and `sandbox-drivers` (bwrap timeout test).
+
+<!-- garden-annotation: key=3d8172202b69 by=producer at=2026-11-04T01:37:29Z -->
+
+Correction: a third fixup, 0b8d24a114e1f7f20b766eeee9f056b0dcc4b6bc, sits at the tip, so step 2 has three fixup! commits rather than two. Keep all of them visible.
