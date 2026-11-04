@@ -28,6 +28,8 @@ Do:
 Constraints: draft PRs, no secrets in logs (a locator is a bearer), no persistent production guests.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
