@@ -22,3 +22,13 @@ Everything ships behind the disabled `apiKeyGuestAgents` feature flag (parent §
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-04T04:13:03Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T04:17:47Z
