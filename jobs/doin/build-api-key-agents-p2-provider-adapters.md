@@ -24,3 +24,13 @@ Everything ships behind the disabled `apiKeyGuestAgents` feature flag (parent §
 <!-- garden-annotation: key=p2-duplicates-pr1575 by=producer at=2026-11-04T03:40:55Z -->
 
 Correction from build-api-key-agents-p1-provider-registry: phase 2 already exists as endojs/endo-but-for-bots#1575 (head feature/api-key-provider-adapters, stacked on phase-1 #1573), approved by kriskowal on 2026-11-04 with "respond, retcon, conduct"; weave-endojs-endo-but-for-bots-pr1575-onto-llm-after-pr1573 restacks it after #1573 merges. Do not build a second implementation. Before any work, compare #1575 with this job's listed tests. If it covers them, complete with a handoff to that weave job and open no PR; build only a gap #1575 does not cover, stacked on it.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T04:35:32Z
