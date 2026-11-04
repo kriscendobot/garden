@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 241
 build_job: build-api-key-agents-p0-freeze-onboarding
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr241-gauntlet-clean
+current_child: kriscendobot-minion.town-pr241-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-11-04T02:43:28Z
