@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T15:04:57Z_
+_As of 2026-11-04T15:07:34Z_
 
 ## Latest
 
@@ -1504,6 +1504,16 @@ Delegation: **active**
 >
 > Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` cleared on oros-studio-garden-ce242c49.
 
+- `kriscendobot-minion.town-pr241-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr241-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr241-gauntlet-halted.md)
+
+> Gauntlet kriscendobot-minion.town-pr241-gauntlet HALTED: stage 'kriscendobot-minion.town-pr241-gauntlet-panel-2' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 2/6 · cost so far: $0.99
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr241-gauntlet panel --iteration 2 --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
 > RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-02T05:27:16Z, cleared 2026-11-04T04:47:07Z).
@@ -1572,13 +1582,13 @@ worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### doin (0)
 (none)
 
-### tada (16576)
+### tada (16577)
+- [`kriscendobot-minion.town-pr241-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr241-gauntlet.md) — gauntlet kriscendobot-minion.town-pr241-gauntlet — HALTED
 - [`minion-town-arc-press-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/minion-town-arc-press-20261104-092018.md) — ---
 - [`oros-health-checkup-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-checkup-20261104-092018.md) — ---
 - [`kriscendobot-minion.town-pr240-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr240-gauntlet.md) — gauntlet kriscendobot-minion.town-pr240-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr244-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr244-gauntlet-fix-1.md) — Cost
-- [`oros-health-watch-20261104-092018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-watch-20261104-092018.md) — Cost
-- … and 16571 more
+- … and 16572 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
