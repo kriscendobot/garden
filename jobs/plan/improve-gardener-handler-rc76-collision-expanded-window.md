@@ -1,4 +1,30 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+handler-timeout: 7200
+split-indivisible-reason: 'one already-written patch whose docket helper, rc constant, and regression tests only pass together; the overrun was suite wall time on a loaded host, not scope'
+split-lineage-root: improve-gardener-handler-rc76-collision
+split-lineage-parent: improve-gardener-handler-rc76-collision-split
+split-lineage-depth: 1
+split-lineage-max-depth: 1
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: unknown
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-04T05:03:07Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-04T05:03:07Z
+---
+
+---
 tier: mentor
 posted_at: 2026-11-03T20:22:22Z
 handler-timeout: 7200
@@ -332,16 +358,3 @@ index 516ee57ce9e..0b6b039f18e 100755
  printf '\n' >> "$GARDEN_DOCKET_SPY_LOG"
 +exit "${GARDEN_DOCKET_SPY_RC:-0}"
 ```
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-04T00:53:06Z -->
-
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-04T01:03:04Z
