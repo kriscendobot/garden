@@ -7,9 +7,9 @@ Newest first. One note per `oros-health-checkup-*` run.
 - **Readings:** load 3.60, 3.52, 3.13. 12 GiB of 15 GiB available, swap full (unchanged). IO pressure about 2%, memory about 0.3%. 34d up, no reboot. 0 failed units of 289; `garden-monk@1..3` running. No `rc=124` in the last 3h.
 - **Budget heartbeat:** last push 23:18:38Z, ok, spend 44967579 of 180M, 20% (derived), every 15 minutes.
 - **Disk:** 36074 MiB free on the garden mount, 93%, about 800 MiB under the 23:12Z reading and a new low for the recorded range. Inodes 3%. A `du` of `scratch` did not finish in 75s, so the cause is still untraced. At this rate it is not urgent, but it needs a trace that can run longer than a check-up should.
-- **State:** root `.git` 65 packs (49 at 23:10Z, 13 at 08:32Z), no `gc.log`, no `*.lock` over 30 minutes at depth 3 or less. Not repacked: it would contend with the deploy, and `garden-root-repo-guard` was holding the repo lock at 23:22Z. `scratch` 411 entries, `scratch/tmpexec` 1495. No `/tmp/deploy-www-*` over 24h by mtime check.
+- **State:** root `.git` 65 packs (49 at 23:10Z, 13 at 08:32Z), no `gc.log`, no `*.lock` over 30 minutes at depth 3 or less. Not repacked: it would contend with the deploy, and `garden-root-repo-guard` was holding the repo lock at 23:22Z. `scratch` 411 entries, `scratch/tmpexec` 1495. `/tmp/deploy-www-*`: 96 of 252 over 24h, left in place.
 - **Changed:** nothing.
-- **What the deploy needs:** a quiet moment. The check-ups queued during the drain are the deferral source; this is the last of them, so the next trigger after it and monk 1's job finish should get through. Finishing fast for that reason.
+- **What the deploy needs:** a quiet moment. The check-ups queued during the drain are the deferral source; no check-up remains in `jobs/todo`, so the next trigger after the running jobs finish should get through, unless a new long job has started by then. Finishing fast for that reason.
 
 ## 2026-11-04T23:12Z (oros-health-checkup-20261104-123510): degraded; deploy of `1f59625d7b3` deferred behind the check-up backlog; changed nothing
 
