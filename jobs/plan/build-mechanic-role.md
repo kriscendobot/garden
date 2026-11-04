@@ -19,3 +19,7 @@ Expected artifacts (the design is authoritative where it differs): `roles/mechan
 
 Garden conventions: land direct to `main2` (no PR for the garden's own repo), roles reference skills by path and never inline them, keep files short, match surrounding style. Run the repo's relevant script tests before pushing. If the design left an open question that blocks the build, build the unblocked part and report the rest rather than guessing.
 
+
+<!-- garden-annotation: key=36f79c57d270 by=producer at=2026-11-04T22:15:51Z -->
+
+SCOPE AMENDMENT (maintainer, 2026-11-04): the mechanic role is general to all leaders and followers and any mechanical host failure; implement the design's full host scope, not oros alone.
