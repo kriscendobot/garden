@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T03:47:50Z_
+_As of 2026-11-04T03:49:51Z_
 
 ## Latest
 
@@ -1345,7 +1345,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.5M | $451.84 _(notional, rate-card)_ | 45% of 271.0M (backoff) |
+| Claude | 122.5M | $448.22 _(notional, rate-card)_ | 45% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53888381 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1371,20 +1371,19 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`kriscendobot-minion.town-pr241-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #241
 - [`kriscendobot-minion.town-pr238-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr238-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #238
 
-### doin (5)
-- [`build-minion-town-https-locators-browser-proof-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-https-locators-browser-proof-20261104.md) — ---
+### doin (4)
 - [`build-api-key-agents-p1-provider-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p1-provider-registry.md) — Build: Endo inference-provider registry, ownership, and facets (companion pha...
 - [`kriscendobot-minion.town-pr235-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr235-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #235
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`endojs-endo-but-for-bots-pr1647-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1647-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1647
 
-### tada (16495)
+### tada (16496)
+- [`build-minion-town-https-locators-browser-proof-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/build-minion-town-https-locators-browser-proof-20261104.md) — Completion report: build-minion-town-https-locators-browser-proof-20261104
 - [`endojs-endo-but-for-bots-pr1573-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1573-conduct.md) — Cost
 - [`fu-build-api-key-agents-p0-freeze-onboarding-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/fu-build-api-key-agents-p0-freeze-onboarding-2.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1647-conduct-postpanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1647-conduct-postpanel.md) — Cost
 - [`kriscendobot-minion.town-pr240-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr240-shepherd.md) — Shepherd report: kriscendobot/minion.town PR #240
-- [`deadmail-20261104T021013Z-c57bed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/deadmail-20261104T021013Z-c57bed.md) — Cost
-- … and 16490 more
+- … and 16491 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
