@@ -5,14 +5,14 @@ repo: kriscendobot/minion.town
 pr_number: 237
 build_job: build-minion-town-responder-test-mailbox-poll
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr237-gauntlet-panel-1
+current_child: kriscendobot-minion.town-pr237-gauntlet-undraft
 state: running
 created_by: producer
 created_at: 2026-11-04T01:05:39Z
