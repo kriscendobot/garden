@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T13:37:22Z_
+_As of 2026-11-04T13:40:20Z_
 
 ## Latest
 
@@ -790,16 +790,6 @@ Delegation: **active**
 > ## Follow-ups
 > - `build-budget-road`, after the maintainer answers the open questions on #127 (design § Migration, step 1).
 > - Have `budget-level.sh` use the road's ceiling for worker leveling (to be filed after the build).
-
-- `kriscendobot-minion.town-pr240-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr240-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr240-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr240-gauntlet HALTED: stage 'kriscendobot-minion.town-pr240-gauntlet-panel-3' (panel) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
->
-> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 3/6 · cost so far: $4.34
-> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
->
-> To resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr240-gauntlet panel --iteration 3 --add-rounds 2
-> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_regenerate_sections_index_journal.md)
 
