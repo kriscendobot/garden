@@ -72,3 +72,13 @@ Acceptance: open | launch acceptance needs phases 1-6 and real upstream turns, n
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END PR BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T08:34:24Z
