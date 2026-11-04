@@ -333,12 +333,5 @@ index 516ee57ce9e..0b6b039f18e 100755
 +exit "${GARDEN_DOCKET_SPY_RC:-0}"
 ```
 
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-03T20:41:13Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-04T00:53:06Z -->
