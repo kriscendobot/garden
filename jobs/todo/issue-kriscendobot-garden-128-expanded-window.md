@@ -61,14 +61,5 @@ submitter: dckc
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=100 -->
 
-<!-- garden-reaped: 0 -->
-
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-04T09:28:08Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-04T13:43:05Z -->
