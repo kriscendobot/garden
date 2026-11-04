@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T02:51:00Z_
+_As of 2026-11-04T02:52:03Z_
 
 ## Latest
 
@@ -1326,7 +1326,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.9M | $449.77 _(notional, rate-card)_ | 45% of 271.0M (ok) |
+| Claude | 121.9M | $450.10 _(notional, rate-card)_ | 45% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53651805 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1335,7 +1335,7 @@ _Fleet token-unlock pace: 53651805 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 14 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (16)
 - [`endojs-endo-but-for-bots-pr1647-conduct-postpanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-conduct-postpanel.md) — Finalize (merge) endojs/endo-but-for-bots PR #1647 after its panel lands
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #236
@@ -1343,7 +1343,6 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`kriscendobot-minion.town-pr235-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr235-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #235
 - [`kriscendobot-minion.town-pr239-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #239
-- [`kriscendobot-minion.town-pr237-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr237-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #237
 - [`build-minion-town-https-locators-proof-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-https-locators-proof-20261104.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`endojs-endo-but-for-bots-pr1574-close-moved-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1574-close-moved-endolin.md) — Close endojs/endo-but-for-bots#1574 after its design moved to minion.town
@@ -1354,9 +1353,10 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`kriscendobot-minion.town-pr241-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #241
 - [`kriscendobot-minion.town-pr238-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr238-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #238
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1573-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-conduct.md) — Conduct endojs/endo-but-for-bots PR #1573
 - [`endojs-endo-but-for-bots-pr1575-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1575
+- [`kriscendobot-minion.town-pr237-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr237-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #237
 - [`build-api-key-agents-p0-freeze-onboarding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p0-freeze-onboarding.md) — Build: freeze new Claude-subscription onboarding (course-correction step 1)
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`kriscendobot-minion.town-pr240-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr240-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #240
