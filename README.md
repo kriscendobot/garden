@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T01:42:27Z_
+_As of 2026-11-04T01:44:46Z_
 
 ## Latest
 
@@ -1332,21 +1330,20 @@ worst fetch p95 5.561877s/45s (unknown); 12 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1647-review-693a492c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-review-693a492c.md) — Review directive on endojs/endo-but-for-bots PR #1647
 - [`claude-on-minion-town-completion-press-20261104-003515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-003515.md) — Completion press: Claude-on-minion.town arc
 
-### doin (6)
+### doin (5)
 - [`kriscendobot-minion.town-pr236-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr236-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #236
-- [`endojs-endo-but-for-bots-pr1575-review-938c3acf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-review-938c3acf.md) — Review directive on endojs/endo-but-for-bots PR #1575
 - [`build-minion-town-https-locators-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-https-locators-20261104.md) — ---
 - [`endojs-endo-but-for-bots-pr1575-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1575
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`endojs-endo-but-for-bots-pr1573-review-cc1b8fb6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1573-review-cc1b8fb6.md) — Review directive on endojs/endo-but-for-bots PR #1573
 
-### tada (16463)
+### tada (16464)
+- [`endojs-endo-but-for-bots-pr1575-review-938c3acf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1575-review-938c3acf.md) — Cost
 - [`oros-health-watch-20261104-000530`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-watch-20261104-000530.md) — Cost
 - [`endojs-endo-but-for-bots-pr1574-review-f45dd5bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1574-review-f45dd5bb.md) — Follow-ups
 - [`build-minion-town-responder-test-mailbox-poll`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/build-minion-town-responder-test-mailbox-poll.md) — Cost
 - [`kriscendobot-minion.town-pr235-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr235-gauntlet-panel-5.md) — Cost
-- [`kriscendobot-minion.town-pr236-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-viability.md) — Cost
-- … and 16458 more
+- … and 16459 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
