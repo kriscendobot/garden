@@ -1,9 +1,0 @@
-host: oros-studio-garden-ce242c49
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-11-04T00:29:29Z
-worktree_dir: /Users/dom/garden/scratch/gardener-wt-build-minion-town-responder-test-mailbox-poll
-pr_number: 237
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/237
-pr_head: fix/responder-test-mailbox-poll
