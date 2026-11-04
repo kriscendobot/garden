@@ -1,14 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:worker-derotate
-sent_at: 2026-11-04T11:20:21Z
+sent_at: 2026-11-04T11:35:06Z
 watchdog_key: worker-derotate-sysop-stale-oros-studio-garden-ce242c49
-notice_count: 2
+notice_count: 3
 first_seen: 2026-10-18T13:35:08Z
-last_seen: 2026-11-04T11:20:21Z
-recovered: true
+last_seen: 2026-11-04T11:35:06Z
 ---
-RECOVERED — the watchdog condition `worker-derotate-sysop-stale-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-18T13:35:08Z, cleared 2026-11-04T11:20:21Z).
-It was observed 2 time(s) while open. Nothing further is required;
-this notice closes the loop so the end of the condition is on the record.
+WATCHDOG notice — occurrence #3 (first seen 2026-10-18T13:35:08Z, latest 2026-11-04T11:35:06Z).
+The SAME condition (`worker-derotate-sysop-stale-oros-studio-garden-ce242c49`) has now been observed 3 times; this is ONE
+coalesced notice that updates in place, not 3 messages. Latest detail:
 
-Host oros-studio-garden-ce242c49 control-plane operations are available again: no unlogged sysop operations. (leader=endolin-garden-ece02cb4)
+Host oros-studio-garden-ce242c49 control-plane operations are UNAVAILABLE: unlogged sysop op 20261104T113203Z-644f70 is 178s old (stale threshold 120s). Its budget heartbeat may still be fresh; worker-derotate will remove its capacity after confirmation. Inspect garden-sysop.service/timer and the addressed operation. (leader=endolin-garden-ece02cb4)
