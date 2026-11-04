@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T23:23:00Z_
+_As of 2026-11-04T23:24:03Z_
 
 ## Latest
 
@@ -1633,11 +1633,10 @@ _Fleet token-unlock pace: 39153028 tokens/day lower bound; incomplete where a su
 worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #237
 - [`kriscendobot-minion.town-pr244-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr244-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #244
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
-- [`kriscendobot-minion.town-pr241-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #241
 - [`kriscendobot-minion.town-pr239-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #239
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
@@ -1646,9 +1645,10 @@ worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/jo
 - [`endojs-endo-but-for-bots-pr1648-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1648-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1648
 - [`kriscendobot-minion.town-pr240-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #240
 
-### doin (6)
+### doin (7)
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr236-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #236
 - [`kriscendobot-minion.town-pr245-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr245-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #245
+- [`kriscendobot-minion.town-pr241-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr241-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #241
 - [`design-minion-town-ordered-gutter-context-menu-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ordered-gutter-context-menu-20261104.md) — ---
 - [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
 - [`endojs-endo-but-for-bots-pr1651-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1651-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1651
