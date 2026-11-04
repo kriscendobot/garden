@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T01:00:41Z_
+_As of 2026-11-04T01:01:53Z_
 
 ## Latest
 
@@ -1295,7 +1295,7 @@ _Fleet token-unlock pace: 53760754 tokens/day lower bound; incomplete where a su
 worst fetch p95 5.561877s/45s (unknown); 12 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (18)
 - [`endojs-endo-but-for-bots-pr1647-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1647
 - [`oros-health-watch-20261104-000530`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-000530.md) — ---
 - [`kriscendobot-minion.town-pr236-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #236
@@ -1311,6 +1311,7 @@ worst fetch p95 5.561877s/45s (unknown); 12 open notice(s); checker healthy
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1573-review-cc1b8fb6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1573-review-cc1b8fb6.md) — Review directive on endojs/endo-but-for-bots PR #1573
+- [`endojs-endo-but-for-bots-pr1647-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1647
 - [`endojs-endo-but-for-bots-pr1647-review-693a492c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-review-693a492c.md) — Review directive on endojs/endo-but-for-bots PR #1647
 - [`claude-on-minion-town-completion-press-20261104-003515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-003515.md) — Completion press: Claude-on-minion.town arc
 
