@@ -1,4 +1,5 @@
 ---
+child-issue-kriscendobot-garden-128-expanded-window-reap-count: 0
 order: serial
 children: issue-kriscendobot-garden-128-expanded-window
 on-child-failure: halt
