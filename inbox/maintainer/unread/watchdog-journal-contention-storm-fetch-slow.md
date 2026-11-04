@@ -1,14 +1,14 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:journal-contention-watch
-sent_at: 2026-11-04T10:27:06Z
+sent_at: 2026-11-04T10:30:25Z
 watchdog_key: journal-contention-storm-fetch-slow
-notice_count: 16
+notice_count: 17
 first_seen: 2026-11-03T11:29:32Z
-last_seen: 2026-11-04T10:27:06Z
+last_seen: 2026-11-04T10:30:25Z
 ---
-WATCHDOG notice — occurrence #16 (first seen 2026-11-03T11:29:32Z, latest 2026-11-04T10:27:06Z).
-The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 16 times; this is ONE
-coalesced notice that updates in place, not 16 messages. Latest detail:
+WATCHDOG notice — occurrence #17 (first seen 2026-11-03T11:29:32Z, latest 2026-11-04T10:30:25Z).
+The SAME condition (`journal-contention-storm-fetch-slow`) has now been observed 17 times; this is ONE
+coalesced notice that updates in place, not 17 messages. Latest detail:
 
 Journal contention storm on oros-studio-garden-ce242c49: 10 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 10 independent faults):
 - Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: p95=19.886939s max=38.194724s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
