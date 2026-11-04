@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-new-clip-gutter-orchestration-20261104
-priority: normal
-posted_by: producer
+role: designer
+tier: mentor
 posted_at: 2026-11-04T22:49:16Z
+handler-timeout: 3600
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-04T23:15:54Z cleared=none -->
 
 ---
 role: designer
