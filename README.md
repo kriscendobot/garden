@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T16:28:44Z_
+_As of 2026-11-04T16:29:42Z_
 
 ## Latest
 
@@ -1453,11 +1453,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #72 (first seen 2026-11-01T06:29:02Z, latest 2026-11-04T15:29:03Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 72 times; this is ONE
-> coalesced notice that updates in place, not 72 messages. Latest detail:
+> WATCHDOG notice — occurrence #92 (first seen 2026-11-01T06:29:02Z, latest 2026-11-04T16:29:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 92 times; this is ONE
+> coalesced notice that updates in place, not 92 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 7f0c3f7cd1cb 200 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 7f0c3f7cd1cb 260 min ago
 > but still reports deployed_sha 746d220507cd4101f9cfcea070889f058e456fb7. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1558,7 +1558,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 54401400 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 16.405294s/45s (/home/kris/garden/.garden-state/follow-up/journal); 20 open notice(s); checker healthy
+worst fetch p95 16.385893s/45s (/home/kris/garden/.garden-state/orch/journal); 20 open notice(s); checker healthy
 
 ## Board
 ### todo (15)
