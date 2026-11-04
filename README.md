@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T17:04:58Z_
+_As of 2026-11-04T17:10:35Z_
 
 ## Latest
 
@@ -347,7 +347,11 @@ Delegation: **active**
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_proxy_journal.md)
 
-> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/proxy/journal: attempts p95=- max=- (cap 50), classes cas=2 server-reject=2 definite-fail=8.
+> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_proxy_journal` has CLEARED (first seen 2026-11-04T11:25:02Z, cleared 2026-11-04T17:09:20Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_proxy_journal` cleared on endolin-garden-ece02cb4.
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-review-budget-reached.md)
 
@@ -1558,7 +1562,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 54401841 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 16.385893s/45s (/home/kris/garden/.garden-state/orch/journal); 20 open notice(s); checker healthy
+worst fetch p95 16.385893s/45s (/home/kris/garden/.garden-state/orch/journal); 19 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
