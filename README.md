@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T07:58:10Z_
+_As of 2026-11-04T08:08:00Z_
 
 ## Latest
 
@@ -123,17 +121,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #63 (first seen 2026-11-01T04:46:54Z, latest 2026-11-04T07:49:12Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 63 times; this is ONE
-> coalesced notice that updates in place, not 63 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-04T07:59:35Z).
+> It was observed 63 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.045536s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.046777s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.053917s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/deadline-nudge/journal: p95=0.071091s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/review-docket/journal: p95=0.045371s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=0.045465s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -1358,13 +1350,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 127.0M | $467.66 _(notional, rate-card)_ | 47% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53928508 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 53935190 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 13 open notice(s); checker healthy
+worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 12 open notice(s); checker healthy
 
 ## Board
-### todo (22)
+### todo (24)
 - [`endojs-endo-but-for-bots-pr1335-review-a060f580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1335-review-a060f580.md) — Review directive on endojs/endo-but-for-bots PR #1335
 - [`kriscendobot-garden-book-pr17-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr17-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #17
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
@@ -1372,6 +1364,7 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`screen-minion-town-pr238-d94936f-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr238-d94936f-conduct.md) — Screened delegated merge: kriscendobot/minion.town#238 at d94936ffb7340030dcc...
 - [`kriscendobot-minion.town-pr239-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #239
+- [`build-api-key-agents-p5-pinned-responder-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p5-pinned-responder-open-pr.md) — Open the phase 5 pinned responder PR on endojs/endo-but-for-bots
 - [`build-issue-inbox-timely-acknowledgement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-issue-inbox-timely-acknowledgement.md) — Build timely issue-inbox acknowledgement (status pass plus checker fixes)
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
@@ -1386,6 +1379,7 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`claude-on-minion-town-completion-press-20261104-065026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-065026.md) — Completion press: Claude-on-minion.town arc
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-062010.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`daily-progress-summary-20261104-080519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261104-080519.md) — Daily midnight Pacific progress summary
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #241
 
 ### doin (1)
