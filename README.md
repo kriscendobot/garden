@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T11:30:24Z_
+_As of 2026-11-04T11:31:33Z_
 
 ## Latest
 
@@ -381,10 +381,6 @@ Delegation: **active**
 >
 > Comment acknowledgment condition cleared.
 
-- `watchdog-journal-push-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
-
-> Journal push contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: attempts p95=- max=- (cap 50), classes cas=26 server-reject=1 definite-fail=12.
-
 - `msg-reset-credit-watch-20261102-170509-424e85c26861` — from gardener:reset-credit-watch-20261102-170509, reply_to `reset-credit-watch-20261102-170509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261102-170509-424e85c26861.md)
 
 > **Reset-credit watch, Mon 11-02: if you still hold the codex credit (expires Fri 11-06), reset codex-endolin today or by Tue 11-03 evening PT.** No acceleration is needed, since the meter already reads 91%. This needs a decision within 1–2 days, and it depends on two things only your dashboard can show.
@@ -694,10 +690,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.290167s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-
-- `watchdog-journal-push-contention-_Users_dom_garden__garden_state_fleet_health_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_Users_dom_garden__garden_state_fleet_health_journal.md)
-
-> Journal push contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fleet-health/journal: attempts p95=- max=- (cap 50), classes cas=16 server-reject=2 definite-fail=15.
 
 - `endojs-endo-but-for-bots-pr1589-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1589-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1589-gauntlet-halted.md)
 
