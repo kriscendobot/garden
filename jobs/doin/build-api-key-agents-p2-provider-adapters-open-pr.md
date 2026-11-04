@@ -88,3 +88,13 @@ Acceptance: deferred | browser, daemon, and live deployment evidence is owned by
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END PR BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T15:29:14Z
