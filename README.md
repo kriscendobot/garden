@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T13:40:20Z_
+_As of 2026-11-04T13:45:18Z_
 
 ## Latest
 
@@ -36,8 +36,6 @@ Delegation: **active**
 - 2026-11-03T22:17:58Z [#234](https://github.com/kriscendobot/minion.town/pull/234) merged `91968923149`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/41729563986), watchdog ok — validated
 - 2026-11-03T19:38:56Z [#234](https://github.com/kriscendobot/minion.town/pull/234) `0b1d85381c5` screened
 - 2026-11-03T15:32:26Z [#233](https://github.com/kriscendobot/minion.town/pull/233) merged `3f6c2b24a98`; deploy [success](https://github.com/kriscendobot/minion.town/actions/runs/41664945683), watchdog ok — validated
-- 2026-11-03T13:44:57Z [#234](https://github.com/kriscendobot/minion.town/pull/234) `bb6f1bee265` screened
-- 2026-11-03T13:44:57Z [#233](https://github.com/kriscendobot/minion.town/pull/233) `899114970ca` screened
 
 ## Messages to the maintainer
 
