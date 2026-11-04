@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T06:23:47Z_
+_As of 2026-11-04T06:26:21Z_
 
 ## Latest
 
@@ -1354,7 +1354,7 @@ _Fleet token-unlock pace: 53858359 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 13 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (16)
 - [`issue-kriscendobot-garden-128`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128.md) — Deliberate overrun decomposition for issue-kriscendobot-garden-128
 - [`kriscendobot-garden-book-pr17-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr17-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #17
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
@@ -1365,6 +1365,7 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`build-issue-inbox-timely-acknowledgement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-issue-inbox-timely-acknowledgement.md) — Build timely issue-inbox acknowledgement (status pass plus checker fixes)
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`build-api-key-agents-p4-agent-factory-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p4-agent-factory-open-pr.md) — Open the phase 4 agent factory PR on endojs/endo-but-for-bots
 - [`diag-issue-inbox-gap-20261104-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/diag-issue-inbox-gap-20261104-endolin.md) — Read-only log pull: issue-inbox gap 2026-11-04 03:37-04:32Z (for design-issue...
 - [`oros-health-watch-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-062010.md) — ---
 - [`kriscendobot-minion.town-pr240-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #240
