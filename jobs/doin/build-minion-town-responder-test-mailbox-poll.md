@@ -21,3 +21,13 @@ that coverage.
 Change only the test: poll the mailbox assertion with a bounded deadline, as the effect wait
 above it already does. Do not add a sleep, a retry of the whole test, or a change to the
 caplet's write-then-dismiss order. Open a draft PR; the gauntlet follows automatically.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T00:29:29Z
