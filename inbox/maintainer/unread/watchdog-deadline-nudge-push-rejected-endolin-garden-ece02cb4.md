@@ -1,9 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:deadline-nudge
-sent_at: 2026-11-04T10:00:46Z
+sent_at: 2026-11-04T10:11:16Z
 watchdog_key: deadline-nudge-push-rejected:endolin-garden-ece02cb4
 notice_count: 1
 first_seen: 2026-11-04T10:00:43Z
-last_seen: 2026-11-04T10:00:46Z
+last_seen: 2026-11-04T10:11:16Z
+recovered: true
 ---
-deadline-nudge on endolin-garden-ece02cb4 cannot push to journal2: definite-fail rejection (git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Please make sure you have the correct access rights and the repository exists.). Deadline warnings are not being delivered; this needs repair (credentials, upstream, or a receive-side policy), not a retry.
+RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-11-04T10:00:43Z, cleared 2026-11-04T10:11:16Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+deadline-nudge on endolin-garden-ece02cb4 pushed to journal2 again; the push rejection has cleared.
