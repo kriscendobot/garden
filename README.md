@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T07:15:37Z_
+_As of 2026-11-04T07:18:15Z_
 
 ## Latest
 
@@ -1348,13 +1348,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 127.0M | $467.66 _(notional, rate-card)_ | 47% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53888637 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 53916933 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 12 open notice(s); checker healthy
 
 ## Board
-### todo (19)
+### todo (20)
 - [`endojs-endo-but-for-bots-pr1335-review-a060f580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1335-review-a060f580.md) — Review directive on endojs/endo-but-for-bots PR #1335
 - [`kriscendobot-garden-book-pr17-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr17-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/garden-book PR #17
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
@@ -1369,6 +1369,7 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`build-api-key-agents-p4-agent-factory-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p4-agent-factory-open-pr.md) — Open the phase 4 agent factory PR on endojs/endo-but-for-bots
 - [`diag-issue-inbox-gap-20261104-endolin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/diag-issue-inbox-gap-20261104-endolin.md) — Read-only log pull: issue-inbox gap 2026-11-04 03:37-04:32Z (for design-issue...
 - [`oros-health-watch-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-062010.md) — ---
+- [`kriscendobot-minion.town-pr236-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #236
 - [`issue-kriscendobot-garden-128-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128-expanded-window.md) — Close out the delivered review of dckc/vattr97#50 (garden issue #128)
 - [`claude-on-minion-town-completion-press-20261104-065026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-065026.md) — Completion press: Claude-on-minion.town arc
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
