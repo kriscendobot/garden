@@ -3,3 +3,7 @@ gardener: 3
 worker_kind: monk
 claimed_at: 2026-11-04T02:56:39Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-build-minion-town-tool-removal-20261104
+pr_number: 242
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/242
+pr_head: garden/mcp-tool-removal
