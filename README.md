@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T06:11:41Z_
+_As of 2026-11-04T06:12:57Z_
 
 ## Latest
 
@@ -846,6 +846,10 @@ Delegation: **active**
 > ## Follow-ups
 > - My live probe left one anonymous guest on production. The API has no route to delete it. Its identifier was never recorded.
 > - The source note was not on this host. If the maintainer wants the report itself checked against these pages, re-run on the host that holds `/home/kris/garden/note-from-tower.md`.
+
+- `watchdog-unclaimable-host-requirements-diag-issue-inbox-gap-20261104-endolin` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-diag-issue-inbox-gap-20261104-endolin.md)
+
+> Host-requirements gate: job 'diag-issue-inbox-gap-20261104-endolin' has remained unclaimed for 1196s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement. Budget pacing is the likely cause, not a missing capability: pinned-host pool(s) claude-endolin1,codex-endolin are at their high-water mark, so that host declines claims until the ramp or a reset clears them.
 
 - `msg-endo-zip-native-node-fallthrough-investigation-20261013-baa30a00edee` — from gardener:endo-zip-native-node-fallthrough-investigation-20261013, reply_to `endo-zip-native-node-fallthrough-investigation-20261013` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endo-zip-native-node-fallthrough-investigation-20261013-baa30a00edee.md)
 
