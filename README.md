@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T10:37:31Z_
+_As of 2026-11-04T10:43:45Z_
 
 ## Latest
 
@@ -134,14 +134,13 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #72 (first seen 2026-11-01T04:46:54Z, latest 2026-11-04T10:35:41Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 72 times; this is ONE
-> coalesced notice that updates in place, not 72 messages. Latest detail:
+> WATCHDOG notice — occurrence #73 (first seen 2026-11-01T04:46:54Z, latest 2026-11-04T10:36:59Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 73 times; this is ONE
+> coalesced notice that updates in place, not 73 messages. Latest detail:
 >
-> Journal contention storm on oros-studio-garden-ce242c49: 8 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 8 independent faults):
+> Journal contention storm on oros-studio-garden-ce242c49: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
 > - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.552961s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 > - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.586087s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/repo-watcher/journal: p95=0.332288s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 > - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/review-docket/journal: p95=0.213803s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 > - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=0.290167s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 > - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=0.400684s, giveups=1, steals=0 (max 3/window), wait floor=60s.
@@ -220,6 +219,10 @@ Delegation: **active**
 > ## Follow-ups
 > - **Gate limitation:** `phase-evidence-gate.sh` can't read a design in another repo, and it blocked the PR while the body named the path. The body now names the design by filename plus the #1543 URL, with a hand-written ledger, and says why. This bypasses the automated ledger check, so the panel should compare the ledger against the design by hand.
 > - **Later builders:** jobs p1–p5 will likely hit the same gate if they touch minion.town, so I saved a memory note for them. The gate itself is worth a small fix.
+
+- `watchdog-scheduler-worker-derotate-failed` — from watchdog:scheduler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-scheduler-worker-derotate-failed.md)
+
+> worker-derotate controller failed on leader host endolin-garden-ece02cb4 (exit_status=75); no host's worker-leveling caps were changed by the failed tick, and leveling/dispatch continue. Run /home/kris/garden/scripts/jobs/worker-derotate.sh directly on endolin-garden-ece02cb4 to see the fault.
 
 - `msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544` — from gardener:deadmail-20261101T155052Z-5d5ca8, reply_to `deadmail-20261101T155052Z-5d5ca8` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544.md)
 
@@ -1416,7 +1419,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 130.4M | $480.21 _(notional, rate-card)_ | 48% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58434673 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 53977605 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.001521s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness); 16 open notice(s); checker healthy
