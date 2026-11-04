@@ -15,3 +15,13 @@ Do:
 3. Prove it with a scratch daemon, including the two-daemon accept that did not complete last time (run the daemons under a supervisor that survives the shell, e.g. a systemd-run scope or setsid with logs). Report the locator before and after.
 4. Per the build-location rule: keep new code in minion.town; Endo changes only if minion.town cannot work without them.
 Constraints: draft PRs; no deploy; no secrets in logs. Write the PR description as a production-outcome report.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T01:49:10Z
