@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T00:42:32Z_
+_As of 2026-11-04T00:45:37Z_
 
 ## Latest
 
@@ -550,11 +550,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_reducer_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` has CLEARED (first seen 2026-11-01T22:47:32Z, cleared 2026-11-02T18:48:46Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-01T22:47:32Z, latest 2026-11-04T00:44:11Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_reducer_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_reducer_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reducer/journal: p95=0.039287s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `msg-claude-on-minion-town-completion-press-20261024-135008-006adced2f51` — from gardener:claude-on-minion-town-completion-press-20261024-135008, reply_to `claude-on-minion-town-completion-press-20261024-135008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261024-135008-006adced2f51.md)
 
@@ -1286,36 +1286,37 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.9M | $447.47 _(notional, rate-card)_ | 45% of 271.0M (backoff) |
+| Claude | 120.9M | $447.70 _(notional, rate-card)_ | 45% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53332837 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 5.561877s/45s (unknown); 10 open notice(s); checker healthy
+worst fetch p95 5.561877s/45s (unknown); 11 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (16)
 - [`endojs-endo-but-for-bots-pr1647-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1647
 - [`oros-health-watch-20261104-000530`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-000530.md) — ---
 - [`kriscendobot-minion.town-pr236-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #236
 - [`endojs-endo-but-for-bots-pr1574-review-f45dd5bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1574-review-f45dd5bb.md) — Review directive on endojs/endo-but-for-bots PR #1574
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
+- [`build-minion-town-https-locators-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-https-locators-20261104.md) — ---
 - [`endojs-endo-but-for-bots-pr1575-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1575-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1575
 - [`endojs-endo-but-for-bots-pr1543-review-ed16aaac`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1543-review-ed16aaac.md) — Review directive on endojs/endo-but-for-bots PR #1543
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`build-minion-town-tool-minimalism-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-tool-minimalism-20261104.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`build-minion-town-invitation-hints-minion-town-host-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-invitation-hints-minion-town-host-20261104.md) — ---
+- [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1573-review-cc1b8fb6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1573-review-cc1b8fb6.md) — Review directive on endojs/endo-but-for-bots PR #1573
 - [`claude-on-minion-town-completion-press-20261104-003515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-003515.md) — Completion press: Claude-on-minion.town arc
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1575-review-938c3acf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1575-review-938c3acf.md) — Review directive on endojs/endo-but-for-bots PR #1575
 - [`build-minion-town-responder-test-mailbox-poll`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-responder-test-mailbox-poll.md) — minion.town: poll the mailbox assertion in the guest-pinned responder restart...
 - [`kriscendobot-minion.town-pr235-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr235-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #235
-- [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 
 ### tada (16459)
 - [`kriscendobot-minion.town-pr236-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-viability.md) — Cost
