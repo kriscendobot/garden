@@ -30,6 +30,21 @@ comment_classify_reads_as_directive() {
   return 1
 }
 
+# comment_classify_exactly_addressed <body> [surface]
+#   rc 0 when the body begins with the exact, case-sensitive "@<bot> " routing
+#   marker at byte zero (a review body may carry source-owned "[STATE] " markers in
+#   front, which are stripped). This is the ONE first-line rule the comment and
+#   issue-inbox watchers route on; the latency checker and the issue status pass
+#   share it so a correct drop is never reported as a blind miss (garden#128).
+comment_classify_exactly_addressed() {
+  local body="${1:-}" surface="${2:-}" bot="${GARDEN_BOT_LOGIN:-kriscendobot}"
+  if [ "$surface" = pr-review-body ]; then
+    body="$(printf '%s' "$body" | sed -E 's/^(\[[A-Z_-]+\] )*//')"
+  fi
+  case "$body" in "@$bot "*) return 0 ;; esac
+  return 1
+}
+
 comment_should_ack() {
   local repo="${1:-}" slug="${2:-}" author="${3:-}" surface="${4:-}"
   local number="${5:-}" body_file="${6:-}" body bot
@@ -67,6 +82,10 @@ comment_should_ack() {
   case "${COMMENT_CLASSIFY_SOURCE:-comment}" in
     issue-inbox)
       [ "$surface" = issue ] && return 0
+      # A follow-up comment routes only on the watcher's exact first-line rule.
+      [ "${GARDEN_EXPLICIT_ADDRESS_REQUIRED:-1}" = 0 ] && return 0
+      comment_classify_exactly_addressed "$body" "$surface"
+      return
       ;;
     mention)
       printf '%s' "$body" | grep -qiF "@$bot" && return 0
@@ -75,6 +94,14 @@ comment_should_ack() {
   esac
 
   [ "$surface" = issue ] && return 0
+
+  # Under explicit addressing (the shipped default) the comment watcher drops
+  # every comment that lacks the exact first-line marker, so replaying the looser
+  # reading below would report those correct drops as never-acked:blind.
+  if [ "${GARDEN_EXPLICIT_ADDRESS_REQUIRED:-1}" != 0 ]; then
+    comment_classify_exactly_addressed "$body" "$surface"
+    return
+  fi
 
   # Exact addressing is sufficient even when the text is conversational: the
   # watcher intentionally acknowledges trusted, addressed chatter.

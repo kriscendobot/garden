@@ -323,4 +323,20 @@ rm -rf "$COOLDOWN"; SOURCE="$SOURCE_SAVED"; ARMED=""
 [ "$(classify 2000 - 120 cursor-busy 30 600 0)" = muted ] || { echo 'FAIL: short cursor-busy not muted'; exit 1; }
 [ "$(classify 2000 - 120 cursor-busy 30 5000 0)" = never-acked:stuck ] || { echo 'FAIL: long cursor-busy not stuck'; exit 1; }
 
+# Explicit addressing (garden#128): a comment the watcher correctly drops for lacking
+# the exact first-line "@<bot> " is not a blind miss, on the PR-comment source and
+# the issue-inbox source alike.
+: > "$REACTIONS"; rm -rf "$STATE/latency"; heartbeat example-repo
+{
+  row 2026-09-23T17:30:00Z 201 trusted https://example/201 'please rebase this onto llm'
+  row 2026-09-23T17:30:00Z 202 trusted https://example/202 'thanks @kriscendobot, looks good'
+  printf '%s\tissue-inbox\t120\texample/repo\texample-repo\tissue-comment\t203\t7\ttrusted\thttps://example/203\t%s\n' \
+    2026-09-23T17:30:00Z 'see above, @kriscendobot'
+  printf '%s\tissue-inbox\t120\texample/repo\texample-repo\tissue-comment\t204\t7\ttrusted\thttps://example/204\t%s\n' \
+    2026-09-23T17:30:00Z '@kriscendobot please look'
+} > "$FIXTURE"
+out="$(GARDEN_COMMENT_LATENCY_MAINTAINERS_FILE="$TRUSTED" run_report)"
+printf '%s\n' "$out" | grep -qE 'https://example/20[123]$' && { echo 'FAIL: unaddressed comment classified should-ack'; printf '%s\n' "$out"; exit 1; }
+printf '%s\n' "$out" | grep -q 'never-acked:.*https://example/204' || { echo 'FAIL: addressed issue comment not tracked'; printf '%s\n' "$out"; exit 1; }
+
 echo 'PASS: comment latency watch scenarios'

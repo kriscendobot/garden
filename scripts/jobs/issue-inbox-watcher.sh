@@ -838,12 +838,10 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
   # they are routed only when the first line begins with the exact,
   # case-sensitive bot marker followed by one ASCII space.
   if [ "$kind" = issue-comment ] && [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ]; then
-    case "$body" in
-      "@$GARDEN_BOT_LOGIN "*) ;;
-      *)
-        log "trusted comment id=$id on issue #$number is not explicitly addressed (expected exact first-line '@$GARDEN_BOT_LOGIN '); dropping"
-        dropped=$((dropped+1)); slide "$created"; continue ;;
-    esac
+    if ! comment_classify_exactly_addressed "$body" "$kind"; then
+      log "trusted comment id=$id on issue #$number is not explicitly addressed (expected exact first-line '@$GARDEN_BOT_LOGIN '); dropping"
+      dropped=$((dropped+1)); slide "$created"; continue
+    fi
   fi
 
   # Closing etiquette, corrected for re-engagement (kriskowal/garden #10,

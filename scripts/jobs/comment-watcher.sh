@@ -2194,16 +2194,10 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # review is one unit and therefore includes every underlying inline comment.
   # Otherwise each inline/conversation comment must carry its own marker.
   if [ "$GARDEN_EXPLICIT_ADDRESS_REQUIRED" != 0 ]; then
-    address_body="$body"
-    if [ "$surface" = pr-review-body ]; then
-      address_body="$(printf '%s' "$address_body" | sed -E 's/^(\[[A-Z_-]+\] )*//')"
+    if ! comment_classify_exactly_addressed "$body" "$surface"; then
+      log "DROP (not-addressed): $surface cid=$cid on #$pr does not begin exactly '@$GARDEN_BOT_LOGIN ' — not dispatching"
+      rm -f "$bf"; slide "$created"; continue
     fi
-    case "$address_body" in
-      "@$GARDEN_BOT_LOGIN "*) ;;
-      *)
-        log "DROP (not-addressed): $surface cid=$cid on #$pr does not begin exactly '@$GARDEN_BOT_LOGIN ' — not dispatching"
-        rm -f "$bf"; slide "$created"; continue ;;
-    esac
   fi
 
   # PR number: prefer the source's field, else the first #N in the body. Resolved
