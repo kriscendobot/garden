@@ -1,2 +1,2 @@
-base: improve-bound-recursive-deadline-splits
+base: improve-reaper-journal-outage
 identity: mentor:scripts/jobs/reaper.sh
