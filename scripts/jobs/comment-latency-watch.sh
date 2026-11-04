@@ -48,7 +48,7 @@ heartbeat_class() {
   case "$outcome" in drained|not-main-host) printf 'ok\n'; return ;; esac
   [ "$hb_age" -le $(( 3 * cadence )) ] || { printf 'stale\n'; return; }
   case "$outcome" in
-    cooldown|offline-journal)
+    cooldown|offline-journal|cursor-busy)
       [ "$outcome_age" -le "$GARDEN_COMMENT_LATENCY_STUCK_SECS" ] && printf 'ok\n' || printf 'stuck\n' ;;
     *) printf 'ok\n' ;;
   esac
@@ -70,7 +70,7 @@ classify_state() { # age latency-or-dash cadence hb-outcome hb-age outcome-age d
     stuck) printf 'never-acked:stuck\n'; return ;;
   esac
   case "$outcome" in
-    drained|not-main-host|cooldown|offline-journal) printf 'muted\n' ;;
+    drained|not-main-host|cooldown|offline-journal|cursor-busy) printf 'muted\n' ;;
     full-poll|source-timeout) printf 'never-acked:blind\n' ;;
     *) printf 'never-acked:dead\n' ;;
   esac
@@ -411,16 +411,17 @@ fi
 hb_now="${GARDEN_COMMENT_LATENCY_NOW_EPOCH:-$(date -u +%s)}"
 check_quiet_heartbeat() { # source slug repo cadence
   local source="$1" slug="$2" repo="$3" cadence="$4" hb outcome tick outcome_since
-  local tick_epoch since_epoch hb_age outcome_age
+  local tick_epoch since_epoch hb_age outcome_age hb_detail
   ACTIVE_SLUGS[$slug]="$repo"
   hb="$(heartbeat_for "$source" "$slug")"
   outcome="$(field "$hb" outcome)"; tick="$(field "$hb" last_tick_at)"; outcome_since="$(field "$hb" outcome_since)"
+  hb_detail="$(field "$hb" detail)"
   tick_epoch="$(iso_epoch "$tick")"; since_epoch="$(iso_epoch "$outcome_since")"
   hb_age="$(age_since "$hb_now" "$tick_epoch")"; outcome_age="$(age_since "$hb_now" "$since_epoch")"
   fleet_draining && return 0
   case "$(heartbeat_class "$cadence" "${outcome:-missing}" "$hb_age" "$outcome_age")" in
     stale) DEAD[$slug]="${DEAD[$slug]:-}watcher heartbeat stale (age=${hb_age}s > $(( 3 * cadence ))s; outcome=${outcome:-missing})\n" ;;
-    stuck) STUCK[$slug]="${STUCK[$slug]:-}watcher ticking but ${outcome} for ${outcome_age}s (since ${outcome_since:-?})\n" ;;
+    stuck) STUCK[$slug]="${STUCK[$slug]:-}watcher ticking but ${outcome} for ${outcome_age}s (since ${outcome_since:-?})${hb_detail:+; detail: $hb_detail}\n" ;;
   esac
 }
 
@@ -569,7 +570,8 @@ elif [ -z "$SWEEP_SKIPPED" ]; then
   notice_clear comment-ack-muted-drain
 fi
 if [ -n "$SWEEP_SKIPPED" ]; then
-  watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
+  watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown \
+    "$SWEEP_SKIPPED${GARDEN_API_COOLDOWN_MARKER:+ $(api_cooldown_detail)}"
 else
   watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" full-poll
 fi

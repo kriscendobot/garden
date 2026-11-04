@@ -107,13 +107,25 @@ export GARDEN_TAG="issue-inbox"
 
 ISSUE_HEARTBEAT="$GARDEN_STATE/issue-inbox-watcher/heartbeat/garden"
 issue_heartbeat_outcome=offline-journal
+issue_heartbeat_detail=""
 write_issue_heartbeat() {
   if [ "$issue_heartbeat_outcome" = offline-journal ] && api_cooldown_active rest; then
     issue_heartbeat_outcome=cooldown
   fi
-  watcher_heartbeat_write "$ISSUE_HEARTBEAT" "$issue_heartbeat_outcome"
+  if [ -z "$issue_heartbeat_detail" ]; then
+    case "$issue_heartbeat_outcome" in
+      cooldown) issue_heartbeat_detail="$(api_cooldown_detail)" ;;
+      offline-journal)
+        if [ -f "${GARDEN_JOURNAL_OUTAGE_MARKER:-}" ]; then
+          issue_heartbeat_detail="journal-outage marker: $(head -2 "$GARDEN_JOURNAL_OUTAGE_MARKER" 2>/dev/null | tr '\n' ' ')"
+        else
+          issue_heartbeat_detail="exited before the poll (rc=${issue_exit_rc:-?})"
+        fi ;;
+    esac
+  fi
+  watcher_heartbeat_write "$ISSUE_HEARTBEAT" "$issue_heartbeat_outcome" "$issue_heartbeat_detail"
 }
-trap 'write_issue_heartbeat' EXIT
+trap 'issue_exit_rc=$?; write_issue_heartbeat' EXIT
 
 # --- bound EVERY blocking stage of a tick (the 900s-SIGKILL fix) --------------
 # The SOURCE fetch is already bounded (below), yet the watcher was SIGKILLed at the
@@ -508,6 +520,14 @@ if cursor_out="$("${CURSOR_STAGE_TIMEOUT[@]}" "$HERE/cursor-get.sh" "$CURSOR_KEY
 if [ "$rc" -ne 0 ]; then
   [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
     || log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"
+  # rc=75 is either the journal-outage latch or a busy cursor-IO lock; with no live
+  # outage latch it is the lock, which used to hide behind the offline-journal default.
+  if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] && ! journal_outage_active && ! api_cooldown_active rest; then
+    issue_heartbeat_outcome=cursor-busy
+    issue_heartbeat_detail="cursor-get $CURSOR_KEY rc=$rc (cursor-IO lock busy)"
+  elif [ "$rc" -ne "${GARDEN_OFFLINE_RC:-75}" ]; then
+    issue_heartbeat_detail="cursor-get $CURSOR_KEY rc=$rc"
+  fi
   exit 0
 fi
 last_seen="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1)"
@@ -642,7 +662,7 @@ cleanup() {
   fi
   reap_cgroup_stragglers
 }
-trap 'cleanup; write_issue_heartbeat' EXIT
+trap 'issue_exit_rc=$?; cleanup; write_issue_heartbeat' EXIT
 trap 'cleanup; write_issue_heartbeat; exit 143' TERM
 trap 'cleanup; write_issue_heartbeat; exit 130' INT
 

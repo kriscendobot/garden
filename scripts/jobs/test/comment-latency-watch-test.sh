@@ -316,6 +316,11 @@ run_watch || { echo 'FAIL: latched tick failed'; exit 1; }
 [ "$(grep -c '^comment-watcher-stuck-cooldown-host ' "$NOTICES")" -eq 1 ] || { echo 'FAIL: held latch raised no stuck notice'; cat "$NOTICES"; exit 1; }
 grep -q -- '--recovered comment-ack-blind-owner-latched' "$NOTICES" && { echo 'FAIL: skipped sweep falsely recovered a per-repo notice'; exit 1; }
 [ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = cooldown ] || { echo 'FAIL: latched tick heartbeat not cooldown'; exit 1; }
+grep -q '^detail: rest-cooldown rest latch set-by=sibling-watcher:primary-quota' "$STATE/latency/heartbeat" \
+  || { echo 'FAIL: latched heartbeat detail does not name the latch owner'; cat "$STATE/latency/heartbeat"; exit 1; }
 rm -rf "$COOLDOWN"; SOURCE="$SOURCE_SAVED"; ARMED=""
+# A busy cursor-IO lock is its own outcome, muted then stuck like the latches.
+[ "$(classify 2000 - 120 cursor-busy 30 600 0)" = muted ] || { echo 'FAIL: short cursor-busy not muted'; exit 1; }
+[ "$(classify 2000 - 120 cursor-busy 30 5000 0)" = never-acked:stuck ] || { echo 'FAIL: long cursor-busy not stuck'; exit 1; }
 
 echo 'PASS: comment latency watch scenarios'

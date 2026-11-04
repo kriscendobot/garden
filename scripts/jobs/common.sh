@@ -1496,9 +1496,13 @@ fleet_draining() { [ -e "$GARDEN_DRAINING_MARKER" ] || [ -e "$GARDEN_KILLSWITCH"
 # at which the current outcome began, which lets a separate observer distinguish
 # a brief cooldown from a watcher stuck behind the same latch for many ticks.
 # Heartbeats are reconstructible runtime state and never enter the journal.
+# watcher_heartbeat_write <file> <outcome> [detail]
+#   `detail:` names the gate behind a skip outcome (the latch owner, the busy lock)
+#   so a stuck notice can be diagnosed from the journal alone (garden#128).
 watcher_heartbeat_write() {
   local file="${1:?watcher heartbeat file required}"
   local outcome="${2:?watcher heartbeat outcome required}"
+  local detail="${3:-}"
   local now previous="" since tmp
   now="$(date -u +%FT%TZ)"
   if [ -f "$file" ]; then
@@ -1514,8 +1518,16 @@ watcher_heartbeat_write() {
     printf 'last_tick_at: %s\n' "$now"
     printf 'outcome: %s\n' "$outcome"
     printf 'outcome_since: %s\n' "$since"
+    [ -z "$detail" ] || printf 'detail: %s\n' "$(printf '%s' "$detail" | tr '\n' ' ')"
   } > "$tmp"
   mv -f "$tmp" "$file"
+}
+# api_cooldown_detail — one line naming the REST latch owner and expiry, for a
+# heartbeat `detail:`; empty when no REST marker exists.
+api_cooldown_detail() {
+  [ -f "${GARDEN_API_COOLDOWN_MARKER:-}" ] || return 0
+  printf 'rest latch set-by=%s expiry=%s' "$(sed -n 2p "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null)" \
+    "$(sed -n 1p "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null)"
 }
 # Deprecated alias retained so any not-yet-updated caller keeps working.
 killswitch_engaged() { fleet_draining; }
