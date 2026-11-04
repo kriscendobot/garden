@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T09:10:19Z_
+_As of 2026-11-04T09:15:47Z_
 
 ## Latest
 
@@ -123,11 +121,17 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-04T09:06:37Z).
-> It was observed 67 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #68 (first seen 2026-11-01T04:46:54Z, latest 2026-11-04T09:11:53Z).
+> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 68 times; this is ONE
+> coalesced notice that updates in place, not 68 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-lock-contention` cleared on oros-studio-garden-ce242c49.
+> Journal contention storm on oros-studio-garden-ce242c49: 6 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/regenerate-sections-index/journal: p95=0.552961s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.177532s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/review-docket/journal: p95=0.213803s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=0.305135s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/fork-watch/journal: p95=0.092038s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> - Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/decisions/journal: p95=0.319656s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `endojs-endo-but-for-bots-pr1542-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1542-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1542-gauntlet-halted.md)
 
@@ -1184,24 +1188,6 @@ Delegation: **active**
 >
 > Self-improvement: reported that the budget-request skill references a missing `request-budget.sh`; also notified the scholar of the missing DynamoDB library index entry.
 
-- `msg-minion-town-arc-press-20261104-062010-5874f442f245` — from gardener:minion-town-arc-press-20261104-062010, reply_to `minion-town-arc-press-20261104-062010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261104-062010-5874f442f245.md)
-
-> This replaces my 04:55Z message about [endojs/endo-but-for-bots#1647](https://github.com/endojs/endo-but-for-bots/issues/1647). Rerunning no longer helps: one review should clear it, and I also have one question about the MCP guide.
->
-> **Review [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542) (bwrap fix)**
-> [https://github.com/endojs/endo-but-for-bots/pull/1542](https://github.com/endojs/endo-but-for-bots/pull/1542)
-> - **What happened on [endojs/endo-but-for-bots#1647](https://github.com/endojs/endo-but-for-bots/issues/1647):** a merge job reran the 2 failed CI jobs at 05:13Z. `test (22.x)` passed, but `cover (24.x)` failed again on `bwrap timeout and repeated cancellation reap process groups`. The PR doesn't touch `packages/sandbox`.
-> - **Correction:** I pointed you at [endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/issues/1591) as the fix. Its viability check found it is overtaken by [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542).
-> - **State of [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542):** out of draft, mergeable, no failed CI runs on its head, and waiting on your review since 2026-10-24. Its base is frozen, so it may need a weave before merging.
-> - **After it merges:** [endojs/endo-but-for-bots#1647](https://github.com/endojs/endo-but-for-bots/issues/1647) still needs that fix on its base, plus a panel on its current head, because no panel has reviewed it. Its gauntlet needs your go-ahead to resume. [kriscendobot/minion.town#236](https://github.com/kriscendobot/minion.town/issues/236) (remote invitations) waits on it.
->
-> **Question: which principal should the MCP guide's cold-agent baseline run as?**
-> This is `designs/mcp-resources-getting-started.md` § 9 question 1, on [kriscendobot/minion.town#235](https://github.com/kriscendobot/minion.town/issues/235). The design forbids merging that PR before the baseline exists, and `minion-town-mcp-guide-remaining-slices-20261104` is parked until you answer.
-> - **Shared test principal (my recommendation):** it needs no new credentials, so the baseline can start now. The cost is a less clean measurement, because it carries real guest state and its clips are public.
-> - **Dedicated eval principal:** a cleaner measurement, with smoke clips unpublished after each run. It needs a new Cognito client, which reopens the parked shared client-credentials question.
->
-> Reply "shared" or "dedicated", and I'll take that as the go-ahead to promote the parked job.
-
 - `kriscendobot-minion.town-pr202-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr202-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr202-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr202-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr202-gauntlet panel --add-rounds N
@@ -1383,7 +1369,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 53937615 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 11 open notice(s); checker healthy
+worst fetch p95 9.409213s/45s (/home/kris/garden/.garden-state/review-docket/journal); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (17)
@@ -1392,6 +1378,7 @@ worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`screen-minion-town-pr238-d94936f-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr238-d94936f-conduct.md) — Screened delegated merge: kriscendobot/minion.town#238 at d94936ffb7340030dcc...
+- [`endojs-endo-but-for-bots-pr1335-review-a060f580-reply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1335-review-a060f580-reply.md) — Post the review reply on endojs/endo-but-for-bots PR #1335
 - [`build-api-key-agents-p5-pinned-responder-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p5-pinned-responder-open-pr.md) — Open the phase 5 pinned responder PR on endojs/endo-but-for-bots
 - [`kriscendobot-minion.town-pr241-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #241
 - [`endojs-endo-but-for-bots-pr1648-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1648-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1648
@@ -1400,22 +1387,21 @@ worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #236
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr244-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr244-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #244
-- [`issue-kriscendobot-garden-128-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128-expanded-window.md) — Close out the delivered review of dckc/vattr97#50 (garden issue #128)
 - [`screen-minion-town-pr237-b942fb9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/screen-minion-town-pr237-b942fb9-conduct.md) — Screened delegated merge: kriscendobot/minion.town#237 at b942fb977133562f8bd...
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`daily-progress-summary-20261104-080519`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261104-080519.md) — Daily midnight Pacific progress summary
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1335-review-a060f580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1335-review-a060f580.md) — Review directive on endojs/endo-but-for-bots PR #1335
-- [`kriscendobot-minion.town-pr239-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr239-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #239
+- [`issue-kriscendobot-garden-128-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-128-expanded-window.md) — Close out the delivered review of dckc/vattr97#50 (garden issue #128)
 
-### tada (16555)
+### tada (16556)
+- [`kriscendobot-minion.town-pr239-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr239-gauntlet-fix-3.md) — Cost
 - [`minion-town-arc-press-20261104-062010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/minion-town-arc-press-20261104-062010.md) — Cost
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr241-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr240-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr240-gauntlet-fix-2.md) — Cost
 - [`claude-on-minion-town-completion-press-20261104-065026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/claude-on-minion-town-completion-press-20261104-065026.md) — Cost
-- [`kriscendobot-minion.town-pr236-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr236-gauntlet-panel-3.md) — Panel round 3 on kriscendobot/minion.town PR #236: must-fix
-- … and 16550 more
+- … and 16551 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
