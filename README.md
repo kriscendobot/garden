@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T11:31:33Z_
+_As of 2026-11-04T11:34:52Z_
 
 ## Latest
 
@@ -1286,17 +1286,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-fetch-drift` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-drift.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-11-04T11:19:00Z, latest 2026-11-04T11:29:16Z).
-> The SAME condition (`journal-contention-storm-fetch-drift`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-fetch-drift` has CLEARED (first seen 2026-11-04T11:19:00Z, cleared 2026-11-04T11:34:12Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit fetch-drift in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: oldest-third median=2.297421s newest-third median=11.501342s over 18106s/13 samples; floor=10s, 1.5x rise or projected-to-guard=39341s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: oldest-third median=1.781512s newest-third median=11.385317s over 19798s/16 samples; floor=10s, 1.5x rise or projected-to-guard=41466s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/fork-watch/journal: oldest-third median=1.568251s newest-third median=10.268896s over 9057s/256 samples; floor=10s, 1.5x rise or projected-to-guard=22101s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness: oldest-third median=2.306537s newest-third median=11.415738s over 14086s/13 samples; floor=10s, 1.5x rise or projected-to-guard=31057s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/orch/journal: oldest-third median=6.316391s newest-third median=10.467697s over 6023s/120 samples; floor=10s, 1.5x rise or projected-to-guard=30515s within 86400s.
-> - Journal fetch drift on endolin-garden-ece02cb4 for _home_kris_garden_journal: oldest-third median=1.727386s newest-third median=13.877769s over 19838s/20 samples; floor=10s, 1.5x rise or projected-to-guard=28772s within 86400s.
+> Journal contention condition `journal-contention-storm-fetch-drift` cleared on endolin-garden-ece02cb4.
 
 - `kriscendobot-minion.town-pr202-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr202-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr202-gauntlet-review-budget-reached.md)
 
@@ -1483,7 +1477,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 54166289 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.001521s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness); 26 open notice(s); checker healthy
+worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 24 open notice(s); checker healthy
 
 ## Board
 ### todo (14)
