@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T15:09:57Z_
+_As of 2026-11-04T15:11:51Z_
 
 ## Latest
 
@@ -1539,7 +1539,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.0M | $495.87 _(notional, rate-card)_ | 49% of 271.0M (backoff) |
+| Claude | 134.4M | $498.84 _(notional, rate-card)_ | 50% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 54273035 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1548,13 +1548,11 @@ _Fleet token-unlock pace: 54273035 tokens/day lower bound; incomplete where a su
 worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 22 open notice(s); checker healthy
 
 ## Board
-### todo (19)
+### todo (17)
 - [`kriscendobot-minion.town-pr239-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr239-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #239
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
-- [`kriscendobot-minion.town-pr245-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr245-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #245
 - [`oros-health-checkup-20261104-123510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-123510.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
-- [`minion-town-arc-press-20261104-123510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-123510.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`endojs-endo-but-for-bots-pr1335-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1335-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1335
 - [`shepherd-endojs-endo-but-for-bots-pr1335-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/shepherd-endojs-endo-but-for-bots-pr1335-20261104.md) — Shepherd endojs/endo-but-for-bots PR #1335 to green
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #236
@@ -1569,8 +1567,9 @@ worst fetch p95 16.619759s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 - [`claude-on-minion-town-completion-press-20261104-130508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-130508.md) — Completion press: Claude-on-minion.town arc
 
-### doin (0)
-(none)
+### doin (2)
+- [`kriscendobot-minion.town-pr245-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr245-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #245
+- [`minion-town-arc-press-20261104-123510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261104-123510.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (16577)
 - [`kriscendobot-minion.town-pr241-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr241-gauntlet.md) — gauntlet kriscendobot-minion.town-pr241-gauntlet — HALTED
