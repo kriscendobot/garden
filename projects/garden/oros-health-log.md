@@ -1,6 +1,21 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-04T08:32Z (oros-health-checkup-20261104-062010): healthy; deployed is main2; removed old test residue from /tmp
+
+- **Load/mem:** load 2.96, 3.38, 2.83. 11 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 2%, memory pressure 0.
+- **Disk/inodes:** 40901 MiB free on the garden mount, 92%, down from 47759 MiB at 04:47Z and inside today's 37658 to 55600 MiB range; what used it was not traced. Inodes 3%. `scratch` has 409 entries, `scratch/tmpexec` 1457 (1110 at 04:47Z); 424 of them are over 24h old and 74 over 3d. The sweeper's limit is 7d idle and it is removing entries, so tmpexec should level off only once the 7d window fills. A `du` of tmpexec did not finish in 45s, so its size is unknown.
+- **Uptime:** 33d, no reboot.
+- **Deployed vs main2:** root and fleet/health/oros show `746d220507c`, the main2 tip, `roll_status: deployed`, 0 of 289 units failing (08:18Z). The candidate gate rejected this sha once at 06:46Z (`triager-pacing-test.sh` rc=124), and the deploy then deferred behind long jobs until at least 08:12Z. It completed at 08:18Z with no help.
+- **Drain/units:** 0 failed user units, not draining, no `worker-derotate/` marker. `garden-monk@1..3` are running. Leveling cap still `4 0`; the monk=3 reason from 00:06Z is still unrecorded.
+- **Budget heartbeat:** last push 08:17:33Z; the last 8 (06:33 to 08:17Z) are all ok, the largest gap 17 minutes. Spend reads 35164980 of 180M, 16% (window count, not a limit reading against the 90% policy).
+- **State clones:** at most 50 packs per journal clone, no temp packs, no `gc.log` in the journal clones checked. Root `.git` has 13 packs, no `gc.log`, no `*.lock` over 30 minutes at depth 3 or less. The `*.lock` search of `$GARDEN_STATE` hit its 40s limit with no match, so it is partial.
+- **Timeouts (3h):** one true wall hit in the last 6h at 03:38Z, already logged; none since. The 06:46Z gate hit above, and notice-delivery deferrals with rc=124 at 06:51Z and 06:53Z. 22 overdue lines. The journal contention storm notice reads recovered at 08:14Z, as seen from endolin; a fetch-slow notice was amended from oros at 08:27Z.
+- **Daemon-reload thread from 04:47Z, closed for now:** the flag is clear on all 289 units and "changed on disk" appears 0 times in 3h, including across the 08:18Z deploy. The trigger stays unknown.
+- **Changed:** removed the 64 `/tmp/deploy-www-*` dirs over 24h old, with no process holding them open (`sudo rm`, since 84 files inside were not owned by `dom`). 223 remain, under 24h old. Total was 42M, so this is tidiness only; nothing else changed.
+- **New, a minion.town test defect, for its owner:** builds running the minion.town suite issue real root commands on this host, about 1100 `sudo` calls per job worktree in 6h from two `project-wt-build-*` worktrees. These include `sudo mkdir -p /var/lib/endo-daemon/probe/run`, `sudo chown -R endo-daemon:endo-daemon` on it, `sudo systemd-run` on PID 1, and `sudo mv`/`rm -rf` under `/tmp/deploy-www-*`. `test/deploy-www-staging.test.ts` writes a pass-through `sudo` stub, so the logged calls mean the stub is bypassed somewhere; the PATH prelude `deploy/aws/scripts/lib/system-path.sh` is the suspect, not confirmed. Each `systemd-run` fails with result `resources` because `/etc/minion-mcp/account.env` is absent here (30 in 6h). Root-owned leftovers survive the test's cleanup, which is the `/tmp` residue above. Harm here is small: the only stray outside `/tmp` is the empty `/var/lib/endo-daemon/probe/run`, left in place. I posted no job and changed no minion.town code.
+- **Still open, not this host's to fix:** self-heal's minion.town MCP probe, unchecked this run.
+
 ## 2026-11-04T04:47Z (oros-health-checkup-20261104-032009): healthy; deployed is main2; cleared a spurious reload flag
 
 - **Load/mem:** load 2.88, 3.34, 3.17. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 3%, memory pressure 0.
