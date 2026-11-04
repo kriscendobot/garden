@@ -19,3 +19,13 @@ Build, in this order, as separate commits:
 First read the report of diag-issue-inbox-gap-20261104-endolin (jobs/tada on journal2, or your own inbox; it may still be queued). If it names a cause of the 03:37 to 04:32Z gap outside these changes, add a targeted fix. Do not wait on it: the changes above are needed whichever gate was responsible. Say in your report whether the cause was confirmed, and state it plainly if the report never arrived.
 
 Constraints: no LLM in the trigger or text; trust gate before any body is read; no new repo or sender; never close issues. Removing the dry-run flag is a later step after a day of matching logs, so post that as a parked follow-up (scripts/jobs/post-plan.sh).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T08:26:16Z
