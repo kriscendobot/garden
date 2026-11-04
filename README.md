@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T22:49:58Z_
+_As of 2026-11-04T22:54:19Z_
 
 ## Latest
 
@@ -1620,7 +1620,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 142.7M | $534.14 _(notional, rate-card)_ | 53% of 271.0M (ok) |
+| Claude | 142.7M | $534.30 _(notional, rate-card)_ | 53% of 271.0M (ok) |
 | Codex | 313.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 39113294 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1646,10 +1646,12 @@ worst fetch p95 16.657464s/45s (/home/kris/garden/.garden-state/mirror-closer/jo
 - [`endojs-endo-but-for-bots-pr1648-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1648-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1648
 - [`oros-health-checkup-20261104-220524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261104-220524.md) — ---
 
-### doin (4)
+### doin (6)
 - [`unblock-oros-canary-drain-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/unblock-oros-canary-drain-20261104.md) — ---
+- [`build-minion-town-remove-open-in-new-tab-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-remove-open-in-new-tab-20261104.md) — ---
 - [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
 - [`kriscendobot-minion.town-pr244-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr244-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #244
+- [`improve-reaper-journal-outage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-reaper-journal-outage.md) — ---
 - [`oros-health-watch-20261104-220524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261104-220524.md) — ---
 
 ### tada (16614)
