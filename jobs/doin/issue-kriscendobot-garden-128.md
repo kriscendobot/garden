@@ -30,6 +30,8 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 ----- issue body excerpt (untrusted, truncated) -----
 @kriscendobot , for #117 , I came up with something I'm pretty happy with:  - https://github.com/dckc/vattr97/pull/50 please review it; that is: run the guantlet. 
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
