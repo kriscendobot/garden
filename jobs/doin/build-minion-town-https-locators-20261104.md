@@ -18,3 +18,13 @@ Design and build the first working slice in minion.town (draft PR), per the buil
 Constraints: draft PR; no deploy; no secrets in output. Write the PR description as a production-outcome report.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T02:04:59Z
