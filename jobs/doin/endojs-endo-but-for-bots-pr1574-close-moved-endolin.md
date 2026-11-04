@@ -38,3 +38,13 @@ Closing this pull request unmerged. I kept its branch so existing links keep wor
 3. Confirm the PR state is CLOSED and report the reply URL and comment URL.
 
 The parked job `build-claude-api-agent-workbench-20261027` has already been re-gated to `awaiting-maintainer`, so closing #1574 does not promote it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T03:21:40Z
