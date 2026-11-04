@@ -55,3 +55,13 @@ Responded to all four inline comments, and retconned.
 **Review changes:** these sit on top as two `fixup!` commits, 3d8114790770013ae7b007760f34bed071afd4c5 and 44be7ac43c6c148c4027b8374f71c1083f370e47, so you can read them separately. They are autosquashed at merge.
 
 **Conduct:** this can't merge yet. The base is a frozen snapshot of #1573's head, and merging onto that snapshot would strand the work off every live branch. A weave onto `llm` is parked until #1573 merges (it is approved, and its conductor is queued), with the conductor parked behind the weave.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T02:11:55Z
