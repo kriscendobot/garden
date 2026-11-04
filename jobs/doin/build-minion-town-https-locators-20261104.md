@@ -17,6 +17,7 @@ Design and build the first working slice in minion.town (draft PR), per the buil
 5. Threat notes in the PR: referrer leakage, link-preview crawlers (fragments are not sent), browser history, the PR 173 crawler/leak signal.
 Constraints: draft PR; no deploy; no secrets in output. Write the PR description as a production-outcome report.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
