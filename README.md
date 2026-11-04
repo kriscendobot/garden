@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T00:38:31Z_
+_As of 2026-11-04T00:42:32Z_
 
 ## Latest
 
@@ -71,11 +71,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_producer_journal.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-11-01T05:22:49Z, latest 2026-11-03T18:59:54Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_producer_journal`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` has CLEARED (first seen 2026-11-01T05:22:49Z, cleared 2026-11-04T00:40:42Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: p95=63.545428s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_producer_journal` cleared on oros-studio-garden-ce242c49.
 
 - `endojs-endo-but-for-bots-pr1573-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1573-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1573-gauntlet-halted.md)
 
@@ -1286,7 +1286,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.9M | $447.29 _(notional, rate-card)_ | 45% of 271.0M (backoff) |
+| Claude | 120.9M | $447.47 _(notional, rate-card)_ | 45% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53332837 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1295,7 +1295,7 @@ _Fleet token-unlock pace: 53332837 tokens/day lower bound; incomplete where a su
 worst fetch p95 5.561877s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (14)
 - [`endojs-endo-but-for-bots-pr1647-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1647
 - [`oros-health-watch-20261104-000530`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-000530.md) — ---
 - [`kriscendobot-minion.town-pr236-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #236
@@ -1304,7 +1304,9 @@ worst fetch p95 5.561877s/45s (unknown); 10 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1575-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1575-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #1575
 - [`endojs-endo-but-for-bots-pr1543-review-ed16aaac`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1543-review-ed16aaac.md) — Review directive on endojs/endo-but-for-bots PR #1543
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`build-minion-town-tool-minimalism-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-tool-minimalism-20261104.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
+- [`build-minion-town-invitation-hints-minion-town-host-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-invitation-hints-minion-town-host-20261104.md) — ---
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`endojs-endo-but-for-bots-pr1573-review-cc1b8fb6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1573-review-cc1b8fb6.md) — Review directive on endojs/endo-but-for-bots PR #1573
 - [`claude-on-minion-town-completion-press-20261104-003515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261104-003515.md) — Completion press: Claude-on-minion.town arc
