@@ -1,10 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-11-04T01:38:59Z
+sent_at: 2026-11-04T01:44:58Z
 watchdog_key: comment-ack-blind-kriscendobot-garden
-notice_count: 1
+notice_count: 2
 first_seen: 2026-11-04T01:38:59Z
-last_seen: 2026-11-04T01:38:59Z
+last_seen: 2026-11-04T01:44:58Z
 ---
+WATCHDOG notice — occurrence #2 (first seen 2026-11-04T01:38:59Z, latest 2026-11-04T01:44:58Z).
+The SAME condition (`comment-ack-blind-kriscendobot-garden`) has now been observed 2 times; this is ONE
+coalesced notice that updates in place, not 2 messages. Latest detail:
+
 Comment acknowledgment blind anomaly for kriscendobot/garden:
-https://github.com/kriscendobot/garden/issues/117#issuecomment-6619341438 (age=3033s; heartbeat=full-poll)
+https://github.com/kriscendobot/garden/issues/117#issuecomment-6619341438 (age=3350s; heartbeat=full-poll)
