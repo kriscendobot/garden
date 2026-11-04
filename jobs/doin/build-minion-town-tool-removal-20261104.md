@@ -28,3 +28,13 @@ Do:
 Constraints: draft PRs, no secrets in logs (a locator is a bearer), no persistent production guests.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T04:04:09Z
