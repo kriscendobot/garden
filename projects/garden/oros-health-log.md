@@ -1,6 +1,13 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-04T23:12Z (oros-health-checkup-20261104-123510): degraded; deploy of `1f59625d7b3` deferred behind the check-up backlog; changed nothing
+
+- **Delta from the 23:05Z note, which has the full snapshot:** the candidate gate for `1f59625d7b3` passed at 23:05:30Z after about 4.5 minutes, then deploy-garden deferred at 23:05:31Z because monk 3 was 446s mid-job. Monk 3 is running check-up `185019`. `fleet/health` reads `deferred at 2026-11-04T23:05:32Z`. No gate timeout was involved in this attempt.
+- **Readings:** load 3.78, 3.32, 2.32 at 22:59Z. 36878 MiB free on the garden mount, 93%, below the 37658 MiB low in the 08:32Z note. No `rc=124` in the last 3h.
+- **Changed:** nothing on the host. I messaged the two sibling check-ups asking them to finish quickly; delivery to `155009` is confirmed, and `185019` was unconfirmed when I wrote this.
+- **What the deploy needs:** a moment with no monk over 300s mid-job when the gate finishes. Four queued check-ups compete for that moment on a three-monk host. Target `1f59625d7b3` is one commit behind main2 `36a2080657e`.
+
 ## 2026-11-04T23:10Z (oros-health-checkup-20261104-185019): degraded; deploy deferring behind check-up backlog; gate history for 7f0c3f7cd1c traced; changed nothing on the host
 
 Same snapshot as the 23:05Z note; only what differs or adds is here. Load 2.78, 3.13, 2.74. 36878 MiB free on the garden mount. Budget push 23:03:30Z, ok, spend 44796015 of 180M. Root `.git` 49 packs. No failed units.
