@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T05:27:20Z_
+_As of 2026-11-04T05:30:11Z_
 
 ## Latest
 
@@ -1372,20 +1372,19 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`kriscendobot-minion.town-pr240-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #240
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 
-### doin (5)
+### doin (4)
 - [`build-api-key-agents-p4-agent-factory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p4-agent-factory.md) — Build: Lal/Fae agent factory and UI step (companion phase 4)
 - [`merge-endo-1647-advertise-host-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endo-1647-advertise-host-20261104.md) — ---
 - [`kriscendobot-garden-book-pr17-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr17-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #17
-- [`kriscendobot-minion.town-pr239-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr239-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #239
 - [`kriscendobot-minion.town-pr236-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr236-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #236
 
-### tada (16523)
+### tada (16524)
+- [`kriscendobot-minion.town-pr239-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr239-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr238-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr238-gauntlet.md) — gauntlet kriscendobot-minion.town-pr238-gauntlet — complete
 - [`kriscendobot-minion.town-pr238-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr238-gauntlet-undraft.md) — Cost
 - [`kriscendobot-minion.town-pr235-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr235-gauntlet.md) — gauntlet kriscendobot-minion.town-pr235-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr240-gauntlet-fix-1.md) — Cost
-- [`kriscendobot-minion.town-pr235-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr235-gauntlet-fix-6.md) — Cost
-- … and 16518 more
+- … and 16519 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
