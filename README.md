@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T04:51:18Z_
+_As of 2026-11-04T04:52:57Z_
 
 ## Latest
 
@@ -1348,7 +1348,7 @@ _Fleet token-unlock pace: 53599148 tokens/day lower bound; incomplete where a su
 worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 13 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (13)
 - [`issue-kriscendobot-garden-128`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128.md) — Issue from dckc on kriscendobot/garden #128
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`kriscendobot-minion.town-pr236-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr236-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #236
@@ -1360,14 +1360,14 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #240
 - [`kriscendobot-garden-book-pr17-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr17-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/garden-book PR #17
-- [`deadmail-20261104T032320Z-a3de14`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261104T032320Z-a3de14.md) — Dead-lettered message — pick up its intent
 - [`kriscendobot-minion.town-pr241-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #241
 - [`kriscendobot-minion.town-pr235-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr235-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #235
 
-### doin (3)
+### doin (4)
 - [`build-api-key-agents-p2-provider-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p2-provider-adapters.md) — Build: provider adapters, accounting, and caps (companion phase 2)
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`minion-town-arc-press-20261104-032009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261104-032009.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`deadmail-20261104T032320Z-a3de14`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20261104T032320Z-a3de14.md) — Dead-lettered message — pick up its intent
 
 ### tada (16507)
 - [`canary-probe-oros-studio-garden-ce242c49-9c71b5bb62da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/canary-probe-oros-studio-garden-ce242c49-9c71b5bb62da.md) — rolling-deploy canary probe — round trip OK
