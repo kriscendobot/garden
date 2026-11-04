@@ -1,24 +1,12 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: kriscendobot-minion.town-pr240-gauntlet
 role: gardener
 tier: mentor
+posted_at: 2026-11-04T13:33:07Z
 handler-budget-role: panel
 handler-timeout: 10800
 token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: unknown
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-11-04T13:33:07Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-11-04T13:33:07Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-04T18:34:54Z cleared=none -->
 
 ---
 posted_at: 2026-11-04T08:47:04Z
