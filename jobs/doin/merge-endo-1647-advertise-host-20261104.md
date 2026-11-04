@@ -7,3 +7,13 @@ dispatch: automatic
 repo: https://github.com/endojs/endo-but-for-bots
 pr: https://github.com/endojs/endo-but-for-bots/pull/1647
 task: merge. The maintainer (kriskowal) approved this PR on 2026-11-04T00:45:31Z; it is open, not a draft, mergeable, base llm. Drive CI to green and merge per the conductor role. Afterward, report the merged llm commit sha so the minion.town pin (ENDO_COMMIT and PINNED_ENDO_COMMIT) can be bumped by the minion.town remote-invitation-hints work (https://github.com/kriscendobot/minion.town/pull/236).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T05:12:14Z
