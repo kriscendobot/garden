@@ -29,3 +29,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 @kriscendobot , for #117 , I came up with something I'm pretty happy with:  - https://github.com/dckc/vattr97/pull/50 please review it; that is: run the guantlet. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T05:34:36Z
