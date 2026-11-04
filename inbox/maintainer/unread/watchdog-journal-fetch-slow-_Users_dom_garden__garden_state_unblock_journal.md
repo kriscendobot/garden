@@ -1,13 +1,14 @@
 from_host: oros-studio-garden-ce242c49
 from: watchdog:journal-contention-watch
-sent_at: 2026-11-04T12:07:51Z
+sent_at: 2026-11-04T14:40:36Z
 watchdog_key: journal-fetch-slow-_Users_dom_garden__garden_state_unblock_journal
 notice_count: 2
 first_seen: 2026-11-04T01:10:31Z
-last_seen: 2026-11-04T12:07:51Z
+last_seen: 2026-11-04T14:40:36Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #2 (first seen 2026-11-04T01:10:31Z, latest 2026-11-04T12:07:51Z).
-The SAME condition (`journal-fetch-slow-_Users_dom_garden__garden_state_unblock_journal`) has now been observed 2 times; this is ONE
-coalesced notice that updates in place, not 2 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-11-04T01:10:31Z, cleared 2026-11-04T14:40:36Z).
+It was observed 2 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/unblock/journal: p95=16.278857s max=16.438544s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_unblock_journal` cleared on oros-studio-garden-ce242c49.
