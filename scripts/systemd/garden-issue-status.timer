@@ -1,0 +1,10 @@
+[Unit]
+Description=Garden issue status pass timer
+
+[Timer]
+OnBootSec=75s
+OnUnitActiveSec=120s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

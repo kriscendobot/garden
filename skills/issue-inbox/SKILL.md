@@ -47,7 +47,12 @@ prompt-injection discipline).
    comment body on the shell command line, email, DM, or act outside the issue
    thread; the issue is the entire conversation surface with the submitter. Post
    a substantive reply (what you did, the SHA/PR if any, verification) — mirror
-   [`pr-completion-summary-comment`] discipline.
+   [`pr-completion-summary-comment`] discipline. An automatic **status note**
+   (ending "This is an automatic status note.", marked `<!-- garden-status:… -->`)
+   may already be on the thread: the leader's deterministic status pass posts one
+   when an arrival has waited 20 minutes (5 under a deep queue) with no bot reply.
+   It reports only board counts and promises nothing; you still owe the
+   substantive answer, and your reply is what ends its timer.
 3. **Never close the issue** — [`roles/COMMON.md`](../../roles/COMMON.md) §
    External-repo etiquette is canonical: an issue close is the submitter's to make,
    not the bot's. Leave it OPEN after replying. Issue-inbox-specific procedure: the
@@ -86,5 +91,9 @@ to comment back on.
   work — they only gate which authors the watcher dispatches.
 - The trust gate is allowlist-only (no org-membership fallback): driving the garden
   via an issue is stricter than commenting on a watched PR.
+- The status pass (`scripts/jobs/issue-status-pass.sh`, leader-only
+  `garden-issue-status` timer) applies the same gate and the watcher's exact
+  first-line `@<bot> ` rule, keeps no state but the comment marker, and never closes
+  an issue. Design: [`designs/issue-inbox-timely-acknowledgement.md`](../../designs/issue-inbox-timely-acknowledgement.md).
 
 [`pr-completion-summary-comment`]: ../pr-completion-summary-comment/SKILL.md

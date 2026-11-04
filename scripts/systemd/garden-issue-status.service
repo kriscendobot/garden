@@ -1,0 +1,23 @@
+[Unit]
+Description=Garden issue status pass (one deterministic status note for an unanswered issue-inbox arrival)
+# Deterministic, NO LLM: lists the garden repo's recent issues + issue-comments,
+# drops every non-maintainer author BEFORE any body is read (allowlist-only, the
+# issue-inbox watcher's rule), and posts one fixed-template status comment for an
+# arrival with no bot reply after 20 minutes (or 5 under a deep queue). GitHub is
+# its only state (the garden-status marker); it shares no cursor with the watcher
+# and never closes an issue. Ships dry-run (GARDEN_ISSUE_STATUS_DRY_RUN=1).
+# Design: designs/issue-inbox-timely-acknowledgement.md.
+
+[Service]
+Type=oneshot
+SuccessExitStatus=143 130 SIGTERM SIGINT
+KillMode=mixed
+TimeoutStopSec=20s
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# First deploy logs what it would post; remove after a day of matching logs.
+Environment=GARDEN_ISSUE_STATUS_DRY_RUN=1
+# Leader-only singleton (two hosts would double-post). It still ticks under drain.
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-issue-status -- @GARDEN_ROOT@/scripts/jobs/issue-status-pass.sh
+ExecStopPost=-/bin/bash @GARDEN_ROOT@/scripts/jobs/cgroup-drain.sh %n
+TimeoutStartSec=600
