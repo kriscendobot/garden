@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T11:07:10Z_
+_As of 2026-11-04T11:10:07Z_
 
 ## Latest
 
@@ -217,6 +217,10 @@ Delegation: **active**
 
 - `watchdog-scheduler-worker-derotate-failed` — from watchdog:scheduler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-scheduler-worker-derotate-failed.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-04T10:35:53Z, latest 2026-11-04T11:05:38Z).
+> The SAME condition (`scheduler-worker-derotate-failed`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > worker-derotate controller failed on leader host endolin-garden-ece02cb4 (exit_status=75); no host's worker-leveling caps were changed by the failed tick, and leveling/dispatch continue. Run /home/kris/garden/scripts/jobs/worker-derotate.sh directly on endolin-garden-ece02cb4 to see the fault.
 
 - `msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544` — from gardener:deadmail-20261101T155052Z-5d5ca8, reply_to `deadmail-20261101T155052Z-5d5ca8` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544.md)
@@ -579,6 +583,10 @@ Delegation: **active**
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/worktree-sweeper/journal: p95=0.177532s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
+- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_budget_refresh_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_budget_refresh_journal.md)
+
+> Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/budget-refresh/journal: oldest-third median=1.486950s newest-third median=11.342424s over 21331s/93 samples; floor=10s, 1.5x rise or projected-to-guard=43629s within 86400s.
 
 - `deadmail-20261101T112108Z-fd9876-split-terminal-complete` — from orchestrator:deadmail-20261101T112108Z-fd9876-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/deadmail-20261101T112108Z-fd9876-split-terminal-complete.md)
 
@@ -1414,7 +1422,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 130.4M | $480.21 _(notional, rate-card)_ | 48% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53977605 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 54159306 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.001521s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness); 17 open notice(s); checker healthy
