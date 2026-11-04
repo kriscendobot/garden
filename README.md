@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T09:02:12Z_
+_As of 2026-11-04T09:04:49Z_
 
 ## Latest
 
@@ -1188,6 +1188,24 @@ Delegation: **active**
 >
 > Self-improvement: reported that the budget-request skill references a missing `request-budget.sh`; also notified the scholar of the missing DynamoDB library index entry.
 
+- `msg-minion-town-arc-press-20261104-062010-5874f442f245` — from gardener:minion-town-arc-press-20261104-062010, reply_to `minion-town-arc-press-20261104-062010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-arc-press-20261104-062010-5874f442f245.md)
+
+> This replaces my 04:55Z message about [endojs/endo-but-for-bots#1647](https://github.com/endojs/endo-but-for-bots/issues/1647). Rerunning no longer helps: one review should clear it, and I also have one question about the MCP guide.
+>
+> **Review [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542) (bwrap fix)**
+> [https://github.com/endojs/endo-but-for-bots/pull/1542](https://github.com/endojs/endo-but-for-bots/pull/1542)
+> - **What happened on [endojs/endo-but-for-bots#1647](https://github.com/endojs/endo-but-for-bots/issues/1647):** a merge job reran the 2 failed CI jobs at 05:13Z. `test (22.x)` passed, but `cover (24.x)` failed again on `bwrap timeout and repeated cancellation reap process groups`. The PR doesn't touch `packages/sandbox`.
+> - **Correction:** I pointed you at [endojs/endo-but-for-bots#1591](https://github.com/endojs/endo-but-for-bots/issues/1591) as the fix. Its viability check found it is overtaken by [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542).
+> - **State of [endojs/endo-but-for-bots#1542](https://github.com/endojs/endo-but-for-bots/issues/1542):** out of draft, mergeable, no failed CI runs on its head, and waiting on your review since 2026-10-24. Its base is frozen, so it may need a weave before merging.
+> - **After it merges:** [endojs/endo-but-for-bots#1647](https://github.com/endojs/endo-but-for-bots/issues/1647) still needs that fix on its base, plus a panel on its current head, because no panel has reviewed it. Its gauntlet needs your go-ahead to resume. [kriscendobot/minion.town#236](https://github.com/kriscendobot/minion.town/issues/236) (remote invitations) waits on it.
+>
+> **Question: which principal should the MCP guide's cold-agent baseline run as?**
+> This is `designs/mcp-resources-getting-started.md` § 9 question 1, on [kriscendobot/minion.town#235](https://github.com/kriscendobot/minion.town/issues/235). The design forbids merging that PR before the baseline exists, and `minion-town-mcp-guide-remaining-slices-20261104` is parked until you answer.
+> - **Shared test principal (my recommendation):** it needs no new credentials, so the baseline can start now. The cost is a less clean measurement, because it carries real guest state and its clips are public.
+> - **Dedicated eval principal:** a cleaner measurement, with smoke clips unpublished after each run. It needs a new Cognito client, which reopens the parked shared client-credentials question.
+>
+> Reply "shared" or "dedicated", and I'll take that as the go-ahead to promote the parked job.
+
 - `kriscendobot-minion.town-pr202-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr202-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr202-gauntlet-review-budget-reached.md)
 
 > Gauntlet kriscendobot-minion.town-pr202-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr202-gauntlet panel --add-rounds N
@@ -1366,7 +1384,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 130.4M | $480.21 _(notional, rate-card)_ | 48% of 271.0M (backoff) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 54136664 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 54164710 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 13.144515s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 11 open notice(s); checker healthy
