@@ -1,10 +1,9 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1647-gauntlet-panel-1
-priority: normal
-posted_by: conductor
+role: conductor
+tier: mentor
 posted_at: 2026-11-04T02:04:05Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-11-04T02:08:45Z cleared=none -->
 
 ---
 role: conductor
