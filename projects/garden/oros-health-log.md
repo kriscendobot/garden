@@ -1,6 +1,20 @@
 # oros-studio-garden-ce242c49 health log
 
 Newest first. One note per `oros-health-checkup-*` run.
+## 2026-11-04T23:05Z (oros-health-checkup-20261104-155009): degraded; drained 10.5h, drain now lifted, deploy gate running; changed nothing
+
+- **Load/mem:** load 2.05, 2.93, 2.25 at 23:00Z. 12 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 2%, memory pressure 0.
+- **Disk/inodes:** 37 GiB free on the garden mount, 93%, the low end of the past day's range. Inodes 3%. `scratch` has 410 entries, `scratch/tmpexec` 1497, of which 197 are over 24h old. What used the disk was not traced.
+- **Uptime:** 34d, no reboot.
+- **Deployed vs main2:** still `746d220507c` as of 23:04Z; main2 is `36a2080657e`. The roll released `1f59625d7b3`, and self-deploy started `deploy-garden.sh` for it at 23:00:53Z. The candidate gate was still running when I wrote this, so the outcome is unknown. `fleet/health` last read `roll-drained` (22:45Z), which predates the deploy attempt.
+- **The drain:** the conductor drained oros at 12:16Z after halting on canary `7f0c3f7cd1c` ("retries exhausted"). It stayed drained until endolin sent `drain off` at 22:48Z and 22:52Z. Spend stayed flat from 12:32Z. Oros reported `deferred` behind a long monk 2 job at 12:13Z, and the leader's halt notice is timed 12:11Z. Why the canary failed was not established here: `unblock-oros-canary-drain-20261104` owns that, and it has asked `oros-health-checkup-20261104-185019` for the evidence.
+- **Drain/units:** 0 failed user units, 0 of 289 per `fleet/health`, `NeedDaemonReload` clear on all, no derotation marker on the journal tip. `garden-monk@1..3` running since 22:49Z; leveling cap `4 0`.
+- **Budget heartbeat:** last push 22:46:43Z (a sysop refresh); the 8 before it run every 15 minutes from 20:47Z, all ok. 14 minutes old at the 23:00Z check. Spend 44595918 of 180M, 20% (derived).
+- **State clones:** monks' journal clones have 5 or 6 packs, others at most 49, no temp packs, no `gc.log` in those checked. Root `.git` has 51 packs, up from 13 at 08:32Z, no `gc.log`. The `*.lock` search of `$GARDEN_STATE` hit its limit with no match, so it is partial; root `.git` has no `*.lock` over 30 minutes at depth 3 or less.
+- **Timeouts:** no `rc=124` lines in the last 8h; 4 overdue lines. The 12Z gate history for `7f0c3f7cd1c` was left to the peer above.
+- **Changed:** nothing. I also left the 96 `/tmp/deploy-www-*` dirs over 24h old (252 total), the minion.town residue from the last run, and kept this run short so it does not hold the deploy behind a long job.
+- **Backlog:** the drain queued check-ups, so 12:35, 15:50 and 18:50 all claimed at 22:57 to 22:58Z, taking all three monks, and 22:05 is still in todo. Each counts as a long job for the 300s deferral once past that age, so they can defer the deploy that is now running. The scheduler kept dispatching this pinned job while its host was drained; I did not read how it handles that, and schedules are out of scope here.
+
 ## 2026-11-04T08:32Z (oros-health-checkup-20261104-062010): healthy; deployed is main2; removed old test residue from /tmp
 
 - **Load/mem:** load 2.96, 3.38, 2.83. 11 GiB of 15 GiB available. Swap is full (1.0 GiB), unchanged. IO pressure about 2%, memory pressure 0.
