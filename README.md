@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T05:08:25Z_
+_As of 2026-11-04T05:27:20Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-178 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+179 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -929,6 +927,16 @@ Delegation: **active**
 > - **claude-oros reset credits:** I can't confirm these. Treat oros as having none until the maintainer says otherwise. Don't plan around credits that may not exist. Leave `reset-credits.md` unchanged and flag the stale "offline since 09-28" entry for the maintainer to correct.
 > - **Next steps:** No other action is needed from this reply.
 
+- `kriscendobot-minion.town-pr235-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr235-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr235-gauntlet-review-budget-reached.md)
+
+> Gauntlet kriscendobot-minion.town-pr235-gauntlet REVIEW-BUDGET-REACHED: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr235-gauntlet panel --add-rounds N
+>
+> Unaddressed must-fix: unknown · list unavailable (panel report has no structured must-fix list) · rounds spent: 6/6 · cost so far: $14.12
+> Severity: this list is every request-changes seat bullet. The panel blocks only on real defects (wrong behavior, security or authority errors, data loss, broken contracts, failing or missing tests for changed behavior, comments false enough to invite an unsafe change); comment or JSDoc wording, identifier spelling or style, commit-history tidiness, PR-description completeness, and test-style items are should-fix and never block (skills/panel/SKILL.md § Finding severity).
+>
+> To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr235-gauntlet panel --add-rounds 2
+> --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 6 -> 8 (N is yours to choose).
+
 - `endojs-endo-but-for-bots-pr1575-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1575-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1575-gauntlet-review-budget-reached.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr1575-gauntlet REVIEW-BUDGET-REACHED: Applied 9 panel/fix round(s); fix round 9 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=9, so the PR is left improved for a human merge/review decision. To grant more rounds: scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1575-gauntlet panel --add-rounds N
@@ -1197,6 +1205,10 @@ Delegation: **active**
 >
 > Because a clip is immutable, a refresh will publish under a new hash.
 
+- `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_review_docket_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_review_docket_journal.md)
+
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/review-docket/journal: p95=87.634481s, giveups=0, steals=0 (max 3/window), wait floor=60s.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-11-02T10:28:36Z, cleared 2026-11-02T10:31:35Z).
@@ -1341,41 +1353,39 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.1M | $453.02 _(notional, rate-card)_ | 45% of 271.0M (ok) |
+| Claude | 124.1M | $453.70 _(notional, rate-card)_ | 46% of 271.0M (ok) |
 | Codex | 302.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53644158 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 53767294 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-approval/verify); 13 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (8)
 - [`issue-kriscendobot-garden-128`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-128.md) — Issue from dckc on kriscendobot/garden #128
+- [`kriscendobot-minion.town-pr241-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #241
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
-- [`merge-endo-1647-advertise-host-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/merge-endo-1647-advertise-host-20261104.md) — ---
-- [`kriscendobot-minion.town-pr238-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr238-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #238
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`kriscendobot-minion.town-pr240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #240
-- [`kriscendobot-garden-book-pr17-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-book-pr17-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/garden-book PR #17
-- [`kriscendobot-minion.town-pr241-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #241
+- [`kriscendobot-minion.town-pr240-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #240
 - [`build-api-key-agents-p2-provider-adapters-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-api-key-agents-p2-provider-adapters-open-pr.md) — Open the phase 2 gap PR on endojs/endo-but-for-bots
 
-### doin (4)
-- [`kriscendobot-minion.town-pr236-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr236-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #236
-- [`build-api-key-agents-p2-provider-adapters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p2-provider-adapters.md) — Build: provider adapters, accounting, and caps (companion phase 2)
-- [`kriscendobot-minion.town-pr239-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr239-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #239
-- [`kriscendobot-minion.town-pr235-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr235-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #235
+### doin (5)
+- [`build-api-key-agents-p4-agent-factory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-api-key-agents-p4-agent-factory.md) — Build: Lal/Fae agent factory and UI step (companion phase 4)
+- [`merge-endo-1647-advertise-host-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endo-1647-advertise-host-20261104.md) — ---
+- [`kriscendobot-garden-book-pr17-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-book-pr17-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #17
+- [`kriscendobot-minion.town-pr239-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr239-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #239
+- [`kriscendobot-minion.town-pr236-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr236-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #236
 
-### tada (16510)
-- [`deadmail-20261104T032320Z-a3de14`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/deadmail-20261104T032320Z-a3de14.md) — Cost
-- [`minion-town-arc-press-20261104-032009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/minion-town-arc-press-20261104-032009.md) — Cost
-- [`oros-health-watch-20261104-032009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-watch-20261104-032009.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-9c71b5bb62da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/canary-probe-oros-studio-garden-ce242c49-9c71b5bb62da.md) — rolling-deploy canary probe — round trip OK
-- [`oros-health-checkup-20261104-032009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/oros-health-checkup-20261104-032009.md) — Cost
-- … and 16505 more
+### tada (16523)
+- [`kriscendobot-minion.town-pr238-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr238-gauntlet.md) — gauntlet kriscendobot-minion.town-pr238-gauntlet — complete
+- [`kriscendobot-minion.town-pr238-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr238-gauntlet-undraft.md) — Cost
+- [`kriscendobot-minion.town-pr235-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr235-gauntlet.md) — gauntlet kriscendobot-minion.town-pr235-gauntlet — review budget reached
+- [`kriscendobot-minion.town-pr240-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr240-gauntlet-fix-1.md) — Cost
+- [`kriscendobot-minion.town-pr235-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr235-gauntlet-fix-6.md) — Cost
+- … and 16518 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
