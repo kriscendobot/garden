@@ -27,6 +27,7 @@ Do:
 4. Remove the tools in draft PR(s); report before/after tools/list and its size in bytes. PR description = production-outcome report.
 Constraints: draft PRs, no secrets in logs (a locator is a bearer), no persistent production guests.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
