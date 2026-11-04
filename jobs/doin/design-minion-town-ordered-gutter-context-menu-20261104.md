@@ -20,3 +20,13 @@ dispatch: automatic
 - First-run: how the shell seeds nothing for a fresh or reset guest and what "New Clip" is on first use.
 Score any new interface REST-vs-CapTP with skills/api-transport-rubric (default CapTP; #231 adds the authenticated CapTP session). Make the design buildable in increments, smallest first. Repo: kriscendobot/minion.town (base: current main; if an open draft PR already covers part of this, build on it or stack on it rather than duplicating). Maintainer interactive-evaluation session, kriskowal, 2026-11-04: get as much as possible DEPLOYED for incremental evaluation; the maintainer will evaluate production results, not diffs (review inversion). Frame against the chrome vision: a dock/gutter of clips, a New Clip zygote, an API-key agent. Deploy through the normal CD path and verify in production with the real-daemon + Playwright recipe (see memory/skills for minion-town-clip browser testing). Do not touch production account data; account resets are a separate maintainer-authorized step.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-04T23:16:10Z
