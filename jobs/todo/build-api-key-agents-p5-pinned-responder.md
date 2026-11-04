@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: orchestrate-build-api-key-agents-20261104
-priority: normal
-posted_by: endojs-endo-but-for-bots-pr1543-review-ed16aaac
+role: builder
+tier: mentor
 posted_at: 2026-11-04T01:48:04Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-04T06:30:20Z cleared=none -->
 
 ---
 role: builder
