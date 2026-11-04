@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-04T00:03:57Z_
+_As of 2026-11-04T00:09:10Z_
 
 ## Latest
 
@@ -493,7 +491,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
-> budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 3 (target 3): subscription claude-oros spend=27399288 cap=180000000 pace-bias=0 window-start=2026-11-03T11:00Z(calendar) deadline=2026-11-10T11:00Z(calendar) ceiling=4 backoff=0.5003(ramp) target=3
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T03:35:47Z, latest 2026-11-04T00:05:24Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-3`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 3 (target 3): subscription claude-oros spend=17483978 cap=180000000 pace-bias=0 window-start=2026-11-03T11:00Z(calendar) deadline=2026-11-10T11:00Z(calendar) ceiling=4 backoff=0.5389(ramp) target=3
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden_journal.md)
 
@@ -1293,15 +1295,18 @@ _Fleet token-unlock pace: 53666760 tokens/day lower bound; incomplete where a su
 worst fetch p95 5.561877s/45s (unknown); 10 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1647-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1647-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1647
+- [`oros-health-watch-20261104-000530`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261104-000530.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
+- [`minion-town-arc-press-20261104-000530`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261104-000530.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-minion.town-pr235-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr235-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #235
+- [`oros-health-checkup-20261104-000530`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-checkup-20261104-000530.md) — ---
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 
 ### tada (16455)
@@ -1428,4 +1433,4 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 4 monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 3 monks
