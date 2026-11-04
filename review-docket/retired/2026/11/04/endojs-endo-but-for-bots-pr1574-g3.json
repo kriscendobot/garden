@@ -16,5 +16,11 @@
   "ci": {
     "state": "green",
     "observed_at": "2026-11-04T02:44:49Z"
+  },
+  "retirement": {
+    "kind": "terminal",
+    "repo": "endojs/endo-but-for-bots",
+    "at": "2026-11-04T03:22:06Z",
+    "state": "CLOSED"
   }
 }
