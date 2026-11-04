@@ -39,3 +39,13 @@ Keep it short and concrete; the maintainer wants to improve it with use, not per
 <!-- garden-annotation: key=00da17f586fe by=producer at=2026-11-04T22:15:46Z -->
 
 SCOPE AMENDMENT (maintainer kriskowal, 2026-11-04): make the mechanic role GENERAL to ALL leaders and followers and to any mechanical host failure, not oros-style followers first. Treat oros only as the first worked example. The playbook must cover leader-specific failures (stuck deploy, root-repo corruption, singleton-service duplicates, journal worktree stale, leader-marker handoff) as well as follower ones (canary, drain, offline host, derotation, heartbeat, load). Where leader and follower procedure differ, state both.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-04T22:20:50Z
