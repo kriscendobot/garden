@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-04T04:10:57Z_
+_As of 2026-11-04T04:11:57Z_
 
 ## Latest
 
@@ -1363,13 +1363,13 @@ worst fetch p95 18.743390s/45s (/home/kris/garden/.garden-state/maintainer-appro
 - [`improve-gardener-handler-rc76-collision-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gardener-handler-rc76-collision-expanded-window.md) — Land the gardener fix for spooled review-docket notices failing finished jobs
 - [`kriscendobot-minion.town-pr240-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr240-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #240
 
-### tada (16500)
+### tada (16501)
+- [`kriscendobot-minion.town-pr237-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr237-gauntlet.md) — gauntlet kriscendobot-minion.town-pr237-gauntlet — complete
 - [`kriscendobot-minion.town-pr237-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr237-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1647-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1647-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1647-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1647-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/endojs-endo-but-for-bots-pr1647-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr235-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/kriscendobot-minion.town-pr235-gauntlet-panel-6.md) — Cost
-- [`build-minion-town-https-locators-browser-proof-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/04/build-minion-town-https-locators-browser-proof-20261104.md) — Completion report: build-minion-town-https-locators-browser-proof-20261104
-- … and 16495 more
+- … and 16496 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
