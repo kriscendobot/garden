@@ -15,3 +15,13 @@ Do:
 3. Make the web-accept gap fix, then prove with a production-shaped test (real daemon, Playwright for the web accept): evaluate mints an invitation, a fresh guest accepts it from the web page, mail flows both ways.
 4. Remove the tools in draft PR(s) on kriscendobot/minion.town; update the MCP `instructions` string and resources so the surface the agent sees matches. Report the before/after tool list and the tools/list size in bytes.
 Constraints: draft PRs, no secrets in logs, create no persistent production guests. The maintainer does not review minion.town PRs; write the PR description as a production-outcome report (what changes on production, how verified).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-04T01:49:37Z
