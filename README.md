@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T02:35:49Z_
+_As of 2026-11-05T02:41:57Z_
 
 ## Latest
 
@@ -1659,11 +1659,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` has CLEARED (first seen 2026-11-01T12:43:04Z, cleared 2026-11-04T12:51:33Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-01T12:43:04Z, latest 2026-11-05T02:41:10Z).
+> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_self_deploy_journal` cleared on oros-studio-garden-ce242c49.
+> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/self-deploy/journal: p95=0.099428s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-review-budget-reached.md)
 
