@@ -27,10 +27,10 @@
 # when that window ends (each push is also capped at
 # GARDEN_REVIEW_DOCKET_PUSH_TIMEOUT). When an intake operation (upsert, reenter,
 # retire-*, targeted reconcile) cannot finish inside the window, it is copied to
-# the host-local GARDEN_REVIEW_DOCKET_SPOOL and the command exits
-# GARDEN_REVIEW_DOCKET_SPOOLED_RC (76, retryable). The next transaction on this
-# host drains the spool first. A bare reconcile that exhausts its lock window
-# preserves its cursor and exits successfully so the periodic unit can defer to
+# the host-local GARDEN_REVIEW_DOCKET_SPOOL and the command exits successfully:
+# durable deferred intake satisfies the producer contract. The next transaction
+# on this host drains the spool first. A bare reconcile that exhausts its lock
+# window preserves its cursor and exits successfully so the periodic unit can defer to
 # its next tick; other transient failures from a bare reconcile, and render
 # failures, exit 75.
 # A lock timeout logs the recorded holder (transaction.lock.holder) and the
@@ -501,7 +501,6 @@ fi
 # transaction instead of dropping intake merely because its push is in flight.
 GARDEN_REPO_LOCK_WAIT="${GARDEN_REVIEW_DOCKET_LOCK_WAIT:-180}"
 : "${GARDEN_REVIEW_DOCKET_SPOOL:=$GARDEN_STATE/review-docket/spool}"
-: "${GARDEN_REVIEW_DOCKET_SPOOLED_RC:=76}"
 : "${GARDEN_REVIEW_DOCKET_SPOOL_BATCH:=10}"
 : "${GARDEN_REVIEW_DOCKET_SPOOL_MAX_ATTEMPTS:=20}"
 # One journal push may not consume the whole transaction window; a timed-out
@@ -561,24 +560,24 @@ spool_operation() { # durable host-local copy of this invocation; dedupes repeat
   log "spooled $operation ${ARGS[0]:-} to $GARDEN_REVIEW_DOCKET_SPOOL ($key); the next transaction on this host drains it"
 }
 
-retryable_exit() { # <reason>; spool intake, then exit with a retryable rc
+defer_or_retry_exit() { # <reason>; durable intake succeeds, other work retries
   if is_intake; then
     spool_operation
-    log "$1; $operation spooled, exiting rc=$GARDEN_REVIEW_DOCKET_SPOOLED_RC (retryable)"
-    exit "$GARDEN_REVIEW_DOCKET_SPOOLED_RC"
+    log "$1; $operation durably spooled for deferred delivery; exiting successfully"
+    exit 0
   fi
   log "$1; skipping this $operation (rc=$GARDEN_OFFLINE_RC)"
   exit "$GARDEN_OFFLINE_RC"
 }
 
-lock_window_exit() { # <reason>; bare reconcile defers cleanly, intake remains retryable
+lock_window_exit() { # <reason>; bare reconcile or durable intake defers cleanly
   if [ "$operation" = reconcile ] && [ "${#ARGS[@]}" -eq 0 ]; then
     # The cursor is advanced only by a completed transaction child. Leaving it
     # untouched here makes the next periodic tick retry the interrupted batch.
     log "$1; preserving the reconcile cursor and deferring to the next tick"
     exit 0
   fi
-  retryable_exit "$1"
+  defer_or_retry_exit "$1"
 }
 
 lock_holder_report() { # <lock>; who holds it, from our record and the kernel
@@ -700,6 +699,6 @@ rc=0; run_transaction "$GARDEN_REVIEW_DOCKET_NOW" "$lock_deadline" "$operation" 
 case "$rc" in
   0) exit 0 ;;
   124) lock_window_exit "the $operation transaction exceeded the ${GARDEN_REPO_LOCK_WAIT}s lock window and was killed" ;;
-  "$GARDEN_OFFLINE_RC") retryable_exit "the $operation transaction could not reach the journal" ;;
+  "$GARDEN_OFFLINE_RC") defer_or_retry_exit "the $operation transaction could not reach the journal" ;;
   *) exit "$rc" ;;
 esac

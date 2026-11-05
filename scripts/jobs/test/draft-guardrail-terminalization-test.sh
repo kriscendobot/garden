@@ -102,38 +102,6 @@ git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
 [ "$(wc -l < "$TR/docket.log")" -eq 2 ] \
   || fail 'each producer did not converge through the same stable docket identity'
 
-# A durably spooled docket request is also a successful completion disposition.
-# The report must say that delivery was deferred, while a non-spooled docket
-# error must keep the completed handler's claim retryable.
-printf -- '---\nrole: builder\n---\nExercise a spooled draft-guard docket request.\n' \
-  > "$TR/verify/jobs/todo/readyjob-spooled.md"
-git -C "$TR/verify" add jobs/todo/readyjob-spooled.md
-git -C "$TR/verify" -c user.name=test -c user.email=test@example.invalid \
-  commit -q -m 'post spooled draft-guard case'
-git -C "$TR/verify" push -q origin HEAD:journal2
-env GARDEN=draft-terminal-test GARDEN_STATE="$TR/state3" \
-  JOURNAL_REMOTE="$TR/journal.git" JOURNAL_BRANCH=journal2 \
-  GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_BOT_LOGIN=kriscendobot \
-  GARDEN_PRODUCER_CLONE="$TR/state3/producer/journal" \
-  GARDEN_GH="$HERE/assert-producer-pr-draft-gh-stub.sh" \
-  GARDEN_GH_CALL_LOG="$TR/gh-calls.log" \
-  GARDEN_GARDENER_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh" \
-  GARDEN_DOCKET_SPY_LOG="$TR/docket.log" GARDEN_DOCKET_SPY_RC=76 \
-  GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_REPORT="$report" \
-  GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
-  GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
-  "$JOBS/gardener.sh" 3 > "$TR/gardener-spooled.log" 2>&1 || true
-rm -rf "$TR/verify"
-git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
-spooled_tada="$(find "$TR/verify/jobs/tada" -type f -name readyjob-spooled.md -print -quit)"
-[ -n "$spooled_tada" ] || fail 'spooled draft-guard request did not terminalize in tada'
-grep -q 'durably spooled for a later docket transaction' "$spooled_tada" \
-  || fail 'spooled draft-guard disposition was not recorded in the report'
-grep -q 'spooled the review-docket decision' "$TR/gardener-spooled.log" \
-  || fail 'spooled draft-guard disposition was not logged'
-! grep -q 'leaving in doin for retry' "$TR/gardener-spooled.log" \
-  || fail 'spooled draft-guard request entered the retry path'
-
 printf -- '---\nrole: builder\n---\nExercise a hard draft-guard docket failure.\n' \
   > "$TR/verify/jobs/todo/readyjob-hard.md"
 git -C "$TR/verify" add jobs/todo/readyjob-hard.md
@@ -151,7 +119,7 @@ env GARDEN=draft-terminal-test GARDEN_STATE="$TR/state4" \
   GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_REPORT="$report" \
   GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
   GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
-  "$JOBS/gardener.sh" 4 > "$TR/gardener-hard.log" 2>&1 || true
+  "$JOBS/gardener.sh" 3 > "$TR/gardener-hard.log" 2>&1 || true
 rm -rf "$TR/verify"
 git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
 [ -e "$TR/verify/jobs/doin/readyjob-hard.md" ] \
@@ -161,4 +129,4 @@ git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
 grep -q 'leaving in doin for retry' "$TR/gardener-hard.log" \
   || fail 'hard draft-guard docket failure was not logged as retryable'
 
-echo 'PASS: draft guardrail completions accept recorded or spooled docket actions, preserve hard-error retries, do not mutate PRs, and do not rerun handlers'
+echo 'PASS: draft guardrail completions accept successful docket intake, preserve hard-error retries, do not mutate PRs, and do not rerun handlers'

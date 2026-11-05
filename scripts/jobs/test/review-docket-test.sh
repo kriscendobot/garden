@@ -203,15 +203,16 @@ sleep 0.5
 request "$TEST_ROOT/r11" alpha M5 s11 'spooled eleven'
 rc=0; GARDEN_REVIEW_DOCKET_LOCK_WAIT=1 live upsert https://github.com/example/repo/pull/11 "$TEST_ROOT/r11" \
   >"$TEST_ROOT/timeout.log" 2>&1 || rc=$?
-[ "$rc" -eq 76 ] || { cat "$TEST_ROOT/timeout.log" >&2; fail "lock timeout exited $rc, not the spooled rc 76"; }
+[ "$rc" -eq 0 ] || { cat "$TEST_ROOT/timeout.log" >&2; fail "durably spooled lock timeout exited $rc, not 0"; }
 grep -q 'timed out after [0-9]*s (limit 1s)' "$TEST_ROOT/timeout.log" || fail 'timeout message lacks the wait time'
 grep -q "holder: pid=$$ op=upsert" "$TEST_ROOT/timeout.log" || fail 'timeout message lacks the holder record'
 grep -q 'kernel flock holder pid=[0-9]* cmd=flock ' "$TEST_ROOT/timeout.log" || { cat "$TEST_ROOT/timeout.log" >&2; fail 'timeout message lacks the kernel holder'; }
 ! grep -q FATAL "$TEST_ROOT/timeout.log" || fail 'a spooled lock timeout still logged FATAL'
 [ "$(ls "$SPOOL"/*.json | wc -l)" = 1 ] || fail 'lock timeout did not spool the upsert'
 [ "$(jq -r .request.summary "$SPOOL"/*.json)" = 'spooled eleven' ] || fail 'spool lost the request body'
-rc=0; GARDEN_REVIEW_DOCKET_LOCK_WAIT=1 live upsert https://github.com/example/repo/pull/11 "$TEST_ROOT/r11" >/dev/null 2>&1 || rc=$?
-[ "$rc" -eq 76 ] && [ "$(ls "$SPOOL"/*.json | wc -l)" = 1 ] || fail 'a repeated timeout duplicated the spool entry'
+rc=0; GARDEN_REVIEW_DOCKET_LOCK_WAIT=1 live upsert https://github.com/example/repo/pull/11 "$TEST_ROOT/r11" >"$TEST_ROOT/repeated-timeout.log" 2>&1 || rc=$?
+[ "$rc" -eq 0 ] && [ "$(ls "$SPOOL"/*.json | wc -l)" = 1 ] || fail 'a repeated successful deferral duplicated the spool entry'
+grep -q 'is already spooled' "$TEST_ROOT/repeated-timeout.log" || fail 'deduplicated spool lacked an explicit diagnostic'
 printf '%s\n' cursor-before-lock-wait > "$GARDEN_REVIEW_DOCKET_CURSOR"
 rc=0; GARDEN_REVIEW_DOCKET_LOCK_WAIT=1 live reconcile >"$TEST_ROOT/reconcile-lock-wait.log" 2>&1 || rc=$?
 [ "$rc" -eq 0 ] && [ "$(ls "$SPOOL"/*.json | wc -l)" = 1 ] \
@@ -240,7 +241,9 @@ start="$(date +%s)"; rc=0
 GARDEN_REVIEW_DOCKET_LOCK_WAIT=6 GARDEN_REVIEW_DOCKET_PUSH_TIMEOUT=2 \
   live upsert https://github.com/example/repo/pull/12 "$TEST_ROOT/r12" >"$TEST_ROOT/hung.log" 2>&1 || rc=$?
 elapsed=$(( $(date +%s) - start ))
-[ "$rc" -eq 76 ] || { cat "$TEST_ROOT/hung.log" >&2; fail "hung push exited $rc, not the spooled rc 76"; }
+[ "$rc" -eq 0 ] || { cat "$TEST_ROOT/hung.log" >&2; fail "durably spooled hung push exited $rc, not 0"; }
+grep -q 'durably spooled for deferred delivery; exiting successfully' "$TEST_ROOT/hung.log" \
+  || fail 'successful hung-push deferral lacked an explicit diagnostic'
 [ "$elapsed" -lt 25 ] || fail "hung push held the lock for ${elapsed}s"
 [ "$(wc -l < "$TEST_ROOT/push-attempts")" -ge 2 ] || fail 'a hung push was not bounded per attempt'
 ! pgrep -f "receive-pack.*$TEST_ROOT" >/dev/null || fail 'a hung push outlived its transaction'
@@ -271,7 +274,7 @@ GARDEN_REVIEW_DOCKET_LOCK_WAIT=8 GARDEN_REVIEW_DOCKET_PUSH_TIMEOUT=1 \
   live reenter https://github.com/example/repo/pull/8 fixer-complete \
   >"$TEST_ROOT/spool-starvation.log" 2>&1 || rc=$?
 elapsed=$(( $(date +%s) - start ))
-[ "$rc" -eq 76 ] || { cat "$TEST_ROOT/spool-starvation.log" >&2; fail "starved reentry exited $rc, not the spooled rc 76"; }
+[ "$rc" -eq 0 ] || { cat "$TEST_ROOT/spool-starvation.log" >&2; fail "durably spooled starved reentry exited $rc, not 0"; }
 [ "$elapsed" -lt 20 ] || fail "bounded spool plus reentry took ${elapsed}s"
 grep -q '^review-docket: upsert$' "$TEST_ROOT/hung-operations" \
   || { cat "$TEST_ROOT/hung-operations" >&2; fail 'hung spool head was not attempted'; }

@@ -1,8 +1,6 @@
 #!/bin/bash
-# fixer-docket-spooled-completion-test.sh — a completing fixer whose review-docket
-# re-entry returns rc=76 (the docket durably spooled the intake for a later
-# transaction on this host) completes into tada instead of staying in doin as a
-# handler failure (2026-11-01T00:03:22Z). A non-spool failure still retries.
+# fixer-docket-spooled-completion-test.sh — a completing fixer's successful
+# review-docket re-entry completes into tada. A docket failure still retries.
 
 set -euo pipefail
 mapfile -t inherited_garden_vars < <(
@@ -63,13 +61,12 @@ run_case() { # <name> <docket-core-rc>
     "$dir/docket-core.log" || fail "$name: fixer re-entry was not sent to the docket core"
 }
 
-run_case spooled 76
-v="$TR/spooled/verify"
+run_case accepted 0
+v="$TR/accepted/verify"
 [ -n "$(find "$v/jobs/tada" -type f -name fixjob.md -print -quit)" ] \
-  || fail 'spooled (rc=76) re-entry did not complete the fixer into tada'
-[ ! -e "$v/jobs/doin/fixjob.md" ] || fail 'spooled (rc=76) re-entry left the fixer in doin'
-grep -q 'spooled (rc=76)' "$TR/spooled/gardener.log" || fail 'spooled deferral was not logged'
-! grep -q 're-entry FAILED' "$TR/spooled/gardener.log" || fail 'rc=76 was treated as a handler failure'
+  || fail 'accepted re-entry did not complete the fixer into tada'
+[ ! -e "$v/jobs/doin/fixjob.md" ] || fail 'accepted re-entry left the fixer in doin'
+! grep -q 're-entry FAILED' "$TR/accepted/gardener.log" || fail 'successful intake was treated as a handler failure'
 
 run_case hard 1
 v="$TR/hard/verify"
@@ -77,4 +74,4 @@ v="$TR/hard/verify"
   || fail 'a hard docket failure (rc=1) still completed the fixer'
 grep -q 're-entry FAILED' "$TR/hard/gardener.log" || fail 'hard docket failure was not logged as a failure'
 
-echo 'PASS: a spooled (rc=76) fixer review-docket re-entry completes the job; a hard failure stays retryable'
+echo 'PASS: successful fixer review-docket intake completes the job; a hard failure stays retryable'
