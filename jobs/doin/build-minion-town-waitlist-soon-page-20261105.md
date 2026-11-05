@@ -30,6 +30,7 @@ dispatch: automatic
 
 Repo: kriscendobot/minion.town (base: current main). Test with the real-daemon + Playwright recipe: covering sign-up success, failure, direct `/soon` open, reload, back button, "Sign up with another address", and "Already a resident?". Deploy and verify in production; record screenshots in the PR. Maintainer evaluates production results, not diffs (review inversion).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
