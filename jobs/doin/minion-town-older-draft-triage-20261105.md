@@ -20,3 +20,13 @@ For each PR, compare it against current `main` and the unchecked items in garden
 Do not close a PR that an open job in `jobs/plan`, `jobs/todo`, or `jobs/doin` names. Do not change any PR's code, base, or draft state. Do not touch `endojs/endo-but-for-bots`.
 
 Report one line per PR: number, class, reason, and the next verb if any.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T08:18:53Z
