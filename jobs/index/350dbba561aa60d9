@@ -1,2 +1,2 @@
-base: improve-local-verify-regen-clean-gate
+base: improve-local-verify-stalled-test-timeout
 identity: mentor:scripts/jobs/gardening/local-verify.sh
