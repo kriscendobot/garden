@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T16:44:10Z_
+_As of 2026-11-05T16:49:26Z_
 
 ## Latest
 
@@ -204,18 +204,11 @@ Delegation: **active**
 
 - `watchdog-journal-contention-storm-lock-contention` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-lock-contention.md)
 
-> WATCHDOG notice — occurrence #102 (first seen 2026-11-01T04:46:54Z, latest 2026-11-05T16:06:48Z).
-> The SAME condition (`journal-contention-storm-lock-contention`) has now been observed 102 times; this is ONE
-> coalesced notice that updates in place, not 102 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-lock-contention` has CLEARED (first seen 2026-11-01T04:46:54Z, cleared 2026-11-05T16:45:54Z).
+> It was observed 102 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden-ece02cb4: 7 clones hit lock-contention in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/comment-latency-watch/journal: p95=0.052657s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/orch/journal: p95=0.047401s, giveups=3, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-sections-index/journal: p95=0.053444s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.050042s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.046632s, giveups=1, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.061548s, giveups=2, steals=0 (max 3/window), wait floor=60s.
-> - Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/screening/journal: p95=0.051867s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-contention-storm-lock-contention` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -400,11 +393,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` has CLEARED (first seen 2026-11-03T06:37:35Z, cleared 2026-11-05T02:44:55Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-03T06:37:35Z, latest 2026-11-05T16:46:00Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_design_pr_gauntlet_audit_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal: p95=0.054199s, giveups=2, steals=0 (max 3/window), wait floor=60s.
 
 - `claude-api-build-20261027-halted` — from orchestrator:claude-api-build-20261027-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/claude-api-build-20261027-halted.md)
 
@@ -1030,31 +1023,31 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #74 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T16:39:43Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 74 times; this is ONE
-> coalesced notice that updates in place, not 74 messages. Latest detail:
+> WATCHDOG notice — occurrence #75 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T16:44:43Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 75 times; this is ONE
+> coalesced notice that updates in place, not 75 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1793898068 set-by=receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite
 > gh-api GraphQL-only marker: expiry=1793898068 set-by=mirror-closer:primary-quota
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2314s (since 2026-11-05T16:01:08Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2270s (since 2026-11-05T16:01:52Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2284s (since 2026-11-05T16:01:38Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2312s (since 2026-11-05T16:01:10Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2312s (since 2026-11-05T16:01:10Z)
-> watcher ticking but cooldown for 2314s (since 2026-11-05T16:01:08Z); detail: rest latch set-by=receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite expiry=1793898068
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2281s (since 2026-11-05T16:01:41Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 2614s (since 2026-11-05T16:01:08Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 2615s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2570s (since 2026-11-05T16:01:52Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 2615s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 2615s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2615s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2613s (since 2026-11-05T16:01:09Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2613s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2584s (since 2026-11-05T16:01:38Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2615s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/list: watcher ticking but cooldown for 2612s (since 2026-11-05T16:01:10Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 2613s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2612s (since 2026-11-05T16:01:10Z)
+> watcher ticking but cooldown for 2614s (since 2026-11-05T16:01:08Z); detail: rest latch set-by=receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite expiry=1793898068
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2581s (since 2026-11-05T16:01:41Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 2615s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2613s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 2613s (since 2026-11-05T16:01:09Z)
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden_journal.md)
 
@@ -2304,7 +2297,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 159.4M | $594.96 _(notional, rate-card)_ | 59% of 271.0M (ok) |
-| Codex | 353.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 354.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154879057 tokens/day lower bound._
 
