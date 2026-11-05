@@ -22,3 +22,13 @@ Do this:
 3. Do not merge #246 by hand and do not bypass any screening gate. Do not resume the delegation if it is paused.
 
 Report the named cause with the log evidence. If #246 then screens, say so; the supervisor `minion-town-arc-press` picks it up from there.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T04:51:08Z
