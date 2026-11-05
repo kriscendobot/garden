@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-first-users-orchestration-20261104
-priority: normal
-posted_by: producer
+role: gardener
+tier: mentor
 posted_at: 2026-11-05T00:00:18Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-05T00:06:42Z cleared=none -->
 
 ---
 role: gardener
