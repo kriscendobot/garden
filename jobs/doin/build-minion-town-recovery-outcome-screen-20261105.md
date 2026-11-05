@@ -22,6 +22,7 @@ Repo: kriscendobot/minion.town (base: current main). Maintainer evaluates produc
 
 **Context already handled by the liaison (do not redo):** "wait list not available" was a missing DynamoDB table; `deploy/aws/scripts/deploy-waitlist-store.sh` had never been run. It was run on 2026-11-05, and `POST /api/waitlist` now returns 202. A probe row was inserted and deleted. Add a production smoke check for `/api/waitlist` to the deploy probe (`deploy/probe/prod-objectives.mjs`) so a missing store fails the deploy loudly instead of surfacing as "unavailable" to a visitor, and make the splash's error text say the list is temporarily unavailable and how to retry, not a bare "not available".
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
