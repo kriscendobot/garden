@@ -75,6 +75,7 @@ Open the design as a DRAFT PR on `kriscendobot/minion.town`. Under the maintaine
 the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 design's `## Open questions`.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
