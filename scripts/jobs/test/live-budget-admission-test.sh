@@ -386,13 +386,13 @@ level_env=(GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="
   GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1 ACT="$ACT"
   GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send")
 env "${level_env[@]}" GARDEN_STATE="$TR/level-state" "$JOBS/budget-level.sh" >"$LOUT" 2>&1
-if grep -q '^local gardener 1$' "$ACT" && grep -q '^remote clamphost op=set-workers' "$ACT"; then
+if grep -q '^local monk 1$' "$ACT" && grep -q '^remote clamphost op=set-workers' "$ACT"; then
   ok "failed local actuation does not prevent later pool actuation"
 else
   bad "leveling actions: $(tr '\n' ';' < "$ACT")"
 fi
 if grep -q '^remote monkhost op=set-workers kind=monk count=1$' "$ACT" \
-   && ! grep -q '^remote monkhost op=set-workers kind=monk' "$ACT"; then
+   && ! grep -q '^remote monkhost op=set-workers kind=gardener' "$ACT"; then
   ok "cut-over host is steered via its active kind (monk), not the hardcoded gardeners line"
 else
   bad "monkhost active-kind steering wrong: $(tr '\n' ';' < "$ACT")"
@@ -410,6 +410,42 @@ grep -q 'pool=anthropic:failhost host=failhost operation=send-host-set-workers f
   && ok "failed remote actuation is isolated and fully diagnosed" \
   || bad "missing remote actuation diagnostic: $(tr '\n' ';' < "$LOUT")"
 
+# EX_TEMPFAIL from set-workers is expected shared-journal contention, not a hard
+# pool failure. Retry the same retained target on later ticks, warn only on the
+# episode edge, and summarize suppressed repeats when actuation recovers.
+TACT="$TR/tempfail-act.log"; : > "$TACT"
+printf '#!/bin/bash\nprintf "%%s %%s %%s %%s\\n" "$1" "$2" "$3" "$4" >> "%s"\nif [ "$1" = failhost ] && [ ! -e "%s" ]; then exit 75; fi\n' "$TACT" "$TR/tempfail-release" > "$TR/tempsend"
+chmod +x "$TR/tempsend"
+tempfail_env=("${level_env[@]}" GARDEN_STATE="$TR/tempfail-state" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/tempsend")
+for tick in 1 2; do
+  env "${tempfail_env[@]}" "$JOBS/budget-level.sh" >"$TR/tempfail$tick.out" 2>&1
+done
+: > "$TR/tempfail-release"
+env "${tempfail_env[@]}" "$JOBS/budget-level.sh" >"$TR/tempfail3.out" 2>&1
+if [ "$(grep -c '^failhost op=set-workers kind=monk count=1$' "$TACT")" -eq 3 ]; then
+  ok "temporary-unavailable set-workers retains and retries the same target on later ticks"
+else
+  bad "temporary set-workers did not retain target: $(tr '\n' ';' < "$TACT")"
+fi
+if grep -q 'temporarily unavailable (rc=75); retaining target for the next tick' "$TR/tempfail1.out" \
+   && ! grep -q 'temporarily unavailable' "$TR/tempfail2.out" \
+   && grep -q 'actuation recovered for host=failhost kind=monk.*after 1 suppressed repeat' "$TR/tempfail3.out" \
+   && ! grep -q 'pool=anthropic:failhost.*failed exit_status=75' "$TR/tempfail1.out"; then
+  ok "temporary-unavailable actuation diagnostic is edge-latched through recovery"
+else
+  bad "temporary actuation diagnostic was noisy or incomplete: first=$(tr '\n' ';' < "$TR/tempfail1.out") second=$(tr '\n' ';' < "$TR/tempfail2.out") recovery=$(tr '\n' ';' < "$TR/tempfail3.out")"
+fi
+git -C "$LSEED" pull -q --rebase
+TEMPFAIL_LEDGER="$(find "$LSEED/budget/decisions" -maxdepth 1 -name '*-testhost.jsonl' -print -quit)"
+if [ -n "$TEMPFAIL_LEDGER" ] && jq -e 'select(.loop == "budget-level"
+  and .input.host == "failhost" and .outcome == "fail-open-skipped"
+  and .outcome_detail == "send-host-set-workers temporarily unavailable; target retained for next tick")' \
+  "$TEMPFAIL_LEDGER" >/dev/null; then
+  ok "temporary-unavailable actuation is classified distinctly in the decision ledger"
+else
+  bad "temporary actuation decision was not classified distinctly"
+fi
+
 # Dwell: a RAISE waits for GARDEN_BUDGET_LEVEL_UP_CONFIRM consecutive same-direction
 # ticks before it moves — a single low reading (possibly stale/noisy) never jumps the
 # count up. uphost spends ~0 of cap 1000 → target the band max (4).
@@ -426,7 +462,7 @@ up_env=(GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$UB
   GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_NO_MAINTAINER_ALERT=1
   GARDEN_STATE="$TR/up-state" GARDEN_BUDGET_LEVEL_SET_WORKERS="$TR/set" GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/upsend")
 env "${up_env[@]}" "$JOBS/budget-level.sh" >"$TR/up1.out" 2>&1   # tick 1: confirm 1/2, hold
-[ ! -s "$UACT" ] && grep -q 'dwell uphost gardener 2->4 (up 1/2)' "$TR/up1.out" \
+[ ! -s "$UACT" ] && grep -q 'dwell uphost monk 2->4 (up 1/2)' "$TR/up1.out" \
   && ok "a raise is held on the first tick (dwell confirms before moving up)" \
   || bad "raise not held on tick 1: act=$(tr '\n' ';' < "$UACT") log=$(tr '\n' ';' < "$TR/up1.out")"
 env "${up_env[@]}" "$JOBS/budget-level.sh" >"$TR/up2.out" 2>&1   # tick 2: confirm 2/2, one step
@@ -465,7 +501,7 @@ uncal_env=(GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="
 for tick in 1 2; do
   env "${uncal_env[@]}" GARDEN_USAGE_NOW=$(( NOW + tick )) "$JOBS/budget-level.sh" >"$TR/uncal$tick.out" 2>&1
 done
-if [ ! -s "$UNACT" ] && grep -q 'fleet monk allocation frozen: anthropic:unchost uncalibrated' "$TR/uncal1.out"; then
+if [ ! -s "$UNACT" ] && grep -q 'fleet monk allocation frozen: no calibrated, physically-backed Anthropic weekly pools' "$TR/uncal1.out"; then
   ok "an uncalibrated cap levels nothing (config disclaims the setpoint)"
 else
   bad "uncalibrated pool: act=$(tr '\n' ';' < "$UNACT") log=$(tr '\n' ';' < "$TR/uncal1.out")"

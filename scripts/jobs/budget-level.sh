@@ -14,6 +14,7 @@ export GARDEN_TAG=budget-level
 : "${GARDEN_BUDGET_LEVEL_DOWN_CONFIRM:=1}"
 : "${GARDEN_BUDGET_LEVEL_DWELL_DIR:=$GARDEN_STATE/budget-level/dwell}"
 : "${GARDEN_BUDGET_LEVEL_FAILURE_LATCH_DIR:=$GARDEN_STATE/budget-level/remote-spend-failures}"
+: "${GARDEN_BUDGET_LEVEL_ACTUATION_LATCH_DIR:=$GARDEN_STATE/budget-level/actuation-tempfailures}"
 : "${GARDEN_BUDGET_LEVEL_SET_WORKERS:=$HERE/set-workers.sh}"
 : "${GARDEN_BUDGET_LEVEL_SEND_HOST_OP:=$HERE/send-host-op.sh}"
 : "${GARDEN_WORKER_LEVELING_PATH:=config/worker-leveling}"
@@ -37,6 +38,39 @@ dwell_bump() { # host kind direction
 }
 dwell_reset() { local f; f="$(_dwell_file "$1" "$2")"; mkdir -p "$(dirname "$f")" 2>/dev/null || true; printf 'dir=none\nstreak=0\n' >"$f.tmp" 2>/dev/null && mv "$f.tmp" "$f" 2>/dev/null || true; }
 uncalibrated() { case "$(printf %s "${1:-}" | tr '[:upper:]' '[:lower:]')" in ''|-|none|placeholder|uncalibrated|seed|tbd|todo) return 0;; *) return 1;; esac; }
+actuation_tempfail_file() { # host kind
+  printf '%s/%s-%s\n' "$GARDEN_BUDGET_LEVEL_ACTUATION_LATCH_DIR" \
+    "${1//[^A-Za-z0-9._-]/_}" "${2//[^A-Za-z0-9._-]/_}"
+}
+actuation_tempfailed() { # host kind operation next
+  local host="$1" kind="$2" operation="$3" next="$4" file fingerprint suppressed=0 tmp
+  file="$(actuation_tempfail_file "$host" "$kind")"
+  fingerprint="$operation:$next"
+  mkdir -p "$(dirname "$file")" 2>/dev/null || true
+  if [ -f "$file" ] && [ "$(sed -n 's/^fingerprint=//p' "$file" 2>/dev/null | head -1)" = "$fingerprint" ]; then
+    suppressed="$(sed -n 's/^suppressed=//p' "$file" 2>/dev/null | head -1)"
+    [[ "$suppressed" =~ ^[0-9]+$ ]] || suppressed=0
+    suppressed=$((suppressed + 1))
+  else
+    log "WARN: budget-level $operation for host=$host kind=$kind target=$next is temporarily unavailable (rc=$GARDEN_OFFLINE_RC); retaining target for the next tick (identical repeats suppressed until actuation recovers)"
+  fi
+  tmp="$file.$$"
+  if printf 'fingerprint=%s\nsuppressed=%s\n' "$fingerprint" "$suppressed" >"$tmp" 2>/dev/null; then
+    mv "$tmp" "$file" 2>/dev/null || true
+  fi
+}
+actuation_tempfail_clear() { # host kind [recovered]
+  local host="$1" kind="$2" recovered="${3:-false}" file suppressed fingerprint
+  file="$(actuation_tempfail_file "$host" "$kind")"
+  [ -f "$file" ] || return 0
+  suppressed="$(sed -n 's/^suppressed=//p' "$file" 2>/dev/null | head -1)"
+  fingerprint="$(sed -n 's/^fingerprint=//p' "$file" 2>/dev/null | head -1)"
+  [[ "$suppressed" =~ ^[0-9]+$ ]] || suppressed=0
+  rm -f "$file" 2>/dev/null || return 0
+  if [ "$recovered" = true ]; then
+    log "budget-level actuation recovered for host=$host kind=$kind ($fingerprint) after $suppressed suppressed repeat(s)"
+  fi
+}
 # meter_remote_snapshot_total's stderr (its rc-9 field-mismatch detail) lands here
 # per call, so pool_failure can name WHICH snapshot field diverged.
 SNAP_ERR="$GARDEN_STATE/budget-level/snapshot.err"
@@ -296,8 +330,8 @@ pending_identical_set_workers(){
 apply_target(){ # pool host kind current target reason signal-value limit provenance sensor
  local pool="$1" h="$2" kind="$3" cur="$4" target="$5" reason="$6"
  local signal_value="$7" limit="$8" provenance="$9" sensor="${10}"
- local dir conf streak next id operation operation_status decision_name decision_input_json
- [ "$cur" -ne "$target" ]||{ dwell_reset "$h" "$kind";return; }
+ local dir conf streak next id operation operation_status operation_detail decision_name decision_input_json
+ [ "$cur" -ne "$target" ]||{ actuation_tempfail_clear "$h" "$kind" true;dwell_reset "$h" "$kind";return; }
  if [ "$target" -gt "$cur" ];then dir=up;conf="$GARDEN_BUDGET_LEVEL_UP_CONFIRM";else dir=down;conf="$GARDEN_BUDGET_LEVEL_DOWN_CONFIRM";fi
  streak="$(dwell_bump "$h" "$kind" "$dir")";[ "$streak" -ge "$conf" ]||{ log "budget-level dwell $h $kind $cur->$target ($dir $streak/$conf); holding this tick";return; }
  if [ "$dir" = up ];then next=$((cur+GARDEN_BUDGET_LEVEL_STEP));[ "$next" -le "$target" ]||next="$target";else next=$((cur-GARDEN_BUDGET_LEVEL_STEP));[ "$next" -ge "$target" ]||next="$target";fi
@@ -317,17 +351,32 @@ apply_target(){ # pool host kind current target reason signal-value limit proven
    --arg provenance "$provenance" --argjson target "$target" \
    '{pool:$pool,host:$host,worker_kind:$worker_kind,sensor:$sensor,signal_value:$signal_value,limit:$limit,provenance:$provenance,target:$target}')"; then
   if [ "$operation_status" -eq 0 ]; then
+   operation_detail="$operation accepted"
    record_decision --loop budget-level --input-json "$decision_input_json" \
      --decision "$decision_name" --from-json "$cur" --to-json "$next" \
-     --reason "$reason" --outcome applied --outcome-detail "$operation accepted"
+     --reason "$reason" --outcome applied --outcome-detail "$operation_detail"
   else
+   if [ "$operation_status" -eq "$GARDEN_OFFLINE_RC" ]; then
+    operation_detail="$operation temporarily unavailable; target retained for next tick"
+   else
+    operation_detail="$operation failed with exit status $operation_status"
+   fi
    record_decision --loop budget-level --input-json "$decision_input_json" \
      --decision "$decision_name" --from-json "$cur" --to-json "$next" \
      --reason "$reason" --outcome fail-open-skipped \
-     --outcome-detail "$operation failed with exit status $operation_status"
+     --outcome-detail "$operation_detail"
   fi
  fi
- [ "$operation_status" -eq 0 ]||{ pool_failure "$pool" "$h" "$operation" "$operation_status";return;}
+ if [ "$operation_status" -eq "$GARDEN_OFFLINE_RC" ]; then
+  actuation_tempfailed "$h" "$kind" "$operation" "$next"
+  return
+ fi
+ if [ "$operation_status" -ne 0 ]; then
+  actuation_tempfail_clear "$h" "$kind"
+  pool_failure "$pool" "$h" "$operation" "$operation_status"
+  return
+ fi
+ actuation_tempfail_clear "$h" "$kind" true
  log "leveled $h $kind $cur->$next (target $target; $reason)";alert_maintainer "budget-level-$kind-$h-$next" "budget-level changed $h $kind workers $cur -> $next (target $target): $reason"
 }
 
