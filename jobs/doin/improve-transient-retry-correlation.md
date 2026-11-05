@@ -11,6 +11,7 @@ scripts/jobs/gardener.sh:1941 records a second transient failure only as progres
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T14:33:20Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
