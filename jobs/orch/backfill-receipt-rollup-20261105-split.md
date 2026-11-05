@@ -1,4 +1,5 @@
 ---
+child-backfill-receipt-rollup-20261105-expanded-window-reap-count: 0
 order: serial
 children: backfill-receipt-rollup-20261105-expanded-window
 on-child-failure: halt
