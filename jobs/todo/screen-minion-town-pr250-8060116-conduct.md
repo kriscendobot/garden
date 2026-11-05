@@ -1,7 +1,8 @@
 ---
 posted_at: 2026-11-05T11:54:41Z
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: conductor
@@ -22,13 +23,5 @@ approval is required; do not request one.
 
 PR: https://github.com/kriscendobot/minion.town/pull/250
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T11:54:57Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-05T12:13:10Z -->

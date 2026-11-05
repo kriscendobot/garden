@@ -1,50 +1,66 @@
 ---
-posted_at: 2026-11-05T11:57:30Z
+gate: go-ahead
+priority: normal
+gauntlet: endojs-endo-but-for-bots-pr1652-gauntlet
+role: gardener
+tier: mentor
+handler-budget-role: shepherd
+handler-timeout: 10800
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: transient
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-05T12:03:14Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-05T12:03:14Z
+---
+
+---
+posted_at: 2026-11-05T11:57:10Z
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 10800
-gauntlet: kriscendobot-minion.town-pr243-gauntlet
+gauntlet: endojs-endo-but-for-bots-pr1652-gauntlet
 gauntlet_stage: fix
-gauntlet_iteration: 1
-pr: https://github.com/kriscendobot/minion.town/pull/243
+gauntlet_iteration: 5
+pr: https://github.com/endojs/endo-but-for-bots/pull/1652
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
 
-# Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
+# Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1652
 
-You are ONE stage of a staged gauntlet (kriscendobot-minion.town-pr243-gauntlet). Apply the panel's must-fix items ONCE,
-push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
+You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr1652-gauntlet). Apply the panel's must-fix items ONCE,
+push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-6).
 
 Garden script names below are repo-relative. Resolve them against THIS claiming
 worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
 posting host's garden root.
 
 1. Get an ISOLATED project checkout of the PR head:
-   `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion.town-pr243-gauntlet-fix-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
-   Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/243 --json headRepositoryOwner,headRefName`;
+   `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr1652-gauntlet-fix-5 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+   Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1652 --json headRepositoryOwner,headRefName`;
    do not pass the base repo when the PR head belongs to a fork.
 2. If an exact deterministic pre-pass output block appears below, apply every
-   finding in that block; panel-1 stopped before dispatching jurors and there
+   finding in that block; panel-5 stopped before dispatching jurors and there
    is no PR review for this round. If no block appears, read the LATEST panel
-   verdict on https://github.com/kriscendobot/minion.town/pull/243 (a request-changes review, or a comment review headed
+   verdict on https://github.com/endojs/endo-but-for-bots/pull/1652 (a request-changes review, or a comment review headed
    `Must-fix before merge` when the bot authored the PR) and apply its must-fix
    items. A prepass-failed report with an absent/empty block is missing
    evidence: fail closed rather than guessing.
 
-<!-- gauntlet-style-prepass-output-begin -->
-probe spell-out-identifiers     fail (exit 1)
-  fail: tools/guide-recipes/local-daemon-server.ts adds abbreviated identifier `makeDaemonTmp` (`tmp` -> spell out, e.g. `temporary`)
-advisory comment concision      warn (non-blocking)
-  fire pruner tools/guide-recipes/local-daemon-server.ts:2 (+3-line prose comment) — decide whether it adds a non-obvious invariant or rationale; require deletion if it only narrates adjacent code
-result: 1 failing stage(s); address and re-run.
-<!-- gauntlet-style-prepass-output-end -->
+
 3. Push the fix as review-feedback follow-up commits to the PR head with
    `scripts/jobs/gardening/safe-push-pr-head.sh`.
 4. Watch CI to terminal, BOUNDED (same as the clean stage):
    `GARDEN_CI_DEADLINE_SECS=3600 \
-     scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 243 --no-merge`
+     scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1652 --no-merge`
    - rc 0 (GREEN): success.
    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
@@ -57,14 +73,3 @@ completion signal; the completion signal itself stays the very last line:
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T11:58:03Z
