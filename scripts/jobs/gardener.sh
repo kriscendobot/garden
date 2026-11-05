@@ -536,6 +536,60 @@ while :; do
     continue
   fi
 
+  # --- staged-gauntlet STATUS PROBE -----------------------------------------
+  # A gauntlet wait is board observation, not reasoning.  Run one read-only tick
+  # with no LLM.  Terminal output becomes the durable child report; an active
+  # reading atomically returns this same child to todo behind a short not-before
+  # marker.  The worker is then free immediately, including during a later drain.
+  gauntlet_probe="$(plan_field "$jobfile" gauntlet-status-probe)"
+  if [ -n "$gauntlet_probe" ]; then
+    "$HERE/inbox-read.sh" "$base" || true
+    probe_rc=0
+    # Read through this worker's private journal clone.  The standing gauntlet
+    # timer owns its own checkout and may mutate it after sync; sharing that
+    # working tree would turn a read-only probe into a checkout race.
+    GARDEN_GAUNTLET_CLONE="$CLONE" \
+      "$HERE/gauntlet.sh" --status-probe "$gauntlet_probe" > "$report" || probe_rc=$?
+    case "$probe_rc" in
+      0)
+        probe_status="$(sed -n 's/^gauntlet-status:[[:space:]]*//p' "$report" | head -1)"
+        case "$probe_status" in
+          complete|held-draft)
+            log "completed successful gauntlet status probe '$base' for '$gauntlet_probe' ($probe_status; no LLM)"
+            "$HERE/complete-job.sh" "$id" "$base" "$report" \
+              || die "could not complete gauntlet status probe '$base'"
+            ;;
+          *)
+            # A waiter is normally an orchestration gate.  Only an ordinary pass
+            # (complete) or a ledger-authorized held draft may release its next
+            # child; every other terminal state deterministically halts the chain.
+            log "completed unsuccessful gauntlet status probe '$base' for '$gauntlet_probe' ($probe_status; no LLM)"
+            "$HERE/complete-job.sh" --orchestration-failed "$id" "$base" "$report" \
+              || die "could not complete failed gauntlet status probe '$base'"
+            ;;
+        esac
+        rm -f "$report"
+        continue
+        ;;
+      3)
+        probe_delay="$(plan_field "$jobfile" gauntlet-status-probe-delay)"
+        case "$probe_delay" in ''|*[!0-9]*) probe_delay=180;; esac
+        [ "$probe_delay" -gt 0 ] 2>/dev/null || probe_delay=180
+        [ "$probe_delay" -le 3600 ] || probe_delay=3600
+        "$HERE/defer-gauntlet-status-probe.sh" "$id" "$base" "$probe_delay" \
+          || die "could not defer active gauntlet status probe '$base'"
+        rm -f "$report"
+        continue
+        ;;
+      *)
+        log "gauntlet status probe '$base' failed closed for '$gauntlet_probe' (rc=$probe_rc); leaving claim for deterministic retry/doom"
+        ( stamp_terminal_handler_failure_hint "$CLONE" "$JOBS_DOIN/$base.md" ) || true
+        rm -f "$report"
+        continue
+        ;;
+    esac
+  fi
+
   # Watcher-proven Dependabot terminal dispositions are fixed directives, not an
   # invitation for whichever model won the claim to improvise the close. They are
   # host-pinned by `requires: host=...`; execute the live-proof recheck and close

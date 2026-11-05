@@ -80,6 +80,10 @@ own_worker_stopping() {
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
   local jf="$1" tier pin constrained_provider role routed_model trial budget_role
+  # Status probes execute entirely in the shared deterministic spine.  They need
+  # no provider-specific posture, so provider loss in one pool must not strand the
+  # wait behind a `role: gardener` header inherited from an older authored waiter.
+  [ -z "$(plan_field "$jf" gauntlet-status-probe)" ] || return 0
   if [ "$(plan_field "$jf" ratchet-arc)" = ironhorse-test262-ratchet ]; then
     python3 "$HERE/ratchet/policy.py" active "$DIR" >/dev/null 2>&1 || return 1
   fi
@@ -403,7 +407,7 @@ for ((k=0; k<n; k++)); do
     missing="$(job_requirements_missing "$DIR/$JOBS_TODO/$c")"
     log "'${c%.md}' requires host capability ${missing:-invalid-requires-header}; skipping (host-requirements)"
     host_ineligible+=("$c")
-  elif grep -q '^canary-probe: true' "$DIR/$JOBS_TODO/$c" 2>/dev/null; then
+  elif grep -qE '^(canary-probe: true|gauntlet-status-probe:)' "$DIR/$JOBS_TODO/$c" 2>/dev/null; then
     probes+=("$c")
   elif job_is_aged "$c"; then
     aged+=("$c")
@@ -414,21 +418,22 @@ done
 [ "${#aged[@]}" -gt 0 ] && log "${#aged[@]} job(s) in todo/ past the ${CLAIM_AGING_SECONDS}s aging threshold; trying them before the rotation"
 cand=("${probes[@]}" "${aged[@]}" "${rest[@]}")
 
-# A canary probe posted AFTER this pass took its snapshot preempts the rest of the
-# pass. Under journal contention each lost race costs minutes, so a pass over a dozen
-# aged jobs can run for half an hour while the probe's deadline expires unseen
+# A canary or deterministic gauntlet status probe posted AFTER this pass took its
+# snapshot preempts the rest of the pass. Under journal contention each lost race
+# costs minutes, so a pass over a dozen aged jobs can run for half an hour while a
+# probe's deadline expires unseen
 # (oros 2026-10-14: five idle monks spent 00:18-00:42 losing every race on 12 aged
 # jobs; probes r1 and r2 for 242f944c were never tried and the roll drained a
 # healthy canary). Checked after each re-sync, so the probe waits at most one attempt.
 declare -A in_pass=()
 # A probe pinned to another host was already judged above; it is not a late arrival.
 for c in "${cand[@]}" "${host_ineligible[@]}"; do in_pass["$c"]=1; done
-late_canary_probe() {
+late_priority_probe() {
   local f leaf
   for f in "$DIR/$JOBS_TODO"/*.md; do
     leaf="${f##*/}"
     [ -z "${in_pass[$leaf]:-}" ] || continue
-    grep -q '^canary-probe: true' "$f" 2>/dev/null || continue
+    grep -qE '^(canary-probe: true|gauntlet-status-probe:)' "$f" 2>/dev/null || continue
     printf '%s\n' "$leaf"; return 0
   done
   return 1
@@ -444,11 +449,11 @@ while [ "${#cand[@]}" -gt 0 ]; do
   fi
   # re-sync each attempt: the board may have moved under us
   sync_clone "$DIR"
-  if late="$(late_canary_probe)"; then
+  if late="$(late_priority_probe)"; then
     in_pass["$late"]=1; n=$((n + 1))
     cand=("$leaf" "${cand[@]}")
     base="${late%.md}"
-    log "canary probe '$base' appeared mid-pass; trying it next"
+    log "priority probe '$base' appeared mid-pass; trying it next"
   fi
   [ -e "$DIR/$JOBS_TODO/$base.md" ] || { log "'$base' already taken; next"; continue; }
 
@@ -458,6 +463,15 @@ while [ "${#cand[@]}" -gt 0 ]; do
     if [[ "$retry_not_before_epoch" =~ ^[0-9]+$ ]] \
        && [ "$claim_now" -lt "$retry_not_before_epoch" ]; then
       log "'$base' is in its sole plain-exit retry back-off until $retry_not_before; skipping"
+      continue
+    fi
+  fi
+  probe_not_before="$(gauntlet_probe_not_before "$DIR/$JOBS_TODO/$base.md" 2>/dev/null || true)"
+  if [ -n "$probe_not_before" ]; then
+    probe_not_before_epoch="$(date -u -d "$probe_not_before" +%s 2>/dev/null || true)"
+    if [[ "$probe_not_before_epoch" =~ ^[0-9]+$ ]] \
+       && [ "$claim_now" -lt "$probe_not_before_epoch" ]; then
+      log "'$base' is a gauntlet status probe deferred until $probe_not_before; skipping"
       continue
     fi
   fi

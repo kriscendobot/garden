@@ -8581,6 +8581,7 @@ REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
 # producer-authored scheduling request), so every plan-queue boundary strips it
 # with the rest of the cycle-marker family.
 PLAIN_RETRY_NOT_BEFORE_MARKER_RE='^<!-- garden-plain-retry-not-before: [0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z -->$'
+GAUNTLET_PROBE_NOT_BEFORE_MARKER_RE='^<!-- garden-gauntlet-probe-not-before: [0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z -->$'
 
 # plain_retry_not_before <jobfile> — echo the recorded UTC deadline, or nothing
 # when this is not a backed-off plain retry.  A malformed marker is ignored so a
@@ -8591,6 +8592,16 @@ plain_retry_not_before() {
   line="$(grep -E "$PLAIN_RETRY_NOT_BEFORE_MARKER_RE" "$f" | tail -1 2>/dev/null || true)"
   [ -n "$line" ] || return 1
   printf '%s\n' "$line" | sed -nE 's/^<!-- garden-plain-retry-not-before: ([^ ]+) -->$/\1/p'
+}
+
+# A deterministic gauntlet wait probe re-posts itself rather than holding a
+# handler.  This marker is its short claim-admission delay, separate from the
+# reaper's one-shot plain-failure retry accounting.
+gauntlet_probe_not_before() {
+  local f="${1:-}" line
+  [ -f "$f" ] || return 0
+  line="$(grep -E "$GAUNTLET_PROBE_NOT_BEFORE_MARKER_RE" "$f" | tail -1 2>/dev/null || true)"
+  printf '%s\n' "$line" | sed -nE 's/^<!-- garden-gauntlet-probe-not-before: ([^ ]+) -->$/\1/p'
 }
 
 # reap_count <jobfile> — the reaper's requeue-cycle count carried on a job, read
@@ -9263,7 +9274,7 @@ stamp_outage_cycle_hint() {
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
 # spelling of "the family", so no caller enumerates the members itself.
-CYCLE_MARKER_RE="$REAP_MARKER_RE|$PLAIN_RETRY_NOT_BEFORE_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$TERMINAL_HANDLER_FAILURE_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$POLICY_REFUSAL_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
+CYCLE_MARKER_RE="$REAP_MARKER_RE|$PLAIN_RETRY_NOT_BEFORE_MARKER_RE|$GAUNTLET_PROBE_NOT_BEFORE_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$TRANSIENT_ELAPSED_MARKER_RE|$REAP_NOW_MARKER_RE|$TERMINAL_HANDLER_FAILURE_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$POLICY_REFUSAL_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
 
 # strip_cycle_markers — drop every cycle-marker line from a job body (stdin -> stdout).
 # Idempotent by construction: a body with no markers passes through byte-identical, and

@@ -256,6 +256,12 @@ tick   # fresh record → post clean
 { in_dir jobs/todo g1-clean && [ "$(record_field g1 current_child)" = g1-clean ] && [ "$(record_field g1 stage)" = clean ]; } \
   && ok "tick 1: posted g1-clean, record at stage=clean" \
   || bad "tick 1: todo=[$(board jobs/todo)] stage=$(record_field g1 stage) child=$(record_field g1 current_child)"
+probe_rc=0
+probe_out="$("$JOBS/gauntlet.sh" --status-probe g1 2>/dev/null)" || probe_rc=$?
+{ [ "$probe_rc" -eq 3 ] && grep -qx 'gauntlet-probe: active' <<<"$probe_out" \
+    && grep -qx 'current-child: g1-clean' <<<"$probe_out"; } \
+  && ok "single-tick status probe reports the live record and returns immediately" \
+  || bad "active status probe rc=$probe_rc output=[$probe_out]"
 clean_body="$(todo_body g1-clean)"
 { printf '%s' "$clean_body" | grep -q 'scripts/jobs/ensure-project-worktree.sh' \
     && ! printf '%s' "$clean_body" | grep -Fq "$POSTING_GARDEN_ROOT/"; } \
@@ -312,6 +318,13 @@ tick   # undraft done → finish
 printf '%s' "$(tada_body g1)" | grep -qi 'gauntlet-status: complete' \
   && ok "the completion summary marks gauntlet-status: complete" \
   || bad "completion summary missing the complete marker"
+probe_rc=0
+probe_out="$("$JOBS/gauntlet.sh" --status-probe g1 2>/dev/null)" || probe_rc=$?
+{ [ "$probe_rc" -eq 0 ] && grep -qx 'gauntlet-probe: terminal' <<<"$probe_out" \
+    && grep -qx 'gauntlet-status: complete' <<<"$probe_out" \
+    && grep -q '^--- terminal gauntlet report ---$' <<<"$probe_out"; } \
+  && ok "single-tick status probe emits the terminal report for durable completion" \
+  || bad "terminal status probe rc=$probe_rc output=[$probe_out]"
 printf '%s' "$(tada_body g1)" | grep -qx "panel_head: $(printf '%040d' 1)" \
   && printf '%s' "$(tada_body g1)" | grep -qx 'repo: testowner/testrepo' \
   && printf '%s' "$(tada_body g1)" | grep -qx 'pr_number: 1' \

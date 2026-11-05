@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-10-24
+updated: 2026-11-05
 author: gardener
 ---
 
@@ -144,12 +144,28 @@ successful no-op. `post-plan.sh` continues to WARN on its analogous collision.
   plus `deliverable-complete: false`. This completes an evidenced transfer, never
   the unfinished deliverable itself.
   Touches only your own basename, so **retry with backoff until it lands**.
+
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
   Before requeueing or splitting a recurring scheduled claim, the reaper checks its
   durable `schedule(<name>) dispatched <base>` identity. If a newer dispatch of the
   same interchangeable schedule exists in todo/doin/tada, it retires the stale run
   to tada with `status: superseded`; `interchangeable: false` on the schedule opts
   periods that must all finish out of this behavior.
+
+### Waiting on a staged gauntlet
+
+Do not give an agent child a foreground polling prompt. A wait child declares
+`gauntlet-status-probe: <gauntlet-base>` in its leading frontmatter (and may set
+`gauntlet-status-probe-delay: <seconds>`, default 180). The gardener runs
+`gauntlet.sh --status-probe` without an LLM. One tick reads one synced journal
+snapshot: while the gauntlet record is active, the claimed child is atomically
+re-posted behind a short not-before marker; when the record disappears, the
+terminal gauntlet report becomes the child's durable tada report. The same child
+therefore remains active to an orchestration without holding a worker session,
+and any provider can claim it even if an older job body says `role: gardener`.
+Only `complete` and `held-draft` are successful probe outcomes; every other
+terminal status is stamped `orchestration-failed: true`, so a review-budget or
+halted result cannot accidentally release a merge/deploy successor.
 
 ## Per-job handler budget (`handler-timeout:`)
 

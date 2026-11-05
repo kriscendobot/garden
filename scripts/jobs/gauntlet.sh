@@ -6,6 +6,7 @@
 #
 # Usage:
 #   gauntlet.sh                                      (timer tick)
+#   gauntlet.sh --status-probe <g>                   (one read-only observation)
 #   gauntlet.sh --resume-from-stage <g> <stage> [--iteration N] [--add-rounds N]
 #               [--stage-requires TOKENS]
 #
@@ -103,7 +104,11 @@ export GARDEN_TAG="gauntlet"
 
 require_tools git
 
-fleet_draining && exit 0
+# Ordinary driver ticks remain a zero-I/O no-op under drain.  A status probe is
+# permitted to finish its already-claimed observation so it can release the worker.
+status_probe_invocation=false
+[ "${1:-}" != --status-probe ] || status_probe_invocation=true
+$status_probe_invocation || { fleet_draining && exit 0; }
 
 DIR="${GARDEN_GAUNTLET_CLONE:-$GARDEN_STATE/gauntlet/journal}"
 ensure_clone "$DIR"
@@ -114,7 +119,12 @@ resume_requested_stage=""
 resume_requested_iteration=""
 resume_add_rounds=""
 resume_stage_requires="-"
-if [ "${1:-}" = --resume-from-stage ]; then
+status_probe_base=""
+if [ "${1:-}" = --status-probe ]; then
+  status_probe_base="${2:?--status-probe needs a gauntlet base}"
+  [ "$#" -eq 2 ] || die "usage: gauntlet.sh --status-probe <gauntlet-base>"
+  case "$status_probe_base" in -*|*/*|.*|'') die "illegal gauntlet base: '$status_probe_base'";; esac
+elif [ "${1:-}" = --resume-from-stage ]; then
   resume_base="${2:?--resume-from-stage needs a gauntlet base}"
   resume_requested_stage="${3:?--resume-from-stage needs viability|clean|panel|fix|undraft}"
   shift 3
@@ -130,7 +140,48 @@ if [ "${1:-}" = --resume-from-stage ]; then
     esac
   done
 elif [ "$#" -gt 0 ]; then
-  die "usage: gauntlet.sh [--resume-from-stage <g> <viability|clean|panel|fix|undraft> [--iteration N] [--add-rounds N] [--stage-requires TOKENS]]"
+  die "usage: gauntlet.sh [--status-probe <g> | --resume-from-stage <g> <viability|clean|panel|fix|undraft> [--iteration N] [--add-rounds N] [--stage-requires TOKENS]]"
+fi
+
+# A wait is an observation, not an agent engagement.  This mode reads exactly one
+# synced journal snapshot and returns immediately.  gardener.sh consumes its output:
+# an active reading is put back on the board behind a short not-before marker, while
+# a terminal reading becomes the wait job's durable tada report.  Thus a gauntlet
+# can remain active for hours without holding an LLM session (or a draining host)
+# open for hours.  The record wins over an older same-base tada: resumed gauntlets
+# deliberately retain terminal history while their new record is live.
+#
+# Exit 0 = terminal, 3 = active, 4 = neither record nor terminal report (fail closed).
+if [ -n "$status_probe_base" ]; then
+  rec="$DIR/$JOBS_GAUNTLET/$status_probe_base.md"
+  if [ -f "$rec" ]; then
+    printf 'gauntlet-probe: active\n'
+    printf 'gauntlet: %s\n' "$status_probe_base"
+    printf 'gauntlet-state: %s\n' "$(plan_field "$rec" state)"
+    printf 'stage: %s\n' "$(gauntlet_stage "$rec")"
+    printf 'iteration: %s\n' "$(gauntlet_iteration "$rec")"
+    printf 'current-child: %s\n' "$(plan_field "$rec" current_child)"
+    printf 'observed-at: %s\n' "$(date -u +%FT%TZ)"
+    exit 3
+  fi
+  terminal_rel="$(tada_find "$DIR" "$status_probe_base" || true)"
+  if [ -n "$terminal_rel" ]; then
+    terminal="$DIR/$terminal_rel"
+    terminal_status="$(sed -n 's/^gauntlet-status:[[:space:]]*//p' "$terminal" | head -1)"
+    [ -n "$terminal_status" ] || terminal_status=unknown
+    printf 'gauntlet-probe: terminal\n'
+    printf 'gauntlet: %s\n' "$status_probe_base"
+    printf 'gauntlet-status: %s\n' "$terminal_status"
+    printf 'terminal-report: %s\n' "$terminal_rel"
+    printf 'observed-at: %s\n' "$(date -u +%FT%TZ)"
+    printf -- '--- terminal gauntlet report ---\n'
+    cat "$terminal"
+    exit 0
+  fi
+  printf 'gauntlet-probe: missing\n'
+  printf 'gauntlet: %s\n' "$status_probe_base"
+  printf 'observed-at: %s\n' "$(date -u +%FT%TZ)"
+  exit 4
 fi
 
 # The CI-blocking stages (clean/fix) need a CI-sized handler budget; only the short
