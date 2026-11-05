@@ -2292,6 +2292,7 @@ BACKOFF_MODE="$TR/timeout-backoff.mode"
 BACKOFF_SOURCE="$TR/timeout-backoff-source.sh"
 cat > "$BACKOFF_SOURCE" <<'EOF'
 #!/bin/bash
+[ -z "${BACKOFF_CALLS:-}" ] || printf '%s\n' "$1" >> "$BACKOFF_CALLS"
 mode="$(cat "${BACKOFF_MODE:?}")"
 case "$mode" in
   timeout) exit 124 ;;
@@ -2389,8 +2390,19 @@ grep -q 'strike 2;.*20s' "$BACKOFF_LOG3" \
 FANOUT_STATE="$TR/state-timeout-fanout"
 FANOUT_COOL="$FANOUT_STATE/gh-api-cooldown"
 FANOUT_DIR="$FANOUT_STATE/comment-watcher/source-timeout-fanout"
+FANOUT_GH="$TR/timeout-fanout-gh.sh"
+cat > "$FANOUT_GH" <<'EOF'
+#!/bin/bash
+if [ "${FANOUT_QUOTA_EXHAUSTED:-0}" = 1 ]; then
+  printf '5000 0 %s\n' "$(( $(date +%s) + 70 ))"
+else
+  printf '5000 4000 %s\n' "$(( $(date +%s) + 70 ))"
+fi
+EOF
+chmod +x "$FANOUT_GH"
 run_timeout_fanout() {  # run_timeout_fanout <slug> <stderr-file>
   env GARDEN_STATE="$FANOUT_STATE" GARDEN_API_COOLDOWN_DIR="$FANOUT_COOL" \
+      GARDEN_GH="$FANOUT_GH" \
       GARDEN_COMMENT_TIMEOUT_FANOUT_DIR="$FANOUT_DIR" \
       GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS=60 \
       GARDEN_API_COOLDOWN_SECS=10 GARDEN_API_COOLDOWN_MAX_SECS=80 \
@@ -2428,6 +2440,40 @@ run_timeout_fanout endojs-five "$TR/timeout-fanout-5.err"
   && grep -q '5 distinct comment sources timed out within 60s' "$TR/timeout-fanout-5.err" \
   && ok "multi-slug timeout episode emits one threshold warning" \
   || bad "multi-slug timeout warning was missing or duplicated"
+
+# An empty core sample at the threshold is stronger evidence than the timeout
+# fanout alone: arm the reset-aware primary-quota latch, and prove the next slug
+# is rejected before its source executable is issued.
+QUOTA_FANOUT_STATE="$TR/state-timeout-fanout-quota"
+QUOTA_FANOUT_COOL="$QUOTA_FANOUT_STATE/gh-api-cooldown"
+QUOTA_FANOUT_DIR="$QUOTA_FANOUT_STATE/comment-watcher/source-timeout-fanout"
+QUOTA_FANOUT_CALLS="$TR/timeout-fanout-quota.calls"
+: > "$QUOTA_FANOUT_CALLS"
+run_quota_timeout_fanout() {
+  env GARDEN_STATE="$QUOTA_FANOUT_STATE" GARDEN_API_COOLDOWN_DIR="$QUOTA_FANOUT_COOL" \
+      GARDEN_COMMENT_TIMEOUT_FANOUT_DIR="$QUOTA_FANOUT_DIR" \
+      GARDEN_COMMENT_TIMEOUT_FANOUT_WINDOW_SECS=60 GARDEN_GH="$FANOUT_GH" \
+      FANOUT_QUOTA_EXHAUSTED=1 BACKOFF_CALLS="$QUOTA_FANOUT_CALLS" \
+      GARDEN_API_COOLDOWN_SECS=10 GARDEN_API_COOLDOWN_MAX_SECS=80 \
+      JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$BACKOFF_SOURCE" \
+      BACKOFF_MODE="$BACKOFF_MODE" GARDEN_COMMENT_SELFTEST=/bin/true \
+      GARDEN_NO_MAINTAINER_ALERT=1 \
+      "$JOBS/comment-watcher.sh" "$1" >/dev/null 2>"$2"
+}
+for n in one two three four five; do
+  run_quota_timeout_fanout "quota-$n" "$TR/timeout-fanout-quota-$n.err"
+done
+quota_fanout_expiry="$(sed -n '1p' "$QUOTA_FANOUT_COOL/marker" 2>/dev/null || echo 0)"
+run_quota_timeout_fanout quota-six "$TR/timeout-fanout-quota-six.err"
+[ "$(wc -l < "$QUOTA_FANOUT_CALLS")" -eq 5 ] \
+  && [ "$(sed -n '2p' "$QUOTA_FANOUT_COOL/marker")" = \
+       'comment:source-timeout-fanout:primary-quota' ] \
+  && [ "$(sed -n '3p' "$QUOTA_FANOUT_COOL/marker")" = primary-quota ] \
+  && [ "$quota_fanout_expiry" -gt "$(( $(date +%s) + 10 ))" ] \
+  && grep -q 'REST core quota is exhausted' "$TR/timeout-fanout-quota-five.err" \
+  && ok "exhausted core sample arms the primary-quota latch and later sources are not issued" \
+  || bad "exhausted fanout probe failed (calls=$(cat "$QUOTA_FANOUT_CALLS") marker=$(tr '\n' ' ' < "$QUOTA_FANOUT_COOL/marker" 2>/dev/null)): $(cat "$TR/timeout-fanout-quota-five.err")"
 
 # Incident replay (2026-10-30): five distinct slugs timed out over 78s, one watcher
 # round under the 90s cadence + 30s spread. The DEFAULT window must hold one whole

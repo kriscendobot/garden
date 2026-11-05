@@ -1967,6 +1967,20 @@ if [ "$src_rc" -ne 0 ]; then
     if read -r timeout_fanout_count timeout_fanout_window \
         < <(comment_source_timeout_fanout_threshold_reached); then
       comment_heartbeat_outcome=cooldown
+      # Several unrelated sources timing out can be the first observable sign
+      # that REST core is empty (2026-11-05: mirror-closer confirmed exhaustion
+      # immediately after this detector opened only a 300s transient latch).
+      # Sample under the shared admission/cooldown lock before choosing the
+      # latch duration, so an exhausted bucket suppresses later sources until
+      # its reset instead of admitting them again five minutes later.
+      if read -r timeout_quota_secs timeout_quota_owner \
+          < <(probe_rest_core_primary_quota \
+            "comment:source-timeout-fanout:primary-quota"); then
+        if [ "$timeout_quota_owner" -eq 1 ]; then
+          log "WARN: $timeout_fanout_count distinct comment sources timed out within ${timeout_fanout_window}s and REST core quota is exhausted — cooling REST gh-api watchers for ${timeout_quota_secs}s"
+        fi
+        exit 0
+      fi
       if start_api_cooldown "comment:source-timeout-fanout"; then
         log "WARN: $timeout_fanout_count distinct comment sources timed out within ${timeout_fanout_window}s — cooling REST gh-api watchers for $(_api_cooldown_secs)s"
       fi

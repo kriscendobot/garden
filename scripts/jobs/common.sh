@@ -6775,6 +6775,37 @@ _gh_rest_budget_reconcile_locked() {
   _gh_rest_budget_refresh_locked "$(date +%s 2>/dev/null || echo 0)" "${1:-}" || true
 }
 
+# probe_rest_core_primary_quota <tag> — sample GitHub's REST core bucket while
+# holding the same lock that serializes cooldown admission.  rc 0 means the
+# sample was exhausted and the reset-aware primary-quota latch is now armed;
+# stdout is "<seconds> <owner>" where owner=1 means this caller created it.
+# rc 1 means the sample was unavailable or still had quota.  This is for
+# aggregate detectors (for example, several independent source timeouts) that
+# have enough evidence to justify one free rate_limit sample, but not enough to
+# classify the outage as quota exhaustion without that sample.
+probe_rest_core_primary_quota() {
+  local tag="${1:-rest-core-probe:primary-quota}" result
+  [ "$(_api_cooldown_secs)" -gt 0 ] || return 1
+  mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+  result="$({
+    flock 9
+    local now st limit est reset sampled attempted measured secs owner=0
+    now="$(date +%s 2>/dev/null || echo 0)"
+    _gh_rest_budget_refresh_locked "$now" 9 || return 1
+    st="$(_gh_rest_budget_read)" || return 1
+    read -r limit est reset sampled attempted measured <<<"$st"
+    [ "$limit" -gt 0 ] && [ "$measured" -le 0 ] || return 1
+    secs="$(api_primary_quota_secs rest)"
+    if _api_cooldown_record_locked "$GARDEN_API_COOLDOWN_MARKER" "$secs" \
+        "$tag" primary-quota; then
+      owner=1
+    fi
+    printf '%s %s\n' "$secs" "$owner"
+  } 9>"$GARDEN_API_COOLDOWN_LOCK")" || return 1
+  [ -n "$result" ] || return 1
+  printf '%s\n' "$result"
+}
+
 # gh_rest_budget_defer [label] — the low-priority watcher gate. Call it right
 # after `api_cooldown_active` and skip the tick (cursor untouched) on rc 0: the
 # host's estimated REST core remaining is at or below GARDEN_GH_REST_LOW_RESERVE
