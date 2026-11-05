@@ -27,6 +27,7 @@ If this job's handler wall approaches with the gauntlet still legitimately activ
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=115 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
