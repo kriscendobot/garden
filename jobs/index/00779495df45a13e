@@ -1,2 +1,2 @@
-base: improve-issue-inbox-transient-cooldown-race
+base: improve-issue-source-timeout-degrade
 identity: mentor:scripts/jobs/issue-inbox-watcher.sh
