@@ -3,6 +3,18 @@
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
 
+## 2026-11-05T04:51Z - oros-health-checkup-20261105-042023
+
+- Verdict: healthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / local
+- Trigger: schedule/oros-health-checkup
+- Evidence: fleet/health 04:36:39Z unit_failures 0 of 291, advisory 0, roll_status deferred; no failed units locally; no local draining marker; deploy/roll names 7b151b7149f, deployed f4dcb3c044e (matches leader-sha), origin/main2 d4f21341dcc, 3 commits ahead per upgrade-ready 04:47Z; deploy/deferred names long job monk 2, 4603s at 04:36Z, which is endojs-endo-but-for-bots-pr1648-gauntlet-fix-2, claimed 03:19Z; budget claude-oros status ok, 23% (sample 04:32Z); disposition 6h 50 claims, 41 completions, 4 terminal, 1 transient, 3 in flight; load 3.03, 12G memory available, swap 1.0G of 1.0G full with si/so 0 over a 3s vmstat; virtiofs 94% used, 31G free, 4% inodes; /tmp 18%; up 34 days; contention probe tail outage_skips=0, latch off, checker heartbeat 131s; root .git 127 packs, 596M, no gc.log; newest sysop record 20261105T021102Z-61948f drain accepted-and-applied, since lifted (no marker).
+- Cause: no host failure established; the deferral is the normal long-job deferral on an active roll release. All 4 terminal-failure hints are job-specific: 3 on kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait (03:43, 04:06, 04:31Z, reclaimed on monk 1 at 04:40Z) and 1 on kriscendobot-minion.town-pr237-gauntlet-20261105 (03:10Z). Cause of those handler failures not traced; the wait job's brief does expect unsignaled exits while its gauntlet is active, which may account for its three.
+- Actions: none. Exited early for the active roll release, per the recurrence rule; rc=124 and lock-holder liveness not checked.
+- Final state: heartbeat current, 3 monks active, deployed f4dcb3c044e with 7b151b7149f released, undrained, claims and completions advancing. The deferral itself is unchanged in shape: a roll has advanced since 01:43Z (36a2080657e to f4dcb3c044e).
+- Maintainer: none
+- Next mechanic: confirm deployed SHA reaches the release once monk 2 finishes; check whether pr199 gauntlet-wait's repeated cycle is delaying rolls. Root packs were 65 at 23:24Z and are now 127, unrepacked and with no gc.log, so recheck growth; virtiofs free space is 31G, down from 32G at 01:43Z and 36G at 23:24Z.
+
 ## 2026-11-05T01:43Z - oros-health-checkup-20261105-010527
 
 - Verdict: healthy
