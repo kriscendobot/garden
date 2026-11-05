@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T18:55:40Z_
+_As of 2026-11-05T18:58:39Z_
 
 ## Latest
 
@@ -1157,6 +1155,10 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration backfill-receipt-rollup-20261105-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
+
+- `watchdog-unclaimable-host-requirements-scholar-ingest-edera-product-20261105` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-scholar-ingest-edera-product-20261105.md)
+
+> Host-requirements gate: job 'scholar-ingest-edera-product-20261105' has remained unclaimed for 900s with requires: typesafe. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `deadmail-20261101T112108Z-fd9876-split-terminal-complete` — from orchestrator:deadmail-20261101T112108Z-fd9876-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/deadmail-20261101T112108Z-fd9876-split-terminal-complete.md)
 
