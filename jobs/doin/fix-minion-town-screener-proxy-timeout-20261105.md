@@ -39,3 +39,13 @@ admission wait as a wait rather than a deferral. Also make an rc-124 kill of the
 visible, not silent. Add regression coverage. Then make sure the leader deploys the fix,
 check why the leader root lags main2, and confirm one live tick posts the conduct jobs.
 Do not bypass any screening gate, and do not resume a paused delegation.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T11:37:02Z
