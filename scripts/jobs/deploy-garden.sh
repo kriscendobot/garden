@@ -22,6 +22,10 @@
 #               window. Per-suite and total bounds keep this gate from becoming a
 #               fleet outage; a failed or timed-out suite aborts by default,
 #               writes a kind:error journal entry, and alerts the maintainer.
+#               A rejected candidate is remembered by SHA with its final result
+#               and diagnostic paths; later ticks fast-reject that exact tree
+#               without rerunning suites or duplicating the error entry. A new
+#               candidate SHA naturally gets a fresh gate run.
 #               FLAKE RETRY: when the ONLY failures are suite executions (a real,
 #               plausibly host-side flake — never a bash -n syntax error, a
 #               missing suite, or a total-wall-clock timeout, all deterministic),
@@ -122,6 +126,7 @@ export GARDEN_TAG="deploy-garden"
 : "${GARDEN_DEPLOY_TEST_OUTPUT_BYTES:=16384}" # retained stdout+stderr tail per suite
 : "${GARDEN_DEPLOY_REPORT_TIMEOUT:=30}"      # max seconds per failure-report sink
 : "${GARDEN_DEPLOY_GATE_DIAGNOSTICS_DIR:=$GARDEN_DEPLOY_STATE/candidate-gate-diagnostics}"
+: "${GARDEN_DEPLOY_GATE_REJECTIONS_DIR:=$GARDEN_DEPLOY_STATE/candidate-gate-rejections}"
 # These bounded regressions directly protect the failure-reporting helpers that
 # previously let a deleted common.sh helper reach every host unnoticed, plus the
 # provider policy-refusal quarantine/resume path whose regression would otherwise
@@ -268,6 +273,52 @@ persist_candidate_gate_diagnostic() { # <candidate> <attempt> <ordinal> <suite> 
     printf '%s\n' "$path"
     return 0
   fi
+  return 1
+}
+
+candidate_gate_rejection_record() { # <candidate-sha>
+  printf '%s/%s.rejected\n' "$GARDEN_DEPLOY_GATE_REJECTIONS_DIR" "$1"
+}
+
+# A retry-confirmed rejection is a fact about the immutable candidate tree. Keep
+# that fact in host-standing deploy state so the persistent upgrade-ready signal
+# does not run the same expensive suites and emit the same journal/inbox error on
+# every tick. The candidate SHA is the cache key, so a new candidate naturally
+# gets a fresh gate run without any explicit invalidation step.
+persist_candidate_gate_rejection() { # <candidate-sha> <gate-result>...
+  local candidate="$1" record tmp failed diagnostic diagnostics=0; shift
+  record="$(candidate_gate_rejection_record "$candidate")"
+  tmp="$record.tmp.$$"
+  mkdir -p "$GARDEN_DEPLOY_GATE_REJECTIONS_DIR" 2>/dev/null || return 1
+  chmod 700 "$GARDEN_DEPLOY_GATE_REJECTIONS_DIR" 2>/dev/null || true
+  {
+    printf 'candidate: %s\nrejected_at: %s\n' "$candidate" "$(date -u +%FT%TZ)"
+    for failed in "$@"; do
+      printf 'result: %s\n' "$failed"
+      if [[ "$failed" =~ diagnostic=([^\;\)]+) ]]; then
+        diagnostic="${BASH_REMATCH[1]}"
+        [ "$diagnostic" = "unavailable-see-deploy-log" ] || {
+          printf 'diagnostic: %s\n' "$diagnostic"
+          diagnostics=$((diagnostics + 1))
+        }
+      fi
+    done
+    [ "$diagnostics" -gt 0 ] || printf 'diagnostic: none\n'
+  } >"$tmp" 2>/dev/null || { rm -f "$tmp" 2>/dev/null || true; return 1; }
+  chmod 600 "$tmp" 2>/dev/null || true
+  mv -f "$tmp" "$record" 2>/dev/null || { rm -f "$tmp" 2>/dev/null || true; return 1; }
+}
+
+reject_candidate_gate() { # <candidate-sha> <gate-result>...
+  local candidate="$1" record; shift
+  record="$(candidate_gate_rejection_record "$candidate")"
+  if persist_candidate_gate_rejection "$candidate" "$@"; then
+    log "persisted candidate gate rejection for $candidate: $record"
+  else
+    log "WARN: could not persist candidate gate rejection for $candidate; a later tick may have to rerun the gate"
+  fi
+  log "ERROR: candidate test gate rejected $candidate; failing suites: $*"
+  report_candidate_gate_failure "$candidate" "$@"
   return 1
 }
 
@@ -469,14 +520,26 @@ execute_gate_suites() { # <candidate> <gate_root> <deadline> <attempt> <failed-a
 }
 
 run_candidate_gate() { # <candidate-sha>
-  local candidate="$1" gate_root path now deadline limit
+  local candidate="$1" gate_root path now deadline limit rejection_record
   local -a failed=() failed_suites=() timed_out=()
   # shellcheck disable=SC2034 # read through execute_gate_suites' nameref
   local -A no_limits=()
+  rejection_record="$(candidate_gate_rejection_record "$candidate")"
   [ "$GARDEN_DEPLOY_TEST_OVERRIDE" = "1" ] && {
     log "WARN: GARDEN_DEPLOY_TEST_OVERRIDE=1 — bypassing candidate test gate for $candidate"
+    # An assessed emergency override changes this candidate's disposition. Drop
+    # its rejection fact so later no-op deploy checks do not fast-reject a tree
+    # the operator has deliberately put into service.
+    if [ -f "$rejection_record" ]; then
+      rm -f "$rejection_record" 2>/dev/null \
+        || log "WARN: could not clear overridden candidate rejection $rejection_record"
+    fi
     return 0
   }
+  if [ -f "$rejection_record" ]; then
+    log "ERROR: candidate test gate fast-rejected unchanged candidate $candidate from persisted rejection $rejection_record (suites not rerun; duplicate kind:error suppressed)"
+    return 1
+  fi
   for limit in "$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT" "$GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT" "$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES"; do
     case "$limit" in
       ''|*[!0-9]*|0) log "FATAL: candidate gate timeouts and output bound must be positive integers"; return 1 ;;
@@ -522,8 +585,7 @@ run_candidate_gate() { # <candidate-sha>
     if [ "${#timed_out[@]}" -gt 0 ] && [ "$retry_budget" -gt "$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" ]; then
       log "ERROR: candidate test gate: ${#timed_out[@]} suite(s) timed out on attempt 1 for $candidate (${timed_out[*]}); an escalated retry needs ${retry_budget}s, over the ${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT}s total budget — refusing the retry (attempt-1 diagnostics retained)"
       failed+=("timeout-escalation-over-total-budget(need=${retry_budget}s; total=${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT}s)")
-      log "ERROR: candidate test gate rejected $candidate; failing suites: ${failed[*]}"
-      report_candidate_gate_failure "$candidate" "${failed[@]}"
+      reject_candidate_gate "$candidate" "${failed[@]}"
       return 1
     fi
     [ "${#timed_out[@]}" -gt 0 ] && \
@@ -551,8 +613,7 @@ run_candidate_gate() { # <candidate-sha>
     fi
   fi
 
-  log "ERROR: candidate test gate rejected $candidate; failing suites: ${failed[*]}"
-  report_candidate_gate_failure "$candidate" "${failed[@]}"
+  reject_candidate_gate "$candidate" "${failed[@]}"
   return 1
 }
 

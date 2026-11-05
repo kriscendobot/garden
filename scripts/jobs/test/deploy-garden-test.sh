@@ -202,14 +202,17 @@ grep -q "fleet quiesced" <<<"$OUT" && ok "quiesce reached (no mid-job gardeners)
 # ============================================================================
 hr; echo "CANDIDATE TEST GATE — a failing candidate suite aborts before drain or swap"; hr
 setup_fixture
+REJECT_COUNTER="$TR/reject-counter"; rm -f "$REJECT_COUNTER"
 origin_commit scripts/jobs/test/deploy-gate-probe.sh "#!/bin/bash
+c=\"\${DEPLOY_GATE_REJECT_COUNTER:?}\"
+n=\$(( \$(cat \"\$c\" 2>/dev/null || echo 0) + 1 )); printf '%s\\n' \"\$n\" > \"\$c\"
 printf 'leading-output-that-will-be-trimmed:'
 printf '%0200d' 0
 printf '\nDIAGNOSTIC_SENTINEL_FROM_STDOUT\n'
 printf 'DIAGNOSTIC_SENTINEL_FROM_STDERR\n' >&2
 exit 1" "test: make candidate gate fail"
 before="$(root_head)"
-run_deploy GARDEN_DEPLOY_TEST_OUTPUT_BYTES=128
+run_deploy GARDEN_DEPLOY_TEST_OUTPUT_BYTES=128 DEPLOY_GATE_REJECT_COUNTER="$REJECT_COUNTER"
 [ "$RC" -ne 0 ] && ok "non-zero exit on a failing candidate suite" || bad "exit 0 despite a failing candidate suite"
 [ "$(root_head)" = "$before" ] && ok "root NOT advanced when candidate gate fails" || bad "root advanced despite failed candidate gate"
 draining && bad "drain engaged despite pre-drain candidate gate failure" || ok "candidate gate failed before engaging the drain"
@@ -236,6 +239,42 @@ grep -qF "diagnostic=$diagnostic" <<<"$OUT" \
 attempt1diag="$(find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name 'attempt1-*deploy-gate-probe.sh.log' -print -quit 2>/dev/null || true)"
 [ -n "$attempt1diag" ] && ok "attempt-1 diagnostic is preserved alongside attempt-2 (both attempts retained)" || bad "attempt-1 diagnostic not preserved for a twice-failing suite: $OUT"
 grep -q "retry FAILED" <<<"$OUT" && ok "a suite failing both attempts is logged as a real regression" || bad "failed-retry not logged for a deterministic failure: $OUT"
+
+# The rejected candidate remains the origin tip, exactly as upgrade-ready leaves
+# it between deploy ticks. A second tick must use the per-SHA rejection fact: no
+# suite rerun and no second kind:error report. Its record retains both the final
+# suite result and the diagnostic path needed to investigate the first rejection.
+rejection="$TR/state/deploy/candidate-gate-rejections/$(origin_head).rejected"
+[ -f "$rejection" ] && ok "retry-confirmed rejection is persisted by candidate SHA" || bad "candidate rejection record missing: $OUT"
+grep -qF "result: scripts/jobs/test/deploy-gate-probe.sh(rc=1; diagnostic=$diagnostic)" "$rejection" \
+  && ok "rejection record retains the final suite result" \
+  || bad "rejection record omitted the suite result: $(cat "$rejection" 2>/dev/null)"
+grep -qF "diagnostic: $diagnostic" "$rejection" \
+  && ok "rejection record retains the diagnostic path" \
+  || bad "rejection record omitted the diagnostic path: $(cat "$rejection" 2>/dev/null)"
+[ "$(cat "$REJECT_COUNTER" 2>/dev/null)" = 2 ] && ok "initial rejection ran the suite twice" || bad "initial rejection suite count was not two"
+run_deploy GARDEN_DEPLOY_TEST_OUTPUT_BYTES=128 DEPLOY_GATE_REJECT_COUNTER="$REJECT_COUNTER"
+[ "$RC" -ne 0 ] && ok "unchanged rejected candidate remains blocked" || bad "cached rejection unexpectedly deployed"
+[ "$(cat "$REJECT_COUNTER" 2>/dev/null)" = 2 ] \
+  && ok "cached rejection does not rerun the candidate suite" \
+  || bad "cached rejection reran the suite: counter=$(cat "$REJECT_COUNTER" 2>/dev/null)"
+grep -q "fast-rejected unchanged candidate" <<<"$OUT" \
+  && ok "second tick names the persisted fast-rejection" \
+  || bad "second tick did not use the rejection cache: $OUT"
+grep -q "reported candidate gate kind:error\|emitted candidate gate kind:error" <<<"$OUT" \
+  && bad "cached rejection emitted a duplicate kind:error" \
+  || ok "cached rejection suppresses duplicate kind:error entries"
+
+old_rejection="$rejection"
+origin_commit README.md "candidate changed" "test: advance rejected candidate"
+run_deploy GARDEN_DEPLOY_TEST_OUTPUT_BYTES=128 DEPLOY_GATE_REJECT_COUNTER="$REJECT_COUNTER"
+[ "$RC" -ne 0 ] && [ "$(cat "$REJECT_COUNTER" 2>/dev/null)" = 4 ] \
+  && ok "a changed candidate SHA runs a fresh two-attempt gate" \
+  || bad "changed candidate did not invalidate naturally: rc=$RC counter=$(cat "$REJECT_COUNTER" 2>/dev/null)"
+new_rejection="$TR/state/deploy/candidate-gate-rejections/$(origin_head).rejected"
+[ -f "$old_rejection" ] && [ -f "$new_rejection" ] && [ "$old_rejection" != "$new_rejection" ] \
+  && ok "each rejected candidate has its own SHA-keyed record" \
+  || bad "changed candidate did not get a distinct rejection record"
 
 # ============================================================================
 hr; echo "CANDIDATE GATE FLAKE RETRY — a suite failing once then passing does NOT block the deploy"; hr
