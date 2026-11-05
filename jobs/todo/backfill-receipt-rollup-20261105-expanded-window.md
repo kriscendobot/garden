@@ -1,16 +1,14 @@
 ---
-gate: orchestrated
-orchestrated_by: backfill-receipt-rollup-20261105-split
+tier: mentor
+posted_at: 2026-11-05T06:06:04Z
 handler-timeout: 7200
 split-indivisible-reason: 'All 209 updates append to one journal2 rollup and share one computed cost base map, so splitting would introduce CAS conflicts or duplicate the expensive ledger pricing pass.'
 split-lineage-root: backfill-receipt-rollup-20261105
 split-lineage-parent: backfill-receipt-rollup-20261105-split
 split-lineage-depth: 1
 split-lineage-max-depth: 1
-priority: normal
-posted_by: producer
-posted_at: 2026-11-05T06:06:04Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-05T06:12:34Z cleared=none -->
 
 ---
 tier: mentor
