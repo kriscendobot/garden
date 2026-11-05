@@ -36,6 +36,7 @@ so the order matters:
 When the evidence is complete, turn #235's ledger to `deliverable`, so its completion
 re-stages a fresh gauntlet.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
