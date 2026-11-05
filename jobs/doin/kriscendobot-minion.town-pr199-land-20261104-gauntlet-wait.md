@@ -28,3 +28,13 @@ If this job's handler wall approaches with the gauntlet still legitimately activ
 <!-- garden-transient-elapsed: kind=signature through=0 values=115 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T05:26:37Z
