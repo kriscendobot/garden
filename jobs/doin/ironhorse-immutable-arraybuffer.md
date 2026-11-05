@@ -21,6 +21,7 @@ Implement the Immutable ArrayBuffer proposal (tc39/proposal-immutable-arraybuffe
 Gated outcome: immutable-arraybuffer test262 cases covered with zero new divergences; floor growth only. Size M–L.
 
 <!-- garden-outage-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
