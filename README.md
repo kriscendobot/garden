@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T13:49:57Z_
+_As of 2026-11-05T13:52:29Z_
 
 ## Latest
 
@@ -161,11 +161,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_unblock_journal.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` has CLEARED (first seen 2026-11-01T15:11:56Z, cleared 2026-11-05T02:45:18Z).
-> It was observed 5 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #6 (first seen 2026-11-01T15:11:56Z, latest 2026-11-05T13:50:50Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_unblock_journal`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_unblock_journal` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: p95=0.055053s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
 
@@ -2070,10 +2070,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 39566864 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 11.313431s/45s (/home/kris/garden/.garden-state/monitors/cleric-3/journal); 10 open notice(s); checker healthy
+worst fetch p95 11.313431s/45s (/home/kris/garden/.garden-state/monitors/cleric-3/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -2081,9 +2081,11 @@ worst fetch p95 11.313431s/45s (/home/kris/garden/.garden-state/monitors/cleric-
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`claude-on-minion-town-completion-press-20261105-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261105-133510.md) — Completion press: Claude-on-minion.town arc
+- [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 
-### doin (0)
-(none)
+### doin (2)
+- [`oros-health-watch-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261105-135010.md) — ---
+- [`minion-town-arc-press-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261105-135010.md) — Supervise the minion.town arc: carry its pull requests through review
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
