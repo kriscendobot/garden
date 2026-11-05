@@ -43,6 +43,7 @@ Snapshot-golden rule (design § Orchestration, PR #1435 panel round 2): children
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
