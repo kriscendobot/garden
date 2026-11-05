@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by minion-town-coupon-flip-and-mint-20261104 (maintainer 2026-11-04: no air-drop; panel the unreviewed fix-6 first)
+withdrawn_by: producer
+withdrawn_at: 2026-11-05T00:00:23Z
+withdrawn_from_gate: blocked-failed
+---
+
+---
 gate: blocked-failed
 blocked_failed_reason: blocker 'kriscendobot-minion.town-pr199-conduct-20261103' completed but declined its gated outcome; held for a human decision
 blocked_on: kriscendobot-minion.town-pr199-conduct-20261103
