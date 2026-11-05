@@ -1,23 +1,10 @@
 ---
-gate: go-ahead
-priority: normal
 role: fixer
 tier: minion
-token-budget: 100000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-split_eligible: true
-split_reason: repeated-plain-exit
-failure_classification: deterministic
-requeue_cycles: 2
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-10-15T14:23:37Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-10-15T14:23:37Z
+token-budget: 100000
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T17:03:05Z cleared=none -->
 
 ---
 role: fixer
