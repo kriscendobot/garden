@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T21:39:03Z_
+_As of 2026-11-05T21:44:59Z_
 
 ## Latest
 
@@ -960,6 +960,35 @@ Delegation: **active**
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=97000983 cap=271000000 pace-bias=0.088156 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.7111(ramp) target=2
+
+- `doomed-build-minion-town-retire-resident-role-20261105-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-retire-resident-role-20261105-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-minion-town-retire-resident-role-20261105; it stays HELD until a human promotes it
+> (promote-plan.sh build-minion-town-retire-resident-role-20261105) or removes it, so nothing is lost.
+> Original job base: build-minion-town-retire-resident-role-20261105
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-05T21:15:48Z
+> role: builder
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> **Role: builder.** **Retire the `resident` account role in minion.town** (maintainer, kriskowal, 2026-11-05: "Let's rename the role as well. I can tolerate a database recreation event." The visitor-facing word is now "guest"; see `build-minion-town-waitlist-soon-page-20261105`).
+>
+> **What is there.** `src/auth/accounts.ts`: `export type Role = "guest" | "resident"`; `BASELINE_ROLE = "guest"`; `ROLE_SCOPES` maps BOTH to `[SCOPES.TOOLS, SCOPES.GUEST]` (`resident` is a "legacy role, retained so existing account records continue to work" with no authority since the roster scope was retired; see `designs/remove-toy-tools-and-prune-minion-scopes.md` § 4, whose recommended path was to collapse the ladder to `guest`-only). Other references: `src/auth/privilege-page.ts` (a `resident`-gated route and `ROLE_SCOPES[requiredRole]`), `deploy/aws/scripts/set-account-role.sh` (`role <iss> <sub> <guest|resident>`), the display role in `accounts.ts` (`guest` | `resident` | `admin`), `deploy/aws/www/index.html` copy, tests (`test/privilege-page.test.ts` has 9, `account-endpoint`, `accounts`, `dark-mode`), and designs (`account-creation-open-signup.md`, `mcp-endo-guest.md`, `remove-toy-tools-and-prune-minion-scopes.md`).
+>
+> **Since `resident` already equals `guest`, a rename would only make two names for one thing. So collapse the ladder:**
+> 1. `Role` becomes `"guest"` only (or removed if nothing else needs it; keep the type if call sites benefit). Drop the `resident` entries and branches, the legacy-compat comments, and the `guest|resident` argument handling in `set-account-role.sh` (if the script has nothing left to set, retire the `role` verb and say so; keep suspend/activate). Rework `privilege-page.ts` and its tests so the gated-route concept uses whatever real distinction remains (the static admin policy), without a `resident` role. Keep the display role `admin` for static-policy admins.
+> 2. **Existing rows:** do NOT delete or recreate the accounts table. Make the reader accept a stored `role: "resident"` (and any unknown value) by treating it as `guest` and rewriting it to `guest` on the next write, with a unit test. That makes the change safe with or without a recreation, and it avoids destroying any live account bindings. If you find a genuine reason a recreation is required, STOP and message the maintainer inbox with the reason; the maintainer said he can tolerate one but has not authorized a deletion, and a recreation drops every account bond (including recovery sign-ins) so it needs its own explicit go-ahead.
+> 3. Update the designs that mention the role (a short note or edit; do not rewrite history), and the deployed copy so the word "resident" no longer appears in any visitor-facing string. `grep -rni resident` across `src`, `deploy`, `test`, `designs`, and docs should end empty except where it is deliberately explained as history.
+> 4. Add a changeset (the repo's convention) noting the removed role. Run the full test suite, typecheck and pre-push gates; deploy and verify in production with the usual Playwright acceptance, using a dedicated test principal, and show that a pre-existing `resident` row (seed one in a test table, never in production) still signs in as a guest.
+>
+> Repo: kriscendobot/minion.town (base: current main). Coordinate with the in-flight copy change in `build-minion-town-waitlist-soon-page-20261105` (it edits `deploy/aws/www/index.html` and `home.js`); if its PR is open, stack on it or rebase over it, don't fight it. Maintainer evaluates production results, not diffs.
 
 - `doomed-improve-issue-status-source-budget-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-issue-status-source-budget-requeue-exhausted.md)
 
@@ -2225,6 +2254,38 @@ Delegation: **active**
 >
 > Orchestration claude-api-build-20261027 observed child claude-api-p1-registry: stalled in flight for 7253s on host endolin-garden-ece02cb4 (handler-timeout=7200s, multiplier=1).
 
+- `doomed-build-minion-town-waitlist-soon-page-20261105-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-waitlist-soon-page-20261105-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-minion-town-waitlist-soon-page-20261105; it stays HELD until a human promotes it
+> (promote-plan.sh build-minion-town-waitlist-soon-page-20261105) or removes it, so nothing is lost.
+> Original job base: build-minion-town-waitlist-soon-page-20261105
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-05T21:13:08Z
+> role: builder
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> **Role: builder.** **Wait-list sign-up advances to a thank-you page at `https://minion.town/soon`** (maintainer, kriskowal, 2026-11-05).
+>
+> **Behavior asked for.**
+> - After a successful wait-list sign-up (`POST /api/waitlist` returns 202), the visitor moves to a thank-you landing page at **`/soon`**, not a note on the sign-up card. They are never shown the sign-up form again straight after signing up.
+> - The `/soon` page offers two ways on: **"Sign up with another address"** (returns to the sign-up form, empty) and **"Already a resident?"** (the same sign-in-to-recover path the splash has today: `deploy/aws/www/index.html` line ~423, `/oauth2/start?rd=/%23recover=1`), for someone who missed it before signing up.
+> - `/soon` must work as a real URL: reloading it, bookmarking it, and the back button behave sensibly. A visitor who opens `/soon` directly without having signed up should still get a calm page (a short "we are letting people in gradually" message with the same two choices; do not claim they are on the list). Do not put the visitor's email address in the URL, history state, or any log; if the page echoes anything, take it from session storage for that one view and never show another person's data.
+> - Routing: `/soon` is currently not a route. Make the landing page (`deploy/aws/www/home.js`, `index.html`, the Caddy config, and the app's static serving) serve it, verify the deploy order in `DEPLOYMENT.md` § Closed-beta waitlist, and make sure `/soon` is excluded from any redirect that sends logged-in or invited visitors elsewhere.
+> - Keep the card system consistent with the existing cards (`splash`, `invitation`, `deletion-pending`; `landingMode` / `showCard`), keyboard and screen-reader friendly (focus moves to the heading, `aria-live` for transitions), with the failure case kept on the form: a 503 or network error shows a calm retry message on the form and does NOT advance to `/soon`.
+>
+> **Coordinate with the sibling job `build-minion-town-recovery-outcome-screen-20261105`.** It reworks the same file (`home.js`), adding a stand-alone screen for a failed guest recovery and a production smoke check for `/api/waitlist`. If its PR is open, stack on it; if it has merged, build on main; do not duplicate its work or fight its changes. The two screens should read as one family (same layout, tone, and button styles).
+>
+> **Context.** The wait list itself was provisioned on 2026-11-05 (the DynamoDB table `minion-town-waitlist` had never been created; `POST /api/waitlist` now returns 202). Do not touch real waitlist rows: tests use a stubbed store, and the production check posts a clearly fake address (`…@example.com`) and removes that row afterwards using the garden-fleet admin credentials only if you have them; otherwise verify the redirect with a stubbed response and leave production data alone.
+>
+> Repo: kriscendobot/minion.town (base: current main). Test with the real-daemon + Playwright recipe: covering sign-up success, failure, direct `/soon` open, reload, back button, "Sign up with another address", and "Already a resident?". Deploy and verify in production; record screenshots in the PR. Maintainer evaluates production results, not diffs (review inversion).
+
 - `watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101.md)
 
 > gardener job 'ironhorse-test262-ratchet-coverage-crank-tenth-slice-20261101' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7202s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -3033,7 +3094,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 154905679 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.766367s/45s (/home/kris/garden/.garden-state/clerics/3/journal); 12 open notice(s); checker healthy
+worst fetch p95 6.528779s/45s (/home/kris/garden/.garden-state/clerics/3/journal); 12 open notice(s); checker healthy
 
 ## Board
 ### todo (10)
@@ -3048,9 +3109,8 @@ worst fetch p95 3.766367s/45s (/home/kris/garden/.garden-state/clerics/3/journal
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (2)
-- [`build-minion-town-retire-resident-role-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-retire-resident-role-20261105.md) — ---
-- [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-waitlist-soon-page-20261105.md) — ---
+### doin (0)
+(none)
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
@@ -3094,6 +3154,7 @@ worst fetch p95 3.766367s/45s (/home/kris/garden/.garden-state/clerics/3/journal
 - [`minion-town-arc-press-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261105-200509.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr199-weave-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-weave-20261103.md) — _normal_ · Weave kriscendobot/minion.town#199 onto current main
 - [`improve-transient-retry-correlation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-transient-retry-correlation.md) — _normal_ · ---
+- [`build-minion-town-retire-resident-role-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-retire-resident-role-20261105.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`endojs-endo-but-for-bots-pr1504-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1504-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1504
@@ -3132,6 +3193,7 @@ worst fetch p95 3.766367s/45s (/home/kris/garden/.garden-state/clerics/3/journal
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`kriscendobot-minion-town-pr148-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr148-gauntlet-viability.md) — _normal_ · Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #148
 - [`build-daemon-git-remotes-transport-timing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-transport-timing.md) — _normal_ · ---
+- [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-waitlist-soon-page-20261105.md) — _normal_ · ---
 - [`mirror-endo-3372`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mirror-endo-3372.md) — _normal_ · Mirror endojs/endo#3372 onto endojs/endo-but-for-bots
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`ironhorse-immutable-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-immutable-arraybuffer.md) — _normal_ · IronHorse: implement Immutable ArrayBuffer and enable it in the oracle
