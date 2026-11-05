@@ -24,6 +24,7 @@ Outcomes:
 If this job's handler wall approaches with the gauntlet still legitimately active, say so and do not emit a completion signal.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=4698 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
