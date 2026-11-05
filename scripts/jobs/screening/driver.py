@@ -39,6 +39,11 @@ def gh(*arguments, raw=False):
     result = subprocess.run([GITHUB_READ, *map(str, arguments)], text=True,
                             capture_output=True)
     if result.returncode == int(os.environ.get('GARDEN_TRANSIENT_RC', '75')):
+        # The shell wrapper owns the consecutive-failure watchdog. Preserve the
+        # refusal diagnostic instead of turning a quota-deferred tick into an
+        # unexplained, successful no-op.
+        if result.stderr:
+            print(result.stderr, end='', file=sys.stderr)
         raise DeferredTick()
     if result.returncode:
         if result.stderr:

@@ -86,6 +86,10 @@ mkdir -p "$seed/jobs/todo"; echo "role: x" > "$seed/jobs/todo/$base.md"
 git -C "$seed" add -A; git -C "$seed" commit -qm "post $base"; git -C "$seed" push -q origin journal2
 '''
 
+ALERT = '''#!/bin/bash
+printf '%s\\t%s\\t%s\\n' "$1" "$(printf '%s' "$2" | tr '\\n' ' ')" "${3:-}" >> "$SCREEN_FIXTURE/alerts"
+'''
+
 
 class Screening(unittest.TestCase):
     def setUp(self):
@@ -110,7 +114,8 @@ class Screening(unittest.TestCase):
         self.root = self.directory / 'root'
         self.root.mkdir()
         subprocess.run(['git', 'init', '-q', str(self.root)], check=True)
-        for name, body in (('gh', GH), ('post-job', POST), ('post-gauntlet', POST)):
+        for name, body in (('gh', GH), ('post-job', POST), ('post-gauntlet', POST),
+                           ('alert', ALERT)):
             path = self.directory / name
             path.write_text(body)
             path.chmod(0o755)
@@ -251,6 +256,33 @@ class Screening(unittest.TestCase):
         marker = self.root / '.garden-state/gh-api-cooldown/marker-graphql'
         self.assertIn('primary-quota', marker.read_text())
         self.assertFalse(self.attested())
+
+    def test_repeated_quota_deferral_raises_watchdog_and_recovery(self):
+        marker = self.root / '.garden-state/gh-api-cooldown/marker'
+        marker.parent.mkdir(parents=True)
+        marker.write_text(f'{int(datetime.datetime.now().timestamp()) + 3600}\n'
+                          'receipt:test:primary-quota\nprimary-quota\n')
+        self.environment.pop('GARDEN_NO_MAINTAINER_ALERT')
+        self.environment.update(GARDEN_SCREEN_FAILURE_THRESHOLD='2',
+                                GARDEN_ALERT_CMD=str(self.directory / 'alert'))
+
+        self.tick()
+        self.assertFalse((self.directory / 'alerts').exists())
+        result = self.tick()
+        alerts = (self.directory / 'alerts').read_text().splitlines()
+        self.assertEqual(len(alerts), 1)
+        self.assertIn('minion-town-screening-tick-failed-screen-host-1', alerts[0])
+        self.assertIn('host-shared gh-api cooldown live', alerts[0])
+        self.assertIn('2 consecutive ticks', result.stderr)
+
+        marker.unlink()
+        self.tick()
+        alerts = (self.directory / 'alerts').read_text().splitlines()
+        self.assertEqual(len(alerts), 2)
+        self.assertIn('RECOVERED:', alerts[1])
+        self.assertTrue(self.attested())
+        self.assertFalse((Path(self.environment['GARDEN_STATE']) /
+                          'screening/tick-failure').exists())
 
     def test_malformed_github_response_remains_fatal(self):
         self.configuration['gh_malformed'] = True

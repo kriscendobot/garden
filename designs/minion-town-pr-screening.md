@@ -104,6 +104,11 @@ The only PR-body matches are the exact heal marker and fixed probe markers
 (`gap-revealing`, `kind: probe`, `verb: probe`, or `<!-- garden-probe -->`);
 no PR or comment text reaches an LLM.
 
+A transient GitHub read refusal still leaves all gates closed, but it is not an
+invisible success: the wrapper counts consecutive deferred or failed ticks in
+host-local state. On the third tick it raises one coalesced watchdog notice, and
+the first completed tick closes that notice. A single transient remains quiet.
+
 A PR **passes** only when every gate holds on that exact head:
 
 1. **Scope.** The repository and author `kriscendobot` match the delegation.

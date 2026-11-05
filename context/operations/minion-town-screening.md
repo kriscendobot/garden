@@ -1,6 +1,6 @@
 ---
 created: 2026-09-29
-updated: 2026-10-24
+updated: 2026-11-05
 author: gardener
 ---
 
@@ -55,7 +55,11 @@ triggers the ordinary `finalize` conductor.
 `scripts/jobs/proxy.sh` runs `scripts/jobs/screen-delegated-prs.sh` as pre-pass 1d
 on the leader every 5 minutes (`garden-proxy.timer`). The screener uses its own
 journal clone (`$GARDEN_STATE/screening/journal`), and a failed tick is logged
-without blocking the proxy. Logic lives in `scripts/jobs/screening/`
+without blocking the proxy. GitHub quota deferrals and other driver failures are
+counted in `$GARDEN_STATE/screening/tick-failure`; three consecutive failed ticks
+raise the coalesced watchdog notice
+`minion-town-screening-tick-failed-<host>`, and the first completed tick closes
+it with a recovery update. Logic lives in `scripts/jobs/screening/`
 (`policy.py`, `driver.py`, `report.py`, `control.py`).
 
 1. **Post-merge validation.** For each attested PR that merged, it finds the

@@ -20,8 +20,13 @@
 # (deterministically named posts and gauntlet records) run only after
 # that commit lands, and each is idempotent across ticks.
 #
+# Consecutive driver failures (including host-wide GitHub quota deferrals) are
+# tracked in host-local state. The third failed tick raises one coalesced watchdog
+# notice; the first completed tick closes it.
+#
 # Test seams: GARDEN_SCREEN_CLONE, GARDEN_SCREEN_HEARTBEAT, GARDEN_GH,
-# GARDEN_SCREEN_GITHUB_READ, GARDEN_SCREEN_POST_JOB, GARDEN_SCREEN_POST_GAUNTLET.
+# GARDEN_SCREEN_GITHUB_READ, GARDEN_SCREEN_POST_JOB, GARDEN_SCREEN_POST_GAUNTLET,
+# GARDEN_SCREEN_FAILURE_THRESHOLD.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
@@ -34,12 +39,55 @@ journal="${GARDEN_SCREEN_CLONE:-$GARDEN_STATE/screening/journal}"
 : "${GARDEN_SCREEN_POST_GAUNTLET:=$HERE/post-gauntlet.sh}"
 export GARDEN_SCREEN_HEARTBEAT
 ensure_clone "$journal"
-out="$(mktemp)"; trap 'rm -f "$out"' EXIT
+out="$(mktemp)"; err="$(mktemp)"; trap 'rm -f "$out" "$err"' EXIT
+
+: "${GARDEN_SCREEN_FAILURE_THRESHOLD:=3}"
+[[ "$GARDEN_SCREEN_FAILURE_THRESHOLD" =~ ^[1-9][0-9]*$ ]] \
+  || GARDEN_SCREEN_FAILURE_THRESHOLD=3
+failure_dir="$GARDEN_STATE/screening/tick-failure"
+failure_key="minion-town-screening-tick-failed-$GARDEN"
+
+record_screen_failure() { # record_screen_failure <class> <detail>
+  local class="$1" detail="$2" count=0 first now tmp item
+  mkdir -p "$failure_dir"
+  count="$(cat "$failure_dir/count" 2>/dev/null || echo 0)"
+  [[ "$count" =~ ^[0-9]+$ ]] || count=0
+  count=$(( count + 1 ))
+  now="$(date -u +%FT%TZ)"
+  first="$(cat "$failure_dir/first" 2>/dev/null || true)"
+  [ -n "$first" ] || first="$now"
+  for item in "class:$class" "count:$count" "first:$first" "detail:$detail"; do
+    tmp="$(mktemp "$failure_dir/.state.XXXXXX")"
+    printf '%s\n' "${item#*:}" > "$tmp"
+    mv -f "$tmp" "$failure_dir/${item%%:*}"
+  done
+  if [ "$count" -ge "$GARDEN_SCREEN_FAILURE_THRESHOLD" ]; then
+    log "WARN: minion.town screening tick $class for $count consecutive ticks: $detail"
+    alert_maintainer "$failure_key" "minion.town screening on $GARDEN has not completed for $count consecutive proxy ticks (first failure $first).
+
+Failure class: $class
+Latest detail: $detail
+
+No screening gate was bypassed and the delegation was not resumed. The proxy will retry on its next tick and post a recovery update after a completed screen.
+Runbook: context/operations/minion-town-screening.md"
+  fi
+}
+
+clear_screen_failure() {
+  [ -d "$failure_dir" ] || return 0
+  local count
+  count="$(cat "$failure_dir/count" 2>/dev/null || echo unknown)"
+  rm -f "$failure_dir/class" "$failure_dir/count" "$failure_dir/first" "$failure_dir/detail"
+  rmdir "$failure_dir" 2>/dev/null || true
+  alert_maintainer_clear "$failure_key" \
+    "minion.town screening on $GARDEN completed after a $count-tick failure streak."
+}
 
 for attempt in $(seq 1 20); do
   sync_clone "$journal"
   rc=0
-  python3 "$HERE/screening/driver.py" "$journal" > "$out" || rc=$?
+  : > "$err"
+  python3 "$HERE/screening/driver.py" "$journal" > "$out" 2> "$err" || rc=$?
   if [ "$rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
     # driver.py may have prepared validation records before a later GitHub read
     # met the quota latch. Discard the whole tentative tick: a deferred tick has
@@ -49,10 +97,17 @@ for attempt in $(seq 1 20); do
       config/delegations/minion-town-pr-screening \
       screenings/kriscendobot-minion.town \
       inbox/maintainer/unread
+    detail="$(tail -n 4 "$err" | tr '\n' ' ')"; detail="${detail:0:1000}"
+    [ -n "$detail" ] || detail="transient GitHub read refusal (rc=$rc)"
+    record_screen_failure github-deferred "$detail"
     clone_unlock "$journal"
     exit 0
   fi
   if [ "$rc" -ne 0 ]; then
+    detail="$(tail -n 4 "$err" | tr '\n' ' ')"; detail="${detail:0:1000}"
+    [ -n "$detail" ] || detail="driver exited rc=$rc without a diagnostic"
+    record_screen_failure driver-error "$detail"
+    cat "$err" >&2
     clone_unlock "$journal"
     die "screener tick failed (GitHub read or journal parse); no state written"
   fi
@@ -87,8 +142,10 @@ for attempt in $(seq 1 20); do
             || log "WARN: gauntlet $(jq -r .base <<<"$action") failed; retrying next tick" ;;
       esac
     done
+    clear_screen_failure
     exit 0
   fi
   backoff "$attempt"
 done
+record_screen_failure journal-cas "could not commit screening state after 20 attempts"
 die 'could not commit screening state'
