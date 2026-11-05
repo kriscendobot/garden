@@ -3,6 +3,18 @@
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
 
+## 2026-11-05T07:37Z - oros-health-watch-20261105-072053
+
+- Verdict: healthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local mechanic completed at 07:36:55Z after its 07:27-07:33Z inspection and landed the standard record; it found 0 failed or advisory garden units out of 291, no drain, current budget and fleet heartbeats, 3 configured monks claiming, load 2.05, 12G memory available, 30G virtiofs headroom, contention latch off, and no root gc.log. Target roll token, deployed SHA, and origin/main2 all matched d1453f822b8, with no active release, deferred marker, or derotation. The controller's 3h disposition report at journal tip 47db501ca51f showed 25 claims, 18 completions, 4 terminal hints, 2 transient kills, and 4 in flight; the local run traced all terminal hints to kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait. Newest sysop record 20261105T063504Z-280db5 applied a roll-owned quiesce drain that is now lifted. The latest claude-oros sample was ok at 25% at 07:32:33Z.
+- Cause: no host failure established. The repeated pr199 wait-job cycles are a job/control-path defect: gardener.sh cannot record the stale-panel disposition (rc=76), and one cycle falsely published a provider cooldown; the related fix candidate is already parked as jobs/plan/improve-gardener-handler-rc76-collision-expanded-window.md. The local run did not establish why the docket request returns 76.
+- Actions: observed only; no sysop operation, worker-count change, drain change, or code change. None of the host-repair operation rungs was justified.
+- Final state: paired local run complete; heartbeat current, 3 configured monks claiming and completing, deployed d1453f822b8 matching origin/main2, undrained, no active release or derotation, and 0 failed/advisory garden units.
+- Maintainer: none for host repair; the parked rc76 fix remains gated on its existing go-ahead requirement.
+- Next mechanic: recheck virtiofs headroom and measure scratch with a bounded method; assign an owner if free space drops below 20G. Confirm whether the pr199 wait job still cycles and whether the parked rc76 fix has been promoted. Check the possible 824M receipts-backfill orphan. Root pack growth is closed (127 packs fell to 6).
+
 ## 2026-11-05T07:33Z - oros-health-checkup-20261105-072053
 
 - Verdict: healthy
