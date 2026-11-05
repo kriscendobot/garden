@@ -20,3 +20,13 @@ Name and evaluate these options:
 3. Perform a full capability architecture redesign.
 
 The maintainer's tentative preference is option 2 only if the design establishes a real gap. Do not implement the architecture change in this job; produce the decision surface and any implementation follow-up it warrants.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T01:47:17Z
