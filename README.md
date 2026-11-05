@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T21:08:47Z_
+_As of 2026-11-05T21:20:23Z_
 
 ## Latest
 
@@ -3029,10 +3027,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 160.0M | $599.50 _(notional, rate-card)_ | 59% of 271.0M (ok) |
+| Claude | 160.1M | $600.46 _(notional, rate-card)_ | 59% of 271.0M (ok) |
 | Codex | 356.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154904930 tokens/day lower bound._
+_Fleet token-unlock pace: 154905679 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.241481s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 12 open notice(s); checker healthy
@@ -3050,8 +3048,9 @@ worst fetch p95 5.241481s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (0)
-(none)
+### doin (2)
+- [`build-minion-town-retire-resident-role-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-retire-resident-role-20261105.md) — ---
+- [`build-minion-town-waitlist-soon-page-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-waitlist-soon-page-20261105.md) — ---
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
