@@ -20,3 +20,13 @@ Repo: kriscendobot/minion.town (base: current main). Coordinate with the in-flig
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T21:33:14Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T21:33:21Z
