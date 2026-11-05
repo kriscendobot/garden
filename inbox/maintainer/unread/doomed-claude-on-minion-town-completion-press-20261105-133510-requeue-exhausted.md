@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-11-05T14:03:47Z
+sent_at: 2026-11-05T17:43:52Z
 doom_base: claude-on-minion-town-completion-press-20261105-133510
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-11-05T14:03:47Z
-last_seen: 2026-11-05T14:03:47Z
+last_seen: 2026-11-05T17:43:52Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-11-05T14:03:47Z, latest 2026-11-05T17:43:52Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
 The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
 The work is preserved at jobs/plan/claude-on-minion-town-completion-press-20261105-133510; it stays HELD until a human promotes it
@@ -14,6 +18,14 @@ The work is preserved at jobs/plan/claude-on-minion-town-completion-press-202611
 Original job base: claude-on-minion-town-completion-press-20261105-133510
 
 --- original job body ---
+---
+role: gardener
+tier: minion
+posted_at: 2026-11-05T14:03:27Z
+token-budget: 100000
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T17:06:28Z cleared=none -->
+
 ---
 role: gardener
 tier: minion
