@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T16:37:52Z_
+_As of 2026-11-05T16:44:10Z_
 
 ## Latest
 
@@ -333,11 +333,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-01T08:44:33Z, latest 2026-11-05T06:46:19Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` has CLEARED (first seen 2026-11-01T08:44:33Z, cleared 2026-11-05T16:40:42Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/follow-up/journal: p95=0.061490s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_follow_up_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots.md)
 
@@ -507,11 +507,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-11-02T05:27:25Z, latest 2026-11-05T00:55:58Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-11-02T05:27:25Z, cleared 2026-11-05T16:42:22Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=0.056559s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_sysop_journal` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_proxy_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_proxy_journal.md)
 
@@ -1030,31 +1030,31 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #73 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T16:34:42Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 73 times; this is ONE
-> coalesced notice that updates in place, not 73 messages. Latest detail:
+> WATCHDOG notice — occurrence #74 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T16:39:43Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 74 times; this is ONE
+> coalesced notice that updates in place, not 74 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1793898068 set-by=receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite
 > gh-api GraphQL-only marker: expiry=1793898068 set-by=mirror-closer:primary-quota
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2013s (since 2026-11-05T16:01:08Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2014s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 1969s (since 2026-11-05T16:01:52Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 2014s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 2014s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2014s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2012s (since 2026-11-05T16:01:09Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2012s (since 2026-11-05T16:01:09Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1983s (since 2026-11-05T16:01:38Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2014s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2011s (since 2026-11-05T16:01:10Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2012s (since 2026-11-05T16:01:09Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2011s (since 2026-11-05T16:01:10Z)
-> watcher ticking but cooldown for 2013s (since 2026-11-05T16:01:08Z); detail: rest latch set-by=receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite expiry=1793898068
-> - kriscendobot/minion.town: watcher ticking but cooldown for 1980s (since 2026-11-05T16:01:41Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2014s (since 2026-11-05T16:01:07Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2012s (since 2026-11-05T16:01:09Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 2012s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 2314s (since 2026-11-05T16:01:08Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2270s (since 2026-11-05T16:01:52Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2284s (since 2026-11-05T16:01:38Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/list: watcher ticking but cooldown for 2312s (since 2026-11-05T16:01:10Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2312s (since 2026-11-05T16:01:10Z)
+> watcher ticking but cooldown for 2314s (since 2026-11-05T16:01:08Z); detail: rest latch set-by=receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite expiry=1793898068
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2281s (since 2026-11-05T16:01:41Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 2315s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 2313s (since 2026-11-05T16:01:09Z)
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden_journal.md)
 
@@ -2270,11 +2270,11 @@ Delegation: **active**
 
 - `watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-11-02T05:27:16Z, latest 2026-11-05T10:56:51Z).
-> The SAME condition (`journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-11-02T05:27:16Z, cleared 2026-11-05T16:42:02Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/gardener-scaler/journal: p95=0.067139s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_Users_dom_garden__garden_state_gardener_scaler_journal` cleared on oros-studio-garden-ce242c49.
 
 - `ironhorse-ratchet-halted-ironhorse-test262-press-20261030-031712` — from ironhorse-test262-ratchet, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ironhorse-ratchet-halted-ironhorse-test262-press-20261030-031712.md)
 
@@ -2309,7 +2309,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 154879057 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 14 open notice(s); checker healthy
+worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
