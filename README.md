@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T12:26:35Z_
+_As of 2026-11-05T12:31:27Z_
 
 ## Latest
 
@@ -2029,13 +2027,13 @@ worst fetch p95 13.370917s/45s (/home/kris/garden/.garden-state/comment-latency-
 ### doin (0)
 (none)
 
-### tada (16833)
+### tada (16835)
+- [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1652-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/endojs-endo-but-for-bots-pr1652-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1652-gauntlet — HALTED
 - [`fix-minion-town-screener-proxy-timeout-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/fix-minion-town-screener-proxy-timeout-20261105.md) — Cost
 - [`kriscendobot-minion.town-pr242-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr242-gauntlet.md) — gauntlet kriscendobot-minion.town-pr242-gauntlet — code passed, held draft
 - [`endojs-endo-but-for-bots-pr1652-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/endojs-endo-but-for-bots-pr1652-gauntlet-panel-5.md) — Cost
-- [`kriscendobot-minion.town-pr242-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr242-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion.town-pr243-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet-panel-1.md) — Cost
-- … and 16828 more
+- … and 16830 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
