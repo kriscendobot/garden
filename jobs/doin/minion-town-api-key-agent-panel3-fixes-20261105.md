@@ -32,3 +32,13 @@ Read that review in full. Each item below was checked against `main` at `7a0bcc9
 Stylist `d` rename, warden CapTP lockdown test, purist/corner-prober safe-integer bounds in `agentLimits`, fast-checker join property, releaser changeset rewrite, pruner JSDoc cut. Spec-keeper's immutable-revision citation applies if the interface is pinned.
 
 Name the review link above in the PR body so the findings trace back to it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T00:41:05Z
