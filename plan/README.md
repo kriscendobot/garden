@@ -195,6 +195,7 @@ of records, so a milestone spanning repositories rolls up as one.
 ```mermaid
 flowchart LR
   endor_tui_phase_1 --> endor_tui
+  endor_tui_phase_2 --> endor_tui
   endor_tui_phase_3 --> endor_tui
   endor_tui_phase_4 --> endor_tui
   endor_tui_phase_5 --> endor_tui
