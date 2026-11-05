@@ -1,1 +1,2 @@
 {"ts":"2026-11-05T17:51:58Z","base":"improve-decision-ledger-contention-spool","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T18:03:50Z","base":"improve-decision-ledger-contention-spool","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":7,"provider":"anthropic"}
