@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: secret-management-orchestration-20261105
-priority: normal
-posted_by: producer
+role: builder
+tier: mentor
 posted_at: 2026-11-05T09:37:16Z
+handler-timeout: 3600
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-05T09:51:31Z cleared=none -->
 
 ---
 role: builder
