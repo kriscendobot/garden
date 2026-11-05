@@ -1,12 +1,16 @@
 ---
 created: 2026-09-21
-updated: 2026-09-21
-author: gardener
+updated: 2026-11-05
+author: designer, gardener
 ---
 
 <!-- garden-design-open-questions -->
 
 # Host-side dynamic API-key injection proxy
+
+> Superseded on 2026-11-05 by
+> [`secret-management.md`](secret-management.md), which adopts host-local files,
+> per-service wrappers, and per-job harness injection without TLS interception.
 
 Maintainer directive (kriskowal, 2026-09-21): explore a host-side proxy that
 injects the right provider's API key into outbound requests dynamically, so a
