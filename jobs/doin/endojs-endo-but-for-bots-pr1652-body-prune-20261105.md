@@ -47,3 +47,13 @@ No deployment upgrade is required for this design PR. The ten-rung build ladder 
 
 
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T08:29:56Z
