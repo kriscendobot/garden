@@ -24,6 +24,7 @@ Repo: kriscendobot/minion.town (base: current main). Test with the real-daemon +
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T21:33:14Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
