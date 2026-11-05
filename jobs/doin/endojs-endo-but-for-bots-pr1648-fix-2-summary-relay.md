@@ -42,3 +42,13 @@ Head `a7812852ae`. This also covers the earlier missing summary for `2176799b` a
 
 Verification: local `agent-factory`, `agent-factory-module`, registry, store-controller, pet-sitter, help-text and real-daemon `agent-factory-restart` tests pass. `tsc` is clean in both packages and eslint reports no errors on the changed JavaScript files. The full daemon suite was not run locally; CI is pending.
 ----- COMMENT END -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T04:42:14Z
