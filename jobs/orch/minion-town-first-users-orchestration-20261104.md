@@ -1,4 +1,5 @@
 ---
+child-kriscendobot-minion.town-pr199-land-20261104-reap-count: 0
 order: serial
 children: kriscendobot-minion.town-pr199-land-20261104 minion-town-coupon-flip-and-mint-20261104 minion-town-maintainer-guest-reset-20261104
 on-child-failure: halt
