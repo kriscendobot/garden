@@ -1,0 +1,59 @@
+<6>04:00:44 [monk/3] job 'kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>04:00:49 [monk/3] job 'kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait' call ceiling: tier=mentor max-budget-usd=15.60 (scaled by fresh seven-day headroom when available)
+<4>04:00:49 [monk/3] WARN minion-mcp: token preflight failed; job 'kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait' starts without minion.town MCP: credential read failed (secret minion/test-cc-client in us-west-1; are this host's AWS credentials able to read it?)
+panel-head-freshness: stale target=kriscendobot/minion.town#199 reviewed_head=ef986ba6af958206f03ac16ffa5684f1850f9ec7 presented_head=c3ce331ca292ad99b58ec5b7b91ff48fbd3a251f disposition=review-required
+<6>04:02:25 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/kriscendobot/minion.town/pull/199 moved after a completed panel; deferring to the review-docket freshness disposition
+panel-head-freshness: stale target=kriscendobot/minion.town#199 reviewed_head=ef986ba6af958206f03ac16ffa5684f1850f9ec7 presented_head=c3ce331ca292ad99b58ec5b7b91ff48fbd3a251f disposition=review-required
+<6>04:04:07 [review-docket] upsert committed with regenerated PRIORITIES.md
+<6>04:04:07 [review-docket] drained spooled upsert https://github.com/kriscendobot/minion.town/pull/218 (1792776782324590583-f83f3391e1c12957.json)
+readlink: write error: Broken pipe
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 1894507 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>04:04:10 [review-docket] spooled reenter https://github.com/kriscendobot/minion.town/pull/218 failed (rc=124, attempt 1); kept for the next transaction
+garden repo lock: cleared dead-holder metadata pid=1894507 after acquiring /Users/dom/garden/.garden-state/repo-locks/dd33fd1b56fe77e8cf1909a4ddf7e5a92de19e975f20e271671487a3ebff6053/repo.lock
+readlink: write error: Broken pipe
+/Users/dom/garden/scripts/jobs/review-docket.sh: line 606: 1895905 Killed                  setsid env GARDEN_REVIEW_DOCKET_TXN_CHILD=1 GARDEN_REVIEW_DOCKET_NOW="$now" "$HERE/review-docket.sh" "$@" {transaction_fd}>&-
+<6>04:05:40 [review-docket] upsert https://github.com/kriscendobot/minion.town/pull/199 is already spooled (e9880e52e31e7278)
+<6>04:05:40 [review-docket] the upsert transaction exceeded the 180s lock window and was killed; upsert spooled, exiting rc=76 (retryable)
+
+--- handler report (partial) ---
+**The #199 gauntlet ended in `review-budget-reached`, with no clean panel, so the campaign should halt here.** I did not merge, add rounds or change anything on the PR.
+
+## Terminal state
+- **Report:** `jobs/tada/2026/11/05/kriscendobot-minion.town-pr199-gauntlet-20261103.md` shows 8 of 8 rounds spent at $16.38. The active gauntlet record is gone. The report says its must-fix list is unknown, so I took the list below from the panel review itself.
+- **PR:** https://github.com/kriscendobot/minion.town/pull/199 is still an open draft on base `main-c5c3504`.
+- **Head:** `c3ce331ca292ad99b58ec5b7b91ff48fbd3a251f`. Both visible Actions runs passed (`test (typecheck + vitest)` and `clip frame browser gate`). The bot's token can't read `statusCheckRollup`, so non-Actions checks weren't visible.
+- **Last panel:** panel-8 [reviewed](https://github.com/kriscendobot/minion.town/pull/199#pullrequestreview-5778806352) `ef986ba6af958206f03ac16ffa5684f1850f9ec7` and found must-fix items. All 9 seats requested changes.
+
+## Commits no panel has seen
+Fix-8 pushed these after panel-8, and no panel reviewed them:
+- `0edfbcd6` (docs)
+- `c3ce331c` (fixes and tests)
+
+The fix-8 report says each must-fix below is fixed. I took that from the report and did not check the code.
+
+## Panel-8 must-fix list
+
+| # | Finding | Seats | Fix-8 says |
+|---|---|---|---|
+| 1 | **A ledger read yields a guest credential, with no time limit.** `src/coupons/dynamodb.ts:62` stores `leaseNonce` in plaintext beside `couponId`, and `lease` passes a redeemed row through on a matching nonce. Anyone who can read the table can POST the pair to `/api/guest/coupon` and receive the guest's bearer credential. This breaks the `designs/guest-coupons.md` § 12 rule that no row may hold it. | locksmith, breaker, purist, wire-watcher | Rows hold only a nonce digest. Replay ends one day after redemption or when the sweep drops the name, with new tests for both. |
+| 2 | **`coupon-airdrop all` skips every signed-in guest.** `GUEST_HANDLE` admits only `web-` and `coupon-` names, so `g-<digest>` guests get nothing and the run still reports success. | breaker | Now includes `g-<digest>` guests, using the pinned handle grammar. |
+| 3 | **The flip procedure can silently reopen admission.** `deploy/aws/README.md:62,68` names no way to persist the setting, and `deploy-app.sh` overwrites the installed unit, which sets `GUEST_ADMISSION=open`, on the next merge. | integrator | The README names the drop-in `/etc/systemd/system/minion-mcp.service.d/guest-coupons.conf`. `deploy-app.sh` now fails the deploy if `/api/guest/admission` differs from what the unit renders. That check has only been syntax-checked, because it can't run off the box. |
+
+The saboteur, engine-realist, pruner and decomplector raised no must-fix items, only should-fix or comment-only ones.
+
+## Open items for the maintainer
+Fix-8 left these unfixed, so another panel may raise them again. Fix-8 labels them should-fix or decision items; the panel's severity labels for the sweep and `GetItem` items weren't checked individually.
+- **Create authority (locksmith):** closed admission is still a runtime gate over retained create authority, including the delete-then-provide race in `closedToNewGuests`.
+- **Attachment by digest (locksmith, decomplector):** coupons still attach by digest match rather than from a held coupon, which undoes bearer transferability. § 12 records this as a phase 1 limitation.
+- **Readable `couponId`:** an `issued` row's `couponId` still redeems, so a ledger read can spend a pool unit, though it can't yield an existing guest's credential. § 12 records this as a decision for the maintainer to veto.
+- **Sweep cost (engine-realist):** the sweep still scans all history on every tick, and terminal rows have no TTL or archive.
+- **Attach reads (engine-realist):** `attachForHolder` still does one `GetItem` per delivered serial.
+- **Overlapping binds (saboteur, engine-realist):** `bindCoupon` can still overlap across processes in a narrow window.
+- **Another weave is needed (integrator, comment-only):** at panel-8, a trial merge with `origin/main` needed attention, with `main` 22 commits past this base.
+
+## Next steps
+The maintainer can decide directly on `c3ce331c`, or grant another round so a panel sees fix-8. The command, which I did not run, is `scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion.town-pr199-gauntlet-20261103 panel --add-rounds N`.
+
+The `kriscendobot-minion.town-pr199-land-20261104-merge` and `-deploy-verify` children are still parked in `jobs/plan/`.
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
