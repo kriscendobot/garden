@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T18:01:01Z_
+_As of 2026-11-05T18:05:04Z_
 
 ## Latest
 
@@ -1857,6 +1855,60 @@ Delegation: **active**
 >
 > Orchestration orchestrate-build-minion-town-ordered-gutter-20261104 HALTED: child build-minion-town-ordered-gutter-inc1-20261104 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/5 done before halt; parked remainder: build-minion-town-ordered-gutter-inc2-20261104 build-minion-town-ordered-gutter-inc3-20261104 build-minion-town-ordered-gutter-inc4-20261104 build-minion-town-ordered-gutter-inc5-20261104
 
+- `doomed-kriscendobot-minion-town-pr148-gauntlet-viability-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion-town-pr148-gauntlet-viability-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion-town-pr148-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/kriscendobot-minion-town-pr148-gauntlet-viability; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-minion-town-pr148-gauntlet-viability) or removes it, so nothing is lost.
+> Original job base: kriscendobot-minion-town-pr148-gauntlet-viability
+>
+> --- original job body ---
+> ---
+> role: gardener
+> posted_at: 2026-10-03T15:33:17Z
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T17:06:43Z cleared=none -->
+>
+> ---
+> role: gardener
+> gauntlet: kriscendobot-minion-town-pr148-gauntlet
+> gauntlet_stage: viability
+> gauntlet_iteration: 0
+> pr: [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148)
+> ---
+>
+> # Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #148
+>
+> You are the viability gate for staged gauntlet (kriscendobot-minion-town-pr148-gauntlet). Spend no clean, panel,
+> fix, CI-wait, or un-draft budget. Decide whether the gauntlet may begin, report the
+> evidence, then STOP.
+>
+> 1. Read current PR facts with
+>    `gh pr view https://github.com/kriscendobot/minion.town/pull/148 --json state,mergedAt,isDraft,title,body,baseRefName,headRefName,headRefOid,baseRefOid,url`.
+>    A merged PR reports `viability=merged`; any other non-OPEN PR reports
+>    `viability=closed`. Neither enters the gauntlet loop.
+> 2. For an open, unmerged PR, inspect its description, discussion and reviews, linked
+>    issue/design context, current base code, and relevant newer base history. Ask one
+>    concrete yes/no question whose answer decides both of these claims: the PR has not
+>    been superseded, and the need or assumption that motivated it still holds.
+> 3. Report `viability=proceed` only when current evidence supports both claims. If a
+>    newer implementation/design displaced it, or its motivating premise no longer
+>    holds, report `viability=overtaken`. Do not enter the expensive loop merely
+>    because the PR remains open.
+> 4. Include concise `Deciding question:` and `Evidence:` lines in every report.
+>    For `overtaken`, also include this exact line so the maintainer gets an explicit
+>    disposition rather than a silent refusal:
+>
+>    Option: close as superseded
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: viability=proceed -->
+>   <!-- gauntlet-stage-result: viability=closed -->
+>   <!-- gauntlet-stage-result: viability=merged -->
+>   <!-- gauntlet-stage-result: viability=overtaken -->
+
 - `improve-gardener-handler-rc76-collision-split-halted` — from orchestrator:improve-gardener-handler-rc76-collision-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-gardener-handler-rc76-collision-split-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -2775,7 +2827,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 159.6M | $596.31 _(notional, rate-card)_ | 59% of 271.0M (ok) |
-| Codex | 354.3M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 354.6M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154887260 tokens/day lower bound._
 
@@ -2792,10 +2844,10 @@ worst fetch p95 4.483918s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
-- [`improve-decision-ledger-contention-spool`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-decision-ledger-contention-spool.md) — ---
+- [`build-daemon-git-remotes-transport-timing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-git-remotes-transport-timing.md) — ---
 
 ### doin (1)
-- [`build-daemon-git-remotes-transport-timing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-transport-timing.md) — ---
+- [`improve-decision-ledger-contention-spool`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-decision-ledger-contention-spool.md) — ---
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
