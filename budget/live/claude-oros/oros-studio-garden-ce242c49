@@ -1,12 +1,12 @@
 subscription: claude-oros
 host: oros-studio-garden-ce242c49
 window_start_epoch: 1793703600
-spend: 49517768
+spend: 49676903
 cap: 180000000
 status: ok
-sampled_at_epoch: 1793844418
-sampled_at: 2026-11-05T02:06:58Z
-sample_bucket: 1993160
-used_percent: 21
+sampled_at_epoch: 1793845025
+sampled_at: 2026-11-05T02:17:05Z
+sample_bucket: 1993161
+used_percent: 22
 used_percent_source: derived
 road_w_kris: 0
