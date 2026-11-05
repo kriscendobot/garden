@@ -15,6 +15,18 @@ Insert completed records newest first, above the template.
 - Maintainer: none
 - Next mechanic: `oros-health-checkup-20261105-010527` owns the missing local inspection when a monk slot frees; first verify its completion and fresh host-health evidence, then recheck the open disk/pack-growth observations from the 23:24Z legacy health note.
 
+## 2026-11-05T01:43Z - oros-health-checkup-20261105-010527
+
+- Verdict: healthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / local
+- Trigger: schedule/oros-health-checkup
+- Evidence: fleet/health 01:36:20Z unit_failures 0 of 291, roll_status deferred; no failed units locally; no local draining marker; deploy/roll/oros-studio-garden-ce242c49 names a4d206f4d3f (origin/main2 tip), deployed 36a2080657e; deploy/deferred names long job monk 2, elapsed 2201s at 01:42Z; budget claude-oros used 21% (sample 01:32Z); disposition 6h 27 claims, 23 completions, 0 terminal, 0 transient, 3 in flight; load 2.15, 12G memory available, / 7%, /tmp 18% by df; virtiofs 94% used, 32G free, 4% inodes; contention probe outage_skips=0, latch off; newest sysop record 20261104T235002Z-66539f drain accepted-and-applied.
+- Cause: none; the deferral is the normal long-job deferral on an active roll release.
+- Actions: none. Exited early for the active roll release, per the recurrence rule. Carried-forward report of a stray 2026-11-04 pkill of a du process needed no action.
+- Final state: heartbeat current, 3 monks active, deployed 36a2080657e with a4d206f4d3f pending, undrained, claims and completions advancing.
+- Maintainer: none
+- Next mechanic: confirm deployed SHA reaches a4d206f4d3f once monk 2 finishes; watch virtiofs free space (32G), not repaired or investigated here because of the roll.
+
 ## Record template
 
 ```markdown
