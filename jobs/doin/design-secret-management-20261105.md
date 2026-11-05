@@ -84,3 +84,13 @@ dispatch: automatic
 
 Keep it short and concrete; the maintainer wants to pursue the tower's option and improve it with use.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T09:40:12Z
