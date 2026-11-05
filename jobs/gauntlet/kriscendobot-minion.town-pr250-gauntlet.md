@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-11-05T01:59:35Z
 arc: 
-stage: panel
+stage: fix
 iteration: 5
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr250-gauntlet-panel-5
+current_child: kriscendobot-minion.town-pr250-gauntlet-fix-5
 state: running
 resumed_at: 2026-11-05T07:28:56Z
 resumed_from_stage: fix
