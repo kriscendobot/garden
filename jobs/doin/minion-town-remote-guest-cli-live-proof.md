@@ -18,6 +18,7 @@ On completion, update #236's phase and evidence ledger to `Disposition: delivera
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
