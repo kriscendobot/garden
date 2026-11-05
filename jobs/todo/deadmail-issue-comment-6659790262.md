@@ -3,8 +3,9 @@ posted_at: 2026-11-05T14:00:02Z
 kind: issue-follow-up
 issue_spine: issue-kriscendobot-garden-114
 issue_url: https://github.com/kriscendobot/garden/issues/114
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Issue follow-up — fold a late comment into the issue work
@@ -51,13 +52,5 @@ Comment: https://github.com/kriscendobot/garden/issues/114#issuecomment-66597902
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T14:00:16Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-05T14:13:10Z -->
