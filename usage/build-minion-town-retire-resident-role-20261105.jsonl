@@ -1,1 +1,2 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T21:16:18Z","base":"build-minion-town-retire-resident-role-20261105","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":8,"role":"builder","provider":"anthropic"}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T21:33:39Z","base":"build-minion-town-retire-resident-role-20261105","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":8,"role":"builder","provider":"anthropic"}
