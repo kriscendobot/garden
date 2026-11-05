@@ -1,1 +1,2 @@
 {"ts":"2026-11-05T17:09:42Z","base":"moddable-10-0-0-ironhorse-compiler-safety-port","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":1}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T17:24:30Z","base":"moddable-10-0-0-ironhorse-compiler-safety-port","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":53,"role":"builder","provider":"anthropic"}
