@@ -1,2 +1,2 @@
-base: improve-refresh-stale-budget-snapshot
+base: improve-budget-level-tempfail
 identity: mentor:scripts/jobs/budget-level.sh
