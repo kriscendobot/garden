@@ -11,6 +11,7 @@ Build Phase 6 interactive Git-clone provisioning in endojs/endo-but-for-bots fro
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T16:03:37Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
