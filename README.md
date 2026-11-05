@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T02:20:51Z_
+_As of 2026-11-05T02:23:11Z_
 
 ## Latest
 
@@ -521,6 +521,16 @@ Delegation: **active**
 - `20261021T143920Z-cca5e1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T143920Z-cca5e1.md)
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-two-http-fetch' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
+
+- `watchdog-self-heal-garden-issue-inbox` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-issue-inbox.md)
+
+> self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: ede73db786c5c4b833877b2c83a151b2e260004c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ede73db786c5c4b833877b2c83a151b2e260004c). Diagnosis: The watcher already has timeout handling for this failure, so I'm not posting a fix job.
+>
+> **Diagnosis:** The issue-source fetch for `kriscendobot/garden` hit its per-stage timeout (rc=124, "Terminated") at about 02:21. The watcher logged FATAL and exited 1. The same run loaded the 8 maintainers from the allowlist at 02:18:07, and the timeout hit about 3 minutes after that.
+>
+> This matches a slow or hung GitHub API call, from network latency or a rate-limit or cooldown wait. It doesn't match a code defect. The cursor never advanced, so no maintainer comment was lost. systemd restarts the unit, and the next tick re-polls the same items.
+>
+> **Next step:** If it keeps happening, look at GitHub primary-quota exhaustion first: the shared `kriscendobot` token is known to be rate-limited. Check whethe
 
 - `endojs-endo-but-for-bots-pr1482-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1482-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1482-gauntlet-review-budget-reached.md)
 
@@ -1712,7 +1722,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 148.0M | $548.92 _(notional, rate-card)_ | 55% of 271.0M (backoff) |
+| Claude | 148.0M | $549.12 _(notional, rate-card)_ | 55% of 271.0M (backoff) |
 | Codex | 328.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 39238094 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
