@@ -50,3 +50,13 @@ Comment: https://github.com/kriscendobot/garden/issues/114#issuecomment-66597902
 @kriscendobot please move your reply about minion.town/issues/251 to that issue 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T14:00:16Z
