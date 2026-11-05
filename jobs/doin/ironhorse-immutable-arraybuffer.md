@@ -22,3 +22,13 @@ Gated outcome: immutable-arraybuffer test262 cases covered with zero new diverge
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T17:33:12Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T17:33:30Z
