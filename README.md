@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T16:12:15Z_
+_As of 2026-11-05T16:16:16Z_
 
 ## Latest
 
@@ -370,6 +370,25 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > worker-derotate controller is succeeding again on endolin-garden-ece02cb4.
+
+- `doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-git-remotes-phase-six-interactive-provisioning-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning; it stays HELD until a human promotes it
+> (promote-plan.sh build-daemon-git-remotes-phase-six-interactive-provisioning) or removes it, so nothing is lost.
+> Original job base: build-daemon-git-remotes-phase-six-interactive-provisioning
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-05T15:45:41Z
+> arc: minion-town-git-remote
+> role: builder
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Build Phase 6 interactive Git-clone provisioning in endojs/endo-but-for-bots from `daemon-git-remotes`: compose mount creation, endpoint policy, and sealed credentials into `provideGitClone`, with contract tests.
 
 - `msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544` — from gardener:deadmail-20261101T155052Z-5d5ca8, reply_to `deadmail-20261101T155052Z-5d5ca8` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-deadmail-20261101T155052Z-5d5ca8-a7fd98b1d544.md)
 
@@ -751,6 +770,25 @@ Delegation: **active**
 > detail: stalled in flight for 7270s on host oros-studio-garden-ce242c49 (handler-timeout=7200s, multiplier=1)
 >
 > Orchestration improve-gardener-handler-rc76-collision-split observed child improve-gardener-handler-rc76-collision-expanded-window: stalled in flight for 7270s on host oros-studio-garden-ce242c49 (handler-timeout=7200s, multiplier=1).
+
+- `doomed-design-daemon-git-remotes-ssh-transport-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-design-daemon-git-remotes-ssh-transport-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/design-daemon-git-remotes-ssh-transport; it stays HELD until a human promotes it
+> (promote-plan.sh design-daemon-git-remotes-ssh-transport) or removes it, so nothing is lost.
+> Original job base: design-daemon-git-remotes-ssh-transport
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-05T15:51:15Z
+> arc: minion-town-git-remote
+> role: designer
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Design the Phase 7 SSH transport and credential-capability slice for `endojs/endo-but-for-bots`, extending `designs/daemon-git-remotes.md` on `llm` with host-key policy, key-use authority, and bounded command restrictions.
 
 - `20261021T143920Z-cca5e1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T143920Z-cca5e1.md)
 
@@ -1762,16 +1800,6 @@ Delegation: **active**
 > To add budget and resume: scripts/jobs/gauntlet.sh --resume-from-stage kriscendobot-minion-town-pr234-screen-0e10e33b-gauntlet panel --add-rounds 2
 > --add-rounds 2 grants 2 more panel/fix round(s): max_iterations 1 -> 3 (N is yours to choose).
 
-- `watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-minion-town-screening-tick-failed-endolin-garden-ece02cb4.md)
-
-> minion.town screening on endolin-garden-ece02cb4 has not completed for 3 consecutive proxy ticks (first failure 2026-11-05T16:01:08Z).
->
-> Failure class: github-deferred
-> Latest detail: gh api screen:pr-list admission refused: host-shared gh-api cooldown live (2991s left, tag receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite; API rate limit already exceeded for user); not issued 
->
-> No screening gate was bypassed and the delegation was not resumed. The proxy will retry on its next tick and post a recovery update after a completed screen.
-> Runbook: context/operations/minion-town-screening.md
-
 - `watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ci-read-forbidden-oros-studio-garden-ce242c49-kriscendobot.md)
 
 > WATCHDOG notice — occurrence #6 (first seen 2026-10-16T18:44:42Z, latest 2026-10-17T18:14:24Z).
@@ -2237,7 +2265,7 @@ _Fleet token-unlock pace: 154879057 tokens/day lower bound._
 worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (7)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -2245,11 +2273,9 @@ worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
-- [`design-daemon-git-remotes-server-half`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-daemon-git-remotes-server-half.md) — ---
 
-### doin (2)
-- [`build-daemon-git-remotes-phase-six-interactive-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-phase-six-interactive-provisioning.md) — ---
-- [`design-daemon-git-remotes-ssh-transport`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-daemon-git-remotes-ssh-transport.md) — ---
+### doin (1)
+- [`design-daemon-git-remotes-server-half`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-daemon-git-remotes-server-half.md) — ---
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
@@ -2298,7 +2324,9 @@ worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`cutover-budget-road`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/cutover-budget-road.md) — _normal_ · Cut over to the budget road
+- [`build-daemon-git-remotes-phase-six-interactive-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-git-remotes-phase-six-interactive-provisioning.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr546-gauntlet-20261007-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #546
+- [`design-daemon-git-remotes-ssh-transport`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-ssh-transport.md) — _normal_ · ---
 - [`screen-minion-town-pr246-93329d9-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr246-93329d9-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#246 at 93329d9faf0564a5791...
 - [`endojs-endo-but-for-bots-pr1486-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1486-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1486
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
