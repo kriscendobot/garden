@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T11:17:08Z_
+_As of 2026-11-05T11:26:49Z_
 
 ## Latest
 
@@ -688,6 +686,22 @@ Delegation: **active**
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
 
+- `20261105T112033Z-ff45dc` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T112033Z-ff45dc.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `afd9d789d84bae918176052e2a53e4e661110e9f`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/Users/dom/garden/.garden-state/deploy/candidate-gate-diagnostics/afd9d789d84bae918176052e2a53e4e661110e9f/attempt2-01-scripts_jobs_test_signal-kill-classifier-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `oros-studio-garden-ce242c49` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `20261105T111436Z-f9aa3d` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T111436Z-f9aa3d.md)
 
 > kind: error
@@ -1254,6 +1268,22 @@ Delegation: **active**
 > - My live probe left one anonymous guest on production. The API has no route to delete it. Its identifier was never recorded.
 > - The source note was not on this host. If the maintainer wants the report itself checked against these pages, re-run on the host that holds `/home/kris/garden/note-from-tower.md`.
 
+- `20261105T112349Z-8815e5` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T112349Z-8815e5.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `afd9d789d84bae918176052e2a53e4e661110e9f`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/Users/dom/garden/.garden-state/deploy/candidate-gate-diagnostics/afd9d789d84bae918176052e2a53e4e661110e9f/attempt2-01-scripts_jobs_test_signal-kill-classifier-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `oros-studio-garden-ce242c49` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal.md)
 
 > RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-11-04T15:29:51Z, cleared 2026-11-04T21:14:33Z).
@@ -1400,6 +1430,22 @@ Delegation: **active**
 > recovered-children: 
 >
 > Orchestration mechanic-role-orchestration-20261104 complete (serial): all 2 children reached tada without a machine-readable failure declaration.
+
+- `20261105T111750Z-1c5311` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T111750Z-1c5311.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `afd9d789d84bae918176052e2a53e4e661110e9f`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/Users/dom/garden/.garden-state/deploy/candidate-gate-diagnostics/afd9d789d84bae918176052e2a53e4e661110e9f/attempt2-01-scripts_jobs_test_signal-kill-classifier-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `oros-studio-garden-ce242c49` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `20261017T175349Z-6b9fd0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261017T175349Z-6b9fd0.md)
 
@@ -1811,11 +1857,15 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-11-01T06:29:02Z, cleared 2026-11-05T07:14:04Z).
-> It was observed 216 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #217 (first seen 2026-11-01T06:29:02Z, latest 2026-11-05T11:20:04Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 217 times; this is ONE
+> coalesced notice that updates in place, not 217 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release d1453f822b85344c2d37fa18caddd332c8bb0b68, deployed d1453f822b85344c2d37fa18caddd332c8bb0b68).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to afd9d789d84b 21 min ago
+> but still reports deployed_sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `msg-oros-health-watch-20261104-185019-1236f736a3b1` — from gardener:oros-health-watch-20261104-185019, reply_to `oros-health-watch-20261104-185019` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261104-185019-1236f736a3b1.md)
 
@@ -1939,12 +1989,12 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 156.6M | $583.66 _(notional, rate-card)_ | 58% of 271.0M (backoff) |
-| Codex | 351.8M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Codex | 351.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 39466695 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 39466762 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 15.799405s/45s (/home/kris/garden/.garden-state/monitors/cleric-4/journal); 8 open notice(s); checker healthy
+worst fetch p95 13.552847s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (10)
@@ -1959,8 +2009,8 @@ worst fetch p95 15.799405s/45s (/home/kris/garden/.garden-state/monitors/cleric-
 - [`kriscendobot-minion.town-pr242-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr242-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #242
 - [`kriscendobot-minion.town-pr243-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr243-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #243
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-deploy-gate-rejection-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-rejection-cache.md) — ---
 
 ### tada (16822)
 - [`kriscendobot-minion.town-pr249-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr249-gauntlet.md) — gauntlet kriscendobot-minion.town-pr249-gauntlet — review budget reached
