@@ -2,7 +2,7 @@
 order: serial
 children: backfill-receipt-rollup-20261105-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-11-05T06:06:33Z
 ---
