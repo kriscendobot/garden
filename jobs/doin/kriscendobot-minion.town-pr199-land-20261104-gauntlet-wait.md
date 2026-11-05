@@ -27,6 +27,7 @@ If this job's handler wall approaches with the gauntlet still legitimately activ
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
