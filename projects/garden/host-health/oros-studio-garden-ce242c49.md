@@ -2,6 +2,18 @@
 
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
+## 2026-11-05T10:52Z - oros-health-watch-20261105-103515
+
+- Verdict: operator-held
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local mechanic remained queued at `jobs/todo/oros-health-checkup-20261105-103515.md` through 10:51:51Z and therefore did not complete this cycle. A roll-owned quiesce drain was accepted and applied by sysop record `20261105T104102Z-7407e5` at 10:41:38Z, explicitly stopping new claims for release target `d95e2b59ba06`; the two prior jobs completed at 10:44:26Z and 10:45:26Z but the local mechanic correctly remained unclaimed under that drain. Fleet health at 10:42:29Z reported 0 failed and 0 advisory units out of 291, deployed `2c082b9acbc8`, and roll status deferred for the then-active monk 1. Budget sample at 10:47:28Z was ok at 26%, and the target had been scaled to the budget-supplied exact count of 2 monks by terminal sysop record `20261105T102020Z-ae0687`. The 3h disposition report at journal tip `7b726c971318` showed 20 claims, 21 completions, 0 terminal failures, 0 transient kills, and 2 in flight; per-claim follow-through was 90%.
+- Cause: the missing local inspection is explained by the rolling-deploy quiesce drain, not a host failure. The active roll owns the drain and the pending release; controller evidence cannot replace the local load, memory, disk, swap, lock-holder, and journal inspection.
+- Actions: observed only. No sysop operation, worker-count change, drain change, or code change; the rolling-deploy workflow retains ownership, and no host-repair rung was justified.
+- Final state: safely operator-held for the roll; last durable health had a current heartbeat, 0 failed/advisory units, deployed `2c082b9acbc8`, release target `d95e2b59ba06`, and the roll-owned drain still applied. The paired local mechanic remains queued rather than duplicated.
+- Maintainer: none
+- Next mechanic: `oros-health-checkup-20261105-103515` owns the missing local inspection after the roll lifts its drain. First confirm the local completion and fresh host-health record, then recheck virtiofs headroom, bounded scratch size, stale lock-holder liveness, and the possible 824M receipts-backfill orphan carried from the 07:33Z local record.
+
 
 ## 2026-11-05T07:37Z - oros-health-watch-20261105-072053
 
