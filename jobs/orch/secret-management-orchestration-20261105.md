@@ -1,4 +1,5 @@
 ---
+child-design-secret-management-20261105-host: endolin-garden-ece02cb4
 child-design-secret-management-20261105-reap-count: 0
 order: serial
 children: design-secret-management-20261105 build-secret-management-20261105
