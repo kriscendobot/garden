@@ -207,14 +207,17 @@ else
 
     ORIGIN="$TR/origin.git"; GROOT="$TR/garden"
     git init -q --bare "$ORIGIN"
-    mkdir -p "$GROOT/scripts/jobs/handlers" "$GROOT/roles/gardener"
+    mkdir -p "$GROOT/scripts/jobs/handlers" "$GROOT/scripts/jobs/bin" "$GROOT/scripts/secrets" "$GROOT/roles/gardener"
     git -C "$GROOT" init -q
     git -C "$GROOT" config user.email t@localhost
     git -C "$GROOT" config user.name test
-    cp "$JOBS/common.sh" "$JOBS/usage-meter.sh" "$JOBS/quota-panel.sh" "$GROOT/scripts/jobs/"
+    cp "$JOBS/common.sh" "$JOBS/usage-meter.sh" "$JOBS/budget-road.sh" \
+       "$JOBS/review-write-deny.sh" "$JOBS/quota-panel.sh" "$GROOT/scripts/jobs/"
     cp "$JOBS/model-tier-inventory.tsv" "$JOBS/model-routing-defaults.tsv" \
        "$JOBS/rate-card-defaults.md" "$GROOT/scripts/jobs/"
     cp "$JOBS/handlers/monk-claude.sh" "$JOBS/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
+    cp "$GARDEN_ROOT/scripts/secrets/lib.sh" "$GARDEN_ROOT/scripts/secrets/registry.tsv" \
+       "$GARDEN_ROOT/scripts/secrets/run-sandboxed.sh" "$GROOT/scripts/secrets/"
     chmod +x "$GROOT/scripts/jobs/handlers/monk-claude.sh"
     printf '# gardener role (test stub)\n' > "$GROOT/roles/gardener/AGENT.md"
     printf '/scratch/\n' > "$GROOT/.gitignore"
@@ -249,7 +252,7 @@ if [ -n "$sid" ]; then
   mkdir -p "$pd"; printf '{"transcript":"stub"}\n' >> "$pd/$sid.jsonl"
 fi
 if [ -n "${FAKE_STAY:-}" ]; then exec sleep 300; fi
-printf '{"result":"%s"}\n' "${FAKE_MARKER:-done}"
+printf '{"type":"result","subtype":"success","is_error":false,"result":"%s"}\n' "${FAKE_MARKER:-done}"
 FAKE
     chmod +x "$FAKEDIR/claude"
     [ -n "$MARKER" ] || echo "  note: could not read GARDEN_COMPLETION_MARKER; sentinel check skipped"
