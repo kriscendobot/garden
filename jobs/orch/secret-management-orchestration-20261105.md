@@ -1,4 +1,5 @@
 ---
+child-design-secret-management-20261105-reap-count: 0
 order: serial
 children: design-secret-management-20261105 build-secret-management-20261105
 on-child-failure: halt
