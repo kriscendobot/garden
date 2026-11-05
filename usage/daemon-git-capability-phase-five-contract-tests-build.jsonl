@@ -1,1 +1,2 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T15:31:07Z","base":"daemon-git-capability-phase-five-contract-tests-build","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":11,"role":"builder","arc":"minion-town-git-remote","provider":"anthropic"}
+{"ts":"2026-11-05T15:44:04Z","base":"daemon-git-capability-phase-five-contract-tests-build","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":4,"arc":"minion-town-git-remote"}
