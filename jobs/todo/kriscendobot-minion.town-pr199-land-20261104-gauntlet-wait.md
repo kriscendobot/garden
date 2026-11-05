@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-minion.town-pr199-land-20261104-split
-priority: normal
-posted_by: producer
+role: gardener
+tier: mentor
 posted_at: 2026-11-05T01:20:33Z
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-11-05T01:29:59Z cleared=none -->
 
 ---
 role: gardener
