@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-11-05T21:03:29Z
+sent_at: 2026-11-05T22:13:41Z
 doom_base: build-minion-town-recovery-outcome-screen-20261105
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-11-05T21:03:29Z
-last_seen: 2026-11-05T21:03:29Z
+last_seen: 2026-11-05T22:13:41Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-11-05T21:03:29Z, latest 2026-11-05T22:13:41Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
 The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
 The work is preserved at jobs/plan/build-minion-town-recovery-outcome-screen-20261105; it stays HELD until a human promotes it
@@ -14,6 +18,15 @@ The work is preserved at jobs/plan/build-minion-town-recovery-outcome-screen-202
 Original job base: build-minion-town-recovery-outcome-screen-20261105
 
 --- original job body ---
+---
+role: builder
+tier: mentor
+posted_at: 2026-11-05T21:03:18Z
+handler-timeout: 3600
+token-budget: 250000
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T21:46:57Z cleared=none -->
+
 ---
 posted_at: 2026-11-05T20:40:38Z
 role: builder
@@ -37,3 +50,7 @@ dispatch: automatic
 Repo: kriscendobot/minion.town (base: current main). Maintainer evaluates production results, not diffs (review inversion). The wait list itself was just provisioned (see below), so the join-the-wait-list action on the new screen must work in production; verify it end to end.
 
 **Context already handled by the liaison (do not redo):** "wait list not available" was a missing DynamoDB table; `deploy/aws/scripts/deploy-waitlist-store.sh` had never been run. It was run on 2026-11-05, and `POST /api/waitlist` now returns 202. A probe row was inserted and deleted. Add a production smoke check for `/api/waitlist` to the deploy probe (`deploy/probe/prod-objectives.mjs`) so a missing store fails the deploy loudly instead of surfacing as "unavailable" to a visitor, and make the splash's error text say the list is temporarily unavailable and how to retry, not a bare "not available".
+
+<!-- garden-annotation: key=78d1671abec4 by=producer at=2026-11-05T21:14:43Z -->
+
+COPY CHANGE (maintainer 2026-11-05): never use the word 'resident' in visitor-facing text; use 'guest'. Any new recovery/landing copy says guest. The sibling job build-minion-town-waitlist-soon-page-20261105 changes the existing splash strings; stay consistent with it. Internal role value 'resident' is not renamed.
