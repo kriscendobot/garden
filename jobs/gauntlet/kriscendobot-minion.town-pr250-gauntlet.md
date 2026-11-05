@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 250
 build_job: design-minion-town-agent-directory-attenuation-20261105
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr250-gauntlet-panel-3
+current_child: kriscendobot-minion.town-pr250-gauntlet-fix-3
 state: running
 created_by: producer
 created_at: 2026-11-05T01:59:35Z
