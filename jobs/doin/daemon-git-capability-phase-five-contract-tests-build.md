@@ -11,6 +11,7 @@ Build the unblocked Phase 5 contract-test slice for `endojs/endo-but-for-bots` f
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T15:43:36Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
