@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T10:50:51Z_
+_As of 2026-11-05T10:54:44Z_
 
 ## Latest
 
@@ -27,7 +25,7 @@ The rest of the unread inbox is routine watchdog noise: journal-contention notic
 
 ## Maintainer review docket
 
-189 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
+187 open · [ordered priorities and review docket](https://github.com/kriscendobot/garden/blob/journal2/PRIORITIES.md)
 ## Screened by proxy (minion.town)
 
 Delegation: **active**
@@ -1857,30 +1855,29 @@ _Fleet token-unlock pace: 39466632 tokens/day lower bound; incomplete where a su
 worst fetch p95 15.799405s/45s (/home/kris/garden/.garden-state/monitors/cleric-4/journal); 8 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`minion-town-arc-press-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261105-103515.md) — Supervise the minion.town arc: carry its pull requests through review
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`endojs-endo-but-for-bots-pr1652-review-5782081346-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1652-review-5782081346-replies.md) — Post the RSVP for endojs/endo-but-for-bots PR #1652 review 5782081346
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr242-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr242-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #242
 - [`endojs-endo-but-for-bots-pr1652-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1652-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1652
 - [`kriscendobot-minion.town-pr243-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr243-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #243
 
 ### doin (2)
-- [`oros-health-watch-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261105-103515.md) — ---
+- [`endojs-endo-but-for-bots-pr1652-review-5782081346-replies`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1652-review-5782081346-replies.md) — Post the RSVP for endojs/endo-but-for-bots PR #1652 review 5782081346
 - [`kriscendobot-minion.town-pr249-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr249-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #249
 
-### tada (16817)
+### tada (16818)
+- [`oros-health-watch-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/oros-health-watch-20261105-103515.md) — Cost
 - [`kriscendobot-minion.town-pr242-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr242-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1652-review-358defcf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/endojs-endo-but-for-bots-pr1652-review-358defcf.md) — Cost
 - [`kriscendobot-minion.town-pr241-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr241-gauntlet.md) — gauntlet kriscendobot-minion.town-pr241-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr241-gauntlet-fix-8.md) — Cost
-- [`secret-management-orchestration-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/secret-management-orchestration-20261105.md) — orchestration secret-management-orchestration-20261105 — complete
-- … and 16812 more
+- … and 16813 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
