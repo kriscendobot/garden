@@ -3,6 +3,10 @@
 # validated review-docket intake contract, never the journal record path.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+: "${GARDEN_REVIEW_DOCKET_REQUEST_CORE:=$HERE/review-docket.sh}"
+# Clerks from before d4f21341dcc return this configured rc after durably
+# spooling intake. Accept it here so a rolling deploy cannot fail a producer.
+: "${GARDEN_REVIEW_DOCKET_SPOOLED_RC:=76}"
 url="" ask="" source_id="" summary="" arc="unallocated" milestone="-" unblocks='[]'
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -25,4 +29,10 @@ trap 'rm -f "$request"' EXIT
 jq -cn --arg ask "$ask" --arg source "$source_id" --arg summary "$summary" \
   --arg arc "$arc" --arg milestone "$milestone" --argjson unblocks "$unblocks" \
   '{schema:1,ask:$ask,source:$source,summary:$summary,arc:$arc,milestone:$milestone,unblocks:$unblocks}' > "$request"
-"$HERE/review-docket.sh" upsert "$url" "$request"
+rc=0
+"$GARDEN_REVIEW_DOCKET_REQUEST_CORE" upsert "$url" "$request" || rc=$?
+if [ "$rc" -ne 0 ] && [ "$rc" -eq "$GARDEN_REVIEW_DOCKET_SPOOLED_RC" ]; then
+  echo "review-docket-request: intake durably spooled for deferred delivery (rc=$rc); accepting request" >&2
+  exit 0
+fi
+exit "$rc"
