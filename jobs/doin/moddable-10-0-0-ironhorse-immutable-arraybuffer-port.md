@@ -42,6 +42,7 @@ Scope narrowed by the PR #1435 panel round 1 (design commit 7d2d6f8d12): the ora
 Snapshot-golden rule (design § Orchestration, PR #1435 panel round 2): children 1 and 5 may both bump the snapshot format version (`ironhorse-snapshot/src/format.rs`) and regenerate `ironhorse-snapshot/tests/fixtures/state_golden*.tsv` (both math providers) and the inline digests. Regenerate these, never hand-merge them; whichever of the two merges second rebases onto the first, regenerates the goldens, takes the next format version, and says so in its PR. When a specified result disagrees with the 8.3.1 oracle, record the row as the run reports it and list it in the PR as an expected oracle divergence citing the spec and the XS 10.0.0 commit; never change the engine toward the oracle. Design row: R22. Additionally (critic, panel round 2): this child's FIRST commit is a short design note, reviewed before any write-path code lands, that decides (a) representation: where the immutable bit lives (buffer row vs side table) and how every write path reaches it; (b) precedence: order of the detached and immutable checks on each write, transfer, and slice path, from the spec; (c) persistence: whether the bit changes the snapshot row format, and if so the format-version bump and the goldens it regenerates.
 
 <!-- garden-outage-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
