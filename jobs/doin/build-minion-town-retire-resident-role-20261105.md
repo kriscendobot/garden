@@ -17,3 +17,13 @@ dispatch: automatic
 4. Add a changeset (the repo's convention) noting the removed role. Run the full test suite, typecheck and pre-push gates; deploy and verify in production with the usual Playwright acceptance, using a dedicated test principal, and show that a pre-existing `resident` row (seed one in a test table, never in production) still signs in as a guest.
 
 Repo: kriscendobot/minion.town (base: current main). Coordinate with the in-flight copy change in `build-minion-town-waitlist-soon-page-20261105` (it edits `deploy/aws/www/index.html` and `home.js`); if its PR is open, stack on it or rebase over it, don't fight it. Maintainer evaluates production results, not diffs.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T21:16:00Z
