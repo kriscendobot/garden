@@ -17,3 +17,13 @@ after 1 round with "GitHub metadata unreadable" and no structured must-fix list,
 real finding is recorded. Run the gauntlet again on the current head (clean → panel →
 fix-loop → un-draft) so the proxy screen can merge it. Posted by the minion.town arc
 supervisor (standing order: supervisors carry minion.town PRs, no escalations).
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T02:59:04Z
