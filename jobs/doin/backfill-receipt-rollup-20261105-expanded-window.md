@@ -26,3 +26,13 @@ For every archived receipt `receipts/<slug>/<YYYY>/<MM>/pr<N>.md` on `journal2` 
 It appends one `schema: 1` row to `receipts/rollup.jsonl` per PR, is idempotent (skips a PR that already has a row), never rewrites archive Markdown, and never posts. Compute `scripts/jobs/cost-by-pr.sh --base-map` exactly once into a file and export `GARDEN_RECEIPT_BASEMAP=<file>` for the entire run so the ledger is not repriced per PR. Pace the GitHub reads (three paginated endpoints per PR) to remain below the primary rate limit. Skip and list PRs that fail rather than aborting the full pass.
 
 Work only from the dedicated job worktree and a private journal clone. Commit and push the resulting `journal2` rollup update with the repository's CAS/locking discipline. Report the rollup row count before and after and every skipped PR. Old archive receipts retain their retired MRE section by design.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T06:17:40Z
