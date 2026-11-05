@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T12:09:28Z_
+_As of 2026-11-05T12:10:29Z_
 
 ## Latest
 
@@ -824,10 +824,6 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 3 (target 3): subscription claude-oros spend=17483978 cap=180000000 pace-bias=0 window-start=2026-11-03T11:00Z(calendar) deadline=2026-11-10T11:00Z(calendar) ceiling=4 backoff=0.5389(ramp) target=3
-
-- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_outbound_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_producer_outbound_journal.md)
-
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/producer/outbound-journal: p95=84.865686s, giveups=0, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
