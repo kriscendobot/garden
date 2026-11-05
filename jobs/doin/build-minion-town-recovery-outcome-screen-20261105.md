@@ -34,3 +34,13 @@ Repo: kriscendobot/minion.town (base: current main). Maintainer evaluates produc
 <!-- garden-annotation: key=78d1671abec4 by=producer at=2026-11-05T21:14:43Z -->
 
 COPY CHANGE (maintainer 2026-11-05): never use the word 'resident' in visitor-facing text; use 'guest'. Any new recovery/landing copy says guest. The sibling job build-minion-town-waitlist-soon-page-20261105 changes the existing splash strings; stay consistent with it. Internal role value 'resident' is not renamed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T21:47:03Z
