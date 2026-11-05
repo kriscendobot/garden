@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T09:57:38Z_
+_As of 2026-11-05T10:01:11Z_
 
 ## Latest
 
@@ -726,11 +726,15 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-11-05T03:11:18Z, cleared 2026-11-05T09:52:47Z).
-> It was observed 65 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #66 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T09:57:49Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 66 times; this is ONE
+> coalesced notice that updates in place, not 66 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 2 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1793874014 set-by=receipt:kriscendobot-endo:PR source:primary-quota <- receipt:kriscendobot-minion.town:receipt generate
+> gh-api GraphQL-only marker: expiry=1793874014 set-by=mirror-closer:primary-quota
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2253s (since 2026-11-05T09:20:15Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 2255s (since 2026-11-05T09:20:13Z)
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden_journal.md)
 
@@ -1145,10 +1149,6 @@ Delegation: **active**
 > ## Follow-ups
 > - My live probe left one anonymous guest on production. The API has no route to delete it. Its identifier was never recorded.
 > - The source note was not on this host. If the maintainer wants the report itself checked against these pages, re-run on the host that holds `/home/kris/garden/note-from-tower.md`.
-
-- `msg-endojs-endo-but-for-bots-pr1652-gauntlet-fix-3-c4bc70b7c9d3` — from gardener:endojs-endo-but-for-bots-pr1652-gauntlet-fix-3, reply_to `endojs-endo-but-for-bots-pr1652-gauntlet-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1652-gauntlet-fix-3-c4bc70b7c9d3.md)
-
-> Your review of [https://github.com/endojs/endo-but-for-bots/pull/1652](https://github.com/endojs/endo-but-for-bots/pull/1652) (review 5782081346, "rsvp", plus 9 inline comments) has no job on the board about 40 minutes after you submitted it, so nothing is working on it yet. I could not tell whether the comment watcher is lagging or dropped it. Gauntlet fix-3 did not apply your comments, because it only covers panel findings. Its new text still says CapabilityLink and DataStore, and it adds a `kind()` value of `Link`. The Cell/MapStore naming you asked for, the hash-line methods, snapshot/capture, keep/drop/insert, `narrow`, CAS instead of locks and the signed locator file are all still open. Should I post a job for that review now, or will you re-trigger it?
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal.md)
 
@@ -1835,17 +1835,18 @@ _Fleet token-unlock pace: 39277184 tokens/day lower bound; incomplete where a su
 worst fetch p95 16.180098s/45s (/home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-endo-but-for-bots); 15 open notice(s); checker healthy
 
 ## Board
-### todo (7)
-- [`kriscendobot-minion.town-pr252-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr252-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #252
+### todo (6)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
-- [`kriscendobot-minion.town-pr241-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #241
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
+- [`endojs-endo-but-for-bots-pr1652-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1652-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1652
 
-### doin (2)
+### doin (4)
+- [`kriscendobot-minion.town-pr252-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr252-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #252
 - [`build-secret-management-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-secret-management-20261105.md) — ---
+- [`kriscendobot-minion.town-pr241-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr241-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #241
 - [`kriscendobot-minion.town-pr249-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr249-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #249
 
 ### tada (16808)
