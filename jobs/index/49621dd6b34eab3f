@@ -1,2 +1,2 @@
-base: improve-reaper-journal-outage
+base: improve-transient-retry-budget
 identity: mentor:scripts/jobs/reaper.sh
