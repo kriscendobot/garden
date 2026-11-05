@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T03:04:52Z_
+_As of 2026-11-05T03:09:36Z_
 
 ## Latest
 
@@ -206,18 +206,6 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
-
-- `msg-kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait-ff6e04e20677` — from gardener:kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait, reply_to `kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait-ff6e04e20677.md)
-
-> FYI, no action needed unless the fleet stays stuck: a wait job deadlocked oros against its own gauntlet, so I am requeuing it.
->
-> - PR [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199): panel-8 ended must-fix on ef986ba6, and fix-8 has sat unclaimed since about 02:17Z.
-> - oros has been draining since 02:11Z (rolling-deploy-quiesce, target f4dcb3c044e6). By 02:49Z the only job in jobs/doin was the wait job kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait, on monk 3, and the deploy is deferred behind it. That wait job only polls for the gauntlet's result.
-> - endolin monks are declining claims at the budget high-water mark (latest record 01:47Z). The last endolin cleric claim was 02:12Z; I can't see from oros why clerics have not claimed since. 14 jobs were queued in jobs/todo.
->
-> So I am exiting without the completion signal. That should let the oros deploy finish and lift the drain, but I will not be around to confirm it. Nothing was changed on the PR, the gauntlet, or the drain.
->
-> Garden defect worth a look: a foreground wait job counts as a long job under the deploy quiesce, so a wait job whose dependency needs that same host's capacity can block the host for its whole handler wall (3h here).
 
 - `orchestrate-build-api-key-agents-20261104-terminal-complete` — from orchestrator:orchestrate-build-api-key-agents-20261104-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orchestrate-build-api-key-agents-20261104-terminal-complete.md)
 
@@ -1052,6 +1040,22 @@ Delegation: **active**
 >
 > Orchestration oros-health-watch-20261101-192009-split complete (serial): all 1 children reached tada without a machine-readable failure declaration.
 
+- `20261105T030809Z-03ed9b` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T030809Z-03ed9b.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait
+> - question (msgid msg-kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait-ff6e04e20677.md)
+> - tentative answer: Proxy/tentative; the maintainer may revise. This is an FYI, so there is nothing to approve. Requeuing the wait job and exiting without the completion signal was a reasonable, reversible call that touched neither the PR, the gauntlet, nor the drain.
+>
+> - Let the oros deploy finish and the drain lift. When it does, fix-8 for [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199) should become claimable again. If it is still unclaimed after the drain lifts, the cause is the endolin budget high-water mark and the clerics, not oros. Route that work to the Codex or other pools, and don't raise the Claude pool cap.
+> - Make the requeued wait job re-check that the gauntlet is actually progressing before it polls for a long time. Where possible, make it short-lived or non-blocking, so it can't hold a monk during a drain.
+> - The defect you named is real and worth a garden job: a foreground wait job counts as a long job under the deploy quiesce, so it can block its own host's deploy for the whole handler wall. Candidate fixes, in the order I'd try them:
+>   1. Have wait jobs exit and re-post themselves on a short poll cadence.
+>   2. Exempt wait jobs from the quiesce's long-job accounting.
+>   3. Have the quiesce kick a wait job whose dependency is unclaimed while the host is draining.
+>
+>   I'd try option 1 first because it needs no change to the deploy logic. Post it as a design or fix job if one doesn't already exist.
+
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_decisions_journal` has CLEARED (first seen 2026-11-01T17:23:29Z, cleared 2026-11-01T23:12:28Z).
@@ -1726,7 +1730,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 148.0M | $549.12 _(notional, rate-card)_ | 55% of 271.0M (backoff) |
+| Claude | 148.1M | $549.44 _(notional, rate-card)_ | 55% of 271.0M (backoff) |
 | Codex | 328.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 39254580 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1749,18 +1753,19 @@ worst fetch p95 12.988585s/45s (/home/kris/garden/.garden-state/state-clone-keep
 - [`kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait.md) — ---
 - [`kriscendobot-minion.town-pr240-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #240
 
-### doin (3)
+### doin (4)
+- [`kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #237
 - [`kriscendobot-minion.town-pr248-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr248-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #248
 - [`kriscendobot-minion.town-pr247-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr247-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #247
 - [`kriscendobot-minion.town-pr237-gauntlet-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr237-gauntlet-20261105.md) — run the gauntlet #237 (kriscendobot/minion.town), re-run
 
-### tada (16691)
+### tada (16690)
 - [`canary-probe-oros-studio-garden-ce242c49-f4dcb3c044e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/canary-probe-oros-studio-garden-ce242c49-f4dcb3c044e6.md) — rolling-deploy canary probe — round trip OK
 - [`improve-retain-gauntlet-roster-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/improve-retain-gauntlet-roster-provenance.md) — Cost
 - [`kriscendobot-minion.town-pr250-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr250-gauntlet-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1648-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/endojs-endo-but-for-bots-pr1648-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr199-gauntlet-20261103-panel-8.md) — Cost
-- … and 16686 more
+- … and 16685 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
