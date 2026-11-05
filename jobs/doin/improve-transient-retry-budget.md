@@ -11,3 +11,13 @@ Treat non-outage `reap-now` transient cycles as non-attributable: preserve the p
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T20:03:09Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T20:03:24Z
