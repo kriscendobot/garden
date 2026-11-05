@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: minion-town-first-users-orchestration-20261104
+orchestrated_by: kriscendobot-minion.town-pr199-land-20261104-split
 priority: normal
 posted_by: producer
 posted_at: 2026-11-05T00:00:18Z
