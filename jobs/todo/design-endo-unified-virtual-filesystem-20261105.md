@@ -28,13 +28,5 @@ dispatch: automatic
 
 **Deliver:** the design document; a table of inconsistencies and gaps with recommended resolutions; a documentation-shaped overview section a newcomer could read ("the pet name system for people who know file systems"); a build ladder of small increments, smallest first; and a `## Open questions` section only for questions that truly need the maintainer. Score any new interface REST-vs-CapTP with `skills/api-transport-rubric` (default CapTP). State the ownership map (who owns durable state, commit/discard, restart/replay at each boundary). Keep it as short as completeness allows; link rather than restate the source designs.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-05T05:19:00Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-05T06:53:28Z -->
