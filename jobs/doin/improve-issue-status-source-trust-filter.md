@@ -11,3 +11,13 @@ Accept the status pass’s maintainer allowlist as an optional deterministic inp
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T13:03:12Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T13:03:13Z
