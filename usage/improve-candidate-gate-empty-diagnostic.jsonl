@@ -1,1 +1,2 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T12:22:28Z","base":"improve-candidate-gate-empty-diagnostic","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":6,"provider":"anthropic"}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T12:33:41Z","base":"improve-candidate-gate-empty-diagnostic","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":8,"provider":"anthropic"}
