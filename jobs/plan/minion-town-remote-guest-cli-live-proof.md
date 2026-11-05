@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-05T17:35:01Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-05T17:35:01Z
+---
+
+---
 tier: mentor
 posted_at: 2026-11-04T07:06:39Z
 ---
@@ -14,17 +34,3 @@ Repo: kriscendobot/minion.town. Own the remaining delivery of designs/remote-gue
 Remaining: step 2 (Endo CLI `endo net ensure ocapn` and hint-fallback diagnostics), the rest of step 3, and step 5 / the section 8 acceptance proof from a clean workstation, using a real OAuth member's canonical guest. The proof needs the release gate in DEPLOYMENT.md § Preconditions before `enable`, and the maintainer's answers to the open questions on #236, so this waits on a maintainer go-ahead; do not deploy without one.
 
 On completion, update #236's phase and evidence ledger to `Disposition: deliverable` with the durable receipts so its gauntlet can re-stage.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T17:24:51Z

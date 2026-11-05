@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-05T17:34:57Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-05T17:34:57Z
+---
+
+---
 role: builder
 tier: mentor
 posted_at: 2026-10-10T03:29:34Z
@@ -34,17 +55,3 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 <!-- garden-annotation: key=pr1435-panel1 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-1 at=2026-10-10T07:46:29Z -->
 
 PR #1435 panel round 1 (design commit 7d2d6f8d12): port the XS scope-slot rule exactly as pinned in the design section "Scope-slot counting rule (child 2)" (XS cfe72a8cfcd2, binder->scopeMaximum > 65535 per function/module/program, variables plus temporaries); port tests/xs/issues/scope-count-limit.js verbatim plus a tagged-template temporaries case; if IronHorse peak count differs, report and stop. Runs in parallel under moddable-10-0-0-ironhorse-ports.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T17:23:26Z

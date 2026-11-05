@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-05T17:35:03Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-05T17:35:03Z
+---
+
+---
 role: builder
 tier: mentor
 posted_at: 2026-10-10T07:46:00Z
@@ -35,17 +56,3 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 <!-- garden-annotation: key=pr1435-panel2 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-2 at=2026-10-10T09:38:46Z -->
 
 PR #1435 panel round 2. (1) DETERMINISTIC SELF-CHECK, do this FIRST: read the ports completion record `jobs/tada/moddable-10-0-0-ironhorse-ports.md` on the garden journal. Unless it exists AND its `orchestration-status:` is exactly `complete` AND it lists no `failed-children`, STOP without changing anything and report failure (emit the orchestration-failed signal); `--require-tada` accepts `complete-with-failures`, so this check is the machine half of the barrier. (2) UNCLASSIFIED ORACLE DRIFT: the pin move crosses XS changes between 8.3.1 and 10.0.0 that the design did not audit. List every result change that no design row R01 to R26 explains in its own report section, each with one verdict: oracle now agrees with IronHorse; new IronHorse gap (park a new follow-up job, do not fix here); or harness/overlay change. A case IronHorse passes that leaves the covered set only because the 10.0.0 oracle now fails it goes in this section, never silently counted as a loss or accepted. Acceptance waits until every drift entry has a verdict. (3) Re-classify the rows the port children recorded as expected 8.3.1-oracle divergences.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-05T17:25:20Z

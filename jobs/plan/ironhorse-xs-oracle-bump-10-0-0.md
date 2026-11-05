@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-05T17:35:04Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-05T17:35:04Z
+---
+
+---
 role: builder
 tier: mentor
 posted_at: 2026-10-09T21:57:11Z
@@ -22,17 +43,3 @@ PRECONDITIONS (stop and message the maintainer via message-user.sh if any is unm
 Work (precedent: job port-endor-oracle-bump-8-3-1): move the oracle pin 8.3.1 (`23b4d6b0a65f`) → 10.0.0 (`5f215f776f93` or the final tag commit) per the answered decision; define `mxImmutableArrayBuffers=0` explicitly in `xs-oracle/build.rs` (child ironhorse-immutable-arraybuffer flips it). Audit the 8.3.1→9.5.0 `xs/sources` delta (not covered by the design) and record it in `rust/engine/README.md` § upstream delta tracking. Mirror in this PR every compiler delta required for byte identity — at least the `switch` discriminant temp local (moddable 051b31b2: `coder.rs` `code_switch` + scoper push/pop of one variable) and the 65535 scope-slot "too many variables" SyntaxError (moddable cfe72a8c; IronHorse currently emits corrupt bytecode) — plus any runtime delta whose corpus rows would otherwise turn Covered→Divergent. Re-run stage-1 harness, compile-diff corpora, whole-tree sweep; regenerate `expectations/whole-tree/` and a new `baseline/refresh-<date>/` with provenance at the new oracle; update README/provenance pin text.
 
 Gated outcome: all bars green at the new oracle with zero new divergences, and the re-measured floor presented for maintainer authorization (never self-promoted). Size L.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T17:26:10Z

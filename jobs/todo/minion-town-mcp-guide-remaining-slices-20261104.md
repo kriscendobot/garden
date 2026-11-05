@@ -37,16 +37,3 @@ When the evidence is complete, turn #235's ledger to `deliverable`, so its compl
 re-stages a fresh gauntlet.
 
 <!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
-
-<!-- garden-outage-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T17:26:48Z

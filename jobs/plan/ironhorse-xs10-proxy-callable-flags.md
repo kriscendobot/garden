@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-05T17:35:01Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-05T17:35:01Z
+---
+
+---
 role: builder
 tier: mentor
 posted_at: 2026-10-09T21:51:33Z
@@ -20,17 +41,3 @@ If you genuinely finish but do not achieve the gated outcome below, end your rep
 Record [[Call]]/[[Construct]] presence on `ProxyData` at proxy creation (`property/proxy.rs`), persist it through `snapshot_rows.rs` `ProxyRow`, `persist.rs`, `restore.rs`, and use it in `function.rs` `slot_is_callable` / `slot_is_constructor` and `proxy_construct_refused`, instead of chasing the (revoked, nulled) target. Add the GetFunctionRealm revoked-proxy TypeError in `get_prototype_from_constructor`. Update `ironhorse-262/tests/xs_departures.rs` (revoked-arrow-proxy `new` row) and `new_on_non_constructors.rs` comment.
 
 Gated outcome: `Proxy/create-target-is-revoked-function-proxy.js`, `Proxy/revocable/target-is-revoked-function-proxy.js`, `Function/internals/Construct/base-ctor-revoked-proxy.js` pass in both modes against the current oracle; no new divergence; snapshot round-trip test for a revoked callable proxy. Size M.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-05T17:24:07Z

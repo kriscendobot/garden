@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-05T17:34:58Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-05T17:34:58Z
+---
+
+---
 role: builder
 tier: mentor
 posted_at: 2026-10-10T03:29:18Z
@@ -37,17 +58,3 @@ PR #1435 panel round 1 (design commit 7d2d6f8d12): the campaign is now parallel 
 <!-- garden-annotation: key=pr1435-panel2 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-2 at=2026-10-10T09:38:31Z -->
 
 Snapshot-golden rule (design § Orchestration, PR #1435 panel round 2): children 1 and 5 may both bump the snapshot format version (`ironhorse-snapshot/src/format.rs`) and regenerate `ironhorse-snapshot/tests/fixtures/state_golden*.tsv` (both math providers) and the inline digests. Regenerate these, never hand-merge them; whichever of the two merges second rebases onto the first, regenerates the goldens, takes the next format version, and says so in its PR. When a specified result disagrees with the 8.3.1 oracle, record the row as the run reports it and list it in the PR as an expected oracle divergence citing the spec and the XS 10.0.0 commit; never change the engine toward the oracle. Design row: R01.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T17:23:30Z

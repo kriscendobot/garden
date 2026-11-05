@@ -87,16 +87,3 @@ Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 `kriscendobot/garden` issue 58. No upstream `agoric/agoric-sdk` interaction.
 
 <!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
-
-<!-- garden-outage-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T17:27:13Z
