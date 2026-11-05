@@ -8,13 +8,5 @@ dispatch: automatic
 ---
 Build the Phase 2 transport-timing slice from `daemon-git-remotes` in endojs/endo-but-for-bots on `llm`: add structured CapTP and transport timing to Git fetch/push results with contract tests.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-05T17:53:36Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-05T18:13:17Z -->
