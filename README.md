@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T13:59:20Z_
+_As of 2026-11-05T14:01:49Z_
 
 ## Latest
 
@@ -2084,7 +2084,8 @@ worst fetch p95 6.344895s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`minion-town-arc-press-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261105-135010.md) — Supervise the minion.town arc: carry its pull requests through review
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-6659790262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-6659790262.md) — Issue follow-up — fold a late comment into the issue work
 - [`claude-on-minion-town-completion-press-20261105-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261105-133510.md) — Completion press: Claude-on-minion.town arc
 
 ### tada (16835)
