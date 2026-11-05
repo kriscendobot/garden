@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T17:22:21Z_
+_As of 2026-11-05T17:29:50Z_
 
 ## Latest
 
@@ -2203,11 +2201,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #308 (first seen 2026-11-01T06:29:02Z, latest 2026-11-05T16:26:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 308 times; this is ONE
-> coalesced notice that updates in place, not 308 messages. Latest detail:
+> WATCHDOG notice — occurrence #328 (first seen 2026-11-01T06:29:02Z, latest 2026-11-05T17:26:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 328 times; this is ONE
+> coalesced notice that updates in place, not 328 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 263 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 323 min ago
 > but still reports deployed_sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -2363,33 +2361,32 @@ _Fleet token-unlock pace: 154887260 tokens/day lower bound._
 worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (19)
+### todo (12)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
-- [`moddable-10-0-0-ironhorse-compiler-safety-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-compiler-safety-port.md) — Port Moddable 10.0.0 compiler safety corrections to IronHorse
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
-- [`moddable-10-0-0-ironhorse-callability-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-callability-port.md) — Port revoked-Proxy callability and constructability to IronHorse
-- [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
-- [`kriscendobot-minion-town-pr183-open-findings-fix-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr183-open-findings-fix-20261015.md) — Fix the structural findings left open on kriscendobot/minion.town#183
-- [`minion-town-remote-guest-cli-live-proof`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-remote-guest-cli-live-proof.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`oros-health-checkup-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-165012.md) — ---
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
-- [`ironhorse-xs10-proxy-callable-flags`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-xs10-proxy-callable-flags.md) — IronHorse: Proxy [[Call]]/[[Construct]] flags survive revocation (XS 10.0.0 #...
-- [`moddable-10-0-0-ironhorse-oracle-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-oracle-validation.md) — Move the IronHorse oracle to Moddable 10.0.0 and validate the port campaign
-- [`ironhorse-xs-oracle-bump-10-0-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-xs-oracle-bump-10-0-0.md) — IronHorse: bump the XS oracle to Moddable 10.0.0 and mirror the compiler deltas
+- [`claude-on-minion-town-completion-press-20261105-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261105-133510.md) — Completion press: Claude-on-minion.town arc
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
-- [`moddable-10-0-0-ironhorse-typedarray-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-typedarray-port.md) — Port Moddable 10.0.0 TypedArray corrections to IronHorse
-- [`minion-town-arc-press-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-arc-press-20261105-135010.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`minion-town-mcp-guide-remaining-slices-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-mcp-guide-remaining-slices-20261104.md) — Finish the MCP guide's remaining slices (kriscendobot/minion.town#235)
+- [`moddable-10-0-0-ironhorse-immutable-arraybuffer-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-immutable-arraybuffer-port.md) — Implement immutable ArrayBuffer and close the Moddable 10.0.0 validation camp...
+- [`ironhorse-immutable-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-immutable-arraybuffer.md) — IronHorse: implement Immutable ArrayBuffer and enable it in the oracle
+- [`moddable-10-0-0-ironhorse-builtins-order-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/moddable-10-0-0-ironhorse-builtins-order-port.md) — Port three Moddable 10.0.0 built-in ordering corrections to IronHorse
 
-### doin (5)
-- [`claude-on-minion-town-completion-press-20261105-133510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261105-133510.md) — Completion press: Claude-on-minion.town arc
-- [`moddable-10-0-0-ironhorse-immutable-arraybuffer-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-immutable-arraybuffer-port.md) — Implement immutable ArrayBuffer and close the Moddable 10.0.0 validation camp...
-- [`kriscendobot-minion-town-pr148-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #148
-- [`ironhorse-immutable-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-immutable-arraybuffer.md) — IronHorse: implement Immutable ArrayBuffer and enable it in the oracle
-- [`moddable-10-0-0-ironhorse-builtins-order-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-builtins-order-port.md) — Port three Moddable 10.0.0 built-in ordering corrections to IronHorse
+### doin (11)
+- [`moddable-10-0-0-ironhorse-compiler-safety-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-compiler-safety-port.md) — Port Moddable 10.0.0 compiler safety corrections to IronHorse
+- [`moddable-10-0-0-ironhorse-callability-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-callability-port.md) — Port revoked-Proxy callability and constructability to IronHorse
+- [`design-minion-town-ocap-site-crawler-leak-rotation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-ocap-site-crawler-leak-rotation.md) — Design: detect a crawler on an ocap.site page as a link-leak signal, and rotate
+- [`kriscendobot-minion-town-pr183-open-findings-fix-20261015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr183-open-findings-fix-20261015.md) — Fix the structural findings left open on kriscendobot/minion.town#183
+- [`minion-town-remote-guest-cli-live-proof`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remote-guest-cli-live-proof.md) — ---
+- [`ironhorse-xs10-proxy-callable-flags`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-xs10-proxy-callable-flags.md) — IronHorse: Proxy [[Call]]/[[Construct]] flags survive revocation (XS 10.0.0 #...
+- [`moddable-10-0-0-ironhorse-oracle-validation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-oracle-validation.md) — Move the IronHorse oracle to Moddable 10.0.0 and validate the port campaign
+- [`ironhorse-xs-oracle-bump-10-0-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-xs-oracle-bump-10-0-0.md) — IronHorse: bump the XS oracle to Moddable 10.0.0 and mirror the compiler deltas
+- [`moddable-10-0-0-ironhorse-typedarray-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/moddable-10-0-0-ironhorse-typedarray-port.md) — Port Moddable 10.0.0 TypedArray corrections to IronHorse
+- [`minion-town-arc-press-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261105-135010.md) — Supervise the minion.town arc: carry its pull requests through review
+- [`minion-town-mcp-guide-remaining-slices-20261104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-guide-remaining-slices-20261104.md) — Finish the MCP guide's remaining slices (kriscendobot/minion.town#235)
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
@@ -2452,6 +2449,7 @@ worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`endojs-endo-but-for-bots-pr1538-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1538-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1538
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`kriscendobot-minion-town-pr148-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr148-gauntlet-viability.md) — _normal_ · Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #148
 - [`mirror-endo-3372`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mirror-endo-3372.md) — _normal_ · Mirror endojs/endo#3372 onto endojs/endo-but-for-bots
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`build-confined-application-makers-p2-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-application-makers-p2-20261002.md) — _normal_ · Phase 2: daemon capture for node-modules-with-map and node-modules-scan layou...
