@@ -23,6 +23,7 @@ Work (precedent: job port-endor-oracle-bump-8-3-1): move the oracle pin 8.3.1 (`
 
 Gated outcome: all bars green at the new oracle with zero new divergences, and the re-measured floor presented for maintainer authorization (never self-promoted). Size L.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
