@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T02:26:42Z_
+_As of 2026-11-05T02:30:07Z_
 
 ## Latest
 
@@ -514,16 +514,6 @@ Delegation: **active**
 - `20261021T143920Z-cca5e1` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261021T143920Z-cca5e1.md)
 
 > foreman: next step 'build-endor-npm-registry-proxy-phase-two-http-fetch' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
-
-- `watchdog-self-heal-garden-issue-inbox` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-issue-inbox.md)
-
-> self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: ede73db786c5c4b833877b2c83a151b2e260004c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ede73db786c5c4b833877b2c83a151b2e260004c). Diagnosis: The watcher already has timeout handling for this failure, so I'm not posting a fix job.
->
-> **Diagnosis:** The issue-source fetch for `kriscendobot/garden` hit its per-stage timeout (rc=124, "Terminated") at about 02:21. The watcher logged FATAL and exited 1. The same run loaded the 8 maintainers from the allowlist at 02:18:07, and the timeout hit about 3 minutes after that.
->
-> This matches a slow or hung GitHub API call, from network latency or a rate-limit or cooldown wait. It doesn't match a code defect. The cursor never advanced, so no maintainer comment was lost. systemd restarts the unit, and the next tick re-polls the same items.
->
-> **Next step:** If it keeps happening, look at GitHub primary-quota exhaustion first: the shared `kriscendobot` token is known to be rate-limited. Check whethe
 
 - `endojs-endo-but-for-bots-pr1482-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1482-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1482-gauntlet-review-budget-reached.md)
 
@@ -1724,7 +1714,7 @@ _Fleet token-unlock pace: 39238094 tokens/day lower bound; incomplete where a su
 worst fetch p95 12.988585s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (14)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-gauntlet-20261103-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #199
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -1735,12 +1725,12 @@ worst fetch p95 12.988585s/45s (/home/kris/garden/.garden-state/state-clone-keep
 - [`kriscendobot-minion.town-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #249
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #241
+- [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
 - [`kriscendobot-minion.town-pr247-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr247-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #247
 - [`kriscendobot-minion.town-pr240-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #240
 - [`kriscendobot-minion.town-pr237-gauntlet-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr237-gauntlet-20261105.md) — run the gauntlet #237 (kriscendobot/minion.town), re-run
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
+### doin (1)
 - [`kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait.md) — ---
 
 ### tada (16690)
