@@ -154,3 +154,13 @@ This is a design-only change. The deterministic probes and wording checks pass, 
 ````
 
 Report the created comment IDs. If a post is denied here too, say so and do not emit the completion signal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T10:53:33Z
