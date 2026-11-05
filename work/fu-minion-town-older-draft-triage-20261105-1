@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: cleric
 claimed_at: 2026-11-05T08:39:29Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-fu-minion-town-older-draft-triage-20261105-1
+pr_number: 252
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/252
+pr_head: fix-home-same-document-guest-recovery
