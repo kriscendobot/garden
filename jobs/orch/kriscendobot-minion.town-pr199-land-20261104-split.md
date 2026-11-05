@@ -2,7 +2,7 @@
 order: serial
 children: kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait kriscendobot-minion.town-pr199-land-20261104-merge kriscendobot-minion.town-pr199-land-20261104-deploy-verify minion-town-coupon-flip-and-mint-20261104 minion-town-maintainer-guest-reset-20261104
 on-child-failure: halt
-state: pending
+state: running
 resume_from: minion-town-first-users-orchestration-20261104
 created_by: producer
 created_at: 2026-11-05T01:29:39Z
