@@ -21,6 +21,7 @@ Record [[Call]]/[[Construct]] presence on `ProxyData` at proxy creation (`proper
 
 Gated outcome: `Proxy/create-target-is-revoked-function-proxy.js`, `Proxy/revocable/target-is-revoked-function-proxy.js`, `Function/internals/Construct/base-ctor-revoked-proxy.js` pass in both modes against the current oracle; no new divergence; snapshot round-trip test for a revoked callable proxy. Size M.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
