@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T15:51:58Z","base":"design-daemon-git-remotes-ssh-transport","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":10,"role":"designer","arc":"minion-town-git-remote","provider":"anthropic"}
