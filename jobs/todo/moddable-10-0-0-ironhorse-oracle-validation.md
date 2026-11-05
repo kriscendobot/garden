@@ -1,11 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
-roadmap: ironhorse-engine
 role: builder
-posted_by: endojs-endo-but-for-bots-pr1435-gauntlet-fix-1
+tier: mentor
 posted_at: 2026-10-10T07:46:00Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T17:09:15Z cleared=none -->
 
 ---
 tier: mentor
