@@ -1,1 +1,2 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T19:50:37Z","base":"claude-on-minion-town-completion-press-20261105-195009","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":9,"role":"gardener","provider":"anthropic"}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T20:03:41Z","base":"claude-on-minion-town-completion-press-20261105-195009","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":8,"role":"gardener","provider":"anthropic"}
