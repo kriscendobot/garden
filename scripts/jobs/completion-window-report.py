@@ -111,7 +111,7 @@ def tree_jobs(repo, ref):
     return jobs
 
 
-def history_events(repo, ref, since, until):
+def history_events(repo, ref, since, until, include_provenance=False):
     # `--no-renames` is the cheapening: without it `--name-status` runs rename
     # detection across every jobs/ churn commit in the window, the bulk of the
     # 82s walk.  A job moving todo→doin→tada still surfaces as an Add of the new
@@ -144,11 +144,21 @@ def history_events(repo, ref, since, until):
         if kind:
             events.append({"kind": kind, "base": base, "sha": sha, "ts": stamp,
                            "path": target})
-    requests = [((event["sha"], event["path"]), f'{event["sha"]}:{event["path"]}')
+        elif include_provenance and status.startswith("D"):
+            # Terminal transitions replace the machine-owned job record with a
+            # report at a different path.  Keep the deleted record as selector
+            # provenance: the report is intentionally a summary and may omit a
+            # URL or other literal which put the job in an arc roster.
+            events.append({"kind": "provenance", "base": base, "sha": sha,
+                           "ts": stamp, "path": target})
+    requests = [((event["kind"], event["sha"], event["path"]),
+                 (f'{event["sha"]}^:{event["path"]}'
+                  if event["kind"] == "provenance"
+                  else f'{event["sha"]}:{event["path"]}'))
                 for event in events]
     bodies = cat_objects(repo, requests)
     for event in events:
-        event["body"] = bodies.get((event["sha"], event["path"]), "")
+        event["body"] = bodies.get((event["kind"], event["sha"], event["path"]), "")
     events.sort(key=lambda item: (item["ts"], item["sha"], item["path"]))
     return events
 
@@ -285,7 +295,7 @@ def arc_report(repo, ref, since, until, args):
     current = tree_jobs(repo, ref)
     prior_ref = git(repo, "rev-list", "-1", f"--before=@{since}", ref).strip()
     prior = tree_jobs(repo, prior_ref)
-    events = history_events(repo, ref, since, until)
+    events = history_events(repo, ref, since, until, include_provenance=True)
     documents = ([(base, record["body"]) for base, record in current.items()] +
                  [(base, record["body"]) for base, record in prior.items()] +
                  [(event["base"], event["body"]) for event in events])

@@ -24,7 +24,7 @@ commit_at() {
   GIT_AUTHOR_DATE="$at" GIT_COMMITTER_DATE="$at" git -C "$repo" commit -q -m "$message"
 }
 
-mkdir -p "$repo/jobs"/{todo,doin,plan,orch,tada} "$repo/work"
+mkdir -p "$repo/jobs"/{todo,doin,plan,orch,gauntlet,tada} "$repo/work"
 printf '%s\n' '---' 'arc: sample' '---' 'initial alpha' > "$repo/jobs/todo/arc-alpha.md"
 printf '%s\n' '---' 'arc: sample' '---' 'will disappear' > "$repo/jobs/todo/arc-vanish.md"
 printf '%s\n' '---' 'arc: sample' 'doomed: true' 'doom_signature: policy-refusal' \
@@ -50,15 +50,29 @@ printf '%s\n' '---' 'arc: sample' 'role: gardener' '---' > "$repo/jobs/doin/arc-
 printf '%s\n' 'host: host-stall' 'claimed_at: 2026-01-01T01:00:00Z' > "$repo/work/arc-stall"
 commit_at 2026-01-01T01:30:00Z reconcile
 
+# A gauntlet opened and terminated entirely inside the window. Its terminal
+# report replaces the active record and omits the literal selector that supplied
+# its roster provenance.
+printf '%s\n' 'repo: kriscendobot/minion.town' 'pr_number: 236' \
+  'build_job: https://github.com/kriscendobot/minion.town/pull/96' \
+  > "$repo/jobs/gauntlet/kriscendobot-minion.town-pr236-gauntlet.md"
+commit_at 2026-01-01T01:35:00Z open-gauntlet
+git -C "$repo" rm -q jobs/gauntlet/kriscendobot-minion.town-pr236-gauntlet.md
+printf '%s\n' 'gauntlet-status: review-budget-reached' \
+  '# gauntlet kriscendobot-minion.town-pr236-gauntlet -- review budget reached' \
+  > "$repo/jobs/tada/2026/01/01/kriscendobot-minion.town-pr236-gauntlet.md"
+commit_at 2026-01-01T01:40:00Z finish-gauntlet
+
 report="$tmp/report.json"
 "$HERE/completion-window-report.py" --repo "$repo" --ref HEAD \
   --since 2026-01-01T01:00:00Z --until 2026-01-01T02:00:01Z --format json \
-  --select-arc sample --select-orchestration sample-orch > "$report"
+  --select-arc sample --select-orchestration sample-orch \
+  --select-text https://github.com/kriscendobot/minion.town/pull/96 > "$report"
 
 jq -e '
   .schema == 1 and
   .counts.claims == 2 and
-  .counts.completions == 1 and
+  .counts.completions == 2 and
   .counts.current_dooms == 2 and
   .counts.new_dooms == 1 and
   .counts.stalled_claims == 1 and
@@ -67,7 +81,8 @@ jq -e '
   (.dooms | any(.base == "arc-new-doom" and .signature == "deadline-overrun" and .host == "host-new")) and
   (.stalled_claims | any(.base == "arc-stall" and .handler_timeout_s == 2400)) and
   (.jobs | any(.base == "arc-child" and .location == "todo")) and
-  (.jobs | any(.base == "arc-alpha" and .location == "tada"))
+  (.jobs | any(.base == "arc-alpha" and .location == "tada")) and
+  (.jobs | any(.base == "kriscendobot-minion.town-pr236-gauntlet" and .location == "tada"))
 ' "$report" >/dev/null
 
 # Legacy JSON remains one completion object per line, not the arc envelope.
