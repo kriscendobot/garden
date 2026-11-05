@@ -11,6 +11,7 @@ scripts/jobs/deploy-garden.sh:507 records an rc=1 suite failure with an empty di
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T12:33:12Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
