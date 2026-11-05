@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T14:20:24Z_
+_As of 2026-11-05T14:28:05Z_
 
 ## Latest
 
@@ -1299,11 +1297,11 @@ Delegation: **active**
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-12T03:35:10Z, latest 2026-11-03T01:35:19Z).
-> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-3`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-12T03:35:10Z, latest 2026-11-05T14:20:41Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-3`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=95944153 cap=271000000 pace-bias=0.086885 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.7088(ramp) target=3
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=159152732 cap=271000000 pace-bias=0.509221 window-start=2026-10-31T03:00Z(calendar) deadline=2026-11-07T04:00Z(calendar) ceiling=4 backoff=0.8886(ramp) target=3
 
 - `msg-endopi-edit-tool-build-5dd693f06b06` — from gardener:endopi-edit-tool-build, reply_to `endopi-edit-tool-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endopi-edit-tool-build-5dd693f06b06.md)
 
@@ -2016,11 +2014,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #248 (first seen 2026-11-01T06:29:02Z, latest 2026-11-05T13:23:05Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 248 times; this is ONE
-> coalesced notice that updates in place, not 248 messages. Latest detail:
+> WATCHDOG notice — occurrence #269 (first seen 2026-11-01T06:29:02Z, latest 2026-11-05T14:26:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 269 times; this is ONE
+> coalesced notice that updates in place, not 269 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 81 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 143 min ago
 > but still reports deployed_sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -2176,17 +2174,18 @@ _Fleet token-unlock pace: 39566864 tokens/day lower bound; incomplete where a su
 worst fetch p95 6.344895s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 11 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
+- [`improve-transient-retry-correlation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-transient-retry-correlation.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 
-### doin (1)
-- [`deadmail-issue-comment-6659790262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-6659790262.md) — Issue follow-up — fold a late comment into the issue work
+### doin (0)
+(none)
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
@@ -2207,6 +2206,7 @@ worst fetch p95 6.344895s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-lint-warnings.md) — _normal_ · ---
+- [`deadmail-issue-comment-6659790262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-6659790262.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`improve-candidate-gate-empty-diagnostic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-candidate-gate-empty-diagnostic.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1595-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1595-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1595
@@ -2331,7 +2331,7 @@ worst fetch p95 6.344895s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
 - [.archived-endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-endolin-garden2-5bcdff64): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
