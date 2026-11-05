@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T20:29:47Z_
+_As of 2026-11-05T20:37:31Z_
 
 ## Latest
 
@@ -1561,10 +1559,6 @@ Delegation: **active**
 
 > foreman: next step 'endopi-provider-registry-and-oauth-build' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261105-200509` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261105-200509.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261105-200509' has remained unclaimed for 1198s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `doomed-kriscendobot-minion.town-pr243-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr243-gauntlet-fix-1-requeue-exhausted.md)
 
 > GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
@@ -1760,6 +1754,35 @@ Delegation: **active**
 >
 > Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots` (point-only), and
 > `kriscendobot/garden` issue 58. No upstream `agoric/agoric-sdk` interaction.
+
+- `doomed-oros-health-watch-20261105-200509-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-health-watch-20261105-200509-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/oros-health-watch-20261105-200509; it stays HELD until a human promotes it
+> (promote-plan.sh oros-health-watch-20261105-200509) or removes it, so nothing is lost.
+> Original job base: oros-health-watch-20261105-200509
+>
+> --- original job body ---
+> ---
+> handler-timeout: 3600
+> ---
+>
+> ---
+> role: mechanic
+> requires: host=endolin-garden-ece02cb4
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> role_brief: [roles/mechanic/AGENT.md](roles/mechanic/AGENT.md)
+> target_host: oros-studio-garden-ce242c49
+> trigger: schedule/oros-health-watch
+> mode: controller
+> evidence: confirm this cycle local run completed, then use the host-repair diagnosis order and operation ladder
+> recurrence_budget: 15 minutes
 
 - `endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1478-gauntlet-review-budget-reached.md)
 
@@ -2971,10 +2994,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 159.8M | $597.19 _(notional, rate-card)_ | 59% of 271.0M (ok) |
-| Codex | 355.9M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 160.0M | $598.74 _(notional, rate-card)_ | 59% of 271.0M (ok) |
+| Codex | 356.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 154895335 tokens/day lower bound._
+_Fleet token-unlock pace: 154903541 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.241481s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 13 open notice(s); checker healthy
@@ -2992,9 +3015,8 @@ worst fetch p95 5.241481s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (2)
-- [`minion-town-arc-press-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-arc-press-20261105-200509.md) — Supervise the minion.town arc: carry its pull requests through review
-- [`oros-health-watch-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261105-200509.md) — ---
+### doin (0)
+(none)
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
@@ -3034,6 +3056,7 @@ worst fetch p95 5.241481s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`endojs-endo-but-for-bots-pr1498-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1498-gauntlet-undraft.md) — _normal_ · Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1498
 - [`endopi-extension-package-guest-provider-kinds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endopi-extension-package-guest-provider-kinds.md) — _normal_ · ---
 - [`minion-town-remote-guest-cli-live-proof`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-remote-guest-cli-live-proof.md) — _normal_ · ---
+- [`minion-town-arc-press-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-arc-press-20261105-200509.md) — _normal_ · Supervise the minion.town arc: carry its pull requests through review
 - [`kriscendobot-minion.town-pr199-weave-20261103`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr199-weave-20261103.md) — _normal_ · Weave kriscendobot/minion.town#199 onto current main
 - [`improve-transient-retry-correlation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-transient-retry-correlation.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
@@ -3092,6 +3115,7 @@ worst fetch p95 5.241481s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`oros-health-watch-20261105-165012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261105-165012.md) — _normal_ · ---
 - [`moddable-10-0-0-ironhorse-builtins-order-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-builtins-order-port.md) — _normal_ · Port three Moddable 10.0.0 built-in ordering corrections to IronHorse
 - [`claude-on-minion-town-press-20261010-133536`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-press-20261010-133536.md) — _normal_ · Press the Claude-on-minion.town arc forward
+- [`oros-health-watch-20261105-200509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-health-watch-20261105-200509.md) — _normal_ · ---
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 - [`screen-minion-town-pr252-755d017-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr252-755d017-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#252 at 755d017997d34c46348...
