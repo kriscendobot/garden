@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T23:29:48Z_
+_As of 2026-11-05T23:31:49Z_
 
 ## Latest
 
@@ -1965,10 +1965,6 @@ Delegation: **active**
 > - Probe, then rebuild on failure. This is the cheapest correct option, and I'm picking it.
 >
 > Post this as a normal garden job, for example a fix job against the warm-cache script. Land it direct to `main2` as usual for garden-repo changes. Throw-away iteration is fine.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261105-230510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261105-230510.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261105-230510' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `20261024T042224Z-4f5bf8` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261024T042224Z-4f5bf8.md)
 
