@@ -27,16 +27,4 @@ If this job's handler wall approaches with the gauntlet still legitimately activ
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=115 -->
 
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T05:03:15Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T05:04:30Z
+<!-- garden-reaped: 0 -->
