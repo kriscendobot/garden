@@ -27,3 +27,13 @@ dispatch: automatic
 **Serialization of virtual file systems (a proposal to evaluate and specify).** Represent each "file" that is really a **capability reference** as a file whose bytes are a **magic number**, then a **hash of the string `"ocap:"` concatenated with the locator**, then the **locator in plain text**; plain text files lack that prefix, so restore can quickly tell "restore as text" from "restore as a reference to another capability". Specify the exact byte layout (magic value, hash algorithm and length, delimiter, encoding, versioning), how collisions and forgery are handled (what happens when ordinary text happens to start with the magic number; whether the hash binds the locator so tampering is detectable; whether the locator is secret-bearing and so must be protected like a bearer capability, cf. the https locator-fragment work), round-trip rules for snapshot/restore and for `make-archive`/checkin-checkout, and what restore does when the locator is unreachable. Evaluate at least one alternative (sidecar manifest, extended attribute, directory-level index) and recommend.
 
 **Deliver:** the design document; a table of inconsistencies and gaps with recommended resolutions; a documentation-shaped overview section a newcomer could read ("the pet name system for people who know file systems"); a build ladder of small increments, smallest first; and a `## Open questions` section only for questions that truly need the maintainer. Score any new interface REST-vs-CapTP with `skills/api-transport-rubric` (default CapTP). State the ownership map (who owns durable state, commit/discard, restart/replay at each boundary). Keep it as short as completeness allows; link rather than restate the source designs.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T05:19:00Z
