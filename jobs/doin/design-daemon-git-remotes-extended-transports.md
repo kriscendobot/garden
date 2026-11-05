@@ -7,3 +7,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Design Phase 7’s bounded SSH and Noise transport extension for `endojs/endo-but-for-bots` from `designs/daemon-git-remotes.md` on `llm`, specifying authority, credential, and GitRemote contracts before implementation.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T19:18:08Z
