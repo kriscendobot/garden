@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T16:16:16Z_
+_As of 2026-11-05T16:28:50Z_
 
 ## Latest
 
@@ -1030,11 +1030,31 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-11-05T03:11:18Z, cleared 2026-11-05T10:31:50Z).
-> It was observed 70 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #71 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T16:24:41Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 71 times; this is ONE
+> coalesced notice that updates in place, not 71 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 17 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1793898068 set-by=receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite
+> gh-api GraphQL-only marker: expiry=1793898068 set-by=mirror-closer:primary-quota
+> - kriscendobot/cosgov: watcher ticking but cooldown for 1413s (since 2026-11-05T16:01:08Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 1414s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 1369s (since 2026-11-05T16:01:52Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 1414s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 1414s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1414s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1412s (since 2026-11-05T16:01:09Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1412s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1383s (since 2026-11-05T16:01:38Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1414s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/list: watcher ticking but cooldown for 1411s (since 2026-11-05T16:01:10Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 1412s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1411s (since 2026-11-05T16:01:10Z)
+> watcher ticking but cooldown for 1413s (since 2026-11-05T16:01:08Z); detail: rest latch set-by=receipt:kriscendobot-ocapn:PR source:primary-quota <- receipt:kriscendobot-minion.town:journal prerequisite expiry=1793898068
+> - kriscendobot/minion.town: watcher ticking but cooldown for 1380s (since 2026-11-05T16:01:41Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 1414s (since 2026-11-05T16:01:07Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1412s (since 2026-11-05T16:01:09Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 1412s (since 2026-11-05T16:01:09Z)
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden_journal.md)
 
@@ -1348,6 +1368,10 @@ Delegation: **active**
 > detail: stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1)
 >
 > Orchestration improve-enforce-handler-wall-bound-split observed child improve-enforce-handler-wall-bound-watchdog: stalled in flight for 2556s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
+
+- `20261105T162738Z-cab331` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T162738Z-cab331.md)
+
+> foreman: proposed next step 'design-daemon-git-remotes-ssh-transport' was rejected (duplicate), and the one re-prompt produced no valid replacement. The scripted foreman did not post it.
 
 - `watchdog-handler-budget-overrun-shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101` — from watchdog:monk/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-shepherd-endojs-endo-but-for-bots-pr1348-ubuntu26-ci-20261101.md)
 
@@ -1952,6 +1976,25 @@ Delegation: **active**
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_transcripts_journal` cleared on oros-studio-garden-ce242c49.
 
+- `doomed-design-daemon-git-remotes-server-half-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-design-daemon-git-remotes-server-half-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/design-daemon-git-remotes-server-half; it stays HELD until a human promotes it
+> (promote-plan.sh design-daemon-git-remotes-server-half) or removes it, so nothing is lost.
+> Original job base: design-daemon-git-remotes-server-half
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-05T15:55:35Z
+> arc: minion-town-git-remote
+> role: designer
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Design the daemon-side server half of `daemon-git-remotes` for `endojs/endo-but-for-bots` on `llm`: capability-URL minting, partition lifecycle, revocation, and content-store ownership needed to move the minion.town Git remote service into Endo.
+
 - `watchdog-token-backoff-reset-unknown-codex-endolin` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-token-backoff-reset-unknown-codex-endolin.md)
 
 > RECOVERED — the watchdog condition `token-backoff-reset-unknown-codex-endolin` has CLEARED (first seen 2026-10-30T00:35:12Z, cleared 2026-11-04T22:05:13Z).
@@ -1974,11 +2017,11 @@ Delegation: **active**
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-11-04T10:26:13Z, cleared 2026-11-04T17:24:14Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-11-04T10:26:13Z, latest 2026-11-05T16:20:49Z).
+> The SAME condition (`journal-push-contention-_home_kris_garden__garden_state_bulletin_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-push-contention-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
+> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: attempts p95=- max=- (cap 50), classes cas=177 server-reject=2 definite-fail=1.
 
 - `endojs-endo-but-for-bots-pr1588-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1588-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1588-gauntlet-halted.md)
 
@@ -2012,6 +2055,10 @@ Delegation: **active**
 > - `build-minion-town-recursive-dynamodb-capabilities`: afterward, migrate the coupon ledger and confined issuer in a separate PR.
 >
 > Self-improvement: reported that the budget-request skill references a missing `request-budget.sh`; also notified the scholar of the missing DynamoDB library index entry.
+
+- `20261105T162157Z-ca0266` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T162157Z-ca0266.md)
+
+> foreman: proposed next step 'daemon-git-capability-phase-five-contract-tests-build' was rejected (duplicate), and the one re-prompt produced no valid replacement. The scripted foreman did not post it.
 
 - `watchdog-journal-contention-storm-fetch-drift` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-drift.md)
 
@@ -2105,11 +2152,11 @@ Delegation: **active**
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #289 (first seen 2026-11-01T06:29:02Z, latest 2026-11-05T15:26:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 289 times; this is ONE
-> coalesced notice that updates in place, not 289 messages. Latest detail:
+> WATCHDOG notice — occurrence #308 (first seen 2026-11-01T06:29:02Z, latest 2026-11-05T16:26:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 308 times; this is ONE
+> coalesced notice that updates in place, not 308 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 203 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to dd3e6bc6edfd 263 min ago
 > but still reports deployed_sha 2c082b9acbc8684ec3a0ff42a398a31ce1978ee1. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -2262,7 +2309,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 154879057 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 13 open notice(s); checker healthy
+worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 14 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
@@ -2274,8 +2321,8 @@ worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 
-### doin (1)
-- [`design-daemon-git-remotes-server-half`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-daemon-git-remotes-server-half.md) — ---
+### doin (0)
+(none)
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
@@ -2366,6 +2413,7 @@ worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1379-gauntlet-20261007-fix-5.md) — _normal_ · Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1379
 - [`screen-minion-town-pr252-755d017-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/screen-minion-town-pr252-755d017-conduct.md) — _normal_ · Screened delegated merge: kriscendobot/minion.town#252 at 755d017997d34c46348...
+- [`design-daemon-git-remotes-server-half`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-server-half.md) — _normal_ · ---
 - [`heal-minion-town-cfafabe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/heal-minion-town-cfafabe.md) — _normal_ · Heal minion.town production after merge cfafabea5a93f0d270980d4b468841c0565b3a3a
 
 ### awaiting maintainer decision (answer at the linked question)
