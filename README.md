@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T08:20:57Z_
+_As of 2026-11-05T08:24:37Z_
 
 ## Latest
 
@@ -695,14 +695,14 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #54 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T08:17:43Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 54 times; this is ONE
-> coalesced notice that updates in place, not 54 messages. Latest detail:
+> WATCHDOG notice — occurrence #55 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T08:22:44Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 55 times; this is ONE
+> coalesced notice that updates in place, not 55 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 1 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1793869647 set-by=receipt:kriscendobot-ymax-e2e:PR source:primary-quota <- comment:source-timeout-fanout
 > gh-api GraphQL-only marker: expiry=1793869647 set-by=mirror-closer:primary-quota
-> - kriscendobot/moddable: watcher ticking but cooldown for 8476s (since 2026-11-05T05:56:27Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 8776s (since 2026-11-05T05:56:27Z)
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden_journal.md)
 
@@ -1795,10 +1795,11 @@ _Fleet token-unlock pace: 39361432 tokens/day lower bound; incomplete where a su
 worst fetch p95 15.799405s/45s (/home/kris/garden/.garden-state/monitors/cleric-4/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
+- [`endojs-endo-but-for-bots-pr1652-body-prune-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1652-body-prune-20261105.md) — Replace the PR body of endojs/endo-but-for-bots#1652
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-fix-7.md) — Gauntlet stage: FIX round 7 — kriscendobot/minion.town PR #241
