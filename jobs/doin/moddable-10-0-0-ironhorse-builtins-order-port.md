@@ -38,3 +38,13 @@ PR #1435 panel round 1 (design commit 7d2d6f8d12): also add the targeted Rust pr
 <!-- garden-annotation: key=pr1435-panel2 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-2 at=2026-10-10T09:38:41Z -->
 
 PR #1435 panel round 2: design rows are now ID'd. This child ports R04 (Math.round), R05 (repeat), R06 (Array.from ToLength/Construct) and probes R07 to R16. Also pin `Math.round(0.49999999999999994)` === +0 from the spec (the current floor(a + 0.5) form gives 1). R16 (capture-group) has a partner oracle check in child 6. When a specified result disagrees with the 8.3.1 oracle, list it in the PR as an expected oracle divergence; never change the engine toward the oracle.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T17:11:14Z
