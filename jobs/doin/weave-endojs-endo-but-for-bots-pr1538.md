@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Weave endojs/endo-but-for-bots PR #1538 (`build/daemon-git-clone`) onto the current `llm` base, resolving conflicts so its halted Git-remote provisioning gauntlet can resume on a current base.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
