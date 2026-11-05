@@ -1,2 +1,2 @@
-base: improve-decision-append-lock-contention
+base: improve-decision-ledger-contention-spool
 identity: mentor:scripts/jobs/decision-append.sh
