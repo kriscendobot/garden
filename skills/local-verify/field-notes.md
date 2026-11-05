@@ -350,3 +350,14 @@ like one of these recurring classes.
   `test/project-worktree-isolation-test.sh` also stopped the suite from writing
   its fixture caches into the host's real `.garden-state/dep-cache`: it
   inherited the worker's exported `GARDEN_STATE`.
+
+- **2026-11-05: a hung step held the gate until someone interrupted it.** `npm
+  test` stopped making progress during caddy/install-node failures, and with no
+  bound on a step the supervising agent had to kill it by hand. Tell: a run with
+  no output and no exit. Fix: the stall watchdog (SKILL.md § Inputs, § Procedure)
+  terminates the process tree and reports `ENVIRONMENT PARITY`. Building it turned
+  up a second fault: on the virtiofs scratch mount, `capture_blob` under
+  `hermetic_gitconfig` intermittently failed with `detected dubious ownership`, about
+  one report in eight under parallel load, printing `(capture failed)` and discarding the
+  output. The harness now sets `safe.directory=*` through git's environment configuration
+  for its own capture only.

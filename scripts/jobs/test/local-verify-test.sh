@@ -51,6 +51,13 @@
 #      — no `GARDEN_YARN=npm` needed — while a Yarn stub is proven never invoked;
 #      GARDEN_YARN still wins as the explicit override. Regression for job
 #      `fix-local-verify-package-manager-detection` (kriscendobot/minion.town).
+#  16. Stall watchdog: a silent or endlessly chatty hung command has its whole
+#      process tree terminated (a SIGTERM-ignoring member and a setsid'd helper
+#      included) and its output captured, is reported as an ENVIRONMENT PARITY
+#      failure even if it exits 0 on SIGTERM, and does not stop later steps or
+#      workspaces; steady output defers the stall limit, 0 disables a limit, and
+#      a signal to the harness takes the running command with it. The output
+#      blob survives git seeing the worktree under another owner.
 #
 # No systemd, no network: the harness is exercised against throwaway git repos
 # with a stubbed package runner (GARDEN_YARN), and — for 10 — a throwaway garden
@@ -1058,6 +1065,169 @@ sovr="$(printf '%s' "$oovr" | grep -oE '[0-9a-f]{40}' | head -1)"
 [ "$rcovr" -ne 0 ] && git -C "$TR/npm-override" cat-file -p "$sovr" 2>/dev/null | grep -q 'stub-yarn:test' \
   && ok "GARDEN_YARN overrides detection even on an npm-declared project" \
   || bad "GARDEN_YARN override not honored on npm project (rc=$rcovr out=[$oovr])"
+
+# --- 16: stall watchdog ------------------------------------------------------
+# Every fixture records its pids so the assertions prove the processes are gone
+# rather than trusting the report. The limits are small, so each case runs in
+# seconds; the parents use `wait` so the leader is still the shell that hung.
+lv_all_dead() {  # lv_all_dead <pid-file>... — true once no recorded pid is alive
+  local waited=0 pid pids alive
+  pids="$(cat "$@" 2>/dev/null)"
+  while [ "$waited" -lt 10 ]; do
+    alive=0
+    for pid in $pids; do
+      kill -0 "$pid" 2>/dev/null && alive=1
+    done
+    [ "$alive" -eq 0 ] && return 0
+    sleep 1; waited=$((waited + 1))
+  done
+  return 1
+}
+lv_blob() {  # lv_blob <repo> <report> — print the first blob the report names
+  git -C "$1" cat-file -p "$(printf '%s' "$2" | grep -oE '[0-9a-f]{40}' | head -1)" 2>/dev/null
+}
+export GARDEN_PROC_TREE_REAP_GRACE=1
+
+# 16a: a silent hang, with a TERM-ignoring child and a child that left the group.
+R16="$TR/stall"
+make_repo "$R16" '#!/bin/bash
+exit 0'
+S16="$TR/stall-state"; mkdir -p "$S16"
+cat > "$S16/hang.sh" <<'HANG'
+#!/bin/bash
+state="$1"
+echo "$$" >"$state/leader"
+echo "caddy: install-node failed, waiting"
+( trap '' TERM; echo "$BASHPID" >"$state/stubborn"; while :; do sleep 1; done ) &
+setsid bash -c 'echo "$$" >"$1/detached"; exec sleep 300' _ "$state" &
+wait
+HANG
+start16="$SECONDS"
+o16="$(LOCAL_VERIFY_TEST="bash $S16/hang.sh $S16" LOCAL_VERIFY_DOCS="touch $S16/docs-ran" \
+  GARDEN_YARN="bash $R16/yarn-stub.sh" GARDEN_LOCAL_VERIFY_STALL_SECONDS=2 "$LV" "$R16" 2>&1)"; rc16=$?
+took16=$((SECONDS - start16))
+[ "$rc16" -ne 0 ] && [ "$took16" -lt 60 ] \
+  && ok "a stalled step fails on its own, without an interrupt (rc=$rc16, ${took16}s)" \
+  || bad "stalled step not bounded (rc=$rc16, ${took16}s)"
+printf '%s' "$o16" | grep -q '^STEP test FAILED: output blob' \
+  && ok "a stalled step keeps the ordinary STEP line" || bad "no STEP line (out=[$o16])"
+printf '%s' "$o16" | grep -q '^ENVIRONMENT PARITY: the watchdog stopped step test (no output for 2s)' \
+  && ok "a stalled step is reported as an environment-parity failure" \
+  || bad "no ENVIRONMENT PARITY line (out=[$o16])"
+printf '%s\n' "$o16" | grep -q '^  caddy: install-node failed, waiting$' \
+  && ok "the tail shows the command's last line, not the watchdog marker" \
+  || bad "wrong tail (out=[$o16])"
+b16="$(lv_blob "$R16" "$o16")"
+printf '%s' "$b16" | grep -q 'caddy: install-node failed' \
+  && printf '%s' "$b16" | grep -q '^local-verify watchdog: no output for 2s; terminated the process tree of: ' \
+  && ok "the blob holds the hung command's output and the watchdog's reason" \
+  || bad "blob incomplete: [$b16]"
+lv_all_dead "$S16/leader" "$S16/stubborn" "$S16/detached" \
+  && ok "the group, a TERM-ignoring member, and a setsid'd helper are all gone" \
+  || bad "survivors: $(cat "$S16/leader" "$S16/stubborn" "$S16/detached" 2>/dev/null | tr '\n' ' ')"
+[ -f "$S16/docs-ran" ] && ok "the steps after a stalled one still run" || bad "later step did not run"
+leftover16="$(find "${TMPDIR:-/tmp}" -maxdepth 1 -name 'local-verify-watchdog.*' -newer "$S16/hang.sh" 2>/dev/null | wc -l | tr -d ' ')"
+[ "$leftover16" -eq 0 ] && ok "no watchdog temp file is left behind" || bad "$leftover16 watchdog temp files left"
+
+# 16b: output does not satisfy the elapsed limit, and exiting 0 on SIGTERM does
+# not turn a stopped command into a pass.
+R16b="$TR/chatty"
+make_repo "$R16b" '#!/bin/bash
+exit 0'
+cat > "$S16/chatty.sh" <<'CHATTY'
+#!/bin/bash
+trap 'exit 0' TERM
+while :; do echo retrying; sleep 0.2; done
+CHATTY
+o16b="$(LOCAL_VERIFY_TEST="bash $S16/chatty.sh" GARDEN_YARN="bash $R16b/yarn-stub.sh" \
+  GARDEN_LOCAL_VERIFY_STEP_MAX_SECONDS=2 "$LV" "$R16b" 2>&1)"; rc16b=$?
+[ "$rc16b" -ne 0 ] && printf '%s' "$o16b" | grep -q 'stopped step test (still running after the 2s elapsed limit)' \
+  && ok "a chatty hang hits the elapsed limit, and exit 0 on SIGTERM still fails" \
+  || bad "elapsed limit not enforced (rc=$rc16b out=[$o16b])"
+
+# 16c: steady output keeps deferring the stall limit; a real failure stays one.
+R16c="$TR/steady"
+make_repo "$R16c" '#!/bin/bash
+exit 0'
+o16c="$(LOCAL_VERIFY_TEST='for i in 1 2 3 4 5 6 7 8; do echo tick; sleep 0.5; done' \
+  GARDEN_YARN="bash $R16c/yarn-stub.sh" GARDEN_LOCAL_VERIFY_STALL_SECONDS=3 "$LV" "$R16c" 2>&1)"; rc16c=$?
+[ "$rc16c" -eq 0 ] && [ -z "$o16c" ] \
+  && ok "a command outlasting the stall limit while printing passes silently" \
+  || bad "steady output was stopped (rc=$rc16c out=[$o16c])"
+o16d="$(LOCAL_VERIFY_TEST='echo plain failure; exit 7' GARDEN_YARN="bash $R16c/yarn-stub.sh" "$LV" "$R16c" 2>&1)"; rc16d=$?
+[ "$rc16d" -ne 0 ] && printf '%s' "$o16d" | grep -q 'STEP test FAILED' \
+  && ! printf '%s' "$o16d" | grep -q 'ENVIRONMENT PARITY' \
+  && ok "an ordinary failure is not called an environment-parity failure" \
+  || bad "ordinary failure misreported (rc=$rc16d out=[$o16d])"
+
+# 16e: 0 disables a limit, and a malformed limit refuses to run.
+o16e="$(LOCAL_VERIFY_TEST='sleep 3' GARDEN_YARN="bash $R16c/yarn-stub.sh" \
+  GARDEN_LOCAL_VERIFY_STALL_SECONDS=0 GARDEN_LOCAL_VERIFY_STEP_MAX_SECONDS=0 "$LV" "$R16c" 2>&1)"; rc16e=$?
+[ "$rc16e" -eq 0 ] && [ -z "$o16e" ] && ok "0 disables both limits" || bad "0 did not disable (rc=$rc16e out=[$o16e])"
+o16f="$(GARDEN_YARN="bash $R16c/yarn-stub.sh" GARDEN_LOCAL_VERIFY_STALL_SECONDS=soon "$LV" "$R16c" 2>&1)"; rc16f=$?
+[ "$rc16f" -eq 2 ] && printf '%s' "$o16f" | grep -q 'GARDEN_LOCAL_VERIFY_STALL_SECONDS must be' \
+  && ok "a malformed limit refuses to run" || bad "malformed limit accepted (rc=$rc16f out=[$o16f])"
+
+# 16g: a Yarn workspace tree bounds each workspace; the rest still run and report.
+R16g="$TR/stall-workspaces"; mkdir -p "$R16g/packages/a" "$R16g/packages/b"
+git -C "$R16g" init -q; git -C "$R16g" config user.email t@localhost; git -C "$R16g" config user.name test
+cat > "$R16g/package.json" <<'PKG'
+{ "name": "root", "workspaces": ["packages/*"], "scripts": { "test": "root-aggregator" } }
+PKG
+for w in a b; do
+  printf '{ "name": "workspace-%s", "scripts": { "test": "test" } }\n' "$w" >"$R16g/packages/$w/package.json"
+done
+cat > "$R16g/yarn-stub.sh" <<'STUB'
+#!/bin/bash
+case "$1:$2" in
+  workspaces:list) printf '{"location":"packages/a","name":"a"}\n{"location":"packages/b","name":"b"}\n'; exit 0 ;;
+  run:test)
+    case "$PWD" in
+      */packages/a) echo "a hangs"; exec sleep 300 ;;
+      *) echo "b fails on its own"; exit 1 ;;
+    esac ;;
+esac
+exit 0
+STUB
+git -C "$R16g" add -A; git -C "$R16g" commit -qm init >/dev/null
+o16g="$(GARDEN_YARN="bash $R16g/yarn-stub.sh" GARDEN_LOCAL_VERIFY_STALL_SECONDS=2 "$LV" "$R16g" 2>&1)"; rc16g=$?
+b16g="$(lv_blob "$R16g" "$o16g")"
+[ "$rc16g" -ne 0 ] && printf '%s' "$o16g" | grep -q 'stopped step test (packages/a: no output for 2s)' \
+  && ok "the report names the stalled workspace" || bad "workspace not named (rc=$rc16g out=[$o16g])"
+printf '%s' "$b16g" | grep -q 'a hangs' && printf '%s' "$b16g" | grep -q 'b fails on its own' \
+  && ok "the workspaces after a stalled one still run into the same blob" \
+  || bad "workspace blob incomplete: [$b16g]"
+
+# 16h: a signal to the harness takes the command in its separate group with it.
+R16h="$TR/stall-signal"
+make_repo "$R16h" '#!/bin/bash
+exit 0'
+LOCAL_VERIFY_TEST="bash $S16/hang.sh $S16" GARDEN_YARN="bash $R16h/yarn-stub.sh" "$LV" "$R16h" >/dev/null 2>&1 &
+lv16h=$!
+rm -f "$S16/leader" "$S16/stubborn" "$S16/detached"
+for _ in $(seq 1 100); do
+  [ -s "$S16/leader" ] && [ -s "$S16/stubborn" ] && [ -s "$S16/detached" ] && break
+  sleep 0.1
+done
+[ -s "$S16/leader" ] && [ -s "$S16/stubborn" ] && [ -s "$S16/detached" ] \
+  || bad "signal fixture did not start"
+kill -TERM "$lv16h"
+wait "$lv16h"; rc16h=$?
+[ "$rc16h" -eq 143 ] && lv_all_dead "$S16/leader" "$S16/stubborn" "$S16/detached" \
+  && ok "SIGTERM to the harness reaps the running command's tree (rc=$rc16h)" \
+  || bad "harness signal left survivors (rc=$rc16h)"
+
+# 16i: the blob is captured even when git sees the worktree under another owner,
+# which the virtiofs scratch mount produces intermittently; the hermetic
+# configuration has blanked the global safe.directory by then.
+R16i="$TR/stall-owner"
+make_repo "$R16i" '#!/bin/bash
+exit 0'
+o16i="$(GIT_TEST_ASSUME_DIFFERENT_OWNER=1 LOCAL_VERIFY_TEST='echo kept output; exit 1' \
+  GARDEN_YARN="bash $R16i/yarn-stub.sh" "$LV" "$R16i" 2>&1)"
+lv_blob "$R16i" "$o16i" | grep -q 'kept output' \
+  && ok "a dubious-ownership glitch does not lose the output blob" \
+  || bad "output lost under a different owner (out=[$o16i])"
 
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"

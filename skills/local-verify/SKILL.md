@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-09-28
+updated: 2026-11-05
 author: gardener
 ---
 
@@ -422,6 +422,19 @@ commands per project via package.json scripts or the overrides. The candidate
 lists are deliberately small and extensible: add a project's script name to the
 table rather than hardcoding one project's commands.
 
+Two limits bound every step command (per workspace in a Yarn workspace tree), so
+a hung verification ends itself. Each takes a whole number of seconds, 0 disables
+it, and a malformed value refuses to run (exit 2):
+
+- `GARDEN_LOCAL_VERIFY_STALL_SECONDS` (default 1200): no new captured output for
+  this long. Keep it above the longest legitimately silent command; a whole-repo
+  `tsc` prints nothing until it finishes.
+- `GARDEN_LOCAL_VERIFY_STEP_MAX_SECONDS` (default 7200): total elapsed time, which
+  catches a wedged command that keeps printing, such as a retry loop.
+
+Raise them for one run when a slow host trips them on healthy work. The SIGTERM to
+SIGKILL grace is `GARDEN_PROC_TREE_REAP_GRACE` from `scripts/jobs/common.sh`.
+
 Discovering the real commands per project draws on `package.json` scripts, the
 repo's CI workflow, and the [pre-pr-checklist](../pre-pr-checklist/SKILL.md) /
 [pre-push-gates](../pre-push-gates/SKILL.md) skills.
@@ -443,7 +456,8 @@ store for failure captures, which `git gc` collects.
 For each step, in order:
 
 1. Discover the command (overrides, then `package.json`, then skip).
-2. Run it in the worktree, capturing **combined stdout+stderr** to a temp file.
+2. Run it in the worktree as its own process group, stdin `/dev/null`, capturing
+   **combined stdout+stderr** to a temp file, under the stall watchdog (below).
 3. **On success: emit nothing** and discard the temp file. The blob is not even
    hashed (nobody needs it); the step silently passed.
 4. **On failure**: hash the captured output into the worktree's object store via
@@ -463,6 +477,16 @@ For the `test` step in a Yarn workspace tree, discovery and execution happen for
 each workspace independently. A failed package does not stop the loop; the
 captured test blob includes the package-labelled output for every failed
 workspace.
+
+The **stall watchdog** stops a command that hits either limit in [Inputs](#inputs).
+It terminates the command's whole process tree (`reap_process_tree`: SIGTERM, a
+grace period, SIGKILL, reaching helpers that detached with `setsid`), appends a
+`local-verify watchdog:` line naming the reason and command to the captured output,
+and fails the step with the usual block plus an `ENVIRONMENT PARITY:` line. A
+stopped command fails whatever status it exits with, since a program that handles
+SIGTERM by exiting 0 did not pass. Later steps and workspaces still run. A signal
+to the harness itself takes the running command with it, because that command is no
+longer in the caller's process group.
 
 Once every step has run, the **environment-fault check** runs: when two or more
 failing steps that dispatched **different** commands produced **byte-identical**
@@ -496,6 +520,10 @@ stdout — and counts as a failure, so the run exits non-zero.
   commands failed with one identical output, so the runner or the environment
   refused them all and no check ran. Fix the environment and re-run for a real
   verdict; do not start debugging the change.
+- Exit non-zero with an `ENVIRONMENT PARITY:` line after a step's block: the
+  watchdog stopped that step, so it produced no verdict on the change. The tail is
+  the last line the command printed, which usually shows what it was waiting on.
+  Fix the environment and re-run, or raise the limit if the work was healthy.
 
 The exit code is the harness's sole machine-readable signal; the per-failure
 blocks are the human/agent-readable surface.
@@ -583,7 +611,12 @@ single wrap script subsumes the reconstruction without a separate
 activates the audit, that only the zizmor action's `with:` block supplies
 `--persona` and `--min-severity`, that a finding is SHA-captured under `STEP
 zizmor FAILED`, and that `LOCAL_VERIFY_ZIZMOR=-` skips it. `bash -n` and
-`shellcheck` clean.
+`shellcheck` clean. A stall-watchdog group proves that a silent hang and a chatty
+hang are each stopped and reported as `ENVIRONMENT PARITY` with their output
+captured, that a TERM-ignoring child and a `setsid` helper die with the group, that
+exiting 0 on SIGTERM still fails, that later steps and workspaces still run, that
+steady output defers the stall limit, that 0 disables a limit, and that SIGTERM to
+the harness reaps the running command.
 
 ## Pitfalls
 

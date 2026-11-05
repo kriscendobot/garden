@@ -45,6 +45,11 @@
 #     reported as ONE such line rather than left to look like N independent
 #     verification failures. See § Environment fault vs check failure below.
 #
+#   * NO HUNG STEP. Every step command runs under a stall watchdog. A command
+#     that stops producing output, or outlives its elapsed limit, has its process
+#     tree terminated and is reported as an ENVIRONMENT PARITY failure, so nobody
+#     has to interrupt a wedged run by hand. See § Bounded step execution below.
+#
 # Usage: local-verify.sh [<worktree>]
 #   <worktree> defaults to the current directory (the gardening project/ tree).
 #
@@ -104,9 +109,9 @@
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Reuse the shared failure-capture helper (capture_blob) and log() from the job
-# board common library. Sourcing it does no network I/O; it only defines helpers
-# and pins the fleet gh identity onto PATH.
+# Reuse the shared failure-capture helper (capture_blob), reap_process_tree, and
+# log() from the job board common library. Sourcing it does no network I/O; it only
+# defines helpers and pins the fleet gh identity onto PATH.
 # shellcheck source=/dev/null
 . "$HERE/../common.sh"
 # Package-manager detection shared with pre-push-gates.sh (npm/yarn/pnpm/bun),
@@ -527,6 +532,112 @@ prepare_xs_environment() {  # print the bin directory after CI checkout parity
   prepare_xst_runtime
 }
 
+# ── Bounded step execution ──────────────────────────────────────────────────
+# A step that wedges (2026-11-05: `npm test` stopped making progress during
+# caddy/install-node failures) used to hold the gate, and its supervising agent,
+# until someone interrupted it by hand. Each step command now runs as its own
+# process-group leader beside a watchdog with two limits, per command:
+#
+#   GARDEN_LOCAL_VERIFY_STALL_SECONDS (default 1200): no new captured output for
+#     this long. It must exceed the longest legitimately silent command; a
+#     whole-repository `tsc` prints nothing until it finishes.
+#   GARDEN_LOCAL_VERIFY_STEP_MAX_SECONDS (default 7200): total elapsed time, which
+#     catches a wedged command that keeps printing, such as a retry loop.
+#
+# 0 disables a limit. In a Yarn workspace tree "per command" means per workspace.
+# Termination is reap_process_tree (SIGTERM, GARDEN_PROC_TREE_REAP_GRACE, SIGKILL),
+# because a test helper that detached with setsid escapes a bare group signal and
+# would keep its ports and CPU for the steps that follow.
+#
+# A stopped command always fails its step, whatever status it exits with: a
+# program that handles SIGTERM by exiting 0 did not pass. The report keeps the
+# usual STEP line and adds an ENVIRONMENT PARITY line, because a hang says nothing
+# about the change under test. Stdin is /dev/null, as on a CI runner, so a command
+# waiting for input fails fast or stalls visibly instead of reading the terminal.
+lv_limit() {  # lv_limit <var-name> <default> — print the validated limit in seconds
+  local value="${!1:-$2}"
+  case "$value" in
+    ''|*[!0-9]*) printf 'local-verify: %s must be a whole number of seconds (0 disables): %s\n' "$1" "$value" >&2; return 1 ;;
+  esac
+  printf '%s\n' "$((10#$value))"
+}
+LV_STALL_SECONDS="$(lv_limit GARDEN_LOCAL_VERIFY_STALL_SECONDS 1200)" || exit 2
+LV_MAX_SECONDS="$(lv_limit GARDEN_LOCAL_VERIFY_STEP_MAX_SECONDS 7200)" || exit 2
+LV_WATCHDOG_MARKER='local-verify watchdog: '
+
+# The running command, so a signal aimed at this script takes the command along.
+# It is in its own process group, so a group signal sent to the caller's group
+# (GNU timeout wrapping this script) no longer reaches it on its own.
+LV_ACTIVE_CHILD=""
+LV_ACTIVE_WATCHDOG=""
+LV_ACTIVE_TEMP=()
+abort_active_step() {  # abort_active_step <exit-status>
+  trap '' TERM INT HUP
+  [ -z "$LV_ACTIVE_WATCHDOG" ] || kill "$LV_ACTIVE_WATCHDOG" 2>/dev/null
+  [ -z "$LV_ACTIVE_CHILD" ] || reap_process_tree "$LV_ACTIVE_CHILD"
+  [ "${#LV_ACTIVE_TEMP[@]}" -eq 0 ] || rm -f "${LV_ACTIVE_TEMP[@]}"
+  exit "$1"
+}
+trap 'abort_active_step 129' HUP
+trap 'abort_active_step 130' INT
+trap 'abort_active_step 143' TERM
+
+watch_step() {  # watch_step <child-pid> <output-file> <reason-file>
+  local child="$1" out="$2" reason_file="$3" started="$SECONDS" changed="$SECONDS"
+  local size current reason=""
+  size="$(wc -c <"$out")"
+  while [ -z "$reason" ]; do
+    sleep 1
+    current="$(wc -c <"$out")"
+    if [ "$current" != "$size" ]; then size="$current"; changed="$SECONDS"; fi
+    if [ "$LV_MAX_SECONDS" -gt 0 ] && [ $((SECONDS - started)) -ge "$LV_MAX_SECONDS" ]; then
+      reason="still running after the ${LV_MAX_SECONDS}s elapsed limit"
+    elif [ "$LV_STALL_SECONDS" -gt 0 ] && [ $((SECONDS - changed)) -ge "$LV_STALL_SECONDS" ]; then
+      reason="no output for ${LV_STALL_SECONDS}s"
+    fi
+  done
+  # Record the verdict before signaling: the reader decides from this file, so a
+  # command that exits 0 on SIGTERM cannot be mistaken for a pass.
+  printf '%s\n' "$reason" >"$reason_file"
+  reap_process_tree "$child"
+}
+
+# run_bounded <dir> <output-file> <path-prefix> <command> — run the command under
+# the watchdog, appending its combined output to the file. Returns its exit status,
+# or 124 if the watchdog stopped it, with LV_WATCHDOG_REASON saying why.
+run_bounded() {
+  local dir="$1" out="$2" path_prefix="$3" cmd="$4" child watchdog reason_file rc
+  LV_WATCHDOG_REASON=""
+  reason_file="$(mktemp "${TMPDIR:-/tmp}/local-verify-watchdog.XXXXXX")"
+  LV_ACTIVE_TEMP=("$out" "$reason_file")
+  set -m                                  # $! leads a process group of its own
+  ( cd "$dir" && PATH="$path_prefix$PATH" exec bash -c "$cmd" ) </dev/null >>"$out" 2>&1 &
+  child=$!
+  set +m
+  LV_ACTIVE_CHILD="$child"
+  # The watchdog's descriptors must not hold the caller's capture pipe open: a
+  # killed watchdog can leave its `sleep` behind for up to a second.
+  watch_step "$child" "$out" "$reason_file" </dev/null >/dev/null 2>&1 &
+  watchdog=$!
+  LV_ACTIVE_WATCHDOG="$watchdog"
+  wait "$child" 2>/dev/null
+  rc=$?
+  LV_WATCHDOG_REASON="$(cat "$reason_file" 2>/dev/null)"
+  if [ -n "$LV_WATCHDOG_REASON" ]; then
+    # The leader can die first; let the reap finish with the rest of the tree.
+    wait "$watchdog" 2>/dev/null
+    rc=124
+    printf '\n%s%s; terminated the process tree of: %s\n' \
+      "$LV_WATCHDOG_MARKER" "$LV_WATCHDOG_REASON" "$cmd" >>"$out"
+  else
+    kill "$watchdog" 2>/dev/null
+    wait "$watchdog" 2>/dev/null
+  fi
+  rm -f "$reason_file"
+  LV_ACTIVE_CHILD=""; LV_ACTIVE_WATCHDOG=""; LV_ACTIVE_TEMP=()
+  return "$rc"
+}
+
 failures=0
 
 # Per-failure ledger backing the environment-fault check below: for every failed
@@ -536,8 +647,43 @@ fail_steps=()
 fail_cmds=()
 fail_shas=()
 
+# lv_capture_blob <file> — capture_blob for this harness's own bookkeeping write.
+# hermetic_gitconfig above blanks the global safe.directory, and on the virtiofs
+# scratch mount git intermittently sees the worktree under another owner, so a
+# bare capture sporadically failed with "detected dubious ownership" and threw the
+# failing step's output away. Git honors this setting from its environment
+# configuration, which also reaches the fleet wrapper's own git calls. Step commands
+# still run under the hermetic configuration.
+lv_capture_blob() (
+  count="${GIT_CONFIG_COUNT:-0}"
+  export "GIT_CONFIG_KEY_$count=safe.directory" "GIT_CONFIG_VALUE_$count=*"
+  export GIT_CONFIG_COUNT=$((count + 1))
+  capture_blob "$1" "$wt"
+)
+
+# report_step_failure <step> <ledger-command> <output-file> [stopped-detail] — hash
+# the combined output into the worktree's object store and surface only the SHA, a
+# one-line tail, and the inspect command. The tail skips the watchdog's own marker:
+# the last line the command printed is what shows where it hung.
+report_step_failure() {
+  local step="$1" ledger_cmd="$2" out="$3" stopped="${4:-}" sha lines tail
+  sha="$(lv_capture_blob "$out" 2>/dev/null)" || sha="(capture failed)"
+  lines="$(wc -l <"$out" | tr -d ' ')"
+  tail="$(grep -v '^[[:space:]]*$' "$out" | grep -v "^$LV_WATCHDOG_MARKER" | tail -n 1)"
+  printf 'STEP %s FAILED: output blob %s (%s lines) inspect: git -C %s cat-file -p %s\n' \
+    "$step" "$sha" "$lines" "$wt" "$sha"
+  [ -n "$tail" ] && printf '  %s\n' "$tail"
+  if [ -n "$stopped" ]; then
+    printf 'ENVIRONMENT PARITY: the watchdog stopped step %s (%s) and terminated its process tree. A hung command is not a verdict on the change: find what it was waiting on in the blob, fix the environment, and re-run. Limits: GARDEN_LOCAL_VERIFY_STALL_SECONDS, GARDEN_LOCAL_VERIFY_STEP_MAX_SECONDS.\n' \
+      "$step" "$stopped"
+  fi
+  rm -f "$out"
+  fail_steps+=("$step"); fail_cmds+=("$ledger_cmd"); fail_shas+=("$sha")
+  failures=$((failures + 1))
+}
+
 run_step() {  # run_step <step> — run it; silent on pass; SHA-capture on fail
-  local step="$1" cmd out sha lines tail xst_bin="" prep_rc=0
+  local step="$1" cmd out xst_bin="" prep_rc=0
   cmd="$(discover "$step")"
   [ -n "$cmd" ] || return 0               # nothing discovered — skipped, silent
 
@@ -548,22 +694,13 @@ run_step() {  # run_step <step> — run it; silent on pass; SHA-capture on fail
   else
     prep_rc=0
   fi
-  if [ "$prep_rc" -eq 0 ] && ( cd "$wt" && PATH="${xst_bin:+$xst_bin:}$PATH" bash -c "$cmd" ) >>"$out" 2>&1; then
+  LV_WATCHDOG_REASON=""
+  if [ "$prep_rc" -eq 0 ] && run_bounded "$wt" "$out" "${xst_bin:+$xst_bin:}" "$cmd"; then
     rm -f "$out"                          # success: silent; blob not needed
     return 0
   fi
 
-  # Failure: hash the combined output into the worktree's object store and
-  # surface only the SHA + a one-line tail + the inspect command.
-  sha="$(capture_blob "$out" "$wt" 2>/dev/null)" || sha="(capture failed)"
-  lines="$(wc -l <"$out" | tr -d ' ')"
-  tail="$(grep -v '^[[:space:]]*$' "$out" | tail -n 1)"
-  printf 'STEP %s FAILED: output blob %s (%s lines) inspect: git -C %s cat-file -p %s\n' \
-    "$step" "$sha" "$lines" "$wt" "$sha"
-  [ -n "$tail" ] && printf '  %s\n' "$tail"
-  rm -f "$out"
-  fail_steps+=("$step"); fail_cmds+=("$cmd"); fail_shas+=("$sha")
-  failures=$((failures + 1))
+  report_step_failure "$step" "$cmd" "$out" "$LV_WATCHDOG_REASON"
   return 1
 }
 
@@ -572,8 +709,8 @@ run_workspace_tests() {  # run_workspace_tests <test-step>
   # behavior hides later red packages. List the workspaces and invoke each
   # package's own test script instead, accumulating their output into the usual
   # one-blob failure report.
-  local step="$1" listing location workspace_pkg cmd out sha lines tail failed=0 found=0 i
-  local override xst_bin=""
+  local step="$1" listing location workspace_pkg cmd out failed=0 found=0 i
+  local override xst_bin="" stopped=""
   local locations=() commands=()
   # An explicit command is defined to run in the project worktree, not once in
   # every package. Preserve that override contract.
@@ -626,10 +763,10 @@ run_workspace_tests() {  # run_workspace_tests <test-step>
   if [ "$failed" -eq 0 ]; then
     for i in "${!locations[@]}"; do
       location="${locations[$i]}"; cmd="${commands[$i]}"
-      if ! { printf '[workspace %s]\n' "$location"; \
-        ( cd "$wt/$location" && PATH="${xst_bin:+$xst_bin:}$PATH" bash -c "$cmd" ); \
-      } >>"$out" 2>&1; then
+      printf '[workspace %s]\n' "$location" >>"$out"
+      if ! run_bounded "$wt/$location" "$out" "${xst_bin:+$xst_bin:}" "$cmd"; then
         failed=1
+        [ -z "$LV_WATCHDOG_REASON" ] || stopped="${stopped:+$stopped, }$location: $LV_WATCHDOG_REASON"
       fi
     done
   fi
@@ -638,15 +775,7 @@ run_workspace_tests() {  # run_workspace_tests <test-step>
     return 0
   fi
 
-  sha="$(capture_blob "$out" "$wt" 2>/dev/null)" || sha="(capture failed)"
-  lines="$(wc -l <"$out" | tr -d ' ')"
-  tail="$(grep -v '^[[:space:]]*$' "$out" | tail -n 1)"
-  printf 'STEP %s FAILED: output blob %s (%s lines) inspect: git -C %s cat-file -p %s\n' \
-    "$step" "$sha" "$lines" "$wt" "$sha"
-  [ -n "$tail" ] && printf '  %s\n' "$tail"
-  rm -f "$out"
-  fail_steps+=("$step"); fail_cmds+=("<workspace $step>"); fail_shas+=("$sha")
-  failures=$((failures + 1))
+  report_step_failure "$step" "<workspace $step>" "$out" "$stopped"
   return 1
 }
 
@@ -736,7 +865,7 @@ if [ -n "$dirty" ]; then
     printf '# git status --porcelain\n%s\n\n# git diff --stat\n' "$dirty"
     git -C "$wt" diff --stat
   } >"$out" 2>&1
-  sha="$(capture_blob "$out" "$wt" 2>/dev/null)" || sha="(capture failed)"
+  sha="$(lv_capture_blob "$out" 2>/dev/null)" || sha="(capture failed)"
   lines="$(wc -l <"$out" | tr -d ' ')"
   printf 'STEP codegen left tree dirty: generated artifacts are stale — commit the regen (diff --stat blob %s, %s lines) inspect: git -C %s cat-file -p %s\n' \
     "$sha" "$lines" "$wt" "$sha"
