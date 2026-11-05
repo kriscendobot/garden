@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T17:10:22Z","base":"ironhorse-xs10-proxy-callable-flags","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":29,"role":"builder","provider":"anthropic"}
