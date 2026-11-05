@@ -29,3 +29,13 @@ dispatch: automatic
 **Context.** The wait list itself was provisioned on 2026-11-05 (the DynamoDB table `minion-town-waitlist` had never been created; `POST /api/waitlist` now returns 202). Do not touch real waitlist rows: tests use a stubbed store, and the production check posts a clearly fake address (`…@example.com`) and removes that row afterwards using the garden-fleet admin credentials only if you have them; otherwise verify the redirect with a stubbed response and leave production data alone.
 
 Repo: kriscendobot/minion.town (base: current main). Test with the real-daemon + Playwright recipe: covering sign-up success, failure, direct `/soon` open, reload, back button, "Sign up with another address", and "Already a resident?". Deploy and verify in production; record screenshots in the PR. Maintainer evaluates production results, not diffs (review inversion).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T21:46:12Z
