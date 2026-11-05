@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T03:15:33Z_
+_As of 2026-11-05T03:22:54Z_
 
 ## Latest
 
@@ -669,26 +669,30 @@ Delegation: **active**
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
+> WATCHDOG notice — occurrence #3 (first seen 2026-11-05T03:11:18Z, latest 2026-11-05T03:21:19Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
+>
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 16 source(s); they post no acknowledgments while it holds.
 > gh-api cooldown marker: expiry=1793849419 set-by=receipt:kriscendobot-garden:PR source:primary-quota <- comment:source-timeout-fanout
 > gh-api GraphQL-only marker: expiry=1793849419 set-by=mirror-closer:primary-quota
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2438s (since 2026-11-05T02:30:39Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2438s (since 2026-11-05T02:30:39Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2386s (since 2026-11-05T02:31:31Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z); detail: rest latch set-by=receipt:kriscendobot-garden:PR source:primary-quota <- comment:source-timeout-fanout expiry=1793849419
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2438s (since 2026-11-05T02:30:39Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
-> - kriscendobot/garden-book: watcher ticking but cooldown for 2458s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/cosgov: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3039s (since 2026-11-05T02:30:39Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3039s (since 2026-11-05T02:30:39Z)
+> - kriscendobot/list: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 2987s (since 2026-11-05T02:31:31Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z); detail: rest latch set-by=receipt:kriscendobot-garden:PR source:primary-quota <- comment:source-timeout-fanout expiry=1793849419
+> - kriscendobot/minion.town: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 3039s (since 2026-11-05T02:30:39Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
+> - kriscendobot/garden-book: watcher ticking but cooldown for 3059s (since 2026-11-05T02:30:19Z)
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden_journal.md)
 
@@ -1738,39 +1742,42 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 148.1M | $549.44 _(notional, rate-card)_ | 55% of 271.0M (backoff) |
-| Codex | 328.7M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 330.1M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 39254580 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 39273402 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 12.988585s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 13 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (13)
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`kriscendobot-minion.town-pr250-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr250-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #250
-- [`endojs-endo-but-for-bots-pr1648-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1648-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1648
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`kriscendobot-minion.town-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #249
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #241
 - [`endojs-endo-but-for-bots-pr1649-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1649-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1649
-- [`kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait.md) — ---
+- [`kriscendobot-minion.town-pr248-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr248-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #248
 - [`kriscendobot-minion.town-pr240-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr240-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #240
 - [`kriscendobot-minion.town-pr237-gauntlet-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr237-gauntlet-20261105.md) — run the gauntlet #237 (kriscendobot/minion.town), re-run
+- [`improve-spooled-docket-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-spooled-docket-completion.md) — ---
+- [`kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — kriscendobot/minion.town PR #237
 
-### doin (2)
+### doin (4)
 - [`kriscendobot-minion.town-pr199-gauntlet-20261103-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-gauntlet-20261103-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #199
-- [`kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #237
+- [`kriscendobot-minion.town-pr247-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr247-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #247
+- [`endojs-endo-but-for-bots-pr1648-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1648-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1648
+- [`kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait.md) — ---
 
-### tada (16692)
+### tada (16693)
+- [`kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion-town-pr237-screen-b2cea1db-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr248-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr248-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr247-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr247-gauntlet-fix-1.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-f4dcb3c044e6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/canary-probe-oros-studio-garden-ce242c49-f4dcb3c044e6.md) — rolling-deploy canary probe — round trip OK
 - [`improve-retain-gauntlet-roster-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/improve-retain-gauntlet-roster-provenance.md) — Cost
-- [`kriscendobot-minion.town-pr250-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr250-gauntlet-viability.md) — Cost
-- … and 16687 more
+- … and 16688 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
