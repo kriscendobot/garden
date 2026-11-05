@@ -1,1 +1,2 @@
 {"ts":"2026-11-05T19:18:17Z","base":"design-daemon-git-remotes-extended-transports","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":1,"arc":"minion-town-git-remote"}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T19:33:32Z","base":"design-daemon-git-remotes-extended-transports","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":8,"role":"designer","arc":"minion-town-git-remote","provider":"anthropic"}
