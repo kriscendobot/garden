@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T13:35:50Z","base":"claude-on-minion-town-completion-press-20261105-133510","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":8,"role":"gardener","provider":"anthropic"}
