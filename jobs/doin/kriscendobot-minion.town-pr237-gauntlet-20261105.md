@@ -18,6 +18,7 @@ real finding is recorded. Run the gauntlet again on the current head (clean → 
 fix-loop → un-draft) so the proxy screen can merge it. Posted by the minion.town arc
 supervisor (standing order: supervisors carry minion.town PRs, no escalations).
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
