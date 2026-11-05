@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T17:49:26Z_
+_As of 2026-11-05T17:55:35Z_
 
 ## Latest
 
@@ -1482,6 +1480,80 @@ Delegation: **active**
 
 > foreman: next step 'endopi-provider-registry-and-oauth-build' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck.
 
+- `doomed-kriscendobot-minion.town-pr243-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr243-gauntlet-fix-1-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion.town-pr243-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/kriscendobot-minion.town-pr243-gauntlet-fix-1; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-minion.town-pr243-gauntlet-fix-1) or removes it, so nothing is lost.
+> Original job base: kriscendobot-minion.town-pr243-gauntlet-fix-1
+>
+> --- original job body ---
+> ---
+> role: gardener
+> posted_at: 2026-11-05T12:23:20Z
+> handler-budget-role: shepherd
+> handler-timeout: 10800
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T17:02:49Z cleared=none -->
+>
+> ---
+> role: gardener
+> handler-budget-role: shepherd
+> handler-timeout: 10800
+> gauntlet: kriscendobot-minion.town-pr243-gauntlet
+> gauntlet_stage: fix
+> gauntlet_iteration: 1
+> pr: [https://github.com/kriscendobot/minion.town/pull/243](https://github.com/kriscendobot/minion.town/pull/243)
+> ---
+>
+> # Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #243
+>
+> You are ONE stage of a staged gauntlet (kriscendobot-minion.town-pr243-gauntlet). Apply the panel's must-fix items ONCE,
+> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh kriscendobot-minion.town-pr243-gauntlet-fix-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/kriscendobot/minion.town/pull/243 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 2. If an exact deterministic pre-pass output block appears below, apply every
+>    finding in that block; panel-1 stopped before dispatching jurors and there
+>    is no PR review for this round. If no block appears, read the LATEST panel
+>    verdict on [https://github.com/kriscendobot/minion.town/pull/243](https://github.com/kriscendobot/minion.town/pull/243) (a request-changes review, or a comment review headed
+>    `Must-fix before merge` when the bot authored the PR) and apply its must-fix
+>    items. A prepass-failed report with an absent/empty block is missing
+>    evidence: fail closed rather than guessing.
+>
+> <!-- gauntlet-style-prepass-output-begin -->
+> probe spell-out-identifiers     fail (exit 1)
+>   fail: tools/guide-recipes/local-daemon-server.ts adds abbreviated identifier `makeDaemonTmp` (`tmp` -> spell out, e.g. `temporary`)
+> advisory comment concision      warn (non-blocking)
+>   fire pruner tools/guide-recipes/local-daemon-server.ts:2 (+3-line prose comment) — decide whether it adds a non-obvious invariant or rationale; require deletion if it only narrates adjacent code
+> result: 1 failing stage(s); address and re-run.
+> <!-- gauntlet-style-prepass-output-end -->
+> 3. Push the fix as review-feedback follow-up commits to the PR head with
+>    `scripts/jobs/gardening/safe-push-pr-head.sh`.
+> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
+>    `GARDEN_CI_DEADLINE_SECS=3600 \
+>      scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/minion.town 243 --no-merge`
+>    - rc 0 (GREEN): success.
+>    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
+>    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
+>    - rc 5 (BILLING-BLOCKED): Actions refused to start the jobs (account payment/
+>      spending limit); the maintainer is already alerted. Do NOT rerun, push more, or
+>      write `orchestration-failed`: emit the ci-billing-blocked marker (the driver parks).
+>
+> Put EXACTLY ONE of these marker lines on its own line immediately BEFORE the
+> completion signal; the completion signal itself stays the very last line:
+>   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
+>   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
+>   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
+
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-09-12T03:35:10Z, latest 2026-11-05T14:20:41Z).
@@ -2709,7 +2781,7 @@ _Fleet token-unlock pace: 154887260 tokens/day lower bound._
 worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/journal); 14 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (9)
 - [`oros-health-checkup-20261105-103515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-103515.md) — ---
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
@@ -2718,9 +2790,10 @@ worst fetch p95 5.551965s/45s (/home/kris/garden/.garden-state/fleet-health/jour
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
+- [`improve-decision-ledger-contention-spool`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-decision-ledger-contention-spool.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`build-daemon-git-remotes-transport-timing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-git-remotes-transport-timing.md) — ---
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
