@@ -1,1 +1,2 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T11:58:54Z","base":"screen-minion-town-pr252-755d017-conduct","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":10,"role":"conductor","provider":"anthropic"}
+{"ts":"2026-11-05T12:14:26Z","base":"screen-minion-town-pr252-755d017-conduct","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2}
