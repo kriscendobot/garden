@@ -1,4 +1,5 @@
 ---
+child-build-minion-town-ordered-gutter-inc1-20261104-failure-notified: true
 child-build-minion-town-ordered-gutter-inc1-20261104-host: endolin-garden-ece02cb4
 child-build-minion-town-ordered-gutter-inc1-20261104-reap-count: 0
 order: serial
