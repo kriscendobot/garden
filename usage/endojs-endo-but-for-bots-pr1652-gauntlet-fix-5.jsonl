@@ -1,1 +1,2 @@
 {"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T11:57:38Z","base":"endojs-endo-but-for-bots-pr1652-gauntlet-fix-5","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":6,"role":"gardener","provider":"anthropic"}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T12:05:51Z","base":"endojs-endo-but-for-bots-pr1652-gauntlet-fix-5","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":11,"role":"gardener","provider":"anthropic"}
