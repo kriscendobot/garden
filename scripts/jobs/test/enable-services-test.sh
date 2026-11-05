@@ -106,7 +106,8 @@ fi
 
 # Each of the formerly-dormant timers is now present.
 for u in garden-foreman.timer garden-deadmail.timer garden-follow-up.timer \
-         garden-proxy.timer garden-mirror-closer.timer garden-deadline-nudge.timer; do
+         garden-proxy.timer garden-minion-town-screening.timer garden-mirror-closer.timer \
+         garden-deadline-nudge.timer; do
   grep -qxF "$u" "$GARDEN_MOCK_STATE" && ok "$u enabled (was dormant)" || bad "$u NOT enabled"
 done
 # Standalone continuous services are enabled as services (the bulletin migration

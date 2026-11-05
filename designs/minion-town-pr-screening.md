@@ -1,4 +1,4 @@
-# Design: the proxy screens and merges kriscendobot/minion.town pull requests
+# Design: the screening service merges kriscendobot/minion.town pull requests
 
 | Created | 2026-09-29 |
 | Author  | gardener (designer, job `design-minion-town-pr-screening-by-proxy`) |
@@ -36,9 +36,9 @@ A probe gauntlet has `kind: probe`, never reaches that stage, and stays draft.
 The screen also rejects a PR body marked `gap-revealing`, so accidentally
 un-drafting a probe cannot turn it into a merge candidate.
 
-## Choice: the proxy, not a mentat supervisor
+## Choice: a deterministic service, not a mentat supervisor
 
-The **proxy** screens. The reasons:
+The **leader's deterministic screening service** screens. The reasons:
 
 - **The judgment is already made upstream of the screen.** The staged gauntlet's
   panel is the substantive review, and CI is the correctness check. What remains
@@ -53,10 +53,11 @@ The **proxy** screens. The reasons:
   journal-authorized Ironhorse watcher. A per-PR automatic mentat supervisor
   would need a second delegated-watcher exception to that gate, and it would spend
   the scarcest tier on a repository the maintainer called beneath attention.
-- **The proxy's safety story already fits.** It runs on the leader every 5 minutes
-  (`garden-proxy.timer`), it is the garden's standing stand-in for the absent
-  maintainer, and it reports every decision to the maintainer inbox. "Keep the
-  maintainer informed, not gated" is its existing contract.
+- **The proxy's safety story still applies without sharing its timebox.** The
+  leader-only `garden-minion-town-screening.timer` runs the same deterministic
+  policy every five minutes and reports every decision to the maintainer inbox.
+  Its separate unit gives host-wide GitHub admission waits a dedicated bound, so
+  proxy work cannot kill a correct screen halfway through a pass.
 
 Considered and rejected: a mentat supervisor job per PR, posted via
 `post-manual-job.sh`. Reason: a human would have to post each one, which
@@ -92,11 +93,11 @@ seed|pause|resume|revoke <reason-file>|status`. It mirrors
 `ironhorse-ratchet.sh`: its own journal clone, CAS pushes, and no git in the
 deployed root.
 
-## The screen (proxy pre-pass, no LLM)
+## The screen (dedicated service, no LLM)
 
-`scripts/jobs/screen-delegated-prs.sh` is invoked from `proxy.sh` as pre-pass 1d,
-after the PR-comment auto-clear and before the gating enumeration. It exits
-immediately when the delegation is not `active`. Otherwise it lists every open
+`scripts/jobs/screen-delegated-prs.sh` is supervised by the leader-only
+`garden-minion-town-screening` service. It exits immediately when the delegation
+is not `active`. Otherwise it lists every open
 PR on the delegated repository, including frozen and stacked bases, and evaluates
 each at its current `headRefOid`.
 It reads GitHub metadata, CI rollups, diff metadata, and journal records.
@@ -182,7 +183,7 @@ no state beyond the attestation files.
   step is unchanged from the ordinary path.
 - **Attestation gate at merge time.** An attestation file and completed panel must
   cover the **post-rebase head** exactly. A rebase that moved the head therefore
-  stalls the job with `awaiting re-screen`; the next proxy tick stages one
+  stalls the job with `awaiting re-screen`; the next screening tick stages one
   head-keyed panel and posts a fresh conductor only after that panel passes. This
   matches the ratchet rule that rebasing invalidates the attestation. The spine
   re-reads the human-veto gate (touchpoint 4) at merge time.

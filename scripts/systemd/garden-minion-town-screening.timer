@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden minion.town delegated PR screening timer
+
+[Timer]
+OnBootSec=2m
+OnUnitInactiveSec=5m
+
+[Install]
+WantedBy=timers.target

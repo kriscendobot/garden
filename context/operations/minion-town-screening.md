@@ -4,7 +4,7 @@ updated: 2026-11-05
 author: gardener
 ---
 
-# minion.town PR screening by the proxy
+# minion.town PR screening service
 
 The maintainer delegated the complete review-and-merge surface of
 `kriscendobot/minion.town` to the supervisors for garden issues
@@ -13,8 +13,8 @@ The maintainer delegated the complete review-and-merge surface of
 escalations.”
 The binding record is
 `entries/2026/10/07/203746Z-message-gardener-a253b1.md` on `journal2`.
-The proxy applies the deterministic gates; supervisors carry gauntlet, fixes,
-un-draft, weave, and restack.
+The leader's screening service applies the deterministic gates; supervisors
+carry gauntlet, fixes, un-draft, weave, and restack.
 Every other repository, including Endo, keeps maintainer review.
 
 ## Arming (post-deploy, maintainer-visible)
@@ -50,14 +50,18 @@ authority boundary; a PR body can never grant the delegation.
 A human `CHANGES_REQUESTED` review blocks one PR. An APPROVED review still
 triggers the ordinary `finalize` conductor.
 
-## What one proxy tick does
+## What one screening tick does
 
-`scripts/jobs/proxy.sh` runs `scripts/jobs/screen-delegated-prs.sh` as pre-pass 1d
-on the leader every 5 minutes (`garden-proxy.timer`). The screener uses its own
-journal clone (`$GARDEN_STATE/screening/journal`), and a failed tick is logged
-without blocking the proxy. GitHub quota deferrals and other driver failures are
-counted in `$GARDEN_STATE/screening/tick-failure`; three consecutive failed ticks
-raise the coalesced watchdog notice
+The leader-only `garden-minion-town-screening.timer` runs
+`scripts/jobs/screen-delegated-prs-tick.sh` five minutes after the prior tick
+finishes. It is deliberately separate from `garden-proxy`: a normal pass may
+spend several minutes waiting for the host-wide GitHub admission lock, so it has
+its own 30-minute bound instead of sharing the proxy's 10-minute handler budget.
+An overrun is logged, sent to the maintainer channel, and retried from fresh state
+on the next activation. The screener uses its own journal clone
+(`$GARDEN_STATE/screening/journal`). GitHub quota deferrals and other driver
+failures are counted in `$GARDEN_STATE/screening/tick-failure`; three consecutive
+failed ticks raise the coalesced watchdog notice
 `minion-town-screening-tick-failed-<host>`, and the first completed tick closes
 it with a recovery update. Logic lives in `scripts/jobs/screening/`
 (`policy.py`, `driver.py`, `report.py`, `control.py`).

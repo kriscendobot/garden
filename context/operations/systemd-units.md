@@ -54,6 +54,7 @@ systemd `%i` value described in the detailed entry.
 | `garden-follow-up` | every 10 minutes at `:08` | leader | Turn completion-report follow-ups into durable actions. |
 | `garden-scheduler` | every 15 minutes at `:05` | leader | Dispatch recurring and one-shot scheduled jobs. |
 | `garden-proxy` | 5 minutes after the prior run | leader | Resolve or park ordinary absent-maintainer questions. |
+| `garden-minion-town-screening` | 5 minutes after the prior run | leader | Screen delegated minion.town PRs outside the proxy handler budget. |
 | `garden-unblock` | every 5 minutes at `:01` | host | Promote blocked plans whose dependency completed. |
 | `garden-deadmail` | every 5 minutes at `:00` | leader | Promote messages whose intended live recipient disappeared. |
 | `garden-deadline-nudge` | every minute | leader | Nudge claimed jobs near their handler deadline. |
@@ -434,6 +435,11 @@ common commands. See `CLAUDE.md` under "Monitoring safety constraint" and
   answers ordinary gating questions or parks blocked work. State is
   `$GARDEN_STATE/proxy/{journal,seen}` and journal inboxes, messages, and
   `jobs/plan`.
+- **`garden-minion-town-screening.timer`, `garden-minion-town-screening.service`:**
+  leader-only five minutes after the prior tick completes; runs
+  `scripts/jobs/screen-delegated-prs-tick.sh`. The supervisor gives contended
+  GitHub reads a dedicated 30-minute bound and reports rc-124/137 overruns before
+  retrying. State is `$GARDEN_STATE/screening/` and journal screening records.
 - **`garden-unblock.timer`, `garden-unblock.service`:** every host at `:01/5`;
   runs `scripts/jobs/unblock.sh`. It skips under drain and promotes
   `gate: blocked` plans after a named job or PR completes, or changes the gate to

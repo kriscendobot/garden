@@ -219,7 +219,8 @@ ol="$(env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/st-ol" GARDEN=leaderhost GARD
 # ============================================================================
 hr; echo "UNIT GATING — every singleton service carries the ExecCondition"; hr
 SINGLETONS=(garden-foreman garden-scheduler garden-bulletin garden-deadmail garden-reaper
-            garden-deadline-nudge garden-follow-up garden-proxy garden-mentor garden-mirror-closer
+            garden-deadline-nudge garden-follow-up garden-proxy garden-minion-town-screening
+            garden-mentor garden-mirror-closer
             garden-comment-watcher@ garden-mention-watcher garden-triager@
             garden-issue-inbox garden-library-source-drift-scan)
 # The bulletin is a CONTINUOUS singleton gated IN-PROCESS, not via ExecCondition:
