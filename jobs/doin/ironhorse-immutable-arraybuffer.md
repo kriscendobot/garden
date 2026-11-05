@@ -19,3 +19,13 @@ If you genuinely finish but do not achieve the gated outcome below, end your rep
 
 Implement the Immutable ArrayBuffer proposal (tc39/proposal-immutable-arraybuffer): read-only buffer state, `ArrayBuffer.prototype.immutable`, `transferToImmutable`, `sliceToImmutable`; mutable checks on every write path (TypedArray set/fill/copyWithin/reverse/sort, DataView set*, Atomics, slice/species destinations, TypedArray.from/of custom ctor results, setFromHex/Base64 if present); persistence in snapshots. In the SAME PR flip `mxImmutableArrayBuffers` to 1 in `xs-oracle/build.rs` so the ~50 immutable shared-skip cases become Covered, not Divergent. Cross-check with the hardened262 immutable-arraybuffer view matrix.
 Gated outcome: immutable-arraybuffer test262 cases covered with zero new divergences; floor growth only. Size M–L.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T17:07:18Z
