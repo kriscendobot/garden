@@ -40,3 +40,13 @@ PR #1435 panel round 1 (design commit 7d2d6f8d12): also add the targeted Rust pr
 PR #1435 panel round 2: design rows are now ID'd. This child ports R04 (Math.round), R05 (repeat), R06 (Array.from ToLength/Construct) and probes R07 to R16. Also pin `Math.round(0.49999999999999994)` === +0 from the spec (the current floor(a + 0.5) form gives 1). R16 (capture-group) has a partner oracle check in child 6. When a specified result disagrees with the 8.3.1 oracle, list it in the PR as an expected oracle divergence; never change the engine toward the oracle.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T17:15:34Z
