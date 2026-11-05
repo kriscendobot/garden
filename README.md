@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T09:54:54Z_
+_As of 2026-11-05T09:57:38Z_
 
 ## Latest
 
@@ -1146,6 +1146,10 @@ Delegation: **active**
 > - My live probe left one anonymous guest on production. The API has no route to delete it. Its identifier was never recorded.
 > - The source note was not on this host. If the maintainer wants the report itself checked against these pages, re-run on the host that holds `/home/kris/garden/note-from-tower.md`.
 
+- `msg-endojs-endo-but-for-bots-pr1652-gauntlet-fix-3-c4bc70b7c9d3` — from gardener:endojs-endo-but-for-bots-pr1652-gauntlet-fix-3, reply_to `endojs-endo-but-for-bots-pr1652-gauntlet-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1652-gauntlet-fix-3-c4bc70b7c9d3.md)
+
+> Your review of [https://github.com/endojs/endo-but-for-bots/pull/1652](https://github.com/endojs/endo-but-for-bots/pull/1652) (review 5782081346, "rsvp", plus 9 inline comments) has no job on the board about 40 minutes after you submitted it, so nothing is working on it yet. I could not tell whether the comment watcher is lagging or dropped it. Gauntlet fix-3 did not apply your comments, because it only covers panel findings. Its new text still says CapabilityLink and DataStore, and it adds a `kind()` value of `Link`. The Cell/MapStore naming you asked for, the hash-line methods, snapshot/capture, keep/drop/insert, `narrow`, CAS instead of locks and the signed locator file are all still open. Should I post a job for that review now, or will you re-trigger it?
+
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal.md)
 
 > RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-11-04T15:29:51Z, cleared 2026-11-04T21:14:33Z).
@@ -1831,25 +1835,26 @@ _Fleet token-unlock pace: 39277184 tokens/day lower bound; incomplete where a su
 worst fetch p95 16.180098s/45s (/home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-endo-but-for-bots); 15 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (7)
+- [`kriscendobot-minion.town-pr252-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr252-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #252
 - [`scholar-ingest-openai-scaling-git`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-openai-scaling-git.md) — ---
 - [`scholar-ingest-meta-harnesses-codefall-ycc-20261029`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-meta-harnesses-codefall-ycc-20261029.md) — Ingest two meta-harness repositories: lividlabs/codefall and whyrusleeping/ycc
 - [`scholar-ingest-fudco-gist-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-fudco-gist-20261105.md) — Ingest the FUDCo gist and report on it
 - [`scholar-ingest-yavashark-ironhorse-20261030`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-yavashark-ironhorse-20261030.md) — Ingest Sharktheone/yavashark with an eye to Iron Horse
+- [`kriscendobot-minion.town-pr241-gauntlet-fix-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr241-gauntlet-fix-8.md) — Gauntlet stage: FIX round 8 — kriscendobot/minion.town PR #241
 - [`scholar-ingest-nanoseedlm-20261013`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-nanoseedlm-20261013.md) — Ingest "NanoSeedLM: LLM inference using pseudo-random numbers" and report on ...
 
-### doin (3)
+### doin (2)
 - [`build-secret-management-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-secret-management-20261105.md) — ---
-- [`endojs-endo-but-for-bots-pr1652-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1652-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1652
 - [`kriscendobot-minion.town-pr249-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr249-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #249
 
-### tada (16807)
+### tada (16808)
+- [`endojs-endo-but-for-bots-pr1652-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/endojs-endo-but-for-bots-pr1652-gauntlet-fix-3.md) — Cost
 - [`kriscendobot-minion.town-pr241-gauntlet-panel-8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr241-gauntlet-panel-8.md) — Cost
 - [`kriscendobot-minion.town-pr252-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr252-gauntlet-clean.md) — Cost
 - [`design-secret-management-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/design-secret-management-20261105.md) — Cost
 - [`kriscendobot-minion.town-pr241-gauntlet-fix-7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr241-gauntlet-fix-7.md) — Cost
-- [`kriscendobot-minion.town-pr248-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr248-gauntlet.md) — gauntlet kriscendobot-minion.town-pr248-gauntlet — review budget reached
-- … and 16802 more
+- … and 16803 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
