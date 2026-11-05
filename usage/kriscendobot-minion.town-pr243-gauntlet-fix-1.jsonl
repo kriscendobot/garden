@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T11:58:26Z","base":"kriscendobot-minion.town-pr243-gauntlet-fix-1","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":7,"role":"gardener","provider":"anthropic"}
