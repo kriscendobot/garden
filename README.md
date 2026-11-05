@@ -1,8 +1,6 @@
 # Garden bulletin
 
-[Current priorities and maintainer review docket](PRIORITIES.md)
-
-_As of 2026-11-05T20:59:11Z_
+_As of 2026-11-05T21:05:32Z_
 
 ## Latest
 
@@ -2659,6 +2657,39 @@ Delegation: **active**
 > the arc supervisors carry it; do not wait on the maintainer. Genuine forks go in the
 > design's `## Open questions`.
 
+- `doomed-build-minion-town-recovery-outcome-screen-20261105-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-minion-town-recovery-outcome-screen-20261105-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-minion-town-recovery-outcome-screen-20261105; it stays HELD until a human promotes it
+> (promote-plan.sh build-minion-town-recovery-outcome-screen-20261105) or removes it, so nothing is lost.
+> Original job base: build-minion-town-recovery-outcome-screen-20261105
+>
+> --- original job body ---
+> ---
+> posted_at: 2026-11-05T20:40:38Z
+> role: builder
+> handler-timeout: 3600
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> **Role: builder.** **Give a failed guest recovery its own clear screen on minion.town** (maintainer experience report, kriskowal, 2026-11-05).
+>
+> **What happened.** He deleted his guest on https://minion.town/, then tried to recover by signing in with GitHub (the `kriskowal` bond). The flow returned him to the sign-in page, and the "No guest is bonded to that sign-in." message did not appear until he reloaded. He arrived back at the wait-list sign-up sheet and felt lost.
+>
+> **Where it comes from.** `deploy/aws/www/home.js` (about lines 420-440): when `parsed.recover` is set, `resolveGuest` calls `api('/account/guest-recovery')`; on a non-deletion-pending failure it calls `say('waitlist-status', 'No guest is bonded to that sign-in.', true)`. That writes into the waitlist splash's status element, and the later `land()` / `showCard(...)` flow then shows the splash, so the message is either written before the card exists, hidden, or overwritten, and it is a one-line note on a card about something else (the wait list).
+>
+> **Do:**
+> 1. **Reproduce** it with the real-daemon + Playwright recipe (delete a guest, sign in via a recovery bond that has no guest, observe). Find the actual reason the message is missed (ordering, the status element hidden, a reload race) and fix it, with a regression test that fails first.
+> 2. **Make the outcome a stand-alone screen,** not a status line: a dedicated card (same card system as `splash`/`invitation`/`deletion-pending`; see `landingMode` and `showCard`) that says plainly what happened ("We signed you in with GitHub, but no minion.town guest is attached to that sign-in"), what the person can do next (join the wait list, redeem a coupon/invitation if they have one, try another sign-in provider, contact), and why they are seeing it. It must be reachable only for the failed-recovery case, must not leak whether any particular guest exists beyond what the sign-in already proves, must be keyboard and screen-reader friendly (focus moves to its heading, `aria-live`), and must survive a reload sensibly (the address bar is cleared, so persist the outcome in session storage for that one view, or re-derive it, so it neither vanishes nor sticks).
+> 3. **Review the neighbouring failure paths** in the same function for the same "arrives somewhere unexplained" problem (deletion pending, guest unavailable: `Your guest is unavailable right now. Reload to try again.`, a rejected credential, an expired invitation) and give each a clear, calm explanation. Do not rewrite the shell; keep this scoped to the landing page.
+> 4. Deploy and verify in production with Playwright; do not mutate real account data (use a dedicated test principal or a throwaway guest). Record screenshots of the new screen in the PR.
+>
+> Repo: kriscendobot/minion.town (base: current main). Maintainer evaluates production results, not diffs (review inversion). The wait list itself was just provisioned (see below), so the join-the-wait-list action on the new screen must work in production; verify it end to end.
+>
+> **Context already handled by the liaison (do not redo):** "wait list not available" was a missing DynamoDB table; `deploy/aws/scripts/deploy-waitlist-store.sh` had never been run. It was run on 2026-11-05, and `POST /api/waitlist` now returns 202. A probe row was inserted and deleted. Add a production smoke check for `/api/waitlist` to the deploy probe (`deploy/probe/prod-objectives.mjs`) so a missing store fails the deploy loudly instead of surfacing as "unavailable" to a visitor, and make the splash's error text say the list is temporarily unavailable and how to retry, not a bare "not available".
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_foreman_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-11-01T04:49:18Z, latest 2026-11-05T17:06:18Z).
@@ -2997,7 +3028,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 160.0M | $599.50 _(notional, rate-card)_ | 59% of 271.0M (ok) |
-| Codex | 356.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Codex | 356.0M _(fleet aggregate)_ | n/a _(ChatGPT pro plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 154904930 tokens/day lower bound._
 
@@ -3017,8 +3048,8 @@ worst fetch p95 5.241481s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`oros-health-checkup-20261105-135010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261105-135010.md) — ---
 - [`scholar-ingest-edera-product-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-edera-product-20261105.md) — Ingest the Edera product page and report on it
 
-### doin (1)
-- [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-recovery-outcome-screen-20261105.md) — ---
+### doin (0)
+(none)
 
 ### tada (16835)
 - [`kriscendobot-minion.town-pr243-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/11/05/kriscendobot-minion.town-pr243-gauntlet.md) — gauntlet kriscendobot-minion.town-pr243-gauntlet — HALTED
@@ -3038,6 +3069,7 @@ worst fetch p95 5.241481s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 - [`moddable-10-0-0-ironhorse-compiler-safety-port`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/moddable-10-0-0-ironhorse-compiler-safety-port.md) — _normal_ · Port Moddable 10.0.0 compiler safety corrections to IronHorse
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
+- [`build-minion-town-recovery-outcome-screen-20261105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-recovery-outcome-screen-20261105.md) — _normal_ · ---
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
 - [`design-daemon-git-remotes-extended-transports`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-daemon-git-remotes-extended-transports.md) — _normal_ · ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-lint-warnings.md) — _normal_ · ---
