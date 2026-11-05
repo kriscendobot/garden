@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T11:14:19Z_
+_As of 2026-11-05T11:17:08Z_
 
 ## Latest
 
@@ -685,6 +685,22 @@ Delegation: **active**
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
+
+- `20261105T111436Z-f9aa3d` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T111436Z-f9aa3d.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `afd9d789d84bae918176052e2a53e4e661110e9f`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1; diagnostic=/Users/dom/garden/.garden-state/deploy/candidate-gate-diagnostics/afd9d789d84bae918176052e2a53e4e661110e9f/attempt2-01-scripts_jobs_test_signal-kill-classifier-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `oros-studio-garden-ce242c49` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
