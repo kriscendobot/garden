@@ -12,6 +12,7 @@ Accept the status pass’s maintainer allowlist as an optional deterministic inp
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T13:03:12Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
