@@ -23,6 +23,7 @@ Gated outcome: immutable-arraybuffer test262 cases covered with zero new diverge
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T17:33:12Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
