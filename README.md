@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T14:08:42Z_
+_As of 2026-11-05T14:10:52Z_
 
 ## Latest
 
@@ -558,10 +558,6 @@ Delegation: **active**
 
 > minion.town delegated merge STALLED: [https://github.com/kriscendobot/minion.town/pull/218](https://github.com/kriscendobot/minion.town/pull/218) (head 5e2b6232bc4) was screened, but 3 conductors finished without merging it. Read their reports under jobs/tada/ (base screen-minion-town-pr218-5e2b623-conduct*).
 > Operations: context/operations/minion-town-screening.md
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261105-135010` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261105-135010.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261105-135010' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `20261105T110824Z-d1c194` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T110824Z-d1c194.md)
 
