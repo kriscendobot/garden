@@ -1,1 +1,2 @@
 {"ts":"2026-11-05T20:05:32Z","base":"oros-health-watch-20261105-200509","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":1}
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-11-05T20:23:49Z","base":"oros-health-watch-20261105-200509","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":12,"role":"mechanic","provider":"anthropic"}
