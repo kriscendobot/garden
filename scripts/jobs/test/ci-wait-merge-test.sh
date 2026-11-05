@@ -52,7 +52,8 @@
 #   T29 every failed check is an Actions job refused for account billing → exit 5
 #      (billing-blocked), no merge, named in the terminal line
 #   T30 billing refusal on one job but an ordinary failure on another → exit 3
-#   T31 annotation read fails → ordinary red exit 3 (never guess billing)
+#   T31 annotation read fails generically → ordinary red exit 3 (never guess billing)
+#   T31b annotation read is forbidden → unknown/needs checks:read exit 1, not red
 #   T32 failed commit status with no Actions job URL → ordinary red exit 3
 #   T33 stale CANCELLED run superseded by a green rerun of the same check → merge
 #   T34 stale green run superseded by a red rerun of the same check → exit 3
@@ -66,7 +67,7 @@
 #   T40 live-branch read fails → fail closed, no merge
 #   T41 statusCheckRollup read 403 (token lacks checks:read) + green Actions runs →
 #      falls back to the Actions runs API: --no-merge exit 0, merge mode merges
-#   T42 rollup 403 + a failed Actions run → exit 3 (red), not pending
+#   T42 rollup 403 + a failed Actions run → unknown/needs checks:read, not red
 #   T43 rollup 403 + an in-progress Actions run → still waits (exit 4 at deadline)
 #   T44 rollup 403 AND Actions runs 403 → exit 1 ci-read-forbidden, never rc 4
 #   T45 a secondary-rate-limit 403 stays on the transient retry path (exit 4)
@@ -123,8 +124,10 @@ cat > "$TR/gh" <<'STUB'
 # shared-base PR count/numbers; `pr edit --base` appends to $STUBDIR/edit.log.
 SEQ="$STUBDIR/seq"; i=$(cat "$STUBDIR/i" 2>/dev/null || echo 0)
 # Check-run annotations (the Actions billing classifier): $STUBDIR/ann_<job-id>
-# holds the messages; a missing file is a failed read.
+# holds the messages; a missing file is a failed read; ann_forbidden_<job-id>
+# makes the read fail with the fleet PAT's checks:read permission error.
 if [ "$1" = api ] && [[ "$2" =~ check-runs/([0-9]+)/annotations ]]; then
+  [ -f "$STUBDIR/ann_forbidden_${BASH_REMATCH[1]}" ] && { echo "gh: Resource not accessible by personal access token (HTTP 403)" >&2; exit 1; }
   cat "$STUBDIR/ann_${BASH_REMATCH[1]}" 2>/dev/null || exit 1; exit 0; fi
 # Branch tips (the non-trunk snapshot check): $STUBDIR/refs holds `<branch> <sha>`
 # lines; an absent branch is a 404, and $STUBDIR/refs_fail makes every read fail.
@@ -512,6 +515,17 @@ echo "T31 annotation read fails → ordinary red exit 3"
 reset_seq; seq_add "$BILLING_RED"; printf '%s\n' "$BILLING_MSG" > "$STUBDIR/ann_101"
 run o/r 144; chk "$rc" 3 T31; nomerge T31
 
+echo "T31b annotation read forbidden → unknown/needs checks:read exit 1, not red"
+reset_seq; seq_add "$BILLING_RED"
+touch "$STUBDIR/ann_forbidden_101" "$STUBDIR/ann_forbidden_102"
+run_capture o/r 144; chk "$rc" 1 T31b; nomerge T31b
+if grep -q "CI UNKNOWN .*needs checks:read.*test, Claude harness (amd64)" "$STUBDIR/output" \
+   && ! grep -q "CI RED" "$STUBDIR/output"; then
+  ok "T31b names the permission gap without reporting red"
+else
+  bad "T31b missing unknown permission outcome: $(cat "$STUBDIR/output")"
+fi
+
 echo "T32 failed commit status without an Actions job URL → ordinary red exit 3"
 reset_seq
 seq_add "{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[$(job test FAILURE 101),{\"context\":\"ext/ci\",\"state\":\"FAILURE\",\"targetUrl\":\"https://ci.example/1\"}]}"
@@ -552,11 +566,16 @@ fi
 printf 'MERGED|false' > "$STUBDIR/verify"
 run o/r 93; chk "$rc" 0 "T41 merge mode"; merged T41
 
-echo "T42 rollup 403 + a failed Actions run → exit 3"
+echo "T42 rollup 403 + a failed Actions run → unknown/needs checks:read"
 reset_seq; seq_add "$PEND"; touch "$STUBDIR/rollup_forbidden"
 runs_body "$(wf_run test completed '"failure"' 302)" "$(wf_run lint completed '"success"' 303)" > "$STUBDIR/runs"
-run_capture o/r 93 --no-merge; chk "$rc" 3 T42
-grep -q "red: test (pull_request) = FAILURE" "$STUBDIR/output" && ok "T42 names the failed run" || bad "T42 failed run not named: $(cat "$STUBDIR/output")"
+run_capture o/r 93 --no-merge; chk "$rc" 1 T42
+if grep -q "CI UNKNOWN .*needs checks:read.*test (pull_request)" "$STUBDIR/output" \
+   && ! grep -q "CI RED" "$STUBDIR/output"; then
+  ok "T42 Actions-only failure is unknown, not red"
+else
+  bad "T42 missing unknown permission outcome: $(cat "$STUBDIR/output")"
+fi
 
 echo "T43 rollup 403 + an in-progress Actions run → still waits"
 reset_seq; seq_add "$PEND"; touch "$STUBDIR/rollup_forbidden"

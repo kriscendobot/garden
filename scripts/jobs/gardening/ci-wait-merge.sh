@@ -64,7 +64,9 @@
 #     to start ("recent account payments have failed or your spending limit needs
 #     to be increased", read from the check-run annotations): alert the maintainer
 #     once per owning account and exit 5, never 3. No push can fix it, so the
-#     caller parks instead of dispatching a shepherd or failing its stage.
+#     caller parks instead of dispatching a shepherd or failing its stage. If the
+#     token cannot read those annotations, report CI UNKNOWN / needs checks:read
+#     and exit 1, never falsely call the indistinguishable billing refusal red.
 #   * ROLLUP READ FORBIDDEN: a token without checks:read/statuses:read gets a
 #     403 ("Resource not accessible by personal access token") on the GraphQL
 #     statusCheckRollup. That is not "still pending": the read falls back to the
@@ -90,7 +92,8 @@
 #   5  CI billing-blocked: every failed check is an Actions job the account's
 #      payment/spending limit kept from starting (maintainer alerted)
 #                                                     → park until billing is fixed
-#   1  hard error / CI unreadable because the token is forbidden from both the
+#   1  hard error / CI billing status unknown because check-run annotations need
+#      checks:read / CI unreadable because the token is forbidden from both the
 #      rollup and the Actions runs API (`ci-read-forbidden`, maintainer alerted) /
 #      merge or rebase blocked (`needs weave`) / not mergeable /
 #      frozen base shared by a sibling stack / base is a snapshot of a non-trunk
@@ -542,12 +545,15 @@ print_failures() {
 # which then failed its own stage (kriscendobot/minion.town#144, 2026-09-30).
 #
 # Succeeds (0) only when EVERY failed rollup entry is an Actions check run whose
-# annotations carry the billing refusal. Anything else, including a failed
-# annotation read or a failed commit status that has no Actions job, returns 1,
-# so the caller keeps the ordinary red outcome. Prints the blocked check names.
+# annotations carry the billing refusal. Returns 1 when at least one failure is
+# definitely ordinary (including a failed commit status or a readable non-billing
+# annotation). Returns 2 when every failure could be billing-blocked but the token
+# lacks checks:read, so the caller must report unknown rather than ordinary red.
+# Other annotation read failures remain ordinary red: only a proven permission
+# gap changes the verdict. Prints the failed check names for return 0 or 2.
 : "${GARDEN_ACTIONS_BILLING_PATTERN:=recent account payments have failed|spending limit needs to be increased}"
 actions_billing_blocked() {
-  local json entries name url job_repo job_id annotations names=""
+  local json entries name url job_repo job_id annotations names="" err rc unknown=0
   json="$(read_pr_with_rollup statusCheckRollup)" || return 1
   entries="$(printf '%s' "$json" | jq -r "$LATEST_CHECKS_JQ"'
     latest_checks
@@ -557,13 +563,33 @@ actions_billing_blocked() {
     | [(.name // .context // "?"), (.detailsUrl // .targetUrl // "")] | @tsv' 2>/dev/null)" || return 1
   [ -n "$entries" ] || return 1
   while IFS=$'\t' read -r name url; do
+    # The Actions-only fallback has run URLs but no check/job IDs. That view can
+    # establish red, but it cannot distinguish a billing refusal from code red.
+    if [[ "$url" =~ ^https://github\.com/[^/]+/[^/]+/actions/runs/[0-9]+/?$ ]]; then
+      unknown=1
+      names="${names:+$names, }$name"
+      continue
+    fi
     [[ "$url" =~ ^https://github\.com/([^/]+/[^/]+)/actions/runs/[0-9]+/job/([0-9]+) ]] || return 1
     job_repo="${BASH_REMATCH[1]}"; job_id="${BASH_REMATCH[2]}"
-    annotations="$("$GH" api "repos/$job_repo/check-runs/$job_id/annotations" --jq '.[].message' 2>/dev/null)" || return 1
+    err="$(mktemp)"; rc=0
+    annotations="$("$GH" api "repos/$job_repo/check-runs/$job_id/annotations" --jq '.[].message' 2>"$err")" || rc=$?
+    if [ "$rc" -ne 0 ]; then
+      if ci_read_forbidden "$err"; then
+        unknown=1
+        names="${names:+$names, }$name"
+        rm -f "$err"
+        continue
+      fi
+      rm -f "$err"
+      return 1
+    fi
+    rm -f "$err"
     printf '%s' "$annotations" | grep -qiE -- "$GARDEN_ACTIONS_BILLING_PATTERN" || return 1
     names="${names:+$names, }$name"
   done <<<"$entries"
   printf '%s\n' "$names"
+  [ "$unknown" -eq 0 ] || return 2
 }
 
 # A persistent read failure must NOT loop past the deadline. Honor the same bound
@@ -832,13 +858,20 @@ while :; do
 
   if [ "${pending:-0}" -eq 0 ]; then
     if [ "${failed:-0}" -gt 0 ]; then
-      if billing_checks="$(actions_billing_blocked)"; then
+      billing_rc=0; billing_checks="$(actions_billing_blocked)" || billing_rc=$?
+      if [ "$billing_rc" -eq 0 ]; then
         # One notice per owning account: every repo the account owns goes red
         # together, and each PR's wait amends the same maintainer entry.
         alert_maintainer "actions-billing-blocked-${repo%%/*}" \
           "GitHub Actions is refusing to START jobs for the '${repo%%/*}' account: \"recent account payments have failed or your spending limit needs to be increased\". Latest: $repo#$pr (head ${observed_head:0:11}; checks: $billing_checks). This is an ACCOUNT BILLING block, not a code failure: no push can fix it, so I am not treating it as CI red. Fix Billing & plans for '${repo%%/*}', then rerun the failed runs (gh run rerun <id> --failed) and resume whatever parked on it (a gauntlet: scripts/jobs/gauntlet.sh --resume-from-stage <g> <clean|fix> [--iteration N])."
         echo "rollup-terminal repo=$repo pr=$pr total=$total failed=$failed → CI BILLING-BLOCKED (GitHub Actions account payment/spending limit; jobs never started: $billing_checks) — maintainer alerted"
         exit 5
+      fi
+      if [ "$billing_rc" -eq 2 ]; then
+        alert_maintainer "ci-billing-status-unknown-$(hostname -s 2>/dev/null || echo host)-${repo%%/*}" \
+          "ci-wait-merge cannot classify failed GitHub Actions for $repo#$pr (head ${observed_head:0:11}; checks: $billing_checks): the token cannot read check-run annotations, so an account billing refusal is indistinguishable from code red. This is CI UNKNOWN, not evidence for a shepherd. Grant the bot token checks:read (plus statuses:read and actions:read), then rerun the stage."
+        echo "rollup-terminal repo=$repo pr=$pr total=$total failed=$failed → CI UNKNOWN (billing refusal cannot be classified; needs checks:read; checks: $billing_checks) — NOT treating as red, maintainer alerted"
+        exit 1
       fi
       echo "rollup-terminal repo=$repo pr=$pr total=$total failed=$failed → CI RED"
       print_failures
