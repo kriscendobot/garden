@@ -1,2 +1,2 @@
-base: improve-deploy-coherent-release-retry
+base: improve-deploy-gate-rejection-cache
 identity: mentor:scripts/jobs/deploy-garden.sh
