@@ -50,3 +50,13 @@ Comment: https://github.com/kriscendobot/garden/issues/114#issuecomment-66475675
 @kriscendobot could I trouble you to look at https://github.com/kriscendobot/minion.town/issues/251 ? Also, what's the recommended way to get `endo` to not say `command not found`? Where is it documented? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T03:41:12Z
