@@ -1,2 +1,2 @@
-base: improve-deploy-gate-rejection-cache
+base: improve-candidate-gate-empty-diagnostic
 identity: mentor:scripts/jobs/deploy-garden.sh
