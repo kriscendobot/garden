@@ -1094,7 +1094,14 @@ while :; do
       draft_gate_notice_rc=$?
       set -e
       rm -f "$draft_gate_notice"
-      if [ "$draft_gate_notice_rc" -eq 0 ]; then
+      if [ "$draft_gate_notice_rc" -eq 0 ] || [ "$draft_gate_notice_rc" -eq 76 ]; then
+        if [ "$draft_gate_notice_rc" -eq 76 ]; then
+          draft_gate_docket_disposition="The deduplicated review-docket decision was durably spooled for a later docket transaction"
+          draft_gate_log_disposition="spooled the review-docket decision for"
+        else
+          draft_gate_docket_disposition="A deduplicated review-docket decision was recorded"
+          draft_gate_log_disposition="docketed"
+        fi
         # Keep any exact final disposition marker FINAL. Appending ordinary prose
         # after an orchestration-failed or named-successor marker would make the
         # downstream last-line parser miss the agent's original disposition.
@@ -1112,10 +1119,11 @@ while :; do
         fi
         {
           printf '\n## Manual gauntlet handoff\n\n'
-          printf 'The completion guard found %s ready without gauntlet coverage. A deduplicated review-docket decision was recorded; the PR was not re-drafted and no gauntlet was staged.\n' "$draft_gate_pr"
+          printf 'The completion guard found %s ready without gauntlet coverage. %s; the PR was not re-drafted and no gauntlet was staged.\n' \
+            "$draft_gate_pr" "$draft_gate_docket_disposition"
           [ -z "$draft_gate_tail_marker" ] || printf '%s\n' "$draft_gate_tail_marker"
         } >> "$report"
-        log "producer-PR draft GUARDRAIL docketed '$base' and terminalized it: $draft_gate_pr is non-draft without gauntlet coverage; PR left untouched"
+        log "producer-PR draft GUARDRAIL $draft_gate_log_disposition '$base' and terminalized it: $draft_gate_pr is non-draft without gauntlet coverage; PR left untouched"
       else
         hrc=$draft_gate_notice_rc
         log "producer-PR draft GUARDRAIL could not record the manual-gauntlet handoff for '$base' (rc=$hrc); leaving in doin for retry"
@@ -1172,7 +1180,14 @@ while :; do
       stale_notice_rc=$?
       set -e
       rm -f "$stale_notice"
-      if [ "$stale_notice_rc" -eq 0 ]; then
+      if [ "$stale_notice_rc" -eq 0 ] || [ "$stale_notice_rc" -eq 76 ]; then
+        if [ "$stale_notice_rc" -eq 76 ]; then
+          stale_docket_disposition="the deduplicated re-review action was durably spooled for a later docket transaction"
+          stale_log_disposition="spooled"
+        else
+          stale_docket_disposition="the maintainer review docket received a deduplicated re-review action"
+          stale_log_disposition="recorded"
+        fi
         stale_tail_marker=""
         if report_has_orchestration_failure_marker "$report"; then
           stale_tail_marker="$GARDEN_ORCHESTRATION_FAILURE_MARKER"
@@ -1187,11 +1202,11 @@ while :; do
         fi
         {
           printf '\n## Panel-head freshness\n\n'
-          printf 'Disposition: **review required**. The last completed panel reviewed `%s`; this job presented `%s`. The old panel verdict does not cover the current head. No gauntlet was staged; the maintainer review docket received a deduplicated re-review action.\n' \
-            "$reviewed_head" "$presented_head"
+          printf 'Disposition: **review required**. The last completed panel reviewed `%s`; this job presented `%s`. The old panel verdict does not cover the current head. No gauntlet was staged; %s.\n' \
+            "$reviewed_head" "$presented_head" "$stale_docket_disposition"
           [ -z "$stale_tail_marker" ] || printf '%s\n' "$stale_tail_marker"
         } >>"$report"
-        log "panel-head freshness disposition recorded for '$base': $stale_pr moved $reviewed_head -> $presented_head; no gauntlet staged"
+        log "panel-head freshness disposition $stale_log_disposition for '$base': $stale_pr moved $reviewed_head -> $presented_head; no gauntlet staged"
       else
         hrc=$stale_notice_rc
         log "panel-head freshness could not record the stale-review disposition for '$base' (rc=$hrc); leaving in doin for retry"

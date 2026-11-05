@@ -70,6 +70,65 @@ grep -q '## Panel-head freshness' "$stale_tada" || fail 'tada report lacks fresh
 ! grep -qE 'pr (ready|merge|edit|close|reopen)' "$TR/gh-calls.log" || fail 'freshness gate mutated the PR'
 grep -q 'panel-head freshness disposition recorded' "$TR/gardener.log" || fail 'freshness disposition was not logged'
 
+# A review-docket rc=76 means the re-review action is durable in the host spool,
+# so the completed producer terminalizes with an explicit deferred disposition.
+# Other nonzero docket results remain retryable.
+printf -- '---\nrole: shepherd\n---\nExercise a spooled stale-panel request.\n' \
+  > "$TR/verify/jobs/todo/stalejob-spooled.md"
+git -C "$TR/verify" add jobs/todo/stalejob-spooled.md
+git -C "$TR/verify" -c user.name=test -c user.email=test@example.invalid \
+  commit -q -m 'seed spooled stale-panel case'
+git -C "$TR/verify" push -q origin HEAD:journal2
+env GARDEN=panel-fresh-terminal-test GARDEN_STATE="$TR/state-spooled" \
+  JOURNAL_REMOTE="$TR/journal.git" JOURNAL_BRANCH=journal2 \
+  GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_BOT_LOGIN=kriscendobot \
+  GARDEN_PRODUCER_CLONE="$TR/state-spooled/producer/journal" \
+  GARDEN_GH="$HERE/panel-head-freshness-completion-gh-stub.sh" \
+  GARDEN_GH_CALL_LOG="$TR/gh-calls.log" \
+  GARDEN_GARDENER_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh" \
+  GARDEN_DOCKET_SPY_LOG="$TR/docket.log" GARDEN_DOCKET_SPY_RC=76 \
+  GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_REPORT="$report" \
+  GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
+  GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
+  "$JOBS/gardener.sh" 2 > "$TR/gardener-spooled.log" 2>&1 || true
+rm -rf "$TR/verify"
+git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
+spooled_tada="$(find "$TR/verify/jobs/tada" -type f -name stalejob-spooled.md -print -quit)"
+[ -n "$spooled_tada" ] || fail 'spooled stale-panel request did not terminalize'
+grep -q 'durably spooled for a later docket transaction' "$spooled_tada" \
+  || fail 'spooled stale-panel disposition was not recorded in the report'
+grep -q "freshness disposition spooled for 'stalejob-spooled'" "$TR/gardener-spooled.log" \
+  || fail 'spooled stale-panel disposition was not logged'
+! grep -q 'leaving in doin for retry' "$TR/gardener-spooled.log" \
+  || fail 'spooled stale-panel request entered the retry path'
+
+printf -- '---\nrole: shepherd\n---\nExercise a hard stale-panel docket failure.\n' \
+  > "$TR/verify/jobs/todo/stalejob-hard.md"
+git -C "$TR/verify" add jobs/todo/stalejob-hard.md
+git -C "$TR/verify" -c user.name=test -c user.email=test@example.invalid \
+  commit -q -m 'seed hard stale-panel case'
+git -C "$TR/verify" push -q origin HEAD:journal2
+env GARDEN=panel-fresh-terminal-test GARDEN_STATE="$TR/state-hard" \
+  JOURNAL_REMOTE="$TR/journal.git" JOURNAL_BRANCH=journal2 \
+  GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_BOT_LOGIN=kriscendobot \
+  GARDEN_PRODUCER_CLONE="$TR/state-hard/producer/journal" \
+  GARDEN_GH="$HERE/panel-head-freshness-completion-gh-stub.sh" \
+  GARDEN_GH_CALL_LOG="$TR/gh-calls.log" \
+  GARDEN_GARDENER_DOCKET_REQUEST="$HERE/review-docket-request-spy.sh" \
+  GARDEN_DOCKET_SPY_LOG="$TR/docket.log" GARDEN_DOCKET_SPY_RC=1 \
+  GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_REPORT="$report" \
+  GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
+  GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
+  "$JOBS/gardener.sh" 3 > "$TR/gardener-hard.log" 2>&1 || true
+rm -rf "$TR/verify"
+git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
+[ -e "$TR/verify/jobs/doin/stalejob-hard.md" ] \
+  || fail 'hard stale-panel docket failure did not retain the retryable claim'
+[ ! -e "$TR/verify/jobs/tada/stalejob-hard.md" ] \
+  || fail 'hard stale-panel docket failure terminalized'
+grep -q 'leaving in doin for retry' "$TR/gardener-hard.log" \
+  || fail 'hard stale-panel docket failure was not logged as retryable'
+
 # Regression: a provider completion nudge may succeed and emit its sentinel after
 # its transient job/report inputs have disappeared.  The freshness gate must not
 # leak the sensor's bare usage text/rc=2; it diagnoses the missing inputs as a
@@ -93,7 +152,7 @@ env GARDEN=panel-fresh-terminal-test GARDEN_STATE="$TR/state-missing" \
   GARDEN_STUB_REPORT='Successful completion nudge report.' \
   GARDEN_STUB_REMOVE_INPUTS=1 GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
   GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
-  "$JOBS/gardener.sh" 2 >"$TR/missing-input.log" 2>&1 || true
+  "$JOBS/gardener.sh" 4 >"$TR/missing-input.log" 2>&1 || true
 
 rm -rf "$TR/verify-missing"
 git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify-missing"
@@ -110,4 +169,4 @@ grep -q 'fresh board sync/requeue can restore the input' "$TR/missing-input.log"
 grep -q "handler FAILED (rc=12) for 'missinginput'" "$TR/missing-input.log" \
   || fail 'missing freshness input did not enter the retryable completion-failure path'
 
-echo 'PASS: stale post-panel completion terminalizes explicitly, and successful handlers with missing freshness inputs retain a retryable claim with an actionable diagnostic'
+echo 'PASS: stale post-panel completions accept recorded or spooled docket actions, preserve hard-error retries, and diagnose missing completion inputs'
