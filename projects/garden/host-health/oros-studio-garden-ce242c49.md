@@ -3,6 +3,18 @@
 Mechanic records continue the [legacy oros health log](../oros-health-log.md).
 Insert completed records newest first, above the template.
 
+## 2026-11-05T04:58Z - oros-health-watch-20261105-042023
+
+- Verdict: healthy
+- Target / role / mode: oros-studio-garden-ce242c49 / follower (leader marker: endolin-garden-ece02cb4) / controller
+- Trigger: schedule/oros-health-watch
+- Evidence: the paired local mechanic inspected at 04:51Z and landed its standard record at 04:54:19Z; it found 0 failed or advisory units out of 291, no local drain marker, current budget and fleet heartbeats, 3 active monks, load 2.15, 12G memory available, 31G virtiofs headroom, contention latch off, and no root gc.log. Fleet health at 04:51:26Z remained deferred with deployed f4dcb3c044e and current release target d4f21341dcc. The 3h disposition report at journal tip 64e1321fd8b4 showed 23 claims, 17 completions, 4 terminal hints, 1 transient kill, and 3 in flight; the local run traced the terminal hints to two job-specific bases. Newest sysop record 20261105T021102Z-61948f applied a roll-owned drain that is now lifted.
+- Cause: no host failure established. Deployment is normally deferred behind endojs-endo-but-for-bots-pr1648-fix-2 on monk 2; the repeated pr199 gauntlet-wait exits are job-specific and not evidence of a host fault.
+- Actions: observed only; no sysop operation, worker-count change, drain change, or code change. The active rolling-deploy workflow retains ownership of the release.
+- Final state: heartbeat current, 3 monks active and claiming/completing, deployed f4dcb3c044e with d4f21341dcc pending, undrained, and 0 failed/advisory units.
+- Maintainer: none
+- Next mechanic: confirm deployed SHA reaches d4f21341dcc after monk 2 finishes; check whether pr199 gauntlet-wait's repeated cycle delays rolls. Recheck root pack growth (65 at 23:24Z, 127 at 04:51Z) and virtiofs free-space decline (36G to 31G) on the next unobstructed local run.
+
 ## 2026-11-05T04:51Z - oros-health-checkup-20261105-042023
 
 - Verdict: healthy
