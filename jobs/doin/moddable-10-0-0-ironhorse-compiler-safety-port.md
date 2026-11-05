@@ -34,3 +34,13 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 <!-- garden-annotation: key=pr1435-panel1 by=endojs-endo-but-for-bots-pr1435-gauntlet-fix-1 at=2026-10-10T07:46:29Z -->
 
 PR #1435 panel round 1 (design commit 7d2d6f8d12): port the XS scope-slot rule exactly as pinned in the design section "Scope-slot counting rule (child 2)" (XS cfe72a8cfcd2, binder->scopeMaximum > 65535 per function/module/program, variables plus temporaries); port tests/xs/issues/scope-count-limit.js verbatim plus a tagged-template temporaries case; if IronHorse peak count differs, report and stop. Runs in parallel under moddable-10-0-0-ironhorse-ports.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T17:09:23Z
