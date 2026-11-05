@@ -26,6 +26,7 @@ PR: https://github.com/kriscendobot/minion.town/pull/250
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T12:13:10Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
