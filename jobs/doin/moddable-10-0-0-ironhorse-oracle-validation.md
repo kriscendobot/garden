@@ -36,6 +36,7 @@ Design and review surface: https://github.com/endojs/endo-but-for-bots/pull/1435
 
 PR #1435 panel round 2. (1) DETERMINISTIC SELF-CHECK, do this FIRST: read the ports completion record `jobs/tada/moddable-10-0-0-ironhorse-ports.md` on the garden journal. Unless it exists AND its `orchestration-status:` is exactly `complete` AND it lists no `failed-children`, STOP without changing anything and report failure (emit the orchestration-failed signal); `--require-tada` accepts `complete-with-failures`, so this check is the machine half of the barrier. (2) UNCLASSIFIED ORACLE DRIFT: the pin move crosses XS changes between 8.3.1 and 10.0.0 that the design did not audit. List every result change that no design row R01 to R26 explains in its own report section, each with one verdict: oracle now agrees with IronHorse; new IronHorse gap (park a new follow-up job, do not fix here); or harness/overlay change. A case IronHorse passes that leaves the covered set only because the 10.0.0 oracle now fails it goes in this section, never silently counted as a loss or accepted. Acceptance waits until every drift entry has a verdict. (3) Re-classify the rows the port children recorded as expected 8.3.1-oracle divergences.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
