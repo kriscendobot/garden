@@ -405,7 +405,14 @@ unset _garden_prod_repo_alt _garden_prod_repo
 # Compatibility release: trusted launchers prefer a validated host file and
 # retain the matching legacy environment variable only as a migration fallback.
 _garden_secret_lib="$GARDEN_ROOT/scripts/secrets/lib.sh"
-[ -f "$_garden_secret_lib" ] || _garden_secret_lib="$(cd "$(dirname "${BASH_SOURCE[0]}")/../secrets" 2>/dev/null && pwd)/lib.sh"
+if [ ! -f "$_garden_secret_lib" ]; then
+  # Narrow test fixtures sometimes copy scripts/jobs without the sibling
+  # scripts/secrets tree. A missing compatibility fallback is optional, not a
+  # reason for `set -e` callers to die while sourcing common.sh.
+  _garden_secret_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/../secrets" 2>/dev/null && pwd || true)"
+  [ -z "$_garden_secret_dir" ] || _garden_secret_lib="$_garden_secret_dir/lib.sh"
+  unset _garden_secret_dir
+fi
 if [ -f "$_garden_secret_lib" ]; then
   # shellcheck source=../secrets/lib.sh
   source "$_garden_secret_lib"
