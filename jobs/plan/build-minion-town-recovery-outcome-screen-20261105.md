@@ -43,3 +43,7 @@ dispatch: automatic
 Repo: kriscendobot/minion.town (base: current main). Maintainer evaluates production results, not diffs (review inversion). The wait list itself was just provisioned (see below), so the join-the-wait-list action on the new screen must work in production; verify it end to end.
 
 **Context already handled by the liaison (do not redo):** "wait list not available" was a missing DynamoDB table; `deploy/aws/scripts/deploy-waitlist-store.sh` had never been run. It was run on 2026-11-05, and `POST /api/waitlist` now returns 202. A probe row was inserted and deleted. Add a production smoke check for `/api/waitlist` to the deploy probe (`deploy/probe/prod-objectives.mjs`) so a missing store fails the deploy loudly instead of surfacing as "unavailable" to a visitor, and make the splash's error text say the list is temporarily unavailable and how to retry, not a bare "not available".
+
+<!-- garden-annotation: key=78d1671abec4 by=producer at=2026-11-05T21:14:43Z -->
+
+COPY CHANGE (maintainer 2026-11-05): never use the word 'resident' in visitor-facing text; use 'guest'. Any new recovery/landing copy says guest. The sibling job build-minion-town-waitlist-soon-page-20261105 changes the existing splash strings; stay consistent with it. Internal role value 'resident' is not renamed.
