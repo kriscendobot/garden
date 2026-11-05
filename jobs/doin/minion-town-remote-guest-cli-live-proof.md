@@ -15,6 +15,7 @@ Remaining: step 2 (Endo CLI `endo net ensure ocapn` and hint-fallback diagnostic
 
 On completion, update #236's phase and evidence ledger to `Disposition: deliverable` with the durable receipts so its gauntlet can re-stage.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
