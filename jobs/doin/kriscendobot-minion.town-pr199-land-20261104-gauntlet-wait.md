@@ -22,3 +22,13 @@ Outcomes:
 - **`review-budget-reached`, halted, parked, or any other terminal state:** do not merge or add rounds. Collect the must-fix list from the last panel's PR review and report (`gh api repos/kriscendobot/minion.town/pulls/199/reviews`; the terminal report may say the list is unknown, so read the review itself, and note any later fix commits that no panel has seen). Then emit `<<<GARDEN-ORCHESTRATION-FAILED>>>` before the completion signal, so the campaign halts and the maintainer sees the list. This stop-and-report is the maintainer's explicit instruction.
 
 If this job's handler wall approaches with the gauntlet still legitimately active, say so and do not emit a completion signal.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T01:34:20Z
