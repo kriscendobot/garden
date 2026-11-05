@@ -11,6 +11,7 @@ Design the daemon-side server half of `daemon-git-remotes` for `endojs/endo-but-
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T16:13:39Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
