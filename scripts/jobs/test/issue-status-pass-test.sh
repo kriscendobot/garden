@@ -51,8 +51,11 @@ chmod +x "$TR"/*.sh
 run() {
   env GARDEN_STATE="$TR/state" GARDEN_API_COOLDOWN_DIR="$TR/cooldown" GARDEN_ISSUE_STATUS_DRY_RUN="${DRY:-0}" \
     GARDEN_ISSUE_STATUS_REPO=kriscendobot/garden GARDEN_ISSUE_STATUS_MAINTAINERS_FILE="$M" \
-    GARDEN_ISSUE_STATUS_BOARD="$BOARD" GARDEN_ISSUE_STATUS_SOURCE="$TR/source.sh" \
-    GARDEN_ISSUE_STATUS_COMMENTS="$TR/comments.sh" GARDEN_ISSUE_STATUS_POST="$TR/post.sh" \
+    GARDEN_ISSUE_STATUS_BOARD="$BOARD" GARDEN_ISSUE_STATUS_SOURCE="${STATUS_SOURCE:-$TR/source.sh}" \
+    GARDEN_ISSUE_STATUS_COMMENTS="${STATUS_COMMENTS:-$TR/comments.sh}" GARDEN_ISSUE_STATUS_POST="$TR/post.sh" \
+    GARDEN_ISSUE_STATUS_TICK_BUDGET_SECS="${STATUS_TICK_BUDGET:-480}" \
+    GARDEN_ISSUE_STATUS_READ_TIMEOUT_SECS="${STATUS_READ_TIMEOUT:-180}" \
+    GARDEN_ISSUE_STATUS_KILL_AFTER_SECS="${STATUS_KILL_AFTER:-10}" \
     GARDEN_ISSUE_STATUS_NOW_EPOCH="$NOW" IST_SRC="$SRC" IST_COMMENTS="$COMMENTS" IST_POSTS="$POSTS" \
     IST_NOW_ISO="$NOW_ISO" "$P" 2>>"$TR/log" || { cat "$TR/log"; fail "pass exited non-zero"; }
 }
@@ -100,4 +103,45 @@ rm -rf "$TR/cooldown"; run; grep -q '^150 ' "$POSTS" || fail 'no post after the 
 : > "$POSTS"; row issue "$(ago 1300)" 160 160 dckc open x > "$SRC"
 DRY=1 run; [ ! -s "$POSTS" ] || fail 'dry run posted'
 grep -q 'DRY RUN would post on kriscendobot/garden#160' "$TR/log" || fail 'dry run did not log'
+
+# Every source/comment read is clipped to the shared remaining-time budget. A
+# timeout exits 0 and leaves GitHub as the only state, so the next tick retries.
+cat > "$TR/sleep-source.sh" <<'S'
+#!/bin/bash
+sleep 30
+S
+cat > "$TR/sleep-comments.sh" <<'S'
+#!/bin/bash
+sleep 30
+S
+cat > "$TR/recheck-comments.sh" <<'S'
+#!/bin/bash
+n="$(cat "$IST_RECHECK_COUNT" 2>/dev/null || echo 0)"
+n=$(( n + 1 )); printf '%s\n' "$n" > "$IST_RECHECK_COUNT"
+[ "$n" -eq 1 ] || sleep 30
+S
+chmod +x "$TR/sleep-source.sh" "$TR/sleep-comments.sh" "$TR/recheck-comments.sh"
+: > "$POSTS"; row issue "$(ago 1300)" 170 170 dckc open x > "$SRC"
+start="$(date +%s)"
+STATUS_SOURCE="$TR/sleep-source.sh" STATUS_TICK_BUDGET=3 STATUS_READ_TIMEOUT=2 STATUS_KILL_AFTER=1 run
+elapsed=$(( $(date +%s) - start ))
+[ "$elapsed" -lt 6 ] || fail "source timeout exceeded the internal deadline (${elapsed}s)"
+grep -q 'issue source read exceeded the remaining tick budget' "$TR/log" || fail 'source timeout did not log clean defer'
+[ ! -s "$POSTS" ] || fail 'source timeout posted'
+
+start="$(date +%s)"
+STATUS_COMMENTS="$TR/sleep-comments.sh" STATUS_TICK_BUDGET=3 STATUS_READ_TIMEOUT=2 STATUS_KILL_AFTER=1 run
+elapsed=$(( $(date +%s) - start ))
+[ "$elapsed" -lt 6 ] || fail "comment timeout exceeded the internal deadline (${elapsed}s)"
+grep -q 'comment read for #170 exceeded the remaining tick budget' "$TR/log" || fail 'comment timeout did not log clean defer'
+[ ! -s "$POSTS" ] || fail 'comment timeout posted'
+
+RECHECK_COUNT="$TR/recheck-count"; rm -f "$RECHECK_COUNT"
+start="$(date +%s)"
+IST_RECHECK_COUNT="$RECHECK_COUNT" STATUS_COMMENTS="$TR/recheck-comments.sh" \
+  STATUS_TICK_BUDGET=3 STATUS_READ_TIMEOUT=2 STATUS_KILL_AFTER=1 run
+elapsed=$(( $(date +%s) - start ))
+[ "$elapsed" -lt 6 ] || fail "final re-check timeout exceeded the internal deadline (${elapsed}s)"
+grep -q 'final comment re-check for #170 exceeded the remaining tick budget' "$TR/log" || fail 'final re-check timeout did not log clean defer'
+[ ! -s "$POSTS" ] || fail 'final re-check timeout posted'
 echo 'PASS: issue status pass'

@@ -40,12 +40,46 @@ source "$HERE/comment-classify.sh"
 : "${GARDEN_ISSUE_STATUS_LOOKBACK_SECS:=86400}"
 : "${GARDEN_ISSUE_STATUS_SOURCE:=$HERE/handlers/issue-source-gh.sh}"
 : "${GARDEN_ISSUE_STATUS_STATE:=$GARDEN_STATE/issue-status}"
+: "${GARDEN_ISSUE_STATUS_TICK_BUDGET_SECS:=480}"
+: "${GARDEN_ISSUE_STATUS_READ_TIMEOUT_SECS:=180}"
+: "${GARDEN_ISSUE_STATUS_KILL_AFTER_SECS:=10}"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 # Declare the comment machine-authored: the gh wrapper's footer renders `model automatic`.
 export GARDEN_NO_LLM=1
 
 iso_epoch() { [ -n "${1:-}" ] && date -u -d "$1" +%s 2>/dev/null || printf '0\n'; }
 lc() { printf '%s' "$1" | tr '[:upper:]' '[:lower:]'; }
+
+# Keep every potentially blocking GitHub read inside one pass-wide wall-clock
+# budget. The unit allows 600s; the 480s default leaves systemd enough time to
+# reap a timed-out gh/git subtree and run ExecStopPost. A read begun late in the
+# pass is clipped to the remaining budget, rather than receiving a fresh timeout.
+# Any timeout stops the pass without recording state, so the next tick re-derives
+# and retries every unanswered arrival from GitHub.
+TICK_DEADLINE=$(( $(date +%s) + GARDEN_ISSUE_STATUS_TICK_BUDGET_SECS ))
+bounded_read() { # output-file error-file command [args...]
+  local output="$1" error="$2" remaining run_for rc
+  shift 2
+  # Reserve timeout's escalation window inside the tick wall. The ordinary
+  # per-read timeout remains the configured value when that much wall remains.
+  remaining=$(( TICK_DEADLINE - $(date +%s) - GARDEN_ISSUE_STATUS_KILL_AFTER_SECS ))
+  run_for="$GARDEN_ISSUE_STATUS_READ_TIMEOUT_SECS"
+  [ "$run_for" -le "$remaining" ] || run_for="$remaining"
+  if [ "$run_for" -le 0 ]; then
+    return 124
+  fi
+  set +e
+  timeout --signal=TERM --kill-after="${GARDEN_ISSUE_STATUS_KILL_AFTER_SECS}s" \
+    "${run_for}s" "$@" >"$output" 2>"$error"
+  rc=$?
+  set -e
+  return "$rc"
+}
+
+deadline_exit() { # read-description
+  log "WARN: issue-status: $1 exceeded the remaining tick budget; stopping cleanly so unanswered arrivals retry next tick"
+  exit 0
+}
 
 # --- the rule table (pure; `--decide` exposes it to the test) -----------------
 # decide <age> <state> <ahead> <claim-age-or-dash> → post | hold
@@ -106,6 +140,8 @@ done < <(if [ -n "${GARDEN_ISSUE_STATUS_MAINTAINERS_FILE:-}" ]; then cat "$GARDE
 is_maintainer() { local a l; l="$(lc "$1")"; for a in "${MAINTAINERS[@]}"; do [ "$a" = "$l" ] && return 0; done; return 1; }
 
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
+[ -x "$(command -v timeout 2>/dev/null || true)" ] \
+  || { log "WARN: issue-status: timeout is unavailable; skipping tick rather than starting unbounded GitHub reads"; exit 0; }
 BOARD="${GARDEN_ISSUE_STATUS_BOARD:-}"
 if [ -z "$BOARD" ]; then
   BOARD="$TMP/board"; mkdir -p "$BOARD"
@@ -137,12 +173,20 @@ ahead_of() { # spine → unpinned todo jobs with an older posted_at
 claimed_at_of() { [ -f "$BOARD/jobs/doin/$1.md" ] || return 0; sed -n 's/^[[:space:]]*claimed_at:[[:space:]]*//p' "$BOARD/jobs/doin/$1.md" | head -1; }
 
 # --- GitHub reads/writes --------------------------------------------------------
-# list_comments <number> → "created<TAB>author<TAB>marker-or-dash" per comment.
+# read_comments <number> <output> <error> → "created<TAB>author<TAB>marker-or-dash" per comment.
 # Only a BOT comment's body is inspected, and only for the status marker.
-list_comments() {
-  if [ -n "${GARDEN_ISSUE_STATUS_COMMENTS:-}" ]; then "$GARDEN_ISSUE_STATUS_COMMENTS" "$REPO" "$1"; return; fi
-  gh_api_retry --paginate "repos/$REPO/issues/$1/comments" --jq \
-    ".[] | [.created_at, .user.login, (if (.user.login|ascii_downcase) == (\"$GARDEN_BOT_LOGIN\"|ascii_downcase) then ((.body // \"\") | (capture(\"garden-status:(?<m>[0-9]+:[A-Za-z0-9]+)\").m // \"-\")) else \"-\" end)] | @tsv"
+read_comments() {
+  local number="$1" output="$2" error="$3" jq_filter
+  if [ -n "${GARDEN_ISSUE_STATUS_COMMENTS:-}" ]; then
+    bounded_read "$output" "$error" "$GARDEN_ISSUE_STATUS_COMMENTS" "$REPO" "$number"
+    return
+  fi
+  jq_filter=".[] | [.created_at, .user.login, (if (.user.login|ascii_downcase) == (\"$GARDEN_BOT_LOGIN\"|ascii_downcase) then ((.body // \"\") | (capture(\"garden-status:(?<m>[0-9]+:[A-Za-z0-9]+)\").m // \"-\")) else \"-\" end)] | @tsv"
+  # gh_api_retry is a common.sh shell function, so run it in a bounded child bash
+  # rather than asking timeout to exec a non-existent `gh_api_retry` binary.
+  bounded_read "$output" "$error" bash -c \
+    'source "$1"; shift; gh_api_retry --paginate "$1" --jq "$2"' \
+    _ "$HERE/common.sh" "repos/$REPO/issues/$number/comments" "$jq_filter"
 }
 post_comment() { # number body-file
   if [ -n "${GARDEN_ISSUE_STATUS_POST:-}" ]; then "$GARDEN_ISSUE_STATUS_POST" "$REPO" "$1" "$2"; return; fi
@@ -163,7 +207,11 @@ answered() {
 # 2. The source window.
 now="${GARDEN_ISSUE_STATUS_NOW_EPOCH:-$(date -u +%s)}"
 since="$(date -u -d "@$(( now - GARDEN_ISSUE_STATUS_LOOKBACK_SECS ))" +%FT%TZ)"
-if ! "$GARDEN_ISSUE_STATUS_SOURCE" "$REPO" "$since" > "$TMP/source" 2>"$TMP/source.err"; then
+source_rc=0
+bounded_read "$TMP/source" "$TMP/source.err" "$GARDEN_ISSUE_STATUS_SOURCE" "$REPO" "$since" || source_rc=$?
+if [ "$source_rc" -eq 124 ] || [ "$source_rc" -eq 137 ]; then
+  deadline_exit "issue source read"
+elif [ "$source_rc" -ne 0 ]; then
   log "issue-status: issue source failed for $REPO; retrying next tick"; exit 0
 fi
 slug="$(printf '%s' "$REPO" | tr '/' '-')"
@@ -186,8 +234,18 @@ while IFS=$'\t' read -r kind created id number author _submitter state _cb _ca _
   age=$(( now - created_epoch ))
   [ "$age" -ge "$GARDEN_ISSUE_STATUS_EARLY_SECS" ] || continue
   # 5. Already answered?
-  [ -f "$TMP/comments-$number" ] || list_comments "$number" > "$TMP/comments-$number" \
-    || { log "issue-status: comment list failed for #$number; retrying next tick"; rm -f "$TMP/comments-$number"; continue; }
+  if [ ! -f "$TMP/comments-$number" ]; then
+    comments_rc=0
+    read_comments "$number" "$TMP/comments-$number" "$TMP/comments-$number.err" || comments_rc=$?
+    if [ "$comments_rc" -eq 124 ] || [ "$comments_rc" -eq 137 ]; then
+      rm -f "$TMP/comments-$number"
+      deadline_exit "comment read for #$number"
+    elif [ "$comments_rc" -ne 0 ]; then
+      log "issue-status: comment list failed for #$number; retrying next tick"
+      rm -f "$TMP/comments-$number"
+      continue
+    fi
+  fi
   answered "$number" "$created_epoch" "$aid" && continue
   # 6. The rules.
   spine="issue-$slug-$number"; st="$(board_state "$spine")"
@@ -198,10 +256,18 @@ while IFS=$'\t' read -r kind created id number author _submitter state _cb _ca _
   bf="$TMP/body-$number"; render "$spine" "$st" "$ahead" "$running" "${claimed:-?}" "$paused" "$number" "$aid" > "$bf"
   if [ "$GARDEN_ISSUE_STATUS_DRY_RUN" != 0 ]; then
     log "issue-status: DRY RUN would post on $REPO#$number for arrival $aid (age=${age}s state=$st ahead=$ahead running=$running claim_age=$claim_age paused=$paused)"
-    DONE[$number]=1; would=$(( would + 1 )); continue
+    DONE["$number"]=1; would=$(( would + 1 )); continue
   fi
   # Final re-check immediately before posting.
-  list_comments "$number" > "$TMP/comments-$number" || { log "issue-status: re-check failed for #$number; not posting"; continue; }
+  recheck_rc=0
+  read_comments "$number" "$TMP/comments-$number" "$TMP/comments-$number.err" || recheck_rc=$?
+  if [ "$recheck_rc" -eq 124 ] || [ "$recheck_rc" -eq 137 ]; then
+    rm -f "$TMP/comments-$number"
+    deadline_exit "final comment re-check for #$number"
+  elif [ "$recheck_rc" -ne 0 ]; then
+    log "issue-status: re-check failed for #$number; not posting"
+    continue
+  fi
   answered "$number" "$created_epoch" "$aid" && continue
   if post_comment "$number" "$bf"; then
     log "issue-status: posted on $REPO#$number for arrival $aid (age=${age}s state=$st ahead=$ahead)"
@@ -209,7 +275,7 @@ while IFS=$'\t' read -r kind created id number author _submitter state _cb _ca _
   else
     log "WARN: issue-status: post failed on $REPO#$number; retrying next tick"
   fi
-  DONE[$number]=1
+  DONE["$number"]=1
 done < "$TMP/source"
 [ "$posted" -eq 0 ] && [ "$would" -eq 0 ] || log "issue-status: tick done (posted=$posted dry_run_would=$would)"
 exit 0
