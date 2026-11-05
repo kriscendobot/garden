@@ -1,5 +1,5 @@
 cadence: daily-at-00:00-America/Los_Angeles
-last_dispatched: 2026-11-04T08:00:00Z
+last_dispatched: 2026-11-05T08:00:00Z
 job_basename_prefix: daily-progress-summary
 ---
 ---
