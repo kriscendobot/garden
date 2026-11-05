@@ -636,6 +636,155 @@ set -e
   || bad "transient source contract wrong (rc=$transient_source_rc err=$(cat "$TRANSIENT_SOURCE_ERR"))"
 
 # ============================================================================
+hr; echo "TIMEOUT - a source timeout degrades instead of failing the unit"; hr
+# run_timeout_case <name> <source> [env...]: one watcher tick against a fresh journal
+# whose cooldown directory is the case's own. Sets TO_RC, TO_ERR, TO_STATE, TO_BARE,
+# TO_COOL, TO_POSTS.
+run_timeout_case() {
+  local name="$1" source="$2"; shift 2
+  TO_BARE="$TR/timeout-$name.git"; seed_bare "$TO_BARE"
+  TO_STATE="$TR/state-timeout-$name"; TO_COOL="$TR/timeout-$name-cooldown"
+  TO_ERR="$TR/timeout-$name.err"; TO_POSTS="$TR/timeout-$name-posts.log"; : > "$TO_POSTS"
+  set +e
+  env GARDEN_STATE="$TO_STATE" JOURNAL_REMOTE="$TO_BARE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_GARDEN_REPO="$REPO" GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
+      GARDEN_ISSUE_SOURCE="$source" IIW_JOBS="$JOBS" IIW_REPO="$REPO" \
+      IIW_POSTLOG="$TO_POSTS" IIW_MSGLOG="$TO_POSTS" \
+      IIW_REACTLOG="$TR/react-sink.log" IIW_MAINTLOG="$TR/maint-sink.log" \
+      GARDEN_ISSUE_REACTJI="$REACTSTUB" GARDEN_ISSUE_POST="$POSTSTUB" \
+      GARDEN_ISSUE_MSG="$MSGSTUB" GARDEN_ISSUE_MAINT_SEND="$MAINTSTUB" \
+      GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_API_COOLDOWN_SECS=300 \
+      GARDEN_API_PRIMARY_QUOTA_SECS=3600 GARDEN_API_COOLDOWN_DIR="$TO_COOL" \
+      "$@" "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$TO_ERR"
+  TO_RC=$?
+  set -e
+}
+to_heartbeat() { sed -n 's/^outcome: *//p' "$TO_STATE/issue-inbox-watcher/heartbeat/garden" 2>/dev/null; }
+
+# Real expiry of the watcher's own bound: rc 124 on TERM, rc 137 when the source
+# ignores TERM and --kill-after escalates. Each source first prints a complete row
+# that a mistaken cursor advance would consume.
+TO_ROW="$(row issue 2026-07-06T14:00:00Z 8101 41 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/41 '@kriscendobot partial')"
+TO_TERM="$TR/timeout-term-source.sh"
+cat > "$TO_TERM" <<EOF
+#!/bin/bash
+printf '%s\n' '$TO_ROW'
+exec sleep 30
+EOF
+TO_KILL="$TR/timeout-kill-source.sh"
+cat > "$TO_KILL" <<EOF
+#!/bin/bash
+trap '' TERM
+printf '%s\n' '$TO_ROW'
+sleep 30
+EOF
+chmod +x "$TO_TERM" "$TO_KILL"
+for to_case in "124 $TO_TERM" "137 $TO_KILL"; do
+  to_want="${to_case%% *}"; to_source="${to_case#* }"
+  run_timeout_case "real-$to_want" "$to_source" \
+    GARDEN_ISSUE_SOURCE_TIMEOUT_SECS=1 GARDEN_ISSUE_KILL_AFTER=1
+  [ "$TO_RC" -eq 0 ] && ! grep -q 'FATAL' "$TO_ERR" \
+    && ok "source timeout rc=$to_want is a clean skipped tick" \
+    || bad "source timeout rc=$to_want failed the watcher (rc=$TO_RC): $(cat "$TO_ERR")"
+  [ "$(grep -c 'WARN:' "$TO_ERR" || true)" -eq 1 ] \
+    && grep -q "WARN: issue source timed out (transient, rc=$to_want)" "$TO_ERR" \
+    && [ ! -e "$TO_COOL/marker" ] \
+    && ok "source timeout rc=$to_want warns once locally and opens no shared latch" \
+    || bad "source timeout rc=$to_want warning/latch wrong: $(cat "$TO_ERR")"
+  [ -z "$(cursor_seen "$TO_STATE" "$TO_BARE")" ] && [ ! -s "$TO_POSTS" ] \
+    && ok "source timeout rc=$to_want freezes the cursor and dispatches no partial output" \
+    || bad "source timeout rc=$to_want advanced the cursor or dispatched"
+  [ "$(to_heartbeat)" = source-timeout ] \
+    && ok "source timeout rc=$to_want records a source-timeout heartbeat" \
+    || bad "source timeout rc=$to_want heartbeat is '$(to_heartbeat)'"
+done
+
+# Captured stderr that positively identifies a shared failure opens the shared latch.
+TO_SHARED="$TR/timeout-shared-source.sh"
+cat > "$TO_SHARED" <<'EOF'
+#!/bin/bash
+echo 'gh: HTTP 503: Service Unavailable' >&2
+exit 124
+EOF
+chmod +x "$TO_SHARED"
+run_timeout_case shared "$TO_SHARED"
+[ "$TO_RC" -eq 0 ] && ! grep -q 'FATAL' "$TO_ERR" \
+  && [ "$(sed -n '2p' "$TO_COOL/marker" 2>/dev/null)" = "issue-inbox:$SLUG:source-timeout-shared-failure" ] \
+  && [ "$(sed -n '3p' "$TO_COOL/marker" 2>/dev/null)" = transient ] \
+  && [ "$(grep -c 'WARN:' "$TO_ERR" || true)" -eq 1 ] \
+  && grep -q 'HTTP 503' "$TO_ERR" \
+  && [ -z "$(cursor_seen "$TO_STATE" "$TO_BARE")" ] \
+  && [ "$(to_heartbeat)" = cooldown ] \
+  && ok "timeout with a shared API failure opens the transient latch with one warning" \
+  || bad "timeout shared-failure path wrong (rc=$TO_RC): $(cat "$TO_ERR")"
+
+TO_PRIMARY="$TR/timeout-primary-source.sh"
+cat > "$TO_PRIMARY" <<'EOF'
+#!/bin/bash
+echo 'gh: API rate limit exceeded for user ID 279080640 (HTTP 403)' >&2
+exit 137
+EOF
+chmod +x "$TO_PRIMARY"
+to_t0="$(date +%s)"
+run_timeout_case primary "$TO_PRIMARY"
+[ "$TO_RC" -eq 0 ] && ! grep -q 'FATAL' "$TO_ERR" \
+  && [ "$(sed -n '3p' "$TO_COOL/marker" 2>/dev/null)" = primary-quota ] \
+  && [ "$(sed -n '1p' "$TO_COOL/marker" 2>/dev/null)" -ge $((to_t0 + 3500)) ] \
+  && [ "$(grep -c 'WARN:' "$TO_ERR" || true)" -eq 1 ] \
+  && [ -z "$(cursor_seen "$TO_STATE" "$TO_BARE")" ] \
+  && [ "$(to_heartbeat)" = cooldown ] \
+  && ok "timeout after primary quota exhaustion opens the primary latch with one warning" \
+  || bad "timeout primary-quota path wrong (rc=$TO_RC): $(cat "$TO_ERR")"
+
+# A sibling's latch refused admission and then the source timed out. The refusal's
+# synthetic rate-limit wording must not promote or extend that latch, or warn again.
+TO_COLLATERAL="$TR/timeout-collateral-source.sh"
+cat > "$TO_COLLATERAL" <<'EOF'
+#!/bin/bash
+source "$IIW_JOBS/common.sh"
+start_api_cooldown 'pages:kriscendobot-garden:net' || exit 2
+sed -n '1p' "$GARDEN_API_COOLDOWN_MARKER" > "$IIW_OWNER_EXPIRY"
+echo 'gh api repos/x/issues admission refused: host-shared gh-api cooldown live (300s left, tag pages:kriscendobot-garden:net; API rate limit already exceeded for user); not issued' >&2
+exit 124
+EOF
+chmod +x "$TO_COLLATERAL"
+TO_OWNER_EXPIRY="$TR/timeout-collateral-owner.expiry"
+run_timeout_case collateral "$TO_COLLATERAL" IIW_OWNER_EXPIRY="$TO_OWNER_EXPIRY"
+[ "$TO_RC" -eq 0 ] && [ "$(sed -n '2p' "$TO_COOL/marker")" = 'pages:kriscendobot-garden:net' ] \
+  && [ "$(sed -n '3p' "$TO_COOL/marker")" = transient ] \
+  && [ "$(sed -n '1p' "$TO_COOL/marker")" = "$(cat "$TO_OWNER_EXPIRY")" ] \
+  && [ "$(grep -Ec 'WARN:|FATAL' "$TO_ERR" || true)" -eq 0 ] \
+  && [ "$(to_heartbeat)" = cooldown ] \
+  && ok "timeout after an admission refusal leaves the owner's latch alone and stays quiet" \
+  || bad "timeout collateral path wrong (rc=$TO_RC): $(tr '\n' ' ' < "$TO_COOL/marker"); $(cat "$TO_ERR")"
+
+# The real source: every gh call hits the wrapper's bound, so gh_api_retry gives up
+# with gh-call-timeout. The source reports 124 and the watcher degrades, no FATAL.
+GHTIMEOUT="$TR/gh-timeout-stub.sh"
+printf '#!/bin/bash\nexit 124\n' > "$GHTIMEOUT"; chmod +x "$GHTIMEOUT"
+INNER_TIMEOUT_ERR="$TR/issue-source-inner-timeout.err"
+set +e
+env PATH="$TR:$PATH" GARDEN_GH="$GHTIMEOUT" GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0 \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_API_COOLDOWN_DIR="$TR/inner-timeout-src-cooldown" \
+    "$JOBS/handlers/issue-source-gh.sh" "$REPO" 2026-07-06T00:00:00Z \
+    >/dev/null 2>"$INNER_TIMEOUT_ERR"
+inner_timeout_rc=$?
+set -e
+[ "$inner_timeout_rc" -eq 124 ] && grep -q 'gh-call-timeout' "$INNER_TIMEOUT_ERR" \
+  && ! grep -q 'FATAL' "$INNER_TIMEOUT_ERR" \
+  && ok "inner gh timeout: the source exits 124 with its diagnostic and no FATAL" \
+  || bad "inner gh timeout source contract wrong (rc=$inner_timeout_rc): $(cat "$INNER_TIMEOUT_ERR")"
+run_timeout_case inner "$JOBS/handlers/issue-source-gh.sh" PATH="$TR:$PATH" GARDEN_GH="$GHTIMEOUT" \
+  GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
+[ "$TO_RC" -eq 0 ] && ! grep -q 'FATAL' "$TO_ERR" \
+  && grep -q 'WARN: issue source timed out (transient, rc=124)' "$TO_ERR" \
+  && [ ! -e "$TO_COOL/marker" ] \
+  && [ -z "$(cursor_seen "$TO_STATE" "$TO_BARE")" ] \
+  && ok "inner gh timeout: the watcher warns locally, freezes the cursor, exits 0" \
+  || bad "inner gh timeout escaped the source-timeout path (rc=$TO_RC): $(cat "$TO_ERR")"
+
+# ============================================================================
 hr; echo "ADDRESS - issue comments require the exact first-line bot marker"; hr
 BARE_ADDR="$TR/address.git"; seed_bare "$BARE_ADDR"
 PL_ADDR="$TR/post-address.log"; ML_ADDR="$TR/msg-address.log"; ERR_ADDR="$TR/err-address.log"

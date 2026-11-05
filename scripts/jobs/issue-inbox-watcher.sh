@@ -693,6 +693,12 @@ if command -v timeout >/dev/null 2>&1; then
 else
   "$GARDEN_ISSUE_SOURCE" "$REPO" "${last_seen:-}" > "$SRC" 2>"$ERRF" || src_rc=$?
 fi
+ISSUE_ADMISSION_REFUSAL='admission refused: host-shared gh-api cooldown live'
+issue_source_diag() {  # the source's last stderr line, single-lined for a WARN
+  grep -v '^[[:space:]]*$' "$ERRF" 2>/dev/null | tail -1 \
+    | sed -E 's/^<[0-9]>//; s/^[^[]*\[[^]]+\] WARN:[[:space:]]*//' \
+    | tr '\n\t' '  ' | cut -c1-300 || true
+}
 if [ "$src_rc" -ne 0 ]; then
   # EX_TEMPFAIL is the source's explicit transient contract. It carries the
   # captured gh diagnostic in ERRF, but the source deliberately emits no FATAL:
@@ -709,7 +715,7 @@ if [ "$src_rc" -ne 0 ]; then
     # collateral: preserve the owner, deadline, and warning.  The source that
     # opened its own latch reports the original API diagnostic instead, so the
     # adoption path below is untouched.
-    if grep -Fq 'admission refused: host-shared gh-api cooldown live' "$ERRF" 2>/dev/null \
+    if grep -Fq "$ISSUE_ADMISSION_REFUSAL" "$ERRF" 2>/dev/null \
        && api_cooldown_active rest; then
       issue_heartbeat_outcome=cooldown
       exit 0
@@ -726,9 +732,7 @@ if [ "$src_rc" -ne 0 ]; then
         exit 0
       fi
     fi
-    source_diag="$(grep -v '^[[:space:]]*$' "$ERRF" 2>/dev/null | tail -1 \
-      | sed -E 's/^<[0-9]>//; s/^[^[]*\[[^]]+\] WARN:[[:space:]]*//' \
-      | tr '\n\t' '  ' | cut -c1-300 || true)"
+    source_diag="$(issue_source_diag)"
     if is_gh_primary_rate_limit_text "$(cat "$ERRF" 2>/dev/null || true)"; then
       pq_secs="$(api_primary_quota_secs rest)"
       if start_api_cooldown "issue-inbox:$slug:primary-quota" "$pq_secs"; then
@@ -739,6 +743,45 @@ if [ "$src_rc" -ne 0 ]; then
     if start_api_cooldown "issue-inbox:$slug"; then
       log "WARN: issue source hit a transient gh-api failure (rc=$src_rc) — cursor frozen; cooling REST gh-api watchers for $(_api_cooldown_secs)s${source_diag:+; diagnostic: $source_diag}"
     fi
+    exit 0
+  fi
+  # `timeout` reports its own wall-clock expiry as rc 124, or rc 137 when the source
+  # ignored TERM and --kill-after escalated. The source also exits 124 when its gh
+  # calls hit the wrapper's bound twice. Either way enumeration is incomplete but
+  # nothing is structurally wrong, so this must not fail the unit (2026-11-05
+  # 04:50:04, FATAL here while four comment sources timed out too). Same policy as
+  # comment-watcher.sh: open the host-shared latch only when captured stderr
+  # positively identifies a shared failure, otherwise warn locally and leave every
+  # sibling free to poll. No per-repo backoff: this is the maintainer's command
+  # channel, and one attempt already spans the source bound. Exiting here, before
+  # SRC is read, discards any partial output and freezes the cursor.
+  if [ "$src_rc" -eq 124 ] || [ "$src_rc" -eq 137 ]; then
+    issue_heartbeat_outcome=source-timeout
+    # An admission refusal is collateral of a latch some other tick owns. Its
+    # synthetic text names "API rate limit already exceeded" whatever the latch's
+    # kind, so it is neither evidence of primary exhaustion nor grounds to warn.
+    if grep -Fq "$ISSUE_ADMISSION_REFUSAL" "$ERRF" 2>/dev/null && api_cooldown_active rest; then
+      issue_heartbeat_outcome=cooldown
+      exit 0
+    fi
+    timeout_err="$(grep -Fv "$ISSUE_ADMISSION_REFUSAL" "$ERRF" 2>/dev/null || true)"
+    source_diag="$(issue_source_diag)"
+    if is_gh_primary_rate_limit_text "$timeout_err"; then
+      issue_heartbeat_outcome=cooldown
+      pq_secs="$(api_primary_quota_secs rest)"
+      if start_api_cooldown "issue-inbox:$slug:primary-quota" "$pq_secs"; then
+        log "WARN: issue source timed out after GitHub primary quota exhaustion (rc=$src_rc) — cursor frozen; cooling REST gh-api watchers for ${pq_secs}s${source_diag:+; diagnostic: $source_diag}"
+      fi
+      exit 0
+    fi
+    if is_transient_net_error "$timeout_err" || is_transient_gh_source_error "$timeout_err"; then
+      issue_heartbeat_outcome=cooldown
+      if start_api_cooldown "issue-inbox:$slug:source-timeout-shared-failure"; then
+        log "WARN: issue source timed out with a shared network/API failure (rc=$src_rc) — cursor frozen; cooling REST gh-api watchers for $(_api_cooldown_secs)s${source_diag:+; diagnostic: $source_diag}"
+      fi
+      exit 0
+    fi
+    log "WARN: issue source timed out (transient, rc=$src_rc) — cursor frozen; skipping tick${source_diag:+; diagnostic: $source_diag}"
     exit 0
   fi
   sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true

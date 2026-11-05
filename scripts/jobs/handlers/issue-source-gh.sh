@@ -90,6 +90,13 @@ enum_fail() { # enum_fail <description> <rc> <stderr-file>
     [ -z "$detail" ] || printf '%s\n' "$detail" >&2
     exit "${GARDEN_TRANSIENT_RC:-75}"
   fi
+  # A gh call that hit the wrapper's bound twice (gh_api_retry's gh-call-timeout
+  # give-up) is the same transient condition as this whole source overrunning its
+  # own bound, so report it with timeout's rc for the watcher's source-timeout path.
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
+    [ -z "$detail" ] || printf '%s\n' "$detail" >&2
+    exit 124
+  fi
   if [ -n "$detail" ]; then
     die "$description for $repo failed (rc=$rc); failing the tick so the cursor holds; gh stderr (last 5 lines):
 $detail"
