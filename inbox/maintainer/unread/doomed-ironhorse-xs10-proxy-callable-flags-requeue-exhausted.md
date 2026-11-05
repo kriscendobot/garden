@@ -1,0 +1,38 @@
+from_host: endolin-garden-ece02cb4
+from: reaper:endolin-garden-ece02cb4
+sent_at: 2026-11-05T17:37:16Z
+doom_base: ironhorse-xs10-proxy-callable-flags
+doom_signature: requeue-exhausted
+notice_count: 1
+first_seen: 2026-11-05T17:37:16Z
+last_seen: 2026-11-05T17:37:16Z
+---
+SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+The work is preserved at jobs/plan/ironhorse-xs10-proxy-callable-flags; it stays HELD until a human promotes it
+(promote-plan.sh ironhorse-xs10-proxy-callable-flags) or removes it, so nothing is lost.
+Original job base: ironhorse-xs10-proxy-callable-flags
+
+--- original job body ---
+---
+role: builder
+tier: mentor
+posted_at: 2026-10-09T21:51:33Z
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-11-05T17:08:01Z cleared=none -->
+
+---
+role: builder
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+# IronHorse: Proxy [[Call]]/[[Construct]] flags survive revocation (XS 10.0.0 #1702/#1704)
+
+Repo: endojs/endo-but-for-bots, base `llm` (frozen `llm-<sha>` snapshot per skills/frozen-base-branch). Design: designs/ironhorse-moddable-10-0-0-port-plan.md on branch design/ironhorse-moddable-10-0-0-port-plan (endojs/endo-but-for-bots; design PR from job moddable-10-0-0-ironhorse-port-plan-20261009). Read the design first; its classification table and § Oracle and ratchet impact are normative for this child. Open a DRAFT PR via ensure-pr.sh; completion stages the gauntlet.
+
+If you genuinely finish but do not achieve the gated outcome below, end your report with the exact lines `<<<GARDEN-ORCHESTRATION-FAILED>>>` then `<<<GARDEN-JOB-COMPLETE>>>`.
+
+Record [[Call]]/[[Construct]] presence on `ProxyData` at proxy creation (`property/proxy.rs`), persist it through `snapshot_rows.rs` `ProxyRow`, `persist.rs`, `restore.rs`, and use it in `function.rs` `slot_is_callable` / `slot_is_constructor` and `proxy_construct_refused`, instead of chasing the (revoked, nulled) target. Add the GetFunctionRealm revoked-proxy TypeError in `get_prototype_from_constructor`. Update `ironhorse-262/tests/xs_departures.rs` (revoked-arrow-proxy `new` row) and `new_on_non_constructors.rs` comment.
+
+Gated outcome: `Proxy/create-target-is-revoked-function-proxy.js`, `Proxy/revocable/target-is-revoked-function-proxy.js`, `Function/internals/Construct/base-ctor-revoked-proxy.js` pass in both modes against the current oracle; no new divergence; snapshot round-trip test for a revoked callable proxy. Size M.
