@@ -38,3 +38,13 @@ re-stages a fresh gauntlet.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T17:23:12Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-11-05T17:26:48Z
