@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: builder
+tier: mentor
+handler-timeout: 3600
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-11-05T21:43:14Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-11-05T21:43:14Z
+---
+
+---
 posted_at: 2026-11-05T21:15:48Z
 role: builder
 handler-timeout: 3600
@@ -17,17 +39,3 @@ dispatch: automatic
 4. Add a changeset (the repo's convention) noting the removed role. Run the full test suite, typecheck and pre-push gates; deploy and verify in production with the usual Playwright acceptance, using a dedicated test principal, and show that a pre-existing `resident` row (seed one in a test table, never in production) still signs in as a guest.
 
 Repo: kriscendobot/minion.town (base: current main). Coordinate with the in-flight copy change in `build-minion-town-waitlist-soon-page-20261105` (it edits `deploy/aws/www/index.html` and `home.js`); if its PR is open, stack on it or rebase over it, don't fight it. Maintainer evaluates production results, not diffs.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-11-05T21:33:14Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-11-05T21:33:21Z
