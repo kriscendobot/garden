@@ -12,6 +12,7 @@ Treat non-outage `reap-now` transient cycles as non-attributable: preserve the p
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T20:03:09Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
