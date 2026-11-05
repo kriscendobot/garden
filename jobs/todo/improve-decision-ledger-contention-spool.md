@@ -1,7 +1,8 @@
 ---
 posted_at: 2026-11-05T17:51:35Z
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 scripts/jobs/decision-append.sh
@@ -9,13 +10,5 @@ Defect: `scripts/jobs/decision-append.sh:108` drops decisions when its optional 
 Persist failed decision rows in a host-local durable spool and flush them under the ledger lock on a later successful invocation, retaining fail-open behavior for controllers.
 Add coverage for lock contention followed by recovery to verify both rows reach the ledger once.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-11-05T17:51:47Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-11-05T18:03:18Z -->
