@@ -12,6 +12,7 @@ Weave endojs/endo-but-for-bots PR #1538 (`build/daemon-git-clone`) onto the curr
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T18:53:10Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
