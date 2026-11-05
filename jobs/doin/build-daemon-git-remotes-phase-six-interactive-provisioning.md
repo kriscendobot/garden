@@ -8,6 +8,7 @@ dispatch: automatic
 ---
 Build Phase 6 interactive Git-clone provisioning in endojs/endo-but-for-bots from `daemon-git-remotes`: compose mount creation, endpoint policy, and sealed credentials into `provideGitClone`, with contract tests.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
