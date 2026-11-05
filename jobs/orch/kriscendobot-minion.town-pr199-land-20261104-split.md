@@ -1,4 +1,5 @@
 ---
+child-kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait-failure-notified: true
 child-kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait-host: oros-studio-garden-ce242c49
 child-kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait-reap-count: 0
 order: serial
