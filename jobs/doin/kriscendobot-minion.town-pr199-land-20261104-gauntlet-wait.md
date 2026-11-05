@@ -30,6 +30,7 @@ If this job's handler wall approaches with the gauntlet still legitimately activ
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T06:03:33Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
