@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T19:14:05Z_
+_As of 2026-11-05T19:15:17Z_
 
 ## Latest
 
@@ -185,6 +185,10 @@ Delegation: **active**
 > dispatch: automatic
 > ---
 > Build the unblocked Phase 5 contract-test slice for `endojs/endo-but-for-bots` from the `daemon-git-capability` M3 design on `llm`, opening a draft PR that prevents drift among the Git exo interface, types, and generated code-mode declarations.
+
+- `20261105T191429Z-2d9689` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261105T191429Z-2d9689.md)
+
+> foreman: proposed next step 'design-daemon-git-remotes-ssh-transport' was rejected (duplicate), and the one re-prompt produced no valid replacement. The scripted foreman did not post it.
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_comment_latency_watch_journal.md)
 
