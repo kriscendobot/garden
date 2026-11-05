@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-11-05T02:49:32Z_
+_As of 2026-11-05T02:54:30Z_
 
 ## Latest
 
@@ -206,6 +206,18 @@ Delegation: **active**
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_worktree_sweeper_journal` cleared on oros-studio-garden-ce242c49.
+
+- `msg-kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait-ff6e04e20677` — from gardener:kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait, reply_to `kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait-ff6e04e20677.md)
+
+> FYI, no action needed unless the fleet stays stuck: a wait job deadlocked oros against its own gauntlet, so I am requeuing it.
+>
+> - PR [https://github.com/kriscendobot/minion.town/pull/199](https://github.com/kriscendobot/minion.town/pull/199): panel-8 ended must-fix on ef986ba6, and fix-8 has sat unclaimed since about 02:17Z.
+> - oros has been draining since 02:11Z (rolling-deploy-quiesce, target f4dcb3c044e6). By 02:49Z the only job in jobs/doin was the wait job kriscendobot-minion.town-pr199-land-20261104-gauntlet-wait, on monk 3, and the deploy is deferred behind it. That wait job only polls for the gauntlet's result.
+> - endolin monks are declining claims at the budget high-water mark (latest record 01:47Z). The last endolin cleric claim was 02:12Z; I can't see from oros why clerics have not claimed since. 14 jobs were queued in jobs/todo.
+>
+> So I am exiting without the completion signal. That should let the oros deploy finish and lift the drain, but I will not be around to confirm it. Nothing was changed on the PR, the gauntlet, or the drain.
+>
+> Garden defect worth a look: a foreground wait job counts as a long job under the deploy quiesce, so a wait job whose dependency needs that same host's capacity can block the host for its whole handler wall (3h here).
 
 - `orchestrate-build-api-key-agents-20261104-terminal-complete` — from orchestrator:orchestrate-build-api-key-agents-20261104-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/orchestrate-build-api-key-agents-20261104-terminal-complete.md)
 
