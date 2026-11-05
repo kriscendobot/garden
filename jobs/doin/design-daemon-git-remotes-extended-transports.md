@@ -11,6 +11,7 @@ Design Phase 7’s bounded SSH and Noise transport extension for `endojs/endo-bu
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-11-05T19:33:10Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
