@@ -35,3 +35,13 @@ so the order matters:
 
 When the evidence is complete, turn #235's ledger to `deliverable`, so its completion
 re-stages a fresh gauntlet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-11-05T17:02:41Z
